@@ -1,0 +1,373 @@
+* DONE write user design(with imgui extend) 
+
+dispatch ui state
+custom control
+skin
+event handle
+
+
+
+middleware
+(middleware can invoke other middleware by injected middlewareAPI!
+e.g. wonder-imgui can invoke vertex-buffer-manage!
+)
+
+
+
+
+
+# registerEventHandler
+# showAllRegistedEventHandlers
+
+# edit
+
+# TODO run
+
+
+
+# registerMenuUI
+# ////showAllRegistedMenuUIs
+
+
+# TODO run
+
+
+# registerMiddleware
+
+
+# TODO run
+
+
+
+# registerEnginePlugin
+# (need refresh page!)
+
+# TODO run
+
+
+
+# registerEngineComponent
+
+
+# TODO run
+
+
+* DONE fix "register plugin not work" bug
+
+
+
+wpk now only contain asb, not contain wdb!
+
+** DONE change to string
+
+** DONE fix "register plugin not work" bug
+
+# ** TODO generate
+
+# ** TODO load
+
+
+need generate and save to indexdb and reload
+
+
+
+# * TODO implement, pass run test
+
+# use render webgpu cube to instead of imgui render for demo!
+
+
+# * TODO add "multi edit the same scene" 
+
+
+
+
+
+
+
+
+# * TODO add "redo/undo"
+
+
+** DONE think ui
+
+editor ui state, scene ui state:{
+    all ui's state map,
+    canvas
+}
+
+
+*** DONE event handler
+
+
+*** DONE handle custom control
+
+////no need??? because register ui is already equal to custom control!!!
+
+need! because custom control is commonlib control as lib, while register ui is used one!
+
+*** DONE handle skin
+
+
+*** DONE game ui
+
+
+
+
+
+
+
+
+* TODO improve
+
+** DONE refactor: change packages(e.g. editor/, engine/, ...) to default/, middleware/, component/, work-plugin/, event-handler/, ui/
+
+
+
+# ** TODO change wonder-commonlib, wonder-bs-most, wonder-engine-core to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
+** TODO inject default middlewares(e.g.  wonder-commonlib, wonder-bs-most, wonder-engine-core, EventManager, UI) as api
+
+
+
+# ** TODO split type from wonder-engine-core to be wonder-engine-core-type package
+
+# edit component package(e.g. wonder-component-transform)
+
+
+** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by wonder-engine-core)
+
+ui,event handler no need state! so no editorState!
+
+
+** TODO inject api(only remain MiddlewareManager.unsafeGet) and { middlewareState, editorUIState, engineCoreState } as states
+
+inject api and states to ui->execFunc, event handler->handler(
+    e.g.: 
+let handler = ((middlwareState, engineState), api , e,) => {
+...
+(middlwareState, engineState)
+
+);
+
+
+inject api to middleware->getData; inject states to middleware->getData's functions;
+
+
+how to inject to component, work plugin???
+
+
+
+
+
+
+* TODO new demo: rewrite old demo
+
+** TODO implement register event handler
+
+# *** TODO use drawCopyTextarea
+
+** TODO refactor: UI,EventManager inject api
+
+for commonlib, MiddlewareManager, ...
+
+
+** TODO refactor: refactor all as design point
+
+# rename default/ to src/, src/extensions/(e.g. UI, EventManager, ExtensionManager), src/core(editor-core/, engine-core/); add extensions/ folder instead of other folders;
+# rename default/ to src/, src/core(editor-core/, engine-core/); add extensions/(e.g. UI, EventManager, ExtensionManager) folder instead of other folders;
+rename default/ to src/(editor core file); add extensions/(e.g. UI, EventManager, ExtensionManager), extension-types/ folder instead of other folders;
+
+
+
+** TODO refactor: change stateValue to string
+
+
+** TODO implement register middleware
+
+
+** TODO implement register ui
+
+
+** TODO improve imgui
+
+based on design
+
+*** TODO handle custom control
+
+////no need??? because register ui is already equal to custom control!!!
+
+need! because custom control is commonlib control as lib, while register ui is used one!
+
+*** TODO handle skin
+
+
+*** TODO only editor ui
+
+
+
+** TODO generate and load wpk(only has asb) instead of save!
+
+# wpk = asb + wdb, but now only has asb
+
+
+** TODO add multi user edit
+
+
+
+** TODO move multi user edit to be out repo!
+
+support generate asb, can combine it to the exist wpk(combine asb)
+
+
+
+** TODO design how multi user edit to support extend by user(e.g. in user middleware)!
+ 
+
+** TODO add redo,undo
+
+
+
+** TODO register work plugin
+
+
+** TODO register component
+
+
+
+** TODO add one edit scene
+
+has one default camera
+
+can add one gameObject + outline once
+
+add editSceneUI
+
+** TODO add one run scene
+
+use default camera
+
+add runSceneUI
+
+
+** TODO wpk should contain wdb
+
+
+** TODO publish
+
+
+
+# * TODO add custom middleware for change str to fields(for extend data, like stateValue, skin, script attribute)
+
+# write by typescript
+
+
+# ** TODO generate asb, can combine it to the exist wpk(combine asb)
+
+
+
+* TODO support upgrade user's wpk to use latest extends and default(middleware, core)!
+
+
+
+
+* TODO improve
+
+** TODO be interface(e.g. eventManager, UI, ...)
+
+
+
+
+
+* TODO rewrite, add bdd test and publish for user to use
+
+# UI still use dom to implement
+** TODO UI use webgl render imgui to implement
+
+
+*** TODO implement drawBox
+
+
+# *** TODO implement drawImage
+
+
+*** TODO implement drawText
+
+default load .fnt, .bitmap resources, not open its control to user
+
+
+
+
+*** TODO implement drawCopyTextArea
+
+
+*** TODO implement drawButton by custom control
+
+
+*** TODO use skin
+
+
+*** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
+
+
+
+** TODO finish menu
+
+provide menu extend ui(encapuslate register ui)
+
+
+
+** TODO implement transform, geometry, pbrMaterial, cameraView, perspectiveCameraProjection components
+
+component should implement dispose, redo/undo, clone
+
+
+** TODO add basic webgpu render work plugin
+shader is fixed
+
+
+** TODO implement "add cube gameObject" button, "clone gameObject" button for edit and run scene
+
+
+** TODO implement "generate, load wpk", "redo/undo", "publish"
+
+
+
+** TODO add user case
+
+
+*** TODO add user extend wpk: to change str to fields(for extend data, like stateValue, skin, script attribute)
+
+write by typescript
+
+
+# **** TODO generate asb, can combine it to the exist wpk(combine asb)
+
+
+** TODO implement "upgrade user wpk"
+
+
+** TODO publish v2.0.0-alpha.7
+
+
+** TODO prepare doc for user
+
+
+** TODO open for user to use and extend!!!
+
+
+
+
+
+
+
+
+
+
+
+* TODO change UI to use webgpu render
+
+
+
+
+
+
+* TODO implement multi user edit as a outer repo(wpk), and load it

@@ -1,0 +1,30 @@
+{
+	"name": "meta3d",
+	"private": true,
+	"scripts": {
+		"clean": "lerna clean && rm -rf node_modules yarn.lock",
+		"install": "lerna bootstrap",
+		"ci:test": "lerna run test:ci --concurrency 1"
+	},
+	"workspaces": [
+		"defaults/*",
+		"extensions/*",
+		"extension-types/*"
+	],
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-customizable"
+		}
+	},
+	"devDependencies": {
+		"clean-webpack-plugin": "^4.0.0",
+		"cz-customizable": "^6.3.0",
+		"html-webpack-plugin": "^5.5.0",
+		"lerna": "^4.0.0",
+		"source-map-loader": "^3.0.0",
+		"ts-loader": "^9.2.6",
+		"webpack": "^5.62.1",
+		"webpack-cli": "^4.9.1",
+		"webpack-dev-server": "^4.4.0"
+	}
+}
