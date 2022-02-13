@@ -1,16 +1,16 @@
 // npm install
 
-import { registerExtension } from "wonder"
+import { registerExtension } from "meta3d"
 
-import { getData } from "wonder-engine-core"
+import { getData } from "meta3d-engine-core"
 
-let extensionState = Wonder.init()
+let extensionState = Meta3D.init()
 
-TODO event name should all be 驼峰命名(lower case begin)(e.g. "wonder-editScene-engine-core")
+TODO event name should all be 驼峰命名(lower case begin)(e.g. "meta3d-editScene-engine-core")
 
 
-Wonder.registerExtension("Wonder-EditScene-Engine-Core")
-Wonder.registerExtension("Wonder-RunScene-Engine-Core")
+Meta3D.registerExtension("Meta3D-EditScene-Engine-Core")
+Meta3D.registerExtension("Meta3D-RunScene-Engine-Core")
 let eec
 let rec
 
@@ -18,12 +18,12 @@ let rec
 // rec.onActive()
 
 
-let { dispatch }: UI.getData = Wonder.unsafeGetData(middlewareState, "Wonder-Engine-Core") -> Obj.magic
-let uiState: UI.state = Wonder.unsafeGetState(middlewareState, "Wonder-Engine-Core") -> Obj.magic
+let { dispatch }: UI.getData = Meta3D.unsafeGetData(middlewareState, "Meta3D-Engine-Core") -> Obj.magic
+let uiState: UI.state = Meta3D.unsafeGetState(middlewareState, "Meta3D-Engine-Core") -> Obj.magic
 
 
 
-Wonder.registerExtension("Wonder-Canvas")
+Meta3D.registerExtension("Meta3D-Canvas")
 let c
 
 // c.onActive()
@@ -35,15 +35,15 @@ let ee
 // ee.onActive()
 
 
-Wonder.registerExtension("Wonder-Editor-EventManager")
-Wonder.registerExtension("Wonder-EditScene-EventManager")
-Wonder.registerExtension("Wonder-RunScene-EventManager")
+Meta3D.registerExtension("Meta3D-Editor-EventManager")
+Meta3D.registerExtension("Meta3D-EditScene-EventManager")
+Meta3D.registerExtension("Meta3D-RunScene-EventManager")
 
 let ee
 
 // ee.onActive()
 
-Wonder.registerExtension("Wonder-Editor-UI")
+Meta3D.registerExtension("Meta3D-Editor-UI")
 
 
 let eu
@@ -54,7 +54,7 @@ let eu
 
 
 
-Wonder.registerExtension("Wonder-Register-Extension-UI")
+Meta3D.registerExtension("Meta3D-Register-Extension-UI")
 
 
 let re
@@ -63,52 +63,52 @@ let re
 
 
 
-Wonder.registerExtension("Wonder-Menu")
+Meta3D.registerExtension("Meta3D-Menu")
 let me
 // me.onActive()
 // me.addFirstItem("Config")
-// me.addSecondItem("Config", "Version", "Wonder-ShowVersion")
+// me.addSecondItem("Config", "Version", "Meta3D-ShowVersion")
 
 
 
-Wonder.registerExtension("Wonder-Init")
-Wonder.registerExtension("Wonder-Update")
-Wonder.registerExtension("Wonder-Render")
+Meta3D.registerExtension("Meta3D-Init")
+Meta3D.registerExtension("Meta3D-Update")
+Meta3D.registerExtension("Meta3D-Render")
 
 
 
 
-edem.trigger("Wonder-Active-Extension").then()
-esem.trigger("Wonder-Active-Extension").then()
-rsem.trigger("Wonder-Active-Extension").then()
+edem.trigger("Meta3D-Active-Extension").then()
+esem.trigger("Meta3D-Active-Extension").then()
+rsem.trigger("Meta3D-Active-Extension").then()
 
 
 me.addFirstItem("Config")
-me.addSecondItem("Config", "Version", "Wonder-ShowVersion")
+me.addSecondItem("Config", "Version", "Meta3D-ShowVersion")
 
 let _init = () => {
-    // edem.trigger("Wonder-Editor-Init").then()
-    // esem.trigger("Wonder-EditScene-Init").then()
-    // rsem.trigger("Wonder-RunScene-Init").then()
-    edem.trigger("Wonder-Init").then()
-    esem.trigger("Wonder-Init").then()
-    rsem.trigger("Wonder-Init").then()
+    // edem.trigger("Meta3D-Editor-Init").then()
+    // esem.trigger("Meta3D-EditScene-Init").then()
+    // rsem.trigger("Meta3D-RunScene-Init").then()
+    edem.trigger("Meta3D-Init").then()
+    esem.trigger("Meta3D-Init").then()
+    rsem.trigger("Meta3D-Init").then()
 }
 
 let _frame = () => {
-    // Wonder.update()
+    // Meta3D.update()
 
-    // esem.trigger("Wonder-Engine-Update").then()
-    // rsem.trigger("Wonder-Engine-Update").then()
+    // esem.trigger("Meta3D-Engine-Update").then()
+    // rsem.trigger("Meta3D-Engine-Update").then()
 
-    // esem.trigger("Wonder-Engine-Render").then()
-    // rsem.trigger("Wonder-Engine-Render").then()
+    // esem.trigger("Meta3D-Engine-Render").then()
+    // rsem.trigger("Meta3D-Engine-Render").then()
 
-    esem.trigger("Wonder-Update").then()
-    rsem.trigger("Wonder-Update").then()
+    esem.trigger("Meta3D-Update").then()
+    rsem.trigger("Meta3D-Update").then()
 
-    esem.trigger("Wonder-Render").then()
-    rsem.trigger("Wonder-Render").then()
+    esem.trigger("Meta3D-Render").then()
+    rsem.trigger("Meta3D-Render").then()
 
 
     requestAnimationFrame(_frame)
