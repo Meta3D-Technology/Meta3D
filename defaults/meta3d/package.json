@@ -1,6 +1,6 @@
 {
     "name": "meta3d",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "authors": "Wonder",
     "license": "MIT",
     "scripts": {
@@ -13,7 +13,6 @@
         }
     },
     "keywords": [],
-    "devDependencies": {},
     "dependencies": {
         "rescript": "^9.1.4"
     }
