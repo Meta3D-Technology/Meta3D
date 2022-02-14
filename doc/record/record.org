@@ -155,7 +155,40 @@ inject api to middleware->getData; inject states to middleware->getData's functi
 how to inject to component, work plugin???
 
 
+* TODO new demo: rewrite old demo
 
+** TODO refactor: refactor all as design point
+
+packages should be defaults/; extensions/(can has xxx-type package); 
+
+components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/, 
+(these folders is to put one which will be used by multi extensions!)
+
+
+** TODO refactor current Main
+
+
+** TODO add user code
+
+
+** TODO pass run
+
+
+** TODO fix UI(support 3d ui; use visible, change for dispatch)
+
+
+* TODO rewrite, add bdd test and publish for user to use
+
+** TODO prepare for build editor for user
+
+menu, edit/run scene, extension manager
+
+
+
+
+** TODO prepare for build engine for user
+
+e.g. draw cubes by webgpu
 
 
 
