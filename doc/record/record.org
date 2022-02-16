@@ -157,6 +157,9 @@ how to inject to component, work plugin???
 
 * TODO new demo: rewrite old demo
 
+** TODO how protocol work?
+
+
 ** TODO refactor: refactor all as design point
 
 packages should be defaults/; extensions/(can has xxx-type package); 
