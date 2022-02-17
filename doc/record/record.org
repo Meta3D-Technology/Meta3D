@@ -157,6 +157,18 @@ how to inject to component, work plugin???
 
 * TODO new demo: rewrite old demo
 
+
+** DONE finish engine user design
+
+
+
+
+
+** TODO finish editor user design
+
+
+
+
 ** TODO how protocol work?
 
 
@@ -178,6 +190,58 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 
 ** TODO fix UI(support 3d ui; use visible, change for dispatch)
+
+
+
+
+* TODO finish, make engine user to use
+
+
+** TODO gameObject, root and first work plugin, 
+
+** TODO add transform component
+
+** TODO add webgl render(just log)
+
+** TODO finish user side
+
+
+* TODO finish, make editor user to use
+
+** TODO finish editor user design
+
+** TODO add ui, event
+
+TODO fix UI(support 3d ui; use visible, change for dispatch)
+
+** TODO use engine(for edit, run scene)
+
+** TODO finish user side
+
+
+* TODO update engine
+
+** TODO add redo-undo
+
+* TODO update editor
+
+** TODO update engine
+
+** TODO add redo-undo
+
+** TODO add multi-user-edit
+
+** TODO add menu
+
+
+
+* TODO update engine
+
+** TODO add shader glsl(for webgl)
+
+
+* TODO update editor
+
 
 
 * TODO rewrite, add bdd test and publish for user to use
