@@ -15,19 +15,12 @@ module.exports = {
   ],
 
   scopes: [
-    { name: "example" },
-    { name: "bs-most" },
-    { name: "bs-jest" },
-    { name: "bs-sinon" },
-    { name: "fp" },
-    { name: "commonlib" },
-    { name: "engine-core" },
-    { name: "facade" },
+    { name: "defaults" },
+    { name: "extensions" },
+    { name: "extension-types" },
     { name: "work-plugin" },
     { name: "gameobject" },
-    { name: "component" },
-    { name: "middleware" },
-    { name: "editor-core" },
+    { name: "component" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"

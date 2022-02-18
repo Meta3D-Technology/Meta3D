@@ -9,7 +9,7 @@ event handle
 
 middleware
 (middleware can invoke other middleware by injected middlewareAPI!
-e.g. wonder-imgui can invoke vertex-buffer-manage!
+e.g. meta3d-imgui can invoke vertex-buffer-manage!
 )
 
 
@@ -123,17 +123,17 @@ need! because custom control is commonlib control as lib, while register ui is u
 
 
 
-# ** TODO change wonder-commonlib, wonder-bs-most, wonder-engine-core to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
-** TODO inject default middlewares(e.g.  wonder-commonlib, wonder-bs-most, wonder-engine-core, EventManager, UI) as api
+# ** TODO change meta3d-commonlib, meta3d-bs-most, meta3d-engine-core to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
+** TODO inject default middlewares(e.g.  meta3d-commonlib, meta3d-bs-most, meta3d-engine-core, EventManager, UI) as api
 
 
 
-# ** TODO split type from wonder-engine-core to be wonder-engine-core-type package
+# ** TODO split type from meta3d-engine-core to be meta3d-engine-core-type package
 
-# edit component package(e.g. wonder-component-transform)
+# edit component package(e.g. meta3d-component-transform)
 
 
-** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by wonder-engine-core)
+** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by meta3d-engine-core)
 
 ui,event handler no need state! so no editorState!
 
@@ -196,10 +196,13 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 * TODO finish, make engine user to use
 
+** DONE finish engine-core compile
 
-** TODO gameObject, root and first work plugin, 
+** TODO engine-core pass test
 
-** TODO add transform component
+** TODO root and first work plugin, 
+
+** TODO add, gameObject, transform component
 
 ** TODO add webgl render(just log)
 
@@ -219,6 +222,29 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 ** TODO finish user side
 
 
+* TODO update editor
+
+** TODO generate and load .meta3d
+
+.meta3d = multi .mex
+
+
+** TODO add register extension
+
+
+
+* TODO update engine
+
+** TODO use event
+
+** TODO use ui
+
+* TODO update editor
+
+** TODO update engine
+
+
+
 * TODO update engine
 
 ** TODO add redo-undo
@@ -231,16 +257,128 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 ** TODO add multi-user-edit
 
+
+
 ** TODO add menu
+
+
+* TODO publish v0.1.0
+
+
+# * TODO update engine
+
+# ** TODO add shader glsl(for webgl)
+
+
+# * TODO update editor
+
 
 
 
 * TODO update engine
 
-** TODO add shader glsl(for webgl)
+** TODO generate .msc
+
+only has gameObject, transform component
 
 
 * TODO update editor
+
+
+* TODO update engine
+
+** TODO add pbrmaterial component
+
+# fixed shader
+no shader
+
+
+* TODO update editor
+
+** TODO add asset manager
+only has pbrmaterial asset
+
+** TODO generate .mas
+
+
+* TODO publish 0.2.0
+
+
+
+* TODO update ui
+
+** TODO UI use webgl render imgui to implement
+
+
+*** TODO use UI-Render-WebGL extension for UI extension!  so can use UI-Render-WebGPU extension for UI to use webgpu and not edit UI code!!!
+
+UI dependent on UI-Render-Type;
+UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
+
+
+
+
+
+
+*** TODO implement drawBox
+
+
+# *** TODO implement drawImage
+
+
+*** TODO implement drawText
+
+default load .fnt, .bitmap resources, not open its control to user
+
+
+
+
+*** TODO implement drawCopyTextArea
+
+
+*** TODO implement drawButton by custom control
+
+
+*** TODO use skin
+
+
+*** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
+
+
+* TODO update event
+
+refer to eventmanager package
+
+
+
+* TODO all files should add bdd test
+
+
+
+* TODO publish v0.3.0
+
+
+
+* TODO update engine
+
+** TODO component support dispose
+
+** TODO component support clone
+
+
+
+
+
+* TODO open to user
+
+** TODO move meta3d-engine, meta3d-editor to Wonder.js repo
+
+
+** TODO prepare doc for user
+
+
+** TODO open for user to use and extend!!!
+
 
 
 

@@ -1,0 +1,23 @@
+{
+  "name": "meta3d-bs-most",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "bs-dev-dependencies": [],
+  "refmt": 3,
+  "bs-dependencies": [
+    "meta3d-bs-most-type",
+    "meta3d-commonlib"
+  ],
+  "package-specs": [
+    "commonjs"
+  ],
+  "namespace": true,
+  "warnings": {
+    "number": "-10-26-27-K-44-45",
+    "error": "+5+6"
+  }
+}
