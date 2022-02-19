@@ -18,7 +18,7 @@ function getExtensionStateExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
 }
 
-function _buildAPI(param) {
+function buildAPI(param) {
   return {
           getServiceExn: getServiceExn,
           getExtensionStateExn: getExtensionStateExn,
@@ -48,7 +48,7 @@ export {
   getServiceExn ,
   setExtensionState ,
   getExtensionStateExn ,
-  _buildAPI ,
+  buildAPI ,
   register ,
   prepare ,
   

@@ -3,6 +3,8 @@ type stream<'a>
 
 type value
 
+type dependentExtensionNameMap = unit
+
 type service = {
   just: 'a. 'a => stream<'a>,
   concat: 'a. (stream<'a>, stream<'a>) => stream<'a>,
@@ -10,4 +12,5 @@ type service = {
   flatMap: 'a 'b. ('a => stream<'b>, stream<'a>) => stream<'b>,
   mergeArray: 'a. array<stream<'a>> => stream<'a>,
   concatArray: 'a. array<stream<'a>> => stream<'a>,
+  callFunc: 'a. (unit => 'a) => stream<'a>,
 }

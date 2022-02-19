@@ -20,11 +20,23 @@ let concatArray = streamArr =>
     )
   }
 
-let getService = (): Meta3dBsMostType.ServiceType.service => {
+let callFunc = func => {
+  Most.just(func)->Most.map(func => func(), _)
+}
+
+let getService: Meta3dType.Index.getExtensionService<
+  Meta3dBsMostType.ServiceType.dependentExtensionNameMap,
+  Meta3dBsMostType.ServiceType.service,
+> = (api, ()) => {
   just: Most.just,
   map: Most.map,
   flatMap: Most.flatMap,
   mergeArray: Most.mergeArray,
   concat: Most.concat,
   concatArray: concatArray,
+  callFunc: callFunc,
+}
+
+let createState: Meta3dType.Index.createExtensionState<unit> = () => {
+  ()
 }

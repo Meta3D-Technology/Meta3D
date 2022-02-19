@@ -198,13 +198,19 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 ** DONE finish engine-core compile
 
-** TODO engine-core
+** DONE engine-core
 
 # TODO rename po to state
 # TODO add engine-core state 
 # TODO refactor meta3d-commonlib, extract type
 # TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
 # TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
+
+** DONE root work plugin
+
+
+
+
 
 ** TODO design contribute point
 
@@ -214,13 +220,26 @@ how to use protocol???
 ** TODO complete check, add getVersion?
 
 
-** TODO root and first work plugin, 
+** TODO refactor: add work-plugins packages
+
+
+
+** TODO refactor: move wonder-engine->register work plugins to extension
+
+# ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
+
 
 ** TODO pass engine core test
 
 ** TODO add, gameObject, transform component
 
 ** TODO add webgl render(just log)
+
+add canvas
+
+add webgl
+
+add webgl render
 
 ** TODO finish user side
 
@@ -238,6 +257,15 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 ** TODO finish user side
 
 
+
+* TODO change to use typescript for wonder-engine, wonder-editor
+
+** TODO build engine by typescript
+
+** TODO build editor by typescript
+
+
+
 * TODO update editor
 
 ** TODO generate and load .meta3d
@@ -252,6 +280,8 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 * TODO update engine
 
 ** TODO use event
+
+add InitEventJob
 
 ** TODO use ui
 
@@ -279,12 +309,6 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 
 
-
-* TODO pass typescript run test
-
-** TODO build engine by typescript
-
-** TODO build editor by typescript
 
 
 * TODO publish v0.1.0

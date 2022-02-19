@@ -7,3 +7,5 @@ let getServiceExn = ExtensionManager.getServiceExn
 let setExtensionState = ExtensionManager.setExtensionState
 
 let getExtensionStateExn = ExtensionManager.getExtensionStateExn
+
+let buildAPI = ExtensionManager.buildAPI

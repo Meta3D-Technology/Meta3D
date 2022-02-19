@@ -1,5 +1,5 @@
 {
-  "name": "meta3d-engine",
+  "name": "meta3d-work-plugin-root",
   "sources": [
     {
       "dir": "src",
@@ -16,13 +16,8 @@
   ],
   "bs-dev-dependencies": [],
   "bs-dependencies": [
-    "meta3d",
-    "meta3d-type",
-    "meta3d-bs-most",
-    "meta3d-bs-most-type",
-    "meta3d-engine-core",
     "meta3d-engine-core-type",
-    "meta3d-work-plugin-root"
+    "meta3d-bs-most-type"
   ],
   "refmt": 3,
   "namespace": true,
