@@ -1,4 +1,4 @@
-let createPO = (): POType.po => {
+let createState = (): StateType.state => {
   allRegisteredWorkPluginData: list{},
   states: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   pluginData: {

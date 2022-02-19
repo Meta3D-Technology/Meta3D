@@ -3,7 +3,7 @@
 import * as MutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function createPO(param) {
+function createState(param) {
   return {
           allRegisteredWorkPluginData: /* [] */0,
           states: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
@@ -20,7 +20,7 @@ function createPO(param) {
 }
 
 export {
-  createPO ,
+  createState ,
   
 }
 /* No side effect */

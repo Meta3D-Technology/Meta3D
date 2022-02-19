@@ -35,12 +35,12 @@ defineFeature(feature, test => {
   }
 
   let _getAllRegisteredComponentData = () => {
-    POContainer.unsafeGetPO().componentData.allRegisteredComponentData
+    StateContainer.unsafeGetState().componentData.allRegisteredComponentData
   }
 
   let _prepareRegister = given => {
     given("prepare register", () => {
-      CreatePO.createPO()->POContainer.setPO
+      CreateState.createState()->StateContainer.setState
     })
   }
 

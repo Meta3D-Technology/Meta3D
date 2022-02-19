@@ -14,32 +14,32 @@ let _convertJobOrders = (
 }
 
 let registerWorkPlugin = (~data, ~jobOrders: RegisterWorkPluginVOType.jobOrders=[], ()) => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->WorkManager.registerPlugin(data, jobOrders->_convertJobOrders)
-  ->POContainer.setPO
+  ->StateContainer.setState
 }
 
 let unregisterWorkPlugin = targetPluginName => {
-  POContainer.unsafeGetPO()->WorkManager.unregisterPlugin(targetPluginName)->POContainer.setPO
+  StateContainer.unsafeGetState()->WorkManager.unregisterPlugin(targetPluginName)->StateContainer.setState
 }
 
 let prepare = () => {
-  let po = CreatePO.createPO()
+  let state = CreateState.createState()
 
-  POContainer.setPO(po)
+  StateContainer.setState(state)
 }
 
 let init = () => {
-  POContainer.unsafeGetPO()->WorkManager.init->POContainer.setPO
+  StateContainer.unsafeGetState()->WorkManager.init->StateContainer.setState
 }
 
 let runPipeline = (
   mostService: Meta3dBsMostType.ServiceType.service,
   pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,
 ) => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->WorkManager.runPipeline(mostService, pipelineName)
-  ->Meta3dCommonlib.Result.mapSuccess(mostService.map(POContainer.setPO, _))
+  ->Meta3dCommonlib.Result.mapSuccess(mostService.map(StateContainer.setState, _))
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
@@ -52,30 +52,30 @@ let setIsDebug = isDebug => {
 }
 
 let registerComponent = data => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->ComponentManager.registerComponent(data)
-  ->Meta3dCommonlib.Result.mapSuccess(POContainer.setPO)
+  ->Meta3dCommonlib.Result.mapSuccess(StateContainer.setState)
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
 let unregisterComponent = componentName => {
-  POContainer.unsafeGetPO()->ComponentManager.unregisterComponent(componentName)->POContainer.setPO
+  StateContainer.unsafeGetState()->ComponentManager.unregisterComponent(componentName)->StateContainer.setState
 }
 
 let createAndSetComponentState = (componentName, config) => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->ComponentManager.createAndSetComponentState(componentName, config)
-  ->POContainer.setPO
+  ->StateContainer.setState
 }
 
 let unsafeGetRelatedComponentData = componentName => {
-  POContainer.unsafeGetPO()->ComponentManager.unsafeGetUsedComponentData(componentName)
+  StateContainer.unsafeGetState()->ComponentManager.unsafeGetUsedComponentData(componentName)
 }
 
 let setRelatedComponentData = (data, componentName) => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->ComponentManager.setRelatedComponentData(data, componentName)
-  ->POContainer.setPO
+  ->StateContainer.setState
 }
 
 let createComponent = data => {
@@ -111,27 +111,27 @@ let getComponentGameObjects = (data, component) => {
 }
 
 let setGameObjectData = data => {
-  POContainer.unsafeGetPO()->GameObjectManager.setGameObjectData(data)->POContainer.setPO
+  StateContainer.unsafeGetState()->GameObjectManager.setGameObjectData(data)->StateContainer.setState
 }
 
 let createAndSetGameObjectState = () => {
-  POContainer.unsafeGetPO()->GameObjectManager.createAndSetState->POContainer.setPO
+  StateContainer.unsafeGetState()->GameObjectManager.createAndSetState->StateContainer.setState
 }
 
 let createGameObject = () => {
-  let (po, gameObject) = POContainer.unsafeGetPO()->GameObjectManager.createGameObject
+  let (state, gameObject) = StateContainer.unsafeGetState()->GameObjectManager.createGameObject
 
-  po->POContainer.setPO
+  state->StateContainer.setState
 
   gameObject
 }
 
 let getAllGameObjects = () => {
-  POContainer.unsafeGetPO()->GameObjectManager.getAllGameObjects
+  StateContainer.unsafeGetState()->GameObjectManager.getAllGameObjects
 }
 
 let getState = (componentName: Meta3dEngineCoreType.IComponentForJs.componentName) => {
-  POContainer.unsafeGetPO()
+  StateContainer.unsafeGetState()
   ->ComponentManager.getState(componentName)
   ->Meta3dCommonlib.OptionSt.toNullable
 }

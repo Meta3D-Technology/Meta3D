@@ -1,7 +1,7 @@
 let registerComponent = (
-  {componentData} as po: POType.po,
+  {componentData} as state: StateType.state,
   data: RegisterComponentType.registeredComponent,
-): Meta3dCommonlib.Result.t2<POType.po> => {
+): Meta3dCommonlib.Result.t2<StateType.state> => {
   Meta3dCommonlib.ContractResult.requireCheck(() => {
     open Meta3dCommonlib.ContractResult
     open Operators
@@ -15,7 +15,7 @@ let registerComponent = (
     )
   }, PluginDataManager.getIsDebug())->Meta3dCommonlib.Result.mapSuccess(() => {
     {
-      ...po,
+      ...state,
       componentData: {
         ...componentData,
         allRegisteredComponentData: componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.set(
@@ -28,11 +28,11 @@ let registerComponent = (
 }
 
 let unregisterComponent = (
-  {componentData} as po: POType.po,
+  {componentData} as state: StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-): POType.po => {
+): StateType.state => {
   {
-    ...po,
+    ...state,
     componentData: {
       ...componentData,
       allRegisteredComponentData: componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.deleteVal(
@@ -43,17 +43,17 @@ let unregisterComponent = (
 }
 
 let unsafeGetUsedComponentData = (
-  {componentData}: POType.po,
+  {componentData}: StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
 ): RegisterComponentType.usedComponentData => {
   componentData.allUsedComponentData->Meta3dCommonlib.MutableHashMap.unsafeGet(componentName)
 }
 
 let setRelatedComponentData = (
-  poState: POType.po,
+  poState: StateType.state,
   data: RegisterComponentType.usedComponentData,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-): POType.po => {
+): StateType.state => {
   poState.componentData.allUsedComponentData
   ->Meta3dCommonlib.MutableHashMap.set(componentName, data)
   ->ignore
@@ -62,10 +62,10 @@ let setRelatedComponentData = (
 }
 
 let createAndSetComponentState = (
-  po: POType.po,
+  state: StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
   config: RegisterComponentType.config,
-): POType.po => {
+): StateType.state => {
   let {
     createStateFunc,
     getGameObjectsFunc,
@@ -77,15 +77,15 @@ let createAndSetComponentState = (
     getComponentDataFunc,
     setComponentDataFunc,
   } =
-    po.componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
+    state.componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
       componentName,
     )
 
   {
-    ...po,
+    ...state,
     componentData: {
-      ...po.componentData,
-      allUsedComponentData: po.componentData.allUsedComponentData->Meta3dCommonlib.ImmutableHashMap.set(
+      ...state.componentData,
+      allUsedComponentData: state.componentData.allUsedComponentData->Meta3dCommonlib.ImmutableHashMap.set(
         componentName,
         {
           componentName: componentName,
@@ -128,15 +128,15 @@ let setComponentData = (
   dataName: RegisterComponentType.dataName,
   dataValue: Meta3dEngineCoreType.IComponentForJs.dataValue,
 ): RegisterComponentType.usedComponentData => {
-  // let data = po->unsafeGetUsedComponentData(componentName)
+  // let data = state->unsafeGetUsedComponentData(componentName)
 
   data.setComponentDataFunc(. data.state, component, dataName, dataValue)->_setComponentStateToData(
     data,
   )
 
-  // ->_setComponentStateToData(po, data, componentName, _)
+  // ->_setComponentStateToData(state, data, componentName, _)
 
-  // po
+  // state
 }
 
 let addComponent = (
@@ -182,8 +182,8 @@ let getComponentGameObjects = (
   data.getGameObjectsFunc(. data.state, component)
 }
 
-let getState = (po: POType.po, componentName: Meta3dEngineCoreType.IComponentForJs.componentName) => {
-  po.componentData.allUsedComponentData
+let getState = (state: StateType.state, componentName: Meta3dEngineCoreType.IComponentForJs.componentName) => {
+  state.componentData.allUsedComponentData
   ->Meta3dCommonlib.MutableHashMap.get(componentName)
   ->Meta3dCommonlib.OptionSt.map(({state}) => state)
 }

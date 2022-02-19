@@ -11,16 +11,16 @@ import * as Exception$Meta3dCommonlib from "../../../../../../../node_modules/me
 import * as TreeNode$Meta3dEngineCore from "./TreeNode.bs.js";
 import * as IterateTree$Meta3dEngineCore from "./IterateTree.bs.js";
 import * as OperateTree$Meta3dEngineCore from "./OperateTree.bs.js";
-import * as POContainer$Meta3dEngineCore from "../../data/POContainer.bs.js";
+import * as StateContainer$Meta3dEngineCore from "../../data/StateContainer.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function _getStates(param) {
-  return POContainer$Meta3dEngineCore.unsafeGetPO(undefined).states;
+  return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states;
 }
 
 function _setStates(states) {
-  var init = POContainer$Meta3dEngineCore.unsafeGetPO(undefined);
-  return POContainer$Meta3dEngineCore.setPO({
+  var init = StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
+  return StateContainer$Meta3dEngineCore.setState({
               allRegisteredWorkPluginData: init.allRegisteredWorkPluginData,
               states: states,
               pluginData: init.pluginData,
@@ -49,7 +49,7 @@ function _findGroup(groupName, groups) {
 function _buildJobStream(param, execFunc) {
   var __x = Curry._1(param.just, execFunc);
   return Curry._2(param.map, _setStates, Curry._2(param.flatMap, (function (func) {
-                    return Curry._1(func, POContainer$Meta3dEngineCore.unsafeGetPO(undefined).states);
+                    return Curry._1(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states);
                   }), __x));
 }
 
@@ -106,13 +106,13 @@ function _buildPipelineStream(mostService, getExecFuncs, pipelineName, param, gr
   return Curry._1(param.link === "merge" ? mostService.mergeArray : mostService.concatArray, ListSt$Meta3dCommonlib.toArray(streams));
 }
 
-function parse(po, mostService, getExecFuncs, param) {
+function parse(state, mostService, getExecFuncs, param) {
   var groups = param.groups;
   var group = _findGroup(param.first_group, groups);
-  POContainer$Meta3dEngineCore.setPO(po);
+  StateContainer$Meta3dEngineCore.setState(state);
   var __x = _buildPipelineStream(mostService, getExecFuncs, param.name, group, groups);
   return Curry._2(mostService.map, (function (param) {
-                return POContainer$Meta3dEngineCore.unsafeGetPO(undefined);
+                return StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
               }), __x);
 }
 
@@ -127,50 +127,50 @@ var ParsePipelineData = {
   parse: parse
 };
 
-function registerPlugin(po, data, jobOrders) {
+function registerPlugin(state, data, jobOrders) {
   return {
-          allRegisteredWorkPluginData: ListSt$Meta3dCommonlib.push(po.allRegisteredWorkPluginData, [
+          allRegisteredWorkPluginData: ListSt$Meta3dCommonlib.push(state.allRegisteredWorkPluginData, [
                 data,
                 jobOrders
               ]),
-          states: po.states,
-          pluginData: po.pluginData,
-          componentData: po.componentData,
-          gameObjectData: po.gameObjectData,
-          usedGameObjectData: po.usedGameObjectData
+          states: state.states,
+          pluginData: state.pluginData,
+          componentData: state.componentData,
+          gameObjectData: state.gameObjectData,
+          usedGameObjectData: state.usedGameObjectData
         };
 }
 
-function unregisterPlugin(po, targetPluginName) {
+function unregisterPlugin(state, targetPluginName) {
   return {
-          allRegisteredWorkPluginData: ListSt$Meta3dCommonlib.filter(po.allRegisteredWorkPluginData, (function (param) {
+          allRegisteredWorkPluginData: ListSt$Meta3dCommonlib.filter(state.allRegisteredWorkPluginData, (function (param) {
                   return param[0].pluginName !== targetPluginName;
                 })),
-          states: po.states,
-          pluginData: po.pluginData,
-          componentData: po.componentData,
-          gameObjectData: po.gameObjectData,
-          usedGameObjectData: po.usedGameObjectData
+          states: state.states,
+          pluginData: state.pluginData,
+          componentData: state.componentData,
+          gameObjectData: state.gameObjectData,
+          usedGameObjectData: state.usedGameObjectData
         };
 }
 
-function init(po) {
-  var allRegisteredWorkPluginData = po.allRegisteredWorkPluginData;
+function init(state) {
+  var allRegisteredWorkPluginData = state.allRegisteredWorkPluginData;
   return ListSt$Meta3dCommonlib.reduce(allRegisteredWorkPluginData, {
-              allRegisteredWorkPluginData: po.allRegisteredWorkPluginData,
+              allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
               states: ListSt$Meta3dCommonlib.reduce(allRegisteredWorkPluginData, ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), (function (states, param) {
                       var match = param[0];
                       return ImmutableHashMap$Meta3dCommonlib.set(states, match.pluginName, Curry._1(match.createStateFunc, undefined));
                     })),
-              pluginData: po.pluginData,
-              componentData: po.componentData,
-              gameObjectData: po.gameObjectData,
-              usedGameObjectData: po.usedGameObjectData
-            }, (function (po, param) {
+              pluginData: state.pluginData,
+              componentData: state.componentData,
+              gameObjectData: state.gameObjectData,
+              usedGameObjectData: state.usedGameObjectData
+            }, (function (state, param) {
                 var match = param[0];
-                POContainer$Meta3dEngineCore.setPO(po);
-                Curry._1(match.initFunc, OptionSt$Meta3dCommonlib.unsafeGet(ImmutableHashMap$Meta3dCommonlib.get(po.states, match.pluginName)));
-                return POContainer$Meta3dEngineCore.unsafeGetPO(undefined);
+                StateContainer$Meta3dEngineCore.setState(state);
+                Curry._1(match.initFunc, OptionSt$Meta3dCommonlib.unsafeGet(ImmutableHashMap$Meta3dCommonlib.get(state.states, match.pluginName)));
+                return StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
               }));
 }
 
@@ -532,9 +532,9 @@ var MergePipelineData = {
   merge: merge
 };
 
-function runPipeline(po, mostService, pipelineName) {
-  return Result$Meta3dCommonlib.mapSuccess(merge(po.allRegisteredWorkPluginData, pipelineName), (function (param) {
-                return parse(po, mostService, param[0], param[1]);
+function runPipeline(state, mostService, pipelineName) {
+  return Result$Meta3dCommonlib.mapSuccess(merge(state.allRegisteredWorkPluginData, pipelineName), (function (param) {
+                return parse(state, mostService, param[0], param[1]);
               }));
 }
 

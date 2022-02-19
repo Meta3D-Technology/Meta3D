@@ -21,7 +21,7 @@ defineFeature(feature, test => {
 
   let _prepare = (given, \"when", \"and") => {
     given("prepare register", () => {
-      CreatePO.createPO()->POContainer.setPO
+      CreateState.createState()->StateContainer.setState
     })
 
     \"when"("set gameObject data", () => {

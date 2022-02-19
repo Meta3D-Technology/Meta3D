@@ -14,15 +14,15 @@
 
 // export function runPipeline(pipelineName: pipelineName): Stream<void>
 
-// type po = any
+// type state = any
 
 // // type pluginName = string
 
-// // type states = Record<pluginName, po>
+// // type states = Record<pluginName, state>
 // type states = any
 
 
-// export function registerWorkPlugin(data: registeredWorkPlugin<po, states>, jobOrders?: jobOrders): void
+// export function registerWorkPlugin(data: registeredWorkPlugin<state, states>, jobOrders?: jobOrders): void
 
 // export function unregisterWorkPlugin(targetPluginName: string): void
 

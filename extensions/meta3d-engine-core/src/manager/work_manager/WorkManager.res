@@ -4,14 +4,14 @@ module ParsePipelineData = {
   open Meta3dEngineCoreType.PipelineType
 
   let _getStates = () => {
-    POContainer.unsafeGetPO().states
+    StateContainer.unsafeGetState().states
   }
 
   let _setStates = (states): unit => {
     {
-      ...POContainer.unsafeGetPO(),
+      ...StateContainer.unsafeGetState(),
       states: states,
-    }->POContainer.setPO
+    }->StateContainer.setState
   }
 
   let _findGroup = (groupName, groups) => {
@@ -117,29 +117,29 @@ module ParsePipelineData = {
   }
 
   let parse = (
-    po,
+    state,
     mostService: Meta3dBsMostType.ServiceType.service,
     getExecFuncs,
     {name, groups, first_group},
-  ): Meta3dBsMostType.ServiceType.stream<POType.po> => {
+  ): Meta3dBsMostType.ServiceType.stream<StateType.state> => {
     let group = _findGroup(first_group, groups)
 
-    po->POContainer.setPO
+    state->StateContainer.setState
 
     _buildPipelineStream(mostService, getExecFuncs, name, group, groups)->mostService.map(
-      () => POContainer.unsafeGetPO(),
+      () => StateContainer.unsafeGetState(),
       _,
     )
   }
 }
 
 let registerPlugin = (
-  {allRegisteredWorkPluginData} as po: POType.po,
+  {allRegisteredWorkPluginData} as state: StateType.state,
   data: WorkManagerType.registeredWorkPlugin,
   jobOrders: RegisterWorkPluginType.jobOrders,
-): POType.po => {
+): StateType.state => {
   {
-    ...po,
+    ...state,
     allRegisteredWorkPluginData: allRegisteredWorkPluginData->Meta3dCommonlib.ListSt.push((
       data,
       jobOrders,
@@ -148,10 +148,10 @@ let registerPlugin = (
 }
 
 let unregisterPlugin = (
-  {allRegisteredWorkPluginData} as po: POType.po,
+  {allRegisteredWorkPluginData} as state: StateType.state,
   targetPluginName: string,
-): POType.po => {
-  ...po,
+): StateType.state => {
+  ...state,
   allRegisteredWorkPluginData: allRegisteredWorkPluginData->Meta3dCommonlib.ListSt.filter(((
     {pluginName},
     _,
@@ -160,10 +160,10 @@ let unregisterPlugin = (
   }),
 }
 
-let init = ({allRegisteredWorkPluginData} as po: POType.po): POType.po => {
+let init = ({allRegisteredWorkPluginData} as state: StateType.state): StateType.state => {
   allRegisteredWorkPluginData->Meta3dCommonlib.ListSt.reduce(
     {
-      ...po,
+      ...state,
       states: allRegisteredWorkPluginData->Meta3dCommonlib.ListSt.reduce(
         Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         (states, ({pluginName, initFunc, createStateFunc}, _)) => {
@@ -171,8 +171,8 @@ let init = ({allRegisteredWorkPluginData} as po: POType.po): POType.po => {
         },
       ),
     },
-    ({states} as po, ({pluginName, initFunc}, _)) => {
-      po->POContainer.setPO
+    ({states} as state, ({pluginName, initFunc}, _)) => {
+      state->StateContainer.setState
 
       initFunc(
         states
@@ -180,7 +180,7 @@ let init = ({allRegisteredWorkPluginData} as po: POType.po): POType.po => {
         ->Meta3dCommonlib.OptionSt.unsafeGet,
       )
 
-      POContainer.unsafeGetPO()
+      StateContainer.unsafeGetState()
     },
   )
 }
@@ -205,7 +205,7 @@ module MergePipelineData = {
   }
 
   let _check = (
-    ({allPipelineData}, jobOrders) as registeredWorkPluginData: POType.registeredWorkPluginData,
+    ({allPipelineData}, jobOrders) as registeredWorkPluginData: StateType.registeredWorkPluginData,
   ) => {
     allPipelineData->Meta3dCommonlib.ArraySt.length <= 1 &&
       jobOrders->Meta3dCommonlib.ArraySt.length <= 1
@@ -613,15 +613,15 @@ module MergePipelineData = {
 }
 
 let runPipeline = (
-  {allRegisteredWorkPluginData, states} as po: POType.po,
+  {allRegisteredWorkPluginData, states} as state: StateType.state,
   mostService: Meta3dBsMostType.ServiceType.service,
   pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,
-): Meta3dCommonlib.Result.t2<Meta3dBsMostType.ServiceType.stream<POType.po>> => {
+): Meta3dCommonlib.Result.t2<Meta3dBsMostType.ServiceType.stream<StateType.state>> => {
   // TODO check is allRegisteredWorkPluginData duplicate
 
   allRegisteredWorkPluginData
   ->MergePipelineData.merge(pipelineName)
   ->Meta3dCommonlib.Result.mapSuccess(((getExecFuncs, pipelineData)) => {
-    ParsePipelineData.parse(po, mostService, getExecFuncs, pipelineData)
+    ParsePipelineData.parse(state, mostService, getExecFuncs, pipelineData)
   })
 }

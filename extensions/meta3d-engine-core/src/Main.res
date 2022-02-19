@@ -48,9 +48,6 @@ let getAllGameObjects = DirectorForJs.getAllGameObjects
 
 let getState = DirectorForJs.getState
 
-TODO rename po to state
-TODO add engine-core state 
-TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
 let getService: Meta3dType.ExtensionManagerType.getService<
   Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
   Meta3dEngineCoreType.ServiceType.service,

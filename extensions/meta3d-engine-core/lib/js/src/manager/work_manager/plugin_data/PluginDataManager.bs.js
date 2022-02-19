@@ -1,22 +1,22 @@
 'use strict';
 
-var POContainer$Meta3dEngineCore = require("../../../data/POContainer.bs.js");
+var StateContainer$Meta3dEngineCore = require("../../../data/StateContainer.bs.js");
 
 function getIsDebug(param) {
-  return POContainer$Meta3dEngineCore.unsafeGetPO(undefined).pluginData.isDebug;
+  return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).pluginData.isDebug;
 }
 
 function setIsDebug(isDebug) {
-  var po = POContainer$Meta3dEngineCore.unsafeGetPO(undefined);
-  return POContainer$Meta3dEngineCore.setPO({
-              allRegisteredWorkPluginData: po.allRegisteredWorkPluginData,
-              states: po.states,
+  var state = StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
+  return StateContainer$Meta3dEngineCore.setState({
+              allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+              states: state.states,
               pluginData: {
                 isDebug: isDebug
               },
-              componentData: po.componentData,
-              gameObjectData: po.gameObjectData,
-              usedGameObjectData: po.usedGameObjectData
+              componentData: state.componentData,
+              gameObjectData: state.gameObjectData,
+              usedGameObjectData: state.usedGameObjectData
             });
 }
 

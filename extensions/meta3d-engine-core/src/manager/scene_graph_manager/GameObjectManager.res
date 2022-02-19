@@ -1,17 +1,17 @@
-let unsafeGetGameObjectData = (po: POType.po): GameObjectType.gameObjectData => {
-  po.gameObjectData->Meta3dCommonlib.OptionSt.unsafeGet
+let unsafeGetGameObjectData = (state: StateType.state): GameObjectType.gameObjectData => {
+  state.gameObjectData->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
-let setGameObjectData = (po: POType.po, gameObjectData: GameObjectType.gameObjectData) => {
-  ...po,
+let setGameObjectData = (state: StateType.state, gameObjectData: GameObjectType.gameObjectData) => {
+  ...state,
   gameObjectData: Some(gameObjectData),
 }
 
-let createAndSetState = ({gameObjectData} as po: POType.po): POType.po => {
-  let {createStateFunc, createGameObjectFunc, getAllGameObjectsFunc} = unsafeGetGameObjectData(po)
+let createAndSetState = ({gameObjectData} as state: StateType.state): StateType.state => {
+  let {createStateFunc, createGameObjectFunc, getAllGameObjectsFunc} = unsafeGetGameObjectData(state)
 
   {
-    ...po,
+    ...state,
     usedGameObjectData: {
       state: createStateFunc(),
       createGameObjectFunc: createGameObjectFunc,
@@ -21,16 +21,16 @@ let createAndSetState = ({gameObjectData} as po: POType.po): POType.po => {
 }
 
 let _unsafeGetGameObjectRelatedData = (
-  {usedGameObjectData}: POType.po,
+  {usedGameObjectData}: StateType.state,
 ): GameObjectType.usedGameObjectData => {
   usedGameObjectData->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
-let _setGameObjectStateToPOState = (
-  poState: POType.po,
+let _setGameObjectStateToStateState = (
+  poState: StateType.state,
   data: GameObjectType.usedGameObjectData,
   gameObjectState: GameObjectType.state,
-): POType.po => {
+): StateType.state => {
   data.state = gameObjectState
 
   poState.usedGameObjectData = data->Some
@@ -38,16 +38,16 @@ let _setGameObjectStateToPOState = (
   poState
 }
 
-let createGameObject = (po: POType.po): (POType.po, GameObjectType.gameObject) => {
-  let data = po->_unsafeGetGameObjectRelatedData
+let createGameObject = (state: StateType.state): (StateType.state, GameObjectType.gameObject) => {
+  let data = state->_unsafeGetGameObjectRelatedData
 
   let (gameObjectState, gameObject) = data.createGameObjectFunc(. data.state)
 
-  (_setGameObjectStateToPOState(po, data, gameObjectState), gameObject)
+  (_setGameObjectStateToStateState(state, data, gameObjectState), gameObject)
 }
 
-let getAllGameObjects = (po: POType.po): array<GameObjectType.gameObject> => {
-  let data = po->_unsafeGetGameObjectRelatedData
+let getAllGameObjects = (state: StateType.state): array<GameObjectType.gameObject> => {
+  let data = state->_unsafeGetGameObjectRelatedData
 
   data.getAllGameObjectsFunc(. data.state)
 }

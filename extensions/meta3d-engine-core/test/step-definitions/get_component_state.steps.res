@@ -42,7 +42,7 @@ defineFeature(feature, test => {
     }->Obj.magic
 
     given("prepare register", () => {
-      CreatePO.createPO()->POContainer.setPO
+      CreateState.createState()->StateContainer.setState
     })
 
     \"when"("register component data", () => {

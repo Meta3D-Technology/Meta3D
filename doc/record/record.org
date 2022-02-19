@@ -200,7 +200,18 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 ** TODO engine-core pass test
 
+TODO rename po to state
+TODO add engine-core state 
+TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
+
+** TODO design contribute point
+
+** TODO complete check, add getVersion?
+
+
 ** TODO root and first work plugin, 
+
+** TODO pass engine core test
 
 ** TODO add, gameObject, transform component
 

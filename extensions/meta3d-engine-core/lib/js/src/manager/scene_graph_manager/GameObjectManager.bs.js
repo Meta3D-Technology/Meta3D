@@ -3,29 +3,29 @@
 var Curry = require("rescript/lib/js/curry.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 
-function unsafeGetGameObjectData(po) {
-  return OptionSt$Meta3dCommonlib.unsafeGet(po.gameObjectData);
+function unsafeGetGameObjectData(state) {
+  return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectData);
 }
 
-function setGameObjectData(po, gameObjectData) {
+function setGameObjectData(state, gameObjectData) {
   return {
-          allRegisteredWorkPluginData: po.allRegisteredWorkPluginData,
-          states: po.states,
-          pluginData: po.pluginData,
-          componentData: po.componentData,
+          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          states: state.states,
+          pluginData: state.pluginData,
+          componentData: state.componentData,
           gameObjectData: gameObjectData,
-          usedGameObjectData: po.usedGameObjectData
+          usedGameObjectData: state.usedGameObjectData
         };
 }
 
-function createAndSetState(po) {
-  var match = OptionSt$Meta3dCommonlib.unsafeGet(po.gameObjectData);
+function createAndSetState(state) {
+  var match = OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectData);
   return {
-          allRegisteredWorkPluginData: po.allRegisteredWorkPluginData,
-          states: po.states,
-          pluginData: po.pluginData,
-          componentData: po.componentData,
-          gameObjectData: po.gameObjectData,
+          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          states: state.states,
+          pluginData: state.pluginData,
+          componentData: state.componentData,
+          gameObjectData: state.gameObjectData,
           usedGameObjectData: {
             state: Curry._1(match.createStateFunc, undefined),
             createGameObjectFunc: match.createGameObjectFunc,
@@ -38,23 +38,23 @@ function _unsafeGetGameObjectRelatedData(param) {
   return OptionSt$Meta3dCommonlib.unsafeGet(param.usedGameObjectData);
 }
 
-function _setGameObjectStateToPOState(poState, data, gameObjectState) {
+function _setGameObjectStateToStateState(poState, data, gameObjectState) {
   data.state = gameObjectState;
   poState.usedGameObjectData = data;
   return poState;
 }
 
-function createGameObject(po) {
-  var data = _unsafeGetGameObjectRelatedData(po);
+function createGameObject(state) {
+  var data = _unsafeGetGameObjectRelatedData(state);
   var match = data.createGameObjectFunc(data.state);
   return [
-          _setGameObjectStateToPOState(po, data, match[0]),
+          _setGameObjectStateToStateState(state, data, match[0]),
           match[1]
         ];
 }
 
-function getAllGameObjects(po) {
-  var data = _unsafeGetGameObjectRelatedData(po);
+function getAllGameObjects(state) {
+  var data = _unsafeGetGameObjectRelatedData(state);
   return data.getAllGameObjectsFunc(data.state);
 }
 
@@ -62,7 +62,7 @@ exports.unsafeGetGameObjectData = unsafeGetGameObjectData;
 exports.setGameObjectData = setGameObjectData;
 exports.createAndSetState = createAndSetState;
 exports._unsafeGetGameObjectRelatedData = _unsafeGetGameObjectRelatedData;
-exports._setGameObjectStateToPOState = _setGameObjectStateToPOState;
+exports._setGameObjectStateToStateState = _setGameObjectStateToStateState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 /* No side effect */

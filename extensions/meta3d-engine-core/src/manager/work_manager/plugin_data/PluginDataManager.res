@@ -1,15 +1,15 @@
 let getIsDebug = () => {
-  POContainer.unsafeGetPO().pluginData.isDebug
+  StateContainer.unsafeGetState().pluginData.isDebug
 }
 
 let setIsDebug = isDebug => {
-  let {pluginData} as po = POContainer.unsafeGetPO()
+  let {pluginData} as state = StateContainer.unsafeGetState()
 
   {
-    ...po,
+    ...state,
     pluginData: {
       ...pluginData,
       isDebug: isDebug,
     },
-  }->POContainer.setPO
+  }->StateContainer.setState
 }

@@ -5,7 +5,7 @@ type registeredWorkPluginData = (
 
 type pluginData = {isDebug: bool}
 
-type po = {
+type state = {
   allRegisteredWorkPluginData: list<registeredWorkPluginData>,
   states: RegisterWorkPluginType.states,
   pluginData: pluginData,

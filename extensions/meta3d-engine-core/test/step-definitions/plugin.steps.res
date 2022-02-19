@@ -19,14 +19,14 @@
 
 //   let _prepareRegister = given => {
 //     given("prepare register", () => {
-//       CreatePO.createPO()->POContainer.setPO
+//       CreateState.createState()->StateContainer.setState
 //     })
 //   }
 
 //   let _buildRegisteredWorkPluginData = (
 //     ~pluginName="pluginA",
 //     ~createStateFunc=() => Obj.magic(1),
-//     ~initFunc=po => (),
+//     ~initFunc=state => (),
 //     ~getExecFunc=(_, _) => Js.Nullable.null,
 //     ~allPipelineData=[],
 //     (),
@@ -58,11 +58,11 @@
 //   }
 
 //   let _getAllRegisteredWorkPluginData = () => {
-//     POContainer.unsafeGetPO().allRegisteredWorkPluginData->_convertAllRegisteredWorkPluginData
+//     StateContainer.unsafeGetState().allRegisteredWorkPluginData->_convertAllRegisteredWorkPluginData
 //   }
 
 //   let _getStates = () => {
-//     POContainer.unsafeGetPO().states
+//     StateContainer.unsafeGetState().states
 //   }
 
 //   let _createState1 = (~d1=0, ()) => {

@@ -3,7 +3,7 @@ type registeredWorkPlugin = Meta3dEngineCoreType.IWorkForJs.registeredWorkPlugin
   RegisterWorkPluginType.states,
 >
 
-type allRegisteredWorkPluginData = list<POType.registeredWorkPluginData>
+type allRegisteredWorkPluginData = list<StateType.registeredWorkPluginData>
 
 type execFunc = Meta3dEngineCoreType.IWorkForJs.execFunc<RegisterWorkPluginType.states>
 
