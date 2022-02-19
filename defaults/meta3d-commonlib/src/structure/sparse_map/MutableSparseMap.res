@@ -1,5 +1,3 @@
-type t<'index, 'value> = SparseMapType.t<'index, 'value>
-
 let createEmpty = SparseMap.createEmpty
 
 let copy = SparseMap.copy
@@ -12,8 +10,12 @@ let getNullable = SparseMap.getNullable
 
 let has = SparseMap.has
 
-let set = (map: SparseMapType.t2<'a>, key: int, value: 'a): SparseMapType.t2<'a> => {
-  Array.unsafe_set(map, key, value->SparseMapType.notNullableToNullable)
+let set = (
+  map: Meta3dCommonlibType.SparseMapType.t2<'a>,
+  key: int,
+  value: 'a,
+): Meta3dCommonlibType.SparseMapType.t2<'a> => {
+  Array.unsafe_set(map, key, value->Meta3dCommonlibType.SparseMapType.notNullableToNullable)
 
   map
 }

@@ -5,7 +5,7 @@ let _isSupportSharedArrayBuffer = %raw(`
     `)
 
 @new
-external _newSharedArrayBuffer: int => SharedArrayBufferType.sharedArrayBuffer =
+external _newSharedArrayBuffer: int => Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBuffer =
   "SharedArrayBuffer"
 
 // let newSharedArrayBuffer = totalByteLength => ContractResult.requireCheck(() => {

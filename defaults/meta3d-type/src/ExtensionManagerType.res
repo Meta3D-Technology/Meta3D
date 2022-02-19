@@ -7,10 +7,8 @@ type dependentExtensionNameMap
 type extensionName = string
 
 type state = {
-  // extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.t<extensionName, extensionService>,
-  extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.t<extensionName, extensionService>,
-  // extensionStateMap: Meta3dCommonlib.ImmutableHashMap.t<extensionName, extensionState>,
-  extensionStateMap: Meta3dCommonlib.ImmutableHashMap.t<extensionName, extensionState>,
+  extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionService>,
+  extensionStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionState>,
 }
 
 type api = {

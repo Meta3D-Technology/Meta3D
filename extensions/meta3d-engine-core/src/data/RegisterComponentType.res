@@ -40,11 +40,11 @@ type usedComponentData = {
 }
 
 type componentData = {
-  allRegisteredComponentData: Meta3dCommonlib.ImmutableHashMap.t<
+  allRegisteredComponentData: Meta3dCommonlibType.ImmutableHashMapType.t<
     Meta3dEngineCoreType.IComponentForJs.componentName,
     registeredComponent,
   >,
-  allUsedComponentData: Meta3dCommonlib.MutableHashMap.t<
+  allUsedComponentData: Meta3dCommonlibType.MutableHashMapType.t<
     Meta3dEngineCoreType.IComponentForJs.componentName,
     usedComponentData,
   >,

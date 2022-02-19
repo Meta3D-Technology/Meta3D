@@ -15,7 +15,9 @@
     "es6-global"
   ],
   "bs-dev-dependencies": [],
-  "bs-dependencies": [],
+  "bs-dependencies": [
+    "meta3d-commonlib-type"
+  ],
   "refmt": 3,
   "namespace": true,
   "suffix": ".bs.js",

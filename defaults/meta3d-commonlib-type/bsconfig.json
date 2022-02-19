@@ -1,33 +1,17 @@
 {
-    "name": "meta3d-engine-core",
+    "name": "meta3d-commonlib-type",
     "sources": [
         {
             "dir": "src",
             "subdirs": true
-        },
-        {
-            "dir": "test",
-            "subdirs": true,
-            "type": "dev"
         }
     ],
     "bsc-flags": [
         "-bs-no-version-header",
         "-bs-super-errors"
     ],
-    "bs-dev-dependencies": [
-        "meta3d-bs-jest-cucumber",
-        "meta3d-bs-jest",
-        "meta3d-bs-sinon",
-        "meta3d-bs-most"
-    ],
-    "bs-dependencies": [
-        "meta3d-commonlib",
-        "meta3d-commonlib-type",
-        "meta3d-type",
-        "meta3d-engine-core-type",
-        "meta3d-bs-most-type"
-    ],
+    "bs-dev-dependencies": [],
+    "bs-dependencies": [],
     "package-specs": [
         "commonjs",
         "es6-global"

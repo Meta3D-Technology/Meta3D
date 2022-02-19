@@ -1,5 +1,3 @@
-type t<'index, 'value> = SparseMapType.t<'index, 'value>
-
 let createEmpty = SparseMap.createEmpty
 
 let copy = SparseMap.copy
@@ -15,7 +13,7 @@ let has = SparseMap.has
 let set = (map, key: int, value) => {
   let newMap = map->copy
 
-  Array.unsafe_set(newMap, key, value->SparseMapType.notNullableToNullable)
+  Array.unsafe_set(newMap, key, value->Meta3dCommonlibType.SparseMapType.notNullableToNullable)
 
   newMap
 }

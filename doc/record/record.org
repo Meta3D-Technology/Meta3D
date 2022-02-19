@@ -202,7 +202,7 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 # TODO rename po to state
 # TODO add engine-core state 
-TODO refactor meta3d-commonlib, extract type
+# TODO refactor meta3d-commonlib, extract type
 TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
 
 ** TODO design contribute point
