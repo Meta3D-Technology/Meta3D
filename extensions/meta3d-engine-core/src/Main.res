@@ -56,7 +56,7 @@ let getState = DirectorForJs.getState
 //   }
 // }
 
-let getService: Meta3dType.ExtensionManagerType.getService<
+let getService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
   Meta3dEngineCoreType.ServiceType.service,
 > = (api, {meta3dBsMostExtensionName}) => {
@@ -67,7 +67,7 @@ let getService: Meta3dType.ExtensionManagerType.getService<
   runPipeline: DirectorForJs.runPipeline,
 }
 
-let createState: Meta3dType.ExtensionManagerType.createState<
+let createState: Meta3dType.Index.createExtensionState<
   Meta3dEngineCoreType.StateType.state,
 > = () => {
   CreateState.createState()

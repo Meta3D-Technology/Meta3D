@@ -1,4 +1,4 @@
-open Meta3dType.ExtensionManagerType
+open Meta3dType.Index
 
 let getServiceExn = (state, name: extensionName) => {
   state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
@@ -28,7 +28,7 @@ let _buildAPI = (): api => {
 let register = (
   state,
   name: extensionName,
-  getServiceFunc: getService<dependentExtensionNameMap, extensionService>,
+  getServiceFunc: getExtensionService<dependentExtensionNameMap, extensionService>,
   dependentExtensionNameMap: dependentExtensionNameMap,
   extensionState: extensionState,
 ) => {

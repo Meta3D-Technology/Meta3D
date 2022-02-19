@@ -43,7 +43,7 @@ let runPipeline = (
   state,
   (
     meta3dState,
-    api: Meta3dType.ExtensionManagerType.api,
+    api: Meta3dType.Index.api,
     {meta3dBsMostExtensionName}: Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
   ),
   pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,

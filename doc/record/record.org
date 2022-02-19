@@ -204,7 +204,7 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 # TODO add engine-core state 
 # TODO refactor meta3d-commonlib, extract type
 # TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
-TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
+# TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
 
 ** TODO design contribute point
 
@@ -326,6 +326,13 @@ only has pbrmaterial asset
 ** TODO generate .mas
 
 
+* TODO update editor
+
+** TODO add publish(separate logic and ui to different extensions)
+
+
+
+
 * TODO publish 0.2.0
 
 
@@ -386,21 +393,51 @@ refer to eventmanager package
 
 * TODO update engine
 
+** TODO add webgl render(can render a cube)
+
+
+* TODO update editor
+
+** TODO add edit scene, run scene
+
+
+* TODO publish v0.4.0
+
+
+
+* TODO update engine
+
 ** TODO component support dispose
 
 ** TODO component support clone
 
+* TODO update editor
+
+** TODO add scene tree header
+
+*** TODO add dispose gameObject button
+
+*** TODO add clone gameObject button
+
+
+* TODO publish v0.5.0
 
 
 
-
-* TODO open to user
+* TODO prepare to open for user to use
 
 ** TODO move meta3d-engine, meta3d-editor to Wonder.js repo
 
 
+** TODO prepare user's example code(typescript)
+
+
 ** TODO prepare doc for user
 
+
+* TODO publish v0.6.0
+
+** TODO publish
 
 ** TODO open for user to use and extend!!!
 

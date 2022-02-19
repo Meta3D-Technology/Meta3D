@@ -13,8 +13,8 @@ type service = {
   runPipeline: (
     StateType.state,
     (
-      Meta3dType.ExtensionManagerType.state,
-      Meta3dType.ExtensionManagerType.api,
+      Meta3dType.Index.state,
+      Meta3dType.Index.api,
       dependentExtensionNameMap,
     ),
     PipelineType.pipelineName,
