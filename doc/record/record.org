@@ -198,12 +198,13 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 ** DONE finish engine-core compile
 
-** TODO engine-core pass test
+** TODO engine-core
 
 # TODO rename po to state
 # TODO add engine-core state 
 # TODO refactor meta3d-commonlib, extract type
-TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
+# TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
+TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
 
 ** TODO design contribute point
 

@@ -1,8 +1,8 @@
 // import type { Stream } from "most";
 // import { registeredWorkPlugin } from "./abstract/work/Meta3dEngineCoreType.IWorkForJs.gen"
-// import { jobOrders } from "./data/vo/RegisterWorkPluginVOType.gen";
+// import { jobOrders } from "./data/vo/Meta3dEngineCoreType.RegisterWorkPluginVOType.gen";
 // import { componentName, registeredComponent } from "./abstract/scene_graph/Meta3dEngineCoreType.IComponentForJs.gen"
-// import { usedComponentData } from "./data/RegisterComponentType.gen"
+// import { usedComponentData } from "./data/Meta3dEngineCoreType.RegisterComponentType.gen"
 // import { gameObjectData } from "./abstract/scene_graph/Meta3dEngineCoreType.IGameObjectForJs.gen"
 // import { nullable } from "meta3d-commonlib-ts/src/nullable"
 

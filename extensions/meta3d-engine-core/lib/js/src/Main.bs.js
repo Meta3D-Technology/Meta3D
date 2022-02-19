@@ -1,16 +1,15 @@
 'use strict';
 
-var Curry = require("rescript/lib/js/curry.js");
 var CreateState$Meta3dEngineCore = require("./data/CreateState.bs.js");
 var DirectorForJs$Meta3dEngineCore = require("./manager/DirectorForJs.bs.js");
 
 function getService(api, param) {
-  var meta3dBsMostExtensionName = param.meta3dBsMostExtensionName;
   return {
-          func1: (function (state) {
-              var match = Curry._2(api.getServiceExn, state, meta3dBsMostExtensionName);
-              return Curry._1(match.just, 1);
-            })
+          prepare: DirectorForJs$Meta3dEngineCore.prepare,
+          init: DirectorForJs$Meta3dEngineCore.init,
+          registerWorkPlugin: DirectorForJs$Meta3dEngineCore.registerWorkPlugin,
+          unregisterWorkPlugin: DirectorForJs$Meta3dEngineCore.unregisterWorkPlugin,
+          runPipeline: DirectorForJs$Meta3dEngineCore.runPipeline
         };
 }
 

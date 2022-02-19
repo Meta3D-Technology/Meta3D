@@ -1,45 +1,58 @@
 let _convertJobOrders = (
-  jobOrders: RegisterWorkPluginVOType.jobOrders,
-): RegisterWorkPluginType.jobOrders => {
+  jobOrders: Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrders,
+): Meta3dEngineCoreType.RegisterWorkPluginType.jobOrders => {
   jobOrders->Meta3dCommonlib.ArraySt.map((
     {pipelineName, insertElementName, insertAction} as jobOrder,
-  ): RegisterWorkPluginType.jobOrder => {
+  ): Meta3dEngineCoreType.RegisterWorkPluginType.jobOrder => {
     pipelineName: pipelineName,
     insertElementName: insertElementName,
     insertAction: switch insertAction {
-    | #before => RegisterWorkPluginType.Before
-    | #after => RegisterWorkPluginType.After
+    | #before => Meta3dEngineCoreType.RegisterWorkPluginType.Before
+    | #after => Meta3dEngineCoreType.RegisterWorkPluginType.After
     },
   })
 }
 
-let registerWorkPlugin = (~data, ~jobOrders: RegisterWorkPluginVOType.jobOrders=[], ()) => {
-  StateContainer.unsafeGetState()
-  ->WorkManager.registerPlugin(data, jobOrders->_convertJobOrders)
-  ->StateContainer.setState
+let registerWorkPlugin = (
+  ~state,
+  ~data,
+  ~jobOrders: Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrders=[],
+  (),
+) => {
+  state->WorkManager.registerPlugin(data, jobOrders->_convertJobOrders)
 }
 
-let unregisterWorkPlugin = targetPluginName => {
-  StateContainer.unsafeGetState()->WorkManager.unregisterPlugin(targetPluginName)->StateContainer.setState
+let unregisterWorkPlugin = (state, targetPluginName) => {
+  state->WorkManager.unregisterPlugin(targetPluginName)
 }
 
 let prepare = () => {
-  let state = CreateState.createState()
+  // let state = CreateState.createState()
 
-  StateContainer.setState(state)
+  // StateContainer.setState(state)
+  ()
 }
 
-let init = () => {
-  StateContainer.unsafeGetState()->WorkManager.init->StateContainer.setState
+let init = state => {
+  // StateContainer.unsafeGetState()->WorkManager.init->StateContainer.setState
+
+  state->WorkManager.init
 }
 
 let runPipeline = (
-  mostService: Meta3dBsMostType.ServiceType.service,
+  state,
+  (
+    meta3dState,
+    api: Meta3dType.ExtensionManagerType.api,
+    {meta3dBsMostExtensionName}: Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
+  ),
   pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,
 ) => {
-  StateContainer.unsafeGetState()
+  let mostService = api.getServiceExn(meta3dState, meta3dBsMostExtensionName)
+
+  state
   ->WorkManager.runPipeline(mostService, pipelineName)
-  ->Meta3dCommonlib.Result.mapSuccess(mostService.map(StateContainer.setState, _))
+  // ->Meta3dCommonlib.Result.mapSuccess(mostService.map(StateContainer.setState, _))
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
@@ -59,7 +72,9 @@ let registerComponent = data => {
 }
 
 let unregisterComponent = componentName => {
-  StateContainer.unsafeGetState()->ComponentManager.unregisterComponent(componentName)->StateContainer.setState
+  StateContainer.unsafeGetState()
+  ->ComponentManager.unregisterComponent(componentName)
+  ->StateContainer.setState
 }
 
 let createAndSetComponentState = (componentName, config) => {
@@ -111,7 +126,9 @@ let getComponentGameObjects = (data, component) => {
 }
 
 let setGameObjectData = data => {
-  StateContainer.unsafeGetState()->GameObjectManager.setGameObjectData(data)->StateContainer.setState
+  StateContainer.unsafeGetState()
+  ->GameObjectManager.setGameObjectData(data)
+  ->StateContainer.setState
 }
 
 let createAndSetGameObjectState = () => {

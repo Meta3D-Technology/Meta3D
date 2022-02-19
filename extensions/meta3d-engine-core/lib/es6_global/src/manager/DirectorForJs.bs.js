@@ -5,7 +5,6 @@ import * as Result$Meta3dCommonlib from "../../../../../../node_modules/meta3d-c
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as CreateState$Meta3dEngineCore from "../data/CreateState.bs.js";
 import * as WorkManager$Meta3dEngineCore from "./work_manager/WorkManager.bs.js";
 import * as StateContainer$Meta3dEngineCore from "../data/StateContainer.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./scene_graph_manager/component/ComponentManager.bs.js";
@@ -22,27 +21,22 @@ function _convertJobOrders(jobOrders) {
               }));
 }
 
-function registerWorkPlugin(data, jobOrdersOpt, param) {
+function registerWorkPlugin(state, data, jobOrdersOpt, param) {
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return StateContainer$Meta3dEngineCore.setState(WorkManager$Meta3dEngineCore.registerPlugin(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data, _convertJobOrders(jobOrders)));
+  return WorkManager$Meta3dEngineCore.registerPlugin(state, data, _convertJobOrders(jobOrders));
 }
 
-function unregisterWorkPlugin(targetPluginName) {
-  return StateContainer$Meta3dEngineCore.setState(WorkManager$Meta3dEngineCore.unregisterPlugin(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), targetPluginName));
-}
+var unregisterWorkPlugin = WorkManager$Meta3dEngineCore.unregisterPlugin;
 
 function prepare(param) {
-  return StateContainer$Meta3dEngineCore.setState(CreateState$Meta3dEngineCore.createState(undefined));
+  
 }
 
-function init(param) {
-  return StateContainer$Meta3dEngineCore.setState(WorkManager$Meta3dEngineCore.init(StateContainer$Meta3dEngineCore.unsafeGetState(undefined)));
-}
+var init = WorkManager$Meta3dEngineCore.init;
 
-function runPipeline(mostService, pipelineName) {
-  return Result$Meta3dCommonlib.handleFail(Result$Meta3dCommonlib.mapSuccess(WorkManager$Meta3dEngineCore.runPipeline(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), mostService, pipelineName), (function (__x) {
-                    return Curry._2(mostService.map, StateContainer$Meta3dEngineCore.setState, __x);
-                  })), Exception$Meta3dCommonlib.throwErr);
+function runPipeline(state, param, pipelineName) {
+  var mostService = Curry._2(param[1].getServiceExn, param[0], param[2].meta3dBsMostExtensionName);
+  return Result$Meta3dCommonlib.handleFail(WorkManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 
 function getIsDebug(param) {

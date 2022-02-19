@@ -43,7 +43,7 @@
 //     ~pipelineName="pipeline",
 //     ~insertAction=#after,
 //     (),
-//   ): RegisterWorkPluginVOType.jobOrder => {
+//   ): Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrder => {
 //     pipelineName: pipelineName,
 //     insertElementName: insertElementName,
 //     insertAction: insertAction,

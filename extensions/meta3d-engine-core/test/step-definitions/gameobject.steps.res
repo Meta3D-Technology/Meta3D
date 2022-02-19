@@ -13,7 +13,7 @@ defineFeature(feature, test => {
     ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
     ~getAllGameObjectsFunc=(. state) => [],
     (),
-  ): GameObjectType.gameObjectData => {
+  ): Meta3dEngineCoreType.GameObjectType.gameObjectData => {
     createStateFunc: createStateFunc,
     createGameObjectFunc: createGameObjectFunc,
     getAllGameObjectsFunc: getAllGameObjectsFunc,

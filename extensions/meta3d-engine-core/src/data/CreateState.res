@@ -1,4 +1,4 @@
-let createState = (): StateType.state => {
+let createState = (): Meta3dEngineCoreType.StateType.state => {
   allRegisteredWorkPluginData: list{},
   states: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   pluginData: {

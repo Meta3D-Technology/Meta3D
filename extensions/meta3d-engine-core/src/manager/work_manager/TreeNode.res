@@ -1,4 +1,4 @@
-open TreeType
+open Meta3dEngineCoreType.TreeType
 
 let buildNode = (pluginName, (getExecFunc, pipelineData, jobOrder), children) => Node(
   pluginName,

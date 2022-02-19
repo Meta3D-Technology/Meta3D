@@ -1,12 +1,16 @@
 let convertJobOrdersDOToVO = jobOrders => {
   jobOrders->Meta3dCommonlib.ArraySt.map((
-    {pipelineName, insertElementName, insertAction} as jobOrder: RegisterWorkPluginType.jobOrder,
-  ): RegisterWorkPluginVOType.jobOrder => {
+    {
+      pipelineName,
+      insertElementName,
+      insertAction,
+    } as jobOrder: Meta3dEngineCoreType.RegisterWorkPluginType.jobOrder,
+  ): Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrder => {
     pipelineName: pipelineName,
     insertElementName: insertElementName,
     insertAction: switch insertAction {
-    | RegisterWorkPluginType.Before => #before
-    | RegisterWorkPluginType.After => #after
+    | Meta3dEngineCoreType.RegisterWorkPluginType.Before => #before
+    | Meta3dEngineCoreType.RegisterWorkPluginType.After => #after
     },
   })
 }

@@ -1,10 +1,14 @@
 // TODO is already post order???
 // let rec firstOrderCata = (
 let rec postOrderCata = (
-  ~nodeFunc: (Meta3dEngineCoreType.IWorkForJs.pluginName, TreeType.nodeData, list<TreeType.tree>) => TreeType.tree,
-  ~tree: TreeType.tree,
+  ~nodeFunc: (
+    Meta3dEngineCoreType.IWorkForJs.pluginName,
+    Meta3dEngineCoreType.TreeType.nodeData,
+    list<Meta3dEngineCoreType.TreeType.tree>,
+  ) => Meta3dEngineCoreType.TreeType.tree,
+  ~tree: Meta3dEngineCoreType.TreeType.tree,
   (),
-): TreeType.tree => {
+): Meta3dEngineCoreType.TreeType.tree => {
   let recurse = postOrderCata(~nodeFunc)
 
   switch tree {
@@ -14,10 +18,10 @@ let rec postOrderCata = (
 }
 
 // let rec postOrderFoldWithParentNode = (
-//   ~nodeFunc: (option<TreeType.tree>, 'acc, Meta3dEngineCoreType.IWorkForJs.pluginName, TreeType.nodeData) => 'acc,
+//   ~nodeFunc: (option<  Meta3dEngineCoreType. TreeType.tree>, 'acc, Meta3dEngineCoreType.IWorkForJs.pluginName,   Meta3dEngineCoreType. TreeType.nodeData) => 'acc,
 //   ~acc: 'acc,
-//   ~tree: TreeType.tree,
-//   ~parentNode: option<TreeType.tree>=None,
+//   ~tree:   Meta3dEngineCoreType. TreeType.tree,
+//   ~parentNode: option<  Meta3dEngineCoreType. TreeType.tree>=None,
 //   (),
 // ): 'acc => {
 // //   let recurse = firstOrderCata(~nodeFunc, ~acc, ~parentNode, ())
@@ -59,15 +63,15 @@ let rec postOrderCata = (
 
 let rec postOrderCataWithParentNode = (
   ~nodeFunc: (
-    option<TreeType.tree>,
+    option<Meta3dEngineCoreType.TreeType.tree>,
     Meta3dEngineCoreType.IWorkForJs.pluginName,
-    TreeType.nodeData,
-    list<TreeType.tree>,
-  ) => Meta3dCommonlib.Result.t2<TreeType.tree>,
-  ~tree: TreeType.tree,
-  ~parentNode: option<TreeType.tree>=None,
+    Meta3dEngineCoreType.TreeType.nodeData,
+    list<Meta3dEngineCoreType.TreeType.tree>,
+  ) => Meta3dCommonlib.Result.t2<Meta3dEngineCoreType.TreeType.tree>,
+  ~tree: Meta3dEngineCoreType.TreeType.tree,
+  ~parentNode: option<Meta3dEngineCoreType.TreeType.tree>=None,
   (),
-): Meta3dCommonlib.Result.t2<TreeType.tree> => {
+): Meta3dCommonlib.Result.t2<Meta3dEngineCoreType.TreeType.tree> => {
   let recurse = postOrderCataWithParentNode(~nodeFunc)
 
   switch tree {

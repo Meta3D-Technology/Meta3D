@@ -1,5 +1,5 @@
 type registeredWorkPluginData = (
-  Meta3dEngineCoreType.IWorkForJs.registeredWorkPlugin<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
+  IWorkForJs.registeredWorkPlugin<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
   RegisterWorkPluginType.jobOrders,
 )
 

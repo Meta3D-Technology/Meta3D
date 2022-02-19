@@ -60,16 +60,15 @@ let getService: Meta3dType.ExtensionManagerType.getService<
   Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
   Meta3dEngineCoreType.ServiceType.service,
 > = (api, {meta3dBsMostExtensionName}) => {
-  func1: state => {
-    let {just}: Meta3dBsMostType.ServiceType.service = api.getServiceExn(
-      state,
-      meta3dBsMostExtensionName,
-    )
-
-    1->just
-  },
+  prepare: DirectorForJs.prepare,
+  init: DirectorForJs.init,
+  registerWorkPlugin: DirectorForJs.registerWorkPlugin,
+  unregisterWorkPlugin: DirectorForJs.unregisterWorkPlugin,
+  runPipeline: DirectorForJs.runPipeline,
 }
 
-let createState: Meta3dType.ExtensionManagerType.createState<StateType.state> = () => {
+let createState: Meta3dType.ExtensionManagerType.createState<
+  Meta3dEngineCoreType.StateType.state,
+> = () => {
   CreateState.createState()
 }

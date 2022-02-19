@@ -13,7 +13,8 @@
     "bs-dev-dependencies": [],
     "bs-dependencies": [
         "meta3d-type",
-        "meta3d-bs-most-type"
+        "meta3d-bs-most-type",
+        "meta3d-commonlib-type"
     ],
     "package-specs": [
         "commonjs",

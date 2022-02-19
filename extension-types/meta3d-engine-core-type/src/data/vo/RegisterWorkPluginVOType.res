@@ -1,8 +1,8 @@
 type insertAction = [#before | #after]
 
 type jobOrder = {
-  pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,
-  insertElementName: Meta3dEngineCoreType.PipelineType.elementName,
+  pipelineName: PipelineType.pipelineName,
+  insertElementName: PipelineType.elementName,
   insertAction: insertAction,
 }
 

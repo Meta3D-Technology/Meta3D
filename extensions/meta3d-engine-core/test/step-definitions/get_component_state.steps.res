@@ -22,7 +22,7 @@ defineFeature(feature, test => {
     ~getComponentDataFunc=(. state, _, _) => Obj.magic(1),
     ~setComponentDataFunc=(. state, _, _, _) => state,
     (),
-  ): RegisterComponentType.registeredComponent => {
+  ): Meta3dEngineCoreType.RegisterComponentType.registeredComponent => {
     componentName: componentName,
     createStateFunc: createStateFunc,
     getGameObjectsFunc: getGameObjectsFunc,

@@ -1,7 +1,7 @@
 let registerComponent = (
-  {componentData} as state: StateType.state,
-  data: RegisterComponentType.registeredComponent,
-): Meta3dCommonlib.Result.t2<StateType.state> => {
+  {componentData} as state: Meta3dEngineCoreType.StateType.state,
+  data: Meta3dEngineCoreType.RegisterComponentType.registeredComponent,
+): Meta3dCommonlib.Result.t2<Meta3dEngineCoreType.StateType.state> => {
   Meta3dCommonlib.ContractResult.requireCheck(() => {
     open Meta3dCommonlib.ContractResult
     open Operators
@@ -28,9 +28,9 @@ let registerComponent = (
 }
 
 let unregisterComponent = (
-  {componentData} as state: StateType.state,
+  {componentData} as state: Meta3dEngineCoreType.StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-): StateType.state => {
+): Meta3dEngineCoreType.StateType.state => {
   {
     ...state,
     componentData: {
@@ -43,17 +43,17 @@ let unregisterComponent = (
 }
 
 let unsafeGetUsedComponentData = (
-  {componentData}: StateType.state,
+  {componentData}: Meta3dEngineCoreType.StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-): RegisterComponentType.usedComponentData => {
+): Meta3dEngineCoreType.RegisterComponentType.usedComponentData => {
   componentData.allUsedComponentData->Meta3dCommonlib.MutableHashMap.unsafeGet(componentName)
 }
 
 let setRelatedComponentData = (
-  poState: StateType.state,
-  data: RegisterComponentType.usedComponentData,
+  poState: Meta3dEngineCoreType.StateType.state,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-): StateType.state => {
+): Meta3dEngineCoreType.StateType.state => {
   poState.componentData.allUsedComponentData
   ->Meta3dCommonlib.MutableHashMap.set(componentName, data)
   ->ignore
@@ -62,10 +62,10 @@ let setRelatedComponentData = (
 }
 
 let createAndSetComponentState = (
-  state: StateType.state,
+  state: Meta3dEngineCoreType.StateType.state,
   componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
-  config: RegisterComponentType.config,
-): StateType.state => {
+  config: Meta3dEngineCoreType.RegisterComponentType.config,
+): Meta3dEngineCoreType.StateType.state => {
   let {
     createStateFunc,
     getGameObjectsFunc,
@@ -105,17 +105,17 @@ let createAndSetComponentState = (
 }
 
 let _setComponentStateToData = (
-  componentState: RegisterComponentType.state,
-  data: RegisterComponentType.usedComponentData,
-): RegisterComponentType.usedComponentData => {
+  componentState: Meta3dEngineCoreType.RegisterComponentType.state,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
+): Meta3dEngineCoreType.RegisterComponentType.usedComponentData => {
   data.state = componentState
 
   data
 }
 
-let createComponent = (data: RegisterComponentType.usedComponentData): (
-  RegisterComponentType.usedComponentData,
-  RegisterComponentType.component,
+let createComponent = (data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData): (
+  Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
+  Meta3dEngineCoreType.RegisterComponentType.component,
 ) => {
   let (componentState, component) = data.createComponentFunc(. data.state)
 
@@ -123,11 +123,11 @@ let createComponent = (data: RegisterComponentType.usedComponentData): (
 }
 
 let setComponentData = (
-  data: RegisterComponentType.usedComponentData,
-  component: RegisterComponentType.component,
-  dataName: RegisterComponentType.dataName,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
+  component: Meta3dEngineCoreType.RegisterComponentType.component,
+  dataName: Meta3dEngineCoreType.RegisterComponentType.dataName,
   dataValue: Meta3dEngineCoreType.IComponentForJs.dataValue,
-): RegisterComponentType.usedComponentData => {
+): Meta3dEngineCoreType.RegisterComponentType.usedComponentData => {
   // let data = state->unsafeGetUsedComponentData(componentName)
 
   data.setComponentDataFunc(. data.state, component, dataName, dataValue)->_setComponentStateToData(
@@ -140,49 +140,52 @@ let setComponentData = (
 }
 
 let addComponent = (
-  data: RegisterComponentType.usedComponentData,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
   gameObject: Meta3dEngineCoreType.IGameObjectForJs.gameObject,
-  component: RegisterComponentType.component,
-): RegisterComponentType.usedComponentData => {
+  component: Meta3dEngineCoreType.RegisterComponentType.component,
+): Meta3dEngineCoreType.RegisterComponentType.usedComponentData => {
   data.addComponentFunc(. data.state, gameObject, component)->_setComponentStateToData(data)
 }
 
 let hasComponent = (
-  data: RegisterComponentType.usedComponentData,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
   gameObject: Meta3dEngineCoreType.IGameObjectForJs.gameObject,
 ): bool => {
   data.hasComponentFunc(. data.state, gameObject)
 }
 
 let getComponent = (
-  data: RegisterComponentType.usedComponentData,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
   gameObject: Meta3dEngineCoreType.IGameObjectForJs.gameObject,
-): Js.Nullable.t<RegisterComponentType.component> => {
+): Js.Nullable.t<Meta3dEngineCoreType.RegisterComponentType.component> => {
   data.getComponentFunc(. data.state, gameObject)
 }
 
-let getAllComponents = (data: RegisterComponentType.usedComponentData): array<
-  RegisterComponentType.component,
+let getAllComponents = (data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData): array<
+  Meta3dEngineCoreType.RegisterComponentType.component,
 > => {
   data.getAllComponentsFunc(. data.state)
 }
 
 let getComponentData = (
-  data: RegisterComponentType.usedComponentData,
-  component: RegisterComponentType.component,
-  dataName: RegisterComponentType.dataName,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
+  component: Meta3dEngineCoreType.RegisterComponentType.component,
+  dataName: Meta3dEngineCoreType.RegisterComponentType.dataName,
 ): Js.Nullable.t<Meta3dEngineCoreType.IComponentForJs.dataValue> => {
   data.getComponentDataFunc(. data.state, component, dataName)
 }
 
 let getComponentGameObjects = (
-  data: RegisterComponentType.usedComponentData,
-  component: RegisterComponentType.component,
+  data: Meta3dEngineCoreType.RegisterComponentType.usedComponentData,
+  component: Meta3dEngineCoreType.RegisterComponentType.component,
 ): array<Meta3dEngineCoreType.IGameObjectForJs.gameObject> => {
   data.getGameObjectsFunc(. data.state, component)
 }
 
-let getState = (state: StateType.state, componentName: Meta3dEngineCoreType.IComponentForJs.componentName) => {
+let getState = (
+  state: Meta3dEngineCoreType.StateType.state,
+  componentName: Meta3dEngineCoreType.IComponentForJs.componentName,
+) => {
   state.componentData.allUsedComponentData
   ->Meta3dCommonlib.MutableHashMap.get(componentName)
   ->Meta3dCommonlib.OptionSt.map(({state}) => state)
