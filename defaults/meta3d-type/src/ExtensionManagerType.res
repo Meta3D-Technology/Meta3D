@@ -2,6 +2,8 @@ type extensionService
 
 type extensionState
 
+type dependentExtensionNameMap
+
 type extensionName = string
 
 type state = {
@@ -22,3 +24,5 @@ type getService<'dependentExtensionNameMap, 'service> = (
   api,
   'dependentExtensionNameMap,
 ) => 'service
+
+type createState<'state> = unit => 'state

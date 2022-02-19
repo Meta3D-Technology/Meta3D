@@ -1,6 +1,7 @@
 
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as CreateState$Meta3dEngineCore from "./data/CreateState.bs.js";
 import * as DirectorForJs$Meta3dEngineCore from "./manager/DirectorForJs.bs.js";
 
 function getService(api, param) {
@@ -11,6 +12,10 @@ function getService(api, param) {
               return Curry._1(match.just, 1);
             })
         };
+}
+
+function createState(param) {
+  return CreateState$Meta3dEngineCore.createState(undefined);
 }
 
 var prepare = DirectorForJs$Meta3dEngineCore.prepare;
@@ -90,6 +95,7 @@ export {
   getAllGameObjects ,
   getState ,
   getService ,
+  createState ,
   
 }
 /* No side effect */

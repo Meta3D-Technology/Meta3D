@@ -200,11 +200,15 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 ** TODO engine-core pass test
 
-TODO rename po to state
-TODO add engine-core state 
+# TODO rename po to state
+# TODO add engine-core state 
+TODO refactor meta3d-commonlib, extract type
 TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
 
 ** TODO design contribute point
+
+how to use protocol???
+
 
 ** TODO complete check, add getVersion?
 
@@ -271,6 +275,15 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 
 ** TODO add menu
+
+
+
+
+* TODO pass typescript run test
+
+** TODO build engine by typescript
+
+** TODO build editor by typescript
 
 
 * TODO publish v0.1.0

@@ -15,7 +15,12 @@
     "es6-global"
   ],
   "bs-dev-dependencies": [],
-  "bs-dependencies": [],
+  "bs-dependencies": [
+    "meta3d",
+    "meta3d-type",
+    "meta3d-engine-core",
+    "meta3d-engine-core-type"
+  ],
   "refmt": 3,
   "namespace": true,
   "suffix": ".bs.js",

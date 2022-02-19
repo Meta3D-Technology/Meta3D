@@ -1,13 +1,7 @@
 'use strict';
 
+var Curry = require("rescript/lib/js/curry.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
-
-function register(state, name, service) {
-  return {
-          extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, service),
-          extensionStateMap: state.extensionStateMap
-        };
-}
 
 function getServiceExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
@@ -24,16 +18,36 @@ function getExtensionStateExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
 }
 
-function init(param) {
+function _buildAPI(param) {
+  return {
+          getServiceExn: getServiceExn,
+          getExtensionStateExn: getExtensionStateExn,
+          setExtensionState: setExtensionState
+        };
+}
+
+function register(state, name, getServiceFunc, dependentExtensionNameMap, extensionState) {
+  return setExtensionState({
+              extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, {
+                        getServiceExn: getServiceExn,
+                        getExtensionStateExn: getExtensionStateExn,
+                        setExtensionState: setExtensionState
+                      }, dependentExtensionNameMap)),
+              extensionStateMap: state.extensionStateMap
+            }, name, extensionState);
+}
+
+function prepare(param) {
   return {
           extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           extensionStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 
-exports.register = register;
 exports.getServiceExn = getServiceExn;
 exports.setExtensionState = setExtensionState;
 exports.getExtensionStateExn = getExtensionStateExn;
-exports.init = init;
+exports._buildAPI = _buildAPI;
+exports.register = register;
+exports.prepare = prepare;
 /* No side effect */

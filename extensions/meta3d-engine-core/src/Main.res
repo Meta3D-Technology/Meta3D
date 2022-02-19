@@ -48,6 +48,14 @@ let getAllGameObjects = DirectorForJs.getAllGameObjects
 
 let getState = DirectorForJs.getState
 
+// let buildDependentExtensionData = map => {
+//   {
+//     meta3dBsMostExtensionName: map->Meta3dCommonlib.ImmutableHashMap.getExn(
+//       "meta3dBsMostExtensionName",
+//     ),
+//   }
+// }
+
 let getService: Meta3dType.ExtensionManagerType.getService<
   Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
   Meta3dEngineCoreType.ServiceType.service,
@@ -60,4 +68,8 @@ let getService: Meta3dType.ExtensionManagerType.getService<
 
     1->just
   },
+}
+
+let createState: Meta3dType.ExtensionManagerType.createState<StateType.state> = () => {
+  CreateState.createState()
 }

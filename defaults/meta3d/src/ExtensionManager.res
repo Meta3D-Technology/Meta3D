@@ -1,15 +1,5 @@
 open Meta3dType.ExtensionManagerType
 
-let register = (state, name: extensionName, service: extensionService) => {
-  {
-    ...state,
-    extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
-      name,
-      service,
-    ),
-  }
-}
-
 let getServiceExn = (state, name: extensionName) => {
   state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
@@ -28,15 +18,32 @@ let getExtensionStateExn = (state, name: extensionName) => {
   state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
-let init = () => {
+let _buildAPI = (): api => {
+  getServiceExn: getServiceExn,
+  getExtensionStateExn: getExtensionStateExn,
+  // TODO remove magic
+  setExtensionState: setExtensionState->Obj.magic,
+}
+
+let register = (
+  state,
+  name: extensionName,
+  getServiceFunc: getService<dependentExtensionNameMap, extensionService>,
+  dependentExtensionNameMap: dependentExtensionNameMap,
+  extensionState: extensionState,
+) => {
+  {
+    ...state,
+    extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
+      name,
+      getServiceFunc(_buildAPI(), dependentExtensionNameMap),
+    ),
+  }->setExtensionState(name, extensionState)
+}
+
+let prepare = () => {
   {
     extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     extensionStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   }
 }
-
-// let buildAPI = (): Type.extensionManagerAPI => {
-//   getServiceExn: getServiceExn->Obj.magic,
-//   getExtensionStateExn: getExtensionStateExn->Obj.magic,
-//   setExtensionState: setExtensionState->Obj.magic,
-// }

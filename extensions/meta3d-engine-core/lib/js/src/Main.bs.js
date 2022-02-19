@@ -1,6 +1,7 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
+var CreateState$Meta3dEngineCore = require("./data/CreateState.bs.js");
 var DirectorForJs$Meta3dEngineCore = require("./manager/DirectorForJs.bs.js");
 
 function getService(api, param) {
@@ -11,6 +12,10 @@ function getService(api, param) {
               return Curry._1(match.just, 1);
             })
         };
+}
+
+function createState(param) {
+  return CreateState$Meta3dEngineCore.createState(undefined);
 }
 
 var prepare = DirectorForJs$Meta3dEngineCore.prepare;
@@ -89,4 +94,5 @@ exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 exports.getState = getState;
 exports.getService = getService;
+exports.createState = createState;
 /* No side effect */
