@@ -35,13 +35,7 @@ function init(state) {
   var match = Main$Meta3d.getServiceExn(state, "meta3d-bs-most");
   var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
   var match$1 = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
-  var __x = Curry._3(match$1.runPipeline, Curry._1(match$1.init, engineCoreState), [
-        state,
-        Main$Meta3d.buildAPI(undefined),
-        {
-          meta3dBsMostExtensionName: "meta3d-bs-most"
-        }
-      ], "init");
+  var __x = Curry._3(match$1.runPipeline, Curry._1(match$1.init, engineCoreState), state, "init");
   return Curry._2(match.map, (function (engineCoreState) {
                 return Main$Meta3d.setExtensionState(state, "meta3d-engine-core", engineCoreState);
               }), __x);

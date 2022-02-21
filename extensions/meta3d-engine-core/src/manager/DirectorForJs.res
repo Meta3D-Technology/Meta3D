@@ -40,15 +40,20 @@ let init = state => {
 }
 
 let runPipeline = (
-  state,
   (
-    meta3dState,
     api: Meta3dType.Index.api,
-    {meta3dBsMostExtensionName}: Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap,
+    {
+      meta3dBsMostExtensionName,
+    }: Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap,
   ),
+  state,
+  meta3dState,
   pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
 ) => {
-  let mostService = api.getServiceExn(meta3dState, meta3dBsMostExtensionName)
+  let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getServiceExn(
+    meta3dState,
+    meta3dBsMostExtensionName,
+  )
 
   state
   ->WorkManager.runPipeline(mostService, pipelineName)

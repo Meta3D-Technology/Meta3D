@@ -1,5 +1,3 @@
-type dependentExtensionNameMap = {meta3dBsMostExtensionName: string}
-
 type service = {
   prepare: unit => unit,
   init: StateType.state => StateType.state,
@@ -12,11 +10,7 @@ type service = {
   unregisterWorkPlugin: (StateType.state, string) => StateType.state,
   runPipeline: (
     StateType.state,
-    (
-      Meta3dType.Index.state,
-      Meta3dType.Index.api,
-      dependentExtensionNameMap,
-    ),
+    Meta3dType.Index.state,
     PipelineType.pipelineName,
   ) => Meta3dBsMostProtocol.ServiceType.stream<StateType.state>,
 }

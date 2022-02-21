@@ -17,7 +17,7 @@ module.exports = {
   scopes: [
     { name: "defaults" },
     { name: "extensions" },
-    { name: "extension-types" },
+    { name: "extension-protocols" },
     { name: "work-plugin" },
     { name: "gameobject" },
     { name: "component" }

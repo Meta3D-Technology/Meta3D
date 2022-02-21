@@ -8,7 +8,7 @@ let _getMeta3DEngineCoreExtensionDependentExtensionNameMap = () =>
   (
     {
       meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
-    }: Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap
+    }: Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap
   )->Obj.magic
 
 let prepare = () => {
@@ -65,13 +65,7 @@ let init = state => {
     _getMeta3DEngineCoreExtensionName(),
   )
 
-  engineCoreState
-  ->init
-  ->runPipeline(
-    (state, buildAPI(), _getMeta3DEngineCoreExtensionDependentExtensionNameMap()),
-    "init",
-  )
-  ->map(engineCoreState => {
+  engineCoreState->init->runPipeline(state, "init")->map(engineCoreState => {
     state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic)
   }, _)
 }

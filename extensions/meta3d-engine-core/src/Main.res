@@ -48,23 +48,27 @@ let getAllGameObjects = DirectorForJs.getAllGameObjects
 
 let getState = DirectorForJs.getState
 
-// let buildDependentExtensionData = map => {
+// let buildDependentExtensionDataMap = (
+//   meta3dBsMostExtensionName
+// ): Meta3dEngineCoreProtocol.ServiceType.dependentExtensionDataMap => {
 //   {
-//     meta3dBsMostExtensionName: map->Meta3dCommonlib.ImmutableHashMap.getExn(
-//       "meta3dBsMostExtensionName",
-//     ),
+//     meta3dBsMostExtensionData: {
+//       name: meta3dBsMostExtensionName,
+//       protocolName: [#"meta3d-bs-most-protocol"],
+//       protocolVersion: [#"^0.1.0"],
+//     },
 //   }
 // }
 
 let getService: Meta3dType.Index.getExtensionService<
-  Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap,
+  Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap,
   Meta3dEngineCoreProtocol.ServiceType.service,
-> = (api, {meta3dBsMostExtensionName}) => {
+> = (api, dependentExtensionNameMap) => {
   prepare: DirectorForJs.prepare,
   init: DirectorForJs.init,
   registerWorkPlugin: DirectorForJs.registerWorkPlugin,
   unregisterWorkPlugin: DirectorForJs.unregisterWorkPlugin,
-  runPipeline: DirectorForJs.runPipeline,
+  runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
 }
 
 let createState: Meta3dType.Index.createExtensionState<

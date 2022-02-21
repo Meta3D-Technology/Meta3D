@@ -34,8 +34,8 @@ function prepare(param) {
 
 var init = WorkManager$Meta3dEngineCore.init;
 
-function runPipeline(state, param, pipelineName) {
-  var mostService = Curry._2(param[1].getServiceExn, param[0], param[2].meta3dBsMostExtensionName);
+function runPipeline(param, state, meta3dState, pipelineName) {
+  var mostService = Curry._2(param[0].getServiceExn, meta3dState, param[1].meta3dBsMostExtensionName);
   return Result$Meta3dCommonlib.handleFail(WorkManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 

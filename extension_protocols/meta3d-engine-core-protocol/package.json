@@ -9,6 +9,7 @@
     },
     "devDependencies": {},
     "dependencies": {
+        "meta3d-bs-most-protocol": "^0.1.0",
         "rescript": "^9.1.4"
     }
 }

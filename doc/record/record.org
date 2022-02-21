@@ -236,19 +236,14 @@ other/
 
 
 
-** TODO complete check, add getVersion?
+** DONE complete check, add getVersion?
+
+give dependent extension name, extension protocol name, version when registerExtension;
 
 
-** TODO refactor: add work-plugins packages
 
 
 
-** TODO refactor: move wonder-engine->register work plugins to extension
-
-# ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
-
-
-** TODO pass engine core test
 
 ** TODO add, gameObject, transform component
 
@@ -259,6 +254,22 @@ add canvas
 add webgl
 
 add webgl render
+
+
+** TODO pass run test
+
+
+** TODO pass engine core test
+
+
+** TODO refactor: add work-plugins packages
+
+
+
+** TODO refactor: move wonder-engine->register work plugins to extension
+
+# ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
+
 
 ** TODO finish user side
 
@@ -307,6 +318,14 @@ add InitEventJob
 * TODO update editor
 
 ** TODO update engine
+
+
+
+* TODO publish 
+
+
+
+
 
 
 

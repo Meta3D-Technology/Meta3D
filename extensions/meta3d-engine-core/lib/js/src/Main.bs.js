@@ -3,13 +3,19 @@
 var CreateState$Meta3dEngineCore = require("./state/CreateState.bs.js");
 var DirectorForJs$Meta3dEngineCore = require("./manager/DirectorForJs.bs.js");
 
-function getService(api, param) {
+function getService(api, dependentExtensionNameMap) {
+  var partial_arg = [
+    api,
+    dependentExtensionNameMap
+  ];
   return {
           prepare: DirectorForJs$Meta3dEngineCore.prepare,
           init: DirectorForJs$Meta3dEngineCore.init,
           registerWorkPlugin: DirectorForJs$Meta3dEngineCore.registerWorkPlugin,
           unregisterWorkPlugin: DirectorForJs$Meta3dEngineCore.unregisterWorkPlugin,
-          runPipeline: DirectorForJs$Meta3dEngineCore.runPipeline
+          runPipeline: (function (param, param$1, param$2) {
+              return DirectorForJs$Meta3dEngineCore.runPipeline(partial_arg, param, param$1, param$2);
+            })
         };
 }
 
