@@ -12,7 +12,7 @@ function setGameObjectContribute(state, gameObjectContribute) {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
-          componentData: state.componentData,
+          componentContributeData: state.componentContributeData,
           gameObjectContribute: gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
@@ -24,7 +24,7 @@ function createAndSetState(state) {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
-          componentData: state.componentData,
+          componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: {
             state: Curry._1(match.createStateFunc, undefined),
@@ -38,10 +38,10 @@ function _unsafeGetGameObjectRelatedData(param) {
   return OptionSt$Meta3dCommonlib.unsafeGet(param.usedGameObjectData);
 }
 
-function _setGameObjectStateToStateState(poState, data, gameObjectState) {
+function _setGameObjectStateToStateState(state, data, gameObjectState) {
   data.state = gameObjectState;
-  poState.usedGameObjectData = data;
-  return poState;
+  state.usedGameObjectData = data;
+  return state;
 }
 
 function createGameObject(state) {

@@ -13,7 +13,7 @@ type dataName
 type componentContribute = IComponentForJs.componentContribute<state, config, dataName, component>
 
 @genType
-type usedComponentData = {
+type usedComponentContribute = {
   componentName: IComponentForJs.componentName,
   mutable state: state,
   createComponentFunc: IComponentForJs.createComponentFunc<state, component>,
@@ -26,13 +26,13 @@ type usedComponentData = {
   setComponentDataFunc: IComponentForJs.setComponentDataFunc<state, dataName, component>,
 }
 
-type componentData = {
-  allRegisteredComponentData: Meta3dCommonlibType.ImmutableHashMapType.t<
+type componentContributeData = {
+  allComponentContributes: Meta3dCommonlibType.ImmutableHashMapType.t<
     IComponentForJs.componentName,
     componentContribute,
   >,
-  allUsedComponentData: Meta3dCommonlibType.MutableHashMapType.t<
+  allUsedComponentContributes: Meta3dCommonlibType.MutableHashMapType.t<
     IComponentForJs.componentName,
-    usedComponentData,
+    usedComponentContribute,
   >,
 }

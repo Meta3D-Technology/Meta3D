@@ -9,7 +9,7 @@ type state = {
   allRegisteredWorkPluginContribute: list<registeredWorkPluginContribute>,
   states: RegisterWorkPluginType.states,
   pluginData: pluginData,
-  componentData: RegisterComponentType.componentData,
+  componentContributeData: RegisterComponentType.componentContributeData,
   gameObjectContribute: option<GameObjectType.gameObjectContribute>,
   mutable usedGameObjectData: option<GameObjectType.usedGameObjectData>,
 }

@@ -72,7 +72,7 @@ function getShaderName(material: material): shaderName {
 }
 
 function getPipelineState(material: material): pipelineState {
-    // getComponentContribute(material,dataName.depth)
+    // getComponentData(material,dataName.depth)
 
     //TODO implement
     return {} as any

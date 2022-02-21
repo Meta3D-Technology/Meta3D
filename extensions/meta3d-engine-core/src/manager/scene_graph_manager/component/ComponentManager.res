@@ -1,6 +1,6 @@
 let registerComponent = (
-  {componentData} as state: Meta3dEngineCoreProtocol.StateType.state,
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute,
+  {componentContributeData} as state: Meta3dEngineCoreProtocol.StateType.state,
+  componentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute,
 ): Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.StateType.state> => {
   Meta3dCommonlib.ContractResult.requireCheck(() => {
     open Meta3dCommonlib.ContractResult
@@ -8,19 +8,19 @@ let registerComponent = (
     test(
       Meta3dCommonlib.Log.buildAssertMessage(~expect=j`not register before`, ~actual=j`not`),
       () => {
-        componentData.allRegisteredComponentData
-        ->Meta3dCommonlib.ImmutableHashMap.has(data.componentName)
+        componentContributeData.allComponentContributes
+        ->Meta3dCommonlib.ImmutableHashMap.has(componentContribute.componentName)
         ->assertFalse
       },
     )
   }, PluginDataManager.getIsDebug())->Meta3dCommonlib.Result.mapSuccess(() => {
     {
       ...state,
-      componentData: {
-        ...componentData,
-        allRegisteredComponentData: componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.set(
-          data.componentName,
-          data,
+      componentContributeData: {
+        ...componentContributeData,
+        allComponentContributes: componentContributeData.allComponentContributes->Meta3dCommonlib.ImmutableHashMap.set(
+          componentContribute.componentName,
+          componentContribute,
         ),
       },
     }
@@ -28,37 +28,39 @@ let registerComponent = (
 }
 
 let unregisterComponent = (
-  {componentData} as state: Meta3dEngineCoreProtocol.StateType.state,
+  {componentContributeData} as state: Meta3dEngineCoreProtocol.StateType.state,
   componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   {
     ...state,
-    componentData: {
-      ...componentData,
-      allRegisteredComponentData: componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.deleteVal(
+    componentContributeData: {
+      ...componentContributeData,
+      allComponentContributes: componentContributeData.allComponentContributes->Meta3dCommonlib.ImmutableHashMap.deleteVal(
         componentName,
       ),
     },
   }
 }
 
-let unsafeGetUsedComponentData = (
-  {componentData}: Meta3dEngineCoreProtocol.StateType.state,
+let unsafeGetUsedComponentContribute = (
+  {componentContributeData}: Meta3dEngineCoreProtocol.StateType.state,
   componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
-): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData => {
-  componentData.allUsedComponentData->Meta3dCommonlib.MutableHashMap.unsafeGet(componentName)
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  componentContributeData.allUsedComponentContributes->Meta3dCommonlib.MutableHashMap.unsafeGet(
+    componentName,
+  )
 }
 
-let setRelatedComponentData = (
-  poState: Meta3dEngineCoreProtocol.StateType.state,
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+let setUsedComponentContribute = (
+  state: Meta3dEngineCoreProtocol.StateType.state,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
 ): Meta3dEngineCoreProtocol.StateType.state => {
-  poState.componentData.allUsedComponentData
-  ->Meta3dCommonlib.MutableHashMap.set(componentName, data)
+  state.componentContributeData.allUsedComponentContributes
+  ->Meta3dCommonlib.MutableHashMap.set(componentName, usedComponentContribute)
   ->ignore
 
-  poState
+  state
 }
 
 let createAndSetComponentState = (
@@ -77,15 +79,15 @@ let createAndSetComponentState = (
     getComponentDataFunc,
     setComponentDataFunc,
   } =
-    state.componentData.allRegisteredComponentData->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
+    state.componentContributeData.allComponentContributes->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
       componentName,
     )
 
   {
     ...state,
-    componentData: {
-      ...state.componentData,
-      allUsedComponentData: state.componentData.allUsedComponentData->Meta3dCommonlib.ImmutableHashMap.set(
+    componentContributeData: {
+      ...state.componentContributeData,
+      allUsedComponentContributes: state.componentContributeData.allUsedComponentContributes->Meta3dCommonlib.ImmutableHashMap.set(
         componentName,
         {
           componentName: componentName,
@@ -106,87 +108,98 @@ let createAndSetComponentState = (
 
 let _setComponentStateToData = (
   componentState: Meta3dEngineCoreProtocol.RegisterComponentType.state,
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
-): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData => {
-  data.state = componentState
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  usedComponentContribute.state = componentState
 
-  data
+  usedComponentContribute
 }
 
-let createComponent = (data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData): (
-  Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+let createComponent = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+): (
+  Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   Meta3dEngineCoreProtocol.RegisterComponentType.component,
 ) => {
-  let (componentState, component) = data.createComponentFunc(. data.state)
+  let (componentState, component) = usedComponentContribute.createComponentFunc(.
+    usedComponentContribute.state,
+  )
 
-  (_setComponentStateToData(componentState, data), component)
+  (_setComponentStateToData(componentState, usedComponentContribute), component)
 }
 
 let setComponentData = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
   dataName: Meta3dEngineCoreProtocol.RegisterComponentType.dataName,
   dataValue: Meta3dEngineCoreProtocol.IComponentForJs.dataValue,
-): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData => {
-  // let data = state->unsafeGetUsedComponentData(componentName)
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  // let usedComponentContribute = state->unsafeGetUsedComponentContributeribute(componentName)
 
-  data.setComponentDataFunc(. data.state, component, dataName, dataValue)->_setComponentStateToData(
-    data,
-  )
+  usedComponentContribute.setComponentDataFunc(.
+    usedComponentContribute.state,
+    component,
+    dataName,
+    dataValue,
+  )->_setComponentStateToData(usedComponentContribute)
 
-  // ->_setComponentStateToData(state, data, componentName, _)
+  // ->_setComponentStateToData(state, usedComponentContribute, componentName, _)
 
   // state
 }
 
 let addComponent = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   gameObject: Meta3dEngineCoreProtocol.IGameObjectForJs.gameObject,
   component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
-): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData => {
-  data.addComponentFunc(. data.state, gameObject, component)->_setComponentStateToData(data)
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  usedComponentContribute.addComponentFunc(.
+    usedComponentContribute.state,
+    gameObject,
+    component,
+  )->_setComponentStateToData(usedComponentContribute)
 }
 
 let hasComponent = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   gameObject: Meta3dEngineCoreProtocol.IGameObjectForJs.gameObject,
 ): bool => {
-  data.hasComponentFunc(. data.state, gameObject)
+  usedComponentContribute.hasComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
 let getComponent = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   gameObject: Meta3dEngineCoreProtocol.IGameObjectForJs.gameObject,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
-  data.getComponentFunc(. data.state, gameObject)
+  usedComponentContribute.getComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
-let getAllComponents = (data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData): array<
-  Meta3dEngineCoreProtocol.RegisterComponentType.component,
-> => {
-  data.getAllComponentsFunc(. data.state)
+let getAllComponents = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+): array<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
+  usedComponentContribute.getAllComponentsFunc(. usedComponentContribute.state)
 }
 
-let getComponentContribute = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+let getComponentData = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
   dataName: Meta3dEngineCoreProtocol.RegisterComponentType.dataName,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.IComponentForJs.dataValue> => {
-  data.getComponentDataFunc(. data.state, component, dataName)
+  usedComponentContribute.getComponentDataFunc(. usedComponentContribute.state, component, dataName)
 }
 
 let getComponentGameObjects = (
-  data: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentData,
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
 ): array<Meta3dEngineCoreProtocol.IGameObjectForJs.gameObject> => {
-  data.getGameObjectsFunc(. data.state, component)
+  usedComponentContribute.getGameObjectsFunc(. usedComponentContribute.state, component)
 }
 
-let getState = (
+let getComponentState = (
   state: Meta3dEngineCoreProtocol.StateType.state,
   componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
 ) => {
-  state.componentData.allUsedComponentData
+  state.componentContributeData.allUsedComponentContributes
   ->Meta3dCommonlib.MutableHashMap.get(componentName)
   ->Meta3dCommonlib.OptionSt.map(({state}) => state)
 }

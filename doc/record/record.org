@@ -249,7 +249,9 @@ give dependent extension name, extension protocol name, version when registerExt
 
 TODO remove StateContainer
 
-TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentContribute
+TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentData
+
+TODO rename registerWorkPlugin->data to workPluginContribute
 
 
 ** TODO pass engine core test
@@ -269,7 +271,7 @@ add webgl render
 
 
 
-** TODO refactor: add work-plugins packages
+** TODO refactor: add work-plugins, components packages
 
 
 

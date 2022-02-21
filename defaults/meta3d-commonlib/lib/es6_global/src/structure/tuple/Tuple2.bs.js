@@ -1,6 +1,5 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as Result$Meta3dCommonlib from "../Result.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../OptionSt.bs.js";
@@ -42,20 +41,12 @@ function getLast(param) {
   return param[1];
 }
 
-function mapFirst(param, func) {
-  return [
-          Curry._1(func, param[0]),
-          param[1]
-        ];
-}
-
 export {
   create ,
   collectOption ,
   collectResult ,
   getFirst ,
   getLast ,
-  mapFirst ,
   
 }
 /* No side effect */

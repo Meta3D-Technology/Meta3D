@@ -6,7 +6,6 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as WorkManager$Meta3dEngineCore from "./work_manager/WorkManager.bs.js";
-import * as StateContainer$Meta3dEngineCore from "../state/StateContainer.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./scene_graph_manager/component/ComponentManager.bs.js";
 import * as GameObjectManager$Meta3dEngineCore from "./scene_graph_manager/GameObjectManager.bs.js";
 import * as PluginDataManager$Meta3dEngineCore from "./work_manager/plugin_data/PluginDataManager.bs.js";
@@ -45,25 +44,17 @@ function getIsDebug(param) {
 
 var setIsDebug = PluginDataManager$Meta3dEngineCore.setIsDebug;
 
-function registerComponent(data) {
-  return Result$Meta3dCommonlib.handleFail(Result$Meta3dCommonlib.mapSuccess(ComponentManager$Meta3dEngineCore.registerComponent(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data), StateContainer$Meta3dEngineCore.setState), Exception$Meta3dCommonlib.throwErr);
+function registerComponent(state, componentContribute) {
+  return Result$Meta3dCommonlib.handleFail(ComponentManager$Meta3dEngineCore.registerComponent(state, componentContribute), Exception$Meta3dCommonlib.throwErr);
 }
 
-function unregisterComponent(componentName) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.unregisterComponent(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName));
-}
+var unregisterComponent = ComponentManager$Meta3dEngineCore.unregisterComponent;
 
-function createAndSetComponentState(componentName, config) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.createAndSetComponentState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName, config));
-}
+var createAndSetComponentState = ComponentManager$Meta3dEngineCore.createAndSetComponentState;
 
-function unsafeGetRelatedComponentData(componentName) {
-  return ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentData(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName);
-}
+var unsafeGetUsedComponentContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute;
 
-function setRelatedComponentData(data, componentName) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.setRelatedComponentData(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data, componentName));
-}
+var setUsedComponentContribute = ComponentManager$Meta3dEngineCore.setUsedComponentContribute;
 
 var createComponent = ComponentManager$Meta3dEngineCore.createComponent;
 
@@ -77,15 +68,11 @@ var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
 
 var getAllComponents = ComponentManager$Meta3dEngineCore.getAllComponents;
 
-var getComponentContribute = ComponentManager$Meta3dEngineCore.getComponentContribute;
+var getComponentData = ComponentManager$Meta3dEngineCore.getComponentData;
 
 var getComponentGameObjects = ComponentManager$Meta3dEngineCore.getComponentGameObjects;
 
-function setGameObjectContribute(state) {
-  return function (param) {
-    return GameObjectManager$Meta3dEngineCore.setGameObjectContribute(state, param);
-  };
-}
+var setGameObjectContribute = GameObjectManager$Meta3dEngineCore.setGameObjectContribute;
 
 var createAndSetGameObjectState = GameObjectManager$Meta3dEngineCore.createAndSetState;
 
@@ -99,8 +86,8 @@ function createGameObject(state) {
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
-function getState(componentName) {
-  return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName));
+function getComponentState(state, componentName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getComponentState(state, componentName));
 }
 
 export {
@@ -115,21 +102,21 @@ export {
   registerComponent ,
   unregisterComponent ,
   createAndSetComponentState ,
-  unsafeGetRelatedComponentData ,
-  setRelatedComponentData ,
+  unsafeGetUsedComponentContribute ,
+  setUsedComponentContribute ,
   createComponent ,
   setComponentData ,
   addComponent ,
   hasComponent ,
   getComponent ,
   getAllComponents ,
-  getComponentContribute ,
+  getComponentData ,
   getComponentGameObjects ,
   setGameObjectContribute ,
   createAndSetGameObjectState ,
   createGameObject ,
   getAllGameObjects ,
-  getState ,
+  getComponentState ,
   
 }
 /* No side effect */

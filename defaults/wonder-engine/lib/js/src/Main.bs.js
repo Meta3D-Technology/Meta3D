@@ -5,7 +5,9 @@ var Main$Meta3d = require("meta3d/lib/js/src/Main.bs.js");
 var Main$Meta3dBsMost = require("meta3d-bs-most/lib/js/src/Main.bs.js");
 var Main$Meta3dEngineCore = require("meta3d-engine-core/lib/js/src/Main.bs.js");
 var Main$Meta3dWorkPluginRoot = require("meta3d-work-plugin-root/lib/js/src/Main.bs.js");
+var Main$Meta3dComponentTransform = require("meta3d-component-transform/lib/js/src/Main.bs.js");
 var Main$Meta3dGameobjectDataoriented = require("meta3d-gameobject-dataoriented/lib/js/src/Main.bs.js");
+var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/index.bs.js");
 
 function _getMeta3DEngineCoreExtensionName(param) {
   return "meta3d-engine-core";
@@ -28,9 +30,15 @@ function prepare(param) {
       }, Main$Meta3dEngineCore.createState(undefined));
   var engineCoreState = Main$Meta3d.getExtensionStateExn(state$1, "meta3d-engine-core");
   var match = Main$Meta3d.getServiceExn(state$1, "meta3d-engine-core");
-  var engineCoreState$1 = Curry._1(match.createAndSetGameObjectState, Curry._2(match.setGameObjectContribute, engineCoreState, Main$Meta3dGameobjectDataoriented.getGameObjectContribute(undefined)));
-  var engineCoreState$2 = Curry._4(match.registerWorkPlugin, engineCoreState$1, Main$Meta3dWorkPluginRoot.getData(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
-  return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$2);
+  var engineCoreState$1 = Curry._3(match.createAndSetComponentState, Curry._2(match.registerComponent, engineCoreState, Main$Meta3dComponentTransform.getComponentContribute(undefined)), Index$Meta3dComponentTransformProtocol.componentName, {
+        isDebug: param.isDebug,
+        float9Array1: param.float9Array1,
+        float32Array1: param.float32Array1,
+        transformCount: param.transformCount
+      });
+  var engineCoreState$2 = Curry._1(match.createAndSetGameObjectState, Curry._2(match.setGameObjectContribute, engineCoreState$1, Main$Meta3dGameobjectDataoriented.getGameObjectContribute(undefined)));
+  var engineCoreState$3 = Curry._4(match.registerWorkPlugin, engineCoreState$2, Main$Meta3dWorkPluginRoot.getData(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
+  return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$3);
 }
 
 function init(state) {
@@ -43,7 +51,23 @@ function init(state) {
               }), __x);
 }
 
-function createGameObject(state) {
+function create(state) {
+  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var contribute = Curry._2(match.unsafeGetUsedComponentContribute, engineCoreState, Index$Meta3dComponentTransformProtocol.componentName);
+  var match$1 = Curry._1(match.createComponent, contribute);
+  var engineCoreState$1 = Curry._3(match.setUsedComponentContribute, engineCoreState, match$1[0], Index$Meta3dComponentTransformProtocol.componentName);
+  return [
+          Main$Meta3d.setExtensionState(state, "meta3d-engine-core", engineCoreState$1),
+          match$1[1]
+        ];
+}
+
+var TransformAPI = {
+  create: create
+};
+
+function create$1(state) {
   var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
   var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
   var match$1 = Curry._1(match.createGameObject, engineCoreState);
@@ -59,11 +83,16 @@ function getAllGameObjects(state) {
   return Curry._1(match.getAllGameObjects, engineCoreState);
 }
 
+var GameObjectAPI = {
+  create: create$1,
+  getAllGameObjects: getAllGameObjects
+};
+
 exports._getMeta3DEngineCoreExtensionName = _getMeta3DEngineCoreExtensionName;
 exports._getMeta3DBsMostExtensionName = _getMeta3DBsMostExtensionName;
 exports._getMeta3DEngineCoreExtensionDependentExtensionNameMap = _getMeta3DEngineCoreExtensionDependentExtensionNameMap;
 exports.prepare = prepare;
 exports.init = init;
-exports.createGameObject = createGameObject;
-exports.getAllGameObjects = getAllGameObjects;
+exports.TransformAPI = TransformAPI;
+exports.GameObjectAPI = GameObjectAPI;
 /* Main-Meta3dBsMost Not a pure module */

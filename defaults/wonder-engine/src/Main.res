@@ -11,7 +11,7 @@ let _getMeta3DEngineCoreExtensionDependentExtensionNameMap = () =>
     }: Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap
   )->Obj.magic
 
-let prepare = () => {
+let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.componentConfig) => {
   let state = prepare()
 
   // TODO remove magic?
@@ -37,12 +37,29 @@ let prepare = () => {
   )
   let {
     registerWorkPlugin,
+    registerComponent,
+    createAndSetComponentState,
     setGameObjectContribute,
     createAndSetGameObjectState,
   }: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
+
+  let engineCoreState =
+    engineCoreState
+    ->registerComponent(Meta3dComponentTransform.Main.getComponentContribute()->Obj.magic)
+    ->createAndSetComponentState(
+      Meta3dComponentTransformProtocol.Index.componentName,
+      (
+        {
+          isDebug: isDebug,
+          transformCount: transformCount,
+          float9Array1: float9Array1,
+          float32Array1: float32Array1,
+        }: Meta3dComponentTransformProtocol.Index.config
+      )->Obj.magic,
+    )
 
   let engineCoreState =
     engineCoreState
@@ -82,33 +99,70 @@ let init = state => {
   }, _)
 }
 
-let createGameObject = state => {
-  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
-    state,
-    _getMeta3DEngineCoreExtensionName(),
-  )
-  let {createGameObject}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
-    state,
-    _getMeta3DEngineCoreExtensionName(),
-  )
+module TransformAPI = {
+  let create = state => {
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
+    let {
+      unsafeGetUsedComponentContribute,
+      createComponent,
+      setUsedComponentContribute,
+    }: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
 
-  let (engineCoreState, gameObject) = engineCoreState->createGameObject
+    let contribute = unsafeGetUsedComponentContribute(
+      engineCoreState,
+      Meta3dComponentTransformProtocol.Index.componentName,
+    )
 
-  (
-    state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic),
-    gameObject,
-  )
+    let (contribute, transform) = contribute->createComponent
+
+    let engineCoreState =
+      engineCoreState->setUsedComponentContribute(
+        contribute,
+        Meta3dComponentTransformProtocol.Index.componentName,
+      )
+
+    (
+      state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic),
+      transform,
+    )
+  }
 }
 
-let getAllGameObjects = state => {
-  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
-    state,
-    _getMeta3DEngineCoreExtensionName(),
-  )
-  let {getAllGameObjects}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
-    state,
-    _getMeta3DEngineCoreExtensionName(),
-  )
+module GameObjectAPI = {
+  let create = state => {
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
+    let {createGameObject}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
 
-  engineCoreState->getAllGameObjects
+    let (engineCoreState, gameObject) = engineCoreState->createGameObject
+
+    (
+      state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic),
+      gameObject,
+    )
+  }
+
+  let getAllGameObjects = state => {
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
+    let {getAllGameObjects}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+      state,
+      _getMeta3DEngineCoreExtensionName(),
+    )
+
+    engineCoreState->getAllGameObjects
+  }
 }

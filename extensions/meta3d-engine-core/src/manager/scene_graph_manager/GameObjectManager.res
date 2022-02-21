@@ -36,15 +36,15 @@ let _unsafeGetGameObjectRelatedData = (
 }
 
 let _setGameObjectStateToStateState = (
-  poState: Meta3dEngineCoreProtocol.StateType.state,
+  state: Meta3dEngineCoreProtocol.StateType.state,
   data: Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectData,
   gameObjectState: Meta3dEngineCoreProtocol.GameObjectType.state,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   data.state = gameObjectState
 
-  poState.usedGameObjectData = data->Some
+  state.usedGameObjectData = data->Some
 
-  poState
+  state
 }
 
 let createGameObject = (state: Meta3dEngineCoreProtocol.StateType.state): (

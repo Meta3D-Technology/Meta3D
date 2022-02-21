@@ -27,15 +27,10 @@ let unregisterWorkPlugin = (state, targetPluginName) => {
 }
 
 let prepare = () => {
-  // let state = CreateState.createState()
-
-  // StateContainer.setState(state)
   ()
 }
 
 let init = state => {
-  // StateContainer.unsafeGetState()->WorkManager.init->StateContainer.setState
-
   state->WorkManager.init
 }
 
@@ -69,69 +64,63 @@ let setIsDebug = isDebug => {
   PluginDataManager.setIsDebug(isDebug)
 }
 
-let registerComponent = data => {
-  StateContainer.unsafeGetState()
-  ->ComponentManager.registerComponent(data)
-  ->Meta3dCommonlib.Result.mapSuccess(StateContainer.setState)
+let registerComponent = (state, componentContribute) => {
+  state
+  ->ComponentManager.registerComponent(componentContribute)
+  // ->Meta3dCommonlib.Result.mapSuccess(StateContainer.setState)
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
-let unregisterComponent = componentName => {
-  StateContainer.unsafeGetState()
-  ->ComponentManager.unregisterComponent(componentName)
-  ->StateContainer.setState
+let unregisterComponent = (state, componentName) => {
+  state->ComponentManager.unregisterComponent(componentName)
 }
 
-let createAndSetComponentState = (componentName, config) => {
-  StateContainer.unsafeGetState()
-  ->ComponentManager.createAndSetComponentState(componentName, config)
-  ->StateContainer.setState
+let createAndSetComponentState = (state, componentName, config) => {
+  state->ComponentManager.createAndSetComponentState(componentName, config)
 }
 
-let unsafeGetRelatedComponentData = componentName => {
-  StateContainer.unsafeGetState()->ComponentManager.unsafeGetUsedComponentData(componentName)
+let unsafeGetUsedComponentContribute = (state, componentName) => {
+  state->ComponentManager.unsafeGetUsedComponentContribute(componentName)
 }
 
-let setRelatedComponentData = (data, componentName) => {
-  StateContainer.unsafeGetState()
-  ->ComponentManager.setRelatedComponentData(data, componentName)
-  ->StateContainer.setState
+let setUsedComponentContribute = (state, usedComponentContribute, componentName) => {
+  state->ComponentManager.setUsedComponentContribute(usedComponentContribute, componentName)
 }
 
-let createComponent = data => {
-  data->ComponentManager.createComponent
+let createComponent = usedComponentContribute => {
+  usedComponentContribute->ComponentManager.createComponent
 }
 
-let setComponentData = (data, component, dataName, dataValue) => {
-  data->ComponentManager.setComponentData(component, dataName, dataValue)
+let setComponentData = (usedComponentContribute, component, dataName, dataValue) => {
+  usedComponentContribute->ComponentManager.setComponentData(component, dataName, dataValue)
 }
 
-let addComponent = (data, gameObject, component) => {
-  data->ComponentManager.addComponent(gameObject, component)
+let addComponent = (usedComponentContribute, gameObject, component) => {
+  usedComponentContribute->ComponentManager.addComponent(gameObject, component)
 }
 
-let hasComponent = (data, gameObject) => {
-  data->ComponentManager.hasComponent(gameObject)
+let hasComponent = (usedComponentContribute, gameObject) => {
+  usedComponentContribute->ComponentManager.hasComponent(gameObject)
 }
 
-let getComponent = (data, gameObject) => {
-  data->ComponentManager.getComponent(gameObject)
+let getComponent = (usedComponentContribute, gameObject) => {
+  usedComponentContribute->ComponentManager.getComponent(gameObject)
 }
 
-let getAllComponents = data => {
-  data->ComponentManager.getAllComponents
+let getAllComponents = usedComponentContribute => {
+  usedComponentContribute->ComponentManager.getAllComponents
 }
 
-let getComponentContribute = (data, component, dataName) => {
-  data->ComponentManager.getComponentContribute(component, dataName)
+let getComponentData = (usedComponentContribute, component, dataName) => {
+  usedComponentContribute->ComponentManager.getComponentData(component, dataName)
 }
 
-let getComponentGameObjects = (data, component) => {
-  data->ComponentManager.getComponentGameObjects(component)
+let getComponentGameObjects = (usedComponentContribute, component) => {
+  usedComponentContribute->ComponentManager.getComponentGameObjects(component)
 }
 
-let setGameObjectContribute = state => {
-  state->GameObjectManager.setGameObjectContribute
+let setGameObjectContribute = (state, gameObjectContribute) => {
+  state->GameObjectManager.setGameObjectContribute(gameObjectContribute)
 }
 
 let createAndSetGameObjectState = state => {
@@ -148,8 +137,9 @@ let getAllGameObjects = state => {
   state->GameObjectManager.getAllGameObjects
 }
 
-let getState = (componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName) => {
-  StateContainer.unsafeGetState()
-  ->ComponentManager.getState(componentName)
-  ->Meta3dCommonlib.OptionSt.toNullable
+let getComponentState = (
+  state,
+  componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
+) => {
+  state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
 }

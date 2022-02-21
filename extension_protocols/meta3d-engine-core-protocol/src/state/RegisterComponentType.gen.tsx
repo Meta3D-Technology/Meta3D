@@ -37,7 +37,7 @@ export abstract class config { protected opaque!: any }; /* simulate opaque type
 export abstract class dataName { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
-export type usedComponentData = {
+export type usedComponentContribute = {
   readonly componentName: IComponentForJs_componentName; 
   state: state; 
   readonly createComponentFunc: IComponentForJs_createComponentFunc<state,component>; 

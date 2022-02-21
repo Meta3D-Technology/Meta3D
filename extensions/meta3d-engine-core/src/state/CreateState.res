@@ -4,9 +4,9 @@ let createState = (): Meta3dEngineCoreProtocol.StateType.state => {
   pluginData: {
     isDebug: false,
   },
-  componentData: {
-    allRegisteredComponentData: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    allUsedComponentData: Meta3dCommonlib.MutableHashMap.createEmpty(),
+  componentContributeData: {
+    allComponentContributes: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    allUsedComponentContributes: Meta3dCommonlib.MutableHashMap.createEmpty(),
   },
   gameObjectContribute: None,
   usedGameObjectData: None,

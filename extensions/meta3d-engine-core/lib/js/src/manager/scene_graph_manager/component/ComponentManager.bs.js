@@ -8,20 +8,20 @@ var MutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/struct
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 var PluginDataManager$Meta3dEngineCore = require("../../work_manager/plugin_data/PluginDataManager.bs.js");
 
-function registerComponent(state, data) {
-  var componentData = state.componentData;
+function registerComponent(state, componentContribute) {
+  var componentContributeData = state.componentContributeData;
   return Result$Meta3dCommonlib.mapSuccess(ContractResult$Meta3dCommonlib.requireCheck((function (param) {
                     return ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
-                                  return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentData.allRegisteredComponentData, data.componentName));
+                                  return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
                                 }));
                   }), PluginDataManager$Meta3dEngineCore.getIsDebug(undefined)), (function (param) {
                 return {
                         allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
                         states: state.states,
                         pluginData: state.pluginData,
-                        componentData: {
-                          allRegisteredComponentData: ImmutableHashMap$Meta3dCommonlib.set(componentData.allRegisteredComponentData, data.componentName, data),
-                          allUsedComponentData: componentData.allUsedComponentData
+                        componentContributeData: {
+                          allComponentContributes: ImmutableHashMap$Meta3dCommonlib.set(componentContributeData.allComponentContributes, componentContribute.componentName, componentContribute),
+                          allUsedComponentContributes: componentContributeData.allUsedComponentContributes
                         },
                         gameObjectContribute: state.gameObjectContribute,
                         usedGameObjectData: state.usedGameObjectData
@@ -30,39 +30,39 @@ function registerComponent(state, data) {
 }
 
 function unregisterComponent(state, componentName) {
-  var componentData = state.componentData;
+  var componentContributeData = state.componentContributeData;
   return {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
-          componentData: {
-            allRegisteredComponentData: ImmutableHashMap$Meta3dCommonlib.deleteVal(componentData.allRegisteredComponentData, componentName),
-            allUsedComponentData: componentData.allUsedComponentData
+          componentContributeData: {
+            allComponentContributes: ImmutableHashMap$Meta3dCommonlib.deleteVal(componentContributeData.allComponentContributes, componentName),
+            allUsedComponentContributes: componentContributeData.allUsedComponentContributes
           },
           gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
 }
 
-function unsafeGetUsedComponentData(param, componentName) {
-  return MutableHashMap$Meta3dCommonlib.unsafeGet(param.componentData.allUsedComponentData, componentName);
+function unsafeGetUsedComponentContribute(param, componentName) {
+  return MutableHashMap$Meta3dCommonlib.unsafeGet(param.componentContributeData.allUsedComponentContributes, componentName);
 }
 
-function setRelatedComponentData(poState, data, componentName) {
-  MutableHashMap$Meta3dCommonlib.set(poState.componentData.allUsedComponentData, componentName, data);
-  return poState;
+function setUsedComponentContribute(state, usedComponentContribute, componentName) {
+  MutableHashMap$Meta3dCommonlib.set(state.componentContributeData.allUsedComponentContributes, componentName, usedComponentContribute);
+  return state;
 }
 
 function createAndSetComponentState(state, componentName, config) {
-  var match = ImmutableHashMap$Meta3dCommonlib.unsafeGet(state.componentData.allRegisteredComponentData, componentName);
-  var init = state.componentData;
+  var match = ImmutableHashMap$Meta3dCommonlib.unsafeGet(state.componentContributeData.allComponentContributes, componentName);
+  var init = state.componentContributeData;
   return {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
-          componentData: {
-            allRegisteredComponentData: init.allRegisteredComponentData,
-            allUsedComponentData: ImmutableHashMap$Meta3dCommonlib.set(state.componentData.allUsedComponentData, componentName, {
+          componentContributeData: {
+            allComponentContributes: init.allComponentContributes,
+            allUsedComponentContributes: ImmutableHashMap$Meta3dCommonlib.set(state.componentContributeData.allUsedComponentContributes, componentName, {
                   componentName: componentName,
                   state: match.createStateFunc(config),
                   createComponentFunc: match.createComponentFunc,
@@ -80,61 +80,61 @@ function createAndSetComponentState(state, componentName, config) {
         };
 }
 
-function _setComponentStateToData(componentState, data) {
-  data.state = componentState;
-  return data;
+function _setComponentStateToData(componentState, usedComponentContribute) {
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
 }
 
-function createComponent(data) {
-  var match = data.createComponentFunc(data.state);
+function createComponent(usedComponentContribute) {
+  var match = usedComponentContribute.createComponentFunc(usedComponentContribute.state);
   return [
-          (data.state = match[0], data),
+          (usedComponentContribute.state = match[0], usedComponentContribute),
           match[1]
         ];
 }
 
-function setComponentData(data, component, dataName, dataValue) {
-  var componentState = data.setComponentDataFunc(data.state, component, dataName, dataValue);
-  data.state = componentState;
-  return data;
+function setComponentData(usedComponentContribute, component, dataName, dataValue) {
+  var componentState = usedComponentContribute.setComponentDataFunc(usedComponentContribute.state, component, dataName, dataValue);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
 }
 
-function addComponent(data, gameObject, component) {
-  var componentState = data.addComponentFunc(data.state, gameObject, component);
-  data.state = componentState;
-  return data;
+function addComponent(usedComponentContribute, gameObject, component) {
+  var componentState = usedComponentContribute.addComponentFunc(usedComponentContribute.state, gameObject, component);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
 }
 
-function hasComponent(data, gameObject) {
-  return data.hasComponentFunc(data.state, gameObject);
+function hasComponent(usedComponentContribute, gameObject) {
+  return usedComponentContribute.hasComponentFunc(usedComponentContribute.state, gameObject);
 }
 
-function getComponent(data, gameObject) {
-  return data.getComponentFunc(data.state, gameObject);
+function getComponent(usedComponentContribute, gameObject) {
+  return usedComponentContribute.getComponentFunc(usedComponentContribute.state, gameObject);
 }
 
-function getAllComponents(data) {
-  return data.getAllComponentsFunc(data.state);
+function getAllComponents(usedComponentContribute) {
+  return usedComponentContribute.getAllComponentsFunc(usedComponentContribute.state);
 }
 
-function getComponentContribute(data, component, dataName) {
-  return data.getComponentDataFunc(data.state, component, dataName);
+function getComponentData(usedComponentContribute, component, dataName) {
+  return usedComponentContribute.getComponentDataFunc(usedComponentContribute.state, component, dataName);
 }
 
-function getComponentGameObjects(data, component) {
-  return data.getGameObjectsFunc(data.state, component);
+function getComponentGameObjects(usedComponentContribute, component) {
+  return usedComponentContribute.getGameObjectsFunc(usedComponentContribute.state, component);
 }
 
-function getState(state, componentName) {
-  return OptionSt$Meta3dCommonlib.map(MutableHashMap$Meta3dCommonlib.get(state.componentData.allUsedComponentData, componentName), (function (param) {
+function getComponentState(state, componentName) {
+  return OptionSt$Meta3dCommonlib.map(MutableHashMap$Meta3dCommonlib.get(state.componentContributeData.allUsedComponentContributes, componentName), (function (param) {
                 return param.state;
               }));
 }
 
 exports.registerComponent = registerComponent;
 exports.unregisterComponent = unregisterComponent;
-exports.unsafeGetUsedComponentData = unsafeGetUsedComponentData;
-exports.setRelatedComponentData = setRelatedComponentData;
+exports.unsafeGetUsedComponentContribute = unsafeGetUsedComponentContribute;
+exports.setUsedComponentContribute = setUsedComponentContribute;
 exports.createAndSetComponentState = createAndSetComponentState;
 exports._setComponentStateToData = _setComponentStateToData;
 exports.createComponent = createComponent;
@@ -143,7 +143,7 @@ exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentContribute = getComponentContribute;
+exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;
-exports.getState = getState;
+exports.getComponentState = getComponentState;
 /* No side effect */

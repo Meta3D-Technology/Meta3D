@@ -14,7 +14,7 @@ function setIsDebug(isDebug) {
               pluginData: {
                 isDebug: isDebug
               },
-              componentData: state.componentData,
+              componentContributeData: state.componentContributeData,
               gameObjectContribute: state.gameObjectContribute,
               usedGameObjectData: state.usedGameObjectData
             });

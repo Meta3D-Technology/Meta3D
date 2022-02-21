@@ -23,6 +23,8 @@
     "meta3d-engine-core",
     "meta3d-engine-core-protocol",
     "meta3d-work-plugin-root",
+    "meta3d-component-transform",
+    "meta3d-component-transform-protocol",
     "meta3d-gameobject-dataoriented"
   ],
   "refmt": 3,

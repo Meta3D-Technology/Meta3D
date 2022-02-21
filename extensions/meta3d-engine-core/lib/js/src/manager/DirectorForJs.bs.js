@@ -6,7 +6,6 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var WorkManager$Meta3dEngineCore = require("./work_manager/WorkManager.bs.js");
-var StateContainer$Meta3dEngineCore = require("../state/StateContainer.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
 var PluginDataManager$Meta3dEngineCore = require("./work_manager/plugin_data/PluginDataManager.bs.js");
@@ -45,25 +44,17 @@ function getIsDebug(param) {
 
 var setIsDebug = PluginDataManager$Meta3dEngineCore.setIsDebug;
 
-function registerComponent(data) {
-  return Result$Meta3dCommonlib.handleFail(Result$Meta3dCommonlib.mapSuccess(ComponentManager$Meta3dEngineCore.registerComponent(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data), StateContainer$Meta3dEngineCore.setState), Exception$Meta3dCommonlib.throwErr);
+function registerComponent(state, componentContribute) {
+  return Result$Meta3dCommonlib.handleFail(ComponentManager$Meta3dEngineCore.registerComponent(state, componentContribute), Exception$Meta3dCommonlib.throwErr);
 }
 
-function unregisterComponent(componentName) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.unregisterComponent(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName));
-}
+var unregisterComponent = ComponentManager$Meta3dEngineCore.unregisterComponent;
 
-function createAndSetComponentState(componentName, config) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.createAndSetComponentState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName, config));
-}
+var createAndSetComponentState = ComponentManager$Meta3dEngineCore.createAndSetComponentState;
 
-function unsafeGetRelatedComponentData(componentName) {
-  return ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentData(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName);
-}
+var unsafeGetUsedComponentContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute;
 
-function setRelatedComponentData(data, componentName) {
-  return StateContainer$Meta3dEngineCore.setState(ComponentManager$Meta3dEngineCore.setRelatedComponentData(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data, componentName));
-}
+var setUsedComponentContribute = ComponentManager$Meta3dEngineCore.setUsedComponentContribute;
 
 var createComponent = ComponentManager$Meta3dEngineCore.createComponent;
 
@@ -77,15 +68,11 @@ var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
 
 var getAllComponents = ComponentManager$Meta3dEngineCore.getAllComponents;
 
-var getComponentContribute = ComponentManager$Meta3dEngineCore.getComponentContribute;
+var getComponentData = ComponentManager$Meta3dEngineCore.getComponentData;
 
 var getComponentGameObjects = ComponentManager$Meta3dEngineCore.getComponentGameObjects;
 
-function setGameObjectContribute(state) {
-  return function (param) {
-    return GameObjectManager$Meta3dEngineCore.setGameObjectContribute(state, param);
-  };
-}
+var setGameObjectContribute = GameObjectManager$Meta3dEngineCore.setGameObjectContribute;
 
 var createAndSetGameObjectState = GameObjectManager$Meta3dEngineCore.createAndSetState;
 
@@ -99,8 +86,8 @@ function createGameObject(state) {
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
-function getState(componentName) {
-  return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName));
+function getComponentState(state, componentName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getComponentState(state, componentName));
 }
 
 exports._convertJobOrders = _convertJobOrders;
@@ -114,19 +101,19 @@ exports.setIsDebug = setIsDebug;
 exports.registerComponent = registerComponent;
 exports.unregisterComponent = unregisterComponent;
 exports.createAndSetComponentState = createAndSetComponentState;
-exports.unsafeGetRelatedComponentData = unsafeGetRelatedComponentData;
-exports.setRelatedComponentData = setRelatedComponentData;
+exports.unsafeGetUsedComponentContribute = unsafeGetUsedComponentContribute;
+exports.setUsedComponentContribute = setUsedComponentContribute;
 exports.createComponent = createComponent;
 exports.setComponentData = setComponentData;
 exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentContribute = getComponentContribute;
+exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;
-exports.getState = getState;
+exports.getComponentState = getComponentState;
 /* No side effect */

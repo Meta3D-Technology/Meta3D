@@ -2,7 +2,7 @@
 // import { workPluginContribute } from "./abstract/work/Meta3dEngineCoreProtocol.IWorkForJs.gen"
 // import { jobOrders } from "./data/vo/Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.gen";
 // import { componentName, componentContribute } from "./abstract/scene_graph/Meta3dEngineCoreProtocol.IComponentForJs.gen"
-// import { usedComponentData } from "./data/Meta3dEngineCoreProtocol.RegisterComponentType.gen"
+// import { usedComponentContribute } from "./data/Meta3dEngineCoreProtocol.RegisterComponentType.gen"
 // import { gameObjectContribute } from "./abstract/scene_graph/Meta3dEngineCoreProtocol.IGameObjectForJs.gen"
 // import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
@@ -59,41 +59,41 @@
 
 // export function createAndSetComponentState(componentName: componentName, config: config): void
 
-// export function createComponent(data: usedComponentData): [usedComponentData, component]
+// export function createComponent(data: usedComponentContribute): [usedComponentContribute, component]
 
-// export function unsafeGetRelatedComponentData(componentName: componentName): usedComponentData
+// export function unsafeGetUsedComponentContribute(componentName: componentName): usedComponentContribute
 
-// export function setRelatedComponentData(data: usedComponentData, componentName: componentName): void
+// export function setUsedComponentContribute(data: usedComponentContribute, componentName: componentName): void
 
 // export function setComponentData<DataValue>(
-//     data: usedComponentData,
+//     data: usedComponentContribute,
 //     component: component,
 //     dataName: dataName,
 //     dataValue: DataValue
-// ): usedComponentData
+// ): usedComponentContribute
 
-// export function addComponent(data: usedComponentData,
+// export function addComponent(data: usedComponentContribute,
 //     gameObject: gameObject,
 //     component: component,
-// ): usedComponentData
+// ): usedComponentContribute
 
-// export function hasComponent(data: usedComponentData,
+// export function hasComponent(data: usedComponentContribute,
 //     gameObject: gameObject,
 // ): boolean
 
-// export function getComponent(data: usedComponentData,
+// export function getComponent(data: usedComponentContribute,
 //     gameObject: gameObject,
 // ): nullable<component>
 
-// export function getAllComponents(data: usedComponentData
+// export function getAllComponents(data: usedComponentContribute
 // ): Array<component>
 
-// export function getComponentContribute<DataValue>(data: usedComponentData,
+// export function getComponentData<DataValue>(data: usedComponentContribute,
 //     component: component,
 //     dataName: dataName,
 // ): nullable<DataValue>
 
-// export function getComponentGameObjects(data: usedComponentData,
+// export function getComponentGameObjects(data: usedComponentContribute,
 //     component: component,
 // ): Array<gameObject>
 

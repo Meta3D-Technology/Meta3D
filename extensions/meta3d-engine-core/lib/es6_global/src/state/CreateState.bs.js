@@ -10,9 +10,9 @@ function createState(param) {
           pluginData: {
             isDebug: false
           },
-          componentData: {
-            allRegisteredComponentData: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-            allUsedComponentData: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          componentContributeData: {
+            allComponentContributes: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+            allUsedComponentContributes: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
           },
           gameObjectContribute: undefined,
           usedGameObjectData: undefined

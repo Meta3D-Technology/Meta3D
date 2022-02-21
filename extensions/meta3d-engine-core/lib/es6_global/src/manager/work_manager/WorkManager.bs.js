@@ -24,7 +24,7 @@ function _setStates(states) {
               allRegisteredWorkPluginContribute: init.allRegisteredWorkPluginContribute,
               states: states,
               pluginData: init.pluginData,
-              componentData: init.componentData,
+              componentContributeData: init.componentContributeData,
               gameObjectContribute: init.gameObjectContribute,
               usedGameObjectData: init.usedGameObjectData
             });
@@ -135,7 +135,7 @@ function registerPlugin(state, data, jobOrders) {
               ]),
           states: state.states,
           pluginData: state.pluginData,
-          componentData: state.componentData,
+          componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
@@ -148,7 +148,7 @@ function unregisterPlugin(state, targetPluginName) {
                 })),
           states: state.states,
           pluginData: state.pluginData,
-          componentData: state.componentData,
+          componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
@@ -163,7 +163,7 @@ function init(state) {
                       return ImmutableHashMap$Meta3dCommonlib.set(states, match.pluginName, Curry._1(match.createStateFunc, undefined));
                     })),
               pluginData: state.pluginData,
-              componentData: state.componentData,
+              componentContributeData: state.componentContributeData,
               gameObjectContribute: state.gameObjectContribute,
               usedGameObjectData: state.usedGameObjectData
             }, (function (state, param) {

@@ -13,6 +13,20 @@ function getService(api, dependentExtensionNameMap) {
           init: DirectorForJs$Meta3dEngineCore.init,
           registerWorkPlugin: DirectorForJs$Meta3dEngineCore.registerWorkPlugin,
           unregisterWorkPlugin: DirectorForJs$Meta3dEngineCore.unregisterWorkPlugin,
+          registerComponent: DirectorForJs$Meta3dEngineCore.registerComponent,
+          unregisterComponent: DirectorForJs$Meta3dEngineCore.unregisterComponent,
+          createAndSetComponentState: DirectorForJs$Meta3dEngineCore.createAndSetComponentState,
+          unsafeGetUsedComponentContribute: DirectorForJs$Meta3dEngineCore.unsafeGetUsedComponentContribute,
+          setUsedComponentContribute: DirectorForJs$Meta3dEngineCore.setUsedComponentContribute,
+          createComponent: DirectorForJs$Meta3dEngineCore.createComponent,
+          setComponentData: DirectorForJs$Meta3dEngineCore.setComponentData,
+          addComponent: DirectorForJs$Meta3dEngineCore.addComponent,
+          hasComponent: DirectorForJs$Meta3dEngineCore.hasComponent,
+          getComponent: DirectorForJs$Meta3dEngineCore.getComponent,
+          getAllComponents: DirectorForJs$Meta3dEngineCore.getAllComponents,
+          getComponentData: DirectorForJs$Meta3dEngineCore.getComponentData,
+          getComponentGameObjects: DirectorForJs$Meta3dEngineCore.getComponentGameObjects,
+          getComponentState: DirectorForJs$Meta3dEngineCore.getComponentState,
           setGameObjectContribute: DirectorForJs$Meta3dEngineCore.setGameObjectContribute,
           createAndSetGameObjectState: DirectorForJs$Meta3dEngineCore.createAndSetGameObjectState,
           createGameObject: DirectorForJs$Meta3dEngineCore.createGameObject,
@@ -49,9 +63,9 @@ var createAndSetComponentState = DirectorForJs$Meta3dEngineCore.createAndSetComp
 
 var createComponent = DirectorForJs$Meta3dEngineCore.createComponent;
 
-var unsafeGetRelatedComponentData = DirectorForJs$Meta3dEngineCore.unsafeGetRelatedComponentData;
+var unsafeGetUsedComponentContribute = DirectorForJs$Meta3dEngineCore.unsafeGetUsedComponentContribute;
 
-var setRelatedComponentData = DirectorForJs$Meta3dEngineCore.setRelatedComponentData;
+var setUsedComponentContribute = DirectorForJs$Meta3dEngineCore.setUsedComponentContribute;
 
 var setComponentData = DirectorForJs$Meta3dEngineCore.setComponentData;
 
@@ -63,7 +77,7 @@ var getComponent = DirectorForJs$Meta3dEngineCore.getComponent;
 
 var getAllComponents = DirectorForJs$Meta3dEngineCore.getAllComponents;
 
-var getComponentContribute = DirectorForJs$Meta3dEngineCore.getComponentContribute;
+var getComponentData = DirectorForJs$Meta3dEngineCore.getComponentData;
 
 var getComponentGameObjects = DirectorForJs$Meta3dEngineCore.getComponentGameObjects;
 
@@ -75,7 +89,7 @@ var createGameObject = DirectorForJs$Meta3dEngineCore.createGameObject;
 
 var getAllGameObjects = DirectorForJs$Meta3dEngineCore.getAllGameObjects;
 
-var getState = DirectorForJs$Meta3dEngineCore.getState;
+var getComponentState = DirectorForJs$Meta3dEngineCore.getComponentState;
 
 exports.prepare = prepare;
 exports.init = init;
@@ -88,20 +102,20 @@ exports.registerComponent = registerComponent;
 exports.unregisterComponent = unregisterComponent;
 exports.createAndSetComponentState = createAndSetComponentState;
 exports.createComponent = createComponent;
-exports.unsafeGetRelatedComponentData = unsafeGetRelatedComponentData;
-exports.setRelatedComponentData = setRelatedComponentData;
+exports.unsafeGetUsedComponentContribute = unsafeGetUsedComponentContribute;
+exports.setUsedComponentContribute = setUsedComponentContribute;
 exports.setComponentData = setComponentData;
 exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentContribute = getComponentContribute;
+exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;
-exports.getState = getState;
+exports.getComponentState = getComponentState;
 exports.getService = getService;
 exports.createState = createState;
 /* No side effect */
