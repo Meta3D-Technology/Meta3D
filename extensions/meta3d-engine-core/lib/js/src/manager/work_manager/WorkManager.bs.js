@@ -127,10 +127,10 @@ var ParsePipelineData = {
   parse: parse
 };
 
-function registerPlugin(state, data, jobOrders) {
+function registerPlugin(state, contribute, jobOrders) {
   return {
           allRegisteredWorkPluginContribute: ListSt$Meta3dCommonlib.push(state.allRegisteredWorkPluginContribute, [
-                data,
+                contribute,
                 jobOrders
               ]),
           states: state.states,

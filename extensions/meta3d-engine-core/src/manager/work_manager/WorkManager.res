@@ -135,13 +135,13 @@ module ParsePipelineData = {
 
 let registerPlugin = (
   {allRegisteredWorkPluginContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
-  data: Meta3dEngineCoreProtocol.WorkManagerType.workPluginContribute,
+  contribute: Meta3dEngineCoreProtocol.WorkManagerType.workPluginContribute,
   jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrders,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   {
     ...state,
     allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.push((
-      data,
+      contribute,
       jobOrders,
     )),
   }
@@ -152,12 +152,11 @@ let unregisterPlugin = (
   targetPluginName: string,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   ...state,
-  allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.filter(((
-    {pluginName},
-    _,
-  )) => {
-    pluginName !== targetPluginName
-  }),
+  allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.filter(
+    (({pluginName}, _)) => {
+      pluginName !== targetPluginName
+    },
+  ),
 }
 
 let init = (
@@ -464,13 +463,12 @@ module MergePipelineData = {
               None,
             )
       | Some({insertPluginName, insertElementName, insertAction}) =>
-        let nodeJobOrderOpt =
-          (
-            {
-              insertElementName: insertElementName,
-              insertAction: insertAction,
-            }: Meta3dEngineCoreProtocol.TreeType.jobOrder
-          )->Some
+        let nodeJobOrderOpt = (
+          {
+            insertElementName: insertElementName,
+            insertAction: insertAction,
+          }: Meta3dEngineCoreProtocol.TreeType.jobOrder
+        )->Some
 
         let (treeDataList, insertedTreeOpt) =
           treeDataList->_handleInsertedAsRootNode((

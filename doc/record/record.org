@@ -245,13 +245,13 @@ give dependent extension name, extension protocol name, version when registerExt
 
 
 
-** TODO add, gameObject, transform component
+** DONE add, gameObject, transform component
 
-TODO remove StateContainer
+////TODO remove StateContainer
 
-TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentData
+# TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentData
 
-TODO rename registerWorkPlugin->data to workPluginContribute
+# TODO rename registerWorkPlugin->data to workPluginContribute
 
 
 ** TODO pass engine core test

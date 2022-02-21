@@ -20,9 +20,9 @@ function _convertJobOrders(jobOrders) {
               }));
 }
 
-function registerWorkPlugin(state, data, jobOrdersOpt, param) {
+function registerWorkPlugin(state, contribute, jobOrdersOpt, param) {
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return WorkManager$Meta3dEngineCore.registerPlugin(state, data, _convertJobOrders(jobOrders));
+  return WorkManager$Meta3dEngineCore.registerPlugin(state, contribute, _convertJobOrders(jobOrders));
 }
 
 var unregisterWorkPlugin = WorkManager$Meta3dEngineCore.unregisterPlugin;

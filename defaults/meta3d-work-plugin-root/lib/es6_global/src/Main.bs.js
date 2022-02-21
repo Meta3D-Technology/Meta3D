@@ -14,7 +14,7 @@ function _init(_state) {
   
 }
 
-function getData(mostService) {
+function getWorkPluginContribute(mostService) {
   return {
           pluginName: "meta3d-work-plugin-root",
           createStateFunc: (function (param) {
@@ -42,7 +42,7 @@ function getData(mostService) {
 export {
   _getExecFunc ,
   _init ,
-  getData ,
+  getWorkPluginContribute ,
   
 }
 /* No side effect */

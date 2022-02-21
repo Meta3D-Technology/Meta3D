@@ -37,7 +37,7 @@ function prepare(param) {
         transformCount: param.transformCount
       });
   var engineCoreState$2 = Curry._1(match.createAndSetGameObjectState, Curry._2(match.setGameObjectContribute, engineCoreState$1, Main$Meta3dGameobjectDataoriented.getGameObjectContribute(undefined)));
-  var engineCoreState$3 = Curry._4(match.registerWorkPlugin, engineCoreState$2, Main$Meta3dWorkPluginRoot.getData(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
+  var engineCoreState$3 = Curry._4(match.registerWorkPlugin, engineCoreState$2, Main$Meta3dWorkPluginRoot.getWorkPluginContribute(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
   return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$3);
 }
 

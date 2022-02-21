@@ -70,7 +70,7 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
 
   let engineCoreState = registerWorkPlugin(
     ~state=engineCoreState,
-    ~data=Meta3dWorkPluginRoot.Main.getData(
+    ~contribute=Meta3dWorkPluginRoot.Main.getWorkPluginContribute(
       getServiceExn(state, _getMeta3DBsMostExtensionName()),
     )->Obj.magic,
     (),

@@ -3,7 +3,7 @@ type service = {
   init: StateType.state => StateType.state,
   registerWorkPlugin: (
     ~state: StateType.state,
-    ~data: WorkManagerType.workPluginContribute,
+    ~contribute: WorkManagerType.workPluginContribute,
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,
