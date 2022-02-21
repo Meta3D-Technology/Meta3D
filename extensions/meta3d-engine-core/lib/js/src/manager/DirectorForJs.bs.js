@@ -81,23 +81,23 @@ var getComponentContribute = ComponentManager$Meta3dEngineCore.getComponentContr
 
 var getComponentGameObjects = ComponentManager$Meta3dEngineCore.getComponentGameObjects;
 
-function setGameObjectData(data) {
-  return StateContainer$Meta3dEngineCore.setState(GameObjectManager$Meta3dEngineCore.setGameObjectData(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), data));
+function setGameObjectContribute(state) {
+  return function (param) {
+    return GameObjectManager$Meta3dEngineCore.setGameObjectContribute(state, param);
+  };
 }
 
-function createAndSetGameObjectState(param) {
-  return StateContainer$Meta3dEngineCore.setState(GameObjectManager$Meta3dEngineCore.createAndSetState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined)));
+var createAndSetGameObjectState = GameObjectManager$Meta3dEngineCore.createAndSetState;
+
+function createGameObject(state) {
+  var match = GameObjectManager$Meta3dEngineCore.createGameObject(state);
+  return [
+          match[0],
+          match[1]
+        ];
 }
 
-function createGameObject(param) {
-  var match = GameObjectManager$Meta3dEngineCore.createGameObject(StateContainer$Meta3dEngineCore.unsafeGetState(undefined));
-  StateContainer$Meta3dEngineCore.setState(match[0]);
-  return match[1];
-}
-
-function getAllGameObjects(param) {
-  return GameObjectManager$Meta3dEngineCore.getAllGameObjects(StateContainer$Meta3dEngineCore.unsafeGetState(undefined));
-}
+var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
 function getState(componentName) {
   return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getState(StateContainer$Meta3dEngineCore.unsafeGetState(undefined), componentName));
@@ -124,7 +124,7 @@ exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
 exports.getComponentContribute = getComponentContribute;
 exports.getComponentGameObjects = getComponentGameObjects;
-exports.setGameObjectData = setGameObjectData;
+exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;

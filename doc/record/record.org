@@ -247,6 +247,14 @@ give dependent extension name, extension protocol name, version when registerExt
 
 ** TODO add, gameObject, transform component
 
+TODO remove StateContainer
+
+TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentContribute
+
+
+** TODO pass engine core test
+
+
 ** TODO add webgl render(just log)
 
 add canvas
@@ -259,7 +267,6 @@ add webgl render
 ** TODO pass run test
 
 
-** TODO pass engine core test
 
 
 ** TODO refactor: add work-plugins packages

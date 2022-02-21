@@ -51,7 +51,7 @@ defineFeature(feature, test => {
           (),
         )
 
-      Main.setGameObjectData(data.contents)
+      Main.setGameObjectContribute(data.contents)
     })
 
     \"and"("create and set the gameObject state", () => {

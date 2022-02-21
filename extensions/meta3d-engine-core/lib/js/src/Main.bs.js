@@ -13,6 +13,10 @@ function getService(api, dependentExtensionNameMap) {
           init: DirectorForJs$Meta3dEngineCore.init,
           registerWorkPlugin: DirectorForJs$Meta3dEngineCore.registerWorkPlugin,
           unregisterWorkPlugin: DirectorForJs$Meta3dEngineCore.unregisterWorkPlugin,
+          setGameObjectContribute: DirectorForJs$Meta3dEngineCore.setGameObjectContribute,
+          createAndSetGameObjectState: DirectorForJs$Meta3dEngineCore.createAndSetGameObjectState,
+          createGameObject: DirectorForJs$Meta3dEngineCore.createGameObject,
+          getAllGameObjects: DirectorForJs$Meta3dEngineCore.getAllGameObjects,
           runPipeline: (function (param, param$1, param$2) {
               return DirectorForJs$Meta3dEngineCore.runPipeline(partial_arg, param, param$1, param$2);
             })
@@ -63,7 +67,7 @@ var getComponentContribute = DirectorForJs$Meta3dEngineCore.getComponentContribu
 
 var getComponentGameObjects = DirectorForJs$Meta3dEngineCore.getComponentGameObjects;
 
-var setGameObjectData = DirectorForJs$Meta3dEngineCore.setGameObjectData;
+var setGameObjectContribute = DirectorForJs$Meta3dEngineCore.setGameObjectContribute;
 
 var createAndSetGameObjectState = DirectorForJs$Meta3dEngineCore.createAndSetGameObjectState;
 
@@ -93,7 +97,7 @@ exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
 exports.getComponentContribute = getComponentContribute;
 exports.getComponentGameObjects = getComponentGameObjects;
-exports.setGameObjectData = setGameObjectData;
+exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;

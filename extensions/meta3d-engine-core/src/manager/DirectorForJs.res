@@ -130,26 +130,22 @@ let getComponentGameObjects = (data, component) => {
   data->ComponentManager.getComponentGameObjects(component)
 }
 
-let setGameObjectData = data => {
-  StateContainer.unsafeGetState()
-  ->GameObjectManager.setGameObjectData(data)
-  ->StateContainer.setState
+let setGameObjectContribute = state => {
+  state->GameObjectManager.setGameObjectContribute
 }
 
-let createAndSetGameObjectState = () => {
-  StateContainer.unsafeGetState()->GameObjectManager.createAndSetState->StateContainer.setState
+let createAndSetGameObjectState = state => {
+  state->GameObjectManager.createAndSetState
 }
 
-let createGameObject = () => {
-  let (state, gameObject) = StateContainer.unsafeGetState()->GameObjectManager.createGameObject
+let createGameObject = state => {
+  let (state, gameObject) = state->GameObjectManager.createGameObject
 
-  state->StateContainer.setState
-
-  gameObject
+  (state, gameObject)
 }
 
-let getAllGameObjects = () => {
-  StateContainer.unsafeGetState()->GameObjectManager.getAllGameObjects
+let getAllGameObjects = state => {
+  state->GameObjectManager.getAllGameObjects
 }
 
 let getState = (componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName) => {

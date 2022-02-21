@@ -35,10 +35,22 @@ let prepare = () => {
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
-  let {registerWorkPlugin}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+  let {
+    registerWorkPlugin,
+    setGameObjectContribute,
+    createAndSetGameObjectState,
+  }: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
+
+  let engineCoreState =
+    engineCoreState
+    ->setGameObjectContribute(
+      Meta3dGameobjectDataoriented.Main.getGameObjectContribute()->Obj.magic,
+    )
+    ->createAndSetGameObjectState
+
   let engineCoreState = registerWorkPlugin(
     ~state=engineCoreState,
     ~data=Meta3dWorkPluginRoot.Main.getData(
@@ -68,4 +80,35 @@ let init = state => {
   engineCoreState->init->runPipeline(state, "init")->map(engineCoreState => {
     state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic)
   }, _)
+}
+
+let createGameObject = state => {
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+    state,
+    _getMeta3DEngineCoreExtensionName(),
+  )
+  let {createGameObject}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+    state,
+    _getMeta3DEngineCoreExtensionName(),
+  )
+
+  let (engineCoreState, gameObject) = engineCoreState->createGameObject
+
+  (
+    state->setExtensionState(_getMeta3DEngineCoreExtensionName(), engineCoreState->Obj.magic),
+    gameObject,
+  )
+}
+
+let getAllGameObjects = state => {
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+    state,
+    _getMeta3DEngineCoreExtensionName(),
+  )
+  let {getAllGameObjects}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+    state,
+    _getMeta3DEngineCoreExtensionName(),
+  )
+
+  engineCoreState->getAllGameObjects
 }

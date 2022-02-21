@@ -4,7 +4,7 @@ let unsafeGetGameObjectData = (
   state.gameObjectContribute->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
-let setGameObjectData = (
+let setGameObjectContribute = (
   state: Meta3dEngineCoreProtocol.StateType.state,
   gameObjectContribute: Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute,
 ) => {

@@ -36,7 +36,7 @@
 
 // type gameObject = any
 
-// export function setGameObjectData(data: gameObjectContribute<gameObjectState, gameObject>): void
+// export function setGameObjectContribute(data: gameObjectContribute<gameObjectState, gameObject>): void
 
 // export function createAndSetGameObjectState(): void
 

@@ -7,7 +7,7 @@ function unsafeGetGameObjectData(state) {
   return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
 }
 
-function setGameObjectData(state, gameObjectContribute) {
+function setGameObjectContribute(state, gameObjectContribute) {
   return {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
@@ -60,7 +60,7 @@ function getAllGameObjects(state) {
 
 export {
   unsafeGetGameObjectData ,
-  setGameObjectData ,
+  setGameObjectContribute ,
   createAndSetState ,
   _unsafeGetGameObjectRelatedData ,
   _setGameObjectStateToStateState ,

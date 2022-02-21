@@ -38,7 +38,7 @@ let getComponentContribute = DirectorForJs.getComponentContribute
 
 let getComponentGameObjects = DirectorForJs.getComponentGameObjects
 
-let setGameObjectData = DirectorForJs.setGameObjectData
+let setGameObjectContribute = DirectorForJs.setGameObjectContribute
 
 let createAndSetGameObjectState = DirectorForJs.createAndSetGameObjectState
 
@@ -68,6 +68,10 @@ let getService: Meta3dType.Index.getExtensionService<
   init: DirectorForJs.init,
   registerWorkPlugin: DirectorForJs.registerWorkPlugin,
   unregisterWorkPlugin: DirectorForJs.unregisterWorkPlugin,
+  setGameObjectContribute: DirectorForJs.setGameObjectContribute,
+  createAndSetGameObjectState: DirectorForJs.createAndSetGameObjectState,
+  createGameObject: DirectorForJs.createGameObject,
+  getAllGameObjects: DirectorForJs.getAllGameObjects,
   runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
 }
 

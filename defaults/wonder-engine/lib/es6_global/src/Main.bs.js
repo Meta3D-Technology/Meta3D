@@ -5,6 +5,7 @@ import * as Main$Meta3d from "../../../../../node_modules/meta3d/lib/es6_global/
 import * as Main$Meta3dBsMost from "../../../../../node_modules/meta3d-bs-most/lib/es6_global/src/Main.bs.js";
 import * as Main$Meta3dEngineCore from "../../../../../node_modules/meta3d-engine-core/lib/es6_global/src/Main.bs.js";
 import * as Main$Meta3dWorkPluginRoot from "../../../../../node_modules/meta3d-work-plugin-root/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dGameobjectDataoriented from "../../../../../node_modules/meta3d-gameobject-dataoriented/lib/es6_global/src/Main.bs.js";
 
 function _getMeta3DEngineCoreExtensionName(param) {
   return "meta3d-engine-core";
@@ -27,8 +28,9 @@ function prepare(param) {
       }, Main$Meta3dEngineCore.createState(undefined));
   var engineCoreState = Main$Meta3d.getExtensionStateExn(state$1, "meta3d-engine-core");
   var match = Main$Meta3d.getServiceExn(state$1, "meta3d-engine-core");
-  var engineCoreState$1 = Curry._4(match.registerWorkPlugin, engineCoreState, Main$Meta3dWorkPluginRoot.getData(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
-  return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$1);
+  var engineCoreState$1 = Curry._1(match.createAndSetGameObjectState, Curry._2(match.setGameObjectContribute, engineCoreState, Main$Meta3dGameobjectDataoriented.getGameObjectContribute(undefined)));
+  var engineCoreState$2 = Curry._4(match.registerWorkPlugin, engineCoreState$1, Main$Meta3dWorkPluginRoot.getData(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
+  return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$2);
 }
 
 function init(state) {
@@ -41,12 +43,30 @@ function init(state) {
               }), __x);
 }
 
+function createGameObject(state) {
+  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var match$1 = Curry._1(match.createGameObject, engineCoreState);
+  return [
+          Main$Meta3d.setExtensionState(state, "meta3d-engine-core", match$1[0]),
+          match$1[1]
+        ];
+}
+
+function getAllGameObjects(state) {
+  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  return Curry._1(match.getAllGameObjects, engineCoreState);
+}
+
 export {
   _getMeta3DEngineCoreExtensionName ,
   _getMeta3DBsMostExtensionName ,
   _getMeta3DEngineCoreExtensionDependentExtensionNameMap ,
   prepare ,
   init ,
+  createGameObject ,
+  getAllGameObjects ,
   
 }
 /* Main-Meta3dBsMost Not a pure module */

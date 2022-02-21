@@ -1,5 +1,6 @@
 'use strict';
 
+var Curry = require("rescript/lib/js/curry.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Result$Meta3dCommonlib = require("../Result.bs.js");
 var OptionSt$Meta3dCommonlib = require("../OptionSt.bs.js");
@@ -41,9 +42,17 @@ function getLast(param) {
   return param[1];
 }
 
+function mapFirst(param, func) {
+  return [
+          Curry._1(func, param[0]),
+          param[1]
+        ];
+}
+
 exports.create = create;
 exports.collectOption = collectOption;
 exports.collectResult = collectResult;
 exports.getFirst = getFirst;
 exports.getLast = getLast;
+exports.mapFirst = mapFirst;
 /* No side effect */
