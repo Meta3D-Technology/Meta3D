@@ -25,8 +25,8 @@
         "meta3d-commonlib",
         "meta3d-commonlib-type",
         "meta3d-type",
-        "meta3d-engine-core-type",
-        "meta3d-bs-most-type"
+        "meta3d-engine-core-protocol",
+        "meta3d-bs-most-protocol"
     ],
     "package-specs": [
         "commonjs",

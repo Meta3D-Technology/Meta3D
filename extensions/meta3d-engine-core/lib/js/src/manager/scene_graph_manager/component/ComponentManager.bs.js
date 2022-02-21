@@ -16,14 +16,14 @@ function registerComponent(state, data) {
                                 }));
                   }), PluginDataManager$Meta3dEngineCore.getIsDebug(undefined)), (function (param) {
                 return {
-                        allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+                        allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
                         states: state.states,
                         pluginData: state.pluginData,
                         componentData: {
                           allRegisteredComponentData: ImmutableHashMap$Meta3dCommonlib.set(componentData.allRegisteredComponentData, data.componentName, data),
                           allUsedComponentData: componentData.allUsedComponentData
                         },
-                        gameObjectData: state.gameObjectData,
+                        gameObjectContribute: state.gameObjectContribute,
                         usedGameObjectData: state.usedGameObjectData
                       };
               }));
@@ -32,14 +32,14 @@ function registerComponent(state, data) {
 function unregisterComponent(state, componentName) {
   var componentData = state.componentData;
   return {
-          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
           componentData: {
             allRegisteredComponentData: ImmutableHashMap$Meta3dCommonlib.deleteVal(componentData.allRegisteredComponentData, componentName),
             allUsedComponentData: componentData.allUsedComponentData
           },
-          gameObjectData: state.gameObjectData,
+          gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
 }
@@ -57,7 +57,7 @@ function createAndSetComponentState(state, componentName, config) {
   var match = ImmutableHashMap$Meta3dCommonlib.unsafeGet(state.componentData.allRegisteredComponentData, componentName);
   var init = state.componentData;
   return {
-          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
           componentData: {
@@ -75,7 +75,7 @@ function createAndSetComponentState(state, componentName, config) {
                   setComponentDataFunc: match.setComponentDataFunc
                 })
           },
-          gameObjectData: state.gameObjectData,
+          gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
 }
@@ -117,7 +117,7 @@ function getAllComponents(data) {
   return data.getAllComponentsFunc(data.state);
 }
 
-function getComponentData(data, component, dataName) {
+function getComponentContribute(data, component, dataName) {
   return data.getComponentDataFunc(data.state, component, dataName);
 }
 
@@ -143,7 +143,7 @@ exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentData = getComponentData;
+exports.getComponentContribute = getComponentContribute;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.getState = getState;
 /* No side effect */

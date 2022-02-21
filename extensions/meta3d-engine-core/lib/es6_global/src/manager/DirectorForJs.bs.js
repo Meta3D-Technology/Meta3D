@@ -6,7 +6,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as WorkManager$Meta3dEngineCore from "./work_manager/WorkManager.bs.js";
-import * as StateContainer$Meta3dEngineCore from "../data/StateContainer.bs.js";
+import * as StateContainer$Meta3dEngineCore from "../state/StateContainer.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./scene_graph_manager/component/ComponentManager.bs.js";
 import * as GameObjectManager$Meta3dEngineCore from "./scene_graph_manager/GameObjectManager.bs.js";
 import * as PluginDataManager$Meta3dEngineCore from "./work_manager/plugin_data/PluginDataManager.bs.js";
@@ -77,7 +77,7 @@ var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
 
 var getAllComponents = ComponentManager$Meta3dEngineCore.getAllComponents;
 
-var getComponentData = ComponentManager$Meta3dEngineCore.getComponentData;
+var getComponentContribute = ComponentManager$Meta3dEngineCore.getComponentContribute;
 
 var getComponentGameObjects = ComponentManager$Meta3dEngineCore.getComponentGameObjects;
 
@@ -123,7 +123,7 @@ export {
   hasComponent ,
   getComponent ,
   getAllComponents ,
-  getComponentData ,
+  getComponentContribute ,
   getComponentGameObjects ,
   setGameObjectData ,
   createAndSetGameObjectState ,

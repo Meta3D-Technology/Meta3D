@@ -128,7 +128,7 @@ need! because custom control is commonlib control as lib, while register ui is u
 
 
 
-# ** TODO split type from meta3d-engine-core to be meta3d-engine-core-type package
+# ** TODO split type from meta3d-engine-core to be meta3d-engine-core-protocol package
 
 # edit component package(e.g. meta3d-component-transform)
 
@@ -212,9 +212,28 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 
 
-** TODO design contribute point
+** DONE design contribute point
 
 how to use protocol???
+
+
+registerWorkPlugin
+
+name XxxContribute, move to contribute_points/ folder
+e.g. workPluginContribute, getWorkPluginContribute
+
+change -type to -protocol;
+
+
+
+contribute_points/,
+xxx
+service/
+ServiceType
+state/
+StateType
+other/
+
 
 
 ** TODO complete check, add getVersion?

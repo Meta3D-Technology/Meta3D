@@ -30,7 +30,7 @@
 //     ~getExecFunc=(_, _) => Js.Nullable.null,
 //     ~allPipelineData=[],
 //     (),
-//   ): WorkManagerType.registeredWorkPlugin => {
+//   ): WorkManagerType.workPluginContribute => {
 //     pluginName: pluginName,
 //     createStateFunc: createStateFunc,
 //     initFunc: initFunc,
@@ -43,22 +43,22 @@
 //     ~pipelineName="pipeline",
 //     ~insertAction=#after,
 //     (),
-//   ): Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrder => {
+//   ): Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrder => {
 //     pipelineName: pipelineName,
 //     insertElementName: insertElementName,
 //     insertAction: insertAction,
 //   }
 
 //   let _convertAllRegisteredWorkPluginData = (
-//     allRegisteredWorkPluginData: WorkManagerType.allRegisteredWorkPluginData,
+//     allRegisteredWorkPluginContribute: WorkManagerType.allRegisteredWorkPluginContribute,
 //   ) => {
-//     allRegisteredWorkPluginData->Meta3dCommonlib.ListSt.map(((registeredWorkPlugin, jobOrders)) => {
-//       (registeredWorkPlugin, jobOrders->VOTool.convertJobOrdersDOToVO)
+//     allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.map(((workPluginContribute, jobOrders)) => {
+//       (workPluginContribute, jobOrders->VOTool.convertJobOrdersDOToVO)
 //     })
 //   }
 
 //   let _getAllRegisteredWorkPluginData = () => {
-//     StateContainer.unsafeGetState().allRegisteredWorkPluginData->_convertAllRegisteredWorkPluginData
+//     StateContainer.unsafeGetState().allRegisteredWorkPluginContribute->_convertAllRegisteredWorkPluginData
 //   }
 
 //   let _getStates = () => {

@@ -8,7 +8,7 @@ let _getMeta3DEngineCoreExtensionDependentExtensionNameMap = () =>
   (
     {
       meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
-    }: Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap
+    }: Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap
   )->Obj.magic
 
 let prepare = () => {
@@ -31,11 +31,11 @@ let prepare = () => {
     )
 
   // TODO move to extension
-  let engineCoreState: Meta3dEngineCoreType.StateType.state = getExtensionStateExn(
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
-  let {registerWorkPlugin}: Meta3dEngineCoreType.ServiceType.service = getServiceExn(
+  let {registerWorkPlugin}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
@@ -52,15 +52,15 @@ let prepare = () => {
 
 let init = state => {
   // TODO move to extension
-  let {map}: Meta3dBsMostType.ServiceType.service = getServiceExn(
+  let {map}: Meta3dBsMostProtocol.ServiceType.service = getServiceExn(
     state,
     _getMeta3DBsMostExtensionName(),
   )
-  let engineCoreState: Meta3dEngineCoreType.StateType.state = getExtensionStateExn(
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
-  let {init, runPipeline}: Meta3dEngineCoreType.ServiceType.service = getServiceExn(
+  let {init, runPipeline}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )

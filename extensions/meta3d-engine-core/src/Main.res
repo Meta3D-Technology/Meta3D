@@ -34,7 +34,7 @@ let getComponent = DirectorForJs.getComponent
 
 let getAllComponents = DirectorForJs.getAllComponents
 
-let getComponentData = DirectorForJs.getComponentData
+let getComponentContribute = DirectorForJs.getComponentContribute
 
 let getComponentGameObjects = DirectorForJs.getComponentGameObjects
 
@@ -57,8 +57,8 @@ let getState = DirectorForJs.getState
 // }
 
 let getService: Meta3dType.Index.getExtensionService<
-  Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
-  Meta3dEngineCoreType.ServiceType.service,
+  Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap,
+  Meta3dEngineCoreProtocol.ServiceType.service,
 > = (api, {meta3dBsMostExtensionName}) => {
   prepare: DirectorForJs.prepare,
   init: DirectorForJs.init,
@@ -68,7 +68,7 @@ let getService: Meta3dType.Index.getExtensionService<
 }
 
 let createState: Meta3dType.Index.createExtensionState<
-  Meta3dEngineCoreType.StateType.state,
+  Meta3dEngineCoreProtocol.StateType.state,
 > = () => {
   CreateState.createState()
 }

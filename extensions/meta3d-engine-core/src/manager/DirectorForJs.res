@@ -1,14 +1,14 @@
 let _convertJobOrders = (
-  jobOrders: Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrders,
-): Meta3dEngineCoreType.RegisterWorkPluginType.jobOrders => {
+  jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders,
+): Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrders => {
   jobOrders->Meta3dCommonlib.ArraySt.map((
     {pipelineName, insertElementName, insertAction} as jobOrder,
-  ): Meta3dEngineCoreType.RegisterWorkPluginType.jobOrder => {
+  ): Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrder => {
     pipelineName: pipelineName,
     insertElementName: insertElementName,
     insertAction: switch insertAction {
-    | #before => Meta3dEngineCoreType.RegisterWorkPluginType.Before
-    | #after => Meta3dEngineCoreType.RegisterWorkPluginType.After
+    | #before => Meta3dEngineCoreProtocol.RegisterWorkPluginType.Before
+    | #after => Meta3dEngineCoreProtocol.RegisterWorkPluginType.After
     },
   })
 }
@@ -16,7 +16,7 @@ let _convertJobOrders = (
 let registerWorkPlugin = (
   ~state,
   ~data,
-  ~jobOrders: Meta3dEngineCoreType.RegisterWorkPluginVOType.jobOrders=[],
+  ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
   (),
 ) => {
   state->WorkManager.registerPlugin(data, jobOrders->_convertJobOrders)
@@ -44,9 +44,9 @@ let runPipeline = (
   (
     meta3dState,
     api: Meta3dType.Index.api,
-    {meta3dBsMostExtensionName}: Meta3dEngineCoreType.ServiceType.dependentExtensionNameMap,
+    {meta3dBsMostExtensionName}: Meta3dEngineCoreProtocol.ServiceType.dependentExtensionNameMap,
   ),
-  pipelineName: Meta3dEngineCoreType.PipelineType.pipelineName,
+  pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
 ) => {
   let mostService = api.getServiceExn(meta3dState, meta3dBsMostExtensionName)
 
@@ -117,8 +117,8 @@ let getAllComponents = data => {
   data->ComponentManager.getAllComponents
 }
 
-let getComponentData = (data, component, dataName) => {
-  data->ComponentManager.getComponentData(component, dataName)
+let getComponentContribute = (data, component, dataName) => {
+  data->ComponentManager.getComponentContribute(component, dataName)
 }
 
 let getComponentGameObjects = (data, component) => {
@@ -147,7 +147,7 @@ let getAllGameObjects = () => {
   StateContainer.unsafeGetState()->GameObjectManager.getAllGameObjects
 }
 
-let getState = (componentName: Meta3dEngineCoreType.IComponentForJs.componentName) => {
+let getState = (componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName) => {
   StateContainer.unsafeGetState()
   ->ComponentManager.getState(componentName)
   ->Meta3dCommonlib.OptionSt.toNullable

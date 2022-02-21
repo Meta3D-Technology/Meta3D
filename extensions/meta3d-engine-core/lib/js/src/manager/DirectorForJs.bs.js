@@ -6,7 +6,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var WorkManager$Meta3dEngineCore = require("./work_manager/WorkManager.bs.js");
-var StateContainer$Meta3dEngineCore = require("../data/StateContainer.bs.js");
+var StateContainer$Meta3dEngineCore = require("../state/StateContainer.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
 var PluginDataManager$Meta3dEngineCore = require("./work_manager/plugin_data/PluginDataManager.bs.js");
@@ -77,7 +77,7 @@ var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
 
 var getAllComponents = ComponentManager$Meta3dEngineCore.getAllComponents;
 
-var getComponentData = ComponentManager$Meta3dEngineCore.getComponentData;
+var getComponentContribute = ComponentManager$Meta3dEngineCore.getComponentContribute;
 
 var getComponentGameObjects = ComponentManager$Meta3dEngineCore.getComponentGameObjects;
 
@@ -122,7 +122,7 @@ exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentData = getComponentData;
+exports.getComponentContribute = getComponentContribute;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.setGameObjectData = setGameObjectData;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;

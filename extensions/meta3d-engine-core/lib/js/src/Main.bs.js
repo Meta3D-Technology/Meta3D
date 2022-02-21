@@ -1,6 +1,6 @@
 'use strict';
 
-var CreateState$Meta3dEngineCore = require("./data/CreateState.bs.js");
+var CreateState$Meta3dEngineCore = require("./state/CreateState.bs.js");
 var DirectorForJs$Meta3dEngineCore = require("./manager/DirectorForJs.bs.js");
 
 function getService(api, param) {
@@ -53,7 +53,7 @@ var getComponent = DirectorForJs$Meta3dEngineCore.getComponent;
 
 var getAllComponents = DirectorForJs$Meta3dEngineCore.getAllComponents;
 
-var getComponentData = DirectorForJs$Meta3dEngineCore.getComponentData;
+var getComponentContribute = DirectorForJs$Meta3dEngineCore.getComponentContribute;
 
 var getComponentGameObjects = DirectorForJs$Meta3dEngineCore.getComponentGameObjects;
 
@@ -85,7 +85,7 @@ exports.addComponent = addComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.getAllComponents = getAllComponents;
-exports.getComponentData = getComponentData;
+exports.getComponentContribute = getComponentContribute;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.setGameObjectData = setGameObjectData;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;

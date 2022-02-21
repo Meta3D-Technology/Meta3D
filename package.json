@@ -9,7 +9,7 @@
 	"workspaces": [
 		"defaults/*",
 		"extensions/*",
-		"extension-types/*"
+		"extension_protocols/*"
 	],
 	"config": {
 		"commitizen": {

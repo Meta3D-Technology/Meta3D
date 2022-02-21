@@ -1,6 +1,6 @@
 'use strict';
 
-var StateContainer$Meta3dEngineCore = require("../../../data/StateContainer.bs.js");
+var StateContainer$Meta3dEngineCore = require("../../../state/StateContainer.bs.js");
 
 function getIsDebug(param) {
   return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).pluginData.isDebug;
@@ -9,13 +9,13 @@ function getIsDebug(param) {
 function setIsDebug(isDebug) {
   var state = StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
   return StateContainer$Meta3dEngineCore.setState({
-              allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+              allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
               states: state.states,
               pluginData: {
                 isDebug: isDebug
               },
               componentData: state.componentData,
-              gameObjectData: state.gameObjectData,
+              gameObjectContribute: state.gameObjectContribute,
               usedGameObjectData: state.usedGameObjectData
             });
 }

@@ -1,4 +1,4 @@
-let insertNode = (tree, targetPluginName, node): (Meta3dEngineCoreType.TreeType.tree, bool) => {
+let insertNode = (tree, targetPluginName, node): (Meta3dEngineCoreProtocol.TreeType.tree, bool) => {
   // TODO check new tree node not exist in tree
 
   let isInsert = ref(false)

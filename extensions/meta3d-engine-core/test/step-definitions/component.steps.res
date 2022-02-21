@@ -21,7 +21,7 @@ defineFeature(feature, test => {
     ~getComponentDataFunc=(. state, _, _) => Obj.magic(1),
     ~setComponentDataFunc=(. state, _, _, _) => state,
     (),
-  ): Meta3dEngineCoreType.RegisterComponentType.registeredComponent => {
+  ): Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute => {
     componentName: componentName,
     createStateFunc: createStateFunc,
     getGameObjectsFunc: getGameObjectsFunc,
@@ -531,7 +531,7 @@ defineFeature(feature, test => {
     })
 
     then("get c1's data1 should the setted data", () => {
-      Main.getComponentData(usedData.contents, c1.contents, "isRender"->Obj.magic)
+      Main.getComponentContribute(usedData.contents, c1.contents, "isRender"->Obj.magic)
       ->Obj.magic
       ->expect == true
     })

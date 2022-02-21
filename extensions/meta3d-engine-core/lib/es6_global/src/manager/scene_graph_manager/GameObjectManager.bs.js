@@ -4,28 +4,28 @@ import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry
 import * as OptionSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 
 function unsafeGetGameObjectData(state) {
-  return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectData);
+  return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
 }
 
-function setGameObjectData(state, gameObjectData) {
+function setGameObjectData(state, gameObjectContribute) {
   return {
-          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
           componentData: state.componentData,
-          gameObjectData: gameObjectData,
+          gameObjectContribute: gameObjectContribute,
           usedGameObjectData: state.usedGameObjectData
         };
 }
 
 function createAndSetState(state) {
-  var match = OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectData);
+  var match = OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
   return {
-          allRegisteredWorkPluginData: state.allRegisteredWorkPluginData,
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: state.states,
           pluginData: state.pluginData,
           componentData: state.componentData,
-          gameObjectData: state.gameObjectData,
+          gameObjectContribute: state.gameObjectContribute,
           usedGameObjectData: {
             state: Curry._1(match.createStateFunc, undefined),
             createGameObjectFunc: match.createGameObjectFunc,

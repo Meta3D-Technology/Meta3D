@@ -2,7 +2,7 @@
   "packages": [
     "defaults/*",
     "extensions/*",
-    "extension-types/*"
+    "extension_protocols/*"
   ],
   "npmClient": "yarn",
   "command": {

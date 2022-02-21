@@ -1,20 +1,20 @@
 let unsafeGetGameObjectData = (
-  state: Meta3dEngineCoreType.StateType.state,
-): Meta3dEngineCoreType.GameObjectType.gameObjectData => {
-  state.gameObjectData->Meta3dCommonlib.OptionSt.unsafeGet
+  state: Meta3dEngineCoreProtocol.StateType.state,
+): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
+  state.gameObjectContribute->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
 let setGameObjectData = (
-  state: Meta3dEngineCoreType.StateType.state,
-  gameObjectData: Meta3dEngineCoreType.GameObjectType.gameObjectData,
+  state: Meta3dEngineCoreProtocol.StateType.state,
+  gameObjectContribute: Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute,
 ) => {
   ...state,
-  gameObjectData: Some(gameObjectData),
+  gameObjectContribute: Some(gameObjectContribute),
 }
 
 let createAndSetState = (
-  {gameObjectData} as state: Meta3dEngineCoreType.StateType.state,
-): Meta3dEngineCoreType.StateType.state => {
+  {gameObjectContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
+): Meta3dEngineCoreProtocol.StateType.state => {
   let {createStateFunc, createGameObjectFunc, getAllGameObjectsFunc} = unsafeGetGameObjectData(
     state,
   )
@@ -30,16 +30,16 @@ let createAndSetState = (
 }
 
 let _unsafeGetGameObjectRelatedData = (
-  {usedGameObjectData}: Meta3dEngineCoreType.StateType.state,
-): Meta3dEngineCoreType.GameObjectType.usedGameObjectData => {
+  {usedGameObjectData}: Meta3dEngineCoreProtocol.StateType.state,
+): Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectData => {
   usedGameObjectData->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
 let _setGameObjectStateToStateState = (
-  poState: Meta3dEngineCoreType.StateType.state,
-  data: Meta3dEngineCoreType.GameObjectType.usedGameObjectData,
-  gameObjectState: Meta3dEngineCoreType.GameObjectType.state,
-): Meta3dEngineCoreType.StateType.state => {
+  poState: Meta3dEngineCoreProtocol.StateType.state,
+  data: Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectData,
+  gameObjectState: Meta3dEngineCoreProtocol.GameObjectType.state,
+): Meta3dEngineCoreProtocol.StateType.state => {
   data.state = gameObjectState
 
   poState.usedGameObjectData = data->Some
@@ -47,9 +47,9 @@ let _setGameObjectStateToStateState = (
   poState
 }
 
-let createGameObject = (state: Meta3dEngineCoreType.StateType.state): (
-  Meta3dEngineCoreType.StateType.state,
-  Meta3dEngineCoreType.GameObjectType.gameObject,
+let createGameObject = (state: Meta3dEngineCoreProtocol.StateType.state): (
+  Meta3dEngineCoreProtocol.StateType.state,
+  Meta3dEngineCoreProtocol.GameObjectType.gameObject,
 ) => {
   let data = state->_unsafeGetGameObjectRelatedData
 
@@ -58,8 +58,8 @@ let createGameObject = (state: Meta3dEngineCoreType.StateType.state): (
   (_setGameObjectStateToStateState(state, data, gameObjectState), gameObject)
 }
 
-let getAllGameObjects = (state: Meta3dEngineCoreType.StateType.state): array<
-  Meta3dEngineCoreType.GameObjectType.gameObject,
+let getAllGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state): array<
+  Meta3dEngineCoreProtocol.GameObjectType.gameObject,
 > => {
   let data = state->_unsafeGetGameObjectRelatedData
 

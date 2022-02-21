@@ -1,6 +1,6 @@
 
 
-import * as CreateState$Meta3dEngineCore from "./data/CreateState.bs.js";
+import * as CreateState$Meta3dEngineCore from "./state/CreateState.bs.js";
 import * as DirectorForJs$Meta3dEngineCore from "./manager/DirectorForJs.bs.js";
 
 function getService(api, param) {
@@ -53,7 +53,7 @@ var getComponent = DirectorForJs$Meta3dEngineCore.getComponent;
 
 var getAllComponents = DirectorForJs$Meta3dEngineCore.getAllComponents;
 
-var getComponentData = DirectorForJs$Meta3dEngineCore.getComponentData;
+var getComponentContribute = DirectorForJs$Meta3dEngineCore.getComponentContribute;
 
 var getComponentGameObjects = DirectorForJs$Meta3dEngineCore.getComponentGameObjects;
 
@@ -86,7 +86,7 @@ export {
   hasComponent ,
   getComponent ,
   getAllComponents ,
-  getComponentData ,
+  getComponentContribute ,
   getComponentGameObjects ,
   setGameObjectData ,
   createAndSetGameObjectState ,

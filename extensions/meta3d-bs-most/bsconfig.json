@@ -10,7 +10,7 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-type",
-    "meta3d-bs-most-type",
+    "meta3d-bs-most-protocol",
     "meta3d-commonlib"
   ],
   "package-specs": [
