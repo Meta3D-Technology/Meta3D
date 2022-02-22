@@ -254,17 +254,18 @@ give dependent extension name, extension protocol name, version when registerExt
 # TODO rename registerWorkPlugin->data to workPluginContribute
 
 
-** TODO pass engine core test
 
 
-** TODO add webgl render(just log)
+** DONE add webgl render(just log)
 
 add canvas
 
 add webgl
 
-add webgl render
+# add webgl render
 
+
+** TODO pass engine core test
 
 ** TODO pass run test
 
@@ -283,6 +284,9 @@ add webgl render
 ** TODO finish user side
 
 
+** TODO build engine by typescript
+
+
 * TODO finish, make editor user to use
 
 ** TODO finish editor user design
@@ -298,8 +302,6 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 
 * TODO change to use typescript for wonder-engine, wonder-editor
-
-** TODO build engine by typescript
 
 ** TODO build editor by typescript
 
@@ -358,7 +360,7 @@ add InitEventJob
 
 
 
-* TODO publish v0.1.0
+* TODO publish
 
 
 # * TODO update engine
@@ -404,7 +406,7 @@ only has pbrmaterial asset
 
 
 
-* TODO publish 0.2.0
+* TODO publish
 
 
 
@@ -458,21 +460,29 @@ refer to eventmanager package
 
 
 
-* TODO publish v0.3.0
+* TODO publish
 
 
 
 * TODO update engine
 
-** TODO add webgl render(can render a cube)
+** TODO finish sxengine's work without arcball, outline but include worker(should abstract sxengine code!!!)
+
 
 
 * TODO update editor
 
+
+
 ** TODO add edit scene, run scene
 
 
-* TODO publish v0.4.0
+
+
+* TODO publish
+
+
+
 
 
 
@@ -491,7 +501,70 @@ refer to eventmanager package
 *** TODO add clone gameObject button
 
 
-* TODO publish v0.5.0
+* TODO publish
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO extract shader extension for webgl
+
+** TODO add custom material component
+
+
+* TODO update editor
+
+** TODO support load custom material asset
+
+
+
+* TODO publish
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+
+
+* TODO update editor
+
+** TODO add texture
+
+add texture asset;
+material asset add texture;
+
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO add load gltf/glb model without assetbundle, streamload
+
+
+
+* TODO update editor
+
+** TODO add gltf/glb asset
+
+
+
+* TODO publish
+
+
+
 
 
 
@@ -506,11 +579,19 @@ refer to eventmanager package
 ** TODO prepare doc for user
 
 
-* TODO publish v0.6.0
+* TODO publish
 
 ** TODO publish
 
 ** TODO open for user to use and extend!!!
+
+
+
+
+
+* TODO publish to sx!
+
+
 
 
 

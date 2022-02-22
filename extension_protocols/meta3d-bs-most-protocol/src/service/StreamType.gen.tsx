@@ -1,4 +1,4 @@
-/* TypeScript file generated from ServiceType.res by genType. */
+/* TypeScript file generated from StreamType.res by genType. */
 /* eslint-disable import/first */
 
 

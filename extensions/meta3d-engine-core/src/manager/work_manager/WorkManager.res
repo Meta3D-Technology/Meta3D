@@ -41,7 +41,7 @@ module ParsePipelineData = {
   let _buildJobStream = (
     {just, flatMap, map}: Meta3dBsMostProtocol.ServiceType.service,
     execFunc,
-  ): Meta3dBsMostProtocol.ServiceType.stream<unit> => {
+  ): Meta3dBsMostProtocol.StreamType.stream<unit> => {
     execFunc->just->flatMap(func => func(_getStates()), _)->map(_setStates, _)
   }
 
@@ -121,7 +121,7 @@ module ParsePipelineData = {
     mostService: Meta3dBsMostProtocol.ServiceType.service,
     getExecFuncs,
     {name, groups, first_group},
-  ): Meta3dBsMostProtocol.ServiceType.stream<Meta3dEngineCoreProtocol.StateType.state> => {
+  ): Meta3dBsMostProtocol.StreamType.stream<Meta3dEngineCoreProtocol.StateType.state> => {
     let group = _findGroup(first_group, groups)
 
     state->StateContainer.setState
@@ -640,7 +640,7 @@ let runPipeline = (
   mostService: Meta3dBsMostProtocol.ServiceType.service,
   pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
 ): Meta3dCommonlib.Result.t2<
-  Meta3dBsMostProtocol.ServiceType.stream<Meta3dEngineCoreProtocol.StateType.state>,
+  Meta3dBsMostProtocol.StreamType.stream<Meta3dEngineCoreProtocol.StateType.state>,
 > => {
   // TODO check is allRegisteredWorkPluginContribute duplicate
 

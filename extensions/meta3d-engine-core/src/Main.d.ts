@@ -1,5 +1,5 @@
 // import type { Stream } from "most";
-// import { workPluginContribute } from "./abstract/work/Meta3dEngineCoreProtocol.IWorkForJs.gen"
+// import { workPluginContribute } from "./abstract/work/Meta3dEngineCoreProtocol.IWorkForJs"
 // import { jobOrders } from "./data/vo/Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.gen";
 // import { componentName, componentContribute } from "./abstract/scene_graph/Meta3dEngineCoreProtocol.IComponentForJs.gen"
 // import { usedComponentContribute } from "./data/Meta3dEngineCoreProtocol.RegisterComponentType.gen"

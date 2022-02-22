@@ -60,7 +60,7 @@ let getComponentState = DirectorForJs.getComponentState
 //   }
 // }
 
-let getService: Meta3dType.Index.getExtensionService<
+let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap,
   Meta3dEngineCoreProtocol.ServiceType.service,
 > = (api, dependentExtensionNameMap) => {
@@ -89,7 +89,7 @@ let getService: Meta3dType.Index.getExtensionService<
   runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
 }
 
-let createState: Meta3dType.Index.createExtensionState<
+let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dEngineCoreProtocol.StateType.state,
 > = () => {
   CreateState.createState()

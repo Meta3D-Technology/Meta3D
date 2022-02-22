@@ -1,0 +1,2 @@
+@genType
+type stream<'a>

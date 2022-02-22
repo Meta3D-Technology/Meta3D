@@ -25,9 +25,9 @@ function _getMeta3DEngineCoreExtensionDependentExtensionNameMap(param) {
 
 function prepare(param) {
   var state = Main$Meta3d.prepare(undefined);
-  var state$1 = Main$Meta3d.registerExtension(Main$Meta3d.registerExtension(state, "meta3d-bs-most", Main$Meta3dBsMost.getService, undefined, Main$Meta3dBsMost.createState(undefined)), "meta3d-engine-core", Main$Meta3dEngineCore.getService, {
+  var state$1 = Main$Meta3d.registerExtension(Main$Meta3d.registerExtension(state, "meta3d-bs-most", Main$Meta3dBsMost.getExtensionService, undefined, Main$Meta3dBsMost.createExtensionState(undefined)), "meta3d-engine-core", Main$Meta3dEngineCore.getExtensionService, {
         meta3dBsMostExtensionName: "meta3d-bs-most"
-      }, Main$Meta3dEngineCore.createState(undefined));
+      }, Main$Meta3dEngineCore.createExtensionState(undefined));
   var engineCoreState = Main$Meta3d.getExtensionStateExn(state$1, "meta3d-engine-core");
   var match = Main$Meta3d.getServiceExn(state$1, "meta3d-engine-core");
   var engineCoreState$1 = Curry._3(match.createAndSetComponentState, Curry._2(match.registerComponent, engineCoreState, Main$Meta3dComponentTransform.getComponentContribute(undefined)), Index$Meta3dComponentTransformProtocol.componentName, {

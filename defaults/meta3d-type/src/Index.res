@@ -18,9 +18,11 @@ type api = {
   setExtensionState: 'extensionState. (state, extensionName, 'extensionState) => state,
 }
 
+@genType
 type getExtensionService<'dependentExtensionNameMap, 'extensionService> = (
   api,
   'dependentExtensionNameMap,
 ) => 'extensionService
 
+@genType
 type createExtensionState<'extensionState> = unit => 'extensionState

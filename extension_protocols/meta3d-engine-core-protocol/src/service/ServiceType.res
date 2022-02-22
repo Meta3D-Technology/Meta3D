@@ -77,5 +77,5 @@ type service = {
     StateType.state,
     Meta3dType.Index.state,
     PipelineType.pipelineName,
-  ) => Meta3dBsMostProtocol.ServiceType.stream<StateType.state>,
+  ) => Meta3dBsMostProtocol.StreamType.stream<StateType.state>,
 }

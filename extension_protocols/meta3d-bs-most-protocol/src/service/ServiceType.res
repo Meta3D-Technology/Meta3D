@@ -1,5 +1,5 @@
-@genType
-type stream<'a>
+open StreamType
+// type stream<'a>
 
 type value
 

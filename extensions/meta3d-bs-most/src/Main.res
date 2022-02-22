@@ -24,7 +24,7 @@ let callFunc = func => {
   Most.just(func)->Most.map(func => func(), _)
 }
 
-let getService: Meta3dType.Index.getExtensionService<
+let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dBsMostProtocol.ServiceType.dependentExtensionNameMap,
   Meta3dBsMostProtocol.ServiceType.service,
 > = (api, ()) => {
@@ -37,6 +37,6 @@ let getService: Meta3dType.Index.getExtensionService<
   callFunc: callFunc,
 }
 
-let createState: Meta3dType.Index.createExtensionState<unit> = () => {
+let createExtensionState: Meta3dType.Index.createExtensionState<unit> = () => {
   ()
 }

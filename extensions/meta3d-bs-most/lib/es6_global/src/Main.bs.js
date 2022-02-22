@@ -29,7 +29,7 @@ function callFunc(func) {
               }), __x);
 }
 
-function getService(api, param) {
+function getExtensionService(api, param) {
   return {
           just: (function (prim) {
               return Most.just(prim);
@@ -51,7 +51,7 @@ function getService(api, param) {
         };
 }
 
-function createState(param) {
+function createExtensionState(param) {
   
 }
 
@@ -59,8 +59,8 @@ export {
   _isFromEventStream ,
   concatArray ,
   callFunc ,
-  getService ,
-  createState ,
+  getExtensionService ,
+  createExtensionState ,
   
 }
 /* most Not a pure module */

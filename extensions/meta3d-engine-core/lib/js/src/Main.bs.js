@@ -3,7 +3,7 @@
 var CreateState$Meta3dEngineCore = require("./state/CreateState.bs.js");
 var DirectorForJs$Meta3dEngineCore = require("./manager/DirectorForJs.bs.js");
 
-function getService(api, dependentExtensionNameMap) {
+function getExtensionService(api, dependentExtensionNameMap) {
   var partial_arg = [
     api,
     dependentExtensionNameMap
@@ -37,7 +37,7 @@ function getService(api, dependentExtensionNameMap) {
         };
 }
 
-function createState(param) {
+function createExtensionState(param) {
   return CreateState$Meta3dEngineCore.createState(undefined);
 }
 
@@ -116,6 +116,6 @@ exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 exports.getComponentState = getComponentState;
-exports.getService = getService;
-exports.createState = createState;
+exports.getExtensionService = getExtensionService;
+exports.createExtensionState = createExtensionState;
 /* No side effect */

@@ -19,15 +19,15 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
     state
     ->registerExtension(
       _getMeta3DBsMostExtensionName(),
-      Meta3dBsMost.Main.getService->Obj.magic,
+      Meta3dBsMost.Main.getExtensionService->Obj.magic,
       ()->Obj.magic,
-      Meta3dBsMost.Main.createState()->Obj.magic,
+      Meta3dBsMost.Main.createExtensionState()->Obj.magic,
     )
     ->registerExtension(
       _getMeta3DEngineCoreExtensionName(),
-      Meta3dEngineCore.Main.getService->Obj.magic,
+      Meta3dEngineCore.Main.getExtensionService->Obj.magic,
       _getMeta3DEngineCoreExtensionDependentExtensionNameMap(),
-      Meta3dEngineCore.Main.createState()->Obj.magic,
+      Meta3dEngineCore.Main.createExtensionState()->Obj.magic,
     )
 
   // TODO move to extension

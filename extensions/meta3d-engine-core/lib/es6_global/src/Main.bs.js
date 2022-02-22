@@ -3,7 +3,7 @@
 import * as CreateState$Meta3dEngineCore from "./state/CreateState.bs.js";
 import * as DirectorForJs$Meta3dEngineCore from "./manager/DirectorForJs.bs.js";
 
-function getService(api, dependentExtensionNameMap) {
+function getExtensionService(api, dependentExtensionNameMap) {
   var partial_arg = [
     api,
     dependentExtensionNameMap
@@ -37,7 +37,7 @@ function getService(api, dependentExtensionNameMap) {
         };
 }
 
-function createState(param) {
+function createExtensionState(param) {
   return CreateState$Meta3dEngineCore.createState(undefined);
 }
 
@@ -117,8 +117,8 @@ export {
   createGameObject ,
   getAllGameObjects ,
   getComponentState ,
-  getService ,
-  createState ,
+  getExtensionService ,
+  createExtensionState ,
   
 }
 /* No side effect */
