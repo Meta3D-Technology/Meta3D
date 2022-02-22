@@ -5,7 +5,7 @@ Feature: GameObject
 
     Background: prepare
         Given prepare register
-        When set gameObject data
+        When set gameObject contribute
         And create and set the gameObject state
 
     Scenario: create a gameObject

@@ -9,32 +9,32 @@ Feature: Component
     Rule: register component
 
         Scenario: register one component
-            When register component data
-            Then should add component data
+            When register component contribute
+            Then should add component contribute
 
         Scenario: register the same component twice
             Given open debug
-            When register component data
-            And register component data
+            When register component contribute
+            And register component contribute
             Then should contract error: "expect not register before, but actual not"
 
     Rule: unregister component
 
         Scenario: register one component and unregister it
-            When register component data
+            When register component contribute
             And unregister it
-            Then should not has component data
+            Then should not has component contribute
 
         Scenario: register two components and unregister the first one
-            When register component1 data
-            And register component2 data
-            And unregister component1 data
-            Then should only has component2 data
+            When register component1 contribute
+            And register component2 contribute
+            And unregister component1 contribute
+            Then should only has component2 contribute
 
     Rule: operate component
 
         Background: prepare component
-            Given register component data
+            Given register component contribute
             And create and set component state
 
         Scenario: create component

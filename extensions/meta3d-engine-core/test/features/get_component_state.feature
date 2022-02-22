@@ -5,6 +5,6 @@ Feature: Get Component State
 
     Scenario: get registerd component's state
         Given prepare register
-        And register component data
+        And register component contribute
         And create and set component state
         Then get registerd component's state should return the component state

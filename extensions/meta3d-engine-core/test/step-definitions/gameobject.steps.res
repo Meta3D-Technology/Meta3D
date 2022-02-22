@@ -1,86 +1,83 @@
-// open Meta3dBsJestCucumber
-// open Cucumber
-// open Expect
-// open Operators
+open Meta3dBsJestCucumber
+open Cucumber
+open Expect
+open Operators
 
-// let feature = loadFeature("./test/features/gameobject.feature")
+let feature = loadFeature("./test/features/gameobject.feature")
 
-// defineFeature(feature, test => {
-//   let data = ref(Obj.magic(1))
+defineFeature(feature, test => {
+  let contribute = ref(Obj.magic(1))
 
-//   let _buildGameObjectData = (
-//     ~createStateFunc=() => Obj.magic(1),
-//     ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
-//     ~getAllGameObjectsFunc=(. state) => [],
-//     (),
-//   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
-//     createStateFunc: createStateFunc,
-//     createGameObjectFunc: createGameObjectFunc,
-//     getAllGameObjectsFunc: getAllGameObjectsFunc,
-//   }
+  let _buildGameObjectData = (
+    ~createStateFunc=() => Obj.magic(1),
+    ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
+    ~getAllGameObjectsFunc=(. state) => [],
+    (),
+  ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
+    createStateFunc: createStateFunc,
+    createGameObjectFunc: createGameObjectFunc,
+    getAllGameObjectsFunc: getAllGameObjectsFunc,
+  }
 
-//   let _prepare = (given, \"when", \"and") => {
-//     given("prepare register", () => {
-//       CreateState.createState()->StateContainer.setState
-//     })
+  let _prepare = (given, \"when", \"and") => {
+    given("prepare register", () => {
+      CreateState.createState()->StateContainer.setState
+    })
 
-//     \"when"("set gameObject data", () => {
-//       data :=
-//         _buildGameObjectData(
-//           ~createStateFunc=() => {
-//             {
-//               "maxUID": 0,
-//             }->Obj.magic
-//           },
-//           ~createGameObjectFunc=(. state) => {
-//             let gameObject = JsObjTool.getObjValue(state, "maxUID")
+    \"when"("set gameObject contribute", () => {
+      contribute :=
+        _buildGameObjectData(
+          ~createStateFunc=() => {
+            {
+              "maxUID": 0,
+            }->Obj.magic
+          },
+          ~createGameObjectFunc=(. state) => {
+            let gameObject = JsObjTool.getObjValue(state, "maxUID")
 
-//             (
-//               {
-//                 "maxUID": JsObjTool.getObjValue(state, "maxUID")->succ,
-//               }->Obj.magic,
-//               gameObject,
-//             )
-//           },
-//           ~getAllGameObjectsFunc=(. state) => {
-//             Meta3dCommonlib.ArraySt.range(
-//               0,
-//               JsObjTool.getObjValue(state, "maxUID") - 1,
-//             )->Obj.magic
-//           },
-//           (),
-//         )
+            (
+              {
+                "maxUID": JsObjTool.getObjValue(state, "maxUID")->succ,
+              }->Obj.magic,
+              gameObject,
+            )
+          },
+          ~getAllGameObjectsFunc=(. state) => {
+            Meta3dCommonlib.ArraySt.range(0, JsObjTool.getObjValue(state, "maxUID") - 1)->Obj.magic
+          },
+          (),
+        )
 
-//       Main.setGameObjectContribute(data.contents)
-//     })
+      MainTool.setGameObjectContribute(contribute.contents)
+    })
 
-//     \"and"("create and set the gameObject state", () => {
-//       Main.createAndSetGameObjectState()
-//     })
-//   }
+    \"and"("create and set the gameObject state", () => {
+      MainTool.createAndSetGameObjectState()
+    })
+  }
 
-//   test(."create a gameObject", ({given, \"when", \"and", then}) => {
-//     _prepare(given, \"when", \"and")
+  test(."create a gameObject", ({given, \"when", \"and", then}) => {
+    _prepare(given, \"when", \"and")
 
-//     then("createGameObject should create a gameObject", () => {
-//       Main.createGameObject()->expect == 0
-//     })
-//   })
+    then("createGameObject should create a gameObject", () => {
+      MainTool.createGameObject()->expect == 0
+    })
+  })
 
-//   test(."get all gameObjects", ({given, \"when", \"and", then}) => {
-//     let allGameObjects = []
+  test(."get all gameObjects", ({given, \"when", \"and", then}) => {
+    let allGameObjects = []
 
-//     _prepare(given, \"when", \"and")
+    _prepare(given, \"when", \"and")
 
-//     \"when"("create two gameObjects", () => {
-//       allGameObjects
-//       ->Meta3dCommonlib.ArraySt.push(Main.createGameObject())
-//       ->Meta3dCommonlib.ArraySt.push(Main.createGameObject())
-//       ->ignore
-//     })
+    \"when"("create two gameObjects", () => {
+      allGameObjects
+      ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
+      ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
+      ->ignore
+    })
 
-//     then("getAllGameObjects should return them", () => {
-//       Main.getAllGameObjects()->expect == allGameObjects
-//     })
-//   })
-// })
+    then("getAllGameObjects should return them", () => {
+      MainTool.getAllGameObjects()->expect == allGameObjects
+    })
+  })
+})

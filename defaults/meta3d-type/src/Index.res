@@ -13,9 +13,9 @@ type state = {
 
 type api = {
   /* ! rank2 polymorphism */
-  getServiceExn: 'extensionService. (state, extensionName) => 'extensionService,
-  getExtensionStateExn: 'extensionState. (state, extensionName) => 'extensionState,
-  setExtensionState: 'extensionState. (state, extensionName, 'extensionState) => state,
+  getServiceExn: 'extensionService. (. state, extensionName) => 'extensionService,
+  getExtensionStateExn: 'extensionState. (. state, extensionName) => 'extensionState,
+  setExtensionState: 'extensionState. (. state, extensionName, 'extensionState) => state,
 }
 
 @genType

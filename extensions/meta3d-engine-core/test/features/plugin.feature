@@ -7,7 +7,7 @@ Feature: Plugin
         Given prepare register
 
 
-    Rule: plugin data
+    Rule: plugin contribute
 
         Scenario: open debug
             When open debug
@@ -16,112 +16,116 @@ Feature: Plugin
     Rule: register plugin
 
         Scenario: register one plugin
-            When register plugin data
-            Then should add plugin data
+            When register plugin contribute
+            Then should add plugin contribute
 
         Scenario: register two plugins with jobOrders
-            When register plugin1 data
-            And register plugin2 data with jobOrders2
-            Then should add plugin1 and plugin2 data
+            When register plugin1 contribute
+            And register plugin2 contribute with jobOrders2
+            Then should add plugin1 and plugin2 contribute
 
     Rule: unregister plugin
 
         Scenario: register one plugin and unregister it
-            When register plugin data
+            When register plugin contribute
             And unregister it
-            Then should not has plugin data
+            Then should not has plugin contribute
 
         Scenario: register two plugins and unregister the first one
-            When register plugin1 data
-            And register plugin2 data
-            And unregister plugin1 data
-            Then should only has plugin2 data
+            When register plugin1 contribute
+            And register plugin2 contribute
+            And unregister plugin1 contribute
+            Then should only has plugin2 contribute
 
     Rule: init plugins
 
         Scenario: init plugins
             Given prepare sandbox
-            And register plugin1 data
-            And register plugin2 data
+            And register plugin1 contribute
+            And register plugin2 contribute
             When init
             Then invoke plugin1's and plugin2's createStateFunc and store result
             And invoke plugin1's and plugin2's initFunc
 
     Rule: run pipeline
 
+        Background: prepare sandbox
+            Given prepare sandbox
+
         Scenario: test register one plugin
-            Given register plugin data
+            Given register plugin contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
         Scenario: test register two plugins that plugin has one job
-            Given register plugin1 data
-            And register plugin2 data
+            Given register plugin1 contribute
+            And register plugin2 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
         Scenario: test register two plugins that plugin has two jobs
-            Given register plugin1 data
-            And register plugin2 data
+            Given register plugin1 contribute
+            And register plugin2 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
 
         Scenario: test register three plugins case1
-            Given register plugin1, plugin2, plugin3 data
+            Given register plugin1, plugin2, plugin3 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
         Scenario: test register three plugins case2
-            Given register plugin1, plugin2, plugin3 data
+            Given register plugin1, plugin2, plugin3 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
         Scenario: test register four plugins
             Given prepare sandbox
-            And register plugin1, plugin2, plugin3, plugin4 data
+            And register plugin1, plugin2, plugin3, plugin4 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
         Scenario: test register plugins in initFunc
-            Given register plugin1 data
-            And register plugin2 data in plugin1 data's initFunc
+            Given register plugin1 contribute
+            And register plugin2 contribute in plugin1 contribute's initFunc
             And init
             When run init pipeline
             Then run init pipeline's all jobs
 
     Rule: run pipeline special case
 
-        Scenario: test register one plugin with init, update pipeline jobs
+        Background: prepare sandbox
             Given prepare sandbox
-            And register plugin data with init, update pipeline jobs
+
+        Scenario: test register one plugin with init, update pipeline jobs
+            And register plugin contribute with init, update pipeline jobs
             And init
             When run update pipeline
             Then run update pipeline's all jobs
 
         Scenario: test register three plugins with init, update pipeline jobs
-            Given prepare sandbox
-            And register plugin1 data with one init pipeline job
-            And register plugin2 data with one update pipeline job
-            And register plugin3 data with one init pipeline job
+            And register plugin1 contribute with one init pipeline job
+            And register plugin2 contribute with one update pipeline job
+            And register plugin3 contribute with one init pipeline job
             And init
             When run init pipeline
             Then run init pipeline's two jobs
 
         Scenario: if first_group not in groups, error
-            Given register wrong plugin data
+            Given register wrong plugin contribute
             And init
             When run init pipeline
             Then should error: "not in groups"
 
         Scenario: if first_group has more than one in groups, error
-            Given register wrong plugin data
+            Given register wrong plugin contribute
             And init
             When run init pipeline
             Then should error: "has more than one"

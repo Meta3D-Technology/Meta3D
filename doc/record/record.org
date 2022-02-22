@@ -265,7 +265,7 @@ add webgl
 # add webgl render
 
 
-** TODO pass engine core test
+** DONE pass engine core test
 
 ** TODO pass run test
 
@@ -281,10 +281,10 @@ add webgl
 # ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
 
 
+** TODO build engine by typescript
+
 ** TODO finish user side
 
-
-** TODO build engine by typescript
 
 
 * TODO finish, make editor user to use
@@ -297,14 +297,11 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 ** TODO use engine(for edit, run scene)
 
-** TODO finish user side
 
-
-
-* TODO change to use typescript for wonder-engine, wonder-editor
 
 ** TODO build editor by typescript
 
+** TODO finish user side
 
 
 * TODO update editor

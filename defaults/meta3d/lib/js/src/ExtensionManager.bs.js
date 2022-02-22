@@ -20,19 +20,19 @@ function getExtensionStateExn(state, name) {
 
 function buildAPI(param) {
   return {
-          getServiceExn: getServiceExn,
-          getExtensionStateExn: getExtensionStateExn,
+          getServiceExn: (function (state, name) {
+              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
+            }),
+          getExtensionStateExn: (function (state, name) {
+              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
+            }),
           setExtensionState: setExtensionState
         };
 }
 
 function register(state, name, getServiceFunc, dependentExtensionNameMap, extensionState) {
   return setExtensionState({
-              extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, {
-                        getServiceExn: getServiceExn,
-                        getExtensionStateExn: getExtensionStateExn,
-                        setExtensionState: setExtensionState
-                      }, dependentExtensionNameMap)),
+              extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, buildAPI(undefined), dependentExtensionNameMap)),
               extensionStateMap: state.extensionStateMap
             }, name, extensionState);
 }

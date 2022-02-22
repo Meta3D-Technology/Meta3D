@@ -1,6 +1,5 @@
 'use strict';
 
-var Curry = require("rescript/lib/js/curry.js");
 var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Result.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
@@ -34,7 +33,7 @@ function prepare(param) {
 var init = WorkManager$Meta3dEngineCore.init;
 
 function runPipeline(param, state, meta3dState, pipelineName) {
-  var mostService = Curry._2(param[0].getServiceExn, meta3dState, param[1].meta3dBsMostExtensionName);
+  var mostService = param[0].getServiceExn(meta3dState, param[1].meta3dBsMostExtensionName);
   return Result$Meta3dCommonlib.handleFail(WorkManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 

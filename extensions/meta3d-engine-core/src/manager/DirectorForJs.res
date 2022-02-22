@@ -45,7 +45,7 @@ let runPipeline = (
   meta3dState,
   pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
 ) => {
-  let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getServiceExn(
+  let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getServiceExn(.
     meta3dState,
     meta3dBsMostExtensionName,
   )

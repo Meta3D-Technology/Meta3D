@@ -19,10 +19,12 @@ let getExtensionStateExn = (state, name: extensionName) => {
 }
 
 let buildAPI = (): api => {
-  getServiceExn: getServiceExn,
-  getExtensionStateExn: getExtensionStateExn,
+  getServiceExn: (. state, name: extensionName) => getServiceExn(state, (name: extensionName)),
+  getExtensionStateExn: (. state, name) => getExtensionStateExn(state, name),
   // TODO remove magic
-  setExtensionState: setExtensionState->Obj.magic,
+  setExtensionState: (
+    (. state, name, extensionState) => setExtensionState(state, name, extensionState)
+  )->Obj.magic,
 }
 
 let register = (
