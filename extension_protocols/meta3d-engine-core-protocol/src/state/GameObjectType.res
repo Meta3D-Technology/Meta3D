@@ -17,4 +17,5 @@ type usedGameObjectData = {
   >,
 }
 
+@genType
 type gameObjectContribute = IGameObjectForJs.gameObjectContribute<state, gameObject>

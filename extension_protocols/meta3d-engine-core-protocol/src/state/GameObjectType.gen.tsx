@@ -4,6 +4,8 @@
 
 import type {createGameObjectFunc as IGameObjectForJs_createGameObjectFunc} from '../../src/contribute_points/scene_graph/IGameObjectForJs.gen';
 
+import type {gameObjectContribute as IGameObjectForJs_gameObjectContribute} from '../../src/contribute_points/scene_graph/IGameObjectForJs.gen';
+
 import type {getAllGameObjectsFunc as IGameObjectForJs_getAllGameObjectsFunc} from '../../src/contribute_points/scene_graph/IGameObjectForJs.gen';
 
 // tslint:disable-next-line:max-classes-per-file 
@@ -20,3 +22,6 @@ export type usedGameObjectData = {
   readonly createGameObjectFunc: IGameObjectForJs_createGameObjectFunc<state,gameObject>; 
   readonly getAllGameObjectsFunc: IGameObjectForJs_getAllGameObjectsFunc<state,gameObject>
 };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type gameObjectContribute = IGameObjectForJs_gameObjectContribute<state,gameObject>;

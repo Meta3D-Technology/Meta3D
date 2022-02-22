@@ -1,4 +1,11 @@
-// export const componentName: string
+export const componentName: string
+
+export type config = {
+    isDebug: boolean,
+    float9Array1: Float32Array,
+    float32Array1: Float32Array,
+    transformCount: number,
+}
 
 // export const dataName: {
 //     parent: number,

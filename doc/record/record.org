@@ -271,11 +271,11 @@ add webgl
 
 
 
-** TODO refactor: add work-plugins, components packages
+** DONE refactor: add work-plugins, components packages
 
 
 
-** TODO refactor: move wonder-engine->register work plugins to extension
+** DONE refactor: move wonder-engine->register work plugins to extension
 
 # ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
 

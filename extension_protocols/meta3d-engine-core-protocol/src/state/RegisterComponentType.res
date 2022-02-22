@@ -1,18 +1,18 @@
-@genType
+// @genType
 type state
 
-@genType
+// @genType
 type component
 
-@genType
+// @genType
 type config
 
-@genType
+// @genType
 type dataName
 
 type componentContribute = IComponentForJs.componentContribute<state, config, dataName, component>
 
-@genType
+// @genType
 type usedComponentContribute = {
   componentName: IComponentForJs.componentName,
   mutable state: state,
