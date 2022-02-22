@@ -1,12 +1,12 @@
-'use strict';
 
-var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
-var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
-var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
-var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/index.bs.js");
-var UpdateTransformUtils$Meta3dComponentTransform = require("./UpdateTransformUtils.bs.js");
-var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
-var ModelMatrixTransformUtils$Meta3dComponentTransform = require("./ModelMatrixTransformUtils.bs.js");
+
+import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "../../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as UpdateTransformUtils$Meta3dComponentTransform from "./UpdateTransformUtils.bs.js";
+import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
+import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "./ModelMatrixTransformUtils.bs.js";
 
 function setData(state, transform, dataName, dataValue) {
   if (dataName !== Index$Meta3dComponentTransformProtocol.dataName.parent) {
@@ -40,5 +40,8 @@ function setData(state, transform, dataName, dataValue) {
   }
 }
 
-exports.setData = setData;
+export {
+  setData ,
+  
+}
 /* No side effect */

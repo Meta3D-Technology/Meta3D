@@ -7,7 +7,7 @@ var Main$Meta3dEngineCore = require("meta3d-engine-core/lib/js/src/Main.bs.js");
 var Main$Meta3dWorkPluginRoot = require("meta3d-work-plugin-root/lib/js/src/Main.bs.js");
 var Main$Meta3dComponentTransform = require("meta3d-component-transform/lib/js/src/Main.bs.js");
 var Main$Meta3dGameobjectDataoriented = require("meta3d-gameobject-dataoriented/lib/js/src/Main.bs.js");
-var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/index.bs.js");
+var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 
 function _getMeta3DEngineCoreExtensionName(param) {
   return "meta3d-engine-core";

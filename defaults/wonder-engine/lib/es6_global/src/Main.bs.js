@@ -7,7 +7,7 @@ import * as Main$Meta3dEngineCore from "../../../../../node_modules/meta3d-engin
 import * as Main$Meta3dWorkPluginRoot from "../../../../../node_modules/meta3d-work-plugin-root/lib/es6_global/src/Main.bs.js";
 import * as Main$Meta3dComponentTransform from "../../../../../node_modules/meta3d-component-transform/lib/es6_global/src/Main.bs.js";
 import * as Main$Meta3dGameobjectDataoriented from "../../../../../node_modules/meta3d-gameobject-dataoriented/lib/es6_global/src/Main.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/index.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 
 function _getMeta3DEngineCoreExtensionName(param) {
   return "meta3d-engine-core";

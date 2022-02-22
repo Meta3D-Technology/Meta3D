@@ -1,14 +1,14 @@
+'use strict';
 
-
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Tuple2$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "../../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/index.bs.js";
-import * as DirtyTransformUtils$Meta3dComponentTransform from "./DirtyTransformUtils.bs.js";
-import * as UpdateTransformUtils$Meta3dComponentTransform from "./UpdateTransformUtils.bs.js";
-import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
-import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "./ModelMatrixTransformUtils.bs.js";
-import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
+var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
+var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
+var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
+var DirtyTransformUtils$Meta3dComponentTransform = require("./DirtyTransformUtils.bs.js");
+var UpdateTransformUtils$Meta3dComponentTransform = require("./UpdateTransformUtils.bs.js");
+var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
+var ModelMatrixTransformUtils$Meta3dComponentTransform = require("./ModelMatrixTransformUtils.bs.js");
+var ModelMatrixTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/ModelMatrixTransformUtils.bs.js");
 
 function getData(state, param, param$1) {
   var localToWorldMatrices = state.localToWorldMatrices;
@@ -48,8 +48,5 @@ function getData(state, param, param$1) {
   }
 }
 
-export {
-  getData ,
-  
-}
+exports.getData = getData;
 /* No side effect */

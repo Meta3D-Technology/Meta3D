@@ -4,8 +4,8 @@
   "authors": "Wonder",
   "description": "",
   "license": "MIT",
-  "main": "lib/js/index.bs.js",
-  "types": "index.d.ts",
+  "main": "lib/js/src/Index.bs.js",
+  "types": "src/Index.d.ts",
   "scripts": {
     "watch": "rescript clean && rescript build -w"
   },

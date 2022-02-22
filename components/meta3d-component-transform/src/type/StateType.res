@@ -6,6 +6,8 @@ type child = transform
 
 type children = array<child>
 
+type config = Meta3dComponentTransformProtocol.Index.config
+
 // type position = (float, float, float)
 
 // type rotation = (float, float, float, float)
@@ -17,13 +19,6 @@ type children = array<child>
 // type normalMatrix = Js.Typed_array.Float32Array.t
 
 // type eulerAngles = (float, float, float)
-
-type config = {
-  isDebug: bool,
-  transformCount: int,
-  float9Array1: Js.Typed_array.Float32Array.t,
-  float32Array1: Js.Typed_array.Float32Array.t,
-}
 
 type state = {
   config: config,

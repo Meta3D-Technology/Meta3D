@@ -3,7 +3,7 @@
   "sources": [
     {
       "dir": "./",
-      "subdirs": false
+      "subdirs": true
     }
   ],
   "gentypeconfig": {

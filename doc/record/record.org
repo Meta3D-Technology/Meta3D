@@ -267,7 +267,6 @@ add webgl
 
 ** DONE pass engine core test
 
-** TODO pass run test
 
 
 
@@ -282,6 +281,8 @@ add webgl
 
 
 ** TODO build engine by typescript
+
+** TODO pass run test
 
 ** TODO finish user side
 
