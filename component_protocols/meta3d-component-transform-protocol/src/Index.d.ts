@@ -7,24 +7,24 @@ export type config = {
     transformCount: number,
 }
 
-// export const dataName: {
-//     parent: number,
-//     children: number,
-//     localPosition: number,
-//     localRotation: number,
-//     localScale: number,
-//     position: number,
-//     rotation: number,
-//     scale: number,
-//     localEulerAngles: number,
-//     eulerAngles: number,
-//     normalMatrix: number,
-//     localToWorldMatrix: number,
-// }
+export type dataName = {
+    parent: number,
+    children: number,
+    localPosition: number,
+    localRotation: number,
+    localScale: number,
+    position: number,
+    rotation: number,
+    scale: number,
+    localEulerAngles: number,
+    eulerAngles: number,
+    normalMatrix: number,
+    localToWorldMatrix: number,
+}
 
 // // export type dataNameType = number
 
-// type transform = number
+type transform = number
 
 // export type parent = transform
 

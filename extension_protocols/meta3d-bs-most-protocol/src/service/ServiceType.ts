@@ -1,9 +1,4 @@
-// export abstract class stream<a> { protected opaque!: a }; /* simulate opaque types */
-
 import { stream } from "./StreamType.gen";
-
-// import type { Stream as stream } from 'most';
-// import type {stream} from 'most';
 
 export type service = {
     just<a>(val: a): stream<a>,

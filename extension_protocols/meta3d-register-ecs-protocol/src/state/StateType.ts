@@ -1,1 +1,1 @@
-export type state = {}
+export type state = null

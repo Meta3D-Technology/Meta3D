@@ -2,6 +2,7 @@
 /* eslint-disable import/first */
 
 
-// tslint:disable-next-line:max-classes-per-file 
-// tslint:disable-next-line:class-name
-export abstract class stream<a> { protected opaque!: a }; /* simulate opaque types */
+import type {Stream as $$stream} from 'most';
+
+// tslint:disable-next-line:interface-over-type-literal
+export type stream<a> = $$stream<a>;

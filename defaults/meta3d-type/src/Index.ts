@@ -1,4 +1,10 @@
-type extensionName = string
+export type extensionName = string
+
+export type extensionService = any
+
+export type extensionState = any
+
+export type dependentExtensionNameMap = any
 
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
 

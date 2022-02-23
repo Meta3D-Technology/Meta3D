@@ -2,6 +2,8 @@
     "name": "meta3d",
     "version": "0.0.2",
     "authors": "Wonder",
+    "main": "lib/js/src/Main.bs.js",
+    "types": "src/Main.d.ts",
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

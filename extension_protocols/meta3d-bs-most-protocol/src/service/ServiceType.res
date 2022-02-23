@@ -1,9 +1,6 @@
 open StreamType
-// type stream<'a>
 
 type value
-
-type dependentExtensionNameMap = unit
 
 type service = {
   just: 'a. 'a => stream<'a>,

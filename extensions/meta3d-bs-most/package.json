@@ -2,8 +2,9 @@
   "name": "meta3d-bs-most",
   "version": "0.0.1",
   "description": "",
+  "main": "lib/js/src/Main.bs.js",
+  "types": "src/Main.d.ts",
   "license": "MIT",
-  "main": "",
   "scripts": {
     "watch": "bsb -clean-world -make-world -w",
     "test:watch": "jest --watch --config jest.json"

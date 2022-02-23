@@ -1,7 +1,3 @@
-type uid = int
+type gameObject = Meta3dGameobjectProtocol.Index.gameObject
 
-@genType
-type gameObject = uid
-
-@genType
 type state = {mutable maxUID: gameObject}

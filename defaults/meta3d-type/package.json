@@ -2,6 +2,8 @@
     "name": "meta3d-type",
     "version": "0.0.1",
     "authors": "Wonder",
+    "main": "lib/js/src/Index.bs.js",
+    "types": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

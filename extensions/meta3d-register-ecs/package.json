@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "description": "",
     "author": "Wonder",
+    "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w"

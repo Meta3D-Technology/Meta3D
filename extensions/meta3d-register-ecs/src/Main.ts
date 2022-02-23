@@ -39,5 +39,5 @@ export let getExtensionService: getExtensionServiceMeta3d<
 export let createExtensionState: createExtensionStateMeta3d<
 	state
 > = () => {
-	return {}
+	return null
 }

@@ -280,7 +280,7 @@ add webgl
 # ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
 
 
-** TODO build engine by typescript
+** DONE build engine by typescript
 
 ** TODO pass run test
 
