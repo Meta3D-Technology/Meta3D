@@ -1,5 +1,6 @@
 {
   "packages": [
+    "examples/*",
     "defaults/*",
     "extensions/*",
     "extension_protocols/*",

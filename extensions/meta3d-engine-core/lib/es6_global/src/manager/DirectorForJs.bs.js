@@ -37,9 +37,7 @@ function runPipeline(param, state, meta3dState, pipelineName) {
   return Result$Meta3dCommonlib.handleFail(WorkManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 
-function getIsDebug(param) {
-  return PluginDataManager$Meta3dEngineCore.getIsDebug(undefined);
-}
+var getIsDebug = PluginDataManager$Meta3dEngineCore.getIsDebug;
 
 var setIsDebug = PluginDataManager$Meta3dEngineCore.setIsDebug;
 

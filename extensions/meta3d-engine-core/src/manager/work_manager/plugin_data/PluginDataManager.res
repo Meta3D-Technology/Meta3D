@@ -1,15 +1,15 @@
-let getIsDebug = () => {
-  StateContainer.unsafeGetState().pluginData.isDebug
+open Meta3dEngineCoreProtocol.StateType
+
+let getIsDebug = state => {
+  state.pluginData.isDebug
 }
 
-let setIsDebug = isDebug => {
-  let {pluginData} as state = StateContainer.unsafeGetState()
-
+let setIsDebug = ({pluginData} as state, isDebug) => {
   {
     ...state,
     pluginData: {
       ...pluginData,
       isDebug: isDebug,
     },
-  }->StateContainer.setState
+  }
 }

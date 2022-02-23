@@ -2,6 +2,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreProtocol.DependentExtensionType.dependentExtensionNameMap,
   Meta3dEngineCoreProtocol.ServiceType.service,
 > = (api, dependentExtensionNameMap) => {
+  getIsDebug: DirectorForJs.getIsDebug,
+  setIsDebug: DirectorForJs.setIsDebug,
   prepare: DirectorForJs.prepare,
   init: DirectorForJs.init,
   registerWorkPlugin: DirectorForJs.registerWorkPlugin,

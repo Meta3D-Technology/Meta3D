@@ -13,7 +13,7 @@ let registerComponent = (
         ->assertFalse
       },
     )
-  }, PluginDataManager.getIsDebug())->Meta3dCommonlib.Result.mapSuccess(() => {
+  }, PluginDataManager.getIsDebug(state))->Meta3dCommonlib.Result.mapSuccess(() => {
     {
       ...state,
       componentContributeData: {

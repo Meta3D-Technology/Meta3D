@@ -67,6 +67,7 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
             getRegisterDefaultWorkPluginsECSExtensionService,
             {
                 meta3dEngineCoreExtensionName: _getMeta3DEngineCoreExtensionName(),
+                meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
             },
             createRegisterDefaultWorkPluginsECSExtensionState()
         )
@@ -76,6 +77,14 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
         meta3dState,
         _getMeta3DEngineCoreExtensionName(),
     )
+
+    let { setIsDebug } = getServiceExn<engineCoreService>(
+        meta3dState,
+        _getMeta3DEngineCoreExtensionName()
+    )
+
+    engineCoreState = setIsDebug(engineCoreState, isDebug)
+
 
     let registerDefaultWorkPluginsService = getServiceExn<registerDefaultWorkPluginsService>(
         meta3dState,

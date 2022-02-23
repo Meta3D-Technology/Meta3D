@@ -56,12 +56,12 @@ let runPipeline = (
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
-let getIsDebug = () => {
-  PluginDataManager.getIsDebug()
+let getIsDebug = state => {
+  state->PluginDataManager.getIsDebug
 }
 
-let setIsDebug = isDebug => {
-  PluginDataManager.setIsDebug(isDebug)
+let setIsDebug = (state, isDebug) => {
+  state->PluginDataManager.setIsDebug(isDebug)
 }
 
 let registerComponent = (state, componentContribute) => {

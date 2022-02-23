@@ -14,7 +14,7 @@ function registerComponent(state, componentContribute) {
                     return ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
                                   return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
                                 }));
-                  }), PluginDataManager$Meta3dEngineCore.getIsDebug(undefined)), (function (param) {
+                  }), PluginDataManager$Meta3dEngineCore.getIsDebug(state)), (function (param) {
                 return {
                         allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
                         states: state.states,

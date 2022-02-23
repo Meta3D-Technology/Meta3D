@@ -1,23 +1,21 @@
 
 
-import * as StateContainer$Meta3dEngineCore from "../../../state/StateContainer.bs.js";
 
-function getIsDebug(param) {
-  return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).pluginData.isDebug;
+function getIsDebug(state) {
+  return state.pluginData.isDebug;
 }
 
-function setIsDebug(isDebug) {
-  var state = StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
-  return StateContainer$Meta3dEngineCore.setState({
-              allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
-              states: state.states,
-              pluginData: {
-                isDebug: isDebug
-              },
-              componentContributeData: state.componentContributeData,
-              gameObjectContribute: state.gameObjectContribute,
-              usedGameObjectData: state.usedGameObjectData
-            });
+function setIsDebug(state, isDebug) {
+  return {
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          states: state.states,
+          pluginData: {
+            isDebug: isDebug
+          },
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectData: state.usedGameObjectData
+        };
 }
 
 export {

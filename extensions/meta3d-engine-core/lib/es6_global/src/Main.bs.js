@@ -9,6 +9,8 @@ function getExtensionService(api, dependentExtensionNameMap) {
     dependentExtensionNameMap
   ];
   return {
+          getIsDebug: DirectorForJs$Meta3dEngineCore.getIsDebug,
+          setIsDebug: DirectorForJs$Meta3dEngineCore.setIsDebug,
           prepare: DirectorForJs$Meta3dEngineCore.prepare,
           init: DirectorForJs$Meta3dEngineCore.init,
           registerWorkPlugin: DirectorForJs$Meta3dEngineCore.registerWorkPlugin,

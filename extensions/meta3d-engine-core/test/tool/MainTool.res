@@ -43,11 +43,11 @@ let runPipeline = (
 }
 
 let getIsDebug = () => {
-  PluginDataManager.getIsDebug()
+  StateContainer.unsafeGetState()->PluginDataManager.getIsDebug
 }
 
 let setIsDebug = isDebug => {
-  PluginDataManager.setIsDebug(isDebug)
+  StateContainer.unsafeGetState()->PluginDataManager.setIsDebug(isDebug)->StateContainer.setState
 }
 
 let registerComponent = contribute => {

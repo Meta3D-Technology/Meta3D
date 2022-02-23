@@ -36,6 +36,8 @@ import type { workPluginContribute as WorkManagerType_workPluginContribute } fro
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
+    readonly getIsDebug: (_1: StateType_state) => boolean;
+    readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
     readonly prepare: () => void;
     readonly init: (_1: StateType_state) => StateType_state;
     readonly registerWorkPlugin: (

@@ -194,7 +194,7 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 
 
 
-* TODO finish, make engine user to use
+* DONE finish, make engine user to use
 
 ** DONE finish engine-core compile
 
@@ -282,9 +282,9 @@ add webgl
 
 ** DONE build engine by typescript
 
-** TODO pass run test
+** DONE pass run test
 
-** TODO finish user side
+** DONE finish user side
 
 
 
@@ -504,6 +504,25 @@ refer to eventmanager package
 
 
 
+* TODO prepare to open for user to use
+
+** TODO move meta3d-engine, meta3d-editor to Wonder.js repo
+
+
+** TODO prepare user's example code(typescript)
+
+
+** TODO prepare doc for user
+
+
+* TODO publish
+
+** TODO publish
+
+** TODO open for user to use and extend!!!
+
+
+
 
 
 
@@ -566,28 +585,8 @@ material asset add texture;
 
 
 
-* TODO prepare to open for user to use
 
-** TODO move meta3d-engine, meta3d-editor to Wonder.js repo
-
-
-** TODO prepare user's example code(typescript)
-
-
-** TODO prepare doc for user
-
-
-* TODO publish
-
-** TODO publish
-
-** TODO open for user to use and extend!!!
-
-
-
-
-
-* TODO publish to sx!
+* TODO publish to sx to make they use!
 
 
 
