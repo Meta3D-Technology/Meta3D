@@ -2,19 +2,19 @@ type id = string
 
 type uiExtensionName = Meta3dType.Index.extensionName
 
-type execState
+// type execState
 
-type renderData
+// type renderData
 
-type execFunc<'renderData> = (
+type execFunc<'dependentExtensionNameMap> = (
+  (Meta3dType.Index.api, 'dependentExtensionNameMap),
   Meta3dType.Index.state,
-  Meta3dType.Index.api,
-  uiExtensionName,
-  'renderData,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
-type registerData<'renderData, 'execState> = {
+type registeredExecFunc = Meta3dType.Index.state => Js.Promise.t<Meta3dType.Index.state>
+
+type registerData<'execState> = {
   id: id,
-  execFunc: execFunc<'renderData>,
+  execFunc: registeredExecFunc,
   execState: 'execState,
 }

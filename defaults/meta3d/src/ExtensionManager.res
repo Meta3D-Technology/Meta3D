@@ -18,15 +18,6 @@ let getExtensionStateExn = (state, name: extensionName) => {
   state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
-let buildAPI = (): api => {
-  getServiceExn: (. state, name: extensionName) => getServiceExn(state, (name: extensionName)),
-  getExtensionStateExn: (. state, name) => getExtensionStateExn(state, name),
-  // TODO remove magic
-  setExtensionState: (
-    (. state, name, extensionState) => setExtensionState(state, name, extensionState)
-  )->Obj.magic,
-}
-
 let register = (
   state,
   name: extensionName,
@@ -41,6 +32,23 @@ let register = (
       getServiceFunc(buildAPI(), dependentExtensionNameMap),
     ),
   }->setExtensionState(name, extensionState)
+}
+
+let buildAPI = (): api => {
+  registerExtension: (.
+    state,
+    extensionName,
+    getExtensionService,
+    dependentExtensionNameMap,
+    extensionState,
+  ) =>
+    register(state, extensionName, getExtensionService, dependentExtensionNameMap, extensionState),
+  getServiceExn: (. state, name: extensionName) => getServiceExn(state, (name: extensionName)),
+  getExtensionStateExn: (. state, name) => getExtensionStateExn(state, name),
+  // TODO remove magic
+  setExtensionState: (
+    (. state, name, extensionState) => setExtensionState(state, name, extensionState)
+  )->Obj.magic,
 }
 
 let prepare = () => {

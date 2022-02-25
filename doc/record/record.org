@@ -294,9 +294,13 @@ add webgl
 
 ** DONE add ui, event
 
-** TODO add register event extension
+** DONE add register extension extension
 
-separate ui, event_handler
+# separate ui, logic
+
+fix ui;
+
+fix event;
 
 
 ** TODO build editor by typescript
@@ -335,6 +339,11 @@ separate ui, event_handler
 ** TODO add generate, load extension
 
 
+* TODO refactor
+
+** TODO use pipe, curry
+
+** TODO use NullableUtils for type
 
 
 * TODO publish 

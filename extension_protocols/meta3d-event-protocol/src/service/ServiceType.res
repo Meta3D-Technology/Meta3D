@@ -10,6 +10,6 @@ type service = {
   onCustomEvent: 'eventData. (
     StateType.state,
     EventType.eventName,
-    EventType.eventHandler<'eventData>,
+    EventType.onedEventHandler<'eventData>,
   ) => StateType.state,
 }

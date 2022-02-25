@@ -1,0 +1,15 @@
+{
+    "name": "meta3d-register-extension-protocol",
+    "version": "0.0.1",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

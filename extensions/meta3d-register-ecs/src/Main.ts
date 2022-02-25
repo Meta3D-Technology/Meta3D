@@ -13,7 +13,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 > = (api, { meta3dEngineCoreExtensionName }) => {
 	return {
 		register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount }: config) => {
-			let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState }: meta3dEngineCoreService = api.getServiceExn(meta3dState, meta3dEngineCoreExtensionName)
+			let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState } = api.getServiceExn<meta3dEngineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
 
 			// TODO use pipe
 			engineCoreState =

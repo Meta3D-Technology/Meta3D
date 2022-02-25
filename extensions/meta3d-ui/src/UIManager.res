@@ -26,12 +26,9 @@ let _markAllNotRender = (state: Meta3dUiProtocol.StateType.state) => {
   }, state)
 }
 
-let render = (
-  api: Meta3dType.Index.api,
-  meta3dState: Meta3dType.Index.state,
-  uiExtensionName,
-  renderData: Meta3dUiProtocol.UIType.renderData,
-) => {
+let render = (api: Meta3dType.Index.api, meta3dState: Meta3dType.Index.state, uiExtensionName) => {
+  // renderData: Meta3dUiProtocol.UIType.renderData,
+
   let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
     meta3dState,
     uiExtensionName,
@@ -45,7 +42,8 @@ let render = (
       ? {
           let execFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
 
-          execFunc(meta3dState, api, uiExtensionName, renderData)
+          // execFunc(meta3dState, api, uiExtensionName, renderData)
+          execFunc(meta3dState, uiExtensionName, renderData)
         }
       : meta3dState->Js.Promise.resolve
   }, meta3dState)
@@ -70,6 +68,13 @@ let _setExecFunc = (
     ...state,
     execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(id, execFunc),
   }
+}
+
+let getExecState = (
+  {execStateMap}: Meta3dUiProtocol.StateType.state,
+  id: Meta3dUiProtocol.UIType.id,
+) => {
+  execStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(id)
 }
 
 let _setExecState = (
