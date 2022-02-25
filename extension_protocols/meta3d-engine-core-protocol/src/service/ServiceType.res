@@ -79,5 +79,6 @@ type service = {
     StateType.state,
     Meta3dType.Index.state,
     PipelineType.pipelineName,
-  ) => Meta3dBsMostProtocol.StreamType.stream<StateType.state>,
+  ) => // TODO change to Promist.t, hidden Stream!
+  Meta3dBsMostProtocol.StreamType.stream<StateType.state>,
 }

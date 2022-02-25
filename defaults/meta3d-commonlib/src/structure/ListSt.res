@@ -2,7 +2,7 @@ type t<'index, 'value> = list<'value>
 
 let rec traverseResultM = (list, f) => {
   // define the monadic functions
-  let \">>=" = (x, f) => Result.bind(x, f)
+  let \">>=" = Result.bind
 
   let retn = Result.succeed
 
@@ -23,7 +23,7 @@ let rec traverseResultM = (list, f) => {
 
 let traverseResultMi = (list, f) => {
   // define the monadic functions
-  let \">>=" = (x, f) => Result.bind(x, f)
+  let \">>=" = Result.bind
 
   let retn = Result.succeed
 
@@ -52,12 +52,13 @@ let rec traverseReduceResultM = (
   f: ('b, 'a) => Result.t2<'b>,
 ): Result.t2<'b> => {
   // define the monadic functions
-  let \">>=" = (x, f) => Result.bind(x, f)
+  let \">>=" = Result.bind
 
   let retn = Result.succeed
 
-  // define a "cons" function
-  let cons = (head, tail) => list{head, ...tail}
+  // // define a "cons" function
+  // let cons = (head, tail) => list{head, ...tail}
+
   // loop through the list
   switch list {
   | list{} => retn(param)

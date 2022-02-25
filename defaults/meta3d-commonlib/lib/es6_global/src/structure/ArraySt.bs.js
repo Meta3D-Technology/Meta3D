@@ -7,21 +7,10 @@ import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/ca
 import * as Log$Meta3dCommonlib from "../log/Log.bs.js";
 import * as Contract$Meta3dCommonlib from "../contract/Contract.bs.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
+import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
 
 function length(prim) {
   return prim.length;
-}
-
-function reduceOneParam(arr, func, param) {
-  return Belt_Array.reduceU(arr, param, func);
-}
-
-function reduceOneParami(arr, func, param) {
-  var mutableParam = param;
-  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
-    mutableParam = func(mutableParam, arr[i], i);
-  }
-  return mutableParam;
 }
 
 function find(arr, func) {
@@ -38,6 +27,28 @@ function includesByFunc(arr, func) {
 
 function sliceFrom(arr, index) {
   return arr.slice(index);
+}
+
+function reduceOneParam(arr, func, param) {
+  return Belt_Array.reduceU(arr, param, func);
+}
+
+function reduceOneParami(arr, func, param) {
+  var mutableParam = param;
+  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
+    mutableParam = func(mutableParam, arr[i], i);
+  }
+  return mutableParam;
+}
+
+function traverseReducePromiseM(arr, func, param) {
+  if (arr.length === 0) {
+    return Promise.resolve(param);
+  } else {
+    return PromiseSt$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
+                  return traverseReducePromiseM(arr.slice(1), func, h);
+                }));
+  }
 }
 
 function unsafeGetFirst(arr) {
@@ -91,12 +102,13 @@ function range(a, b) {
 
 export {
   length ,
-  reduceOneParam ,
-  reduceOneParami ,
   find ,
   includes ,
   includesByFunc ,
   sliceFrom ,
+  reduceOneParam ,
+  reduceOneParami ,
+  traverseReducePromiseM ,
   unsafeGetFirst ,
   getFirst ,
   push ,

@@ -290,17 +290,38 @@ add webgl
 
 * TODO finish, make editor user to use
 
-** TODO finish editor user design
+# ** TODO finish editor user design
 
-** TODO add ui, event
+** DONE add ui, event
 
-TODO fix UI(support 3d ui; use visible, change for dispatch)
+** TODO add register event extension
+
+separate ui, event_handler
+
+
+** TODO build editor by typescript
+
+
+** TODO pass run test
+
+
+** TODO refactor ui
+
+*** TODO refactor state value
+
+*** TODO fix UI(support 3d ui; use visible, change for dispatch; fix onClickFunc, remove event handler)
+
+*** TODO finish useSelector, dispatch, action
+
+*** TODO use skin, custom control
+
+*** TODO add drawCopyTextArea
 
 ** TODO use engine(for edit, run scene)
 
 
+** TODO pass run test
 
-** TODO build editor by typescript
 
 ** TODO finish user side
 
@@ -311,22 +332,8 @@ TODO fix UI(support 3d ui; use visible, change for dispatch)
 
 .meta3d = multi .mex
 
+** TODO add generate, load extension
 
-** TODO add register extension
-
-
-
-* TODO update engine
-
-** TODO use event
-
-add InitEventJob
-
-** TODO use ui
-
-* TODO update editor
-
-** TODO update engine
 
 
 
@@ -453,6 +460,19 @@ default load .fnt, .bitmap resources, not open its control to user
 refer to eventmanager package
 
 
+* TODO update engine
+
+** TODO use event
+
+add InitEventJob
+
+** TODO use ui
+
+* TODO update editor
+
+** TODO update engine
+
+
 
 * TODO all files should add bdd test
 
@@ -462,18 +482,22 @@ refer to eventmanager package
 
 
 
+
 * TODO update engine
 
-** TODO finish sxengine's work without arcball, outline but include worker(should abstract sxengine code!!!)
+** TODO finish sxengine's work without arcball, outline but include worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
 
+
+** TODO finish use engine
+
+finish actual engine code(like sxengine's code)
 
 
 * TODO update editor
 
-
-
 ** TODO add edit scene, run scene
 
+** TODO pass run test
 
 
 
@@ -512,6 +536,9 @@ refer to eventmanager package
 ** TODO prepare user's example code(typescript)
 
 
+** TODO provide 脚手架
+
+
 ** TODO prepare doc for user
 
 
@@ -521,6 +548,15 @@ refer to eventmanager package
 
 ** TODO open for user to use and extend!!!
 
+
+
+
+
+
+* TODO performance optimize
+
+
+* TODO publish
 
 
 

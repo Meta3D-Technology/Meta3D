@@ -30,6 +30,8 @@ var getValidValues = HashMap$Meta3dCommonlib.getValidValues;
 
 var copy = HashMap$Meta3dCommonlib.copy;
 
+var entries = HashMap$Meta3dCommonlib.entries;
+
 export {
   createEmpty ,
   set ,
@@ -41,6 +43,7 @@ export {
   deleteVal ,
   getValidValues ,
   copy ,
+  entries ,
   
 }
 /* No side effect */

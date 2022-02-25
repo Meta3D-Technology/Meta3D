@@ -7,21 +7,10 @@ var Caml_option = require("rescript/lib/js/caml_option.js");
 var Log$Meta3dCommonlib = require("../log/Log.bs.js");
 var Contract$Meta3dCommonlib = require("../contract/Contract.bs.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
+var PromiseSt$Meta3dCommonlib = require("./PromiseSt.bs.js");
 
 function length(prim) {
   return prim.length;
-}
-
-function reduceOneParam(arr, func, param) {
-  return Belt_Array.reduceU(arr, param, func);
-}
-
-function reduceOneParami(arr, func, param) {
-  var mutableParam = param;
-  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
-    mutableParam = func(mutableParam, arr[i], i);
-  }
-  return mutableParam;
 }
 
 function find(arr, func) {
@@ -38,6 +27,28 @@ function includesByFunc(arr, func) {
 
 function sliceFrom(arr, index) {
   return arr.slice(index);
+}
+
+function reduceOneParam(arr, func, param) {
+  return Belt_Array.reduceU(arr, param, func);
+}
+
+function reduceOneParami(arr, func, param) {
+  var mutableParam = param;
+  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
+    mutableParam = func(mutableParam, arr[i], i);
+  }
+  return mutableParam;
+}
+
+function traverseReducePromiseM(arr, func, param) {
+  if (arr.length === 0) {
+    return Promise.resolve(param);
+  } else {
+    return PromiseSt$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
+                  return traverseReducePromiseM(arr.slice(1), func, h);
+                }));
+  }
 }
 
 function unsafeGetFirst(arr) {
@@ -90,12 +101,13 @@ function range(a, b) {
 }
 
 exports.length = length;
-exports.reduceOneParam = reduceOneParam;
-exports.reduceOneParami = reduceOneParami;
 exports.find = find;
 exports.includes = includes;
 exports.includesByFunc = includesByFunc;
 exports.sliceFrom = sliceFrom;
+exports.reduceOneParam = reduceOneParam;
+exports.reduceOneParami = reduceOneParami;
+exports.traverseReducePromiseM = traverseReducePromiseM;
 exports.unsafeGetFirst = unsafeGetFirst;
 exports.getFirst = getFirst;
 exports.push = push;

@@ -1,5 +1,15 @@
 let length = Js.Array.length
 
+let find = (arr, func) => Js.Array.find(func, arr)
+
+let includes = (arr, value) => Js.Array.includes(value, arr)
+
+let includesByFunc = (arr, func) => {
+  arr->find(func)->OptionSt.isSome
+}
+
+let sliceFrom = (arr, index) => Js.Array.sliceFrom(index, arr)
+
 let reduceOneParam = (arr, func, param) => Belt.Array.reduceU(arr, param, func)
 
 let reduceOneParami = (arr, func, param) => {
@@ -10,15 +20,20 @@ let reduceOneParami = (arr, func, param) => {
   mutableParam.contents
 }
 
-let find = (arr, func) => Js.Array.find(func, arr)
+let rec traverseReducePromiseM = (
+  arr: array<'a>,
+  func: (. 'b, 'a) => Js.Promise.t<'b>,
+  param: 'b,
+): Js.Promise.t<'b> => {
+  // define the monadic functions
+  let \">>=" = PromiseSt.bind
 
-let includes = (arr, value) => Js.Array.includes(value, arr)
-
-let includesByFunc = (arr, func) => {
-  arr->find(func)->OptionSt.isSome
+  length(arr) == 0
+    ? Js.Promise.resolve(param)
+    : {
+        \">>="(func(. param, arr[0]), h => traverseReducePromiseM(sliceFrom(arr, 1), func, h))
+      }
 }
-
-let sliceFrom = (arr, index) => Js.Array.sliceFrom(index, arr)
 
 let unsafeGetFirst = arr => Array.unsafe_get(arr, 0)
 
