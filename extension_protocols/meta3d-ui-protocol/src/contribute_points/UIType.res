@@ -2,9 +2,9 @@ type id = string
 
 type uiExtensionName = Meta3dType.Index.extensionName
 
-// type execState
+type execState
 
-// type renderData
+type dependentExtensionNameMap
 
 type execFunc<'dependentExtensionNameMap> = (
   (Meta3dType.Index.api, 'dependentExtensionNameMap),

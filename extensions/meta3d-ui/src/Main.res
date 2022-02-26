@@ -5,7 +5,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   register: UIManager.register->Obj.magic,
   markRender: UIManager.markRender,
   markNotRender: UIManager.markNotRender,
-  getExecState: UIManager.getExecState,
+  getExecState: UIManager.getExecState->Obj.magic,
   drawButton: UIManager.drawButton,
   render: UIManager.render(api)->Obj.magic,
 }

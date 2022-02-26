@@ -63,7 +63,7 @@ let _execFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionN
 let _eventHandler: eventHandler<dependentExtensionNameMap, registerExtensionSubmitEventData> = ([api, { meta3dUIExtensionName }], meta3dState, { extensionName, dependentExtensionNameMap, getExtensionServiceFunc, createExtensionStateFunc }) => {
 	meta3dState = api.registerExtension(meta3dState, extensionName, getExtensionServiceFunc, dependentExtensionNameMap, createExtensionStateFunc())
 
-	let { func1 } = api.getServiceExn<test1Service>(meta3dState, meta3dUIExtensionName)
+	let { func1 } = api.getServiceExn<test1Service>(meta3dState, extensionName)
 
 	func1()
 

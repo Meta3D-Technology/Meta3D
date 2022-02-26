@@ -6,11 +6,12 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 function getExtensionService(api, param) {
   return {
           register: UIManager$Meta3dUi.register,
-          render: (function (param, param$1, param$2) {
-              return UIManager$Meta3dUi.render(api, param, param$1, param$2);
+          render: (function (param, param$1) {
+              return UIManager$Meta3dUi.render(api, param, param$1);
             }),
           markRender: UIManager$Meta3dUi.markRender,
           markNotRender: UIManager$Meta3dUi.markNotRender,
+          getExecState: UIManager$Meta3dUi.getExecState,
           drawButton: UIManager$Meta3dUi.drawButton
         };
 }

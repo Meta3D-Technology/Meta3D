@@ -303,10 +303,10 @@ fix ui;
 fix event;
 
 
-** TODO build editor by typescript
+** DONE build editor by typescript
 
 
-** TODO pass run test
+** DONE pass run test
 
 
 ** TODO refactor ui
@@ -387,15 +387,6 @@ fix event;
 
 
 
-* TODO update engine
-
-** TODO generate .msc
-
-only has gameObject, transform component
-
-
-* TODO update editor
-
 
 * TODO update engine
 
@@ -411,6 +402,17 @@ no shader
 only has pbrmaterial asset
 
 ** TODO generate .mas
+
+
+* TODO update engine
+
+** TODO generate .msc
+
+only has gameObject, transform component
+
+
+* TODO update editor
+
 
 
 * TODO update editor

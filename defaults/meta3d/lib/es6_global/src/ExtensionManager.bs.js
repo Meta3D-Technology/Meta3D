@@ -18,8 +18,16 @@ function getExtensionStateExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
 }
 
+function register(state, name, getServiceFunc, dependentExtensionNameMap, extensionState) {
+  return setExtensionState({
+              extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, buildAPI(undefined), dependentExtensionNameMap)),
+              extensionStateMap: state.extensionStateMap
+            }, name, extensionState);
+}
+
 function buildAPI(param) {
   return {
+          registerExtension: register,
           getServiceExn: (function (state, name) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
             }),
@@ -28,13 +36,6 @@ function buildAPI(param) {
             }),
           setExtensionState: setExtensionState
         };
-}
-
-function register(state, name, getServiceFunc, dependentExtensionNameMap, extensionState) {
-  return setExtensionState({
-              extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, buildAPI(undefined), dependentExtensionNameMap)),
-              extensionStateMap: state.extensionStateMap
-            }, name, extensionState);
 }
 
 function prepare(param) {
@@ -48,8 +49,8 @@ export {
   getServiceExn ,
   setExtensionState ,
   getExtensionStateExn ,
-  buildAPI ,
   register ,
+  buildAPI ,
   prepare ,
   
 }

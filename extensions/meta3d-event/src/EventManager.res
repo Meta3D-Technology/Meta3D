@@ -19,12 +19,12 @@ let trigger = (
     meta3dState,
     eventExtensionName,
   )
-  let eventHandler: Meta3dEventProtocol.EventType.eventHandler<
+  let eventHandler: Meta3dEventProtocol.EventType.onedEventHandler<
     Meta3dEventProtocol.EventType.eventData,
   > =
     state.eventHandlerMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
 
-  eventHandler(meta3dState, api, eventExtensionName, eventData)
+  eventHandler(meta3dState, eventData)
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<

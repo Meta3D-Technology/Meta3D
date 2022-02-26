@@ -12,7 +12,7 @@ function onCustomEvent(state, eventName, eventHandler) {
 function trigger(api, meta3dState, eventExtensionName, eventName, eventData) {
   var state = api.getExtensionStateExn(meta3dState, eventExtensionName);
   var eventHandler = ImmutableHashMap$Meta3dCommonlib.getExn(state.eventHandlerMap, eventName);
-  return Curry._4(eventHandler, meta3dState, api, eventExtensionName, eventData);
+  return Curry._2(eventHandler, meta3dState, eventData);
 }
 
 function createExtensionState(param) {

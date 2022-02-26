@@ -16,9 +16,9 @@ type api = {
   registerExtension: 'getExtensionServiceFunc 'dependentExtensionNameMap 'extensionState. (
     . state,
     extensionName,
-    getExtensionServiceFunc,
-    dependentExtensionNameMap,
-    extensionState,
+    'getExtensionServiceFunc,
+    'dependentExtensionNameMap,
+    'extensionState,
   ) => state,
   getServiceExn: 'extensionService. (. state, extensionName) => 'extensionService,
   getExtensionStateExn: 'extensionState. (. state, extensionName) => 'extensionState,

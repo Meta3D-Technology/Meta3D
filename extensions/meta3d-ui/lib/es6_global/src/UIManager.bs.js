@@ -31,7 +31,7 @@ function _markAllNotRender(state) {
               }), state);
 }
 
-function render(api, meta3dState, uiExtensionName, renderData) {
+function render(api, meta3dState, uiExtensionName) {
   var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
   var execFuncMap = state.execFuncMap;
   return PromiseSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.traverseReducePromiseM(ImmutableHashMap$Meta3dCommonlib.entries(state.isRenderMap), (function (meta3dState, param) {
@@ -39,7 +39,7 @@ function render(api, meta3dState, uiExtensionName, renderData) {
                       return Promise.resolve(meta3dState);
                     }
                     var execFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, param[0]);
-                    return Curry._4(execFunc, meta3dState, api, uiExtensionName, renderData);
+                    return Curry._1(execFunc, meta3dState);
                   }), meta3dState), (function (meta3dState) {
                 var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
                 var state$1 = _markAllNotRender(state);
@@ -53,6 +53,10 @@ function _setExecFunc(state, id, execFunc) {
           execStateMap: state.execStateMap,
           isRenderMap: state.isRenderMap
         };
+}
+
+function getExecState(param, id) {
+  return ImmutableHashMap$Meta3dCommonlib.getNullable(param.execStateMap, id);
 }
 
 function _setExecState(state, id, execState) {
@@ -107,6 +111,7 @@ export {
   _markAllNotRender ,
   render ,
   _setExecFunc ,
+  getExecState ,
   _setExecState ,
   register ,
   drawButton ,

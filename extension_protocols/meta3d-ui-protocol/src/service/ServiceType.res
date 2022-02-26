@@ -13,7 +13,7 @@ type service = {
   render: (Meta3dType.Index.state, uiExtensionName) => Js.Promise.t<Meta3dType.Index.state>,
   markRender: (StateType.state, UIType.id) => StateType.state,
   markNotRender: (StateType.state, UIType.id) => StateType.state,
-  getExecState: 'execState (StateType.state, UIType.id) => 'execState -> Js.Nullable.return, 
+  getExecState: 'execState. (StateType.state, UIType.id) => Js.Nullable.t<'execState>,
   drawButton: (
     Meta3dType.Index.state,
     drawButtonData,

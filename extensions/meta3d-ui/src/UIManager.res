@@ -42,8 +42,7 @@ let render = (api: Meta3dType.Index.api, meta3dState: Meta3dType.Index.state, ui
       ? {
           let execFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
 
-          // execFunc(meta3dState, api, uiExtensionName, renderData)
-          execFunc(meta3dState, uiExtensionName, renderData)
+          execFunc(meta3dState)
         }
       : meta3dState->Js.Promise.resolve
   }, meta3dState)
@@ -62,7 +61,7 @@ let render = (api: Meta3dType.Index.api, meta3dState: Meta3dType.Index.state, ui
 let _setExecFunc = (
   state: Meta3dUiProtocol.StateType.state,
   id: Meta3dUiProtocol.UIType.id,
-  execFunc: Meta3dUiProtocol.UIType.execFunc<Meta3dUiProtocol.UIType.renderData>,
+  execFunc: Meta3dUiProtocol.UIType.registeredExecFunc,
 ) => {
   {
     ...state,
@@ -91,7 +90,6 @@ let _setExecState = (
 let register = (
   state: Meta3dUiProtocol.StateType.state,
   {id, execFunc, execState}: Meta3dUiProtocol.UIType.registerData<
-    Meta3dUiProtocol.UIType.renderData,
     Meta3dUiProtocol.UIType.execState,
   >,
 ) => {

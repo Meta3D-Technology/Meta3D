@@ -2,8 +2,6 @@ type eventData
 
 type eventName = string
 
-// type eventExtensionName = Meta3dType.Index.extensionName
-
 type eventHandler<'dependentExtensionNameMap, 'eventData> = (
   (Meta3dType.Index.api, 'dependentExtensionNameMap),
   Meta3dType.Index.state,
