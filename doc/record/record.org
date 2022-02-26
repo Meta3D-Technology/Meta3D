@@ -311,15 +311,64 @@ fix event;
 
 ** TODO refactor ui
 
-*** TODO refactor state value
+# *** TODO refactor state value
 
-*** TODO fix UI(support 3d ui; use visible, change for dispatch; fix onClickFunc, remove event handler)
 
-*** TODO finish useSelector, dispatch, action
+*** TODO use visible, state change for dispatch;finish useSelector, dispatch, action
+
+visible, state change is related to id?
+
+add show, hidden api for UI extension;
+
+
+when render, see visible and state change of id;
+if both true, render and reset state change;
+else, do nothing;
+
+
+*** TODO add show extension extension
+
+use dispatch
+
+no inspector, only show all extensions with their name(as a button)
+
+
+*** TODO add hidden, show "show extension" buttons to test visible
+
+use show, hidden ui's api when handle event;
+
+
+*** TODO fix UI(support 3d ui; fix onClickFunc, remove event handler)
+
+
+fix onClickFunc, remove event handler
+
+3d ui
+
 
 *** TODO use skin, custom control
 
+**** TODO finish
+
+**** TODO add extension to test
+
+**** TODO update wonder-editor, pass run test
+
+
 *** TODO add drawCopyTextArea
+
+*** TODO update register extension with drawCopyTextArea
+
+
+** TODO add window extension 
+
+** TODO update register extension by use window
+
+
+** TODO add manager extension 
+
+** TODO update show extension by use manager
+
 
 ** TODO use engine(for edit, run scene)
 
@@ -330,15 +379,6 @@ fix event;
 ** TODO finish user side
 
 
-* TODO update editor
-
-** TODO generate and load .meta3d
-
-.meta3d = multi .mex
-
-** TODO add generate, load extension
-
-
 * TODO refactor
 
 ** TODO use pipe, curry
@@ -346,12 +386,20 @@ fix event;
 ** TODO use NullableUtils for type
 
 
-* TODO publish 
+* TODO publish v0.1.0 !!!
 
 
 
 
 
+
+* TODO update editor
+
+** TODO generate and load .meta3d
+
+.meta3d = multi .mex
+
+** TODO add export, import extension
 
 
 * TODO update engine
@@ -368,23 +416,13 @@ fix event;
 
 
 
-** TODO add menu
+# ** TODO add menu
 
 
 
 
 
 * TODO publish
-
-
-# * TODO update engine
-
-# ** TODO add shader glsl(for webgl)
-
-
-# * TODO update editor
-
-
 
 
 
@@ -423,6 +461,9 @@ only has gameObject, transform component
 
 
 * TODO publish
+
+
+
 
 
 
@@ -496,17 +537,23 @@ add InitEventJob
 
 * TODO update engine
 
-** TODO finish sxengine's work without arcball, outline but include worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
+** TODO finish sxengine's work without arcball, outline and worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
+
+add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
 
 
-** TODO finish use engine
+** TODO finish wonder-engine
 
 finish actual engine code(like sxengine's code)
 
 
 * TODO update editor
 
-** TODO add edit scene, run scene
+** TODO update edit scene
+
+** TODO implement run
+
+edit scene, run scene
 
 ** TODO pass run test
 
@@ -539,9 +586,21 @@ finish actual engine code(like sxengine's code)
 
 
 
+* TODO finish editor's abstract extensions(e.g. menu, window, manager, inspector, scene(for edit/run scene),  ...) 
+
+* TODO finish wonder-editor(e.g. register extension, asset manager, ...)
+
+
+* TODO publish
+
+
+
+
+
+
 * TODO prepare to open for user to use
 
-** TODO move meta3d-engine, meta3d-editor to Wonder.js repo
+** TODO move wonder-engine, wonder-editor to Wonder.js repo
 
 
 ** TODO prepare user's example code(typescript)
@@ -553,7 +612,7 @@ finish actual engine code(like sxengine's code)
 ** TODO prepare doc for user
 
 
-* TODO publish
+* TODO publish and open
 
 ** TODO publish
 
@@ -565,6 +624,28 @@ finish actual engine code(like sxengine's code)
 
 
 * TODO performance optimize
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add worker abstract extension
+
+** TODO finish wonder-engine(implement webgl1 worker by contribute to worker abstract extension)
+
+
+* TODO update editor
+
+** TODO add worker abstract extension
+
+** TODO finish wonder-editor
 
 
 * TODO publish
@@ -634,6 +715,18 @@ material asset add texture;
 
 
 * TODO publish to sx to make they use!
+
+
+
+
+
+
+* TODO improve
+
+** TODO UI extension support draw chinese text
+
+
+* TODO publish
 
 
 
