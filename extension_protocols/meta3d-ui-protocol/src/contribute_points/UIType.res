@@ -2,6 +2,7 @@ type id = string
 
 type uiExtensionName = Meta3dType.Index.extensionName
 
+// TODO move to StateType?
 type execState
 
 type dependentExtensionNameMap
@@ -18,3 +19,10 @@ type registerData<'execState> = {
   execFunc: registeredExecFunc,
   execState: 'execState,
 }
+
+// TODO move to StateType?
+type action
+
+type reducerFunc<'execState, 'action> = ('execState, 'action) => 'execState
+
+type reducerData<'execState, 'action> = (id, reducerFunc<'execState, 'action>)

@@ -45,6 +45,8 @@ let _execFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionN
 			// TODO should pass by user according to drawCopyTextarea
 
 			extensionName: "extension_test1",
+			// TODO perf: serialize once
+			// TODO not pass 				"getExtensionService", 				"createExtensionState"
 			getExtensionServiceFunc: serialize(
 				fileStr,
 				"ExtensionTest1",
@@ -84,7 +86,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 
 			let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
-			uiState = register(uiState, {
+			uiState = register<execState>(uiState, {
 				id: _getUIId(),
 				// TODO use curry
 				execFunc: (meta3dState) => _execFunc([api, dependentExtensionNameMap], meta3dState),

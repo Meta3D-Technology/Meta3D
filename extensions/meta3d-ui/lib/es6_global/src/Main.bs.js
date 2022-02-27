@@ -9,9 +9,11 @@ function getExtensionService(api, param) {
           render: (function (param, param$1) {
               return UIManager$Meta3dUi.render(api, param, param$1);
             }),
-          markRender: UIManager$Meta3dUi.markRender,
-          markNotRender: UIManager$Meta3dUi.markNotRender,
+          show: UIManager$Meta3dUi.show,
+          hide: UIManager$Meta3dUi.hide,
           getExecState: UIManager$Meta3dUi.getExecState,
+          combineReducers: UIManager$Meta3dUi.combineReducers,
+          dispatch: UIManager$Meta3dUi.dispatch,
           drawButton: UIManager$Meta3dUi.drawButton
         };
 }
@@ -20,7 +22,9 @@ function createExtensionState(param) {
   return {
           execFuncMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           execStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          isRenderMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          isShowMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          reducers: []
         };
 }
 

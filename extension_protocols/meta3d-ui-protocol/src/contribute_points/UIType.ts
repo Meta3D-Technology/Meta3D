@@ -18,3 +18,7 @@ export type registerData<execState> = {
     execFunc: registeredExecFunc,
     execState: execState
 }
+
+export type reducerFunc<execState, action> = (execState: execState, action: action) => execState
+
+export type reducerData<execState, action> = [id, reducerFunc<execState, action>]

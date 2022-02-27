@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type/src/Index"
-import { registerData, uiExtensionName, id } from "../contribute_points/UIType"
+import { registerData, uiExtensionName, id, reducerData } from "../contribute_points/UIType"
 import { state } from "../state/StateType"
 
 export type drawButtonData = {
@@ -21,11 +21,11 @@ export type service = {
         meta3dState: meta3dState,
         uiExtensionName: uiExtensionName
     ) => Promise<meta3dState>;
-    readonly markRender: (
+    readonly show: (
         state: state,
         id: id
     ) => state;
-    readonly markNotRender: (
+    readonly hide: (
         state: state,
         id: id
     ) => state;
@@ -34,6 +34,14 @@ export type service = {
         id: id
     ) => // TODO use nullable.d
         execState | null | undefined;
+    readonly combineReducers: <execState, action> (
+        state: state,
+        reducerData: reducerData<execState, action>
+    ) => state;
+    readonly dispatch: <action> (
+        state: state,
+        action: action
+    ) => state;
     readonly drawButton: (
         meta3dState: meta3dState,
         drawButtonData: drawButtonData,

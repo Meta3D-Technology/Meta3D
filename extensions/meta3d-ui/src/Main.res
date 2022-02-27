@@ -3,11 +3,13 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dUiProtocol.ServiceType.service,
 > = (api, _) => {
   register: UIManager.register->Obj.magic,
-  markRender: UIManager.markRender,
-  markNotRender: UIManager.markNotRender,
+  hide: UIManager.hide,
+  show: UIManager.show,
   getExecState: UIManager.getExecState->Obj.magic,
   drawButton: UIManager.drawButton,
   render: UIManager.render(api)->Obj.magic,
+  combineReducers: UIManager.combineReducers->Obj.magic,
+  dispatch: UIManager.dispatch,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
@@ -16,6 +18,8 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
   {
     execFuncMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     execStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    isRenderMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    isShowMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    reducers: [],
   }
 }

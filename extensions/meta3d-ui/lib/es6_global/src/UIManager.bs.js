@@ -5,54 +5,62 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-com
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function markNotRender(state, id) {
+function hide(state, id) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
-          isRenderMap: ImmutableHashMap$Meta3dCommonlib.set(state.isRenderMap, id, false)
+          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, false),
+          isStateChangeMap: state.isStateChangeMap,
+          reducers: state.reducers
         };
 }
 
-function markRender(state, id) {
+function show(state, id) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
-          isRenderMap: ImmutableHashMap$Meta3dCommonlib.set(state.isRenderMap, id, true)
+          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, true),
+          isStateChangeMap: state.isStateChangeMap,
+          reducers: state.reducers
         };
 }
 
-function _markAllNotRender(state) {
-  return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(state.isRenderMap), (function (state, param) {
-                if (param[1]) {
-                  return markNotRender(state, param[0]);
-                } else {
-                  return state;
-                }
-              }), state);
-}
-
-function render(api, meta3dState, uiExtensionName) {
-  var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
-  var execFuncMap = state.execFuncMap;
-  return PromiseSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.traverseReducePromiseM(ImmutableHashMap$Meta3dCommonlib.entries(state.isRenderMap), (function (meta3dState, param) {
-                    if (!param[1]) {
-                      return Promise.resolve(meta3dState);
-                    }
-                    var execFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, param[0]);
-                    return Curry._1(execFunc, meta3dState);
-                  }), meta3dState), (function (meta3dState) {
-                var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
-                var state$1 = _markAllNotRender(state);
-                return api.setExtensionState(meta3dState, uiExtensionName, state$1);
-              }));
-}
-
-function _setExecFunc(state, id, execFunc) {
+function _markStateChange(state, id) {
   return {
-          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, id, execFunc),
+          execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
-          isRenderMap: state.isRenderMap
+          isShowMap: state.isShowMap,
+          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, true),
+          reducers: state.reducers
         };
+}
+
+function _markStateNotChange(state, id) {
+  return {
+          execFuncMap: state.execFuncMap,
+          execStateMap: state.execStateMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, false),
+          reducers: state.reducers
+        };
+}
+
+function _markAllStateNotChange(state, needMarkStateNotChangeIds) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(needMarkStateNotChangeIds, _markStateNotChange, state);
+}
+
+function combineReducers(state, reducerData) {
+  return {
+          execFuncMap: state.execFuncMap,
+          execStateMap: state.execStateMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          reducers: ArraySt$Meta3dCommonlib.push(state.reducers, reducerData)
+        };
+}
+
+function _getExecStateExn(param, id) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(param.execStateMap, id);
 }
 
 function getExecState(param, id) {
@@ -63,13 +71,69 @@ function _setExecState(state, id, execState) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, id, execState),
-          isRenderMap: state.isRenderMap
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          reducers: state.reducers
+        };
+}
+
+function dispatch(state, action) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(state.reducers, (function (state, param) {
+                var id = param[0];
+                var oldExecState = _getExecStateExn(state, id);
+                var newExecState = Curry._2(param[1], oldExecState, action);
+                if (oldExecState !== newExecState) {
+                  return _setExecState(_markStateChange(state, id), id, newExecState);
+                } else {
+                  return _markStateNotChange(state, id);
+                }
+              }), state);
+}
+
+function render(api, meta3dState, uiExtensionName) {
+  var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
+  var execFuncMap = state.execFuncMap;
+  return PromiseSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.traverseReducePromiseM(ImmutableHashMap$Meta3dCommonlib.entries(state.isShowMap), (function (param, param$1) {
+                    var needMarkStateNotChangeIds = param[1];
+                    var meta3dState = param[0];
+                    if (!param$1[1]) {
+                      return Promise.resolve([
+                                  meta3dState,
+                                  needMarkStateNotChangeIds
+                                ]);
+                    }
+                    var id = param$1[0];
+                    var execFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, id);
+                    return PromiseSt$Meta3dCommonlib.map(Curry._1(execFunc, meta3dState), (function (meta3dState) {
+                                  return [
+                                          meta3dState,
+                                          ArraySt$Meta3dCommonlib.push(needMarkStateNotChangeIds, id)
+                                        ];
+                                }));
+                  }), [
+                  meta3dState,
+                  []
+                ]), (function (param) {
+                var meta3dState = param[0];
+                var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
+                var state$1 = _markAllStateNotChange(state, param[1]);
+                return api.setExtensionState(meta3dState, uiExtensionName, state$1);
+              }));
+}
+
+function _setExecFunc(state, id, execFunc) {
+  return {
+          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, id, execFunc),
+          execStateMap: state.execStateMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          reducers: state.reducers
         };
 }
 
 function register(state, param) {
   var id = param.id;
-  return markRender(_setExecState(_setExecFunc(state, id, param.execFunc), id, param.execState), id);
+  return _markStateChange(show(_setExecState(_setExecFunc(state, id, param.execFunc), id, param.execState), id), id);
 }
 
 var drawButton = (function(meta3dState, {x,y,width,height,text},onClickFunc) {
@@ -106,13 +170,18 @@ button.id = id
 });
 
 export {
-  markNotRender ,
-  markRender ,
-  _markAllNotRender ,
-  render ,
-  _setExecFunc ,
+  hide ,
+  show ,
+  _markStateChange ,
+  _markStateNotChange ,
+  _markAllStateNotChange ,
+  combineReducers ,
+  _getExecStateExn ,
   getExecState ,
   _setExecState ,
+  dispatch ,
+  render ,
+  _setExecFunc ,
   register ,
   drawButton ,
   
