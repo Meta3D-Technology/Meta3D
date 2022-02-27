@@ -375,6 +375,9 @@ custom control: button
 # **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
 
 
+*** TODO refactor: make execFunc and execState to be contribute like skin/custom control!!!
+
+(refacotr register-extension extension!)
 
 
 *** TODO add drawCopyTextArea
@@ -382,9 +385,6 @@ custom control: button
 *** TODO update register extension with drawCopyTextArea
 
 
-** TODO refactor: make execFunc and execState to be contribute like skin/custom control!!!
-
-(refacotr register-extension extension!)
 
 
 

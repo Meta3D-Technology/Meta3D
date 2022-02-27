@@ -215,7 +215,7 @@ function isStateChange(state, id) {
 }
 
 var _clearBox = (function({x,y}) {
-  let id = "_" + ( x+y ).toString()
+  let id = "_box" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
 document.querySelector("#" + id).remove()
@@ -225,7 +225,7 @@ document.querySelector("#" + id).remove()
 var _renderBox = (function(backgroundColor, {x,y,width,height}) {
   let dom = document.createElement("div")
 
-  let id = "_" + ( x+y ).toString()
+  let id = "_box" + ( x+y ).toString()
 
   dom.id = id
 
@@ -249,7 +249,7 @@ function drawBox(meta3dState, param, rect, backgroundColor) {
 }
 
 var _clearText = (function({x,y}) {
-  let id = "_" + ( x+y ).toString()
+  let id = "_text" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
 document.querySelector("#" + id).remove()
@@ -259,7 +259,7 @@ document.querySelector("#" + id).remove()
 var _renderText = (function(text, {x,y,width,height}) {
   let dom = document.createElement("span")
 
-  let id = "_" + ( x+y ).toString()
+  let id = "_text" + ( x+y ).toString()
 
   dom.id = id
 

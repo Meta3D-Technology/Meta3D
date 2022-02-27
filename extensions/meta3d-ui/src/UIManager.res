@@ -292,7 +292,7 @@ let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtoc
 
 let _clearBox = %raw(`
 function({x,y}) {
-  let id = "_" + ( x+y ).toString()
+  let id = "_box" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
 document.querySelector("#" + id).remove()
@@ -304,7 +304,7 @@ let _renderBox = %raw(`
 function(backgroundColor, {x,y,width,height}) {
   let dom = document.createElement("div")
 
-  let id = "_" + ( x+y ).toString()
+  let id = "_box" + ( x+y ).toString()
 
   dom.id = id
 
@@ -340,7 +340,7 @@ let drawBox = (
 
 let _clearText = %raw(`
 function({x,y}) {
-  let id = "_" + ( x+y ).toString()
+  let id = "_text" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
 document.querySelector("#" + id).remove()
@@ -352,7 +352,7 @@ let _renderText = %raw(`
 function(text, {x,y,width,height}) {
   let dom = document.createElement("span")
 
-  let id = "_" + ( x+y ).toString()
+  let id = "_text" + ( x+y ).toString()
 
   dom.id = id
 
