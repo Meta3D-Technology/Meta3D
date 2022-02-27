@@ -6,6 +6,8 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 function getExtensionService(api, param) {
   return {
           register: UIManager$Meta3dUi.register,
+          registerSkin: UIManager$Meta3dUi.registerSkin,
+          registerCustomControl: UIManager$Meta3dUi.registerCustomControl,
           render: (function (param, param$1, param$2) {
               return UIManager$Meta3dUi.render(api, param, param$1, param$2);
             }),
@@ -15,7 +17,11 @@ function getExtensionService(api, param) {
           getExecState: UIManager$Meta3dUi.getExecState,
           combineReducers: UIManager$Meta3dUi.combineReducers,
           dispatch: UIManager$Meta3dUi.dispatch,
-          drawButton: UIManager$Meta3dUi.drawButton
+          getIOData: UIManager$Meta3dUi.getIODataExn,
+          getSkin: UIManager$Meta3dUi.getSkinExn,
+          getCustomControl: UIManager$Meta3dUi.getCustomControlExn,
+          drawBox: UIManager$Meta3dUi.drawBox,
+          drawText: UIManager$Meta3dUi.drawText
         };
 }
 
@@ -25,6 +31,8 @@ function createExtensionState(param) {
           execStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isShowMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           ioData: undefined,
           reducers: []
         };

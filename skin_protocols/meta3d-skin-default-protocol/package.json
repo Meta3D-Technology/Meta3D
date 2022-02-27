@@ -1,0 +1,16 @@
+{
+    "name": "meta3d-skin-default-protocol",
+    "version": "0.0.1",
+    "description": "",
+    "author": "Wonder",
+    "main": "src/Index.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

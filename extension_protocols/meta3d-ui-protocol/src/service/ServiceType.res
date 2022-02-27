@@ -1,15 +1,31 @@
 type uiExtensionName = Meta3dType.Index.extensionName
 
-type drawButtonData = {
+// type drawButtonData = {
+//   x: int,
+//   y: int,
+//   width: int,
+//   height: int,
+//   text: string,
+// }
+
+type color = string
+
+type text = string
+
+type rect = {
   x: int,
   y: int,
   width: int,
   height: int,
-  text: string,
 }
 
 type service = {
   register: 'execState. (StateType.state, UIType.registerData<'execState>) => StateType.state,
+  registerSkin: (StateType.state, ISkin.skinContribute<ISkin.buttonStyle>) => StateType.state,
+  registerCustomControl: (
+    StateType.state,
+    ICustomControl.customControlContribute<ICustomControl.inputData, ICustomControl.outputData>,
+  ) => StateType.state,
   render: (
     Meta3dType.Index.state,
     uiExtensionName,
@@ -24,9 +40,22 @@ type service = {
     UIType.reducerData<'execState, 'action>,
   ) => StateType.state,
   dispatch: 'action. (StateType.state, UIType.action) => StateType.state,
-  drawButton: (
+  getIOData: StateType.state => StateType.ioData,
+  getSkin: 'buttonStyle. (StateType.state, ISkin.skinName) => ISkin.skinContribute<'buttonStyle>,
+  getCustomControl: 'inputData 'outputData. (
+    StateType.state,
+    ICustomControl.customControlName,
+  ) => ICustomControl.customControlFunc<'inputData, 'outputData>,
+  drawBox: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, Meta3dType.Index.extensionName),
-    drawButtonData,
-  ) => (Meta3dType.Index.state, bool),
+    rect,
+    color,
+  ) => Meta3dType.Index.state,
+  drawText: (
+    Meta3dType.Index.state,
+    (Meta3dType.Index.api, Meta3dType.Index.extensionName),
+    rect,
+    text,
+  ) => Meta3dType.Index.state,
 }

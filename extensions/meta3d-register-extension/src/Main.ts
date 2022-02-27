@@ -2,7 +2,7 @@
 // move ui id, registerExtensionSubmitEventName to protocol?
 
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3d, createExtensionState as createExtensionStateMeta3d } from "meta3d-type/src/Index"
-import { service as uiService, drawButtonData } from "meta3d-ui-protocol/src/service/ServiceType"
+import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { execFunc } from "meta3d-ui-protocol/src/contribute_points/UIType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -13,6 +13,11 @@ import { service } from "meta3d-register-extension-protocol/src/service/ServiceT
 import { state, registerExtensionExecState, showExtensionExecState } from "meta3d-register-extension-protocol/src/state/StateType"
 import { registerExtensionSubmitEventData, showExtensionEventData } from "meta3d-register-extension-protocol/src/service/EventType"
 import { serializeLib, getExtensionServiceFuncFromLib, getCreateExtensionStateFuncFuncFromLib, traverseReducePromiseM } from "./Utils"
+import { getSkinContribute as getDefaultSkinContribute } from "meta3d-skin-default"
+import { getCustomControlContribute as getButtonCustomControlContribute } from "meta3d-custom-control-button"
+import { skinName as defaultSkinName } from "meta3d-skin-default-protocol"
+// import { buttonStyle } from "meta3d-skin-protocol"
+import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 
 import { service as test1Service } from "meta3d-extension-test1/src/Main"
 import { showExtensionReducer } from "./Reducer"
@@ -42,7 +47,7 @@ function _getShowExtensionEventName() {
 // }
 
 let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState, id) => {
-	let { isStateChange, drawButton, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+	let { isStateChange, getCustomControl, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
@@ -57,13 +62,20 @@ let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { m
 	// TODO use Nullable.getExn
 	let { x, y, width, height, text } = getExecState<registerExtensionExecState>(uiState, _getRegisterExtensionUIId()) as registerExtensionExecState
 
-	let drawButtonData: drawButtonData = {
-		x, y, width, height, text
-	}
+	let drawButton = getCustomControl<inputData, outputData>(uiState, customControlName)
+
 
 	let data = drawButton(meta3dState,
 		[api, meta3dUIExtensionName],
-		drawButtonData)
+		{
+			rect: {
+				x,
+				y,
+				width,
+				height,
+			},
+			text
+		})
 	meta3dState = data[0]
 	let isClick = data[1]
 
@@ -93,7 +105,7 @@ let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { m
 }
 
 let _showExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState, id) => {
-	let { isStateChange, drawButton, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+	let { getCustomControl, isStateChange, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
@@ -112,14 +124,19 @@ let _showExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3
 	// TODO use Nullable.getExn
 	let { extensionDataArr } = getExecState<showExtensionExecState>(uiState, _getShowExtensionUIId()) as showExtensionExecState
 
+
+	let drawButton = getCustomControl<inputData, outputData>(uiState, customControlName)
+
 	return traverseReducePromiseM(extensionDataArr, ([meta3dState, index]: [meta3dState, number], { extensionName }) => {
 		let data = drawButton(meta3dState,
 			[api, meta3dUIExtensionName],
 			{
-				x: index * 10,
-				y: 240,
-				width: 20,
-				height: 20,
+				rect: {
+					x: index * 10,
+					y: 240,
+					width: 20,
+					height: 20,
+				},
 				text: extensionName
 			})
 		meta3dState = data[0]
@@ -184,6 +201,23 @@ export let getExtensionService: getExtensionServiceMeta3d<
 			let { register, combineReducers } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
 			let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+
+
+
+
+
+			// TODO move out to another extension
+			let { registerSkin, registerCustomControl } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+
+			uiState = registerSkin(uiState, getDefaultSkinContribute())
+			uiState = registerCustomControl(uiState, getButtonCustomControlContribute(defaultSkinName))
+
+
+
+
+
+
+
 
 			uiState = register<registerExtensionExecState>(uiState, {
 				id: _getRegisterExtensionUIId(),

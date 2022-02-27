@@ -6,7 +6,11 @@
     "extension_protocols/*",
     "components/*",
     "component_protocols/*",
-    "work_plugins/*"
+    "work_plugins/*",
+    "skin_protocols/*",
+    "custom_control_protocols/*",
+    "skins/*",
+    "custom_controls/*"
   ],
   "npmClient": "yarn",
   "command": {

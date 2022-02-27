@@ -79,7 +79,6 @@ export function init() {
         )
 
 
-
     let { register } = getServiceExn<registerExtensionService>(meta3dState, _getMeta3DRegisterExtensionExtensionName())
 
     return register(meta3dState)

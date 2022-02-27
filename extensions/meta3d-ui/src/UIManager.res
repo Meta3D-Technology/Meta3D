@@ -92,7 +92,7 @@ let dispatch = (
   }, state)
 }
 
-let _getIODataExn = ({ioData}: Meta3dUiProtocol.StateType.state) => {
+let getIODataExn = ({ioData}: Meta3dUiProtocol.StateType.state) => {
   ioData->Meta3dCommonlib.OptionSt.getExn
 }
 
@@ -175,12 +175,123 @@ let register = (
   state->_setExecFunc(id, execFunc)->_setExecState(id, execState)->show(id)->_markStateChange(id)
 }
 
+let registerSkin = (
+  state: Meta3dUiProtocol.StateType.state,
+  skinContribute: Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.ISkin.buttonStyle>,
+) => {
+  {
+    ...state,
+    skinContributeMap: state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      skinContribute.skinName,
+      skinContribute,
+    ),
+  }
+}
+
+let registerCustomControl = (
+  state: Meta3dUiProtocol.StateType.state,
+  customControlContribute: Meta3dUiProtocol.ICustomControl.customControlContribute<
+    Meta3dUiProtocol.ICustomControl.inputData,
+    Meta3dUiProtocol.ICustomControl.outputData,
+  >,
+) => {
+  {
+    ...state,
+    customControlContributeMap: state.customControlContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      customControlContribute.customControlName,
+      customControlContribute,
+    ),
+  }
+}
+
+let getSkinExn = (
+  state: Meta3dUiProtocol.StateType.state,
+  skinName,
+): Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.ISkin.buttonStyle> => {
+  state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
+}
+
+let getCustomControlExn = (state: Meta3dUiProtocol.StateType.state, customControlName) => {
+  let {func}: Meta3dUiProtocol.ICustomControl.customControlContribute<
+    Meta3dUiProtocol.ICustomControl.inputData,
+    Meta3dUiProtocol.ICustomControl.outputData,
+  > =
+    state.customControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(customControlName)
+
+  func
+}
+
 let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtocol.UIType.id) => {
   state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
 }
 
-let _clearButton = %raw(`
-function({x,y,width,height,text}) {
+// let _clearButton = %raw(`
+// function({x,y,width,height,text}) {
+//   let id = "_" + ( x+y ).toString()
+
+//   if(document.querySelector("#" + id) !== null){
+// document.querySelector("#" + id).remove()
+//   }
+// }
+// `)
+
+// let _renderButton = %raw(`
+// function( {x,y,width,height,text}) {
+//   let button = document.createElement("button")
+
+//   let id = "_" + ( x+y ).toString()
+
+//   button.id = id
+
+//   button.style.position = "absolute"
+//   button.style.left = x + "px"
+//   button.style.top = y + "px"
+//   button.style.width = width + "px"
+//   button.style.height = height + "px"
+//   button.innerHTML =text
+
+//   document.body.appendChild(
+//     button
+//   )
+// }
+// `)
+
+// let drawButton = (
+//   meta3dState,
+//   (api: Meta3dType.Index.api, uiExtensionName),
+//   data: Meta3dUiProtocol.ServiceType.drawButtonData,
+// ) => {
+//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+//     meta3dState,
+//     uiExtensionName,
+//   )
+
+//   _clearButton(data)
+//   _renderButton(data)
+
+//   let {isPointDown, pointPosition} = _getIODataExn(state)
+//   let (pointPositionX, pointPositionY) = pointPosition
+
+//   let {x, y, width, height, text} = data
+
+//   let isClick =
+//     isPointDown &&
+//     pointPositionX >= x &&
+//     pointPositionX <= x + width &&
+//     pointPositionY >= y &&
+//     pointPositionY <= y + height
+//       ? {
+//           true
+//         }
+//       : {
+//           false
+//         }
+
+//   (meta3dState, isClick)
+// }
+
+let _clearBox = %raw(`
+function({x,y}) {
   let id = "_" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
@@ -189,57 +300,88 @@ document.querySelector("#" + id).remove()
 }
 `)
 
-let _renderButton = %raw(`
-function( {x,y,width,height,text}) {
-  let button = document.createElement("button")
+let _renderBox = %raw(`
+function(backgroundColor, {x,y,width,height}) {
+  let dom = document.createElement("div")
 
   let id = "_" + ( x+y ).toString()
 
-  button.id = id
+  dom.id = id
 
-  button.style.position = "absolute"
-  button.style.left = x + "px"
-  button.style.top = y + "px"
-  button.style.width = width + "px"
-  button.style.height = height + "px"
-  button.innerHTML =text
+  dom.style.position = "absolute"
+  dom.style.left = x + "px"
+  dom.style.top = y + "px"
+  dom.style.width = width + "px"
+  dom.style.height = height + "px"
+  dom.style["background-color"] = backgroundColor
 
   document.body.appendChild(
-    button
+    dom
   )
 }
 `)
 
-let drawButton = (
+let drawBox = (
   meta3dState,
   (api: Meta3dType.Index.api, uiExtensionName),
-  data: Meta3dUiProtocol.ServiceType.drawButtonData,
+  rect: Meta3dUiProtocol.ServiceType.rect,
+  backgroundColor: Meta3dUiProtocol.ServiceType.color,
 ) => {
   let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
     meta3dState,
     uiExtensionName,
   )
 
-  _clearButton(data)
-  _renderButton(data)
+  _clearBox(rect)
+  _renderBox(backgroundColor, rect)
 
-  let {isPointDown, pointPosition} = _getIODataExn(state)
-  let (pointPositionX, pointPositionY) = pointPosition
+  meta3dState
+}
 
-  let {x, y, width, height, text} = data
+let _clearText = %raw(`
+function({x,y}) {
+  let id = "_" + ( x+y ).toString()
 
-  let isClick =
-    isPointDown &&
-    pointPositionX >= x &&
-    pointPositionX <= x + width &&
-    pointPositionY >= y &&
-    pointPositionY <= y + height
-      ? {
-          true
-        }
-      : {
-          false
-        }
+  if(document.querySelector("#" + id) !== null){
+document.querySelector("#" + id).remove()
+  }
+}
+`)
 
-  (meta3dState, isClick)
+let _renderText = %raw(`
+function(text, {x,y,width,height}) {
+  let dom = document.createElement("span")
+
+  let id = "_" + ( x+y ).toString()
+
+  dom.id = id
+
+  dom.style.position = "absolute"
+  dom.style.left = x + "px"
+  dom.style.top = y + "px"
+  dom.style.width = width + "px"
+  dom.style.height = height + "px"
+  dom.innerHTML = text
+
+  document.body.appendChild(
+    dom
+  )
+}
+`)
+
+let drawText = (
+  meta3dState,
+  (api: Meta3dType.Index.api, uiExtensionName),
+  rect: Meta3dUiProtocol.ServiceType.rect,
+  text: Meta3dUiProtocol.ServiceType.text,
+) => {
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+    meta3dState,
+    uiExtensionName,
+  )
+
+  _clearText(rect)
+  _renderText(text, rect)
+
+  meta3dState
 }

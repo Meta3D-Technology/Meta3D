@@ -12,6 +12,8 @@ function hide(state, id) {
           execStateMap: state.execStateMap,
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, false),
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -23,6 +25,8 @@ function show(state, id) {
           execStateMap: state.execStateMap,
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, true),
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -34,6 +38,8 @@ function _markStateChange(state, id) {
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, true),
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -45,6 +51,8 @@ function _markStateNotChange(state, id) {
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, false),
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -60,6 +68,8 @@ function combineReducers(state, reducerData) {
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: ArraySt$Meta3dCommonlib.push(state.reducers, reducerData)
         };
@@ -79,6 +89,8 @@ function _setExecState(state, id, execState) {
           execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, id, execState),
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -97,7 +109,7 @@ function dispatch(state, action) {
               }), state);
 }
 
-function _getIODataExn(param) {
+function getIODataExn(param) {
   return OptionSt$Meta3dCommonlib.getExn(param.ioData);
 }
 
@@ -107,6 +119,8 @@ function _setIOData(state, ioData) {
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: ioData,
           reducers: state.reducers
         };
@@ -150,6 +164,8 @@ function _setExecFunc(state, id, execFunc) {
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
           reducers: state.reducers
         };
@@ -160,11 +176,45 @@ function register(state, param) {
   return _markStateChange(show(_setExecState(_setExecFunc(state, id, param.execFunc), id, param.execState), id), id);
 }
 
+function registerSkin(state, skinContribute) {
+  return {
+          execFuncMap: state.execFuncMap,
+          execStateMap: state.execStateMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
+          customControlContributeMap: state.customControlContributeMap,
+          ioData: state.ioData,
+          reducers: state.reducers
+        };
+}
+
+function registerCustomControl(state, customControlContribute) {
+  return {
+          execFuncMap: state.execFuncMap,
+          execStateMap: state.execStateMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.customControlContributeMap, customControlContribute.customControlName, customControlContribute),
+          ioData: state.ioData,
+          reducers: state.reducers
+        };
+}
+
+function getSkinExn(state, skinName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.skinContributeMap, skinName);
+}
+
+function getCustomControlExn(state, customControlName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.customControlContributeMap, customControlName).func;
+}
+
 function isStateChange(state, id) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, id);
 }
 
-var _clearButton = (function({x,y,width,height,text}) {
+var _clearBox = (function({x,y}) {
   let id = "_" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
@@ -172,40 +222,64 @@ document.querySelector("#" + id).remove()
   }
 });
 
-var _renderButton = (function( {x,y,width,height,text}) {
-  let button = document.createElement("button")
+var _renderBox = (function(backgroundColor, {x,y,width,height}) {
+  let dom = document.createElement("div")
 
   let id = "_" + ( x+y ).toString()
 
-  button.id = id
+  dom.id = id
 
-  button.style.position = "absolute"
-  button.style.left = x + "px"
-  button.style.top = y + "px"
-  button.style.width = width + "px"
-  button.style.height = height + "px"
-  button.innerHTML =text
+  dom.style.position = "absolute"
+  dom.style.left = x + "px"
+  dom.style.top = y + "px"
+  dom.style.width = width + "px"
+  dom.style.height = height + "px"
+  dom.style["background-color"] = backgroundColor
 
   document.body.appendChild(
-    button
+    dom
   )
 });
 
-function drawButton(meta3dState, param, data) {
-  var state = param[0].getExtensionStateExn(meta3dState, param[1]);
-  _clearButton(data);
-  _renderButton(data);
-  var match = _getIODataExn(state);
-  var y = data.y;
-  var x = data.x;
-  var pointPosition = match.pointPosition;
-  var pointPositionY = pointPosition[1];
-  var pointPositionX = pointPosition[0];
-  var isClick = match.isPointDown && pointPositionX >= x && pointPositionX <= (x + data.width | 0) && pointPositionY >= y && pointPositionY <= (y + data.height | 0);
-  return [
-          meta3dState,
-          isClick
-        ];
+function drawBox(meta3dState, param, rect, backgroundColor) {
+  param[0].getExtensionStateExn(meta3dState, param[1]);
+  _clearBox(rect);
+  _renderBox(backgroundColor, rect);
+  return meta3dState;
+}
+
+var _clearText = (function({x,y}) {
+  let id = "_" + ( x+y ).toString()
+
+  if(document.querySelector("#" + id) !== null){
+document.querySelector("#" + id).remove()
+  }
+});
+
+var _renderText = (function(text, {x,y,width,height}) {
+  let dom = document.createElement("span")
+
+  let id = "_" + ( x+y ).toString()
+
+  dom.id = id
+
+  dom.style.position = "absolute"
+  dom.style.left = x + "px"
+  dom.style.top = y + "px"
+  dom.style.width = width + "px"
+  dom.style.height = height + "px"
+  dom.innerHTML = text
+
+  document.body.appendChild(
+    dom
+  )
+});
+
+function drawText(meta3dState, param, rect, text) {
+  param[0].getExtensionStateExn(meta3dState, param[1]);
+  _clearText(rect);
+  _renderText(text, rect);
+  return meta3dState;
 }
 
 export {
@@ -219,15 +293,22 @@ export {
   getExecState ,
   _setExecState ,
   dispatch ,
-  _getIODataExn ,
+  getIODataExn ,
   _setIOData ,
   render ,
   _setExecFunc ,
   register ,
+  registerSkin ,
+  registerCustomControl ,
+  getSkinExn ,
+  getCustomControlExn ,
   isStateChange ,
-  _clearButton ,
-  _renderButton ,
-  drawButton ,
+  _clearBox ,
+  _renderBox ,
+  drawBox ,
+  _clearText ,
+  _renderText ,
+  drawText ,
   
 }
 /* No side effect */

@@ -334,12 +334,12 @@ no inspector, only show all extensions with their name(as a button)
 
 pass run test
 
-*** TODO add hidden, show "show extension" buttons to test visible
+# *** TODO add hidden, show "show extension" buttons to test visible
 
-use show, hidden ui's api when handle event;
+# use show, hidden ui's api when handle event;
 
 
-*** TODO fix UI(support 3d ui; fix onClickFunc, remove event handler)
+*** DONE fix UI(support 3d ui; fix onClickFunc, remove event handler)
 
 
 fix onClickFunc, remove event handler
@@ -347,18 +347,45 @@ fix onClickFunc, remove event handler
 # 3d ui
 
 
-*** TODO use skin, custom control
+*** TODO use style && skin, custom control
 
-**** TODO finish
+**** DONE finish
 
-**** TODO add extension to test
+add skins, custom controls:
+getXxxContribute
 
-**** TODO update wonder-editor, pass run test
+
+
+
+add drawBox, drawText;
+add register/get skin/customControl;
+
+default primitive control not use skin, use attribute directly in func's param
+
+custom control: button
+
+
+////register skin, custom control in wonder-editor
+
+
+**** TODO pass run test
+
+# **** TODO extract register skin extension, register custom control extension
+
+# **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
+
+
 
 
 *** TODO add drawCopyTextArea
 
 *** TODO update register extension with drawCopyTextArea
+
+
+** TODO refactor: make execFunc and execState to be contribute like skin/custom control!!!
+
+(refacotr register-extension extension!)
+
 
 
 ** TODO add window extension 
@@ -385,6 +412,8 @@ fix onClickFunc, remove event handler
 ** TODO use pipe, curry
 
 ** TODO use NullableUtils for type
+
+** TODO rename meta3d-extension-test1 to wonder-extension-test1
 
 
 * TODO publish v0.1.0 !!!
@@ -600,11 +629,17 @@ edit scene, run scene
 
 
 
+* TODO refactor
+
+** TODO contribute-> all Ixxx
+
+** TODO user only know .ts, no .d.ts, no .gen.ts!
+
+** TODO move wonder-xxx to Wonder.js repo
 
 
 * TODO prepare to open for user to use
 
-** TODO move wonder-engine, wonder-editor to Wonder.js repo
 
 
 ** TODO prepare user's example code(typescript)
@@ -631,6 +666,19 @@ edit scene, run scene
 
 
 * TODO publish
+
+
+
+
+
+
+
+* TODO add register ui, register custom control/skin, ... extension
+
+* TODO publish
+
+
+
 
 
 
@@ -727,7 +775,16 @@ material asset add texture;
 
 * TODO improve
 
-** TODO UI extension support draw chinese text
+** TODO improve UI
+
+*** TODO support check state change for update geometry buffer
+
+use webgpu
+
+*** TODO support draw chinese text
+
+*** TODO support 3d ui
+
 
 
 * TODO publish

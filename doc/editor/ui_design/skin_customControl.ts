@@ -15,7 +15,7 @@ Main = {
     onCustomEvent("wd_pointdown", update state -> io -> pointdown)
 
 
-let editorUIState = editorUIState -> UI.registerSkin(
+let editorUIState = editorUIState -> UI.registerSkin<buttonSkin>(
   "WD_Button_Skin",
   // TODO stateValue should in the same way!
 
@@ -28,16 +28,23 @@ let editorUIState = editorUIState -> UI.registerSkin(
 )
 
 let editorUIState =
-  editorUIState -> UI.registerCustomControl(
+  editorUIState -> UI.registerCustomControl<buttonControl>(
     "WD_Button",
-    (states, state, rect, str, skinName, api, { onClick }) => {
-      let { buttonColor } = api.getSkin(skinName)
+    (states, state, rect, str, skinName: ButtonSkinProtocol.skinName, api, { onClick }) => {
+      let { buttonColor } = api.getSkin<buttonSkin>(skinName)
       let(isButtonClick, (imageId, color)) = judge(rect, buttonColor, state)
 
       // let state = api.drawBox(rect, state)
       // let state = api.drawText(str, state)
       let states = api.drawBox(states, rect, state)
       let states = api.drawText(states, str, state)
+
+
+    // let record = switch Js.Nullable.toOption(imageId) {
+    //   | None => drawBox(. rect, color, record)
+    //   | Some(imageId) => drawImage(. rect, (0., 0., 1., 1.), imageId, record)
+    //   }
+
 
       let states = isButtonClick ? onClick(states, {
         pointDown: state.io.pointDown

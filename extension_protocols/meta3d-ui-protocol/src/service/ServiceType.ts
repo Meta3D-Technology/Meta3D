@@ -1,20 +1,42 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { registerData, uiExtensionName, id, reducerData } from "../contribute_points/UIType"
 import { state, ioData } from "../state/StateType"
+import { skinContribute, skinName } from "../contribute_points/ISkin"
+import { customControlContribute, customControlFunc, customControlName } from "../contribute_points/ICustomControl"
 
-export type drawButtonData = {
+type rect = {
     x: number,
     y: number,
     width: number,
     height: number,
-    text: string,
 }
+
+type text = string
+
+type color = string
+
 
 export type service = {
     readonly register: < execState> (
         state: state,
         registerData: registerData<execState>
     ) => state;
+    readonly registerSkin: < buttonStyle> (
+        state: state,
+        skinContribute: skinContribute<buttonStyle>
+    ) => state;
+    readonly registerCustomControl: < inputData, outputData> (
+        state: state,
+        customControlContribute: customControlContribute<inputData, outputData>
+    ) => state;
+    readonly getSkin: <buttonStyle> (
+        state: state,
+        skinName: skinName
+    ) => skinContribute<buttonStyle>;
+    readonly getCustomControl: < inputData, outputData> (
+        state: state,
+        customControlName: customControlName
+    ) => customControlFunc<inputData, outputData>;
     readonly render: (
         meta3dState: meta3dState,
         uiExtensionName: uiExtensionName,
@@ -45,9 +67,19 @@ export type service = {
         state: state,
         action: action
     ) => state;
-    readonly drawButton: (
+    readonly getIOData: (
+        state: state,
+    ) => ioData;
+    readonly drawBox: (
         meta3dState: meta3dState,
         [api, uiExtensionName]: [api, extensionName],
-        drawButtonData: drawButtonData,
-    ) => [meta3dState, boolean]
+        rect: rect,
+        backgroundColor: color
+    ) => meta3dState
+    readonly drawText: (
+        meta3dState: meta3dState,
+        [api, uiExtensionName]: [api, extensionName],
+        rect: rect,
+        text: text
+    ) => meta3dState
 };
