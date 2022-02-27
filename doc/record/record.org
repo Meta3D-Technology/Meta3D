@@ -314,7 +314,7 @@ fix event;
 # *** TODO refactor state value
 
 
-*** TODO use visible, state change for dispatch;finish useSelector, dispatch, action
+*** DONE use visible, state change for dispatch;finish useSelector, dispatch, action
 
 visible, state change is related to id?
 
@@ -332,6 +332,7 @@ use dispatch
 
 no inspector, only show all extensions with their name(as a button)
 
+pass run test
 
 *** TODO add hidden, show "show extension" buttons to test visible
 

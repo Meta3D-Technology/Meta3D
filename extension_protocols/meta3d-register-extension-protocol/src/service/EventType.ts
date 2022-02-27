@@ -10,3 +10,7 @@ export type registerExtensionSubmitEventData = {
     getExtensionServiceFunc: any,
     createExtensionStateFunc: any
 }
+
+export type showExtensionEventData = {
+    extensionName: string
+}
