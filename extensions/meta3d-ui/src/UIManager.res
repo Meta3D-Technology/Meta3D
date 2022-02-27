@@ -92,11 +92,34 @@ let dispatch = (
   }, state)
 }
 
-let render = (api: Meta3dType.Index.api, meta3dState: Meta3dType.Index.state, uiExtensionName) => {
+let _getIODataExn = ({ioData}: Meta3dUiProtocol.StateType.state) => {
+  ioData->Meta3dCommonlib.OptionSt.getExn
+}
+
+let _setIOData = (state: Meta3dUiProtocol.StateType.state, ioData) => {
+  {
+    ...state,
+    ioData: ioData->Some,
+  }
+}
+
+let render = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  uiExtensionName,
+  ioData,
+) => {
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    uiExtensionName,
+    api.getExtensionStateExn(. meta3dState, uiExtensionName)->_setIOData(ioData),
+  )
+
   let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
     meta3dState,
     uiExtensionName,
   )
+
   let {isShowMap, isStateChangeMap, execFuncMap, execStateMap} = state
 
   isShowMap
@@ -110,9 +133,9 @@ let render = (api: Meta3dType.Index.api, meta3dState: Meta3dType.Index.state, ui
 
             /* !
               TODO should judge is state change in execFunc:
-             if state not change, not update geometry buffer!!! 
+             if state not change, not update geometry buffer, but should render if isShow!!! 
  */
-            execFunc(meta3dState)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
+            execFunc(meta3dState, id)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
               (meta3dState, needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.push(id))
             })
           }
@@ -152,37 +175,71 @@ let register = (
   state->_setExecFunc(id, execFunc)->_setExecState(id, execState)->show(id)->_markStateChange(id)
 }
 
-let drawButton = %raw(`
-function(meta3dState, {x,y,width,height,text},onClickFunc) {
-  /////*! only read state, not write it */
-  /*! get state from meta3dState */
+let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtocol.UIType.id) => {
+  state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
+}
 
+let _clearButton = %raw(`
+function({x,y,width,height,text}) {
   let id = "_" + ( x+y ).toString()
 
   if(document.querySelector("#" + id) !== null){
 document.querySelector("#" + id).remove()
   }
+}
+`)
 
+let _renderButton = %raw(`
+function( {x,y,width,height,text}) {
+  let button = document.createElement("button")
 
-let button = document.createElement("button")
+  let id = "_" + ( x+y ).toString()
 
-button.style.position = "absolute"
-button.style.left = x + "px"
-button.style.top = y + "px"
-button.style.width = width + "px"
-button.style.height = height + "px"
-button.innerHTML =text
+  button.id = id
 
-// TODO fix onclick, should return meta3dState
-button.onclick = (e) => onClickFunc(meta3dState)
-button.id = id
+  button.style.position = "absolute"
+  button.style.left = x + "px"
+  button.style.top = y + "px"
+  button.style.width = width + "px"
+  button.style.height = height + "px"
+  button.innerHTML =text
 
   document.body.appendChild(
     button
   )
-
-  return new Promise((resolve) =>{
-    resolve(meta3dState)
-  }) 
 }
 `)
+
+let drawButton = (
+  meta3dState,
+  (api: Meta3dType.Index.api, uiExtensionName),
+  data: Meta3dUiProtocol.ServiceType.drawButtonData,
+) => {
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+    meta3dState,
+    uiExtensionName,
+  )
+
+  _clearButton(data)
+  _renderButton(data)
+
+  let {isPointDown, pointPosition} = _getIODataExn(state)
+  let (pointPositionX, pointPositionY) = pointPosition
+
+  let {x, y, width, height, text} = data
+
+  let isClick =
+    isPointDown &&
+    pointPositionX >= x &&
+    pointPositionX <= x + width &&
+    pointPositionY >= y &&
+    pointPositionY <= y + height
+      ? {
+          true
+        }
+      : {
+          false
+        }
+
+  (meta3dState, isClick)
+}

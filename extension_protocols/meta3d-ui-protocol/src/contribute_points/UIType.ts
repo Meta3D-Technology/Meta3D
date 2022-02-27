@@ -8,10 +8,11 @@ export type uiExtensionName = extensionName;
 
 export type execFunc<dependentExtensionNameMap> = (
     [api, dependentExtensionNameMap]: [api, dependentExtensionNameMap],
-    meta3dState: meta3dState
+    meta3dState: meta3dState,
+    id: id
 ) => Promise<meta3dState>;
 
-type registeredExecFunc = (_1: meta3dState) => Promise<meta3dState>;
+type registeredExecFunc = (_1: meta3dState, id: id) => Promise<meta3dState>;
 
 export type registerData<execState> = {
     id: id,

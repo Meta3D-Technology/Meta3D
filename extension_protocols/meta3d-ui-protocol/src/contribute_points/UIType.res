@@ -10,9 +10,10 @@ type dependentExtensionNameMap
 type execFunc<'dependentExtensionNameMap> = (
   (Meta3dType.Index.api, 'dependentExtensionNameMap),
   Meta3dType.Index.state,
+  id,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
-type registeredExecFunc = Meta3dType.Index.state => Js.Promise.t<Meta3dType.Index.state>
+type registeredExecFunc = (Meta3dType.Index.state, id) => Js.Promise.t<Meta3dType.Index.state>
 
 type registerData<'execState> = {
   id: id,

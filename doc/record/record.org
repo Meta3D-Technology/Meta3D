@@ -326,7 +326,7 @@ if both true, render and reset state change;
 else, do nothing;
 
 
-*** TODO add show extension extension
+*** DONE add show extension extension
 
 use dispatch
 
@@ -487,6 +487,9 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 
 
 # *** TODO implement drawImage
+
+
+*** TODO add VisualElement
 
 
 *** TODO implement drawText

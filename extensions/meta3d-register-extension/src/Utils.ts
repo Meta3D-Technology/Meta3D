@@ -5,11 +5,11 @@ export function serializeLib(fileStr: string, libraryName: string) {
 }
 
 export function getExtensionServiceFuncFromLib(lib: any) {
-  return lib["getExtensionServiceFunc"]
+  return lib["getExtensionService"]
 }
 
 export function getCreateExtensionStateFuncFuncFromLib(lib: any) {
-  return lib["createExtensionStateFunc"]
+  return lib["createExtensionState"]
 }
 
 function _bindPromise<a, b>(p: Promise<a>, func: (val: a) => Promise<b>): Promise<b> {

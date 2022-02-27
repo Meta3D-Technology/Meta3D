@@ -6,6 +6,7 @@ import { getExtensionService as getRegisterExtensionExtensionService, createExte
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as registerExtensionService } from "meta3d-register-extension-protocol/src/service/ServiceType"
 import { state as registerExtensionState } from "meta3d-register-extension-protocol/src/state/StateType"
+import { ioData } from "../../../extension_protocols/meta3d-ui-protocol/src/state/StateType"
 
 function _getMeta3DUIExtensionName(): string {
     return "meta3d-ui"
@@ -20,8 +21,31 @@ function _getMeta3DRegisterExtensionExtensionName(): string {
 }
 
 
+// TODO move to UI extension 
+let _ioData: ioData = {
+    isPointDown: false,
+    pointPosition: [0, 0]
+}
 
 export function init() {
+    // TODO move to UI extension 
+    // TODO fix: should only one pointdown!
+    document.onmousedown = (e) => {
+        _ioData = {
+            isPointDown: true,
+            pointPosition: [e.pageX, e.pageY]
+        }
+    }
+    document.onmouseup = (e) => {
+        _ioData = {
+            isPointDown: false,
+            pointPosition: [e.pageX, e.pageY]
+        }
+    }
+
+
+
+
     let meta3dState = prepareMeta3d()
 
     // TODO use pipe
@@ -64,7 +88,7 @@ export function init() {
 export function loop(meta3dState: meta3dState) {
     let { render } = getServiceExn<uiService>(meta3dState, _getMeta3DUIExtensionName())
 
-    render(meta3dState, _getMeta3DUIExtensionName()).then((meta3dState: meta3dState) => {
+    render(meta3dState, _getMeta3DUIExtensionName(), _ioData).then((meta3dState: meta3dState) => {
         requestAnimationFrame(
             () => {
                 loop(meta3dState)

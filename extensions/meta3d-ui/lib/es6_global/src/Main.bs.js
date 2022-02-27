@@ -6,11 +6,12 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 function getExtensionService(api, param) {
   return {
           register: UIManager$Meta3dUi.register,
-          render: (function (param, param$1) {
-              return UIManager$Meta3dUi.render(api, param, param$1);
+          render: (function (param, param$1, param$2) {
+              return UIManager$Meta3dUi.render(api, param, param$1, param$2);
             }),
           show: UIManager$Meta3dUi.show,
           hide: UIManager$Meta3dUi.hide,
+          isStateChange: UIManager$Meta3dUi.isStateChange,
           getExecState: UIManager$Meta3dUi.getExecState,
           combineReducers: UIManager$Meta3dUi.combineReducers,
           dispatch: UIManager$Meta3dUi.dispatch,
@@ -24,6 +25,7 @@ function createExtensionState(param) {
           execStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isShowMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          ioData: undefined,
           reducers: []
         };
 }

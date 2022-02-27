@@ -35,10 +35,24 @@ function _getShowExtensionEventName() {
 	return "meta3d_event_show_extension"
 }
 
-let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState) => {
-	let { drawButton, getExecState, dispatch } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+// function _handleStateNotChange(meta3dState: meta3dState): Promise<meta3dState> {
+// 	return new Promise((resolve) => {
+// 		resolve(meta3dState)
+// 	})
+// }
+
+let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState, id) => {
+	let { isStateChange, drawButton, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+
+	/*! TODO move id to VisualElement/Group, judge is state change there!
+	
+	// if (!isStateChange(uiState, id)) {
+	// 	return _handleStateNotChange(meta3dState)
+	// }
+	*/
+
 
 	// TODO use Nullable.getExn
 	let { x, y, width, height, text } = getExecState<registerExtensionExecState>(uiState, _getRegisterExtensionUIId()) as registerExtensionExecState
@@ -47,7 +61,13 @@ let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { m
 		x, y, width, height, text
 	}
 
-	return drawButton(meta3dState, drawButtonData, (meta3dState) => {
+	let data = drawButton(meta3dState,
+		[api, meta3dUIExtensionName],
+		drawButtonData)
+	meta3dState = data[0]
+	let isClick = data[1]
+
+	if (isClick) {
 		let { trigger } = api.getServiceExn<eventService>(meta3dState, meta3dEventExtensionName)
 
 		let fileStr = `!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("ExtensionTest1",[],t):"object"==typeof exports?exports.ExtensionTest1=t():e.ExtensionTest1=t()}(self,(function(){return(()=>{"use strict";var e={d:(t,o)=>{for(var n in o)e.o(o,n)&&!e.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:o[n]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{getExtensionService:()=>o,createExtensionState:()=>n});let o=(e,t)=>({func1:()=>{console.log("func1")}}),n=()=>null;return t})()}));`
@@ -65,31 +85,57 @@ let _registerExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { m
 			dependentExtensionNameMap: null,
 			createExtensionStateFunc: getExtensionServiceFuncFromLib(lib)
 		})
+	}
+
+	return new Promise((resolve) => {
+		resolve(meta3dState)
 	})
 }
 
-let _showExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState) => {
-	let { drawButton, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+let _showExtensionExecFunc: execFunc<dependentExtensionNameMap> = ([api, { meta3dUIExtensionName, meta3dEventExtensionName }], meta3dState, id) => {
+	let { isStateChange, drawButton, getExecState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
+
+	/*! TODO move id to VisualElement/Group, judge is state change there!
+	
+	// if (!isStateChange(uiState, id)) {
+	// 	return _handleStateNotChange(meta3dState)
+	// }
+	*/
+
+
+
+
+
 	// TODO use Nullable.getExn
-	let { extensionDataArr } = getExecState<showExtensionExecState>(uiState, _getRegisterExtensionUIId()) as showExtensionExecState
+	let { extensionDataArr } = getExecState<showExtensionExecState>(uiState, _getShowExtensionUIId()) as showExtensionExecState
 
 	return traverseReducePromiseM(extensionDataArr, ([meta3dState, index]: [meta3dState, number], { extensionName }) => {
-		return drawButton(meta3dState, {
-			x: index * 10,
-			y: 240,
-			width: 20,
-			height: 20,
-			text: extensionName
-		}, (meta3dState) => {
+		let data = drawButton(meta3dState,
+			[api, meta3dUIExtensionName],
+			{
+				x: index * 10,
+				y: 240,
+				width: 20,
+				height: 20,
+				text: extensionName
+			})
+		meta3dState = data[0]
+		let isClick = data[1]
+
+		if (isClick) {
 			let { trigger } = api.getServiceExn<eventService>(meta3dState, meta3dEventExtensionName)
 
 			return trigger<showExtensionEventData>(meta3dState, meta3dEventExtensionName, _getShowExtensionEventName(), {
 				extensionName: extensionName,
-			})
-		}).then((meta3dState) => [meta3dState, index + 1]) as Promise<[meta3dState, number]>
+			}).then((meta3dState) => [meta3dState, index + 1]) as Promise<[meta3dState, number]>
+		}
+
+		return new Promise((resolve) => {
+			resolve([meta3dState, index + 1])
+		}) as Promise<[meta3dState, number]>
 	}, [meta3dState, 0]).then(([meta3dState, _]) => meta3dState)
 }
 
@@ -142,7 +188,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 			uiState = register<registerExtensionExecState>(uiState, {
 				id: _getRegisterExtensionUIId(),
 				// TODO use curry
-				execFunc: (meta3dState) => _registerExtensionExecFunc([api, dependentExtensionNameMap], meta3dState),
+				execFunc: (meta3dState, id) => _registerExtensionExecFunc([api, dependentExtensionNameMap], meta3dState, id),
 				execState: {
 					x: 0,
 					y: 140,
@@ -154,7 +200,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 			uiState = register<showExtensionExecState>(uiState, {
 				id: _getShowExtensionUIId(),
 				// TODO use curry
-				execFunc: (meta3dState) => _showExtensionExecFunc([api, dependentExtensionNameMap], meta3dState),
+				execFunc: (meta3dState, id) => _showExtensionExecFunc([api, dependentExtensionNameMap], meta3dState, id),
 				execState: {
 					extensionDataArr: []
 				}

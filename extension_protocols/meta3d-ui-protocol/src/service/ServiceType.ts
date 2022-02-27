@@ -1,6 +1,6 @@
-import { state as meta3dState } from "meta3d-type/src/Index"
+import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { registerData, uiExtensionName, id, reducerData } from "../contribute_points/UIType"
-import { state } from "../state/StateType"
+import { state, ioData } from "../state/StateType"
 
 export type drawButtonData = {
     x: number,
@@ -10,8 +10,6 @@ export type drawButtonData = {
     text: string,
 }
 
-export type onClickFunc = (meta3dState: meta3dState) => Promise<meta3dState>
-
 export type service = {
     readonly register: < execState> (
         state: state,
@@ -19,7 +17,8 @@ export type service = {
     ) => state;
     readonly render: (
         meta3dState: meta3dState,
-        uiExtensionName: uiExtensionName
+        uiExtensionName: uiExtensionName,
+        ioData: ioData
     ) => Promise<meta3dState>;
     readonly show: (
         state: state,
@@ -29,6 +28,10 @@ export type service = {
         state: state,
         id: id
     ) => state;
+    readonly isStateChange: (
+        state: state,
+        id: id
+    ) => boolean;
     readonly getExecState: <execState> (
         state: state,
         id: id
@@ -44,7 +47,7 @@ export type service = {
     ) => state;
     readonly drawButton: (
         meta3dState: meta3dState,
+        [api, uiExtensionName]: [api, extensionName],
         drawButtonData: drawButtonData,
-        onClickFunc: onClickFunc
-    ) => Promise<meta3dState>;
+    ) => [meta3dState, boolean]
 };

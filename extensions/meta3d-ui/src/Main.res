@@ -5,6 +5,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   register: UIManager.register->Obj.magic,
   hide: UIManager.hide,
   show: UIManager.show,
+  isStateChange: UIManager.isStateChange,
   getExecState: UIManager.getExecState->Obj.magic,
   drawButton: UIManager.drawButton,
   render: UIManager.render(api)->Obj.magic,
@@ -20,6 +21,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     execStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isShowMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    ioData: None,
     reducers: [],
   }
 }
