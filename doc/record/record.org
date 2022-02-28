@@ -375,7 +375,7 @@ custom control: button
 # **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
 
 
-*** TODO refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
+*** DONE refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
 
 (refacotr register-extension extension!)
 
@@ -393,9 +393,9 @@ custom control: button
 
 *** DONE rename .gen.tsx to .ts
 
-*** TODO add drawCopyTextArea
+# *** TODO add drawCopyTextArea
 
-*** TODO update register extension with drawCopyTextArea
+# *** TODO update register extension with drawCopyTextArea
 
 
 

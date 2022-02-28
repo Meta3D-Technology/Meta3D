@@ -1,6 +1,6 @@
 import { getEventContribute as getEventContributeMeta3d } from "meta3d-event-protocol/src/contribute_points/EventContributeType"
 import { eventName, dependentExtensionNameMap, eventData } from "meta3d-event-register-extension-submit-protocol"
-import { service as test1Service } from "meta3d-extension-test1/src/Main"
+import { service as test1Service } from "wonder-extension-test1/src/Main"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { registerExtension } from "./Action"
