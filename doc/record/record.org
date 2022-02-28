@@ -383,7 +383,7 @@ custom control: button
 
 # *** TODO refactor: rename UI->stateMap to store
 
-*** TODO refactor: make event to be contribute
+*** DONE refactor: make event to be contribute
 
 *** TODO move to StateType?
 

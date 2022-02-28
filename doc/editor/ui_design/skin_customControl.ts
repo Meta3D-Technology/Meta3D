@@ -1,7 +1,7 @@
 InitEventJob = {
   let exec = states => {
     MostUtils.callFunc(() => {
-      onCustomEvent("mousedown", () => {
+      registerEvent("mousedown", () => {
         trigger("wd_pointdown", data)
       })
 
@@ -12,7 +12,7 @@ InitEventJob = {
 
 Main = {
   init({
-    onCustomEvent("wd_pointdown", update state -> io -> pointdown)
+    registerEvent("wd_pointdown", update state -> io -> pointdown)
 
 
 let editorUIState = editorUIState -> UI.registerSkin<buttonSkin>(

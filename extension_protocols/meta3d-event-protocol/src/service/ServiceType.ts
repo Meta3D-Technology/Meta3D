@@ -1,6 +1,8 @@
-import { state as meta3dState } from "meta3d-type/src/Index"
-import { eventName, eventExtensionName, onedEventHandler } from "../contribute_points/EventType"
+import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
+import { eventName, eventContribute } from "../contribute_points/IEvent"
 import { state } from "../state/StateType"
+
+type eventExtensionName = extensionName
 
 export type service = {
     readonly trigger: <eventData> (
@@ -9,9 +11,8 @@ export type service = {
         eventName: eventName,
         eventData: eventData
     ) => Promise<meta3dState>;
-    readonly onCustomEvent: <eventData>(
+    readonly registerEvent: <eventData>(
         state: state,
-        eventName: eventName,
-        eventHandler: onedEventHandler<eventData>
+        eventContribute: eventContribute<eventData>
     ) => state
 };

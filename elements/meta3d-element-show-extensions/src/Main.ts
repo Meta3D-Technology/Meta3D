@@ -7,7 +7,6 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 import { traverseReducePromiseM } from "meta3d-element-utils"
 import { eventData, eventName } from "meta3d-event-show-extension-protocol"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
-import { registerExtension as registerExtensionAction } from "./Action"
 
 export let getElementContribute: getElementContributeMeta3d<dependentExtensionNameMap, showExtensionsElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
     return {
@@ -68,5 +67,3 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
         }
     }
 }
-
-export let registerExtension = registerExtensionAction

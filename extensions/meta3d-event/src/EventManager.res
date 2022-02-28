@@ -1,9 +1,12 @@
-let onCustomEvent = (state: Meta3dEventProtocol.StateType.state, eventName, eventHandler) => {
+let registerEvent = (
+  state: Meta3dEventProtocol.StateType.state,
+  eventContribute: Meta3dEventProtocol.IEvent.eventContribute<Meta3dEventProtocol.IEvent.eventData>,
+) => {
   {
     ...state,
-    eventHandlerMap: state.eventHandlerMap->Meta3dCommonlib.ImmutableHashMap.set(
-      eventName,
-      eventHandler,
+    eventContributeMap: state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      eventContribute.eventName,
+      eventContribute,
     ),
   }
 }
@@ -13,22 +16,22 @@ let trigger = (
   meta3dState: Meta3dType.Index.state,
   eventExtensionName,
   eventName,
-  eventData: Meta3dEventProtocol.EventType.eventData,
+  eventData: Meta3dEventProtocol.IEvent.eventData,
 ) => {
   let state: Meta3dEventProtocol.StateType.state = api.getExtensionStateExn(.
     meta3dState,
     eventExtensionName,
   )
-  let eventHandler: Meta3dEventProtocol.EventType.onedEventHandler<
-    Meta3dEventProtocol.EventType.eventData,
+  let eventContribute: Meta3dEventProtocol.IEvent.eventContribute<
+    Meta3dEventProtocol.IEvent.eventData,
   > =
-    state.eventHandlerMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
+    state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
 
-  eventHandler(meta3dState, eventData)
+  eventContribute.handler(meta3dState, eventData)
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dEventProtocol.StateType.state,
 > = () => {
-  {eventHandlerMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()}
+  {eventContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()}
 }

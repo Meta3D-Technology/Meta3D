@@ -3,7 +3,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEventProtocol.ServiceType.service,
 > = (api, _) => {
   trigger: EventManager.trigger(api)->Obj.magic,
-  onCustomEvent: EventManager.onCustomEvent->Obj.magic,
+  registerEvent: EventManager.registerEvent->Obj.magic,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<

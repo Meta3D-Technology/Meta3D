@@ -1,6 +1,6 @@
 type state = {
-  eventHandlerMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    EventType.eventName,
-    EventType.onedEventHandler<EventType.eventData>,
+  eventContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    IEvent.eventName,
+    IEvent.eventContribute<IEvent.eventData>,
   >,
 }
