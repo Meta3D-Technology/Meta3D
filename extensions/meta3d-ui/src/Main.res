@@ -2,7 +2,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dUiProtocol.DependentExtensionType.dependentExtensionNameMap,
   Meta3dUiProtocol.ServiceType.service,
 > = (api, _) => {
-  register: UIManager.register->Obj.magic,
+  registerElement: UIManager.registerElement->Obj.magic,
   registerSkin: UIManager.registerSkin,
   registerCustomControl: UIManager.registerCustomControl,
   getSkin: UIManager.getSkinExn->Obj.magic,
@@ -10,7 +10,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   hide: UIManager.hide,
   show: UIManager.show,
   isStateChange: UIManager.isStateChange,
-  getExecState: UIManager.getExecState->Obj.magic,
+  getElementState: UIManager.getElementState->Obj.magic,
   drawBox: UIManager.drawBox,
   drawText: UIManager.drawText,
   getIOData: UIManager.getIODataExn,

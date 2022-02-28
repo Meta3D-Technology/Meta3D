@@ -75,18 +75,18 @@ function combineReducers(state, reducerData) {
         };
 }
 
-function _getExecStateExn(param, id) {
+function _getElementStateExn(param, id) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(param.execStateMap, id);
 }
 
-function getExecState(param, id) {
+function getElementState(param, id) {
   return ImmutableHashMap$Meta3dCommonlib.getNullable(param.execStateMap, id);
 }
 
-function _setExecState(state, id, execState) {
+function _setElementState(state, id, elementState) {
   return {
           execFuncMap: state.execFuncMap,
-          execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, id, execState),
+          execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, id, elementState),
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -99,10 +99,10 @@ function _setExecState(state, id, execState) {
 function dispatch(state, action) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(state.reducers, (function (state, param) {
                 var id = param[0];
-                var oldExecState = _getExecStateExn(state, id);
-                var newExecState = Curry._2(param[1], oldExecState, action);
-                if (oldExecState !== newExecState) {
-                  return _setExecState(_markStateChange(state, id), id, newExecState);
+                var oldElementState = _getElementStateExn(state, id);
+                var newElementState = Curry._2(param[1], oldElementState, action);
+                if (oldElementState !== newElementState) {
+                  return _setElementState(_markStateChange(state, id), id, newElementState);
                 } else {
                   return _markStateNotChange(state, id);
                 }
@@ -140,8 +140,8 @@ function render(api, meta3dState, uiExtensionName, ioData) {
                                 ]);
                     }
                     var id = param$1[0];
-                    var execFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, id);
-                    return PromiseSt$Meta3dCommonlib.map(Curry._2(execFunc, meta3dState, id), (function (meta3dState) {
+                    var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, id);
+                    return PromiseSt$Meta3dCommonlib.map(Curry._2(elementFunc, meta3dState, id), (function (meta3dState) {
                                   return [
                                           meta3dState,
                                           ArraySt$Meta3dCommonlib.push(needMarkStateNotChangeIds, id)
@@ -158,9 +158,9 @@ function render(api, meta3dState, uiExtensionName, ioData) {
               }));
 }
 
-function _setExecFunc(state, id, execFunc) {
+function _setElementFunc(state, id, elementFunc) {
   return {
-          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, id, execFunc),
+          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, id, elementFunc),
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
@@ -171,9 +171,9 @@ function _setExecFunc(state, id, execFunc) {
         };
 }
 
-function register(state, param) {
+function registerElement(state, param) {
   var id = param.id;
-  return _markStateChange(show(_setExecState(_setExecFunc(state, id, param.execFunc), id, param.execState), id), id);
+  return _markStateChange(show(_setElementState(_setElementFunc(state, id, param.elementFunc), id, param.elementState), id), id);
 }
 
 function registerSkin(state, skinContribute) {
@@ -289,15 +289,15 @@ export {
   _markStateNotChange ,
   _markAllStateNotChange ,
   combineReducers ,
-  _getExecStateExn ,
-  getExecState ,
-  _setExecState ,
+  _getElementStateExn ,
+  getElementState ,
+  _setElementState ,
   dispatch ,
   getIODataExn ,
   _setIOData ,
   render ,
-  _setExecFunc ,
-  register ,
+  _setElementFunc ,
+  registerElement ,
   registerSkin ,
   registerCustomControl ,
   getSkinExn ,

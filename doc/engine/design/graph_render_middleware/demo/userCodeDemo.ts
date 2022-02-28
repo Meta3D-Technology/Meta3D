@@ -43,7 +43,7 @@ two cubes, one sphere
 }
 
 
-export let initJobExec: execFunc = (states) => {
+export let initJobExec: elementFunc = (states) => {
     return callFunc(() => {
         initAllUBOsAndSSBOs()
 
@@ -59,7 +59,7 @@ export let initJobExec: execFunc = (states) => {
     })
 }
 
-export let updateJobExec: execFunc = (states) => {
+export let updateJobExec: elementFunc = (states) => {
     return callFunc(() => {
         // initNewUBOsAndSSBOs()
         // initNewShaders()
@@ -77,7 +77,7 @@ export let updateJobExec: execFunc = (states) => {
 }
 
 
-export let renderJobExec: execFunc = (states) => {
+export let renderJobExec: elementFunc = (states) => {
     return callFunc(() => {
         // batches = [
         //     {

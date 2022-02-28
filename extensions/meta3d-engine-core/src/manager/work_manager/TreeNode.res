@@ -1,9 +1,9 @@
 open Meta3dEngineCoreProtocol.TreeType
 
-let buildNode = (pluginName, (getExecFunc, pipelineData, jobOrder), children) => Node(
+let buildNode = (pluginName, (getElementFunc, pipelineData, jobOrder), children) => Node(
   pluginName,
   {
-    getExecFuncs: list{getExecFunc},
+    getElementFuncs: list{getElementFunc},
     pipelineData: pipelineData,
     jobOrder: jobOrder,
   },

@@ -2,7 +2,7 @@ import { getWorkPluginContribute as getWorkPluginContributeMeta3d } from "../../
 import { exec as create_gl } from "./jobs/init/CreateGLJob";
 import { config, state, states } from "./Type";
 
-let _getExecFunc = (_pipelineName: string, jobName: string) => {
+let _getElementFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "create_gl_meta3d":
 			return create_gl;
@@ -26,7 +26,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3d<state, config,
 			}
 		},
 		initFunc: _init,
-		getExecFunc: _getExecFunc,
+		getElementFunc: _getElementFunc,
 		allPipelineData: [
 			{
 				name: "init",

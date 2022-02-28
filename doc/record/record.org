@@ -140,7 +140,7 @@ ui,event handler no need state! so no editorState!
 
 ** TODO inject api(only remain MiddlewareManager.unsafeGet) and { middlewareState, editorUIState, engineCoreState } as states
 
-inject api and states to ui->execFunc, event handler->handler(
+inject api and states to ui->elementFunc, event handler->handler(
     e.g.: 
 let handler = ((middlwareState, engineState), api , e,) => {
 ...
@@ -347,7 +347,7 @@ fix onClickFunc, remove event handler
 # 3d ui
 
 
-*** TODO use style && skin, custom control
+*** DONE use style && skin, custom control
 
 **** DONE finish
 
@@ -368,16 +368,22 @@ custom control: button
 ////register skin, custom control in wonder-editor
 
 
-**** TODO pass run test
+**** DONE pass run test
 
 # **** TODO extract register skin extension, register custom control extension
 
 # **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
 
 
-*** TODO refactor: make execFunc and execState to be contribute like skin/custom control!!!
+*** DONE refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
 
 (refacotr register-extension extension!)
+
+*** TODO refactor: rename id to elementName
+
+# *** TODO refactor: rename UI->stateMap to store
+
+*** TODO refactor: make event to be contribute
 
 
 *** TODO add drawCopyTextArea
@@ -409,11 +415,18 @@ custom control: button
 
 * TODO refactor
 
+** TODO move to StateType?
+
+# ** TODO rename EventType to IEvent?
+
+** TODO rename Ixxx(e.g. IWorker, IElement) to XxxContributeType
+
 ** TODO use pipe, curry
 
 ** TODO use NullableUtils for type
 
 ** TODO rename meta3d-extension-test1 to wonder-extension-test1
+
 
 
 * TODO publish v0.1.0 !!!

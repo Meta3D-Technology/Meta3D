@@ -1,13 +1,5 @@
 type uiExtensionName = Meta3dType.Index.extensionName
 
-// type drawButtonData = {
-//   x: int,
-//   y: int,
-//   width: int,
-//   height: int,
-//   text: string,
-// }
-
 type color = string
 
 type text = string
@@ -20,7 +12,10 @@ type rect = {
 }
 
 type service = {
-  register: 'execState. (StateType.state, UIType.registerData<'execState>) => StateType.state,
+  registerElement: 'elementState. (
+    StateType.state,
+    IElement.elementContribute<'elementState>,
+  ) => StateType.state,
   registerSkin: (StateType.state, ISkin.skinContribute<ISkin.buttonStyle>) => StateType.state,
   registerCustomControl: (
     StateType.state,
@@ -34,12 +29,12 @@ type service = {
   show: (StateType.state, UIType.id) => StateType.state,
   hide: (StateType.state, UIType.id) => StateType.state,
   isStateChange: (StateType.state, UIType.id) => bool,
-  getExecState: 'execState. (StateType.state, UIType.id) => Js.Nullable.t<'execState>,
-  combineReducers: 'execState 'action. (
+  getElementState: 'elementState. (StateType.state, UIType.id) => Js.Nullable.t<'elementState>,
+  combineReducers: 'elementState 'action. (
     StateType.state,
-    UIType.reducerData<'execState, 'action>,
+    IElement.reducerData<'elementState, 'action>,
   ) => StateType.state,
-  dispatch: 'action. (StateType.state, UIType.action) => StateType.state,
+  dispatch: 'action. (StateType.state, IElement.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
   getSkin: 'buttonStyle. (StateType.state, ISkin.skinName) => ISkin.skinContribute<'buttonStyle>,
   getCustomControl: 'inputData 'outputData. (

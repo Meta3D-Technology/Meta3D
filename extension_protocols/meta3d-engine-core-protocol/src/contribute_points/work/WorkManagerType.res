@@ -5,9 +5,9 @@ type workPluginContribute = IWorkForJs.workPluginContribute<
 
 type allRegisteredWorkPluginContribute = list<StateType.registeredWorkPluginContribute>
 
-type execFunc = IWorkForJs.execFunc<RegisterWorkPluginType.states>
+type elementFunc = IWorkForJs.elementFunc<RegisterWorkPluginType.states>
 
-type getExecFuncs = list<IWorkForJs.getExecFunc<RegisterWorkPluginType.states>>
+type getElementFuncs = list<IWorkForJs.getElementFunc<RegisterWorkPluginType.states>>
 
 type jobOrder = {
   insertPluginName: IWorkForJs.pluginName,
@@ -17,7 +17,7 @@ type jobOrder = {
 
 type specificPipelineRelatedData = {
   pluginName: IWorkForJs.pluginName,
-  getExecFunc: IWorkForJs.getExecFunc<RegisterWorkPluginType.states>,
+  getElementFunc: IWorkForJs.getElementFunc<RegisterWorkPluginType.states>,
   pipelineData: PipelineType.pipelineData,
   jobOrder: option<jobOrder>,
 }

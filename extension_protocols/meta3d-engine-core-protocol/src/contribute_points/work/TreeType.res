@@ -4,7 +4,7 @@ type jobOrder = {
 }
 
 type nodeData = {
-  mutable getExecFuncs: list<IWorkForJs.getExecFunc<RegisterWorkPluginType.states>>,
+  mutable getElementFuncs: list<IWorkForJs.getElementFunc<RegisterWorkPluginType.states>>,
   mutable pipelineData: PipelineType.pipelineData,
   jobOrder: option<jobOrder>,
 }

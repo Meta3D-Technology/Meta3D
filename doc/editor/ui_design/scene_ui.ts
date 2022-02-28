@@ -3,13 +3,13 @@ Main = {
 let sceneUIState = sceneUIState -> UI.setCanvas(canvas)
 
     RegisterManager.register = {
-        let editorUIState = editorUIState -> UI.addExecFuncData((state, api) => {
+        let editorUIState = editorUIState -> UI.addElementFuncData((state, api) => {
         })
     }
 
 
     RegisterManager.register = {
-        let sceneUIState = sceneUIState -> UI.addExecFuncData((state, api) => {
+        let sceneUIState = sceneUIState -> UI.addElementFuncData((state, api) => {
         })
     }
 

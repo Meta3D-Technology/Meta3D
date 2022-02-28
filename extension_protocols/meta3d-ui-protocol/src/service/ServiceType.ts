@@ -1,5 +1,6 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
-import { registerData, uiExtensionName, id, reducerData } from "../contribute_points/UIType"
+import { uiExtensionName, id } from "../contribute_points/UIType"
+import { elementContribute, reducerData } from "../contribute_points/IElement"
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute_points/ISkin"
 import { customControlContribute, customControlFunc, customControlName } from "../contribute_points/ICustomControl"
@@ -15,11 +16,10 @@ type text = string
 
 type color = string
 
-
 export type service = {
-    readonly register: < execState> (
+    readonly registerElement: < elementState> (
         state: state,
-        registerData: registerData<execState>
+        elementContribute: elementContribute<elementState>
     ) => state;
     readonly registerSkin: < buttonStyle> (
         state: state,
@@ -54,14 +54,14 @@ export type service = {
         state: state,
         id: id
     ) => boolean;
-    readonly getExecState: <execState> (
+    readonly getElementState: <elementState> (
         state: state,
         id: id
     ) => // TODO use nullable.d
-        execState | null | undefined;
-    readonly combineReducers: <execState, action> (
+        elementState | null | undefined;
+    readonly combineReducers: <elementState, action> (
         state: state,
-        reducerData: reducerData<execState, action>
+        reducerData: reducerData<elementState, action>
     ) => state;
     readonly dispatch: <action> (
         state: state,

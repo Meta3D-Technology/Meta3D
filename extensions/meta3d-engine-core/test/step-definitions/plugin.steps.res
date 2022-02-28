@@ -24,14 +24,14 @@ defineFeature(feature, test => {
     ~pluginName="pluginA",
     ~createStateFunc=() => Obj.magic(1),
     ~initFunc=state => (),
-    ~getExecFunc=(_, _) => Js.Nullable.null,
+    ~getElementFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
     (),
   ): Meta3dEngineCoreProtocol.WorkManagerType.workPluginContribute => {
     pluginName: pluginName,
     createStateFunc: createStateFunc,
     initFunc: initFunc,
-    getExecFunc: getExecFunc,
+    getElementFunc: getElementFunc,
     allPipelineData: allPipelineData,
   }
 
@@ -275,7 +275,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | jobName if EqualTool.isEqual(jobName, rootJobName) => rootJob->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -370,7 +370,7 @@ defineFeature(feature, test => {
           first_group: "first_a2",
         },
       ],
-      ~getExecFunc=(_, jobName) => {
+      ~getElementFunc=(_, jobName) => {
         switch jobName {
         | jobName if EqualTool.isEqual(jobName, job1Name_a2) => job1->Js.Nullable.return
         | "job2_a2" => job2->Js.Nullable.return
@@ -430,7 +430,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -569,7 +569,7 @@ defineFeature(feature, test => {
           first_group: "first_a3",
         },
       ],
-      ~getExecFunc=(_, jobName) => {
+      ~getElementFunc=(_, jobName) => {
         switch jobName {
         | "job1_a3" => job1->Js.Nullable.return
         | _ => Js.Nullable.null
@@ -791,7 +791,7 @@ defineFeature(feature, test => {
             first_group: "first_a3",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job1_a3" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -843,7 +843,7 @@ defineFeature(feature, test => {
             first_group: "first_a4",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job1_a4" => job1->Js.Nullable.return
           | "job2_a4" => job2->Js.Nullable.return
@@ -974,7 +974,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1096,7 +1096,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "root_init_a1" => rootJob1_init->Js.Nullable.return
           | "root_update_a1" => rootJob1_update->Js.Nullable.return
@@ -1171,7 +1171,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "root_init_a1" => rootJob1_init->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1210,7 +1210,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1249,7 +1249,7 @@ defineFeature(feature, test => {
             first_group: "first_a3",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           switch jobName {
           | "job2_a3" => job2->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1323,7 +1323,7 @@ defineFeature(feature, test => {
             first_group: "aaa",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           Js.Nullable.null
         },
         (),
@@ -1389,7 +1389,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getExecFunc=(_, jobName) => {
+        ~getElementFunc=(_, jobName) => {
           Js.Nullable.null
         },
         (),

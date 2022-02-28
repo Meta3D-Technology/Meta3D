@@ -55,7 +55,7 @@ let editorUIState =
   )
 
 RegisterManager.register = {
-  let editorUIState = editorUIState -> UI.addExecFuncData((state, api) => {
+  let editorUIState = editorUIState -> UI.addElementFuncData((state, api) => {
     let buttonFunc = api.unsafeGetCustomControl("WD_Button")
     let { rect, str } as uiState = get()
 

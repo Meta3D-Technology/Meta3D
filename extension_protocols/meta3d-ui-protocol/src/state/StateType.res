@@ -4,8 +4,8 @@ type ioData = {
 }
 
 type state = {
-  execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, UIType.registeredExecFunc>,
-  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, UIType.execState>,
+  execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, IElement.elementFunc>,
+  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, IElement.elementState>,
   isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, bool>,
   isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, bool>,
   skinContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
@@ -17,5 +17,5 @@ type state = {
     ICustomControl.customControlContribute<ICustomControl.inputData, ICustomControl.outputData>,
   >,
   ioData: option<ioData>,
-  reducers: array<UIType.reducerData<UIType.execState, UIType.action>>,
+  reducers: array<IElement.reducerData<IElement.elementState, IElement.action>>,
 }

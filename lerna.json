@@ -10,7 +10,11 @@
     "skin_protocols/*",
     "custom_control_protocols/*",
     "skins/*",
-    "custom_controls/*"
+    "custom_controls/*",
+    "elements/*",
+    "element_protocols/*",
+    "events/*",
+    "event_protocols/*"
   ],
   "npmClient": "yarn",
   "command": {

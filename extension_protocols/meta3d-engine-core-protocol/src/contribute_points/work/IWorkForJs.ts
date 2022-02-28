@@ -11,10 +11,10 @@ export type jobName = string;
 export type stream<a> = Meta3dBsMostProtocol_StreamType_stream<a>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type execFunc<states> = (_1: states) => stream<states>;
+export type elementFunc<states> = (_1: states) => stream<states>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getExecFunc<states> = (_1: PipelineType_pipelineName, _2: jobName) => (null | undefined | execFunc<states>);
+export type getElementFunc<states> = (_1: PipelineType_pipelineName, _2: jobName) => (null | undefined | elementFunc<states>);
 
 // tslint:disable-next-line:interface-over-type-literal
 export type pipelineData = PipelineType_pipelineData;
@@ -36,7 +36,7 @@ export type workPluginContribute<state, states> = {
     readonly pluginName: pluginName;
     readonly createStateFunc: createStateFunc<state>;
     readonly initFunc: initFunc<state>;
-    readonly getExecFunc: getExecFunc<states>;
+    readonly getElementFunc: getElementFunc<states>;
     readonly allPipelineData: allPipelineData
 };
 

@@ -1,6 +1,6 @@
 open Type
 
-let _getExecFunc = (_pipelineName: string, jobName: string) => {
+let _getElementFunc = (_pipelineName: string, jobName: string) => {
   switch jobName {
   | "init_root_meta3d" => InitJob.exec
   | _ => Js.Nullable.null->Obj.magic
@@ -22,7 +22,7 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.IWorkForJs.getWorkPluginCo
       mostService: mostService,
     },
     initFunc: _init,
-    getExecFunc: _getExecFunc->Obj.magic,
+    getElementFunc: _getElementFunc->Obj.magic,
     allPipelineData: [
       {
         name: "init",

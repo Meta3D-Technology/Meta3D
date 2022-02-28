@@ -48,43 +48,43 @@ let combineReducers = (state: Meta3dUiProtocol.StateType.state, reducerData) => 
   }
 }
 
-let _getExecStateExn = (
+let _getElementStateExn = (
   {execStateMap}: Meta3dUiProtocol.StateType.state,
   id: Meta3dUiProtocol.UIType.id,
 ) => {
   execStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
 }
 
-let getExecState = (
+let getElementState = (
   {execStateMap}: Meta3dUiProtocol.StateType.state,
   id: Meta3dUiProtocol.UIType.id,
 ) => {
   execStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(id)
 }
 
-let _setExecState = (
+let _setElementState = (
   state: Meta3dUiProtocol.StateType.state,
   id: Meta3dUiProtocol.UIType.id,
-  execState: Meta3dUiProtocol.UIType.execState,
+  elementState: Meta3dUiProtocol.IElement.elementState,
 ) => {
   {
     ...state,
-    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(id, execState),
+    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(id, elementState),
   }
 }
 
 let dispatch = (
   state: Meta3dUiProtocol.StateType.state,
-  action: Meta3dUiProtocol.UIType.action,
+  action: Meta3dUiProtocol.IElement.action,
 ) => {
   state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (id, reducerFunc)) => {
-    let oldExecState = _getExecStateExn(state, id)
+    let oldElementState = _getElementStateExn(state, id)
 
-    let newExecState = reducerFunc(oldExecState, action)
+    let newElementState = reducerFunc(oldElementState, action)
 
-    oldExecState !== newExecState
+    oldElementState !== newElementState
       ? {
-          state->_markStateChange(id)->_setExecState(id, newExecState)
+          state->_markStateChange(id)->_setElementState(id, newElementState)
         }
       : {
           state->_markStateNotChange(id)
@@ -129,13 +129,13 @@ let render = (
       // isShow && _getStateChangeExn(state, id)
       isShow
         ? {
-            let execFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
+            let elementFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
 
             /* !
-              TODO should judge is state change in execFunc:
+              TODO should judge is state change in elementFunc:
              if state not change, not update geometry buffer, but should render if isShow!!! 
  */
-            execFunc(meta3dState, id)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
+            elementFunc(meta3dState, id)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
               (meta3dState, needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.push(id))
             })
           }
@@ -155,24 +155,28 @@ let render = (
   })
 }
 
-let _setExecFunc = (
+let _setElementFunc = (
   state: Meta3dUiProtocol.StateType.state,
   id: Meta3dUiProtocol.UIType.id,
-  execFunc: Meta3dUiProtocol.UIType.registeredExecFunc,
+  elementFunc: Meta3dUiProtocol.IElement.elementFunc,
 ) => {
   {
     ...state,
-    execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(id, execFunc),
+    execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(id, elementFunc),
   }
 }
 
-let register = (
+let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
-  {id, execFunc, execState}: Meta3dUiProtocol.UIType.registerData<
-    Meta3dUiProtocol.UIType.execState,
+  {id, elementFunc, elementState}: Meta3dUiProtocol.IElement.elementContribute<
+    Meta3dUiProtocol.IElement.elementState,
   >,
 ) => {
-  state->_setExecFunc(id, execFunc)->_setExecState(id, execState)->show(id)->_markStateChange(id)
+  state
+  ->_setElementFunc(id, elementFunc)
+  ->_setElementState(id, elementState)
+  ->show(id)
+  ->_markStateChange(id)
 }
 
 let registerSkin = (

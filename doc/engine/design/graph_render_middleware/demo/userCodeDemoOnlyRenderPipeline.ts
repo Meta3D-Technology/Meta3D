@@ -1,4 +1,4 @@
-export let initJobExec: execFunc = (states) => {
+export let initJobExec: elementFunc = (states) => {
     return callFunc(() => {
         let vertexBuffer = _createVertexBuffer()
         let indexBuffer = _createIndexBuffer()
@@ -22,7 +22,7 @@ export let initJobExec: execFunc = (states) => {
 }
 
 
-export let updateJobExec: execFunc = (states) => {
+export let updateJobExec: elementFunc = (states) => {
     return callFunc(() => {
         // TODO handle new geometry,material, transform 
         // TODO handle reinit material
@@ -36,7 +36,7 @@ export let updateJobExec: execFunc = (states) => {
 }
 
 
-export let renderJobExec: execFunc = (states) => {
+export let renderJobExec: elementFunc = (states) => {
     return callFunc(() => {
         execBatches(batches, buildPassState(...))
     })

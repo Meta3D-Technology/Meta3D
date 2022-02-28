@@ -5,7 +5,7 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 
 function getExtensionService(api, param) {
   return {
-          register: UIManager$Meta3dUi.register,
+          registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
           registerCustomControl: UIManager$Meta3dUi.registerCustomControl,
           render: (function (param, param$1, param$2) {
@@ -14,7 +14,7 @@ function getExtensionService(api, param) {
           show: UIManager$Meta3dUi.show,
           hide: UIManager$Meta3dUi.hide,
           isStateChange: UIManager$Meta3dUi.isStateChange,
-          getExecState: UIManager$Meta3dUi.getExecState,
+          getElementState: UIManager$Meta3dUi.getElementState,
           combineReducers: UIManager$Meta3dUi.combineReducers,
           dispatch: UIManager$Meta3dUi.dispatch,
           getIOData: UIManager$Meta3dUi.getIODataExn,

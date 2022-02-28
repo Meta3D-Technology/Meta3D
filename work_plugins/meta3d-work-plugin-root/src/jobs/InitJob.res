@@ -1,4 +1,4 @@
-let exec: Type.execFunc = states => {
+let exec: Type.elementFunc = states => {
   let {mostService} = Utils.getState(states)
 
   mostService.callFunc(() => {
