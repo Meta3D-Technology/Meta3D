@@ -1,6 +1,3 @@
-// TODO move to StateType
-type eventData
-
 type eventName = string
 
 type eventHandler<'eventData> = (
@@ -10,7 +7,7 @@ type eventHandler<'eventData> = (
 
 type eventContribute<'eventData> = {
   eventName: eventName,
-  handler: eventHandler<eventData>,
+  handler: eventHandler<'eventData>,
 }
 
 type geteventContribute<'dependentExtensionNameMap, 'eventData> = (

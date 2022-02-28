@@ -1,11 +1,5 @@
 type elementName = string
 
-// TODO move to StateType?
-type elementState
-
-// TODO move to StateType?
-type dependentExtensionNameMap
-
 type elementFunc = (Meta3dType.Index.state, elementName) => Js.Promise.t<Meta3dType.Index.state>
 
 type elementContribute<'elementState> = {
@@ -18,9 +12,6 @@ type getElementContribute<'dependentExtensionNameMap, 'elementState> = (
   Meta3dType.Index.api,
   'dependentExtensionNameMap,
 ) => elementContribute<'elementState>
-
-// TODO move to StateType?
-type action
 
 type reducerFunc<'elementState, 'action> = ('elementState, 'action) => 'elementState
 

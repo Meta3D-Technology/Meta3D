@@ -30,6 +30,7 @@ type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 @genType
 type dataValue
 
+// TODO add 'dataValue and remove "type dataValue" ?
 type getComponentDataFunc<'state, 'dataName, 'component> = (
   . 'state,
   'component,

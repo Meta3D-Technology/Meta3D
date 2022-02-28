@@ -1,9 +1,5 @@
 type customControlName = string
 
-// TODO move to StateType?
-type inputData
-type outputData
-
 type customControlFunc<'inputData, 'outputData> = (
   Meta3dType.Index.state,
   (Meta3dType.Index.api, UIType.uiExtensionName),

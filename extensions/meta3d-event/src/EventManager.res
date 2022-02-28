@@ -1,6 +1,8 @@
 let registerEvent = (
   state: Meta3dEventProtocol.StateType.state,
-  eventContribute: Meta3dEventProtocol.IEvent.eventContribute<Meta3dEventProtocol.IEvent.eventData>,
+  eventContribute: Meta3dEventProtocol.IEvent.eventContribute<
+    Meta3dEventProtocol.StateType.eventData,
+  >,
 ) => {
   {
     ...state,
@@ -16,14 +18,14 @@ let trigger = (
   meta3dState: Meta3dType.Index.state,
   eventExtensionName,
   eventName,
-  eventData: Meta3dEventProtocol.IEvent.eventData,
+  eventData: Meta3dEventProtocol.StateType.eventData,
 ) => {
   let state: Meta3dEventProtocol.StateType.state = api.getExtensionStateExn(.
     meta3dState,
     eventExtensionName,
   )
   let eventContribute: Meta3dEventProtocol.IEvent.eventContribute<
-    Meta3dEventProtocol.IEvent.eventData,
+    Meta3dEventProtocol.StateType.eventData,
   > =
     state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
 

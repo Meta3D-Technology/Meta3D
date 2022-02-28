@@ -1,11 +1,17 @@
-let hide = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
+let hide = (
+  state: Meta3dUiProtocol.StateType.state,
+  elementName: Meta3dUiProtocol.IElement.elementName,
+) => {
   {
     ...state,
     isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, false),
   }
 }
 
-let show = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
+let show = (
+  state: Meta3dUiProtocol.StateType.state,
+  elementName: Meta3dUiProtocol.IElement.elementName,
+) => {
   {
     ...state,
     isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, true),
@@ -18,7 +24,10 @@ let _markStateChange = (
 ) => {
   {
     ...state,
-    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, true),
+    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      elementName,
+      true,
+    ),
   }
 }
 
@@ -28,7 +37,10 @@ let _markStateNotChange = (
 ) => {
   {
     ...state,
-    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, false),
+    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      elementName,
+      false,
+    ),
   }
 }
 
@@ -65,17 +77,20 @@ let getElementState = (
 let _setElementState = (
   state: Meta3dUiProtocol.StateType.state,
   elementName: Meta3dUiProtocol.IElement.elementName,
-  elementState: Meta3dUiProtocol.IElement.elementState,
+  elementState: Meta3dUiProtocol.StateType.elementState,
 ) => {
   {
     ...state,
-    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementState),
+    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(
+      elementName,
+      elementState,
+    ),
   }
 }
 
 let dispatch = (
   state: Meta3dUiProtocol.StateType.state,
-  action: Meta3dUiProtocol.IElement.action,
+  action: Meta3dUiProtocol.StateType.action,
 ) => {
   state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (elementName, reducerFunc)) => {
     let oldElementState = _getElementStateExn(state, elementName)
@@ -169,7 +184,7 @@ let _setElementFunc = (
 let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
   {elementName, elementFunc, elementState}: Meta3dUiProtocol.IElement.elementContribute<
-    Meta3dUiProtocol.IElement.elementState,
+    Meta3dUiProtocol.StateType.elementState,
   >,
 ) => {
   state
@@ -181,7 +196,7 @@ let registerElement = (
 
 let registerSkin = (
   state: Meta3dUiProtocol.StateType.state,
-  skinContribute: Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.ISkin.buttonStyle>,
+  skinContribute: Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.StateType.buttonStyle>,
 ) => {
   {
     ...state,
@@ -195,8 +210,8 @@ let registerSkin = (
 let registerCustomControl = (
   state: Meta3dUiProtocol.StateType.state,
   customControlContribute: Meta3dUiProtocol.ICustomControl.customControlContribute<
-    Meta3dUiProtocol.ICustomControl.inputData,
-    Meta3dUiProtocol.ICustomControl.outputData,
+    Meta3dUiProtocol.StateType.inputData,
+    Meta3dUiProtocol.StateType.outputData,
   >,
 ) => {
   {
@@ -211,21 +226,24 @@ let registerCustomControl = (
 let getSkinExn = (
   state: Meta3dUiProtocol.StateType.state,
   skinName,
-): Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.ISkin.buttonStyle> => {
+): Meta3dUiProtocol.ISkin.skinContribute<Meta3dUiProtocol.StateType.buttonStyle> => {
   state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
 }
 
 let getCustomControlExn = (state: Meta3dUiProtocol.StateType.state, customControlName) => {
   let {func}: Meta3dUiProtocol.ICustomControl.customControlContribute<
-    Meta3dUiProtocol.ICustomControl.inputData,
-    Meta3dUiProtocol.ICustomControl.outputData,
+    Meta3dUiProtocol.StateType.inputData,
+    Meta3dUiProtocol.StateType.outputData,
   > =
     state.customControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(customControlName)
 
   func
 }
 
-let isStateChange = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
+let isStateChange = (
+  state: Meta3dUiProtocol.StateType.state,
+  elementName: Meta3dUiProtocol.IElement.elementName,
+) => {
   state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 

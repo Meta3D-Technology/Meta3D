@@ -16,10 +16,10 @@ type service = {
     StateType.state,
     IElement.elementContribute<'elementState>,
   ) => StateType.state,
-  registerSkin: (StateType.state, ISkin.skinContribute<ISkin.buttonStyle>) => StateType.state,
+  registerSkin: (StateType.state, ISkin.skinContribute<StateType.buttonStyle>) => StateType.state,
   registerCustomControl: (
     StateType.state,
-    ICustomControl.customControlContribute<ICustomControl.inputData, ICustomControl.outputData>,
+    ICustomControl.customControlContribute<StateType.inputData, StateType.outputData>,
   ) => StateType.state,
   render: (
     Meta3dType.Index.state,
@@ -29,12 +29,15 @@ type service = {
   show: (StateType.state, IElement.elementName) => StateType.state,
   hide: (StateType.state, IElement.elementName) => StateType.state,
   isStateChange: (StateType.state, IElement.elementName) => bool,
-  getElementState: 'elementState. (StateType.state, IElement.elementName) => Js.Nullable.t<'elementState>,
+  getElementState: 'elementState. (
+    StateType.state,
+    IElement.elementName,
+  ) => Js.Nullable.t<'elementState>,
   combineReducers: 'elementState 'action. (
     StateType.state,
     IElement.reducerData<'elementState, 'action>,
   ) => StateType.state,
-  dispatch: 'action. (StateType.state, IElement.action) => StateType.state,
+  dispatch: 'action. (StateType.state, StateType.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
   getSkin: 'buttonStyle. (StateType.state, ISkin.skinName) => ISkin.skinContribute<'buttonStyle>,
   getCustomControl: 'inputData 'outputData. (

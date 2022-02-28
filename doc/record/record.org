@@ -385,7 +385,7 @@ custom control: button
 
 *** DONE refactor: make event to be contribute
 
-*** TODO move to StateType?
+*** DONE move to StateType?
 
 # *** TODO rename EventType to IEvent?
 
