@@ -420,14 +420,10 @@ custom control: button
 ** TODO finish user side
 
 
-* TODO refactor
+* DONE refactor
 
 
-** TODO use pipe, curry
-
-** TODO use NullableUtils for type
-
-** TODO rename meta3d-extension-test1 to wonder-extension-test1
+** DONE rename meta3d-extension-test1 to wonder-extension-test1
 
 
 
@@ -588,6 +584,14 @@ add InitEventJob
 ** TODO finish sxengine's work without arcball, outline and worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
 
 add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
+
+
+** TODO refactor
+
+
+*** TODO use pipe, curry
+
+*** TODO use NullableUtils for type
 
 
 ** TODO finish wonder-engine
