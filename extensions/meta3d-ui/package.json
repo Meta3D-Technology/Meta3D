@@ -1,6 +1,6 @@
 {
   "name": "meta3d-ui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "license": "MIT",
   "main": "lib/js/src/Main.bs.js",
@@ -8,7 +8,6 @@
   "scripts": {
     "watch": "rescript clean && rescript build -w"
   },
-  "devDependencies": {},
   "dependencies": {
     "rescript": "^9.1.4"
   }

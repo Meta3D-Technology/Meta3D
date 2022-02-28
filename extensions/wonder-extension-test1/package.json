@@ -1,6 +1,6 @@
 {
     "name": "wonder-extension-test1",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "author": "Wonder",
     "main": "src/Main.ts",
@@ -10,7 +10,6 @@
         "webpack": "webpack --config webpack.config.js"
     },
     "keywords": [],
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.3"
     }

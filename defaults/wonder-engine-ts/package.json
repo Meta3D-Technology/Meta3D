@@ -1,6 +1,6 @@
 {
     "name": "wonder-engine-ts",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
@@ -8,7 +8,6 @@
         "watch": "tsc -w"
     },
     "keywords": [],
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.3"
     }
