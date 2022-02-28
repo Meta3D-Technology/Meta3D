@@ -415,7 +415,7 @@ custom control: button
 
 ** DONE refactor: rename getExtensionService to getExtensionService, getExtensionState to getExtensionState 
 
-** TODO finish user side
+** DONE finish user side
 
 
 * DONE refactor
@@ -427,6 +427,9 @@ custom control: button
 
 * TODO publish v0.1.0 !!!
 
+update DependentExtensionType
+
+publish
 
 
 

@@ -1,6 +1,6 @@
 export type meta3dEngineCoreProtocolData = {
     protocolName: "meta3d-engine-core-protocol",
-    protocolVersion: "^0.0.1",
+    protocolVersion: "^0.1.0",
 }
 
 export type dependentExtensionProtocolMap = {

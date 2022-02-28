@@ -9,7 +9,7 @@ export type eventData = {
 
 export type meta3dUIProtocolData = {
     protocolName: "meta3d-ui-protocol",
-    protocolVersion: "^0.0.1",
+    protocolVersion: "^0.1.0",
 }
 
 export type dependentExtensionProtocolMap = {
