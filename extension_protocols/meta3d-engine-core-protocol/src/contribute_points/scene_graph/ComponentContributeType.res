@@ -1,4 +1,4 @@
-@genType
+// @genType
 type componentName = string
 
 type createStateFunc<'state, 'config> = (. 'config) => 'state
@@ -27,7 +27,7 @@ type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
 // type dataName = int
 
-@genType
+// @genType
 type dataValue
 
 // TODO add 'dataValue and remove "type dataValue" ?
@@ -44,7 +44,7 @@ type setComponentDataFunc<'state, 'dataName, 'component> = (
   dataValue,
 ) => 'state
 
-@genType
+// @genType
 type componentContribute<'state, 'config, 'dataName, 'component> = {
   componentName: componentName,
   createStateFunc: createStateFunc<'state, 'config>,
@@ -58,7 +58,7 @@ type componentContribute<'state, 'config, 'dataName, 'component> = {
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 
-@genType
+// @genType
 type getComponentContribute<'state, 'config, 'dataName, 'component> = unit => componentContribute<
   'state,
   'config,

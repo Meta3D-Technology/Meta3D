@@ -2,25 +2,25 @@ import type { t as Meta3dCommonlibType_ImmutableHashMapType_t } from 'meta3d-com
 
 import type { t as Meta3dCommonlibType_MutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/MutableHashMapType.gen';
 
-import type { addComponentFunc as IComponentForJs_addComponentFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { addComponentFunc as IComponentForJs_addComponentFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { componentContribute as IComponentForJs_componentContribute } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { componentContribute as IComponentForJs_componentContribute } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { componentName as IComponentForJs_componentName } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { componentName as IComponentForJs_componentName } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { createComponentFunc as IComponentForJs_createComponentFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { createComponentFunc as IComponentForJs_createComponentFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { getAllComponentsFunc as IComponentForJs_getAllComponentsFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { getAllComponentsFunc as IComponentForJs_getAllComponentsFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { getComponentDataFunc as IComponentForJs_getComponentDataFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { getComponentDataFunc as IComponentForJs_getComponentDataFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { getComponentFunc as IComponentForJs_getComponentFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { getComponentFunc as IComponentForJs_getComponentFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { getGameObjectsFunc as IComponentForJs_getGameObjectsFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { getGameObjectsFunc as IComponentForJs_getGameObjectsFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { hasComponentFunc as IComponentForJs_hasComponentFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { hasComponentFunc as IComponentForJs_hasComponentFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { setComponentDataFunc as IComponentForJs_setComponentDataFunc } from '../../src/contribute_points/scene_graph/IComponentForJs.gen';
+import type { setComponentDataFunc as IComponentForJs_setComponentDataFunc } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name

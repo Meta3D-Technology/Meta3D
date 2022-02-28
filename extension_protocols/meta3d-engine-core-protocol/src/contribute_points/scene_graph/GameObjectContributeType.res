@@ -1,4 +1,4 @@
-@genType
+// @genType
 type gameObject
 
 type createStateFunc<'state> = unit => 'state
@@ -7,7 +7,7 @@ type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObj
 
 type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
-@genType
+// @genType
 type gameObjectContribute<'state, 'gameObject> = {
   createStateFunc: createStateFunc<'state>,
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,

@@ -4,7 +4,7 @@ import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs
 
 // import type { componentContribute as RegisterComponentType_componentContribute } from '../../src/state/RegisterComponentType';
 
-import type { componentName as ComponentContributeType_componentName } from '../../src/contribute_points/scene_graph/ComponentContributeType.gen';
+import type { componentName as ComponentContributeType_componentName } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
 import type { component as RegisterComponentType_component } from '../../src/state/RegisterComponentType';
 
@@ -12,13 +12,13 @@ import type { component as RegisterComponentType_component } from '../../src/sta
 
 import type { dataName as RegisterComponentType_dataName } from '../../src/state/RegisterComponentType';
 
-import type { dataValue as ComponentContributeType_dataValue } from '../../src/contribute_points/scene_graph/ComponentContributeType.gen';
+import type { dataValue as ComponentContributeType_dataValue } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
-import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../../src/state/GameObjectType.gen';
+import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
-import type { gameObject as GameObjectType_gameObject } from '../../src/state/GameObjectType.gen';
+import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
-import type { gameObject as GameObjectContributeType_gameObject } from '../../src/contribute_points/scene_graph/GameObjectContributeType.gen';
+import type { gameObject as GameObjectContributeType_gameObject } from '../../src/contribute_points/scene_graph/GameObjectContributeType';
 
 import type { jobOrders as RegisterWorkPluginVOType_jobOrders } from '../../src/state/vo/RegisterWorkPluginVOType.gen';
 

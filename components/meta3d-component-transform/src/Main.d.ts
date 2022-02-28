@@ -1,4 +1,4 @@
-import { componentContribute } from "meta3d-engine-core-protocol/src/contribute_points/scene_graph/ComponentContributeType.gen";
+import { componentContribute } from "meta3d-engine-core-protocol/src/contribute_points/scene_graph/ComponentContributeType";
 import { transform, dataName } from "meta3d-component-transform-protocol"
 
 export type config = {

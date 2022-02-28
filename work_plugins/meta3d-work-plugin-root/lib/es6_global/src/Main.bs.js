@@ -2,7 +2,7 @@
 
 import * as InitJob$Meta3dWorkPluginRoot from "./jobs/InitJob.bs.js";
 
-function _getExecFunc(_pipelineName, jobName) {
+function _getElementFunc(_pipelineName, jobName) {
   if (jobName === "init_root_meta3d") {
     return InitJob$Meta3dWorkPluginRoot.exec;
   } else {
@@ -23,7 +23,7 @@ function getWorkPluginContribute(mostService) {
                     };
             }),
           initFunc: _init,
-          getExecFunc: _getExecFunc,
+          getElementFunc: _getElementFunc,
           allPipelineData: [{
               name: "init",
               groups: [{
@@ -40,7 +40,7 @@ function getWorkPluginContribute(mostService) {
 }
 
 export {
-  _getExecFunc ,
+  _getElementFunc ,
   _init ,
   getWorkPluginContribute ,
   

@@ -1,10 +1,10 @@
-@genType
+// @genType
 type state
 
-@genType
+// @genType
 type gameObject
 
-@genType
+// @genType
 type usedGameObjectData = {
   mutable state: state,
   createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<
@@ -17,5 +17,5 @@ type usedGameObjectData = {
   >,
 }
 
-@genType
+// @genType
 type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, gameObject>

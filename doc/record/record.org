@@ -391,7 +391,7 @@ custom control: button
 
 *** DONE rename Ixxx(e.g. IWorker, ElementContributeType) to XxxContributeType
 
-*** TODO rename .gen.tsx to .ts
+*** DONE rename .gen.tsx to .ts
 
 *** TODO add drawCopyTextArea
 

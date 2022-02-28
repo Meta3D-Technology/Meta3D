@@ -2,7 +2,7 @@
 /* eslint-disable import/first */
 
 
-import type {gameObject as GameObjectContributeType_gameObject} from './GameObjectContributeType.gen';
+import type {gameObject as GameObjectContributeType_gameObject} from './GameObjectContributeType';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type componentName = string;
