@@ -437,16 +437,29 @@ publish
 
 * TODO update editor
 
+** DONE refactor service->Main.d.ts / Main.ts, use let func:type = ...
+
+
 ** TODO generate and load .meta3d
 
 .meta3d = multi .mex
 
+name, service func str, state
+
 ** TODO add export, import abstract extension
+
+** TODO update show extensions: show all registered extensions from .meta3d
+
+*** TODO update show extension name
+
+*** TODO when click one extension, log its name, service func, initial state
 
 
 * TODO update engine
 
 ** TODO add redo-undo
+
+** TODO pass run test
 
 * TODO update editor
 
@@ -463,6 +476,12 @@ publish
 add table data: first items, second items
 
 
+*** TODO finish menu
+
+
+*** TODO move register extension, redo-undo, multi-user-edit, export/import to menu
+
+
 
 
 * TODO publish
@@ -477,6 +496,9 @@ add table data: first items, second items
 no shader
 
 
+** TODO add geometry component
+
+
 * TODO update editor
 
 ** TODO add asset manager
@@ -489,21 +511,40 @@ only has pbrmaterial asset
 
 ** TODO generate .msc
 
-only has gameObject, transform component
+only has gameObject, transform, pbrMaterial, geometry component
 
 
 * TODO update editor
-
-
-
-* TODO update editor
-
-** TODO add publish(separate logic and ui to different extensions)
-
 
 
 
 * TODO publish
+
+
+
+
+
+
+
+
+
+
+
+* TODO update editor
+
+** TODO implement run
+
+add run scene
+
+** TODO pass run test
+
+
+** TODO add publish
+
+
+* TODO publish
+
+
 
 
 
@@ -616,17 +657,6 @@ add more components(e.g. geometry, basic camera view, perspective camera project
 finish actual engine code(like sxengine's code)
 
 
-* TODO update editor
-
-** TODO update edit scene
-
-** TODO implement run
-
-edit scene, run scene
-
-** TODO pass run test
-
-
 
 * TODO publish
 
@@ -666,8 +696,6 @@ edit scene, run scene
 
 
 * TODO refactor
-
-** TODO contribute-> all Ixxx
 
 ** TODO user only know .ts, no .d.ts, no .gen.ts!
 
