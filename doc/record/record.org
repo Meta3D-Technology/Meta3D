@@ -401,21 +401,19 @@ custom control: button
 
 
 
-** TODO add window extension 
 
-** TODO update register extension by use window
+# ** TODO add manager extension 
 
-
-** TODO add manager extension 
-
-** TODO update show extension by use manager
+# ** TODO update show extension by use manager
 
 
-** TODO use engine(for edit, run scene)
+** DONE use engine(for edit scene)
 
 
-** TODO pass run test
+** DONE pass run test
 
+
+** TODO refactor: rename getServiceExn to getExtensionService, getExtensionStateExn to getExtensionState 
 
 ** TODO finish user side
 
@@ -440,7 +438,7 @@ custom control: button
 
 .meta3d = multi .mex
 
-** TODO add export, import extension
+** TODO add export, import abstract extension
 
 
 * TODO update engine
@@ -457,8 +455,9 @@ custom control: button
 
 
 
-# ** TODO add menu
+** TODO add menu
 
+add table data: first items, second items
 
 
 
@@ -535,6 +534,21 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 *** TODO implement drawText
 
 default load .fnt, .bitmap resources, not open its control to user
+
+
+*** TODO add window control (beginWindow, endWindow)
+
+usage:
+```
+beginWindow(x,y,width, height, title)
+(window content's z-index should + 1!)
+
+...
+
+drawButton
+
+endWindow()
+```
 
 
 

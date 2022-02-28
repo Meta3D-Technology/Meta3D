@@ -1,5 +1,5 @@
 import { componentConfig } from "./Type";
-import { prepare as prepareMeta3d, registerExtension, getExtensionStateExn, getServiceExn, setExtensionState } from "meta3d"
+import { registerExtension, getExtensionStateExn, getServiceExn, setExtensionState } from "meta3d"
 import { state as meta3dState } from "meta3d-type"
 import { getExtensionService as getMostExtensionService, createExtensionState as createMostExtensionState } from "meta3d-bs-most"
 import { getExtensionService as getEngineCoreExtensionService, createExtensionState as createEngineCoreExtensionState } from "meta3d-engine-core"
@@ -10,10 +10,6 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { service as registerDefaultWorkPluginsService } from "meta3d-register-default-work-plugins-protocol/src/service/ServiceType"
 import { service as registerECSService } from "meta3d-register-ecs-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-
-function _getMeta3DEngineCoreExtensionName(): string {
-    return "meta3d-engine-core"
-}
 
 function _getMeta3DBsMostExtensionName(): string {
     return "meta3d-bs-most"
@@ -27,9 +23,7 @@ function _getMeta3DRegisterECSExtensionName(): string {
     return "meta3d-register-ecs"
 }
 
-export function prepare({ isDebug, float9Array1, float32Array1, transformCount }: componentConfig): meta3dState {
-    let meta3dState = prepareMeta3d()
-
+export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount }: componentConfig): meta3dState {
     // TODO use pipe
 
     meta3dState =
@@ -43,7 +37,7 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
     meta3dState =
         registerExtension(
             meta3dState,
-            _getMeta3DEngineCoreExtensionName(),
+            engineCoreExtensionName,
             getEngineCoreExtensionService,
             {
                 meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
@@ -56,7 +50,7 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
             _getMeta3DRegisterECSExtensionName(),
             getRegisterECSExtensionService,
             {
-                meta3dEngineCoreExtensionName: _getMeta3DEngineCoreExtensionName(),
+                meta3dEngineCoreExtensionName: engineCoreExtensionName,
             },
             createRegisterECSExtensionState()
         )
@@ -66,7 +60,7 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
             _getMeta3DRegisterDefaultWorkPluginsExtensionName(),
             getRegisterDefaultWorkPluginsECSExtensionService,
             {
-                meta3dEngineCoreExtensionName: _getMeta3DEngineCoreExtensionName(),
+                meta3dEngineCoreExtensionName: engineCoreExtensionName,
                 meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
             },
             createRegisterDefaultWorkPluginsECSExtensionState()
@@ -75,12 +69,12 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
 
     let engineCoreState = getExtensionStateExn<engineCoreState>(
         meta3dState,
-        _getMeta3DEngineCoreExtensionName(),
+        engineCoreExtensionName,
     )
 
     let { setIsDebug } = getServiceExn<engineCoreService>(
         meta3dState,
-        _getMeta3DEngineCoreExtensionName()
+        engineCoreExtensionName
     )
 
     engineCoreState = setIsDebug(engineCoreState, isDebug)
@@ -103,17 +97,20 @@ export function prepare({ isDebug, float9Array1, float32Array1, transformCount }
     meta3dState =
         setExtensionState(
             meta3dState,
-            _getMeta3DEngineCoreExtensionName(),
+            engineCoreExtensionName,
             engineCoreState
         )
 
     return meta3dState
 }
 
-export function init(meta3dState: meta3dState): Promise<meta3dState> {
+export function init(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+    //  TODO use NullableUtils for type
+    let tempMeta3dStata: meta3dState | null = null
+
     let engineCoreState = getExtensionStateExn<engineCoreState>(
         meta3dState,
-        _getMeta3DEngineCoreExtensionName(),
+        engineCoreExtensionName,
     )
 
     let { map } = getServiceExn<mostService>(
@@ -123,19 +120,24 @@ export function init(meta3dState: meta3dState): Promise<meta3dState> {
 
     let { init, runPipeline } = getServiceExn<engineCoreService>(
         meta3dState,
-        _getMeta3DEngineCoreExtensionName()
+        engineCoreExtensionName
     )
 
     engineCoreState = init(engineCoreState)
 
     return map(
         (engineCoreState: engineCoreState) => {
-            return setExtensionState(
+            tempMeta3dStata = setExtensionState(
                 meta3dState,
-                _getMeta3DEngineCoreExtensionName(),
+                engineCoreExtensionName,
                 engineCoreState
             )
+
+            return null
         },
         runPipeline(engineCoreState, meta3dState, "init")
-    ).drain()
+    ).drain().then((_) => {
+        //  TODO use NullableUtils for type
+        return tempMeta3dStata as meta3dState
+    })
 }
