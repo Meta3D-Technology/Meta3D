@@ -6,11 +6,11 @@ import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-co
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function hide(state, id) {
+function hide(state, elementName) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
-          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, false),
+          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, false),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
@@ -19,11 +19,11 @@ function hide(state, id) {
         };
 }
 
-function show(state, id) {
+function show(state, elementName) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
-          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, id, true),
+          isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, true),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
@@ -32,12 +32,12 @@ function show(state, id) {
         };
 }
 
-function _markStateChange(state, id) {
+function _markStateChange(state, elementName) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
-          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, true),
+          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, true),
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
@@ -45,12 +45,12 @@ function _markStateChange(state, id) {
         };
 }
 
-function _markStateNotChange(state, id) {
+function _markStateNotChange(state, elementName) {
   return {
           execFuncMap: state.execFuncMap,
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
-          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, id, false),
+          isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, false),
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
           ioData: state.ioData,
@@ -75,18 +75,18 @@ function combineReducers(state, reducerData) {
         };
 }
 
-function _getElementStateExn(param, id) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(param.execStateMap, id);
+function _getElementStateExn(param, elementName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(param.execStateMap, elementName);
 }
 
-function getElementState(param, id) {
-  return ImmutableHashMap$Meta3dCommonlib.getNullable(param.execStateMap, id);
+function getElementState(param, elementName) {
+  return ImmutableHashMap$Meta3dCommonlib.getNullable(param.execStateMap, elementName);
 }
 
-function _setElementState(state, id, elementState) {
+function _setElementState(state, elementName, elementState) {
   return {
           execFuncMap: state.execFuncMap,
-          execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, id, elementState),
+          execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, elementName, elementState),
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -98,13 +98,13 @@ function _setElementState(state, id, elementState) {
 
 function dispatch(state, action) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(state.reducers, (function (state, param) {
-                var id = param[0];
-                var oldElementState = _getElementStateExn(state, id);
+                var elementName = param[0];
+                var oldElementState = _getElementStateExn(state, elementName);
                 var newElementState = Curry._2(param[1], oldElementState, action);
                 if (oldElementState !== newElementState) {
-                  return _setElementState(_markStateChange(state, id), id, newElementState);
+                  return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
                 } else {
-                  return _markStateNotChange(state, id);
+                  return _markStateNotChange(state, elementName);
                 }
               }), state);
 }
@@ -139,12 +139,12 @@ function render(api, meta3dState, uiExtensionName, ioData) {
                                   needMarkStateNotChangeIds
                                 ]);
                     }
-                    var id = param$1[0];
-                    var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, id);
-                    return PromiseSt$Meta3dCommonlib.map(Curry._2(elementFunc, meta3dState, id), (function (meta3dState) {
+                    var elementName = param$1[0];
+                    var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, elementName);
+                    return PromiseSt$Meta3dCommonlib.map(Curry._2(elementFunc, meta3dState, elementName), (function (meta3dState) {
                                   return [
                                           meta3dState,
-                                          ArraySt$Meta3dCommonlib.push(needMarkStateNotChangeIds, id)
+                                          ArraySt$Meta3dCommonlib.push(needMarkStateNotChangeIds, elementName)
                                         ];
                                 }));
                   }), [
@@ -158,9 +158,9 @@ function render(api, meta3dState, uiExtensionName, ioData) {
               }));
 }
 
-function _setElementFunc(state, id, elementFunc) {
+function _setElementFunc(state, elementName, elementFunc) {
   return {
-          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, id, elementFunc),
+          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, elementName, elementFunc),
           execStateMap: state.execStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
@@ -172,8 +172,8 @@ function _setElementFunc(state, id, elementFunc) {
 }
 
 function registerElement(state, param) {
-  var id = param.id;
-  return _markStateChange(show(_setElementState(_setElementFunc(state, id, param.elementFunc), id, param.elementState), id), id);
+  var elementName = param.elementName;
+  return _markStateChange(show(_setElementState(_setElementFunc(state, elementName, param.elementFunc), elementName, param.elementState), elementName), elementName);
 }
 
 function registerSkin(state, skinContribute) {
@@ -210,24 +210,24 @@ function getCustomControlExn(state, customControlName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.customControlContributeMap, customControlName).func;
 }
 
-function isStateChange(state, id) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, id);
+function isStateChange(state, elementName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, elementName);
 }
 
 var _clearBox = (function({x,y}) {
-  let id = "_box" + ( x+y ).toString()
+  let elementName = "_box" + ( x+y ).toString()
 
-  if(document.querySelector("#" + id) !== null){
-document.querySelector("#" + id).remove()
+  if(document.querySelector("#" + elementName) !== null){
+document.querySelector("#" + elementName).remove()
   }
 });
 
 var _renderBox = (function(backgroundColor, {x,y,width,height}) {
   let dom = document.createElement("div")
 
-  let id = "_box" + ( x+y ).toString()
+  let elementName = "_box" + ( x+y ).toString()
 
-  dom.id = id
+  dom.elementName = elementName
 
   dom.style.position = "absolute"
   dom.style.left = x + "px"
@@ -249,19 +249,19 @@ function drawBox(meta3dState, param, rect, backgroundColor) {
 }
 
 var _clearText = (function({x,y}) {
-  let id = "_text" + ( x+y ).toString()
+  let elementName = "_text" + ( x+y ).toString()
 
-  if(document.querySelector("#" + id) !== null){
-document.querySelector("#" + id).remove()
+  if(document.querySelector("#" + elementName) !== null){
+document.querySelector("#" + elementName).remove()
   }
 });
 
 var _renderText = (function(text, {x,y,width,height}) {
   let dom = document.createElement("span")
 
-  let id = "_text" + ( x+y ).toString()
+  let elementName = "_text" + ( x+y ).toString()
 
-  dom.id = id
+  dom.elementName = elementName
 
   dom.style.position = "absolute"
   dom.style.left = x + "px"

@@ -1,34 +1,34 @@
-let hide = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtocol.UIType.id) => {
+let hide = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
   {
     ...state,
-    isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(id, false),
+    isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, false),
   }
 }
 
-let show = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtocol.UIType.id) => {
+let show = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
   {
     ...state,
-    isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(id, true),
+    isShowMap: state.isShowMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, true),
   }
 }
 
 let _markStateChange = (
   state: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
 ) => {
   {
     ...state,
-    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(id, true),
+    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, true),
   }
 }
 
 let _markStateNotChange = (
   state: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
 ) => {
   {
     ...state,
-    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(id, false),
+    isStateChangeMap: state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, false),
   }
 }
 
@@ -36,8 +36,8 @@ let _markAllStateNotChange = (
   state: Meta3dUiProtocol.StateType.state,
   needMarkStateNotChangeIds,
 ) => {
-  needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.reduceOneParam((. state, id) => {
-    _markStateNotChange(state, id)
+  needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.reduceOneParam((. state, elementName) => {
+    _markStateNotChange(state, elementName)
   }, state)
 }
 
@@ -50,26 +50,26 @@ let combineReducers = (state: Meta3dUiProtocol.StateType.state, reducerData) => 
 
 let _getElementStateExn = (
   {execStateMap}: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
 ) => {
-  execStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
+  execStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 
 let getElementState = (
   {execStateMap}: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
 ) => {
-  execStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(id)
+  execStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(elementName)
 }
 
 let _setElementState = (
   state: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
   elementState: Meta3dUiProtocol.IElement.elementState,
 ) => {
   {
     ...state,
-    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(id, elementState),
+    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementState),
   }
 }
 
@@ -77,17 +77,17 @@ let dispatch = (
   state: Meta3dUiProtocol.StateType.state,
   action: Meta3dUiProtocol.IElement.action,
 ) => {
-  state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (id, reducerFunc)) => {
-    let oldElementState = _getElementStateExn(state, id)
+  state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (elementName, reducerFunc)) => {
+    let oldElementState = _getElementStateExn(state, elementName)
 
     let newElementState = reducerFunc(oldElementState, action)
 
     oldElementState !== newElementState
       ? {
-          state->_markStateChange(id)->_setElementState(id, newElementState)
+          state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
         }
       : {
-          state->_markStateNotChange(id)
+          state->_markStateNotChange(elementName)
         }
   }, state)
 }
@@ -125,18 +125,18 @@ let render = (
   isShowMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
   ->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
-    (. (meta3dState, needMarkStateNotChangeIds), (id, isShow)) => {
-      // isShow && _getStateChangeExn(state, id)
+    (. (meta3dState, needMarkStateNotChangeIds), (elementName, isShow)) => {
+      // isShow && _getStateChangeExn(state, elementName)
       isShow
         ? {
-            let elementFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
+            let elementFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 
             /* !
               TODO should judge is state change in elementFunc:
              if state not change, not update geometry buffer, but should render if isShow!!! 
  */
-            elementFunc(meta3dState, id)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
-              (meta3dState, needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.push(id))
+            elementFunc(meta3dState, elementName)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
+              (meta3dState, needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.push(elementName))
             })
           }
         : (meta3dState, needMarkStateNotChangeIds)->Js.Promise.resolve
@@ -157,26 +157,26 @@ let render = (
 
 let _setElementFunc = (
   state: Meta3dUiProtocol.StateType.state,
-  id: Meta3dUiProtocol.UIType.id,
+  elementName: Meta3dUiProtocol.IElement.elementName,
   elementFunc: Meta3dUiProtocol.IElement.elementFunc,
 ) => {
   {
     ...state,
-    execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(id, elementFunc),
+    execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementFunc),
   }
 }
 
 let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
-  {id, elementFunc, elementState}: Meta3dUiProtocol.IElement.elementContribute<
+  {elementName, elementFunc, elementState}: Meta3dUiProtocol.IElement.elementContribute<
     Meta3dUiProtocol.IElement.elementState,
   >,
 ) => {
   state
-  ->_setElementFunc(id, elementFunc)
-  ->_setElementState(id, elementState)
-  ->show(id)
-  ->_markStateChange(id)
+  ->_setElementFunc(elementName, elementFunc)
+  ->_setElementState(elementName, elementState)
+  ->show(elementName)
+  ->_markStateChange(elementName)
 }
 
 let registerSkin = (
@@ -225,16 +225,16 @@ let getCustomControlExn = (state: Meta3dUiProtocol.StateType.state, customContro
   func
 }
 
-let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtocol.UIType.id) => {
-  state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(id)
+let isStateChange = (state: Meta3dUiProtocol.StateType.state, elementName: Meta3dUiProtocol.IElement.elementName) => {
+  state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 
 // let _clearButton = %raw(`
 // function({x,y,width,height,text}) {
-//   let id = "_" + ( x+y ).toString()
+//   let elementName = "_" + ( x+y ).toString()
 
-//   if(document.querySelector("#" + id) !== null){
-// document.querySelector("#" + id).remove()
+//   if(document.querySelector("#" + elementName) !== null){
+// document.querySelector("#" + elementName).remove()
 //   }
 // }
 // `)
@@ -243,9 +243,9 @@ let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtoc
 // function( {x,y,width,height,text}) {
 //   let button = document.createElement("button")
 
-//   let id = "_" + ( x+y ).toString()
+//   let elementName = "_" + ( x+y ).toString()
 
-//   button.id = id
+//   button.elementName = elementName
 
 //   button.style.position = "absolute"
 //   button.style.left = x + "px"
@@ -296,10 +296,10 @@ let isStateChange = (state: Meta3dUiProtocol.StateType.state, id: Meta3dUiProtoc
 
 let _clearBox = %raw(`
 function({x,y}) {
-  let id = "_box" + ( x+y ).toString()
+  let elementName = "_box" + ( x+y ).toString()
 
-  if(document.querySelector("#" + id) !== null){
-document.querySelector("#" + id).remove()
+  if(document.querySelector("#" + elementName) !== null){
+document.querySelector("#" + elementName).remove()
   }
 }
 `)
@@ -308,9 +308,9 @@ let _renderBox = %raw(`
 function(backgroundColor, {x,y,width,height}) {
   let dom = document.createElement("div")
 
-  let id = "_box" + ( x+y ).toString()
+  let elementName = "_box" + ( x+y ).toString()
 
-  dom.id = id
+  dom.elementName = elementName
 
   dom.style.position = "absolute"
   dom.style.left = x + "px"
@@ -344,10 +344,10 @@ let drawBox = (
 
 let _clearText = %raw(`
 function({x,y}) {
-  let id = "_text" + ( x+y ).toString()
+  let elementName = "_text" + ( x+y ).toString()
 
-  if(document.querySelector("#" + id) !== null){
-document.querySelector("#" + id).remove()
+  if(document.querySelector("#" + elementName) !== null){
+document.querySelector("#" + elementName).remove()
   }
 }
 `)
@@ -356,9 +356,9 @@ let _renderText = %raw(`
 function(text, {x,y,width,height}) {
   let dom = document.createElement("span")
 
-  let id = "_text" + ( x+y ).toString()
+  let elementName = "_text" + ( x+y ).toString()
 
-  dom.id = id
+  dom.elementName = elementName
 
   dom.style.position = "absolute"
   dom.style.left = x + "px"

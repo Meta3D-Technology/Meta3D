@@ -4,10 +4,10 @@ type ioData = {
 }
 
 type state = {
-  execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, IElement.elementFunc>,
-  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, IElement.elementState>,
-  isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, bool>,
-  isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<UIType.id, bool>,
+  execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, IElement.elementFunc>,
+  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, IElement.elementState>,
+  isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, bool>,
+  isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, bool>,
   skinContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ISkin.skinName,
     ISkin.skinContribute<ISkin.buttonStyle>,

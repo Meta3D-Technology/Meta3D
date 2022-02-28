@@ -1,4 +1,4 @@
-export const id = "ShowExtensions"
+export const elementName = "ShowExtensions"
 
 export type extensionName = string
 

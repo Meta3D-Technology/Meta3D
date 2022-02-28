@@ -1,4 +1,4 @@
-export const id = "RegisterExtension"
+export const elementName = "RegisterExtension"
 
 export type registerExtensionElementState = {
     x: number,

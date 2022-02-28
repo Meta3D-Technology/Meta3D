@@ -1,6 +1,6 @@
 import { state as meta3dState } from "meta3d-type/src/Index"
 import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/IElement"
-import { dependentExtensionNameMap, showExtensionsElementState, id } from "meta3d-element-show-extensions-protocol"
+import { dependentExtensionNameMap, showExtensionsElementState, elementName } from "meta3d-element-show-extensions-protocol"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -11,19 +11,19 @@ import { registerExtension as registerExtensionAction } from "./Action"
 
 export let getElementContribute: getElementContributeMeta3d<dependentExtensionNameMap, showExtensionsElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
     return {
-        id: id,
+        elementName: elementName,
         elementState: {
             extensionDataArr: []
         },
-        elementFunc: (meta3dState, id) => {
+        elementFunc: (meta3dState, elementName) => {
             let { getCustomControl, getElementState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
             let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
 
-            /*! TODO move id to VisualElement/Group, judge is state change there!
+            /*! TODO move elementName to VisualElement/Group, judge is state change there!
         	
-            // if (!isStateChange(uiState, id)) {
+            // if (!isStateChange(uiState, elementName)) {
             // 	return _handleStateNotChange(meta3dState)
             // }
             */
@@ -33,7 +33,7 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
 
 
             // TODO use Nullable.getExn
-            let { extensionDataArr } = getElementState<showExtensionsElementState>(uiState, id) as showExtensionsElementState
+            let { extensionDataArr } = getElementState<showExtensionsElementState>(uiState, elementName) as showExtensionsElementState
 
 
             let drawButton = getCustomControl<inputData, outputData>(uiState, customControlName)

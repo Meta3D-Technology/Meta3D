@@ -1,5 +1,5 @@
 // TODO sparate ui and logc:
-// move ui id, registerExtensionSubmitEventName to protocol?
+// move ui elementName, registerExtensionSubmitEventName to protocol?
 
 import { getExtensionService as getExtensionServiceMeta3d, createExtensionState as createExtensionStateMeta3d } from "meta3d-type/src/Index"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
@@ -19,7 +19,7 @@ import { getCustomControlContribute as getButtonCustomControlContribute } from "
 import { skinName as defaultSkinName } from "meta3d-skin-default-protocol"
 import { getElementContribute as getRegisterExtensionElementContribute } from "meta3d-element-register-extension"
 import { registerExtension, getElementContribute as getShowExtensionsElementContribute } from "meta3d-element-show-extensions"
-import { id as showExtensionElementId } from "meta3d-element-show-extensions-protocol"
+import { elementName as showExtensionElementName } from "meta3d-element-show-extensions-protocol"
 
 import { service as test1Service } from "meta3d-extension-test1/src/Main"
 import { showExtensionReducer } from "./Reducer"
@@ -92,7 +92,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 			)
 			uiState = registerElement<showExtensionsElementState>(uiState, getShowExtensionsElementContribute(api, dependentExtensionNameMap))
 
-			uiState = combineReducers<showExtensionsElementState, showRegisterAction>(uiState, [showExtensionElementId, showExtensionReducer])
+			uiState = combineReducers<showExtensionsElementState, showRegisterAction>(uiState, [showExtensionElementName, showExtensionReducer])
 
 
 

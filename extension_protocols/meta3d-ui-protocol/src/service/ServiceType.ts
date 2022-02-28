@@ -1,5 +1,5 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
-import { uiExtensionName, id } from "../contribute_points/UIType"
+import { uiExtensionName, elementName } from "../contribute_points/UIType"
 import { elementContribute, reducerData } from "../contribute_points/IElement"
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute_points/ISkin"
@@ -44,19 +44,19 @@ export type service = {
     ) => Promise<meta3dState>;
     readonly show: (
         state: state,
-        id: id
+        elementName: elementName
     ) => state;
     readonly hide: (
         state: state,
-        id: id
+        elementName: elementName
     ) => state;
     readonly isStateChange: (
         state: state,
-        id: id
+        elementName: elementName
     ) => boolean;
     readonly getElementState: <elementState> (
         state: state,
-        id: id
+        elementName: elementName
     ) => // TODO use nullable.d
         elementState | null | undefined;
     readonly combineReducers: <elementState, action> (

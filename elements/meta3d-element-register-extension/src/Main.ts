@@ -1,5 +1,5 @@
 import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/IElement"
-import { dependentExtensionNameMap, registerExtensionElementState, id } from "meta3d-element-register-extension-protocol"
+import { dependentExtensionNameMap, registerExtensionElementState, elementName } from "meta3d-element-register-extension-protocol"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -9,7 +9,7 @@ import { inputData, outputData, customControlName } from "meta3d-custom-control-
 
 export let getElementContribute: getElementContributeMeta3d<dependentExtensionNameMap, registerExtensionElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
     return {
-        id: id,
+        elementName: elementName,
         elementState: {
             x: 0,
             y: 140,
@@ -17,21 +17,21 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
             height: 10,
             text: "register extension",
         },
-        elementFunc: (meta3dState, id) => {
+        elementFunc: (meta3dState, elementName) => {
             let { getCustomControl, getElementState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
 
             let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
 
-            /*! TODO move id to VisualElement/Group, judge is state change there!
+            /*! TODO move elementName to VisualElement/Group, judge is state change there!
         	
-            // if (!isStateChange(uiState, id)) {
+            // if (!isStateChange(uiState, elementName)) {
             // 	return _handleStateNotChange(meta3dState)
             // }
             */
 
 
             // TODO use Nullable.getExn
-            let { x, y, width, height, text } = getElementState<registerExtensionElementState>(uiState, id) as registerExtensionElementState
+            let { x, y, width, height, text } = getElementState<registerExtensionElementState>(uiState, elementName) as registerExtensionElementState
 
             let drawButton = getCustomControl<inputData, outputData>(uiState, customControlName)
 

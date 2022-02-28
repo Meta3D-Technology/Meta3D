@@ -375,16 +375,21 @@ custom control: button
 # **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
 
 
-*** DONE refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
+*** TODO refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
 
 (refacotr register-extension extension!)
 
-*** TODO refactor: rename id to elementName
+*** DONE refactor: rename id to elementName
 
 # *** TODO refactor: rename UI->stateMap to store
 
 *** TODO refactor: make event to be contribute
 
+*** TODO move to StateType?
+
+# *** TODO rename EventType to IEvent?
+
+*** TODO rename Ixxx(e.g. IWorker, IElement) to XxxContributeType
 
 *** TODO add drawCopyTextArea
 
@@ -415,11 +420,6 @@ custom control: button
 
 * TODO refactor
 
-** TODO move to StateType?
-
-# ** TODO rename EventType to IEvent?
-
-** TODO rename Ixxx(e.g. IWorker, IElement) to XxxContributeType
 
 ** TODO use pipe, curry
 

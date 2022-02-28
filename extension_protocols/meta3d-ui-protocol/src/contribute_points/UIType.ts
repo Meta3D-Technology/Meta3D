@@ -1,5 +1,5 @@
 import { extensionName } from "meta3d-type/src/Index"
 
-export type id = string;
+export type elementName = string;
 
 export type uiExtensionName = extensionName;
