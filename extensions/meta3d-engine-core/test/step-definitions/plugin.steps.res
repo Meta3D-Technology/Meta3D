@@ -27,7 +27,7 @@ defineFeature(feature, test => {
     ~getElementFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
     (),
-  ): Meta3dEngineCoreProtocol.WorkManagerType.workPluginContribute => {
+  ): Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContribute => {
     pluginName: pluginName,
     createStateFunc: createStateFunc,
     initFunc: initFunc,
@@ -47,7 +47,7 @@ defineFeature(feature, test => {
   }
 
   let _convertAllRegisteredWorkPluginData = (
-    allRegisteredWorkPluginContribute: Meta3dEngineCoreProtocol.WorkManagerType.allRegisteredWorkPluginContribute,
+    allRegisteredWorkPluginContribute: Meta3dEngineCoreProtocol.WorkPluginManagerType.allRegisteredWorkPluginContribute,
   ) => {
     allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.map(((
       workPluginContribute,

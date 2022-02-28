@@ -1,4 +1,4 @@
-import { getWorkPluginContribute as getWorkPluginContributeMeta3d } from "../../../extension_protocols/meta3d-engine-core-protocol/src/contribute_points/work/IWorkForJs";
+import { getWorkPluginContribute as getWorkPluginContributeMeta3d } from "../../../extension_protocols/meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { exec as create_gl } from "./jobs/init/CreateGLJob";
 import { config, state, states } from "./Type";
 

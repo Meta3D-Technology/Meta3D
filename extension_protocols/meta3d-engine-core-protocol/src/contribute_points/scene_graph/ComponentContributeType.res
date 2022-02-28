@@ -6,21 +6,21 @@ type createStateFunc<'state, 'config> = (. 'config) => 'state
 type getGameObjectsFunc<'state, 'component> = (
   . 'state,
   'component,
-) => array<IGameObjectForJs.gameObject>
+) => array<GameObjectContributeType.gameObject>
 
 type createComponentFunc<'state, 'component> = (. 'state) => ('state, 'component)
 
 type addComponentFunc<'state, 'component> = (
   . 'state,
-  IGameObjectForJs.gameObject,
+  GameObjectContributeType.gameObject,
   'component,
 ) => 'state
 
-type hasComponentFunc<'state> = (. 'state, IGameObjectForJs.gameObject) => bool
+type hasComponentFunc<'state> = (. 'state, GameObjectContributeType.gameObject) => bool
 
 type getComponentFunc<'state, 'component> = (
   . 'state,
-  IGameObjectForJs.gameObject,
+  GameObjectContributeType.gameObject,
 ) => Js.Nullable.t<'component>
 
 type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>

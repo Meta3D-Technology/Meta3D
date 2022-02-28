@@ -4,7 +4,7 @@ let setData = (.
   state,
   transform,
   dataName: DataType.dataName,
-  dataValue: Meta3dEngineCoreProtocol.IComponentForJs.dataValue,
+  dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {
   | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.parent =>

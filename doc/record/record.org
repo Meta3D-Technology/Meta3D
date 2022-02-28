@@ -387,9 +387,11 @@ custom control: button
 
 *** DONE move to StateType?
 
-# *** TODO rename EventType to IEvent?
+# *** TODO rename EventType to EventContributeType?
 
-*** TODO rename Ixxx(e.g. IWorker, IElement) to XxxContributeType
+*** DONE rename Ixxx(e.g. IWorker, ElementContributeType) to XxxContributeType
+
+*** TODO rename .gen.tsx to .ts
 
 *** TODO add drawCopyTextArea
 

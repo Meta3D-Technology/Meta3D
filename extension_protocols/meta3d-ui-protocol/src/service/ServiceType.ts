@@ -1,9 +1,9 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { uiExtensionName, elementName } from "../contribute_points/UIType"
-import { elementContribute, reducerData } from "../contribute_points/IElement"
+import { elementContribute, reducerData } from "../contribute_points/ElementContributeType"
 import { state, ioData } from "../state/StateType"
-import { skinContribute, skinName } from "../contribute_points/ISkin"
-import { customControlContribute, customControlFunc, customControlName } from "../contribute_points/ICustomControl"
+import { skinContribute, skinName } from "../contribute_points/SkinContributeType"
+import { customControlContribute, customControlFunc, customControlName } from "../contribute_points/CustomControlContributeType"
 
 type rect = {
     x: number,

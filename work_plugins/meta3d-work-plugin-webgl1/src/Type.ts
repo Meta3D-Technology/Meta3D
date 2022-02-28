@@ -1,4 +1,4 @@
-import { elementFunc as execFuncCore } from "meta3d-engine-core-protocol/src/contribute_points/work/IWorkForJs"
+import { elementFunc as execFuncCore } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 

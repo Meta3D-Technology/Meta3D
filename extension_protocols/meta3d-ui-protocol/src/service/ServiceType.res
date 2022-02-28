@@ -14,36 +14,36 @@ type rect = {
 type service = {
   registerElement: 'elementState. (
     StateType.state,
-    IElement.elementContribute<'elementState>,
+    ElementContributeType.elementContribute<'elementState>,
   ) => StateType.state,
-  registerSkin: (StateType.state, ISkin.skinContribute<StateType.buttonStyle>) => StateType.state,
+  registerSkin: (StateType.state, SkinContributeType.skinContribute<StateType.buttonStyle>) => StateType.state,
   registerCustomControl: (
     StateType.state,
-    ICustomControl.customControlContribute<StateType.inputData, StateType.outputData>,
+    CustomControlContributeType.customControlContribute<StateType.inputData, StateType.outputData>,
   ) => StateType.state,
   render: (
     Meta3dType.Index.state,
     uiExtensionName,
     StateType.ioData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  show: (StateType.state, IElement.elementName) => StateType.state,
-  hide: (StateType.state, IElement.elementName) => StateType.state,
-  isStateChange: (StateType.state, IElement.elementName) => bool,
+  show: (StateType.state, ElementContributeType.elementName) => StateType.state,
+  hide: (StateType.state, ElementContributeType.elementName) => StateType.state,
+  isStateChange: (StateType.state, ElementContributeType.elementName) => bool,
   getElementState: 'elementState. (
     StateType.state,
-    IElement.elementName,
+    ElementContributeType.elementName,
   ) => Js.Nullable.t<'elementState>,
   combineReducers: 'elementState 'action. (
     StateType.state,
-    IElement.reducerData<'elementState, 'action>,
+    ElementContributeType.reducerData<'elementState, 'action>,
   ) => StateType.state,
   dispatch: 'action. (StateType.state, StateType.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
-  getSkin: 'buttonStyle. (StateType.state, ISkin.skinName) => ISkin.skinContribute<'buttonStyle>,
+  getSkin: 'buttonStyle. (StateType.state, SkinContributeType.skinName) => SkinContributeType.skinContribute<'buttonStyle>,
   getCustomControl: 'inputData 'outputData. (
     StateType.state,
-    ICustomControl.customControlName,
-  ) => ICustomControl.customControlFunc<'inputData, 'outputData>,
+    CustomControlContributeType.customControlName,
+  ) => CustomControlContributeType.customControlFunc<'inputData, 'outputData>,
   drawBox: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, Meta3dType.Index.extensionName),

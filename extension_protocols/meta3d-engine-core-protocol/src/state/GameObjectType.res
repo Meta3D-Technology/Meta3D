@@ -7,15 +7,15 @@ type gameObject
 @genType
 type usedGameObjectData = {
   mutable state: state,
-  createGameObjectFunc: IGameObjectForJs.createGameObjectFunc<
+  createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<
     state,
     gameObject,
   >,
-  getAllGameObjectsFunc: IGameObjectForJs.getAllGameObjectsFunc<
+  getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<
     state,
     gameObject,
   >,
 }
 
 @genType
-type gameObjectContribute = IGameObjectForJs.gameObjectContribute<state, gameObject>
+type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, gameObject>

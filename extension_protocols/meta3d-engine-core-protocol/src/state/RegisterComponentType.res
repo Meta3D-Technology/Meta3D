@@ -10,29 +10,29 @@ type config
 // @genType
 type dataName
 
-type componentContribute = IComponentForJs.componentContribute<state, config, dataName, component>
+type componentContribute = ComponentContributeType.componentContribute<state, config, dataName, component>
 
 // @genType
 type usedComponentContribute = {
-  componentName: IComponentForJs.componentName,
+  componentName: ComponentContributeType.componentName,
   mutable state: state,
-  createComponentFunc: IComponentForJs.createComponentFunc<state, component>,
-  getGameObjectsFunc: IComponentForJs.getGameObjectsFunc<state, component>,
-  addComponentFunc: IComponentForJs.addComponentFunc<state, component>,
-  hasComponentFunc: IComponentForJs.hasComponentFunc<state>,
-  getComponentFunc: IComponentForJs.getComponentFunc<state, component>,
-  getAllComponentsFunc: IComponentForJs.getAllComponentsFunc<state, component>,
-  getComponentDataFunc: IComponentForJs.getComponentDataFunc<state, dataName, component>,
-  setComponentDataFunc: IComponentForJs.setComponentDataFunc<state, dataName, component>,
+  createComponentFunc: ComponentContributeType.createComponentFunc<state, component>,
+  getGameObjectsFunc: ComponentContributeType.getGameObjectsFunc<state, component>,
+  addComponentFunc: ComponentContributeType.addComponentFunc<state, component>,
+  hasComponentFunc: ComponentContributeType.hasComponentFunc<state>,
+  getComponentFunc: ComponentContributeType.getComponentFunc<state, component>,
+  getAllComponentsFunc: ComponentContributeType.getAllComponentsFunc<state, component>,
+  getComponentDataFunc: ComponentContributeType.getComponentDataFunc<state, dataName, component>,
+  setComponentDataFunc: ComponentContributeType.setComponentDataFunc<state, dataName, component>,
 }
 
 type componentContributeData = {
   allComponentContributes: Meta3dCommonlibType.ImmutableHashMapType.t<
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
     componentContribute,
   >,
   allUsedComponentContributes: Meta3dCommonlibType.MutableHashMapType.t<
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
     usedComponentContribute,
   >,
 }

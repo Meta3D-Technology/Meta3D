@@ -5,7 +5,7 @@ function buildNode(pluginName, param, children) {
   return /* Node */{
           _0: pluginName,
           _1: {
-            getExecFuncs: {
+            getElementFuncs: {
               hd: param[0],
               tl: /* [] */0
             },

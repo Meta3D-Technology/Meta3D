@@ -1,5 +1,5 @@
 import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
-import { eventName, eventContribute } from "../contribute_points/IEvent"
+import { eventName, eventContribute } from "../contribute_points/EventContributeType"
 import { state } from "../state/StateType"
 
 type eventExtensionName = extensionName

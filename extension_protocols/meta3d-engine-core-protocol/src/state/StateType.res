@@ -1,5 +1,5 @@
 type registeredWorkPluginContribute = (
-  IWorkForJs.workPluginContribute<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
+  WorkPluginContributeType.workPluginContribute<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
   RegisterWorkPluginType.jobOrders,
 )
 

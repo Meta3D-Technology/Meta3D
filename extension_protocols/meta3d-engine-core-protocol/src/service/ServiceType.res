@@ -5,29 +5,29 @@ type service = {
   init: StateType.state => StateType.state,
   registerWorkPlugin: (
     ~state: StateType.state,
-    ~contribute: WorkManagerType.workPluginContribute,
+    ~contribute: WorkPluginManagerType.workPluginContribute,
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,
-  unregisterWorkPlugin: (StateType.state, IWorkForJs.pluginName) => StateType.state,
+  unregisterWorkPlugin: (StateType.state, WorkPluginContributeType.pluginName) => StateType.state,
   registerComponent: (
     StateType.state,
     RegisterComponentType.componentContribute,
   ) => StateType.state,
-  unregisterComponent: (StateType.state, IComponentForJs.componentName) => StateType.state,
+  unregisterComponent: (StateType.state, ComponentContributeType.componentName) => StateType.state,
   createAndSetComponentState: (
     StateType.state,
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
     RegisterComponentType.config,
   ) => StateType.state,
   unsafeGetUsedComponentContribute: (
     StateType.state,
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
   ) => RegisterComponentType.usedComponentContribute,
   setUsedComponentContribute: (
     StateType.state,
     RegisterComponentType.usedComponentContribute,
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
   ) => StateType.state,
   createComponent: RegisterComponentType.usedComponentContribute => (
     RegisterComponentType.usedComponentContribute,
@@ -37,20 +37,20 @@ type service = {
     RegisterComponentType.usedComponentContribute,
     RegisterComponentType.component,
     RegisterComponentType.dataName,
-    IComponentForJs.dataValue,
+    ComponentContributeType.dataValue,
   ) => RegisterComponentType.usedComponentContribute,
   addComponent: (
     RegisterComponentType.usedComponentContribute,
-    IGameObjectForJs.gameObject,
+    GameObjectContributeType.gameObject,
     RegisterComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   hasComponent: (
     RegisterComponentType.usedComponentContribute,
-    IGameObjectForJs.gameObject,
+    GameObjectContributeType.gameObject,
   ) => bool,
   getComponent: (
     RegisterComponentType.usedComponentContribute,
-    IGameObjectForJs.gameObject,
+    GameObjectContributeType.gameObject,
   ) => Js.Nullable.t<RegisterComponentType.component>,
   getAllComponents: RegisterComponentType.usedComponentContribute => array<
     RegisterComponentType.component,
@@ -59,14 +59,14 @@ type service = {
     RegisterComponentType.usedComponentContribute,
     RegisterComponentType.component,
     RegisterComponentType.dataName,
-  ) => Js.Nullable.t<IComponentForJs.dataValue>,
+  ) => Js.Nullable.t<ComponentContributeType.dataValue>,
   getComponentGameObjects: (
     RegisterComponentType.usedComponentContribute,
     RegisterComponentType.component,
-  ) => array<IGameObjectForJs.gameObject>,
+  ) => array<GameObjectContributeType.gameObject>,
   getComponentState: (
     StateType.state,
-    IComponentForJs.componentName,
+    ComponentContributeType.componentName,
   ) => Js.Nullable.t<RegisterComponentType.state>,
   setGameObjectContribute: (
     StateType.state,

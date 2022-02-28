@@ -1,4 +1,4 @@
-/* TypeScript file generated from IGameObjectForJs.res by genType. */
+/* TypeScript file generated from GameObjectContributeType.res by genType. */
 /* eslint-disable import/first */
 
 

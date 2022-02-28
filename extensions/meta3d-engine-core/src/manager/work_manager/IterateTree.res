@@ -2,7 +2,7 @@
 // let rec firstOrderCata = (
 let rec postOrderCata = (
   ~nodeFunc: (
-    Meta3dEngineCoreProtocol.IWorkForJs.pluginName,
+    Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,
     Meta3dEngineCoreProtocol.TreeType.nodeData,
     list<Meta3dEngineCoreProtocol.TreeType.tree>,
   ) => Meta3dEngineCoreProtocol.TreeType.tree,
@@ -18,7 +18,7 @@ let rec postOrderCata = (
 }
 
 // let rec postOrderFoldWithParentNode = (
-//   ~nodeFunc: (option<  Meta3dEngineCoreProtocol. TreeType.tree>, 'acc, Meta3dEngineCoreProtocol.IWorkForJs.pluginName,   Meta3dEngineCoreProtocol. TreeType.nodeData) => 'acc,
+//   ~nodeFunc: (option<  Meta3dEngineCoreProtocol. TreeType.tree>, 'acc, Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,   Meta3dEngineCoreProtocol. TreeType.nodeData) => 'acc,
 //   ~acc: 'acc,
 //   ~tree:   Meta3dEngineCoreProtocol. TreeType.tree,
 //   ~parentNode: option<  Meta3dEngineCoreProtocol. TreeType.tree>=None,
@@ -64,7 +64,7 @@ let rec postOrderCata = (
 let rec postOrderCataWithParentNode = (
   ~nodeFunc: (
     option<Meta3dEngineCoreProtocol.TreeType.tree>,
-    Meta3dEngineCoreProtocol.IWorkForJs.pluginName,
+    Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,
     Meta3dEngineCoreProtocol.TreeType.nodeData,
     list<Meta3dEngineCoreProtocol.TreeType.tree>,
   ) => Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.TreeType.tree>,

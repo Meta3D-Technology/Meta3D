@@ -1,8 +1,8 @@
-/* TypeScript file generated from IComponentForJs.res by genType. */
+/* TypeScript file generated from ComponentContributeType.res by genType. */
 /* eslint-disable import/first */
 
 
-import type {gameObject as IGameObjectForJs_gameObject} from './IGameObjectForJs.gen';
+import type {gameObject as GameObjectContributeType_gameObject} from './GameObjectContributeType.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type componentName = string;
@@ -11,19 +11,19 @@ export type componentName = string;
 export type createStateFunc<state,config> = (_1:config) => state;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getGameObjectsFunc<state,component> = (_1:state, _2:component) => IGameObjectForJs_gameObject[];
+export type getGameObjectsFunc<state,component> = (_1:state, _2:component) => GameObjectContributeType_gameObject[];
 
 // tslint:disable-next-line:interface-over-type-literal
 export type createComponentFunc<state,component> = (_1:state) => [state, component];
 
 // tslint:disable-next-line:interface-over-type-literal
-export type addComponentFunc<state,component> = (_1:state, _2:IGameObjectForJs_gameObject, _3:component) => state;
+export type addComponentFunc<state,component> = (_1:state, _2:GameObjectContributeType_gameObject, _3:component) => state;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type hasComponentFunc<state> = (_1:state, _2:IGameObjectForJs_gameObject) => boolean;
+export type hasComponentFunc<state> = (_1:state, _2:GameObjectContributeType_gameObject) => boolean;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getComponentFunc<state,component> = (_1:state, _2:IGameObjectForJs_gameObject) => (null | undefined | component);
+export type getComponentFunc<state,component> = (_1:state, _2:GameObjectContributeType_gameObject) => (null | undefined | component);
 
 // tslint:disable-next-line:interface-over-type-literal
 export type getAllComponentsFunc<state,component> = (_1:state) => component[];

@@ -1,4 +1,4 @@
-import { reducerFunc } from "meta3d-ui-protocol/src/contribute_points/IElement"
+import { reducerFunc } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
 import { showExtensionsElementState, SHOWEXTENSION_REGISTER_EXTENSION, showRegisterAction } from "meta3d-element-show-extensions-protocol"
 
 export let showExtensionReducer: reducerFunc<showExtensionsElementState, showRegisterAction> = (elementState, action) => {

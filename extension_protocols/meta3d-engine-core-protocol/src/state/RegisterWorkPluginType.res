@@ -1,6 +1,6 @@
 type state
 
-type states = Meta3dCommonlibType.ImmutableHashMapType.t<IWorkForJs.pluginName, state>
+type states = Meta3dCommonlibType.ImmutableHashMapType.t<WorkPluginContributeType.pluginName, state>
 
 type config
 

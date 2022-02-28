@@ -1,4 +1,4 @@
-import { getCustomControlContribute as getCustomControlContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/ICustomControl"
+import { getCustomControlContribute as getCustomControlContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/CustomControlContributeType"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"

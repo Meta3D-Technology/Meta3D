@@ -19,11 +19,11 @@ let registerWorkPlugin = (
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
   (),
 ) => {
-  state->WorkManager.registerPlugin(contribute, jobOrders->_convertJobOrders)
+  state->WorkPluginManager.registerPlugin(contribute, jobOrders->_convertJobOrders)
 }
 
 let unregisterWorkPlugin = (state, targetPluginName) => {
-  state->WorkManager.unregisterPlugin(targetPluginName)
+  state->WorkPluginManager.unregisterPlugin(targetPluginName)
 }
 
 let prepare = () => {
@@ -31,7 +31,7 @@ let prepare = () => {
 }
 
 let init = state => {
-  state->WorkManager.init
+  state->WorkPluginManager.init
 }
 
 let runPipeline = (
@@ -51,7 +51,7 @@ let runPipeline = (
   )
 
   state
-  ->WorkManager.runPipeline(mostService, pipelineName)
+  ->WorkPluginManager.runPipeline(mostService, pipelineName)
   // ->Meta3dCommonlib.Result.mapSuccess(mostService.map(StateContainer.setState, _))
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
@@ -139,7 +139,7 @@ let getAllGameObjects = state => {
 
 let getComponentState = (
   state,
-  componentName: Meta3dEngineCoreProtocol.IComponentForJs.componentName,
+  componentName: Meta3dEngineCoreProtocol.ComponentContributeType.componentName,
 ) => {
   state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
 }

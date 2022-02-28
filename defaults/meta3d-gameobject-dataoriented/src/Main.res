@@ -1,4 +1,4 @@
-let getGameObjectContribute: Meta3dEngineCoreProtocol.IGameObjectForJs.getGameObjectContribute<
+let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.getGameObjectContribute<
   StateType.state,
   StateType.gameObject,
 > = () => {

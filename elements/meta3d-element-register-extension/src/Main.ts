@@ -1,4 +1,4 @@
-import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/IElement"
+import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
 import { dependentExtensionNameMap, registerExtensionElementState, elementName } from "meta3d-element-register-extension-protocol"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"

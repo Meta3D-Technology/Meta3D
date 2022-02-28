@@ -1,4 +1,4 @@
-let getComponentContribute: Meta3dEngineCoreProtocol.IComponentForJs.getComponentContribute<
+let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
   StateType.state,
   StateType.config,
   DataType.dataName,

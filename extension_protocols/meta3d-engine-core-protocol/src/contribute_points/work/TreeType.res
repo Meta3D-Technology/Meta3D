@@ -4,9 +4,9 @@ type jobOrder = {
 }
 
 type nodeData = {
-  mutable getElementFuncs: list<IWorkForJs.getElementFunc<RegisterWorkPluginType.states>>,
+  mutable getElementFuncs: list<WorkPluginContributeType.getElementFunc<RegisterWorkPluginType.states>>,
   mutable pipelineData: PipelineType.pipelineData,
   jobOrder: option<jobOrder>,
 }
 
-type rec tree = Node(IWorkForJs.pluginName, nodeData, list<tree>)
+type rec tree = Node(WorkPluginContributeType.pluginName, nodeData, list<tree>)

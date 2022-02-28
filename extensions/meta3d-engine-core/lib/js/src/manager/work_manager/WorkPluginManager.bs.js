@@ -1,18 +1,18 @@
+'use strict';
 
-
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_array from "../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as Log$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ListSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as Result$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as TreeNode$Meta3dEngineCore from "./TreeNode.bs.js";
-import * as IterateTree$Meta3dEngineCore from "./IterateTree.bs.js";
-import * as OperateTree$Meta3dEngineCore from "./OperateTree.bs.js";
-import * as StateContainer$Meta3dEngineCore from "../../state/StateContainer.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+var Curry = require("rescript/lib/js/curry.js");
+var Caml_array = require("rescript/lib/js/caml_array.js");
+var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
+var ListSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ListSt.bs.js");
+var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Result.bs.js");
+var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
+var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var TreeNode$Meta3dEngineCore = require("./TreeNode.bs.js");
+var IterateTree$Meta3dEngineCore = require("./IterateTree.bs.js");
+var OperateTree$Meta3dEngineCore = require("./OperateTree.bs.js");
+var StateContainer$Meta3dEngineCore = require("../../state/StateContainer.bs.js");
+var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function _getStates(param) {
   return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states;
@@ -46,31 +46,31 @@ function _findGroup(groupName, groups) {
   }
 }
 
-function _buildJobStream(param, execFunc) {
-  var __x = Curry._1(param.just, execFunc);
+function _buildJobStream(param, elementFunc) {
+  var __x = Curry._1(param.just, elementFunc);
   return Curry._2(param.map, _setStates, Curry._2(param.flatMap, (function (func) {
                     return Curry._1(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states);
                   }), __x));
 }
 
-function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
+function _getElementFunc(_getElementFuncs, pipelineName, jobName) {
   while(true) {
-    var getExecFuncs = _getExecFuncs;
-    if (ListSt$Meta3dCommonlib.length(getExecFuncs) === 0) {
-      return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("_getExecFunc", "can't get execFunc with pipelineName:" + pipelineName + ", jobName:" + jobName, "", "", "")));
+    var getElementFuncs = _getElementFuncs;
+    if (ListSt$Meta3dCommonlib.length(getElementFuncs) === 0) {
+      return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("_getElementFunc", "can't get elementFunc with pipelineName:" + pipelineName + ", jobName:" + jobName, "", "", "")));
     }
-    if (getExecFuncs) {
-      var result = Curry._2(getExecFuncs.hd, pipelineName, jobName);
+    if (getElementFuncs) {
+      var result = Curry._2(getElementFuncs.hd, pipelineName, jobName);
       if (!(result == null)) {
         return OptionSt$Meta3dCommonlib.getExn(OptionSt$Meta3dCommonlib.fromNullable(result));
       }
-      _getExecFuncs = getExecFuncs.tl;
+      _getElementFuncs = getElementFuncs.tl;
       continue ;
     }
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
-            "WorkManager.res",
+            "WorkPluginManager.res",
             66,
             14
           ],
@@ -81,24 +81,24 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
 
 function _buildJobStreams(mostService, param, param$1, groups) {
   var pipelineName = param$1[0];
-  var getExecFuncs = param[1];
+  var getElementFuncs = param[1];
   var buildPipelineStreamFunc = param[0];
   return ListSt$Meta3dCommonlib.reduce(ListSt$Meta3dCommonlib.fromArray(param$1[1]), /* [] */0, (function (streams, param) {
                 var name = param.name;
                 if (param.type_ === "group") {
                   var group = _findGroup(name, groups);
-                  var stream = Curry._5(buildPipelineStreamFunc, mostService, getExecFuncs, pipelineName, group, groups);
+                  var stream = Curry._5(buildPipelineStreamFunc, mostService, getElementFuncs, pipelineName, group, groups);
                   return ListSt$Meta3dCommonlib.push(streams, stream);
                 }
-                var execFunc = _getExecFunc(getExecFuncs, pipelineName, name);
-                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, execFunc));
+                var elementFunc = _getElementFunc(getElementFuncs, pipelineName, name);
+                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, elementFunc));
               }));
 }
 
-function _buildPipelineStream(mostService, getExecFuncs, pipelineName, param, groups) {
+function _buildPipelineStream(mostService, getElementFuncs, pipelineName, param, groups) {
   var streams = _buildJobStreams(mostService, [
         _buildPipelineStream,
-        getExecFuncs
+        getElementFuncs
       ], [
         pipelineName,
         param.elements
@@ -106,11 +106,11 @@ function _buildPipelineStream(mostService, getExecFuncs, pipelineName, param, gr
   return Curry._1(param.link === "merge" ? mostService.mergeArray : mostService.concatArray, ListSt$Meta3dCommonlib.toArray(streams));
 }
 
-function parse(state, mostService, getExecFuncs, param) {
+function parse(state, mostService, getElementFuncs, param) {
   var groups = param.groups;
   var group = _findGroup(param.first_group, groups);
   StateContainer$Meta3dEngineCore.setState(state);
-  var __x = _buildPipelineStream(mostService, getExecFuncs, param.name, group, groups);
+  var __x = _buildPipelineStream(mostService, getElementFuncs, param.name, group, groups);
   return Curry._2(mostService.map, (function (param) {
                 return StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
               }), __x);
@@ -121,7 +121,7 @@ var ParsePipelineData = {
   _setStates: _setStates,
   _findGroup: _findGroup,
   _buildJobStream: _buildJobStream,
-  _getExecFunc: _getExecFunc,
+  _getElementFunc: _getElementFunc,
   _buildJobStreams: _buildJobStreams,
   _buildPipelineStream: _buildPipelineStream,
   parse: parse
@@ -203,7 +203,7 @@ function _findAllSpecificPipelineRelatedData(allRegisteredWorkPluginContribute, 
                                       pluginName: workPluginContribute.pluginName,
                                       createStateFunc: workPluginContribute.createStateFunc,
                                       initFunc: workPluginContribute.initFunc,
-                                      getExecFunc: workPluginContribute.getExecFunc,
+                                      getElementFunc: workPluginContribute.getElementFunc,
                                       allPipelineData: ArraySt$Meta3dCommonlib.filter(workPluginContribute.allPipelineData, (function (param) {
                                               return param.name === targetPipelineName;
                                             }))
@@ -221,13 +221,13 @@ function _findAllSpecificPipelineRelatedData(allRegisteredWorkPluginContribute, 
                                   var registeredWorkPluginContribute = param[0];
                                   return [
                                           registeredWorkPluginContribute.pluginName,
-                                          registeredWorkPluginContribute.getExecFunc,
+                                          registeredWorkPluginContribute.getElementFunc,
                                           Caml_array.get(registeredWorkPluginContribute.allPipelineData, 0),
                                           ArraySt$Meta3dCommonlib.getFirst(param[1])
                                         ];
                                 })), (function (param) {
                               var pipelineData = param[2];
-                              var getExecFunc = param[1];
+                              var getElementFunc = param[1];
                               var pluginName = param[0];
                               return Result$Meta3dCommonlib.mapSuccess(OptionSt$Meta3dCommonlib.sequenceResultM(OptionSt$Meta3dCommonlib.map(param[3], (function (param) {
                                                     var insertAction = param.insertAction;
@@ -242,7 +242,7 @@ function _findAllSpecificPipelineRelatedData(allRegisteredWorkPluginContribute, 
                                                   }))), (function (jobOrderOpt) {
                                             return {
                                                     pluginName: pluginName,
-                                                    getExecFunc: getExecFunc,
+                                                    getElementFunc: getElementFunc,
                                                     pipelineData: pipelineData,
                                                     jobOrder: jobOrderOpt
                                                   };
@@ -255,7 +255,7 @@ function _handleInsertedAsRootNode(treeDataList, param) {
   var nodeInsertPluginNameOpt = param[4];
   var nodeJobOrderOpt = param[3];
   var pipelineData = param[2];
-  var getExecFunc = param[1];
+  var getElementFunc = param[1];
   var pluginName = param[0];
   return ListSt$Meta3dCommonlib.reduce(treeDataList, [
               /* [] */0,
@@ -277,7 +277,7 @@ function _handleInsertedAsRootNode(treeDataList, param) {
                         ];
                 }
                 var insertedTree = TreeNode$Meta3dEngineCore.buildNode(pluginName, [
-                      getExecFunc,
+                      getElementFunc,
                       pipelineData,
                       nodeJobOrderOpt
                     ], treeData[0]);
@@ -376,7 +376,7 @@ function _buildTree(allSpecificPipelineRelatedData) {
   return _getTree(ListSt$Meta3dCommonlib.reduce(allSpecificPipelineRelatedData, /* [] */0, (function (treeDataList, param) {
                     var jobOrder = param.jobOrder;
                     var pipelineData = param.pipelineData;
-                    var getExecFunc = param.getExecFunc;
+                    var getElementFunc = param.getElementFunc;
                     var pluginName = param.pluginName;
                     if (jobOrder !== undefined) {
                       var insertPluginName = jobOrder.insertPluginName;
@@ -386,7 +386,7 @@ function _buildTree(allSpecificPipelineRelatedData) {
                       };
                       var match = _handleInsertedAsRootNode(treeDataList, [
                             pluginName,
-                            getExecFunc,
+                            getElementFunc,
                             pipelineData,
                             nodeJobOrderOpt,
                             insertPluginName
@@ -403,7 +403,7 @@ function _buildTree(allSpecificPipelineRelatedData) {
                         }
                       }
                       var node = TreeNode$Meta3dEngineCore.buildNode(pluginName, [
-                            getExecFunc,
+                            getElementFunc,
                             pipelineData,
                             nodeJobOrderOpt
                           ], /* [] */0);
@@ -417,7 +417,7 @@ function _buildTree(allSpecificPipelineRelatedData) {
                     }
                     var match$3 = _handleInsertedAsRootNode(treeDataList, [
                           pluginName,
-                          getExecFunc,
+                          getElementFunc,
                           pipelineData,
                           undefined,
                           undefined
@@ -427,7 +427,7 @@ function _buildTree(allSpecificPipelineRelatedData) {
                       return treeDataList$4;
                     } else {
                       return _add(treeDataList$4, TreeNode$Meta3dEngineCore.buildNode(pluginName, [
-                                      getExecFunc,
+                                      getElementFunc,
                                       pipelineData,
                                       undefined
                                     ], /* [] */0), undefined);
@@ -470,11 +470,11 @@ function _mergeGroups(groups, insertGroups) {
   return insertGroups.concat(groups);
 }
 
-var _mergeGetExecFuncs = ListSt$Meta3dCommonlib.concat;
+var _mergeGetElementFuncs = ListSt$Meta3dCommonlib.concat;
 
 function _mergeToRootNode(tree) {
   return Result$Meta3dCommonlib.mapSuccess(IterateTree$Meta3dEngineCore.postOrderCataWithParentNode((function (parentNodeOpt, pluginName, nodeData) {
-                    var getExecFuncs = nodeData.getExecFuncs;
+                    var getElementFuncs = nodeData.getElementFuncs;
                     var pipelineData = nodeData.pipelineData;
                     var jobOrder = nodeData.jobOrder;
                     return function (children) {
@@ -493,17 +493,17 @@ function _mergeToRootNode(tree) {
                                                     groups: pipelineData.groups.concat(_insertElement(parentNodeData.pipelineData.groups, insertAction, insertElementName, insertElement)),
                                                     first_group: init.first_group
                                                   };
-                                                  parentNodeData.getExecFuncs = ListSt$Meta3dCommonlib.concat(parentNodeData.getExecFuncs, getExecFuncs);
+                                                  parentNodeData.getElementFuncs = ListSt$Meta3dCommonlib.concat(parentNodeData.getElementFuncs, getElementFuncs);
                                                   return node;
                                                 }));
                                   }));
                     };
                   }), tree, undefined, undefined), (function (tree) {
                 var match = TreeNode$Meta3dEngineCore.getNodeData(tree);
-                var getExecFuncs = match.getExecFuncs;
+                var getElementFuncs = match.getElementFuncs;
                 var pipelineData = match.pipelineData;
                 return [
-                        getExecFuncs,
+                        getElementFuncs,
                         pipelineData
                       ];
               }));
@@ -527,7 +527,7 @@ var MergePipelineData = {
   _buildFirstGroupElement: _buildFirstGroupElement,
   _insertElement: _insertElement,
   _mergeGroups: _mergeGroups,
-  _mergeGetExecFuncs: _mergeGetExecFuncs,
+  _mergeGetElementFuncs: _mergeGetElementFuncs,
   _mergeToRootNode: _mergeToRootNode,
   merge: merge
 };
@@ -538,13 +538,10 @@ function runPipeline(state, mostService, pipelineName) {
               }));
 }
 
-export {
-  ParsePipelineData ,
-  registerPlugin ,
-  unregisterPlugin ,
-  init ,
-  MergePipelineData ,
-  runPipeline ,
-  
-}
+exports.ParsePipelineData = ParsePipelineData;
+exports.registerPlugin = registerPlugin;
+exports.unregisterPlugin = unregisterPlugin;
+exports.init = init;
+exports.MergePipelineData = MergePipelineData;
+exports.runPipeline = runPipeline;
 /* No side effect */

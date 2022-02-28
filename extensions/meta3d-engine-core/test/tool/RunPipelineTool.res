@@ -2,6 +2,7 @@ open Sinon
 
 let _buildAPI = (sandbox): Meta3dType.Index.api => {
   {
+    registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
     getServiceExn: createEmptyStubWithJsObjSandbox(sandbox),
     setExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
     getExtensionStateExn: createEmptyStubWithJsObjSandbox(sandbox),

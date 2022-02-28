@@ -36,7 +36,7 @@ type state = {
   childrenMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, children>,
   gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
   gameObjectTransformMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    Meta3dEngineCoreProtocol.IGameObjectForJs.gameObject,
+    Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
     transform,
   >,
   dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,

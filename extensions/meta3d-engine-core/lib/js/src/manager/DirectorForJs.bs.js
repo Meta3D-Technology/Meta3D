@@ -4,10 +4,10 @@ var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Resu
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
-var WorkManager$Meta3dEngineCore = require("./work_manager/WorkManager.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
 var PluginDataManager$Meta3dEngineCore = require("./work_manager/plugin_data/PluginDataManager.bs.js");
+var WorkPluginManager$Meta3dEngineCore = require("./work_manager/WorkPluginManager.bs.js");
 
 function _convertJobOrders(jobOrders) {
   return ArraySt$Meta3dCommonlib.map(jobOrders, (function (jobOrder) {
@@ -21,20 +21,20 @@ function _convertJobOrders(jobOrders) {
 
 function registerWorkPlugin(state, contribute, jobOrdersOpt, param) {
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return WorkManager$Meta3dEngineCore.registerPlugin(state, contribute, _convertJobOrders(jobOrders));
+  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, _convertJobOrders(jobOrders));
 }
 
-var unregisterWorkPlugin = WorkManager$Meta3dEngineCore.unregisterPlugin;
+var unregisterWorkPlugin = WorkPluginManager$Meta3dEngineCore.unregisterPlugin;
 
 function prepare(param) {
   
 }
 
-var init = WorkManager$Meta3dEngineCore.init;
+var init = WorkPluginManager$Meta3dEngineCore.init;
 
 function runPipeline(param, state, meta3dState, pipelineName) {
   var mostService = param[0].getServiceExn(meta3dState, param[1].meta3dBsMostExtensionName);
-  return Result$Meta3dCommonlib.handleFail(WorkManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
+  return Result$Meta3dCommonlib.handleFail(WorkPluginManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 
 var getIsDebug = PluginDataManager$Meta3dEngineCore.getIsDebug;

@@ -1,6 +1,6 @@
 let registerEvent = (
   state: Meta3dEventProtocol.StateType.state,
-  eventContribute: Meta3dEventProtocol.IEvent.eventContribute<
+  eventContribute: Meta3dEventProtocol.EventContributeType.eventContribute<
     Meta3dEventProtocol.StateType.eventData,
   >,
 ) => {
@@ -24,7 +24,7 @@ let trigger = (
     meta3dState,
     eventExtensionName,
   )
-  let eventContribute: Meta3dEventProtocol.IEvent.eventContribute<
+  let eventContribute: Meta3dEventProtocol.EventContributeType.eventContribute<
     Meta3dEventProtocol.StateType.eventData,
   > =
     state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)

@@ -17,20 +17,20 @@ type ioData = {
 
 type state = {
   execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    IElement.elementName,
-    IElement.elementFunc,
+    ElementContributeType.elementName,
+    ElementContributeType.elementFunc,
   >,
-  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, elementState>,
-  isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, bool>,
-  isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<IElement.elementName, bool>,
+  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, elementState>,
+  isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, bool>,
+  isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, bool>,
   skinContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    ISkin.skinName,
-    ISkin.skinContribute<buttonStyle>,
+    SkinContributeType.skinName,
+    SkinContributeType.skinContribute<buttonStyle>,
   >,
   customControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    ICustomControl.customControlName,
-    ICustomControl.customControlContribute<inputData, outputData>,
+    CustomControlContributeType.customControlName,
+    CustomControlContributeType.customControlContribute<inputData, outputData>,
   >,
   ioData: option<ioData>,
-  reducers: array<IElement.reducerData<elementState, action>>,
+  reducers: array<ElementContributeType.reducerData<elementState, action>>,
 }
