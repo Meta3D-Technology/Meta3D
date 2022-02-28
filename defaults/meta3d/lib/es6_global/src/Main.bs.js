@@ -6,20 +6,20 @@ var prepare = ExtensionManager$Meta3d.prepare;
 
 var registerExtension = ExtensionManager$Meta3d.register;
 
-var getServiceExn = ExtensionManager$Meta3d.getServiceExn;
+var getExtensionService = ExtensionManager$Meta3d.getExtensionServiceExn;
 
 var setExtensionState = ExtensionManager$Meta3d.setExtensionState;
 
-var getExtensionStateExn = ExtensionManager$Meta3d.getExtensionStateExn;
+var getExtensionState = ExtensionManager$Meta3d.getExtensionStateExn;
 
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 export {
   prepare ,
   registerExtension ,
-  getServiceExn ,
+  getExtensionService ,
   setExtensionState ,
-  getExtensionStateExn ,
+  getExtensionState ,
   buildAPI ,
   
 }

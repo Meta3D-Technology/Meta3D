@@ -3,16 +3,16 @@ open Sinon
 let _buildAPI = (sandbox): Meta3dType.Index.api => {
   {
     registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
-    getServiceExn: createEmptyStubWithJsObjSandbox(sandbox),
+    getExtensionService: createEmptyStubWithJsObjSandbox(sandbox),
     setExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
-    getExtensionStateExn: createEmptyStubWithJsObjSandbox(sandbox),
+    getExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
   }
 }
 
 let buildFakeDataAndMeta3dState = sandbox => {
   let api = _buildAPI(sandbox)
 
-  api.getServiceExn
+  api.getExtensionService
   ->Obj.magic
   ->returns(Meta3dBsMost.Main.getExtensionService(Obj.magic(1), Obj.magic(1)), _)
   ->Obj.magic

@@ -9,7 +9,7 @@ export function registerExtension<extensionService, dependentExtensionNameMap, e
     extensionState: extensionState
 ): state
 
-export function getServiceExn<extensionService>(
+export function getExtensionService<extensionService>(
     state: state,
     extensionName: extensionName
 ): extensionService
@@ -20,7 +20,7 @@ export function setExtensionState<extensionState>(
     extensionState: extensionState
 ): state
 
-export function getExtensionStateExn<extensionState>(
+export function getExtensionState<extensionState>(
     state: state,
     extensionName: extensionName,
 ): extensionState

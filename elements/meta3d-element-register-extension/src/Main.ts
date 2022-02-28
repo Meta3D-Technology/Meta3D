@@ -18,9 +18,9 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
             text: "register extension",
         },
         elementFunc: (meta3dState, elementName) => {
-            let { getCustomControl, getElementState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+            let { getCustomControl, getElementState } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-            let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+            let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
             /*! TODO move elementName to VisualElement/Group, judge is state change there!
         	
@@ -51,7 +51,7 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
             let isClick = data[1]
 
             if (isClick) {
-                let { trigger } = api.getServiceExn<eventService>(meta3dState, meta3dEventExtensionName)
+                let { trigger } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
                 let fileStr = `!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define("ExtensionTest1",[],t):"object"==typeof exports?exports.ExtensionTest1=t():e.ExtensionTest1=t()}(self,(function(){return(()=>{"use strict";var e={d:(t,o)=>{for(var n in o)e.o(o,n)&&!e.o(t,n)&&Object.defineProperty(t,n,{enumerable:!0,get:o[n]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{getExtensionService:()=>o,createExtensionState:()=>n});let o=(e,t)=>({func1:()=>{console.log("func1")}}),n=()=>null;return t})()}));`
 

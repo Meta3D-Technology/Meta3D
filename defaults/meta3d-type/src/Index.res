@@ -20,8 +20,8 @@ type api = {
     'dependentExtensionNameMap,
     'extensionState,
   ) => state,
-  getServiceExn: 'extensionService. (. state, extensionName) => 'extensionService,
-  getExtensionStateExn: 'extensionState. (. state, extensionName) => 'extensionState,
+  getExtensionService: 'extensionService. (. state, extensionName) => 'extensionService,
+  getExtensionState: 'extensionState. (. state, extensionName) => 'extensionState,
   setExtensionState: 'extensionState. (. state, extensionName, 'extensionState) => state,
 }
 

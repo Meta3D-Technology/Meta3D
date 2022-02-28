@@ -127,10 +127,10 @@ let render = (
   let meta3dState = api.setExtensionState(.
     meta3dState,
     uiExtensionName,
-    api.getExtensionStateExn(. meta3dState, uiExtensionName)->_setIOData(ioData),
+    api.getExtensionState(. meta3dState, uiExtensionName)->_setIOData(ioData),
   )
 
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
     meta3dState,
     uiExtensionName,
   )
@@ -159,7 +159,7 @@ let render = (
     (meta3dState, []),
   )
   ->Meta3dCommonlib.PromiseSt.map(((meta3dState, needMarkStateNotChangeIds)) => {
-    let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+    let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
       meta3dState,
       uiExtensionName,
     )
@@ -283,7 +283,7 @@ let isStateChange = (
 //   (api: Meta3dType.Index.api, uiExtensionName),
 //   data: Meta3dUiProtocol.ServiceType.drawButtonData,
 // ) => {
-//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
 //     meta3dState,
 //     uiExtensionName,
 //   )
@@ -349,7 +349,7 @@ let drawBox = (
   rect: Meta3dUiProtocol.ServiceType.rect,
   backgroundColor: Meta3dUiProtocol.ServiceType.color,
 ) => {
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
     meta3dState,
     uiExtensionName,
   )
@@ -397,7 +397,7 @@ let drawText = (
   rect: Meta3dUiProtocol.ServiceType.rect,
   text: Meta3dUiProtocol.ServiceType.text,
 ) => {
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionStateExn(.
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
     meta3dState,
     uiExtensionName,
   )

@@ -10,7 +10,7 @@ function registerEvent(state, eventContribute) {
 }
 
 function trigger(api, meta3dState, eventExtensionName, eventName, eventData) {
-  var state = api.getExtensionStateExn(meta3dState, eventExtensionName);
+  var state = api.getExtensionState(meta3dState, eventExtensionName);
   var eventContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.eventContributeMap, eventName);
   return Curry._2(eventContribute.handler, meta3dState, eventData);
 }

@@ -20,7 +20,7 @@ let trigger = (
   eventName,
   eventData: Meta3dEventProtocol.StateType.eventData,
 ) => {
-  let state: Meta3dEventProtocol.StateType.state = api.getExtensionStateExn(.
+  let state: Meta3dEventProtocol.StateType.state = api.getExtensionState(.
     meta3dState,
     eventExtensionName,
   )

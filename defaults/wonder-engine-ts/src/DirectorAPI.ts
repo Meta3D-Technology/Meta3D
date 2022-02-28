@@ -1,5 +1,5 @@
 import { componentConfig } from "./Type";
-import { registerExtension, getExtensionStateExn, getServiceExn, setExtensionState } from "meta3d"
+import { registerExtension, getExtensionState, getExtensionService, setExtensionState } from "meta3d"
 import { state as meta3dState } from "meta3d-type"
 import { getExtensionService as getMostExtensionService, createExtensionState as createMostExtensionState } from "meta3d-bs-most"
 import { getExtensionService as getEngineCoreExtensionService, createExtensionState as createEngineCoreExtensionState } from "meta3d-engine-core"
@@ -67,12 +67,12 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
         )
 
 
-    let engineCoreState = getExtensionStateExn<engineCoreState>(
+    let engineCoreState = getExtensionState<engineCoreState>(
         meta3dState,
         engineCoreExtensionName,
     )
 
-    let { setIsDebug } = getServiceExn<engineCoreService>(
+    let { setIsDebug } = getExtensionService<engineCoreService>(
         meta3dState,
         engineCoreExtensionName
     )
@@ -80,14 +80,14 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
     engineCoreState = setIsDebug(engineCoreState, isDebug)
 
 
-    let registerDefaultWorkPluginsService = getServiceExn<registerDefaultWorkPluginsService>(
+    let registerDefaultWorkPluginsService = getExtensionService<registerDefaultWorkPluginsService>(
         meta3dState,
         _getMeta3DRegisterDefaultWorkPluginsExtensionName(),
     )
 
     engineCoreState = registerDefaultWorkPluginsService.register(engineCoreState, meta3dState)
 
-    let registerECSService = getServiceExn<registerECSService>(
+    let registerECSService = getExtensionService<registerECSService>(
         meta3dState,
         _getMeta3DRegisterECSExtensionName()
     )
@@ -108,17 +108,17 @@ export function init(meta3dState: meta3dState, engineCoreExtensionName: string):
     //  TODO use NullableUtils for type
     let tempMeta3dStata: meta3dState | null = null
 
-    let engineCoreState = getExtensionStateExn<engineCoreState>(
+    let engineCoreState = getExtensionState<engineCoreState>(
         meta3dState,
         engineCoreExtensionName,
     )
 
-    let { map } = getServiceExn<mostService>(
+    let { map } = getExtensionService<mostService>(
         meta3dState,
         _getMeta3DBsMostExtensionName()
     )
 
-    let { init, runPipeline } = getServiceExn<engineCoreService>(
+    let { init, runPipeline } = getExtensionService<engineCoreService>(
         meta3dState,
         engineCoreExtensionName
     )

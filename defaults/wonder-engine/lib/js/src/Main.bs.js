@@ -28,8 +28,8 @@ function prepare(param) {
   var state$1 = Main$Meta3d.registerExtension(Main$Meta3d.registerExtension(state, "meta3d-bs-most", Main$Meta3dBsMost.getExtensionService, undefined, Main$Meta3dBsMost.createExtensionState(undefined)), "meta3d-engine-core", Main$Meta3dEngineCore.getExtensionService, {
         meta3dBsMostExtensionName: "meta3d-bs-most"
       }, Main$Meta3dEngineCore.createExtensionState(undefined));
-  var engineCoreState = Main$Meta3d.getExtensionStateExn(state$1, "meta3d-engine-core");
-  var match = Main$Meta3d.getServiceExn(state$1, "meta3d-engine-core");
+  var engineCoreState = Main$Meta3d.getExtensionState(state$1, "meta3d-engine-core");
+  var match = Main$Meta3d.getExtensionService(state$1, "meta3d-engine-core");
   var engineCoreState$1 = Curry._3(match.createAndSetComponentState, Curry._2(match.registerComponent, engineCoreState, Main$Meta3dComponentTransform.getComponentContribute(undefined)), Index$Meta3dComponentTransformProtocol.componentName, {
         isDebug: param.isDebug,
         float9Array1: param.float9Array1,
@@ -37,14 +37,14 @@ function prepare(param) {
         transformCount: param.transformCount
       });
   var engineCoreState$2 = Curry._1(match.createAndSetGameObjectState, Curry._2(match.setGameObjectContribute, engineCoreState$1, Main$Meta3dGameobjectDataoriented.getGameObjectContribute(undefined)));
-  var engineCoreState$3 = Curry._4(match.registerWorkPlugin, engineCoreState$2, Main$Meta3dWorkPluginRoot.getWorkPluginContribute(Main$Meta3d.getServiceExn(state$1, "meta3d-bs-most")), undefined, undefined);
+  var engineCoreState$3 = Curry._4(match.registerWorkPlugin, engineCoreState$2, Main$Meta3dWorkPluginRoot.getWorkPluginContribute(Main$Meta3d.getExtensionService(state$1, "meta3d-bs-most")), undefined, undefined);
   return Main$Meta3d.setExtensionState(state$1, "meta3d-engine-core", engineCoreState$3);
 }
 
 function init(state) {
-  var match = Main$Meta3d.getServiceExn(state, "meta3d-bs-most");
-  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
-  var match$1 = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getExtensionService(state, "meta3d-bs-most");
+  var engineCoreState = Main$Meta3d.getExtensionState(state, "meta3d-engine-core");
+  var match$1 = Main$Meta3d.getExtensionService(state, "meta3d-engine-core");
   var __x = Curry._3(match$1.runPipeline, Curry._1(match$1.init, engineCoreState), state, "init");
   return Curry._2(match.map, (function (engineCoreState) {
                 return Main$Meta3d.setExtensionState(state, "meta3d-engine-core", engineCoreState);
@@ -52,8 +52,8 @@ function init(state) {
 }
 
 function create(state) {
-  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
-  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var engineCoreState = Main$Meta3d.getExtensionState(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getExtensionService(state, "meta3d-engine-core");
   var contribute = Curry._2(match.unsafeGetUsedComponentContribute, engineCoreState, Index$Meta3dComponentTransformProtocol.componentName);
   var match$1 = Curry._1(match.createComponent, contribute);
   var engineCoreState$1 = Curry._3(match.setUsedComponentContribute, engineCoreState, match$1[0], Index$Meta3dComponentTransformProtocol.componentName);
@@ -68,8 +68,8 @@ var TransformAPI = {
 };
 
 function create$1(state) {
-  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
-  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var engineCoreState = Main$Meta3d.getExtensionState(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getExtensionService(state, "meta3d-engine-core");
   var match$1 = Curry._1(match.createGameObject, engineCoreState);
   return [
           Main$Meta3d.setExtensionState(state, "meta3d-engine-core", match$1[0]),
@@ -78,8 +78,8 @@ function create$1(state) {
 }
 
 function getAllGameObjects(state) {
-  var engineCoreState = Main$Meta3d.getExtensionStateExn(state, "meta3d-engine-core");
-  var match = Main$Meta3d.getServiceExn(state, "meta3d-engine-core");
+  var engineCoreState = Main$Meta3d.getExtensionState(state, "meta3d-engine-core");
+  var match = Main$Meta3d.getExtensionService(state, "meta3d-engine-core");
   return Curry._1(match.getAllGameObjects, engineCoreState);
 }
 

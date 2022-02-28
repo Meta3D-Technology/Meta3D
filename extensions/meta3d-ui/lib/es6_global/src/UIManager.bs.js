@@ -127,8 +127,8 @@ function _setIOData(state, ioData) {
 }
 
 function render(api, meta3dState, uiExtensionName, ioData) {
-  var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionName, _setIOData(api.getExtensionStateExn(meta3dState, uiExtensionName), ioData));
-  var state = api.getExtensionStateExn(meta3dState$1, uiExtensionName);
+  var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionName, _setIOData(api.getExtensionState(meta3dState, uiExtensionName), ioData));
+  var state = api.getExtensionState(meta3dState$1, uiExtensionName);
   var execFuncMap = state.execFuncMap;
   return PromiseSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.traverseReducePromiseM(ImmutableHashMap$Meta3dCommonlib.entries(state.isShowMap), (function (param, param$1) {
                     var needMarkStateNotChangeIds = param[1];
@@ -152,7 +152,7 @@ function render(api, meta3dState, uiExtensionName, ioData) {
                   []
                 ]), (function (param) {
                 var meta3dState = param[0];
-                var state = api.getExtensionStateExn(meta3dState, uiExtensionName);
+                var state = api.getExtensionState(meta3dState, uiExtensionName);
                 var state$1 = _markAllStateNotChange(state, param[1]);
                 return api.setExtensionState(meta3dState, uiExtensionName, state$1);
               }));
@@ -242,7 +242,7 @@ var _renderBox = (function(backgroundColor, {x,y,width,height}) {
 });
 
 function drawBox(meta3dState, param, rect, backgroundColor) {
-  param[0].getExtensionStateExn(meta3dState, param[1]);
+  param[0].getExtensionState(meta3dState, param[1]);
   _clearBox(rect);
   _renderBox(backgroundColor, rect);
   return meta3dState;
@@ -276,7 +276,7 @@ var _renderText = (function(text, {x,y,width,height}) {
 });
 
 function drawText(meta3dState, param, rect, text) {
-  param[0].getExtensionStateExn(meta3dState, param[1]);
+  param[0].getExtensionState(meta3dState, param[1]);
   _clearText(rect);
   _renderText(text, rect);
   return meta3dState;

@@ -3,7 +3,7 @@
 var Curry = require("rescript/lib/js/curry.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
-function getServiceExn(state, name) {
+function getExtensionServiceExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
 }
 
@@ -28,10 +28,10 @@ function register(state, name, getServiceFunc, dependentExtensionNameMap, extens
 function buildAPI(param) {
   return {
           registerExtension: register,
-          getServiceExn: (function (state, name) {
+          getExtensionService: (function (state, name) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
             }),
-          getExtensionStateExn: (function (state, name) {
+          getExtensionState: (function (state, name) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
             }),
           setExtensionState: setExtensionState
@@ -45,7 +45,7 @@ function prepare(param) {
         };
 }
 
-exports.getServiceExn = getServiceExn;
+exports.getExtensionServiceExn = getExtensionServiceExn;
 exports.setExtensionState = setExtensionState;
 exports.getExtensionStateExn = getExtensionStateExn;
 exports.register = register;

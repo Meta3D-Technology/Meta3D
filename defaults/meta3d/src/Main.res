@@ -2,10 +2,10 @@ let prepare = ExtensionManager.prepare
 
 let registerExtension = ExtensionManager.register
 
-let getServiceExn = ExtensionManager.getServiceExn
+let getExtensionService = ExtensionManager.getExtensionServiceExn
 
 let setExtensionState = ExtensionManager.setExtensionState
 
-let getExtensionStateExn = ExtensionManager.getExtensionStateExn
+let getExtensionState = ExtensionManager.getExtensionStateExn
 
 let buildAPI = ExtensionManager.buildAPI

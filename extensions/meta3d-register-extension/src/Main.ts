@@ -32,16 +32,16 @@ export let getExtensionService: getExtensionServiceMeta3d<
 
 	return {
 		register: (meta3dState) => {
-			let { registerElement, combineReducers } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+			let { registerElement, combineReducers } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-			let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+			let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
 
 
 
 
 			// TODO move out to another extension
-			let { registerSkin, registerCustomControl } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+			let { registerSkin, registerCustomControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 			uiState = registerSkin(uiState, getDefaultSkinContribute())
 			uiState = registerCustomControl(uiState, getButtonCustomControlContribute(defaultSkinName))
@@ -69,9 +69,9 @@ export let getExtensionService: getExtensionServiceMeta3d<
 
 
 
-			let { registerEvent } = api.getServiceExn<eventService>(meta3dState, meta3dEventExtensionName)
+			let { registerEvent } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
-			let eventState = api.getExtensionStateExn<eventState>(meta3dState, meta3dEventExtensionName)
+			let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionName)
 
 
 			eventState = registerEvent<registerExtensionSubmitEventData>(eventState, getRegisterExtensionSubmitEventContribute(api, { meta3dUIExtensionName })

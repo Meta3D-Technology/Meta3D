@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
-import { prepare as prepareMeta3d, registerExtension, getServiceExn, getExtensionStateExn, setExtensionState } from "meta3d"
+import { prepare as prepareMeta3d, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
 import { getExtensionService as getUIExtensionService, createExtensionState as createUIExtensionState } from "meta3d-ui"
 import { getExtensionService as getEventExtensionService, createExtensionState as createEventExtensionState } from "meta3d-event"
 import { getExtensionService as getRegisterExtensionExtensionService, createExtensionState as createRegisterExtensionExtensionState } from "meta3d-register-extension"
@@ -67,9 +67,9 @@ function _initEditScene(meta3dState: meta3dState) {
     canvas.style.height = canvas.height + " px";
 
 
-    let engineCoreState = getExtensionStateExn<engineCoreState>(meta3dState, _getEditSceneEngineCoreExtensionName())
+    let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEditSceneEngineCoreExtensionName())
 
-    engineCoreState = _createScene(engineCoreState, getServiceExn(meta3dState, _getEditSceneEngineCoreExtensionName()))
+    engineCoreState = _createScene(engineCoreState, getExtensionService(meta3dState, _getEditSceneEngineCoreExtensionName()))
 
 
     meta3dState = setExtensionState(meta3dState, _getEditSceneEngineCoreExtensionName(), engineCoreState)
@@ -133,13 +133,13 @@ export function init() {
         )
 
 
-    let { register } = getServiceExn<registerExtensionService>(meta3dState, _getMeta3DRegisterExtensionExtensionName())
+    let { register } = getExtensionService<registerExtensionService>(meta3dState, _getMeta3DRegisterExtensionExtensionName())
 
     return register(meta3dState).then(_initEditScene)
 }
 
 export function loop(meta3dState: meta3dState) {
-    let { render } = getServiceExn<uiService>(meta3dState, _getMeta3DUIExtensionName())
+    let { render } = getExtensionService<uiService>(meta3dState, _getMeta3DUIExtensionName())
 
     render(meta3dState, _getMeta3DUIExtensionName(), _ioData).then((meta3dState: meta3dState) => {
         requestAnimationFrame(

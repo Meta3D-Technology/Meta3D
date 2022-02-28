@@ -15,9 +15,9 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
             extensionDataArr: []
         },
         elementFunc: (meta3dState, elementName) => {
-            let { getCustomControl, getElementState } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+            let { getCustomControl, getElementState } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-            let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+            let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
 
             /*! TODO move elementName to VisualElement/Group, judge is state change there!
@@ -53,7 +53,7 @@ export let getElementContribute: getElementContributeMeta3d<dependentExtensionNa
                 let isClick = data[1]
 
                 if (isClick) {
-                    let { trigger } = api.getServiceExn<eventService>(meta3dState, meta3dEventExtensionName)
+                    let { trigger } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
                     return trigger<eventData>(meta3dState, meta3dEventExtensionName, eventName, {
                         extensionName: extensionName,

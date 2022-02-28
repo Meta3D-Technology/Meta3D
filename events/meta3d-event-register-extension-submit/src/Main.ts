@@ -12,16 +12,16 @@ export let getEventContribute: getEventContributeMeta3d<dependentExtensionNameMa
         handler: (meta3dState, { extensionName, dependentExtensionNameMap, getExtensionServiceFunc, createExtensionStateFunc }) => {
             meta3dState = api.registerExtension(meta3dState, extensionName, getExtensionServiceFunc, dependentExtensionNameMap, createExtensionStateFunc())
 
-            let { func1 } = api.getServiceExn<test1Service>(meta3dState, extensionName)
+            let { func1 } = api.getExtensionService<test1Service>(meta3dState, extensionName)
 
             func1()
 
 
 
 
-            let { dispatch } = api.getServiceExn<uiService>(meta3dState, meta3dUIExtensionName)
+            let { dispatch } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-            let uiState = api.getExtensionStateExn<uiState>(meta3dState, meta3dUIExtensionName)
+            let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
             uiState = dispatch(uiState, registerExtension(extensionName))
 

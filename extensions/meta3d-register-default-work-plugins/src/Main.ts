@@ -12,8 +12,8 @@ export let getExtensionService: getExtensionServiceMeta3d<
 > = (api, { meta3dEngineCoreExtensionName, meta3dBsMostExtensionName }) => {
 	return {
 		register: (engineCoreState, meta3dState) => {
-			let { registerWorkPlugin } = api.getServiceExn<meta3dEngineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
-			let meta3dMostService: meta3dMostService = api.getServiceExn(meta3dState, meta3dBsMostExtensionName)
+			let { registerWorkPlugin } = api.getExtensionService<meta3dEngineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
+			let meta3dMostService: meta3dMostService = api.getExtensionService(meta3dState, meta3dBsMostExtensionName)
 
 			engineCoreState =
 				registerWorkPlugin(

@@ -3,7 +3,7 @@
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function getServiceExn(state, name) {
+function getExtensionServiceExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
 }
 
@@ -28,10 +28,10 @@ function register(state, name, getServiceFunc, dependentExtensionNameMap, extens
 function buildAPI(param) {
   return {
           registerExtension: register,
-          getServiceExn: (function (state, name) {
+          getExtensionService: (function (state, name) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
             }),
-          getExtensionStateExn: (function (state, name) {
+          getExtensionState: (function (state, name) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
             }),
           setExtensionState: setExtensionState
@@ -46,7 +46,7 @@ function prepare(param) {
 }
 
 export {
-  getServiceExn ,
+  getExtensionServiceExn ,
   setExtensionState ,
   getExtensionStateExn ,
   register ,

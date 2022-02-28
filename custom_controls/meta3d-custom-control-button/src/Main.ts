@@ -13,8 +13,8 @@ export let getCustomControlContribute: getCustomControlContributeMeta3d<inputDat
                 text
             }
         ) => {
-            let { getSkin, drawBox, drawText, getIOData } = api.getServiceExn<service>(meta3dState, uiExtensionName)
-            let state = api.getExtensionStateExn<state>(meta3dState, uiExtensionName)
+            let { getSkin, drawBox, drawText, getIOData } = api.getExtensionService<service>(meta3dState, uiExtensionName)
+            let state = api.getExtensionState<state>(meta3dState, uiExtensionName)
 
             let { x, y, width, height } = rect
 

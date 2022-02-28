@@ -413,7 +413,7 @@ custom control: button
 ** DONE pass run test
 
 
-** TODO refactor: rename getServiceExn to getExtensionService, getExtensionStateExn to getExtensionState 
+** DONE refactor: rename getExtensionService to getExtensionService, getExtensionState to getExtensionState 
 
 ** TODO finish user side
 

@@ -31,7 +31,7 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
     )
 
   // TODO move to extension
-  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionState(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
@@ -41,7 +41,7 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
     createAndSetComponentState,
     setGameObjectContribute,
     createAndSetGameObjectState,
-  }: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+  }: Meta3dEngineCoreProtocol.ServiceType.service = getExtensionService(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
@@ -71,7 +71,7 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
   let engineCoreState = registerWorkPlugin(
     ~state=engineCoreState,
     ~contribute=Meta3dWorkPluginRoot.Main.getWorkPluginContribute(
-      getServiceExn(state, _getMeta3DBsMostExtensionName()),
+      getExtensionService(state, _getMeta3DBsMostExtensionName()),
     )->Obj.magic,
     (),
   )
@@ -81,15 +81,15 @@ let prepare = ({isDebug, float9Array1, float32Array1, transformCount}: Type.comp
 
 let init = state => {
   // TODO move to extension
-  let {map}: Meta3dBsMostProtocol.ServiceType.service = getServiceExn(
+  let {map}: Meta3dBsMostProtocol.ServiceType.service = getExtensionService(
     state,
     _getMeta3DBsMostExtensionName(),
   )
-  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+  let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionState(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
-  let {init, runPipeline}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+  let {init, runPipeline}: Meta3dEngineCoreProtocol.ServiceType.service = getExtensionService(
     state,
     _getMeta3DEngineCoreExtensionName(),
   )
@@ -101,7 +101,7 @@ let init = state => {
 
 module TransformAPI = {
   let create = state => {
-    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionState(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
@@ -109,7 +109,7 @@ module TransformAPI = {
       unsafeGetUsedComponentContribute,
       createComponent,
       setUsedComponentContribute,
-    }: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+    }: Meta3dEngineCoreProtocol.ServiceType.service = getExtensionService(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
@@ -136,11 +136,11 @@ module TransformAPI = {
 
 module GameObjectAPI = {
   let create = state => {
-    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionState(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
-    let {createGameObject}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+    let {createGameObject}: Meta3dEngineCoreProtocol.ServiceType.service = getExtensionService(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
@@ -154,11 +154,11 @@ module GameObjectAPI = {
   }
 
   let getAllGameObjects = state => {
-    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionStateExn(
+    let engineCoreState: Meta3dEngineCoreProtocol.StateType.state = getExtensionState(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
-    let {getAllGameObjects}: Meta3dEngineCoreProtocol.ServiceType.service = getServiceExn(
+    let {getAllGameObjects}: Meta3dEngineCoreProtocol.ServiceType.service = getExtensionService(
       state,
       _getMeta3DEngineCoreExtensionName(),
     )
