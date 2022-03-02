@@ -457,7 +457,7 @@ publish
 
   other to transform
 
-** TODO  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
+** DONE  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
 
 * TODO update engine
 
