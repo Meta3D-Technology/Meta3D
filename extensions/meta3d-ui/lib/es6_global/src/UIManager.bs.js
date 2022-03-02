@@ -8,8 +8,8 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 
 function hide(state, elementName) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, false),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -21,8 +21,8 @@ function hide(state, elementName) {
 
 function show(state, elementName) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, true),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -34,8 +34,8 @@ function show(state, elementName) {
 
 function _markStateChange(state, elementName) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, true),
           skinContributeMap: state.skinContributeMap,
@@ -47,8 +47,8 @@ function _markStateChange(state, elementName) {
 
 function _markStateNotChange(state, elementName) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, false),
           skinContributeMap: state.skinContributeMap,
@@ -64,8 +64,8 @@ function _markAllStateNotChange(state, needMarkStateNotChangeIds) {
 
 function combineReducers(state, reducerData) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -76,17 +76,17 @@ function combineReducers(state, reducerData) {
 }
 
 function _getElementStateExn(param, elementName) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(param.execStateMap, elementName);
+  return ImmutableHashMap$Meta3dCommonlib.getExn(param.elementStateMap, elementName);
 }
 
 function getElementState(param, elementName) {
-  return ImmutableHashMap$Meta3dCommonlib.getNullable(param.execStateMap, elementName);
+  return ImmutableHashMap$Meta3dCommonlib.getNullable(param.elementStateMap, elementName);
 }
 
 function _setElementState(state, elementName, elementState) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.execStateMap, elementName, elementState),
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.elementStateMap, elementName, elementState),
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -115,8 +115,8 @@ function getIODataExn(param) {
 
 function _setIOData(state, ioData) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -129,7 +129,7 @@ function _setIOData(state, ioData) {
 function render(api, meta3dState, uiExtensionName, ioData) {
   var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionName, _setIOData(api.getExtensionState(meta3dState, uiExtensionName), ioData));
   var state = api.getExtensionState(meta3dState$1, uiExtensionName);
-  var execFuncMap = state.execFuncMap;
+  var elementFuncMap = state.elementFuncMap;
   return PromiseSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.traverseReducePromiseM(ImmutableHashMap$Meta3dCommonlib.entries(state.isShowMap), (function (param, param$1) {
                     var needMarkStateNotChangeIds = param[1];
                     var meta3dState = param[0];
@@ -140,7 +140,7 @@ function render(api, meta3dState, uiExtensionName, ioData) {
                                 ]);
                     }
                     var elementName = param$1[0];
-                    var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(execFuncMap, elementName);
+                    var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(elementFuncMap, elementName);
                     return PromiseSt$Meta3dCommonlib.map(Curry._2(elementFunc, meta3dState, elementName), (function (meta3dState) {
                                   return [
                                           meta3dState,
@@ -160,8 +160,8 @@ function render(api, meta3dState, uiExtensionName, ioData) {
 
 function _setElementFunc(state, elementName, elementFunc) {
   return {
-          execFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.execFuncMap, elementName, elementFunc),
-          execStateMap: state.execStateMap,
+          elementFuncMap: ImmutableHashMap$Meta3dCommonlib.set(state.elementFuncMap, elementName, elementFunc),
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
@@ -178,8 +178,8 @@ function registerElement(state, param) {
 
 function registerSkin(state, skinContribute) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
@@ -191,8 +191,8 @@ function registerSkin(state, skinContribute) {
 
 function registerCustomControl(state, customControlContribute) {
   return {
-          execFuncMap: state.execFuncMap,
-          execStateMap: state.execStateMap,
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,

@@ -61,17 +61,17 @@ let combineReducers = (state: Meta3dUiProtocol.StateType.state, reducerData) => 
 }
 
 let _getElementStateExn = (
-  {execStateMap}: Meta3dUiProtocol.StateType.state,
+  {elementStateMap}: Meta3dUiProtocol.StateType.state,
   elementName: Meta3dUiProtocol.ElementContributeType.elementName,
 ) => {
-  execStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
+  elementStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 
 let getElementState = (
-  {execStateMap}: Meta3dUiProtocol.StateType.state,
+  {elementStateMap}: Meta3dUiProtocol.StateType.state,
   elementName: Meta3dUiProtocol.ElementContributeType.elementName,
 ) => {
-  execStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(elementName)
+  elementStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(elementName)
 }
 
 let _setElementState = (
@@ -81,7 +81,7 @@ let _setElementState = (
 ) => {
   {
     ...state,
-    execStateMap: state.execStateMap->Meta3dCommonlib.ImmutableHashMap.set(
+    elementStateMap: state.elementStateMap->Meta3dCommonlib.ImmutableHashMap.set(
       elementName,
       elementState,
     ),
@@ -135,7 +135,7 @@ let render = (
     uiExtensionName,
   )
 
-  let {isShowMap, isStateChangeMap, execFuncMap, execStateMap} = state
+  let {isShowMap, isStateChangeMap, elementFuncMap, elementStateMap} = state
 
   isShowMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
@@ -144,7 +144,7 @@ let render = (
       // isShow && _getStateChangeExn(state, elementName)
       isShow
         ? {
-            let elementFunc = execFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
+            let elementFunc = elementFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 
             /* !
               TODO should judge is state change in elementFunc:
@@ -177,7 +177,7 @@ let _setElementFunc = (
 ) => {
   {
     ...state,
-    execFuncMap: state.execFuncMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementFunc),
+    elementFuncMap: state.elementFuncMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementFunc),
   }
 }
 

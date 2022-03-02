@@ -434,6 +434,224 @@ publish
 
 
 
+* TODO add work-plugin-protocols
+
+* TODO refactor: change protocol->name to "Meta3DXxx"
+
+* TODO refactor: rename XxxMeta3d to XxxMeta3D
+
+
+
+
+* TODO refactor: refactor component
+
+** TODO refactor: refactor transform component and protocol
+
+ move :
+  StateType.state,
+  StateType.config,
+  DataType.dataName,
+  StateType.transform,
+
+  to protocol
+
+  other to transform
+
+** TODO  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
+
+* TODO update engine
+
+** TODO component support dispose
+
+** TODO component support clone
+
+
+** TODO add all components(include worker)
+
+need refactor, add dispose and clone!
+
+
+
+** TODO add MeshRender component
+
+
+
+* TODO update engine
+
+** TODO finish sxengine's work without arcball, outline and worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
+
+add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
+
+** TODO pass render run test:render cube
+
+
+** TODO refactor
+
+
+*** TODO use pipe, curry
+
+*** TODO use NullableUtils for type
+
+
+** TODO finish sxengine
+
+finish actual engine code(like sxengine's code)
+
+
+
+** TODO finish abstract worker
+
+
+** TODO finish sxengine implement
+
+finish actual engine code(like sxengine's code)
+
+
+
+** TODO add arcball abstract
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+** TODO sxengine add dispose job for no worker and worker
+
+
+
+
+
+
+** TODO add or update bdd test
+
+95% coverage
+
+*** TODO for meta3d(only test engine code except editor code)
+
+
+*** TODO for sxengine
+
+
+
+
+* TODO publish
+
+** TODO add coverage
+
+** TODO add ci->build, ci->test
+
+** TODO publish
+
+
+
+
+
+
+# * TODO update editor
+
+# ** TODO add scene tree header
+
+# *** TODO add dispose gameObject button
+
+# *** TODO add clone gameObject button
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO extract shader extension for webgl
+
+*** TODO shader system
+
+*** TODO glsl builder??? or just use directly fixed glsl?
+
+# ** TODO add custom material component
+
+
+# * TODO update editor
+
+# ** TODO support load custom material asset
+
+
+
+* TODO publish
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+
+** TODO finish pbr material shader
+
+# * TODO update editor
+
+# ** TODO add texture
+
+# add texture asset;
+# material asset add texture;
+
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO add abstract load gltf/glb model without assetbundle, streamload 
+
+** TODO add implement load gltf/glb model without assetbundle, streamload
+
+
+
+# * TODO update editor
+
+# ** TODO add gltf/glb asset
+
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO performance optimize
+
+set pixel ratio!
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO publish to sx to make they use!
+
+@wy
+
+
+
+
+
+
+
 
 * TODO update editor
 
@@ -444,31 +662,18 @@ publish
 
 .meta3d = multi .mex
 
-name, service func str, state
+meta data + mex data(name, service func str, state)
 
-** TODO add export, import abstract extension
+** TODO add package extension
+
+** TODO add handle package extension
+download, load
 
 ** TODO update show extensions: show all registered extensions from .meta3d
 
 *** TODO update show extension name
 
 *** TODO when click one extension, log its name, service func, initial state
-
-
-* TODO update engine
-
-** TODO add redo-undo
-
-** TODO pass run test
-
-* TODO update editor
-
-** TODO update engine
-
-** TODO add redo-undo
-
-** TODO add multi-user-edit
-
 
 
 ** TODO add menu
@@ -479,13 +684,11 @@ add table data: first items, second items
 *** TODO finish menu
 
 
-*** TODO move register extension, redo-undo, multi-user-edit, export/import to menu
+# *** TODO move register extension, redo-undo, multi-user-edit, export/import to menu
+*** TODO move register extension, export/import to menu
 
 
-
-
-* TODO publish
-
+remove meta3d-handle-package
 
 
 * TODO update engine
@@ -517,12 +720,7 @@ only has gameObject, transform, pbrMaterial, geometry component
 * TODO update editor
 
 
-
 * TODO publish
-
-
-
-
 
 
 
@@ -543,6 +741,36 @@ add run scene
 
 
 * TODO publish
+
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add redo-undo
+
+** TODO pass run test
+
+* TODO update editor
+
+** TODO update engine
+
+** TODO add redo-undo
+
+** TODO add multi-user-edit
+
+
+* TODO publish
+
+
+
 
 
 
@@ -636,51 +864,6 @@ add InitEventJob
 
 
 
-
-* TODO update engine
-
-** TODO finish sxengine's work without arcball, outline and worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
-
-add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
-
-
-** TODO refactor
-
-
-*** TODO use pipe, curry
-
-*** TODO use NullableUtils for type
-
-
-** TODO finish wonder-engine
-
-finish actual engine code(like sxengine's code)
-
-
-
-* TODO publish
-
-
-
-
-
-
-* TODO update engine
-
-** TODO component support dispose
-
-** TODO component support clone
-
-* TODO update editor
-
-** TODO add scene tree header
-
-*** TODO add dispose gameObject button
-
-*** TODO add clone gameObject button
-
-
-* TODO publish
 
 
 

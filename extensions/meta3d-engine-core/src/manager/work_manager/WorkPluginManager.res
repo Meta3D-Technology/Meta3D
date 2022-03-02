@@ -40,22 +40,22 @@ module ParsePipelineData = {
 
   let _buildJobStream = (
     {just, flatMap, map}: Meta3dBsMostProtocol.ServiceType.service,
-    elementFunc,
+    execFunc,
   ): Meta3dBsMostProtocol.StreamType.stream<unit> => {
-    elementFunc->just->flatMap(func => func(_getStates()), _)->map(_setStates, _)
+    execFunc->just->flatMap(func => func(_getStates()), _)->map(_setStates, _)
   }
 
-  let rec _getElementFunc = (
-    getElementFuncs: Meta3dEngineCoreProtocol.WorkPluginManagerType.getElementFuncs,
+  let rec _getExecFunc = (
+    getExecFuncs: Meta3dEngineCoreProtocol.WorkPluginManagerType.getExecFuncs,
     pipelineName,
     jobName,
-  ): Meta3dEngineCoreProtocol.WorkPluginManagerType.elementFunc => {
-    getElementFuncs->Meta3dCommonlib.ListSt.length === 0
+  ): Meta3dEngineCoreProtocol.WorkPluginManagerType.execFunc => {
+    getExecFuncs->Meta3dCommonlib.ListSt.length === 0
       ? Meta3dCommonlib.Exception.throwErr(
           Meta3dCommonlib.Exception.buildErr(
             Meta3dCommonlib.Log.buildFatalMessage(
-              ~title="_getElementFunc",
-              ~description=j`can't get elementFunc with pipelineName:${pipelineName}, jobName:${jobName}`,
+              ~title="_getExecFunc",
+              ~description=j`can't get execFunc with pipelineName:${pipelineName}, jobName:${jobName}`,
               ~reason="",
               ~solution=j``,
               ~params=j``,
@@ -63,19 +63,19 @@ module ParsePipelineData = {
           ),
         )
       : {
-          let list{headGetElementFunc, ...remainGetElementFuncs} = getElementFuncs
+          let list{headGetElementFunc, ...remainGetElementFuncs} = getExecFuncs
 
           let result = headGetElementFunc(pipelineName, jobName)
 
           result->Js.Nullable.isNullable
-            ? _getElementFunc(remainGetElementFuncs, pipelineName, jobName)
+            ? _getExecFunc(remainGetElementFuncs, pipelineName, jobName)
             : result->Meta3dCommonlib.OptionSt.fromNullable->Meta3dCommonlib.OptionSt.getExn
         }
   }
 
   let _buildJobStreams = (
     mostService: Meta3dBsMostProtocol.ServiceType.service,
-    (buildPipelineStreamFunc, getElementFuncs),
+    (buildPipelineStreamFunc, getExecFuncs),
     (pipelineName, elements),
     groups,
   ) =>
@@ -84,26 +84,26 @@ module ParsePipelineData = {
     ->Meta3dCommonlib.ListSt.reduce(list{}, (streams, {name, type_}: element) =>
       switch type_ {
       | #job =>
-        let elementFunc = _getElementFunc(getElementFuncs, pipelineName, name)
+        let execFunc = _getExecFunc(getExecFuncs, pipelineName, name)
 
-        streams->Meta3dCommonlib.ListSt.push(_buildJobStream(mostService, elementFunc))
+        streams->Meta3dCommonlib.ListSt.push(_buildJobStream(mostService, execFunc))
       | #group =>
         let group = _findGroup(name, groups)
-        let stream = buildPipelineStreamFunc(mostService, getElementFuncs, pipelineName, group, groups)
+        let stream = buildPipelineStreamFunc(mostService, getExecFuncs, pipelineName, group, groups)
         streams->Meta3dCommonlib.ListSt.push(stream)
       }
     )
 
   let rec _buildPipelineStream = (
     mostService: Meta3dBsMostProtocol.ServiceType.service,
-    getElementFuncs,
+    getExecFuncs,
     pipelineName,
     {name, link, elements},
     groups,
   ) => {
     let streams = _buildJobStreams(
       mostService,
-      (_buildPipelineStream, getElementFuncs),
+      (_buildPipelineStream, getExecFuncs),
       (pipelineName, elements),
       groups,
     )
@@ -119,14 +119,14 @@ module ParsePipelineData = {
   let parse = (
     state,
     mostService: Meta3dBsMostProtocol.ServiceType.service,
-    getElementFuncs,
+    getExecFuncs,
     {name, groups, first_group},
   ): Meta3dBsMostProtocol.StreamType.stream<Meta3dEngineCoreProtocol.StateType.state> => {
     let group = _findGroup(first_group, groups)
 
     state->StateContainer.setState
 
-    _buildPipelineStream(mostService, getElementFuncs, name, group, groups)->mostService.map(
+    _buildPipelineStream(mostService, getExecFuncs, name, group, groups)->mostService.map(
       () => StateContainer.unsafeGetState(),
       _,
     )
@@ -153,8 +153,8 @@ let unregisterPlugin = (
 ): Meta3dEngineCoreProtocol.StateType.state => {
   ...state,
   allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.filter(
-    (({pluginName}, _)) => {
-      pluginName !== targetPluginName
+    (({workPluginName}, _)) => {
+      workPluginName !== targetPluginName
     },
   ),
 }
@@ -167,17 +167,17 @@ let init = (
       ...state,
       states: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.reduce(
         Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        (states, ({pluginName, initFunc, createStateFunc}, _)) => {
-          states->Meta3dCommonlib.ImmutableHashMap.set(pluginName, createStateFunc())
+        (states, ({workPluginName, initFunc, createStateFunc}, _)) => {
+          states->Meta3dCommonlib.ImmutableHashMap.set(workPluginName, createStateFunc())
         },
       ),
     },
-    ({states} as state, ({pluginName, initFunc}, _)) => {
+    ({states} as state, ({workPluginName, initFunc}, _)) => {
       state->StateContainer.setState
 
       initFunc(
         states
-        ->Meta3dCommonlib.ImmutableHashMap.get(pluginName)
+        ->Meta3dCommonlib.ImmutableHashMap.get(workPluginName)
         ->Meta3dCommonlib.OptionSt.unsafeGet,
       )
 
@@ -190,9 +190,9 @@ module MergePipelineData = {
   let _findInsertPluginName = (
     insertElementName,
     allRegisteredWorkPluginContribute: Meta3dEngineCoreProtocol.WorkPluginManagerType.allRegisteredWorkPluginContribute,
-  ): Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName> => {
+  ): Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.WorkPluginContributeType.workPluginName> => {
     allRegisteredWorkPluginContribute
-    ->Meta3dCommonlib.ListSt.find((({pluginName, allPipelineData}, _)) => {
+    ->Meta3dCommonlib.ListSt.find((({workPluginName, allPipelineData}, _)) => {
       let {groups} = allPipelineData[0]
 
       groups->Meta3dCommonlib.ArraySt.includesByFunc(({elements}) => {
@@ -201,7 +201,7 @@ module MergePipelineData = {
         })
       })
     })
-    ->Meta3dCommonlib.OptionSt.map((({pluginName}, _)) => pluginName)
+    ->Meta3dCommonlib.OptionSt.map((({workPluginName}, _)) => workPluginName)
     ->Meta3dCommonlib.OptionSt.get
   }
 
@@ -259,14 +259,14 @@ module MergePipelineData = {
     ->Meta3dCommonlib.Result.bind(allRegisteredWorkPluginContribute => {
       allRegisteredWorkPluginContribute
       ->Meta3dCommonlib.ListSt.map(((
-        {pluginName, getElementFunc, allPipelineData} as registeredWorkPluginContribute,
+        {workPluginName, getExecFunc, allPipelineData} as registeredWorkPluginContribute,
         jobOrders,
       )) => {
-        (pluginName, getElementFunc, allPipelineData[0], jobOrders->Meta3dCommonlib.ArraySt.getFirst)
+        (workPluginName, getExecFunc, allPipelineData[0], jobOrders->Meta3dCommonlib.ArraySt.getFirst)
       })
       ->Meta3dCommonlib.ListSt.traverseResultM(((
-        pluginName,
-        getElementFunc,
+        workPluginName,
+        getExecFunc,
         pipelineData,
         jobOrderOpt,
       )) => {
@@ -290,8 +290,8 @@ module MergePipelineData = {
           jobOrderOpt
         ): Meta3dEngineCoreProtocol.WorkPluginManagerType.specificPipelineRelatedData => {
           {
-            pluginName: pluginName,
-            getElementFunc: getElementFunc,
+            workPluginName: workPluginName,
+            getExecFunc: getExecFunc,
             pipelineData: pipelineData,
             jobOrder: jobOrderOpt,
           }
@@ -302,17 +302,17 @@ module MergePipelineData = {
 
   let _handleInsertedAsRootNode = (
     treeDataList,
-    (pluginName, getElementFunc, pipelineData, nodeJobOrderOpt, nodeInsertPluginNameOpt),
+    (workPluginName, getExecFunc, pipelineData, nodeJobOrderOpt, nodeInsertPluginNameOpt),
   ) => {
     treeDataList->Meta3dCommonlib.ListSt.reduce((list{}, None), (
       (newTreeDataList, insertedTreeOpt),
       (sameLevelTreeList, insertPluginNameOpt) as treeData,
     ) => {
       switch insertPluginNameOpt {
-      | Some(insertPluginName) if insertPluginName === pluginName =>
+      | Some(insertPluginName) if insertPluginName === workPluginName =>
         let insertedTree = TreeNode.buildNode(
-          pluginName,
-          (getElementFunc, pipelineData, nodeJobOrderOpt),
+          workPluginName,
+          (getExecFunc, pipelineData, nodeJobOrderOpt),
           sameLevelTreeList,
         )
 
@@ -443,14 +443,14 @@ module MergePipelineData = {
     allSpecificPipelineRelatedData
     ->Meta3dCommonlib.ListSt.reduce(list{}, (
       treeDataList,
-      {pluginName, getElementFunc, pipelineData, jobOrder},
+      {workPluginName, getExecFunc, pipelineData, jobOrder},
     ) => {
       switch jobOrder {
       | None =>
         let (treeDataList, insertedTreeOpt) =
           treeDataList->_handleInsertedAsRootNode((
-            pluginName,
-            getElementFunc,
+            workPluginName,
+            getExecFunc,
             pipelineData,
             None,
             None,
@@ -459,7 +459,7 @@ module MergePipelineData = {
         _isInserted(insertedTreeOpt)
           ? treeDataList
           : treeDataList->_add(
-              TreeNode.buildNode(pluginName, (getElementFunc, pipelineData, None), list{}),
+              TreeNode.buildNode(workPluginName, (getExecFunc, pipelineData, None), list{}),
               None,
             )
       | Some({insertPluginName, insertElementName, insertAction}) =>
@@ -472,8 +472,8 @@ module MergePipelineData = {
 
         let (treeDataList, insertedTreeOpt) =
           treeDataList->_handleInsertedAsRootNode((
-            pluginName,
-            getElementFunc,
+            workPluginName,
+            getExecFunc,
             pipelineData,
             nodeJobOrderOpt,
             insertPluginName->Some,
@@ -487,8 +487,8 @@ module MergePipelineData = {
           isInsertTo ? treeDataList->_removeInsertedTree(insertedTree) : treeDataList
         | None =>
           let node = TreeNode.buildNode(
-            pluginName,
-            (getElementFunc, pipelineData, nodeJobOrderOpt),
+            workPluginName,
+            (getExecFunc, pipelineData, nodeJobOrderOpt),
             list{},
           )
 
@@ -557,15 +557,15 @@ module MergePipelineData = {
   }
 
   let _mergeGetElementFuncs = (
-    getElementFuncs: Meta3dEngineCoreProtocol.WorkPluginManagerType.getElementFuncs,
+    getExecFuncs: Meta3dEngineCoreProtocol.WorkPluginManagerType.getExecFuncs,
     insertGetElementFuncs,
   ) => {
-    Meta3dCommonlib.ListSt.concat(getElementFuncs, insertGetElementFuncs)
+    Meta3dCommonlib.ListSt.concat(getExecFuncs, insertGetElementFuncs)
   }
 
   let _mergeToRootNode = (tree: Meta3dEngineCoreProtocol.TreeType.tree): Meta3dCommonlib.Result.t2<(
     list<
-      Meta3dEngineCoreProtocol.WorkPluginContributeType.getElementFunc<
+      Meta3dEngineCoreProtocol.WorkPluginContributeType.getExecFunc<
         Meta3dEngineCoreProtocol.RegisterWorkPluginType.states,
       >,
     >,
@@ -575,11 +575,11 @@ module MergePipelineData = {
       ~tree,
       ~nodeFunc=(
         parentNodeOpt,
-        pluginName,
-        {getElementFuncs, pipelineData, jobOrder} as nodeData,
+        workPluginName,
+        {getExecFuncs, pipelineData, jobOrder} as nodeData,
         children,
       ) => {
-        let node = TreeNode.buildNodeByNodeData(pluginName, nodeData, children)
+        let node = TreeNode.buildNodeByNodeData(workPluginName, nodeData, children)
 
         switch parentNodeOpt {
         | None => node->Meta3dCommonlib.Result.succeed
@@ -599,9 +599,9 @@ module MergePipelineData = {
                 ->_insertElement(insertAction, insertElementName, insertElement)
                 ->_mergeGroups(pipelineData.groups),
               }
-              parentNodeData.getElementFuncs = _mergeGetElementFuncs(
-                parentNodeData.getElementFuncs,
-                getElementFuncs,
+              parentNodeData.getExecFuncs = _mergeGetElementFuncs(
+                parentNodeData.getExecFuncs,
+                getExecFuncs,
               )
 
               node
@@ -611,9 +611,9 @@ module MergePipelineData = {
       },
       (),
     )->Meta3dCommonlib.Result.mapSuccess(tree => {
-      let {getElementFuncs, pipelineData} = TreeNode.getNodeData(tree)
+      let {getExecFuncs, pipelineData} = TreeNode.getNodeData(tree)
 
-      (getElementFuncs, pipelineData)
+      (getExecFuncs, pipelineData)
     })
   }
 
@@ -622,7 +622,7 @@ module MergePipelineData = {
     pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
   ): Meta3dCommonlib.Result.t2<(
     list<
-      Meta3dEngineCoreProtocol.WorkPluginContributeType.getElementFunc<
+      Meta3dEngineCoreProtocol.WorkPluginContributeType.getExecFunc<
         Meta3dEngineCoreProtocol.RegisterWorkPluginType.states,
       >,
     >,
@@ -646,7 +646,7 @@ let runPipeline = (
 
   allRegisteredWorkPluginContribute
   ->MergePipelineData.merge(pipelineName)
-  ->Meta3dCommonlib.Result.mapSuccess(((getElementFuncs, pipelineData)) => {
-    ParsePipelineData.parse(state, mostService, getElementFuncs, pipelineData)
+  ->Meta3dCommonlib.Result.mapSuccess(((getExecFuncs, pipelineData)) => {
+    ParsePipelineData.parse(state, mostService, getExecFuncs, pipelineData)
   })
 }

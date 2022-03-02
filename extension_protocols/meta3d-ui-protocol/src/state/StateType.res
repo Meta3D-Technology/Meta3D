@@ -16,11 +16,11 @@ type ioData = {
 }
 
 type state = {
-  execFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  elementFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ElementContributeType.elementName,
     ElementContributeType.elementFunc,
   >,
-  execStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, elementState>,
+  elementStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, elementState>,
   isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, bool>,
   isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, bool>,
   skinContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<

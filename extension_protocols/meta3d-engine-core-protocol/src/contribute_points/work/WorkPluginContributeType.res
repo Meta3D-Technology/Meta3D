@@ -4,10 +4,10 @@ type jobName = string
 type stream<'a> = Meta3dBsMostProtocol.StreamType.stream<'a>
 // type stream<'a> = Meta3dBsMostProtocol.StreamType.stream<'a>
 
-type elementFunc<'states> = 'states => stream<'states>
+type execFunc<'states> = 'states => stream<'states>
 
 // @genType
-type getElementFunc<'states> = (PipelineType.pipelineName, jobName) => Js.Nullable.t<elementFunc<'states>>
+type getExecFunc<'states> = (PipelineType.pipelineName, jobName) => Js.Nullable.t<execFunc<'states>>
 
 // @genType
 type pipelineData = PipelineType.pipelineData
@@ -18,16 +18,16 @@ type createStateFunc<'state> = unit => 'state
 // @genType
 type initFunc<'state> = 'state => unit
 
-type pluginName = string
+type workPluginName = string
 
 type allPipelineData = array<pipelineData>
 
 // @genType
 type workPluginContribute<'state, 'states> = {
-  pluginName: pluginName,
+  workPluginName: workPluginName,
   createStateFunc: createStateFunc<'state>,
   initFunc: initFunc<'state>,
-  getElementFunc: getElementFunc<'states>,
+  getExecFunc: getExecFunc<'states>,
   allPipelineData: allPipelineData,
 }
 

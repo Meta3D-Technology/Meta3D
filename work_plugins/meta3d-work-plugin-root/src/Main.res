@@ -1,8 +1,8 @@
-open Type
+open Meta3dWorkPluginRootProtocol.Index
 
-let _getElementFunc = (_pipelineName: string, jobName: string) => {
+let _getExecFunc = (_pipelineName: string, jobName: string) => {
   switch jobName {
-  | "init_root_meta3d" => InitJob.exec
+  | "init_root_meta3d" => InitJob.execFunc
   | _ => Js.Nullable.null->Obj.magic
   }
 }
@@ -17,12 +17,12 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.WorkPluginContributeType.g
   states,
 > = mostService => {
   {
-    pluginName: "meta3d-work-plugin-root",
+    workPluginName: workPluginName,
     createStateFunc: (): state => {
       mostService: mostService,
     },
     initFunc: _init,
-    getElementFunc: _getElementFunc->Obj.magic,
+    getExecFunc: _getExecFunc->Obj.magic,
     allPipelineData: [
       {
         name: "init",

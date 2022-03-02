@@ -14,13 +14,13 @@ function postOrderCata(nodeFunc, tree, param) {
 function postOrderCataWithParentNode(nodeFunc, tree, parentNodeOpt, param) {
   var parentNode = parentNodeOpt !== undefined ? Caml_option.valFromOption(parentNodeOpt) : undefined;
   var nodeData = tree._1;
-  var pluginName = tree._0;
+  var workPluginName = tree._0;
   return Result$Meta3dCommonlib.bind(ListSt$Meta3dCommonlib.traverseResultM(tree._2, (function (__x) {
                     var param = Caml_option.some(tree);
                     var param$1;
                     return postOrderCataWithParentNode(nodeFunc, __x, param, param$1);
                   })), (function (children) {
-                return Curry._4(nodeFunc, parentNode, pluginName, nodeData, children);
+                return Curry._4(nodeFunc, parentNode, workPluginName, nodeData, children);
               }));
 }
 

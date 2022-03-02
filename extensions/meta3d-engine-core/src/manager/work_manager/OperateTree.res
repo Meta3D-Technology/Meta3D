@@ -6,14 +6,14 @@ let insertNode = (tree, targetPluginName, node): (Meta3dEngineCoreProtocol.TreeT
   (
     IterateTree.postOrderCata(
       ~tree,
-      ~nodeFunc=(pluginName, nodeData, children) => {
-        pluginName === targetPluginName
+      ~nodeFunc=(workPluginName, nodeData, children) => {
+        workPluginName === targetPluginName
           ? {
               isInsert := true
 
-              TreeNode.buildNodeByNodeData(pluginName, nodeData, list{node, ...children})
+              TreeNode.buildNodeByNodeData(workPluginName, nodeData, list{node, ...children})
             }
-          : TreeNode.buildNodeByNodeData(pluginName, nodeData, children)
+          : TreeNode.buildNodeByNodeData(workPluginName, nodeData, children)
       },
       (),
     ),

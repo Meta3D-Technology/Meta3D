@@ -23,8 +23,8 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dUiProtocol.StateType.state,
 > = () => {
   {
-    execFuncMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    execStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    elementFuncMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    elementStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isShowMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

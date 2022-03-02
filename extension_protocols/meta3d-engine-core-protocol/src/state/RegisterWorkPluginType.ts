@@ -1,6 +1,6 @@
 import type { t as Meta3dCommonlibType_ImmutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/ImmutableHashMapType.gen';
 
-import type { pluginName as WorkPluginContributeType_pluginName } from '../../src/contribute_points/work/WorkPluginContributeType';
+import type { workPluginName as WorkPluginContributeType_pluginName } from '../../src/contribute_points/work/WorkPluginContributeType';
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name

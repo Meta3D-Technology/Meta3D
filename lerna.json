@@ -7,6 +7,7 @@
     "components/*",
     "component_protocols/*",
     "work_plugins/*",
+    "work_plugin_protocols/*",
     "skin_protocols/*",
     "custom_control_protocols/*",
     "skins/*",

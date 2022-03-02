@@ -9,7 +9,7 @@ type service = {
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,
-  unregisterWorkPlugin: (StateType.state, WorkPluginContributeType.pluginName) => StateType.state,
+  unregisterWorkPlugin: (StateType.state, WorkPluginContributeType.workPluginName) => StateType.state,
   registerComponent: (
     StateType.state,
     RegisterComponentType.componentContribute,

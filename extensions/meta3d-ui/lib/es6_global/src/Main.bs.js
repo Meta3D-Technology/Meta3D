@@ -27,8 +27,8 @@ function getExtensionService(api, param) {
 
 function createExtensionState(param) {
   return {
-          execFuncMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          execStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          elementFuncMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          elementStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isShowMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),

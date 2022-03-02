@@ -2,7 +2,7 @@
 // let rec firstOrderCata = (
 let rec postOrderCata = (
   ~nodeFunc: (
-    Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,
+    Meta3dEngineCoreProtocol.WorkPluginContributeType.workPluginName,
     Meta3dEngineCoreProtocol.TreeType.nodeData,
     list<Meta3dEngineCoreProtocol.TreeType.tree>,
   ) => Meta3dEngineCoreProtocol.TreeType.tree,
@@ -12,13 +12,13 @@ let rec postOrderCata = (
   let recurse = postOrderCata(~nodeFunc)
 
   switch tree {
-  | Node(pluginName, nodeData, children) =>
-    nodeFunc(pluginName, nodeData, children->Meta3dCommonlib.ListSt.map(recurse(~tree=_, ())))
+  | Node(workPluginName, nodeData, children) =>
+    nodeFunc(workPluginName, nodeData, children->Meta3dCommonlib.ListSt.map(recurse(~tree=_, ())))
   }
 }
 
 // let rec postOrderFoldWithParentNode = (
-//   ~nodeFunc: (option<  Meta3dEngineCoreProtocol. TreeType.tree>, 'acc, Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,   Meta3dEngineCoreProtocol. TreeType.nodeData) => 'acc,
+//   ~nodeFunc: (option<  Meta3dEngineCoreProtocol. TreeType.tree>, 'acc, Meta3dEngineCoreProtocol.WorkPluginContributeType.workPluginName,   Meta3dEngineCoreProtocol. TreeType.nodeData) => 'acc,
 //   ~acc: 'acc,
 //   ~tree:   Meta3dEngineCoreProtocol. TreeType.tree,
 //   ~parentNode: option<  Meta3dEngineCoreProtocol. TreeType.tree>=None,
@@ -36,9 +36,9 @@ let rec postOrderCata = (
 //     );
 
 //   switch tree {
-//   | Node(pluginName, nodeData, children) =>
+//   | Node(workPluginName, nodeData, children) =>
 //     let localAccum =
-//       nodeFunc(parentNode, acc, pluginName, nodeData, children);
+//       nodeFunc(parentNode, acc, workPluginName, nodeData, children);
 
 //     UIStateAssetService.fold(
 //     //   seqFoldFunc,
@@ -56,7 +56,7 @@ let rec postOrderCata = (
 //       children,
 //     );
 
-//     // nodeFunc(pluginName, nodeData, children->Meta3dCommonlib.ListSt.map(recurse(~tree=_, ())))
+//     // nodeFunc(workPluginName, nodeData, children->Meta3dCommonlib.ListSt.map(recurse(~tree=_, ())))
 //   }
 
 // }
@@ -64,7 +64,7 @@ let rec postOrderCata = (
 let rec postOrderCataWithParentNode = (
   ~nodeFunc: (
     option<Meta3dEngineCoreProtocol.TreeType.tree>,
-    Meta3dEngineCoreProtocol.WorkPluginContributeType.pluginName,
+    Meta3dEngineCoreProtocol.WorkPluginContributeType.workPluginName,
     Meta3dEngineCoreProtocol.TreeType.nodeData,
     list<Meta3dEngineCoreProtocol.TreeType.tree>,
   ) => Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.TreeType.tree>,
@@ -75,11 +75,11 @@ let rec postOrderCataWithParentNode = (
   let recurse = postOrderCataWithParentNode(~nodeFunc)
 
   switch tree {
-  | Node(pluginName, nodeData, children) =>
+  | Node(workPluginName, nodeData, children) =>
     children
     ->Meta3dCommonlib.ListSt.traverseResultM(recurse(~tree=_, ~parentNode=tree->Some, ()))
     ->Meta3dCommonlib.Result.bind(children => {
-      nodeFunc(parentNode, pluginName, nodeData, children)
+      nodeFunc(parentNode, workPluginName, nodeData, children)
     })
   }
 }

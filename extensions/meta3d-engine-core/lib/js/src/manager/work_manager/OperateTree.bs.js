@@ -8,15 +8,15 @@ function insertNode(tree, targetPluginName, node) {
     contents: false
   };
   return [
-          IterateTree$Meta3dEngineCore.postOrderCata((function (pluginName, nodeData, children) {
-                  if (pluginName === targetPluginName) {
+          IterateTree$Meta3dEngineCore.postOrderCata((function (workPluginName, nodeData, children) {
+                  if (workPluginName === targetPluginName) {
                     isInsert.contents = true;
-                    return TreeNode$Meta3dEngineCore.buildNodeByNodeData(pluginName, nodeData, {
+                    return TreeNode$Meta3dEngineCore.buildNodeByNodeData(workPluginName, nodeData, {
                                 hd: node,
                                 tl: children
                               });
                   } else {
-                    return TreeNode$Meta3dEngineCore.buildNodeByNodeData(pluginName, nodeData, children);
+                    return TreeNode$Meta3dEngineCore.buildNodeByNodeData(workPluginName, nodeData, children);
                   }
                 }), tree, undefined),
           isInsert.contents

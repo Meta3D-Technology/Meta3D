@@ -3,7 +3,7 @@
 var Curry = require("rescript/lib/js/curry.js");
 var Utils$Meta3dWorkPluginRoot = require("./Utils.bs.js");
 
-function exec(states) {
+function execFunc(states) {
   var match = Utils$Meta3dWorkPluginRoot.getState(states);
   return Curry._1(match.mostService.callFunc, (function (param) {
                 console.log("init root job exec");
@@ -11,5 +11,5 @@ function exec(states) {
               }));
 }
 
-exports.exec = exec;
+exports.execFunc = execFunc;
 /* No side effect */

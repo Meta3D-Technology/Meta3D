@@ -28,9 +28,9 @@ module.exports = {
     { name: "event-protocols" },
     { name: "skins" },
     { name: "skin-protocols" },
-    { name: "work-plugin" },
-    { name: "gameobject" },
-    { name: "component" }
+    { name: "work-plugins" },
+    { name: "work-plugin-protocols" },
+    { name: "gameobject" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"

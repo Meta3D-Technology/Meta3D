@@ -21,17 +21,17 @@ defineFeature(feature, test => {
   }
 
   let _buildWorkPluginContribute = (
-    ~pluginName="pluginA",
+    ~workPluginName="pluginA",
     ~createStateFunc=() => Obj.magic(1),
     ~initFunc=state => (),
-    ~getElementFunc=(_, _) => Js.Nullable.null,
+    ~getExecFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
     (),
   ): Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContribute => {
-    pluginName: pluginName,
+    workPluginName: workPluginName,
     createStateFunc: createStateFunc,
     initFunc: initFunc,
-    getElementFunc: getElementFunc,
+    getExecFunc: getExecFunc,
     allPipelineData: allPipelineData,
   }
 
@@ -110,14 +110,14 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register plugin1 contribute", () => {
-      contribute1 := _buildWorkPluginContribute(~pluginName="a1", ())
+      contribute1 := _buildWorkPluginContribute(~workPluginName="a1", ())
 
       MainTool.registerWorkPlugin(~contribute=contribute1.contents, ())
     })
 
     \"and"("register plugin2 contribute with jobOrders2", () => {
       jobOrders2 := [_buildJobOrder(~insertElementName="", ())]
-      contribute2 := _buildWorkPluginContribute(~pluginName="a2", ())
+      contribute2 := _buildWorkPluginContribute(~workPluginName="a2", ())
 
       MainTool.registerWorkPlugin(
         ~contribute=contribute2.contents,
@@ -136,7 +136,7 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register plugin contribute", () => {
-      contribute1 := _buildWorkPluginContribute(~pluginName="a", ())
+      contribute1 := _buildWorkPluginContribute(~workPluginName="a", ())
 
       MainTool.registerWorkPlugin(~contribute=contribute1.contents, ())
     })
@@ -154,13 +154,13 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register plugin1 contribute", () => {
-      contribute1 := _buildWorkPluginContribute(~pluginName="a1", ())
+      contribute1 := _buildWorkPluginContribute(~workPluginName="a1", ())
 
       MainTool.registerWorkPlugin(~contribute=contribute1.contents, ())
     })
 
     \"and"("register plugin2 contribute", () => {
-      contribute2 := _buildWorkPluginContribute(~pluginName="a2", ())
+      contribute2 := _buildWorkPluginContribute(~workPluginName="a2", ())
 
       MainTool.registerWorkPlugin(~contribute=contribute2.contents, ())
     })
@@ -192,7 +192,7 @@ defineFeature(feature, test => {
       state1 := _createState1()
       contribute1 :=
         _buildWorkPluginContribute(
-          ~pluginName="a1",
+          ~workPluginName="a1",
           ~createStateFunc=() => state1.contents,
           ~initFunc=state1 => {
             stub1.contents(state1)
@@ -208,7 +208,7 @@ defineFeature(feature, test => {
       state2 := _createState2()
       contribute2 :=
         _buildWorkPluginContribute(
-          ~pluginName="a2",
+          ~workPluginName="a2",
           ~createStateFunc=() => state2.contents,
           ~initFunc=state2 => {
             stub2.contents()
@@ -254,7 +254,7 @@ defineFeature(feature, test => {
     (
       rootJobName,
       _buildWorkPluginContribute(
-        ~pluginName="a1",
+        ~workPluginName="a1",
         ~createStateFunc=() => state1,
         ~initFunc,
         ~allPipelineData=[
@@ -275,7 +275,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | jobName if EqualTool.isEqual(jobName, rootJobName) => rootJob->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -346,7 +346,7 @@ defineFeature(feature, test => {
       ->Meta3dBsMost.Most.just
     }
     let contribute2 = _buildWorkPluginContribute(
-      ~pluginName="a2",
+      ~workPluginName="a2",
       ~createStateFunc=() => state2,
       ~allPipelineData=[
         {
@@ -370,7 +370,7 @@ defineFeature(feature, test => {
           first_group: "first_a2",
         },
       ],
-      ~getElementFunc=(_, jobName) => {
+      ~getExecFunc=(_, jobName) => {
         switch jobName {
         | jobName if EqualTool.isEqual(jobName, job1Name_a2) => job1->Js.Nullable.return
         | "job2_a2" => job2->Js.Nullable.return
@@ -410,7 +410,7 @@ defineFeature(feature, test => {
         states->Meta3dCommonlib.ImmutableHashMap.set("a2", changedState2)->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
-        ~pluginName="a2",
+        ~workPluginName="a2",
         ~createStateFunc=() => s2,
         ~allPipelineData=[
           {
@@ -430,7 +430,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -549,7 +549,7 @@ defineFeature(feature, test => {
       states->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)->Meta3dBsMost.Most.just
     }
     let contribute3 = _buildWorkPluginContribute(
-      ~pluginName="a3",
+      ~workPluginName="a3",
       ~createStateFunc=() => state3,
       ~allPipelineData=[
         {
@@ -569,7 +569,7 @@ defineFeature(feature, test => {
           first_group: "first_a3",
         },
       ],
-      ~getElementFunc=(_, jobName) => {
+      ~getExecFunc=(_, jobName) => {
         switch jobName {
         | "job1_a3" => job1->Js.Nullable.return
         | _ => Js.Nullable.null
@@ -771,7 +771,7 @@ defineFeature(feature, test => {
         states->Meta3dCommonlib.ImmutableHashMap.set("a3", s3)->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
-        ~pluginName="a3",
+        ~workPluginName="a3",
         ~createStateFunc=() => _createState3(),
         ~allPipelineData=[
           {
@@ -791,7 +791,7 @@ defineFeature(feature, test => {
             first_group: "first_a3",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job1_a3" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -809,7 +809,7 @@ defineFeature(feature, test => {
         states->Meta3dBsMost.Most.just
       }
       let data4 = _buildWorkPluginContribute(
-        ~pluginName="a4",
+        ~workPluginName="a4",
         ~createStateFunc=() => _createState4(),
         ~allPipelineData=[
           {
@@ -843,7 +843,7 @@ defineFeature(feature, test => {
             first_group: "first_a4",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job1_a4" => job1->Js.Nullable.return
           | "job2_a4" => job2->Js.Nullable.return
@@ -954,7 +954,7 @@ defineFeature(feature, test => {
         states->Meta3dCommonlib.ImmutableHashMap.set("a2", s2)->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
-        ~pluginName="a2",
+        ~workPluginName="a2",
         ~createStateFunc=() => _createState2(),
         ~allPipelineData=[
           {
@@ -974,7 +974,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1061,7 +1061,7 @@ defineFeature(feature, test => {
         states->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
-        ~pluginName="a1",
+        ~workPluginName="a1",
         ~allPipelineData=[
           {
             name: "init",
@@ -1096,7 +1096,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "root_init_a1" => rootJob1_init->Js.Nullable.return
           | "root_update_a1" => rootJob1_update->Js.Nullable.return
@@ -1152,7 +1152,7 @@ defineFeature(feature, test => {
         states->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
-        ~pluginName="a1",
+        ~workPluginName="a1",
         ~allPipelineData=[
           {
             name: "init",
@@ -1171,7 +1171,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "root_init_a1" => rootJob1_init->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1191,7 +1191,7 @@ defineFeature(feature, test => {
         states->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
-        ~pluginName="a2",
+        ~workPluginName="a2",
         ~allPipelineData=[
           {
             name: "update",
@@ -1210,7 +1210,7 @@ defineFeature(feature, test => {
             first_group: "first_a2",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job1_a2" => job1->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1230,7 +1230,7 @@ defineFeature(feature, test => {
         states->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
-        ~pluginName="a3",
+        ~workPluginName="a3",
         ~allPipelineData=[
           {
             name: "init",
@@ -1249,7 +1249,7 @@ defineFeature(feature, test => {
             first_group: "first_a3",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           switch jobName {
           | "job2_a3" => job2->Js.Nullable.return
           | _ => Js.Nullable.null
@@ -1304,7 +1304,7 @@ defineFeature(feature, test => {
 
     given("register wrong plugin contribute", () => {
       let contribute1 = _buildWorkPluginContribute(
-        ~pluginName="a1",
+        ~workPluginName="a1",
         ~allPipelineData=[
           {
             name: "init",
@@ -1323,7 +1323,7 @@ defineFeature(feature, test => {
             first_group: "aaa",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           Js.Nullable.null
         },
         (),
@@ -1360,7 +1360,7 @@ defineFeature(feature, test => {
 
     given("register wrong plugin contribute", () => {
       let contribute1 = _buildWorkPluginContribute(
-        ~pluginName="a1",
+        ~workPluginName="a1",
         ~allPipelineData=[
           {
             name: "init",
@@ -1389,7 +1389,7 @@ defineFeature(feature, test => {
             first_group: "first_a1",
           },
         ],
-        ~getElementFunc=(_, jobName) => {
+        ~getExecFunc=(_, jobName) => {
           Js.Nullable.null
         },
         (),

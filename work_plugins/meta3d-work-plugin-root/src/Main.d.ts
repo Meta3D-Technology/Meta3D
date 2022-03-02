@@ -1,10 +1,4 @@
-import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
+import { getWorkPluginContribute as getWorkPluginContributeMeta3d } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
+import { state, config, states } from "meta3d-work-plugin-root-protocol"
 
-type state = any
-
-type states = any
-
-type config = mostService
-
-export function getWorkPluginContribute(mostService: mostService): workPluginContribute<state, states>
+export let getWorkPluginContribute: getWorkPluginContributeMeta3d<state, config, states>

@@ -1,7 +1,7 @@
-import { elementFunc } from "../../Type";
+import { execFunc as execFuncType } from "../../Type";
 import { getState } from "../Utils";
 
-export let exec: elementFunc = (states) => {
+export let execFunc: execFuncType = (states) => {
 	let { mostService, webgl1Service, canvas } = getState(states)
 
 	return mostService.callFunc(() => {

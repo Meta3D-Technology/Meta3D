@@ -1,11 +1,11 @@
 
 
 
-function buildNode(pluginName, param, children) {
+function buildNode(workPluginName, param, children) {
   return /* Node */{
-          _0: pluginName,
+          _0: workPluginName,
           _1: {
-            getElementFuncs: {
+            getExecFuncs: {
               hd: param[0],
               tl: /* [] */0
             },
@@ -16,9 +16,9 @@ function buildNode(pluginName, param, children) {
         };
 }
 
-function buildNodeByNodeData(pluginName, nodeData, children) {
+function buildNodeByNodeData(workPluginName, nodeData, children) {
   return /* Node */{
-          _0: pluginName,
+          _0: workPluginName,
           _1: nodeData,
           _2: children
         };
