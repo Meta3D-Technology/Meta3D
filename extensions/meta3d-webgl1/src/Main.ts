@@ -1,7 +1,7 @@
 import { getContext, service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap } from "meta3d-webgl1-protocol/src/service/DependentExtensionType"
 import { state } from "meta3d-webgl1-protocol/src/state/StateType"
-import { createExtensionState as createExtensionStateMeta3d, getExtensionService as getExtensionServiceMeta3d } from "meta3d-type/src/Index"
+import { createExtensionState as createExtensionStateMeta3D, getExtensionService as getExtensionServiceMeta3D } from "meta3d-type/src/Index"
 
 // import { getExn } from "sxengine-commonlib-ts/src/NullableUtils";
 
@@ -300,7 +300,7 @@ let getContext: getContext = (canvas) => {
 // 	gl.uniform4f(location,x,y,z,w);
 // }
 
-export let getExtensionService: getExtensionServiceMeta3d<dependentExtensionNameMap, service> = (_api, _dependentExtensionNameMap) => {
+export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionNameMap, service> = (_api, _dependentExtensionNameMap) => {
     return {
         getContext
         // 	bindBuffer,
@@ -381,6 +381,6 @@ export let getExtensionService: getExtensionServiceMeta3d<dependentExtensionName
     }
 }
 
-export let createExtensionState: createExtensionStateMeta3d<state> = () => {
+export let createExtensionState: createExtensionStateMeta3D<state> = () => {
     return {}
 }

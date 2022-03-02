@@ -1,11 +1,11 @@
-import { getEventContribute as getEventContributeMeta3d } from "meta3d-event-protocol/src/contribute_points/EventContributeType"
+import { getEventContribute as getEventContributeMeta3D } from "meta3d-event-protocol/src/contribute_points/EventContributeType"
 import { eventName, dependentExtensionNameMap, eventData } from "meta3d-event-register-extension-submit-protocol"
 import { service as test1Service } from "wonder-extension-test1/src/Main"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { registerExtension } from "./Action"
 
-export let getEventContribute: getEventContributeMeta3d<dependentExtensionNameMap, eventData> = (api, { meta3dUIExtensionName }) => {
+export let getEventContribute: getEventContributeMeta3D<dependentExtensionNameMap, eventData> = (api, { meta3dUIExtensionName }) => {
     return {
         // TODO remove eventName? can get it from protocol directly!
         eventName: eventName,

@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
-import { prepare as prepareMeta3d, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
+import { prepare as prepareMeta3D, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
 import { getExtensionService as getUIExtensionService, createExtensionState as createUIExtensionState } from "meta3d-ui"
 import { getExtensionService as getEventExtensionService, createExtensionState as createEventExtensionState } from "meta3d-event"
 import { getExtensionService as getRegisterExtensionExtensionService, createExtensionState as createRegisterExtensionExtensionState } from "meta3d-register-extension"
@@ -100,7 +100,7 @@ export function init() {
 
 
 
-    let meta3dState = prepareMeta3d()
+    let meta3dState = prepareMeta3D()
 
     // TODO use pipe
     meta3dState =

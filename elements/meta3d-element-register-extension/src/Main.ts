@@ -1,4 +1,4 @@
-import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
+import { getElementContribute as getElementContributeMeta3D } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
 import { dependentExtensionNameMap, registerExtensionElementState, elementName } from "meta3d-element-register-extension-protocol"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
@@ -7,7 +7,7 @@ import { serializeLib, getExtensionServiceFuncFromLib } from "meta3d-element-uti
 import { eventData, eventName } from "meta3d-event-register-extension-submit-protocol"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 
-export let getElementContribute: getElementContributeMeta3d<dependentExtensionNameMap, registerExtensionElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
+export let getElementContribute: getElementContributeMeta3D<dependentExtensionNameMap, registerExtensionElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
     return {
         elementName: elementName,
         elementState: {

@@ -106,7 +106,7 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
 
 export function init(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
     //  TODO use NullableUtils for type
-    let tempMeta3dStata: meta3dState | null = null
+    let tempMeta3DStata: meta3dState | null = null
 
     let engineCoreState = getExtensionState<engineCoreState>(
         meta3dState,
@@ -127,7 +127,7 @@ export function init(meta3dState: meta3dState, engineCoreExtensionName: string):
 
     return map(
         (engineCoreState: engineCoreState) => {
-            tempMeta3dStata = setExtensionState(
+            tempMeta3DStata = setExtensionState(
                 meta3dState,
                 engineCoreExtensionName,
                 engineCoreState
@@ -138,6 +138,6 @@ export function init(meta3dState: meta3dState, engineCoreExtensionName: string):
         runPipeline(engineCoreState, meta3dState, "init")
     ).drain().then((_) => {
         //  TODO use NullableUtils for type
-        return tempMeta3dStata as meta3dState
+        return tempMeta3DStata as meta3dState
     })
 }

@@ -1,4 +1,4 @@
-import { getExtensionService as getExtensionServiceMeta3d, createExtensionState as createExtensionStateMeta3d } from "meta3d-type/src/Index"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D } from "meta3d-type/src/Index"
 
 type dependentExtensionNameMap = null
 
@@ -8,7 +8,7 @@ export type service = {
 
 type state = null
 
-export let getExtensionService: getExtensionServiceMeta3d<
+export let getExtensionService: getExtensionServiceMeta3D<
     dependentExtensionNameMap,
     service
 > = (api, _) => {
@@ -19,7 +19,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
     }
 }
 
-export let createExtensionState: createExtensionStateMeta3d<
+export let createExtensionState: createExtensionStateMeta3D<
     state
 > = () => {
     return null

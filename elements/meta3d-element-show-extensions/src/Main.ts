@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type/src/Index"
-import { getElementContribute as getElementContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
+import { getElementContribute as getElementContributeMeta3D } from "meta3d-ui-protocol/src/contribute_points/ElementContributeType"
 import { dependentExtensionNameMap, showExtensionsElementState, elementName } from "meta3d-element-show-extensions-protocol"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
@@ -8,7 +8,7 @@ import { traverseReducePromiseM } from "meta3d-element-utils"
 import { eventData, eventName } from "meta3d-event-show-extension-protocol"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 
-export let getElementContribute: getElementContributeMeta3d<dependentExtensionNameMap, showExtensionsElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
+export let getElementContribute: getElementContributeMeta3D<dependentExtensionNameMap, showExtensionsElementState> = (api, { meta3dUIExtensionName, meta3dEventExtensionName }) => {
     return {
         elementName: elementName,
         elementState: {

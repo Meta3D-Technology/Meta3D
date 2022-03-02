@@ -9,7 +9,7 @@ let _buildAPI = (sandbox): Meta3dType.Index.api => {
   }
 }
 
-let buildFakeDataAndMeta3dState = sandbox => {
+let buildFakeDataAndMeta3DState = sandbox => {
   let api = _buildAPI(sandbox)
 
   api.getExtensionService

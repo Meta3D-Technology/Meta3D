@@ -434,11 +434,11 @@ publish
 
 
 
-* TODO add work-plugin-protocols
+* DONE add work-plugin-protocols
 
-* TODO refactor: change protocol->name to "Meta3DXxx"
+# * TODO refactor: change protocol->name to "Meta3DXxx"
 
-* TODO refactor: rename XxxMeta3d to XxxMeta3D
+* DONE refactor: rename XxxMeta3d to XxxMeta3D
 
 
 

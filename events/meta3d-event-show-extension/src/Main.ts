@@ -1,7 +1,7 @@
-import { getEventContribute as getEventContributeMeta3d } from "meta3d-event-protocol/src/contribute_points/EventContributeType"
+import { getEventContribute as getEventContributeMeta3D } from "meta3d-event-protocol/src/contribute_points/EventContributeType"
 import { eventName, dependentExtensionNameMap, eventData } from "meta3d-event-show-extension-protocol"
 
-export let getEventContribute: getEventContributeMeta3d<dependentExtensionNameMap, eventData> = (_api, _dependentExtensionNameMap) => {
+export let getEventContribute: getEventContributeMeta3D<dependentExtensionNameMap, eventData> = (_api, _dependentExtensionNameMap) => {
     return {
         eventName: eventName,
         handler: (meta3dState, { extensionName }) => {

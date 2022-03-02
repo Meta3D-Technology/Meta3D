@@ -1,10 +1,10 @@
-import { getCustomControlContribute as getCustomControlContributeMeta3d } from "meta3d-ui-protocol/src/contribute_points/CustomControlContributeType"
+import { getCustomControlContribute as getCustomControlContributeMeta3D } from "meta3d-ui-protocol/src/contribute_points/CustomControlContributeType"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { buttonStyle } from "meta3d-skin-protocol"
 
-export let getCustomControlContribute: getCustomControlContributeMeta3d<inputData, outputData> = (skinName) => {
+export let getCustomControlContribute: getCustomControlContributeMeta3D<inputData, outputData> = (skinName) => {
     return {
         customControlName: customControlName,
         func: (meta3dState, [api, uiExtensionName],

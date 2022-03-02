@@ -1,4 +1,4 @@
-import { getWorkPluginContribute as getWorkPluginContributeMeta3d } from "../../../extension_protocols/meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
+import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "../../../extension_protocols/meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { execFunc as create_gl } from "./jobs/init/CreateGLJob";
 import { config, state, states, workPluginName } from "meta3d-work-plugin-webgl-protocol";
 
@@ -14,7 +14,7 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3d<state, config, states> = ({ mostService, webgl1Service, canvas }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service, canvas }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: () => {

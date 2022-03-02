@@ -1,7 +1,7 @@
 // TODO sparate ui and logc:
 // move ui elementName, registerExtensionSubmitEventName to protocol?
 
-import { getExtensionService as getExtensionServiceMeta3d, createExtensionState as createExtensionStateMeta3d } from "meta3d-type/src/Index"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D } from "meta3d-type/src/Index"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -24,7 +24,7 @@ import { getEventContribute as getShowExtensionEventContribute } from "meta3d-ev
 
 import { showExtensionReducer } from "./Reducer"
 
-export let getExtensionService: getExtensionServiceMeta3d<
+export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionNameMap,
 	service
 > = (api, dependentExtensionNameMap) => {
@@ -88,7 +88,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 	}
 }
 
-export let createExtensionState: createExtensionStateMeta3d<
+export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = () => {
 	return null

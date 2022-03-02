@@ -1,4 +1,4 @@
-import { getExtensionService as getExtensionServiceMeta3d, createExtensionState as createExtensionStateMeta3d } from "meta3d-type/src/Index"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D } from "meta3d-type/src/Index"
 import { dependentExtensionNameMap } from "meta3d-register-ecs-protocol/src/service/DependentExtensionType"
 import { service, config } from "meta3d-register-ecs-protocol/src/service/ServiceType"
 import { state } from "meta3d-register-ecs-protocol/src/state/StateType"
@@ -7,7 +7,7 @@ import { getComponentContribute as getTransformComponentContribute } from "meta3
 import { componentName as transformComponentName, config as transformConfig } from "meta3d-component-transform-protocol"
 import { getGameObjectContribute } from "meta3d-gameobject-dataoriented"
 
-export let getExtensionService: getExtensionServiceMeta3d<
+export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionNameMap,
 	service
 > = (api, { meta3dEngineCoreExtensionName }) => {
@@ -36,7 +36,7 @@ export let getExtensionService: getExtensionServiceMeta3d<
 	}
 }
 
-export let createExtensionState: createExtensionStateMeta3d<
+export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = () => {
 	return null
