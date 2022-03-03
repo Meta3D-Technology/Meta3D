@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
+import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
+import * as Belt_List from "./../../../../../rescript/lib/es6/belt_List.js";
 import * as Result$Meta3dCommonlib from "./Result.bs.js";
 import * as MutableHashMap$Meta3dCommonlib from "./hash_map/MutableHashMap.bs.js";
 

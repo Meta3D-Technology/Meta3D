@@ -21,7 +21,5 @@ yarn(or npm install)
 
 yarn install(or npm run install)
 
-cd examples/use-editor
-
-yarn webpack:dev-server
+yarn run:editor
 ```

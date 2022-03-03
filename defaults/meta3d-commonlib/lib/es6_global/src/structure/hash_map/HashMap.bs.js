@@ -1,8 +1,8 @@
 
 
-import * as Js_dict from "../../../../../../../node_modules/rescript/lib/es6/js_dict.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Js_dict from "./../../../../../../rescript/lib/es6/js_dict.js";
+import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
+import * as Js_null_undefined from "./../../../../../../rescript/lib/es6/js_null_undefined.js";
 import * as ArraySt$Meta3dCommonlib from "../ArraySt.bs.js";
 import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 

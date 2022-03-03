@@ -1,8 +1,8 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Curry from "./../../../../../../rescript/lib/es6/curry.js";
+import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
+import * as Js_null_undefined from "./../../../../../../rescript/lib/es6/js_null_undefined.js";
 import * as OptionSt$Meta3dCommonlib from "../../structure/OptionSt.bs.js";
 
 function getExn(val) {

@@ -1,7 +1,7 @@
 
 
 import * as InitJob$Meta3dWorkPluginRoot from "./jobs/InitJob.bs.js";
-import * as Index$Meta3dWorkPluginRootProtocol from "../../../../../node_modules/meta3d-work-plugin-root-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dWorkPluginRootProtocol from "./../../../../../node_modules/meta3d-work-plugin-root-protocol/lib/es6_global/src/Index.bs.js";
 
 function _getExecFunc(_pipelineName, jobName) {
   if (jobName === "init_root_meta3d") {

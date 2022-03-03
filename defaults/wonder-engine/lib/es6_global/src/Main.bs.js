@@ -1,13 +1,13 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Main$Meta3d from "../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
-import * as Main$Meta3dBsMost from "../../../../../node_modules/meta3d-bs-most/lib/es6_global/src/Main.bs.js";
-import * as Main$Meta3dEngineCore from "../../../../../node_modules/meta3d-engine-core/lib/es6_global/src/Main.bs.js";
-import * as Main$Meta3dWorkPluginRoot from "../../../../../node_modules/meta3d-work-plugin-root/lib/es6_global/src/Main.bs.js";
-import * as Main$Meta3dComponentTransform from "../../../../../node_modules/meta3d-component-transform/lib/es6_global/src/Main.bs.js";
-import * as Main$Meta3dGameobjectDataoriented from "../../../../../node_modules/meta3d-gameobject-dataoriented/lib/es6_global/src/Main.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Main$Meta3d from "./../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dBsMost from "./../../../../../node_modules/meta3d-bs-most/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dEngineCore from "./../../../../../node_modules/meta3d-engine-core/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dWorkPluginRoot from "./../../../../../node_modules/meta3d-work-plugin-root/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dComponentTransform from "./../../../../../node_modules/meta3d-component-transform/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dGameobjectDataoriented from "./../../../../../node_modules/meta3d-gameobject-dataoriented/lib/es6_global/src/Main.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 
 function _getMeta3DEngineCoreExtensionName(param) {
   return "meta3d-engine-core";

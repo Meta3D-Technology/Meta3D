@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Utils$Meta3dWorkPluginRoot from "./Utils.bs.js";
 
 function execFunc(states) {

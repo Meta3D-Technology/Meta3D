@@ -6,7 +6,8 @@
   "main": "lib/js/src/Main.bs.js",
   "types": "src/Main.d.ts",
   "scripts": {
-    "watch": "rescript clean && rescript build -w"
+    "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build"
   },
   "dependencies": {
     "rescript": "^9.1.4"

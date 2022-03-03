@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function registerEvent(state, eventContribute) {
   return {
