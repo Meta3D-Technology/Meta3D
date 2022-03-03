@@ -443,19 +443,19 @@ publish
 
 
 
-* DONE refactor: refactor component
+* TODO refactor: refactor component
 
-# ** TODO refactor: refactor transform component and protocol
+** TODO refactor: refactor transform component and protocol
 
-#  move :
-#   StateType.state,
-#   StateType.config,
-#   DataType.dataName,
-#   StateType.transform,
+ move :
+  StateType.state,
+  StateType.config,
+  DataType.dataName,
+  StateType.transform,
 
-#   to protocol
+  to protocol
 
-#   other to transform
+  other to transform
 
 ** DONE  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
 
@@ -463,40 +463,14 @@ publish
 
 ** TODO component support dispose
 
-default keep order
-
-no config
-
-
-defer dispose
-
-batch dispose
-
-
-*** TODO pass bdd test
-
-
-** TODO gameObject support dispose
-
-*** TODO pass bdd test
-
 ** TODO component support clone
-
-*** TODO pass bdd test
 
 
 ** TODO add all components(include worker)
 
 need refactor, add dispose and clone!
 
-for pbrmaterial and geometry component:
-only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
 
-
-
-
-
-** TODO pass bdd test
 
 ** TODO add MeshRender component
 
@@ -508,24 +482,7 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
 
-** TODO finish sxengine
-
-finish actual engine code(like sxengine's code)
-
-
-
-** TODO extract shader extension for webgl
-
-*** TODO shader system
-
-** TODO finish sxengine for shader system
-
-** TODO sxengine add dispose job
-
-
 ** TODO pass render run test:render cube
-
-** TODO pass render run test:dispose cube
 
 
 ** TODO refactor
@@ -536,41 +493,20 @@ finish actual engine code(like sxengine's code)
 *** TODO use NullableUtils for type
 
 
-** TODO add or update bdd test
+** TODO finish sxengine
 
-95% coverage
-
-*** TODO for meta3d(only test engine code except editor code)
-
-
-*** TODO for sxengine
-
-
-* TODO publish
-
-** TODO add coverage
-
-** TODO add ci->build, ci->test
-
-** TODO publish
+finish actual engine code(like sxengine's code)
 
 
 
+** TODO finish abstract worker
 
 
+** TODO finish sxengine implement
+
+finish actual engine code(like sxengine's code)
 
 
-
-
-
-
-
-
-
-
-
-
-* TODO update engine
 
 ** TODO add arcball abstract
 
@@ -583,38 +519,32 @@ finish actual engine code(like sxengine's code)
 
 
 # ** TODO sxengine support dispose gameObject, component api
+** TODO sxengine add dispose job for no worker and worker
+
+
+
+
+
 
 ** TODO add or update bdd test
 
+95% coverage
 
-* TODO publish
-
-
-
+*** TODO for meta3d(only test engine code except editor code)
 
 
-
-* TODO update engine
-
-** TODO add texture(e.g. diffuse/normal map for pbr material)
-
-* TODO publish
+*** TODO for sxengine
 
 
-
-
-
-* TODO update engine
-
-** TODO finish pbr material glsl(support direction light)
 
 
 * TODO publish
 
+** TODO add coverage
 
+** TODO add ci->build, ci->test
 
-
-
+** TODO publish
 
 
 
@@ -636,44 +566,21 @@ finish actual engine code(like sxengine's code)
 
 
 
-# * TODO update engine
-
-# ** TODO extract shader extension for webgl
-
-# *** TODO shader system
-
-# *** TODO glsl builder??? or just use directly fixed glsl?
-
-# # ** TODO add custom material component
-
-
-# # * TODO update editor
-
-# # ** TODO support load custom material asset
-
-
-
-# * TODO publish
-
-
-
-
-
-
-
-
-
 * TODO update engine
 
-** TODO finish abstract worker
+** TODO extract shader extension for webgl
+
+*** TODO shader system
+
+*** TODO glsl builder??? or just use directly fixed glsl?
+
+# ** TODO add custom material component
 
 
-** TODO finish sxengine implement
+# * TODO update editor
 
-finish actual engine code(like sxengine's code)
+# ** TODO support load custom material asset
 
-
-** TODO add or update bdd test
 
 
 * TODO publish
@@ -683,9 +590,37 @@ finish actual engine code(like sxengine's code)
 
 * TODO update engine
 
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+
+** TODO finish pbr material shader
+
+# * TODO update editor
+
+# ** TODO add texture
+
+# add texture asset;
+# material asset add texture;
+
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
 ** TODO add abstract load gltf/glb model without assetbundle, streamload 
 
 ** TODO add implement load gltf/glb model without assetbundle, streamload
+
+
+
+# * TODO update editor
+
+# ** TODO add gltf/glb asset
+
 
 
 * TODO publish
@@ -710,10 +645,6 @@ set pixel ratio!
 * TODO publish to sx to make they use!
 
 @wy
-
-
-
-
 
 
 
