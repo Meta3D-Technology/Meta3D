@@ -23,6 +23,14 @@ type getComponentFunc<'state, 'component> = (
   GameObjectContributeType.gameObject,
 ) => Js.Nullable.t<'component>
 
+type deferDisposeComponentFunc<'state, 'component> = (
+  . 'state,
+  GameObjectContributeType.gameObject,
+  'component,
+) => 'state
+
+type batchDisposeComponentsFunc<'state, 'component> = (. 'state, array<'component>) => 'state
+
 type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
 // type dataName = int
@@ -55,6 +63,8 @@ type componentContribute<'state, 'config, 'dataName, 'component> = {
   getComponentFunc: getComponentFunc<'state, 'component>,
   getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
+  deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
+  batchDisposeComponentsFunc: batchDisposeComponentsFunc<'state, 'component>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 
