@@ -445,19 +445,24 @@ publish
 
 * TODO refactor: refactor component
 
-** TODO refactor: refactor transform component and protocol
 
- move :
-  StateType.state,
-  StateType.config,
-  DataType.dataName,
-  StateType.transform,
 
-  to protocol
+# ** TODO refactor: refactor transform component and protocol
 
-  other to transform
+#  move :
+#   StateType.state,
+#   StateType.config,
+#   DataType.dataName,
+#   StateType.transform,
+
+#   to protocol
+
+#   other to transform
 
 ** DONE  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
+
+
+** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
 
 * TODO update engine
 
