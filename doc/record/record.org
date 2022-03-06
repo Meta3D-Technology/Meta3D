@@ -443,9 +443,7 @@ publish
 
 
 
-* TODO refactor: refactor component
-
-
+* DONE refactor: refactor component
 
 # ** TODO refactor: refactor transform component and protocol
 
@@ -462,20 +460,48 @@ publish
 ** DONE  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
 
 
+
 ** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
+
 
 * TODO update engine
 
 ** TODO component support dispose
 
+default keep order
+
+no config
+
+
+defer dispose
+
+batch dispose
+
+
+*** TODO pass bdd test
+
+
+** TODO gameObject support dispose
+
+*** TODO pass bdd test
+
 ** TODO component support clone
+
+*** TODO pass bdd test
 
 
 ** TODO add all components(include worker)
 
 need refactor, add dispose and clone!
 
+for pbrmaterial and geometry component:
+only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
 
+
+
+
+
+** TODO pass bdd test
 
 ** TODO add MeshRender component
 
@@ -487,7 +513,24 @@ need refactor, add dispose and clone!
 
 add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
 
+** TODO finish sxengine
+
+finish actual engine code(like sxengine's code)
+
+
+
+** TODO extract shader extension for webgl
+
+*** TODO shader system
+
+** TODO finish sxengine for shader system
+
+** TODO sxengine add dispose job
+
+
 ** TODO pass render run test:render cube
+
+** TODO pass render run test:dispose cube
 
 
 ** TODO refactor
@@ -496,39 +539,6 @@ add more components(e.g. geometry, basic camera view, perspective camera project
 *** TODO use pipe, curry
 
 *** TODO use NullableUtils for type
-
-
-** TODO finish sxengine
-
-finish actual engine code(like sxengine's code)
-
-
-
-** TODO finish abstract worker
-
-
-** TODO finish sxengine implement
-
-finish actual engine code(like sxengine's code)
-
-
-
-** TODO add arcball abstract
-
-*** TODO add event
-
-*** TODO add arcball
-
-** TODO finish sxengine implement
-
-
-
-# ** TODO sxengine support dispose gameObject, component api
-** TODO sxengine add dispose job for no worker and worker
-
-
-
-
 
 
 ** TODO add or update bdd test
@@ -541,8 +551,6 @@ finish actual engine code(like sxengine's code)
 *** TODO for sxengine
 
 
-
-
 * TODO publish
 
 ** TODO add coverage
@@ -550,6 +558,68 @@ finish actual engine code(like sxengine's code)
 ** TODO add ci->build, ci->test
 
 ** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add arcball abstract
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+
+** TODO add or update bdd test
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO finish pbr material glsl(support direction light)
+
+
+* TODO publish
+
+
+
+
+
 
 
 
@@ -571,45 +641,47 @@ finish actual engine code(like sxengine's code)
 
 
 
+# * TODO update engine
+
+# ** TODO extract shader extension for webgl
+
+# *** TODO shader system
+
+# *** TODO glsl builder??? or just use directly fixed glsl?
+
+# # ** TODO add custom material component
+
+
+# # * TODO update editor
+
+# # ** TODO support load custom material asset
+
+
+
+# * TODO publish
+
+
+
+
+
+
+
+
+
 * TODO update engine
 
-** TODO extract shader extension for webgl
-
-*** TODO shader system
-
-*** TODO glsl builder??? or just use directly fixed glsl?
-
-# ** TODO add custom material component
+** TODO finish abstract worker
 
 
-# * TODO update editor
+** TODO finish sxengine implement
 
-# ** TODO support load custom material asset
+finish actual engine code(like sxengine's code)
 
+
+** TODO add or update bdd test
 
 
 * TODO publish
-
-
-
-
-* TODO update engine
-
-** TODO add texture(e.g. diffuse/normal map for pbr material)
-
-
-** TODO finish pbr material shader
-
-# * TODO update editor
-
-# ** TODO add texture
-
-# add texture asset;
-# material asset add texture;
-
-
-* TODO publish
-
 
 
 
@@ -619,13 +691,6 @@ finish actual engine code(like sxengine's code)
 ** TODO add abstract load gltf/glb model without assetbundle, streamload 
 
 ** TODO add implement load gltf/glb model without assetbundle, streamload
-
-
-
-# * TODO update editor
-
-# ** TODO add gltf/glb asset
-
 
 
 * TODO publish
@@ -650,6 +715,10 @@ set pixel ratio!
 * TODO publish to sx to make they use!
 
 @wy
+
+
+
+
 
 
 
