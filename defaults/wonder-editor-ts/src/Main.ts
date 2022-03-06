@@ -10,6 +10,8 @@ import { prepare as prepareEngine, init as initEngine } from "wonder-engine-ts/s
 import { createGameObject, getAllGameObjects } from "wonder-engine-ts/src/GameObjectAPI"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { getExtensionService as getLogExtensionService, createExtensionState as createLogExtensionState } from "wonder-log"
+import { service as logService } from "wonder-log-protocol/src/service/ServiceType"
 
 
 function _getMeta3DUIExtensionName(): string {
@@ -131,6 +133,23 @@ export function init() {
             },
             createRegisterExtensionExtensionState()
         )
+
+
+
+
+    meta3dState =
+        registerExtension(
+            meta3dState,
+            "wonder-log",
+            getLogExtensionService,
+            null,
+            createLogExtensionState()
+        )
+
+    let { log } = getExtensionService<logService>(meta3dState, "wonder-log")
+
+    log()
+
 
 
     let { register } = getExtensionService<registerExtensionService>(meta3dState, _getMeta3DRegisterExtensionExtensionName())
