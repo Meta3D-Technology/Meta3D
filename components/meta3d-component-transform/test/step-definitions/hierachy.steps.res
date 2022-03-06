@@ -10,7 +10,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentTransform.StateType.state,
       Meta3dComponentTransform.StateType.config,
-      Meta3dComponentTransform.DataType.dataName,
+      Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransform.StateType.transform,
     >,
   > = ref(Obj.magic(1))

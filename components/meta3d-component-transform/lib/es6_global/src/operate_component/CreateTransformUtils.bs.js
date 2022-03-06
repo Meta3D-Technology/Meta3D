@@ -1,8 +1,8 @@
 
 
-import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
-import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/component/IndexComponentUtils.bs.js";
-import * as BufferComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/component/BufferComponentUtils.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/component/IndexComponentUtils.bs.js";
+import * as BufferComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/component/BufferComponentUtils.bs.js";
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
 import * as DirtyTransformUtils$Meta3dComponentTransform from "../operate_data/DirtyTransformUtils.bs.js";
 

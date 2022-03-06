@@ -1,12 +1,12 @@
 
 
-import * as Matrix4$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
-import * as Quaternion$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
+import * as Matrix4$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
+import * as Quaternion$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
 import * as DirtyTransformUtils$Meta3dComponentTransform from "./DirtyTransformUtils.bs.js";
 import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
 import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "./ModelMatrixTransformUtils.bs.js";
-import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
+import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
 
 function mutableUpdate(state, transform) {
   var localToWorldMatrices = state.localToWorldMatrices;
