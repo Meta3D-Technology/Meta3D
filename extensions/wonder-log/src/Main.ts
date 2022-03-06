@@ -2,15 +2,22 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import { state } from "wonder-log-protocol/src/state/StateType"
 import { service } from "wonder-log-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap } from "wonder-log-protocol/src/service/DependentExtensionType"
+import { infoContribute } from "wonder-log-protocol/src/contribute_points/InfoContributeType"
 
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionNameMap,
 	service
-> = (_api, _dependentExtensionNameMap) => {
+> = (api, _dependentExtensionNameMap) => {
 	return {
-		log: () => {
-			console.log("wonder-log extension->log")
+		log: ({ infos }: state) => {
+			console.log("wonder-log extension->log infos:", infos)
+		},
+		registerInfo: (state: state, { info }: infoContribute) => {
+			return {
+				...state,
+				infos: state.infos.concat([info])
+			}
 		}
 	}
 }
@@ -18,5 +25,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = () => {
-	return null
+	return {
+		infos: []
+	}
 }

@@ -12,6 +12,7 @@ import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { getExtensionService as getLogExtensionService, createExtensionState as createLogExtensionState } from "wonder-log"
 import { service as logService } from "wonder-log-protocol/src/service/ServiceType"
+import { state as logState } from "wonder-log-protocol/src/state/StateType"
 
 
 function _getMeta3DUIExtensionName(): string {
@@ -146,9 +147,20 @@ export function init() {
             createLogExtensionState()
         )
 
-    let { log } = getExtensionService<logService>(meta3dState, "wonder-log")
+    let { log, registerInfo } = getExtensionService<logService>(meta3dState, "wonder-log")
 
-    log()
+    let logState = getExtensionState<logState>(meta3dState, "wonder-log")
+
+    logState = registerInfo(logState, { info: "aaa" })
+
+    log(logState)
+
+
+    meta3dState = setExtensionState(meta3dState, "wonder-log", logState)
+
+
+
+
 
 
 

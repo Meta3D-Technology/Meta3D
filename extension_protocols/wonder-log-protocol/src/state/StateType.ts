@@ -1,1 +1,3 @@
-export type state = null
+export type state = {
+	infos: Array<string>
+}
