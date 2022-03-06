@@ -461,8 +461,6 @@ publish
 
 
 
-** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
-
 
 * TODO update engine
 
@@ -498,6 +496,8 @@ for pbrmaterial and geometry component:
 only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
 
 
+
+** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
 
 
 

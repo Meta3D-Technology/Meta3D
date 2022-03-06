@@ -32,12 +32,18 @@ type state = {
   defaultLocalPosition: Meta3dCommonlibType.VectorType.vec3,
   defaultLocalRotation: Meta3dCommonlibType.VectorType.vec4,
   defaultLocalScale: Meta3dCommonlibType.VectorType.vec3,
-  parentMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, transform>,
-  childrenMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, children>,
-  gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
-  gameObjectTransformMap: Meta3dCommonlibType.MutableSparseMapType.t<
+  // defaultLocalToWorldMatrix: array<float>,
+  // defaultLocalPosition: array<float>,
+  // defaultLocalRotation: array<float>,
+  // defaultLocalScale: array<float>,
+  mutable parentMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, transform>,
+  mutable childrenMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, children>,
+  mutable gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
+  mutable gameObjectTransformMap: Meta3dCommonlibType.MutableSparseMapType.t<
     Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
     transform,
   >,
-  dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,
+  mutable dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,
+  mutable needDisposedTransformArray: array<transform>,
+  mutable disposedTransformArray: array<transform>,
 }

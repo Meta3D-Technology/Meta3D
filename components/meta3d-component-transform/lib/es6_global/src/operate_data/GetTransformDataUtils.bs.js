@@ -15,8 +15,8 @@ function getData(state, param, param$1) {
   var localPositions = state.localPositions;
   var localRotations = state.localRotations;
   var localScales = state.localScales;
-  var childrenMap = state.childrenMap;
   var parentMap = state.parentMap;
+  var childrenMap = state.childrenMap;
   if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.parent) {
     return HierachyTransformUtils$Meta3dComponentTransform.getNullableParent(parentMap, param);
   } else if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.children) {

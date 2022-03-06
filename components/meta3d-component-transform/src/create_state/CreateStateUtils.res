@@ -60,18 +60,18 @@ let createStateWithSharedArrayBufferData = (
     parentMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     childrenMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     gameObjectMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
-    gameObjectTransformMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
-      transformCount,
-    ),
+    gameObjectTransformMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     dirtyMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
+    needDisposedTransformArray: [],
+    disposedTransformArray: [],
   }
 }
 
 let createState = (isDebug, transformCount, float9Array1, float32Array1) => {
-  let defaultLocalToWorldMatrix = (1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.)
-  let defaultLocalPosition = (0., 0., 0.)
-  let defaultLocalRotation = (0., 0., 0., 1.)
-  let defaultLocalScale = (1., 1., 1.)
+  let defaultLocalToWorldMatrix = ( 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1. )
+  let defaultLocalPosition = ( 0., 0., 0. )
+  let defaultLocalRotation = ( 0., 0., 0., 1. )
+  let defaultLocalScale = ( 1., 1., 1. )
 
   let (
     buffer,

@@ -13,11 +13,12 @@ function mutableUpdate(state, transform) {
   var localPositions = state.localPositions;
   var localRotations = state.localRotations;
   var localScales = state.localScales;
+  var parentMap = state.parentMap;
   if (!DirtyTransformUtils$Meta3dComponentTransform.isDirty(state, transform)) {
     return state;
   }
   var state$1 = DirtyTransformUtils$Meta3dComponentTransform.mark(state, transform, false);
-  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(state.parentMap, transform);
+  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, transform);
   if (parent !== undefined) {
     var state$2 = mutableUpdate(state$1, parent);
     var localToWorldMatrices$1 = state$2.localToWorldMatrices;
@@ -44,7 +45,8 @@ function updateAndGetPosition(state, transform) {
 }
 
 function updateAndSetPosition(state, transform, position) {
-  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(state.parentMap, transform);
+  var parentMap = state.parentMap;
+  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, transform);
   if (parent === undefined) {
     return ModelMatrixTransformUtils$Meta3dComponentTransform.setLocalPosition(state, transform, position);
   }
@@ -62,7 +64,8 @@ function updateAndGetRotation(state, transform) {
 }
 
 function updateAndSetRotation(state, transform, rotation) {
-  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(state.parentMap, transform);
+  var parentMap = state.parentMap;
+  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, transform);
   if (parent === undefined) {
     return ModelMatrixTransformUtils$Meta3dComponentTransform.setLocalRotation(state, transform, rotation);
   }
@@ -80,7 +83,8 @@ function updateAndGetScale(state, transform) {
 }
 
 function updateAndSetScale(state, transform, scale) {
-  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(state.parentMap, transform);
+  var parentMap = state.parentMap;
+  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, transform);
   if (parent === undefined) {
     return ModelMatrixTransformUtils$Meta3dComponentTransform.setLocalScale(state, transform, scale);
   }

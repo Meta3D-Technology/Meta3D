@@ -11,7 +11,8 @@ function mark(state, transform, isDirty) {
 }
 
 function isDirty(state, transform) {
-  return MutableSparseMap$Meta3dCommonlib.unsafeGet(state.dirtyMap, transform) === Contract$Meta3dCommonlib.ensureCheck(true, (function (isDirty) {
+  var dirtyMap = state.dirtyMap;
+  return MutableSparseMap$Meta3dCommonlib.unsafeGet(dirtyMap, transform) === Contract$Meta3dCommonlib.ensureCheck(true, (function (isDirty) {
                 return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("return bool", "not"), (function (param) {
                               return Contract$Meta3dCommonlib.assertIsBool(isDirty);
                             }));

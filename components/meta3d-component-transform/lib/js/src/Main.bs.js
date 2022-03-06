@@ -7,6 +7,7 @@ var GetTransformUtils$Meta3dComponentTransform = require("./gameobject/GetTransf
 var HasTransformUtils$Meta3dComponentTransform = require("./gameobject/HasTransformUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentTransform = require("./gameobject/GetGameObjectsUtils.bs.js");
 var CreateTransformUtils$Meta3dComponentTransform = require("./operate_component/CreateTransformUtils.bs.js");
+var DisposeTransformUtils$Meta3dComponentTransform = require("./operate_data/DisposeTransformUtils.bs.js");
 var GetAllTransformsUtils$Meta3dComponentTransform = require("./operate_component/GetAllTransformsUtils.bs.js");
 var GetTransformDataUtils$Meta3dComponentTransform = require("./operate_data/GetTransformDataUtils.bs.js");
 var SetTransformDataUtils$Meta3dComponentTransform = require("./operate_data/SetTransformDataUtils.bs.js");
@@ -17,16 +18,30 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentTransform.createState(param.isDebug, param.transformCount, param.float9Array1, param.float32Array1);
             }),
-          getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentTransform.get,
+          getGameObjectsFunc: (function (state, component) {
+              return GetGameObjectsUtils$Meta3dComponentTransform.get(state)(component);
+            }),
           createComponentFunc: CreateTransformUtils$Meta3dComponentTransform.create,
-          addComponentFunc: AddTransformUtils$Meta3dComponentTransform.add,
-          hasComponentFunc: HasTransformUtils$Meta3dComponentTransform.has,
-          getComponentFunc: GetTransformUtils$Meta3dComponentTransform.get,
+          addComponentFunc: (function (state, gameObject, component) {
+              return AddTransformUtils$Meta3dComponentTransform.add(state)(gameObject, component);
+            }),
+          hasComponentFunc: (function (state, gameObject) {
+              return HasTransformUtils$Meta3dComponentTransform.has(state)(gameObject);
+            }),
+          getComponentFunc: (function (state, gameObject) {
+              return GetTransformUtils$Meta3dComponentTransform.get(state)(gameObject);
+            }),
           getComponentDataFunc: (function (state, component, dataName) {
               return GetTransformDataUtils$Meta3dComponentTransform.getData(state, component, dataName);
             }),
           setComponentDataFunc: (function (state, component, dataName, dataValue) {
               return SetTransformDataUtils$Meta3dComponentTransform.setData(state, component, dataName, dataValue);
+            }),
+          deferDisposeComponentFunc: (function (state, component) {
+              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponentFunc(state)(component);
+            }),
+          batchDisposeComponentsFunc: (function (state, components) {
+              return DisposeTransformUtils$Meta3dComponentTransform.batchDisposeComponentsFunc(state)(components);
             }),
           getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
         };

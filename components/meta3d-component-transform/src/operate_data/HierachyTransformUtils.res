@@ -1,7 +1,6 @@
 open StateType
 
-let getParent = (parentMap, transform) =>
-  parentMap->Meta3dCommonlib.MutableSparseMap.get(transform)
+let getParent = (parentMap, transform) => parentMap->Meta3dCommonlib.MutableSparseMap.get(transform)
 
 let getNullableParent = (parentMap, transform) =>
   parentMap->Meta3dCommonlib.MutableSparseMap.getNullable(transform)
@@ -9,11 +8,11 @@ let getNullableParent = (parentMap, transform) =>
 let getNullableChildren = (childrenMap, transform) =>
   childrenMap->Meta3dCommonlib.MutableSparseMap.getNullable(transform)
 
-let _unsafeGetChildren = (childrenMap, transform) =>
+let unsafeGetChildren = (childrenMap, transform) =>
   childrenMap->Meta3dCommonlib.MutableSparseMap.unsafeGet(transform)
 
 let _addChild = (childrenMap, parent, child) => {
-  _unsafeGetChildren(childrenMap, parent)->Meta3dCommonlib.ArraySt.push(child)
+  unsafeGetChildren(childrenMap, parent)->Meta3dCommonlib.ArraySt.push(child)
 }
 
 let _addToParent = (state, parent, child) => {
@@ -48,7 +47,7 @@ let _addToParent = (state, parent, child) => {
   state
 }
 
-let _removeParent = (parentMap, transform) =>
+let removeParentMap = (parentMap, transform) =>
   parentMap->Meta3dCommonlib.MutableSparseMap.remove(transform)
 
 let _removeChild = (children, isDebug, child) =>
@@ -59,16 +58,16 @@ let _removeChild = (children, isDebug, child) =>
     Js.Array.length(children) - 1,
   )
 
-let _removeFromChildMap = (childrenMap, isDebug, parent, child) => {
-  _unsafeGetChildren(childrenMap, parent)->_removeChild(isDebug, child)
+let removeFromChildMap = (childrenMap, isDebug, parent, child) => {
+  unsafeGetChildren(childrenMap, parent)->_removeChild(isDebug, child)
 }
 
 let _removeFromParent = (state, currentParent, child) => {
   let {parentMap, childrenMap} = state
 
-  parentMap->_removeParent(child)->ignore
+  parentMap->removeParentMap(child)->ignore
 
-  _removeFromChildMap(childrenMap, ConfigUtils.getIsDebug(state), currentParent, child)->ignore
+  removeFromChildMap(childrenMap, ConfigUtils.getIsDebug(state), currentParent, child)->ignore
 
   state
 }
@@ -122,7 +121,7 @@ let rec markHierachyDirty = (state, transform) => {
 
   let {childrenMap} = state
 
-  _unsafeGetChildren(childrenMap, transform)->Meta3dCommonlib.ArraySt.reduceOneParam(
+  unsafeGetChildren(childrenMap, transform)->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, child) => markHierachyDirty(state, child),
     state,
   )

@@ -9,31 +9,6 @@ defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
   let usedContribute = ref(Obj.magic(1))
 
-  let _buildComponentContribute = (
-    ~componentName="componentA",
-    ~createStateFunc=(. config) => Obj.magic(1),
-    ~getGameObjectsFunc=(. state, _) => Obj.magic(1),
-    ~createComponentFunc=(. state) => (state, Obj.magic(1)),
-    ~addComponentFunc=(. state, _, _) => state,
-    ~hasComponentFunc=(. state, _) => false,
-    ~getComponentFunc=(. state, _) => Obj.magic(1),
-    ~getAllComponentsFunc=(. state) => Obj.magic(1),
-    ~getComponentDataFunc=(. state, _, _) => Obj.magic(1),
-    ~setComponentDataFunc=(. state, _, _, _) => state,
-    (),
-  ): Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute => {
-    componentName: componentName,
-    createStateFunc: createStateFunc,
-    getGameObjectsFunc: getGameObjectsFunc,
-    createComponentFunc: createComponentFunc,
-    addComponentFunc: addComponentFunc,
-    hasComponentFunc: hasComponentFunc,
-    getComponentFunc: getComponentFunc,
-    getAllComponentsFunc: getAllComponentsFunc,
-    getComponentDataFunc: getComponentDataFunc,
-    setComponentDataFunc: setComponentDataFunc,
-  }
-
   let _getAllRegisteredComponentData = () => {
     StateContainer.unsafeGetState().componentContributeData.allComponentContributes
   }
@@ -48,7 +23,7 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register component contribute", () => {
-      contribute := _buildComponentContribute()
+      contribute := ComponentTool.buildComponentContribute()
 
       MainTool.registerComponent(contribute.contents)
     })
@@ -70,7 +45,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("register component contribute", () => {
-      contribute := _buildComponentContribute()
+      contribute := ComponentTool.buildComponentContribute()
 
       MainTool.registerComponent(contribute.contents)
     })
@@ -90,7 +65,7 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register component contribute", () => {
-      contribute := _buildComponentContribute()
+      contribute := ComponentTool.buildComponentContribute()
 
       MainTool.registerComponent(contribute.contents)
     })
@@ -116,13 +91,13 @@ defineFeature(feature, test => {
     _prepareRegister(given)
 
     \"when"("register component1 contribute", () => {
-      data1 := _buildComponentContribute(~componentName="a1", ())
+      data1 := ComponentTool.buildComponentContribute(~componentName="a1", ())
 
       MainTool.registerComponent(data1.contents)
     })
 
     \"and"("register component2 contribute", () => {
-      data2 := _buildComponentContribute(~componentName="a2", ())
+      data2 := ComponentTool.buildComponentContribute(~componentName="a2", ())
 
       MainTool.registerComponent(data2.contents)
     })
@@ -161,7 +136,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
@@ -209,7 +184,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
@@ -270,7 +245,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
@@ -333,7 +308,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
@@ -399,7 +374,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
@@ -461,7 +436,7 @@ defineFeature(feature, test => {
     _prepareComponent(
       \"when",
       \"and",
-      _buildComponentContribute(
+      ComponentTool.buildComponentContribute(
         ~componentName,
         ~createStateFunc=(. _) => {
           {
