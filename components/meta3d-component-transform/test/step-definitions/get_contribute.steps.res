@@ -15,7 +15,6 @@ defineFeature(feature, test => {
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
-  //   let config: ref<StateType.config> = ref(Obj.magic(1))
 
   let _createState = (
     ~isDebug=false,
@@ -24,12 +23,14 @@ defineFeature(feature, test => {
     ~float32Array1=Js.Typed_array.Float32Array.make([]),
     (),
   ) => {
-    contribute.contents.createStateFunc(. {
-      isDebug: isDebug,
-      transformCount: transformCount,
-      float9Array1: float9Array1,
-      float32Array1: float32Array1,
-    })
+    StateTool.createState(
+      ~contribute=contribute.contents,
+      ~isDebug,
+      ~transformCount,
+      ~float9Array1,
+      ~float32Array1,
+      (),
+    )
   }
 
   test(."componentName", ({\"when", then}) => {
@@ -330,7 +331,7 @@ defineFeature(feature, test => {
       transform := m
     })
 
-    then("get transform's position should return default contribute", () => {
+    then("get transform's position should return default data", () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         transform.contents,
@@ -357,7 +358,7 @@ defineFeature(feature, test => {
       transform := m
     })
 
-    then("get transform's rotation should return default contribute", () => {
+    then("get transform's rotation should return default data", () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         transform.contents,
@@ -384,7 +385,7 @@ defineFeature(feature, test => {
       transform := m
     })
 
-    then("get transform's scale should return default contribute", () => {
+    then("get transform's scale should return default data", () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         transform.contents,
@@ -411,7 +412,7 @@ defineFeature(feature, test => {
       transform := m
     })
 
-    then("get transform's euler angles should return default contribute", () => {
+    then("get transform's euler angles should return default data", () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         transform.contents,

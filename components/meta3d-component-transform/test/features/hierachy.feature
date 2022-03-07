@@ -3,8 +3,8 @@ Feature: Hierachy
     I want to operate transform's parent
     So that I can move them together
 
-    Background: get data and create a state
-        When I get data
+    Background: get contribute and create a state
+        When I get contribute
         And create a state
 
     Rule: the change of parent before setted as parent should affect child
@@ -37,13 +37,13 @@ Feature: Hierachy
             When create two transforms as parent1, child1
             And set child1's parent to parent1
             And set child1's parent to parent1
-            Then get child1's parent should be parent1
+            Then get child1's parent should return parent1
 
         Scenario: can set a different parent
             When create three transforms as parent1, parent2, child1
             And set child1's parent to parent1
             And set child1's parent to parent2
-            Then get child1's parent should be parent2
+            Then get child1's parent should return parent2
 
         Scenario: set different parents should change its current parent's children order
             When create four transforms as parent1, child1, child2, child3
@@ -51,7 +51,7 @@ Feature: Hierachy
             And set child2's parent to parent1
             And set child3's parent to parent1
             And set child1's parent to child3
-            Then get parent1's children should be [child3, child2]
+            Then get parent1's children should return [child3, child2]
 
     Rule: fix set parent bug
 

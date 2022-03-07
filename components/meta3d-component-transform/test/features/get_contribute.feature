@@ -65,7 +65,7 @@ Feature: Get Contribute
         And add the transform to the gameObject
         Then getGameObjectsFunc should return [gameObject]
 
-    Rule: get transform's default contribute
+    Rule: get transform's default data
 
         Background: prepare contribute
             When I get contribute
@@ -73,14 +73,14 @@ Feature: Get Contribute
             And create a transform
 
         Scenario: get default position
-            Then get transform's position should return default contribute
+            Then get transform's position should return default data
 
         Scenario: get default rotation
-            Then get transform's rotation should return default contribute
+            Then get transform's rotation should return default data
 
         Scenario: get default scale
-            Then get transform's scale should return default contribute
+            Then get transform's scale should return default data
 
         Scenario: get default euler angles
-            Then get transform's euler angles should return default contribute
+            Then get transform's euler angles should return default data
 

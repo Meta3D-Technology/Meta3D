@@ -3,8 +3,8 @@ Feature: Operate data
     I want to operate transform's data
     So that I can use it
 
-    Background: get data and create a state
-        When I get data
+    Background: get contribute and create a state
+        When I get contribute
         And create a state
 
     Rule: set local position

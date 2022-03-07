@@ -6,7 +6,7 @@ open Operators
 let feature = loadFeature("./test/features/operate_data.feature")
 
 defineFeature(feature, test => {
-  let data: ref<
+  let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentTransform.StateType.state,
       Meta3dComponentTransform.StateType.config,
@@ -15,21 +15,6 @@ defineFeature(feature, test => {
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
-
-  let _createState = (
-    ~isDebug=false,
-    ~transformCount=10,
-    ~float9Array1=Meta3dCommonlib.Matrix3.createIdentityMatrix3(),
-    ~float32Array1=Meta3dCommonlib.Matrix4.createIdentityMatrix4(),
-    (),
-  ) => {
-    data.contents.createStateFunc(. {
-      isDebug: isDebug,
-      transformCount: transformCount,
-      float9Array1: float9Array1,
-      float32Array1: float32Array1,
-    })
-  }
 
   let _getDefaultPosition = () => [0., 0., 0.]
 
@@ -41,13 +26,13 @@ defineFeature(feature, test => {
     [pos1[0] -. pos2[0], pos1[1] -. pos2[1], pos1[2] -. pos2[2]]
   }
 
-  let _getDataAndCreateAState = ((\"when", \"and")) => {
-    \"when"("I get data", () => {
-      data := Main.getComponentContribute()
+  let _getContributeAndCreateAState = ((\"when", \"and")) => {
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
-      state := _createState()
+      state := StateTool.createState(~contribute=contribute.contents, ())
     })
   }
   test(."change parent\'s localPosition should affect children", ({\"when", \"and", then}) => {
@@ -56,11 +41,11 @@ defineFeature(feature, test => {
     let pos1 = [1., 2., 3.]
     let pos2 = [5., 10., 30.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -69,7 +54,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -79,7 +64,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -89,7 +74,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -99,7 +84,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -108,7 +93,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -118,7 +103,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -128,7 +113,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -140,7 +125,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -157,11 +142,11 @@ defineFeature(feature, test => {
     let pos1 = [1., 2., 3.]
     let pos2 = [5., 10., 30.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -170,7 +155,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -180,7 +165,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -190,7 +175,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -200,7 +185,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -209,7 +194,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -219,7 +204,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -229,7 +214,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -241,7 +226,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -257,11 +242,11 @@ defineFeature(feature, test => {
     let child1 = ref(Obj.magic(2))
     let pos1 = [1., 2., 3.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -270,7 +255,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -280,7 +265,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -289,7 +274,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -305,11 +290,11 @@ defineFeature(feature, test => {
     let pos1 = [1., 2., 3.]
     let pos2 = [5., 10., 30.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -318,7 +303,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -328,7 +313,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -338,7 +323,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -348,7 +333,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -357,7 +342,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -367,7 +352,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -377,7 +362,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -389,7 +374,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -407,11 +392,11 @@ defineFeature(feature, test => {
     let pos2 = [5., 10., 30.]
     let pos3 = [2., 3., 4.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -420,7 +405,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -430,7 +415,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -440,7 +425,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -450,7 +435,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s position to pos(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -459,7 +444,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -469,7 +454,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -481,7 +466,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local position should return pos(\d+) - pos(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -492,7 +477,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(%re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.position,
@@ -507,11 +492,11 @@ defineFeature(feature, test => {
     let child1 = ref(Obj.magic(2))
     let rotation1 = [1., 2., 3., 2.5]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -520,7 +505,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -530,7 +515,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -539,7 +524,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -555,11 +540,11 @@ defineFeature(feature, test => {
     let rotation1 = [1., 2., 3., 2.5]
     let rotation2 = [5., 10.5, 30., 1.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -568,7 +553,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -578,7 +563,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -588,7 +573,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -598,7 +583,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -607,7 +592,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -617,7 +602,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -629,7 +614,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -640,7 +625,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -657,11 +642,11 @@ defineFeature(feature, test => {
     let rotation2 = [5.5, 10., 30., 2.]
     let rotation3 = [2.5, 3.5, 4.5, 1.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -670,7 +655,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -680,7 +665,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -690,7 +675,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -700,7 +685,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s rotation to rotation(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -709,7 +694,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -719,7 +704,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -731,7 +716,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -742,7 +727,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.rotation,
@@ -757,11 +742,11 @@ defineFeature(feature, test => {
     let child1 = ref(Obj.magic(2))
     let eulerAngles = [45., 45., 90.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -770,7 +755,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -780,7 +765,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -791,7 +776,7 @@ defineFeature(feature, test => {
     then(
       %re("/^get child(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -810,11 +795,11 @@ defineFeature(feature, test => {
     let eulerAngles1 = [1., 2., 3.5]
     let eulerAngles2 = [5., 10.5, 30.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -823,7 +808,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -833,7 +818,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -843,7 +828,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -853,7 +838,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -864,7 +849,7 @@ defineFeature(feature, test => {
     then(
       %re("/^get parent(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -879,7 +864,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get parent(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -894,7 +879,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -909,7 +894,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -927,11 +912,11 @@ defineFeature(feature, test => {
     let eulerAngles2 = [5.5, 10., 30.]
     let eulerAngles3 = [2.5, 3.5, 4.5]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -940,7 +925,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -950,7 +935,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -960,7 +945,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -970,7 +955,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -981,7 +966,7 @@ defineFeature(feature, test => {
     then(
       %re("/^get parent(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -996,7 +981,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get parent(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -1011,7 +996,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
@@ -1024,7 +1009,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
@@ -1040,11 +1025,11 @@ defineFeature(feature, test => {
     let child1 = ref(Obj.magic(2))
     let scale1 = [1., 2., 3.]
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -1053,7 +1038,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1063,7 +1048,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -1072,7 +1057,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1092,11 +1077,11 @@ defineFeature(feature, test => {
       [scale1[0] *. scale2[0], scale1[1] *. scale2[1], scale1[2] *. scale2[2]]
     }
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -1105,7 +1090,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -1115,7 +1100,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1125,7 +1110,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1135,7 +1120,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1144,7 +1129,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1154,7 +1139,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1164,7 +1149,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get child(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1176,7 +1161,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s scale should return scale(\d+) \* scale(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1198,11 +1183,11 @@ defineFeature(feature, test => {
       [scale1[0] /. scale2[0], scale1[1] /. scale2[1], scale1[2] /. scale2[2]]
     }
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -1211,7 +1196,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -1221,7 +1206,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1231,7 +1216,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1241,7 +1226,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s scale to scale(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1250,7 +1235,7 @@ defineFeature(feature, test => {
     })
 
     then(%re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1260,7 +1245,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         parent1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1272,7 +1257,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^get child(\d+)'s local scale should return scale(\d+) \/ scale(\d+)$/")->Obj.magic,
       () => {
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
@@ -1285,7 +1270,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(%re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.scale,
@@ -1301,11 +1286,11 @@ defineFeature(feature, test => {
       let transform1 = ref(Obj.magic(1))
       let transform2 = ref(Obj.magic(2))
 
-      _getDataAndCreateAState((\"when", \"and"))
+      _getContributeAndCreateAState((\"when", \"and"))
 
       \"when"(%re("/^create two transforms as transform(\d+), transform(\d+)$/")->Obj.magic, () => {
-        let (s, t1) = data.contents.createComponentFunc(. state.contents)
-        let (s, t2) = data.contents.createComponentFunc(. s)
+        let (s, t1) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, t2) = contribute.contents.createComponentFunc(. s)
 
         state := s
         transform1 := t1
@@ -1317,7 +1302,7 @@ defineFeature(feature, test => {
           "/^get transform(\d+)'s localToWorldMatrix should return identity matrix(\d+)$/"
         )->Obj.magic,
         () => {
-          data.contents.getComponentDataFunc(.
+          contribute.contents.getComponentDataFunc(.
             state.contents,
             transform2.contents,
             Meta3dComponentTransformProtocol.Index.dataName.localToWorldMatrix,
@@ -1336,10 +1321,10 @@ defineFeature(feature, test => {
   }) => {
     let transform = ref(Obj.magic(1))
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"("create a transform", () => {
-      let (s, t) = data.contents.createComponentFunc(. state.contents)
+      let (s, t) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       transform := t
@@ -1350,7 +1335,7 @@ defineFeature(feature, test => {
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           transform.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -1362,7 +1347,7 @@ defineFeature(feature, test => {
       let arguments =
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         transform.contents,
         Meta3dComponentTransformProtocol.Index.dataName.localPosition,
@@ -1376,11 +1361,11 @@ defineFeature(feature, test => {
     let parent1 = ref(Obj.magic(1))
     let child1 = ref(Obj.magic(2))
 
-    _getDataAndCreateAState((\"when", \"and"))
+    _getContributeAndCreateAState((\"when", \"and"))
 
     \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = data.contents.createComponentFunc(. state.contents)
-      let (s, c) = data.contents.createComponentFunc(. s)
+      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, c) = contribute.contents.createComponentFunc(. s)
 
       state := s
       parent1 := p
@@ -1389,7 +1374,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.parent,
@@ -1402,7 +1387,7 @@ defineFeature(feature, test => {
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -1415,7 +1400,7 @@ defineFeature(feature, test => {
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
@@ -1425,7 +1410,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^update child(\d+)$/")->Obj.magic, () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.update,
@@ -1441,7 +1426,7 @@ defineFeature(feature, test => {
         let arguments =
           %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.normalMatrix,

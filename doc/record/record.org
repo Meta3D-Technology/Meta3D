@@ -464,7 +464,7 @@ publish
 
 * TODO update engine
 
-** TODO component support dispose
+** DONE component support dispose
 
 default keep order
 
