@@ -89,17 +89,17 @@ function batchDisposeComponentsFunc(state) {
   return function (components) {
     Contract$Meta3dCommonlib.requireCheck((function (param) {
             return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("component should need disposed", "not"), (function (param) {
-                          return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (isNotNeedDispose, component) {
-                                        if (isNotNeedDispose) {
-                                          return true;
-                                        } else {
-                                          return !needDisposedTransformArray.includes(component);
-                                        }
-                                      }), false);
+                          return Contract$Meta3dCommonlib.assertFalse(ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (isNotNeedDispose, component) {
+                                            if (isNotNeedDispose) {
+                                              return true;
+                                            } else {
+                                              return !needDisposedTransformArray.includes(component);
+                                            }
+                                          }), false));
                         }));
           }), ConfigUtils$Meta3dComponentTransform.getIsDebug(state));
-    var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
     state.disposedTransformArray = disposedTransformArray.concat(components);
+    var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);

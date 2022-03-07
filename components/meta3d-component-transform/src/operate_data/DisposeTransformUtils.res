@@ -111,17 +111,19 @@ let batchDisposeComponentsFunc = (
         ~actual=j`not`,
       ),
       () =>
-        components->Meta3dCommonlib.ArraySt.reduceOneParam(
+        components
+        ->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. isNotNeedDispose, component) =>
             isNotNeedDispose ? true : _isNotNeedDispose(component, needDisposedTransformArray),
           false,
-        ),
+        )
+        ->assertFalse,
     )
   }, ConfigUtils.getIsDebug(state))
 
-  let isDebug = ConfigUtils.getIsDebug(state)
-
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
+
+  let isDebug = ConfigUtils.getIsDebug(state)
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, component) => state->_disposeData(isDebug, component),
