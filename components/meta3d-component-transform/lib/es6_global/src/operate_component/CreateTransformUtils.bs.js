@@ -6,24 +6,33 @@ import * as BufferComponentUtils$Meta3dCommonlib from "./../../../../../../node_
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
 import * as DirtyTransformUtils$Meta3dComponentTransform from "../operate_data/DirtyTransformUtils.bs.js";
 
+var _isNotNeedInitData = MutableSparseMap$Meta3dCommonlib.has;
+
 function _initDataWhenCreate(childrenMap, index) {
-  MutableSparseMap$Meta3dCommonlib.set(childrenMap, index, []);
-  
+  if (MutableSparseMap$Meta3dCommonlib.has(childrenMap, index)) {
+    return ;
+  } else {
+    MutableSparseMap$Meta3dCommonlib.set(childrenMap, index, []);
+    return ;
+  }
 }
 
 function create(state) {
   var index = state.maxIndex;
-  var newIndex = IndexComponentUtils$Meta3dCommonlib.generateIndex(index);
-  state.maxIndex = newIndex;
-  _initDataWhenCreate(state.childrenMap, index);
-  var state$1 = DirtyTransformUtils$Meta3dComponentTransform.mark(state, index, true);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedTransformArray, index);
+  var index$1 = match[1];
+  state.maxIndex = match[2];
+  state.disposedTransformArray = match[0];
+  _initDataWhenCreate(state.childrenMap, index$1);
+  var state$1 = DirtyTransformUtils$Meta3dComponentTransform.mark(state, index$1, true);
   return [
           state$1,
-          BufferComponentUtils$Meta3dCommonlib.checkNotExceedMaxCountByIndex(ConfigUtils$Meta3dComponentTransform.getIsDebug(state$1), index, ConfigUtils$Meta3dComponentTransform.getTransformCount(state$1))
+          BufferComponentUtils$Meta3dCommonlib.checkNotExceedMaxCountByIndex(ConfigUtils$Meta3dComponentTransform.getIsDebug(state$1), index$1, ConfigUtils$Meta3dComponentTransform.getTransformCount(state$1))
         ];
 }
 
 export {
+  _isNotNeedInitData ,
   _initDataWhenCreate ,
   create ,
   

@@ -99,7 +99,7 @@ function batchDisposeComponentsFunc(state) {
                         }));
           }), ConfigUtils$Meta3dComponentTransform.getIsDebug(state));
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
-    disposedTransformArray.concat(components);
+    state.disposedTransformArray = disposedTransformArray.concat(components);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);

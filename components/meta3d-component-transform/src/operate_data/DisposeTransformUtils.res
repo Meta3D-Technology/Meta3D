@@ -121,7 +121,7 @@ let batchDisposeComponentsFunc = (
 
   let isDebug = ConfigUtils.getIsDebug(state)
 
-  let disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
+  state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, component) => state->_disposeData(isDebug, component),
