@@ -11,7 +11,7 @@ type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transfor
   . ('state, 'transformState),
   ('transformState, array<'transform>) => 'transformState,
   array<'gameObject>,
-) => 'state
+) => ('state, 'transformState)
 
 type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
@@ -20,8 +20,19 @@ type gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transf
   createStateFunc: createStateFunc<'state, 'config>,
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state, 'gameObject>,
-  batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform>,
+  batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc<
+    'state,
+    'transformState,
+    'gameObject,
+    'transform,
+  >,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state, 'gameObject>,
 }
 
-type getGameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform> = unit => gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform>
+type getGameObjectContribute<
+  'state,
+  'transformState,
+  'config,
+  'gameObject,
+  'transform,
+> = unit => gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform>

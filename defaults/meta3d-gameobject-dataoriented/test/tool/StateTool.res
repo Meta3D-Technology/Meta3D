@@ -1,8 +1,10 @@
 let createState = (
   ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
     StateType.state,
-    Meta3dGameobjectProtocol.Index.config,
-    Meta3dGameobjectProtocol.Index.gameObject,
+    Meta3dComponentTransformProtocol.Index.state,
+    StateType.config,
+    StateType.gameObject,
+    Meta3dComponentTransformProtocol.Index.transform,
   >,
   ~isDebug=false,
   (),

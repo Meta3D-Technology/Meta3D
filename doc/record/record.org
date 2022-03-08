@@ -481,7 +481,7 @@ batch dispose
 
 ** TODO gameObject support dispose
 
-*** TODO pass bdd test
+** TODO pass bdd test
 
 
 ** TODO update engine-core extension
