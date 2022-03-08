@@ -26,7 +26,7 @@ function _setStates(states) {
               pluginData: init.pluginData,
               componentContributeData: init.componentContributeData,
               gameObjectContribute: init.gameObjectContribute,
-              usedGameObjectData: init.usedGameObjectData
+              usedGameObjectContribute: init.usedGameObjectContribute
             });
 }
 
@@ -137,7 +137,7 @@ function registerPlugin(state, contribute, jobOrders) {
           pluginData: state.pluginData,
           componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectData: state.usedGameObjectData
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -150,7 +150,7 @@ function unregisterPlugin(state, targetPluginName) {
           pluginData: state.pluginData,
           componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectData: state.usedGameObjectData
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -165,7 +165,7 @@ function init(state) {
               pluginData: state.pluginData,
               componentContributeData: state.componentContributeData,
               gameObjectContribute: state.gameObjectContribute,
-              usedGameObjectData: state.usedGameObjectData
+              usedGameObjectContribute: state.usedGameObjectContribute
             }, (function (state, param) {
                 var match = param[0];
                 StateContainer$Meta3dEngineCore.setState(state);

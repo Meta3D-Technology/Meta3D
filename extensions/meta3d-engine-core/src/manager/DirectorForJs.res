@@ -22,9 +22,7 @@ let registerWorkPlugin = (
   state->WorkPluginManager.registerPlugin(contribute, jobOrders->_convertJobOrders)
 }
 
-let unregisterWorkPlugin = (state, targetPluginName) => {
-  state->WorkPluginManager.unregisterPlugin(targetPluginName)
-}
+let unregisterWorkPlugin = WorkPluginManager.unregisterPlugin
 
 let prepare = () => {
   ()
@@ -56,13 +54,9 @@ let runPipeline = (
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
-let getIsDebug = state => {
-  state->PluginDataManager.getIsDebug
-}
+let getIsDebug = PluginDataManager.getIsDebug
 
-let setIsDebug = (state, isDebug) => {
-  state->PluginDataManager.setIsDebug(isDebug)
-}
+let setIsDebug = PluginDataManager.setIsDebug
 
 let registerComponent = (state, componentContribute) => {
   state
@@ -71,71 +65,45 @@ let registerComponent = (state, componentContribute) => {
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
-let unregisterComponent = (state, componentName) => {
-  state->ComponentManager.unregisterComponent(componentName)
-}
+let unregisterComponent = ComponentManager.unregisterComponent
 
-let createAndSetComponentState = (state, componentName, config) => {
-  state->ComponentManager.createAndSetComponentState(componentName, config)
-}
+let createAndSetComponentState = ComponentManager.createAndSetComponentState
 
-let unsafeGetUsedComponentContribute = (state, componentName) => {
-  state->ComponentManager.unsafeGetUsedComponentContribute(componentName)
-}
+let unsafeGetUsedComponentContribute = ComponentManager.unsafeGetUsedComponentContribute
 
-let setUsedComponentContribute = (state, usedComponentContribute, componentName) => {
-  state->ComponentManager.setUsedComponentContribute(usedComponentContribute, componentName)
-}
+let setUsedComponentContribute = ComponentManager.setUsedComponentContribute
 
-let createComponent = usedComponentContribute => {
-  usedComponentContribute->ComponentManager.createComponent
-}
+let createComponent = ComponentManager.createComponent
 
-let setComponentData = (usedComponentContribute, component, dataName, dataValue) => {
-  usedComponentContribute->ComponentManager.setComponentData(component, dataName, dataValue)
-}
+let setComponentData = ComponentManager.setComponentData
 
-let addComponent = (usedComponentContribute, gameObject, component) => {
-  usedComponentContribute->ComponentManager.addComponent(gameObject, component)
-}
+let addComponent = ComponentManager.addComponent
 
-let hasComponent = (usedComponentContribute, gameObject) => {
-  usedComponentContribute->ComponentManager.hasComponent(gameObject)
-}
+let hasComponent = ComponentManager.hasComponent
 
-let getComponent = (usedComponentContribute, gameObject) => {
-  usedComponentContribute->ComponentManager.getComponent(gameObject)
-}
+let getComponent = ComponentManager.getComponent
 
-let getAllComponents = usedComponentContribute => {
-  usedComponentContribute->ComponentManager.getAllComponents
-}
+let deferDisposeComponent = ComponentManager.deferDisposeComponent
 
-let getComponentData = (usedComponentContribute, component, dataName) => {
-  usedComponentContribute->ComponentManager.getComponentData(component, dataName)
-}
+let batchDisposeComponents = ComponentManager.batchDisposeComponents
 
-let getComponentGameObjects = (usedComponentContribute, component) => {
-  usedComponentContribute->ComponentManager.getComponentGameObjects(component)
-}
+let getAllComponents = ComponentManager.getAllComponents
 
-let setGameObjectContribute = (state, gameObjectContribute) => {
-  state->GameObjectManager.setGameObjectContribute(gameObjectContribute)
-}
+let getComponentData = ComponentManager.getComponentData
 
-let createAndSetGameObjectState = state => {
-  state->GameObjectManager.createAndSetState
-}
+let getComponentGameObjects = ComponentManager.getComponentGameObjects
 
-let createGameObject = state => {
-  let (state, gameObject) = state->GameObjectManager.createGameObject
+let setGameObjectContribute = GameObjectManager.setGameObjectContribute
 
-  (state, gameObject)
-}
+let createAndSetGameObjectState = GameObjectManager.createAndSetState
 
-let getAllGameObjects = state => {
-  state->GameObjectManager.getAllGameObjects
-}
+let createGameObject = GameObjectManager.createGameObject
+
+let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
+
+let batchDisposeGameObjects = GameObjectManager.batchDisposeGameObjects
+
+let getAllGameObjects = GameObjectManager.getAllGameObjects
 
 let getComponentState = (
   state,

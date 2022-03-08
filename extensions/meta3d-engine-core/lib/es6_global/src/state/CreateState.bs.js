@@ -15,7 +15,7 @@ function createState(param) {
             allUsedComponentContributes: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
           },
           gameObjectContribute: undefined,
-          usedGameObjectData: undefined
+          usedGameObjectContribute: undefined
         };
 }
 

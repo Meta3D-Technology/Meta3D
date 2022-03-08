@@ -72,12 +72,6 @@ let unsafeGetUsedComponentContribute = componentName => {
   StateContainer.unsafeGetState()->DirectorForJs.unsafeGetUsedComponentContribute(componentName)
 }
 
-let setUsedComponentContribute = (contribute, componentName) => {
-  StateContainer.unsafeGetState()
-  ->DirectorForJs.setUsedComponentContribute(contribute, componentName)
-  ->StateContainer.setState
-}
-
 let createComponent = contribute => {
   contribute->DirectorForJs.createComponent
 }
@@ -98,6 +92,10 @@ let getComponent = (contribute, gameObject) => {
   contribute->DirectorForJs.getComponent(gameObject)
 }
 
+let deferDisposeComponent = DirectorForJs.deferDisposeComponent
+
+let batchDisposeComponents = DirectorForJs.batchDisposeComponents
+
 let getAllComponents = contribute => {
   contribute->DirectorForJs.getAllComponents
 }
@@ -116,9 +114,9 @@ let setGameObjectContribute = contribute => {
   ->StateContainer.setState
 }
 
-let createAndSetGameObjectState = () => {
+let createAndSetGameObjectState = config => {
   StateContainer.unsafeGetState()
-  ->DirectorForJs.createAndSetGameObjectState
+  ->DirectorForJs.createAndSetGameObjectState(config)
   ->StateContainer.setState
 }
 
@@ -130,10 +128,26 @@ let createGameObject = () => {
   gameObject
 }
 
+let deferDisposeGameObject = gameObject => {
+  StateContainer.unsafeGetState()
+  ->DirectorForJs.deferDisposeGameObject(gameObject)
+  ->StateContainer.setState
+}
+
+let batchDisposeGameObjects = gameObjects => {
+  StateContainer.unsafeGetState()
+  ->DirectorForJs.batchDisposeGameObjects(gameObjects)
+  ->StateContainer.setState
+}
+
 let getAllGameObjects = () => {
   StateContainer.unsafeGetState()->DirectorForJs.getAllGameObjects
 }
 
 let getComponentState = componentName => {
   StateContainer.unsafeGetState()->DirectorForJs.getComponentState(componentName)
+}
+
+let getGameObjectState = () => {
+  (StateContainer.unsafeGetState()->GameObjectManager._unsafeGetUsedGameObjectContribute).state
 }

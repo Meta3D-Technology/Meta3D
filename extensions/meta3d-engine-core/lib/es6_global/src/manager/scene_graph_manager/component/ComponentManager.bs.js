@@ -24,7 +24,7 @@ function registerComponent(state, componentContribute) {
                           allUsedComponentContributes: componentContributeData.allUsedComponentContributes
                         },
                         gameObjectContribute: state.gameObjectContribute,
-                        usedGameObjectData: state.usedGameObjectData
+                        usedGameObjectContribute: state.usedGameObjectContribute
                       };
               }));
 }
@@ -40,7 +40,7 @@ function unregisterComponent(state, componentName) {
             allUsedComponentContributes: componentContributeData.allUsedComponentContributes
           },
           gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectData: state.usedGameObjectData
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -70,17 +70,19 @@ function createAndSetComponentState(state, componentName, config) {
                   addComponentFunc: match.addComponentFunc,
                   hasComponentFunc: match.hasComponentFunc,
                   getComponentFunc: match.getComponentFunc,
+                  deferDisposeComponentFunc: match.deferDisposeComponentFunc,
+                  batchDisposeComponentsFunc: match.batchDisposeComponentsFunc,
                   getAllComponentsFunc: match.getAllComponentsFunc,
                   getComponentDataFunc: match.getComponentDataFunc,
                   setComponentDataFunc: match.setComponentDataFunc
                 })
           },
           gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectData: state.usedGameObjectData
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
-function _setComponentStateToData(componentState, usedComponentContribute) {
+function setComponentStateToUsedComponentContribute(componentState, usedComponentContribute) {
   usedComponentContribute.state = componentState;
   return usedComponentContribute;
 }
@@ -113,6 +115,18 @@ function getComponent(usedComponentContribute, gameObject) {
   return usedComponentContribute.getComponentFunc(usedComponentContribute.state, gameObject);
 }
 
+function deferDisposeComponent(usedComponentContribute, component) {
+  var componentState = usedComponentContribute.deferDisposeComponentFunc(usedComponentContribute.state, component);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
+}
+
+function batchDisposeComponents(usedComponentContribute, components) {
+  var componentState = usedComponentContribute.batchDisposeComponentsFunc(usedComponentContribute.state, components);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
+}
+
 function getAllComponents(usedComponentContribute) {
   return usedComponentContribute.getAllComponentsFunc(usedComponentContribute.state);
 }
@@ -137,12 +151,14 @@ export {
   unsafeGetUsedComponentContribute ,
   setUsedComponentContribute ,
   createAndSetComponentState ,
-  _setComponentStateToData ,
+  setComponentStateToUsedComponentContribute ,
   createComponent ,
   setComponentData ,
   addComponent ,
   hasComponent ,
   getComponent ,
+  deferDisposeComponent ,
+  batchDisposeComponents ,
   getAllComponents ,
   getComponentData ,
   getComponentGameObjects ,

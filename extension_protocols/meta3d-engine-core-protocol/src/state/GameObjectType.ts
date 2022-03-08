@@ -17,7 +17,7 @@ export abstract class state { protected opaque!: any }; /* simulate opaque types
 export abstract class gameObject { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
-export type usedGameObjectData = {
+export type usedGameObjectContribute = {
   state: state; 
   readonly createGameObjectFunc: GameObjectContributeType_createGameObjectFunc<state,gameObject>; 
   readonly getAllGameObjectsFunc: GameObjectContributeType_getAllGameObjectsFunc<state,gameObject>

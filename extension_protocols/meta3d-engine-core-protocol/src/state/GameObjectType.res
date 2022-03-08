@@ -1,21 +1,29 @@
-// @genType
 type state
 
-type transformState
-
-// @genType
 type gameObject
 
-type transform
+type transform = RegisterComponentType.component
 
 type config
 
+// type batchDisposeTransformsFunc = (. RegisterComponentType.state, array<transform>) => RegisterComponentType.state
+
 // @genType
-type usedGameObjectData = {
+type usedGameObjectContribute = {
   mutable state: state,
   createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<
     state,
     gameObject,
+  >,
+  deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<
+    state,
+    gameObject,
+  >,
+  batchDisposeGameObjectsFunc: GameObjectContributeType.batchDisposeGameObjectsFunc<
+    state,
+    RegisterComponentType.state,
+    gameObject,
+    transform
   >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<
     state,
@@ -24,4 +32,4 @@ type usedGameObjectData = {
 }
 
 // @genType
-type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, transformState, config, gameObject, transform>
+type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, RegisterComponentType.state , config, gameObject, transform>

@@ -3,6 +3,8 @@ open Cucumber
 open Expect
 open Operators
 
+open Sinon
+
 let feature = loadFeature("./test/features/component.feature")
 
 defineFeature(feature, test => {
@@ -115,15 +117,15 @@ defineFeature(feature, test => {
     })
   })
 
-  let _prepareComponent = (\"when", \"and", d) => {
+  let _prepareComponent = (\"when", \"and", c) => {
     \"when"("register component contribute", () => {
-      contribute := d
+      contribute := c
 
       MainTool.registerComponent(contribute.contents)
     })
 
     \"and"("create and set component state", () => {
-      MainTool.createAndSetComponentState(d.componentName, Obj.magic(1))
+      MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
     })
   }
 
@@ -293,6 +295,115 @@ defineFeature(feature, test => {
 
     then("get gameObject's component should return c1", () => {
       usedContribute.contents->MainTool.getComponent(g1)->expect == c1.contents->Js.Nullable.return
+    })
+  })
+
+  test(."defer dispose component", ({given, \"and", \"when", then}) => {
+    let c1 = ref(Obj.magic(1))
+    let componentName = "a1"
+
+    _prepareRegister(given)
+
+    _prepareComponent(
+      \"when",
+      \"and",
+      ComponentTool.buildComponentContribute(
+        ~componentName,
+        ~createStateFunc=(. _) => {
+          {
+            "needDisposeArray": [],
+          }->Obj.magic
+        },
+        ~createComponentFunc=(. state) => {
+          let component = 1->Obj.magic
+
+          (state, component)
+        },
+        ~deferDisposeComponentFunc=(. state, component) => {
+          {
+            "needDisposeArray": JsObjTool.getObjValue(
+              state,
+              "needDisposeArray",
+            )->Meta3dCommonlib.ArraySt.push(component),
+          }->Obj.magic
+        },
+        (),
+      ),
+    )
+
+    given(%re("/^create a component as c(\d+)$/")->Obj.magic, arg0 => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.createComponent
+
+      c1 := component
+      usedContribute := d
+    })
+
+    \"when"("defer dispose c1", () => {
+      usedContribute :=
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.deferDisposeComponent(
+          c1.contents,
+        )
+    })
+
+    then("mark c1 as need dispose", () => {
+      JsObjTool.getObjValue(usedContribute.contents.state, "needDisposeArray")
+      ->Js.Array.includes(c1.contents, _)
+      ->expect == true
+    })
+  })
+
+  test(."batch dispose components", ({given, \"and", \"when", then}) => {
+    let c1 = ref(Obj.magic(1))
+    let componentName = "a1"
+
+    _prepareRegister(given)
+
+    _prepareComponent(
+      \"when",
+      \"and",
+      ComponentTool.buildComponentContribute(
+        ~componentName,
+        ~createComponentFunc=(. state) => {
+          let component = 1->Obj.magic
+
+          (state, component)
+        },
+        ~createStateFunc=(. _) => {
+          {
+            "disposedArray": [],
+          }->Obj.magic
+        },
+        ~batchDisposeComponentsFunc=(. state, components) => {
+          {
+            "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
+              components,
+            ),
+          }->Obj.magic
+        },
+        (),
+      ),
+    )
+
+    given(%re("/^create a component as c(\d+)$/")->Obj.magic, arg0 => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.createComponent
+
+      c1 := component
+      usedContribute := d
+    })
+
+    \"when"("batch dispose [c1]", () => {
+      usedContribute :=
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.batchDisposeComponents([
+          c1.contents,
+        ])
+    })
+
+    then("mark c1 as disposed", () => {
+      JsObjTool.getObjValue(usedContribute.contents.state, "disposedArray")
+      ->Js.Array.includes(c1.contents, _)
+      ->expect == true
     })
   })
 

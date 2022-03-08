@@ -18,6 +18,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   addComponent: DirectorForJs.addComponent,
   hasComponent: DirectorForJs.hasComponent,
   getComponent: DirectorForJs.getComponent,
+  deferDisposeComponent: DirectorForJs.deferDisposeComponent,
+  batchDisposeComponents: DirectorForJs.batchDisposeComponents,
   getAllComponents: DirectorForJs.getAllComponents,
   getComponentData: DirectorForJs.getComponentData,
   getComponentGameObjects: DirectorForJs.getComponentGameObjects,
@@ -25,6 +27,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   setGameObjectContribute: DirectorForJs.setGameObjectContribute,
   createAndSetGameObjectState: DirectorForJs.createAndSetGameObjectState,
   createGameObject: DirectorForJs.createGameObject,
+  deferDisposeGameObject: DirectorForJs.deferDisposeGameObject,
+  batchDisposeGameObjects: DirectorForJs.batchDisposeGameObjects,
   getAllGameObjects: DirectorForJs.getAllGameObjects,
   runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
 }

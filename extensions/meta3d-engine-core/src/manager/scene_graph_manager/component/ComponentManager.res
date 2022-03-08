@@ -75,6 +75,8 @@ let createAndSetComponentState = (
     addComponentFunc,
     hasComponentFunc,
     getComponentFunc,
+    deferDisposeComponentFunc,
+    batchDisposeComponentsFunc,
     getAllComponentsFunc,
     getComponentDataFunc,
     setComponentDataFunc,
@@ -97,6 +99,8 @@ let createAndSetComponentState = (
           addComponentFunc: addComponentFunc,
           hasComponentFunc: hasComponentFunc,
           getComponentFunc: getComponentFunc,
+          deferDisposeComponentFunc: deferDisposeComponentFunc,
+          batchDisposeComponentsFunc: batchDisposeComponentsFunc,
           getAllComponentsFunc: getAllComponentsFunc,
           getComponentDataFunc: getComponentDataFunc,
           setComponentDataFunc: setComponentDataFunc,
@@ -106,7 +110,7 @@ let createAndSetComponentState = (
   }
 }
 
-let _setComponentStateToData = (
+let setComponentStateToUsedComponentContribute = (
   componentState: Meta3dEngineCoreProtocol.RegisterComponentType.state,
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
@@ -125,7 +129,7 @@ let createComponent = (
     usedComponentContribute.state,
   )
 
-  (_setComponentStateToData(componentState, usedComponentContribute), component)
+  (setComponentStateToUsedComponentContribute(componentState, usedComponentContribute), component)
 }
 
 let setComponentData = (
@@ -141,9 +145,9 @@ let setComponentData = (
     component,
     dataName,
     dataValue,
-  )->_setComponentStateToData(usedComponentContribute)
+  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 
-  // ->_setComponentStateToData(state, usedComponentContribute, componentName, _)
+  // ->setComponentStateToUsedComponentContribute(state, usedComponentContribute, componentName, _)
 
   // state
 }
@@ -157,7 +161,7 @@ let addComponent = (
     usedComponentContribute.state,
     gameObject,
     component,
-  )->_setComponentStateToData(usedComponentContribute)
+  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 
 let hasComponent = (
@@ -172,6 +176,26 @@ let getComponent = (
   gameObject: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
   usedComponentContribute.getComponentFunc(. usedComponentContribute.state, gameObject)
+}
+
+let deferDisposeComponent = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  usedComponentContribute.deferDisposeComponentFunc(.
+    usedComponentContribute.state,
+    component,
+  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
+}
+
+let batchDisposeComponents = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  components: array<Meta3dEngineCoreProtocol.RegisterComponentType.component>,
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  usedComponentContribute.batchDisposeComponentsFunc(.
+    usedComponentContribute.state,
+    components,
+  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 
 let getAllComponents = (

@@ -14,7 +14,7 @@ function setIsDebug(state, isDebug) {
           },
           componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectData: state.usedGameObjectData
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 

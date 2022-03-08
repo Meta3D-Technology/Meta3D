@@ -11,5 +11,5 @@ type state = {
   pluginData: pluginData,
   componentContributeData: RegisterComponentType.componentContributeData,
   gameObjectContribute: option<GameObjectType.gameObjectContribute>,
-  mutable usedGameObjectData: option<GameObjectType.usedGameObjectData>,
+  mutable usedGameObjectContribute: option<GameObjectType.usedGameObjectContribute>,
 }

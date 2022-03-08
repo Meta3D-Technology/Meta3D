@@ -479,9 +479,9 @@ batch dispose
 *** DONE pass bdd test
 
 
-** TODO gameObject support dispose
+** DONE gameObject support dispose
 
-** TODO pass bdd test
+** DONE pass bdd test
 
 
 ** TODO update engine-core extension
@@ -494,20 +494,6 @@ batch dispose
 
 *** TODO pass bdd
 
-
-
-** TODO pass run test
-
-
-*** TODO add dispose job
-
-
-*** TODO update editor, add dispose gameObject button
-
-gameObject should add transform component!
-
-
-*** TODO pass run test
 
 
 
@@ -526,18 +512,22 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 refer to ReallocateCPUMemoryJobUtils
 
 
+
 ** TODO pass run test
 
 
 *** TODO add dispose, reallocate job
 
 
-# *** TODO update editor, add dispose gameObject button
+*** TODO update editor, add dispose gameObject, allocate button
 
-# gameObject should add transform component!
+gameObject should add transform component!
 
 
 *** TODO pass run test
+
+
+
 
 
 ** TODO component support clone

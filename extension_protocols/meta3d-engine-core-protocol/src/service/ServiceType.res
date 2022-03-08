@@ -9,7 +9,10 @@ type service = {
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,
-  unregisterWorkPlugin: (StateType.state, WorkPluginContributeType.workPluginName) => StateType.state,
+  unregisterWorkPlugin: (
+    StateType.state,
+    WorkPluginContributeType.workPluginName,
+  ) => StateType.state,
   registerComponent: (
     StateType.state,
     RegisterComponentType.componentContribute,
@@ -52,6 +55,14 @@ type service = {
     RegisterComponentType.usedComponentContribute,
     GameObjectContributeType.gameObject,
   ) => Js.Nullable.t<RegisterComponentType.component>,
+  deferDisposeComponent: (
+    RegisterComponentType.usedComponentContribute,
+    RegisterComponentType.component,
+  ) => RegisterComponentType.usedComponentContribute,
+  batchDisposeComponents: (
+    RegisterComponentType.usedComponentContribute,
+    array<RegisterComponentType.component>,
+  ) => RegisterComponentType.usedComponentContribute,
   getAllComponents: RegisterComponentType.usedComponentContribute => array<
     RegisterComponentType.component,
   >,
@@ -72,8 +83,10 @@ type service = {
     StateType.state,
     GameObjectType.gameObjectContribute,
   ) => StateType.state,
-  createAndSetGameObjectState: StateType.state => StateType.state,
+  createAndSetGameObjectState: (StateType.state, GameObjectType.config) => StateType.state,
   createGameObject: StateType.state => (StateType.state, GameObjectType.gameObject),
+  deferDisposeGameObject: (StateType.state, GameObjectType.gameObject) => StateType.state,
+  batchDisposeGameObjects: (StateType.state, array<GameObjectType.gameObject>) => StateType.state,
   getAllGameObjects: StateType.state => array<GameObjectType.gameObject>,
   runPipeline: (
     StateType.state,
