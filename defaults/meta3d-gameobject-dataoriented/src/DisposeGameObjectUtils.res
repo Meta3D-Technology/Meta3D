@@ -33,10 +33,10 @@ let batchDisposeGameObjectsFunc = (
 
   let {gameObjectTransformMap} = transformState
 
-  let transformState =
-    transformState->batchDisposeTransformsFunc(
-      ComponentMapUtils.batchGetComponent(gameObjects, gameObjectTransformMap),
-    )
+  let transformState = batchDisposeTransformsFunc(.
+    transformState,
+    ComponentMapUtils.batchGetComponent(gameObjects, gameObjectTransformMap),
+  )
 
   (gameObjectState, transformState)
 }

@@ -9,7 +9,7 @@ type deferDisposeGameObjectFunc<'state, 'gameObject> = (. 'state, 'gameObject) =
 
 type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
   . ('state, 'transformState),
-  ('transformState, array<'transform>) => 'transformState,
+  (. 'transformState, array<'transform>) => 'transformState,
   array<'gameObject>,
 ) => ('state, 'transformState)
 

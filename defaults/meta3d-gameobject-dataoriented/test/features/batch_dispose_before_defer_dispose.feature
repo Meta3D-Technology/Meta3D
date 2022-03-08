@@ -1,4 +1,4 @@
-Feature: Batch Dispose Before Defer Dispose
+Feature: Batch Dispose After Defer Dispose
 	As a Batch Dispose
 	I want to batch dispose transforms before defer dispose
 	So that should contract error
@@ -8,6 +8,6 @@ Feature: Batch Dispose Before Defer Dispose
 		And create a state and open debug
 
 	Scenario: if dispose before defer dispose, contract error
-		Given create a transform
-		When dispose the transform
-		Then should contract error: "component should need disposed"
+		Given create a gameObject
+		When dispose the gameObject
+		Then should contract error: "gameObject should need disposed"

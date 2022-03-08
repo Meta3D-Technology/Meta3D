@@ -27,7 +27,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."disposed transform shouldn\'t affect other alive ones\' data", ({
+  test(."if dispose before defer dispose, contract error", ({
     given,
     \"when",
     \"and",
