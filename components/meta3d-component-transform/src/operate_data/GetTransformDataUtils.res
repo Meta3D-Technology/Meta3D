@@ -1,4 +1,4 @@
-open StateType
+open Meta3dComponentTransformProtocol.Index
 
 let getData = (.
   {

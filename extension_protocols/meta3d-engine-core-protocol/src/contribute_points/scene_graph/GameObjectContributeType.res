@@ -1,17 +1,27 @@
 // @genType
 type gameObject
 
-type createStateFunc<'state> = unit => 'state
+type createStateFunc<'state, 'config> = (. 'config) => 'state
 
 type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObject)
+
+type deferDisposeGameObjectFunc<'state, 'gameObject> = (. 'state, 'gameObject) => 'state
+
+type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
+  . ('state, 'transformState),
+  ('transformState, array<'transform>) => 'transformState,
+  array<'gameObject>,
+) => 'state
 
 type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
 // @genType
-type gameObjectContribute<'state, 'gameObject> = {
-  createStateFunc: createStateFunc<'state>,
+type gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform> = {
+  createStateFunc: createStateFunc<'state, 'config>,
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,
+  deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state, 'gameObject>,
+  batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform>,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state, 'gameObject>,
 }
 
-type getGameObjectContribute<'state, 'gameObject> = unit => gameObjectContribute<'state, 'gameObject>
+type getGameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform> = unit => gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform>

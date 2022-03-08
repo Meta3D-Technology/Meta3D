@@ -8,10 +8,10 @@ let feature = loadFeature("./test/features/hierachy.feature")
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      Meta3dComponentTransform.StateType.state,
-      Meta3dComponentTransform.StateType.config,
+      Meta3dComponentTransformProtocol.Index.state,
+      Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
-      Meta3dComponentTransform.StateType.transform,
+      Meta3dComponentTransformProtocol.Index.transform,
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))

@@ -11,17 +11,21 @@ defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
 
-  test(."create a state", ({\"when", then}) => {
-    \"when"("I get contribute", () => {
-      contribute := Main.getGameObjectContribute()
-    })
+  let _createState = (~isDebug=false, ()) => {
+    StateTool.createState(~contribute=contribute.contents, ~isDebug, ())
+  }
 
-    then("createStateFunc should create a state", () => {
-      contribute.contents.createStateFunc()->expect == {
-          maxUID: 0,
-        }
-    })
-  })
+  // test(."create a state", ({\"when", then}) => {
+  //   \"when"("I get contribute", () => {
+  //     contribute := Main.getGameObjectContribute()
+  //   })
+
+  //   then("createStateFunc _createState()
+  //     _createState([->expect == )
+  //         maxUID: 0,
+  //       }
+  //   })
+  // })
 
   test(."create a gameObject", ({\"when", \"and", then}) => {
     \"when"("I get contribute", () => {
@@ -29,7 +33,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a state", () => {
-      state := contribute.contents.createStateFunc()
+      state := _createState()
     })
 
     then("createGameObjectFunc should create a gameObject", () => {
@@ -48,7 +52,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a state", () => {
-      state := contribute.contents.createStateFunc()
+      state := _createState()
     })
 
     \"and"("create two gameObjects", () => {

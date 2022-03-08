@@ -1,6 +1,6 @@
 'use strict';
 
-var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/component/TypeArrayUtils.bs.js");
+var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/TypeArrayUtils.bs.js");
 var BufferTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/BufferTransformUtils.bs.js");
 
 function setLocalToWorldMatrix(index, data, typeArr) {

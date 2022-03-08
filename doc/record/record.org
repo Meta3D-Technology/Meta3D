@@ -476,34 +476,107 @@ defer dispose
 batch dispose
 
 
-*** TODO pass bdd test
+*** DONE pass bdd test
 
 
 ** TODO gameObject support dispose
 
 *** TODO pass bdd test
 
-** TODO component support clone
 
-*** TODO pass bdd test
+** TODO update engine-core extension
+
+*** TODO component add dispose
+
+*** TODO pass bdd
+
+*** TODO gameObject add dispose
+
+*** TODO pass bdd
 
 
-** TODO add all components(include worker)
 
-need refactor, add dispose and clone!
+** TODO pass run test
+
+
+*** TODO add dispose job
+
+
+*** TODO update editor, add dispose gameObject button
+
+gameObject should add transform component!
+
+
+*** TODO pass run test
+
+
+
+
+** TODO add geometry, pbrMaterial components(include worker)
+
+need refactor, add dispose!
 
 for pbrmaterial and geometry component:
 only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
 
 
 
+** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+
+** TODO pass run test
+
+
+*** TODO add dispose, reallocate job
+
+
+# *** TODO update editor, add dispose gameObject button
+
+# gameObject should add transform component!
+
+
+*** TODO pass run test
+
+
+** TODO component support clone
+
+*** TODO pass bdd test
+
+
+** TODO pass run test
+
+
+*** TODO update editor, add clone gameObject button
+
+
+*** TODO pass run test
+
+
+
+** TODO add remain components(include worker)
+
+
+** TODO add MeshRender component
+
+
 ** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
+
+
+** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
 
 
 
 ** TODO pass bdd test
 
-** TODO add MeshRender component
+
+
+* TODO publish
+
+
+
+
 
 
 

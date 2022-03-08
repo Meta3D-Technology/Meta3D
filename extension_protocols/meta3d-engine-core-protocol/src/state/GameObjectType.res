@@ -1,8 +1,14 @@
 // @genType
 type state
 
+type transformState
+
 // @genType
 type gameObject
+
+type transform
+
+type config
 
 // @genType
 type usedGameObjectData = {
@@ -18,4 +24,4 @@ type usedGameObjectData = {
 }
 
 // @genType
-type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, gameObject>
+type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, transformState, config, gameObject, transform>

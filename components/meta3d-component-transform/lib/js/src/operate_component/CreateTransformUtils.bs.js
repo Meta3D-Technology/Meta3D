@@ -1,8 +1,8 @@
 'use strict';
 
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
-var IndexComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/component/IndexComponentUtils.bs.js");
-var BufferComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/component/BufferComponentUtils.bs.js");
+var IndexComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/IndexComponentUtils.bs.js");
+var BufferComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/BufferComponentUtils.bs.js");
 var ConfigUtils$Meta3dComponentTransform = require("../config/ConfigUtils.bs.js");
 var DirtyTransformUtils$Meta3dComponentTransform = require("../operate_data/DirtyTransformUtils.bs.js");
 

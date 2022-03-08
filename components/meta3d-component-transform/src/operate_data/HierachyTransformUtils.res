@@ -1,4 +1,4 @@
-open StateType
+open Meta3dComponentTransformProtocol.Index
 
 let getParent = (parentMap, transform) => parentMap->Meta3dCommonlib.MutableSparseMap.get(transform)
 

@@ -19,9 +19,14 @@
     "-bs-no-version-header",
     "-bs-super-errors"
   ],
-  "bs-dev-dependencies": [],
+  "bs-dev-dependencies": [
+  ],
   "refmt": 3,
-  "bs-dependencies": [],
+  "bs-dependencies": [
+    "meta3d-engine-core-protocol",
+    "meta3d-commonlib",
+    "meta3d-commonlib-type"
+  ],
   "package-specs": [
     "commonjs",
     "es6-global"

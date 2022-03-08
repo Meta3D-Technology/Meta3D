@@ -1,8 +1,7 @@
 
 
-import * as Log$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Contract$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
+import * as DisposeUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
 import * as DisposeTypeArrayUtils$Meta3dComponentTransform from "../utils/DisposeTypeArrayUtils.bs.js";
@@ -37,10 +36,6 @@ function deferDisposeComponentFunc(state) {
             disposedTransformArray: state.disposedTransformArray
           };
   };
-}
-
-function _isNotNeedDispose(component, needDisposedIndexArray) {
-  return !needDisposedIndexArray.includes(component);
 }
 
 function _disposeFromParentAndChildMap(state, isDebug, component) {
@@ -87,19 +82,9 @@ function batchDisposeComponentsFunc(state) {
   var needDisposedTransformArray = state.needDisposedTransformArray;
   var disposedTransformArray = state.disposedTransformArray;
   return function (components) {
-    Contract$Meta3dCommonlib.requireCheck((function (param) {
-            return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("component should need disposed", "not"), (function (param) {
-                          return Contract$Meta3dCommonlib.assertFalse(ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (isNotNeedDispose, component) {
-                                            if (isNotNeedDispose) {
-                                              return true;
-                                            } else {
-                                              return !needDisposedTransformArray.includes(component);
-                                            }
-                                          }), false));
-                        }));
-          }), ConfigUtils$Meta3dComponentTransform.getIsDebug(state));
-    state.disposedTransformArray = disposedTransformArray.concat(components);
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
+    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, needDisposedTransformArray);
+    state.disposedTransformArray = disposedTransformArray.concat(components);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);
@@ -109,7 +94,6 @@ function batchDisposeComponentsFunc(state) {
 export {
   _removeComponent ,
   deferDisposeComponentFunc ,
-  _isNotNeedDispose ,
   _disposeFromParentAndChildMap ,
   _disposeSparseMapData ,
   _disposeData ,

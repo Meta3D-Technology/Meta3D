@@ -1,7 +1,7 @@
 
 
 import * as ListSt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/component/CreateMapComponentUtils.bs.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
 import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
 import * as OperateTypeArrayTransformUtils$Meta3dComponentTransform from "../utils/OperateTypeArrayTransformUtils.bs.js";
 import * as CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/CreateTypeArrayTransformUtils.bs.js";

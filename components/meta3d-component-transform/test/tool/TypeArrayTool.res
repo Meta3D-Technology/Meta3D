@@ -1,4 +1,4 @@
-open StateType
+open Meta3dComponentTransformProtocol.Index
 
 let getDefaultPosition = () => (0., 0., 0.)
 

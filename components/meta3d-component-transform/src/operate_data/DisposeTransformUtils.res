@@ -1,4 +1,4 @@
-open StateType
+open Meta3dComponentTransformProtocol.Index
 
 let _removeComponent = (gameObjectMap, component) =>
   gameObjectMap->Meta3dCommonlib.MutableSparseMap.remove(component)
@@ -15,9 +15,6 @@ let deferDisposeComponentFunc = (
     needDisposedTransformArray: needDisposedTransformArray->Meta3dCommonlib.ArraySt.push(component),
   }
 }
-
-let _isNotNeedDispose = (component, needDisposedIndexArray) =>
-  !Js.Array.includes(component, needDisposedIndexArray)
 
 let _disposeFromParentAndChildMap = (state, isDebug, component) => {
   let parentMap =
@@ -101,29 +98,16 @@ let batchDisposeComponentsFunc = (
   {gameObjectMap, needDisposedTransformArray, disposedTransformArray} as state,
   components,
 ) => {
-  Meta3dCommonlib.Contract.requireCheck(() => {
-    open Meta3dCommonlib.Contract
-    open Operators
+  let isDebug = ConfigUtils.getIsDebug(state)
 
-    test(
-      Meta3dCommonlib.Log.buildAssertMessage(
-        ~expect=j`component should need disposed`,
-        ~actual=j`not`,
-      ),
-      () =>
-        components
-        ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. isNotNeedDispose, component) =>
-            isNotNeedDispose ? true : _isNotNeedDispose(component, needDisposedTransformArray),
-          false,
-        )
-        ->assertFalse,
-    )
-  }, ConfigUtils.getIsDebug(state))
+  Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
+    isDebug,
+    "component",
+    components,
+    needDisposedTransformArray,
+  )
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
-
-  let isDebug = ConfigUtils.getIsDebug(state)
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, component) => state->_disposeData(isDebug, component),

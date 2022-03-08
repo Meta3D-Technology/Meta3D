@@ -1,5 +1,5 @@
 let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
-  StateType.state,
+  Meta3dComponentTransformProtocol.Index.state,
   Meta3dComponentTransformProtocol.Index.config,
   Meta3dComponentTransformProtocol.Index.dataNameType,
   Meta3dComponentTransformProtocol.Index.transform,

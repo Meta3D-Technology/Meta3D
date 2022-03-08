@@ -1,6 +1,6 @@
 
 
-import * as SharedArrayBufferUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/component/SharedArrayBufferUtils.bs.js";
+import * as SharedArrayBufferUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/SharedArrayBufferUtils.bs.js";
 
 function getLocalToWorldMatricesSize(param) {
   return 16;

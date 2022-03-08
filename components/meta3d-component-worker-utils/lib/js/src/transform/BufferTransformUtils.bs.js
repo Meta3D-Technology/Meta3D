@@ -1,6 +1,6 @@
 'use strict';
 
-var SharedArrayBufferUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/component/SharedArrayBufferUtils.bs.js");
+var SharedArrayBufferUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/SharedArrayBufferUtils.bs.js");
 
 function getLocalToWorldMatricesSize(param) {
   return 16;

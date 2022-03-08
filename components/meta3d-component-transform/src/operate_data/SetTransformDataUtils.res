@@ -1,14 +1,14 @@
-open StateType
+open Meta3dComponentTransformProtocol.Index
 
 let setData = (.
   state,
   transform,
   dataName: Meta3dComponentTransformProtocol.Index.dataNameType,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
-): StateType.state => {
+): Meta3dComponentTransformProtocol.Index.state => {
   switch dataName {
   | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.parent =>
-    let parent: Js.Nullable.t<StateType.transform> = dataValue->Obj.magic
+    let parent: Js.Nullable.t<Meta3dComponentTransformProtocol.Index.transform> = dataValue->Obj.magic
 
     // Js.Nullable.isNullable(parent)
     //   ? {

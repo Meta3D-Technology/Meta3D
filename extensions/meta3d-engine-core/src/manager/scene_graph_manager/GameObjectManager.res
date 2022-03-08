@@ -12,6 +12,7 @@ let setGameObjectContribute = (
   gameObjectContribute: Some(gameObjectContribute),
 }
 
+TODO fix
 let createAndSetState = (
   {gameObjectContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
 ): Meta3dEngineCoreProtocol.StateType.state => {
