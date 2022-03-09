@@ -66,7 +66,7 @@ let setUsedComponentContribute = (
 let createAndSetComponentState = (
   state: Meta3dEngineCoreProtocol.StateType.state,
   componentName: Meta3dEngineCoreProtocol.ComponentContributeType.componentName,
-  config: Meta3dEngineCoreProtocol.RegisterComponentType.config,
+  config: Meta3dEngineCoreProtocol.ComponentType.config,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   let {
     createStateFunc,
@@ -117,7 +117,7 @@ let createAndSetComponentState = (
 }
 
 let setComponentStateToUsedComponentContribute = (
-  componentState: Meta3dEngineCoreProtocol.RegisterComponentType.state,
+  componentState: Meta3dEngineCoreProtocol.ComponentType.state,
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.state = componentState
@@ -129,7 +129,7 @@ let createComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
 ): (
   Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  Meta3dEngineCoreProtocol.RegisterComponentType.component,
+  Meta3dEngineCoreProtocol.ComponentType.component,
 ) => {
   let (componentState, component) = usedComponentContribute.createComponentFunc(.
     usedComponentContribute.state,
@@ -140,8 +140,8 @@ let createComponent = (
 
 let setComponentData = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
-  dataName: Meta3dEngineCoreProtocol.RegisterComponentType.dataName,
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
+  dataName: Meta3dEngineCoreProtocol.ComponentType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   // let usedComponentContribute = state->unsafeGetUsedComponentContributeribute(componentName)
@@ -160,8 +160,8 @@ let setComponentData = (
 
 let addComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
+  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.addComponentFunc(.
     usedComponentContribute.state,
@@ -172,8 +172,8 @@ let addComponent = (
 
 let removeComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
+  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.removeComponentFunc(.
     usedComponentContribute.state,
@@ -184,34 +184,34 @@ let removeComponent = (
 
 let hasComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
+  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
 ): bool => {
   usedComponentContribute.hasComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
 let getComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
-): Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
+  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+): Js.Nullable.t<Meta3dEngineCoreProtocol.ComponentType.component> => {
   usedComponentContribute.getComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
 let getComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObjects: array<Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject>,
-): array<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
+  gameObjects: array<Meta3dEngineCoreProtocol.GameObjectType.gameObject>,
+): array<Meta3dEngineCoreProtocol.ComponentType.component> => {
   usedComponentContribute.getComponentsFunc(. usedComponentContribute.state, gameObjects)
 }
 
 let getNeedDisposedComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-): array<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
+): array<Meta3dEngineCoreProtocol.ComponentType.component> => {
   usedComponentContribute.getNeedDisposedComponentsFunc(. usedComponentContribute.state)
 }
 
 let deferDisposeComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.deferDisposeComponentFunc(.
     usedComponentContribute.state,
@@ -221,7 +221,7 @@ let deferDisposeComponent = (
 
 let batchDisposeComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  components: array<Meta3dEngineCoreProtocol.RegisterComponentType.component>,
+  components: array<Meta3dEngineCoreProtocol.ComponentType.component>,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.batchDisposeComponentsFunc(.
     usedComponentContribute.state,
@@ -231,22 +231,22 @@ let batchDisposeComponents = (
 
 let getAllComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-): array<Meta3dEngineCoreProtocol.RegisterComponentType.component> => {
+): array<Meta3dEngineCoreProtocol.ComponentType.component> => {
   usedComponentContribute.getAllComponentsFunc(. usedComponentContribute.state)
 }
 
 let getComponentData = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
-  dataName: Meta3dEngineCoreProtocol.RegisterComponentType.dataName,
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
+  dataName: Meta3dEngineCoreProtocol.ComponentType.dataName,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.ComponentContributeType.dataValue> => {
   usedComponentContribute.getComponentDataFunc(. usedComponentContribute.state, component, dataName)
 }
 
 let getComponentGameObjects = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  component: Meta3dEngineCoreProtocol.RegisterComponentType.component,
-): array<Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject> => {
+  component: Meta3dEngineCoreProtocol.ComponentType.component,
+): array<Meta3dEngineCoreProtocol.GameObjectType.gameObject> => {
   usedComponentContribute.getGameObjectsFunc(. usedComponentContribute.state, component)
 }
 

@@ -52,7 +52,7 @@ type state = {
   defaultIOR: float,
   gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
   gameObjectPBRMaterialMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject,
+    Meta3dEngineCoreProtocol.GameObjectType.gameObject,
     pbrMaterial,
   >,
   diffuseMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, diffuseMap>,

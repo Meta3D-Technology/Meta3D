@@ -523,8 +523,6 @@ getNeedDisposedXxxFunc should remove duplicate ones;
 when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no duplicate one!)
 
 
-TODO gameObject.feature
-
 
 ** TODO refactor: rename batchDispose to dispose;
 

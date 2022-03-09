@@ -19,6 +19,7 @@ let createAndSetState = (
   let {
     createStateFunc,
     createGameObjectFunc,
+    getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc,
     batchDisposeGameObjectsFunc,
     getAllGameObjectsFunc,
@@ -30,6 +31,7 @@ let createAndSetState = (
       state: createStateFunc(. config),
       createGameObjectFunc: createGameObjectFunc,
       getAllGameObjectsFunc: getAllGameObjectsFunc,
+      getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
       deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
       batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc,
     }->Some,
@@ -69,13 +71,28 @@ let createGameObject = (state: Meta3dEngineCoreProtocol.StateType.state): (
 
 let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject) => {
   let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+  let usedTransformContribute =
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentTransformProtocol.Index.componentName,
+    )
 
-  let gameObjectState = usedGameObjectContribute.deferDisposeGameObjectFunc(.
-    usedGameObjectContribute.state,
+  let (gameObjectState, transformState) = usedGameObjectContribute.deferDisposeGameObjectFunc(.
+    (usedGameObjectContribute.state, usedTransformContribute.state),
+    (usedTransformContribute.getComponentFunc, usedTransformContribute.deferDisposeComponentFunc),
     gameObject,
   )
 
-  _setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState)
+  let usedTransformContribute =
+    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedTransformContribute,
+    )
+
+  state
+  ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
+  ->ComponentManager.setUsedComponentContribute(
+    usedTransformContribute,
+    Meta3dComponentTransformProtocol.Index.componentName,
+  )
 }
 
 let batchDisposeGameObjects = (state, gameObjects) => {
@@ -87,7 +104,7 @@ let batchDisposeGameObjects = (state, gameObjects) => {
 
   let (gameObjectState, transformState) = usedGameObjectContribute.batchDisposeGameObjectsFunc(.
     (usedGameObjectContribute.state, usedTransformContribute.state),
-    usedTransformContribute.batchDisposeComponentsFunc,
+    (usedTransformContribute.getComponentsFunc, usedTransformContribute.batchDisposeComponentsFunc),
     gameObjects,
   )
 

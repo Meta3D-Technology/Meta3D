@@ -1,3 +1,3 @@
-external gameObjectToInt: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject => int = "%identity"
+external gameObjectToInt: Meta3dEngineCoreProtocol.GameObjectType.gameObject => int = "%identity"
 
-external intToGameObject: int => Meta3dEngineCoreProtocol.GameObjectContributeType.gameObject = "%identity"
+external intToGameObject: int => Meta3dEngineCoreProtocol.GameObjectType.gameObject = "%identity"

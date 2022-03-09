@@ -30,6 +30,7 @@ function createAndSetState(state, config) {
           usedGameObjectContribute: {
             state: match.createStateFunc(config),
             createGameObjectFunc: match.createGameObjectFunc,
+            getNeedDisposedGameObjectsFunc: match.getNeedDisposedGameObjectsFunc,
             deferDisposeGameObjectFunc: match.deferDisposeGameObjectFunc,
             batchDisposeGameObjectsFunc: match.batchDisposeGameObjectsFunc,
             getAllGameObjectsFunc: match.getAllGameObjectsFunc
@@ -58,8 +59,16 @@ function createGameObject(state) {
 
 function deferDisposeGameObject(state, gameObject) {
   var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
-  var gameObjectState = usedGameObjectContribute.deferDisposeGameObjectFunc(usedGameObjectContribute.state, gameObject);
-  return _setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState);
+  var usedTransformContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName);
+  var match = usedGameObjectContribute.deferDisposeGameObjectFunc([
+        usedGameObjectContribute.state,
+        usedTransformContribute.state
+      ], [
+        usedTransformContribute.getComponentFunc,
+        usedTransformContribute.deferDisposeComponentFunc
+      ], gameObject);
+  var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);
+  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
 }
 
 function batchDisposeGameObjects(state, gameObjects) {
@@ -68,7 +77,10 @@ function batchDisposeGameObjects(state, gameObjects) {
   var match = usedGameObjectContribute.batchDisposeGameObjectsFunc([
         usedGameObjectContribute.state,
         usedTransformContribute.state
-      ], usedTransformContribute.batchDisposeComponentsFunc, gameObjects);
+      ], [
+        usedTransformContribute.getComponentsFunc,
+        usedTransformContribute.batchDisposeComponentsFunc
+      ], gameObjects);
   var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
 }

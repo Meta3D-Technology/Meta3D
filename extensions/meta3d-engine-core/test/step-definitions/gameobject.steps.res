@@ -7,18 +7,21 @@ let feature = loadFeature("./test/features/gameobject.feature")
 
 defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
+    let transformContribute = ref(Obj.magic(1))
 
   let _buildGameObjectData = (
     ~createStateFunc=(. config) => Obj.magic(1),
     ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
     ~getAllGameObjectsFunc=(. state) => [],
-    ~deferDisposeGameObjectFunc=(. state, gameObject) => state,
-    ~batchDisposeGameObjectsFunc=(. states, batchDisposeTransformsFunc, gameObjects) => states,
+    ~getNeedDisposedGameObjectsFunc= (. state) => [],
+    ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
+    ~batchDisposeGameObjectsFunc=(. states, _, gameObjects) => states,
     (),
   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
     createStateFunc: createStateFunc,
     createGameObjectFunc: createGameObjectFunc,
     getAllGameObjectsFunc: getAllGameObjectsFunc,
+getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
     batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc,
   }
@@ -73,8 +76,26 @@ defineFeature(feature, test => {
     })
   })
 
+
+    let _prepareTransform = (\"when", \"and", c) => {
+      \"when"("register transform contribute", () => {
+        transformContribute := c
+
+        MainTool.registerComponent(transformContribute.contents)
+      })
+
+      \"and"("create and set transform state", () => {
+        MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
+      })
+    }
+
   test(."defer dispose gameObject", ({given, \"and", \"when", then}) => {
     let g1 = ref(Obj.magic(1))
+    let t1 = ref(Obj.magic(1))
+    let usedTransformContribute: ref<
+      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+    > = ref(Obj.magic(1))
+    let transformName = Meta3dComponentTransformProtocol.Index.componentName
 
     _prepare(
       given,
@@ -89,20 +110,65 @@ defineFeature(feature, test => {
         ~createGameObjectFunc=(. state) => {
           (state, 1->Obj.magic)
         },
-        ~deferDisposeGameObjectFunc=(. state, gameObject) => {
+        ~deferDisposeGameObjectFunc=(. ( gameObjectState, transformState ), (_, deferDisposeTransformFunc ), gameObject) => {
+          let transformState = deferDisposeTransformFunc(.
+            transformState,
+            t1.contents,
+          )
+
+          (
+            {
+              "needDisposeArray": JsObjTool.getObjValue(gameObjectState, "needDisposeArray")->Meta3dCommonlib.ArraySt.push(
+                gameObject,
+              ),
+            }->Obj.magic,
+            transformState,
+          )
+        },
+        (),
+      ),
+    )
+
+    _prepareTransform(
+      \"when",
+      \"and",
+      ComponentTool.buildComponentContribute(
+        ~componentName=transformName,
+        ~createComponentFunc=(. state) => {
+          let component = 1->Obj.magic
+
+          (state, component)
+        },
+        ~createStateFunc=(. _) => {
           {
-            "needDisposeArray": JsObjTool.getObjValue(
-              state,
-              "needDisposeArray",
-            )->Meta3dCommonlib.ArraySt.push(gameObject),
+            "needDisposeArray": [],
+          }->Obj.magic
+        },
+        ~deferDisposeComponentFunc=(. state, component) => {
+          {
+              "needDisposeArray": JsObjTool.getObjValue(state, "needDisposeArray")->Meta3dCommonlib.ArraySt.push(
+                component,
+              ),
           }->Obj.magic
         },
         (),
       ),
     )
 
-    given("create a gameObject as g1", () => {
+    \"and"("create a gameObject as g1", () => {
       g1 := MainTool.createGameObject()
+    })
+
+    \"and"("create a transform as t1", () => {
+      let (d, transform) =
+        MainTool.unsafeGetUsedComponentContribute(transformName)->MainTool.createComponent
+
+      t1 := transform
+      usedTransformContribute := d
+    })
+
+    \"and"("add t1 to g1", () => {
+      ()
     })
 
     \"when"("defer dispose g1", () => {
@@ -114,28 +180,22 @@ defineFeature(feature, test => {
       ->Js.Array.includes(g1.contents, _)
       ->expect == true
     })
+
+    \"and"("mark t1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "needDisposeArray")
+      ->Js.Array.includes(t1.contents, _)
+      ->expect == true
+    })
   })
 
   test(."batch dispose gameObjects", ({given, \"and", \"when", then}) => {
     let g1 = ref(Obj.magic(1))
     let t1 = ref(Obj.magic(1))
-    let transformContribute = ref(Obj.magic(1))
     let usedTransformContribute: ref<
       Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let transformName = Meta3dComponentTransformProtocol.Index.componentName
 
-    let _prepareTransform = (\"when", \"and", c) => {
-      \"when"("register transform contribute", () => {
-        transformContribute := c
-
-        MainTool.registerComponent(transformContribute.contents)
-      })
-
-      \"and"("create and set transform state", () => {
-        MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
-      })
-    }
 
     _prepare(
       given,
@@ -150,16 +210,17 @@ defineFeature(feature, test => {
         ~createGameObjectFunc=(. state) => {
           (state, 1->Obj.magic)
         },
-        ~batchDisposeGameObjectsFunc=(. state, batchDisposeComponentsFunc, gameObjects) => {
+        ~batchDisposeGameObjectsFunc=(. ( gameObjectState, transformState ) as state, (_, batchDisposeComponentsFunc ), gameObjects) => {
           let transformState = batchDisposeComponentsFunc(.
-            usedTransformContribute.contents.state,
+            transformState,
             [t1.contents],
           )
 
           (
             {
-              "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
+              "disposedArray": JsObjTool.getObjValue(gameObjectState, "disposedArray")->Js.Array.concat(
                 gameObjects,
+                _
               ),
             }->Obj.magic,
             transformState,

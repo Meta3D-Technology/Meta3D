@@ -21,7 +21,7 @@ type service = {
   createAndSetComponentState: (
     StateType.state,
     ComponentContributeType.componentName,
-    RegisterComponentType.config,
+    ComponentType.config,
   ) => StateType.state,
   unsafeGetUsedComponentContribute: (
     StateType.state,
@@ -34,56 +34,56 @@ type service = {
   ) => StateType.state,
   createComponent: RegisterComponentType.usedComponentContribute => (
     RegisterComponentType.usedComponentContribute,
-    RegisterComponentType.component,
+    ComponentType.component,
   ),
   setComponentData: (
     RegisterComponentType.usedComponentContribute,
-    RegisterComponentType.component,
-    RegisterComponentType.dataName,
+    ComponentType.component,
+    ComponentType.dataName,
     ComponentContributeType.dataValue,
   ) => RegisterComponentType.usedComponentContribute,
   addComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectContributeType.gameObject,
-    RegisterComponentType.component,
+    GameObjectType.gameObject,
+    ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   removeComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectContributeType.gameObject,
-    RegisterComponentType.component,
+    GameObjectType.gameObject,
+    ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   hasComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectContributeType.gameObject,
+    GameObjectType.gameObject,
   ) => bool,
   getComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectContributeType.gameObject,
-  ) => Js.Nullable.t<RegisterComponentType.component>,
+    GameObjectType.gameObject,
+  ) => Js.Nullable.t<ComponentType.component>,
   deferDisposeComponent: (
     RegisterComponentType.usedComponentContribute,
-    RegisterComponentType.component,
+    ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   batchDisposeComponents: (
     RegisterComponentType.usedComponentContribute,
-    array<RegisterComponentType.component>,
+    array<ComponentType.component>,
   ) => RegisterComponentType.usedComponentContribute,
   getAllComponents: RegisterComponentType.usedComponentContribute => array<
-    RegisterComponentType.component,
+    ComponentType.component,
   >,
   getComponentData: (
     RegisterComponentType.usedComponentContribute,
-    RegisterComponentType.component,
-    RegisterComponentType.dataName,
+    ComponentType.component,
+    ComponentType.dataName,
   ) => Js.Nullable.t<ComponentContributeType.dataValue>,
   getComponentGameObjects: (
     RegisterComponentType.usedComponentContribute,
-    RegisterComponentType.component,
-  ) => array<GameObjectContributeType.gameObject>,
+    ComponentType.component,
+  ) => array<GameObjectType.gameObject>,
   getComponentState: (
     StateType.state,
     ComponentContributeType.componentName,
-  ) => Js.Nullable.t<RegisterComponentType.state>,
+  ) => Js.Nullable.t<ComponentType.state>,
   setGameObjectContribute: (
     StateType.state,
     GameObjectType.gameObjectContribute,

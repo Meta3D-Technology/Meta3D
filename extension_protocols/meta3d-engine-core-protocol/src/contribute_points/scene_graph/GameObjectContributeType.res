@@ -1,5 +1,5 @@
 // @genType
-type gameObject
+// type gameObject
 
 type createStateFunc<'state, 'config> = (. 'config) => 'state
 
@@ -7,7 +7,7 @@ type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObj
 
 type getNeedDisposedGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
-type deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform> = (. ( 'state, 'transformState  ), ((. 'transformState, 'gameObject) => 'transform, (. 'transformState, 'transform) => 'transformState ), 'gameObject) => ( 'state, 'transformState )
+type deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform> = (. ( 'state, 'transformState  ), ((. 'transformState, 'gameObject) => Js.Nullable.t< 'transform>, (. 'transformState, 'transform) => 'transformState ), 'gameObject) => ( 'state, 'transformState )
 
 type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
   . ('state, 'transformState),

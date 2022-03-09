@@ -2,11 +2,9 @@ type state
 
 type gameObject
 
-type transform = RegisterComponentType.component
+type transform = ComponentType.component
 
 type config
-
-// type batchDisposeTransformsFunc = (. RegisterComponentType.state, array<transform>) => RegisterComponentType.state
 
 // @genType
 type usedGameObjectContribute = {
@@ -18,13 +16,13 @@ type usedGameObjectContribute = {
   >,
   deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<
     state,
-    RegisterComponentType.state,
+    ComponentType.state,
     gameObject,
     transform
   >,
   batchDisposeGameObjectsFunc: GameObjectContributeType.batchDisposeGameObjectsFunc<
     state,
-    RegisterComponentType.state,
+    ComponentType.state,
     gameObject,
     transform,
   >,
@@ -34,7 +32,7 @@ type usedGameObjectContribute = {
 // @genType
 type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
   state,
-  RegisterComponentType.state,
+  ComponentType.state,
   config,
   gameObject,
   transform,

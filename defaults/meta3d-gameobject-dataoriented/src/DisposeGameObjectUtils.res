@@ -12,7 +12,7 @@ let deferDisposeGameObject = (
 ) => {
   let transformState = deferDisposeTransformFunc(.
     transformState,
-     getTransformFunc(. transformState, gameObject),
+    getTransformFunc(. transformState, gameObject),
   )
 
   let gameObjectState = {
@@ -29,13 +29,16 @@ let _isNotNeedDispose = (component, needDisposedIndexArray) =>
   !Js.Array.includes(component, needDisposedIndexArray)
 
 let batchDisposeGameObjects = (
-  ({needDisposedGameObjectArray} as  gameObjectState, transformState: Meta3dComponentTransformProtocol.Index.state),
+  (
+    {needDisposedGameObjectArray} as gameObjectState,
+    transformState: Meta3dComponentTransformProtocol.Index.state,
+  ),
   (getTransformsFunc, batchDisposeTransformsFunc),
   gameObjects,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(gameObjectState)
 
-let needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils.get(gameObjectState)
+  let needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils.get(gameObjectState)
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
@@ -46,7 +49,7 @@ let needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils.get(gameObject
 
   gameObjectState.needDisposedGameObjectArray =
     needDisposedGameObjectArray->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
-      gameObjects
+      gameObjects,
     )
 
   let transformState = batchDisposeTransformsFunc(.

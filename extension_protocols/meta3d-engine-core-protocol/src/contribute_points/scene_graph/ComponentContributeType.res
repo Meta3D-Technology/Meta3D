@@ -6,32 +6,32 @@ type createStateFunc<'state, 'config> = (. 'config) => 'state
 type getGameObjectsFunc<'state, 'component> = (
   . 'state,
   'component,
-) => array<GameObjectContributeType.gameObject>
+) => array<GameObjectType.gameObject>
 
 type createComponentFunc<'state, 'component> = (. 'state) => ('state, 'component)
 
 type addComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectContributeType.gameObject,
+  GameObjectType.gameObject,
   'component,
 ) => 'state
 
-type hasComponentFunc<'state> = (. 'state, GameObjectContributeType.gameObject) => bool
+type hasComponentFunc<'state> = (. 'state, GameObjectType.gameObject) => bool
 
 type removeComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectContributeType.gameObject,
+  GameObjectType.gameObject,
   'component,
 ) => 'state
 
 type getComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectContributeType.gameObject,
+  GameObjectType.gameObject,
 ) => Js.Nullable.t<'component>
 
 type getComponentsFunc<'state, 'component> = (
   . 'state,
-  array<GameObjectContributeType.gameObject>,
+  array<GameObjectType.gameObject>,
 ) => array<'component>
 
 type getNeedDisposedComponentsFunc<'state, 'component> = (. 'state) => array<'component>
