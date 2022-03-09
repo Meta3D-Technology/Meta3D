@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let mark = (state, transform, isDirty) => {
   state.dirtyMap->Meta3dCommonlib.MutableSparseMap.set(transform, isDirty)->ignore

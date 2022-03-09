@@ -38,10 +38,13 @@ let _mutableSet = (map, key: string, value) => {
 
 let _createEmpty = (): Js.Dict.t<'a> => Js.Dict.empty()
 
+
+let _reduceArray = (arr, func, param) => Belt.Array.reduceU(arr, param, func)
+
 let copy = (map: Js.Dict.t<Js.Nullable.t<'a>>): Js.Dict.t<Js.Nullable.t<'a>> =>
   map
   ->entries
-  ->ArraySt.reduceOneParam(
+  ->_reduceArray(
     (. newMap, (key, value)) => newMap->_mutableSet(key, value),
     _createEmpty(),
   )

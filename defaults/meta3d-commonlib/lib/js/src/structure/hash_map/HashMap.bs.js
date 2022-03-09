@@ -1,9 +1,9 @@
 'use strict';
 
 var Js_dict = require("rescript/lib/js/js_dict.js");
+var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
-var ArraySt$Meta3dCommonlib = require("../ArraySt.bs.js");
 var NullUtils$Meta3dCommonlib = require("../utils/NullUtils.bs.js");
 
 function createEmpty(hintSizeOpt, param) {
@@ -54,10 +54,14 @@ function _createEmpty(param) {
   return {};
 }
 
+function _reduceArray(arr, func, param) {
+  return Belt_Array.reduceU(arr, param, func);
+}
+
 function copy(map) {
-  return ArraySt$Meta3dCommonlib.reduceOneParam(Js_dict.entries(map), (function (newMap, param) {
+  return Belt_Array.reduceU(Js_dict.entries(map), {}, (function (newMap, param) {
                 return _mutableSet(newMap, param[0], param[1]);
-              }), {});
+              }));
 }
 
 function getValidValues(map) {
@@ -75,6 +79,7 @@ exports.has = has;
 exports.entries = entries;
 exports._mutableSet = _mutableSet;
 exports._createEmpty = _createEmpty;
+exports._reduceArray = _reduceArray;
 exports.copy = copy;
 exports.getValidValues = getValidValues;
 /* No side effect */

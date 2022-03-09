@@ -8,7 +8,7 @@ let feature = loadFeature("./test/features/get_contribute.feature")
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      Meta3dComponentTransformProtocol.Index.state,
+      StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.transform,

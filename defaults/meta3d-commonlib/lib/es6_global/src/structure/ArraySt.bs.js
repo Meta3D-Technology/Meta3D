@@ -8,6 +8,7 @@ import * as Log$Meta3dCommonlib from "../log/Log.bs.js";
 import * as Contract$Meta3dCommonlib from "../contract/Contract.bs.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "./hash_map/MutableHashMap.bs.js";
 
 function length(prim) {
   return prim.length;
@@ -100,6 +101,23 @@ function range(a, b) {
   return result;
 }
 
+function removeDuplicateItems(arr) {
+  var resultArr = [];
+  var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
+    var item = arr[i];
+    var key = item.toString();
+    var match = MutableHashMap$Meta3dCommonlib.get(map, key);
+    if (match !== undefined) {
+      
+    } else {
+      resultArr.push(item);
+      MutableHashMap$Meta3dCommonlib.set(map, key, item);
+    }
+  }
+  return resultArr;
+}
+
 export {
   length ,
   find ,
@@ -117,6 +135,7 @@ export {
   filter ,
   deleteBySwap ,
   range ,
+  removeDuplicateItems ,
   
 }
 /* No side effect */

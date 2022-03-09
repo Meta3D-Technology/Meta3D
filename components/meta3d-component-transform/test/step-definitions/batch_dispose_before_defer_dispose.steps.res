@@ -8,7 +8,7 @@ let feature = loadFeature("./test/features/batch_dispose_before_defer_dispose.fe
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      Meta3dComponentTransformProtocol.Index.state,
+      StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.transform,

@@ -1,9 +1,9 @@
 
 
 import * as Js_dict from "./../../../../../../rescript/lib/es6/js_dict.js";
+import * as Belt_Array from "./../../../../../../rescript/lib/es6/belt_Array.js";
 import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
 import * as Js_null_undefined from "./../../../../../../rescript/lib/es6/js_null_undefined.js";
-import * as ArraySt$Meta3dCommonlib from "../ArraySt.bs.js";
 import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 
 function createEmpty(hintSizeOpt, param) {
@@ -54,10 +54,14 @@ function _createEmpty(param) {
   return {};
 }
 
+function _reduceArray(arr, func, param) {
+  return Belt_Array.reduceU(arr, param, func);
+}
+
 function copy(map) {
-  return ArraySt$Meta3dCommonlib.reduceOneParam(Js_dict.entries(map), (function (newMap, param) {
+  return Belt_Array.reduceU(Js_dict.entries(map), {}, (function (newMap, param) {
                 return _mutableSet(newMap, param[0], param[1]);
-              }), {});
+              }));
 }
 
 function getValidValues(map) {
@@ -76,6 +80,7 @@ export {
   entries ,
   _mutableSet ,
   _createEmpty ,
+  _reduceArray ,
   copy ,
   getValidValues ,
   

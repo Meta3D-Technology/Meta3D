@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let getLocalPosition = (localPositions, transform) =>
   OperateTypeArrayTransformUtils.getLocalPositionTuple(transform, localPositions)

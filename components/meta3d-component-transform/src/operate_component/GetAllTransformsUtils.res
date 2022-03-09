@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let getAll = ({gameObjectTransformMap}) => {
   gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.getValues

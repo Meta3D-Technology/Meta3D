@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let rec mutableUpdate = (state, transform) => {
   let {

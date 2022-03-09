@@ -65,6 +65,7 @@ Feature: Get Contribute
         And add the transform to the gameObject
         Then getGameObjectsFunc should return [gameObject]
 
+TODO need finish component test!
     Rule: get transform's default data
 
         Background: prepare contribute

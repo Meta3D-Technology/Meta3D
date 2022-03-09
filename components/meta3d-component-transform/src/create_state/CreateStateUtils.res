@@ -39,7 +39,7 @@ let createStateWithSharedArrayBufferData = (
     localRotations,
     localScales,
   }: TransformSharedArrayBufferDataType.transformSharedArrayBufferData,
-): Meta3dComponentTransformProtocol.Index.state => {
+): StateType.state => {
   {
     config: {
       isDebug: isDebug,

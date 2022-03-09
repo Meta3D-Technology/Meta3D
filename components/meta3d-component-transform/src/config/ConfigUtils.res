@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let getIsDebug = state => {
   state.config.isDebug

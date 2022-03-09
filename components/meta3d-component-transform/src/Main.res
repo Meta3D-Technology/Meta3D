@@ -1,5 +1,5 @@
 let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
-  Meta3dComponentTransformProtocol.Index.state,
+  StateType.state,
   Meta3dComponentTransformProtocol.Index.config,
   Meta3dComponentTransformProtocol.Index.dataNameType,
   Meta3dComponentTransformProtocol.Index.transform,
@@ -11,11 +11,20 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   addComponentFunc: (. state, gameObject, component) => {
     AddTransformUtils.add(state, gameObject, component)
   },
+  removeComponentFunc: (. state, gameObject, component) => {
+    RemoveTransformUtils.remove(state, gameObject, component)
+  },
   hasComponentFunc: (. state, gameObject) => {
     HasTransformUtils.has(state, gameObject)
   },
   getComponentFunc: (. state, gameObject) => {
     GetTransformUtils.get(state, gameObject)
+  },
+  getComponentsFunc: (. state, gameObjects) => {
+    GetTransformsUtils.get(state, gameObjects)
+  },
+  getNeedDisposedComponentsFunc: (. state) => {
+    GetNeedDisposedTransformsUtils.get(state)
   },
   getGameObjectsFunc: (. state, component) => {
     GetGameObjectsUtils.get(state, component)

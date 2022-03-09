@@ -496,11 +496,52 @@ batch dispose
 
 
 
+** TODO refactor:
+component contribute:
+add  removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
+
+gameObject contribute:
+add getNeedDisposedGameObjectsFunc
+
+
+
+specify state type not move to protocol!!!
+only use abstract state type instead!
+
+
+
+when defer dispose gameObject, should defer dispose its components(include transform)!
+
+
+
+
+
+when batch dispose, should remove them from needDisposedXxxArray;
+getNeedDisposedXxxFunc should remove duplicate ones;
+
+
+when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no duplicate one!)
+
+
+
+** TODO update pbrmaterial, geometry 
+
+- state type
+- add removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
+
+- add test
+
+
+** TODO refactor: rename batchDispose to dispose;
+
+
 
 
 ** TODO add geometry, pbrMaterial components(include worker)
 
 need refactor, add dispose!
+
+add removeComponentFunc
 
 for pbrmaterial and geometry component:
 only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
@@ -532,6 +573,14 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 # ** TODO add MeshRender component
+
+
+
+
+
+** TODO refactor: extract ComponentMapUtils to meta3d commonlib for components(e.g. add, remove, has, get, gets component)
+
+refer to ComponentMapService
 
 
 ** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType

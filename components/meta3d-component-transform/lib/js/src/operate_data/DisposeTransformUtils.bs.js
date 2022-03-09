@@ -4,9 +4,11 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 var ConfigUtils$Meta3dComponentTransform = require("../config/ConfigUtils.bs.js");
+var DisposeComponentUtils$Meta3dComponentTransform = require("../utils/DisposeComponentUtils.bs.js");
 var DisposeTypeArrayUtils$Meta3dComponentTransform = require("../utils/DisposeTypeArrayUtils.bs.js");
 var BufferTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/BufferTransformUtils.bs.js");
 var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
+var GetNeedDisposedTransformsUtils$Meta3dComponentTransform = require("../gameobject/GetNeedDisposedTransformsUtils.bs.js");
 
 var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
 
@@ -83,8 +85,9 @@ function batchDisposeComponentsFunc(state) {
   var disposedTransformArray = state.disposedTransformArray;
   return function (components) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
-    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, needDisposedTransformArray);
+    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get(state));
     state.disposedTransformArray = disposedTransformArray.concat(components);
+    state.needDisposedTransformArray = DisposeComponentUtils$Meta3dComponentTransform.batchRemoveFromArray(needDisposedTransformArray, disposedTransformArray);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);

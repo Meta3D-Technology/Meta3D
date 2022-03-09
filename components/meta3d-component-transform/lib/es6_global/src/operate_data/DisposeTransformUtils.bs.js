@@ -4,9 +4,11 @@ import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3
 import * as DisposeUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
+import * as DisposeComponentUtils$Meta3dComponentTransform from "../utils/DisposeComponentUtils.bs.js";
 import * as DisposeTypeArrayUtils$Meta3dComponentTransform from "../utils/DisposeTypeArrayUtils.bs.js";
 import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
 import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
+import * as GetNeedDisposedTransformsUtils$Meta3dComponentTransform from "../gameobject/GetNeedDisposedTransformsUtils.bs.js";
 
 var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
 
@@ -83,8 +85,9 @@ function batchDisposeComponentsFunc(state) {
   var disposedTransformArray = state.disposedTransformArray;
   return function (components) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
-    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, needDisposedTransformArray);
+    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get(state));
     state.disposedTransformArray = disposedTransformArray.concat(components);
+    state.needDisposedTransformArray = DisposeComponentUtils$Meta3dComponentTransform.batchRemoveFromArray(needDisposedTransformArray, disposedTransformArray);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);

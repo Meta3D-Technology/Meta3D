@@ -6,7 +6,7 @@ let _initDataWhenCreate = (childrenMap, index) => {
     : childrenMap->Meta3dCommonlib.MutableSparseMap.set(index, [])->ignore
 }
 
-let create = (state: Meta3dComponentTransformProtocol.Index.state): (Meta3dComponentTransformProtocol.Index.state, Meta3dComponentTransformProtocol.Index.transform) => {
+let create = (state: StateType.state): (StateType.state, Meta3dComponentTransformProtocol.Index.transform) => {
   let index = state.maxIndex
   let (disposedTransformArray, index, newIndex) =
     state.disposedTransformArray->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)

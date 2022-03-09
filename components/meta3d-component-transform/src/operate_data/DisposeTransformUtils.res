@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let _removeComponent = (gameObjectMap, component) =>
   gameObjectMap->Meta3dCommonlib.MutableSparseMap.remove(component)
@@ -104,10 +104,12 @@ let batchDisposeComponentsFunc = (
     isDebug,
     "component",
     components,
-    needDisposedTransformArray,
+    GetNeedDisposedTransformsUtils.get(state),
   )
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
+  state.needDisposedTransformArray =
+    needDisposedTransformArray->DisposeComponentUtils.batchRemoveFromArray(disposedTransformArray)
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, component) => state->_disposeData(isDebug, component),

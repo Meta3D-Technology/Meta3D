@@ -18,10 +18,23 @@ type addComponentFunc<'state, 'component> = (
 
 type hasComponentFunc<'state> = (. 'state, GameObjectContributeType.gameObject) => bool
 
+type removeComponentFunc<'state, 'component> = (
+  . 'state,
+  GameObjectContributeType.gameObject,
+  'component,
+) => 'state
+
 type getComponentFunc<'state, 'component> = (
   . 'state,
   GameObjectContributeType.gameObject,
 ) => Js.Nullable.t<'component>
+
+type getComponentsFunc<'state, 'component> = (
+  . 'state,
+  array<GameObjectContributeType.gameObject>,
+) => array<'component>
+
+type getNeedDisposedComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
 type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
@@ -55,8 +68,11 @@ type componentContribute<'state, 'config, 'dataName, 'component> = {
   getGameObjectsFunc: getGameObjectsFunc<'state, 'component>,
   createComponentFunc: createComponentFunc<'state, 'component>,
   addComponentFunc: addComponentFunc<'state, 'component>,
+  removeComponentFunc: removeComponentFunc<'state, 'component>,
   hasComponentFunc: hasComponentFunc<'state>,
   getComponentFunc: getComponentFunc<'state, 'component>,
+  getComponentsFunc: getComponentsFunc<'state, 'component>,
+  getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'component>,
   getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
   deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,

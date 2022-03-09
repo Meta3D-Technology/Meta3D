@@ -1,4 +1,4 @@
-open Meta3dComponentTransformProtocol.Index
+open StateType
 
 let add = ({gameObjectMap, gameObjectTransformMap} as state, gameObject, transform) => {
   let gameObject = gameObject->GameObjectTypeConvertUtils.gameObjectToInt
