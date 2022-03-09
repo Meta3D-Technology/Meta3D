@@ -110,12 +110,26 @@ function addComponent(usedComponentContribute, gameObject, component) {
   return usedComponentContribute;
 }
 
+function removeComponent(usedComponentContribute, gameObject, component) {
+  var componentState = usedComponentContribute.removeComponentFunc(usedComponentContribute.state, gameObject, component);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
+}
+
 function hasComponent(usedComponentContribute, gameObject) {
   return usedComponentContribute.hasComponentFunc(usedComponentContribute.state, gameObject);
 }
 
 function getComponent(usedComponentContribute, gameObject) {
   return usedComponentContribute.getComponentFunc(usedComponentContribute.state, gameObject);
+}
+
+function getComponents(usedComponentContribute, gameObjects) {
+  return usedComponentContribute.getComponentsFunc(usedComponentContribute.state, gameObjects);
+}
+
+function getNeedDisposedComponents(usedComponentContribute) {
+  return usedComponentContribute.getNeedDisposedComponentsFunc(usedComponentContribute.state);
 }
 
 function deferDisposeComponent(usedComponentContribute, component) {
@@ -158,8 +172,11 @@ export {
   createComponent ,
   setComponentData ,
   addComponent ,
+  removeComponent ,
   hasComponent ,
   getComponent ,
+  getComponents ,
+  getNeedDisposedComponents ,
   deferDisposeComponent ,
   batchDisposeComponents ,
   getAllComponents ,

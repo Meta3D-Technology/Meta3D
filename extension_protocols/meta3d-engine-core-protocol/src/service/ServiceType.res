@@ -47,6 +47,11 @@ type service = {
     GameObjectContributeType.gameObject,
     RegisterComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
+  removeComponent: (
+    RegisterComponentType.usedComponentContribute,
+    GameObjectContributeType.gameObject,
+    RegisterComponentType.component,
+  ) => RegisterComponentType.usedComponentContribute,
   hasComponent: (
     RegisterComponentType.usedComponentContribute,
     GameObjectContributeType.gameObject,

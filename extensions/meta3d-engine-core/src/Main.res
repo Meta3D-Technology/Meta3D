@@ -16,6 +16,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   createComponent: DirectorForJs.createComponent,
   setComponentData: DirectorForJs.setComponentData,
   addComponent: DirectorForJs.addComponent,
+  removeComponent: DirectorForJs.removeComponent,
   hasComponent: DirectorForJs.hasComponent,
   getComponent: DirectorForJs.getComponent,
   deferDisposeComponent: DirectorForJs.deferDisposeComponent,

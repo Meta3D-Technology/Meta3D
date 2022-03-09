@@ -237,6 +237,79 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."remove component", ({given, \"when", \"and", then}) => {
+    let g1 = Obj.magic(10)
+    let c1 = ref(Obj.magic(1))
+    let componentName = "a1"
+
+    _prepareRegister(given)
+
+    _prepareComponent(
+      \"when",
+      \"and",
+      ComponentTool.buildComponentContribute(
+        ~componentName,
+        ~createStateFunc=(. _) => {
+          {
+            "gameObjectMeshRendererMap": Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+          }->Obj.magic
+        },
+        ~createComponentFunc=(. state) => {
+          let component = 1->Obj.magic
+
+          (state, component)
+        },
+        ~addComponentFunc=(. state, gameObject, component) => {
+          {
+            "gameObjectMeshRendererMap": JsObjTool.getObjValue(
+              state,
+              "gameObjectMeshRendererMap",
+            )->Meta3dCommonlib.ImmutableSparseMap.set(gameObject->Obj.magic, component->Obj.magic),
+          }->Obj.magic
+        },
+        ~removeComponentFunc=(. state, gameObject, component) => {
+          {
+            "gameObjectMeshRendererMap": JsObjTool.getObjValue(
+              state,
+              "gameObjectMeshRendererMap",
+            )->Meta3dCommonlib.ImmutableSparseMap.remove(gameObject->Obj.magic),
+          }->Obj.magic
+        },
+        ~hasComponentFunc=(. state, gameObject) => {
+          JsObjTool.getObjValue(
+            state,
+            "gameObjectMeshRendererMap",
+          )->Meta3dCommonlib.ImmutableSparseMap.has(gameObject->Obj.magic)
+        },
+        (),
+      ),
+    )
+
+    given("create a gameObject as g1", () => {
+      ()
+    })
+
+    \"and"("create a component as c1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.createComponent
+
+      c1 := component
+      usedContribute := d
+    })
+
+    \"and"("add c1 to g1", () => {
+      usedContribute := usedContribute.contents->MainTool.addComponent(g1, c1.contents)
+    })
+
+    \"when"("remove c1 from g1", () => {
+      usedContribute := usedContribute.contents->MainTool.removeComponent(g1, c1.contents)
+    })
+
+    then("g1 shouldn't has c1", () => {
+      usedContribute.contents->MainTool.hasComponent(g1)->expect == false
+    })
+  })
+
   test(."get component", ({given, \"when", \"and", then}) => {
     let g1 = Obj.magic(10)
     let c1 = ref(Obj.magic(1))

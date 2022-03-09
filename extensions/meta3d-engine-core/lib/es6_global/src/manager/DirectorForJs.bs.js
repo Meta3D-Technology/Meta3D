@@ -63,6 +63,8 @@ var setComponentData = ComponentManager$Meta3dEngineCore.setComponentData;
 
 var addComponent = ComponentManager$Meta3dEngineCore.addComponent;
 
+var removeComponent = ComponentManager$Meta3dEngineCore.removeComponent;
+
 var hasComponent = ComponentManager$Meta3dEngineCore.hasComponent;
 
 var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
@@ -106,6 +108,7 @@ export {
   createComponent ,
   setComponentData ,
   addComponent ,
+  removeComponent ,
   hasComponent ,
   getComponent ,
   deferDisposeComponent ,

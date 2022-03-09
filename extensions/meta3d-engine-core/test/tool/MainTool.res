@@ -84,6 +84,10 @@ let addComponent = (contribute, gameObject, component) => {
   contribute->DirectorForJs.addComponent(gameObject, component)
 }
 
+let removeComponent = (contribute, gameObject, component) => {
+  contribute->DirectorForJs.removeComponent(gameObject, component)
+}
+
 let hasComponent = (contribute, gameObject) => {
   contribute->DirectorForJs.hasComponent(gameObject)
 }

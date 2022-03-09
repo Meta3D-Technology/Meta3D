@@ -79,6 +79,8 @@ let setComponentData = ComponentManager.setComponentData
 
 let addComponent = ComponentManager.addComponent
 
+let removeComponent = ComponentManager.removeComponent
+
 let hasComponent = ComponentManager.hasComponent
 
 let getComponent = ComponentManager.getComponent

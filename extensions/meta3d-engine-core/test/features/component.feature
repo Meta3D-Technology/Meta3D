@@ -48,6 +48,13 @@ Feature: Component
             And add c1 to g1
             Then g1 should has c1
 
+        Scenario: remove component
+            Given create a gameObject as g1
+            And create a component as c1
+            And add c1 to g1
+            When remove c1 from g1
+            Then g1 shouldn't has c1
+
         Scenario: get component
             Given create a gameObject as g1
             And create a component as c1

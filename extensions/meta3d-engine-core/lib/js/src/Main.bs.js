@@ -23,6 +23,7 @@ function getExtensionService(api, dependentExtensionNameMap) {
           createComponent: DirectorForJs$Meta3dEngineCore.createComponent,
           setComponentData: DirectorForJs$Meta3dEngineCore.setComponentData,
           addComponent: DirectorForJs$Meta3dEngineCore.addComponent,
+          removeComponent: DirectorForJs$Meta3dEngineCore.removeComponent,
           hasComponent: DirectorForJs$Meta3dEngineCore.hasComponent,
           getComponent: DirectorForJs$Meta3dEngineCore.getComponent,
           deferDisposeComponent: DirectorForJs$Meta3dEngineCore.deferDisposeComponent,
