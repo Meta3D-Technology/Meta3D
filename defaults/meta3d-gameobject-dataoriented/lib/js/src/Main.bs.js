@@ -3,6 +3,7 @@
 var CreateGameObjectUtils$Meta3dGameobjectDataoriented = require("./CreateGameObjectUtils.bs.js");
 var GetAllGameObjectUtils$Meta3dGameobjectDataoriented = require("./GetAllGameObjectUtils.bs.js");
 var DisposeGameObjectUtils$Meta3dGameobjectDataoriented = require("./DisposeGameObjectUtils.bs.js");
+var GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented = require("./GetNeedDisposedGameObjectsUtils.bs.js");
 
 function getGameObjectContribute(param) {
   return {
@@ -14,11 +15,12 @@ function getGameObjectContribute(param) {
                     };
             }),
           createGameObjectFunc: CreateGameObjectUtils$Meta3dGameobjectDataoriented.create,
-          deferDisposeGameObjectFunc: (function (state, gameObject) {
-              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.deferDisposeGameObjectFunc(state)(gameObject);
+          getNeedDisposedGameObjectsFunc: GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented.get,
+          deferDisposeGameObjectFunc: (function (state, funcs, gameObject) {
+              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.deferDisposeGameObject(state)(funcs, gameObject);
             }),
-          batchDisposeGameObjectsFunc: (function (states, batchDisposeTransformsFunc, gameObjects) {
-              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.batchDisposeGameObjectsFunc(states)(batchDisposeTransformsFunc, gameObjects);
+          batchDisposeGameObjectsFunc: (function (states, funcs, gameObjects) {
+              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.batchDisposeGameObjects(states)(funcs, gameObjects);
             }),
           getAllGameObjectsFunc: GetAllGameObjectUtils$Meta3dGameobjectDataoriented.getAll
         };

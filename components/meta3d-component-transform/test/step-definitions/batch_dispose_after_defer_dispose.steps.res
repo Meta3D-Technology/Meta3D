@@ -969,7 +969,7 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."should remove disposed transforms needDisposedTransforms", ({
+  test(."should remove disposed transforms from needDisposedTransforms", ({
     given,
     \"and",
     then,

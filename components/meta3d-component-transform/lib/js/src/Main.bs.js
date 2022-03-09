@@ -48,10 +48,10 @@ function getComponentContribute(param) {
               return SetTransformDataUtils$Meta3dComponentTransform.setData(state, component, dataName, dataValue);
             }),
           deferDisposeComponentFunc: (function (state, component) {
-              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponentFunc(state)(component);
+              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(component);
             }),
           batchDisposeComponentsFunc: (function (state, components) {
-              return DisposeTransformUtils$Meta3dComponentTransform.batchDisposeComponentsFunc(state)(components);
+              return DisposeTransformUtils$Meta3dComponentTransform.batchDisposeComponents(state)(components);
             }),
           getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
         };

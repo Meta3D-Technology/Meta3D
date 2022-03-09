@@ -17,5 +17,17 @@ Feature: Batch Dispose After Defer Dispose
 			And add transform1 to gameObject1
 			And add transform2 to gameObject2
 			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [transform1, transform2]
+
+	Rule: dispose gameObject
+
+		Scenario: should remove disposed gameObjects from needDisposedGameObjects
+			Given prepare sandbox
+			And create transform state
+			And create two gameObjects as gameObject1, gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
 			When dispose gameObject1
-			Then should dispose transform1
+			Then get need disposed gameObjects should return [gameObject2]

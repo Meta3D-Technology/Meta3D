@@ -2,17 +2,25 @@
 
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
+var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var ConfigUtils$Meta3dGameobjectDataoriented = require("./config/ConfigUtils.bs.js");
-var ComponentMapUtils$Meta3dGameobjectDataoriented = require("./utils/ComponentMapUtils.bs.js");
+var GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented = require("./GetNeedDisposedGameObjectsUtils.bs.js");
 
-function deferDisposeGameObjectFunc(state) {
-  var needDisposedGameObjectArray = state.needDisposedGameObjectArray;
-  return function (gameObject) {
-    return {
-            config: state.config,
-            maxUID: state.maxUID,
-            needDisposedGameObjectArray: ArraySt$Meta3dCommonlib.push(needDisposedGameObjectArray, gameObject)
-          };
+function deferDisposeGameObject(param) {
+  var gameObjectState = param[0];
+  var needDisposedGameObjectArray = gameObjectState.needDisposedGameObjectArray;
+  var transformState = param[1];
+  return function (param, gameObject) {
+    var transformState$1 = param[1](transformState, param[0](transformState, gameObject));
+    var gameObjectState$1 = {
+      config: gameObjectState.config,
+      maxUID: gameObjectState.maxUID,
+      needDisposedGameObjectArray: ArraySt$Meta3dCommonlib.push(needDisposedGameObjectArray, gameObject)
+    };
+    return [
+            gameObjectState$1,
+            transformState$1
+          ];
   };
 }
 
@@ -20,15 +28,15 @@ function _isNotNeedDispose(component, needDisposedIndexArray) {
   return !needDisposedIndexArray.includes(component);
 }
 
-function batchDisposeGameObjectsFunc(param) {
+function batchDisposeGameObjects(param) {
   var gameObjectState = param[0];
-  var needDisposedGameObjectArray = gameObjectState.needDisposedGameObjectArray;
   var transformState = param[1];
-  return function (batchDisposeTransformsFunc, gameObjects) {
+  return function (param, gameObjects) {
     var isDebug = ConfigUtils$Meta3dGameobjectDataoriented.getIsDebug(gameObjectState);
+    var needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented.get(gameObjectState);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "gameObject", gameObjects, needDisposedGameObjectArray);
-    var gameObjectTransformMap = transformState.gameObjectTransformMap;
-    var transformState$1 = batchDisposeTransformsFunc(transformState, ComponentMapUtils$Meta3dGameobjectDataoriented.batchGetComponent(gameObjects, gameObjectTransformMap));
+    gameObjectState.needDisposedGameObjectArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedGameObjectArray, gameObjects);
+    var transformState$1 = param[1](transformState, param[0](transformState, gameObjects));
     return [
             gameObjectState,
             transformState$1
@@ -36,7 +44,7 @@ function batchDisposeGameObjectsFunc(param) {
   };
 }
 
-exports.deferDisposeGameObjectFunc = deferDisposeGameObjectFunc;
+exports.deferDisposeGameObject = deferDisposeGameObject;
 exports._isNotNeedDispose = _isNotNeedDispose;
-exports.batchDisposeGameObjectsFunc = batchDisposeGameObjectsFunc;
+exports.batchDisposeGameObjects = batchDisposeGameObjects;
 /* No side effect */

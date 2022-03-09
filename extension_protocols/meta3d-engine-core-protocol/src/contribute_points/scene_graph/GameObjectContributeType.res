@@ -5,11 +5,13 @@ type createStateFunc<'state, 'config> = (. 'config) => 'state
 
 type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObject)
 
-type deferDisposeGameObjectFunc<'state, 'gameObject> = (. 'state, 'gameObject) => 'state
+type getNeedDisposedGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
+
+type deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform> = (. ( 'state, 'transformState  ), ((. 'transformState, 'gameObject) => 'transform, (. 'transformState, 'transform) => 'transformState ), 'gameObject) => ( 'state, 'transformState )
 
 type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
   . ('state, 'transformState),
-  (. 'transformState, array<'transform>) => 'transformState,
+  ((. 'transformState, array<'gameObject>) => array<'transform>, (. 'transformState, array<'transform>)  => 'transformState),
   array<'gameObject>,
 ) => ('state, 'transformState)
 
@@ -19,7 +21,8 @@ type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObjec
 type gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transform> = {
   createStateFunc: createStateFunc<'state, 'config>,
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,
-  deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state, 'gameObject>,
+  getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc<'state, 'gameObject>,
+  deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform>,
   batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc<
     'state,
     'transformState,

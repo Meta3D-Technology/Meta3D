@@ -39,9 +39,9 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
     GetAllTransformsUtils.getAll(state)
   },
   deferDisposeComponentFunc: (. state, component) => {
-    DisposeTransformUtils.deferDisposeComponentFunc(state, component)
+    DisposeTransformUtils.deferDisposeComponent(state, component)
   },
   batchDisposeComponentsFunc: (. state, components) => {
-    DisposeTransformUtils.batchDisposeComponentsFunc(state, components)
+    DisposeTransformUtils.batchDisposeComponents(state, components)
   },
 }

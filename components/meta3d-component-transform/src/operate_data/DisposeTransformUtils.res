@@ -3,7 +3,7 @@ open StateType
 let _removeComponent = (gameObjectMap, component) =>
   gameObjectMap->Meta3dCommonlib.MutableSparseMap.remove(component)
 
-let deferDisposeComponentFunc = (
+let deferDisposeComponent = (
   {gameObjectTransformMap, needDisposedTransformArray} as state,
   component,
 ) => {
@@ -94,23 +94,25 @@ let _disposeData = (
   state
 }
 
-let batchDisposeComponentsFunc = (
-  {gameObjectMap, needDisposedTransformArray, disposedTransformArray} as state,
+let batchDisposeComponents = (
+  {gameObjectMap, disposedTransformArray} as state,
   components,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(state)
+
+let needDisposedTransformArray = GetNeedDisposedTransformsUtils.get(state)
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
     "component",
     components,
-    GetNeedDisposedTransformsUtils.get(state),
+    needDisposedTransformArray,
   )
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
   state.needDisposedTransformArray =
-    needDisposedTransformArray->DisposeComponentUtils.batchRemoveFromArray(
-      state.disposedTransformArray,
+    needDisposedTransformArray->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
+      components,
     )
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(

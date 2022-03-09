@@ -11,25 +11,31 @@ type config
 // @genType
 type usedGameObjectContribute = {
   mutable state: state,
-  createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<
+  createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<state, gameObject>,
+  getNeedDisposedGameObjectsFunc: GameObjectContributeType.getNeedDisposedGameObjectsFunc<
     state,
     gameObject,
   >,
   deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<
     state,
+    RegisterComponentType.state,
     gameObject,
+    transform
   >,
   batchDisposeGameObjectsFunc: GameObjectContributeType.batchDisposeGameObjectsFunc<
     state,
     RegisterComponentType.state,
     gameObject,
-    transform
+    transform,
   >,
-  getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<
-    state,
-    gameObject,
-  >,
+  getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state, gameObject>,
 }
 
 // @genType
-type gameObjectContribute = GameObjectContributeType.gameObjectContribute<state, RegisterComponentType.state , config, gameObject, transform>
+type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
+  state,
+  RegisterComponentType.state,
+  config,
+  gameObject,
+  transform,
+>

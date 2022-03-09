@@ -161,7 +161,7 @@ Feature: Batch Dispose After Defer Dispose
 			Then get transform3's local position should return default data
 			And get transform3's position should return default data
 
-		Scenario: should remove disposed transforms needDisposedTransforms
+		Scenario: should remove disposed transforms from needDisposedTransforms
 			Given create two transforms as transform1, transform2
 			And defer dispose transform1
 			And defer dispose transform2

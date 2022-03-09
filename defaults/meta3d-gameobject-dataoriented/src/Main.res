@@ -11,13 +11,12 @@ let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.g
     config: config,
   },
   createGameObjectFunc: (. state) => CreateGameObjectUtils.create(state),
-  deferDisposeGameObjectFunc: (. state, gameObject) =>
-    DisposeGameObjectUtils.deferDisposeGameObjectFunc(state, gameObject),
-  batchDisposeGameObjectsFunc: (. states, batchDisposeTransformsFunc, gameObjects) =>
-    DisposeGameObjectUtils.batchDisposeGameObjectsFunc(
-      states,
-      batchDisposeTransformsFunc,
-      gameObjects,
-    ),
+  getNeedDisposedGameObjectsFunc: (. state) => {
+    GetNeedDisposedGameObjectsUtils.get(state)
+  },
+  deferDisposeGameObjectFunc: (. state, funcs, gameObject) =>
+    DisposeGameObjectUtils.deferDisposeGameObject(state, funcs, gameObject),
+  batchDisposeGameObjectsFunc: (. states, funcs, gameObjects) =>
+    DisposeGameObjectUtils.batchDisposeGameObjects(states, funcs, gameObjects),
   getAllGameObjectsFunc: (. state) => GetAllGameObjectUtils.getAll(state),
 }
