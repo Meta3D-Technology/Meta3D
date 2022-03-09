@@ -1,6 +1,6 @@
 Feature: Batch Dispose Before Defer Dispose
 	As a Batch Dispose
-	I want to batch dispose transforms before defer dispose
+	I want to dispose transforms before defer dispose
 	So that should contract error
 
 	Background: get contribute and create a state

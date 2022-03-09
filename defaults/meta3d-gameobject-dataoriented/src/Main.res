@@ -16,7 +16,7 @@ let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.g
   },
   deferDisposeGameObjectFunc: (. state, funcs, gameObject) =>
     DisposeGameObjectUtils.deferDisposeGameObject(state, funcs, gameObject),
-  batchDisposeGameObjectsFunc: (. states, funcs, gameObjects) =>
-    DisposeGameObjectUtils.batchDisposeGameObjects(states, funcs, gameObjects),
+  disposeGameObjectsFunc: (. states, funcs, gameObjects) =>
+    DisposeGameObjectUtils.disposeGameObjects(states, funcs, gameObjects),
   getAllGameObjectsFunc: (. state) => GetAllGameObjectUtils.getAll(state),
 }

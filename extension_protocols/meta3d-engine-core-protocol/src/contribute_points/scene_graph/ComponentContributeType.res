@@ -59,7 +59,7 @@ type setComponentDataFunc<'state, 'dataName, 'component> = (
 
 type deferDisposeComponentFunc<'state, 'component> = (. 'state, 'component) => 'state
 
-type batchDisposeComponentsFunc<'state, 'component> = (. 'state, array<'component>) => 'state
+type disposeComponentsFunc<'state, 'component> = (. 'state, array<'component>) => 'state
 
 // @genType
 type componentContribute<'state, 'config, 'dataName, 'component> = {
@@ -76,7 +76,7 @@ type componentContribute<'state, 'config, 'dataName, 'component> = {
   getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
   deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
-  batchDisposeComponentsFunc: batchDisposeComponentsFunc<'state, 'component>,
+  disposeComponentsFunc: disposeComponentsFunc<'state, 'component>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 

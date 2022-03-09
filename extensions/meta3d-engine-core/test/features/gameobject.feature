@@ -21,13 +21,13 @@ Feature: GameObject
         Then mark g1 as need dispose
         And mark t1 as need dispose
 
-    Scenario: batch dispose gameObjects
+    Scenario: dispose gameObjects
         Given register transform contribute
         And create and set transform state
         And create a gameObject as g1
         And create a transform as t1
         And add t1 to g1
-        When batch dispose [g1]
+        When dispose [g1]
         Then mark g1 as disposed
         And mark t1 as disposed
 

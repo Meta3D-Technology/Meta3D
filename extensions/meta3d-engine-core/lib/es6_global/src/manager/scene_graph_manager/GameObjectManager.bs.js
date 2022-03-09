@@ -32,7 +32,7 @@ function createAndSetState(state, config) {
             createGameObjectFunc: match.createGameObjectFunc,
             getNeedDisposedGameObjectsFunc: match.getNeedDisposedGameObjectsFunc,
             deferDisposeGameObjectFunc: match.deferDisposeGameObjectFunc,
-            batchDisposeGameObjectsFunc: match.batchDisposeGameObjectsFunc,
+            disposeGameObjectsFunc: match.disposeGameObjectsFunc,
             getAllGameObjectsFunc: match.getAllGameObjectsFunc
           }
         };
@@ -71,15 +71,15 @@ function deferDisposeGameObject(state, gameObject) {
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
 }
 
-function batchDisposeGameObjects(state, gameObjects) {
+function disposeGameObjects(state, gameObjects) {
   var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
   var usedTransformContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName);
-  var match = usedGameObjectContribute.batchDisposeGameObjectsFunc([
+  var match = usedGameObjectContribute.disposeGameObjectsFunc([
         usedGameObjectContribute.state,
         usedTransformContribute.state
       ], [
         usedTransformContribute.getComponentsFunc,
-        usedTransformContribute.batchDisposeComponentsFunc
+        usedTransformContribute.disposeComponentsFunc
       ], gameObjects);
   var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
@@ -98,7 +98,7 @@ export {
   _setGameObjectStateToState ,
   createGameObject ,
   deferDisposeGameObject ,
-  batchDisposeGameObjects ,
+  disposeGameObjects ,
   getAllGameObjects ,
   
 }

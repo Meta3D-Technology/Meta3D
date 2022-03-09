@@ -94,7 +94,7 @@ let _disposeData = (
   state
 }
 
-let batchDisposeComponents = (
+let disposeComponents = (
   {gameObjectMap, disposedTransformArray} as state,
   components,
 ) => {

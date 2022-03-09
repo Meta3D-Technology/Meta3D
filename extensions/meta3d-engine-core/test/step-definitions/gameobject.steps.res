@@ -15,7 +15,7 @@ defineFeature(feature, test => {
     ~getAllGameObjectsFunc=(. state) => [],
     ~getNeedDisposedGameObjectsFunc= (. state) => [],
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
-    ~batchDisposeGameObjectsFunc=(. states, _, gameObjects) => states,
+    ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
     (),
   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
     createStateFunc: createStateFunc,
@@ -23,7 +23,7 @@ defineFeature(feature, test => {
     getAllGameObjectsFunc: getAllGameObjectsFunc,
 getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
-    batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc,
+    disposeGameObjectsFunc: disposeGameObjectsFunc,
   }
 
   let _prepare = (given, \"when", \"and", c) => {
@@ -188,7 +188,7 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     })
   })
 
-  test(."batch dispose gameObjects", ({given, \"and", \"when", then}) => {
+  test(."dispose gameObjects", ({given, \"and", \"when", then}) => {
     let g1 = ref(Obj.magic(1))
     let t1 = ref(Obj.magic(1))
     let usedTransformContribute: ref<
@@ -210,8 +210,8 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
         ~createGameObjectFunc=(. state) => {
           (state, 1->Obj.magic)
         },
-        ~batchDisposeGameObjectsFunc=(. ( gameObjectState, transformState ) as state, (_, batchDisposeComponentsFunc ), gameObjects) => {
-          let transformState = batchDisposeComponentsFunc(.
+        ~disposeGameObjectsFunc=(. ( gameObjectState, transformState ) as state, (_, disposeComponentsFunc ), gameObjects) => {
+          let transformState = disposeComponentsFunc(.
             transformState,
             [t1.contents],
           )
@@ -245,7 +245,7 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
             "disposedArray": [],
           }->Obj.magic
         },
-        ~batchDisposeComponentsFunc=(. state, components) => {
+        ~disposeComponentsFunc=(. state, components) => {
           {
             "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
               components,
@@ -272,8 +272,8 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
       ()
     })
 
-    \"when"("batch dispose [g1]", () => {
-      MainTool.batchDisposeGameObjects([g1.contents])
+    \"when"("dispose [g1]", () => {
+      MainTool.disposeGameObjects([g1.contents])
     })
 
     then("mark g1 as disposed", () => {

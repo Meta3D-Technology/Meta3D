@@ -74,7 +74,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(%re("/^get transform(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
@@ -123,7 +123,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform2.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform2.contents])
     })
 
     then(%re("/^get transform(\d+)'s children should return \[\]$/")->Obj.magic, () => {
@@ -176,7 +176,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(%re("/^get transform(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
@@ -253,7 +253,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform2.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform2.contents])
     })
 
     then(%re("/^get transform1's position should return pos1 \+ pos3$/")->Obj.magic, () => {
@@ -300,7 +300,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(%re("/^get transform(\d+)'s parent should return empty$/")->Obj.magic, () => {
@@ -375,7 +375,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform3.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform3.contents])
     })
 
     then(%re("/^get transform1's position should return pos1$/")->Obj.magic, () => {
@@ -464,7 +464,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(
@@ -523,7 +523,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(
@@ -598,7 +598,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(
@@ -666,7 +666,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(
@@ -737,7 +737,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then(%re("/^get transform(\d+)'s local scale should return default data$/")->Obj.magic, () => {
@@ -788,7 +788,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^dispose transform(\d+), transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(.
+        contribute.contents.disposeComponentsFunc(.
           state.contents,
           [transform1.contents, transform2.contents],
         )
@@ -845,7 +845,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     \"when"(%re("/^create a transform as transform(\d+)$/")->Obj.magic, () => {
@@ -935,7 +935,7 @@ defineFeature(feature, test => {
 
     \"and"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     \"when"(%re("/^create a transform as transform(\d+)$/")->Obj.magic, () => {
@@ -996,7 +996,7 @@ defineFeature(feature, test => {
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
       state :=
-        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+        contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
     then("get need disposed transforms should return [transform2]", () => {

@@ -9,7 +9,7 @@ type getNeedDisposedGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'
 
 type deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform> = (. ( 'state, 'transformState  ), ((. 'transformState, 'gameObject) => Js.Nullable.t< 'transform>, (. 'transformState, 'transform) => 'transformState ), 'gameObject) => ( 'state, 'transformState )
 
-type batchDisposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
+type disposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform> = (
   . ('state, 'transformState),
   ((. 'transformState, array<'gameObject>) => array<'transform>, (. 'transformState, array<'transform>)  => 'transformState),
   array<'gameObject>,
@@ -23,7 +23,7 @@ type gameObjectContribute<'state, 'transformState, 'config, 'gameObject, 'transf
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,
   getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc<'state, 'gameObject>,
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform>,
-  batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc<
+  disposeGameObjectsFunc: disposeGameObjectsFunc<
     'state,
     'transformState,
     'gameObject,

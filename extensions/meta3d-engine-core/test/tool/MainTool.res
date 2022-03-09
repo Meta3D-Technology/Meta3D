@@ -98,7 +98,7 @@ let getComponent = (contribute, gameObject) => {
 
 let deferDisposeComponent = DirectorForJs.deferDisposeComponent
 
-let batchDisposeComponents = DirectorForJs.batchDisposeComponents
+let disposeComponents = DirectorForJs.disposeComponents
 
 let getAllComponents = contribute => {
   contribute->DirectorForJs.getAllComponents
@@ -138,9 +138,9 @@ let deferDisposeGameObject = gameObject => {
   ->StateContainer.setState
 }
 
-let batchDisposeGameObjects = gameObjects => {
+let disposeGameObjects = gameObjects => {
   StateContainer.unsafeGetState()
-  ->DirectorForJs.batchDisposeGameObjects(gameObjects)
+  ->DirectorForJs.disposeGameObjects(gameObjects)
   ->StateContainer.setState
 }
 

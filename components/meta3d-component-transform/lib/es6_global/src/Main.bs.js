@@ -50,8 +50,8 @@ function getComponentContribute(param) {
           deferDisposeComponentFunc: (function (state, component) {
               return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(component);
             }),
-          batchDisposeComponentsFunc: (function (state, components) {
-              return DisposeTransformUtils$Meta3dComponentTransform.batchDisposeComponents(state)(components);
+          disposeComponentsFunc: (function (state, components) {
+              return DisposeTransformUtils$Meta3dComponentTransform.disposeComponents(state)(components);
             }),
           getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
         };

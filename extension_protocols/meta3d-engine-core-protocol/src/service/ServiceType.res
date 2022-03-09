@@ -64,7 +64,7 @@ type service = {
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
-  batchDisposeComponents: (
+  disposeComponents: (
     RegisterComponentType.usedComponentContribute,
     array<ComponentType.component>,
   ) => RegisterComponentType.usedComponentContribute,
@@ -91,7 +91,7 @@ type service = {
   createAndSetGameObjectState: (StateType.state, GameObjectType.config) => StateType.state,
   createGameObject: StateType.state => (StateType.state, GameObjectType.gameObject),
   deferDisposeGameObject: (StateType.state, GameObjectType.gameObject) => StateType.state,
-  batchDisposeGameObjects: (StateType.state, array<GameObjectType.gameObject>) => StateType.state,
+  disposeGameObjects: (StateType.state, array<GameObjectType.gameObject>) => StateType.state,
   getAllGameObjects: StateType.state => array<GameObjectType.gameObject>,
   runPipeline: (
     StateType.state,

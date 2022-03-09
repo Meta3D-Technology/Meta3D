@@ -1,7 +1,7 @@
 Feature: Batch Dispose After Defer Dispose
 	As a Batch Dispose
-	I want to batch dispose transforms after defer dispose
-	So that I can batch dispose them
+	I want to dispose transforms after defer dispose
+	So that I can dispose them
 
 	Background: get contribute and create a state
 		Given I get contribute

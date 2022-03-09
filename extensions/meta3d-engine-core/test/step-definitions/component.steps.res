@@ -426,7 +426,7 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."batch dispose components", ({given, \"and", \"when", then}) => {
+  test(."dispose components", ({given, \"and", \"when", then}) => {
     let c1 = ref(Obj.magic(1))
     let componentName = "a1"
 
@@ -447,7 +447,7 @@ defineFeature(feature, test => {
             "disposedArray": [],
           }->Obj.magic
         },
-        ~batchDisposeComponentsFunc=(. state, components) => {
+        ~disposeComponentsFunc=(. state, components) => {
           {
             "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
               components,
@@ -466,9 +466,9 @@ defineFeature(feature, test => {
       usedContribute := d
     })
 
-    \"when"("batch dispose [c1]", () => {
+    \"when"("dispose [c1]", () => {
       usedContribute :=
-        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.batchDisposeComponents([
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.disposeComponents([
           c1.contents,
         ])
     })

@@ -20,7 +20,7 @@ type usedGameObjectContribute = {
     gameObject,
     transform
   >,
-  batchDisposeGameObjectsFunc: GameObjectContributeType.batchDisposeGameObjectsFunc<
+  disposeGameObjectsFunc: GameObjectContributeType.disposeGameObjectsFunc<
     state,
     ComponentType.state,
     gameObject,

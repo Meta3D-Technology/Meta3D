@@ -21,7 +21,7 @@ let createAndSetState = (
     createGameObjectFunc,
     getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc,
-    batchDisposeGameObjectsFunc,
+    disposeGameObjectsFunc,
     getAllGameObjectsFunc,
   } = unsafeGetGameObjectData(state)
 
@@ -33,7 +33,7 @@ let createAndSetState = (
       getAllGameObjectsFunc: getAllGameObjectsFunc,
       getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
       deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
-      batchDisposeGameObjectsFunc: batchDisposeGameObjectsFunc,
+      disposeGameObjectsFunc: disposeGameObjectsFunc,
     }->Some,
   }
 }
@@ -95,16 +95,16 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
   )
 }
 
-let batchDisposeGameObjects = (state, gameObjects) => {
+let disposeGameObjects = (state, gameObjects) => {
   let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
   let usedTransformContribute =
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentTransformProtocol.Index.componentName,
     )
 
-  let (gameObjectState, transformState) = usedGameObjectContribute.batchDisposeGameObjectsFunc(.
+  let (gameObjectState, transformState) = usedGameObjectContribute.disposeGameObjectsFunc(.
     (usedGameObjectContribute.state, usedTransformContribute.state),
-    (usedTransformContribute.getComponentsFunc, usedTransformContribute.batchDisposeComponentsFunc),
+    (usedTransformContribute.getComponentsFunc, usedTransformContribute.disposeComponentsFunc),
     gameObjects,
   )
 

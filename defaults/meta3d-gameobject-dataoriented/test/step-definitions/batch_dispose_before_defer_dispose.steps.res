@@ -40,7 +40,7 @@ defineFeature(feature, test => {
 
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
-        let (gs, ts) = contribute.contents.batchDisposeGameObjectsFunc(.
+        let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
           (state.contents, Obj.magic(1)),
           Obj.magic(1),
           [gameObject.contents],

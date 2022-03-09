@@ -32,7 +32,7 @@ let getData: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContri
   deferDisposeComponentFunc: (. state, component) => {
     state
   },
-  batchDisposeComponentsFunc: (. state, components) => {
+  disposeComponentsFunc: (. state, components) => {
     state
   },
 }

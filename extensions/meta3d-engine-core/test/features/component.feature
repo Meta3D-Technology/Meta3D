@@ -66,9 +66,9 @@ Feature: Component
             When defer dispose c1
             Then mark c1 as need dispose
 
-        Scenario: batch dispose components
+        Scenario: dispose components
             Given create a component as c1
-            When batch dispose [c1]
+            When dispose [c1]
             Then mark c1 as disposed
 
         Scenario: get all components

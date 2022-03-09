@@ -79,7 +79,7 @@ let createAndSetComponentState = (
     getComponentsFunc,
     getNeedDisposedComponentsFunc,
     deferDisposeComponentFunc,
-    batchDisposeComponentsFunc,
+    disposeComponentsFunc,
     getAllComponentsFunc,
     getComponentDataFunc,
     setComponentDataFunc,
@@ -106,7 +106,7 @@ let createAndSetComponentState = (
           getComponentsFunc: getComponentsFunc,
           getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc,
           deferDisposeComponentFunc: deferDisposeComponentFunc,
-          batchDisposeComponentsFunc: batchDisposeComponentsFunc,
+          disposeComponentsFunc: disposeComponentsFunc,
           getAllComponentsFunc: getAllComponentsFunc,
           getComponentDataFunc: getComponentDataFunc,
           setComponentDataFunc: setComponentDataFunc,
@@ -219,11 +219,11 @@ let deferDisposeComponent = (
   )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 
-let batchDisposeComponents = (
+let disposeComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   components: array<Meta3dEngineCoreProtocol.ComponentType.component>,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
-  usedComponentContribute.batchDisposeComponentsFunc(.
+  usedComponentContribute.disposeComponentsFunc(.
     usedComponentContribute.state,
     components,
   )->setComponentStateToUsedComponentContribute(usedComponentContribute)

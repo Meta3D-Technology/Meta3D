@@ -49,7 +49,7 @@ defineFeature(feature, test => {
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
         state :=
-          contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform.contents])
+          contribute.contents.disposeComponentsFunc(. state.contents, [transform.contents])
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

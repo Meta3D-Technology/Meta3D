@@ -19,8 +19,8 @@ function getGameObjectContribute(param) {
           deferDisposeGameObjectFunc: (function (state, funcs, gameObject) {
               return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.deferDisposeGameObject(state)(funcs, gameObject);
             }),
-          batchDisposeGameObjectsFunc: (function (states, funcs, gameObjects) {
-              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.batchDisposeGameObjects(states)(funcs, gameObjects);
+          disposeGameObjectsFunc: (function (states, funcs, gameObjects) {
+              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.disposeGameObjects(states)(funcs, gameObjects);
             }),
           getAllGameObjectsFunc: GetAllGameObjectUtils$Meta3dGameobjectDataoriented.getAll
         };

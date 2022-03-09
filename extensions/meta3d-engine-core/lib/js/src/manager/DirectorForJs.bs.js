@@ -71,7 +71,7 @@ var getComponent = ComponentManager$Meta3dEngineCore.getComponent;
 
 var deferDisposeComponent = ComponentManager$Meta3dEngineCore.deferDisposeComponent;
 
-var batchDisposeComponents = ComponentManager$Meta3dEngineCore.batchDisposeComponents;
+var disposeComponents = ComponentManager$Meta3dEngineCore.disposeComponents;
 
 var getAllComponents = ComponentManager$Meta3dEngineCore.getAllComponents;
 
@@ -87,7 +87,7 @@ var createGameObject = GameObjectManager$Meta3dEngineCore.createGameObject;
 
 var deferDisposeGameObject = GameObjectManager$Meta3dEngineCore.deferDisposeGameObject;
 
-var batchDisposeGameObjects = GameObjectManager$Meta3dEngineCore.batchDisposeGameObjects;
+var disposeGameObjects = GameObjectManager$Meta3dEngineCore.disposeGameObjects;
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
@@ -111,7 +111,7 @@ exports.removeComponent = removeComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
 exports.deferDisposeComponent = deferDisposeComponent;
-exports.batchDisposeComponents = batchDisposeComponents;
+exports.disposeComponents = disposeComponents;
 exports.getAllComponents = getAllComponents;
 exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;
@@ -119,7 +119,7 @@ exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.deferDisposeGameObject = deferDisposeGameObject;
-exports.batchDisposeGameObjects = batchDisposeGameObjects;
+exports.disposeGameObjects = disposeGameObjects;
 exports.getAllGameObjects = getAllGameObjects;
 exports.getComponentState = getComponentState;
 /* No side effect */

@@ -13,7 +13,7 @@ let buildComponentContribute = (
   ~getComponentDataFunc=(. state, _, _) => Obj.magic(1),
   ~setComponentDataFunc=(. state, _, _, _) => state,
   ~deferDisposeComponentFunc=(. state, _) => state,
-  ~batchDisposeComponentsFunc=(. state, _) => state,
+  ~disposeComponentsFunc=(. state, _) => state,
   (),
 ): Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute => {
   componentName: componentName,
@@ -30,5 +30,5 @@ let buildComponentContribute = (
   getComponentDataFunc: getComponentDataFunc,
   setComponentDataFunc: setComponentDataFunc,
   deferDisposeComponentFunc: deferDisposeComponentFunc,
-  batchDisposeComponentsFunc: batchDisposeComponentsFunc,
+  disposeComponentsFunc: disposeComponentsFunc,
 }

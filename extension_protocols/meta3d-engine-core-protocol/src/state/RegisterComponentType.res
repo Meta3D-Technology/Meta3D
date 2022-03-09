@@ -15,7 +15,7 @@ type usedComponentContribute = {
   getComponentsFunc: ComponentContributeType.getComponentsFunc<state, component>,
   getNeedDisposedComponentsFunc: ComponentContributeType.getNeedDisposedComponentsFunc<state, component>,
   deferDisposeComponentFunc: ComponentContributeType.deferDisposeComponentFunc<state, component>,
-  batchDisposeComponentsFunc: ComponentContributeType.batchDisposeComponentsFunc<state, component>,
+  disposeComponentsFunc: ComponentContributeType.disposeComponentsFunc<state, component>,
   getAllComponentsFunc: ComponentContributeType.getAllComponentsFunc<state, component>,
   getComponentDataFunc: ComponentContributeType.getComponentDataFunc<state, dataName, component>,
   setComponentDataFunc: ComponentContributeType.setComponentDataFunc<state, dataName, component>,

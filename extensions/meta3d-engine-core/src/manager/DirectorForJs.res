@@ -87,7 +87,7 @@ let getComponent = ComponentManager.getComponent
 
 let deferDisposeComponent = ComponentManager.deferDisposeComponent
 
-let batchDisposeComponents = ComponentManager.batchDisposeComponents
+let disposeComponents = ComponentManager.disposeComponents
 
 let getAllComponents = ComponentManager.getAllComponents
 
@@ -103,7 +103,7 @@ let createGameObject = GameObjectManager.createGameObject
 
 let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
 
-let batchDisposeGameObjects = GameObjectManager.batchDisposeGameObjects
+let disposeGameObjects = GameObjectManager.disposeGameObjects
 
 let getAllGameObjects = GameObjectManager.getAllGameObjects
 

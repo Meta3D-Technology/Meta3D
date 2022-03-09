@@ -496,7 +496,7 @@ batch dispose
 
 
 
-** TODO refactor:
+** DONE refactor:
 component contribute:
 add  removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
 

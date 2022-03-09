@@ -33,7 +33,7 @@ defineFeature(feature, test => {
     let transform2 = ref(Obj.magic(4))
     let sandbox = ref(Obj.magic(1))
     let deferDisposeTransformFuncStub = ref(Obj.magic(1))
-    let batchDisposeTransformsFuncStub = ref(Obj.magic(1))
+    let disposeTransformsFuncStub = ref(Obj.magic(1))
 
     _getContributeAndCreateAState((given, \"and"))
 
@@ -80,7 +80,7 @@ deferDisposeTransformFuncStub:= createEmptyStubWithJsObjSandbox(sandbox)
       let (gs, ts) =
         contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
         (
-(. _, _) => transform1.contents ,
+(. _, _) => transform1.contents -> Meta3dCommonlib.NullableSt.return ,
 deferDisposeTransformFuncStub.contents
         ),
          gameObject1.contents)
@@ -93,7 +93,7 @@ deferDisposeTransformFuncStub.contents
       let (gs, ts) =
         contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
         (
-(. _, _) => transform2.contents ,
+(. _, _) => transform2.contents -> Meta3dCommonlib.NullableSt.return ,
 deferDisposeTransformFuncStub.contents
         ),
          gameObject2.contents)
@@ -103,12 +103,12 @@ deferDisposeTransformFuncStub.contents
     })
 
     \"when"("dispose [gameObject1, gameObject2]", () => {
-      batchDisposeTransformsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
-      let (gs, ts) = contribute.contents.batchDisposeGameObjectsFunc(.
+      disposeTransformsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+      let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
         (state.contents, transformState.contents->Obj.magic),
         (
           (. transformState, _) => [transform1.contents, transform2.contents],
-           batchDisposeTransformsFuncStub.contents ),
+           disposeTransformsFuncStub.contents ),
         [gameObject1.contents, gameObject2.contents],
       )
 
@@ -126,7 +126,7 @@ deferDisposeTransformFuncStub.contents
       ->Obj.magic
       -> getCall(1, _)
       ->SinonTool.calledWithArg2(matchAny, transform2.contents),
-      batchDisposeTransformsFuncStub.contents
+      disposeTransformsFuncStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg2(matchAny, [transform1.contents, transform2.contents])
       )
@@ -189,7 +189,7 @@ createEmptyStubWithJsObjSandbox(sandbox)
     })
 
     \"when"("dispose gameObject1", () => {
-      let (gs, ts) = contribute.contents.batchDisposeGameObjectsFunc(.
+      let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
         (state.contents, transformState.contents->Obj.magic),
         (
 createEmptyStubWithJsObjSandbox(sandbox),

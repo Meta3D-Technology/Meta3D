@@ -74,7 +74,7 @@ function createAndSetComponentState(state, componentName, config) {
                   getComponentsFunc: match.getComponentsFunc,
                   getNeedDisposedComponentsFunc: match.getNeedDisposedComponentsFunc,
                   deferDisposeComponentFunc: match.deferDisposeComponentFunc,
-                  batchDisposeComponentsFunc: match.batchDisposeComponentsFunc,
+                  disposeComponentsFunc: match.disposeComponentsFunc,
                   getAllComponentsFunc: match.getAllComponentsFunc,
                   getComponentDataFunc: match.getComponentDataFunc,
                   setComponentDataFunc: match.setComponentDataFunc
@@ -138,8 +138,8 @@ function deferDisposeComponent(usedComponentContribute, component) {
   return usedComponentContribute;
 }
 
-function batchDisposeComponents(usedComponentContribute, components) {
-  var componentState = usedComponentContribute.batchDisposeComponentsFunc(usedComponentContribute.state, components);
+function disposeComponents(usedComponentContribute, components) {
+  var componentState = usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, components);
   usedComponentContribute.state = componentState;
   return usedComponentContribute;
 }
@@ -177,7 +177,7 @@ exports.getComponent = getComponent;
 exports.getComponents = getComponents;
 exports.getNeedDisposedComponents = getNeedDisposedComponents;
 exports.deferDisposeComponent = deferDisposeComponent;
-exports.batchDisposeComponents = batchDisposeComponents;
+exports.disposeComponents = disposeComponents;
 exports.getAllComponents = getAllComponents;
 exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;

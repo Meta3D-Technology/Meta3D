@@ -10,10 +10,14 @@ let deferDisposeGameObject = (
   (getTransformFunc, deferDisposeTransformFunc),
   gameObject,
 ) => {
-  let transformState = deferDisposeTransformFunc(.
+let transformState = 
+getTransformFunc(. transformState, gameObject) -> Meta3dCommonlib.NullableSt.bind((. transform) =>{
+deferDisposeTransformFunc(.
     transformState,
-    getTransformFunc(. transformState, gameObject),
+    transform,
   )
+})
+ -> Meta3dCommonlib.NullableSt.getWithDefault(transformState)
 
   let gameObjectState = {
     ...gameObjectState,
@@ -28,12 +32,12 @@ let deferDisposeGameObject = (
 let _isNotNeedDispose = (component, needDisposedIndexArray) =>
   !Js.Array.includes(component, needDisposedIndexArray)
 
-let batchDisposeGameObjects = (
+let disposeGameObjects = (
   (
     {needDisposedGameObjectArray} as gameObjectState,
     transformState: Meta3dComponentTransformProtocol.Index.state,
   ),
-  (getTransformsFunc, batchDisposeTransformsFunc),
+  (getTransformsFunc, disposeTransformsFunc),
   gameObjects,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(gameObjectState)
@@ -52,7 +56,7 @@ let batchDisposeGameObjects = (
       gameObjects,
     )
 
-  let transformState = batchDisposeTransformsFunc(.
+  let transformState = disposeTransformsFunc(.
     transformState,
     getTransformsFunc(. transformState, gameObjects),
   )

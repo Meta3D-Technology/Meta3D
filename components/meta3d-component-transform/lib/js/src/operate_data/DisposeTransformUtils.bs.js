@@ -80,7 +80,7 @@ function _disposeData(state) {
   };
 }
 
-function batchDisposeComponents(state) {
+function disposeComponents(state) {
   var disposedTransformArray = state.disposedTransformArray;
   return function (components) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
@@ -99,5 +99,5 @@ exports.deferDisposeComponent = deferDisposeComponent;
 exports._disposeFromParentAndChildMap = _disposeFromParentAndChildMap;
 exports._disposeSparseMapData = _disposeSparseMapData;
 exports._disposeData = _disposeData;
-exports.batchDisposeComponents = batchDisposeComponents;
+exports.disposeComponents = disposeComponents;
 /* No side effect */
