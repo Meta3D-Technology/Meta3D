@@ -12,10 +12,10 @@ Feature: Get Contribute
         And create a state with config
         Then the config is setted
 
-    Scenario: create dataoriented contribute
+    Scenario: create dataoriented data
         When I get contribute
         And create a state with transformCount
-        Then dataoriented contribute is created based on transformCount
+        Then dataoriented data is created based on transformCount
 
     Scenario: create a transform
         When I get contribute

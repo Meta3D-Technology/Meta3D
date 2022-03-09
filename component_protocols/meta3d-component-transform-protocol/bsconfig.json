@@ -2,7 +2,7 @@
   "name": "meta3d-component-transform-protocol",
   "sources": [
     {
-      "dir": "./",
+      "dir": "./src",
       "subdirs": true
     }
   ],

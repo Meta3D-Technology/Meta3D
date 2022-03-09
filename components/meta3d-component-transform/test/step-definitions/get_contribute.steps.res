@@ -66,7 +66,7 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."create dataoriented contribute", ({\"when", \"and", then}) => {
+  test(."create dataoriented data", ({\"when", \"and", then}) => {
     let transformCount = 10
 
     \"when"("I get contribute", () => {
@@ -77,7 +77,7 @@ defineFeature(feature, test => {
       state := _createState(~transformCount, ())
     })
 
-    then("dataoriented contribute is created based on transformCount", () => {
+    then("dataoriented data is created based on transformCount", () => {
       state.contents.localPositions->Js.Typed_array.Float32Array.length->expect ==
         transformCount * 3
     })

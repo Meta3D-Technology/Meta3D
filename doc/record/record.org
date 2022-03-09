@@ -484,7 +484,7 @@ batch dispose
 ** DONE pass bdd test
 
 
-** TODO update engine-core extension
+** DONE update engine-core extension
 
 *** TODO component add dispose
 
@@ -513,23 +513,6 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 
-** TODO pass run test
-
-
-*** TODO add dispose, reallocate job
-
-
-*** TODO update editor, add dispose gameObject, allocate button
-
-gameObject should add transform component!
-
-
-*** TODO pass run test
-
-
-
-
-
 ** TODO component support clone
 
 *** TODO pass bdd test
@@ -548,7 +531,7 @@ gameObject should add transform component!
 ** TODO add remain components(include worker)
 
 
-** TODO add MeshRender component
+# ** TODO add MeshRender component
 
 
 ** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
@@ -559,10 +542,6 @@ gameObject should add transform component!
 
 
 ** TODO pass bdd test
-
-
-
-* TODO publish
 
 
 
@@ -582,18 +561,28 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO extract shader extension for webgl
 
-*** TODO shader system
 
-** TODO finish sxengine for shader system
 
-** TODO sxengine add dispose job
+
+** TODO sxengine add dispose, rellocate job
 
 
 ** TODO pass render run test:render cube
 
 ** TODO pass render run test:dispose cube
+
+
+
+** TODO perf:benchmark
+
+*** TODO render 7000 cube
+
+*** TODO dispose
+
+*** TODO clone
+
+
 
 
 ** TODO refactor
@@ -602,6 +591,7 @@ finish actual engine code(like sxengine's code)
 *** TODO use pipe, curry
 
 *** TODO use NullableUtils for type
+
 
 
 ** TODO add or update bdd test
@@ -634,6 +624,11 @@ finish actual engine code(like sxengine's code)
 
 
 
+** TODO extract shader extension for webgl
+
+*** TODO shader system
+
+** TODO finish sxengine for shader system
 
 
 
