@@ -109,7 +109,9 @@ let batchDisposeComponentsFunc = (
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
   state.needDisposedTransformArray =
-    needDisposedTransformArray->DisposeComponentUtils.batchRemoveFromArray(disposedTransformArray)
+    needDisposedTransformArray->DisposeComponentUtils.batchRemoveFromArray(
+      state.disposedTransformArray,
+    )
 
   components->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, component) => state->_disposeData(isDebug, component),

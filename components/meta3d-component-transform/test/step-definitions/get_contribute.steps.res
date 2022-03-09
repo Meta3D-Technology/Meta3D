@@ -155,6 +155,44 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."remove a transform from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let transform = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a transform", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      transform := m
+    })
+
+    \"and"("add the transform to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, transform.contents)
+    })
+
+    \"and"("remove the transform from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject, transform.contents)
+    })
+
+    then("the gameObject shouldn't has the transform", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
   test(."add a transform to a gameObject which alreay has one", ({
     given,
     \"when",
@@ -200,6 +238,98 @@ defineFeature(feature, test => {
       contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == transform2.contents
+    })
+  })
+
+  test(."get gameObjects' transforms", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let transform1 = ref(Obj.magic(1))
+    let transform2 = ref(Obj.magic(1))
+    let transform3 = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three transforms as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      transform1 := m1
+      transform2 := m2
+      transform3 := m3
+    })
+
+    \"and"("add t1 to g1", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, transform1.contents)
+    })
+
+    \"and"("add t3 to g2", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, transform3.contents)
+    })
+
+    then("get the transforms of [g1, g2] should return [t1, t3]", () => {
+      contribute.contents.getComponentsFunc(.
+        state.contents,
+        [gameObject1, gameObject2],
+      )->expect == [transform1.contents, transform3.contents]
+    })
+  })
+
+  test(."get need disposed transforms", ({given, \"when", \"and", then}) => {
+    let transform1 = ref(Obj.magic(1))
+    let transform2 = ref(Obj.magic(1))
+    let transform3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three transforms as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      transform1 := m1
+      transform2 := m2
+      transform3 := m3
+    })
+
+    \"and"("defer dispose t1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+    })
+
+    \"and"("defer dispose t1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+    })
+
+    \"and"("defer dispose t3", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform3.contents)
+    })
+
+    then("get need disposed transforms should return [t1, t3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          transform1.contents,
+          transform3.contents,
+        ]
     })
   })
 

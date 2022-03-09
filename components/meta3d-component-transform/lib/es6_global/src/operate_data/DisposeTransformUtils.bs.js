@@ -87,7 +87,7 @@ function batchDisposeComponentsFunc(state) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get(state));
     state.disposedTransformArray = disposedTransformArray.concat(components);
-    state.needDisposedTransformArray = DisposeComponentUtils$Meta3dComponentTransform.batchRemoveFromArray(needDisposedTransformArray, disposedTransformArray);
+    state.needDisposedTransformArray = DisposeComponentUtils$Meta3dComponentTransform.batchRemoveFromArray(needDisposedTransformArray, state.disposedTransformArray);
     return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
                   return _disposeData(state)(isDebug, component);
                 }), state);

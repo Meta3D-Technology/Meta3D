@@ -968,4 +968,41 @@ defineFeature(feature, test => {
       ->expect == TypeArrayTool.getDefaultPosition()
     })
   })
+
+  test(."should remove disposed transforms needDisposedTransforms", ({
+    given,
+    \"and",
+    then,
+    \"when",
+  }) => {
+    _getContributeAndCreateAState((given, \"and"))
+
+    given(%re("/^create two transforms as transform(\d+), transform(\d+)$/")->Obj.magic, () => {
+      let (s, t1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, t2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      transform1 := t1
+      transform2 := t2
+    })
+
+    \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+    })
+
+    \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents)
+    })
+
+    \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.batchDisposeComponentsFunc(. state.contents, [transform1.contents])
+    })
+
+    then("get need disposed transforms should return [transform2]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          transform2.contents,
+        ]
+    })
+  })
 })

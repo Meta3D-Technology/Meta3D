@@ -15,7 +15,6 @@ Feature: Batch Dispose After Defer Dispose
 		When dispose transform1
 		Then get transform2's local position should return pos2
 
-
 	Rule: if child is disposed
 
 		Background: prepare transform
@@ -161,3 +160,10 @@ Feature: Batch Dispose After Defer Dispose
 			When create a transform as transform3
 			Then get transform3's local position should return default data
 			And get transform3's position should return default data
+
+		Scenario: should remove disposed transforms needDisposedTransforms
+			Given create two transforms as transform1, transform2
+			And defer dispose transform1
+			And defer dispose transform2
+			When dispose transform1
+			Then get need disposed transforms should return [transform2]
