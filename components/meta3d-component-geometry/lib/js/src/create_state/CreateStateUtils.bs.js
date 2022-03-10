@@ -48,7 +48,8 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           tangentsOffset: 0,
           indicesOffset: 0,
           gameObjectsMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
-          gameObjectGeometryMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount)
+          gameObjectGeometryMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
+          needDisposedGeometryArray: []
         };
 }
 

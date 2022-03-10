@@ -1,11 +1,11 @@
-open Meta3dComponentGeometryProtocol.Index
+open StateType
 
 let setData = (.
   state,
   geometry,
   dataName: Meta3dComponentGeometryProtocol.Index.dataNameType,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
-): Meta3dComponentGeometryProtocol.Index.state => {
+): StateType.state => {
   switch dataName {
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.vertices =>
     VerticesUtils.setVertices(state, geometry, dataValue->Obj.magic)

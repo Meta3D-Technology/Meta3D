@@ -29,7 +29,7 @@ let createStateWithSharedArrayBufferData = (
     tangentsInfos,
     indicesInfos,
   }: GeometrySharedArrayBufferDataType.geometrySharedArrayBufferData,
-): Meta3dComponentGeometryProtocol.Index.state => {
+): StateType.state => {
   {
     config: {
       isDebug: isDebug,
@@ -57,6 +57,7 @@ let createStateWithSharedArrayBufferData = (
     gameObjectGeometryMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
       geometryCount,
     ),
+    needDisposedGeometryArray: []
   }
 }
 

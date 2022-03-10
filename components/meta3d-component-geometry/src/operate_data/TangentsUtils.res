@@ -1,4 +1,4 @@
-open Meta3dComponentGeometryProtocol.Index
+open StateType
 
 open Js.Typed_array
 

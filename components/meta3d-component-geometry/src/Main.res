@@ -1,5 +1,5 @@
-let getData: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
-  Meta3dComponentGeometryProtocol.Index.state,
+let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
+  StateType.state,
   Meta3dComponentGeometryProtocol.Index.config,
   Meta3dComponentGeometryProtocol.Index.dataNameType,
   Meta3dComponentGeometryProtocol.Index.geometry,
@@ -11,11 +11,20 @@ let getData: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContri
   addComponentFunc: (. state, gameObject, component) => {
     AddGeometryUtils.add(state, gameObject, component)
   },
+  removeComponentFunc: (. state, gameObject, component) => {
+    RemoveGeometryUtils.remove(state, gameObject, component)
+  },
   hasComponentFunc: (. state, gameObject) => {
     HasGeometryUtils.has(state, gameObject)
   },
   getComponentFunc: (. state, gameObject) => {
     GetGeometryUtils.get(state, gameObject)
+  },
+  getComponentsFunc: (. state, gameObjects) => {
+    GetGeometrysUtils.get(state, gameObjects)
+  },
+  getNeedDisposedComponentsFunc: (. state) => {
+    GetNeedDisposedGeometrysUtils.get(state)
   },
   getGameObjectsFunc: (. state, component) => {
     GetGameObjectsUtils.get(state, component)

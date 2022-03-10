@@ -3,16 +3,16 @@ open Cucumber
 open Expect
 open Operators
 
-open Meta3dComponentGeometryProtocol.Index
+open StateType
 
 open Js.Typed_array
 
 let feature = loadFeature("./test/features/get_contribute.feature")
 
 defineFeature(feature, test => {
-  let data: ref<
+  let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      Meta3dComponentGeometryProtocol.Index.state,
+      StateType.state,
       Meta3dComponentGeometryProtocol.Index.config,
       Meta3dComponentGeometryProtocol.Index.dataNameType,
       Meta3dComponentGeometryProtocol.Index.geometry,
@@ -22,7 +22,7 @@ defineFeature(feature, test => {
   let config: ref<Meta3dComponentGeometryProtocol.Index.config> = ref(Obj.magic(1))
 
   let _createState = (~isDebug=false, ~geometryPointCount=10, ~geometryCount=10, ()) => {
-    data.contents.createStateFunc(. {
+    contribute.contents.createStateFunc(. {
       isDebug: isDebug,
       geometryPointCount: geometryPointCount,
       geometryCount: geometryCount,
@@ -31,11 +31,11 @@ defineFeature(feature, test => {
 
   test(."componentName", ({\"when", then}) => {
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     then(%re("/^componentName should be \"(.*)\"$/")->Obj.magic, arg0 => {
-      data.contents.componentName->expect == arg0
+      contribute.contents.componentName->expect == arg0
     })
   })
 
@@ -44,7 +44,7 @@ defineFeature(feature, test => {
     let geometryCount = 10
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state with config", () => {
@@ -65,7 +65,7 @@ defineFeature(feature, test => {
     let geometryCount = 10
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state with geometryPointCount, geometryCount", () => {
@@ -80,7 +80,7 @@ defineFeature(feature, test => {
 
   test(."create a geometry", ({\"when", \"and", then}) => {
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -88,7 +88,7 @@ defineFeature(feature, test => {
     })
 
     then("createComponentFunc should create a geometry", () => {
-      let (state, geometry) = data.contents.createComponentFunc(. state.contents)
+      let (state, geometry) = contribute.contents.createComponentFunc(. state.contents)
 
       state.maxIndex->expect == 1
       geometry->expect == 0
@@ -104,7 +104,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -112,18 +112,18 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
     })
 
     \"and"("add the geometry to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
     })
 
     then("get the gameObject's geometry should be the added one", () => {
-      data.contents.getComponentFunc(. state.contents, gameObject)
+      contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == geometry.contents
     })
@@ -139,7 +139,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -147,8 +147,8 @@ defineFeature(feature, test => {
     })
 
     \"and"("create two geometries", () => {
-      let (s, g1) = data.contents.createComponentFunc(. state.contents)
-      let (s, g2) = data.contents.createComponentFunc(. s)
+      let (s, g1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, g2) = contribute.contents.createComponentFunc(. s)
 
       state := s
       geometryl1 := g1
@@ -156,17 +156,195 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the first geometry to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, geometryl1.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl1.contents)
     })
 
     \"and"("add the second geometry to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, geometryl2.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl2.contents)
     })
 
     then("get the gameObject's geometry should be the second one", () => {
-      data.contents.getComponentFunc(. state.contents, gameObject)
+      contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == geometryl2.contents
+    })
+  })
+
+  test(."remove a geometry from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let geometry = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a geometry", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      geometry := m
+    })
+
+    \"and"("add the geometry to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
+    })
+
+    \"and"("remove the geometry from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject, geometry.contents)
+    })
+
+    then("the gameObject shouldn't has the geometry", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."remove a geometry which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let geometry = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a geometry", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      geometry := m
+    })
+
+    \"and"("add the geometry to g1", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry.contents)
+    })
+
+    \"and"("add the geometry to g2", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry.contents)
+    })
+
+    \"and"("remove the geometry from g1", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject1, geometry.contents)
+    })
+
+    then("g1 shouldn't has the geometry", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject1)->expect == false
+    })
+
+    \"and"("g2 should has the geometry", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject2)->expect == true
+    })
+  })
+
+  test(."get gameObjects' geometrys", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let geometry1 = ref(Obj.magic(1))
+    let geometry2 = ref(Obj.magic(1))
+    let geometry3 = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three geometrys as geo1, geo2, geo3", () => {
+      let (s, geo1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, geo2) = contribute.contents.createComponentFunc(. s)
+      let (s, geo3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      geometry1 := geo1
+      geometry2 := geo2
+      geometry3 := geo3
+    })
+
+    \"and"("add geo1 to g1", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry1.contents)
+    })
+
+    \"and"("add geo3 to g2", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry3.contents)
+    })
+
+    then("get the geometrys of [g1, g2] should return [geo1, geo3]", () => {
+      contribute.contents.getComponentsFunc(.
+        state.contents,
+        [gameObject1, gameObject2],
+      )->expect == [geometry1.contents, geometry3.contents]
+    })
+  })
+
+  test(."get need disposed geometrys", ({given, \"when", \"and", then}) => {
+    let geometry1 = ref(Obj.magic(1))
+    let geometry2 = ref(Obj.magic(1))
+    let geometry3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three geometrys as geo1, geo2, geo3", () => {
+      let (s, geo1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, geo2) = contribute.contents.createComponentFunc(. s)
+      let (s, geo3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      geometry1 := geo1
+      geometry2 := geo2
+      geometry3 := geo3
+    })
+
+    \"and"("defer dispose geo1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry1.contents)
+    })
+
+    \"and"("defer dispose geo1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry1.contents)
+    })
+
+    \"and"("defer dispose geo3", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry3.contents)
+    })
+
+    then("get need disposed geometrys should return [geo1, geo3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          geometry1.contents,
+          geometry3.contents,
+        ]
     })
   })
 
@@ -181,7 +359,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -189,8 +367,8 @@ defineFeature(feature, test => {
     })
 
     \"and"("create two geometries", () => {
-      let (s, g1) = data.contents.createComponentFunc(. state.contents)
-      let (s, g2) = data.contents.createComponentFunc(. s)
+      let (s, g1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, g2) = contribute.contents.createComponentFunc(. s)
 
       state := s
       geometryl1 := g1
@@ -198,12 +376,12 @@ defineFeature(feature, test => {
     })
 
     \"and"("add them to the gameObjects one by one", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject1, geometryl1.contents)
-      state := data.contents.addComponentFunc(. state.contents, gameObject2, geometryl2.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, geometryl1.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, geometryl2.contents)
     })
 
     then("getAllComponentsFunc should get the two geometries", () => {
-      data.contents.getAllComponentsFunc(. state.contents)->expect == [
+      contribute.contents.getAllComponentsFunc(. state.contents)->expect == [
           geometryl1.contents,
           geometryl2.contents,
         ]
@@ -219,7 +397,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -227,18 +405,18 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
     })
 
     \"and"("add the geometry to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
     })
 
     then("hasComponentFunc should return true", () => {
-      data.contents.hasComponentFunc(. state.contents, gameObject)->expect == true
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == true
     })
   })
 
@@ -252,7 +430,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -260,19 +438,19 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
     })
 
     \"and"("add the geometry to the two gameObjects", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject1, geometry.contents)
-      state := data.contents.addComponentFunc(. state.contents, gameObject2, geometry.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry.contents)
     })
 
     then("getGameObjectsFunc should return the two gameObjects", () => {
-      data.contents.getGameObjectsFunc(. state.contents, geometry.contents)->expect == [
+      contribute.contents.getGameObjectsFunc(. state.contents, geometry.contents)->expect == [
           gameObject1,
           gameObject2,
         ]
@@ -283,7 +461,7 @@ defineFeature(feature, test => {
     let geometry = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -291,7 +469,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -302,7 +480,7 @@ defineFeature(feature, test => {
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -314,7 +492,7 @@ defineFeature(feature, test => {
       let arguments =
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.indicesCount,
@@ -330,7 +508,7 @@ defineFeature(feature, test => {
     let vertices2 = Float32Array.make([3., 5., 5.])
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -338,7 +516,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -346,14 +524,14 @@ defineFeature(feature, test => {
 
     \"when"("set geometry's vertices", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.vertices,
           vertices1->Obj.magic,
         )
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -362,7 +540,7 @@ defineFeature(feature, test => {
     })
 
     then("get geometry's vertices should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -378,7 +556,7 @@ defineFeature(feature, test => {
     let normals2 = Float32Array.make([3., 5., 5.])
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -386,7 +564,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -394,14 +572,14 @@ defineFeature(feature, test => {
 
     \"when"("set geometry's normals", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.normals,
           normals1->Obj.magic,
         )
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.normals,
@@ -410,7 +588,7 @@ defineFeature(feature, test => {
     })
 
     then("get geometry's normals should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.normals,
@@ -426,7 +604,7 @@ defineFeature(feature, test => {
     let texCoords2 = Float32Array.make([3., 5.])
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -434,7 +612,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -442,14 +620,14 @@ defineFeature(feature, test => {
 
     \"when"("set geometry's texCoords", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
           texCoords1->Obj.magic,
         )
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
@@ -458,7 +636,7 @@ defineFeature(feature, test => {
     })
 
     then("get geometry's texCoords should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
@@ -474,7 +652,7 @@ defineFeature(feature, test => {
     let tangents2 = Float32Array.make([3., 5., 5.])
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -482,7 +660,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -490,14 +668,14 @@ defineFeature(feature, test => {
 
     \"when"("set geometry's tangents", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.tangents,
           tangents1->Obj.magic,
         )
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.tangents,
@@ -506,7 +684,7 @@ defineFeature(feature, test => {
     })
 
     then("get geometry's tangents should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.tangents,
@@ -521,7 +699,7 @@ defineFeature(feature, test => {
     let indices1 = Uint32Array.make([1, 2, 3])
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -529,7 +707,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -537,7 +715,7 @@ defineFeature(feature, test => {
 
     \"when"("set geometry's indices", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -546,7 +724,7 @@ defineFeature(feature, test => {
     })
 
     then("get geometry's indices should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -560,7 +738,7 @@ defineFeature(feature, test => {
     let geometry = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -568,14 +746,14 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
     })
 
     then("geometry should not has vertices", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -591,7 +769,7 @@ defineFeature(feature, test => {
     let geometry = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -599,7 +777,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -607,7 +785,7 @@ defineFeature(feature, test => {
 
     \"and"("set geometry's vertices", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -616,7 +794,7 @@ defineFeature(feature, test => {
     })
 
     then("geometry should has vertices", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -632,7 +810,7 @@ defineFeature(feature, test => {
     let geometry = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -640,7 +818,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -648,7 +826,7 @@ defineFeature(feature, test => {
 
     \"and"("set geometry's indices", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           geometry.contents,
           Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -657,7 +835,7 @@ defineFeature(feature, test => {
     })
 
     then("geometry should has indices", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         geometry.contents,
         Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -678,7 +856,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -686,7 +864,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -708,7 +886,7 @@ defineFeature(feature, test => {
 
         expect(() => {
           state :=
-            data.contents.setComponentDataFunc(.
+            contribute.contents.setComponentDataFunc(.
               state.contents,
               geometry.contents,
               Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
@@ -728,7 +906,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"(%re("/^create a state with geometryPointCount:(\d+)$/")->Obj.magic, arg0 => {
@@ -739,7 +917,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -750,7 +928,7 @@ defineFeature(feature, test => {
       arg0 => {
         expect(() => {
           state :=
-            data.contents.setComponentDataFunc(.
+            contribute.contents.setComponentDataFunc(.
               state.contents,
               geometry.contents,
               Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -770,7 +948,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"(%re("/^create a state with geometryPointCount:(\d+)$/")->Obj.magic, arg0 => {
@@ -781,7 +959,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -792,7 +970,7 @@ defineFeature(feature, test => {
       arg0 => {
         expect(() => {
           state :=
-            data.contents.setComponentDataFunc(.
+            contribute.contents.setComponentDataFunc(.
               state.contents,
               geometry.contents,
               Meta3dComponentGeometryProtocol.Index.dataName.vertices,
@@ -812,7 +990,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"(%re("/^create a state with geometryPointCount:(\d+)$/")->Obj.magic, arg0 => {
@@ -823,7 +1001,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a geometry", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       geometry := g
@@ -834,7 +1012,7 @@ defineFeature(feature, test => {
       arg0 => {
         expect(() => {
           state :=
-            data.contents.setComponentDataFunc(.
+            contribute.contents.setComponentDataFunc(.
               state.contents,
               geometry.contents,
               Meta3dComponentGeometryProtocol.Index.dataName.indices,
@@ -854,7 +1032,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"(%re("/^create a state with geometryCount:(\d+)$/")->Obj.magic, arg0 => {
@@ -865,9 +1043,9 @@ defineFeature(feature, test => {
     })
 
     then("create two geometries should contract error", () => {
-      let (s, g) = data.contents.createComponentFunc(. state.contents)
+      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
       expect(() => {
-        data.contents.createComponentFunc(. s)
+        contribute.contents.createComponentFunc(. s)
       })->toThrowMessage("expect index: 1 <= maxIndex: 0")
     })
   })

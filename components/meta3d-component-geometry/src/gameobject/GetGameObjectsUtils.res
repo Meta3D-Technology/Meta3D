@@ -1,4 +1,4 @@
-open Meta3dComponentGeometryProtocol.Index
+open StateType
 
 let get = ({gameObjectsMap}, geometry) =>
   gameObjectsMap

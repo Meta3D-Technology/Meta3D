@@ -39,6 +39,44 @@ Feature: Get Data
         And add the second geometry to the gameObject
         Then get the gameObject's geometry should be the second one
 
+    Scenario: remove a geometry from a gameObject
+        Given create a gameObject
+        When I get contribute
+        And create a state
+        And create a geometry
+        And add the geometry to the gameObject
+        And remove the geometry from the gameObject
+        Then the gameObject shouldn't has the geometry
+
+    Scenario: remove a geometry which add to two gameObjects from a gameObject
+        Given create two gameObject as g1, g2
+        When I get contribute
+        And create a state
+        And create a geometry
+        And add the geometry to g1
+        And add the geometry to g2
+        And remove the geometry from g1
+        Then g1 shouldn't has the geometry
+        And g2 should has the geometry
+
+    Scenario: get gameObjects' geometrys
+        Given create two gameObject as g1, g2
+        When I get contribute
+        And create a state
+        And create three geometrys as geo1, geo2, geo3
+        And add geo1 to g1
+        And add geo3 to g2
+        Then get the geometrys of [g1, g2] should return [geo1, geo3]
+
+    Scenario: get need disposed geometrys
+        When I get contribute
+        And create a state
+        And create three geometrys as geo1, geo2, geo3
+		And defer dispose geo1
+		And defer dispose geo1
+		And defer dispose geo3
+        Then get need disposed geometrys should return [geo1, geo3]
+
     Scenario: get all geometries
         Given create two gameObjects
         When I get contribute

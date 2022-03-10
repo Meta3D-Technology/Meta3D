@@ -1,4 +1,4 @@
-open Meta3dComponentGeometryProtocol.Index
+open StateType
 
 let add = ({gameObjectsMap, gameObjectGeometryMap} as state, gameObject, geometry) => {
   let gameObject = gameObject->GameObjectTypeConvertUtils.gameObjectToInt
