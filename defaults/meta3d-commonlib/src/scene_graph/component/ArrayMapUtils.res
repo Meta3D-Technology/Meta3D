@@ -4,3 +4,15 @@ let addValue = (map, key, value) =>
   | Some(arr) =>
     map->MutableSparseMap.set(key, arr->ArraySt.push(value))
   }
+
+let removeValue = (map, isDebug, key, value, ) => {
+  let (has, arr) = MutableSparseMap.fastGet(map, key)
+
+  has
+    ? {
+        arr -> DisposeComponentUtils.removeFromArray(isDebug, value) -> ignore
+
+        map
+      }
+    : map
+}

@@ -1,4 +1,4 @@
-open Meta3dComponentPbrmaterialProtocol.Index
+open StateType
 
 let get = ({gameObjectPBRMaterialMap}, gameObject) => {
   gameObjectPBRMaterialMap

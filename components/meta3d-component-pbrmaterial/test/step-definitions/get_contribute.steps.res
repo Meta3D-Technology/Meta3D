@@ -6,9 +6,9 @@ open Operators
 let feature = loadFeature("./test/features/get_contribute.feature")
 
 defineFeature(feature, test => {
-  let data: ref<
+  let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      Meta3dComponentPbrmaterialProtocol.Index.state,
+      StateType.state,
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
@@ -18,16 +18,16 @@ defineFeature(feature, test => {
   let config: ref<Meta3dComponentPbrmaterialProtocol.Index.config> = ref(Obj.magic(1))
 
   let _createState = (~isDebug=false, ~pbrMaterialCount=10, ()) => {
-    data.contents.createStateFunc(. {isDebug: isDebug, pbrMaterialCount: pbrMaterialCount})
+    contribute.contents.createStateFunc(. {isDebug: isDebug, pbrMaterialCount: pbrMaterialCount})
   }
 
   test(."componentName", ({\"when", then}) => {
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     then(%re("/^componentName should be \"(.*)\"$/")->Obj.magic, arg0 => {
-      data.contents.componentName->expect == arg0
+      contribute.contents.componentName->expect == arg0
     })
   })
 
@@ -35,7 +35,7 @@ defineFeature(feature, test => {
     let pbrMaterialCount = 10
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state with config", () => {
@@ -54,7 +54,7 @@ defineFeature(feature, test => {
     let pbrMaterialCount = 10
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state with pbrMaterialCount", () => {
@@ -69,7 +69,7 @@ defineFeature(feature, test => {
 
   test(."create a pbrMaterial", ({\"when", \"and", then}) => {
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -77,7 +77,7 @@ defineFeature(feature, test => {
     })
 
     then("createComponentFunc should create a pbrMaterial", () => {
-      let (state, material) = data.contents.createComponentFunc(. state.contents)
+      let (state, material) = contribute.contents.createComponentFunc(. state.contents)
 
       state.maxIndex->expect == 1
       material->expect == 0
@@ -93,7 +93,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -101,18 +101,18 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
     })
 
     \"and"("add the pbrMaterial to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, material.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material.contents)
     })
 
     then("get the gameObject's pbrMaterial should be the added one", () => {
-      data.contents.getComponentFunc(. state.contents, gameObject)
+      contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == material.contents
     })
@@ -133,7 +133,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -141,26 +141,204 @@ defineFeature(feature, test => {
     })
 
     \"and"("create two pbrMaterials", () => {
-      let (s, m1) = data.contents.createComponentFunc(. state.contents)
-      let (s, m2) = data.contents.createComponentFunc(. s)
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
 
       state := s
-      material1 := m1
-      material2 := m2
+      material1 := p1
+      material2 := p2
     })
 
     \"and"("add the first pbrMaterial to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, material1.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material1.contents)
     })
 
     \"and"("add the second pbrMaterial to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, material2.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material2.contents)
     })
 
     then("get the gameObject's pbrMaterial should be the second one", () => {
-      data.contents.getComponentFunc(. state.contents, gameObject)
+      contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == material2.contents
+    })
+  })
+
+  test(."remove a pbrMaterial from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let pbrMaterial = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a pbrMaterial", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      pbrMaterial := m
+    })
+
+    \"and"("add the pbrMaterial to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, pbrMaterial.contents)
+    })
+
+    \"and"("remove the pbrMaterial from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject, pbrMaterial.contents)
+    })
+
+    then("the gameObject shouldn't has the pbrMaterial", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."remove a pbrMaterial which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let pbrMaterial = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a pbrMaterial", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      pbrMaterial := m
+    })
+
+    \"and"("add the pbrMaterial to g1", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial.contents)
+    })
+
+    \"and"("add the pbrMaterial to g2", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, pbrMaterial.contents)
+    })
+
+    \"and"("remove the pbrMaterial from g1", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject1, pbrMaterial.contents)
+    })
+
+    then("g1 shouldn't has the pbrMaterial", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject1)->expect == false
+    })
+
+    \"and"("g2 should has the pbrMaterial", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject2)->expect == true
+    })
+  })
+
+  test(."get gameObjects' pbrMaterials", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let pbrMaterial1 = ref(Obj.magic(1))
+    let pbrMaterial2 = ref(Obj.magic(1))
+    let pbrMaterial3 = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three pbrMaterials as p1, p2, p3", () => {
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
+      let (s, p3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      pbrMaterial1 := p1
+      pbrMaterial2 := p2
+      pbrMaterial3 := p3
+    })
+
+    \"and"("add p1 to g1", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial1.contents)
+    })
+
+    \"and"("add p3 to g2", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, pbrMaterial3.contents)
+    })
+
+    then("get the pbrMaterials of [g1, g2] should return [p1, p3]", () => {
+      contribute.contents.getComponentsFunc(.
+        state.contents,
+        [gameObject1, gameObject2],
+      )->expect == [pbrMaterial1.contents, pbrMaterial3.contents]
+    })
+  })
+
+  test(."get need disposed pbrMaterials", ({given, \"when", \"and", then}) => {
+    let pbrMaterial1 = ref(Obj.magic(1))
+    let pbrMaterial2 = ref(Obj.magic(1))
+    let pbrMaterial3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three pbrMaterials as p1, p2, p3", () => {
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
+      let (s, p3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      pbrMaterial1 := p1
+      pbrMaterial2 := p2
+      pbrMaterial3 := p3
+    })
+
+    \"and"("defer dispose p1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial1.contents)
+    })
+
+    \"and"("defer dispose p1", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial1.contents)
+    })
+
+    \"and"("defer dispose p3", () => {
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial3.contents)
+    })
+
+    then("get need disposed pbrMaterials should return [p1, p3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          pbrMaterial1.contents,
+          pbrMaterial3.contents,
+        ]
     })
   })
 
@@ -175,7 +353,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -183,21 +361,21 @@ defineFeature(feature, test => {
     })
 
     \"and"("create two pbrMaterials", () => {
-      let (s, m1) = data.contents.createComponentFunc(. state.contents)
-      let (s, m2) = data.contents.createComponentFunc(. s)
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
 
       state := s
-      material1 := m1
-      material2 := m2
+      material1 := p1
+      material2 := p2
     })
 
     \"and"("add them to the gameObjects one by one", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject1, material1.contents)
-      state := data.contents.addComponentFunc(. state.contents, gameObject2, material2.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, material1.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, material2.contents)
     })
 
     then("getAllComponentsFunc should get the two pbrMaterials", () => {
-      data.contents.getAllComponentsFunc(. state.contents)->expect == [
+      contribute.contents.getAllComponentsFunc(. state.contents)->expect == [
           material1.contents,
           material2.contents,
         ]
@@ -213,7 +391,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -221,18 +399,18 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
     })
 
     \"and"("add the pbrMaterial to the gameObject", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject, material.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material.contents)
     })
 
     then("hasComponentFunc should return true", () => {
-      data.contents.hasComponentFunc(. state.contents, gameObject)->expect == true
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == true
     })
   })
 
@@ -246,7 +424,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -254,19 +432,19 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
     })
 
     \"and"("add the pbrMaterial to the two gameObjects", () => {
-      state := data.contents.addComponentFunc(. state.contents, gameObject1, material.contents)
-      state := data.contents.addComponentFunc(. state.contents, gameObject2, material.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, material.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, material.contents)
     })
 
     then("getGameObjectsFunc should return the two gameObjects", () => {
-      data.contents.getGameObjectsFunc(. state.contents, material.contents)->expect == [
+      contribute.contents.getGameObjectsFunc(. state.contents, material.contents)->expect == [
           gameObject1,
           gameObject2,
         ]
@@ -277,7 +455,7 @@ defineFeature(feature, test => {
     let material = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -285,14 +463,14 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
     })
 
     then("get pbrMaterial's diffuseColor should return default data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         material.contents,
         Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
@@ -304,7 +482,7 @@ defineFeature(feature, test => {
     let material = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -312,14 +490,14 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
     })
 
     then("get pbrMaterial\'s specular should return default data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         material.contents,
         Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
@@ -339,7 +517,7 @@ defineFeature(feature, test => {
     let material = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -347,7 +525,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
@@ -358,7 +536,7 @@ defineFeature(feature, test => {
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           material.contents,
           Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
@@ -372,7 +550,7 @@ defineFeature(feature, test => {
         let arguments =
           %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-        data.contents.getComponentDataFunc(.
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           material.contents,
           Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
@@ -386,7 +564,7 @@ defineFeature(feature, test => {
     let material = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -394,7 +572,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
@@ -402,7 +580,7 @@ defineFeature(feature, test => {
 
     \"when"("set pbrMaterial's diffuseColor", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           material.contents,
           Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
@@ -411,7 +589,7 @@ defineFeature(feature, test => {
     })
 
     then("get pbrMaterial's diffuseColor should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         material.contents,
         Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
@@ -424,7 +602,7 @@ defineFeature(feature, test => {
     let material = ref(Obj.magic(1))
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"("create a state", () => {
@@ -432,7 +610,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a pbrMaterial", () => {
-      let (s, m) = data.contents.createComponentFunc(. state.contents)
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
       state := s
       material := m
@@ -440,7 +618,7 @@ defineFeature(feature, test => {
 
     \"when"("set pbrMaterial's specular", () => {
       state :=
-        data.contents.setComponentDataFunc(.
+        contribute.contents.setComponentDataFunc(.
           state.contents,
           material.contents,
           Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
@@ -449,7 +627,7 @@ defineFeature(feature, test => {
     })
 
     then("get pbrMaterial's specular should return the setted data", () => {
-      data.contents.getComponentDataFunc(.
+      contribute.contents.getComponentDataFunc(.
         state.contents,
         material.contents,
         Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
@@ -465,7 +643,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("I get contribute", () => {
-      data := Main.getData()
+      contribute := Main.getComponentContribute()
     })
 
     \"and"(%re("/^create a state with pbrMaterialCount:(\d+)$/")->Obj.magic, arg0 => {
@@ -476,10 +654,10 @@ defineFeature(feature, test => {
     })
 
     then("create two pbrMaterials should contract error", () => {
-      let (s, m1) = data.contents.createComponentFunc(. state.contents)
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
 
       expect(() => {
-        data.contents.createComponentFunc(. s)
+        contribute.contents.createComponentFunc(. s)
       })->toThrowMessage("expect index: 1 <= maxIndex: 0")
     })
   })

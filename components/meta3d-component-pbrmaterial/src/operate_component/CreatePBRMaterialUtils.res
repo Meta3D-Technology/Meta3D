@@ -1,4 +1,4 @@
-let create = (state: Meta3dComponentPbrmaterialProtocol.Index.state): (Meta3dComponentPbrmaterialProtocol.Index.state, Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial) => {
+let create = (state: StateType.state): (StateType.state, Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial) => {
   let index = state.maxIndex
   // let newIndex = index->Meta3dCommonlib.IndexComponentUtils.generateIndex
   let (_,_, newIndex ) = index->Meta3dCommonlib.IndexComponentUtils.generateIndex([], _)

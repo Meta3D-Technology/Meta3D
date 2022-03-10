@@ -524,7 +524,7 @@ when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no 
 
 
 
-** TODO refactor: rename batchDispose to dispose;
+** DONE refactor: rename batchDispose to dispose;
 
 ** TODO update pbrmaterial, geometry 
 

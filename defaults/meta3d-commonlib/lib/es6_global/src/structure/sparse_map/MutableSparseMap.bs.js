@@ -1,6 +1,15 @@
 
 
+import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 import * as SparseMap$Meta3dCommonlib from "./SparseMap.bs.js";
+
+function fastGet(map, key) {
+  var value = SparseMap$Meta3dCommonlib.unsafeGet(map, key);
+  return [
+          NullUtils$Meta3dCommonlib.isInMap(value),
+          value
+        ];
+}
 
 function set(map, key, value) {
   map[key] = value;
@@ -42,6 +51,7 @@ export {
   copy ,
   unsafeGet ,
   get ,
+  fastGet ,
   getNullable ,
   has ,
   set ,

@@ -1,11 +1,11 @@
-open Meta3dComponentPbrmaterialProtocol.Index
+open StateType
 
 let setData = (.
   {diffuseColors, speculars} as state,
   material,
   dataName: Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
-): Meta3dComponentPbrmaterialProtocol.Index.state => {
+): StateType.state => {
   switch dataName {
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor =>
     OperateTypeArrayPBRMaterialUtils.setDiffuseColor(material, dataValue->Obj.magic, diffuseColors)

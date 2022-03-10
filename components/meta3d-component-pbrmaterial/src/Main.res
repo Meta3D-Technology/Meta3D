@@ -1,5 +1,5 @@
-let getData: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
-  Meta3dComponentPbrmaterialProtocol.Index.state,
+let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
+  StateType.state,
   Meta3dComponentPbrmaterialProtocol.Index.config,
   Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
   Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
@@ -11,11 +11,20 @@ let getData: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContri
   addComponentFunc: (. state, gameObject, component) => {
     AddPBRMaterialUtils.add(state, gameObject, component)
   },
+  removeComponentFunc: (. state, gameObject, component) => {
+    RemovePBRMaterialUtils.remove(state, gameObject, component)
+  },
   hasComponentFunc: (. state, gameObject) => {
     HasPBRMaterialUtils.has(state, gameObject)
   },
   getComponentFunc: (. state, gameObject) => {
     GetPBRMaterialUtils.get(state, gameObject)
+  },
+  getComponentsFunc: (. state, gameObjects) => {
+    GetPBRMaterialsUtils.get(state, gameObjects)
+  },
+  getNeedDisposedComponentsFunc: (. state) => {
+    GetNeedDisposedPBRMaterialsUtils.get(state)
   },
   getGameObjectsFunc: (. state, component) => {
     GetGameObjectsUtils.get(state, component)

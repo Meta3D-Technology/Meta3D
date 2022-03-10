@@ -39,6 +39,44 @@ Feature: Get Contribute
         And add the second pbrMaterial to the gameObject
         Then get the gameObject's pbrMaterial should be the second one
 
+    Scenario: remove a pbrMaterial from a gameObject
+        Given create a gameObject
+        When I get contribute
+        And create a state
+        And create a pbrMaterial
+        And add the pbrMaterial to the gameObject
+        And remove the pbrMaterial from the gameObject
+        Then the gameObject shouldn't has the pbrMaterial
+
+    Scenario: remove a pbrMaterial which add to two gameObjects from a gameObject
+        Given create two gameObject as g1, g2
+        When I get contribute
+        And create a state
+        And create a pbrMaterial
+        And add the pbrMaterial to g1
+        And add the pbrMaterial to g2
+        And remove the pbrMaterial from g1
+        Then g1 shouldn't has the pbrMaterial
+        And g2 should has the pbrMaterial
+
+    Scenario: get gameObjects' pbrMaterials
+        Given create two gameObject as g1, g2
+        When I get contribute
+        And create a state
+        And create three pbrMaterials as p1, p2, p3
+        And add p1 to g1
+        And add p3 to g2
+        Then get the pbrMaterials of [g1, g2] should return [p1, p3]
+
+    Scenario: get need disposed pbrMaterials
+        When I get contribute
+        And create a state
+        And create three pbrMaterials as p1, p2, p3
+		And defer dispose p1
+		And defer dispose p1
+		And defer dispose p3
+        Then get need disposed pbrMaterials should return [p1, p3]
+
     Scenario: get all pbrMaterials
         Given create two gameObjects
         When I get contribute

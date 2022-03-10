@@ -1,4 +1,4 @@
-open Meta3dComponentPbrmaterialProtocol.Index
+open StateType
 
 let getData = (. {diffuseColors, speculars}, material, dataName: Meta3dComponentPbrmaterialProtocol.Index.dataNameType): 'a => {
   switch dataName {

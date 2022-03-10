@@ -87,7 +87,8 @@ function createStateWithSharedArrayBufferData(param, param$1, param$2) {
           emissionMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           normalMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           transmissionMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          specularMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount)
+          specularMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
+          needDisposedPBRMaterialArray: []
         };
 }
 

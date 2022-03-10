@@ -1,14 +1,14 @@
-// let removeFromArray = (target: int, arr) => {
-//   let index = arr |> Js.Array.indexOf(target)
+let removeFromArray = (arr, isDebug, target, ) => {
+  let index = arr->Js.Array.indexOf(target, _)
 
-//   index === -1
-//     ? arr
-//     : {
-//         let lastIndex = arr |> Js.Array.length |> pred
-//         arr |> ArrayService.deleteBySwap(index, lastIndex)
-//         arr
-//       }
-// }
+  index === -1
+    ? arr
+    : {
+        let lastIndex = arr->Js.Array.length->pred
+        arr->ArraySt.deleteBySwap(isDebug, index, lastIndex)
+        arr
+      }
+}
 
 // TODO optimize
 let batchRemoveFromArray = (arr, targets) => {

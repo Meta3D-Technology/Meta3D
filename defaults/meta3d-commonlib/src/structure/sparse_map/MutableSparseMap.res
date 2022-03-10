@@ -6,6 +6,12 @@ let unsafeGet = SparseMap.unsafeGet
 
 let get = SparseMap.get
 
+let fastGet = (map, key: int) => {
+  let value = unsafeGet(map, key)
+
+  (NullUtils.isInMap(value), value)
+}
+
 let getNullable = SparseMap.getNullable
 
 let has = SparseMap.has

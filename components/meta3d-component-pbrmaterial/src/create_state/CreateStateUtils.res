@@ -57,7 +57,7 @@ let createStateWithSharedArrayBufferData = (
     transmissions,
     iors,
   }: PBRMaterialSharedArrayBufferDataType.pbrMaterialSharedArrayBufferData,
-): Meta3dComponentPbrmaterialProtocol.Index.state => {
+): StateType.state => {
   {
     config: {
       isDebug: isDebug,
@@ -89,10 +89,9 @@ let createStateWithSharedArrayBufferData = (
     ),
     emissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
     normalMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    transmissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
-      pbrMaterialCount,
-    ),
+    transmissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
     specularMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
+    needDisposedPBRMaterialArray: [],
   }
 }
 

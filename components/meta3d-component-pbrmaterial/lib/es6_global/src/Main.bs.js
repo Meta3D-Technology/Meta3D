@@ -6,12 +6,15 @@ import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/Ad
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as GetPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialUtils.bs.js";
 import * as HasPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/HasPBRMaterialUtils.bs.js";
+import * as GetPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialsUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/CreatePBRMaterialUtils.bs.js";
+import * as RemovePBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/RemovePBRMaterialUtils.bs.js";
 import * as GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./operate_component/GetAllPBRMaterialsUtils.bs.js";
 import * as GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_data/GetPBRMaterialDataUtils.bs.js";
 import * as SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_data/SetPBRMaterialDataUtils.bs.js";
+import * as GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetNeedDisposedPBRMaterialsUtils.bs.js";
 
-function getData(param) {
+function getComponentContribute(param) {
   return {
           componentName: Index$Meta3dComponentPbrmaterialProtocol.componentName,
           createStateFunc: (function (param) {
@@ -20,8 +23,11 @@ function getData(param) {
           getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentPbrmaterial.get,
           createComponentFunc: CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
           addComponentFunc: AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add,
+          removeComponentFunc: RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove,
           hasComponentFunc: HasPBRMaterialUtils$Meta3dComponentPbrmaterial.has,
           getComponentFunc: GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get,
+          getComponentsFunc: GetPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
+          getNeedDisposedComponentsFunc: GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
           getComponentDataFunc: (function (state, component, dataName) {
               return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, component, dataName);
             }),
@@ -31,7 +37,7 @@ function getData(param) {
           deferDisposeComponentFunc: (function (state, component) {
               return state;
             }),
-          batchDisposeComponentsFunc: (function (state, components) {
+          disposeComponentsFunc: (function (state, components) {
               return state;
             }),
           getAllComponentsFunc: GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial.getAll
@@ -39,7 +45,7 @@ function getData(param) {
 }
 
 export {
-  getData ,
+  getComponentContribute ,
   
 }
 /* No side effect */

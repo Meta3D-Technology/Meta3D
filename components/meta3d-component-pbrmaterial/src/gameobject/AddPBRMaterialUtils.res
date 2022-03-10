@@ -1,4 +1,4 @@
-open Meta3dComponentPbrmaterialProtocol.Index
+open StateType
 
 let add = ({gameObjectsMap, gameObjectPBRMaterialMap} as state, gameObject, material) => {
   let gameObject = gameObject->GameObjectTypeConvertUtils.gameObjectToInt
