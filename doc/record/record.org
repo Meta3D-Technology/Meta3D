@@ -534,6 +534,9 @@ when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no 
 - add test
 
 
+** TODO pbrMaterial, geometry ->package add buildAll:ci
+
+pass run:editor
 
 
 

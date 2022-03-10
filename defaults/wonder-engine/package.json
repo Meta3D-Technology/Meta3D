@@ -1,11 +1,10 @@
 {
-    "name": "meta3d-engine",
+    "name": "wonder-engine",
     "version": "0.1.0",
     "authors": "Wonder",
     "license": "MIT",
     "scripts": {
-        "watch": "rescript clean && rescript build -w",
-        "buildAll:ci": "rescript clean && rescript build"
+        "watch": "rescript clean && rescript build -w"
     },
     "config": {
         "commitizen": {
