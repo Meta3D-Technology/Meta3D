@@ -11,6 +11,7 @@
   "types": "src/Main.d.ts",
   "scripts": {
     "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build",
     "test:watch": "jest --watch --config jest.json",
     "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json"
   },
