@@ -20,10 +20,10 @@ type state = {
   mutable childrenMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, children>,
   mutable gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
   mutable gameObjectTransformMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
     transform,
   >,
   mutable dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,
-  mutable needDisposedTransformArray: array<transform>,
+  mutable needDisposedTransformArray: Meta3dComponentTransformProtocol.Index.needDisposedComponents,
   mutable disposedTransformArray: array<transform>,
 }

@@ -16,9 +16,7 @@ function _getComponents(gameObjectComponentMap, gameObjects) {
 }
 
 function get(param, gameObjects) {
-  return _getComponents(param.gameObjectPBRMaterialMap, ArraySt$Meta3dCommonlib.map(gameObjects, (function (prim) {
-                    return prim;
-                  })));
+  return _getComponents(param.gameObjectPBRMaterialMap, gameObjects);
 }
 
 exports._getComponents = _getComponents;

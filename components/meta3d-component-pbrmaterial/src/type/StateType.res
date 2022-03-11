@@ -32,7 +32,7 @@ type state = {
   defaultIOR: float,
   gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
   gameObjectPBRMaterialMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
     pbrMaterial,
   >,
   diffuseMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, diffuseMap>,
@@ -44,5 +44,6 @@ type state = {
   normalMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, normalMap>,
   transmissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, transmissionMap>,
   specularMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, specularMap>,
-  mutable needDisposedPBRMaterialArray: array<pbrMaterial>,
+  mutable needDisposedPBRMaterialArray: Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
+  mutable disposedPBRMaterialArray: array<pbrMaterial>,
 }

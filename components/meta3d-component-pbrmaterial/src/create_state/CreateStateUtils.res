@@ -91,7 +91,10 @@ let createStateWithSharedArrayBufferData = (
     normalMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
     transmissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
     specularMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    needDisposedPBRMaterialArray: [],
+    needDisposedPBRMaterialArray: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
+      pbrMaterialCount,
+    ),
+    disposedPBRMaterialArray: [],
   }
 }
 

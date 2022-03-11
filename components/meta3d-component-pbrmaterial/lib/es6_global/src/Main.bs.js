@@ -9,6 +9,7 @@ import * as HasPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/Ha
 import * as GetPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialsUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/CreatePBRMaterialUtils.bs.js";
 import * as RemovePBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/RemovePBRMaterialUtils.bs.js";
+import * as DisposePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/DisposePBRMaterialUtils.bs.js";
 import * as GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./operate_component/GetAllPBRMaterialsUtils.bs.js";
 import * as GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_data/GetPBRMaterialDataUtils.bs.js";
 import * as SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_data/SetPBRMaterialDataUtils.bs.js";
@@ -34,8 +35,11 @@ function getComponentContribute(param) {
           setComponentDataFunc: (function (state, component, dataName, dataValue) {
               return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setData(state, component, dataName, dataValue);
             }),
-          deferDisposeComponentFunc: (function (state, component) {
-              return state;
+          deferDisposeComponentFunc: (function (state, param) {
+              return DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.deferDisposeComponent(state)([
+                          param[0],
+                          param[1]
+                        ]);
             }),
           disposeComponentsFunc: (function (state, components) {
               return state;

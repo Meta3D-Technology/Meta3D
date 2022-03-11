@@ -34,7 +34,9 @@ type getComponentsFunc<'state, 'component> = (
   array<GameObjectType.gameObject>,
 ) => array<'component>
 
-type getNeedDisposedComponentsFunc<'state, 'component> = (. 'state) => array<'component>
+type getNeedDisposedComponentsFunc<'state, 'needDisposedComponents> = (
+  . 'state,
+) => 'needDisposedComponents
 
 type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
@@ -57,12 +59,12 @@ type setComponentDataFunc<'state, 'dataName, 'component> = (
   dataValue,
 ) => 'state
 
-type deferDisposeComponentFunc<'state, 'component> = (. 'state, 'component) => 'state
+type deferDisposeComponentFunc<'state, 'deferDisposeData> = (. 'state, 'deferDisposeData) => 'state
 
-type disposeComponentsFunc<'state, 'component> = (. 'state, array<'component>) => 'state
+type disposeComponentsFunc<'state, 'batchDisposeData> = (. 'state, 'batchDisposeData) => 'state
 
 // @genType
-type componentContribute<'state, 'config, 'dataName, 'component> = {
+type componentContribute<'state, 'config, 'dataName, 'needDisposedComponents,'deferDisposeData, 'batchDisposeData, 'component> = {
   componentName: componentName,
   createStateFunc: createStateFunc<'state, 'config>,
   getGameObjectsFunc: getGameObjectsFunc<'state, 'component>,
@@ -72,18 +74,21 @@ type componentContribute<'state, 'config, 'dataName, 'component> = {
   hasComponentFunc: hasComponentFunc<'state>,
   getComponentFunc: getComponentFunc<'state, 'component>,
   getComponentsFunc: getComponentsFunc<'state, 'component>,
-  getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'component>,
+  getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'needDisposedComponents>,
   getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
-  deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
-  disposeComponentsFunc: disposeComponentsFunc<'state, 'component>,
+  deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'deferDisposeData>,
+  disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 
 // @genType
-type getComponentContribute<'state, 'config, 'dataName, 'component> = unit => componentContribute<
+type getComponentContribute<
   'state,
   'config,
   'dataName,
+  'needDisposedComponents,
+  'deferDisposeData,
+'batchDisposeData,
   'component,
->
+> = unit => componentContribute<'state, 'config, 'dataName, 'needDisposedComponents, 'deferDisposeData, 'batchDisposeData, 'component>

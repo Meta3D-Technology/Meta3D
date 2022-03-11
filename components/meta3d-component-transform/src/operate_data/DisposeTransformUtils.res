@@ -7,8 +7,6 @@ let deferDisposeComponent = (
   {gameObjectTransformMap, needDisposedTransformArray} as state,
   component,
 ) => {
-  let gameObjectTransformMap = gameObjectTransformMap->_removeComponent(component)
-
   {
     ...state,
     gameObjectTransformMap: gameObjectTransformMap->_removeComponent(component),

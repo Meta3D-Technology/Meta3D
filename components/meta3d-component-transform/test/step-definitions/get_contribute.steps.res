@@ -11,6 +11,9 @@ defineFeature(feature, test => {
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
+      Meta3dComponentTransformProtocol.Index.needDisposedComponents,
+      Meta3dComponentTransformProtocol.Index.deferDisposeData,
+      Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
   > = ref(Obj.magic(1))
@@ -121,7 +124,7 @@ defineFeature(feature, test => {
   })
 
   test(."add a transform to a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -156,7 +159,7 @@ defineFeature(feature, test => {
   })
 
   test(."remove a transform from a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -199,7 +202,7 @@ defineFeature(feature, test => {
     \"and",
     then,
   }) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform1 = ref(Obj.magic(1))
     let transform2 = ref(Obj.magic(1))
 
@@ -242,8 +245,8 @@ defineFeature(feature, test => {
   })
 
   test(."get gameObjects' transforms", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let transform1 = ref(Obj.magic(1))
     let transform2 = ref(Obj.magic(1))
     let transform3 = ref(Obj.magic(1))
@@ -334,8 +337,8 @@ defineFeature(feature, test => {
   })
 
   test(."get all transforms", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let transform1 = ref(Obj.magic(1))
     let transform2 = ref(Obj.magic(1))
 
@@ -376,7 +379,7 @@ defineFeature(feature, test => {
   })
 
   test(."judge whether a gameObject has a transform", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -409,7 +412,7 @@ defineFeature(feature, test => {
   })
 
   test(."get a transform's gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform = ref(Obj.magic(1))
 
     given("create a gameObject", () => {

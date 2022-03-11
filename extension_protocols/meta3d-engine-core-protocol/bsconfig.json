@@ -14,6 +14,7 @@
     "bs-dependencies": [
         "meta3d-type",
         "meta3d-bs-most-protocol",
+        "meta3d-gameobject-protocol",
         "meta3d-commonlib-type"
     ],
     "package-specs": [

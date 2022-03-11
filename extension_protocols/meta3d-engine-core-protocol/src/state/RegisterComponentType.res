@@ -1,6 +1,6 @@
 open ComponentType
 
-type componentContribute = ComponentContributeType.componentContribute<state, config, dataName, component>
+type componentContribute = ComponentContributeType.componentContribute<state, config, dataName, needDisposedComponents,deferDisposeData, batchDisposeData, component>
 
 // @genType
 type usedComponentContribute = {

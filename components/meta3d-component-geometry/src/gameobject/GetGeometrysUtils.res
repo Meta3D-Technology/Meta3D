@@ -10,6 +10,6 @@ let _getComponents = (gameObjectComponentMap, gameObjects) =>
 
 let get = ({gameObjectGeometryMap}, gameObjects) => {
   gameObjectGeometryMap->_getComponents(
-    gameObjects->Meta3dCommonlib.ArraySt.map(GameObjectTypeConvertUtils.gameObjectToInt),
+    gameObjects,
   )
 }

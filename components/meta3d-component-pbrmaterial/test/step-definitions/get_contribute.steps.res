@@ -11,6 +11,9 @@ defineFeature(feature, test => {
       StateType.state,
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
+      Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
+      Meta3dComponentPbrmaterialProtocol.Index.deferDisposeData,
+      Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
   > = ref(Obj.magic(1))
@@ -85,7 +88,7 @@ defineFeature(feature, test => {
   })
 
   test(."add a pbrMaterial to a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let material = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -124,7 +127,7 @@ defineFeature(feature, test => {
     \"and",
     then,
   }) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let material1 = ref(Obj.magic(1))
     let material2 = ref(Obj.magic(1))
 
@@ -165,7 +168,7 @@ defineFeature(feature, test => {
   })
 
   test(."remove a pbrMaterial from a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let pbrMaterial = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -203,8 +206,8 @@ defineFeature(feature, test => {
   })
 
   test(."remove a pbrMaterial which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let pbrMaterial = ref(Obj.magic(1))
 
     given("create two gameObject as g1, g2", () => {
@@ -251,8 +254,8 @@ defineFeature(feature, test => {
   })
 
   test(."get gameObjects' pbrMaterials", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let pbrMaterial1 = ref(Obj.magic(1))
     let pbrMaterial2 = ref(Obj.magic(1))
     let pbrMaterial3 = ref(Obj.magic(1))
@@ -322,16 +325,17 @@ defineFeature(feature, test => {
       pbrMaterial3 := p3
     })
 
+// TODO fix magic
     \"and"("defer dispose p1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial1.contents, Obj.magic(1) ))
     })
 
     \"and"("defer dispose p1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial1.contents, Obj.magic(1) ))
     })
 
     \"and"("defer dispose p3", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, pbrMaterial3.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial3.contents, Obj.magic(1) ))
     })
 
     then("get need disposed pbrMaterials should return [p1, p3]", () => {
@@ -343,8 +347,8 @@ defineFeature(feature, test => {
   })
 
   test(."get all pbrMaterials", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let material1 = ref(Obj.magic(1))
     let material2 = ref(Obj.magic(1))
 
@@ -383,7 +387,7 @@ defineFeature(feature, test => {
   })
 
   test(."judge whether a gameObject has a pbrMaterial", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let material = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -415,8 +419,8 @@ defineFeature(feature, test => {
   })
 
   test(."get a pbrMaterial's gameObjects", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let material = ref(Obj.magic(1))
 
     given("create two gameObjects", () => {
@@ -510,7 +514,7 @@ defineFeature(feature, test => {
     \"and",
     then,
   }) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let material1 = ref(Obj.magic(1))
     let material2 = ref(Obj.magic(1))
 

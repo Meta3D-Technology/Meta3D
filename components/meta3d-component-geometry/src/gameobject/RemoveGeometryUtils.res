@@ -3,7 +3,7 @@ open StateType
 let _removeComponent = (map, gameObject) => Meta3dCommonlib.MutableSparseMap.remove(map, gameObject)
 
 let remove = ({gameObjectsMap, gameObjectGeometryMap} as state, gameObject, geometry) => {
-  let gameObject = gameObject->GameObjectTypeConvertUtils.gameObjectToInt
+  
 
   gameObjectsMap
   ->Meta3dCommonlib.ArrayMapUtils.removeValue(

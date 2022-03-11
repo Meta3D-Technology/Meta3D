@@ -18,9 +18,7 @@ function _getComponents(gameObjectComponentMap, gameObjects) {
 function get(param) {
   var gameObjectTransformMap = param.gameObjectTransformMap;
   return function (gameObjects) {
-    return _getComponents(gameObjectTransformMap, ArraySt$Meta3dCommonlib.map(gameObjects, (function (prim) {
-                      return prim;
-                    })));
+    return _getComponents(gameObjectTransformMap, gameObjects);
   };
 }
 

@@ -11,6 +11,9 @@ defineFeature(feature, test => {
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
+      Meta3dComponentTransformProtocol.Index.needDisposedComponents,
+      Meta3dComponentTransformProtocol.Index.deferDisposeData,
+      Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
   > = ref(Obj.magic(1))
@@ -405,7 +408,7 @@ defineFeature(feature, test => {
     \"when",
     then,
   }) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let transform3 = ref(Obj.magic(3))
     let pos1 = [1., 2., 3.]
     let pos2 = [5., 10., 30.]

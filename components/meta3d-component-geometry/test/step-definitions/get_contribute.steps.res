@@ -96,7 +96,7 @@ defineFeature(feature, test => {
   })
 
   test(."add a geometry to a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let geometry = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -130,7 +130,7 @@ defineFeature(feature, test => {
   })
 
   test(."add a geometry to a gameObject which alreay has one", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let geometryl1 = ref(Obj.magic(1))
     let geometryl2 = ref(Obj.magic(1))
 
@@ -171,7 +171,7 @@ defineFeature(feature, test => {
   })
 
   test(."remove a geometry from a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let geometry = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -209,8 +209,8 @@ defineFeature(feature, test => {
   })
 
   test(."remove a geometry which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let geometry = ref(Obj.magic(1))
 
     given("create two gameObject as g1, g2", () => {
@@ -257,8 +257,8 @@ defineFeature(feature, test => {
   })
 
   test(."get gameObjects' geometrys", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let geometry1 = ref(Obj.magic(1))
     let geometry2 = ref(Obj.magic(1))
     let geometry3 = ref(Obj.magic(1))
@@ -349,8 +349,8 @@ defineFeature(feature, test => {
   })
 
   test(."get all geometries", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let geometryl1 = ref(Obj.magic(1))
     let geometryl2 = ref(Obj.magic(1))
 
@@ -389,7 +389,7 @@ defineFeature(feature, test => {
   })
 
   test(."judge whether a gameObject has a geometry", ({given, \"when", \"and", then}) => {
-    let gameObject = 10->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject = 10
     let geometry = ref(Obj.magic(1))
 
     given("create a gameObject", () => {
@@ -421,8 +421,8 @@ defineFeature(feature, test => {
   })
 
   test(."get a geometry's gameObjects", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10->GameObjectTypeConvertUtils.intToGameObject
-    let gameObject2 = 11->GameObjectTypeConvertUtils.intToGameObject
+    let gameObject1 = 10
+    let gameObject2 = 11
     let geometry = ref(Obj.magic(1))
 
     given("create two gameObjects", () => {

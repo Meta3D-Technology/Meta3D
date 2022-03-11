@@ -16,7 +16,6 @@ function deferDisposeComponent(state) {
   var gameObjectTransformMap = state.gameObjectTransformMap;
   var needDisposedTransformArray = state.needDisposedTransformArray;
   return function (component) {
-    var gameObjectTransformMap$1 = MutableSparseMap$Meta3dCommonlib.remove(gameObjectTransformMap, component);
     return {
             config: state.config,
             maxIndex: state.maxIndex,
@@ -32,7 +31,7 @@ function deferDisposeComponent(state) {
             parentMap: state.parentMap,
             childrenMap: state.childrenMap,
             gameObjectMap: state.gameObjectMap,
-            gameObjectTransformMap: MutableSparseMap$Meta3dCommonlib.remove(gameObjectTransformMap$1, component),
+            gameObjectTransformMap: MutableSparseMap$Meta3dCommonlib.remove(gameObjectTransformMap, component),
             dirtyMap: state.dirtyMap,
             needDisposedTransformArray: ArraySt$Meta3dCommonlib.push(needDisposedTransformArray, component),
             disposedTransformArray: state.disposedTransformArray

@@ -21,7 +21,7 @@ type state = {
   mutable indicesOffset: int,
   gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
   gameObjectGeometryMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
     geometry,
   >,
   mutable needDisposedGeometryArray: array<geometry>,

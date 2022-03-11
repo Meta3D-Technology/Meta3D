@@ -1,10 +1,10 @@
-type state
+type state = Meta3dGameobjectProtocol.Index.state
 
-type gameObject
+type gameObject = Meta3dGameobjectProtocol.Index.gameObject
 
 type transform = ComponentType.component
 
-type config
+type config = Meta3dGameobjectProtocol.Index.config
 
 // @genType
 type usedGameObjectContribute = {

@@ -21,3 +21,15 @@ type specular = float
 type pbrMaterial = int
 
 type state
+
+type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<
+  pbrMaterial,
+  array<Meta3dGameobjectProtocol.Index.gameObject>,
+>
+
+type deferDisposeData = ( pbrMaterial, Meta3dGameobjectProtocol.Index.gameObject )
+
+type batchDisposeData = Meta3dCommonlibType.MutableSparseMapType.t<
+  pbrMaterial,
+  array<Meta3dGameobjectProtocol.Index.gameObject>,
+>

@@ -526,7 +526,7 @@ when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no 
 
 ** DONE refactor: rename batchDispose to dispose;
 
-** TODO update pbrmaterial, geometry 
+** DONE update pbrmaterial, geometry 
 
 - state type
 - add removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
@@ -534,10 +534,12 @@ when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no 
 - add test
 
 
-** TODO pbrMaterial, geometry ->package add buildAll:ci
+** DONE pbrMaterial, geometry ->package add buildAll:ci
 
 pass run:editor
 
+
+** DONE refactor: components, component_protocols should use gameobjectProtocol instead of engine-core-protocol->GameObjectType.gameObject!!!
 
 
 
@@ -552,10 +554,10 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 
 
-** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+TODO fix magic
 
-refer to ReallocateCPUMemoryJobUtils
 
+** TODO refactor: remove component_protocols -> state?
 
 
 ** TODO component support clone
@@ -618,7 +620,8 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO sxengine add dispose, rellocate job
+# ** TODO sxengine add dispose, rellocate job
+** TODO sxengine add dispose job
 
 
 ** TODO pass render run test:render cube
@@ -633,9 +636,18 @@ finish actual engine code(like sxengine's code)
 
 *** TODO dispose
 
+
+
+
+** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+
+
+** TODO perf:benchmark
+
 *** TODO clone
-
-
 
 
 ** TODO refactor
@@ -677,11 +689,20 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO extract shader extension for webgl
+* TODO extract shader extension for webgl
 
-*** TODO shader system
+** TODO shader system
 
-** TODO finish sxengine for shader system
+* TODO finish sxengine for shader system
+
+* TODO publish
+
+
+
+
+
+
+
 
 
 
