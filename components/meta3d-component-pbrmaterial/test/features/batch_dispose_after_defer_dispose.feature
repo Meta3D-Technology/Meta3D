@@ -7,7 +7,7 @@ Feature: Batch Dispose After Defer Dispose
 		Given I get contribute
 		And create a state
 
-	Rule: test if pbrMaterial has more than one gameObjects
+	Rule: test if one pbrMaterial has more than one gameObject
 
 		Background: prepare
 			Given create three gameObjects as g1, g2, g3
@@ -19,49 +19,49 @@ Feature: Batch Dispose After Defer Dispose
 
 		Scenario: if not dispose pbrMaterial from all gameObjects, not dispose pbrMaterial's data
 			Given defer dispose the pbrMaterial from g1
-			When dispose the pbrMaterial
+			When dispose the need disposed pbrMaterials
 			Then get pbrMaterial's diffuseColor should return d1
 
 		Scenario: else, dispose pbrMaterial's data
 			Given defer dispose the pbrMaterial from g1, g2, g3
-			When dispose the pbrMaterial
+			When dispose the need disposed pbrMaterials
 			Then get pbrMaterial's diffuseColor should return default data
 
-	# Rule: dispose map data
+	Rule: dispose map data
 
-	# 	Scenario: remove from gameObjectMap, gameObjectTransformMap
-	# 		Given create a gameObject
-	# 		And create a pbrMaterial
-	# 		And add the pbrMaterial to the gameObject
-	# 		And defer dispose the pbrMaterial from the gameObject
-	# 		When dispose the pbrMaterial from the gameObject
-	# 		Then get the pbrMaterial's gameObjects should return []
-	# 		And get the gameObject's pbrMaterial should return empty
+		Scenario: remove from gameObjectMap, gameObjectTransformMap
+			Given create a gameObject
+			And create a pbrMaterial
+			And add the pbrMaterial to the gameObject
+			And defer dispose the pbrMaterial from the gameObject
+			When dispose the need disposed pbrMaterials
+			Then get the pbrMaterial's gameObjects should return []
+			And get the gameObject's pbrMaterial should return empty
 
-	# Rule: remove from diffuseColors
+	Rule: remove from diffuseColors
 
-	# 	Scenario: reset removed one's value in diffuseColors
-	# 		Given create two gameObject as g1, g2
-	# 		And create two pbrMaterials as p1, p2
-	# 		And add p1 to g1
-	# 		And add p2 to g2
-	# 		And set p1's diffuseColor to d1
-	# 		And set p2's diffuseColor to d2
-	# 		And defer dispose p1 from g1
-	# 		When dispose p1 from g1
-	# 		Then get p1's diffuseColor should return default data
-	# 		And get p2's diffuseColor should return d2
+		Scenario: reset removed one's value in diffuseColors
+			Given create two gameObject as g1, g2
+			And create two pbrMaterials as p1, p2
+			And add p1 to g1
+			And add p2 to g2
+			And set p1's diffuseColor to d1
+			And set p2's diffuseColor to d2
+			And defer dispose p1 from g1
+			When dispose the need disposed pbrMaterials
+			Then get p1's diffuseColor should return default data
+			And get p2's diffuseColor should return d2
 
-	# Rule: remove from speculars
+	Rule: remove from speculars
 
-	# 	Scenario: reset removed one's value in speculars
-	# 		Given create two gameObject as g1, g2
-	# 		And create two pbrMaterials as p1, p2
-	# 		And add p1 to g1
-	# 		And add p2 to g2
-	# 		And set p1's specular to s1
-	# 		And set p2's specular to s2
-	# 		And defer dispose p1 from g1
-	# 		When dispose p1 from g1
-	# 		Then get p1's specular should return default data
-	# 		And get p2's specular should return s2
+		Scenario: reset removed one's value in speculars
+			Given create two gameObject as g1, g2
+			And create two pbrMaterials as p1, p2
+			And add p1 to g1
+			And add p2 to g2
+			And set p1's specular to s1
+			And set p2's specular to s2
+			And defer dispose p1 from g1
+			When dispose the need disposed pbrMaterials
+			Then get p1's specular should return default data
+			And get p2's specular should return s2

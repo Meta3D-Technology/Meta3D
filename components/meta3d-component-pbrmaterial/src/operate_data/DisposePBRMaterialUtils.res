@@ -1,7 +1,7 @@
 open StateType
 
-let _removeComponent = (gameObjectComponentMap, component) =>
-  gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(component)
+let _removeComponent = (gameObjectComponentMap, gameObject) =>
+  gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject)
 
 let deferDisposeComponent = (
   {gameObjectPBRMaterialMap, needDisposedPBRMaterialArray} as state,
@@ -9,7 +9,7 @@ let deferDisposeComponent = (
 ) => {
   {
     ...state,
-    gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->_removeComponent(component),
+    gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->_removeComponent(gameObject),
     needDisposedPBRMaterialArray: needDisposedPBRMaterialArray->Meta3dCommonlib.ArrayMapUtils.addValue(
       component,
       gameObject,
@@ -36,16 +36,15 @@ let _disposeData = (
   component,
 ) => {
   state.diffuseColors = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+    diffuseColors,
     Meta3dComponentWorkerUtils.BufferPBRMaterialUtils.getDiffuseColorIndex(component),
     Meta3dComponentWorkerUtils.BufferPBRMaterialUtils.getDiffuseColorsSize(),
     defaultDiffuseColor->Obj.magic,
-    diffuseColors,
   )
-  state.speculars = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
-    Meta3dComponentWorkerUtils.BufferPBRMaterialUtils.getSpecularIndex(component),
-    Meta3dComponentWorkerUtils.BufferPBRMaterialUtils.getSpecularsSize(),
-    defaultSpecular->Obj.magic,
+  state.speculars = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32(.
     speculars,
+    Meta3dComponentWorkerUtils.BufferPBRMaterialUtils.getSpecularIndex(component),
+    defaultSpecular->Obj.magic,
   )
 
   state

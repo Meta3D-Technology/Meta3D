@@ -89,7 +89,7 @@ defineFeature(feature, test => {
         )
     })
 
-    \"when"("dispose the pbrMaterial", () => {
+    \"when"("dispose the need disposed pbrMaterials", () => {
       state :=
         contribute.contents.disposeComponentsFunc(.
           state.contents,
@@ -169,7 +169,7 @@ defineFeature(feature, test => {
         )
     })
 
-    \"when"("dispose the pbrMaterial", () => {
+    \"when"("dispose the need disposed pbrMaterials", () => {
       state :=
         contribute.contents.disposeComponentsFunc(.
           state.contents,
@@ -190,105 +190,224 @@ defineFeature(feature, test => {
     })
   })
 
-  //   test(."reset removed one\'s value in diffuseColors", ({given, \"and", \"when", then}) => {
-  //     given("I get contribute", () => {
-  //       ()
-  //     })
+  test(."remove from gameObjectMap, gameObjectTransformMap", ({given, \"and", \"when", then}) => {
+    let gameObject1 = 10
+    let pbrMaterial1 = ref(Obj.magic(1))
+    let d1 = [0.5, 1.0, 1.0]
 
-  //     \"and"("create a state", () => {
-  //       ()
-  //     })
+    _getContributeAndCreateAState((given, \"and"))
 
-  //     given(%re("/^create two gameObject as g(\d+), g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    given("create a gameObject", () => {
+      ()
+    })
 
-  //     \"and"(%re("/^create two pbrMaterials as p(\d+), p(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"("create a pbrMaterial", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
-  //     \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+      state := s
+      pbrMaterial1 := m
+    })
 
-  //     \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"("add the pbrMaterial to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial1.contents)
+    })
 
-  //     \"and"(%re("/^set p(\d+)'s diffuseColor to d(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"("defer dispose the pbrMaterial from the gameObject", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial1.contents, gameObject1),
+        )
+    })
 
-  //     \"and"(%re("/^set p(\d+)'s diffuseColor to d(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"when"("dispose the need disposed pbrMaterials", () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
+        )
+    })
 
-  //     \"and"(%re("/^defer dispose p(\d+) from g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    then("get the pbrMaterial's gameObjects should return []", () => {
+      contribute.contents.getGameObjectsFunc(. state.contents, pbrMaterial1.contents)->expect == []
+    })
 
-  //     \"when"(%re("/^dispose p(\d+) from g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"("get the gameObject's pbrMaterial should return empty", () => {
+      contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
+        Js.Nullable.undefined
+    })
+  })
 
-  //     then(%re("/^get p(\d+)'s diffuseColor should return default data$/")->Obj.magic, () => {
-  //       ()
-  //     })
+  test(."reset removed one\'s value in diffuseColors", ({given, \"and", \"when", then}) => {
+    let gameObject1 = 10
+    let gameObject2 = 11
+    let pbrMaterial1 = ref(Obj.magic(1))
+    let pbrMaterial2 = ref(Obj.magic(2))
+    let d1 = [0.5, 1.0, 1.0]
+    let d2 = [0.5, 0.5, 1.0]
 
-  //     \"and"(%re("/^get p(\d+)'s diffuseColor should return d(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
-  //     ()
-  //   })
+    _getContributeAndCreateAState((given, \"and"))
 
-  //   test(."reset removed one\'s value in speculars", ({given, \"and", \"when", then}) => {
-  //     given("I get contribute", () => {
-  //       ()
-  //     })
+    given(%re("/^create two gameObject as g(\d+), g(\d+)$/")->Obj.magic, () => {
+      ()
+    })
 
-  //     \"and"("create a state", () => {
-  //       ()
-  //     })
+    \"and"(%re("/^create two pbrMaterials as p(\d+), p(\d+)$/")->Obj.magic, () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
 
-  //     given(%re("/^create two gameObject as g(\d+), g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+      state := s
+      pbrMaterial1 := m1
+      pbrMaterial2 := m2
+    })
 
-  //     \"and"(%re("/^create two pbrMaterials as p(\d+), p(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial1.contents)
+    })
 
-  //     \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, pbrMaterial2.contents)
+    })
 
-  //     \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^set p(\d+)'s diffuseColor to d(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.setComponentDataFunc(.
+          state.contents,
+          pbrMaterial1.contents,
+          Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
+          d1->Obj.magic,
+        )
+    })
 
-  //     \"and"(%re("/^set p(\d+)'s specular to s(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^set p(\d+)'s diffuseColor to d(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.setComponentDataFunc(.
+          state.contents,
+          pbrMaterial2.contents,
+          Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
+          d2->Obj.magic,
+        )
+    })
 
-  //     \"and"(%re("/^set p(\d+)'s specular to s(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^defer dispose p1 from g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial1.contents, gameObject1),
+        )
+    })
 
-  //     \"and"(%re("/^defer dispose p(\d+) from g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"when"("dispose the need disposed pbrMaterials", () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
+        )
+    })
 
-  //     \"when"(%re("/^dispose p(\d+) from g(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    then(%re("/^get p(\d+)'s diffuseColor should return default data$/")->Obj.magic, () => {
+      contribute.contents.getComponentDataFunc(.
+        state.contents,
+        pbrMaterial1.contents,
+        Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
+      )->expect == TypeArrayTool.getDefaultDiffuseColor(state.contents)
+    })
 
-  //     then(%re("/^get p(\d+)'s specular should return default data$/")->Obj.magic, () => {
-  //       ()
-  //     })
+    \"and"(%re("/^get p(\d+)'s diffuseColor should return d(\d+)$/")->Obj.magic, () => {
+      contribute.contents.getComponentDataFunc(.
+        state.contents,
+        pbrMaterial2.contents,
+        Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor,
+      )->expect == d2
+    })
+  })
 
-  //     \"and"(%re("/^get p(\d+)'s specular should return s(\d+)$/")->Obj.magic, () => {
-  //       ()
-  //     })
-  //     ()
-  //   })
+  test(."reset removed one\'s value in speculars", ({given, \"and", \"when", then}) => {
+    let gameObject1 = 10
+    let gameObject2 = 11
+    let pbrMaterial1 = ref(Obj.magic(1))
+    let pbrMaterial2 = ref(Obj.magic(2))
+    let s1 = 0.5
+    let s2 = 1.0
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given(%re("/^create two gameObject as g(\d+), g(\d+)$/")->Obj.magic, () => {
+      ()
+    })
+
+    \"and"(%re("/^create two pbrMaterials as p(\d+), p(\d+)$/")->Obj.magic, () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      pbrMaterial1 := m1
+      pbrMaterial2 := m2
+    })
+
+    \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial1.contents)
+    })
+
+    \"and"(%re("/^add p(\d+) to g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, pbrMaterial2.contents)
+    })
+
+    \"and"(%re("/^set p(\d+)'s specular to s(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.setComponentDataFunc(.
+          state.contents,
+          pbrMaterial1.contents,
+          Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
+          s1->Obj.magic,
+        )
+    })
+
+    \"and"(%re("/^set p(\d+)'s specular to s(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.setComponentDataFunc(.
+          state.contents,
+          pbrMaterial2.contents,
+          Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
+          s2->Obj.magic,
+        )
+    })
+
+    \"and"(%re("/^defer dispose p1 from g(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial1.contents, gameObject1),
+        )
+    })
+
+    \"when"("dispose the need disposed pbrMaterials", () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
+        )
+    })
+
+    then(%re("/^get p(\d+)'s specular should return default data$/")->Obj.magic, () => {
+      contribute.contents.getComponentDataFunc(.
+        state.contents,
+        pbrMaterial1.contents,
+        Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
+      )->expect == TypeArrayTool.getDefaultSpecular(state.contents)
+    })
+
+    \"and"(%re("/^get p(\d+)'s specular should return s(\d+)$/")->Obj.magic, () => {
+      contribute.contents.getComponentDataFunc(.
+        state.contents,
+        pbrMaterial2.contents,
+        Meta3dComponentPbrmaterialProtocol.Index.dataName.specular,
+      )->expect == s2
+    })
+  })
 })

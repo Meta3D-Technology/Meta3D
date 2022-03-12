@@ -16,10 +16,10 @@ function deferDisposeComponent(state) {
   var gameObjectPBRMaterialMap = state.gameObjectPBRMaterialMap;
   var needDisposedPBRMaterialArray = state.needDisposedPBRMaterialArray;
   return function (param) {
-    var component = param[0];
+    var gameObject = param[1];
     var newrecord = Caml_obj.caml_obj_dup(state);
-    newrecord.needDisposedPBRMaterialArray = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedPBRMaterialArray, component, param[1]);
-    newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectPBRMaterialMap, component);
+    newrecord.needDisposedPBRMaterialArray = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedPBRMaterialArray, param[0], gameObject);
+    newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectPBRMaterialMap, gameObject);
     return newrecord;
   };
 }
@@ -43,8 +43,8 @@ function _disposeData(state) {
   var defaultSpecular = state.defaultSpecular;
   var defaultDiffuseColor = state.defaultDiffuseColor;
   return function (component) {
-    state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(component), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor, diffuseColors);
-    state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(component), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularsSize(undefined), defaultSpecular, speculars);
+    state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(component), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
+    state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(component), defaultSpecular);
     return state;
   };
 }

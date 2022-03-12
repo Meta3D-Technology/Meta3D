@@ -34,15 +34,13 @@
 //   typeArr
 // }
 
-let deleteAndResetFloat32TypeArr = (. sourceIndex, length, defaultValueArr, typeArr) => {
+let deleteAndResetFloat32TypeArr = (. typeArr, sourceIndex, length, defaultValueArr, ) => {
   open Js.Typed_array
   for i in 0 to length - 1 {
     Float32Array.unsafe_set(typeArr, sourceIndex + i, defaultValueArr[i])
   }
   typeArr
 }
-
-
 
 // let deleteAndResetFloat32TypeArr = (. sourceIndex, length, (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15), typeArr) => {
 //   open Js.Typed_array
@@ -71,11 +69,11 @@ let deleteAndResetFloat32TypeArr = (. sourceIndex, length, defaultValueArr, type
 // typeArr
 // }
 
-// let deleteAndResetFloat32 = (. sourceIndex, defaultValue, typeArr) => {
-//   open Js.Typed_array
-//   Float32Array.unsafe_set(typeArr, sourceIndex, defaultValue)
-//   typeArr
-// }
+let deleteAndResetFloat32 = (. typeArr, sourceIndex, defaultValue) => {
+  open Js.Typed_array
+  Float32Array.unsafe_set(typeArr, sourceIndex, defaultValue)
+  typeArr
+}
 
 // let deleteAndResetUint32 = (. sourceIndex, defaultValue, typeArr) => {
 //   open Js.Typed_array

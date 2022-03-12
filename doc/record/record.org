@@ -558,11 +558,29 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 # TODO implement batch dispose
 
 # TODO pass test
-TODO add defer, batch dispose test
+# TODO add defer, batch dispose test
 
 
 
 # TODO pbrmaterial test->defer dispose->fix magic
+
+
+
+TODO remove getComponents
+let _getSharableComponentDataArr = (uidArray, getComponentFunc, gameObjectRecord) =>
+  uidArray |> WonderCommonlib.ArrayService.reduceOneParam((. dataMap, uid) =>
+    switch getComponentFunc(. uid, gameObjectRecord) {
+    | None => dataMap
+    | Some(component) => dataMap |> ArrayMapService.addValue(component, uid)
+    /* dataArr |> ArrayService.push((uid, component)) */
+    }
+  , WonderCommonlib.MutableSparseMapService.createEmpty())
+
+
+TODO fix transform bug
+
+
+TODO update gameObject dispose
 
 
 ** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
