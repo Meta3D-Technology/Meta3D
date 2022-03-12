@@ -3,7 +3,6 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   Meta3dComponentPbrmaterialProtocol.Index.config,
   Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
   Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-  Meta3dComponentPbrmaterialProtocol.Index.deferDisposeData,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
   Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
 > = () => {
@@ -22,9 +21,6 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   },
   getComponentFunc: (. state, gameObject) => {
     GetPBRMaterialUtils.get(state, gameObject)
-  },
-  getComponentsFunc: (. state, gameObjects) => {
-    GetPBRMaterialsUtils.get(state, gameObjects)
   },
   getNeedDisposedComponentsFunc: (. state) => {
     GetNeedDisposedPBRMaterialsUtils.get(state)

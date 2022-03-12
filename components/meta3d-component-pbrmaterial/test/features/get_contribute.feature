@@ -59,15 +59,6 @@ Feature: Get Contribute
         Then g1 shouldn't has the pbrMaterial
         And g2 should has the pbrMaterial
 
-    Scenario: get gameObjects' pbrMaterials
-        Given create two gameObject as g1, g2
-        When I get contribute
-        And create a state
-        And create three pbrMaterials as p1, p2, p3
-        And add p1 to g1
-        And add p3 to g2
-        Then get the pbrMaterials of [g1, g2] should return [p1, p3]
-
     Scenario: get need disposed pbrMaterials
         Given create two gameObject as g1, g2
         When I get contribute

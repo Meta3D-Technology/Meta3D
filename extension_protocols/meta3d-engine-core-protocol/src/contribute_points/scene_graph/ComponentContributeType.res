@@ -29,20 +29,12 @@ type getComponentFunc<'state, 'component> = (
   GameObjectType.gameObject,
 ) => Js.Nullable.t<'component>
 
-type getComponentsFunc<'state, 'component> = (
-  . 'state,
-  array<GameObjectType.gameObject>,
-) => array<'component>
-
 type getNeedDisposedComponentsFunc<'state, 'needDisposedComponents> = (
   . 'state,
 ) => 'needDisposedComponents
 
 type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
-// type dataName = int
-
-// @genType
 type dataValue
 
 // TODO add 'dataValue and remove "type dataValue" ?
@@ -59,12 +51,22 @@ type setComponentDataFunc<'state, 'dataName, 'component> = (
   dataValue,
 ) => 'state
 
-type deferDisposeComponentFunc<'state, 'deferDisposeData> = (. 'state, 'deferDisposeData) => 'state
+type deferDisposeComponentFunc<'state, 'component> = (
+  . 'state,
+  ('component, GameObjectType.gameObject),
+) => 'state
 
 type disposeComponentsFunc<'state, 'batchDisposeData> = (. 'state, 'batchDisposeData) => 'state
 
 // @genType
-type componentContribute<'state, 'config, 'dataName, 'needDisposedComponents,'deferDisposeData, 'batchDisposeData, 'component> = {
+type componentContribute<
+  'state,
+  'config,
+  'dataName,
+  'needDisposedComponents,
+  'batchDisposeData,
+  'component,
+> = {
   componentName: componentName,
   createStateFunc: createStateFunc<'state, 'config>,
   getGameObjectsFunc: getGameObjectsFunc<'state, 'component>,
@@ -73,11 +75,10 @@ type componentContribute<'state, 'config, 'dataName, 'needDisposedComponents,'de
   removeComponentFunc: removeComponentFunc<'state, 'component>,
   hasComponentFunc: hasComponentFunc<'state>,
   getComponentFunc: getComponentFunc<'state, 'component>,
-  getComponentsFunc: getComponentsFunc<'state, 'component>,
   getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'needDisposedComponents>,
   getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
-  deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'deferDisposeData>,
+  deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
   disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
@@ -88,7 +89,13 @@ type getComponentContribute<
   'config,
   'dataName,
   'needDisposedComponents,
-  'deferDisposeData,
-'batchDisposeData,
+  'batchDisposeData,
   'component,
-> = unit => componentContribute<'state, 'config, 'dataName, 'needDisposedComponents, 'deferDisposeData, 'batchDisposeData, 'component>
+> = unit => componentContribute<
+  'state,
+  'config,
+  'dataName,
+  'needDisposedComponents,
+  'batchDisposeData,
+  'component,
+>

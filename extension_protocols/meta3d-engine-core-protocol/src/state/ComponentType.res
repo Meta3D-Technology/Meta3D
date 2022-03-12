@@ -12,6 +12,4 @@ type dataName
 
 type needDisposedComponents
 
-type deferDisposeData
-
 type batchDisposeData

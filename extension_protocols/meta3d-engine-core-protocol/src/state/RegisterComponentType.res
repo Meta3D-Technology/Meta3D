@@ -1,6 +1,6 @@
 open ComponentType
 
-type componentContribute = ComponentContributeType.componentContribute<state, config, dataName, needDisposedComponents,deferDisposeData, batchDisposeData, component>
+type componentContribute = ComponentContributeType.componentContribute<state, config, dataName, needDisposedComponents,batchDisposeData, component>
 
 // @genType
 type usedComponentContribute = {
@@ -12,7 +12,6 @@ type usedComponentContribute = {
   removeComponentFunc: ComponentContributeType.removeComponentFunc<state, component>,
   hasComponentFunc: ComponentContributeType.hasComponentFunc<state>,
   getComponentFunc: ComponentContributeType.getComponentFunc<state, component>,
-  getComponentsFunc: ComponentContributeType.getComponentsFunc<state, component>,
   getNeedDisposedComponentsFunc: ComponentContributeType.getNeedDisposedComponentsFunc<state, component>,
   deferDisposeComponentFunc: ComponentContributeType.deferDisposeComponentFunc<state, component>,
   disposeComponentsFunc: ComponentContributeType.disposeComponentsFunc<state, component>,

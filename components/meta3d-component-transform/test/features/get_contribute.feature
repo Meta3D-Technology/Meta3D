@@ -50,15 +50,6 @@ Feature: Get Contribute
         And remove the transform from the gameObject
         Then the gameObject shouldn't has the transform
 
-    Scenario: get gameObjects' transforms
-        Given create two gameObject as g1, g2
-        When I get contribute
-        And create a state
-        And create three transforms as t1, t2, t3
-        And add t1 to g1
-        And add t3 to g2
-        Then get the transforms of [g1, g2] should return [t1, t3]
-
     Scenario: get need disposed transforms
         When I get contribute
         And create a state

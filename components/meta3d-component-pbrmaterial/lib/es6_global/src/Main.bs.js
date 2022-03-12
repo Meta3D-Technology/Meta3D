@@ -6,7 +6,6 @@ import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/Ad
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as GetPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialUtils.bs.js";
 import * as HasPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/HasPBRMaterialUtils.bs.js";
-import * as GetPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialsUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/CreatePBRMaterialUtils.bs.js";
 import * as RemovePBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/RemovePBRMaterialUtils.bs.js";
 import * as DisposePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/DisposePBRMaterialUtils.bs.js";
@@ -36,9 +35,6 @@ function getComponentContribute(param) {
             }),
           getComponentFunc: (function (state, gameObject) {
               return GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get(state)(gameObject);
-            }),
-          getComponentsFunc: (function (state, gameObjects) {
-              return GetPBRMaterialsUtils$Meta3dComponentPbrmaterial.get(state)(gameObjects);
             }),
           getNeedDisposedComponentsFunc: GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
           getComponentDataFunc: (function (state, component, dataName) {

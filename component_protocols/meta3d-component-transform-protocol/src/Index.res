@@ -51,6 +51,4 @@ type state
 
 type needDisposedComponents = array<transform>
 
-type deferDisposeData = transform
-
 type batchDisposeData = array<transform>

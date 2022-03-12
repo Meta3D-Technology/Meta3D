@@ -12,7 +12,7 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      Meta3dComponentTransformProtocol.Index.deferDisposeData,
+      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
@@ -244,54 +244,6 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."get gameObjects' transforms", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10
-    let gameObject2 = 11
-    let transform1 = ref(Obj.magic(1))
-    let transform2 = ref(Obj.magic(1))
-    let transform3 = ref(Obj.magic(1))
-
-    given("create two gameObject as g1, g2", () => {
-      ()
-    })
-
-    \"when"("I get contribute", () => {
-      contribute := Main.getComponentContribute()
-    })
-
-    \"and"("create a state", () => {
-      state := _createState()
-    })
-
-    \"and"("create three transforms as t1, t2, t3", () => {
-      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, m2) = contribute.contents.createComponentFunc(. s)
-      let (s, m3) = contribute.contents.createComponentFunc(. s)
-
-      state := s
-      transform1 := m1
-      transform2 := m2
-      transform3 := m3
-    })
-
-    \"and"("add t1 to g1", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, transform1.contents)
-    })
-
-    \"and"("add t3 to g2", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, transform3.contents)
-    })
-
-    then("get the transforms of [g1, g2] should return [t1, t3]", () => {
-      contribute.contents.getComponentsFunc(.
-        state.contents,
-        [gameObject1, gameObject2],
-      )->expect == [transform1.contents, transform3.contents]
-    })
-  })
-
   test(."get need disposed transforms", ({given, \"when", \"and", then}) => {
     let transform1 = ref(Obj.magic(1))
     let transform2 = ref(Obj.magic(1))
@@ -317,15 +269,15 @@ defineFeature(feature, test => {
     })
 
     \"and"("defer dispose t1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform1.contents ))
     })
 
     \"and"("defer dispose t1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform1.contents ))
     })
 
     \"and"("defer dispose t3", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform3.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform3.contents ))
     })
 
     then("get need disposed transforms should return [t1, t3]", () => {

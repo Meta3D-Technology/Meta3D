@@ -5,7 +5,6 @@ var CreateStateUtils$Meta3dComponentTransform = require("./create_state/CreateSt
 var AddTransformUtils$Meta3dComponentTransform = require("./gameobject/AddTransformUtils.bs.js");
 var GetTransformUtils$Meta3dComponentTransform = require("./gameobject/GetTransformUtils.bs.js");
 var HasTransformUtils$Meta3dComponentTransform = require("./gameobject/HasTransformUtils.bs.js");
-var GetTransformsUtils$Meta3dComponentTransform = require("./gameobject/GetTransformsUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentTransform = require("./gameobject/GetGameObjectsUtils.bs.js");
 var CreateTransformUtils$Meta3dComponentTransform = require("./operate_component/CreateTransformUtils.bs.js");
 var RemoveTransformUtils$Meta3dComponentTransform = require("./gameobject/RemoveTransformUtils.bs.js");
@@ -36,9 +35,6 @@ function getComponentContribute(param) {
             }),
           getComponentFunc: (function (state, gameObject) {
               return GetTransformUtils$Meta3dComponentTransform.get(state)(gameObject);
-            }),
-          getComponentsFunc: (function (state, gameObjects) {
-              return GetTransformsUtils$Meta3dComponentTransform.get(state)(gameObjects);
             }),
           getNeedDisposedComponentsFunc: GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get,
           getComponentDataFunc: (function (state, component, dataName) {

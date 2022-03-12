@@ -12,7 +12,7 @@ defineFeature(feature, test => {
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-      Meta3dComponentPbrmaterialProtocol.Index.deferDisposeData,
+      
       Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
@@ -257,54 +257,6 @@ defineFeature(feature, test => {
 
     \"and"("g2 should has the pbrMaterial", () => {
       contribute.contents.hasComponentFunc(. state.contents, gameObject2)->expect == true
-    })
-  })
-
-  test(."get gameObjects' pbrMaterials", ({given, \"when", \"and", then}) => {
-    let gameObject1 = 10
-    let gameObject2 = 11
-    let pbrMaterial1 = ref(Obj.magic(1))
-    let pbrMaterial2 = ref(Obj.magic(1))
-    let pbrMaterial3 = ref(Obj.magic(1))
-
-    given("create two gameObject as g1, g2", () => {
-      ()
-    })
-
-    \"when"("I get contribute", () => {
-      contribute := Main.getComponentContribute()
-    })
-
-    \"and"("create a state", () => {
-      state := _createState()
-    })
-
-    \"and"("create three pbrMaterials as p1, p2, p3", () => {
-      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, p2) = contribute.contents.createComponentFunc(. s)
-      let (s, p3) = contribute.contents.createComponentFunc(. s)
-
-      state := s
-      pbrMaterial1 := p1
-      pbrMaterial2 := p2
-      pbrMaterial3 := p3
-    })
-
-    \"and"("add p1 to g1", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, pbrMaterial1.contents)
-    })
-
-    \"and"("add p3 to g2", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, pbrMaterial3.contents)
-    })
-
-    then("get the pbrMaterials of [g1, g2] should return [p1, p3]", () => {
-      contribute.contents.getComponentsFunc(.
-        state.contents,
-        [gameObject1, gameObject2],
-      )->expect == [pbrMaterial1.contents, pbrMaterial3.contents]
     })
   })
 

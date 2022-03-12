@@ -3,7 +3,6 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   Meta3dComponentTransformProtocol.Index.config,
   Meta3dComponentTransformProtocol.Index.dataNameType,
   Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-  Meta3dComponentTransformProtocol.Index.deferDisposeData,
   Meta3dComponentTransformProtocol.Index.batchDisposeData,
   Meta3dComponentTransformProtocol.Index.transform,
 > = () => {
@@ -22,9 +21,6 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   },
   getComponentFunc: (. state, gameObject) => {
     GetTransformUtils.get(state, gameObject)
-  },
-  getComponentsFunc: (. state, gameObjects) => {
-    GetTransformsUtils.get(state, gameObjects)
   },
   getNeedDisposedComponentsFunc: (. state) => {
     GetNeedDisposedTransformsUtils.get(state)

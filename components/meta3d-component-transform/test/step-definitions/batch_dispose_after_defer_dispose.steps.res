@@ -12,7 +12,7 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      Meta3dComponentTransformProtocol.Index.deferDisposeData,
+      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
@@ -72,7 +72,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -121,7 +121,7 @@ defineFeature(feature, test => {
     _prepareTransform((given, \"and"))
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -174,7 +174,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -251,7 +251,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -298,7 +298,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -373,7 +373,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform3.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform3.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -402,23 +402,18 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."remove from parentMap, childMap,  dirtyMap, gameObjectMap, gameObjectTransformMap", ({
+  test(."remove from parentMap, childMap, dirtyMap", ({
     given,
     \"and",
     \"when",
     then,
   }) => {
-    let gameObject = 10
     let transform3 = ref(Obj.magic(3))
     let pos1 = [1., 2., 3.]
     let pos2 = [5., 10., 30.]
     let pos3 = [2., 4., 6.]
 
     _getContributeAndCreateAState((given, \"and"))
-
-    given("create a gameObject", () => {
-      ()
-    })
 
     \"and"(
       %re(
@@ -456,13 +451,8 @@ defineFeature(feature, test => {
         )
     })
 
-    \"and"(%re("/^add transform(\d+) to the gameObject$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, transform1.contents)
-    })
-
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -471,28 +461,70 @@ defineFeature(feature, test => {
     })
 
     then(
-      %re(
-        "/^should remove transform(\d+) from state.parentMap, state.childrenMap, state.dirtyMap, state.gameObjectMap, state.gameObjectTransformMap$/"
-      )->Obj.magic,
+"should remove transform1 from state.parentMap, state.childrenMap, state.dirtyMap",
       () => {
         let {
           parentMap,
           childrenMap,
           dirtyMap,
-          gameObjectMap,
-          gameObjectTransformMap,
         } = state.contents
 
         (
           parentMap->Meta3dCommonlib.MutableSparseMap.has(transform1.contents),
           childrenMap->Meta3dCommonlib.MutableSparseMap.has(transform1.contents),
           dirtyMap->Meta3dCommonlib.MutableSparseMap.has(transform1.contents),
-          gameObjectMap->Meta3dCommonlib.MutableSparseMap.has(transform1.contents),
-          gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.has(transform1.contents),
-        )->expect == (false, false, false, false, false)
+        )->expect == (false, false, false)
       },
     )
-    ()
+  })
+
+  test(."remove from gameObjectMap, gameObjectTransformMap", ({given, \"and", \"when", then}) => {
+    let gameObject1 = 10
+    let transform1 = ref(Obj.magic(1))
+    let d1 = [0.5, 1.0, 1.0]
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"and"("create a transform", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      transform1 := m
+    })
+
+    \"and"("add the transform to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, transform1.contents)
+    })
+
+    \"and"("defer dispose the transform from the gameObject", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (transform1.contents, gameObject1),
+        )
+    })
+
+    \"when"("dispose the transform", () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents]
+        )
+    })
+
+    then("get the transform's gameObjects should return []", () => {
+      contribute.contents.getGameObjectsFunc(. state.contents, transform1.contents)->expect == []
+    })
+
+    \"and"("get the gameObject's transform should return empty", () => {
+      contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
+        Js.Nullable.undefined
+    })
   })
 
   test(."reset removed one\'s value in localToWorldMatrices", ({given, \"and", \"when", then}) => {
@@ -521,7 +553,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -596,7 +628,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -664,7 +696,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -735,7 +767,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -785,8 +817,8 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+), transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"and"(%re("/^dispose transform(\d+), transform(\d+)$/")->Obj.magic, () => {
@@ -843,7 +875,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"and"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -933,7 +965,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"and"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {
@@ -990,11 +1022,11 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform1.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"and"(%re("/^defer dispose transform(\d+)$/")->Obj.magic, () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents)
+      state := contribute.contents.deferDisposeComponentFunc(. state.contents, transform2.contents -> DeferDisposeTool.buildDeferDisposeData)
     })
 
     \"when"(%re("/^dispose transform(\d+)$/")->Obj.magic, () => {

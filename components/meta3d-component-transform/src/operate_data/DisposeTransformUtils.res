@@ -1,15 +1,15 @@
 open StateType
 
-let _removeComponent = (gameObjectMap, component) =>
-  gameObjectMap->Meta3dCommonlib.MutableSparseMap.remove(component)
+let _removeComponent = (gameObjectComponentMap, gameObject) =>
+  gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject)
 
 let deferDisposeComponent = (
   {gameObjectTransformMap, needDisposedTransformArray} as state,
-  component,
+  (component, gameObject),
 ) => {
   {
     ...state,
-    gameObjectTransformMap: gameObjectTransformMap->_removeComponent(component),
+    gameObjectTransformMap: gameObjectTransformMap->_removeComponent(gameObject),
     needDisposedTransformArray: needDisposedTransformArray->Meta3dCommonlib.ArraySt.push(component),
   }
 }
@@ -57,32 +57,32 @@ let _disposeData = (
   let state = state->_disposeFromParentAndChildMap(isDebug, component)
 
   state.localToWorldMatrices = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+    localToWorldMatrices,
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalToWorldMatrixIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalToWorldMatricesSize(),
     // TODO change tuple to array
     defaultLocalToWorldMatrix->Obj.magic,
-    localToWorldMatrices,
   )
   state.localPositions = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+    localPositions,
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalPositionIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalPositionsSize(),
     // TODO change tuple to array
     defaultLocalPosition->Obj.magic,
-    localPositions,
   )
   state.localRotations = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+    localRotations,
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalRotationIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalRotationsSize(),
     // TODO change tuple to array
     defaultLocalRotation->Obj.magic,
-    localRotations,
   )
   state.localScales = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+    localScales,
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalScaleIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalScalesSize(),
     // TODO change tuple to array
     defaultLocalScale->Obj.magic,
-    localScales,
   )
 
   state.parentMap = parentMap->_disposeSparseMapData(component)
@@ -93,7 +93,7 @@ let _disposeData = (
 }
 
 let disposeComponents = (
-  {gameObjectMap, disposedTransformArray} as state,
+  {gameObjectTransformMap, disposedTransformArray} as state,
   components,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(state)
@@ -108,7 +108,7 @@ let needDisposedComponents = GetNeedDisposedTransformsUtils.get(state)
   )
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
-  state.needDisposedComponents =
+  state.needDisposedTransformArray =
     needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
       components,
     )

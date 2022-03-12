@@ -12,7 +12,7 @@ defineFeature(feature, test => {
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-      Meta3dComponentPbrmaterialProtocol.Index.deferDisposeData,
+      
       Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
@@ -190,7 +190,7 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."remove from gameObjectMap, gameObjectTransformMap", ({given, \"and", \"when", then}) => {
+  test(."remove from gameObjectMap, gameObjectPBRMaterialMap", ({given, \"and", \"when", then}) => {
     let gameObject1 = 10
     let pbrMaterial1 = ref(Obj.magic(1))
     let d1 = [0.5, 1.0, 1.0]

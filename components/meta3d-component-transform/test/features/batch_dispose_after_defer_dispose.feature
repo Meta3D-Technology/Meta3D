@@ -33,7 +33,6 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose transform1
 			Then get transform2's position should return pos2
 
-
 		Scenario: shouldn't affect parent if disposed one has parent
 			Given create a transform as transform3
 			And set transform1's parent to transform3
@@ -44,7 +43,6 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose transform2
 			Then get transform1's position should return pos1 + pos3
 			And get transform3's position should return pos3
-
 
 	Rule: if parent is disposed
 
@@ -69,18 +67,24 @@ Feature: Batch Dispose After Defer Dispose
 			Then get transform1's position should return pos1
 			And get transform2's position should return pos1 + pos2
 
-
 	Rule: dispose map data
 
-		Scenario: remove from parentMap, childMap,  dirtyMap, gameObjectMap, gameObjectTransformMap
-			Given create a gameObject
-			And create three transforms as transform1, transform2, transform3
+		Scenario: remove from parentMap, childMap, dirtyMap
+			Given create three transforms as transform1, transform2, transform3
 			And set transform1's parent to transform2
 			And set transform3's parent to transform1
-			And add transform1 to the gameObject
 			And defer dispose transform1
 			When dispose transform1
-			Then should remove transform1 from state.parentMap, state.childrenMap, state.dirtyMap, state.gameObjectMap, state.gameObjectTransformMap
+			Then should remove transform1 from state.parentMap, state.childrenMap, state.dirtyMap
+
+		Scenario: remove from gameObjectMap, gameObjectTransformMap
+			Given create a gameObject
+			And create a transform
+			And add the transform to the gameObject
+			And defer dispose the transform from the gameObject
+			When dispose the transform
+			Then get the transform's gameObjects should return []
+			And get the gameObject's transform should return empty
 
 	Rule: remove from localToWorldMatrices
 

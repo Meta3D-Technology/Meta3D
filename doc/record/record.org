@@ -566,7 +566,14 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 
 
-TODO remove getComponents
+# TODO remove getComponents
+
+
+# TODO fix transform bug
+
+TODO pass engine core compile, test
+
+TODO update gameObject dispose
 let _getSharableComponentDataArr = (uidArray, getComponentFunc, gameObjectRecord) =>
   uidArray |> WonderCommonlib.ArrayService.reduceOneParam((. dataMap, uid) =>
     switch getComponentFunc(. uid, gameObjectRecord) {
@@ -576,11 +583,6 @@ let _getSharableComponentDataArr = (uidArray, getComponentFunc, gameObjectRecord
     }
   , WonderCommonlib.MutableSparseMapService.createEmpty())
 
-
-TODO fix transform bug
-
-
-TODO update gameObject dispose
 
 
 ** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs

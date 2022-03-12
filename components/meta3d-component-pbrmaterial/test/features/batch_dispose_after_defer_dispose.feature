@@ -29,7 +29,7 @@ Feature: Batch Dispose After Defer Dispose
 
 	Rule: dispose map data
 
-		Scenario: remove from gameObjectMap, gameObjectTransformMap
+		Scenario: remove from gameObjectMap, gameObjectPBRMaterialMap
 			Given create a gameObject
 			And create a pbrMaterial
 			And add the pbrMaterial to the gameObject

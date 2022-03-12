@@ -1,5 +1,6 @@
 open StateType
 
+// TODO refactor: duplicate with transform
 let _removeComponent = (gameObjectComponentMap, gameObject) =>
   gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject)
 

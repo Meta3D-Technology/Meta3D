@@ -12,7 +12,7 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      Meta3dComponentTransformProtocol.Index.deferDisposeData,
+      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
