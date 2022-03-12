@@ -40,11 +40,18 @@ defineFeature(feature, test => {
 
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
-        let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
-          (state.contents, Obj.magic(1)),
-          Obj.magic(1),
-          [gameObject.contents],
-        )
+      DisposeTool.disposeGameObjects(
+        ~state=state.contents,
+        ~contribute = contribute.contents,
+        ~gameObjects = [gameObject.contents],
+//         ~transformState = transformState.contents,
+// ~transformFuncs = (
+//           (. _, _) => transform1.contents->Meta3dCommonlib.NullableSt.return,
+//           deferDisposeTransformFuncStub.contents,
+//         ),
+        ()
+      )
+
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

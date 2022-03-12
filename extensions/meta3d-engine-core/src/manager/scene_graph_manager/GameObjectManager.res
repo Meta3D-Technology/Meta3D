@@ -95,6 +95,16 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
   )
 }
 
+// let _getSharableComponentDataArr = (state, gameObjects, getComponentFunc) =>
+//   gameObjects |> WonderCommonlib.ArrayService.reduceOneParam((. dataMap, uid) =>
+//     switch getComponentFunc(. uid, gameObjectRecord) {
+//     | None => dataMap
+//     | Some(component) => dataMap |> ArrayMapService.addValue(component, uid)
+//     /* dataArr |> ArrayService.push((uid, component)) */
+//     }
+//   , WonderCommonlib.MutableSparseMapService.createEmpty())
+
+
 let disposeGameObjects = (state, gameObjects) => {
   let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
   let usedTransformContribute =

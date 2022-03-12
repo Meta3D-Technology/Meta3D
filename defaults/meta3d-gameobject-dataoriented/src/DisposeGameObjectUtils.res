@@ -6,8 +6,12 @@ let deferDisposeGameObject = (
   (
     {needDisposedGameObjectArray} as gameObjectState,
     transformState: Meta3dComponentTransformProtocol.Index.state,
+    pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
   ),
+  (
   (getTransformFunc, deferDisposeTransformFunc),
+  (getPBRMaterialFunc, deferDisposePBRMaterialFunc),
+  ),
   gameObject,
 ) => {
 let transformState = 
@@ -19,6 +23,15 @@ deferDisposeTransformFunc(.
 })
  -> Meta3dCommonlib.NullableSt.getWithDefault(transformState)
 
+let pbrMaterialState = 
+getPBRMaterialFunc(. pbrMaterialState, gameObject) -> Meta3dCommonlib.NullableSt.bind((. pbrMaterial) =>{
+deferDisposePBRMaterialFunc(.
+    pbrMaterialState,
+    ( pbrMaterial, gameObject ),
+  )
+})
+ -> Meta3dCommonlib.NullableSt.getWithDefault(pbrMaterialState)
+
   let gameObjectState = {
     ...gameObjectState,
     needDisposedGameObjectArray: needDisposedGameObjectArray->Meta3dCommonlib.ArraySt.push(
@@ -26,7 +39,7 @@ deferDisposeTransformFunc(.
     ),
   }
 
-  (gameObjectState, transformState)
+  (gameObjectState, transformState, pbrMaterialState)
 }
 
 let _getTransforms = (state,getTransformFunc, gameObjects) =>
@@ -37,6 +50,15 @@ let _getTransforms = (state,getTransformFunc, gameObjects) =>
     }
   }, [])
 
+let _getSharableComponentDataMap = (state, getComponentFunc, gameObjects, ) =>
+  gameObjects -> Meta3dCommonlib.ArraySt.reduceOneParam((. dataMap, gameObject) =>
+getComponentFunc(. state, gameObject) -> Meta3dCommonlib.NullableSt.bind((. component) =>{
+dataMap -> Meta3dCommonlib.ArrayMapUtils.addValue(component, gameObject)
+})
+ -> Meta3dCommonlib.NullableSt.getWithDefault(dataMap)
+  , Meta3dCommonlib.MutableSparseMap.createEmpty())
+
+
 let _isNotNeedDispose = (component, needDisposedIndexArray) =>
   !Js.Array.includes(component, needDisposedIndexArray)
 
@@ -44,8 +66,12 @@ let disposeGameObjects = (
   (
     {needDisposedGameObjectArray} as gameObjectState,
     transformState: Meta3dComponentTransformProtocol.Index.state,
+    pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
   ),
+  (
   (getTransformFunc, disposeTransformsFunc),
+  (getPBRMaterialFunc, disposePBRMaterialsFunc),
+  ),
   gameObjects,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(gameObjectState)
@@ -69,5 +95,10 @@ let disposeGameObjects = (
     _getTransforms(transformState, getTransformFunc, gameObjects),
   )
 
-  (gameObjectState, transformState)
+  let pbrMaterialState = disposePBRMaterialsFunc(.
+    pbrMaterialState,
+    _getSharableComponentDataMap(pbrMaterialState, getPBRMaterialFunc, gameObjects),
+  )
+
+  (gameObjectState, transformState, pbrMaterialState)
 }

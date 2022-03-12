@@ -17,15 +17,16 @@ type usedGameObjectContribute = {
   deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<
     state,
     ComponentType.state,
+    ComponentType.state,
     gameObject,
     transform
   >,
   disposeGameObjectsFunc: GameObjectContributeType.disposeGameObjectsFunc<
     state,
     ComponentType.state,
+    ComponentType.state,
     gameObject,
     transform,
-    ComponentType.batchDisposeData
   >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state, gameObject>,
 }
@@ -34,8 +35,8 @@ type usedGameObjectContribute = {
 type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
   state,
   ComponentType.state,
+  ComponentType.state,
   config,
   gameObject,
   transform,
-  ComponentType.batchDisposeData
 >

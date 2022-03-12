@@ -591,6 +591,12 @@ let _getSharableComponentDataArr = (uidArray, getComponentFunc, gameObjectRecord
   , WonderCommonlib.MutableSparseMapService.createEmpty())
 
 
+
+TODO refactor: GameCOntributeType remove 'gameObject, 'transform
+  'gameObject,
+  'transform,
+
+
 ** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
 
 ** TODO update GameObjectManager->gameobject

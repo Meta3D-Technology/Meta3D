@@ -7,23 +7,35 @@ type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObj
 
 type getNeedDisposedGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
-type deferDisposeGameObjectFunc<'state, 'transformState, 'gameObject, 'transform> = (
-  . ('state, 'transformState),
+type deferDisposeGameObjectFunc<'state, 'transformState, 'pbrMaterialState, 'gameObject, 'transform> = (
+  . ('state, 'transformState, 'pbrMaterialState),
+  (
   (
     (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
     (. 'transformState, ('transform, 'gameObject)) => 'transformState,
   ),
+  (
+    (. 'pbrMaterialState, 'gameObject) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial >,
+    (. 'pbrMaterialState, (Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial , 'gameObject)) => 'pbrMaterialState,
+  ),
+  ),
   'gameObject,
-) => ('state, 'transformState)
+) => ('state, 'transformState, 'pbrMaterialState)
 
-type disposeGameObjectsFunc<'state, 'transformState, 'gameObject, 'transform, 'batchDisposeData> = (
-  . ('state, 'transformState),
+type disposeGameObjectsFunc<'state, 'transformState, 'pbrMaterialState, 'gameObject, 'transform> = (
+  . ('state, 'transformState, 'pbrMaterialState),
+  (
   (
     (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
-    (. 'transformState, 'batchDisposeData) => 'transformState,
+    (. 'transformState, Meta3dComponentTransformProtocol.Index.batchDisposeData) => 'transformState,
+  ),
+  (
+    (. 'pbrMaterialState, 'gameObject) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial >,
+    (. 'pbrMaterialState, Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData) => 'pbrMaterialState,
+  ),
   ),
   array<'gameObject>,
-) => ('state, 'transformState)
+) => ('state, 'transformState, 'pbrMaterialState)
 
 type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
@@ -31,10 +43,10 @@ type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObjec
 type gameObjectContribute<
   'state,
   'transformState,
+  'pbrMaterialState,
   'config,
   'gameObject,
   'transform,
-  'batchDisposeData,
 > = {
   createStateFunc: createStateFunc<'state, 'config>,
   createGameObjectFunc: createGameObjectFunc<'state, 'gameObject>,
@@ -42,15 +54,16 @@ type gameObjectContribute<
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<
     'state,
     'transformState,
+'pbrMaterialState,
     'gameObject,
     'transform,
   >,
   disposeGameObjectsFunc: disposeGameObjectsFunc<
     'state,
     'transformState,
+'pbrMaterialState,
     'gameObject,
     'transform,
-    'batchDisposeData,
   >,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state, 'gameObject>,
 }
@@ -58,15 +71,15 @@ type gameObjectContribute<
 type getGameObjectContribute<
   'state,
   'transformState,
+'pbrMaterialState,
   'config,
   'gameObject,
   'transform,
-  'batchDisposeData,
 > = unit => gameObjectContribute<
   'state,
   'transformState,
+'pbrMaterialState,
   'config,
   'gameObject,
   'transform,
-  'batchDisposeData,
 >

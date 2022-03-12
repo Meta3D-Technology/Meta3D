@@ -1,6 +1,7 @@
 let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.getGameObjectContribute<
   StateType.state,
   Meta3dComponentTransformProtocol.Index.state,
+  Meta3dComponentPbrmaterialProtocol.Index.state,
   StateType.config,
   StateType.gameObject,
   Meta3dComponentTransformProtocol.Index.transform,
