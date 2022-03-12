@@ -41,10 +41,10 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   getAllComponentsFunc: (. state) => {
     GetAllPBRMaterialsUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, ( component, gameObject )) => {
-    DisposePBRMaterialUtils.deferDisposeComponent(state, ( component, gameObject ))
+  deferDisposeComponentFunc: (. state, (component, gameObject)) => {
+    DisposePBRMaterialUtils.deferDisposeComponent(state, (component, gameObject))
   },
-  disposeComponentsFunc: (. state, components) => {
-    state
+  disposeComponentsFunc: (. state, componentDataMap) => {
+    DisposePBRMaterialUtils.disposeComponents(state, componentDataMap)
   },
 }

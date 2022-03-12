@@ -153,11 +153,13 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the first pbrMaterial to the gameObject", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material1.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, material1.contents)
     })
 
     \"and"("add the second pbrMaterial to the gameObject", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject, material2.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, material2.contents)
     })
 
     then("get the gameObject's pbrMaterial should be the second one", () => {
@@ -205,7 +207,12 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."remove a pbrMaterial which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
+  test(."remove a pbrMaterial which add to two gameObjects from a gameObject", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
     let gameObject1 = 10
     let gameObject2 = 11
     let pbrMaterial = ref(Obj.magic(1))
@@ -302,9 +309,16 @@ defineFeature(feature, test => {
   })
 
   test(."get need disposed pbrMaterials", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10
+    let gameObject2 = 11
+
     let pbrMaterial1 = ref(Obj.magic(1))
     let pbrMaterial2 = ref(Obj.magic(1))
     let pbrMaterial3 = ref(Obj.magic(1))
+
+    given("create two gameObject as g1, g2", () => {
+      ()
+    })
 
     \"when"("I get contribute", () => {
       contribute := Main.getComponentContribute()
@@ -325,24 +339,43 @@ defineFeature(feature, test => {
       pbrMaterial3 := p3
     })
 
-// TODO fix magic
-    \"and"("defer dispose p1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial1.contents, Obj.magic(1) ))
+    \"and"("add p1 to g1", () => {
+      ()
     })
 
-    \"and"("defer dispose p1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial1.contents, Obj.magic(1) ))
+    \"and"("add p3 to g2", () => {
+      ()
     })
 
-    \"and"("defer dispose p3", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, ( pbrMaterial3.contents, Obj.magic(1) ))
+    \"and"("defer dispose p1 from g1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial1.contents, gameObject1),
+        )
     })
 
-    then("get need disposed pbrMaterials should return [p1, p3]", () => {
-      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
-          pbrMaterial1.contents,
-          pbrMaterial3.contents,
-        ]
+    \"and"("defer dispose p1 from g1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial1.contents, gameObject1),
+        )
+    })
+
+    \"and"("defer dispose p3 from g2", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (pbrMaterial3.contents, gameObject2),
+        )
+    })
+
+    then("get need disposed pbrMaterials should return [[p1, g1], [p3, g2]]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect ==
+        Meta3dCommonlib.MutableSparseMap.createEmpty()
+        ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial1.contents, [gameObject1])
+        ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial3.contents, [gameObject2])
     })
   })
 
@@ -374,8 +407,10 @@ defineFeature(feature, test => {
     })
 
     \"and"("add them to the gameObjects one by one", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, material1.contents)
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, material2.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, material1.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, material2.contents)
     })
 
     then("getAllComponentsFunc should get the two pbrMaterials", () => {
@@ -443,8 +478,10 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the pbrMaterial to the two gameObjects", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, material.contents)
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, material.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, material.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, material.contents)
     })
 
     then("getGameObjectsFunc should return the two gameObjects", () => {

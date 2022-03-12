@@ -1,7 +1,7 @@
 open StateType
 
-let _removeComponent = (gameObjectMap, component) =>
-  gameObjectMap->Meta3dCommonlib.MutableSparseMap.remove(component)
+let _removeComponent = (gameObjectComponentMap, component) =>
+  gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(component)
 
 let deferDisposeComponent = (
   {gameObjectPBRMaterialMap, needDisposedPBRMaterialArray} as state,
@@ -94,4 +94,6 @@ let disposeComponents = (state, componentDataMap) => {
     needDisposedComponents,
     disposedComponents,
   )
+
+  state
 }

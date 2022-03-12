@@ -555,14 +555,19 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 
 
-TODO implement batch dispose
+# TODO implement batch dispose
 
-TODO pass test
+# TODO pass test
 TODO add defer, batch dispose test
 
 
 
-TODO pbrmaterial test->defer dispose->fix magic
+# TODO pbrmaterial test->defer dispose->fix magic
+
+
+** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
+
+** TODO update GameObjectManager->gameobject
 
 
 ** TODO refactor: remove component_protocols -> state?
@@ -599,8 +604,6 @@ refer to ComponentMapService
 
 ** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
 
-
-** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
 
 
 

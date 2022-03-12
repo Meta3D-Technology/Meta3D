@@ -53,9 +53,7 @@ function getComponentContribute(param) {
                           param[1]
                         ]);
             }),
-          disposeComponentsFunc: (function (state, components) {
-              return state;
-            }),
+          disposeComponentsFunc: DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.disposeComponents,
           getAllComponentsFunc: GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial.getAll
         };
 }

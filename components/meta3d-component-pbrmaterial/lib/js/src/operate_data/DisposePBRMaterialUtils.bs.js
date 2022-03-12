@@ -79,7 +79,7 @@ function disposeComponents(state, componentDataMap) {
   var state$1 = match[0];
   state$1.disposedPBRMaterialArray = state$1.disposedPBRMaterialArray.concat(disposedComponents);
   state$1.needDisposedPBRMaterialArray = _removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
-  
+  return state$1;
 }
 
 exports._removeComponent = _removeComponent;

@@ -69,13 +69,16 @@ Feature: Get Contribute
         Then get the pbrMaterials of [g1, g2] should return [p1, p3]
 
     Scenario: get need disposed pbrMaterials
+        Given create two gameObject as g1, g2
         When I get contribute
         And create a state
         And create three pbrMaterials as p1, p2, p3
-		And defer dispose p1
-		And defer dispose p1
-		And defer dispose p3
-        Then get need disposed pbrMaterials should return [p1, p3]
+        And add p1 to g1
+        And add p3 to g2
+		And defer dispose p1 from g1
+		And defer dispose p1 from g1
+		And defer dispose p3 from g2
+        Then get need disposed pbrMaterials should return [[p1, g1], [p3, g2]]
 
     Scenario: get all pbrMaterials
         Given create two gameObjects
