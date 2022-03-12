@@ -62,11 +62,11 @@ type service = {
   ) => Js.Nullable.t<ComponentType.component>,
   deferDisposeComponent: (
     RegisterComponentType.usedComponentContribute,
-    ComponentType.component,
+    ( ComponentType.component,  GameObjectType.gameObject),
   ) => RegisterComponentType.usedComponentContribute,
   disposeComponents: (
     RegisterComponentType.usedComponentContribute,
-    array<ComponentType.component>,
+    ComponentType.batchDisposeData
   ) => RegisterComponentType.usedComponentContribute,
   getAllComponents: RegisterComponentType.usedComponentContribute => array<
     ComponentType.component,

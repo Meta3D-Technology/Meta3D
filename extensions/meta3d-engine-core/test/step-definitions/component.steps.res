@@ -392,7 +392,7 @@ defineFeature(feature, test => {
 
           (state, component)
         },
-        ~deferDisposeComponentFunc=(. state, component) => {
+        ~deferDisposeComponentFunc=(. state, (component, _)) => {
           {
             "needDisposeArray": JsObjTool.getObjValue(
               state,
@@ -415,7 +415,7 @@ defineFeature(feature, test => {
     \"when"("defer dispose c1", () => {
       usedContribute :=
         MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.deferDisposeComponent(
-          c1.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(c1.contents),
         )
     })
 
@@ -450,7 +450,7 @@ defineFeature(feature, test => {
         ~disposeComponentsFunc=(. state, components) => {
           {
             "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
-              components,
+              components->Obj.magic,
             ),
           }->Obj.magic
         },
@@ -468,9 +468,9 @@ defineFeature(feature, test => {
 
     \"when"("dispose [c1]", () => {
       usedContribute :=
-        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.disposeComponents([
-          c1.contents,
-        ])
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.disposeComponents(
+          [c1.contents]->Obj.magic,
+        )
     })
 
     then("mark c1 as disposed", () => {

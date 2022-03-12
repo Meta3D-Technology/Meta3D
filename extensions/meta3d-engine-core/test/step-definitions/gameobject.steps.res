@@ -7,13 +7,13 @@ let feature = loadFeature("./test/features/gameobject.feature")
 
 defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
-    let transformContribute = ref(Obj.magic(1))
+  let transformContribute = ref(Obj.magic(1))
 
   let _buildGameObjectData = (
     ~createStateFunc=(. config) => Obj.magic(1),
     ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
     ~getAllGameObjectsFunc=(. state) => [],
-    ~getNeedDisposedGameObjectsFunc= (. state) => [],
+    ~getNeedDisposedGameObjectsFunc=(. state) => [],
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
     ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
     (),
@@ -21,7 +21,7 @@ defineFeature(feature, test => {
     createStateFunc: createStateFunc,
     createGameObjectFunc: createGameObjectFunc,
     getAllGameObjectsFunc: getAllGameObjectsFunc,
-getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
+    getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
     disposeGameObjectsFunc: disposeGameObjectsFunc,
   }
@@ -76,18 +76,17 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     })
   })
 
+  let _prepareTransform = (\"when", \"and", c) => {
+    \"when"("register transform contribute", () => {
+      transformContribute := c
 
-    let _prepareTransform = (\"when", \"and", c) => {
-      \"when"("register transform contribute", () => {
-        transformContribute := c
+      MainTool.registerComponent(transformContribute.contents)
+    })
 
-        MainTool.registerComponent(transformContribute.contents)
-      })
-
-      \"and"("create and set transform state", () => {
-        MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
-      })
-    }
+    \"and"("create and set transform state", () => {
+      MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
+    })
+  }
 
   test(."defer dispose gameObject", ({given, \"and", \"when", then}) => {
     let g1 = ref(Obj.magic(1))
@@ -110,17 +109,22 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
         ~createGameObjectFunc=(. state) => {
           (state, 1->Obj.magic)
         },
-        ~deferDisposeGameObjectFunc=(. ( gameObjectState, transformState ), (_, deferDisposeTransformFunc ), gameObject) => {
+        ~deferDisposeGameObjectFunc=(.
+          (gameObjectState, transformState),
+          (_, deferDisposeTransformFunc),
+          gameObject,
+        ) => {
           let transformState = deferDisposeTransformFunc(.
             transformState,
-            t1.contents,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
           )
 
           (
             {
-              "needDisposeArray": JsObjTool.getObjValue(gameObjectState, "needDisposeArray")->Meta3dCommonlib.ArraySt.push(
-                gameObject,
-              ),
+              "needDisposeArray": JsObjTool.getObjValue(
+                gameObjectState,
+                "needDisposeArray",
+              )->Meta3dCommonlib.ArraySt.push(gameObject),
             }->Obj.magic,
             transformState,
           )
@@ -144,11 +148,12 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
             "needDisposeArray": [],
           }->Obj.magic
         },
-        ~deferDisposeComponentFunc=(. state, component) => {
+        ~deferDisposeComponentFunc=(. state, (component, _)) => {
           {
-              "needDisposeArray": JsObjTool.getObjValue(state, "needDisposeArray")->Meta3dCommonlib.ArraySt.push(
-                component,
-              ),
+            "needDisposeArray": JsObjTool.getObjValue(
+              state,
+              "needDisposeArray",
+            )->Meta3dCommonlib.ArraySt.push(component),
           }->Obj.magic
         },
         (),
@@ -196,7 +201,6 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     > = ref(Obj.magic(1))
     let transformName = Meta3dComponentTransformProtocol.Index.componentName
 
-
     _prepare(
       given,
       \"when",
@@ -210,18 +214,19 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
         ~createGameObjectFunc=(. state) => {
           (state, 1->Obj.magic)
         },
-        ~disposeGameObjectsFunc=(. ( gameObjectState, transformState ) as state, (_, disposeComponentsFunc ), gameObjects) => {
-          let transformState = disposeComponentsFunc(.
-            transformState,
-            [t1.contents],
-          )
+        ~disposeGameObjectsFunc=(.
+          (gameObjectState, transformState) as state,
+          (_, disposeComponentsFunc),
+          gameObjects,
+        ) => {
+          let transformState = disposeComponentsFunc(. transformState, [t1.contents]->Obj.magic)
 
           (
             {
-              "disposedArray": JsObjTool.getObjValue(gameObjectState, "disposedArray")->Js.Array.concat(
-                gameObjects,
-                _
-              ),
+              "disposedArray": JsObjTool.getObjValue(
+                gameObjectState,
+                "disposedArray",
+              )->Js.Array.concat(gameObjects, _),
             }->Obj.magic,
             transformState,
           )
@@ -248,7 +253,7 @@ getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
         ~disposeComponentsFunc=(. state, components) => {
           {
             "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
-              components,
+              components->Obj.magic,
             ),
           }->Obj.magic
         },

@@ -78,7 +78,7 @@ function disposeGameObjects(state, gameObjects) {
         usedGameObjectContribute.state,
         usedTransformContribute.state
       ], [
-        usedTransformContribute.getComponentsFunc,
+        usedTransformContribute.getComponentFunc,
         usedTransformContribute.disposeComponentsFunc
       ], gameObjects);
   var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);

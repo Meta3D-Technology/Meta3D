@@ -104,7 +104,7 @@ let disposeGameObjects = (state, gameObjects) => {
 
   let (gameObjectState, transformState) = usedGameObjectContribute.disposeGameObjectsFunc(.
     (usedGameObjectContribute.state, usedTransformContribute.state),
-    (usedTransformContribute.getComponentsFunc, usedTransformContribute.disposeComponentsFunc),
+    (usedTransformContribute.getComponentFunc, usedTransformContribute.disposeComponentsFunc),
     gameObjects,
   )
 

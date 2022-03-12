@@ -71,7 +71,6 @@ function createAndSetComponentState(state, componentName, config) {
                   removeComponentFunc: match.removeComponentFunc,
                   hasComponentFunc: match.hasComponentFunc,
                   getComponentFunc: match.getComponentFunc,
-                  getComponentsFunc: match.getComponentsFunc,
                   getNeedDisposedComponentsFunc: match.getNeedDisposedComponentsFunc,
                   deferDisposeComponentFunc: match.deferDisposeComponentFunc,
                   disposeComponentsFunc: match.disposeComponentsFunc,
@@ -124,22 +123,18 @@ function getComponent(usedComponentContribute, gameObject) {
   return usedComponentContribute.getComponentFunc(usedComponentContribute.state, gameObject);
 }
 
-function getComponents(usedComponentContribute, gameObjects) {
-  return usedComponentContribute.getComponentsFunc(usedComponentContribute.state, gameObjects);
-}
-
 function getNeedDisposedComponents(usedComponentContribute) {
   return usedComponentContribute.getNeedDisposedComponentsFunc(usedComponentContribute.state);
 }
 
-function deferDisposeComponent(usedComponentContribute, component) {
-  var componentState = usedComponentContribute.deferDisposeComponentFunc(usedComponentContribute.state, component);
+function deferDisposeComponent(usedComponentContribute, deferDisposeData) {
+  var componentState = usedComponentContribute.deferDisposeComponentFunc(usedComponentContribute.state, deferDisposeData);
   usedComponentContribute.state = componentState;
   return usedComponentContribute;
 }
 
-function disposeComponents(usedComponentContribute, components) {
-  var componentState = usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, components);
+function disposeComponents(usedComponentContribute, batchDisposeData) {
+  var componentState = usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, batchDisposeData);
   usedComponentContribute.state = componentState;
   return usedComponentContribute;
 }
@@ -174,7 +169,6 @@ exports.addComponent = addComponent;
 exports.removeComponent = removeComponent;
 exports.hasComponent = hasComponent;
 exports.getComponent = getComponent;
-exports.getComponents = getComponents;
 exports.getNeedDisposedComponents = getNeedDisposedComponents;
 exports.deferDisposeComponent = deferDisposeComponent;
 exports.disposeComponents = disposeComponents;

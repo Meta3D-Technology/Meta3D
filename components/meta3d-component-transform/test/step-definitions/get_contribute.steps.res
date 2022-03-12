@@ -12,7 +12,6 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
@@ -269,15 +268,27 @@ defineFeature(feature, test => {
     })
 
     \"and"("defer dispose t1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform1.contents ))
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(transform1.contents),
+        )
     })
 
     \"and"("defer dispose t1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform1.contents ))
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(transform1.contents),
+        )
     })
 
     \"and"("defer dispose t3", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, DeferDisposeTool.buildDeferDisposeData ( transform3.contents ))
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(transform3.contents),
+        )
     })
 
     then("get need disposed transforms should return [t1, t3]", () => {

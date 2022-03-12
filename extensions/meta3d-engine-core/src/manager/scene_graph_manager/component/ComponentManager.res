@@ -76,7 +76,6 @@ let createAndSetComponentState = (
     removeComponentFunc,
     hasComponentFunc,
     getComponentFunc,
-    getComponentsFunc,
     getNeedDisposedComponentsFunc,
     deferDisposeComponentFunc,
     disposeComponentsFunc,
@@ -103,7 +102,6 @@ let createAndSetComponentState = (
           removeComponentFunc: removeComponentFunc,
           hasComponentFunc: hasComponentFunc,
           getComponentFunc: getComponentFunc,
-          getComponentsFunc: getComponentsFunc,
           getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc,
           deferDisposeComponentFunc: deferDisposeComponentFunc,
           disposeComponentsFunc: disposeComponentsFunc,
@@ -196,36 +194,31 @@ let getComponent = (
   usedComponentContribute.getComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
-let getComponents = (
-  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObjects: array<Meta3dEngineCoreProtocol.GameObjectType.gameObject>,
-): array<Meta3dEngineCoreProtocol.ComponentType.component> => {
-  usedComponentContribute.getComponentsFunc(. usedComponentContribute.state, gameObjects)
-}
-
 let getNeedDisposedComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-): array<Meta3dEngineCoreProtocol.ComponentType.component> => {
+)=> {
   usedComponentContribute.getNeedDisposedComponentsFunc(. usedComponentContribute.state)
 }
 
 let deferDisposeComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  component: Meta3dEngineCoreProtocol.ComponentType.component,
+  deferDisposeData
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.deferDisposeComponentFunc(.
     usedComponentContribute.state,
-    component,
+    deferDisposeData,
   )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 
 let disposeComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  components: array<Meta3dEngineCoreProtocol.ComponentType.component>,
+  // components: array<Meta3dEngineCoreProtocol.ComponentType.component>,
+  batchDisposeData
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.disposeComponentsFunc(.
     usedComponentContribute.state,
-    components,
+    // components,
+    batchDisposeData
   )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 

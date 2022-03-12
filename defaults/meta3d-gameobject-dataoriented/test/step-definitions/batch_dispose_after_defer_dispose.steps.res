@@ -75,28 +75,30 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-deferDisposeTransformFuncStub:= createEmptyStubWithJsObjSandbox(sandbox)
+      deferDisposeTransformFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-      let (gs, ts) =
-        contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
+      let (gs, ts) = contribute.contents.deferDisposeGameObjectFunc(.
+        (state.contents, transformState.contents->Obj.magic),
         (
-(. _, _) => transform1.contents -> Meta3dCommonlib.NullableSt.return ,
-deferDisposeTransformFuncStub.contents
+          (. _, _) => transform1.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeTransformFuncStub.contents,
         ),
-         gameObject1.contents)
+        gameObject1.contents,
+      )
 
       state := gs
       transformState := ts->Obj.magic
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts) =
-        contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
+      let (gs, ts) = contribute.contents.deferDisposeGameObjectFunc(.
+        (state.contents, transformState.contents->Obj.magic),
         (
-(. _, _) => transform2.contents -> Meta3dCommonlib.NullableSt.return ,
-deferDisposeTransformFuncStub.contents
+          (. _, _) => transform2.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeTransformFuncStub.contents,
         ),
-         gameObject2.contents)
+        gameObject2.contents,
+      )
 
       state := gs
       transformState := ts->Obj.magic
@@ -107,8 +109,12 @@ deferDisposeTransformFuncStub.contents
       let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
         (state.contents, transformState.contents->Obj.magic),
         (
-          (. transformState, _) => [transform1.contents, transform2.contents],
-           disposeTransformsFuncStub.contents ),
+          (. transformState, gameObject) =>
+            Meta3dCommonlib.EqualTool.isEqual(gameObject, gameObject1.contents)
+              ? transform1.contents->Js.Nullable.return
+              : transform2.contents->Js.Nullable.return,
+          disposeTransformsFuncStub.contents,
+        ),
         [gameObject1.contents, gameObject2.contents],
       )
 
@@ -118,24 +124,27 @@ deferDisposeTransformFuncStub.contents
 
     then("should dispose [transform1, transform2]", () => {
       (
-      deferDisposeTransformFuncStub.contents
-      ->Obj.magic
-      -> getCall(0, _)
-      ->SinonTool.calledWithArg2(matchAny, transform1.contents),
-      deferDisposeTransformFuncStub.contents
-      ->Obj.magic
-      -> getCall(1, _)
-      ->SinonTool.calledWithArg2(matchAny, transform2.contents),
-      disposeTransformsFuncStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2(matchAny, [transform1.contents, transform2.contents])
-      )
-      ->expect == ( true, true, true )
+        deferDisposeTransformFuncStub.contents
+        ->Obj.magic
+        ->getCall(0, _)
+        ->SinonTool.calledWithArg2(matchAny, (transform1.contents, matchAny)),
+        deferDisposeTransformFuncStub.contents
+        ->Obj.magic
+        ->getCall(1, _)
+        ->SinonTool.calledWithArg2(matchAny, (transform2.contents, matchAny)),
+        disposeTransformsFuncStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(matchAny, [transform1.contents, transform2.contents]),
+      )->expect == (true, true, true)
     })
   })
 
-
-  test(."should remove disposed gameObjects from needDisposedGameObjects", ({given, \"and", \"when", then}) => {
+  test(."should remove disposed gameObjects from needDisposedGameObjects", ({
+    given,
+    \"and",
+    \"when",
+    then,
+  }) => {
     let gameObject1 = ref(Obj.magic(1))
     let gameObject2 = ref(Obj.magic(2))
     let sandbox = ref(Obj.magic(1))
@@ -163,26 +172,22 @@ deferDisposeTransformFuncStub.contents
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts) =
-        contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
-        (
-createEmptyStubWithJsObjSandbox(sandbox),
-createEmptyStubWithJsObjSandbox(sandbox)
-        ),
-         gameObject1.contents)
+      let (gs, ts) = contribute.contents.deferDisposeGameObjectFunc(.
+        (state.contents, transformState.contents->Obj.magic),
+        (createEmptyStubWithJsObjSandbox(sandbox), createEmptyStubWithJsObjSandbox(sandbox)),
+        gameObject1.contents,
+      )
 
       state := gs
       transformState := ts->Obj.magic
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts) =
-        contribute.contents.deferDisposeGameObjectFunc(. (state.contents, transformState.contents->Obj.magic),
-        (
-createEmptyStubWithJsObjSandbox(sandbox),
-createEmptyStubWithJsObjSandbox(sandbox)
-        ),
-         gameObject2.contents)
+      let (gs, ts) = contribute.contents.deferDisposeGameObjectFunc(.
+        (state.contents, transformState.contents->Obj.magic),
+        (createEmptyStubWithJsObjSandbox(sandbox), createEmptyStubWithJsObjSandbox(sandbox)),
+        gameObject2.contents,
+      )
 
       state := gs
       transformState := ts->Obj.magic
@@ -191,10 +196,8 @@ createEmptyStubWithJsObjSandbox(sandbox)
     \"when"("dispose gameObject1", () => {
       let (gs, ts) = contribute.contents.disposeGameObjectsFunc(.
         (state.contents, transformState.contents->Obj.magic),
-        (
-createEmptyStubWithJsObjSandbox(sandbox),
-           createEmptyStubWithJsObjSandbox(sandbox)),
-        [ gameObject1.contents ],
+        (createEmptyStubWithJsObjSandbox(sandbox), createEmptyStubWithJsObjSandbox(sandbox)),
+        [gameObject1.contents],
       )
 
       state := gs

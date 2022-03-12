@@ -277,7 +277,7 @@ defineFeature(feature, test => {
         ],
         ~getExecFunc=(_, jobName) => {
           switch jobName {
-          | jobName if EqualTool.isEqual(jobName, rootJobName) => rootJob->Js.Nullable.return
+          | jobName if  Meta3dCommonlib. EqualTool.isEqual(jobName, rootJobName) => rootJob->Js.Nullable.return
           | _ => Js.Nullable.null
           }
         },
@@ -372,7 +372,7 @@ defineFeature(feature, test => {
       ],
       ~getExecFunc=(_, jobName) => {
         switch jobName {
-        | jobName if EqualTool.isEqual(jobName, job1Name_a2) => job1->Js.Nullable.return
+        | jobName if  Meta3dCommonlib. EqualTool.isEqual(jobName, job1Name_a2) => job1->Js.Nullable.return
         | "job2_a2" => job2->Js.Nullable.return
         | _ => Js.Nullable.null
         }

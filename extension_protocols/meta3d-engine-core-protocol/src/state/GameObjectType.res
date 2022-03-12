@@ -25,6 +25,7 @@ type usedGameObjectContribute = {
     ComponentType.state,
     gameObject,
     transform,
+    ComponentType.batchDisposeData
   >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state, gameObject>,
 }
@@ -36,4 +37,5 @@ type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
   config,
   gameObject,
   transform,
+  ComponentType.batchDisposeData
 >
