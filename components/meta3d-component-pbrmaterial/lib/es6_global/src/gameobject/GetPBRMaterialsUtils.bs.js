@@ -15,8 +15,11 @@ function _getComponents(gameObjectComponentMap, gameObjects) {
               }), []);
 }
 
-function get(param, gameObjects) {
-  return _getComponents(param.gameObjectPBRMaterialMap, gameObjects);
+function get(param) {
+  var gameObjectPBRMaterialMap = param.gameObjectPBRMaterialMap;
+  return function (gameObjects) {
+    return _getComponents(gameObjectPBRMaterialMap, gameObjects);
+  };
 }
 
 export {

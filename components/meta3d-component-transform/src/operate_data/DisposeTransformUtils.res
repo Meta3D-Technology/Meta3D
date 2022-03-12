@@ -56,28 +56,28 @@ let _disposeData = (
 ) => {
   let state = state->_disposeFromParentAndChildMap(isDebug, component)
 
-  state.localToWorldMatrices = DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+  state.localToWorldMatrices = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalToWorldMatrixIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalToWorldMatricesSize(),
     // TODO change tuple to array
     defaultLocalToWorldMatrix->Obj.magic,
     localToWorldMatrices,
   )
-  state.localPositions = DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+  state.localPositions = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalPositionIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalPositionsSize(),
     // TODO change tuple to array
     defaultLocalPosition->Obj.magic,
     localPositions,
   )
-  state.localRotations = DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+  state.localRotations = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalRotationIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalRotationsSize(),
     // TODO change tuple to array
     defaultLocalRotation->Obj.magic,
     localRotations,
   )
-  state.localScales = DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
+  state.localScales = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalScaleIndex(component),
     Meta3dComponentWorkerUtils.BufferTransformUtils.getLocalScalesSize(),
     // TODO change tuple to array
@@ -98,18 +98,18 @@ let disposeComponents = (
 ) => {
   let isDebug = ConfigUtils.getIsDebug(state)
 
-let needDisposedTransformArray = GetNeedDisposedTransformsUtils.get(state)
+let needDisposedComponents = GetNeedDisposedTransformsUtils.get(state)
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
     "component",
     components,
-    needDisposedTransformArray,
+    needDisposedComponents,
   )
 
   state.disposedTransformArray = disposedTransformArray->Js.Array.concat(components, _)
-  state.needDisposedTransformArray =
-    needDisposedTransformArray->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
+  state.needDisposedComponents =
+    needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
       components,
     )
 

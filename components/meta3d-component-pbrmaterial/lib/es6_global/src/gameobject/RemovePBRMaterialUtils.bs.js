@@ -6,10 +6,14 @@ import * as ConfigUtils$Meta3dComponentPbrmaterial from "../config/ConfigUtils.b
 
 var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
 
-function remove(state, gameObject, pbrMaterial) {
-  ArrayMapUtils$Meta3dCommonlib.removeValue(state.gameObjectsMap, ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), pbrMaterial, gameObject);
-  MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectPBRMaterialMap, gameObject);
-  return state;
+function remove(state) {
+  var gameObjectsMap = state.gameObjectsMap;
+  var gameObjectPBRMaterialMap = state.gameObjectPBRMaterialMap;
+  return function (gameObject, pbrMaterial) {
+    ArrayMapUtils$Meta3dCommonlib.removeValue(gameObjectsMap, ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), pbrMaterial, gameObject);
+    MutableSparseMap$Meta3dCommonlib.remove(gameObjectPBRMaterialMap, gameObject);
+    return state;
+  };
 }
 
 export {

@@ -21,13 +21,25 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentPbrmaterial.createState(param.isDebug, param.pbrMaterialCount);
             }),
-          getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentPbrmaterial.get,
+          getGameObjectsFunc: (function (state, component) {
+              return GetGameObjectsUtils$Meta3dComponentPbrmaterial.get(state)(component);
+            }),
           createComponentFunc: CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
-          addComponentFunc: AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add,
-          removeComponentFunc: RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove,
-          hasComponentFunc: HasPBRMaterialUtils$Meta3dComponentPbrmaterial.has,
-          getComponentFunc: GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get,
-          getComponentsFunc: GetPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
+          addComponentFunc: (function (state, gameObject, component) {
+              return AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add(state)(gameObject, component);
+            }),
+          removeComponentFunc: (function (state, gameObject, component) {
+              return RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove(state)(gameObject, component);
+            }),
+          hasComponentFunc: (function (state, gameObject) {
+              return HasPBRMaterialUtils$Meta3dComponentPbrmaterial.has(state)(gameObject);
+            }),
+          getComponentFunc: (function (state, gameObject) {
+              return GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get(state)(gameObject);
+            }),
+          getComponentsFunc: (function (state, gameObjects) {
+              return GetPBRMaterialsUtils$Meta3dComponentPbrmaterial.get(state)(gameObjects);
+            }),
           getNeedDisposedComponentsFunc: GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
           getComponentDataFunc: (function (state, component, dataName) {
               return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, component, dataName);

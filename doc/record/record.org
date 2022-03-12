@@ -554,7 +554,15 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 
 
-TODO fix magic
+
+TODO implement batch dispose
+
+TODO pass test
+TODO add defer, batch dispose test
+
+
+
+TODO pbrmaterial test->defer dispose->fix magic
 
 
 ** TODO refactor: remove component_protocols -> state?

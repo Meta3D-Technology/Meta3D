@@ -23,6 +23,16 @@ function removeValue(map, isDebug, key, value) {
   }
 }
 
+function batchRemoveValueArr(map, key, valueArr) {
+  var match = MutableSparseMap$Meta3dCommonlib.fastGet(map, key);
+  if (match[0]) {
+    return MutableSparseMap$Meta3dCommonlib.set(map, key, DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(match[1], valueArr));
+  } else {
+    return map;
+  }
+}
+
 exports.addValue = addValue;
 exports.removeValue = removeValue;
+exports.batchRemoveValueArr = batchRemoveValueArr;
 /* No side effect */

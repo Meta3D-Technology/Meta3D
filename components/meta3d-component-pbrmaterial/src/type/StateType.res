@@ -30,8 +30,8 @@ type state = {
   defaultMetalness: float,
   defaultTransmission: float,
   defaultIOR: float,
-  gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
-  gameObjectPBRMaterialMap: Meta3dCommonlibType.MutableSparseMapType.t<
+  mutable gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
+  mutable gameObjectPBRMaterialMap: Meta3dCommonlibType.MutableSparseMapType.t<
     Meta3dGameobjectProtocol.Index.gameObject,
     pbrMaterial,
   >,
