@@ -7,7 +7,7 @@ let feature = loadFeature("./test/features/batch_dispose_before_defer_dispose.fe
 
 defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
-  let state = ref(Obj.magic(1))
+  let gameObjectState = ref(Obj.magic(1))
   let gameObject = ref(Obj.magic(1))
 
   let _createState = (~isDebug=false, ()) => {
@@ -20,7 +20,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create a state and open debug", () => {
-      state := StateTool.createState(~contribute=contribute.contents, ~isDebug=true, ())
+      gameObjectState := StateTool.createState(~contribute=contribute.contents, ~isDebug=true, ())
     })
   }
 
@@ -28,9 +28,9 @@ defineFeature(feature, test => {
     _getContributeAndCreateAState((given, \"and"))
 
     given("create a gameObject", () => {
-      let (s, g) = contribute.contents.createGameObjectFunc(. state.contents)
+      let (s, g) = contribute.contents.createGameObjectFunc(. gameObjectState.contents)
 
-      state := s
+      gameObjectState := s
       gameObject := g
     })
 
@@ -41,7 +41,7 @@ defineFeature(feature, test => {
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
       DisposeTool.disposeGameObjects(
-        ~state=state.contents,
+        ~gameObjectState=gameObjectState.contents,
         ~contribute = contribute.contents,
         ~gameObjects = [gameObject.contents],
 //         ~transformState = transformState.contents,

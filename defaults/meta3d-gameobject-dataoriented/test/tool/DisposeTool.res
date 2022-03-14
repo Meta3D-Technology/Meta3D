@@ -1,22 +1,25 @@
 let deferDisposeGameObject = (
   ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
-    Meta3dGameobjectDataoriented.StateType.state,
+    StateType.state,
     Meta3dComponentTransformProtocol.Index.state,
     Meta3dComponentPbrmaterialProtocol.Index.state,
-    Meta3dGameobjectDataoriented.StateType.config,
-    Meta3dGameobjectDataoriented.StateType.gameObject,
+    StateType.config,
+    StateType.gameObject,
     Meta3dComponentTransformProtocol.Index.transform,
   >,
-  ~state,
+  ~gameObjectState,
   ~gameObject,
   ~transformState=Obj.magic(1),
   ~pbrMaterialState=Obj.magic(1),
-  ~transformFuncs=Obj.magic(1),
-  ~pbrMaterialFuncs=Obj.magic(1),
+  ~transformFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
+  ~pbrMaterialFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => componentState,
+  ),
   (),
 ) => {
   contribute.deferDisposeGameObjectFunc(.
-    (state, transformState->Obj.magic, pbrMaterialState->Obj.magic),
+    (gameObjectState, transformState->Obj.magic, pbrMaterialState->Obj.magic),
     (transformFuncs, pbrMaterialFuncs),
     gameObject,
   )
@@ -31,16 +34,19 @@ let disposeGameObjects = (
     Meta3dGameobjectDataoriented.StateType.gameObject,
     Meta3dComponentTransformProtocol.Index.transform,
   >,
-  ~state,
+  ~gameObjectState,
   ~gameObjects,
   ~transformState=Obj.magic(1),
   ~pbrMaterialState=Obj.magic(1),
-  ~transformFuncs=Obj.magic(1),
-  ~pbrMaterialFuncs=Obj.magic(1),
+  ~transformFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
+  ~pbrMaterialFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => componentState,
+  ),
   (),
 ) => {
   contribute.disposeGameObjectsFunc(.
-    (state, transformState->Obj.magic, pbrMaterialState->Obj.magic),
+    (gameObjectState, transformState->Obj.magic, pbrMaterialState->Obj.magic),
     (transformFuncs, pbrMaterialFuncs),
     gameObjects,
   )
