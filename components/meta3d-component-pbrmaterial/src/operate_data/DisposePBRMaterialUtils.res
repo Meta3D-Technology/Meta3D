@@ -5,13 +5,13 @@ let _removeComponent = (gameObjectComponentMap, gameObject) =>
   gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject)
 
 let deferDisposeComponent = (
-  {gameObjectPBRMaterialMap, needDisposedPBRMaterialArray} as state,
+  {gameObjectPBRMaterialMap, needDisposedPBRMaterials} as state,
   (component, gameObject),
 ) => {
   {
     ...state,
     gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->_removeComponent(gameObject),
-    needDisposedPBRMaterialArray: needDisposedPBRMaterialArray->Meta3dCommonlib.ArrayMapUtils.addValue(
+    needDisposedPBRMaterials: needDisposedPBRMaterials->Meta3dCommonlib.ArrayMapUtils.addValue(
       component,
       gameObject,
     ),
@@ -88,9 +88,9 @@ let disposeComponents = (state, componentDataMap) => {
       (state, []),
     )
 
-  state.disposedPBRMaterialArray =
-    state.disposedPBRMaterialArray->Js.Array.concat(disposedComponents, _)
-  state.needDisposedPBRMaterialArray = _removeDisposedComponentsFromNeedDisposedComponents(
+  state.disposedPBRMaterials =
+    state.disposedPBRMaterials->Js.Array.concat(disposedComponents, _)
+  state.needDisposedPBRMaterials = _removeDisposedComponentsFromNeedDisposedComponents(
     needDisposedComponents,
     disposedComponents,
   )

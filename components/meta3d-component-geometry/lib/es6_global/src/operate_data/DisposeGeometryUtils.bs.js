@@ -14,11 +14,11 @@ var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
 
 function deferDisposeComponent(state) {
   var gameObjectGeometryMap = state.gameObjectGeometryMap;
-  var needDisposedGeometryArray = state.needDisposedGeometryArray;
+  var needDisposedGeometrys = state.needDisposedGeometrys;
   return function (param) {
     var gameObject = param[1];
     var newrecord = Caml_obj.caml_obj_dup(state);
-    newrecord.needDisposedGeometryArray = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedGeometryArray, param[0], gameObject);
+    newrecord.needDisposedGeometrys = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedGeometrys, param[0], gameObject);
     newrecord.gameObjectGeometryMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectGeometryMap, gameObject);
     return newrecord;
   };
@@ -81,8 +81,8 @@ function disposeComponents(state, componentDataMap) {
       ]);
   var disposedComponents = match[1];
   var state$1 = match[0];
-  state$1.disposedGeometryArray = state$1.disposedGeometryArray.concat(disposedComponents);
-  state$1.needDisposedGeometryArray = _removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
+  state$1.disposedGeometrys = state$1.disposedGeometrys.concat(disposedComponents);
+  state$1.needDisposedGeometrys = _removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
   return state$1;
 }
 

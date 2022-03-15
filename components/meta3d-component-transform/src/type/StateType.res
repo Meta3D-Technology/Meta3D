@@ -24,6 +24,6 @@ type state = {
     transform,
   >,
   mutable dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,
-  mutable needDisposedTransformArray: Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-  mutable disposedTransformArray: array<transform>,
+  mutable needDisposedTransforms: Meta3dComponentTransformProtocol.Index.needDisposedComponents,
+  mutable disposedTransforms: array<transform>,
 }

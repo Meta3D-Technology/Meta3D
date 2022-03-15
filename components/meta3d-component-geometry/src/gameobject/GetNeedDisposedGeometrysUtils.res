@@ -1,7 +1,7 @@
 open StateType
 
-let get = ({needDisposedGeometryArray}) => {
-  needDisposedGeometryArray->Meta3dCommonlib.MutableSparseMap.reducei(
+let get = ({needDisposedGeometrys}) => {
+  needDisposedGeometrys->Meta3dCommonlib.MutableSparseMap.reducei(
     (. result, gameObjects, component) => {
       result->Meta3dCommonlib.MutableSparseMap.set(
         component,

@@ -24,6 +24,6 @@ type state = {
     Meta3dGameobjectProtocol.Index.gameObject,
     geometry,
   >,
-  mutable needDisposedGeometryArray: Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
-  mutable disposedGeometryArray: array<geometry>,
+  mutable needDisposedGeometrys: Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
+  mutable disposedGeometrys: array<geometry>,
 }

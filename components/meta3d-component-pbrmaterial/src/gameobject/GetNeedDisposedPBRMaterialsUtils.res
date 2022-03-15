@@ -1,7 +1,7 @@
 open StateType
 
-let get = ({needDisposedPBRMaterialArray}) => {
-  needDisposedPBRMaterialArray->Meta3dCommonlib.MutableSparseMap.reducei(
+let get = ({needDisposedPBRMaterials}) => {
+  needDisposedPBRMaterials->Meta3dCommonlib.MutableSparseMap.reducei(
     (. result, gameObjects, component) => {
       result->Meta3dCommonlib.MutableSparseMap.set(
         component,

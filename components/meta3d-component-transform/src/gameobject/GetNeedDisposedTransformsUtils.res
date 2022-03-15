@@ -1,5 +1,5 @@
 open StateType
 
-let get = ({needDisposedTransformArray}) => {
-  needDisposedTransformArray->Meta3dCommonlib.ArraySt.removeDuplicateItems
+let get = ({needDisposedTransforms}) => {
+  needDisposedTransforms->Meta3dCommonlib.ArraySt.removeDuplicateItems
 }

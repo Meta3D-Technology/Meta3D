@@ -609,12 +609,12 @@ pass dispose scene
 ** DONE refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
 
 
-** TODO refactor: geometry, pbrMaterial->dispose: remove duplicate
+** DONE refactor: geometry, pbrMaterial->dispose: remove duplicate
 
 
 
 
-** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs
+** DONE rename needDisposedXxxArray, disposedXxxArray to Xxxs
 
 
 ** TODO refactor: remove component_protocols -> state?

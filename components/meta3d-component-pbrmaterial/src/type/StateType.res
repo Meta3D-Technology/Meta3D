@@ -44,6 +44,6 @@ type state = {
   normalMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, normalMap>,
   transmissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, transmissionMap>,
   specularMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, specularMap>,
-  mutable needDisposedPBRMaterialArray: Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-  mutable disposedPBRMaterialArray: array<pbrMaterial>,
+  mutable needDisposedPBRMaterials: Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
+  mutable disposedPBRMaterials: array<pbrMaterial>,
 }

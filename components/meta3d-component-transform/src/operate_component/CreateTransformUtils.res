@@ -8,11 +8,11 @@ let _initDataWhenCreate = (childrenMap, index) => {
 
 let create = (state: StateType.state): (StateType.state, Meta3dComponentTransformProtocol.Index.transform) => {
   let index = state.maxIndex
-  let (disposedTransformArray, index, newIndex) =
-    state.disposedTransformArray->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
+  let (disposedTransforms, index, newIndex) =
+    state.disposedTransforms->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
 
   state.maxIndex = newIndex
-  state.disposedTransformArray = disposedTransformArray
+  state.disposedTransforms = disposedTransforms
 
   _initDataWhenCreate(state.childrenMap, index)
 
