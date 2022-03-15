@@ -44,25 +44,25 @@ type service = {
   ) => RegisterComponentType.usedComponentContribute,
   addComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
     ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   removeComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
     ComponentType.component,
   ) => RegisterComponentType.usedComponentContribute,
   hasComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
   ) => bool,
   getComponent: (
     RegisterComponentType.usedComponentContribute,
-    GameObjectType.gameObject,
+    Meta3dGameobjectProtocol.Index.gameObject,
   ) => Js.Nullable.t<ComponentType.component>,
   deferDisposeComponent: (
     RegisterComponentType.usedComponentContribute,
-    ( ComponentType.component,  GameObjectType.gameObject),
+    ( ComponentType.component,  Meta3dGameobjectProtocol.Index.gameObject),
   ) => RegisterComponentType.usedComponentContribute,
   disposeComponents: (
     RegisterComponentType.usedComponentContribute,
@@ -79,7 +79,7 @@ type service = {
   getComponentGameObjects: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
-  ) => array<GameObjectType.gameObject>,
+  ) => array<Meta3dGameobjectProtocol.Index.gameObject>,
   getComponentState: (
     StateType.state,
     ComponentContributeType.componentName,
@@ -88,11 +88,11 @@ type service = {
     StateType.state,
     GameObjectType.gameObjectContribute,
   ) => StateType.state,
-  createAndSetGameObjectState: (StateType.state, GameObjectType.config) => StateType.state,
-  createGameObject: StateType.state => (StateType.state, GameObjectType.gameObject),
-  deferDisposeGameObject: (StateType.state, GameObjectType.gameObject) => StateType.state,
-  disposeGameObjects: (StateType.state, array<GameObjectType.gameObject>) => StateType.state,
-  getAllGameObjects: StateType.state => array<GameObjectType.gameObject>,
+  createAndSetGameObjectState: (StateType.state, Meta3dGameobjectProtocol.Index.config) => StateType.state,
+  createGameObject: StateType.state => (StateType.state, Meta3dGameobjectProtocol.Index.gameObject),
+  deferDisposeGameObject: (StateType.state, Meta3dGameobjectProtocol.Index.gameObject) => StateType.state,
+  disposeGameObjects: (StateType.state, array<Meta3dGameobjectProtocol.Index.gameObject>) => StateType.state,
+  getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
   runPipeline: (
     StateType.state,
     Meta3dType.Index.state,

@@ -8,6 +8,24 @@ let feature = loadFeature("./test/features/gameobject.feature")
 defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
   let transformContribute = ref(Obj.magic(1))
+  let pbrMaterialContribute = ref(Obj.magic(1))
+  let geometryContribute = ref(Obj.magic(1))
+  let g1 = ref(Obj.magic(1))
+  let t1 = ref(Obj.magic(1))
+  let usedTransformContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let transformName = Meta3dComponentTransformProtocol.Index.componentName
+  let p1 = ref(Obj.magic(1))
+  let usedPBRMaterialContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let pbrMaterialName = Meta3dComponentPbrmaterialProtocol.Index.componentName
+  let geo1 = ref(Obj.magic(1))
+  let usedGeometryContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let geometryName = Meta3dComponentGeometryProtocol.Index.componentName
 
   let _buildGameObjectData = (
     ~createStateFunc=(. config) => Obj.magic(1),
@@ -76,224 +94,6 @@ defineFeature(feature, test => {
     })
   })
 
-  let _prepareTransform = (\"when", \"and", c) => {
-    \"when"("register transform contribute", () => {
-      transformContribute := c
-
-      MainTool.registerComponent(transformContribute.contents)
-    })
-
-    \"and"("create and set transform state", () => {
-      MainTool.createAndSetComponentState(c.componentName, Obj.magic(1))
-    })
-  }
-
-  test(."defer dispose gameObject", ({given, \"and", \"when", then}) => {
-    let g1 = ref(Obj.magic(1))
-    let t1 = ref(Obj.magic(1))
-    let usedTransformContribute: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-    > = ref(Obj.magic(1))
-    let transformName = Meta3dComponentTransformProtocol.Index.componentName
-
-    _prepare(
-      given,
-      \"when",
-      \"and",
-      _buildGameObjectData(
-        ~createStateFunc=(. config) => {
-          {
-            "needDisposeArray": [],
-          }->Obj.magic
-        },
-        ~createGameObjectFunc=(. state) => {
-          (state, 1->Obj.magic)
-        },
-        ~deferDisposeGameObjectFunc=(.
-          (gameObjectState, transformState),
-          (_, deferDisposeTransformFunc),
-          gameObject,
-        ) => {
-          let transformState = deferDisposeTransformFunc(.
-            transformState,
-            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
-          )
-
-          (
-            {
-              "needDisposeArray": JsObjTool.getObjValue(
-                gameObjectState,
-                "needDisposeArray",
-              )->Meta3dCommonlib.ArraySt.push(gameObject),
-            }->Obj.magic,
-            transformState,
-          )
-        },
-        (),
-      ),
-    )
-
-    _prepareTransform(
-      \"when",
-      \"and",
-      ComponentTool.buildComponentContribute(
-        ~componentName=transformName,
-        ~createComponentFunc=(. state) => {
-          let component = 1->Obj.magic
-
-          (state, component)
-        },
-        ~createStateFunc=(. _) => {
-          {
-            "needDisposeArray": [],
-          }->Obj.magic
-        },
-        ~deferDisposeComponentFunc=(. state, (component, _)) => {
-          {
-            "needDisposeArray": JsObjTool.getObjValue(
-              state,
-              "needDisposeArray",
-            )->Meta3dCommonlib.ArraySt.push(component),
-          }->Obj.magic
-        },
-        (),
-      ),
-    )
-
-    \"and"("create a gameObject as g1", () => {
-      g1 := MainTool.createGameObject()
-    })
-
-    \"and"("create a transform as t1", () => {
-      let (d, transform) =
-        MainTool.unsafeGetUsedComponentContribute(transformName)->MainTool.createComponent
-
-      t1 := transform
-      usedTransformContribute := d
-    })
-
-    \"and"("add t1 to g1", () => {
-      ()
-    })
-
-    \"when"("defer dispose g1", () => {
-      MainTool.deferDisposeGameObject(g1.contents)
-    })
-
-    then("mark g1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getGameObjectState(), "needDisposeArray")
-      ->Js.Array.includes(g1.contents, _)
-      ->expect == true
-    })
-
-    \"and"("mark t1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "needDisposeArray")
-      ->Js.Array.includes(t1.contents, _)
-      ->expect == true
-    })
-  })
-
-  test(."dispose gameObjects", ({given, \"and", \"when", then}) => {
-    let g1 = ref(Obj.magic(1))
-    let t1 = ref(Obj.magic(1))
-    let usedTransformContribute: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-    > = ref(Obj.magic(1))
-    let transformName = Meta3dComponentTransformProtocol.Index.componentName
-
-    _prepare(
-      given,
-      \"when",
-      \"and",
-      _buildGameObjectData(
-        ~createStateFunc=(. config) => {
-          {
-            "disposedArray": [],
-          }->Obj.magic
-        },
-        ~createGameObjectFunc=(. state) => {
-          (state, 1->Obj.magic)
-        },
-        ~disposeGameObjectsFunc=(.
-          (gameObjectState, transformState) as state,
-          (_, disposeComponentsFunc),
-          gameObjects,
-        ) => {
-          let transformState = disposeComponentsFunc(. transformState, [t1.contents]->Obj.magic)
-
-          (
-            {
-              "disposedArray": JsObjTool.getObjValue(
-                gameObjectState,
-                "disposedArray",
-              )->Js.Array.concat(gameObjects, _),
-            }->Obj.magic,
-            transformState,
-          )
-        },
-        (),
-      ),
-    )
-
-    _prepareTransform(
-      \"when",
-      \"and",
-      ComponentTool.buildComponentContribute(
-        ~componentName=transformName,
-        ~createComponentFunc=(. state) => {
-          let component = 1->Obj.magic
-
-          (state, component)
-        },
-        ~createStateFunc=(. _) => {
-          {
-            "disposedArray": [],
-          }->Obj.magic
-        },
-        ~disposeComponentsFunc=(. state, components) => {
-          {
-            "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
-              components->Obj.magic,
-            ),
-          }->Obj.magic
-        },
-        (),
-      ),
-    )
-
-    \"and"("create a gameObject as g1", () => {
-      g1 := MainTool.createGameObject()
-    })
-
-    \"and"("create a transform as t1", () => {
-      let (d, transform) =
-        MainTool.unsafeGetUsedComponentContribute(transformName)->MainTool.createComponent
-
-      t1 := transform
-      usedTransformContribute := d
-    })
-
-    \"and"("add t1 to g1", () => {
-      ()
-    })
-
-    \"when"("dispose [g1]", () => {
-      MainTool.disposeGameObjects([g1.contents])
-    })
-
-    then("mark g1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getGameObjectState(), "disposedArray")
-      ->Js.Array.includes(g1.contents, _)
-      ->expect == true
-    })
-
-    \"and"("mark t1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")
-      ->Js.Array.includes(t1.contents, _)
-      ->expect == true
-    })
-  })
-
   test(."get all gameObjects", ({given, \"when", \"and", then}) => {
     let allGameObjects = []
 
@@ -334,6 +134,279 @@ defineFeature(feature, test => {
 
     then("getAllGameObjects should return them", () => {
       MainTool.getAllGameObjects()->expect == allGameObjects
+    })
+  })
+
+  let _buildComponentContribute = componentName => {
+    ComponentTool.buildComponentContribute(
+      ~componentName,
+      ~createComponentFunc=(. state) => {
+        let component = 1->Obj.magic
+
+        (state, component)
+      },
+      ~createStateFunc=(. _) => {
+        {
+          "needDisposeArray": [],
+          "disposedArray": [],
+        }->Obj.magic
+      },
+      ~deferDisposeComponentFunc=(. state, (component, _)) => {
+        {
+          "needDisposeArray": JsObjTool.getObjValue(
+            state,
+            "needDisposeArray",
+          )->Meta3dCommonlib.ArraySt.push(component),
+        }->Obj.magic
+      },
+      ~disposeComponentsFunc=(. state, batchDisposeData) => {
+        {
+          "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
+            batchDisposeData->Obj.magic,
+          ),
+        }->Obj.magic
+      },
+      (),
+    )
+  }
+
+  let _prepareComponentsAndCreate = (\"when", \"and") => {
+    let transformC = _buildComponentContribute(transformName)
+    let pbrMaterialC = _buildComponentContribute(pbrMaterialName)
+    let geometryC = _buildComponentContribute(geometryName)
+
+    \"when"("register transform contribute", () => {
+      transformContribute := transformC
+
+      MainTool.registerComponent(transformContribute.contents)
+    })
+
+    \"and"("create and set transform state", () => {
+      MainTool.createAndSetComponentState(transformC.componentName, Obj.magic(1))
+    })
+
+    \"and"("register pbrMaterial contribute", () => {
+      pbrMaterialContribute := pbrMaterialC
+
+      MainTool.registerComponent(pbrMaterialContribute.contents)
+    })
+
+    \"and"("create and set pbrMaterial state", () => {
+      MainTool.createAndSetComponentState(pbrMaterialC.componentName, Obj.magic(1))
+    })
+
+    \"and"("register geometry contribute", () => {
+      geometryContribute := geometryC
+
+      MainTool.registerComponent(geometryContribute.contents)
+    })
+
+    \"and"("create and set geometry state", () => {
+      MainTool.createAndSetComponentState(geometryC.componentName, Obj.magic(1))
+    })
+
+    \"and"("create a gameObject as g1", () => {
+      g1 := MainTool.createGameObject()
+    })
+
+    \"and"("create a transform as t1", () => {
+      let (d, transform) =
+        MainTool.unsafeGetUsedComponentContribute(transformName)->MainTool.createComponent
+
+      t1 := transform
+      usedTransformContribute := d
+    })
+
+    \"and"("create a pbrMaterial as p1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(pbrMaterialName)->MainTool.createComponent
+
+      p1 := component
+      usedPBRMaterialContribute := d
+    })
+
+    \"and"("create a geometry as geo1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(geometryName)->MainTool.createComponent
+
+      geo1 := component
+      usedGeometryContribute := d
+    })
+
+    \"and"("add t1 to g1", () => {
+      ()
+    })
+
+    \"and"("add p1 to g1", () => {
+      ()
+    })
+
+    \"and"("add geo1 to g1", () => {
+      ()
+    })
+  }
+
+  test(."defer dispose gameObject", ({given, \"and", \"when", then}) => {
+    _prepare(
+      given,
+      \"when",
+      \"and",
+      _buildGameObjectData(
+        ~createStateFunc=(. config) => {
+          {
+            "needDisposeArray": [],
+          }->Obj.magic
+        },
+        ~createGameObjectFunc=(. state) => {
+          (state, 1->Obj.magic)
+        },
+        ~deferDisposeGameObjectFunc=(.
+          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          (
+            (_, deferDisposeTransformFunc),
+            (_, deferDisposePBRMaterialFunc),
+            (_, deferDisposeGeometryFunc),
+          ),
+          gameObject,
+        ) => {
+          let transformState = deferDisposeTransformFunc(.
+            transformState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
+          )
+          let pbrMaterialState = deferDisposePBRMaterialFunc(.
+            pbrMaterialState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
+          )
+          let geometryState = deferDisposeGeometryFunc(.
+            geometryState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
+          )
+
+          (
+            {
+              "needDisposeArray": JsObjTool.getObjValue(
+                gameObjectState,
+                "needDisposeArray",
+              )->Meta3dCommonlib.ArraySt.push(gameObject),
+            }->Obj.magic,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+          )
+        },
+        (),
+      ),
+    )
+
+    _prepareComponentsAndCreate(\"when", \"and")
+
+    \"when"("defer dispose g1", () => {
+      MainTool.deferDisposeGameObject(g1.contents)
+    })
+
+    then("mark g1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getGameObjectState(), "needDisposeArray")
+      ->Js.Array.includes(g1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark t1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "needDisposeArray")
+      ->Js.Array.includes(t1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark p1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "needDisposeArray")
+      ->Js.Array.includes(p1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark geo1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "needDisposeArray")
+      ->Js.Array.includes(geo1.contents, _)
+      ->expect == true
+    })
+  })
+
+  test(."dispose gameObjects", ({given, \"and", \"when", then}) => {
+    let _buildSharedComponentBatchDisposeData = component => {
+      Meta3dCommonlib.MutableSparseMap.createEmpty()->Meta3dCommonlib.MutableSparseMap.set(
+        component,
+        [],
+      )
+    }
+
+    _prepare(
+      given,
+      \"when",
+      \"and",
+      _buildGameObjectData(
+        ~createStateFunc=(. config) => {
+          {
+            "disposedArray": [],
+          }->Obj.magic
+        },
+        ~createGameObjectFunc=(. state) => {
+          (state, 1->Obj.magic)
+        },
+        ~disposeGameObjectsFunc=(.
+          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          ((_, disposeTransformsFunc), (_, disposePBRMaterialsFunc), (_, disposeGeometrysFunc)),
+          gameObjects,
+        ) => {
+          let transformState = disposeTransformsFunc(. transformState, [t1.contents])
+          let pbrMaterialState = disposePBRMaterialsFunc(.
+            pbrMaterialState,
+            _buildSharedComponentBatchDisposeData(p1.contents),
+          )
+          let geometryState = disposeGeometrysFunc(.
+            geometryState,
+            _buildSharedComponentBatchDisposeData(geo1.contents),
+          )
+
+          (
+            {
+              "disposedArray": JsObjTool.getObjValue(
+                gameObjectState,
+                "disposedArray",
+              )->Js.Array.concat(gameObjects, _),
+            }->Obj.magic,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+          )
+        },
+        (),
+      ),
+    )
+
+    _prepareComponentsAndCreate(\"when", \"and")
+
+    \"when"("dispose [g1]", () => {
+      MainTool.disposeGameObjects([g1.contents])
+    })
+
+    then("mark g1 as disposed", () => {
+      JsObjTool.getObjValue(MainTool.getGameObjectState(), "disposedArray")
+      ->Js.Array.includes(g1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark t1 as disposed", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")
+      ->Js.Array.includes(t1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark p1 as disposed", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "disposedArray")->expect ==
+        _buildSharedComponentBatchDisposeData(p1.contents)
+    })
+
+    \"and"("mark geo1 as disposed", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "disposedArray")->expect ==
+        _buildSharedComponentBatchDisposeData(geo1.contents)
     })
   })
 })

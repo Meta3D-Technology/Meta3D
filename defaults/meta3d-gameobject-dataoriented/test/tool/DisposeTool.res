@@ -4,9 +4,6 @@ let deferDisposeGameObject = (
     Meta3dComponentTransformProtocol.Index.state,
     Meta3dComponentPbrmaterialProtocol.Index.state,
     Meta3dComponentGeometryProtocol.Index.state,
-    StateType.config,
-    StateType.gameObject,
-    Meta3dComponentTransformProtocol.Index.transform,
   >,
   ~gameObjectState,
   ~gameObject,
@@ -18,14 +15,16 @@ let deferDisposeGameObject = (
     (. componentState, _) => Obj.magic(1),
     (. componentState, _) => componentState,
   ),
-  ~geometryFuncs=(
-    (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
-  ),
+  ~geometryFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
   (),
 ) => {
   contribute.deferDisposeGameObjectFunc(.
-    (gameObjectState, transformState->Obj.magic, pbrMaterialState->Obj.magic, geometryState-> Obj.magic),
+    (
+      gameObjectState,
+      transformState->Obj.magic,
+      pbrMaterialState->Obj.magic,
+      geometryState->Obj.magic,
+    ),
     (transformFuncs, pbrMaterialFuncs, geometryFuncs),
     gameObject,
   )
@@ -37,9 +36,6 @@ let disposeGameObjects = (
     Meta3dComponentTransformProtocol.Index.state,
     Meta3dComponentPbrmaterialProtocol.Index.state,
     Meta3dComponentGeometryProtocol.Index.state,
-    Meta3dGameobjectDataoriented.StateType.config,
-    Meta3dGameobjectDataoriented.StateType.gameObject,
-    Meta3dComponentTransformProtocol.Index.transform,
   >,
   ~gameObjectState,
   ~gameObjects,
@@ -51,14 +47,16 @@ let disposeGameObjects = (
     (. componentState, _) => Obj.magic(1),
     (. componentState, _) => componentState,
   ),
-  ~geometryFuncs=(
-    (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
-  ),
+  ~geometryFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
   (),
 ) => {
   contribute.disposeGameObjectsFunc(.
-    (gameObjectState, transformState->Obj.magic, pbrMaterialState->Obj.magic, geometryState-> Obj.magic),
+    (
+      gameObjectState,
+      transformState->Obj.magic,
+      pbrMaterialState->Obj.magic,
+      geometryState->Obj.magic,
+    ),
     (transformFuncs, pbrMaterialFuncs, geometryFuncs),
     gameObjects,
   )

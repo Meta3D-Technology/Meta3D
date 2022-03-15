@@ -3,9 +3,6 @@ let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.g
   Meta3dComponentTransformProtocol.Index.state,
   Meta3dComponentPbrmaterialProtocol.Index.state,
   Meta3dComponentGeometryProtocol.Index.state,
-  StateType.config,
-  StateType.gameObject,
-  Meta3dComponentTransformProtocol.Index.transform,
 > = () => {
   createStateFunc: (. config) => {
     maxUID: 0,

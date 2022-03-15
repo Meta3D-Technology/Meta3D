@@ -594,6 +594,17 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 TODO update engine-core
 
+pass dispose scene
+
+** TODO refactor: GameContributeType remove 'state, 'gameObject, 'transform, 'config
+
+
+# ** TODO refactor: GameContributeType remove 'xxxState???
+
+
+** TODO refactor: RegisterComponentType: use <'transform, 'pbrMaterial, 'geometry> ???
+
+
 
 ** TODO refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
 
@@ -601,9 +612,6 @@ TODO update engine-core
 ** TODO refactor: geometry, pbrMaterial->dispose: remove duplicate
 
 
-** TODO refactor: GameContributeType remove 'gameObject, 'transform
-  'gameObject,
-  'transform,
 
 
 ** TODO rename needDisposedXxxArray, disposedXxxArray to Xxxs

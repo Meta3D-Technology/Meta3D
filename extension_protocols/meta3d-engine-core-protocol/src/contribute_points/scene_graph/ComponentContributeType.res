@@ -6,27 +6,27 @@ type createStateFunc<'state, 'config> = (. 'config) => 'state
 type getGameObjectsFunc<'state, 'component> = (
   . 'state,
   'component,
-) => array<GameObjectType.gameObject>
+) => array<Meta3dGameobjectProtocol.Index.gameObject>
 
 type createComponentFunc<'state, 'component> = (. 'state) => ('state, 'component)
 
 type addComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectType.gameObject,
+  Meta3dGameobjectProtocol.Index.gameObject,
   'component,
 ) => 'state
 
-type hasComponentFunc<'state> = (. 'state, GameObjectType.gameObject) => bool
+type hasComponentFunc<'state> = (. 'state, Meta3dGameobjectProtocol.Index.gameObject) => bool
 
 type removeComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectType.gameObject,
+  Meta3dGameobjectProtocol.Index.gameObject,
   'component,
 ) => 'state
 
 type getComponentFunc<'state, 'component> = (
   . 'state,
-  GameObjectType.gameObject,
+  Meta3dGameobjectProtocol.Index.gameObject,
 ) => Js.Nullable.t<'component>
 
 type getNeedDisposedComponentsFunc<'state, 'needDisposedComponents> = (
@@ -53,7 +53,7 @@ type setComponentDataFunc<'state, 'dataName, 'component> = (
 
 type deferDisposeComponentFunc<'state, 'component> = (
   . 'state,
-  ('component, GameObjectType.gameObject),
+  ('component, Meta3dGameobjectProtocol.Index.gameObject),
 ) => 'state
 
 type disposeComponentsFunc<'state, 'batchDisposeData> = (. 'state, 'batchDisposeData) => 'state

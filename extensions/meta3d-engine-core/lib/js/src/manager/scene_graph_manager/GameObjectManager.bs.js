@@ -2,7 +2,9 @@
 
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./component/ComponentManager.bs.js");
+var Index$Meta3dComponentGeometryProtocol = require("meta3d-component-geometry-protocol/lib/js/src/Index.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
+var Index$Meta3dComponentPbrmaterialProtocol = require("meta3d-component-pbrmaterial-protocol/lib/js/src/Index.bs.js");
 
 function unsafeGetGameObjectData(state) {
   return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
@@ -60,29 +62,61 @@ function createGameObject(state) {
 function deferDisposeGameObject(state, gameObject) {
   var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
   var usedTransformContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName);
+  var usedPBRMaterialContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPbrmaterialProtocol.componentName);
+  var usedGeometryContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentGeometryProtocol.componentName);
   var match = usedGameObjectContribute.deferDisposeGameObjectFunc([
         usedGameObjectContribute.state,
-        usedTransformContribute.state
+        usedTransformContribute.state,
+        usedPBRMaterialContribute.state,
+        usedGeometryContribute.state
       ], [
-        usedTransformContribute.getComponentFunc,
-        usedTransformContribute.deferDisposeComponentFunc
+        [
+          usedTransformContribute.getComponentFunc,
+          usedTransformContribute.deferDisposeComponentFunc
+        ],
+        [
+          usedPBRMaterialContribute.getComponentFunc,
+          usedPBRMaterialContribute.deferDisposeComponentFunc
+        ],
+        [
+          usedGeometryContribute.getComponentFunc,
+          usedGeometryContribute.deferDisposeComponentFunc
+        ]
       ], gameObject);
   var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);
-  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
+  var usedPBRMaterialContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[2], usedPBRMaterialContribute);
+  var usedGeometryContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[3], usedGeometryContribute);
+  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute$1, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute$1, Index$Meta3dComponentGeometryProtocol.componentName);
 }
 
 function disposeGameObjects(state, gameObjects) {
   var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
   var usedTransformContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName);
+  var usedPBRMaterialContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPbrmaterialProtocol.componentName);
+  var usedGeometryContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentGeometryProtocol.componentName);
   var match = usedGameObjectContribute.disposeGameObjectsFunc([
         usedGameObjectContribute.state,
-        usedTransformContribute.state
+        usedTransformContribute.state,
+        usedPBRMaterialContribute.state,
+        usedGeometryContribute.state
       ], [
-        usedTransformContribute.getComponentFunc,
-        usedTransformContribute.disposeComponentsFunc
+        [
+          usedTransformContribute.getComponentFunc,
+          usedTransformContribute.disposeComponentsFunc
+        ],
+        [
+          usedPBRMaterialContribute.getComponentFunc,
+          usedPBRMaterialContribute.disposeComponentsFunc
+        ],
+        [
+          usedGeometryContribute.getComponentFunc,
+          usedGeometryContribute.disposeComponentsFunc
+        ]
       ], gameObjects);
   var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[1], usedTransformContribute);
-  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName);
+  var usedPBRMaterialContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[2], usedPBRMaterialContribute);
+  var usedGeometryContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match[3], usedGeometryContribute);
+  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute$1, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute$1, Index$Meta3dComponentGeometryProtocol.componentName);
 }
 
 function getAllGameObjects(state) {

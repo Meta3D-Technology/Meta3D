@@ -158,7 +158,7 @@ let setComponentData = (
 
 let addComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  gameObject: Meta3dGameobjectProtocol.Index.gameObject,
   component: Meta3dEngineCoreProtocol.ComponentType.component,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.addComponentFunc(.
@@ -170,7 +170,7 @@ let addComponent = (
 
 let removeComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  gameObject: Meta3dGameobjectProtocol.Index.gameObject,
   component: Meta3dEngineCoreProtocol.ComponentType.component,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.removeComponentFunc(.
@@ -182,14 +182,14 @@ let removeComponent = (
 
 let hasComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  gameObject: Meta3dGameobjectProtocol.Index.gameObject,
 ): bool => {
   usedComponentContribute.hasComponentFunc(. usedComponentContribute.state, gameObject)
 }
 
 let getComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  gameObject: Meta3dEngineCoreProtocol.GameObjectType.gameObject,
+  gameObject: Meta3dGameobjectProtocol.Index.gameObject,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.ComponentType.component> => {
   usedComponentContribute.getComponentFunc(. usedComponentContribute.state, gameObject)
 }
@@ -239,7 +239,7 @@ let getComponentData = (
 let getComponentGameObjects = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.ComponentType.component,
-): array<Meta3dEngineCoreProtocol.GameObjectType.gameObject> => {
+): array<Meta3dGameobjectProtocol.Index.gameObject> => {
   usedComponentContribute.getGameObjectsFunc(. usedComponentContribute.state, component)
 }
 

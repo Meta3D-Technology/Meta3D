@@ -68,12 +68,15 @@ let createAndSetComponentState = (componentName, config) => {
   ->StateContainer.setState
 }
 
+// TODO remove magic
 let unsafeGetUsedComponentContribute = componentName => {
   StateContainer.unsafeGetState()->DirectorForJs.unsafeGetUsedComponentContribute(componentName)
+  -> Obj.magic
 }
 
+// TODO remove magic
 let createComponent = contribute => {
-  contribute->DirectorForJs.createComponent
+  contribute->DirectorForJs.createComponent-> Obj.magic
 }
 
 let setComponentData = (contribute, component, dataName, dataValue) => {

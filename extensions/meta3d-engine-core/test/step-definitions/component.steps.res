@@ -9,7 +9,9 @@ let feature = loadFeature("./test/features/component.feature")
 
 defineFeature(feature, test => {
   let contribute = ref(Obj.magic(1))
-  let usedContribute = ref(Obj.magic(1))
+  let usedContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
 
   let _getAllRegisteredComponentData = () => {
     StateContainer.unsafeGetState().componentContributeData.allComponentContributes
