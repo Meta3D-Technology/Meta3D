@@ -20,8 +20,6 @@ type specular = float
 
 type pbrMaterial = int
 
-type state
-
 type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<
   pbrMaterial,
   array<Meta3dGameobjectProtocol.Index.gameObject>,

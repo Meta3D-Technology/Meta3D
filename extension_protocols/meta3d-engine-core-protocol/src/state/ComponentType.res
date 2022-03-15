@@ -1,6 +1,12 @@
 // @genType
 type state
 
+type transformState = state
+
+type pbrMaterialState = state
+
+type geometryState = state
+
 // @genType
 type component
 

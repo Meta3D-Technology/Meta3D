@@ -5,9 +5,9 @@ open Meta3dComponentTransformProtocol.Index
 let deferDisposeGameObject = (
   (
     {needDisposedGameObjectArray} as gameObjectState,
-    transformState: Meta3dComponentTransformProtocol.Index.state,
-    pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
-    geometryState: Meta3dComponentGeometryProtocol.Index.state,
+    transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
+    pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
+    geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
   ),
   (
     (getTransformFunc, deferDisposeTransformFunc),
@@ -70,9 +70,9 @@ let _isNotNeedDispose = (component, needDisposedIndexArray) =>
 let disposeGameObjects = (
   (
     {needDisposedGameObjectArray} as gameObjectState,
-    transformState: Meta3dComponentTransformProtocol.Index.state,
-    pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
-    geometryState: Meta3dComponentGeometryProtocol.Index.state,
+    transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
+    pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
+    geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
   ),
   (
     (getTransformFunc, disposeTransformsFunc),

@@ -47,8 +47,6 @@ type transform = int
 
 type parent = Js.Nullable.t<transform>
 
-type state
-
 type needDisposedComponents = array<transform>
 
 type batchDisposeData = array<transform>
