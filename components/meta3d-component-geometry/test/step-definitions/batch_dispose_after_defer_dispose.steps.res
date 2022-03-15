@@ -349,4 +349,63 @@ defineFeature(feature, test => {
         (Float32Array.make([]), Float32Array.make([]), Float32Array.make([]), Uint32Array.make([]))
     })
   })
+
+  test(."if has disposed one, use disposed index as new index", ({
+    given,
+    \"and",
+    \"when",
+    then,
+  }) => {
+    let geometry3 = ref(Obj.magic(1))
+    let geometry4 = ref(Obj.magic(2))
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given(%re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      let (s, geo1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, geo2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      geometry1 := geo1
+      geometry2 := geo2
+    })
+
+    \"and"(%re("/^defer dispose geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          geometry1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+        )
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          geometry2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+        )
+    })
+
+    \"and"(%re("/^dispose geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([geometry1.contents, geometry2.contents])
+        )
+    })
+
+    \"when"(%re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      let (s, geo1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, geo2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      geometry3 := geo1
+      geometry4 := geo2
+    })
+
+    then(%re("/^geometry(\d+) should equal to geometry(\d+)$/")->Obj.magic, () => {
+      geometry3->expect == geometry2
+    })
+
+    \"and"(%re("/^geometry(\d+) should equal to geometry(\d+)$/")->Obj.magic, () => {
+      geometry4->expect == geometry1
+    })
+  })
 })

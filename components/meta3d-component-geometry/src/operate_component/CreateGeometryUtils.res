@@ -1,9 +1,10 @@
 let create = (state: StateType.state): (StateType.state, Meta3dComponentGeometryProtocol.Index.geometry) => {
   let index = state.maxIndex
-  // let newIndex = index->Meta3dCommonlib.IndexComponentUtils.generateIndex
-  let (_,_, newIndex ) = index->Meta3dCommonlib.IndexComponentUtils.generateIndex([], _)
+  let (disposedGeometrys, index, newIndex) =
+    state.disposedGeometrys->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
 
   state.maxIndex = newIndex
+  state.disposedGeometrys = disposedGeometrys
 
   (
     state,

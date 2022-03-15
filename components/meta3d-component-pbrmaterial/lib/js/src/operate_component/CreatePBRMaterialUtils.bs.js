@@ -6,11 +6,12 @@ var ConfigUtils$Meta3dComponentPbrmaterial = require("../config/ConfigUtils.bs.j
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex([], index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedPBRMaterials, index);
   state.maxIndex = match[2];
+  state.disposedPBRMaterials = match[0];
   return [
           state,
-          BufferComponentUtils$Meta3dCommonlib.checkNotExceedMaxCountByIndex(ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), index, ConfigUtils$Meta3dComponentPbrmaterial.getPBRMaterialCount(state))
+          BufferComponentUtils$Meta3dCommonlib.checkNotExceedMaxCountByIndex(ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), match[1], ConfigUtils$Meta3dComponentPbrmaterial.getPBRMaterialCount(state))
         ];
 }
 

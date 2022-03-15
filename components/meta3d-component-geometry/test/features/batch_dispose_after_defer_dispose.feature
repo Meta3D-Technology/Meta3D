@@ -51,3 +51,13 @@ Feature: Batch Dispose After Defer Dispose
 			And defer dispose the geometry from the gameObject
 			When dispose the need disposed geometrys
 			Then get the geometry's vertices, normals, texCoords, indices should all return []
+
+	Rule: test add new one after dispose old one
+
+		Scenario: if has disposed one, use disposed index as new index
+			Given create two geometrys as geometry1, geometry2
+			And defer dispose geometry1, geometry2
+			And dispose geometry1, geometry2
+			When create two geometrys as geometry3, geometry4
+			Then geometry3 should equal to geometry2
+			And geometry4 should equal to geometry1

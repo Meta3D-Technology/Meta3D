@@ -11,8 +11,6 @@ var BufferGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-w
 var GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry = require("../gameobject/GetNeedDisposedGeometrysUtils.bs.js");
 var ReallocatedPointsGeometryUtils$Meta3dComponentGeometry = require("./ReallocatedPointsGeometryUtils.bs.js");
 
-var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
-
 function deferDisposeComponent(state) {
   var gameObjectGeometryMap = state.gameObjectGeometryMap;
   var needDisposedGeometrys = state.needDisposedGeometrys;
@@ -70,7 +68,6 @@ function disposeComponents(state, componentDataMap) {
   return state$1;
 }
 
-exports._removeComponent = _removeComponent;
 exports.deferDisposeComponent = deferDisposeComponent;
 exports._disposeData = _disposeData;
 exports.disposeComponents = disposeComponents;

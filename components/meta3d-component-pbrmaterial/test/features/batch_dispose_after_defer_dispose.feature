@@ -65,3 +65,13 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose the need disposed pbrMaterials
 			Then get p1's specular should return default data
 			And get p2's specular should return s2
+
+	Rule: test add new one after dispose old one
+
+		Scenario: if has disposed one, use disposed index as new index
+			Given create two pbrMaterials as pbrMaterial1, pbrMaterial2
+			And defer dispose pbrMaterial1, pbrMaterial2
+			And dispose pbrMaterial1, pbrMaterial2
+			When create two pbrMaterials as pbrMaterial3, pbrMaterial4
+			Then pbrMaterial3 should equal to pbrMaterial2
+			And pbrMaterial4 should equal to pbrMaterial1

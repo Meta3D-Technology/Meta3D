@@ -409,4 +409,63 @@ defineFeature(feature, test => {
       )->expect == s2
     })
   })
+
+  test(."if has disposed one, use disposed index as new index", ({
+    given,
+    \"and",
+    \"when",
+    then,
+  }) => {
+    let pbrMaterial3 = ref(Obj.magic(1))
+    let pbrMaterial4 = ref(Obj.magic(2))
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given(%re("/^create two pbrMaterials as pbrMaterial(\d+), pbrMaterial(\d+)$/")->Obj.magic, () => {
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      pbrMaterial1 := p1
+      pbrMaterial2 := p2
+    })
+
+    \"and"(%re("/^defer dispose pbrMaterial(\d+), pbrMaterial(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          pbrMaterial1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+        )
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          pbrMaterial2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+        )
+    })
+
+    \"and"(%re("/^dispose pbrMaterial(\d+), pbrMaterial(\d+)$/")->Obj.magic, () => {
+      state :=
+        contribute.contents.disposeComponentsFunc(.
+          state.contents,
+Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([pbrMaterial1.contents, pbrMaterial2.contents])
+        )
+    })
+
+    \"when"(%re("/^create two pbrMaterials as pbrMaterial(\d+), pbrMaterial(\d+)$/")->Obj.magic, () => {
+      let (s, p1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, p2) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      pbrMaterial3 := p1
+      pbrMaterial4 := p2
+    })
+
+    then(%re("/^pbrMaterial(\d+) should equal to pbrMaterial(\d+)$/")->Obj.magic, () => {
+      pbrMaterial3->expect == pbrMaterial2
+    })
+
+    \"and"(%re("/^pbrMaterial(\d+) should equal to pbrMaterial(\d+)$/")->Obj.magic, () => {
+      pbrMaterial4->expect == pbrMaterial1
+    })
+  })
 })
