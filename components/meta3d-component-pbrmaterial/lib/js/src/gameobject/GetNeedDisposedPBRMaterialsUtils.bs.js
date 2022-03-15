@@ -4,8 +4,8 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 
 function get(param) {
-  var needDisposedPBRMaterialArray = param.needDisposedPBRMaterialArray;
-  return MutableSparseMap$Meta3dCommonlib.reducei(needDisposedPBRMaterialArray, (function (result, gameObjects, component) {
+  var needDisposedPBRMaterials = param.needDisposedPBRMaterials;
+  return MutableSparseMap$Meta3dCommonlib.reducei(needDisposedPBRMaterials, (function (result, gameObjects, component) {
                 return MutableSparseMap$Meta3dCommonlib.set(result, component, ArraySt$Meta3dCommonlib.removeDuplicateItems(gameObjects));
               }), MutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined));
 }

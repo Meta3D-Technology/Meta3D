@@ -1,15 +1,12 @@
 open StateType
 
-let _removeComponent = (gameObjectComponentMap, gameObject) =>
-  gameObjectComponentMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject)
-
 let deferDisposeComponent = (
   {gameObjectTransformMap, needDisposedTransforms} as state,
   (component, gameObject),
 ) => {
   {
     ...state,
-    gameObjectTransformMap: gameObjectTransformMap->_removeComponent(gameObject),
+    gameObjectTransformMap: gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject),
     needDisposedTransforms: needDisposedTransforms->Meta3dCommonlib.ArraySt.push(component),
   }
 }
