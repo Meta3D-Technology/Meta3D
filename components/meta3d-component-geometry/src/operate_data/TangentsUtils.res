@@ -19,6 +19,4 @@ let setTangents = (state, geometry, data) => {
     ConfigUtils.getIsDebug(state),
     fillFloat32ArrayWithOffset(tangents, data),
   )
-
-  state
 }

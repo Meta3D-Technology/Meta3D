@@ -19,6 +19,4 @@ let setVertices = (state, geometry, data) => {
     ConfigUtils.getIsDebug(state),
     fillFloat32ArrayWithOffset(vertices, data),
   )
-
-  state
 }

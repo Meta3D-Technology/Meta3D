@@ -602,11 +602,11 @@ pass dispose scene
 # ** TODO refactor: GameContributeType remove 'xxxState???
 
 
-** TODO refactor: RegisterComponentType: use <'transform, 'pbrMaterial, 'geometry> ???
+////** TODO refactor: RegisterComponentType: use <'transform, 'pbrMaterial, 'geometry> ???
 
 
 
-** TODO refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
+** DONE refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
 
 
 ** TODO refactor: geometry, pbrMaterial->dispose: remove duplicate

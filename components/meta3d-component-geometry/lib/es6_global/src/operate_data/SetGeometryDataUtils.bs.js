@@ -11,15 +11,20 @@ import * as TexCoordsUtils$Meta3dComponentGeometry from "./TexCoordsUtils.bs.js"
 
 function setData(state, geometry, dataName, dataValue) {
   if (dataName === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
-    return VerticesUtils$Meta3dComponentGeometry.setVertices(state, geometry, dataValue);
+    VerticesUtils$Meta3dComponentGeometry.setVertices(state, geometry, dataValue);
+    return state;
   } else if (dataName === Index$Meta3dComponentGeometryProtocol.dataName.normals) {
-    return NormalsUtils$Meta3dComponentGeometry.setNormals(state, geometry, dataValue);
+    NormalsUtils$Meta3dComponentGeometry.setNormals(state, geometry, dataValue);
+    return state;
   } else if (dataName === Index$Meta3dComponentGeometryProtocol.dataName.texCoords) {
-    return TexCoordsUtils$Meta3dComponentGeometry.setTexCoords(state, geometry, dataValue);
+    TexCoordsUtils$Meta3dComponentGeometry.setTexCoords(state, geometry, dataValue);
+    return state;
   } else if (dataName === Index$Meta3dComponentGeometryProtocol.dataName.tangents) {
-    return TangentsUtils$Meta3dComponentGeometry.setTangents(state, geometry, dataValue);
+    TangentsUtils$Meta3dComponentGeometry.setTangents(state, geometry, dataValue);
+    return state;
   } else if (dataName === Index$Meta3dComponentGeometryProtocol.dataName.indices) {
-    return IndicesUtils$Meta3dComponentGeometry.setIndices(state, geometry, dataValue);
+    IndicesUtils$Meta3dComponentGeometry.setIndices(state, geometry, dataValue);
+    return state;
   } else {
     return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName, "", "", ""));
   }

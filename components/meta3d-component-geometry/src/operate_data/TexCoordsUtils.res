@@ -35,6 +35,4 @@ let setTexCoords = (state, geometry, data) => {
     ConfigUtils.getIsDebug(state),
     fillFloat32ArrayWithOffset(texCoords, data),
   )
-
-  state
 }

@@ -19,6 +19,4 @@ let setNormals = (state, geometry, data) => {
     ConfigUtils.getIsDebug(state),
     fillFloat32ArrayWithOffset(normals, data),
   )
-
-  state
 }

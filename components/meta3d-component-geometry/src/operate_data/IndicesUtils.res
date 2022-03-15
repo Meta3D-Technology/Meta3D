@@ -19,6 +19,4 @@ let setIndices = (state, geometry, data) => {
     ConfigUtils.getIsDebug(state),
     fillUint32ArrayWithOffset(indices, data),
   )
-
-  state
 }

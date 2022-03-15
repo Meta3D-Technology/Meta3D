@@ -30,7 +30,7 @@ function setTexCoords(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillFloat32ArrayWithOffset(texCoords, data, param);
         }));
-  return state;
+  
 }
 
 export {

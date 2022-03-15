@@ -9,14 +9,19 @@ let setData = (.
   switch dataName {
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.vertices =>
     VerticesUtils.setVertices(state, geometry, dataValue->Obj.magic)
+    state
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.normals =>
     NormalsUtils.setNormals(state, geometry, dataValue->Obj.magic)
+    state
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.texCoords =>
     TexCoordsUtils.setTexCoords(state, geometry, dataValue->Obj.magic)
+    state
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.tangents =>
     TangentsUtils.setTangents(state, geometry, dataValue->Obj.magic)
+    state
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.indices =>
     IndicesUtils.setIndices(state, geometry, dataValue->Obj.magic)
+    state
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Log.buildFatalMessage(
