@@ -12,10 +12,12 @@ let feature = loadFeature("./test/features/get_contribute.feature")
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-      StateType.state,
-      Meta3dComponentGeometryProtocol.Index.config,
-      Meta3dComponentGeometryProtocol.Index.dataNameType,
-      Meta3dComponentGeometryProtocol.Index.geometry,
+  StateType.state,
+  Meta3dComponentGeometryProtocol.Index.config,
+  Meta3dComponentGeometryProtocol.Index.dataNameType,
+  Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
+  Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+  Meta3dComponentGeometryProtocol.Index.geometry,
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
@@ -256,9 +258,10 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."get gameObjects' geometrys", ({given, \"when", \"and", then}) => {
+  test(."get need disposed geometrys", ({given, \"when", \"and", then}) => {
     let gameObject1 = 10
     let gameObject2 = 11
+
     let geometry1 = ref(Obj.magic(1))
     let geometry2 = ref(Obj.magic(1))
     let geometry3 = ref(Obj.magic(1))
@@ -287,64 +290,42 @@ defineFeature(feature, test => {
     })
 
     \"and"("add geo1 to g1", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry1.contents)
+      ()
     })
 
     \"and"("add geo3 to g2", () => {
+      ()
+    })
+
+    \"and"("defer dispose geo1 from g1", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry3.contents)
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (geometry1.contents, gameObject1),
+        )
     })
 
-    then("get the geometrys of [g1, g2] should return [geo1, geo3]", () => {
-      contribute.contents.getComponentsFunc(.
-        state.contents,
-        [gameObject1, gameObject2],
-      )->expect == [geometry1.contents, geometry3.contents]
-    })
-  })
-
-  test(."get need disposed geometrys", ({given, \"when", \"and", then}) => {
-    let geometry1 = ref(Obj.magic(1))
-    let geometry2 = ref(Obj.magic(1))
-    let geometry3 = ref(Obj.magic(1))
-
-    \"when"("I get contribute", () => {
-      contribute := Main.getComponentContribute()
+    \"and"("defer dispose geo1 from g1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (geometry1.contents, gameObject1),
+        )
     })
 
-    \"and"("create a state", () => {
-      state := _createState()
+    \"and"("defer dispose geo3 from g2", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          (geometry3.contents, gameObject2),
+        )
     })
 
-    \"and"("create three geometrys as geo1, geo2, geo3", () => {
-      let (s, geo1) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, geo2) = contribute.contents.createComponentFunc(. s)
-      let (s, geo3) = contribute.contents.createComponentFunc(. s)
-
-      state := s
-      geometry1 := geo1
-      geometry2 := geo2
-      geometry3 := geo3
-    })
-
-    \"and"("defer dispose geo1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry1.contents)
-    })
-
-    \"and"("defer dispose geo1", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry1.contents)
-    })
-
-    \"and"("defer dispose geo3", () => {
-      state := contribute.contents.deferDisposeComponentFunc(. state.contents, geometry3.contents)
-    })
-
-    then("get need disposed geometrys should return [geo1, geo3]", () => {
-      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
-          geometry1.contents,
-          geometry3.contents,
-        ]
+    then("get need disposed geometrys should return [[geo1, g1], [geo3, g2]]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect ==
+        Meta3dCommonlib.MutableSparseMap.createEmpty()
+        ->Meta3dCommonlib.MutableSparseMap.set(geometry1.contents, [gameObject1])
+        ->Meta3dCommonlib.MutableSparseMap.set(geometry3.contents, [gameObject2])
     })
   })
 

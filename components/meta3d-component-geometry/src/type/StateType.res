@@ -19,10 +19,11 @@ type state = {
   mutable normalsOffset: int,
   mutable tangentsOffset: int,
   mutable indicesOffset: int,
-  gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
-  gameObjectGeometryMap: Meta3dCommonlibType.MutableSparseMapType.t<
+  mutable gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
+  mutable gameObjectGeometryMap: Meta3dCommonlibType.MutableSparseMapType.t<
     Meta3dGameobjectProtocol.Index.gameObject,
     geometry,
   >,
-  mutable needDisposedGeometryArray: array<geometry>,
+  mutable needDisposedGeometryArray: Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
+  mutable disposedGeometryArray: array<geometry>,
 }

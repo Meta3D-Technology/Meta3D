@@ -12,7 +12,6 @@ defineFeature(feature, test => {
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
@@ -97,7 +96,7 @@ defineFeature(feature, test => {
         )
     })
 
-    then(%re("/^get pbrMaterial's diffuseColor should return d(\d+)$/")->Obj.magic, () => {
+    then(%re("/^get the pbrMaterial's diffuseColor should return d(\d+)$/")->Obj.magic, () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         pbrMaterial1.contents,
@@ -177,7 +176,7 @@ defineFeature(feature, test => {
         )
     })
 
-    then("get pbrMaterial's diffuseColor should return default data", () => {
+    then("get the pbrMaterial's diffuseColor should return default data", () => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         pbrMaterial1.contents,

@@ -29,3 +29,13 @@ type config = {
 }
 
 type state
+
+type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<
+  geometry,
+  array<Meta3dGameobjectProtocol.Index.gameObject>,
+>
+
+type batchDisposeData = Meta3dCommonlibType.MutableSparseMapType.t<
+  geometry,
+  array<Meta3dGameobjectProtocol.Index.gameObject>,
+>

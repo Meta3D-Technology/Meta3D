@@ -6,7 +6,7 @@ var Contract$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/contract/Con
 var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/TypeArrayUtils.bs.js");
 var ReallocatedPointsGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/ReallocatedPointsGeometryUtils.bs.js");
 
-function setInfo(infoIndex, startIndex, endIndex, isDebug, infos) {
+function setInfo(infos, infoIndex, startIndex, endIndex, isDebug) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
           Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("startIndex >= 0", "is " + startIndex), (function (param) {
                   return Contract$Meta3dCommonlib.Operators.$great$eq(startIndex, 0);
@@ -27,7 +27,7 @@ function hasPointData(infoIndex, isDebug, infos) {
 function _setPointData(param, isDebug, fillTypeArrayFunc) {
   var offset = param[2];
   var newOffset = offset + param[3] | 0;
-  setInfo(param[0], offset, newOffset, isDebug, param[1]);
+  setInfo(param[1], param[0], offset, newOffset, isDebug);
   Curry._1(fillTypeArrayFunc, offset);
   return newOffset;
 }

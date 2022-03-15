@@ -20,12 +20,12 @@ Feature: Batch Dispose After Defer Dispose
 		Scenario: if not dispose pbrMaterial from all gameObjects, not dispose pbrMaterial's data
 			Given defer dispose the pbrMaterial from g1
 			When dispose the need disposed pbrMaterials
-			Then get pbrMaterial's diffuseColor should return d1
+			Then get the pbrMaterial's diffuseColor should return d1
 
 		Scenario: else, dispose pbrMaterial's data
 			Given defer dispose the pbrMaterial from g1, g2, g3
 			When dispose the need disposed pbrMaterials
-			Then get pbrMaterial's diffuseColor should return default data
+			Then get the pbrMaterial's diffuseColor should return default data
 
 	Rule: dispose map data
 

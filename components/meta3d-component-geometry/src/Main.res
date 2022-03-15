@@ -2,6 +2,8 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   StateType.state,
   Meta3dComponentGeometryProtocol.Index.config,
   Meta3dComponentGeometryProtocol.Index.dataNameType,
+  Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
+  Meta3dComponentGeometryProtocol.Index.batchDisposeData,
   Meta3dComponentGeometryProtocol.Index.geometry,
 > = () => {
   componentName: Meta3dComponentGeometryProtocol.Index.componentName,
@@ -20,9 +22,6 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   getComponentFunc: (. state, gameObject) => {
     GetGeometryUtils.get(state, gameObject)
   },
-  getComponentsFunc: (. state, gameObjects) => {
-    GetGeometrysUtils.get(state, gameObjects)
-  },
   getNeedDisposedComponentsFunc: (. state) => {
     GetNeedDisposedGeometrysUtils.get(state)
   },
@@ -38,10 +37,10 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   getAllComponentsFunc: (. state) => {
     GetAllGeometrysUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, component) => {
-    state
+  deferDisposeComponentFunc: (. state, (component, gameObject)) => {
+    DisposeGeometryUtils.deferDisposeComponent(state, (component, gameObject))
   },
-  disposeComponentsFunc: (. state, components) => {
-    state
+  disposeComponentsFunc: (. state, componentDataMap) => {
+    DisposeGeometryUtils.disposeComponents(state, componentDataMap)
   },
 }

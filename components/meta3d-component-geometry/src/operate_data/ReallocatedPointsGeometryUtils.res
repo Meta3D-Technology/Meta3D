@@ -2,15 +2,12 @@ open Js.Typed_array
 
 open Meta3dCommonlib.TypeArrayUtils
 
-let setInfo = (infoIndex, startIndex, endIndex, isDebug, infos) => {
+let setInfo = (infos, infoIndex, startIndex, endIndex, isDebug) => {
   Meta3dCommonlib.Contract.requireCheck(() => {
     open Meta3dCommonlib.Contract
     open Operators
     test(
-      Meta3dCommonlib.Log.buildAssertMessage(
-        ~expect=j`startIndex >= 0`,
-        ~actual=j`is $startIndex`,
-      ),
+      Meta3dCommonlib.Log.buildAssertMessage(~expect=j`startIndex >= 0`, ~actual=j`is $startIndex`),
       () => startIndex >= 0,
     )
     test(
@@ -30,10 +27,7 @@ let setInfo = (infoIndex, startIndex, endIndex, isDebug, infos) => {
 // )->Meta3dCommonlib.Result.bind(() => setUint32_1(infoIndex + 1, endIndex, infos))
 
 let hasPointData = (infoIndex, isDebug, infos) => {
-  let (
-    startIndex,
-    endIndex,
-  ) = Meta3dComponentWorkerUtils.ReallocatedPointsGeometryUtils.getInfo(
+  let (startIndex, endIndex) = Meta3dComponentWorkerUtils.ReallocatedPointsGeometryUtils.getInfo(
     infoIndex,
     isDebug,
     infos,
@@ -48,7 +42,7 @@ let hasPointData = (infoIndex, isDebug, infos) => {
 let _setPointData = ((infoIndex: int, infos, offset: int, count), isDebug, fillTypeArrayFunc) => {
   let startIndex = offset
   let newOffset = offset + count
-  setInfo(infoIndex, startIndex, newOffset, isDebug, infos)
+  setInfo(infos, infoIndex, startIndex, newOffset, isDebug)
 
   fillTypeArrayFunc(startIndex)
 

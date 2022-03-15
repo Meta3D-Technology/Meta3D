@@ -6,10 +6,14 @@ var ConfigUtils$Meta3dComponentGeometry = require("../config/ConfigUtils.bs.js")
 
 var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
 
-function remove(state, gameObject, geometry) {
-  ArrayMapUtils$Meta3dCommonlib.removeValue(state.gameObjectsMap, ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), geometry, gameObject);
-  MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectGeometryMap, gameObject);
-  return state;
+function remove(state) {
+  var gameObjectsMap = state.gameObjectsMap;
+  var gameObjectGeometryMap = state.gameObjectGeometryMap;
+  return function (gameObject, geometry) {
+    ArrayMapUtils$Meta3dCommonlib.removeValue(gameObjectsMap, ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), geometry, gameObject);
+    MutableSparseMap$Meta3dCommonlib.remove(gameObjectGeometryMap, gameObject);
+    return state;
+  };
 }
 
 exports._removeComponent = _removeComponent;

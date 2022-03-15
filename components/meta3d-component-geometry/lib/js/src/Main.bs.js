@@ -5,10 +5,10 @@ var AddGeometryUtils$Meta3dComponentGeometry = require("./gameobject/AddGeometry
 var CreateStateUtils$Meta3dComponentGeometry = require("./create_state/CreateStateUtils.bs.js");
 var GetGeometryUtils$Meta3dComponentGeometry = require("./gameobject/GetGeometryUtils.bs.js");
 var HasGeometryUtils$Meta3dComponentGeometry = require("./gameobject/HasGeometryUtils.bs.js");
-var GetGeometrysUtils$Meta3dComponentGeometry = require("./gameobject/GetGeometrysUtils.bs.js");
 var CreateGeometryUtils$Meta3dComponentGeometry = require("./operate_component/CreateGeometryUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentGeometry = require("./gameobject/GetGameObjectsUtils.bs.js");
 var RemoveGeometryUtils$Meta3dComponentGeometry = require("./gameobject/RemoveGeometryUtils.bs.js");
+var DisposeGeometryUtils$Meta3dComponentGeometry = require("./operate_data/DisposeGeometryUtils.bs.js");
 var GetAllGeometrysUtils$Meta3dComponentGeometry = require("./operate_component/GetAllGeometrysUtils.bs.js");
 var GetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/GetGeometryDataUtils.bs.js");
 var SetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/SetGeometryDataUtils.bs.js");
@@ -20,13 +20,22 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentGeometry.createState(param.isDebug, param.geometryPointCount, param.geometryCount);
             }),
-          getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentGeometry.get,
+          getGameObjectsFunc: (function (state, component) {
+              return GetGameObjectsUtils$Meta3dComponentGeometry.get(state)(component);
+            }),
           createComponentFunc: CreateGeometryUtils$Meta3dComponentGeometry.create,
-          addComponentFunc: AddGeometryUtils$Meta3dComponentGeometry.add,
-          removeComponentFunc: RemoveGeometryUtils$Meta3dComponentGeometry.remove,
-          hasComponentFunc: HasGeometryUtils$Meta3dComponentGeometry.has,
-          getComponentFunc: GetGeometryUtils$Meta3dComponentGeometry.get,
-          getComponentsFunc: GetGeometrysUtils$Meta3dComponentGeometry.get,
+          addComponentFunc: (function (state, gameObject, component) {
+              return AddGeometryUtils$Meta3dComponentGeometry.add(state)(gameObject, component);
+            }),
+          removeComponentFunc: (function (state, gameObject, component) {
+              return RemoveGeometryUtils$Meta3dComponentGeometry.remove(state)(gameObject, component);
+            }),
+          hasComponentFunc: (function (state, gameObject) {
+              return HasGeometryUtils$Meta3dComponentGeometry.has(state)(gameObject);
+            }),
+          getComponentFunc: (function (state, gameObject) {
+              return GetGeometryUtils$Meta3dComponentGeometry.get(state)(gameObject);
+            }),
           getNeedDisposedComponentsFunc: GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry.get,
           getComponentDataFunc: (function (state, component, dataName) {
               return GetGeometryDataUtils$Meta3dComponentGeometry.getData(state, component, dataName);
@@ -34,12 +43,13 @@ function getComponentContribute(param) {
           setComponentDataFunc: (function (state, component, dataName, dataValue) {
               return SetGeometryDataUtils$Meta3dComponentGeometry.setData(state, component, dataName, dataValue);
             }),
-          deferDisposeComponentFunc: (function (state, component) {
-              return state;
+          deferDisposeComponentFunc: (function (state, param) {
+              return DisposeGeometryUtils$Meta3dComponentGeometry.deferDisposeComponent(state)([
+                          param[0],
+                          param[1]
+                        ]);
             }),
-          disposeComponentsFunc: (function (state, components) {
-              return state;
-            }),
+          disposeComponentsFunc: DisposeGeometryUtils$Meta3dComponentGeometry.disposeComponents,
           getAllComponentsFunc: GetAllGeometrysUtils$Meta3dComponentGeometry.getAll
         };
 }

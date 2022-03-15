@@ -54,10 +54,11 @@ let createStateWithSharedArrayBufferData = (
     tangentsOffset: 0,
     indicesOffset: 0,
     gameObjectsMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(geometryCount),
-    gameObjectGeometryMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
+    gameObjectGeometryMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(geometryCount),
+    needDisposedGeometryArray: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
       geometryCount,
     ),
-    needDisposedGeometryArray: []
+    disposedGeometryArray: [],
   }
 }
 
