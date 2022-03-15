@@ -18,11 +18,13 @@ type usedGameObjectContribute = {
     state,
     ComponentType.state,
     ComponentType.state,
+    ComponentType.state,
     gameObject,
     transform
   >,
   disposeGameObjectsFunc: GameObjectContributeType.disposeGameObjectsFunc<
     state,
+    ComponentType.state,
     ComponentType.state,
     ComponentType.state,
     gameObject,
@@ -34,6 +36,7 @@ type usedGameObjectContribute = {
 // @genType
 type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
   state,
+  ComponentType.state,
   ComponentType.state,
   ComponentType.state,
   config,

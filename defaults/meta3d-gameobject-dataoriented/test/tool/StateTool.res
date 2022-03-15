@@ -3,6 +3,7 @@ let createState = (
     StateType.state,
     Meta3dComponentTransformProtocol.Index.state,
     Meta3dComponentPbrmaterialProtocol.Index.state,
+    Meta3dComponentGeometryProtocol.Index.state,
     StateType.config,
     StateType.gameObject,
     Meta3dComponentTransformProtocol.Index.transform,

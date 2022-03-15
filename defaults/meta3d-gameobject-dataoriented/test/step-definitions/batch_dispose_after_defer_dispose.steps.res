@@ -12,6 +12,7 @@ defineFeature(feature, test => {
   let gameObjectState = ref(Obj.magic(1))
   let transformState = ref(Obj.magic(1))
   let pbrMaterialState = ref(Obj.magic(1))
+  let geometryState = ref(Obj.magic(1))
 
   let _createState = (~isDebug=false, ()) => {
     StateTool.createState(~contribute=contribute.contents, ~isDebug, ())
@@ -78,7 +79,7 @@ defineFeature(feature, test => {
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
       deferDisposeTransformFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-      let (gs, ts, _) = DisposeTool.deferDisposeGameObject(
+      let (gs, ts, _, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject1.contents,
@@ -95,7 +96,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts, _) = DisposeTool.deferDisposeGameObject(
+      let (gs, ts, _, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject2.contents,
@@ -113,7 +114,7 @@ defineFeature(feature, test => {
 
     \"when"("dispose [gameObject1, gameObject2]", () => {
       disposeTransformsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
-      let (gs, ts, _) = DisposeTool.disposeGameObjects(
+      let (gs, ts, _, _) = DisposeTool.disposeGameObjects(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -203,7 +204,7 @@ defineFeature(feature, test => {
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
       deferDisposePBRMaterialFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject1.contents,
@@ -220,7 +221,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject2.contents,
@@ -238,7 +239,7 @@ defineFeature(feature, test => {
 
     \"when"("dispose [gameObject1, gameObject2]", () => {
       disposePBRMaterialsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
-      let (gs, _, ps) = DisposeTool.disposeGameObjects(
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -347,7 +348,7 @@ defineFeature(feature, test => {
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
       deferDisposePBRMaterialFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject1.contents,
@@ -364,7 +365,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject2.contents,
@@ -381,7 +382,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject3.contents,
@@ -399,7 +400,7 @@ defineFeature(feature, test => {
 
     \"when"("dispose [gameObject1, gameObject2, gameObject3]", () => {
       disposePBRMaterialsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
-      let (gs, _, ps) = DisposeTool.disposeGameObjects(
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObjects=[gameObject1.contents, gameObject2.contents, gameObject3.contents],
@@ -517,7 +518,7 @@ defineFeature(feature, test => {
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
       deferDisposePBRMaterialFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject1.contents,
@@ -534,7 +535,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, _, ps) = DisposeTool.deferDisposeGameObject(
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject2.contents,
@@ -553,7 +554,7 @@ defineFeature(feature, test => {
 
     \"when"("dispose [gameObject1, gameObject2]", () => {
       disposePBRMaterialsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
-      let (gs, _, ps) = DisposeTool.disposeGameObjects(
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -600,6 +601,458 @@ defineFeature(feature, test => {
     })
   })
 
+
+  test(."dispose geometry which has one gameObject", ({given, \"and", \"when", then}) => {
+    let gameObject1 = ref(Obj.magic(1))
+    let gameObject2 = ref(Obj.magic(2))
+    let geometry1 = ref(Obj.magic(3))
+    let geometry2 = ref(Obj.magic(4))
+    let sandbox = ref(Obj.magic(1))
+    let deferDisposeGeometryFuncStub = ref(Obj.magic(1))
+    let disposeGeometrysFuncStub = ref(Obj.magic(1))
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given("prepare sandbox", () => {
+      sandbox := createSandbox()
+    })
+
+    \"and"("create geometry state", () => {
+      geometryState :=
+        {
+          "gameObjectGeometryMap": Meta3dCommonlib.MutableSparseMap.createEmpty(),
+        }
+    })
+
+    \"and"(%re("/^create two gameObjects as gameObject(\d+), gameObject(\d+)$/")->Obj.magic, () => {
+      let (s, g1) = contribute.contents.createGameObjectFunc(. gameObjectState.contents)
+      let (s, g2) = contribute.contents.createGameObjectFunc(. s)
+
+      gameObjectState := s
+      gameObject1 := g1
+      gameObject2 := g2
+    })
+
+    \"and"(
+      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
+      () => {
+        geometry1 := 100
+        geometry2 := 101
+      },
+    )
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject1.contents, geometry1.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject2.contents, geometry2.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      deferDisposeGeometryFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject1.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry1.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject2.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry2.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"when"("dispose [gameObject1, gameObject2]", () => {
+      disposeGeometrysFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObjects=[gameObject1.contents, gameObject2.contents],
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. geometryState, gameObject) =>
+            Meta3dCommonlib.EqualTool.isEqual(gameObject, gameObject1.contents)
+              ? geometry1.contents->Js.Nullable.return
+              : geometry2.contents->Js.Nullable.return,
+          disposeGeometrysFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    then("should dispose [[geometry1, gameObject1], [geometry2, gameObject2]]", () => {
+      (
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(0, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry1.contents, matchAny)),
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(1, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry2.contents, matchAny)),
+        disposeGeometrysFuncStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(
+          matchAny,
+          Meta3dCommonlib.MutableSparseMap.createEmpty()
+          ->Meta3dCommonlib.MutableSparseMap.set(geometry1.contents, [gameObject1.contents])
+          ->Meta3dCommonlib.MutableSparseMap.set(geometry2.contents, [gameObject2.contents]),
+        ),
+      )->expect == (true, true, true)
+    })
+  })
+
+  test(."dispose geometry which has two gameObjects with its all gameObjects", ({
+    given,
+    \"and",
+    \"when",
+    then,
+  }) => {
+    let gameObject1 = ref(Obj.magic(1))
+    let gameObject2 = ref(Obj.magic(2))
+    let gameObject3 = ref(Obj.magic(2))
+    let geometry1 = ref(Obj.magic(3))
+    let geometry2 = ref(Obj.magic(4))
+    let sandbox = ref(Obj.magic(1))
+    let deferDisposeGeometryFuncStub = ref(Obj.magic(1))
+    let disposeGeometrysFuncStub = ref(Obj.magic(1))
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given("prepare sandbox", () => {
+      sandbox := createSandbox()
+    })
+
+    \"and"("create geometry state", () => {
+      geometryState :=
+        {
+          "gameObjectGeometryMap": Meta3dCommonlib.MutableSparseMap.createEmpty(),
+        }
+    })
+
+    \"and"("create three gameObjects as gameObject1, gameObject2, gameObject3", () => {
+      let (s, g1) = contribute.contents.createGameObjectFunc(. gameObjectState.contents)
+      let (s, g2) = contribute.contents.createGameObjectFunc(. s)
+      let (s, g3) = contribute.contents.createGameObjectFunc(. s)
+
+      gameObjectState := s
+      gameObject1 := g1
+      gameObject2 := g2
+      gameObject3 := g3
+    })
+
+    \"and"(
+      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
+      () => {
+        geometry1 := 100
+        geometry2 := 101
+      },
+    )
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject1.contents, geometry1.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject2.contents, geometry2.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject3.contents, geometry2.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      deferDisposeGeometryFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject1.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry1.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject2.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry2.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject3.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry2.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"when"("dispose [gameObject1, gameObject2, gameObject3]", () => {
+      disposeGeometrysFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObjects=[gameObject1.contents, gameObject2.contents, gameObject3.contents],
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. geometryState, gameObject) =>
+            Meta3dCommonlib.EqualTool.isEqual(gameObject, gameObject1.contents)
+              ? geometry1.contents->Js.Nullable.return
+              : Meta3dCommonlib.EqualTool.isEqual(gameObject, gameObject2.contents)
+              ? geometry2.contents->Js.Nullable.return
+              : geometry2.contents->Js.Nullable.return,
+          disposeGeometrysFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    then("should dispose [[geometry1, gameObject1], [geometry2, gameObject2, gameObject3]]", () => {
+      (
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(0, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry1.contents, gameObject1.contents)),
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(1, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry2.contents, gameObject2.contents)),
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(2, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry2.contents, gameObject3.contents)),
+        disposeGeometrysFuncStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(
+          matchAny,
+          Meta3dCommonlib.MutableSparseMap.createEmpty()
+          ->Meta3dCommonlib.MutableSparseMap.set(geometry1.contents, [gameObject1.contents])
+          ->Meta3dCommonlib.MutableSparseMap.set(
+            geometry2.contents,
+            [gameObject2.contents, gameObject3.contents],
+          ),
+        ),
+      )->expect == (true, true, true, true)
+    })
+  })
+
+  test(."dispose geometry which has two gameObjects not with its all gameObjects", ({
+    given,
+    \"and",
+    \"when",
+    then,
+  }) => {
+    let gameObject1 = ref(Obj.magic(1))
+    let gameObject2 = ref(Obj.magic(2))
+    let gameObject3 = ref(Obj.magic(2))
+    let geometry1 = ref(Obj.magic(3))
+    let geometry2 = ref(Obj.magic(4))
+    let sandbox = ref(Obj.magic(1))
+    let deferDisposeGeometryFuncStub = ref(Obj.magic(1))
+    let disposeGeometrysFuncStub = ref(Obj.magic(1))
+
+    _getContributeAndCreateAState((given, \"and"))
+
+    given("prepare sandbox", () => {
+      sandbox := createSandbox()
+    })
+
+    \"and"("create geometry state", () => {
+      geometryState :=
+        {
+          "gameObjectGeometryMap": Meta3dCommonlib.MutableSparseMap.createEmpty(),
+        }
+    })
+
+    \"and"("create three gameObjects as gameObject1, gameObject2, gameObject3", () => {
+      let (s, g1) = contribute.contents.createGameObjectFunc(. gameObjectState.contents)
+      let (s, g2) = contribute.contents.createGameObjectFunc(. s)
+      let (s, g3) = contribute.contents.createGameObjectFunc(. s)
+
+      gameObjectState := s
+      gameObject1 := g1
+      gameObject2 := g2
+      gameObject3 := g3
+    })
+
+    \"and"(
+      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
+      () => {
+        geometry1 := 100
+        geometry2 := 101
+      },
+    )
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject1.contents, geometry1.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject2.contents, geometry2.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
+      geometryState.contents["gameObjectGeometryMap"]
+      ->Meta3dCommonlib.MutableSparseMap.set(gameObject3.contents, geometry2.contents)
+      ->ignore
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      deferDisposeGeometryFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject1.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry1.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
+      let (gs, _, ps, _) = DisposeTool.deferDisposeGameObject(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObject=gameObject2.contents,
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. _, _) => geometry2.contents->Meta3dCommonlib.NullableSt.return,
+          deferDisposeGeometryFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+
+    \"when"("dispose [gameObject1, gameObject2]", () => {
+      disposeGeometrysFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
+      let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
+        ~gameObjectState=gameObjectState.contents,
+        ~contribute=contribute.contents,
+        ~gameObjects=[gameObject1.contents, gameObject2.contents],
+        ~geometryState=geometryState.contents,
+        ~geometryFuncs=(
+          (. geometryState, gameObject) =>
+            Meta3dCommonlib.EqualTool.isEqual(gameObject, gameObject1.contents)
+              ? geometry1.contents->Js.Nullable.return
+              : geometry2.contents->Js.Nullable.return,
+          disposeGeometrysFuncStub.contents,
+        ),
+        (),
+      )
+
+      gameObjectState := gs
+      geometryState := ps->Obj.magic
+    })
+
+    then("should dispose [[geometry1, gameObject1], [geometry2, gameObject2]]", () => {
+      (
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(0, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry1.contents, gameObject1.contents)),
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCall(1, _)
+        ->SinonTool.calledWithArg2(matchAny, (geometry2.contents, gameObject2.contents)),
+        deferDisposeGeometryFuncStub.contents
+        ->Obj.magic
+        ->getCallCount,
+        disposeGeometrysFuncStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(
+          matchAny,
+          Meta3dCommonlib.MutableSparseMap.createEmpty()
+          ->Meta3dCommonlib.MutableSparseMap.set(geometry1.contents, [gameObject1.contents])
+          ->Meta3dCommonlib.MutableSparseMap.set(
+            geometry2.contents,
+            [gameObject2.contents],
+          ),
+        ),
+      )->expect == (true, true, 2,  true)
+    })
+  })
+
   test(."should remove disposed gameObjects from needDisposedGameObjects", ({
     given,
     \"and",
@@ -633,7 +1086,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts, _) = DisposeTool.deferDisposeGameObject(
+      let (gs, ts, _, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject1.contents,
@@ -650,7 +1103,7 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
-      let (gs, ts, _) = DisposeTool.deferDisposeGameObject(
+      let (gs, ts, _, _) = DisposeTool.deferDisposeGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObject=gameObject2.contents,
@@ -667,7 +1120,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose gameObject1", () => {
-      let (gs, ts, _) = DisposeTool.disposeGameObjects(
+      let (gs, ts, _, _) = DisposeTool.disposeGameObjects(
         ~gameObjectState=gameObjectState.contents,
         ~contribute=contribute.contents,
         ~gameObjects=[gameObject1.contents],

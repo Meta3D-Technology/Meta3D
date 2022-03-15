@@ -592,6 +592,9 @@ only use batchDisposeComponents with handleBatchDisposeComponentData, not handle
 
 
 
+TODO update engine-core
+
+
 ** TODO refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
 
 

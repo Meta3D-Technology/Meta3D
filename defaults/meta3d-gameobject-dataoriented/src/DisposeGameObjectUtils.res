@@ -7,10 +7,12 @@ let deferDisposeGameObject = (
     {needDisposedGameObjectArray} as gameObjectState,
     transformState: Meta3dComponentTransformProtocol.Index.state,
     pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
+    geometryState: Meta3dComponentGeometryProtocol.Index.state,
   ),
   (
     (getTransformFunc, deferDisposeTransformFunc),
     (getPBRMaterialFunc, deferDisposePBRMaterialFunc),
+    (getGeometryFunc, deferDisposeGeometryFunc),
   ),
   gameObject,
 ) => {
@@ -28,6 +30,13 @@ let deferDisposeGameObject = (
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(pbrMaterialState)
 
+  let geometryState =
+    getGeometryFunc(. geometryState, gameObject)
+    ->Meta3dCommonlib.NullableSt.bind((. geometry) => {
+      deferDisposeGeometryFunc(. geometryState, (geometry, gameObject))
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(geometryState)
+
   let gameObjectState = {
     ...gameObjectState,
     needDisposedGameObjectArray: needDisposedGameObjectArray->Meta3dCommonlib.ArraySt.push(
@@ -35,7 +44,7 @@ let deferDisposeGameObject = (
     ),
   }
 
-  (gameObjectState, transformState, pbrMaterialState)
+  (gameObjectState, transformState, pbrMaterialState, geometryState)
 }
 
 let _getTransforms = (state, getTransformFunc, gameObjects) =>
@@ -63,8 +72,13 @@ let disposeGameObjects = (
     {needDisposedGameObjectArray} as gameObjectState,
     transformState: Meta3dComponentTransformProtocol.Index.state,
     pbrMaterialState: Meta3dComponentPbrmaterialProtocol.Index.state,
+    geometryState: Meta3dComponentGeometryProtocol.Index.state,
   ),
-  ((getTransformFunc, disposeTransformsFunc), (getPBRMaterialFunc, disposePBRMaterialsFunc)),
+  (
+    (getTransformFunc, disposeTransformsFunc),
+    (getPBRMaterialFunc, disposePBRMaterialsFunc),
+    (getGeometryFunc, disposeGeometrysFunc),
+  ),
   gameObjects,
 ) => {
   let isDebug = ConfigUtils.getIsDebug(gameObjectState)
@@ -93,5 +107,10 @@ let disposeGameObjects = (
     _getSharableComponentDataMap(pbrMaterialState, getPBRMaterialFunc, gameObjects),
   )
 
-  (gameObjectState, transformState, pbrMaterialState)
+  let geometryState = disposeGeometrysFunc(.
+    geometryState,
+    _getSharableComponentDataMap(geometryState, getGeometryFunc, gameObjects),
+  )
+
+  (gameObjectState, transformState, pbrMaterialState, geometryState)
 }

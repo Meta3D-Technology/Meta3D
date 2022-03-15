@@ -33,7 +33,7 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose [gameObject1, gameObject2]
 			Then should dispose [[pbrMaterial1, gameObject1], [pbrMaterial2, gameObject2]]
 
-		Scenario: dispose pbrMaterial which has two gameObjects with its all gameObjects 
+		Scenario: dispose pbrMaterial which has two gameObjects with its all gameObjects
 			Given prepare sandbox
 			And create pbrMaterial state
 			And create three gameObjects as gameObject1, gameObject2, gameObject3
@@ -47,7 +47,7 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose [gameObject1, gameObject2, gameObject3]
 			Then should dispose [[pbrMaterial1, gameObject1], [pbrMaterial2, gameObject2, gameObject3]]
 
-		Scenario: dispose pbrMaterial which has two gameObjects not with its all gameObjects 
+		Scenario: dispose pbrMaterial which has two gameObjects not with its all gameObjects
 			Given prepare sandbox
 			And create pbrMaterial state
 			And create three gameObjects as gameObject1, gameObject2, gameObject3
@@ -59,6 +59,45 @@ Feature: Batch Dispose After Defer Dispose
 			And defer dispose gameObject2
 			When dispose [gameObject1, gameObject2]
 			Then should dispose [[pbrMaterial1, gameObject1], [pbrMaterial2, gameObject2]]
+
+		Scenario: dispose geometry which has one gameObject
+			Given prepare sandbox
+			And create geometry state
+			And create two gameObjects as gameObject1, gameObject2
+			And create two geometrys as geometry1, geometry2
+			And add geometry1 to gameObject1
+			And add geometry2 to gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [[geometry1, gameObject1], [geometry2, gameObject2]]
+
+		Scenario: dispose geometry which has two gameObjects with its all gameObjects
+			Given prepare sandbox
+			And create geometry state
+			And create three gameObjects as gameObject1, gameObject2, gameObject3
+			And create two geometrys as geometry1, geometry2
+			And add geometry1 to gameObject1
+			And add geometry2 to gameObject2
+			And add geometry2 to gameObject3
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			And defer dispose gameObject3
+			When dispose [gameObject1, gameObject2, gameObject3]
+			Then should dispose [[geometry1, gameObject1], [geometry2, gameObject2, gameObject3]]
+
+		Scenario: dispose geometry which has two gameObjects not with its all gameObjects
+			Given prepare sandbox
+			And create geometry state
+			And create three gameObjects as gameObject1, gameObject2, gameObject3
+			And create two geometrys as geometry1, geometry2
+			And add geometry1 to gameObject1
+			And add geometry2 to gameObject2
+			And add geometry2 to gameObject3
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [[geometry1, gameObject1], [geometry2, gameObject2]]
 
 	Rule: dispose gameObject
 

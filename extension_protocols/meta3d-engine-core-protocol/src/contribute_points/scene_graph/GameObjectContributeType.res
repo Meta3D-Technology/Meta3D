@@ -1,41 +1,80 @@
-// @genType
-// type gameObject
-
 type createStateFunc<'state, 'config> = (. 'config) => 'state
 
 type createGameObjectFunc<'state, 'gameObject> = (. 'state) => ('state, 'gameObject)
 
 type getNeedDisposedGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
-type deferDisposeGameObjectFunc<'state, 'transformState, 'pbrMaterialState, 'gameObject, 'transform> = (
-  . ('state, 'transformState, 'pbrMaterialState),
-  (
-  (
-    (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
-    (. 'transformState, ('transform, 'gameObject)) => 'transformState,
-  ),
-  (
-    (. 'pbrMaterialState, 'gameObject) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial >,
-    (. 'pbrMaterialState, (Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial , 'gameObject)) => 'pbrMaterialState,
-  ),
-  ),
+type deferDisposeGameObjectFunc<
+  'state,
+  'transformState,
+  'pbrMaterialState,
+  'geometryState,
   'gameObject,
-) => ('state, 'transformState, 'pbrMaterialState)
+  'transform,
+> = (
+  . ('state, 'transformState, 'pbrMaterialState, 'geometryState),
+  (
+    (
+      (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
+      (. 'transformState, ('transform, 'gameObject)) => 'transformState,
+    ),
+    (
+      (
+        . 'pbrMaterialState,
+        'gameObject,
+      ) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial>,
+      (
+        . 'pbrMaterialState,
+        (Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial, 'gameObject),
+      ) => 'pbrMaterialState,
+    ),
+    (
+      (
+        . 'geometryState,
+        'gameObject,
+      ) => Js.Nullable.t<Meta3dComponentGeometryProtocol .Index.geometry>,
+      (
+        . 'geometryState,
+        (Meta3dComponentGeometryProtocol.Index.geometry, 'gameObject),
+      ) => 'geometryState,
+    ),
+  ),
+  'gameObject
+) => ('state, 'transformState, 'pbrMaterialState, 'geometryState)
 
-type disposeGameObjectsFunc<'state, 'transformState, 'pbrMaterialState, 'gameObject, 'transform> = (
-  . ('state, 'transformState, 'pbrMaterialState),
+type disposeGameObjectsFunc<'state, 'transformState, 'pbrMaterialState, 'geometryState, 'gameObject, 'transform> = (
+  . ('state, 'transformState, 'pbrMaterialState, 'geometryState),
   (
-  (
-    (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
-    (. 'transformState, Meta3dComponentTransformProtocol.Index.batchDisposeData) => 'transformState,
-  ),
-  (
-    (. 'pbrMaterialState, 'gameObject) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial >,
-    (. 'pbrMaterialState, Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData) => 'pbrMaterialState,
-  ),
+    (
+      (. 'transformState, 'gameObject) => Js.Nullable.t<'transform>,
+      (
+        . 'transformState,
+        Meta3dComponentTransformProtocol.Index.batchDisposeData,
+      ) => 'transformState,
+    ),
+    (
+      (
+        . 'pbrMaterialState,
+        'gameObject,
+      ) => Js.Nullable.t<Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial>,
+      (
+        . 'pbrMaterialState,
+        Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
+      ) => 'pbrMaterialState,
+    ),
+    (
+      (
+        . 'geometryState,
+        'gameObject,
+      ) => Js.Nullable.t<Meta3dComponentGeometryProtocol.Index.geometry>,
+      (
+        . 'geometryState,
+        Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+      ) => 'geometryState,
+    ),
   ),
   array<'gameObject>,
-) => ('state, 'transformState, 'pbrMaterialState)
+) => ('state, 'transformState, 'pbrMaterialState, 'geometryState)
 
 type getAllGameObjectsFunc<'state, 'gameObject> = (. 'state) => array<'gameObject>
 
@@ -44,6 +83,7 @@ type gameObjectContribute<
   'state,
   'transformState,
   'pbrMaterialState,
+  'geometryState,
   'config,
   'gameObject,
   'transform,
@@ -54,14 +94,16 @@ type gameObjectContribute<
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<
     'state,
     'transformState,
-'pbrMaterialState,
+    'pbrMaterialState,
+    'geometryState,
     'gameObject,
     'transform,
   >,
   disposeGameObjectsFunc: disposeGameObjectsFunc<
     'state,
     'transformState,
-'pbrMaterialState,
+    'pbrMaterialState,
+    'geometryState,
     'gameObject,
     'transform,
   >,
@@ -71,14 +113,16 @@ type gameObjectContribute<
 type getGameObjectContribute<
   'state,
   'transformState,
-'pbrMaterialState,
+  'pbrMaterialState,
+  'geometryState,
   'config,
   'gameObject,
   'transform,
 > = unit => gameObjectContribute<
   'state,
   'transformState,
-'pbrMaterialState,
+  'pbrMaterialState,
+  'geometryState,
   'config,
   'gameObject,
   'transform,
