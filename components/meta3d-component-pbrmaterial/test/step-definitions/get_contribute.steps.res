@@ -12,8 +12,8 @@ defineFeature(feature, test => {
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
+      Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
   > = ref(Obj.magic(1))

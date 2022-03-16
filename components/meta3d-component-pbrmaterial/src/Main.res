@@ -4,17 +4,18 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
   Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
+  Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
   Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
 > = () => {
   componentName: Meta3dComponentPbrmaterialProtocol.Index.componentName,
   createStateFunc: (. {isDebug, pbrMaterialCount}) =>
     CreateStateUtils.createState(isDebug, pbrMaterialCount),
   createComponentFunc: (. state) => CreatePBRMaterialUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddPBRMaterialUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, material) => {
+    AddPBRMaterialUtils.add(state, gameObject, material)
   },
-  removeComponentFunc: (. state, gameObject, component) => {
-    RemovePBRMaterialUtils.remove(state, gameObject, component)
+  removeComponentFunc: (. state, gameObject, material) => {
+    RemovePBRMaterialUtils.remove(state, gameObject, material)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasPBRMaterialUtils.has(state, gameObject)
@@ -25,22 +26,25 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   getNeedDisposedComponentsFunc: (. state) => {
     GetNeedDisposedPBRMaterialsUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, material) => {
+    GetGameObjectsUtils.get(state, material)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetPBRMaterialDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, material, dataName) => {
+    GetPBRMaterialDataUtils.getData(. state, material, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetPBRMaterialDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, material, dataName, dataValue) => {
+    SetPBRMaterialDataUtils.setData(. state, material, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllPBRMaterialsUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, (component, gameObject)) => {
-    DisposePBRMaterialUtils.deferDisposeComponent(state, (component, gameObject))
+  deferDisposeComponentFunc: (. state, (material, gameObject)) => {
+    DisposePBRMaterialUtils.deferDisposeComponent(state, (material, gameObject))
   },
-  disposeComponentsFunc: (. state, componentDataMap) => {
-    DisposePBRMaterialUtils.disposeComponents(state, componentDataMap)
+  disposeComponentsFunc: (. state, materialDataMap) => {
+    DisposePBRMaterialUtils.disposeComponents(state, materialDataMap)
+  },
+  cloneComponentFunc: (. state, countRange, cloneConfig, sourceMaterial) => {
+    ClonePBRMaterialUtils.clone(state, countRange, cloneConfig, sourceMaterial)
   },
 }

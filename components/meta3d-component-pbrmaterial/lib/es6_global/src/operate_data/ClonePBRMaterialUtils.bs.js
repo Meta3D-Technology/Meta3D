@@ -1,0 +1,70 @@
+
+
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "../operate_component/CreatePBRMaterialUtils.bs.js";
+import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial from "../utils/OperateTypeArrayPBRMaterialUtils.bs.js";
+import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js";
+
+function _setData(state) {
+  var diffuseColors = state.diffuseColors;
+  var speculars = state.speculars;
+  return function (clonedMaterial, param) {
+    OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setDiffuseColor(clonedMaterial, param[0], diffuseColors);
+    OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setSpecular(clonedMaterial, param[1], speculars);
+    return state;
+  };
+}
+
+function _getData(state) {
+  var diffuseColors = state.diffuseColors;
+  var speculars = state.speculars;
+  return function (sourceMaterial) {
+    return [
+            OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColor(sourceMaterial, diffuseColors),
+            OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecular(sourceMaterial, speculars)
+          ];
+  };
+}
+
+function _handleShareMaterial(state, sourceMaterial, countRange) {
+  return [
+          state,
+          countRange.map(function (param) {
+                return sourceMaterial;
+              })
+        ];
+}
+
+function _handleNotShareMaterial(state, sourceMaterial, countRange) {
+  var dataTuple = _getData(state)(sourceMaterial);
+  return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
+                var match = CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create(param[0]);
+                var clonedMaterial = match[1];
+                var state = _setData(match[0])(clonedMaterial, dataTuple);
+                return [
+                        state,
+                        ArraySt$Meta3dCommonlib.push(param[1], clonedMaterial)
+                      ];
+              }), [
+              state,
+              []
+            ]);
+}
+
+function clone(state, countRange, param, sourceMaterial) {
+  if (param.isShare) {
+    return _handleShareMaterial(state, sourceMaterial, countRange);
+  } else {
+    return _handleNotShareMaterial(state, sourceMaterial, countRange);
+  }
+}
+
+export {
+  _setData ,
+  _getData ,
+  _handleShareMaterial ,
+  _handleNotShareMaterial ,
+  clone ,
+  
+}
+/* No side effect */

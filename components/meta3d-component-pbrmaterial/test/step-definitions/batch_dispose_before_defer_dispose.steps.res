@@ -12,8 +12,8 @@ defineFeature(feature, test => {
       Meta3dComponentPbrmaterialProtocol.Index.config,
       Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
       Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
+      Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
       Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
     >,
   > = ref(Obj.magic(1))
@@ -30,12 +30,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."if dispose before defer dispose, contract error", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
+  test(."if dispose before defer dispose, contract error", ({given, \"when", \"and", then}) => {
     let gameObject1 = 10
     let pbrMaterial1 = ref(Obj.magic(1))
 
@@ -64,7 +59,13 @@ defineFeature(feature, test => {
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
         state :=
-          contribute.contents.disposeComponentsFunc(. state.contents, Meta3dCommonlib.MutableSparseMap.createEmpty() -> Meta3dCommonlib.MutableSparseMap.set(pbrMaterial1.contents, [gameObject1])  )
+          contribute.contents.disposeComponentsFunc(.
+            state.contents,
+            Meta3dCommonlib.MutableSparseMap.createEmpty()->Meta3dCommonlib.MutableSparseMap.set(
+              pbrMaterial1.contents,
+              [gameObject1],
+            ),
+          )
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

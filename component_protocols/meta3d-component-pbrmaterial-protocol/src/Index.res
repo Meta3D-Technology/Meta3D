@@ -29,3 +29,5 @@ type batchDisposeData = Meta3dCommonlibType.MutableSparseMapType.t<
   pbrMaterial,
   array<Meta3dGameobjectProtocol.Index.gameObject>,
 >
+
+type cloneConfig = {isShare: bool}

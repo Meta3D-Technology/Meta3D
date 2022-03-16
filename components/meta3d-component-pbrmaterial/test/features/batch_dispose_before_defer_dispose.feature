@@ -12,4 +12,4 @@ Feature: Batch Dispose Before Defer Dispose
 		And create a pbrMaterial
 		And add the pbrMaterial to the gameObject
 		When dispose the pbrMaterial from the gameObject
-		Then should contract error: "component should need disposed"
+		Then should contract error: "material should need disposed"

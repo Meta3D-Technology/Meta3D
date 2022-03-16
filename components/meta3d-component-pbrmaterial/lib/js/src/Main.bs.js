@@ -6,6 +6,7 @@ var AddPBRMaterialUtils$Meta3dComponentPbrmaterial = require("./gameobject/AddPB
 var GetGameObjectsUtils$Meta3dComponentPbrmaterial = require("./gameobject/GetGameObjectsUtils.bs.js");
 var GetPBRMaterialUtils$Meta3dComponentPbrmaterial = require("./gameobject/GetPBRMaterialUtils.bs.js");
 var HasPBRMaterialUtils$Meta3dComponentPbrmaterial = require("./gameobject/HasPBRMaterialUtils.bs.js");
+var ClonePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./operate_data/ClonePBRMaterialUtils.bs.js");
 var CreatePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./operate_component/CreatePBRMaterialUtils.bs.js");
 var RemovePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./gameobject/RemovePBRMaterialUtils.bs.js");
 var DisposePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./operate_data/DisposePBRMaterialUtils.bs.js");
@@ -20,15 +21,15 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentPbrmaterial.createState(param.isDebug, param.pbrMaterialCount);
             }),
-          getGameObjectsFunc: (function (state, component) {
-              return GetGameObjectsUtils$Meta3dComponentPbrmaterial.get(state)(component);
+          getGameObjectsFunc: (function (state, material) {
+              return GetGameObjectsUtils$Meta3dComponentPbrmaterial.get(state)(material);
             }),
           createComponentFunc: CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
-          addComponentFunc: (function (state, gameObject, component) {
-              return AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add(state)(gameObject, component);
+          addComponentFunc: (function (state, gameObject, material) {
+              return AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add(state)(gameObject, material);
             }),
-          removeComponentFunc: (function (state, gameObject, component) {
-              return RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove(state)(gameObject, component);
+          removeComponentFunc: (function (state, gameObject, material) {
+              return RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove(state)(gameObject, material);
             }),
           hasComponentFunc: (function (state, gameObject) {
               return HasPBRMaterialUtils$Meta3dComponentPbrmaterial.has(state)(gameObject);
@@ -37,11 +38,11 @@ function getComponentContribute(param) {
               return GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get(state)(gameObject);
             }),
           getNeedDisposedComponentsFunc: GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, component, dataName);
+          getComponentDataFunc: (function (state, material, dataName) {
+              return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, material, dataName);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setData(state, component, dataName, dataValue);
+          setComponentDataFunc: (function (state, material, dataName, dataValue) {
+              return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setData(state, material, dataName, dataValue);
             }),
           deferDisposeComponentFunc: (function (state, param) {
               return DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.deferDisposeComponent(state)([
@@ -50,6 +51,7 @@ function getComponentContribute(param) {
                         ]);
             }),
           disposeComponentsFunc: DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.disposeComponents,
+          cloneComponentFunc: ClonePBRMaterialUtils$Meta3dComponentPbrmaterial.clone,
           getAllComponentsFunc: GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial.getAll
         };
 }

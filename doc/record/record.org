@@ -646,6 +646,13 @@ return data: (state, totalClonedGameObjectArr)
 totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
 
 
+*** TODO component support clone
+
+*** TODO refactor
+
+*** TODO gameObject support clone
+
+
 *** TODO pass bdd test
 
 

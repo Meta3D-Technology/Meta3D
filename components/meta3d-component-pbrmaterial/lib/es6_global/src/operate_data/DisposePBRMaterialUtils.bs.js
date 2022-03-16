@@ -28,29 +28,29 @@ function _disposeData(state) {
   var speculars = state.speculars;
   var defaultSpecular = state.defaultSpecular;
   var defaultDiffuseColor = state.defaultDiffuseColor;
-  return function (component) {
-    state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(component), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
-    state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(component), defaultSpecular);
+  return function (material) {
+    state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(material), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
+    state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(material), defaultSpecular);
     return state;
   };
 }
 
-function disposeComponents(state, componentDataMap) {
+function disposeComponents(state, materialDataMap) {
   var needDisposedComponents = GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get(state);
-  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), "component", MutableSparseMap$Meta3dCommonlib.getKeys(componentDataMap), MutableSparseMap$Meta3dCommonlib.getKeys(needDisposedComponents));
-  var match = MutableSparseMap$Meta3dCommonlib.reducei(componentDataMap, (function (param, gameObjects, component) {
+  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(ConfigUtils$Meta3dComponentPbrmaterial.getIsDebug(state), "material", MutableSparseMap$Meta3dCommonlib.getKeys(materialDataMap), MutableSparseMap$Meta3dCommonlib.getKeys(needDisposedComponents));
+  var match = MutableSparseMap$Meta3dCommonlib.reducei(materialDataMap, (function (param, gameObjects, material) {
           var disposedComponents = param[1];
           var state = param[0];
-          state.gameObjectsMap = ArrayMapUtils$Meta3dCommonlib.batchRemoveValueArr(state.gameObjectsMap, component, gameObjects);
-          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasNoGameObject(state.gameObjectsMap, component, gameObjects)) {
+          state.gameObjectsMap = ArrayMapUtils$Meta3dCommonlib.batchRemoveValueArr(state.gameObjectsMap, material, gameObjects);
+          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasNoGameObject(state.gameObjectsMap, material, gameObjects)) {
             return [
                     state,
                     disposedComponents
                   ];
           } else {
             return [
-                    _disposeData(state)(component),
-                    ArraySt$Meta3dCommonlib.push(disposedComponents, component)
+                    _disposeData(state)(material),
+                    ArraySt$Meta3dCommonlib.push(disposedComponents, material)
                   ];
           }
         }), [

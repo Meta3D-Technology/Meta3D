@@ -6,6 +6,7 @@ import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/Ad
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as GetPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialUtils.bs.js";
 import * as HasPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/HasPBRMaterialUtils.bs.js";
+import * as ClonePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/ClonePBRMaterialUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/CreatePBRMaterialUtils.bs.js";
 import * as RemovePBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/RemovePBRMaterialUtils.bs.js";
 import * as DisposePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/DisposePBRMaterialUtils.bs.js";
@@ -20,15 +21,15 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentPbrmaterial.createState(param.isDebug, param.pbrMaterialCount);
             }),
-          getGameObjectsFunc: (function (state, component) {
-              return GetGameObjectsUtils$Meta3dComponentPbrmaterial.get(state)(component);
+          getGameObjectsFunc: (function (state, material) {
+              return GetGameObjectsUtils$Meta3dComponentPbrmaterial.get(state)(material);
             }),
           createComponentFunc: CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
-          addComponentFunc: (function (state, gameObject, component) {
-              return AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add(state)(gameObject, component);
+          addComponentFunc: (function (state, gameObject, material) {
+              return AddPBRMaterialUtils$Meta3dComponentPbrmaterial.add(state)(gameObject, material);
             }),
-          removeComponentFunc: (function (state, gameObject, component) {
-              return RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove(state)(gameObject, component);
+          removeComponentFunc: (function (state, gameObject, material) {
+              return RemovePBRMaterialUtils$Meta3dComponentPbrmaterial.remove(state)(gameObject, material);
             }),
           hasComponentFunc: (function (state, gameObject) {
               return HasPBRMaterialUtils$Meta3dComponentPbrmaterial.has(state)(gameObject);
@@ -37,11 +38,11 @@ function getComponentContribute(param) {
               return GetPBRMaterialUtils$Meta3dComponentPbrmaterial.get(state)(gameObject);
             }),
           getNeedDisposedComponentsFunc: GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial.get,
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, component, dataName);
+          getComponentDataFunc: (function (state, material, dataName) {
+              return GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getData(state, material, dataName);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setData(state, component, dataName, dataValue);
+          setComponentDataFunc: (function (state, material, dataName, dataValue) {
+              return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setData(state, material, dataName, dataValue);
             }),
           deferDisposeComponentFunc: (function (state, param) {
               return DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.deferDisposeComponent(state)([
@@ -50,6 +51,7 @@ function getComponentContribute(param) {
                         ]);
             }),
           disposeComponentsFunc: DisposePBRMaterialUtils$Meta3dComponentPbrmaterial.disposeComponents,
+          cloneComponentFunc: ClonePBRMaterialUtils$Meta3dComponentPbrmaterial.clone,
           getAllComponentsFunc: GetAllPBRMaterialsUtils$Meta3dComponentPbrmaterial.getAll
         };
 }
