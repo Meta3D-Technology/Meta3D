@@ -28,8 +28,8 @@ function _disposeData(state) {
   var texCoordsInfos = state.texCoordsInfos;
   var normalsInfos = state.normalsInfos;
   var indicesInfos = state.indicesInfos;
-  return function (isDebug, component) {
-    var infoIndex = BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoIndex(component);
+  return function (isDebug, geometry) {
+    var infoIndex = BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoIndex(geometry);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(verticesInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(texCoordsInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(normalsInfos, infoIndex, 0, 0, isDebug);
@@ -38,23 +38,23 @@ function _disposeData(state) {
   };
 }
 
-function disposeComponents(state, componentDataMap) {
+function disposeComponents(state, geometryDataMap) {
   var isDebug = ConfigUtils$Meta3dComponentGeometry.getIsDebug(state);
   var needDisposedComponents = GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry.get(state);
-  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", MutableSparseMap$Meta3dCommonlib.getKeys(componentDataMap), MutableSparseMap$Meta3dCommonlib.getKeys(needDisposedComponents));
-  var match = MutableSparseMap$Meta3dCommonlib.reducei(componentDataMap, (function (param, gameObjects, component) {
+  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "geometry", MutableSparseMap$Meta3dCommonlib.getKeys(geometryDataMap), MutableSparseMap$Meta3dCommonlib.getKeys(needDisposedComponents));
+  var match = MutableSparseMap$Meta3dCommonlib.reducei(geometryDataMap, (function (param, gameObjects, geometry) {
           var disposedComponents = param[1];
           var state = param[0];
-          state.gameObjectsMap = ArrayMapUtils$Meta3dCommonlib.batchRemoveValueArr(state.gameObjectsMap, component, gameObjects);
-          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasNoGameObject(state.gameObjectsMap, component, gameObjects)) {
+          state.gameObjectsMap = ArrayMapUtils$Meta3dCommonlib.batchRemoveValueArr(state.gameObjectsMap, geometry, gameObjects);
+          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasNoGameObject(state.gameObjectsMap, geometry, gameObjects)) {
             return [
                     state,
                     disposedComponents
                   ];
           } else {
             return [
-                    _disposeData(state)(isDebug, component),
-                    ArraySt$Meta3dCommonlib.push(disposedComponents, component)
+                    _disposeData(state)(isDebug, geometry),
+                    ArraySt$Meta3dCommonlib.push(disposedComponents, geometry)
                   ];
           }
         }), [

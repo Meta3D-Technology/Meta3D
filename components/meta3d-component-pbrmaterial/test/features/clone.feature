@@ -12,7 +12,7 @@ Feature: Clone
 		Scenario: cloned one is source one
 			Given create a pbrMaterial
 			When clone 2 shared pbrMaterials
-			Then get 2 cloned pbrMaterials should equal to source one
+			Then get 2 cloned pbrMaterials should be source one
 
 	Rule: test clone not shared material
 

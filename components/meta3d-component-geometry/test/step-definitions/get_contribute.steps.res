@@ -12,12 +12,13 @@ let feature = loadFeature("./test/features/get_contribute.feature")
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-  StateType.state,
-  Meta3dComponentGeometryProtocol.Index.config,
-  Meta3dComponentGeometryProtocol.Index.dataNameType,
-  Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
-  Meta3dComponentGeometryProtocol.Index.batchDisposeData,
-  Meta3dComponentGeometryProtocol.Index.geometry,
+      StateType.state,
+      Meta3dComponentGeometryProtocol.Index.config,
+      Meta3dComponentGeometryProtocol.Index.dataNameType,
+      Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
+      Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+      Meta3dComponentGeometryProtocol.Index.cloneConfig,
+      Meta3dComponentGeometryProtocol.Index.geometry,
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
@@ -158,11 +159,13 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the first geometry to the gameObject", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl1.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl1.contents)
     })
 
     \"and"("add the second geometry to the gameObject", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl2.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, geometryl2.contents)
     })
 
     then("get the gameObject's geometry should be the second one", () => {
@@ -196,8 +199,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the geometry to the gameObject", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
+      state := contribute.contents.addComponentFunc(. state.contents, gameObject, geometry.contents)
     })
 
     \"and"("remove the geometry from the gameObject", () => {
@@ -210,7 +212,12 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."remove a geometry which add to two gameObjects from a gameObject", ({given, \"when", \"and", then}) => {
+  test(."remove a geometry which add to two gameObjects from a gameObject", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
     let gameObject1 = 10
     let gameObject2 = 11
     let geometry = ref(Obj.magic(1))
@@ -357,8 +364,10 @@ defineFeature(feature, test => {
     })
 
     \"and"("add them to the gameObjects one by one", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, geometryl1.contents)
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, geometryl2.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometryl1.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, geometryl2.contents)
     })
 
     then("getAllComponentsFunc should get the two geometries", () => {
@@ -426,8 +435,10 @@ defineFeature(feature, test => {
     })
 
     \"and"("add the geometry to the two gameObjects", () => {
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry.contents)
-      state := contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry.contents)
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject2, geometry.contents)
     })
 
     then("getGameObjectsFunc should return the two gameObjects", () => {

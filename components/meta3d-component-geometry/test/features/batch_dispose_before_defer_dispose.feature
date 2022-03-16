@@ -12,4 +12,4 @@ Feature: Batch Dispose Before Defer Dispose
 		And create a geometry
 		And add the geometry to the gameObject
 		When dispose the geometry from the gameObject
-		Then should contract error: "component should need disposed"
+		Then should contract error: "geometry should need disposed"

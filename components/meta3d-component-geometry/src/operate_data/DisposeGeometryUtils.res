@@ -2,13 +2,13 @@ open StateType
 
 let deferDisposeComponent = (
   {gameObjectGeometryMap, needDisposedGeometrys} as state,
-  (component, gameObject),
+  (geometry, gameObject),
 ) => {
   {
     ...state,
     gameObjectGeometryMap: gameObjectGeometryMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject),
     needDisposedGeometrys: needDisposedGeometrys->Meta3dCommonlib.ArrayMapUtils.addValue(
-      component,
+      geometry,
       gameObject,
     ),
   }
@@ -17,9 +17,9 @@ let deferDisposeComponent = (
 let _disposeData = (
   {verticesInfos, texCoordsInfos, normalsInfos, indicesInfos} as state,
   isDebug,
-  component,
+  geometry,
 ) => {
-  let infoIndex = Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoIndex(component)
+  let infoIndex = Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoIndex(geometry)
 
   ReallocatedPointsGeometryUtils.setInfo(verticesInfos, infoIndex, 0, 0, isDebug)
   ReallocatedPointsGeometryUtils.setInfo(texCoordsInfos, infoIndex, 0, 0, isDebug)
@@ -29,27 +29,27 @@ let _disposeData = (
   state
 }
 
-let disposeComponents = (state, componentDataMap) => {
+let disposeComponents = (state, geometryDataMap) => {
   let isDebug = ConfigUtils.getIsDebug(state)
   let needDisposedComponents = GetNeedDisposedGeometrysUtils.get(state)
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
-    "component",
-    componentDataMap->Meta3dCommonlib.MutableSparseMap.getKeys,
+    "geometry",
+    geometryDataMap->Meta3dCommonlib.MutableSparseMap.getKeys,
     needDisposedComponents->Meta3dCommonlib.MutableSparseMap.getKeys,
   )
 
   let (state, disposedComponents) =
-    componentDataMap->Meta3dCommonlib.MutableSparseMap.reducei(
-      (. (state, disposedComponents), gameObjects, component) => {
-        state.gameObjectsMap = Meta3dCommonlib.ArrayMapUtils.batchRemoveValueArr(state.gameObjectsMap, component, gameObjects)
+    geometryDataMap->Meta3dCommonlib.MutableSparseMap.reducei(
+      (. (state, disposedComponents), gameObjects, geometry) => {
+        state.gameObjectsMap = Meta3dCommonlib.ArrayMapUtils.batchRemoveValueArr(state.gameObjectsMap, geometry, gameObjects)
 
-        Meta3dCommonlib.DisposeSharedComponentUtils. isComponentHasNoGameObject(state.gameObjectsMap, component, gameObjects)
+        Meta3dCommonlib.DisposeSharedComponentUtils. isComponentHasNoGameObject(state.gameObjectsMap, geometry, gameObjects)
           ? (state, disposedComponents)
           : (
-              state->_disposeData(isDebug, component),
-              disposedComponents->Meta3dCommonlib.ArraySt.push(component),
+              state->_disposeData(isDebug, geometry),
+              disposedComponents->Meta3dCommonlib.ArraySt.push(geometry),
             )
       },
       (state, []),

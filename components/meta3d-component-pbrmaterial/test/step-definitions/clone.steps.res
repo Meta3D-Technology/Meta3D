@@ -66,7 +66,7 @@ defineFeature(feature, test => {
       clonedPBRMaterials := c
     })
 
-    then("get 2 cloned pbrMaterials should equal to source one", () => {
+    then("get 2 cloned pbrMaterials should be source one", () => {
       clonedPBRMaterials.contents->expect == [pbrMaterial.contents, pbrMaterial.contents]
     })
   })

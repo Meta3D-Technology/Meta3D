@@ -4,17 +4,18 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   Meta3dComponentGeometryProtocol.Index.dataNameType,
   Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
   Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+  Meta3dComponentGeometryProtocol.Index.cloneConfig,
   Meta3dComponentGeometryProtocol.Index.geometry,
 > = () => {
   componentName: Meta3dComponentGeometryProtocol.Index.componentName,
   createStateFunc: (. {isDebug, geometryPointCount, geometryCount}) =>
     CreateStateUtils.createState(isDebug, geometryPointCount, geometryCount),
   createComponentFunc: (. state) => CreateGeometryUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddGeometryUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, geometry) => {
+    AddGeometryUtils.add(state, gameObject, geometry)
   },
-  removeComponentFunc: (. state, gameObject, component) => {
-    RemoveGeometryUtils.remove(state, gameObject, component)
+  removeComponentFunc: (. state, gameObject, geometry) => {
+    RemoveGeometryUtils.remove(state, gameObject, geometry)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasGeometryUtils.has(state, gameObject)
@@ -25,22 +26,25 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   getNeedDisposedComponentsFunc: (. state) => {
     GetNeedDisposedGeometrysUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, geometry) => {
+    GetGameObjectsUtils.get(state, geometry)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetGeometryDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, geometry, dataName) => {
+    GetGeometryDataUtils.getData(. state, geometry, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetGeometryDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, geometry, dataName, dataValue) => {
+    SetGeometryDataUtils.setData(. state, geometry, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllGeometrysUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, (component, gameObject)) => {
-    DisposeGeometryUtils.deferDisposeComponent(state, (component, gameObject))
+  deferDisposeComponentFunc: (. state, (geometry, gameObject)) => {
+    DisposeGeometryUtils.deferDisposeComponent(state, (geometry, gameObject))
   },
-  disposeComponentsFunc: (. state, componentDataMap) => {
-    DisposeGeometryUtils.disposeComponents(state, componentDataMap)
+  disposeComponentsFunc: (. state, geometryDataMap) => {
+    DisposeGeometryUtils.disposeComponents(state, geometryDataMap)
+  },
+  cloneComponentFunc: (. state, countRange, cloneConfig, sourceGeometry) => {
+    CloneGeometryUtils.clone(state, countRange, sourceGeometry)
   },
 }

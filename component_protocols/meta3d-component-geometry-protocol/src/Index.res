@@ -37,3 +37,5 @@ type batchDisposeData = Meta3dCommonlibType.MutableSparseMapType.t<
   geometry,
   array<Meta3dGameobjectProtocol.Index.gameObject>,
 >
+
+type cloneConfig = ()

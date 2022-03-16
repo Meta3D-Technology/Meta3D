@@ -15,6 +15,7 @@ defineFeature(feature, test => {
       Meta3dComponentGeometryProtocol.Index.dataNameType,
       Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
       Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+      Meta3dComponentGeometryProtocol.Index.cloneConfig,
       Meta3dComponentGeometryProtocol.Index.geometry,
     >,
   > = ref(Obj.magic(1))
@@ -387,7 +388,10 @@ defineFeature(feature, test => {
       state :=
         contribute.contents.disposeComponentsFunc(.
           state.contents,
-Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([geometry1.contents, geometry2.contents])
+          Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([
+            geometry1.contents,
+            geometry2.contents,
+          ]),
         )
     })
 

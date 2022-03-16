@@ -5,6 +5,7 @@ let createState = (
     Meta3dComponentGeometryProtocol.Index.dataNameType,
     Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
     Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+    Meta3dComponentGeometryProtocol.Index.cloneConfig,
     Meta3dComponentGeometryProtocol.Index.geometry,
   >,
   ~isDebug=false,
