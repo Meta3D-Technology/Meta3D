@@ -1,6 +1,6 @@
 'use strict';
 
-var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var CloneUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CloneUtils.bs.js");
 var CreateTransformUtils$Meta3dComponentTransform = require("./CreateTransformUtils.bs.js");
 var ModelMatrixTransformUtils$Meta3dComponentTransform = require("../operate_data/ModelMatrixTransformUtils.bs.js");
 
@@ -22,19 +22,11 @@ function _getData(state) {
 }
 
 function clone(state, countRange, sourceTransform) {
-  var dataTuple = _getData(state)(sourceTransform);
-  return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
-                var match = CreateTransformUtils$Meta3dComponentTransform.create(param[0]);
-                var clonedTransform = match[1];
-                var state = _setData(match[0], clonedTransform, dataTuple);
-                return [
-                        state,
-                        ArraySt$Meta3dCommonlib.push(param[1], clonedTransform)
-                      ];
-              }), [
-              state,
-              []
-            ]);
+  return CloneUtils$Meta3dCommonlib.clone(state, [
+              CreateTransformUtils$Meta3dComponentTransform.create,
+              _getData,
+              _setData
+            ], countRange, sourceTransform);
 }
 
 exports._setData = _setData;

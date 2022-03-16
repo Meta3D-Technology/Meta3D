@@ -1,6 +1,6 @@
 
 
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as CloneUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
 import * as CreateTransformUtils$Meta3dComponentTransform from "./CreateTransformUtils.bs.js";
 import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "../operate_data/ModelMatrixTransformUtils.bs.js";
 
@@ -22,19 +22,11 @@ function _getData(state) {
 }
 
 function clone(state, countRange, sourceTransform) {
-  var dataTuple = _getData(state)(sourceTransform);
-  return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
-                var match = CreateTransformUtils$Meta3dComponentTransform.create(param[0]);
-                var clonedTransform = match[1];
-                var state = _setData(match[0], clonedTransform, dataTuple);
-                return [
-                        state,
-                        ArraySt$Meta3dCommonlib.push(param[1], clonedTransform)
-                      ];
-              }), [
-              state,
-              []
-            ]);
+  return CloneUtils$Meta3dCommonlib.clone(state, [
+              CreateTransformUtils$Meta3dComponentTransform.create,
+              _getData,
+              _setData
+            ], countRange, sourceTransform);
 }
 
 export {

@@ -1,7 +1,7 @@
 'use strict';
 
-var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
-var CreatePBRMaterialUtils$Meta3dComponentPbrmaterial = require("../operate_component/CreatePBRMaterialUtils.bs.js");
+var CloneUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CloneUtils.bs.js");
+var CreatePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./CreatePBRMaterialUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial = require("../utils/OperateTypeArrayPBRMaterialUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js");
 
@@ -36,19 +36,11 @@ function _handleShareMaterial(state, sourceMaterial, countRange) {
 }
 
 function _handleNotShareMaterial(state, sourceMaterial, countRange) {
-  var dataTuple = _getData(state)(sourceMaterial);
-  return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
-                var match = CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create(param[0]);
-                var clonedMaterial = match[1];
-                var state = _setData(match[0])(clonedMaterial, dataTuple);
-                return [
-                        state,
-                        ArraySt$Meta3dCommonlib.push(param[1], clonedMaterial)
-                      ];
-              }), [
-              state,
-              []
-            ]);
+  return CloneUtils$Meta3dCommonlib.clone(state, [
+              CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
+              _getData,
+              _setData
+            ], countRange, sourceMaterial);
 }
 
 function clone(state, countRange, param, sourceMaterial) {

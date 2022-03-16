@@ -21,15 +21,15 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentTransform.createState(param.isDebug, param.transformCount, param.float9Array1, param.float32Array1);
             }),
-          getGameObjectsFunc: (function (state, component) {
-              return GetGameObjectsUtils$Meta3dComponentTransform.get(state)(component);
+          getGameObjectsFunc: (function (state, transform) {
+              return GetGameObjectsUtils$Meta3dComponentTransform.get(state)(transform);
             }),
           createComponentFunc: CreateTransformUtils$Meta3dComponentTransform.create,
-          addComponentFunc: (function (state, gameObject, component) {
-              return AddTransformUtils$Meta3dComponentTransform.add(state)(gameObject, component);
+          addComponentFunc: (function (state, gameObject, transform) {
+              return AddTransformUtils$Meta3dComponentTransform.add(state)(gameObject, transform);
             }),
-          removeComponentFunc: (function (state, gameObject, component) {
-              return RemoveTransformUtils$Meta3dComponentTransform.remove(state)(gameObject, component);
+          removeComponentFunc: (function (state, gameObject, transform) {
+              return RemoveTransformUtils$Meta3dComponentTransform.remove(state)(gameObject, transform);
             }),
           hasComponentFunc: (function (state, gameObject) {
               return HasTransformUtils$Meta3dComponentTransform.has(state)(gameObject);
@@ -38,17 +38,17 @@ function getComponentContribute(param) {
               return GetTransformUtils$Meta3dComponentTransform.get(state)(gameObject);
             }),
           getNeedDisposedComponentsFunc: GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get,
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetTransformDataUtils$Meta3dComponentTransform.getData(state, component, dataName);
+          getComponentDataFunc: (function (state, transform, dataName) {
+              return GetTransformDataUtils$Meta3dComponentTransform.getData(state, transform, dataName);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetTransformDataUtils$Meta3dComponentTransform.setData(state, component, dataName, dataValue);
+          setComponentDataFunc: (function (state, transform, dataName, dataValue) {
+              return SetTransformDataUtils$Meta3dComponentTransform.setData(state, transform, dataName, dataValue);
             }),
-          deferDisposeComponentFunc: (function (state, component) {
-              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(component);
+          deferDisposeComponentFunc: (function (state, transform) {
+              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(transform);
             }),
-          disposeComponentsFunc: (function (state, components) {
-              return DisposeTransformUtils$Meta3dComponentTransform.disposeComponents(state)(components);
+          disposeComponentsFunc: (function (state, transforms) {
+              return DisposeTransformUtils$Meta3dComponentTransform.disposeComponents(state)(transforms);
             }),
           cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
               return CloneTransformUtils$Meta3dComponentTransform.clone(state, countRange, sourceTransform);

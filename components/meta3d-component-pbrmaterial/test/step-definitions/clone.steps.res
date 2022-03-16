@@ -20,11 +20,6 @@ defineFeature(feature, test => {
   let state = ref(Obj.magic(1))
   let clonedPBRMaterials = ref([])
 
-  // TODO duplicate
-  let _buildCountRange = count => {
-    Meta3dCommonlib.ArraySt.range(0, count - 1)
-  }
-
   let _buildCloneConfig = (
     ~isShare=false,
     (),
@@ -57,7 +52,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 shared pbrMaterials", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         _buildCloneConfig(~isShare=true, ()),
         pbrMaterial.contents,
       )
@@ -86,7 +81,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 not shared pbrMaterials", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         _buildCloneConfig(~isShare=false, ()),
         pbrMaterial.contents,
       )
@@ -131,7 +126,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 not shared pbrMaterials", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         _buildCloneConfig(),
         pbrMaterial.contents,
       )
@@ -187,7 +182,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 not shared pbrMaterials", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         _buildCloneConfig(),
         pbrMaterial.contents,
       )

@@ -16,12 +16,10 @@ let _getData = ({localPositions, localRotations, localScales} as state, sourceTr
 }
 
 let clone = (state, countRange, sourceTransform) => {
-  let dataTuple = _getData(state, sourceTransform)
-
-  countRange->Meta3dCommonlib.ArraySt.reduceOneParam((. (state, clonedTransforms), _) => {
-    let (state, clonedTransform) = CreateTransformUtils.create(state)
-    let state = _setData(state, clonedTransform, dataTuple)
-
-    (state, clonedTransforms->Meta3dCommonlib.ArraySt.push(clonedTransform))
-  }, (state, []))
+  Meta3dCommonlib.CloneUtils.clone(
+    state,
+    (CreateTransformUtils.create, _getData, _setData),
+    countRange,
+    sourceTransform,
+  )
 }

@@ -1,7 +1,7 @@
 
 
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "../operate_component/CreatePBRMaterialUtils.bs.js";
+import * as CloneUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
+import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./CreatePBRMaterialUtils.bs.js";
 import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial from "../utils/OperateTypeArrayPBRMaterialUtils.bs.js";
 import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js";
 
@@ -36,19 +36,11 @@ function _handleShareMaterial(state, sourceMaterial, countRange) {
 }
 
 function _handleNotShareMaterial(state, sourceMaterial, countRange) {
-  var dataTuple = _getData(state)(sourceMaterial);
-  return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
-                var match = CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create(param[0]);
-                var clonedMaterial = match[1];
-                var state = _setData(match[0])(clonedMaterial, dataTuple);
-                return [
-                        state,
-                        ArraySt$Meta3dCommonlib.push(param[1], clonedMaterial)
-                      ];
-              }), [
-              state,
-              []
-            ]);
+  return CloneUtils$Meta3dCommonlib.clone(state, [
+              CreatePBRMaterialUtils$Meta3dComponentPbrmaterial.create,
+              _getData,
+              _setData
+            ], countRange, sourceMaterial);
 }
 
 function clone(state, countRange, param, sourceMaterial) {

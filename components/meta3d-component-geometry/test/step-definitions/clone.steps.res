@@ -21,11 +21,6 @@ defineFeature(feature, test => {
   let clonedGeometrys = ref([])
   let cloneConfig = ()
 
-  // TODO duplicate
-  let _buildCountRange = count => {
-    Meta3dCommonlib.ArraySt.range(0, count - 1)
-  }
-
   let _getContributeAndCreateAState = ((\"when", \"and")) => {
     \"when"("I get contribute", () => {
       contribute := Main.getComponentContribute()
@@ -51,7 +46,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 geometrys", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         geometry.contents,
       )

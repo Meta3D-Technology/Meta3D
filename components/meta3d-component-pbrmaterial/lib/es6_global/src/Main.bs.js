@@ -6,7 +6,7 @@ import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/Ad
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as GetPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialUtils.bs.js";
 import * as HasPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/HasPBRMaterialUtils.bs.js";
-import * as ClonePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/ClonePBRMaterialUtils.bs.js";
+import * as ClonePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/ClonePBRMaterialUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_component/CreatePBRMaterialUtils.bs.js";
 import * as RemovePBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/RemovePBRMaterialUtils.bs.js";
 import * as DisposePBRMaterialUtils$Meta3dComponentPbrmaterial from "./operate_data/DisposePBRMaterialUtils.bs.js";

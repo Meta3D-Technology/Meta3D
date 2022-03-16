@@ -646,9 +646,11 @@ return data: (state, totalClonedGameObjectArr)
 totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
 
 
-*** TODO component support clone
+*** DONE component support clone
 
-*** TODO refactor
+*** DONE refactor
+
+*** TODO pass run:editor
 
 *** TODO gameObject support clone
 

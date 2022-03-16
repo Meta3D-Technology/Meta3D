@@ -29,16 +29,13 @@ let _handleShareMaterial = (state, sourceMaterial, countRange) => (
   countRange->Js.Array.map(_ => sourceMaterial, _),
 )
 
-// TODO remove duplicate
 let _handleNotShareMaterial = (state, sourceMaterial, countRange) => {
-  let dataTuple = _getData(state, sourceMaterial)
-
-  countRange->Meta3dCommonlib.ArraySt.reduceOneParam((. (state, clonedMaterials), _) => {
-    let (state, clonedMaterial) = CreatePBRMaterialUtils.create(state)
-    let state = _setData(state, clonedMaterial, dataTuple)
-
-    (state, clonedMaterials->Meta3dCommonlib.ArraySt.push(clonedMaterial))
-  }, (state, []))
+  Meta3dCommonlib.CloneUtils.clone(
+    state,
+    (CreatePBRMaterialUtils.create, _getData, _setData),
+    countRange,
+    sourceMaterial,
+  )
 }
 
 let clone = (

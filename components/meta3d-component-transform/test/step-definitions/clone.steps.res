@@ -21,10 +21,6 @@ defineFeature(feature, test => {
   let cloneConfig = ()
   let clonedTransforms = ref([])
 
-  let _buildCountRange = count => {
-    Meta3dCommonlib.ArraySt.range(0, count - 1)
-  }
-
   let _getContributeAndCreateAState = ((\"when", \"and")) => {
     \"when"("I get contribute", () => {
       contribute := Main.getComponentContribute()
@@ -50,7 +46,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
@@ -95,7 +91,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
@@ -151,7 +147,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
@@ -207,7 +203,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
@@ -247,7 +243,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
@@ -304,7 +300,7 @@ defineFeature(feature, test => {
     \"when"("clone 2 transforms as c1, c2", () => {
       let (s, c) = contribute.contents.cloneComponentFunc(.
         state.contents,
-        _buildCountRange(2),
+        Meta3dCommonlib.CloneTool.buildCountRange(2),
         cloneConfig,
         transform.contents,
       )
