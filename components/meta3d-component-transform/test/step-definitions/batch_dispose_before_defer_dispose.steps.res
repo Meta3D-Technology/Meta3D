@@ -12,8 +12,8 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
+      Meta3dComponentTransformProtocol.Index.cloneConfig,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
   > = ref(Obj.magic(1))
@@ -30,12 +30,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."if dispose before defer dispose, contract error", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
+  test(."if dispose before defer dispose, contract error", ({given, \"when", \"and", then}) => {
     _getContributeAndCreateAState((given, \"and"))
 
     given("create a transform", () => {
@@ -51,8 +46,7 @@ defineFeature(feature, test => {
 
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
-        state :=
-          contribute.contents.disposeComponentsFunc(. state.contents, [transform.contents])
+        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform.contents])
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

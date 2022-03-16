@@ -66,8 +66,8 @@ function createStateWithSharedArrayBufferData(param, param$1, param$2) {
           gameObjectMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(transformCount),
           gameObjectTransformMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(transformCount),
           dirtyMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(transformCount),
-          needDisposedTransformArray: [],
-          disposedTransformArray: []
+          needDisposedTransforms: [],
+          disposedTransforms: []
         };
 }
 

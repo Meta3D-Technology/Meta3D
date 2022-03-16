@@ -19,3 +19,5 @@ type dataName
 type needDisposedComponents
 
 type batchDisposeData
+
+type cloneConfig

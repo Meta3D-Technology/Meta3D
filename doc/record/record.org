@@ -622,6 +622,30 @@ pass dispose scene
 
 ** TODO component support clone
 
+
+
+clone count gameObject:
+create count gameObjects as clonedGameObjectArr
+
+clone components:
+clone except transform: add to cloned gameObject
+clone transform: add to cloned gameObject, return cloned transform
+
+set cloned transform's parent to last level cloned transform
+
+rec clone gameObject's children
+
+
+
+accept data:
+isShareMaterial
+(geometry is shared)
+
+return data: (state, totalClonedGameObjectArr)
+
+totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
+
+
 *** TODO pass bdd test
 
 

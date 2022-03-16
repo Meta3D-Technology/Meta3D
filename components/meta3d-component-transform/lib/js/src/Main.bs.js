@@ -5,6 +5,7 @@ var CreateStateUtils$Meta3dComponentTransform = require("./create_state/CreateSt
 var AddTransformUtils$Meta3dComponentTransform = require("./gameobject/AddTransformUtils.bs.js");
 var GetTransformUtils$Meta3dComponentTransform = require("./gameobject/GetTransformUtils.bs.js");
 var HasTransformUtils$Meta3dComponentTransform = require("./gameobject/HasTransformUtils.bs.js");
+var CloneTransformUtils$Meta3dComponentTransform = require("./operate_component/CloneTransformUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentTransform = require("./gameobject/GetGameObjectsUtils.bs.js");
 var CreateTransformUtils$Meta3dComponentTransform = require("./operate_component/CreateTransformUtils.bs.js");
 var RemoveTransformUtils$Meta3dComponentTransform = require("./gameobject/RemoveTransformUtils.bs.js");
@@ -48,6 +49,9 @@ function getComponentContribute(param) {
             }),
           disposeComponentsFunc: (function (state, components) {
               return DisposeTransformUtils$Meta3dComponentTransform.disposeComponents(state)(components);
+            }),
+          cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
+              return CloneTransformUtils$Meta3dComponentTransform.clone(state, countRange, sourceTransform);
             }),
           getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
         };

@@ -4,6 +4,7 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   Meta3dComponentTransformProtocol.Index.dataNameType,
   Meta3dComponentTransformProtocol.Index.needDisposedComponents,
   Meta3dComponentTransformProtocol.Index.batchDisposeData,
+  Meta3dComponentTransformProtocol.Index.cloneConfig,
   Meta3dComponentTransformProtocol.Index.transform,
 > = () => {
   componentName: Meta3dComponentTransformProtocol.Index.componentName,
@@ -42,5 +43,8 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   },
   disposeComponentsFunc: (. state, components) => {
     DisposeTransformUtils.disposeComponents(state, components)
+  },
+  cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
+    CloneTransformUtils.clone(state, countRange, sourceTransform)
   },
 }

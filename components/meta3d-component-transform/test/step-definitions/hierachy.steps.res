@@ -12,8 +12,8 @@ defineFeature(feature, test => {
       Meta3dComponentTransformProtocol.Index.config,
       Meta3dComponentTransformProtocol.Index.dataNameType,
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
-      
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
+      Meta3dComponentTransformProtocol.Index.cloneConfig,
       Meta3dComponentTransformProtocol.Index.transform,
     >,
   > = ref(Obj.magic(1))

@@ -50,3 +50,5 @@ type parent = Js.Nullable.t<transform>
 type needDisposedComponents = array<transform>
 
 type batchDisposeData = array<transform>
+
+type cloneConfig = ()

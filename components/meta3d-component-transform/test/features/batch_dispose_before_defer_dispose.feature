@@ -10,4 +10,4 @@ Feature: Batch Dispose Before Defer Dispose
 	Scenario: if dispose before defer dispose, contract error
 		Given create a transform
 		When dispose the transform
-		Then should contract error: "component should need disposed"
+		Then should contract error: "transform should need disposed"

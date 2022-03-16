@@ -19,10 +19,10 @@ function _initDataWhenCreate(childrenMap, index) {
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedTransformArray, index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedTransforms, index);
   var index$1 = match[1];
   state.maxIndex = match[2];
-  state.disposedTransformArray = match[0];
+  state.disposedTransforms = match[0];
   _initDataWhenCreate(state.childrenMap, index$1);
   var state$1 = DirtyTransformUtils$Meta3dComponentTransform.mark(state, index$1, true);
   return [

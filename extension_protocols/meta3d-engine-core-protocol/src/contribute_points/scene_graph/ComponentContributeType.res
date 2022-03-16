@@ -58,13 +58,24 @@ type deferDisposeComponentFunc<'state, 'component> = (
 
 type disposeComponentsFunc<'state, 'batchDisposeData> = (. 'state, 'batchDisposeData) => 'state
 
-// @genType
+type countRange = array<int>
+
+type clonedComponents<'component> = array<'component>
+
+type cloneComponentFunc<'state, 'cloneConfig, 'component> = (
+  . 'state,
+  countRange,
+  'cloneConfig,
+  'component,
+) => ('state, clonedComponents<'component>)
+
 type componentContribute<
   'state,
   'config,
   'dataName,
   'needDisposedComponents,
   'batchDisposeData,
+  'cloneConfig,
   'component,
 > = {
   componentName: componentName,
@@ -80,6 +91,7 @@ type componentContribute<
   setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
   deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
   disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
+  cloneComponentFunc: cloneComponentFunc<'state, 'cloneConfig, 'component>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 
@@ -90,6 +102,7 @@ type getComponentContribute<
   'dataName,
   'needDisposedComponents,
   'batchDisposeData,
+  'cloneConfig,
   'component,
 > = unit => componentContribute<
   'state,
@@ -97,5 +110,6 @@ type getComponentContribute<
   'dataName,
   'needDisposedComponents,
   'batchDisposeData,
+  'cloneConfig,
   'component,
 >

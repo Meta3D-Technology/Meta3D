@@ -10,11 +10,9 @@ var BufferTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-
 var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
 var GetNeedDisposedTransformsUtils$Meta3dComponentTransform = require("../gameobject/GetNeedDisposedTransformsUtils.bs.js");
 
-var _removeComponent = MutableSparseMap$Meta3dCommonlib.remove;
-
 function deferDisposeComponent(state) {
   var gameObjectTransformMap = state.gameObjectTransformMap;
-  var needDisposedTransformArray = state.needDisposedTransformArray;
+  var needDisposedTransforms = state.needDisposedTransforms;
   return function (param) {
     return {
             config: state.config,
@@ -33,17 +31,17 @@ function deferDisposeComponent(state) {
             gameObjectMap: state.gameObjectMap,
             gameObjectTransformMap: MutableSparseMap$Meta3dCommonlib.remove(gameObjectTransformMap, param[1]),
             dirtyMap: state.dirtyMap,
-            needDisposedTransformArray: ArraySt$Meta3dCommonlib.push(needDisposedTransformArray, param[0]),
-            disposedTransformArray: state.disposedTransformArray
+            needDisposedTransforms: ArraySt$Meta3dCommonlib.push(needDisposedTransforms, param[0]),
+            disposedTransforms: state.disposedTransforms
           };
   };
 }
 
-function _disposeFromParentAndChildMap(state, isDebug, component) {
-  var parentMap = ArraySt$Meta3dCommonlib.reduceOneParam(HierachyTransformUtils$Meta3dComponentTransform.unsafeGetChildren(state.childrenMap, component), HierachyTransformUtils$Meta3dComponentTransform.removeParentMap, state.parentMap);
-  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, component);
+function _disposeFromParentAndChildMap(state, isDebug, transform) {
+  var parentMap = ArraySt$Meta3dCommonlib.reduceOneParam(HierachyTransformUtils$Meta3dComponentTransform.unsafeGetChildren(state.childrenMap, transform), HierachyTransformUtils$Meta3dComponentTransform.removeParentMap, state.parentMap);
+  var parent = HierachyTransformUtils$Meta3dComponentTransform.getParent(parentMap, transform);
   if (parent !== undefined) {
-    HierachyTransformUtils$Meta3dComponentTransform.removeFromChildMap(state.childrenMap, isDebug, parent, component);
+    HierachyTransformUtils$Meta3dComponentTransform.removeFromChildMap(state.childrenMap, isDebug, parent, transform);
     return state;
   } else {
     return state;
@@ -65,35 +63,34 @@ function _disposeData(state) {
   var childrenMap = state.childrenMap;
   var gameObjectMap = state.gameObjectMap;
   var dirtyMap = state.dirtyMap;
-  return function (isDebug, component) {
-    var state$1 = _disposeFromParentAndChildMap(state, isDebug, component);
-    state$1.localToWorldMatrices = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localToWorldMatrices, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatrixIndex(component), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined), defaultLocalToWorldMatrix);
-    state$1.localPositions = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localPositions, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionIndex(component), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined), defaultLocalPosition);
-    state$1.localRotations = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localRotations, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationIndex(component), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined), defaultLocalRotation);
-    state$1.localScales = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localScales, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScaleIndex(component), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined), defaultLocalScale);
-    state$1.parentMap = MutableSparseMap$Meta3dCommonlib.remove(parentMap, component);
-    state$1.childrenMap = MutableSparseMap$Meta3dCommonlib.remove(childrenMap, component);
-    state$1.dirtyMap = MutableSparseMap$Meta3dCommonlib.remove(dirtyMap, component);
-    state$1.gameObjectMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectMap, component);
+  return function (isDebug, transform) {
+    var state$1 = _disposeFromParentAndChildMap(state, isDebug, transform);
+    state$1.localToWorldMatrices = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localToWorldMatrices, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatrixIndex(transform), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined), defaultLocalToWorldMatrix);
+    state$1.localPositions = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localPositions, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionIndex(transform), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined), defaultLocalPosition);
+    state$1.localRotations = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localRotations, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationIndex(transform), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined), defaultLocalRotation);
+    state$1.localScales = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localScales, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScaleIndex(transform), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined), defaultLocalScale);
+    state$1.parentMap = MutableSparseMap$Meta3dCommonlib.remove(parentMap, transform);
+    state$1.childrenMap = MutableSparseMap$Meta3dCommonlib.remove(childrenMap, transform);
+    state$1.dirtyMap = MutableSparseMap$Meta3dCommonlib.remove(dirtyMap, transform);
+    state$1.gameObjectMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectMap, transform);
     return state$1;
   };
 }
 
 function disposeComponents(state) {
-  var disposedTransformArray = state.disposedTransformArray;
-  return function (components) {
+  var disposedTransforms = state.disposedTransforms;
+  return function (transforms) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
     var needDisposedComponents = GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get(state);
-    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "component", components, needDisposedComponents);
-    state.disposedTransformArray = disposedTransformArray.concat(components);
-    state.needDisposedTransformArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, components);
-    return ArraySt$Meta3dCommonlib.reduceOneParam(components, (function (state, component) {
-                  return _disposeData(state)(isDebug, component);
+    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "transform", transforms, needDisposedComponents);
+    state.disposedTransforms = disposedTransforms.concat(transforms);
+    state.needDisposedTransforms = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, transforms);
+    return ArraySt$Meta3dCommonlib.reduceOneParam(transforms, (function (state, transform) {
+                  return _disposeData(state)(isDebug, transform);
                 }), state);
   };
 }
 
-exports._removeComponent = _removeComponent;
 exports.deferDisposeComponent = deferDisposeComponent;
 exports._disposeFromParentAndChildMap = _disposeFromParentAndChildMap;
 exports._disposeSparseMapData = _disposeSparseMapData;
