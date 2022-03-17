@@ -15,18 +15,6 @@ defineFeature(feature, test => {
     StateTool.createState(~contribute=contribute.contents, ~isDebug, ())
   }
 
-  // test(."create a state", ({\"when", then}) => {
-  //   \"when"("I get contribute", () => {
-  //     contribute := Main.getGameObjectContribute()
-  //   })
-
-  //   then("createStateFunc _createState()
-  //     _createState([->expect == )
-  //         maxUID: 0,
-  //       }
-  //   })
-  // })
-
   test(."create a gameObject", ({\"when", \"and", then}) => {
     \"when"("I get contribute", () => {
       contribute := Main.getGameObjectContribute()

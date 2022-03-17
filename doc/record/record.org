@@ -656,8 +656,13 @@ totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned
 
 *** TODO pass bdd test
 
+
 *** TODO pass run:editor
 
+
+** DONE refactor: after.steps: remove
+
+** TODO refactor: add 'dataValue and remove "type dataValue" ?
 
 
 ** TODO pass run test
@@ -809,14 +814,6 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 
-* TODO extract shader extension for webgl
-
-** TODO shader system
-
-* TODO finish sxengine for shader system
-
-* TODO publish
-
 
 
 
@@ -845,6 +842,24 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 * TODO publish
+
+
+
+
+
+
+
+
+* TODO extract shader extension for webgl
+
+** TODO shader system
+
+* TODO finish sxengine for shader system
+
+* TODO publish
+
+
+
 
 
 

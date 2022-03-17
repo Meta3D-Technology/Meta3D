@@ -10,10 +10,6 @@ defineFeature(feature, test => {
   let gameObjectState = ref(Obj.magic(1))
   let gameObject = ref(Obj.magic(1))
 
-  let _createState = (~isDebug=false, ()) => {
-    StateTool.createState(~contribute=contribute.contents, ~isDebug, ())
-  }
-
   let _getContributeAndCreateAState = ((given, \"and")) => {
     given("I get contribute", () => {
       contribute := Main.getGameObjectContribute()
@@ -40,18 +36,12 @@ defineFeature(feature, test => {
 
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
-      DisposeTool.disposeGameObjects(
-        ~gameObjectState=gameObjectState.contents,
-        ~contribute = contribute.contents,
-        ~gameObjects = [gameObject.contents],
-//         ~transformState = transformState.contents,
-// ~transformFuncs = (
-//           (. _, _) => transform1.contents->Meta3dCommonlib.NullableSt.return,
-//           deferDisposeTransformFuncStub.contents,
-//         ),
-        ()
-      )
-
+        DisposeTool.disposeGameObjects(
+          ~gameObjectState=gameObjectState.contents,
+          ~contribute=contribute.contents,
+          ~gameObjects=[gameObject.contents],
+          (),
+        )
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

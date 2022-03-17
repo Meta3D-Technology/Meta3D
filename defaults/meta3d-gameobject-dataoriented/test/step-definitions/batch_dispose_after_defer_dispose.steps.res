@@ -14,10 +14,6 @@ defineFeature(feature, test => {
   let pbrMaterialState = ref(Obj.magic(1))
   let geometryState = ref(Obj.magic(1))
 
-  let _createState = (~isDebug=false, ()) => {
-    StateTool.createState(~contribute=contribute.contents, ~isDebug, ())
-  }
-
   let _getContributeAndCreateAState = ((given, \"and")) => {
     given("I get contribute", () => {
       contribute := Main.getGameObjectContribute()
@@ -44,10 +40,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create transform state", () => {
-      transformState :=
-        {
-          "gameObjectTransformMap": Meta3dCommonlib.MutableSparseMap.createEmpty(),
-        }
+      transformState := Obj.magic(100)
     })
 
     \"and"(%re("/^create two gameObjects as gameObject(\d+), gameObject(\d+)$/")->Obj.magic, () => {
@@ -65,15 +58,11 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^add transform(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
-      transformState.contents["gameObjectTransformMap"]
-      ->Meta3dCommonlib.MutableSparseMap.set(gameObject1.contents, transform1.contents)
-      ->ignore
+      ()
     })
 
     \"and"(%re("/^add transform(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
-      transformState.contents["gameObjectTransformMap"]
-      ->Meta3dCommonlib.MutableSparseMap.set(gameObject2.contents, transform2.contents)
-      ->ignore
+      ()
     })
 
     \"and"(%re("/^defer dispose gameObject(\d+)$/")->Obj.magic, arg0 => {
@@ -421,33 +410,36 @@ defineFeature(feature, test => {
       pbrMaterialState := ps->Obj.magic
     })
 
-    then("should dispose [[pbrMaterial1, gameObject1], [pbrMaterial2, gameObject2, gameObject3]]", () => {
-      (
-        deferDisposePBRMaterialFuncStub.contents
-        ->Obj.magic
-        ->getCall(0, _)
-        ->SinonTool.calledWithArg2(matchAny, (pbrMaterial1.contents, gameObject1.contents)),
-        deferDisposePBRMaterialFuncStub.contents
-        ->Obj.magic
-        ->getCall(1, _)
-        ->SinonTool.calledWithArg2(matchAny, (pbrMaterial2.contents, gameObject2.contents)),
-        deferDisposePBRMaterialFuncStub.contents
-        ->Obj.magic
-        ->getCall(2, _)
-        ->SinonTool.calledWithArg2(matchAny, (pbrMaterial2.contents, gameObject3.contents)),
-        disposePBRMaterialsFuncStub.contents
-        ->Obj.magic
-        ->SinonTool.calledWithArg2(
-          matchAny,
-          Meta3dCommonlib.MutableSparseMap.createEmpty()
-          ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial1.contents, [gameObject1.contents])
-          ->Meta3dCommonlib.MutableSparseMap.set(
-            pbrMaterial2.contents,
-            [gameObject2.contents, gameObject3.contents],
+    then(
+      "should dispose [[pbrMaterial1, gameObject1], [pbrMaterial2, gameObject2, gameObject3]]",
+      () => {
+        (
+          deferDisposePBRMaterialFuncStub.contents
+          ->Obj.magic
+          ->getCall(0, _)
+          ->SinonTool.calledWithArg2(matchAny, (pbrMaterial1.contents, gameObject1.contents)),
+          deferDisposePBRMaterialFuncStub.contents
+          ->Obj.magic
+          ->getCall(1, _)
+          ->SinonTool.calledWithArg2(matchAny, (pbrMaterial2.contents, gameObject2.contents)),
+          deferDisposePBRMaterialFuncStub.contents
+          ->Obj.magic
+          ->getCall(2, _)
+          ->SinonTool.calledWithArg2(matchAny, (pbrMaterial2.contents, gameObject3.contents)),
+          disposePBRMaterialsFuncStub.contents
+          ->Obj.magic
+          ->SinonTool.calledWithArg2(
+            matchAny,
+            Meta3dCommonlib.MutableSparseMap.createEmpty()
+            ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial1.contents, [gameObject1.contents])
+            ->Meta3dCommonlib.MutableSparseMap.set(
+              pbrMaterial2.contents,
+              [gameObject2.contents, gameObject3.contents],
+            ),
           ),
-        ),
-      )->expect == (true, true, true, true)
-    })
+        )->expect == (true, true, true, true)
+      },
+    )
   })
 
   test(."dispose pbrMaterial which has two gameObjects not with its all gameObjects", ({
@@ -551,7 +543,6 @@ defineFeature(feature, test => {
       pbrMaterialState := ps->Obj.magic
     })
 
-
     \"when"("dispose [gameObject1, gameObject2]", () => {
       disposePBRMaterialsFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
       let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
@@ -583,24 +574,18 @@ defineFeature(feature, test => {
         ->Obj.magic
         ->getCall(1, _)
         ->SinonTool.calledWithArg2(matchAny, (pbrMaterial2.contents, gameObject2.contents)),
-        deferDisposePBRMaterialFuncStub.contents
-        ->Obj.magic
-        ->getCallCount,
+        deferDisposePBRMaterialFuncStub.contents->Obj.magic->getCallCount,
         disposePBRMaterialsFuncStub.contents
         ->Obj.magic
         ->SinonTool.calledWithArg2(
           matchAny,
           Meta3dCommonlib.MutableSparseMap.createEmpty()
           ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial1.contents, [gameObject1.contents])
-          ->Meta3dCommonlib.MutableSparseMap.set(
-            pbrMaterial2.contents,
-            [gameObject2.contents],
-          ),
+          ->Meta3dCommonlib.MutableSparseMap.set(pbrMaterial2.contents, [gameObject2.contents]),
         ),
-      )->expect == (true, true, 2,  true)
+      )->expect == (true, true, 2, true)
     })
   })
-
 
   test(."dispose geometry which has one gameObject", ({given, \"and", \"when", then}) => {
     let gameObject1 = ref(Obj.magic(1))
@@ -633,13 +618,10 @@ defineFeature(feature, test => {
       gameObject2 := g2
     })
 
-    \"and"(
-      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
-      () => {
-        geometry1 := 100
-        geometry2 := 101
-      },
-    )
+    \"and"(%re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      geometry1 := 100
+      geometry2 := 101
+    })
 
     \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
       geometryState.contents["gameObjectGeometryMap"]
@@ -771,13 +753,10 @@ defineFeature(feature, test => {
       gameObject3 := g3
     })
 
-    \"and"(
-      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
-      () => {
-        geometry1 := 100
-        geometry2 := 101
-      },
-    )
+    \"and"(%re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      geometry1 := 100
+      geometry2 := 101
+    })
 
     \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
       geometryState.contents["gameObjectGeometryMap"]
@@ -941,13 +920,10 @@ defineFeature(feature, test => {
       gameObject3 := g3
     })
 
-    \"and"(
-      %re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic,
-      () => {
-        geometry1 := 100
-        geometry2 := 101
-      },
-    )
+    \"and"(%re("/^create two geometrys as geometry(\d+), geometry(\d+)$/")->Obj.magic, () => {
+      geometry1 := 100
+      geometry2 := 101
+    })
 
     \"and"(%re("/^add geometry(\d+) to gameObject(\d+)$/")->Obj.magic, () => {
       geometryState.contents["gameObjectGeometryMap"]
@@ -1003,7 +979,6 @@ defineFeature(feature, test => {
       geometryState := ps->Obj.magic
     })
 
-
     \"when"("dispose [gameObject1, gameObject2]", () => {
       disposeGeometrysFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
       let (gs, _, ps, _) = DisposeTool.disposeGameObjects(
@@ -1035,21 +1010,16 @@ defineFeature(feature, test => {
         ->Obj.magic
         ->getCall(1, _)
         ->SinonTool.calledWithArg2(matchAny, (geometry2.contents, gameObject2.contents)),
-        deferDisposeGeometryFuncStub.contents
-        ->Obj.magic
-        ->getCallCount,
+        deferDisposeGeometryFuncStub.contents->Obj.magic->getCallCount,
         disposeGeometrysFuncStub.contents
         ->Obj.magic
         ->SinonTool.calledWithArg2(
           matchAny,
           Meta3dCommonlib.MutableSparseMap.createEmpty()
           ->Meta3dCommonlib.MutableSparseMap.set(geometry1.contents, [gameObject1.contents])
-          ->Meta3dCommonlib.MutableSparseMap.set(
-            geometry2.contents,
-            [gameObject2.contents],
-          ),
+          ->Meta3dCommonlib.MutableSparseMap.set(geometry2.contents, [gameObject2.contents]),
         ),
-      )->expect == (true, true, 2,  true)
+      )->expect == (true, true, 2, true)
     })
   })
 
@@ -1070,10 +1040,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create transform state", () => {
-      transformState :=
-        {
-          "gameObjectTransformMap": Meta3dCommonlib.MutableSparseMap.createEmpty(),
-        }
+      transformState := Obj.magic(100)
     })
 
     \"and"(%re("/^create two gameObjects as gameObject(\d+), gameObject(\d+)$/")->Obj.magic, () => {

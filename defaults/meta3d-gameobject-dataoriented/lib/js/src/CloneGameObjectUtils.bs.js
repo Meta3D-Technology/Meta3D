@@ -28,11 +28,10 @@ function _setParent(transformState, setTransformDataFunc, clonedParentTransforms
 }
 
 function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2) {
-  var sourceGameObject = param$2[0];
+  var sourceTransform = param$1[0];
   var match = funcs[2];
   var match$1 = funcs[1];
   var match$2 = funcs[0];
-  var getTransformDataFunc = match$2[4];
   var getTransformGameObjectsFunc = match$2[3];
   var match$3 = _createClonedGameObjects(param[0], countRange);
   var clonedGameObjects = match$3[1];
@@ -57,8 +56,8 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
           match[1],
           match[2]
         ]
-      ], isDebug, countRange, cloneConfig, param$1[0], [
-        sourceGameObject,
+      ], isDebug, countRange, cloneConfig, sourceTransform, [
+        param$2[0],
         clonedGameObjects
       ]);
   var clonedTransforms = match$4[1];
@@ -66,9 +65,7 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
   var geometryState = match$5[2];
   var pbrMaterialState = match$5[1];
   var transformState = _setParent(match$5[0], match$2[5], param$1[1], clonedTransforms);
-  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(NullableSt$Meta3dCommonlib.bind(match$2[0](transformState, sourceGameObject), (function (transform) {
-                        return getTransformDataFunc(transformState, transform, Index$Meta3dComponentTransformProtocol.dataName.children);
-                      })), (function (children) {
+  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$2[4](transformState, sourceTransform, Index$Meta3dComponentTransformProtocol.dataName.children), (function (children) {
                     return ArraySt$Meta3dCommonlib.reduceOneParam(children, (function (param, childTransform) {
                                   return _clone(param[0], funcs, isDebug, countRange, cloneConfig, [
                                               childTransform,

@@ -52,8 +52,6 @@ let rec _clone = (
 ) => {
   let (gameObjectState, clonedGameObjects) = _createClonedGameObjects(gameObjectState, countRange)
 
-  // let totalClonedGameObjects =
-  //   totalClonedGameObjects->Meta3dCommonlib.ArraySt.push(clonedGameObjects)
   let totalClonedGameObjects =
     totalClonedGameObjects->Meta3dCommonlib.ListSt.push(clonedGameObjects)
 
@@ -77,13 +75,15 @@ let rec _clone = (
   let transformState =
     transformState->_setParent(setTransformDataFunc, clonedParentTransforms, clonedTransforms)
 
-  getTransformFunc(. transformState, sourceGameObject)
-  ->Meta3dCommonlib.NullableSt.bind(transform => {
-    // getTransformDataFunc(. transformState, transform)-> Obj.magic
-    getTransformDataFunc(. transformState, transform, Meta3dComponentTransformProtocol.Index.dataName.children)-> Obj.magic
-  })
+  getTransformDataFunc(.
+    transformState,
+    sourceTransform,
+    Meta3dComponentTransformProtocol.Index.dataName.children,
+  )
   ->Meta3dCommonlib.NullableSt.map((. children) => {
-    children->Meta3dCommonlib.ArraySt.reduceOneParam(
+    children
+    ->Obj.magic
+    ->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. (states, totalClonedGameObjects), childTransform) => {
         _clone(
           states,
