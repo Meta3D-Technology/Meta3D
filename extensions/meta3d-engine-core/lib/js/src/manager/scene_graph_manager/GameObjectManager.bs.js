@@ -35,6 +35,7 @@ function createAndSetState(state, config) {
             getNeedDisposedGameObjectsFunc: match.getNeedDisposedGameObjectsFunc,
             deferDisposeGameObjectFunc: match.deferDisposeGameObjectFunc,
             disposeGameObjectsFunc: match.disposeGameObjectsFunc,
+            cloneGameObjectFunc: match.cloneGameObjectFunc,
             getAllGameObjectsFunc: match.getAllGameObjectsFunc
           }
         };
@@ -119,6 +120,47 @@ function disposeGameObjects(state, gameObjects) {
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute$1, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute$1, Index$Meta3dComponentGeometryProtocol.componentName);
 }
 
+function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
+  var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
+  var usedTransformContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName);
+  var usedPBRMaterialContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPbrmaterialProtocol.componentName);
+  var usedGeometryContribute = ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentGeometryProtocol.componentName);
+  var match = usedGameObjectContribute.cloneGameObjectFunc([
+        usedGameObjectContribute.state,
+        usedTransformContribute.state,
+        usedPBRMaterialContribute.state,
+        usedGeometryContribute.state
+      ], [
+        [
+          usedTransformContribute.getComponentFunc,
+          usedTransformContribute.cloneComponentFunc,
+          usedTransformContribute.addComponentFunc,
+          usedTransformContribute.getGameObjectsFunc,
+          usedTransformContribute.getComponentDataFunc,
+          usedTransformContribute.setComponentDataFunc
+        ],
+        [
+          usedPBRMaterialContribute.getComponentFunc,
+          usedPBRMaterialContribute.cloneComponentFunc,
+          usedPBRMaterialContribute.addComponentFunc
+        ],
+        [
+          usedGeometryContribute.getComponentFunc,
+          usedGeometryContribute.cloneComponentFunc,
+          usedGeometryContribute.addComponentFunc
+        ]
+      ], count, cloneConfig, sourceGameObject);
+  var match$1 = match[0];
+  var usedTransformContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match$1[1], usedTransformContribute);
+  var usedPBRMaterialContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match$1[2], usedPBRMaterialContribute);
+  var usedGeometryContribute$1 = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(match$1[3], usedGeometryContribute);
+  var state$1 = ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, usedGameObjectContribute, match$1[0]), usedTransformContribute$1, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute$1, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute$1, Index$Meta3dComponentGeometryProtocol.componentName);
+  return [
+          state$1,
+          match[1]
+        ];
+}
+
 function getAllGameObjects(state) {
   var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
   return usedGameObjectContribute.getAllGameObjectsFunc(usedGameObjectContribute.state);
@@ -132,5 +174,6 @@ exports._setGameObjectStateToState = _setGameObjectStateToState;
 exports.createGameObject = createGameObject;
 exports.deferDisposeGameObject = deferDisposeGameObject;
 exports.disposeGameObjects = disposeGameObjects;
+exports.cloneGameObject = cloneGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 /* No side effect */

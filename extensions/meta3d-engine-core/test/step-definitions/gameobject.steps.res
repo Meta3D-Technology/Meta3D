@@ -34,6 +34,7 @@ defineFeature(feature, test => {
     ~getNeedDisposedGameObjectsFunc=(. state) => [],
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
     ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
+    ~cloneGameObjectFunc=(. states, _, _, _, _) => (states, []),
     (),
   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
     createStateFunc: createStateFunc,
@@ -42,6 +43,7 @@ defineFeature(feature, test => {
     getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
     disposeGameObjectsFunc: disposeGameObjectsFunc,
+    cloneGameObjectFunc: cloneGameObjectFunc,
   }
 
   let _prepare = (given, \"when", \"and", c) => {
@@ -149,6 +151,7 @@ defineFeature(feature, test => {
         {
           "needDisposeArray": [],
           "disposedArray": [],
+          "cloneDataArray": [],
         }->Obj.magic
       },
       ~deferDisposeComponentFunc=(. state, (component, _)) => {
@@ -165,6 +168,16 @@ defineFeature(feature, test => {
             batchDisposeData->Obj.magic,
           ),
         }->Obj.magic
+      },
+      ~cloneComponentFunc=(. state, countRange, cloneConfig, component) => {
+        (
+          {
+            "cloneDataArray": JsObjTool.getObjValue(state, "cloneDataArray")->Js.Array.concat(
+              [(countRange, cloneConfig, component)]->Obj.magic,
+            ),
+          },
+          [],
+        )->Obj.magic
       },
       (),
     )
@@ -407,6 +420,109 @@ defineFeature(feature, test => {
     \"and"("mark geo1 as disposed", () => {
       JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "disposedArray")->expect ==
         _buildSharedComponentBatchDisposeData(geo1.contents)
+    })
+  })
+
+  test(."clone gameObject", ({given, \"and", \"when", then}) => {
+    _prepare(
+      given,
+      \"when",
+      \"and",
+      _buildGameObjectData(
+        ~createStateFunc=(. config) => {
+          {
+            "cloneDataArray": [],
+          }->Obj.magic
+        },
+        ~createGameObjectFunc=(. state) => {
+          (state, 1->Obj.magic)
+        },
+        ~cloneGameObjectFunc=(.
+          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          (
+            (_, cloneTransformFunc, _, _, _, _),
+            (_, clonePBRMaterialFunc, _),
+            (_, cloneGeometryFunc, _),
+          ),
+          count,
+          cloneConfig,
+          sourceGameObject,
+        ) => {
+          let (transformState, _) = cloneTransformFunc(.
+            transformState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            t1.contents,
+          )
+          let (pbrMaterialState, _) = clonePBRMaterialFunc(.
+            pbrMaterialState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (
+              {
+                isShare: cloneConfig.isShareMaterial,
+              }: Meta3dComponentPbrmaterialProtocol.Index.cloneConfig
+            ),
+            p1.contents,
+          )
+          let (geometryState, _) = cloneGeometryFunc(.
+            geometryState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            geo1.contents,
+          )
+
+          (
+            (
+              {
+                "cloneDataArray": JsObjTool.getObjValue(
+                  gameObjectState,
+                  "cloneDataArray",
+                )->Js.Array.concat([sourceGameObject], _),
+              }->Obj.magic,
+              transformState,
+              pbrMaterialState,
+              geometryState,
+            ),
+            [],
+          )
+        },
+        (),
+      ),
+    )
+
+    _prepareComponentsAndCreate(\"when", \"and")
+
+    \"when"("clone 2 gameObjects of g1", () => {
+      MainTool.cloneGameObject(2, {isShareMaterial: true}, g1.contents)->ignore
+    })
+
+    then("mark g1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getGameObjectState(), "cloneDataArray")
+      ->Js.Array.includes(g1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark t1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "cloneDataArray")
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), t1.contents)
+    })
+
+    \"and"("mark p1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "cloneDataArray")
+      ->Array.unsafe_get(0)
+      ->expect ==
+        (
+          [0, 1],
+          ({isShare: true}: Meta3dComponentPbrmaterialProtocol.Index.cloneConfig),
+          p1.contents,
+        )
+    })
+
+    \"and"("mark geo1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "cloneDataArray")
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), geo1.contents)
     })
   })
 })

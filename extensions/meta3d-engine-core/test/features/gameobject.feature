@@ -15,7 +15,7 @@ Feature: GameObject
         When create two gameObjects
         Then getAllGameObjects should return them
 
-    Rule: dispose
+    Rule: handle with component
 
         Background: prepare components and create
             When register transform contribute
@@ -45,3 +45,10 @@ Feature: GameObject
             And mark t1 as disposed
             And mark p1 as disposed
             And mark geo1 as disposed
+
+        Scenario: clone gameObject
+            When clone 2 gameObjects of g1
+            Then mark g1 as cloned
+            And mark t1 as cloned
+            And mark p1 as cloned
+            And mark geo1 as cloned

@@ -37,6 +37,7 @@ function getExtensionService(api, dependentExtensionNameMap) {
           createGameObject: DirectorForJs$Meta3dEngineCore.createGameObject,
           deferDisposeGameObject: DirectorForJs$Meta3dEngineCore.deferDisposeGameObject,
           disposeGameObjects: DirectorForJs$Meta3dEngineCore.disposeGameObjects,
+          cloneGameObject: DirectorForJs$Meta3dEngineCore.cloneGameObject,
           getAllGameObjects: DirectorForJs$Meta3dEngineCore.getAllGameObjects,
           runPipeline: (function (param, param$1, param$2) {
               return DirectorForJs$Meta3dEngineCore.runPipeline(partial_arg, param, param$1, param$2);

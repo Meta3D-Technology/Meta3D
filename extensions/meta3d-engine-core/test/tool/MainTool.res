@@ -70,13 +70,14 @@ let createAndSetComponentState = (componentName, config) => {
 
 // TODO remove magic
 let unsafeGetUsedComponentContribute = componentName => {
-  StateContainer.unsafeGetState()->DirectorForJs.unsafeGetUsedComponentContribute(componentName)
-  -> Obj.magic
+  StateContainer.unsafeGetState()
+  ->DirectorForJs.unsafeGetUsedComponentContribute(componentName)
+  ->Obj.magic
 }
 
 // TODO remove magic
 let createComponent = contribute => {
-  contribute->DirectorForJs.createComponent-> Obj.magic
+  contribute->DirectorForJs.createComponent->Obj.magic
 }
 
 let setComponentData = (contribute, component, dataName, dataValue) => {
@@ -145,6 +146,15 @@ let disposeGameObjects = gameObjects => {
   StateContainer.unsafeGetState()
   ->DirectorForJs.disposeGameObjects(gameObjects)
   ->StateContainer.setState
+}
+
+let cloneGameObject = (count, cloneConfig, gameObject) => {
+  let (state, clonedGameObjects) =
+    StateContainer.unsafeGetState()->DirectorForJs.cloneGameObject(count, cloneConfig, gameObject)
+
+  state->StateContainer.setState
+
+  clonedGameObjects
 }
 
 let getAllGameObjects = () => {

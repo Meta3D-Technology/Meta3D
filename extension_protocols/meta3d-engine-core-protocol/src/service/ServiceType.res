@@ -62,15 +62,13 @@ type service = {
   ) => Js.Nullable.t<ComponentType.component>,
   deferDisposeComponent: (
     RegisterComponentType.usedComponentContribute,
-    ( ComponentType.component,  Meta3dGameobjectProtocol.Index.gameObject),
+    (ComponentType.component, Meta3dGameobjectProtocol.Index.gameObject),
   ) => RegisterComponentType.usedComponentContribute,
   disposeComponents: (
     RegisterComponentType.usedComponentContribute,
-    ComponentType.batchDisposeData
+    ComponentType.batchDisposeData,
   ) => RegisterComponentType.usedComponentContribute,
-  getAllComponents: RegisterComponentType.usedComponentContribute => array<
-    ComponentType.component,
-  >,
+  getAllComponents: RegisterComponentType.usedComponentContribute => array<ComponentType.component>,
   getComponentData: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
@@ -88,10 +86,25 @@ type service = {
     StateType.state,
     GameObjectType.gameObjectContribute,
   ) => StateType.state,
-  createAndSetGameObjectState: (StateType.state, Meta3dGameobjectProtocol.Index.config) => StateType.state,
+  createAndSetGameObjectState: (
+    StateType.state,
+    Meta3dGameobjectProtocol.Index.config,
+  ) => StateType.state,
   createGameObject: StateType.state => (StateType.state, Meta3dGameobjectProtocol.Index.gameObject),
-  deferDisposeGameObject: (StateType.state, Meta3dGameobjectProtocol.Index.gameObject) => StateType.state,
-  disposeGameObjects: (StateType.state, array<Meta3dGameobjectProtocol.Index.gameObject>) => StateType.state,
+  deferDisposeGameObject: (
+    StateType.state,
+    Meta3dGameobjectProtocol.Index.gameObject,
+  ) => StateType.state,
+  disposeGameObjects: (
+    StateType.state,
+    array<Meta3dGameobjectProtocol.Index.gameObject>,
+  ) => StateType.state,
+  cloneGameObject: (
+    StateType.state,
+    GameObjectContributeType.cloneCount,
+    Meta3dGameobjectProtocol.Index.cloneConfig,
+    Meta3dGameobjectProtocol.Index.gameObject,
+  ) => (StateType.state, GameObjectContributeType.clonedGameObjects),
   getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
   runPipeline: (
     StateType.state,

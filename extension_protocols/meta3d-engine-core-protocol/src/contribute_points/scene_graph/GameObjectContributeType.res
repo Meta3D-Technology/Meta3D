@@ -108,7 +108,7 @@ type disposeGameObjectsFunc<'state, 'transformState, 'pbrMaterialState, 'geometr
   array<gameObject>,
 ) => ('state, 'transformState, 'pbrMaterialState, 'geometryState)
 
-type count = int
+type cloneCount = int
 
 type clonedGameObjects = array<array<gameObject>>
 
@@ -184,7 +184,7 @@ type cloneGameObjectFunc<'state, 'transformState, 'pbrMaterialState, 'geometrySt
       addGeometryFunc<'geometryState>,
     ),
   ),
-  count,
+  cloneCount,
   Meta3dGameobjectProtocol.Index.cloneConfig,
   gameObject,
 ) => (('state, 'transformState, 'pbrMaterialState, 'geometryState), clonedGameObjects)

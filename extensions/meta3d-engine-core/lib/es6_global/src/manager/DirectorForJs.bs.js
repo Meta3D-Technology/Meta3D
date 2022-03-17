@@ -89,6 +89,8 @@ var deferDisposeGameObject = GameObjectManager$Meta3dEngineCore.deferDisposeGame
 
 var disposeGameObjects = GameObjectManager$Meta3dEngineCore.disposeGameObjects;
 
+var cloneGameObject = GameObjectManager$Meta3dEngineCore.cloneGameObject;
+
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
 export {
@@ -121,6 +123,7 @@ export {
   createGameObject ,
   deferDisposeGameObject ,
   disposeGameObjects ,
+  cloneGameObject ,
   getAllGameObjects ,
   getComponentState ,
   

@@ -89,6 +89,8 @@ var deferDisposeGameObject = GameObjectManager$Meta3dEngineCore.deferDisposeGame
 
 var disposeGameObjects = GameObjectManager$Meta3dEngineCore.disposeGameObjects;
 
+var cloneGameObject = GameObjectManager$Meta3dEngineCore.cloneGameObject;
+
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
 exports._convertJobOrders = _convertJobOrders;
@@ -120,6 +122,7 @@ exports.createAndSetGameObjectState = createAndSetGameObjectState;
 exports.createGameObject = createGameObject;
 exports.deferDisposeGameObject = deferDisposeGameObject;
 exports.disposeGameObjects = disposeGameObjects;
+exports.cloneGameObject = cloneGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 exports.getComponentState = getComponentState;
 /* No side effect */

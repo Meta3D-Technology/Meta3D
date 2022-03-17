@@ -22,6 +22,7 @@ let createAndSetState = (
     getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc,
     disposeGameObjectsFunc,
+    cloneGameObjectFunc,
     getAllGameObjectsFunc,
   } = unsafeGetGameObjectData(state)
 
@@ -34,6 +35,7 @@ let createAndSetState = (
       getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
       deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
       disposeGameObjectsFunc: disposeGameObjectsFunc,
+      cloneGameObjectFunc: cloneGameObjectFunc,
     }->Some,
   }
 }
@@ -98,12 +100,18 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     ),
     // TODO remove magic
     (
-      (usedTransformContribute.getComponentFunc-> Obj.magic, usedTransformContribute.deferDisposeComponentFunc-> Obj.magic),
       (
-        usedPBRMaterialContribute.getComponentFunc-> Obj.magic,
-        usedPBRMaterialContribute.deferDisposeComponentFunc-> Obj.magic,
+        usedTransformContribute.getComponentFunc->Obj.magic,
+        usedTransformContribute.deferDisposeComponentFunc->Obj.magic,
       ),
-      (usedGeometryContribute.getComponentFunc-> Obj.magic, usedGeometryContribute.deferDisposeComponentFunc-> Obj.magic),
+      (
+        usedPBRMaterialContribute.getComponentFunc->Obj.magic,
+        usedPBRMaterialContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
+      (
+        usedGeometryContribute.getComponentFunc->Obj.magic,
+        usedGeometryContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
     ),
     gameObject,
   )
@@ -165,9 +173,18 @@ let disposeGameObjects = (state, gameObjects) => {
       usedGeometryContribute.state,
     ),
     (
-      (usedTransformContribute.getComponentFunc-> Obj.magic, usedTransformContribute.disposeComponentsFunc-> Obj.magic),
-      (usedPBRMaterialContribute.getComponentFunc-> Obj.magic, usedPBRMaterialContribute.disposeComponentsFunc-> Obj.magic),
-      (usedGeometryContribute.getComponentFunc-> Obj.magic, usedGeometryContribute.disposeComponentsFunc-> Obj.magic),
+      (
+        usedTransformContribute.getComponentFunc->Obj.magic,
+        usedTransformContribute.disposeComponentsFunc->Obj.magic,
+      ),
+      (
+        usedPBRMaterialContribute.getComponentFunc->Obj.magic,
+        usedPBRMaterialContribute.disposeComponentsFunc->Obj.magic,
+      ),
+      (
+        usedGeometryContribute.getComponentFunc->Obj.magic,
+        usedGeometryContribute.disposeComponentsFunc->Obj.magic,
+      ),
     ),
     gameObjects,
   )
@@ -199,6 +216,89 @@ let disposeGameObjects = (state, gameObjects) => {
     usedGeometryContribute,
     Meta3dComponentGeometryProtocol.Index.componentName,
   )
+}
+
+let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
+  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+  let usedTransformContribute =
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentTransformProtocol.Index.componentName,
+    )
+  let usedPBRMaterialContribute =
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentPbrmaterialProtocol.Index.componentName,
+    )
+  let usedGeometryContribute =
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentGeometryProtocol.Index.componentName,
+    )
+
+  let (
+    (gameObjectState, transformState, pbrMaterialState, geometryState),
+    clonedGameObjects,
+  ) = usedGameObjectContribute.cloneGameObjectFunc(.
+    (
+      usedGameObjectContribute.state,
+      usedTransformContribute.state,
+      usedPBRMaterialContribute.state,
+      usedGeometryContribute.state,
+    ),
+    (
+      (
+        usedTransformContribute.getComponentFunc->Obj.magic,
+        usedTransformContribute.cloneComponentFunc->Obj.magic,
+        usedTransformContribute.addComponentFunc->Obj.magic,
+        usedTransformContribute.getGameObjectsFunc->Obj.magic,
+        usedTransformContribute.getComponentDataFunc->Obj.magic,
+        usedTransformContribute.setComponentDataFunc->Obj.magic,
+      ),
+      (
+        usedPBRMaterialContribute.getComponentFunc->Obj.magic,
+        usedPBRMaterialContribute.cloneComponentFunc->Obj.magic,
+        usedPBRMaterialContribute.addComponentFunc->Obj.magic,
+      ),
+      (
+        usedGeometryContribute.getComponentFunc->Obj.magic,
+        usedGeometryContribute.cloneComponentFunc->Obj.magic,
+        usedGeometryContribute.addComponentFunc->Obj.magic,
+      ),
+    ),
+    count,
+    cloneConfig,
+    sourceGameObject,
+  )
+
+  // TODO duplicate
+  let usedTransformContribute =
+    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedTransformContribute,
+    )
+  let usedPBRMaterialContribute =
+    pbrMaterialState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedPBRMaterialContribute,
+    )
+  let usedGeometryContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedGeometryContribute,
+    )
+
+  let state =
+    state
+    ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
+    ->ComponentManager.setUsedComponentContribute(
+      usedTransformContribute,
+      Meta3dComponentTransformProtocol.Index.componentName,
+    )
+    ->ComponentManager.setUsedComponentContribute(
+      usedPBRMaterialContribute,
+      Meta3dComponentPbrmaterialProtocol.Index.componentName,
+    )
+    ->ComponentManager.setUsedComponentContribute(
+      usedGeometryContribute,
+      Meta3dComponentGeometryProtocol.Index.componentName,
+    )
+
+  (state, clonedGameObjects)
 }
 
 let getAllGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state): array<

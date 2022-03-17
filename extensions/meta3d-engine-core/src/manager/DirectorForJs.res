@@ -105,6 +105,8 @@ let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
 
 let disposeGameObjects = GameObjectManager.disposeGameObjects
 
+let cloneGameObject = GameObjectManager.cloneGameObject
+
 let getAllGameObjects = GameObjectManager.getAllGameObjects
 
 let getComponentState = (
