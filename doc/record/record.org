@@ -624,6 +624,14 @@ pass dispose scene
 
 
 
+
+*** DONE component support clone
+
+*** DONE refactor
+
+
+*** TODO gameObject support clone
+
 clone count gameObject:
 create count gameObjects as clonedGameObjectArr
 
@@ -646,16 +654,10 @@ return data: (state, totalClonedGameObjectArr)
 totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
 
 
-*** DONE component support clone
-
-*** DONE refactor
+*** TODO pass bdd test
 
 *** TODO pass run:editor
 
-*** TODO gameObject support clone
-
-
-*** TODO pass bdd test
 
 
 ** TODO pass run test

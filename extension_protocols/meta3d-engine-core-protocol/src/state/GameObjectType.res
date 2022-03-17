@@ -16,6 +16,12 @@ type usedGameObjectContribute = {
     ComponentType.state,
     ComponentType.state,
   >,
+  cloneGameObjectFunc: GameObjectContributeType.cloneGameObjectFunc<
+    state,
+    ComponentType.state,
+    ComponentType.state,
+    ComponentType.state,
+  >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state>,
 }
 

@@ -17,5 +17,17 @@ let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.g
     DisposeGameObjectUtils.deferDisposeGameObject(state, funcs, gameObject),
   disposeGameObjectsFunc: (. states, funcs, gameObjects) =>
     DisposeGameObjectUtils.disposeGameObjects(states, funcs, gameObjects),
+  cloneGameObjectFunc: (. 
+  (gameObjectState, transformState, pbrMaterialState, geometryState) as states,
+ funcs, count, cloneConfig, sourceGameObject) => {
+    CloneGameObjectUtils.clone(
+      states,
+      funcs,
+      ConfigUtils.getIsDebug(gameObjectState),
+      count,
+      cloneConfig,
+      sourceGameObject,
+    )
+  },
   getAllGameObjectsFunc: (. state) => GetAllGameObjectUtils.getAll(state),
 }

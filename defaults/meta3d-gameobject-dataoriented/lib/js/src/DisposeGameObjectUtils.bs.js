@@ -24,19 +24,19 @@ function deferDisposeGameObject(param) {
     var deferDisposePBRMaterialFunc = match$1[1];
     var match$2 = param[0];
     var deferDisposeTransformFunc = match$2[1];
-    var transformState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.bind(match$2[0](transformState, gameObject), (function (transform) {
+    var transformState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$2[0](transformState, gameObject), (function (transform) {
                 return deferDisposeTransformFunc(transformState, [
                             transform,
                             gameObject
                           ]);
               })), transformState);
-    var pbrMaterialState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.bind(match$1[0](pbrMaterialState, gameObject), (function (pbrMaterial) {
+    var pbrMaterialState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$1[0](pbrMaterialState, gameObject), (function (pbrMaterial) {
                 return deferDisposePBRMaterialFunc(pbrMaterialState, [
                             pbrMaterial,
                             gameObject
                           ]);
               })), pbrMaterialState);
-    var geometryState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.bind(match[0](geometryState, gameObject), (function (geometry) {
+    var geometryState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match[0](geometryState, gameObject), (function (geometry) {
                 return deferDisposeGeometryFunc(geometryState, [
                             geometry,
                             gameObject
@@ -69,7 +69,7 @@ function _getTransforms(state, getTransformFunc, gameObjects) {
 
 function _getSharableComponentDataMap(state, getComponentFunc, gameObjects) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(gameObjects, (function (dataMap, gameObject) {
-                return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.bind(getComponentFunc(state, gameObject), (function (component) {
+                return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(getComponentFunc(state, gameObject), (function (component) {
                                   return ArrayMapUtils$Meta3dCommonlib.addValue(dataMap, component, gameObject);
                                 })), dataMap);
               }), MutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined));

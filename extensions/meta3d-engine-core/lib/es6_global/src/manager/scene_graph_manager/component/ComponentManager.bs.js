@@ -74,6 +74,7 @@ function createAndSetComponentState(state, componentName, config) {
                   getNeedDisposedComponentsFunc: match.getNeedDisposedComponentsFunc,
                   deferDisposeComponentFunc: match.deferDisposeComponentFunc,
                   disposeComponentsFunc: match.disposeComponentsFunc,
+                  cloneComponentFunc: match.cloneComponentFunc,
                   getAllComponentsFunc: match.getAllComponentsFunc,
                   getComponentDataFunc: match.getComponentDataFunc,
                   setComponentDataFunc: match.setComponentDataFunc

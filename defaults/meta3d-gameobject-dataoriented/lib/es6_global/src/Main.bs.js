@@ -1,5 +1,7 @@
 
 
+import * as ConfigUtils$Meta3dGameobjectDataoriented from "./config/ConfigUtils.bs.js";
+import * as CloneGameObjectUtils$Meta3dGameobjectDataoriented from "./CloneGameObjectUtils.bs.js";
 import * as CreateGameObjectUtils$Meta3dGameobjectDataoriented from "./CreateGameObjectUtils.bs.js";
 import * as GetAllGameObjectUtils$Meta3dGameobjectDataoriented from "./GetAllGameObjectUtils.bs.js";
 import * as DisposeGameObjectUtils$Meta3dGameobjectDataoriented from "./DisposeGameObjectUtils.bs.js";
@@ -21,6 +23,9 @@ function getGameObjectContribute(param) {
             }),
           disposeGameObjectsFunc: (function (states, funcs, gameObjects) {
               return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.disposeGameObjects(states)(funcs, gameObjects);
+            }),
+          cloneGameObjectFunc: (function (states, funcs, count, cloneConfig, sourceGameObject) {
+              return CloneGameObjectUtils$Meta3dGameobjectDataoriented.clone(states, funcs, ConfigUtils$Meta3dGameobjectDataoriented.getIsDebug(states[0]), count, cloneConfig, sourceGameObject);
             }),
           getAllGameObjectsFunc: GetAllGameObjectUtils$Meta3dGameobjectDataoriented.getAll
         };

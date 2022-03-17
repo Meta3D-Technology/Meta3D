@@ -1,6 +1,6 @@
 open StateType
 
-open Meta3dComponentTransformProtocol.Index
+// open Meta3dComponentTransformProtocol.Index
 
 let deferDisposeGameObject = (
   (
@@ -18,21 +18,21 @@ let deferDisposeGameObject = (
 ) => {
   let transformState =
     getTransformFunc(. transformState, gameObject)
-    ->Meta3dCommonlib.NullableSt.bind((. transform) => {
+    ->Meta3dCommonlib.NullableSt.map((. transform) => {
       deferDisposeTransformFunc(. transformState, (transform, gameObject))
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(transformState)
 
   let pbrMaterialState =
     getPBRMaterialFunc(. pbrMaterialState, gameObject)
-    ->Meta3dCommonlib.NullableSt.bind((. pbrMaterial) => {
+    ->Meta3dCommonlib.NullableSt.map((. pbrMaterial) => {
       deferDisposePBRMaterialFunc(. pbrMaterialState, (pbrMaterial, gameObject))
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(pbrMaterialState)
 
   let geometryState =
     getGeometryFunc(. geometryState, gameObject)
-    ->Meta3dCommonlib.NullableSt.bind((. geometry) => {
+    ->Meta3dCommonlib.NullableSt.map((. geometry) => {
       deferDisposeGeometryFunc(. geometryState, (geometry, gameObject))
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(geometryState)
@@ -58,7 +58,7 @@ let _getTransforms = (state, getTransformFunc, gameObjects) =>
 let _getSharableComponentDataMap = (state, getComponentFunc, gameObjects) =>
   gameObjects->Meta3dCommonlib.ArraySt.reduceOneParam((. dataMap, gameObject) =>
     getComponentFunc(. state, gameObject)
-    ->Meta3dCommonlib.NullableSt.bind((. component) => {
+    ->Meta3dCommonlib.NullableSt.map((. component) => {
       dataMap->Meta3dCommonlib.ArrayMapUtils.addValue(component, gameObject)
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(dataMap)
