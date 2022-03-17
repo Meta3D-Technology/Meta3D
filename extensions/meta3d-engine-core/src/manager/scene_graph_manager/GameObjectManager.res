@@ -71,20 +71,67 @@ let createGameObject = (state: Meta3dEngineCoreProtocol.StateType.state): (
   (_setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState), gameObject)
 }
 
-let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject) => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
-  let usedTransformContribute =
+let _getAllUsedContributes = state => {
+  (
+    state->_unsafeGetUsedGameObjectContribute,
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentTransformProtocol.Index.componentName,
-    )
-  let usedPBRMaterialContribute =
+    ),
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentPbrmaterialProtocol.Index.componentName,
-    )
-  let usedGeometryContribute =
+    ),
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentGeometryProtocol.Index.componentName,
+    ),
+  )
+}
+
+let _setGameObjectStateAndAllComponentStatesToState = (
+  state,
+  (
+    usedGameObjectContribute,
+    usedTransformContribute,
+    usedPBRMaterialContribute,
+    usedGeometryContribute,
+  ),
+  (gameObjectState, transformState, pbrMaterialState, geometryState),
+) => {
+  let usedTransformContribute =
+    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedTransformContribute,
     )
+  let usedPBRMaterialContribute =
+    pbrMaterialState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedPBRMaterialContribute,
+    )
+  let usedGeometryContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedGeometryContribute,
+    )
+
+  state
+  ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
+  ->ComponentManager.setUsedComponentContribute(
+    usedTransformContribute,
+    Meta3dComponentTransformProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedPBRMaterialContribute,
+    Meta3dComponentPbrmaterialProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedGeometryContribute,
+    Meta3dComponentGeometryProtocol.Index.componentName,
+  )
+}
+
+let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject) => {
+  let (
+    usedGameObjectContribute,
+    usedTransformContribute,
+    usedPBRMaterialContribute,
+    usedGeometryContribute,
+  ) = _getAllUsedContributes(state)
 
   let (
     gameObjectState,
@@ -116,49 +163,24 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     gameObject,
   )
 
-  let usedTransformContribute =
-    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
+  state->_setGameObjectStateAndAllComponentStatesToState(
+    (
+      usedGameObjectContribute,
       usedTransformContribute,
-    )
-  let usedPBRMaterialContribute =
-    pbrMaterialState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedPBRMaterialContribute,
-    )
-  let usedGeometryContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedGeometryContribute,
-    )
-
-  state
-  ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
-  ->ComponentManager.setUsedComponentContribute(
-    usedTransformContribute,
-    Meta3dComponentTransformProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
-    usedPBRMaterialContribute,
-    Meta3dComponentPbrmaterialProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
-    usedGeometryContribute,
-    Meta3dComponentGeometryProtocol.Index.componentName,
+    ),
+    (gameObjectState, transformState, pbrMaterialState, geometryState),
   )
 }
 
 let disposeGameObjects = (state, gameObjects) => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
-  let usedTransformContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentTransformProtocol.Index.componentName,
-    )
-  let usedPBRMaterialContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentPbrmaterialProtocol.Index.componentName,
-    )
-  let usedGeometryContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentGeometryProtocol.Index.componentName,
-    )
+  let (
+    usedGameObjectContribute,
+    usedTransformContribute,
+    usedPBRMaterialContribute,
+    usedGeometryContribute,
+  ) = _getAllUsedContributes(state)
 
   let (
     gameObjectState,
@@ -189,49 +211,24 @@ let disposeGameObjects = (state, gameObjects) => {
     gameObjects,
   )
 
-  let usedTransformContribute =
-    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
+  state->_setGameObjectStateAndAllComponentStatesToState(
+    (
+      usedGameObjectContribute,
       usedTransformContribute,
-    )
-  let usedPBRMaterialContribute =
-    pbrMaterialState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedPBRMaterialContribute,
-    )
-  let usedGeometryContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedGeometryContribute,
-    )
-
-  state
-  ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
-  ->ComponentManager.setUsedComponentContribute(
-    usedTransformContribute,
-    Meta3dComponentTransformProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
-    usedPBRMaterialContribute,
-    Meta3dComponentPbrmaterialProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
-    usedGeometryContribute,
-    Meta3dComponentGeometryProtocol.Index.componentName,
+    ),
+    (gameObjectState, transformState, pbrMaterialState, geometryState),
   )
 }
 
 let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
-  let usedTransformContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentTransformProtocol.Index.componentName,
-    )
-  let usedPBRMaterialContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentPbrmaterialProtocol.Index.componentName,
-    )
-  let usedGeometryContribute =
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentGeometryProtocol.Index.componentName,
-    )
+  let (
+    usedGameObjectContribute,
+    usedTransformContribute,
+    usedPBRMaterialContribute,
+    usedGeometryContribute,
+  ) = _getAllUsedContributes(state)
 
   let (
     (gameObjectState, transformState, pbrMaterialState, geometryState),
@@ -268,34 +265,15 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
     sourceGameObject,
   )
 
-  // TODO duplicate
-  let usedTransformContribute =
-    transformState->ComponentManager.setComponentStateToUsedComponentContribute(
-      usedTransformContribute,
-    )
-  let usedPBRMaterialContribute =
-    pbrMaterialState->ComponentManager.setComponentStateToUsedComponentContribute(
-      usedPBRMaterialContribute,
-    )
-  let usedGeometryContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
-      usedGeometryContribute,
-    )
-
   let state =
-    state
-    ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
-    ->ComponentManager.setUsedComponentContribute(
-      usedTransformContribute,
-      Meta3dComponentTransformProtocol.Index.componentName,
-    )
-    ->ComponentManager.setUsedComponentContribute(
-      usedPBRMaterialContribute,
-      Meta3dComponentPbrmaterialProtocol.Index.componentName,
-    )
-    ->ComponentManager.setUsedComponentContribute(
-      usedGeometryContribute,
-      Meta3dComponentGeometryProtocol.Index.componentName,
+    state->_setGameObjectStateAndAllComponentStatesToState(
+      (
+        usedGameObjectContribute,
+        usedTransformContribute,
+        usedPBRMaterialContribute,
+        usedGeometryContribute,
+      ),
+      (gameObjectState, transformState, pbrMaterialState, geometryState),
     )
 
   (state, clonedGameObjects)
