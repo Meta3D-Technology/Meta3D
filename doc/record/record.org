@@ -630,7 +630,7 @@ pass dispose scene
 *** DONE refactor
 
 
-*** TODO gameObject support clone
+*** DONE gameObject support clone
 
 clone count gameObject:
 create count gameObjects as clonedGameObjectArr
@@ -654,24 +654,16 @@ return data: (state, totalClonedGameObjectArr)
 totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
 
 
-*** TODO pass bdd test
+*** DONE pass bdd test
 
 
-*** TODO pass run:editor
+*** DONE pass run:editor
 
 
 ** DONE refactor: after.steps: remove
 
-** TODO refactor: add 'dataValue and remove "type dataValue" ?
+# ** TODO refactor: add 'dataValue and remove "type dataValue" ?
 
-
-** TODO pass run test
-
-
-*** TODO update editor, add clone gameObject button
-
-
-*** TODO pass run test
 
 
 
@@ -745,6 +737,14 @@ should handle vbo when dispose geometry!
 
 ** TODO pass render run test:dispose cube
 
+
+** TODO pass clone run test
+
+
+*** TODO update editor, add clone gameObject button
+
+
+*** TODO pass run test
 
 
 
