@@ -57,7 +57,7 @@ let disposeComponents = (
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
-    "DirectionLight",
+    "directionLight",
     lights,
     needDisposedComponents,
   )

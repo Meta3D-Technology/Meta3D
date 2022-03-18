@@ -75,7 +75,7 @@ Feature: Batch Dispose After Defer Dispose
 			And set transform3's parent to transform1
 			And defer dispose transform1
 			When dispose transform1
-			Then should remove transform1 from state.parentMap, state.childrenMap, state.dirtyMap
+			Then should remove transform1 from parentMap, childrenMap, dirtyMap
 
 		Scenario: remove from gameObjectMap, gameObjectTransformMap
 			Given create a gameObject

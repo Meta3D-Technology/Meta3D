@@ -56,7 +56,7 @@ function _disposeData(state, cameraController) {
 function disposeComponents(state, cameraControllers) {
   var isDebug = ConfigUtils$Meta3dComponentArcballcameracontroller.getIsDebug(state);
   var needDisposedComponents = GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller.get(state);
-  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "ArcballCameraController", cameraControllers, needDisposedComponents);
+  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "arcballCameraController", cameraControllers, needDisposedComponents);
   var state_config = state.config;
   var state_maxIndex = state.maxIndex;
   var state_gameObjectMap = state.gameObjectMap;

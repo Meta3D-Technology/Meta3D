@@ -45,7 +45,7 @@ function _disposeData(state, cameraProjection) {
 
 function disposeComponents(state, cameraProjections) {
   var needDisposedComponents = GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection.get(state);
-  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(ConfigUtils$Meta3dComponentPerspectivecameraprojection.getIsDebug(state), "PerspectiveCameraProjection", cameraProjections, needDisposedComponents);
+  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(ConfigUtils$Meta3dComponentPerspectivecameraprojection.getIsDebug(state), "perspectiveCameraProjection", cameraProjections, needDisposedComponents);
   var state_config = state.config;
   var state_maxIndex = state.maxIndex;
   var state_dirtyMap = state.dirtyMap;

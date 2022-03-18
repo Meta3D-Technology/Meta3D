@@ -34,7 +34,7 @@ let disposeComponents = (
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     ConfigUtils.getIsDebug(state),
-    "BasicCameraView",
+    "basicCameraView",
     cameraViews,
     needDisposedComponents,
   )

@@ -476,7 +476,7 @@ defineFeature(feature, test => {
       state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
     })
 
-    then("should remove transform1 from state.parentMap, state.childrenMap, state.dirtyMap", () => {
+    then("should remove transform1 from parentMap, childrenMap, dirtyMap", () => {
       let {parentMap, childrenMap, dirtyMap} = state.contents
 
       (

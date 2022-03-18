@@ -62,7 +62,7 @@ let disposeComponents = (
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
-    "ArcballCameraController",
+    "arcballCameraController",
     cameraControllers,
     needDisposedComponents,
   )

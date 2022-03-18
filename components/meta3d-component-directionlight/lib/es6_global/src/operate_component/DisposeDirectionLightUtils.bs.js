@@ -62,7 +62,7 @@ function disposeComponents(state) {
   return function (lights) {
     var isDebug = ConfigUtils$Meta3dComponentDirectionlight.getIsDebug(state);
     var needDisposedComponents = GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight.get(state);
-    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "DirectionLight", lights, needDisposedComponents);
+    DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "directionLight", lights, needDisposedComponents);
     state.disposedDirectionLights = disposedDirectionLights.concat(lights);
     state.needDisposedDirectionLights = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, lights);
     return ArraySt$Meta3dCommonlib.reduceOneParam(lights, (function (state, light) {
