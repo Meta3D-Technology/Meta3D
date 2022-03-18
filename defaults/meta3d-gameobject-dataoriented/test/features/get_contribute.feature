@@ -1,5 +1,5 @@
-Feature: Get Data
-    As a Get Data
+Feature: Get Contribute
+    As a Get Contribute
     I want to get gameObject contribute
     So that I can set it
 

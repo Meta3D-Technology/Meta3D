@@ -450,7 +450,7 @@ publish
 #  move :
 #   StateType.state,
 #   StateType.config,
-#   DataType.dataName,
+#   Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType,
 #   StateType.transform,
 
 #   to protocol

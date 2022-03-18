@@ -1,5 +1,5 @@
-Feature: Get Data
-    As a Get Data
+Feature: Get Contribute
+    As a Get Contribute
     I want to get geometry data
     So that I can register it
 
