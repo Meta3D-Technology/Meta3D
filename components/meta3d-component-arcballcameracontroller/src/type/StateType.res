@@ -22,4 +22,6 @@ type state = {
     Meta3dGameobjectProtocol.Index.gameObject,
     arcballCameraController,
   >,
+  needDisposedArcballCameraControllers: Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
+  disposedArcballCameraControllers: array<arcballCameraController>,
 }

@@ -6,9 +6,11 @@ type state = {
   buffer: Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBuffer,
   mutable colors: Js.Typed_array.Float32Array.t,
   mutable intensities: Js.Typed_array.Float32Array.t,
-  gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
+  mutable gameObjectMap: Meta3dCommonlibType.ComponentType.gameObjectMap,
   gameObjectDirectionLightMap: Meta3dCommonlibType.MutableSparseMapType.t<
     Meta3dGameobjectProtocol.Index.gameObject,
     directionLight,
   >,
+  mutable needDisposedDirectionLights: Meta3dComponentDirectionlightProtocol.Index.needDisposedComponents,
+  mutable disposedDirectionLights: array<directionLight>,
 }

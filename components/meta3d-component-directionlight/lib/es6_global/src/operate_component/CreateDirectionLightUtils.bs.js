@@ -6,8 +6,9 @@ import * as ConfigUtils$Meta3dComponentDirectionlight from "../config/ConfigUtil
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex([], index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedDirectionLights, index);
   state.maxIndex = match[2];
+  state.disposedDirectionLights = match[0];
   return [
           state,
           BufferComponentUtils$Meta3dCommonlib.checkNotExceedMaxCountByIndex(ConfigUtils$Meta3dComponentDirectionlight.getIsDebug(state), match[1], ConfigUtils$Meta3dComponentDirectionlight.getDirectionLightCount(state))

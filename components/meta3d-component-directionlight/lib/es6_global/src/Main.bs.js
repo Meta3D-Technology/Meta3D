@@ -6,10 +6,14 @@ import * as GetGameObjectsUtils$Meta3dComponentDirectionlight from "./gameobject
 import * as AddDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/AddDirectionLightUtils.bs.js";
 import * as GetDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/GetDirectionLightUtils.bs.js";
 import * as HasDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/HasDirectionLightUtils.bs.js";
+import * as CloneDirectionLightUtils$Meta3dComponentDirectionlight from "./operate_component/CloneDirectionLightUtils.bs.js";
 import * as CreateDirectionLightUtils$Meta3dComponentDirectionlight from "./operate_component/CreateDirectionLightUtils.bs.js";
+import * as RemoveDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/RemoveDirectionLightUtils.bs.js";
+import * as DisposeDirectionLightUtils$Meta3dComponentDirectionlight from "./operate_component/DisposeDirectionLightUtils.bs.js";
 import * as GetAllDirectionLightsUtils$Meta3dComponentDirectionlight from "./operate_component/GetAllDirectionLightsUtils.bs.js";
 import * as GetDirectionLightDataUtils$Meta3dComponentDirectionlight from "./operate_data/GetDirectionLightDataUtils.bs.js";
 import * as SetDirectionLightDataUtils$Meta3dComponentDirectionlight from "./operate_data/SetDirectionLightDataUtils.bs.js";
+import * as GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight from "./gameobject/GetNeedDisposedDirectionLightsUtils.bs.js";
 
 function getComponentContribute(param) {
   return {
@@ -17,34 +21,33 @@ function getComponentContribute(param) {
           createStateFunc: (function (param) {
               return CreateStateUtils$Meta3dComponentDirectionlight.createState(param.isDebug, param.directionLightCount);
             }),
-          getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentDirectionlight.get,
+          getGameObjectsFunc: (function (state, light) {
+              return GetGameObjectsUtils$Meta3dComponentDirectionlight.get(state)(light);
+            }),
           createComponentFunc: CreateDirectionLightUtils$Meta3dComponentDirectionlight.create,
-          addComponentFunc: AddDirectionLightUtils$Meta3dComponentDirectionlight.add,
-          removeComponentFunc: (function (state, gameObject, transform) {
-              return state;
+          addComponentFunc: (function (state, gameObject, light) {
+              return AddDirectionLightUtils$Meta3dComponentDirectionlight.add(state)(gameObject, light);
+            }),
+          removeComponentFunc: (function (state, gameObject, light) {
+              return RemoveDirectionLightUtils$Meta3dComponentDirectionlight.remove(state)(gameObject, light);
             }),
           hasComponentFunc: HasDirectionLightUtils$Meta3dComponentDirectionlight.has,
           getComponentFunc: GetDirectionLightUtils$Meta3dComponentDirectionlight.get,
-          getNeedDisposedComponentsFunc: (function (state) {
-              return [];
+          getNeedDisposedComponentsFunc: GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight.get,
+          getComponentDataFunc: (function (state, light, dataName) {
+              return GetDirectionLightDataUtils$Meta3dComponentDirectionlight.getData(state, light, dataName);
             }),
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetDirectionLightDataUtils$Meta3dComponentDirectionlight.getData(state, component, dataName);
+          setComponentDataFunc: (function (state, light, dataName, dataValue) {
+              return SetDirectionLightDataUtils$Meta3dComponentDirectionlight.setData(state, light, dataName, dataValue);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetDirectionLightDataUtils$Meta3dComponentDirectionlight.setData(state, component, dataName, dataValue);
+          deferDisposeComponentFunc: (function (state, lightData) {
+              return DisposeDirectionLightUtils$Meta3dComponentDirectionlight.deferDisposeComponent(state)(lightData);
             }),
-          deferDisposeComponentFunc: (function (state, transform) {
-              return state;
+          disposeComponentsFunc: (function (state, lights) {
+              return DisposeDirectionLightUtils$Meta3dComponentDirectionlight.disposeComponents(state)(lights);
             }),
-          disposeComponentsFunc: (function (state, transforms) {
-              return state;
-            }),
-          cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
-              return [
-                      state,
-                      []
-                    ];
+          cloneComponentFunc: (function (state, countRange, param, sourceDirectionLight) {
+              return CloneDirectionLightUtils$Meta3dComponentDirectionlight.clone(state, countRange, sourceDirectionLight);
             }),
           getAllComponentsFunc: GetAllDirectionLightsUtils$Meta3dComponentDirectionlight.getAll
         };

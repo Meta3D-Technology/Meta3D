@@ -670,7 +670,7 @@ totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned
 ** TODO add remain components(include worker)
 
 
-** TODO add MeshRender component
+# ** TODO add MeshRender component
 
 
 

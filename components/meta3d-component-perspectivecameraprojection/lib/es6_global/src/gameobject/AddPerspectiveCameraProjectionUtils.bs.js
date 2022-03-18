@@ -13,7 +13,9 @@ function add(state, gameObject, cameraProjection) {
           fovyMap: state.fovyMap,
           aspectMap: state.aspectMap,
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectMap, cameraProjection, gameObject),
-          gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectPerspectiveCameraProjectionMap, gameObject, cameraProjection)
+          gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectPerspectiveCameraProjectionMap, gameObject, cameraProjection),
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 

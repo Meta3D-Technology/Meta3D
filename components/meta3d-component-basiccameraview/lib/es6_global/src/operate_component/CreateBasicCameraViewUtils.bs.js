@@ -4,14 +4,16 @@ import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../../node_m
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex([], index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedBasicCameraViews, index);
   return [
           {
             config: state.config,
             maxIndex: match[2],
             isActiveMap: state.isActiveMap,
             gameObjectMap: state.gameObjectMap,
-            gameObjectBasicCameraViewMap: state.gameObjectBasicCameraViewMap
+            gameObjectBasicCameraViewMap: state.gameObjectBasicCameraViewMap,
+            needDisposedBasicCameraViews: state.needDisposedBasicCameraViews,
+            disposedBasicCameraViews: match[0]
           },
           match[1]
         ];

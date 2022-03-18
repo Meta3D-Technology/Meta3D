@@ -10,11 +10,11 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   componentName: Meta3dComponentBasiccameraviewProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),
   createComponentFunc: (. state) => CreateBasicCameraViewUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddBasicCameraViewUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, cameraView) => {
+    AddBasicCameraViewUtils.add(state, gameObject, cameraView)
   },
-  removeComponentFunc: (. state, gameObject, transform) => {
-    state
+  removeComponentFunc: (. state, gameObject, cameraView) => {
+    RemoveBasicCameraViewUtils.remove(state, gameObject, cameraView)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasBasicCameraViewUtils.has(state, gameObject)
@@ -23,28 +23,27 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
     GetBasicCameraViewUtils.get(state, gameObject)
   },
   getNeedDisposedComponentsFunc: (. state) => {
-    []
+    GetNeedDisposedBasicCameraViewsUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, cameraView) => {
+    GetGameObjectsUtils.get(state, cameraView)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetBasicCameraViewDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, cameraView, dataName) => {
+    GetBasicCameraViewDataUtils.getData(. state, cameraView, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetBasicCameraViewDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, cameraView, dataName, dataValue) => {
+    SetBasicCameraViewDataUtils.setData(. state, cameraView, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllBasicCameraViewsUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, transform) => {
-    state
+  deferDisposeComponentFunc: (. state, cameraViewData) => {
+    DisposeBasicCameraViewUtils.deferDisposeComponent(state, cameraViewData)
   },
-  disposeComponentsFunc: (. state, transforms) => {
-    state
+  disposeComponentsFunc: (. state, cameraViews) => {
+    DisposeBasicCameraViewUtils.disposeComponents(state, cameraViews)
   },
-  cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
-    ( state, [] )
+  cloneComponentFunc: (. state, countRange, _, sourceBasicCameraView) => {
+    CloneBasicCameraViewUtils.clone(state, countRange, sourceBasicCameraView)
   },
 }
-

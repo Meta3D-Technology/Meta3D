@@ -6,10 +6,14 @@ var GetGameObjectsUtils$Meta3dComponentArcballcameracontroller = require("./game
 var AddArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/AddArcballCameraControllerUtils.bs.js");
 var GetArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/GetArcballCameraControllerUtils.bs.js");
 var HasArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/HasArcballCameraControllerUtils.bs.js");
+var CloneArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./operate_component/CloneArcballCameraControllerUtils.bs.js");
 var CreateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./operate_component/CreateArcballCameraControllerUtils.bs.js");
+var RemoveArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/RemoveArcballCameraControllerUtils.bs.js");
+var DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller = require("./operate_component/DisposeArcballCameraControllerUtils.bs.js");
 var GetAllArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller = require("./operate_component/GetAllArcballCameraControllersUtils.bs.js");
 var GetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller = require("./operate_data/GetArcballCameraControllerDataUtils.bs.js");
 var SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller = require("./operate_data/SetArcballCameraControllerDataUtils.bs.js");
+var GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/GetNeedDisposedArcballCameraControllersUtils.bs.js");
 
 function getComponentContribute(param) {
   return {
@@ -20,31 +24,24 @@ function getComponentContribute(param) {
           getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentArcballcameracontroller.get,
           createComponentFunc: CreateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.create,
           addComponentFunc: AddArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.add,
-          removeComponentFunc: (function (state, gameObject, transform) {
-              return state;
-            }),
+          removeComponentFunc: RemoveArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.remove,
           hasComponentFunc: HasArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.has,
           getComponentFunc: GetArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.get,
-          getNeedDisposedComponentsFunc: (function (state) {
-              return [];
+          getNeedDisposedComponentsFunc: GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller.get,
+          getComponentDataFunc: (function (state, cameraController, dataName) {
+              return GetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller.getData(state, cameraController, dataName);
             }),
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller.getData(state, component, dataName);
+          setComponentDataFunc: (function (state, cameraController, dataName, dataValue) {
+              return SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller.setData(state, cameraController, dataName, dataValue);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller.setData(state, component, dataName, dataValue);
+          deferDisposeComponentFunc: (function (state, cameraControllerData) {
+              return DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.deferDisposeComponent(state)(cameraControllerData);
             }),
-          deferDisposeComponentFunc: (function (state, transform) {
-              return state;
+          disposeComponentsFunc: (function (state, cameraControllers) {
+              return DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.disposeComponents(state)(cameraControllers);
             }),
-          disposeComponentsFunc: (function (state, transforms) {
-              return state;
-            }),
-          cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
-              return [
-                      state,
-                      []
-                    ];
+          cloneComponentFunc: (function (state, countRange, param, sourceArcballCameraController) {
+              return CloneArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.clone(state, countRange, sourceArcballCameraController);
             }),
           getAllComponentsFunc: GetAllArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller.getAll
         };

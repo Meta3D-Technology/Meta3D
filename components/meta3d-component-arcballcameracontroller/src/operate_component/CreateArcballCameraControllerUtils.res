@@ -14,12 +14,8 @@ let _setDefaultValue = (state, cameraController) => {
 
 let create = (state: StateType.state): (StateType.state, StateType.arcballCameraController) => {
   let index = state.maxIndex
-  // let newIndex = index->Meta3dCommonlib.IndexComponentUtils.generateIndex
-
-// TODO fix for dispose
-  let (_, index, newIndex) =
-    []->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
-
+  let (disposedArcballCameraControllers, index, newIndex) =
+    state.disposedArcballCameraControllers->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
 
   let state = state->DirtyArcballCameraControllerUtils.mark(index, true)->_setDefaultValue(index)
 
@@ -27,6 +23,7 @@ let create = (state: StateType.state): (StateType.state, StateType.arcballCamera
     {
       ...state,
       maxIndex: newIndex,
+      disposedArcballCameraControllers: disposedArcballCameraControllers,
     },
     index,
   )

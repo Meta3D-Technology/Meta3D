@@ -15,7 +15,9 @@ function createState(isDebug) {
           fovyMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           aspectMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          needDisposedPerspectiveCameraProjections: [],
+          disposedPerspectiveCameraProjections: []
         };
 }
 

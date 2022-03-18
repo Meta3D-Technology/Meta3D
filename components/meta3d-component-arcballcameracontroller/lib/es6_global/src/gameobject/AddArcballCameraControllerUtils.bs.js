@@ -18,7 +18,9 @@ function add(state, gameObject, cameraController) {
           moveSpeedYMap: state.moveSpeedYMap,
           rotateSpeedMap: state.rotateSpeedMap,
           wheelSpeedMap: state.wheelSpeedMap,
-          gameObjectArcballCameraControllerMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectArcballCameraControllerMap, gameObject, cameraController)
+          gameObjectArcballCameraControllerMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectArcballCameraControllerMap, gameObject, cameraController),
+          needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers
         };
 }
 

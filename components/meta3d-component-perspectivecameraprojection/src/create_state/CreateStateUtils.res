@@ -14,5 +14,7 @@ let createState = (isDebug: bool) => {
     aspectMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectPerspectiveCameraProjectionMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+    needDisposedPerspectiveCameraProjections: [],
+    disposedPerspectiveCameraProjections: [],
   }
 }

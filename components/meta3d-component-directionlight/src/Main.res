@@ -11,11 +11,11 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   createStateFunc: (. {isDebug, directionLightCount}) =>
     CreateStateUtils.createState(isDebug, directionLightCount),
   createComponentFunc: (. state) => CreateDirectionLightUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddDirectionLightUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, light) => {
+    AddDirectionLightUtils.add(state, gameObject, light)
   },
-  removeComponentFunc: (. state, gameObject, transform) => {
-    state
+  removeComponentFunc: (. state, gameObject, light) => {
+    RemoveDirectionLightUtils.remove(state, gameObject, light)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasDirectionLightUtils.has(state, gameObject)
@@ -24,27 +24,27 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
     GetDirectionLightUtils.get(state, gameObject)
   },
   getNeedDisposedComponentsFunc: (. state) => {
-    []
+    GetNeedDisposedDirectionLightsUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, light) => {
+    GetGameObjectsUtils.get(state, light)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetDirectionLightDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, light, dataName) => {
+    GetDirectionLightDataUtils.getData(. state, light, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetDirectionLightDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, light, dataName, dataValue) => {
+    SetDirectionLightDataUtils.setData(. state, light, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllDirectionLightsUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, transform) => {
-    state
+  deferDisposeComponentFunc: (. state, lightData) => {
+    DisposeDirectionLightUtils.deferDisposeComponent(state, lightData)
   },
-  disposeComponentsFunc: (. state, transforms) => {
-    state
+  disposeComponentsFunc: (. state, lights) => {
+    DisposeDirectionLightUtils.disposeComponents(state, lights)
   },
-  cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
-    ( state, [] )
+  cloneComponentFunc: (. state, countRange, _, sourceDirectionLight) => {
+    CloneDirectionLightUtils.clone(state, countRange, sourceDirectionLight)
   },
 }

@@ -10,11 +10,11 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   componentName: Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),
   createComponentFunc: (. state) => CreateArcballCameraControllerUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddArcballCameraControllerUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, cameraController) => {
+    AddArcballCameraControllerUtils.add(state, gameObject, cameraController)
   },
-  removeComponentFunc: (. state, gameObject, transform) => {
-    state
+  removeComponentFunc: (. state, gameObject, cameraController) => {
+    RemoveArcballCameraControllerUtils.remove(state, gameObject, cameraController)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasArcballCameraControllerUtils.has(state, gameObject)
@@ -23,27 +23,27 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
     GetArcballCameraControllerUtils.get(state, gameObject)
   },
   getNeedDisposedComponentsFunc: (. state) => {
-    []
+    GetNeedDisposedArcballCameraControllersUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, cameraController) => {
+    GetGameObjectsUtils.get(state, cameraController)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetArcballCameraControllerDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, cameraController, dataName) => {
+    GetArcballCameraControllerDataUtils.getData(. state, cameraController, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetArcballCameraControllerDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, cameraController, dataName, dataValue) => {
+    SetArcballCameraControllerDataUtils.setData(. state, cameraController, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllArcballCameraControllersUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, transform) => {
-    state
+  deferDisposeComponentFunc: (. state, cameraControllerData) => {
+    DisposeArcballCameraControllerUtils.deferDisposeComponent(state, cameraControllerData)
   },
-  disposeComponentsFunc: (. state, transforms) => {
-    state
+  disposeComponentsFunc: (. state, cameraControllers) => {
+    DisposeArcballCameraControllerUtils.disposeComponents(state, cameraControllers)
   },
-  cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
-    ( state, [] )
+  cloneComponentFunc: (. state, countRange, _, sourceArcballCameraController) => {
+    CloneArcballCameraControllerUtils.clone(state, countRange, sourceArcballCameraController)
   },
 }

@@ -14,7 +14,7 @@ function _setDefaultValue(state, cameraController) {
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex([], index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedArcballCameraControllers, index);
   var index$1 = match[1];
   var state$1 = _setDefaultValue(DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.mark(state, index$1, true), index$1);
   return [
@@ -33,7 +33,9 @@ function create(state) {
             moveSpeedYMap: state$1.moveSpeedYMap,
             rotateSpeedMap: state$1.rotateSpeedMap,
             wheelSpeedMap: state$1.wheelSpeedMap,
-            gameObjectArcballCameraControllerMap: state$1.gameObjectArcballCameraControllerMap
+            gameObjectArcballCameraControllerMap: state$1.gameObjectArcballCameraControllerMap,
+            needDisposedArcballCameraControllers: state$1.needDisposedArcballCameraControllers,
+            disposedArcballCameraControllers: match[0]
           },
           index$1
         ];

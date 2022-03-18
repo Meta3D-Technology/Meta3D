@@ -1,15 +1,13 @@
 let create = (state: StateType.state): (StateType.state, StateType.perspectiveCameraProjection) => {
   let index = state.maxIndex
-// TODO fix for dispose
-  let (_, index, newIndex) =
-    []->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
-
+  let (disposedPerspectiveCameraProjections, index, newIndex) =
+    state.disposedPerspectiveCameraProjections->Meta3dCommonlib.IndexComponentUtils.generateIndex(index)
 
   let state =
     DirtyPerspectiveCameraProjectionUtils.mark(
       state,
       index,
-      true
+      true,
     )->OperatePerspectiveCameraProjectionUtils.setPMatrix(
       index,
       Meta3dCommonlib.Matrix4.createIdentityMatrix4(),
@@ -19,6 +17,7 @@ let create = (state: StateType.state): (StateType.state, StateType.perspectiveCa
     {
       ...state,
       maxIndex: newIndex,
+      disposedPerspectiveCameraProjections: disposedPerspectiveCameraProjections,
     },
     index,
   )

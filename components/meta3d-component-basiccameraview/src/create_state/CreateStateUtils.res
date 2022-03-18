@@ -9,5 +9,7 @@ let createState = (isDebug: bool) => {
     isActiveMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectBasicCameraViewMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+    needDisposedBasicCameraViews: [],
+    disposedBasicCameraViews: [],
   }
 }

@@ -11,4 +11,6 @@ type state = {
     Meta3dGameobjectProtocol.Index.gameObject,
     basicCameraView,
   >,
+  needDisposedBasicCameraViews: Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
+  disposedBasicCameraViews: array<basicCameraView>,
 }

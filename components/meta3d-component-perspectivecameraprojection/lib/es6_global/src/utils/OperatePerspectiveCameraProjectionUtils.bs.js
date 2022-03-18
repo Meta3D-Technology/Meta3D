@@ -17,7 +17,9 @@ function setPMatrix(state, cameraProjection, pMatrix) {
           fovyMap: state.fovyMap,
           aspectMap: state.aspectMap,
           gameObjectMap: state.gameObjectMap,
-          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 
@@ -36,7 +38,9 @@ function setFovy(state, cameraProjection, fovy) {
           fovyMap: ImmutableSparseMap$Meta3dCommonlib.set(state.fovyMap, cameraProjection, fovy),
           aspectMap: state.aspectMap,
           gameObjectMap: state.gameObjectMap,
-          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 
@@ -55,7 +59,9 @@ function setAspect(state, cameraProjection, aspect) {
           fovyMap: state.fovyMap,
           aspectMap: ImmutableSparseMap$Meta3dCommonlib.set(state.aspectMap, cameraProjection, aspect),
           gameObjectMap: state.gameObjectMap,
-          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 
@@ -74,7 +80,9 @@ function setFar(state, cameraProjection, far) {
           fovyMap: state.fovyMap,
           aspectMap: state.aspectMap,
           gameObjectMap: state.gameObjectMap,
-          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 
@@ -93,7 +101,9 @@ function setNear(state, cameraProjection, near) {
           fovyMap: state.fovyMap,
           aspectMap: state.aspectMap,
           gameObjectMap: state.gameObjectMap,
-          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
         };
 }
 

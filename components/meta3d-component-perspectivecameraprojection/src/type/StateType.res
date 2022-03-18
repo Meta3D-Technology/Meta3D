@@ -19,4 +19,6 @@ type state = {
     Meta3dGameobjectProtocol.Index.gameObject,
     perspectiveCameraProjection,
   >,
+  needDisposedPerspectiveCameraProjections: array<perspectiveCameraProjection>,
+  disposedPerspectiveCameraProjections: array<perspectiveCameraProjection>,
 }

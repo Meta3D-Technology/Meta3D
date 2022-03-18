@@ -7,7 +7,7 @@ import * as OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectiveca
 
 function create(state) {
   var index = state.maxIndex;
-  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex([], index);
+  var match = IndexComponentUtils$Meta3dCommonlib.generateIndex(state.disposedPerspectiveCameraProjections, index);
   var index$1 = match[1];
   var state$1 = OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setPMatrix(DirtyPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.mark(state, index$1, true), index$1, Matrix4$Meta3dCommonlib.createIdentityMatrix4(undefined));
   return [
@@ -21,7 +21,9 @@ function create(state) {
             fovyMap: state$1.fovyMap,
             aspectMap: state$1.aspectMap,
             gameObjectMap: state$1.gameObjectMap,
-            gameObjectPerspectiveCameraProjectionMap: state$1.gameObjectPerspectiveCameraProjectionMap
+            gameObjectPerspectiveCameraProjectionMap: state$1.gameObjectPerspectiveCameraProjectionMap,
+            needDisposedPerspectiveCameraProjections: state$1.needDisposedPerspectiveCameraProjections,
+            disposedPerspectiveCameraProjections: match[0]
           },
           index$1
         ];

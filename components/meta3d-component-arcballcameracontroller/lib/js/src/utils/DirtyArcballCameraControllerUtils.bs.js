@@ -22,7 +22,9 @@ function mark(state, cameraController, isDirty) {
           moveSpeedYMap: state.moveSpeedYMap,
           rotateSpeedMap: state.rotateSpeedMap,
           wheelSpeedMap: state.wheelSpeedMap,
-          gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap
+          gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
+          needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers
         };
 }
 

@@ -44,7 +44,9 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           colors: colors,
           intensities: intensities,
           gameObjectMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
-          gameObjectDirectionLightMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount)
+          gameObjectDirectionLightMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
+          needDisposedDirectionLights: [],
+          disposedDirectionLights: []
         };
 }
 

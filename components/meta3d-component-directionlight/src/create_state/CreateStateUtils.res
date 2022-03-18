@@ -44,6 +44,8 @@ let createStateWithSharedArrayBufferData = (
     gameObjectDirectionLightMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
       lightCount,
     ),
+needDisposedDirectionLights:[],
+disposedDirectionLights:[]
   }
 }
 

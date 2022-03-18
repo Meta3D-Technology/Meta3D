@@ -8,7 +8,9 @@ function add(state, gameObject, cameraView) {
           maxIndex: state.maxIndex,
           isActiveMap: state.isActiveMap,
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectMap, cameraView, gameObject),
-          gameObjectBasicCameraViewMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectBasicCameraViewMap, gameObject, cameraView)
+          gameObjectBasicCameraViewMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectBasicCameraViewMap, gameObject, cameraView),
+          needDisposedBasicCameraViews: state.needDisposedBasicCameraViews,
+          disposedBasicCameraViews: state.disposedBasicCameraViews
         };
 }
 
