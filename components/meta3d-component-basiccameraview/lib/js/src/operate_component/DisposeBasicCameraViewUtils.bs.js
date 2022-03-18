@@ -34,9 +34,8 @@ function _disposeData(state, cameraView) {
 }
 
 function disposeComponents(state, cameraViews) {
-  var isDebug = ConfigUtils$Meta3dComponentBasiccameraview.getIsDebug(state);
   var needDisposedComponents = GetNeedDisposedBasicCameraViewsUtils$Meta3dComponentBasiccameraview.get(state);
-  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "BasicCameraView", cameraViews, needDisposedComponents);
+  DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(ConfigUtils$Meta3dComponentBasiccameraview.getIsDebug(state), "BasicCameraView", cameraViews, needDisposedComponents);
   var state_config = state.config;
   var state_maxIndex = state.maxIndex;
   var state_isActiveMap = state.isActiveMap;

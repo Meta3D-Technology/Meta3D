@@ -4,7 +4,7 @@
 var componentName = "BasicCameraView";
 
 var dataName = {
-  active: 0
+  isActive: 0
 };
 
 exports.componentName = componentName;

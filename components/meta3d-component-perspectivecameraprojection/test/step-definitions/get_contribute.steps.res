@@ -11,16 +11,16 @@ defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentPerspectivecameraprojection.StateType.state,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataNameType,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.needDisposedComponents,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.batchDisposeData,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.cloneConfig,
-  Meta3dComponentPerspectivecameraprojectionProtocol.Index.perspectiveCameraProjection,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataNameType,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.needDisposedComponents,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.batchDisposeData,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.cloneConfig,
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.perspectiveCameraProjection,
     >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
-  
+
   let _createState = (~isDebug=false, ()) => {
     contribute.contents.createStateFunc(. {isDebug: isDebug})
   }
@@ -129,7 +129,11 @@ defineFeature(feature, test => {
 
     \"and"("add the perspectiveCameraProjection to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraProjection.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraProjection.contents,
+        )
     })
 
     then("get the gameObject's perspectiveCameraProjection should be the added one", () => {
@@ -172,18 +176,139 @@ defineFeature(feature, test => {
 
     \"and"("add the first perspectiveCameraProjection to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraProjection1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraProjection1.contents,
+        )
     })
 
     \"and"("add the second perspectiveCameraProjection to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraProjection2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraProjection2.contents,
+        )
     })
 
     then("get the gameObject's perspectiveCameraProjection should be the second one", () => {
       contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == cameraProjection2.contents
+    })
+  })
+
+  test(."remove a perspectiveCameraProjection from a gameObject", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let gameObject = 10
+    let perspectiveCameraProjection = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a perspectiveCameraProjection", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      perspectiveCameraProjection := m
+    })
+
+    \"and"("add the perspectiveCameraProjection to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          perspectiveCameraProjection.contents,
+        )
+    })
+
+    \"and"("remove the perspectiveCameraProjection from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(.
+          state.contents,
+          gameObject,
+          perspectiveCameraProjection.contents,
+        )
+    })
+
+    then("the gameObject shouldn't has the perspectiveCameraProjection", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."get need disposed perspectiveCameraProjections", ({given, \"when", \"and", then}) => {
+    let perspectiveCameraProjection1 = ref(Obj.magic(1))
+    let perspectiveCameraProjection2 = ref(Obj.magic(1))
+    let perspectiveCameraProjection3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three perspectiveCameraProjections as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      perspectiveCameraProjection1 := m1
+      perspectiveCameraProjection2 := m2
+      perspectiveCameraProjection3 := m3
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(
+            perspectiveCameraProjection1.contents,
+          ),
+        )
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(
+            perspectiveCameraProjection1.contents,
+          ),
+        )
+    })
+
+    \"and"("defer dispose t3", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(
+            perspectiveCameraProjection3.contents,
+          ),
+        )
+    })
+
+    then("get need disposed perspectiveCameraProjections should return [t1, t3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          perspectiveCameraProjection1.contents,
+          perspectiveCameraProjection3.contents,
+        ]
     })
   })
 
@@ -216,9 +341,17 @@ defineFeature(feature, test => {
 
     \"and"("add them to the gameObjects one by one", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, cameraProjection1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject1,
+          cameraProjection1.contents,
+        )
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, cameraProjection2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject2,
+          cameraProjection2.contents,
+        )
     })
 
     then("getAllComponentsFunc should get the two perspectiveCameraProjections", () => {
@@ -268,9 +401,17 @@ defineFeature(feature, test => {
 
     \"and"("add them to the gameObjects one by one", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, cameraProjection1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject1,
+          cameraProjection1.contents,
+        )
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, cameraProjection2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject2,
+          cameraProjection2.contents,
+        )
     })
 
     then(
@@ -311,7 +452,11 @@ defineFeature(feature, test => {
 
     \"and"("add the perspectiveCameraProjection to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraProjection.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraProjection.contents,
+        )
     })
 
     then("hasComponentFunc should return true", () => {

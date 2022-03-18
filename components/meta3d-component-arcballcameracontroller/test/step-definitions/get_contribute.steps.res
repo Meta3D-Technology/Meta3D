@@ -10,17 +10,16 @@ let feature = loadFeature("./test/features/get_contribute.feature")
 defineFeature(feature, test => {
   let contribute: ref<
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
-  StateType.state,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.config,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.cloneConfig,
-  Meta3dComponentArcballcameracontrollerProtocol.Index.arcballCameraController,
->,
+      StateType.state,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.config,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.cloneConfig,
+      Meta3dComponentArcballcameracontrollerProtocol.Index.arcballCameraController,
+    >,
   > = ref(Obj.magic(1))
   let state = ref(Obj.magic(1))
-  
 
   let _createState = (~isDebug=false, ()) => {
     contribute.contents.createStateFunc(. {isDebug: isDebug})
@@ -172,7 +171,11 @@ defineFeature(feature, test => {
 
     \"and"("add the arcballCameraController to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraController.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraController.contents,
+        )
     })
 
     then("get the gameObject's arcballCameraController should be the added one", () => {
@@ -215,18 +218,128 @@ defineFeature(feature, test => {
 
     \"and"("add the first arcballCameraController to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraController1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraController1.contents,
+        )
     })
 
     \"and"("add the second arcballCameraController to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraController2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraController2.contents,
+        )
     })
 
     then("get the gameObject's arcballCameraController should be the second one", () => {
       contribute.contents.getComponentFunc(. state.contents, gameObject)
       ->Meta3dCommonlib.NullableTool.getExn
       ->expect == cameraController2.contents
+    })
+  })
+
+  test(."remove a arcballCameraController from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10
+    let arcballCameraController = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a arcballCameraController", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      arcballCameraController := m
+    })
+
+    \"and"("add the arcballCameraController to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          arcballCameraController.contents,
+        )
+    })
+
+    \"and"("remove the arcballCameraController from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(.
+          state.contents,
+          gameObject,
+          arcballCameraController.contents,
+        )
+    })
+
+    then("the gameObject shouldn't has the arcballCameraController", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."get need disposed arcballCameraControllers", ({given, \"when", \"and", then}) => {
+    let arcballCameraController1 = ref(Obj.magic(1))
+    let arcballCameraController2 = ref(Obj.magic(1))
+    let arcballCameraController3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three arcballCameraControllers as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      arcballCameraController1 := m1
+      arcballCameraController2 := m2
+      arcballCameraController3 := m3
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(arcballCameraController1.contents),
+        )
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(arcballCameraController1.contents),
+        )
+    })
+
+    \"and"("defer dispose t3", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(arcballCameraController3.contents),
+        )
+    })
+
+    then("get need disposed arcballCameraControllers should return [t1, t3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          arcballCameraController1.contents,
+          arcballCameraController3.contents,
+        ]
     })
   })
 
@@ -259,9 +372,17 @@ defineFeature(feature, test => {
 
     \"and"("add them to the gameObjects one by one", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, cameraController1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject1,
+          cameraController1.contents,
+        )
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, cameraController2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject2,
+          cameraController2.contents,
+        )
     })
 
     then("getAllComponentsFunc should get the two arcballCameraControllers", () => {
@@ -311,9 +432,17 @@ defineFeature(feature, test => {
 
     \"and"("add them to the gameObjects one by one", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, cameraController1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject1,
+          cameraController1.contents,
+        )
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, cameraController2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject2,
+          cameraController2.contents,
+        )
     })
 
     then(
@@ -376,9 +505,17 @@ defineFeature(feature, test => {
 
     \"and"("add them to the gameObjects one by one", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, cameraController1.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject1,
+          cameraController1.contents,
+        )
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject2, cameraController2.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject2,
+          cameraController2.contents,
+        )
     })
 
     \"and"("clear all dirty arcballCameraControllers", () => {
@@ -420,7 +557,11 @@ defineFeature(feature, test => {
 
     \"and"("add the arcballCameraController to the gameObject", () => {
       state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject, cameraController.contents)
+        contribute.contents.addComponentFunc(.
+          state.contents,
+          gameObject,
+          cameraController.contents,
+        )
     })
 
     then("hasComponentFunc should return true", () => {

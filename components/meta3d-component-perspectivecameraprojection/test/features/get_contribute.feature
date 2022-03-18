@@ -36,6 +36,24 @@ Feature: Get Contribute
         And add the second perspectiveCameraProjection to the gameObject
         Then get the gameObject's perspectiveCameraProjection should be the second one
 
+    Scenario: remove a perspectiveCameraProjection from a gameObject
+        Given create a gameObject
+        When I get contribute
+        And create a state
+        And create a perspectiveCameraProjection
+        And add the perspectiveCameraProjection to the gameObject
+        And remove the perspectiveCameraProjection from the gameObject
+        Then the gameObject shouldn't has the perspectiveCameraProjection
+
+    Scenario: get need disposed perspectiveCameraProjections
+        When I get contribute
+        And create a state
+        And create three perspectiveCameraProjections as t1, t2, t3
+		And defer dispose t1
+		And defer dispose t1
+		And defer dispose t3
+        Then get need disposed perspectiveCameraProjections should return [t1, t3]
+
     Scenario: get all perspectiveCameraProjections
         Given create two gameObjects
         When I get contribute

@@ -7,7 +7,7 @@ let setData = (.
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {
-  | dataName if dataName == Meta3dComponentBasiccameraviewProtocol.Index.dataName.active =>
+  | dataName if dataName == Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive =>
     OperateBasicCameraViewUtils.setIsActive(state, cameraView, dataValue->Obj.magic)
   | _ =>
     Meta3dCommonlib.Exception.throwErr(

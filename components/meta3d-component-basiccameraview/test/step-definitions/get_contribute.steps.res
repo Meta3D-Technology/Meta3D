@@ -152,6 +152,100 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."remove a basicCameraView from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10
+    let basicCameraView = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a basicCameraView", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      basicCameraView := m
+    })
+
+    \"and"("add the basicCameraView to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, basicCameraView.contents)
+    })
+
+    \"and"("remove the basicCameraView from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject, basicCameraView.contents)
+    })
+
+    then("the gameObject shouldn't has the basicCameraView", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."get need disposed basicCameraViews", ({given, \"when", \"and", then}) => {
+    let basicCameraView1 = ref(Obj.magic(1))
+    let basicCameraView2 = ref(Obj.magic(1))
+    let basicCameraView3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three basicCameraViews as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      basicCameraView1 := m1
+      basicCameraView2 := m2
+      basicCameraView3 := m3
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(basicCameraView1.contents),
+        )
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(basicCameraView1.contents),
+        )
+    })
+
+    \"and"("defer dispose t3", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(basicCameraView3.contents),
+        )
+    })
+
+    then("get need disposed basicCameraViews should return [t1, t3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          basicCameraView1.contents,
+          basicCameraView3.contents,
+        ]
+    })
+  })
+
   test(."get all basicCameraViews", ({given, \"when", \"and", then}) => {
     let gameObject1 = 10
     let gameObject2 = 11
@@ -359,7 +453,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           false->Obj.magic,
         )
     })
@@ -368,7 +462,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == false
     })
   })
@@ -407,7 +501,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView1.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           true->Obj.magic,
         )
     })
@@ -417,7 +511,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView2.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           true->Obj.magic,
         )
     })
@@ -427,7 +521,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView3.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           true->Obj.magic,
         )
     })
@@ -436,7 +530,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView1.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == false
     })
 
@@ -444,7 +538,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView2.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == false
     })
 
@@ -452,7 +546,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView3.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == true
     })
   })
@@ -486,7 +580,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView1.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           true->Obj.magic,
         )
     })
@@ -496,7 +590,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           cameraView2.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
           false->Obj.magic,
         )
     })
@@ -505,7 +599,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView1.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == true
     })
 
@@ -513,7 +607,7 @@ defineFeature(feature, test => {
       contribute.contents.getComponentDataFunc(.
         state.contents,
         cameraView2.contents,
-        Meta3dComponentBasiccameraviewProtocol.Index.dataName.active,
+        Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
       )->expect == false
     })
   })

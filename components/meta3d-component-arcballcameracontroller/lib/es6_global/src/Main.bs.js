@@ -34,12 +34,8 @@ function getComponentContribute(param) {
           setComponentDataFunc: (function (state, cameraController, dataName, dataValue) {
               return SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller.setData(state, cameraController, dataName, dataValue);
             }),
-          deferDisposeComponentFunc: (function (state, cameraControllerData) {
-              return DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.deferDisposeComponent(state)(cameraControllerData);
-            }),
-          disposeComponentsFunc: (function (state, cameraControllers) {
-              return DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.disposeComponents(state)(cameraControllers);
-            }),
+          deferDisposeComponentFunc: DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.deferDisposeComponent,
+          disposeComponentsFunc: DisposeArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.disposeComponents,
           cloneComponentFunc: (function (state, countRange, param, sourceArcballCameraController) {
               return CloneArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.clone(state, countRange, sourceArcballCameraController);
             }),

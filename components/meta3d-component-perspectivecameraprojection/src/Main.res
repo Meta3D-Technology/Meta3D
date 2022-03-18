@@ -10,11 +10,11 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
   componentName: Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),
   createComponentFunc: (. state) => CreatePerspectiveCameraProjectionUtils.create(state),
-  addComponentFunc: (. state, gameObject, component) => {
-    AddPerspectiveCameraProjectionUtils.add(state, gameObject, component)
+  addComponentFunc: (. state, gameObject, cameraProjection) => {
+    AddPerspectiveCameraProjectionUtils.add(state, gameObject, cameraProjection)
   },
-  removeComponentFunc: (. state, gameObject, transform) => {
-    state
+  removeComponentFunc: (. state, gameObject, cameraProjection) => {
+    RemovePerspectiveCameraProjectionUtils.remove(state, gameObject, cameraProjection)
   },
   hasComponentFunc: (. state, gameObject) => {
     HasPerspectiveCameraProjectionUtils.has(state, gameObject)
@@ -23,29 +23,31 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
     GetPerspectiveCameraProjectionUtils.get(state, gameObject)
   },
   getNeedDisposedComponentsFunc: (. state) => {
-    []
+    GetNeedDisposedPerspectiveCameraProjectionsUtils.get(state)
   },
-  getGameObjectsFunc: (. state, component) => {
-    GetGameObjectsUtils.get(state, component)
+  getGameObjectsFunc: (. state, cameraProjection) => {
+    GetGameObjectsUtils.get(state, cameraProjection)
   },
-  getComponentDataFunc: (. state, component, dataName) => {
-    GetPerspectiveCameraProjectionDataUtils.getData(. state, component, dataName)
+  getComponentDataFunc: (. state, cameraProjection, dataName) => {
+    GetPerspectiveCameraProjectionDataUtils.getData(. state, cameraProjection, dataName)
   },
-  setComponentDataFunc: (. state, component, dataName, dataValue) => {
-    SetPerspectiveCameraProjectionDataUtils.setData(. state, component, dataName, dataValue)
+  setComponentDataFunc: (. state, cameraProjection, dataName, dataValue) => {
+    SetPerspectiveCameraProjectionDataUtils.setData(. state, cameraProjection, dataName, dataValue)
   },
   getAllComponentsFunc: (. state) => {
     GetAllPerspectiveCameraProjectionsUtils.getAll(state)
   },
-  deferDisposeComponentFunc: (. state, transform) => {
-    state
+  deferDisposeComponentFunc: (. state, cameraProjectionData) => {
+    DisposePerspectiveCameraProjectionUtils.deferDisposeComponent(state, cameraProjectionData)
   },
-  disposeComponentsFunc: (. state, transforms) => {
-    state
+  disposeComponentsFunc: (. state, cameraProjections) => {
+    DisposePerspectiveCameraProjectionUtils.disposeComponents(state, cameraProjections)
   },
-  cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
-    ( state, [] )
+  cloneComponentFunc: (. state, countRange, _, sourcePerspectiveCameraProjection) => {
+    ClonePerspectiveCameraProjectionUtils.clone(
+      state,
+      countRange,
+      sourcePerspectiveCameraProjection,
+    )
   },
 }
-
-

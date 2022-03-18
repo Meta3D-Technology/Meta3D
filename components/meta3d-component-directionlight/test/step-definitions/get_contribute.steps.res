@@ -172,6 +172,100 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."remove a directionLight from a gameObject", ({given, \"when", \"and", then}) => {
+    let gameObject = 10
+    let directionLight = ref(Obj.magic(1))
+
+    given("create a gameObject", () => {
+      ()
+    })
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create a directionLight", () => {
+      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+
+      state := s
+      directionLight := m
+    })
+
+    \"and"("add the directionLight to the gameObject", () => {
+      state :=
+        contribute.contents.addComponentFunc(. state.contents, gameObject, directionLight.contents)
+    })
+
+    \"and"("remove the directionLight from the gameObject", () => {
+      state :=
+        contribute.contents.removeComponentFunc(. state.contents, gameObject, directionLight.contents)
+    })
+
+    then("the gameObject shouldn't has the directionLight", () => {
+      contribute.contents.hasComponentFunc(. state.contents, gameObject)->expect == false
+    })
+  })
+
+  test(."get need disposed directionLights", ({given, \"when", \"and", then}) => {
+    let directionLight1 = ref(Obj.magic(1))
+    let directionLight2 = ref(Obj.magic(1))
+    let directionLight3 = ref(Obj.magic(1))
+
+    \"when"("I get contribute", () => {
+      contribute := Main.getComponentContribute()
+    })
+
+    \"and"("create a state", () => {
+      state := _createState()
+    })
+
+    \"and"("create three directionLights as t1, t2, t3", () => {
+      let (s, m1) = contribute.contents.createComponentFunc(. state.contents)
+      let (s, m2) = contribute.contents.createComponentFunc(. s)
+      let (s, m3) = contribute.contents.createComponentFunc(. s)
+
+      state := s
+      directionLight1 := m1
+      directionLight2 := m2
+      directionLight3 := m3
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(directionLight1.contents),
+        )
+    })
+
+    \"and"("defer dispose t1", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(directionLight1.contents),
+        )
+    })
+
+    \"and"("defer dispose t3", () => {
+      state :=
+        contribute.contents.deferDisposeComponentFunc(.
+          state.contents,
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(directionLight3.contents),
+        )
+    })
+
+    then("get need disposed directionLights should return [t1, t3]", () => {
+      contribute.contents.getNeedDisposedComponentsFunc(. state.contents)->expect == [
+          directionLight1.contents,
+          directionLight3.contents,
+        ]
+    })
+  })
+
   test(."get all directionLights", ({given, \"when", \"and", then}) => {
     let gameObject1 = 10
     let gameObject2 = 11

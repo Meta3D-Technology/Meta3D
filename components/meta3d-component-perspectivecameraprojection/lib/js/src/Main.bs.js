@@ -6,10 +6,14 @@ var GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection = require("./
 var AddPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/AddPerspectiveCameraProjectionUtils.bs.js");
 var GetPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/GetPerspectiveCameraProjectionUtils.bs.js");
 var HasPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/HasPerspectiveCameraProjectionUtils.bs.js");
+var ClonePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_component/ClonePerspectiveCameraProjectionUtils.bs.js");
 var CreatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_component/CreatePerspectiveCameraProjectionUtils.bs.js");
+var RemovePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/RemovePerspectiveCameraProjectionUtils.bs.js");
+var DisposePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_component/DisposePerspectiveCameraProjectionUtils.bs.js");
 var GetAllPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_component/GetAllPerspectiveCameraProjectionsUtils.bs.js");
 var GetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_data/GetPerspectiveCameraProjectionDataUtils.bs.js");
 var SetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_data/SetPerspectiveCameraProjectionDataUtils.bs.js");
+var GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/GetNeedDisposedPerspectiveCameraProjectionsUtils.bs.js");
 
 function getComponentContribute(param) {
   return {
@@ -20,31 +24,20 @@ function getComponentContribute(param) {
           getGameObjectsFunc: GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection.get,
           createComponentFunc: CreatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.create,
           addComponentFunc: AddPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.add,
-          removeComponentFunc: (function (state, gameObject, transform) {
-              return state;
-            }),
+          removeComponentFunc: RemovePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.remove,
           hasComponentFunc: HasPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.has,
           getComponentFunc: GetPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.get,
-          getNeedDisposedComponentsFunc: (function (state) {
-              return [];
+          getNeedDisposedComponentsFunc: GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection.get,
+          getComponentDataFunc: (function (state, cameraProjection, dataName) {
+              return GetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection.getData(state, cameraProjection, dataName);
             }),
-          getComponentDataFunc: (function (state, component, dataName) {
-              return GetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection.getData(state, component, dataName);
+          setComponentDataFunc: (function (state, cameraProjection, dataName, dataValue) {
+              return SetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection.setData(state, cameraProjection, dataName, dataValue);
             }),
-          setComponentDataFunc: (function (state, component, dataName, dataValue) {
-              return SetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection.setData(state, component, dataName, dataValue);
-            }),
-          deferDisposeComponentFunc: (function (state, transform) {
-              return state;
-            }),
-          disposeComponentsFunc: (function (state, transforms) {
-              return state;
-            }),
-          cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
-              return [
-                      state,
-                      []
-                    ];
+          deferDisposeComponentFunc: DisposePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.deferDisposeComponent,
+          disposeComponentsFunc: DisposePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.disposeComponents,
+          cloneComponentFunc: (function (state, countRange, param, sourcePerspectiveCameraProjection) {
+              return ClonePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.clone(state, countRange, sourcePerspectiveCameraProjection);
             }),
           getAllComponentsFunc: GetAllPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection.getAll
         };

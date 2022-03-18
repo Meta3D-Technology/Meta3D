@@ -1,9 +1,9 @@
 let componentName = "BasicCameraView"
 
-type dataName = {active: int}
+type dataName = {isActive: int}
 
 let dataName = {
-  active: 0,
+  isActive: 0,
 }
 
 type dataNameType = int
