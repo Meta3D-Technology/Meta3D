@@ -1,6 +1,7 @@
 # Meta3D
 
 [![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) 
+[https://codecov.io/github/Wonder-Technology/Meta3D?branch=master](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)
 
 (Meta3D is under development, not product ready)
 
