@@ -1,5 +1,9 @@
 # Meta3D
 
+[![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) 
+
+(Meta3D is under development, not product ready)
+
 Meta3D is an Open, Extensible Framework for building Web3D Engine, Editor.
 
 read [Meta3D介绍](https://www.yuque.com/docs/share/4c56226d-ffc6-4e8e-8d94-6dfa230d74fb) for more info.
