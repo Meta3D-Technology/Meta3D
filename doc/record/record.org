@@ -696,7 +696,7 @@ refer to ComponentMapService
 for component, engine-core, gameobject(> 95%)
 
 
-** TODO add ci->build, ci->test
+** DONE add ci->build, ci->test
 
 ** TODO publish
 
