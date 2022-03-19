@@ -1,4 +1,4 @@
-type workPluginContribute = WorkPluginContributeType.workPluginContribute<
+type workPluginContributeForRegister = WorkPluginContributeType.workPluginContribute<
   RegisterWorkPluginType.state,
   RegisterWorkPluginType.states,
 >

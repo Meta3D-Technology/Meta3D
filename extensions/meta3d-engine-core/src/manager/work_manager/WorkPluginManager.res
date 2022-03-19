@@ -135,7 +135,7 @@ module ParsePipelineData = {
 
 let registerPlugin = (
   {allRegisteredWorkPluginContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
-  contribute: Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContribute,
+  contribute: Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContributeForRegister,
   jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrders,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   {

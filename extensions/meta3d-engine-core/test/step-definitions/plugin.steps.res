@@ -27,7 +27,7 @@ defineFeature(feature, test => {
     ~getExecFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
     (),
-  ): Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContribute => {
+  ): Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContributeForRegister => {
     workPluginName: workPluginName,
     createStateFunc: createStateFunc,
     initFunc: initFunc,

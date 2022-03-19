@@ -667,7 +667,7 @@ totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned
 
 
 
-** TODO add remain components(include worker)
+** DONE add remain components(include worker)
 
 
 # ** TODO add MeshRender component
@@ -676,12 +676,12 @@ totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned
 
 
 
-** TODO refactor: extract ComponentMapUtils to meta3d commonlib for components(e.g. add, remove, has, get, gets component)
+# ** TODO refactor: extract ComponentMapUtils to meta3d commonlib for components(e.g. add, remove, has, get, gets component)
 
 refer to ComponentMapService
 
 
-** TODO refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
+** DONE refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
 
 
 
