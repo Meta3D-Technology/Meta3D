@@ -9,7 +9,7 @@ import * as CloneTransformUtils$Meta3dComponentTransform from "./operate_compone
 import * as GetGameObjectsUtils$Meta3dComponentTransform from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as CreateTransformUtils$Meta3dComponentTransform from "./operate_component/CreateTransformUtils.bs.js";
 import * as RemoveTransformUtils$Meta3dComponentTransform from "./gameobject/RemoveTransformUtils.bs.js";
-import * as DisposeTransformUtils$Meta3dComponentTransform from "./operate_data/DisposeTransformUtils.bs.js";
+import * as DisposeTransformUtils$Meta3dComponentTransform from "./operate_component/DisposeTransformUtils.bs.js";
 import * as GetAllTransformsUtils$Meta3dComponentTransform from "./operate_component/GetAllTransformsUtils.bs.js";
 import * as GetTransformDataUtils$Meta3dComponentTransform from "./operate_data/GetTransformDataUtils.bs.js";
 import * as SetTransformDataUtils$Meta3dComponentTransform from "./operate_data/SetTransformDataUtils.bs.js";
@@ -44,8 +44,8 @@ function getComponentContribute(param) {
           setComponentDataFunc: (function (state, transform, dataName, dataValue) {
               return SetTransformDataUtils$Meta3dComponentTransform.setData(state, transform, dataName, dataValue);
             }),
-          deferDisposeComponentFunc: (function (state, transform) {
-              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(transform);
+          deferDisposeComponentFunc: (function (state, transformData) {
+              return DisposeTransformUtils$Meta3dComponentTransform.deferDisposeComponent(state)(transformData);
             }),
           disposeComponentsFunc: (function (state, transforms) {
               return DisposeTransformUtils$Meta3dComponentTransform.disposeComponents(state)(transforms);

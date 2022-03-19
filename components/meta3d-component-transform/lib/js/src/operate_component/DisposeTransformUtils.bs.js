@@ -1,14 +1,14 @@
+'use strict';
 
-
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as DisposeUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
-import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
-import * as DisposeComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeComponentUtils.bs.js";
-import * as DisposeTypeArrayUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/DisposeTypeArrayUtils.bs.js";
-import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
-import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
-import * as GetNeedDisposedTransformsUtils$Meta3dComponentTransform from "../gameobject/GetNeedDisposedTransformsUtils.bs.js";
+var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
+var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ConfigUtils$Meta3dComponentTransform = require("../config/ConfigUtils.bs.js");
+var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
+var DisposeTypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/DisposeTypeArrayUtils.bs.js");
+var BufferTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/BufferTransformUtils.bs.js");
+var HierachyTransformUtils$Meta3dComponentTransform = require("../operate_data/HierachyTransformUtils.bs.js");
+var GetNeedDisposedTransformsUtils$Meta3dComponentTransform = require("../gameobject/GetNeedDisposedTransformsUtils.bs.js");
 
 function deferDisposeComponent(state) {
   var gameObjectTransformMap = state.gameObjectTransformMap;
@@ -91,12 +91,9 @@ function disposeComponents(state) {
   };
 }
 
-export {
-  deferDisposeComponent ,
-  _disposeFromParentAndChildMap ,
-  _disposeSparseMapData ,
-  _disposeData ,
-  disposeComponents ,
-  
-}
+exports.deferDisposeComponent = deferDisposeComponent;
+exports._disposeFromParentAndChildMap = _disposeFromParentAndChildMap;
+exports._disposeSparseMapData = _disposeSparseMapData;
+exports._disposeData = _disposeData;
+exports.disposeComponents = disposeComponents;
 /* No side effect */
