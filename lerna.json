@@ -15,7 +15,8 @@
     "elements/*",
     "element_protocols/*",
     "events/*",
-    "event_protocols/*"
+    "event_protocols/*",
+		"engine/*"
   ],
   "npmClient": "yarn",
   "command": {

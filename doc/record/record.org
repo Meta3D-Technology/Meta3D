@@ -713,66 +713,63 @@ for component, engine-core, gameobject(> 95%)
 
 * TODO update engine
 
-** TODO finish sxengine's work without arcball, outline and worker(should abstract sxengine code, only provide engine framework extensions instead of actually engine code!)
 
-add more components(e.g. geometry, basic camera view, perspective camera projection, meshrenderer)
+** DONE recall
+
+
+
+** TODO finish sxengine's work without arcball, outline and worker
+
 
 ** TODO finish sxengine
 
 finish actual engine code(like sxengine's code)
 
 
+** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
-
-
-
-
-** TODO sxengine add dispose job
-
-should handle vbo when dispose geometry!
 
 
 
 ** TODO pass render run test:render cube
 
+
+
+** TODO finish sxengine's work with worker
+
+
+** TODO pass render run test:render cube for worker
+
+
+# ** TODO finish abstract worker
+
+
+** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+
+
+** TODO implement dispose job
+
+should handle vbo when dispose geometry!
+
+
 ** TODO pass render run test:dispose cube
 
 
-** TODO pass clone run test
+** TODO pass render run test:clone cube
 
 
-*** TODO update editor, add clone gameObject button
 
 
-*** TODO pass run test
+# *** TODO update editor, add clone gameObject button
+
+
+# *** TODO pass run test
 
 
 
 ** TODO refactor: remove GameContributeType->'transformState, 'xxxState ???
 
-
-
-
-** TODO perf:benchmark
-
-*** TODO render 7000 cube
-
-*** TODO dispose
-
-
-
-
-** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
-
-refer to ReallocateCPUMemoryJobUtils
-
-** TODO sxengine add rellocate job
-
-
-
-** TODO perf:benchmark
-
-*** TODO clone
 
 
 ** TODO refactor
@@ -781,6 +778,36 @@ refer to ReallocateCPUMemoryJobUtils
 *** TODO use pipe, curry
 
 *** TODO use NullableUtils for type
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO render 7000 cube
+
+
+** TODO perf:benchmark
+
+*** TODO clone
+
+
+
+** TODO perf:benchmark
+
+*** TODO dispose
+
+
+
+
+*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+*** TODO sxengine add rellocate job
+
+
+
 
 
 
@@ -935,20 +962,20 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 
-* TODO update engine
+# * TODO update engine
 
-** TODO finish abstract worker
-
-
-** TODO finish sxengine implement
-
-finish actual engine code(like sxengine's code)
+# ** TODO finish abstract worker
 
 
-** TODO add or update bdd test
+# ** TODO finish sxengine implement
+
+# finish actual engine code(like sxengine's code)
 
 
-* TODO publish
+# ** TODO add or update bdd test
+
+
+# * TODO publish
 
 
 

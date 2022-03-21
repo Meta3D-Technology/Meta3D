@@ -9,7 +9,7 @@ import * as CloneGeometryUtils$Meta3dComponentGeometry from "./operate_component
 import * as CreateGeometryUtils$Meta3dComponentGeometry from "./operate_component/CreateGeometryUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentGeometry from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as RemoveGeometryUtils$Meta3dComponentGeometry from "./gameobject/RemoveGeometryUtils.bs.js";
-import * as DisposeGeometryUtils$Meta3dComponentGeometry from "./operate_data/DisposeGeometryUtils.bs.js";
+import * as DisposeGeometryUtils$Meta3dComponentGeometry from "./operate_component/DisposeGeometryUtils.bs.js";
 import * as GetAllGeometrysUtils$Meta3dComponentGeometry from "./operate_component/GetAllGeometrysUtils.bs.js";
 import * as GetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/GetGeometryDataUtils.bs.js";
 import * as SetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/SetGeometryDataUtils.bs.js";

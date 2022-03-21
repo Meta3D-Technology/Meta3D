@@ -1,9 +1,8 @@
 {
-    "name": "meta3d-webgl1",
+    "name": "engine-facade",
     "version": "0.2.0",
     "description": "",
     "author": "Wonder",
-    "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w"
