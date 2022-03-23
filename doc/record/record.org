@@ -752,6 +752,21 @@ finish actual engine code(like sxengine's code)
 
 
 
+
+** TODO perf:benchmark
+
+*** TODO render 7000 cube
+
+add clearColor, enable depeth test, set viewport, set pixel ratio, ...
+
+
+** TODO perf:benchmark
+
+*** TODO clone
+
+
+
+
 ** TODO implement dispose job
 
 should handle vbo when dispose geometry!
@@ -785,15 +800,6 @@ should handle vbo when dispose geometry!
 
 
 
-
-** TODO perf:benchmark
-
-*** TODO render 7000 cube
-
-
-** TODO perf:benchmark
-
-*** TODO clone
 
 
 
