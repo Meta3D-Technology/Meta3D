@@ -41,8 +41,6 @@ let dataName = {
   update: 13,
 }
 
-type dataNameType = int
-
 type transform = int
 
 type parent = Js.Nullable.t<transform>

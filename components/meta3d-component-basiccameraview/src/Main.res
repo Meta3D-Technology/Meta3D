@@ -1,7 +1,7 @@
 let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
   StateType.state,
   Meta3dComponentBasiccameraviewProtocol.Index.config,
-  Meta3dComponentBasiccameraviewProtocol.Index.dataNameType,
+  
   Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
   Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
   Meta3dComponentBasiccameraviewProtocol.Index.cloneConfig,

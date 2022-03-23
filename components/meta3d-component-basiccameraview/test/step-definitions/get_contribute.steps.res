@@ -12,7 +12,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentBasiccameraview.StateType.state,
   Meta3dComponentBasiccameraviewProtocol.Index.config,
-  Meta3dComponentBasiccameraviewProtocol.Index.dataNameType,
+  
   Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
   Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
   Meta3dComponentBasiccameraviewProtocol.Index.cloneConfig,

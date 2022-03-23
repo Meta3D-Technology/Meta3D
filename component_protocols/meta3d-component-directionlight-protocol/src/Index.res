@@ -10,7 +10,7 @@ let dataName = {
   intensity: 1,
 }
 
-type dataNameType = int
+
 
 type directionLight = int
 

@@ -3,7 +3,7 @@ open StateType
 let setData = (.
   state,
   cameraProjection,
-  dataName: Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataNameType,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {

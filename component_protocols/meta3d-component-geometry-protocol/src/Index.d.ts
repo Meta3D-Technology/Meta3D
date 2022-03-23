@@ -1,5 +1,11 @@
 export const componentName: string
 
+export type config = {
+    isDebug: boolean,
+    geometryCount: number,
+    geometryPointCount: number,
+}
+
 export const dataName: {
     vertices: number,
     normals: number,

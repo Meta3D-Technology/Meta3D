@@ -6,7 +6,7 @@ let _constrainTheta = (isDebug, theta, thetaMargin) =>
 let setData = (.
   state,
   cameraController,
-  dataName: Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {

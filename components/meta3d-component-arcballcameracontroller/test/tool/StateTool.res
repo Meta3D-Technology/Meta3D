@@ -2,7 +2,7 @@ let createState = (
   ~contribute: Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentArcballcameracontrollerProtocol.Index.config,
-    Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType,
+    
     Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
     Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
     Meta3dComponentArcballcameracontrollerProtocol.Index.cloneConfig,

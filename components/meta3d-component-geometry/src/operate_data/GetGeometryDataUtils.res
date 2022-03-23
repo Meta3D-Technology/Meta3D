@@ -14,7 +14,7 @@ let getData = (.
     indicesInfos,
   } as state,
   geometry,
-  dataName: Meta3dComponentGeometryProtocol.Index.dataNameType,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
 ): Js.Nullable.t<'a> => {
   let isDebug = ConfigUtils.getIsDebug(state)
 

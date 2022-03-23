@@ -79,9 +79,10 @@ function _init() {
             isDebug: isDebug,
             float9Array1: new Float32Array(),
             float32Array1: new Float32Array(),
-            transformCount: 10
+            transformCount: 10,
+            geometryCount: 10,
+            geometryPointCount: 100
         })
-
 
     meta3dState =
         registerExtension(

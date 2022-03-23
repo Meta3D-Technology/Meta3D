@@ -142,13 +142,13 @@ type getTransformGameObjectsFunc<'transformState> = ComponentContributeType.getG
 
 type getTransformDataFunc<'transformState> = ComponentContributeType.getComponentDataFunc<
   'transformState,
-  Meta3dComponentTransformProtocol.Index.dataNameType,
+  
   transform,
 >
 
 type setTransformDataFunc<'transformState> = ComponentContributeType.setComponentDataFunc<
   'transformState,
-  Meta3dComponentTransformProtocol.Index.dataNameType,
+  
   transform,
 >
 

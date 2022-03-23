@@ -1,7 +1,7 @@
 let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
   StateType.state,
   Meta3dComponentPbrmaterialProtocol.Index.config,
-  Meta3dComponentPbrmaterialProtocol.Index.dataNameType,
+  
   Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
   Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,

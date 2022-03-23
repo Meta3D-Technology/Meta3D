@@ -3,7 +3,7 @@ open StateType
 let setData = (.
   state,
   cameraView,
-  dataName: Meta3dComponentBasiccameraviewProtocol.Index.dataNameType,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {

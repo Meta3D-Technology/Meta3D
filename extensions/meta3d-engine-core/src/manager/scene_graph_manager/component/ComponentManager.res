@@ -141,7 +141,7 @@ let createComponent = (
 let setComponentData = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.ComponentType.component,
-  dataName: Meta3dEngineCoreProtocol.ComponentType.dataName,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   // let usedComponentContribute = state->unsafeGetUsedComponentContributeribute(componentName)
@@ -233,7 +233,7 @@ let getAllComponents = (
 let getComponentData = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   component: Meta3dEngineCoreProtocol.ComponentType.component,
-  dataName: Meta3dEngineCoreProtocol.ComponentType.dataName,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
 ): Js.Nullable.t<Meta3dEngineCoreProtocol.ComponentContributeType.dataValue> => {
   usedComponentContribute.getComponentDataFunc(. usedComponentContribute.state, component, dataName)
 }

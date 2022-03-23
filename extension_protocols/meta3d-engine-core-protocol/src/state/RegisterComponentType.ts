@@ -34,12 +34,8 @@ export abstract class component { protected opaque!: any }; /* simulate opaque t
 // tslint:disable-next-line:class-name
 export abstract class config { protected opaque!: any }; /* simulate opaque types */
 
-// tslint:disable-next-line:max-classes-per-file 
-// tslint:disable-next-line:class-name
-export abstract class dataName { protected opaque!: any }; /* simulate opaque types */
-
 // tslint:disable-next-line:interface-over-type-literal
-export type componentContribute = IComponentForJs_componentContribute<state, config, dataName, component>;
+export type componentContribute = IComponentForJs_componentContribute<state, config,  component>;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type usedComponentContribute = {
@@ -51,8 +47,8 @@ export type usedComponentContribute = {
   readonly hasComponentFunc: IComponentForJs_hasComponentFunc<state>;
   readonly getComponentFunc: IComponentForJs_getComponentFunc<state, component>;
   readonly getAllComponentsFunc: IComponentForJs_getAllComponentsFunc<state, component>;
-  readonly getComponentDataFunc: IComponentForJs_getComponentDataFunc<state, dataName, component>;
-  readonly setComponentDataFunc: IComponentForJs_setComponentDataFunc<state, dataName, component>
+  readonly getComponentDataFunc: IComponentForJs_getComponentDataFunc<state,  component>;
+  readonly setComponentDataFunc: IComponentForJs_setComponentDataFunc<state,  component>
 };
 
 // tslint:disable-next-line:interface-over-type-literal

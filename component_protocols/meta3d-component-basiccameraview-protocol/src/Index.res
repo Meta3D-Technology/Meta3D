@@ -6,7 +6,7 @@ let dataName = {
   isActive: 0,
 }
 
-type dataNameType = int
+
 
 type basicCameraView = int
 

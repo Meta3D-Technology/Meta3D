@@ -23,7 +23,7 @@ function _getMeta3DRegisterECSExtensionName(): string {
     return "meta3d-register-ecs"
 }
 
-export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount }: componentConfig): meta3dState {
+export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount }: componentConfig): meta3dState {
     // TODO use pipe
 
     meta3dState =
@@ -92,7 +92,7 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
         _getMeta3DRegisterECSExtensionName()
     )
 
-    engineCoreState = registerECSService.register(engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount })
+    engineCoreState = registerECSService.register(engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount })
 
     meta3dState =
         setExtensionState(

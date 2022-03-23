@@ -3,7 +3,7 @@ open StateType
 let setData = (.
   state,
   transform,
-  dataName: Meta3dComponentTransformProtocol.Index.dataNameType,
+  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
   dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {

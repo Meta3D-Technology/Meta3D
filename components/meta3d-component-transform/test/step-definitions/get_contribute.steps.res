@@ -10,7 +10,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
-      Meta3dComponentTransformProtocol.Index.dataNameType,
+      
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.cloneConfig,

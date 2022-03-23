@@ -10,7 +10,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,
-      Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataNameType,
+      
       Meta3dComponentPerspectivecameraprojectionProtocol.Index.needDisposedComponents,
       Meta3dComponentPerspectivecameraprojectionProtocol.Index.batchDisposeData,
       Meta3dComponentPerspectivecameraprojectionProtocol.Index.cloneConfig,

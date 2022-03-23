@@ -39,7 +39,7 @@ type service = {
   setComponentData: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
-    ComponentType.dataName,
+    ComponentContributeType.dataName,
     ComponentContributeType.dataValue,
   ) => RegisterComponentType.usedComponentContribute,
   addComponent: (
@@ -72,7 +72,7 @@ type service = {
   getComponentData: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
-    ComponentType.dataName,
+    ComponentContributeType.dataName,
   ) => Js.Nullable.t<ComponentContributeType.dataValue>,
   getComponentGameObjects: (
     RegisterComponentType.usedComponentContribute,

@@ -37,17 +37,19 @@ type getAllComponentsFunc<'state, 'component> = (. 'state) => array<'component>
 
 type dataValue
 
+type dataName = int
+
 // TODO add 'dataValue and remove "type dataValue" ?
-type getComponentDataFunc<'state, 'dataName, 'component> = (
+type getComponentDataFunc<'state, 'component> = (
   . 'state,
   'component,
-  'dataName,
+  dataName
 ) => Js.Nullable.t<dataValue>
 
-type setComponentDataFunc<'state, 'dataName, 'component> = (
+type setComponentDataFunc<'state,  'component> = (
   . 'state,
   'component,
-  'dataName,
+  dataName,
   dataValue,
 ) => 'state
 
@@ -72,7 +74,6 @@ type cloneComponentFunc<'state, 'cloneConfig, 'component> = (
 type componentContribute<
   'state,
   'config,
-  'dataName,
   'needDisposedComponents,
   'batchDisposeData,
   'cloneConfig,
@@ -87,8 +88,8 @@ type componentContribute<
   hasComponentFunc: hasComponentFunc<'state>,
   getComponentFunc: getComponentFunc<'state, 'component>,
   getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'needDisposedComponents>,
-  getComponentDataFunc: getComponentDataFunc<'state, 'dataName, 'component>,
-  setComponentDataFunc: setComponentDataFunc<'state, 'dataName, 'component>,
+  getComponentDataFunc: getComponentDataFunc<'state,  'component>,
+  setComponentDataFunc: setComponentDataFunc<'state,  'component>,
   deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
   disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
   cloneComponentFunc: cloneComponentFunc<'state, 'cloneConfig, 'component>,
@@ -99,7 +100,6 @@ type componentContribute<
 type getComponentContribute<
   'state,
   'config,
-  'dataName,
   'needDisposedComponents,
   'batchDisposeData,
   'cloneConfig,
@@ -107,7 +107,6 @@ type getComponentContribute<
 > = unit => componentContribute<
   'state,
   'config,
-  'dataName,
   'needDisposedComponents,
   'batchDisposeData,
   'cloneConfig,

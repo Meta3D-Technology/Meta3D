@@ -18,7 +18,7 @@ let dataName = {
   dirty: 5,
 }
 
-type dataNameType = int
+
 
 type perspectiveCameraProjection = int
 

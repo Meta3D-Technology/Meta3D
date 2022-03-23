@@ -12,7 +12,7 @@ let dataName = {
   specular: 1,
 }
 
-type dataNameType = int
+
 
 type diffuseColor = (float, float, float)
 

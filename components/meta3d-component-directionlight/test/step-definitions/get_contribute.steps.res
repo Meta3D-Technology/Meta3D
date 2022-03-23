@@ -12,7 +12,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentDirectionlight.StateType.state,
       Meta3dComponentDirectionlightProtocol.Index.config,
-      Meta3dComponentDirectionlightProtocol.Index.dataNameType,
+      
       Meta3dComponentDirectionlightProtocol.Index.needDisposedComponents,
       Meta3dComponentDirectionlightProtocol.Index.batchDisposeData,
       Meta3dComponentDirectionlightProtocol.Index.cloneConfig,

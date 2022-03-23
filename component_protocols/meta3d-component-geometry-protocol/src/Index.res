@@ -18,7 +18,7 @@ let dataName = {
   indicesCount: 5,
 }
 
-type dataNameType = int
+
 
 type geometry = int
 

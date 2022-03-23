@@ -3,7 +3,6 @@ open ComponentType
 type componentContribute = ComponentContributeType.componentContribute<
   state,
   config,
-  dataName,
   needDisposedComponents,
   batchDisposeData,
   cloneConfig,
@@ -28,8 +27,8 @@ type usedComponentContribute = {
   disposeComponentsFunc: ComponentContributeType.disposeComponentsFunc<state, batchDisposeData>,
   cloneComponentFunc: ComponentContributeType.cloneComponentFunc<state, cloneConfig, component>,
   getAllComponentsFunc: ComponentContributeType.getAllComponentsFunc<state, component>,
-  getComponentDataFunc: ComponentContributeType.getComponentDataFunc<state, dataName, component>,
-  setComponentDataFunc: ComponentContributeType.setComponentDataFunc<state, dataName, component>,
+  getComponentDataFunc: ComponentContributeType.getComponentDataFunc<state,  component>,
+  setComponentDataFunc: ComponentContributeType.setComponentDataFunc<state,  component>,
 }
 
 type componentContributeData = {

@@ -1,7 +1,7 @@
 let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.getComponentContribute<
   StateType.state,
   Meta3dComponentGeometryProtocol.Index.config,
-  Meta3dComponentGeometryProtocol.Index.dataNameType,
+  
   Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
   Meta3dComponentGeometryProtocol.Index.batchDisposeData,
   Meta3dComponentGeometryProtocol.Index.cloneConfig,

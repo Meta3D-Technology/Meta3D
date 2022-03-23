@@ -13,9 +13,6 @@ type component
 // @genType
 type config
 
-// @genType
-type dataName
-
 type needDisposedComponents
 
 type batchDisposeData

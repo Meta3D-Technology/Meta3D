@@ -1,15 +1,6 @@
-import { registeredComponent } from "../../meta3d-core/src/abstract/scene_graph/IComponentForJs.gen";
-
-export type config = {
-    isDebug: boolean,
-    geometryCount: number,
-    geometryPointCount: number,
-}
+import { getComponentContribute as getComponentContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/scene_graph/ComponentContributeType";
+import { geometry } from "meta3d-component-geometry-protocol";
 
 type state = any
 
-type geometry = number
-
-type dataName = any
-
-export function getData(): registeredComponent<state, config, dataName, geometry>
+export let getComponentContribute: getComponentContributeMeta3D<state, config, geometry>

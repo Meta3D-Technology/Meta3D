@@ -8,11 +8,7 @@ import type { componentName as ComponentContributeType_componentName } from '../
 
 import type { component as RegisterComponentType_component } from '../../src/state/RegisterComponentType';
 
-// import type { config as RegisterComponentType_config } from '../../src/state/RegisterComponentType';
-
-import type { dataName as RegisterComponentType_dataName } from '../../src/state/RegisterComponentType';
-
-import type { dataValue as ComponentContributeType_dataValue } from '../../src/contribute_points/scene_graph/ComponentContributeType';
+import type { dataValue as ComponentContributeType_dataValue, dataName as ComponentContributeType_dataName } from '../../src/contribute_points/scene_graph/ComponentContributeType';
 
 import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
@@ -51,12 +47,12 @@ export type service = {
     readonly unsafeGetUsedComponentContribute: (_1: StateType_state, _2: ComponentContributeType_componentName) => RegisterComponentType_usedComponentContribute;
     readonly setUsedComponentContribute: (_1: StateType_state, _2: RegisterComponentType_usedComponentContribute, _3: ComponentContributeType_componentName) => StateType_state;
     readonly createComponent: <component>(_1: RegisterComponentType_usedComponentContribute) => [RegisterComponentType_usedComponentContribute, component];
-    readonly setComponentData: (_1: RegisterComponentType_usedComponentContribute, _2: RegisterComponentType_component, _3: RegisterComponentType_dataName, _4: ComponentContributeType_dataValue) => RegisterComponentType_usedComponentContribute;
+    readonly setComponentData: (_1: RegisterComponentType_usedComponentContribute, _2: RegisterComponentType_component, _3: ComponentContributeType_dataName, _4: ComponentContributeType_dataValue) => RegisterComponentType_usedComponentContribute;
     readonly addComponent: (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject, _3: RegisterComponentType_component) => RegisterComponentType_usedComponentContribute;
     readonly hasComponent: (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject) => boolean;
     readonly getComponent: (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject) => (null | undefined | RegisterComponentType_component);
-    readonly getAllComponents: (_1: RegisterComponentType_usedComponentContribute) => RegisterComponentType_component[];
-    readonly getComponentData: (_1: RegisterComponentType_usedComponentContribute, _2: RegisterComponentType_component, _3: RegisterComponentType_dataName) => (null | undefined | ComponentContributeType_dataValue);
+    readonly getAllComponents: <component> (_1: RegisterComponentType_usedComponentContribute) => component[];
+    readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => (null | undefined | dataValue);
     readonly getComponentGameObjects: (_1: RegisterComponentType_usedComponentContribute, _2: RegisterComponentType_component) => GameObjectContributeType_gameObject[];
     readonly getComponentState: (_1: StateType_state, _2: ComponentContributeType_componentName) => (null | undefined | RegisterComponentType_state);
     readonly setGameObjectContribute: (_1: StateType_state, _2: GameObjectType_gameObjectContribute) => StateType_state;
