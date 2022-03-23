@@ -46,7 +46,7 @@ export type transform = number
 
 // export type eulerAngles = [number, number, number];
 
-// export type localToWorldMatrix = Float32Array
+export type localToWorldMatrix = Float32Array
 
 // export type normalMatrix = Float32Array
 

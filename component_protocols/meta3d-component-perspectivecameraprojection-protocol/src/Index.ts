@@ -13,7 +13,7 @@ export const dataName = {
 
 export type perspectiveCameraProjection = number
 
-export type pMatrix = number
+export type pMatrix = Float32Array
 
 export type fovy = number
 

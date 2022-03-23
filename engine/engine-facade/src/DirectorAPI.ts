@@ -104,52 +104,9 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
     return meta3dState
 }
 
-export function init(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+function _runPipeline(meta3dState: meta3dState, engineCoreState: engineCoreState, engineCoreExtensionName: string, pipelineName: string): Promise<meta3dState> {
     //  TODO use NullableUtils for type
     let tempMeta3DStata: meta3dState | null = null
-
-    let engineCoreState = getExtensionState<engineCoreState>(
-        meta3dState,
-        engineCoreExtensionName,
-    )
-
-    let { map } = getExtensionService<mostService>(
-        meta3dState,
-        _getMeta3DBsMostExtensionName()
-    )
-
-    let { init, runPipeline } = getExtensionService<engineCoreService>(
-        meta3dState,
-        engineCoreExtensionName
-    )
-
-    engineCoreState = init(engineCoreState)
-
-    return map(
-        (engineCoreState: engineCoreState) => {
-            tempMeta3DStata = setExtensionState(
-                meta3dState,
-                engineCoreExtensionName,
-                engineCoreState
-            )
-
-            return null
-        },
-        runPipeline(engineCoreState, meta3dState, "init")
-    ).drain().then((_) => {
-        //  TODO use NullableUtils for type
-        return tempMeta3DStata as meta3dState
-    })
-}
-
-export function update(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
-    //  TODO use NullableUtils for type
-    let tempMeta3DStata: meta3dState | null = null
-
-    let engineCoreState = getExtensionState<engineCoreState>(
-        meta3dState,
-        engineCoreExtensionName,
-    )
 
     let { map } = getExtensionService<mostService>(
         meta3dState,
@@ -171,9 +128,41 @@ export function update(meta3dState: meta3dState, engineCoreExtensionName: string
 
             return null
         },
-        runPipeline(engineCoreState, meta3dState, "update")
+        runPipeline(engineCoreState, meta3dState, pipelineName)
     ).drain().then((_) => {
         //  TODO use NullableUtils for type
         return tempMeta3DStata as meta3dState
     })
+}
+
+export function init(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+    let engineCoreState = getExtensionState<engineCoreState>(
+        meta3dState,
+        engineCoreExtensionName,
+    )
+
+    let { init } = getExtensionService<engineCoreService>(
+        meta3dState,
+        engineCoreExtensionName
+    )
+
+    engineCoreState = init(engineCoreState)
+
+    return _runPipeline(meta3dState, engineCoreState, engineCoreExtensionName, "init")
+}
+
+export function update(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+    return _runPipeline(meta3dState, getExtensionState<engineCoreState>(
+        meta3dState,
+        engineCoreExtensionName,
+    ), engineCoreExtensionName, "update")
+}
+
+
+export function render(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+    return _runPipeline(meta3dState, getExtensionState<engineCoreState>(
+        meta3dState,
+        engineCoreExtensionName,
+    ), engineCoreExtensionName, "render")
+
 }

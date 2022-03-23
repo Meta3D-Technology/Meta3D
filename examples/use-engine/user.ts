@@ -1,6 +1,6 @@
 import { state as meta3dState } from "meta3d-type"
 import { prepare as prepareMeta3D, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
-import { prepare as prepareEngine, init as initEngine, update as updateEngine } from "engine-facade/src/DirectorAPI"
+import { prepare as prepareEngine, init as initEngine, update as updateEngine, render as renderEngine } from "engine-facade/src/DirectorAPI"
 import { createGameObject, getAllGameObjects } from "engine-facade/src/GameObjectAPI"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
@@ -42,11 +42,11 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                     insertElementName: "update_root_meta3d",
                     insertAction: "after"
                 },
-                // {
-                //     pipelineName: "render",
-                //     insertElementName: "render_root_meta3d",
-                //     insertAction: "after"
-                // }
+                {
+                    pipelineName: "render",
+                    insertElementName: "render_root_meta3d",
+                    insertAction: "after"
+                }
             ]
         )
 
@@ -117,9 +117,11 @@ function _init() {
 
 function _loop(meta3dState: meta3dState) {
     updateEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-        requestAnimationFrame(() => {
-            _loop(meta3dState)
-        });
+        renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
+            requestAnimationFrame(() => {
+                _loop(meta3dState)
+            });
+        })
     })
 }
 
