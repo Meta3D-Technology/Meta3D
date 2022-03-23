@@ -718,21 +718,22 @@ for component, engine-core, gameobject(> 95%)
 
 
 
-** TODO finish sxengine's work without arcball, outline and worker
+** DONE finish sxengine's work without arcball, outline and worker
 
 
-** TODO finish sxengine
+** DONE finish sxengine
 
 finish actual engine code(like sxengine's code)
 
-
-** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
 
 
 
 ** TODO pass render run test:render cube
 
+** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+- job utils
 
 
 ** TODO finish sxengine's work with worker
@@ -741,10 +742,13 @@ finish actual engine code(like sxengine's code)
 ** TODO pass render run test:render cube for worker
 
 
+
 # ** TODO finish abstract worker
 
 
 ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+ 
 
 
 
@@ -906,6 +910,8 @@ refer to ReallocateCPUMemoryJobUtils
 * TODO update engine
 
 ** TODO finish pbr material glsl(support direction light)
+
+** TODO add phong material
 
 
 * TODO publish

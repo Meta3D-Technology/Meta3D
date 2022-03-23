@@ -2,12 +2,7 @@ import { getRenderData, render } from "engine-work-plugin-webgl1-utils/src/utils
 import { execFunc as execFuncType } from "../../Type"
 import { getState } from "../Utils"
 import { states } from "engine-work-plugin-webgl1-protocol"
-// import { sendCameraData, getCameraView, getCameraProjection } from "engine-work-plugin-webgl1-utils/src/utils/SendCameraDataUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-// import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
-// import { componentName as transformComponentName } from "meta3d-component-transform-protocol"
-// import { getViewWorldToCameraMatrix } from "meta3d-component-commonlib"
-// import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName } from "meta3d-component-perspectivecameraprojection-protocol";
 import { componentName as pbrMaterialComponentName, pbrMaterial } from "meta3d-component-pbrmaterial-protocol";
 import { componentName as transformComponentName, transform } from "meta3d-component-transform-protocol";
 import { componentName as geometryComponentName, geometry } from "meta3d-component-geometry-protocol";

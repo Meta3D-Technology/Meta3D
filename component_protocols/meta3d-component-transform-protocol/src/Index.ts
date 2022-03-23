@@ -30,7 +30,7 @@ export type transform = number
 
 // export type children = Array<transform>
 
-// export type localPosition = [number, number, number];
+export type localPosition = [number, number, number];
 
 // export type position = [number, number, number];
 

@@ -48,7 +48,7 @@ let _checkAtMostTwo = (activeCameraViews, isDebug) => {
         ~expect=j`only has one active cameraView at most`,
         ~actual=j`not`,
       ),
-      () => r->Meta3dCommonlib.Log.printForDebug->Meta3dCommonlib.ArraySt.length <= 1,
+      () => r->Meta3dCommonlib.ArraySt.length <= 1,
     )
   }, isDebug)
 }
