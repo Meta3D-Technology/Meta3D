@@ -1,7 +1,7 @@
-// import { Map } from "immutable"
+import { Map } from "immutable"
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { execFunc as create_gl } from "./jobs/init/CreateGLJob";
-import { config, state, states, workPluginName } from "engine-work-plugin-webgl-protocol";
+import { config, state, states, workPluginName } from "engine-work-plugin-webgl1-protocol";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
@@ -15,22 +15,23 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service, canvas }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service, engineCoreService, canvas }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: () => {
 			return {
 				mostService,
 				webgl1Service,
+				engineCoreService,
 				canvas,
 				gl: null,
-				// vbo: {
-				// 	verticesVBOMap: Map<number, WebGLBuffer>(),
-				// 	indicesVBOMap: Map<number, WebGLBuffer>()
-				// },
-				// material: {
-				// 	programMap: Map<number, WebGLProgram>()
-				// }
+				vbo: {
+					verticesVBOMap: Map<number, WebGLBuffer>(),
+					indicesVBOMap: Map<number, WebGLBuffer>()
+				},
+				material: {
+					programMap: Map<number, WebGLProgram>()
+				}
 			}
 		},
 		initFunc: _init,

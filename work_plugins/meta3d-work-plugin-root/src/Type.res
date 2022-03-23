@@ -1,3 +1,1 @@
-type execFunc = Meta3dEngineCoreProtocol.WorkPluginContributeType.execFunc<
-  Meta3dWorkPluginRootProtocol.Index.states,
->
+type execFunc = Meta3dEngineCoreProtocol.StateType.execFunc

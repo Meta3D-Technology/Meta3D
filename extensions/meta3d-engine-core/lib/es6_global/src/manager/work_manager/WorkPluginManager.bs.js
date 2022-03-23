@@ -14,22 +14,6 @@ import * as OperateTree$Meta3dEngineCore from "./OperateTree.bs.js";
 import * as StateContainer$Meta3dEngineCore from "../../state/StateContainer.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function _getStates(param) {
-  return StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states;
-}
-
-function _setStates(states) {
-  var init = StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
-  return StateContainer$Meta3dEngineCore.setState({
-              allRegisteredWorkPluginContribute: init.allRegisteredWorkPluginContribute,
-              states: states,
-              pluginData: init.pluginData,
-              componentContributeData: init.componentContributeData,
-              gameObjectContribute: init.gameObjectContribute,
-              usedGameObjectContribute: init.usedGameObjectContribute
-            });
-}
-
 function _findGroup(groupName, groups) {
   if (ArraySt$Meta3dCommonlib.length(ArraySt$Meta3dCommonlib.filter(groups, (function (param) {
                 return param.name === groupName;
@@ -46,11 +30,30 @@ function _findGroup(groupName, groups) {
   }
 }
 
+function _getStates(param) {
+  return param.states;
+}
+
+function _setStates(state, states) {
+  return {
+          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          states: states,
+          pluginData: state.pluginData,
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectContribute: state.usedGameObjectContribute
+        };
+}
+
 function _buildJobStream(param, execFunc) {
   var __x = Curry._1(param.just, execFunc);
-  return Curry._2(param.map, _setStates, Curry._2(param.flatMap, (function (func) {
-                    return Curry._1(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined).states);
-                  }), __x));
+  var __x$1 = Curry._2(param.flatMap, (function (func) {
+          return Curry._2(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined), {
+                      getStatesFunc: _getStates,
+                      setStatesFunc: _setStates
+                    });
+        }), __x);
+  return Curry._2(param.map, StateContainer$Meta3dEngineCore.setState, __x$1);
 }
 
 function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
@@ -71,7 +74,7 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "WorkPluginManager.res",
-            66,
+            83,
             14
           ],
           Error: new Error()
@@ -117,9 +120,9 @@ function parse(state, mostService, getExecFuncs, param) {
 }
 
 var ParsePipelineData = {
+  _findGroup: _findGroup,
   _getStates: _getStates,
   _setStates: _setStates,
-  _findGroup: _findGroup,
   _buildJobStream: _buildJobStream,
   _getExecFunc: _getExecFunc,
   _buildJobStreams: _buildJobStreams,

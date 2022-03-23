@@ -1,9 +1,9 @@
-let execFunc: Type.execFunc = states => {
-  let {mostService} = Utils.getState(states)
+let execFunc: Type.execFunc = (state, {getStatesFunc}) => {
+  let {mostService} = state->getStatesFunc->Obj.magic->Utils.getState
 
   mostService.callFunc(() => {
     Js.log("init root job exec")
 
-    states
+    state
   })
 }

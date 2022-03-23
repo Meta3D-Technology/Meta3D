@@ -11,7 +11,7 @@ type service = {
   ) => StateType.state,
   unregisterWorkPlugin: (
     StateType.state,
-    WorkPluginContributeType.workPluginName,
+    StateType.workPluginName,
   ) => StateType.state,
   registerComponent: (
     StateType.state,
@@ -112,4 +112,6 @@ type service = {
     PipelineType.pipelineName,
   ) => // TODO change to Promist.t, hidden Stream!
   Meta3dBsMostProtocol.StreamType.stream<StateType.state>,
+  // getStates: StateType.state => RegisterWorkPluginType.states,
+  // setStates: (StateType.state, RegisterWorkPluginType.states) => StateType.state,
 }

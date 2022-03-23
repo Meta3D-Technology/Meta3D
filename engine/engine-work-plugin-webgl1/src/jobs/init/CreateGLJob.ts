@@ -1,7 +1,9 @@
 import { execFunc as execFuncType } from "../../Type";
 import { getState } from "../Utils";
+import { states } from "engine-work-plugin-webgl1-protocol";
 
-export let execFunc: execFuncType = (states) => {
+export let execFunc: execFuncType = (state, { getStatesFunc, setStatesFunc }) => {
+	let states = getStatesFunc<states>(state)
 	let { mostService, webgl1Service, canvas } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -9,12 +11,15 @@ export let execFunc: execFuncType = (states) => {
 
 		console.log("create gl job->gl:", gl);
 
-		return {
-			...states,
-			"meta3d-work-plugin-webgl1": {
-				...getState(states),
-				gl: gl
+		return setStatesFunc<states>(
+			state,
+			{
+				...states,
+				"engine-work-plugin-webgl1": {
+					...getState(states),
+					gl: gl
+				}
 			}
-		}
+		)
 	})
 }

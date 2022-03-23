@@ -1,27 +1,27 @@
-type workPluginContributeForRegister = WorkPluginContributeType.workPluginContribute<
+type workPluginContributeForRegister = StateType.workPluginContribute<
   RegisterWorkPluginType.state,
   RegisterWorkPluginType.states,
 >
 
 type allRegisteredWorkPluginContribute = list<StateType.registeredWorkPluginContribute>
 
-type execFunc = WorkPluginContributeType.execFunc<RegisterWorkPluginType.states>
+type execFunc = StateType.execFunc
 
-type getExecFuncs = list<WorkPluginContributeType.getExecFunc<RegisterWorkPluginType.states>>
+type getExecFuncs = list<StateType.getExecFunc>
 
 type jobOrder = {
-  insertPluginName: WorkPluginContributeType.workPluginName,
+  insertPluginName: StateType.workPluginName,
   insertElementName: PipelineType.elementName,
   insertAction: RegisterWorkPluginType.insertAction,
 }
 
 type specificPipelineRelatedData = {
-  workPluginName: WorkPluginContributeType.workPluginName,
-  getExecFunc: WorkPluginContributeType.getExecFunc<RegisterWorkPluginType.states>,
+  workPluginName: StateType.workPluginName,
+  getExecFunc: StateType.getExecFunc,
   pipelineData: PipelineType.pipelineData,
   jobOrder: option<jobOrder>,
 }
 
-type treeData = (list<TreeType.tree>, option<WorkPluginContributeType.workPluginName>)
+type treeData = (list<TreeType.tree>, option<StateType.workPluginName>)
 
 type treeDataList = list<treeData>

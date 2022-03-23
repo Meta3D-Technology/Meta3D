@@ -25,11 +25,12 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, meta3dState: met
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
     let meta3dMostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
     let meta3dWebGL1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
+    let meta3dEngineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
 
     engineCoreState =
         registerWorkPlugin(
             engineCoreState,
-            getWebGL1WorkPluginContribute({ mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, canvas: canvas }),
+            getWebGL1WorkPluginContribute({ mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
             [
                 {
                     pipelineName: "init",

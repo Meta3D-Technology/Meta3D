@@ -42,6 +42,10 @@ let runPipeline = (
   ->mostService.map(StateContainer.setState, _)
 }
 
+// let getStates = DirectorForJs.getStates
+
+// let setStates = DirectorForJs.setStates
+
 let getIsDebug = () => {
   StateContainer.unsafeGetState()->PluginDataManager.getIsDebug
 }

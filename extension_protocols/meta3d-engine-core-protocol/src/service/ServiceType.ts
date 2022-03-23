@@ -33,7 +33,6 @@ import type { state as StateType_state } from '../../src/state/StateType';
 import type { usedComponentContribute as RegisterComponentType_usedComponentContribute } from '../../src/state/RegisterComponentType';
 import { workPluginContribute, workPluginName } from '../contribute_points/work/WorkPluginContributeType';
 
-
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
     readonly getIsDebug: (_1: StateType_state) => boolean;
@@ -65,4 +64,6 @@ export type service = {
     readonly createGameObject: <gameObject> (_1: StateType_state) => [StateType_state, gameObject];
     readonly getAllGameObjects: <gameObject> (_1: StateType_state) => gameObject[];
     readonly runPipeline: (_1: StateType_state, _2: Meta3dType_Index_state, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<StateType_state>
+    // readonly getStates: <states> (_1: StateType_state) => states,
+    // readonly setStates: <states> (_1: StateType_state, _2: states) => StateType_state,
 };

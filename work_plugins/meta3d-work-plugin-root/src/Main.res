@@ -11,7 +11,7 @@ let _init = _state => {
   ()
 }
 
-let getWorkPluginContribute: Meta3dEngineCoreProtocol.WorkPluginContributeType.getWorkPluginContribute<
+let getWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.getWorkPluginContribute<
   state,
   config,
   states,

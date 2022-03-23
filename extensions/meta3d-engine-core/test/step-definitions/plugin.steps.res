@@ -242,8 +242,15 @@ defineFeature(feature, test => {
 
   let _prepareData1 = (
     ~changedState1=_createState1(~d1=10, ()),
-    ~rootJob=states => {
-      states->Meta3dCommonlib.ImmutableHashMap.set("a1", changedState1)->Meta3dBsMost.Most.just
+    ~rootJob=(
+      state,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+    ) => {
+      state
+      ->getStatesFunc
+      ->Meta3dCommonlib.ImmutableHashMap.set("a1", changedState1)
+      ->setStatesFunc(state, _)
+      ->Meta3dBsMost.Most.just
     },
     ~state1=_createState1(),
     ~initFunc=state => (),
@@ -277,7 +284,8 @@ defineFeature(feature, test => {
         ],
         ~getExecFunc=(_, jobName) => {
           switch jobName {
-          | jobName if  Meta3dCommonlib. EqualTool.isEqual(jobName, rootJobName) => rootJob->Js.Nullable.return
+          | jobName if Meta3dCommonlib.EqualTool.isEqual(jobName, rootJobName) =>
+            rootJob->Js.Nullable.return
           | _ => Js.Nullable.null
           }
         },
@@ -325,12 +333,22 @@ defineFeature(feature, test => {
   let _prepareData2 = () => {
     let job1Name_a2 = "job1_a2"
     let state2 = _createState2()
-    let job1 = states => {
-      states
+    let job1 = (
+      state,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+    ) => {
+      state
+      ->getStatesFunc
       ->Meta3dCommonlib.ImmutableHashMap.set("a2", _createState2(~d2="c", ~dd2=100, ()))
+      ->setStatesFunc(state, _)
       ->Meta3dBsMost.Most.just
     }
-    let job2 = states => {
+    let job2 = (
+      state,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+    ) => {
+      let states = state->getStatesFunc
+
       states
       ->Meta3dCommonlib.ImmutableHashMap.set(
         "a2",
@@ -343,6 +361,7 @@ defineFeature(feature, test => {
           (),
         ),
       )
+      ->setStatesFunc(state, _)
       ->Meta3dBsMost.Most.just
     }
     let contribute2 = _buildWorkPluginContribute(
@@ -372,7 +391,8 @@ defineFeature(feature, test => {
       ],
       ~getExecFunc=(_, jobName) => {
         switch jobName {
-        | jobName if  Meta3dCommonlib. EqualTool.isEqual(jobName, job1Name_a2) => job1->Js.Nullable.return
+        | jobName if Meta3dCommonlib.EqualTool.isEqual(jobName, job1Name_a2) =>
+          job1->Js.Nullable.return
         | "job2_a2" => job2->Js.Nullable.return
         | _ => Js.Nullable.null
         }
@@ -406,8 +426,15 @@ defineFeature(feature, test => {
       let s2 = _createState2()
       let changedState2 = _createState2(~d2="c", ())
       state2 := changedState2
-      let job1 = states => {
-        states->Meta3dCommonlib.ImmutableHashMap.set("a2", changedState2)->Meta3dBsMost.Most.just
+      let job1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        state
+        ->getStatesFunc
+        ->Meta3dCommonlib.ImmutableHashMap.set("a2", changedState2)
+        ->setStatesFunc(state, _)
+        ->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
@@ -545,8 +572,15 @@ defineFeature(feature, test => {
     let (job1Name_a2, contribute2, changedState2) = _prepareData2()
     let state3 = _createState3()
     let changedState3 = _createState3(~d3=2, ())
-    let job1 = states => {
-      states->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)->Meta3dBsMost.Most.just
+    let job1 = (
+      state,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+    ) => {
+      state
+      ->getStatesFunc
+      ->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)
+      ->setStatesFunc(state, _)
+      ->Meta3dBsMost.Most.just
     }
     let contribute3 = _buildWorkPluginContribute(
       ~workPluginName="a3",
@@ -766,9 +800,17 @@ defineFeature(feature, test => {
       let (job1Name_a2, contribute2, s2) = _prepareData2()
       stubJob1_3 := createEmptyStubWithJsObjSandbox(sandbox)
       let s3 = _createState3(~d3=2, ())
-      let job1 = states => {
+      let job1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stubJob1_3.contents()
-        states->Meta3dCommonlib.ImmutableHashMap.set("a3", s3)->Meta3dBsMost.Most.just
+
+        state
+        ->getStatesFunc
+        ->Meta3dCommonlib.ImmutableHashMap.set("a3", s3)
+        ->setStatesFunc(state, _)
+        ->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",
@@ -801,12 +843,23 @@ defineFeature(feature, test => {
       )
       stubJob2_4 := createEmptyStubWithJsObjSandbox(sandbox)
       let s4 = _createState4(~d4=5, ())
-      let job1 = states => {
-        states->Meta3dCommonlib.ImmutableHashMap.set("a4", s4)->Meta3dBsMost.Most.just
+      let job1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        state
+        ->getStatesFunc
+        ->Meta3dCommonlib.ImmutableHashMap.set("a4", s4)
+        ->setStatesFunc(state, _)
+        ->Meta3dBsMost.Most.just
       }
-      let job2 = states => {
+      let job2 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stubJob2_4.contents()
-        states->Meta3dBsMost.Most.just
+
+        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
       }
       let data4 = _buildWorkPluginContribute(
         ~workPluginName="a4",
@@ -950,8 +1003,15 @@ defineFeature(feature, test => {
 
     \"and"("register plugin2 contribute in plugin1 contribute's initFunc", () => {
       let s2 = _createState2(~d2="c", ())
-      let job1 = states => {
-        states->Meta3dCommonlib.ImmutableHashMap.set("a2", s2)->Meta3dBsMost.Most.just
+      let job1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        state
+        ->getStatesFunc
+        ->Meta3dCommonlib.ImmutableHashMap.set("a2", s2)
+        ->setStatesFunc(state, _)
+        ->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
@@ -1050,15 +1110,21 @@ defineFeature(feature, test => {
     given("register plugin contribute with init, update pipeline jobs", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
-      let rootJob1_init = states => {
+      let rootJob1_init = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stub1.contents()
 
-        states->Meta3dBsMost.Most.just
+        state->Meta3dBsMost.Most.just
       }
-      let rootJob1_update = states => {
+      let rootJob1_update = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stub2.contents()
 
-        states->Meta3dBsMost.Most.just
+        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
         ~workPluginName="a1",
@@ -1146,10 +1212,13 @@ defineFeature(feature, test => {
 
     given("register plugin1 contribute with one init pipeline job", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
-      let rootJob1_init = states => {
+      let rootJob1_init = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stub1.contents()
 
-        states->Meta3dBsMost.Most.just
+        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
         ~workPluginName="a1",
@@ -1185,10 +1254,13 @@ defineFeature(feature, test => {
 
     given("register plugin2 contribute with one update pipeline job", () => {
       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
-      let job1 = states => {
+      let job1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stub2.contents()
 
-        states->Meta3dBsMost.Most.just
+        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
@@ -1224,10 +1296,13 @@ defineFeature(feature, test => {
 
     given("register plugin3 contribute with one init pipeline job", () => {
       stub3 := createEmptyStubWithJsObjSandbox(sandbox)
-      let job2 = states => {
+      let job2 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
         stub3.contents()
 
-        states->Meta3dBsMost.Most.just
+        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",

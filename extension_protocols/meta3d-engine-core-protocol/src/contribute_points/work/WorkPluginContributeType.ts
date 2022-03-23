@@ -4,6 +4,8 @@ import type { pipelineData as PipelineType_pipelineData } from '../../state/Pipe
 
 import type { pipelineName as PipelineType_pipelineName } from '../../state/PipelineType.gen';
 
+import { state, operateStatesFuncs } from "../../state/StateType"
+
 // tslint:disable-next-line:interface-over-type-literal
 export type jobName = string;
 
@@ -11,10 +13,10 @@ export type jobName = string;
 export type stream<a> = Meta3dBsMostProtocol_StreamType_stream<a>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type execFunc<states> = (_1: states) => stream<states>;
+export type execFunc = (_1: state, _2: operateStatesFuncs) => stream<state>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getExecFunc<states> = (_1: PipelineType_pipelineName, _2: jobName) => (null | undefined | execFunc<states>);
+export type getExecFunc = (_1: PipelineType_pipelineName, _2: jobName) => (null | undefined | execFunc);
 
 // tslint:disable-next-line:interface-over-type-literal
 export type pipelineData = PipelineType_pipelineData;
@@ -36,7 +38,7 @@ export type workPluginContribute<state, states> = {
     readonly workPluginName: workPluginName;
     readonly createStateFunc: createStateFunc<state>;
     readonly initFunc: initFunc<state>;
-    readonly getExecFunc: getExecFunc<states>;
+    readonly getExecFunc: getExecFunc;
     readonly allPipelineData: allPipelineData
 };
 

@@ -33,6 +33,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   cloneGameObject: DirectorForJs.cloneGameObject,
   getAllGameObjects: DirectorForJs.getAllGameObjects,
   runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
+  // getStates: DirectorForJs.getStates,
+  // setStates: DirectorForJs.setStates,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<

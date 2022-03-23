@@ -4,9 +4,9 @@ type jobOrder = {
 }
 
 type nodeData = {
-  mutable getExecFuncs: list<WorkPluginContributeType.getExecFunc<RegisterWorkPluginType.states>>,
+  mutable getExecFuncs: list<StateType.getExecFunc>,
   mutable pipelineData: PipelineType.pipelineData,
   jobOrder: option<jobOrder>,
 }
 
-type rec tree = Node(WorkPluginContributeType.workPluginName, nodeData, list<tree>)
+type rec tree = Node(StateType.workPluginName, nodeData, list<tree>)

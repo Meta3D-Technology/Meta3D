@@ -54,6 +54,10 @@ let runPipeline = (
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
+// let getStates = WorkPluginManager.getStates
+
+// let setStates = WorkPluginManager.setStates
+
 let getIsDebug = PluginDataManager.getIsDebug
 
 let setIsDebug = PluginDataManager.setIsDebug
