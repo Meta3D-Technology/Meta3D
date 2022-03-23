@@ -1,10 +1,10 @@
 
 
-import * as OptionSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./component/ComponentManager.bs.js";
-import * as Index$Meta3dComponentGeometryProtocol from "./../../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "./../../../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
-import * as Index$Meta3dComponentPbrmaterialProtocol from "./../../../../../../../node_modules/meta3d-component-pbrmaterial-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentGeometryProtocol from "./../../../../../../meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "./../../../../../../meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentPbrmaterialProtocol from "./../../../../../../meta3d-component-pbrmaterial-protocol/lib/es6_global/src/Index.bs.js";
 
 function unsafeGetGameObjectData(state) {
   return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);

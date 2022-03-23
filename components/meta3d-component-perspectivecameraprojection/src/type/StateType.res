@@ -1,9 +1,7 @@
 type perspectiveCameraProjection = Meta3dCommonlibType.ComponentType.index
 
-type config = {isDebug: bool}
-
 type state = {
-  config: config,
+  config: Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,
   maxIndex: Meta3dCommonlibType.ComponentType.index,
   dirtyMap: Meta3dCommonlibType.ImmutableSparseMapType.t<perspectiveCameraProjection, bool>,
   pMatrixMap: Meta3dCommonlibType.ImmutableSparseMapType.t<

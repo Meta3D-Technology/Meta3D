@@ -1,6 +1,6 @@
 open StateType
 
-let getData = (. state, cameraProjection, dataName: Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataNameType): Js.Nullable.t<'a> => {
+let getData = (. state, cameraProjection, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName
     if dataName == Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix =>

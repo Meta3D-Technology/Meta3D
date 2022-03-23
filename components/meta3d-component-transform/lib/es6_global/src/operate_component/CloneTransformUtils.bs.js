@@ -1,6 +1,6 @@
 
 
-import * as CloneUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
+import * as CloneUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
 import * as CreateTransformUtils$Meta3dComponentTransform from "./CreateTransformUtils.bs.js";
 import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "../operate_data/ModelMatrixTransformUtils.bs.js";
 

@@ -3,6 +3,7 @@ open Meta3dWorkPluginRootProtocol.Index
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
   switch jobName {
   | "init_root_meta3d" => InitJob.execFunc
+  | "update_root_meta3d" => UpdateJob.execFunc
   | _ => Js.Nullable.null->Obj.magic
   }
 }
@@ -40,6 +41,22 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.getWorkPluginCon
         ],
         first_group: "first_root_meta3d",
       },
+{
+        name: "update",
+        groups: [
+          {
+            name: "first_root_meta3d",
+            link: #concat,
+            elements: [
+              {
+                name: "update_root_meta3d",
+                type_: #job,
+              },
+            ],
+          },
+        ],
+        first_group: "first_root_meta3d",
+      }
     ],
   }
 }

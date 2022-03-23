@@ -4,5 +4,6 @@ export type componentConfig = {
     float32Array1: Float32Array,
     transformCount: number,
     geometryCount: number,
-    geometryPointCount: number
+    geometryPointCount: number,
+	pbrMaterialCount: number,
 }

@@ -1,4 +1,4 @@
-export const componentName: string
+export const componentName = "Transform"
 
 export type config = {
     isDebug: boolean,
@@ -7,24 +7,24 @@ export type config = {
     transformCount: number,
 }
 
-export type dataName = {
-    parent: number,
-    children: number,
-    localPosition: number,
-    localRotation: number,
-    localScale: number,
-    position: number,
-    rotation: number,
-    scale: number,
-    localEulerAngles: number,
-    eulerAngles: number,
-    normalMatrix: number,
-    localToWorldMatrix: number,
+export const dataName = {
+    parent: 0,
+    children: 1,
+    localPosition: 2,
+    localRotation: 3,
+    localScale: 4,
+    position: 5,
+    rotation: 6,
+    scale: 7,
+    localEulerAngles: 8,
+    eulerAngles: 9,
+    normalMatrix: 10,
+    localToWorldMatrix: 11,
+    dirty: 12,
+    update: 13,
 }
 
-// // export type dataNameType = number
-
-type transform = number
+export type transform = number
 
 // export type parent = transform
 
@@ -49,3 +49,5 @@ type transform = number
 // export type localToWorldMatrix = Float32Array
 
 // export type normalMatrix = Float32Array
+
+export type update = null

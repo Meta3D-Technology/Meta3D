@@ -1,11 +1,6 @@
-import { registeredComponent } from "../../meta3d-core/src/abstract/scene_graph/IComponentForJs.gen";
-
-export type config = { readonly isDebug: boolean; readonly pbrMaterialCount: number };
+import { getComponentContribute as getComponentContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/scene_graph/ComponentContributeType";
+import { pbrMaterial, config } from "meta3d-component-pbrmaterial-protocol";
 
 type state = any
 
-type pbrMaterial = number
-
-type dataName = any
-
-export function getData(): registeredComponent<state, config, dataName, pbrMaterial>
+export let getComponentContribute: getComponentContributeMeta3D<state, config, pbrMaterial>

@@ -1,6 +1,6 @@
 open StateType
 
-let getData = (. {colors, intensities} as state, light, dataName: Meta3dComponentDirectionlightProtocol.Index.dataNameType): Js.Nullable.t<
+let getData = (. {colors, intensities} as state, light, dataName: int): Js.Nullable.t<
   'a,
 > => {
   switch dataName {

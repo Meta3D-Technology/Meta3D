@@ -1,4 +1,4 @@
-export const componentName: string
+export const componentName = "Geometry"
 
 export type config = {
     isDebug: boolean,
@@ -6,13 +6,13 @@ export type config = {
     geometryPointCount: number,
 }
 
-export const dataName: {
-    vertices: number,
-    normals: number,
-    texCoords: number,
-    tangents: number,
-    indices: number,
-    indicesCount: number,
+export const dataName = {
+    vertices: 0,
+    normals: 1,
+    texCoords: 2,
+    tangents: 3,
+    indices: 4,
+    indicesCount: 5,
 }
 
 export type geometry = number

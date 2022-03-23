@@ -1,6 +1,6 @@
 open StateType
 
-let getData = (. state, cameraController, dataName: Meta3dComponentArcballcameracontrollerProtocol.Index.dataNameType): Js.Nullable.t<'a> => {
+let getData = (. state, cameraController, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName
     if dataName == Meta3dComponentArcballcameracontrollerProtocol.Index.dataName.distance =>

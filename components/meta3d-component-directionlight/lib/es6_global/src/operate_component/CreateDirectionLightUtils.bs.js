@@ -1,7 +1,7 @@
 
 
-import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/IndexComponentUtils.bs.js";
-import * as BufferComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/BufferComponentUtils.bs.js";
+import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/IndexComponentUtils.bs.js";
+import * as BufferComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/BufferComponentUtils.bs.js";
 import * as ConfigUtils$Meta3dComponentDirectionlight from "../config/ConfigUtils.bs.js";
 
 function create(state) {

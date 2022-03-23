@@ -6,10 +6,7 @@ let dataName = {
   isActive: 0,
 }
 
-
-
 type basicCameraView = int
-
 
 type config = {
   isDebug: bool,

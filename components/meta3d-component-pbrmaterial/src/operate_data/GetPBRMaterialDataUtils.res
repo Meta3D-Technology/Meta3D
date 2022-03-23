@@ -1,6 +1,6 @@
 open StateType
 
-let getData = (. {diffuseColors, speculars}, material, dataName: Meta3dComponentPbrmaterialProtocol.Index.dataNameType): 'a => {
+let getData = (. {diffuseColors, speculars}, material, dataName: int): 'a => {
   switch dataName {
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor =>
     Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getDiffuseColor(

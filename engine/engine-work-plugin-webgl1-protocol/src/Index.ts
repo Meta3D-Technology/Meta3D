@@ -11,6 +11,7 @@ export type indicesVBOMap = Map<number, WebGLBuffer>;
 export type programMap = Map<number, WebGLProgram>;
 
 export type state = {
+    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
@@ -28,6 +29,7 @@ export type state = {
 export type states = { "engine-work-plugin-webgl1": state }
 
 export type config = {
+    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,

@@ -23,7 +23,7 @@ function _getMeta3DRegisterECSExtensionName(): string {
     return "meta3d-register-ecs"
 }
 
-export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount }: componentConfig): meta3dState {
+export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount }: componentConfig): meta3dState {
     // TODO use pipe
 
     meta3dState =
@@ -92,7 +92,7 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
         _getMeta3DRegisterECSExtensionName()
     )
 
-    engineCoreState = registerECSService.register(engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount })
+    engineCoreState = registerECSService.register(engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount })
 
     meta3dState =
         setExtensionState(
@@ -136,6 +136,42 @@ export function init(meta3dState: meta3dState, engineCoreExtensionName: string):
             return null
         },
         runPipeline(engineCoreState, meta3dState, "init")
+    ).drain().then((_) => {
+        //  TODO use NullableUtils for type
+        return tempMeta3DStata as meta3dState
+    })
+}
+
+export function update(meta3dState: meta3dState, engineCoreExtensionName: string): Promise<meta3dState> {
+    //  TODO use NullableUtils for type
+    let tempMeta3DStata: meta3dState | null = null
+
+    let engineCoreState = getExtensionState<engineCoreState>(
+        meta3dState,
+        engineCoreExtensionName,
+    )
+
+    let { map } = getExtensionService<mostService>(
+        meta3dState,
+        _getMeta3DBsMostExtensionName()
+    )
+
+    let { runPipeline } = getExtensionService<engineCoreService>(
+        meta3dState,
+        engineCoreExtensionName
+    )
+
+    return map(
+        (engineCoreState: engineCoreState) => {
+            tempMeta3DStata = setExtensionState(
+                meta3dState,
+                engineCoreExtensionName,
+                engineCoreState
+            )
+
+            return null
+        },
+        runPipeline(engineCoreState, meta3dState, "update")
     ).drain().then((_) => {
         //  TODO use NullableUtils for type
         return tempMeta3DStata as meta3dState

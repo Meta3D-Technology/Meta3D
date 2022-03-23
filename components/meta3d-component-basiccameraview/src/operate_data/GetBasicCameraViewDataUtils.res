@@ -1,6 +1,6 @@
 open StateType
 
-let getData = (. state, cameraView, dataName: Meta3dComponentBasiccameraviewProtocol.Index.dataNameType): Js.Nullable.t<'a> => {
+let getData = (. state, cameraView, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName if dataName == Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive =>
     OperateBasicCameraViewUtils.getIsActive(state, cameraView)->Obj.magic->Js.Nullable.return
