@@ -367,7 +367,8 @@ _init(meta3dState_, isDebug).then((meta3dState) => {
 	tempMeta3DState = meta3dState
 })
 
-meta3dMostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
+// meta3dMostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
+meta3dMostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false).filter((event) => {
 	console.log(event);
 	return event.data.operateType === "SEND_BEGIN_LOOP";
 }).tap((_) => {

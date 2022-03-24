@@ -8,6 +8,7 @@ import { service as mostService } from "meta3d-bs-most-protocol/src/service/Serv
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
+import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
 import { createPBRMaterial, setDiffuseColor } from "engine-facade/src/PBRMaterialAPI"
 import { createTransform, setLocalPosition, lookAt } from "engine-facade/src/TransformAPI"
@@ -26,34 +27,59 @@ function _getMeta3DWebGL1ExtensionName(): string {
     return "meta3d-webgl1"
 }
 
-function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement) {
+function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement, useWorker: boolean) {
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
     let meta3dMostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
     let meta3dWebGL1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
     let meta3dEngineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
 
-    engineCoreState =
-        registerWorkPlugin(
-            engineCoreState,
-            getWebGL1WorkPluginContribute({ isDebug, mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
-            [
-                {
-                    pipelineName: "init",
-                    insertElementName: "init_root_meta3d",
-                    insertAction: "after"
-                },
-                {
-                    pipelineName: "update",
-                    insertElementName: "update_root_meta3d",
-                    insertAction: "after"
-                },
-                {
-                    pipelineName: "render",
-                    insertElementName: "render_root_meta3d",
-                    insertAction: "after"
-                }
-            ]
-        )
+    if (useWorker) {
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: meta3dMostService, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "init_root_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_root_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "render",
+                        insertElementName: "render_root_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
+    } else {
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1WorkPluginContribute({ isDebug, mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "init_root_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_root_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "render",
+                        insertElementName: "render_root_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
+    }
 
     return engineCoreState
 }
@@ -150,7 +176,7 @@ function _createScene(engineCoreState: engineCoreState, engineCoreService: engin
     return engineCoreState
 }
 
-function _init() {
+function _init(useWorker: boolean) {
     let isDebug = true
 
     let meta3dState = prepareMeta3D()
@@ -183,7 +209,7 @@ function _init() {
 
     let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEngineCoreExtensionName())
 
-    engineCoreState = _registerWorkPlugins(engineCoreState, isDebug, meta3dState, canvas)
+    engineCoreState = _registerWorkPlugins(engineCoreState, isDebug, meta3dState, canvas, useWorker)
 
     engineCoreState = _createScene(engineCoreState, getExtensionService(meta3dState, _getEngineCoreExtensionName()), canvas)
 
@@ -207,4 +233,6 @@ function _loop(meta3dState: meta3dState) {
     })
 }
 
-_init().then(_loop)
+const useWorker = true
+
+_init(useWorker).then(_loop)

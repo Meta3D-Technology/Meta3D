@@ -1,18 +1,18 @@
 
 
-import * as Curry from "./../../../../../../rescript/lib/es6/curry.js";
-import * as Caml_array from "./../../../../../../rescript/lib/es6/caml_array.js";
-import * as Log$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ListSt$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as Result$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as Exception$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as Curry from "./../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_array from "./../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Log$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as ListSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as Result$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as TreeNode$Meta3dEngineCore from "./TreeNode.bs.js";
 import * as IterateTree$Meta3dEngineCore from "./IterateTree.bs.js";
 import * as OperateTree$Meta3dEngineCore from "./OperateTree.bs.js";
 import * as StateContainer$Meta3dEngineCore from "../../state/StateContainer.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function _findGroup(groupName, groups) {
   if (ArraySt$Meta3dCommonlib.length(ArraySt$Meta3dCommonlib.filter(groups, (function (param) {
