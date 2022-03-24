@@ -12,7 +12,7 @@ import type { dataValue as ComponentContributeType_dataValue, dataName as Compon
 
 import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
-import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
+// import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
 import type { gameObject as GameObjectContributeType_gameObject } from '../../src/contribute_points/scene_graph/GameObjectContributeType';
 

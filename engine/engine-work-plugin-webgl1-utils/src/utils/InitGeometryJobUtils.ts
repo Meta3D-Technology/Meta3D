@@ -6,7 +6,7 @@ import { state } from "meta3d-engine-core-protocol/src/state/StateType"
 import { componentName, geometry, dataName } from "meta3d-component-geometry-protocol";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
-export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCoreService]: [webgl1Service, engineCoreService], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometriesIndices: number[]) => {
+export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCoreService]: [webgl1Service, engineCoreService], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[]) => {
 	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	// let toComponent = repo.sceneGraphRepo.geometryRepo.toComponent;
@@ -17,7 +17,7 @@ export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCo
 	// let getIndices = engineCoreService.getComponentData
 	// let getIndices = repo.sceneGraphRepo.geometryRepo.getIndices;
 
-	return allGeometriesIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {
+	return allGeometryIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {
 		// let geometry = toComponent(geometryIndex);
 
 		let vertices = getExn(engineCoreService.getComponentData<geometry, Float32Array>(usedGeometryContribute, geometry, dataName.vertices))

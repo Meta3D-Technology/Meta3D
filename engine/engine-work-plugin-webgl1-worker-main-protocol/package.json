@@ -1,0 +1,20 @@
+{
+    "name": "engine-work-plugin-webgl1-worker-main-protocol",
+    "version": "0.2.0",
+    "authors": "Wonder",
+    "license": "MIT",
+    "main": "src/Index.ts",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build"
+    },
+    "config": {
+        "commitizen": {
+            "path": "node_modules/cz-customizable"
+        }
+    },
+    "keywords": [],
+    "dependencies": {
+        "rescript": "^9.1.4"
+    }
+}

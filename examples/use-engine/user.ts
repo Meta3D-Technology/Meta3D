@@ -1,7 +1,7 @@
 import { state as meta3dState } from "meta3d-type"
 import { prepare as prepareMeta3D, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
 import { prepare as prepareEngine, init as initEngine, update as updateEngine, render as renderEngine } from "engine-facade/src/DirectorAPI"
-import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, createGameObject, getAllGameObjects } from "engine-facade/src/GameObjectAPI"
+import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, createGameObject } from "engine-facade/src/GameObjectAPI"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"

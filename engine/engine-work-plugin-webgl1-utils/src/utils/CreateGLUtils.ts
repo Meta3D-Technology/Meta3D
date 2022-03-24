@@ -1,16 +1,5 @@
-import { pipe } from "engine-fp/src/Pipe";
-import { getExn } from "engine-commonlib-ts/src/NullableUtils";
+import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 
-export type canvas = {
-	getContext(type: string):WebGLRenderingContext;
-};
-
-function _getContext(canvas: canvas) {
-	return canvas.getContext("webgl");
+export function createGL({ getContext }: webgl1Service, canvas: HTMLCanvasElement) {
+	return getContext(canvas)
 }
-
-export let createGL = pipe<canvas | null, canvas, WebGLRenderingContext | null, WebGLRenderingContext>(
-	getExn,
-	_getContext,
-	getExn
-);

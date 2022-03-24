@@ -729,11 +729,10 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO pass render run test:render cube
+** DONE pass render run test:render cube
 
-** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+# ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
-- job utils
 
 
 ** TODO finish sxengine's work with worker
@@ -743,11 +742,16 @@ finish actual engine code(like sxengine's code)
 
 
 
+** TODO refactor: move immutable to extension
+
+
+
 # ** TODO finish abstract worker
 
 
 ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
+- job utils
  
 
 

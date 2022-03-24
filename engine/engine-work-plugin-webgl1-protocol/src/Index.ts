@@ -2,9 +2,9 @@ import { service as mostService } from "meta3d-bs-most-protocol/src/service/Serv
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { Map } from "immutable";
+import { nullable } from "../../../defaults/meta3d-commonlib-ts/src/nullable";
 
 export const workPluginName = "engine-work-plugin-webgl1"
-
 
 export type verticesVBOMap = Map<number, WebGLBuffer>;
 export type indicesVBOMap = Map<number, WebGLBuffer>;
@@ -16,7 +16,7 @@ export type state = {
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     canvas: HTMLCanvasElement,
-    gl: WebGLRenderingContext | null,
+    gl: nullable<WebGLRenderingContext>,
     vbo: {
         verticesVBOMap: verticesVBOMap,
         indicesVBOMap: indicesVBOMap

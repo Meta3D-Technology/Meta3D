@@ -1,8 +1,13 @@
 let _isFromEventStream = %raw(`
+
   function(stream){
+
     var source = stream.source;
+
     return !!source.event && !!source.source;
+
   }
+
   `)
 
 let concatArray = streamArr =>
@@ -28,6 +33,10 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dBsMostProtocol.DependentExtensionType.dependentExtensionNameMap,
   Meta3dBsMostProtocol.ServiceType.service,
 > = (api, _) => {
+  tap: Most.tap,
+  filter: Most.filter,
+  take: Most.take,
+  fromEvent: Most.fromEvent-> Obj.magic,
   just: Most.just,
   map: Most.map,
   flatMap: Most.flatMap,
