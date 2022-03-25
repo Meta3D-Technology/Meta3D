@@ -740,7 +740,7 @@ finish actual engine code(like sxengine's code)
 
 # add component worker
 
-add register ecs worker extension
+# add register ecs worker extension
 
 refactor DirectionAPI->prepare:
 move register ecs extension out to regiserECSExtension
