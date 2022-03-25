@@ -738,6 +738,22 @@ finish actual engine code(like sxengine's code)
 ** TODO finish sxengine's work with worker
 
 
+# add component worker
+
+add register ecs worker extension
+
+refactor DirectionAPI->prepare:
+move register ecs extension out to regiserECSExtension
+add registerECSExtensionWorker function
+
+in GetInitRenderDataJob:
+send components' buffer, config(count) to render
+register ecs worker by invoke registerECSExtensionWorker
+
+
+remove create scene here
+
+
 ** TODO pass render run test:render cube for worker
 
 

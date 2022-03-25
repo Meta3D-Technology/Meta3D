@@ -1,13 +1,23 @@
 let createComponentFunc = (. state) => (state, -1->Obj.magic)
 
-let addComponentFunc = (. state, gameObject, component) => state
+let addComponentFunc = (. state, _, _) => state
 
-let hasComponentFunc = (. state, gameObject) => false
+let removeComponentFunc = (. state, _, _) => state
 
-let getComponentFunc = (. state, gameObject) => -1->Obj.magic
+let hasComponentFunc = (. state, _) => false
 
-let getGameObjectsFunc = (. state, component) => []
+let getComponentFunc = (. state, _) => -1->Obj.magic
 
-let setComponentDataFunc = (. state, component, dataName, dataValue) => state
+let getGameObjectsFunc = (. state, _) => []
+
+let setComponentDataFunc = (. state, _, _, _) => state
 
 let getAllComponentsFunc = (. state) => []
+
+let getNeedDisposedComponentsFunc = (. state) => []
+
+let deferDisposeComponentFunc = (. state, _) => state
+
+let disposeComponentsFunc = (. state, _) => state
+
+let cloneComponentFunc = (. state, _, _, _) => ( state, [] )

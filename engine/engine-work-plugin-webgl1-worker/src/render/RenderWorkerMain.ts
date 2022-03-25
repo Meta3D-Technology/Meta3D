@@ -44,7 +44,6 @@ function _getMeta3DWebGL1ExtensionName(): string {
 	return "meta3d-webgl1"
 }
 
-
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState) {
 	let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
 	let meta3dMostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())

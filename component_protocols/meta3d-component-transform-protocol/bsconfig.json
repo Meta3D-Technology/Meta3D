@@ -23,8 +23,6 @@
   ],
   "refmt": 3,
   "bs-dependencies": [
-    "meta3d-commonlib",
-    "meta3d-commonlib-type"
   ],
   "package-specs": [
     "commonjs",
