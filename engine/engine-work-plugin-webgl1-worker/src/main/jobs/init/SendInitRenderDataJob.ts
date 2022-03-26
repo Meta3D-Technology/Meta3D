@@ -13,8 +13,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	return mostService.callFunc(() => {
 		console.log("send init render data job webgl worker exec on main thread")
 
-		worker = getExn(worker)
-
 		let offscreenCanvas: OffscreenCanvas = canvas.transferControlToOffscreen()
 
 		let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
@@ -27,7 +25,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let transformState = getExn(engineCoreService.getComponentState<transformState>(engineCoreState, transformComponentName))
 
-		worker.postMessage({
+		getExn(worker).postMessage({
 			operateType: "SEND_INIT_RENDER_DATA",
 			canvas: offscreenCanvas,
 			allGeometryIndices: allGeometryIndices,

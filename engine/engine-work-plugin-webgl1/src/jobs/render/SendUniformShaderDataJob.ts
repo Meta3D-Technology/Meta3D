@@ -14,7 +14,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 	return mostService.callFunc(() => {
 		console.log("render webgl job send camera job exec")
-		gl = getExn(gl)
 
 		let usedBasicCameraViewContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
@@ -35,7 +34,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let programMap = material.programMap
 
-		sendCameraData(webgl1Service, gl, programMap, viewMatrix, pMatrix)
+		sendCameraData(webgl1Service, getExn(gl), programMap, viewMatrix, pMatrix)
 
 		return engineCoreState
 	})

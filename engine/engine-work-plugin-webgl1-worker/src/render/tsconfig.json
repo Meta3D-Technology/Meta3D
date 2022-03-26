@@ -16,7 +16,8 @@
 			"ESNext",
 		],
 		"types": [
-			"offscreencanvas"
+			"offscreencanvas",
+			"lodash"
 		],
 		"strict": true
 	},

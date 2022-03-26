@@ -51,11 +51,11 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 					insertElementName: "init_root_meta3d",
 					insertAction: "after"
 				},
-				// {
-				// 	pipelineName: "render",
-				// 	insertElementName: "render_root_meta3d",
-				// 	insertAction: "before"
-				// }
+				{
+					pipelineName: "render",
+					insertElementName: "render_root_meta3d",
+					insertAction: "before"
+				}
 			]
 		)
 
