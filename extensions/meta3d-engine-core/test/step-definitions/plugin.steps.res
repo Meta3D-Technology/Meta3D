@@ -15,10 +15,17 @@ defineFeature(feature, test => {
   let contribute1 = ref(Obj.magic(1))
   let contribute2 = ref(Obj.magic(1))
   let contribute3 = ref(Obj.magic(1))
+  let sandbox = ref(Obj.magic(1))
 
   let _prepareRegister = given => {
     given("prepare register", () => {
       CreateState.createState()->StateContainer.setState
+    })
+  }
+
+  let _prepareSandbox = given => {
+    given("prepare sandbox", () => {
+      sandbox := createSandbox()
     })
   }
 
@@ -179,15 +186,12 @@ defineFeature(feature, test => {
   test(."init plugins", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
     let stub1 = ref(Obj.magic(1))
     let stub2 = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     \"when"("register plugin1 contribute", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
@@ -300,13 +304,10 @@ defineFeature(feature, test => {
 
   test(."test register one plugin", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin contribute", () => {
       let (_, contribute1, s1) = _prepareData1()
@@ -411,13 +412,10 @@ defineFeature(feature, test => {
   test(."test register two plugins that plugin has one job", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1 contribute", () => {
       let (rootJobName, contribute1, s1) = _prepareData1()
@@ -511,13 +509,10 @@ defineFeature(feature, test => {
   test(."test register two plugins that plugin has two jobs", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1 contribute", () => {
       let (_, contribute1, s1) = _prepareData1()
@@ -630,13 +625,10 @@ defineFeature(feature, test => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
     let state3 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1, plugin2, plugin3 contribute", () => {
       let (
@@ -702,13 +694,10 @@ defineFeature(feature, test => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
     let state3 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1, plugin2, plugin3 contribute", () => {
       let (
@@ -775,10 +764,8 @@ defineFeature(feature, test => {
     let state2 = ref(Obj.magic(1))
     let state3 = ref(Obj.magic(1))
     let state4 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
     let stubJob1_3 = ref(Obj.magic(1))
     let stubJob2_4 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     let _createState3 = (~d3=222, ()) => {
       {
@@ -794,13 +781,7 @@ defineFeature(feature, test => {
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
-
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1, plugin2, plugin3, plugin4 contribute", () => {
       let (rootJobName, contribute1, s1) = _prepareData1()
@@ -1000,13 +981,10 @@ defineFeature(feature, test => {
   test(."test register plugins in initFunc", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1 contribute", () => {
       ()
@@ -1108,16 +1086,12 @@ defineFeature(feature, test => {
     then,
   }) => {
     let state1 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
     let stub1 = ref(Obj.magic(1))
     let stub2 = ref(Obj.magic(1))
-    let sandbox = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin contribute with init, update pipeline jobs", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
@@ -1213,16 +1187,13 @@ defineFeature(feature, test => {
     \"and",
     then,
   }) => {
-    let sandbox = ref(Obj.magic(1))
     let stub1 = ref(Obj.magic(1))
     let stub2 = ref(Obj.magic(1))
     let stub3 = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register plugin1 contribute with one init pipeline job", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
@@ -1386,13 +1357,9 @@ defineFeature(feature, test => {
   })
 
   test(."if first_group not in groups, error", ({given, \"when", \"and", then}) => {
-    let sandbox = ref(Obj.magic(1))
-
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register wrong plugin contribute", () => {
       let contribute1 = _buildWorkPluginContribute(
@@ -1443,13 +1410,9 @@ defineFeature(feature, test => {
   })
 
   test(."if first_group has more than one in groups, error", ({given, \"when", \"and", then}) => {
-    let sandbox = ref(Obj.magic(1))
-
     _prepareRegister(given)
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    _prepareSandbox(given)
 
     given("register wrong plugin contribute", () => {
       let contribute1 = _buildWorkPluginContribute(
@@ -1507,6 +1470,100 @@ defineFeature(feature, test => {
 
         MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
       })->toThrowMessage(arg0->Obj.magic)
+    })
+  })
+
+  test(."test not set job's state", ({given, \"when", \"and", then}) => {
+    let state1 = ref(Obj.magic(1))
+    let state2 = ref(Obj.magic(1))
+
+    _prepareRegister(given)
+
+    _prepareSandbox(given)
+
+    given(
+      "register plugin contribute with init jobs use merge and not set the second merge job's state",
+      () => {
+        let s1 = _createState1(~d1=1, ())
+        let s2 = _createState1(~d1=2, ())
+        let rootJob1_init = (
+          state,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+        ) => {
+          state
+          ->getStatesFunc
+          ->Meta3dCommonlib.ImmutableHashMap.set("a", s1)
+          ->setStatesFunc(state, _)
+          ->Meta3dBsMost.Most.just
+        }
+        let rootJob2_init = (
+          state,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+        ) => {
+          state
+          ->getStatesFunc
+          ->Meta3dCommonlib.ImmutableHashMap.set("a", s2)
+          ->setStatesFunc(state, _)
+          ->Meta3dBsMost.Most.just
+        }
+        let contribute1 = _buildWorkPluginContribute(
+          ~allPipelineData=[
+            {
+              name: "init",
+              groups: [
+                {
+                  name: "first_a1",
+                  link: #merge,
+                  elements: [
+                    {
+                      name: "root_init_a1",
+                      type_: #job,
+                      is_set_state: true->Js.Nullable.return,
+                    },
+                    {
+                      name: "root_init_a2",
+                      type_: #job,
+                      is_set_state: false->Js.Nullable.return,
+                    },
+                  ],
+                },
+              ],
+              first_group: "first_a1",
+            },
+          ],
+          ~getExecFunc=(_, jobName) => {
+            switch jobName {
+            | "root_init_a1" => rootJob1_init->Js.Nullable.return
+            | "root_init_a2" => rootJob2_init->Js.Nullable.return
+            | _ => Js.Nullable.null
+            }
+          },
+          (),
+        )
+
+        state1 := s1
+        state2 := s2
+
+        MainTool.registerWorkPlugin(~contribute=contribute1, ())
+      },
+    )
+
+    \"and"("init", () => {
+      MainTool.init()
+    })
+
+    \"when"("run init pipeline", () => {
+      let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
+
+      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+    })
+
+    then("get states should only return the first merge job's one", () => {
+      let states = _getStates()
+
+      (states->Meta3dCommonlib.ImmutableHashMap.get("a")->expect == Some(state1.contents))
+      ->resolve
+      ->Obj.magic
     })
   })
 })

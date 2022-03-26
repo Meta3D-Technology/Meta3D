@@ -86,8 +86,7 @@ Feature: Plugin
             Then run init pipeline's all jobs
 
         Scenario: test register four plugins
-            Given prepare sandbox
-            And register plugin1, plugin2, plugin3, plugin4 contribute
+            Given register plugin1, plugin2, plugin3, plugin4 contribute
             And init
             When run init pipeline
             Then run init pipeline's all jobs
@@ -105,13 +104,13 @@ Feature: Plugin
             Given prepare sandbox
 
         Scenario: test register one plugin with init, update pipeline jobs
-            And register plugin contribute with init, update pipeline jobs
+            Given register plugin contribute with init, update pipeline jobs
             And init
             When run update pipeline
             Then run update pipeline's all jobs
 
         Scenario: test register three plugins with init, update pipeline jobs
-            And register plugin1 contribute with one init pipeline job
+            Given register plugin1 contribute with one init pipeline job
             And register plugin2 contribute with one update pipeline job
             And register plugin3 contribute with one init pipeline job
             And init
@@ -129,3 +128,15 @@ Feature: Plugin
             And init
             When run init pipeline
             Then should error: "has more than one"
+
+
+    Rule: test merge job
+
+        Background: prepare sandbox
+            Given prepare sandbox
+
+        Scenario: test not set job's state
+            Given register plugin contribute with init jobs use merge and not set the second merge job's state
+            And init
+            When run init pipeline
+            Then get states should only return the first merge job's one
