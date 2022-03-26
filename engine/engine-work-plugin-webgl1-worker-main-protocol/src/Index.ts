@@ -9,7 +9,8 @@ export type config = {
     isDebug: boolean,
     mostService: mostService,
     engineCoreService: engineCoreService,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    maxRenderGameObjectCount: number
 }
 
 export type state = {
@@ -20,6 +21,7 @@ export type state = {
     canvas: HTMLCanvasElement,
     typeArray: nullable<Uint32Array>,
     renderGameObjectsCount: nullable<number>
+    maxRenderGameObjectCount: number
 }
 
 export type states = { "engine-work-plugin-webgl1-worker-main": state };

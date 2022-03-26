@@ -4,13 +4,11 @@ import { execFunc as execFuncType } from "../../Type"
 import { getState } from "../../Utils"
 import { states } from "engine-work-plugin-webgl1-worker-main-protocol"
 
-let _getMaxRenderGameObjectCount = () => 100
-
 let _getStride = () => 3 * 4
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, worker } = getState(states)
+	let { mostService, worker, maxRenderGameObjectCount } = getState(states)
 
 	worker = getExn(worker)
 
@@ -20,7 +18,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		// TODO remove fake typed array
 		let buffer = new SharedArrayBuffer(
-			_getMaxRenderGameObjectCount() * _getStride()
+			maxRenderGameObjectCount * _getStride()
 		)
 
 		let uint32Array = new Uint32Array(buffer)

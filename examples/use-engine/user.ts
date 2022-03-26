@@ -37,7 +37,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: mostService, engineCoreService: engineCoreService, canvas: canvas }),
+                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: mostService, engineCoreService: engineCoreService, canvas: canvas, maxRenderGameObjectCount: 100 }),
                 [
                     {
                         pipelineName: "init",

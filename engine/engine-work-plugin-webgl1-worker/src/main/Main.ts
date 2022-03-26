@@ -42,7 +42,7 @@ let _init = (state: state) => {
 	console.log("init: ", state)
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, canvas }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, canvas, maxRenderGameObjectCount }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: (): state => {
@@ -53,7 +53,8 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				canvas,
 				worker: null,
 				typeArray: null,
-				renderGameObjectsCount: null
+				renderGameObjectsCount: null,
+				maxRenderGameObjectCount
 			}
 		},
 		initFunc: _init,
