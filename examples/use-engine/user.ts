@@ -1,6 +1,6 @@
 import { state as meta3dState } from "meta3d-type"
 import { prepare as prepareMeta3D, registerExtension, getExtensionService, getExtensionState, setExtensionState } from "meta3d"
-import { prepare as prepareEngine, init as initEngine, update as updateEngine, render as renderEngine } from "engine-facade/src/DirectorAPI"
+import { prepare as prepareEngine, prepareRegisterECSExtension, init as initEngine, update as updateEngine, render as renderEngine } from "engine-facade/src/DirectorAPI"
 import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, createGameObject } from "engine-facade/src/GameObjectAPI"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
@@ -29,15 +29,15 @@ function _getMeta3DWebGL1ExtensionName(): string {
 
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement, useWorker: boolean) {
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
-    let meta3dMostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
+    let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
     let meta3dWebGL1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
-    let meta3dEngineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
+    let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
 
     if (useWorker) {
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: meta3dMostService, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
+                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: mostService, engineCoreService: engineCoreService, canvas: canvas }),
                 [
                     {
                         pipelineName: "init",
@@ -60,7 +60,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkPluginContribute({ isDebug, mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, engineCoreService: meta3dEngineCoreService, canvas: canvas }),
+                getWebGL1WorkPluginContribute({ isDebug, mostService: mostService, webgl1Service: meta3dWebGL1Service, engineCoreService: engineCoreService, canvas: canvas }),
                 [
                     {
                         pipelineName: "init",
@@ -181,7 +181,14 @@ function _init(useWorker: boolean) {
 
     let meta3dState = prepareMeta3D()
 
-    meta3dState = prepareEngine(meta3dState,
+    meta3dState = prepareEngine(
+        meta3dState,
+        _getEngineCoreExtensionName(),
+        isDebug
+    )
+
+    meta3dState = prepareRegisterECSExtension(
+        meta3dState,
         _getEngineCoreExtensionName(),
         {
             isDebug: isDebug,
@@ -191,7 +198,8 @@ function _init(useWorker: boolean) {
             geometryCount: 10,
             geometryPointCount: 100,
             pbrMaterialCount: 10
-        })
+        }
+    )
 
     meta3dState =
         registerExtension(

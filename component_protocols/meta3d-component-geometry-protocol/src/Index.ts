@@ -1,5 +1,9 @@
 export const componentName = "Geometry"
 
+export type state = {
+    buffer: SharedArrayBuffer
+}
+
 export type config = {
     isDebug: boolean,
     geometryCount: number,

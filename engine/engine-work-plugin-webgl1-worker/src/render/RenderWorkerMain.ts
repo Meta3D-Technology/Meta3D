@@ -8,6 +8,8 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
+import { getExtensionService as getRegisterECSWorkerExtensionService, createExtensionState as createRegisterECSWorkerExtensionState } from "meta3d-register-ecs-worker"
+// import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
 import { createPBRMaterial, setDiffuseColor } from "engine-facade/src/PBRMaterialAPI"
 import { createTransform, setLocalPosition, lookAt } from "engine-facade/src/TransformAPI"
@@ -44,16 +46,20 @@ function _getMeta3DWebGL1ExtensionName(): string {
 	return "meta3d-webgl1"
 }
 
+function _getMeta3DRegisterECSWorkerExtensionName(): string {
+	return "meta3d-register-ecs-worker"
+}
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState) {
 	let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
-	let meta3dMostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
+	let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
 	let meta3dWebGL1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
-	let meta3dEngineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
+	let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
 
 	engineCoreState =
 		registerWorkPlugin(
 			engineCoreState,
-			getWorkPluginContribute({ isDebug, mostService: meta3dMostService, webgl1Service: meta3dWebGL1Service, engineCoreService: meta3dEngineCoreService }),
+			getWorkPluginContribute({ isDebug, mostService: mostService, webgl1Service: meta3dWebGL1Service, engineCoreService: engineCoreService }),
 			[
 				{
 					pipelineName: "init",
@@ -265,22 +271,6 @@ function _createScene(engineCoreState: engineCoreState, engineCoreService: engin
 
 
 function _init(meta3dState: meta3dState, isDebug: boolean) {
-	// let isDebug = true
-
-	// let meta3dState = prepareMeta3D()
-
-	// meta3dState = prepareEngine(meta3dState,
-	// 	_getEngineCoreExtensionName(),
-	// 	{
-	// 		isDebug: isDebug,
-	// 		float9Array1: new Float32Array(),
-	// 		float32Array1: new Float32Array(),
-	// 		transformCount: 10,
-	// 		geometryCount: 10,
-	// 		geometryPointCount: 100,
-	// 		pbrMaterialCount: 10
-	// 	})
-
 	meta3dState =
 		registerExtension(
 			meta3dState,
@@ -290,10 +280,14 @@ function _init(meta3dState: meta3dState, isDebug: boolean) {
 			createWebGL1ExtensionState()
 		)
 
-	// let canvas = document.querySelector("#canvas") as HTMLCanvasElement
-	// canvas.style.width = canvas.width + " px"
-	// canvas.style.height = canvas.height + " px"
-
+	meta3dState =
+		registerExtension(
+			meta3dState,
+			_getMeta3DRegisterECSWorkerExtensionName(),
+			getRegisterECSWorkerExtensionService,
+			null,
+			createRegisterECSWorkerExtensionState()
+		)
 
 	let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEngineCoreExtensionName())
 
@@ -356,7 +350,7 @@ meta3dState_ = prepareEngine(meta3dState_,
 	})
 
 
-let meta3dMostService: mostService = getExtensionService(meta3dState_, _getMeta3DBsMostExtensionName())
+let mostService: mostService = getExtensionService(meta3dState_, _getMeta3DBsMostExtensionName())
 
 let tempMeta3DState: nullable<meta3dState> = null
 
@@ -366,8 +360,8 @@ _init(meta3dState_, isDebug).then((meta3dState) => {
 	tempMeta3DState = meta3dState
 })
 
-// meta3dMostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
-meta3dMostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false).filter((event) => {
+// mostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
+mostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false).filter((event) => {
 	console.log(event);
 	return event.data.operateType === "SEND_BEGIN_LOOP";
 }).tap((_) => {

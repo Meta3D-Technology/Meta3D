@@ -1,5 +1,9 @@
 export const componentName = "PBRMaterial"
 
+export type state = {
+    buffer: SharedArrayBuffer
+}
+
 export type config = { readonly isDebug: boolean; readonly pbrMaterialCount: number };
 
 export const dataName = {

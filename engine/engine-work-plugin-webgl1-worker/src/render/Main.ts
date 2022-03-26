@@ -8,6 +8,7 @@ import { execFunc as execGetInitRenderData } from "./jobs/init/GetInitRenderData
 import { Map } from "immutable"
 import { execFunc as execCreateGL } from "./jobs/init/CreateGLJob"
 import { execFunc as execDetectGL } from "./jobs/init/DetectGLJob"
+import { execFunc as execRegisterECS } from "./jobs/init/RegisterECSJob"
 import { execFunc as execInitGeometry } from "./jobs/init/InitGeometryJob"
 import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob"
 import { execFunc as execSendFinishInitRenderData } from "./jobs/init/SendFinishInitRenderDataJob"
@@ -24,6 +25,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execCreateGL
 		case "detect_gl":
 			return execDetectGL
+		case "register_ecs":
+			return execRegisterECS
 		case "init_geometry":
 			return execInitGeometry
 		case "init_material":
@@ -68,6 +71,9 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				pMatrix: null,
 				allGeometryIndices: [],
 				allMaterialIndices: [],
+				transformBuffer: null,
+				geometryBuffer: null,
+				pbrMaterialBuffer: null,
 				typeArray: null,
 				renderGameObjectsCount: 0
 			}
@@ -91,6 +97,10 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						},
 						{
 							"name": "detect_gl",
+							"type_": "job"
+						},
+						{
+							"name": "register_ecs",
 							"type_": "job"
 						},
 						{

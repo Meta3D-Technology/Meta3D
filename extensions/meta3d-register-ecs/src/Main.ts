@@ -2,7 +2,7 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import { dependentExtensionNameMap } from "meta3d-register-ecs-protocol/src/service/DependentExtensionType"
 import { service, config } from "meta3d-register-ecs-protocol/src/service/ServiceType"
 import { state } from "meta3d-register-ecs-protocol/src/state/StateType"
-import { service as meta3dEngineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { getComponentContribute as getTransformComponentContribute } from "meta3d-component-transform"
 import { componentName as transformComponentName, config as transformConfig } from "meta3d-component-transform-protocol"
 import { getComponentContribute as getGeometryComponentContribute } from "meta3d-component-geometry"
@@ -21,7 +21,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api, { meta3dEngineCoreExtensionName }) => {
 	return {
 		register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount }: config) => {
-			let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState } = api.getExtensionService<meta3dEngineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
+			let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState } = api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
 
 			// TODO use pipe
 			engineCoreState =

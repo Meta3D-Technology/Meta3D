@@ -742,13 +742,13 @@ finish actual engine code(like sxengine's code)
 
 # add register ecs worker extension
 
-refactor DirectionAPI->prepare:
-move register ecs extension out to regiserECSExtension
-add registerECSExtensionWorker function
+# refactor DirectionAPI->prepare:
+# move register ecs extension out to regiserECSExtension
+# add registerECSExtensionWorker function
 
-in GetInitRenderDataJob:
-send components' buffer, config(count) to render
-register ecs worker by invoke registerECSExtensionWorker
+# in GetInitRenderDataJob:
+# send components' buffer, config(count) to render
+# register ecs worker by invoke registerECSExtensionWorker
 
 
 remove create scene here

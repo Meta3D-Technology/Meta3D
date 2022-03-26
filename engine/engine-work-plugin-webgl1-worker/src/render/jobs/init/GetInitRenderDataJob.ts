@@ -10,6 +10,9 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	let offscreenCanvas: OffscreenCanvas
 	let allGeometryIndices: number[]
 	let allMaterialIndices: number[]
+	let transformBuffer: SharedArrayBuffer
+	let geometryBuffer: SharedArrayBuffer
+	let pbrMaterialBuffer: SharedArrayBuffer
 
 	return createGetMainWorkerDataStream(
 		mostService,
@@ -17,6 +20,9 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			offscreenCanvas = event.data.canvas
 			allGeometryIndices = event.data.allGeometryIndices
 			allMaterialIndices = event.data.allMaterialIndices
+			transformBuffer = event.data.transformBuffer
+			geometryBuffer = event.data.geometryBuffer
+			pbrMaterialBuffer = event.data.pbrMaterialBuffer
 		},
 		"SEND_INIT_RENDER_DATA",
 		self as any as Worker
@@ -33,7 +39,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 					...getState(states),
 					canvas: offscreenCanvas,
 					allGeometryIndices: allGeometryIndices,
-					allMaterialIndices: allMaterialIndices
+					allMaterialIndices: allMaterialIndices,
+					transformBuffer: transformBuffer,
+					geometryBuffer: geometryBuffer,
+					pbrMaterialBuffer: pbrMaterialBuffer
 				}
 			}
 		)

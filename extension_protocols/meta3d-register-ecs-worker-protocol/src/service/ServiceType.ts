@@ -1,5 +1,5 @@
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { state as meta3dState } from "meta3d-type/src/Index"
+import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 
 export type config = {
 	isDebug: boolean,
@@ -13,5 +13,5 @@ export type config = {
 }
 
 export type service = {
-	register: (engineCoreState: engineCoreState, meta3dState: meta3dState, config: config) => engineCoreState
+	register: (engineCoreState: engineCoreState, engineCoreService: engineCoreService, config: config) => engineCoreState
 }

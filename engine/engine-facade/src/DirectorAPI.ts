@@ -1,4 +1,3 @@
-import { componentConfig } from "./Type";
 import { registerExtension, getExtensionState, getExtensionService, setExtensionState } from "meta3d"
 import { state as meta3dState } from "meta3d-type"
 import { getExtensionService as getMostExtensionService, createExtensionState as createMostExtensionState } from "meta3d-bs-most"
@@ -8,7 +7,7 @@ import { getExtensionService as getRegisterDefaultWorkPluginsECSExtensionService
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as registerDefaultWorkPluginsService } from "meta3d-register-default-work-plugins-protocol/src/service/ServiceType"
-import { service as registerECSService } from "meta3d-register-ecs-protocol/src/service/ServiceType"
+import { service as registerECSService, config as registerECSConfig } from "meta3d-register-ecs-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 
 function _getMeta3DBsMostExtensionName(): string {
@@ -23,7 +22,46 @@ function _getMeta3DRegisterECSExtensionName(): string {
     return "meta3d-register-ecs"
 }
 
-export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount }: componentConfig): meta3dState {
+// function _getMeta3DRegisterECSWorkerExtensionName(): string {
+//     return "meta3d-register-ecs-worker"
+// }
+
+export function prepareRegisterECSExtension(meta3dState: meta3dState, engineCoreExtensionName: string, config: registerECSConfig) {
+    meta3dState =
+        registerExtension(
+            meta3dState,
+            _getMeta3DRegisterECSExtensionName(),
+            getRegisterECSExtensionService,
+            {
+                meta3dEngineCoreExtensionName: engineCoreExtensionName,
+            },
+            createRegisterECSExtensionState()
+        )
+
+    let registerECSService = getExtensionService<registerECSService>(
+        meta3dState,
+        _getMeta3DRegisterECSExtensionName()
+    )
+
+
+    let engineCoreState = getExtensionState<engineCoreState>(
+        meta3dState,
+        engineCoreExtensionName,
+    )
+
+    engineCoreState = registerECSService.register(engineCoreState, meta3dState, config)
+
+    meta3dState =
+        setExtensionState(
+            meta3dState,
+            engineCoreExtensionName,
+            engineCoreState
+        )
+
+    return meta3dState
+}
+
+export function prepare(meta3dState: meta3dState, engineCoreExtensionName: string, isDebug: boolean): meta3dState {
     // TODO use pipe
 
     meta3dState =
@@ -43,16 +81,6 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
                 meta3dBsMostExtensionName: _getMeta3DBsMostExtensionName(),
             },
             createEngineCoreExtensionState()
-        )
-    meta3dState =
-        registerExtension(
-            meta3dState,
-            _getMeta3DRegisterECSExtensionName(),
-            getRegisterECSExtensionService,
-            {
-                meta3dEngineCoreExtensionName: engineCoreExtensionName,
-            },
-            createRegisterECSExtensionState()
         )
     meta3dState =
         registerExtension(
@@ -86,13 +114,6 @@ export function prepare(meta3dState: meta3dState, engineCoreExtensionName: strin
     )
 
     engineCoreState = registerDefaultWorkPluginsService.register(engineCoreState, meta3dState)
-
-    let registerECSService = getExtensionService<registerECSService>(
-        meta3dState,
-        _getMeta3DRegisterECSExtensionName()
-    )
-
-    engineCoreState = registerECSService.register(engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount })
 
     meta3dState =
         setExtensionState(
