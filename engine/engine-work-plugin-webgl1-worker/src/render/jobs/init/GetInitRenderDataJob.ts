@@ -29,7 +29,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	).map(() => {
 		console.log("get init render data job webgl worker exec on worker thread")
 
-		// TODO fix: should use newest states @yyc
+		//// TODO fix: should use newest states @yyc
 
 		return setStatesFunc<states>(
 			engineCoreState,

@@ -86,7 +86,8 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						},
 						{
 							"name": "get_finish_send_init_render_data",
-							"type_": "job"
+							"type_": "job",
+							"is_set_state": false
 						}
 					]
 				},

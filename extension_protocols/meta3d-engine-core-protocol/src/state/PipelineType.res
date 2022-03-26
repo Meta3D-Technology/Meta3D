@@ -7,6 +7,7 @@ type elementName = string
 type element = {
   name: elementName,
   type_: elementType,
+  is_set_state: Js.Nullable.t<bool>,
 }
 
 type groupName = string
@@ -21,7 +22,6 @@ type groups = array<group>
 
 type pipelineName = string
 
-@genType
 type pipelineData = {
   name: pipelineName,
   groups: groups,

@@ -9,6 +9,8 @@ open Js.Promise
 
 let feature = loadFeature("./test/features/plugin.feature")
 
+// TODO test is_set_state for merge
+
 defineFeature(feature, test => {
   let contribute1 = ref(Obj.magic(1))
   let contribute2 = ref(Obj.magic(1))
@@ -275,6 +277,7 @@ defineFeature(feature, test => {
                   {
                     name: rootJobName,
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -378,10 +381,12 @@ defineFeature(feature, test => {
                 {
                   name: job1Name_a2,
                   type_: #job,
+                  is_set_state: true->Js.Nullable.return,
                 },
                 {
                   name: "job2_a2",
                   type_: #job,
+                  is_set_state: true->Js.Nullable.return,
                 },
               ],
             },
@@ -450,6 +455,7 @@ defineFeature(feature, test => {
                   {
                     name: "job1_a2",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -596,6 +602,7 @@ defineFeature(feature, test => {
                 {
                   name: "job1_a3",
                   type_: #job,
+                  is_set_state: true->Js.Nullable.return,
                 },
               ],
             },
@@ -826,6 +833,7 @@ defineFeature(feature, test => {
                   {
                     name: "job1_a3",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -875,10 +883,12 @@ defineFeature(feature, test => {
                   {
                     name: "group1_a4",
                     type_: #group,
+                    is_set_state: false->Js.Nullable.return,
                   },
                   {
                     name: "job1_a4",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -889,6 +899,7 @@ defineFeature(feature, test => {
                   {
                     name: "job2_a4",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1027,6 +1038,7 @@ defineFeature(feature, test => {
                   {
                     name: "job1_a2",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1139,6 +1151,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_init_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1155,6 +1168,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_update_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1233,6 +1247,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_init_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1275,6 +1290,7 @@ defineFeature(feature, test => {
                   {
                     name: "job1_a2",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1317,6 +1333,7 @@ defineFeature(feature, test => {
                   {
                     name: "job2_a3",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1391,6 +1408,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_init_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1447,6 +1465,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_init_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },
@@ -1457,6 +1476,7 @@ defineFeature(feature, test => {
                   {
                     name: "root_init_a1",
                     type_: #job,
+                    is_set_state: true->Js.Nullable.return,
                   },
                 ],
               },

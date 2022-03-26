@@ -18,7 +18,7 @@ import type { gameObject as GameObjectContributeType_gameObject } from '../../sr
 
 import type { jobOrders as RegisterWorkPluginVOType_jobOrders } from '../../src/state/vo/RegisterWorkPluginVOType.gen';
 
-import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType.gen';
+import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType';
 
 // import type { workPluginContribute, workPluginName as WorkPluginContributeType_pluginName } from '../../src/contribute_points/work/WorkPluginContributeType';
 

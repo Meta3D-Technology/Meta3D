@@ -12,15 +12,19 @@ export type elementType = "job" | "group";
 export type elementName = string;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type element = { readonly name: elementName; readonly type_: elementType };
+export type element = {
+  readonly name: elementName;
+  readonly type_: elementType;
+  readonly is_set_state?: boolean
+};
 
 // tslint:disable-next-line:interface-over-type-literal
 export type groupName = string;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type group = {
-  readonly name: groupName; 
-  readonly link: link; 
+  readonly name: groupName;
+  readonly link: link;
   readonly elements: element[]
 };
 
@@ -32,7 +36,7 @@ export type pipelineName = string;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type pipelineData = {
-  readonly name: pipelineName; 
-  readonly groups: groups; 
+  readonly name: pipelineName;
+  readonly groups: groups;
   readonly first_group: groupName
 };

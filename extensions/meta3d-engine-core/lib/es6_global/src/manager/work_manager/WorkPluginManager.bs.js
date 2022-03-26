@@ -9,6 +9,7 @@ import * as ArraySt$Meta3dCommonlib from "./../../../../../../../node_modules/me
 import * as OptionSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as TreeNode$Meta3dEngineCore from "./TreeNode.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as IterateTree$Meta3dEngineCore from "./IterateTree.bs.js";
 import * as OperateTree$Meta3dEngineCore from "./OperateTree.bs.js";
 import * as StateContainer$Meta3dEngineCore from "../../state/StateContainer.bs.js";
@@ -45,7 +46,7 @@ function _setStates(state, states) {
         };
 }
 
-function _buildJobStream(param, execFunc) {
+function _buildJobStream(param, is_set_state, execFunc) {
   var __x = Curry._1(param.just, execFunc);
   var __x$1 = Curry._2(param.flatMap, (function (func) {
           return Curry._2(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined), {
@@ -53,7 +54,12 @@ function _buildJobStream(param, execFunc) {
                       setStatesFunc: _setStates
                     });
         }), __x);
-  return Curry._2(param.map, StateContainer$Meta3dEngineCore.setState, __x$1);
+  return Curry._2(param.map, (function (state) {
+                if (NullableSt$Meta3dCommonlib.getWithDefault(is_set_state, true)) {
+                  return StateContainer$Meta3dEngineCore.setState(state);
+                }
+                
+              }), __x$1);
 }
 
 function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
@@ -74,7 +80,7 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "WorkPluginManager.res",
-            83,
+            84,
             14
           ],
           Error: new Error()
@@ -94,7 +100,7 @@ function _buildJobStreams(mostService, param, param$1, groups) {
                   return ListSt$Meta3dCommonlib.push(streams, stream);
                 }
                 var execFunc = _getExecFunc(getExecFuncs, pipelineName, name);
-                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, execFunc));
+                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, param.is_set_state, execFunc));
               }));
 }
 
@@ -444,7 +450,8 @@ function _buildFirstGroupElement(groups, first_group) {
                       })), (function (param) {
                     return {
                             name: param.name,
-                            type_: "group"
+                            type_: "group",
+                            is_set_state: false
                           };
                   })));
 }

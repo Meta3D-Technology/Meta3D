@@ -47,6 +47,7 @@ module ParsePipelineData = {
 
   let _buildJobStream = (
     {just, flatMap, map}: Meta3dBsMostProtocol.ServiceType.service,
+    is_set_state,
     execFunc,
   ): Meta3dBsMostProtocol.StreamType.stream<unit> => {
     execFunc->just->flatMap(func =>
@@ -59,7 +60,13 @@ module ParsePipelineData = {
           }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs
         ),
       )
-    , _)->map(StateContainer.setState, _)
+    , _)->map(
+      state =>
+        is_set_state->Meta3dCommonlib.NullableSt.getWithDefault(true)
+          ? StateContainer.setState(state)
+          : (),
+      _,
+    )
   }
 
   let rec _getExecFunc = (
@@ -98,12 +105,12 @@ module ParsePipelineData = {
   ) =>
     elements
     ->Meta3dCommonlib.ListSt.fromArray
-    ->Meta3dCommonlib.ListSt.reduce(list{}, (streams, {name, type_}: element) =>
+    ->Meta3dCommonlib.ListSt.reduce(list{}, (streams, {name, type_, is_set_state}: element) =>
       switch type_ {
       | #job =>
         let execFunc = _getExecFunc(getExecFuncs, pipelineName, name)
 
-        streams->Meta3dCommonlib.ListSt.push(_buildJobStream(mostService, execFunc))
+        streams->Meta3dCommonlib.ListSt.push(_buildJobStream(mostService, is_set_state, execFunc))
       | #group =>
         let group = _findGroup(name, groups)
         let stream = buildPipelineStreamFunc(mostService, getExecFuncs, pipelineName, group, groups)
@@ -537,6 +544,7 @@ module MergePipelineData = {
     ->Meta3dCommonlib.OptionSt.map(({name}): Meta3dEngineCoreProtocol.PipelineType.element => {
       name: name,
       type_: #group,
+      is_set_state: false->Js.Nullable.return,
     })
     ->Meta3dCommonlib.OptionSt.get
   }
