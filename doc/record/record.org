@@ -751,7 +751,7 @@ finish actual engine code(like sxengine's code)
 # register ecs worker by invoke registerECSExtensionWorker
 
 
-remove create scene here
+# remove create scene here
 
 
 ** TODO pass render run test:render cube for worker

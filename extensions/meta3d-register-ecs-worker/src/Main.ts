@@ -3,11 +3,11 @@ import { dependentExtensionNameMap } from "meta3d-register-ecs-worker-protocol/s
 import { service, config } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { state } from "meta3d-register-ecs-worker-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { getComponentContribute as getTransformComponentContribute } from "meta3d-component-transform"
+import { getComponentContribute as getTransformComponentWorkerContribute } from "meta3d-component-transform-worker"
 import { componentName as transformComponentName, config as transformConfig } from "meta3d-component-transform-worker-protocol"
-import { getComponentContribute as getGeometryComponentContribute } from "meta3d-component-geometry"
+import { getComponentContribute as getGeometryComponentWorkerContribute } from "meta3d-component-geometry-worker"
 import { componentName as geometryComponentName, config as geometryConfig } from "meta3d-component-geometry-worker-protocol"
-import { getComponentContribute as getPBRMaterialComponentContribute } from "meta3d-component-pbrmaterial"
+import { getComponentContribute as getPBRMaterialComponentWorkerContribute } from "meta3d-component-pbrmaterial-worker"
 import { componentName as pbrMaterialComponentName, config as pbrMaterialConfig } from "meta3d-component-pbrmaterial-worker-protocol"
 
 export let getExtensionService: getExtensionServiceMeta3D<
@@ -18,7 +18,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		register: (engineCoreState, { registerComponent, createAndSetComponentState }: engineCoreService, { isDebug, transformCount, geometryCount, geometryPointCount, pbrMaterialCount, transformBuffer, geometryBuffer, pbrMateiralBuffer }: config) => {
 			// TODO use pipe
 			engineCoreState =
-				registerComponent(engineCoreState, getTransformComponentContribute())
+				registerComponent(engineCoreState, getTransformComponentWorkerContribute())
 			engineCoreState = createAndSetComponentState<transformConfig>(engineCoreState,
 				transformComponentName,
 				{
@@ -28,7 +28,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				}
 			)
 			engineCoreState =
-				registerComponent(engineCoreState, getGeometryComponentContribute())
+				registerComponent(engineCoreState, getGeometryComponentWorkerContribute())
 			engineCoreState = createAndSetComponentState<geometryConfig>(engineCoreState,
 				geometryComponentName,
 				{
@@ -41,7 +41,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			engineCoreState =
-				registerComponent(engineCoreState, getPBRMaterialComponentContribute())
+				registerComponent(engineCoreState, getPBRMaterialComponentWorkerContribute())
 			engineCoreState = createAndSetComponentState<pbrMaterialConfig>(engineCoreState,
 				pbrMaterialComponentName,
 				{
