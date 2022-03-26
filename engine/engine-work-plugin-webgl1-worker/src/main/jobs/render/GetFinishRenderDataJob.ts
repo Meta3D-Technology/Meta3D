@@ -8,10 +8,9 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	let states = getStatesFunc<states>(engineCoreState)
 	let { mostService, worker } = getState(states)
 
-	//// TODO need to get the new states
-	return createGetOtherWorkerDataStream(mostService, "FINISH_SEND_INIT_RENDER_DATA", getExn(worker)).map(() => {
-		console.log("get finish send init render data job webgl worker exec on main thread")
+	return createGetOtherWorkerDataStream(mostService, "FINISH_SEND_RENDER_DATA", getExn(worker)).map(() => {
+		console.log("get finish render data job webgl worker exec on main thread");
 
-		return engineCoreState
-	})
+		return engineCoreState;
+	});
 }

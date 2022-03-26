@@ -1,10 +1,6 @@
-/* TypeScript file generated from RegisterWorkPluginVOType.res by genType. */
-/* eslint-disable import/first */
+import type {elementName as PipelineType_elementName} from '../../../src/state/PipelineType';
 
-
-import type {elementName as PipelineType_elementName} from '../../../src/state/PipelineType.gen';
-
-import type {pipelineName as PipelineType_pipelineName} from '../../../src/state/PipelineType.gen';
+import type {pipelineName as PipelineType_pipelineName} from '../../../src/state/PipelineType';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type insertAction = "before" | "after";

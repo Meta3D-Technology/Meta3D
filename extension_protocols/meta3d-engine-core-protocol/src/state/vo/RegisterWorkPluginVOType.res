@@ -6,5 +6,4 @@ type jobOrder = {
   insertAction: insertAction,
 }
 
-@genType
 type jobOrders = array<jobOrder>
