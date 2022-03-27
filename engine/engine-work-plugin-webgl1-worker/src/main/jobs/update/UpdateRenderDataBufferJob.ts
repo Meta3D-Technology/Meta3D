@@ -3,9 +3,9 @@ import { getState } from "../../Utils"
 import { states } from "engine-work-plugin-webgl1-worker-main-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { gameObject } from "meta3d-gameobject-protocol"
-import { componentName as pbrMaterialComponentName, pbrMaterial } from "meta3d-component-pbrmaterial-worker-protocol"
-import { componentName as transformComponentName, transform } from "meta3d-component-transform-worker-protocol"
-import { componentName as geometryComponentName, geometry } from "meta3d-component-geometry-worker-protocol"
+import { componentName as pbrMaterialComponentName, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
+import { componentName as transformComponentName, transform } from "meta3d-component-transform-protocol"
+import { componentName as geometryComponentName, geometry } from "meta3d-component-geometry-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)

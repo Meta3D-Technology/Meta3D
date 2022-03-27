@@ -735,7 +735,7 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO finish sxengine's work with worker
+** DONE finish sxengine's work with worker
 
 
 # add component worker
@@ -754,7 +754,11 @@ finish actual engine code(like sxengine's code)
 # remove create scene here
 
 
-** TODO pass render run test:render cube for worker
+# fix count: send?
+# fix indices
+
+
+** DONE pass render run test:render cube for worker
 
 
 

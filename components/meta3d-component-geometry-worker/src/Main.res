@@ -8,7 +8,7 @@ let getComponentContribute: Meta3dEngineCoreProtocol.ComponentContributeType.get
 > = () => {
   componentName: Meta3dComponentGeometryWorkerProtocol.Index.componentName,
   createStateFunc: (. {isDebug, geometryCount, geometryPointCount, buffer}) =>
-    CreateStateUtils.createState(isDebug, geometryCount, geometryPointCount, buffer),
+    CreateStateUtils.createState(isDebug, geometryPointCount, geometryCount, buffer),
   createComponentFunc: Meta3dComponentWorkerUtils.DefaultGetDataUtils.createComponentFunc,
   addComponentFunc: Meta3dComponentWorkerUtils.DefaultGetDataUtils.addComponentFunc,
   removeComponentFunc: Meta3dComponentWorkerUtils.DefaultGetDataUtils.removeComponentFunc,

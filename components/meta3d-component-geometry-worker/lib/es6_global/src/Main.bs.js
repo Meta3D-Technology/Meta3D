@@ -9,7 +9,7 @@ function getComponentContribute(param) {
   return {
           componentName: Index$Meta3dComponentGeometryWorkerProtocol.componentName,
           createStateFunc: (function (param) {
-              return CreateStateUtils$Meta3dComponentGeometryWorker.createState(param.isDebug, param.geometryCount, param.geometryPointCount, param.buffer);
+              return CreateStateUtils$Meta3dComponentGeometryWorker.createState(param.isDebug, param.geometryPointCount, param.geometryCount, param.buffer);
             }),
           getGameObjectsFunc: DefaultGetDataUtils$Meta3dComponentWorkerUtils.getGameObjectsFunc,
           createComponentFunc: DefaultGetDataUtils$Meta3dComponentWorkerUtils.createComponentFunc,

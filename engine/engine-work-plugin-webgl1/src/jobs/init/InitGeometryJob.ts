@@ -3,7 +3,7 @@ import { getState } from "../Utils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { initGeometryUtils } from "engine-work-plugin-webgl1-utils/src/utils/InitGeometryJobUtils"
 import { states } from "engine-work-plugin-webgl1-protocol"
-import { componentName, geometry } from "meta3d-component-geometry-protocol"
+import { componentName, geometry, dataName, vertices, indices } from "meta3d-component-geometry-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
@@ -19,7 +19,13 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 		let allGeometryIndices = engineCoreService.getAllComponents<geometry>(usedGeometryContribute)
 
-		let [newVerticesVBOMap, newIndicesVBOMap] = initGeometryUtils(engineCoreState, [webgl1Service, engineCoreService], gl, verticesVBOMap, indicesVBOMap, allGeometryIndices,)
+		// let [newVerticesVBOMap, newIndicesVBOMap] = initGeometryUtils(engineCoreState, [webgl1Service, engineCoreService], gl, verticesVBOMap, indicesVBOMap, allGeometryIndices,)
+		let [newVerticesVBOMap, newIndicesVBOMap] = initGeometryUtils(webgl1Service,
+			[
+				(usedGeometryContribute, geometry) => getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, dataName.vertices)),
+				(usedGeometryContribute, geometry) => getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, dataName.indices)),
+			],
+			gl, verticesVBOMap, indicesVBOMap, allGeometryIndices, engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName))
 
 		return setStatesFunc(engineCoreState, {
 			...states,

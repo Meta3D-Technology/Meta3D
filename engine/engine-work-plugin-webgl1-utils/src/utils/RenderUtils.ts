@@ -38,18 +38,18 @@ export let getProgramData = (materialIndex: number, programMap: programMap) => {
 	return program;
 }
 
-export function getRenderData(engineCoreState: engineCoreState, engineCoreService: engineCoreService, material: pbrMaterial, geometry: geometry, transform: transform, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap): [
+// export function getRenderData(engineCoreState: engineCoreState, engineCoreService: engineCoreService, material: pbrMaterial, geometry: geometry, transform: transform, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap): [
+export function getRenderData(material: pbrMaterial, geometry: geometry, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap): [
 	{ verticesBuffer: WebGLBuffer, indicesBuffer: WebGLBuffer },
-	number,
-	WebGLProgram,
-	Float32Array
+	WebGLProgram
 ] {
 	let { verticesBuffer, indicesBuffer } = getVBOBuffer(geometry, verticesVBOMap, indicesVBOMap);
 
-	let count = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName), geometry, geometryDataName.indicesCount));
+	// let count = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName), geometry, geometryDataName.indicesCount));
 
 	let program = getProgramData(material, programMap);
-	let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), transform, transformDataName.localToWorldMatrix));
+	// let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), transform, transformDataName.localToWorldMatrix));
 
-	return [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix];
+	// return [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix];
+	return [{ verticesBuffer, indicesBuffer }, program];
 }

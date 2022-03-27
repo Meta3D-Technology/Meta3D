@@ -54,7 +54,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 				{
 					pipelineName: "render",
 					insertElementName: "render_root_meta3d",
-					insertAction: "before"
+					insertAction: "after"
 				}
 			]
 		)
@@ -243,19 +243,21 @@ function _init(meta3dState: meta3dState, isDebug: boolean) {
 // })
 
 
+let isDebug = true
+
+let tempMeta3DState: nullable<meta3dState> = null
+
 function _loop(meta3dState: meta3dState) {
-	updateEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-		renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-			requestAnimationFrame(() => {
-				_loop(meta3dState)
-			})
-		})
+	// updateEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
+	// 	renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
+	// 		tempMeta3DState = meta3dState
+	// 	})
+	// })
+
+	renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
+		tempMeta3DState = meta3dState
 	})
 }
-
-// _init().then(_loop)
-
-let isDebug = true
 
 let meta3dState_ = prepareMeta3D()
 
@@ -268,7 +270,6 @@ meta3dState_ = prepareEngine(
 
 let mostService: mostService = getExtensionService(meta3dState_, _getMeta3DBsMostExtensionName())
 
-let tempMeta3DState: nullable<meta3dState> = null
 
 _init(meta3dState_, isDebug).then((meta3dState) => {
 	console.log("finish init on worker thread");

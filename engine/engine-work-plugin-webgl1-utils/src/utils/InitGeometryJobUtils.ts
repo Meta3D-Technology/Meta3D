@@ -1,13 +1,19 @@
 import { verticesVBOMap, indicesVBOMap } from "../Type";
 import { createVBOs, setIndicesVBO, setVerticesVBO } from "../services/VBOService";
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state } from "meta3d-engine-core-protocol/src/state/StateType"
-import { componentName, geometry, dataName } from "meta3d-component-geometry-protocol";
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
+// import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { usedComponentContribute } from "meta3d-engine-core-protocol/src/state/RegisterComponentType"
+// import { state } from "meta3d-engine-core-protocol/src/state/StateType"
+// import { componentName, geometry, dataName, vertices, indices } from "meta3d-component-geometry-protocol";
+// import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
-export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCoreService]: [webgl1Service, engineCoreService], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[]) => {
-	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
+// export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCoreService]: [webgl1Service, engineCoreService], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[], [usedGeometryContribute]: [usedComponentContribute]) => {
+export let initGeometryUtils = (webgl1Service: webgl1Service, [getVerticesFunc, getIndicesFunc]: [
+	(usedGeometryContribute: usedComponentContribute, geometry: number) => Float32Array,
+	(usedGeometryContribute: usedComponentContribute, geometry: number) => Uint32Array,
+], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[], usedGeometryContribute: usedComponentContribute) => {
+	// let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
 
 	// let toComponent = repo.sceneGraphRepo.geometryRepo.toComponent;
 	// let getVertices = repo.sceneGraphRepo.geometryRepo.getVertices;
@@ -20,14 +26,14 @@ export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCo
 	return allGeometryIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {
 		// let geometry = toComponent(geometryIndex);
 
-		let vertices = getExn(engineCoreService.getComponentData<geometry, Float32Array>(usedGeometryContribute, geometry, dataName.vertices))
-		let indices = getExn(engineCoreService.getComponentData<geometry, Uint32Array>(usedGeometryContribute, geometry, dataName.indices))
+		// let vertices = getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, dataName.vertices))
+		// let indices = getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, dataName.indices))
+		let vertices = getVerticesFunc(usedGeometryContribute, geometry)
+		let indices = getIndicesFunc(usedGeometryContribute, geometry)
 
 		let { verticesBuffer, indicesBuffer } = createVBOs(webgl1Service, gl, vertices, indices);
 
 		return [
-			// setVerticesVBO(verticesVBOMap, geometryIndex, verticesBuffer),
-			// setIndicesVBO(indicesVBOMap, geometryIndex, indicesBuffer)
 			setVerticesVBO(verticesVBOMap, geometry, verticesBuffer),
 			setIndicesVBO(indicesVBOMap, geometry, indicesBuffer)
 		]

@@ -4,6 +4,8 @@ import { execFunc as execFuncType } from "../../Type"
 import { getState } from "../../Utils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { states } from "engine-work-plugin-webgl1-worker-render-protocol"
+import { componentName as transformComponentName, transform, localToWorldMatrix, dataName as transformDataName } from "meta3d-component-transform-worker-protocol";
+import { componentName as geometryComponentName, dataName as geometryDataName, geometry, indicesCount } from "meta3d-component-geometry-worker-protocol";
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
@@ -26,7 +28,11 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			let material = materialIndex
 			let transform = transformIndex
 
-			let [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix] = getRenderData(engineCoreState, engineCoreService, material, geometry, transform, verticesVBOMap, indicesVBOMap, programMap)
+			let count = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName), geometry, geometryDataName.indicesCount));
+			let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), transform, transformDataName.localToWorldMatrix));
+
+			// let [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix] = getRenderData(engineCoreState, engineCoreService, material, geometry, transform, verticesVBOMap, indicesVBOMap, programMap)
+			let [{ verticesBuffer, indicesBuffer }, program] = getRenderData(material, geometry, verticesVBOMap, indicesVBOMap, programMap)
 
 			render(webgl1Service, getExn(gl), verticesBuffer, indicesBuffer, program, modelMatrix, count)
 		})

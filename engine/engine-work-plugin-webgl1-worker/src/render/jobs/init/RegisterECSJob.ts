@@ -10,6 +10,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
 	return mostService.callFunc(() => {
 		console.log("register ecs exec on worker thread");
 
+		// TODO get buffer count from main
 		engineCoreState = registerECSService.register(engineCoreState, engineCoreService, {
 			isDebug,
 			transformCount: 10,
