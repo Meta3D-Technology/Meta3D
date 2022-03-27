@@ -10,11 +10,9 @@ import { gameObject } from "meta3d-gameobject-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, gl, vbo, material } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, immutableService, gl, vbo, material } = getState(states)
 
 	return mostService.callFunc(() => {
-		// gl = getExn(gl)
-
 		let allGameObjects = engineCoreService.getAllGameObjects<gameObject>(engineCoreState)
 
 		let { verticesVBOMap, indicesVBOMap } = vbo
@@ -36,11 +34,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 					engineCoreService.getComponent<geometry>(usedGeometryContribute, gameObject)
 				)
 
-				// let [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix] = getRenderData(engineCoreState, engineCoreService, material, geometry, transform, verticesVBOMap, indicesVBOMap, programMap)
 				let count = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName), geometry, geometryDataName.indicesCount));
 				let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), transform, transformDataName.localToWorldMatrix));
 
-				let [{ verticesBuffer, indicesBuffer }, program] = getRenderData(material, geometry, verticesVBOMap, indicesVBOMap, programMap)
+				let [{ verticesBuffer, indicesBuffer }, program] = getRenderData(immutableService, material, geometry, verticesVBOMap, indicesVBOMap, programMap)
 
 				render(webgl1Service, getExn(gl), verticesBuffer, indicesBuffer, program, modelMatrix, count)
 			}

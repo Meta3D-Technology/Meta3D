@@ -1,5 +1,5 @@
-import { Map } from "immutable";
+import { map } from "meta3d-immutable-protocol/src/service/MapType"
 
-export type verticesVBOMap = Map<number, WebGLBuffer>; 
-export type indicesVBOMap = Map<number, WebGLBuffer>; 
-export type programMap = Map<number, WebGLProgram>;
+export type verticesVBOMap = map<number, WebGLBuffer>;
+export type indicesVBOMap = map<number, WebGLBuffer>;
+export type programMap = map<number, WebGLProgram>;

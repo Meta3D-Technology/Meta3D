@@ -6,7 +6,9 @@ import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
+import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -27,11 +29,16 @@ function _getMeta3DWebGL1ExtensionName(): string {
     return "meta3d-webgl1"
 }
 
+function _getMeta3DImmutableExtensionName(): string {
+    return "meta3d-immutable"
+}
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement, useWorker: boolean) {
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
     let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
-    let meta3dWebGL1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
+    let webgl1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
     let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
+    let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
 
     if (useWorker) {
         engineCoreState =
@@ -60,7 +67,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkPluginContribute({ isDebug, mostService: mostService, webgl1Service: meta3dWebGL1Service, engineCoreService: engineCoreService, canvas: canvas }),
+                getWebGL1WorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, immutableService, canvas }),
                 [
                     {
                         pipelineName: "init",
@@ -208,6 +215,14 @@ function _init(useWorker: boolean) {
             getWebGL1ExtensionService,
             null,
             createWebGL1ExtensionState()
+        )
+    meta3dState =
+        registerExtension(
+            meta3dState,
+            _getMeta3DImmutableExtensionName(),
+            getImmutableExtensionService,
+            null,
+            createImmutableExtensionState()
         )
 
     let canvas = document.querySelector("#canvas") as HTMLCanvasElement

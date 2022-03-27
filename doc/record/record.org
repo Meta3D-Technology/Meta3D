@@ -763,7 +763,9 @@ finish actual engine code(like sxengine's code)
 
 
 
-** TODO refactor: move immutable to extension
+** DONE refactor: move immutable to extension
+
+////** TODO refactor: change StateType->empty state to null instead of {}
 
 
 

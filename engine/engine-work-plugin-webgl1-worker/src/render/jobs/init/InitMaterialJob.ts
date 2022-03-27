@@ -7,7 +7,7 @@ import { states } from "engine-work-plugin-webgl1-worker-render-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, gl, material, allMaterialIndices } = getState(states)
+	let { mostService, webgl1Service, immutableService, gl, material, allMaterialIndices } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("init material job webgl worker exec on worker thread")
@@ -19,7 +19,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		// let usedPBRMaterialContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 		// let allMaterialIndices = engineCoreService.getAllComponents<pbrMaterial>(usedPBRMaterialContribute)
 
-		let newProgramMap = initMaterialUtils(webgl1Service, gl, programMap, allMaterialIndices)
+		let newProgramMap = initMaterialUtils([webgl1Service, immutableService], gl, programMap, allMaterialIndices)
 
 		return setStatesFunc(engineCoreState, {
 			...states,

@@ -1,4 +1,3 @@
-import { Map } from "immutable"
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { execFunc as create_gl } from "./jobs/init/CreateGLJob";
 import { execFunc as init_webgl_extension } from "./jobs/init/InitWebGLExtensionJob"
@@ -36,7 +35,7 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, webgl1Service, engineCoreService, canvas }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, webgl1Service, engineCoreService, immutableService, canvas }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: () => {
@@ -45,14 +44,15 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				mostService,
 				webgl1Service,
 				engineCoreService,
+				immutableService,
 				canvas,
 				gl: null,
 				vbo: {
-					verticesVBOMap: Map<number, WebGLBuffer>(),
-					indicesVBOMap: Map<number, WebGLBuffer>()
+					verticesVBOMap: immutableService.createMap(),
+					indicesVBOMap: immutableService.createMap(),
 				},
 				material: {
-					programMap: Map<number, WebGLProgram>()
+					programMap: immutableService.createMap()
 				}
 			}
 		},

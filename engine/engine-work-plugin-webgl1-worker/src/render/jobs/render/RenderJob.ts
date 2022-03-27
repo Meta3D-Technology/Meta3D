@@ -9,7 +9,7 @@ import { componentName as geometryComponentName, dataName as geometryDataName, g
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, engineCoreService, webgl1Service, gl, renderGameObjectsCount, typeArray, material, vbo } = getState(states)
+	let { mostService, engineCoreService, webgl1Service, immutableService, gl, renderGameObjectsCount, typeArray, material, vbo } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("render job webgl worker exec on worker thread")
@@ -31,8 +31,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			let count = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName), geometry, geometryDataName.indicesCount));
 			let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), transform, transformDataName.localToWorldMatrix));
 
-			// let [{ verticesBuffer, indicesBuffer }, count, program, modelMatrix] = getRenderData(engineCoreState, engineCoreService, material, geometry, transform, verticesVBOMap, indicesVBOMap, programMap)
-			let [{ verticesBuffer, indicesBuffer }, program] = getRenderData(material, geometry, verticesVBOMap, indicesVBOMap, programMap)
+			let [{ verticesBuffer, indicesBuffer }, program] = getRenderData(immutableService, material, geometry, verticesVBOMap, indicesVBOMap, programMap)
 
 			render(webgl1Service, getExn(gl), verticesBuffer, indicesBuffer, program, modelMatrix, count)
 		})

@@ -7,7 +7,7 @@ import { componentName, pbrMaterial } from "meta3d-component-pbrmaterial-protoco
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, gl, material } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, immutableService, gl, material } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("init webgl job init material job exec")
@@ -19,7 +19,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		let usedPBRMaterialContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 		let allMaterialIndices = engineCoreService.getAllComponents<pbrMaterial>(usedPBRMaterialContribute)
 
-		let newProgramMap = initMaterialUtils(webgl1Service, gl, programMap, allMaterialIndices)
+		let newProgramMap = initMaterialUtils([webgl1Service, immutableService], gl, programMap, allMaterialIndices)
 
 		return setStatesFunc(engineCoreState, {
 			...states,

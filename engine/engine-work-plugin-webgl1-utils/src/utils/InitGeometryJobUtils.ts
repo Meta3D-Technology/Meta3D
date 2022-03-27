@@ -1,6 +1,7 @@
 import { verticesVBOMap, indicesVBOMap } from "../Type";
 import { createVBOs, setIndicesVBO, setVerticesVBO } from "../services/VBOService";
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 // import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { usedComponentContribute } from "meta3d-engine-core-protocol/src/state/RegisterComponentType"
 // import { state } from "meta3d-engine-core-protocol/src/state/StateType"
@@ -8,7 +9,7 @@ import { usedComponentContribute } from "meta3d-engine-core-protocol/src/state/R
 // import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 // export let initGeometryUtils = (engineCoreState: state, [webgl1Service, engineCoreService]: [webgl1Service, engineCoreService], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[], [usedGeometryContribute]: [usedComponentContribute]) => {
-export let initGeometryUtils = (webgl1Service: webgl1Service, [getVerticesFunc, getIndicesFunc]: [
+export let initGeometryUtils = ([webgl1Service, immutableService]: [webgl1Service, immutableService], [getVerticesFunc, getIndicesFunc]: [
 	(usedGeometryContribute: usedComponentContribute, geometry: number) => Float32Array,
 	(usedGeometryContribute: usedComponentContribute, geometry: number) => Uint32Array,
 ], gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[], usedGeometryContribute: usedComponentContribute) => {
@@ -34,8 +35,8 @@ export let initGeometryUtils = (webgl1Service: webgl1Service, [getVerticesFunc, 
 		let { verticesBuffer, indicesBuffer } = createVBOs(webgl1Service, gl, vertices, indices);
 
 		return [
-			setVerticesVBO(verticesVBOMap, geometry, verticesBuffer),
-			setIndicesVBO(indicesVBOMap, geometry, indicesBuffer)
+			setVerticesVBO(verticesVBOMap, immutableService, geometry, verticesBuffer),
+			setIndicesVBO(indicesVBOMap, immutableService, geometry, indicesBuffer)
 		]
 	}, [verticesVBOMap, indicesVBOMap]);
 }

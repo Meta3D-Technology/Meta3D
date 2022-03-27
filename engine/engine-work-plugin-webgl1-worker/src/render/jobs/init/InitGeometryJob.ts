@@ -7,7 +7,7 @@ import { componentName, geometry, dataName, vertices, indices } from "meta3d-com
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, gl, vbo, allGeometryIndices } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, immutableService, gl, vbo, allGeometryIndices } = getState(states)
 
 
 	return mostService.callFunc(() => {
@@ -23,7 +23,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 
 		// 	gl, verticesVBOMap, indicesVBOMap, allGeometryIndices,)
-		let [newVerticesVBOMap, newIndicesVBOMap] = initGeometryUtils(webgl1Service,
+		let [newVerticesVBOMap, newIndicesVBOMap] = initGeometryUtils([webgl1Service, immutableService],
 			[
 				(usedGeometryContribute, geometry) => getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, dataName.vertices)),
 				(usedGeometryContribute, geometry) => getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, dataName.indices)),

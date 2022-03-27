@@ -1,7 +1,6 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { workPluginName, config, state, states } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { execFunc as execGetInitRenderData } from "./jobs/init/GetInitRenderDataJob"
-import { Map } from "immutable"
 import { execFunc as execCreateGL } from "./jobs/init/CreateGLJob"
 import { execFunc as execDetectGL } from "./jobs/init/DetectGLJob"
 import { execFunc as execRegisterECS } from "./jobs/init/RegisterECSJob"
@@ -45,7 +44,7 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, webgl1Service, registerECSService }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, webgl1Service, registerECSService, immutableService }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: (): state => {
@@ -55,14 +54,15 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				engineCoreService,
 				webgl1Service,
 				registerECSService,
+				immutableService,
 				canvas: null,
 				gl: null,
 				vbo: {
-					verticesVBOMap: Map<number, WebGLBuffer>(),
-					indicesVBOMap: Map<number, WebGLBuffer>()
+					verticesVBOMap: immutableService.createMap(),
+					indicesVBOMap: immutableService.createMap(),
 				},
 				material: {
-					programMap: Map<number, WebGLProgram>()
+					programMap: immutableService.createMap()
 				},
 				viewMatrix: null,
 				pMatrix: null,
