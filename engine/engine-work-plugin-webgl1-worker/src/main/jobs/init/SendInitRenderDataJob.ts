@@ -31,6 +31,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			allGeometryIndices: allGeometryIndices,
 			allMaterialIndices: allMaterialIndices,
 			isDebug: isDebug,
+			transformCount: transformState.config.transformCount,
+			geometryCount: geometryState.config.geometryCount,
+			geometryPointCount: geometryState.config.geometryPointCount,
+			pbrMaterialCount: pbrMaterialState.config.pbrMaterialCount,
 			transformBuffer: transformState.buffer,
 			geometryBuffer: geometryState.buffer,
 			pbrMaterialBuffer: pbrMaterialState.buffer

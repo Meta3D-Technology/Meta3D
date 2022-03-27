@@ -1,10 +1,11 @@
 export const componentName = "PBRMaterial"
 
-export type state = {
-    buffer: SharedArrayBuffer
-}
-
 export type config = { readonly isDebug: boolean; readonly pbrMaterialCount: number };
+
+export type state = {
+    buffer: SharedArrayBuffer,
+    config: config
+}
 
 export const dataName = {
 	diffuseColor: 0,

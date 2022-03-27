@@ -1,13 +1,14 @@
 export const componentName = "Geometry"
 
-export type state = {
-    buffer: SharedArrayBuffer
-}
-
 export type config = {
     isDebug: boolean,
     geometryCount: number,
     geometryPointCount: number,
+}
+
+export type state = {
+    buffer: SharedArrayBuffer,
+    config: config
 }
 
 export const dataName = {

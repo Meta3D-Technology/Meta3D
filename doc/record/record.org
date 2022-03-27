@@ -762,7 +762,10 @@ finish actual engine code(like sxengine's code)
 
 
 
+
 ** TODO refactor: move immutable to extension
+
+
 
 
 
@@ -773,6 +776,39 @@ finish actual engine code(like sxengine's code)
 
 - job utils
  
+
+** TODO refactor: remove GameContributeType->'transformState, 'xxxState ???
+
+
+
+** TODO refactor
+
+
+*** TODO use pipe, curry
+
+*** TODO use NullableUtils for type
+
+
+
+* TODO publish
+
+** TODO pass coverage
+
+** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -811,18 +847,6 @@ should handle vbo when dispose geometry!
 
 
 
-** TODO refactor: remove GameContributeType->'transformState, 'xxxState ???
-
-
-
-** TODO refactor
-
-
-*** TODO use pipe, curry
-
-*** TODO use NullableUtils for type
-
-
 
 
 
@@ -857,9 +881,7 @@ refer to ReallocateCPUMemoryJobUtils
 
 * TODO publish
 
-** TODO add coverage
-
-** TODO add ci->build, ci->test
+** TODO pass coverage
 
 ** TODO publish
 

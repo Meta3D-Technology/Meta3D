@@ -1,14 +1,15 @@
 export const componentName = "Transform"
 
-export type state = {
-    buffer: SharedArrayBuffer
-}
-
 export type config = {
     isDebug: boolean,
     float9Array1: Float32Array,
     float32Array1: Float32Array,
     transformCount: number,
+}
+
+export type state = {
+    buffer: SharedArrayBuffer,
+    config: config
 }
 
 export const dataName = {

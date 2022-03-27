@@ -10,6 +10,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	let offscreenCanvas: OffscreenCanvas
 	let allGeometryIndices: number[]
 	let allMaterialIndices: number[]
+	let transformCount: number
+	let geometryCount: number
+	let geometryPointCount: number
+	let pbrMaterialCount: number
 	let transformBuffer: SharedArrayBuffer
 	let geometryBuffer: SharedArrayBuffer
 	let pbrMaterialBuffer: SharedArrayBuffer
@@ -20,6 +24,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			offscreenCanvas = event.data.canvas
 			allGeometryIndices = event.data.allGeometryIndices
 			allMaterialIndices = event.data.allMaterialIndices
+			transformCount = event.data.transformCount
+			geometryCount = event.data.geometryCount
+			geometryPointCount = event.data.geometryPointCount
+			pbrMaterialCount = event.data.pbrMaterialCount
 			transformBuffer = event.data.transformBuffer
 			geometryBuffer = event.data.geometryBuffer
 			pbrMaterialBuffer = event.data.pbrMaterialBuffer
@@ -40,6 +48,10 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 					canvas: offscreenCanvas,
 					allGeometryIndices: allGeometryIndices,
 					allMaterialIndices: allMaterialIndices,
+					transformCount: transformCount,
+					geometryCount: geometryCount,
+					geometryPointCount: geometryPointCount,
+					pbrMaterialCount: pbrMaterialCount,
 					transformBuffer: transformBuffer,
 					geometryBuffer: geometryBuffer,
 					pbrMaterialBuffer: pbrMaterialBuffer

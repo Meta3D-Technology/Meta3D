@@ -5,18 +5,22 @@ import { states } from "engine-work-plugin-webgl1-worker-render-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, engineCoreService, registerECSService, transformBuffer, geometryBuffer, pbrMaterialBuffer, isDebug } = getState(states)
+	let { mostService, engineCoreService, registerECSService, transformBuffer, geometryBuffer, pbrMaterialBuffer, isDebug,
+		transformCount,
+		geometryCount,
+		geometryPointCount,
+		pbrMaterialCount
+	} = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("register ecs exec on worker thread");
 
-		// TODO get buffer count from main
 		engineCoreState = registerECSService.register(engineCoreState, engineCoreService, {
 			isDebug,
-			transformCount: 10,
-			geometryCount: 10,
-			geometryPointCount: 100,
-			pbrMaterialCount: 10,
+			transformCount: getExn(transformCount),
+			geometryCount: getExn(geometryCount),
+			geometryPointCount: getExn(geometryPointCount),
+			pbrMaterialCount: getExn(pbrMaterialCount),
 			transformBuffer: getExn(transformBuffer),
 			geometryBuffer: getExn(geometryBuffer),
 			pbrMateiralBuffer: getExn(pbrMaterialBuffer),

@@ -1,10 +1,11 @@
 export const componentName = "DirectionLight"
 
-export type state = {
-    buffer: SharedArrayBuffer
-}
-
 export type config = { readonly isDebug: boolean; readonly directionLightCount: number };
+
+export type state = {
+    buffer: SharedArrayBuffer,
+    config: config
+}
 
 export const dataName = {
     color: 0,
