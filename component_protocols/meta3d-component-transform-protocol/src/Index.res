@@ -41,7 +41,7 @@ let dataName = {
   update: 13,
 }
 
-type transform = int
+type transform = Meta3dComponentTransformCommonProtocol.Index.transform
 
 type parent = Js.Nullable.t<transform>
 

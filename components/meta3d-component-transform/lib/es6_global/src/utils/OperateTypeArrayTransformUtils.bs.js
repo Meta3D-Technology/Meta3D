@@ -1,7 +1,7 @@
 
 
-import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
-import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
 
 function setLocalToWorldMatrix(index, data, typeArr) {
   return TypeArrayUtils$Meta3dCommonlib.setFloat16(BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatrixIndex(index), data, typeArr);

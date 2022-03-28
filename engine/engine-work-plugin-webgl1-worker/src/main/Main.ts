@@ -7,8 +7,6 @@ import { execFunc as execGetFinishSendInitRenderData } from "./jobs/init/GetFini
 import { execFunc as execUpdateRenderDataBuffer } from "./jobs/update/UpdateRenderDataBufferJob"
 import { execFunc as execSendRenderData } from "./jobs/update/SendRenderDataJob"
 import { execFunc as execSendBeginLoopData } from "./jobs/update/SendBeginLoopDataJob"
-import { execFunc as execUpdateTransform } from "./jobs/update/UpdateTransformJob"
-import { execFunc as execUpdateCamera } from "./jobs/update/UpdateCameraJob"
 import { execFunc as execGeiFinishRenderData } from "./jobs/render/GetFinishRenderDataJob"
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
@@ -27,10 +25,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execSendRenderData
 		case "send_begin_loop_data":
 			return execSendBeginLoopData
-		case "update_transform":
-			return execUpdateTransform
-		case "update_camera":
-			return execUpdateCamera
 		case "get_finish_render_data":
 			return execGeiFinishRenderData
 		default:
@@ -135,24 +129,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						},
 						{
 							"name": "send_render_data",
-							"type_": "job"
-						},
-						{
-							"name": "update",
-							"type_": "group"
-						}
-					]
-				},
-				{
-					name: "update",
-					link: "concat",
-					elements: [
-						{
-							"name": "update_camera",
-							"type_": "job"
-						},
-						{
-							"name": "update_transform",
 							"type_": "job"
 						}
 					]

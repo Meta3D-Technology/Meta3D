@@ -9,11 +9,14 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
-import { workPluginName } from "engine-work-plugin-webgl1-protocol"
+import { workPluginName as webgl1WorkPluginName } from "engine-work-plugin-webgl1-protocol"
+import { workPluginName as webgl1MainWorkPluginName } from "engine-work-plugin-webgl1-worker-main-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
 import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
+import { getWorkPluginContribute as getCameraWorkPluginContribute } from "meta3d-work-plugin-camera/src/Main"
+import { getWorkPluginContribute as getTransformWorkPluginContribute } from "meta3d-work-plugin-transform/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -22,6 +25,7 @@ import { createTransform, setLocalPosition, lookAt } from "engine-facade/src/Tra
 import { createBasicCameraView, active } from "engine-facade/src/BasicCameraViewAPI"
 import { createPerspectiveCameraProjection, setAspect, setFar, setNear, setFovy } from "engine-facade/src/PerspectiveCameraProjectionAPI"
 import { componentName as geometryComponentName, dataName as geometryDataName } from "meta3d-component-geometry-protocol";
+import { componentName as transformComponentName, dataName as transformDataName } from "meta3d-component-transform-protocol";
 
 function _getEngineCoreExtensionName(): string {
     return "meta3d-engine-core"
@@ -50,6 +54,38 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
+                getCameraWorkPluginContribute({
+                    isDebug,
+                    mostService, engineCoreService, workPluginWhichHasCanvasName: webgl1MainWorkPluginName
+                }),
+                [
+                    {
+                        pipelineName: "update",
+                        insertElementName: "send_render_data",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getTransformWorkPluginContribute({
+                    mostService, engineCoreService, transformData: {
+                        componentName: transformComponentName,
+                        updateDataName: transformDataName.update
+                    }
+                }),
+                [
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_camera_camera_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
                 getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: mostService, engineCoreService: engineCoreService, canvas: canvas, maxRenderGameObjectCount: 100 }),
                 [
                     {
@@ -73,7 +109,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, workPluginWhichHasCanvasName: workPluginName }),
+                getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, workPluginWhichHasCanvasName: webgl1WorkPluginName }),
                 [
                     {
                         pipelineName: "init",
@@ -120,7 +156,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
             registerWorkPlugin(
                 engineCoreState,
                 getWebGL1GeometryWorkPluginContribute({
-                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllGeometryIndicesName: workPluginName, geometryData: {
+                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllGeometryIndicesName: webgl1WorkPluginName, geometryData: {
                         componentName: geometryComponentName,
                         verticesDataName: geometryDataName.vertices,
                         indicesDataName: geometryDataName.indices
@@ -138,12 +174,44 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
             registerWorkPlugin(
                 engineCoreState,
                 getWebGL1MaterialWorkPluginContribute({
-                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllMaterialIndicesName: workPluginName
+                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllMaterialIndicesName: webgl1WorkPluginName
                 }),
                 [
                     {
                         pipelineName: "init",
                         insertElementName: "prepare_init_data_webgl_engine",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getCameraWorkPluginContribute({
+                    isDebug,
+                    mostService, engineCoreService, workPluginWhichHasCanvasName: webgl1WorkPluginName
+                }),
+                [
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_root_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getTransformWorkPluginContribute({
+                    mostService, engineCoreService, transformData: {
+                        componentName: transformComponentName,
+                        updateDataName: transformDataName.update
+                    }
+                }),
+                [
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_camera_camera_meta3d",
                         insertAction: "after"
                     }
                 ]

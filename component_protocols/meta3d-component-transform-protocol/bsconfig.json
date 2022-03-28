@@ -23,6 +23,7 @@
   ],
   "refmt": 3,
   "bs-dependencies": [
+    "meta3d-component-transform-common-protocol"
   ],
   "package-specs": [
     "commonjs",

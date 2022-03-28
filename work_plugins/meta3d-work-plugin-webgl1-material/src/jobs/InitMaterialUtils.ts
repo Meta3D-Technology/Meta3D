@@ -34,7 +34,7 @@ let _createProgram = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, v
 	return program
 }
 
-export let initMaterialUtils = ([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: WebGLRenderingContext, programMap: programMap, allMaterialIndices: number[]) => {
+export let initMaterial = ([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: WebGLRenderingContext, programMap: programMap, allMaterialIndices: number[]) => {
 	let vertexShaderSource = getVertGLSL()
 	let fragmentShaderSource = getFragGLSL()
 

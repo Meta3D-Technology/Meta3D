@@ -6,16 +6,20 @@ type config = {
   buffer: Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBuffer,
 }
 
-type dataName = {localToWorldMatrix: int}
+type dataName = {
+  localToWorldMatrix: int,
+  update: int,
+}
 
 let dataName = {
   localToWorldMatrix: 11,
+  update: 13,
 }
 
-type transform = int
+type transform = Meta3dComponentTransformCommonProtocol.Index.transform
 
 type needDisposedComponents = array<transform>
 
 type batchDisposeData = array<transform>
 
-type cloneConfig = ()
+type cloneConfig = unit

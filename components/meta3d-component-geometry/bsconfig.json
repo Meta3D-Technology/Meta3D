@@ -31,8 +31,8 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-component-worker-utils",
-    "meta3d-component-geometry-protocol",
     "meta3d-component-geometry-common-protocol",
+    "meta3d-component-geometry-protocol",
     "meta3d-engine-core-protocol",
     "meta3d-gameobject-protocol",
     "meta3d-commonlib",

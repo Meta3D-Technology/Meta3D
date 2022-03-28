@@ -1,3 +1,5 @@
+import { transform as transformType, update as updateType } from "meta3d-component-transform-common-protocol"
+
 export const componentName = "Transform"
 
 export type config = {
@@ -29,7 +31,7 @@ export const dataName = {
     update: 13,
 }
 
-export type transform = number
+export type transform = transformType
 
 // export type parent = transform
 
@@ -55,4 +57,4 @@ export type localToWorldMatrix = Float32Array
 
 // export type normalMatrix = Float32Array
 
-export type update = null
+export type update = updateType

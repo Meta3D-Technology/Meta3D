@@ -2,7 +2,7 @@ import { execFunc as execFuncType } from "../../Type"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getAllMaterialIndices, getGL, getState, setState } from "../Utils"
 import { states } from "meta3d-work-plugin-webgl1-material-protocol"
-import { initMaterialUtils } from "../InitMaterialJobUtils"
+import { initMaterial } from "../InitMaterialUtils"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
@@ -13,7 +13,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let programMap = getExn(material.programMap)
 
-		let newProgramMap = initMaterialUtils([webgl1Service, immutableService], getGL(states), programMap, getAllMaterialIndices(states, workPluginWhichHasAllMaterialIndicesName))
+		let newProgramMap = initMaterial([webgl1Service, immutableService], getGL(states), programMap, getAllMaterialIndices(states, workPluginWhichHasAllMaterialIndicesName))
 
 
 		return setStatesFunc<states>(

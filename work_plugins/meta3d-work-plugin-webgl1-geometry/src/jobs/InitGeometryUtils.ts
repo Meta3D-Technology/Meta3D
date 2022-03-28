@@ -21,16 +21,16 @@ let _createVBOs = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, vert
 	}
 }
 
-export let initGeometryUtils = ([webgl1Service, engineCoreService, immutableService]: [webgl1Service, engineCoreService, immutableService],
+export let initGeometry = ([webgl1Service, engineCoreService, immutableService]: [webgl1Service, engineCoreService, immutableService],
 	engineCoreState: engineCoreState,
 	gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[],
-	geometryData: geometryData
+	{ componentName, verticesDataName, indicesDataName }: geometryData
 ) => {
-	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryData.componentName)
+	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return allGeometryIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {
-		let vertices = getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, geometryData.verticesDataName))
-		let indices = getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, geometryData.indicesDataName))
+		let vertices = getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, verticesDataName))
+		let indices = getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, indicesDataName))
 
 		let { verticesBuffer, indicesBuffer } = _createVBOs(webgl1Service, gl, vertices, indices);
 
