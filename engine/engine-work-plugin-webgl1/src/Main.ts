@@ -1,6 +1,5 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { execFunc as execPrepareInitDataJob } from "./jobs/init/PrepareInitDataJob"
-import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob"
 import { execFunc as execUpdateCamera } from "./jobs/update/UpdateCameraJob";
 import { execFunc as execUpdateTransform } from "./jobs/update/UpdateTransformJob";
 import { execFunc as execSendCameraData } from "./jobs/render/SendUniformShaderDataJob";
@@ -11,8 +10,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "prepare_init_data_webgl_engine":
 			return execPrepareInitDataJob
-		case "init_material_webgl_engine":
-			return execInitMaterial;
 		case "update_camera_webgl_engine":
 			return execUpdateCamera;
 		case "update_transform_webgl_engine":
@@ -41,9 +38,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				immutableService,
 				canvas,
 				allGeometryIndices: [],
-				material: {
-					programMap: immutableService.createMap()
-				}
+				allMaterialIndices: []
 			}
 		},
 		initFunc: _init,
@@ -59,11 +54,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 							{
 								"name": "prepare_init_data_webgl_engine",
 								"type_": "job"
-							},
-							{
-								"name": "init_material_webgl_engine",
-								"type_": "job"
-							},
+							}
 						]
 					}
 				],

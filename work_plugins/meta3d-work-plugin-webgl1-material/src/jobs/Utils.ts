@@ -1,5 +1,5 @@
-import { state, states, workPluginName } from "meta3d-work-plugin-webgl1-detectgl-protocol"
-import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
+import { state, states, workPluginName, workPluginWhichHasAllMaterialIndicesState } from "meta3d-work-plugin-webgl1-material-protocol"
+import { workPluginName as createGLWorkPluginName } from "meta3d-work-plugin-webgl1-creategl-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export function getState(states: states): state {
@@ -14,4 +14,8 @@ export function setState(states: states, state: state): states {
 
 export function getGL(states: states) {
     return getExn(states[createGLWorkPluginName].gl)
+}
+
+export function getAllMaterialIndices(states: states, workPluginWhichHasAllMaterialIndicesName: string) {
+    return (states[workPluginWhichHasAllMaterialIndicesName] as any as workPluginWhichHasAllMaterialIndicesState).allMaterialIndices
 }

@@ -1,5 +1,5 @@
 import { verticesVBOMap, indicesVBOMap, programMap } from "../Type";
-import { getIndicesVBO, getVerticesVBO } from "../services/VBOService";
+// import { getIndicesVBO, getVerticesVBO } from "../services/VBOService";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol";
 // import { componentName as transformComponentName, transform, localToWorldMatrix, dataName as transformDataName } from "meta3d-component-transform-protocol";
@@ -8,7 +8,7 @@ import { geometry } from "meta3d-component-geometry-protocol";
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 // import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 // import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { getProgram } from "../services/MaterialDoService";
+// import { getProgram } from "../services/MaterialDoService";
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 
 export let render = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, verticesBuffer: WebGLBuffer, indicesBuffer: WebGLBuffer, program: WebGLProgram, modelMatrix: Float32Array, count: number) => {
@@ -28,14 +28,14 @@ export let render = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, ve
 }
 
 export let getVBOBuffer = (immutableService: immutableService, geometryIndex: number, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap) => {
-	let verticesBuffer = getExn(getVerticesVBO(immutableService, verticesVBOMap, geometryIndex));
-	let indicesBuffer = getExn(getIndicesVBO(immutableService, indicesVBOMap, geometryIndex));
+	let verticesBuffer = getExn(immutableService.mapGet(verticesVBOMap, geometryIndex));
+	let indicesBuffer = getExn(immutableService.mapGet(indicesVBOMap, geometryIndex));
 
 	return { verticesBuffer, indicesBuffer };
 }
 
 export let getProgramData = (immutableService: immutableService, materialIndex: number, programMap: programMap) => {
-	let program = getExn(getProgram(immutableService, programMap, materialIndex));
+	let program = getExn(immutableService.mapGet(programMap, materialIndex));
 
 	return program;
 }

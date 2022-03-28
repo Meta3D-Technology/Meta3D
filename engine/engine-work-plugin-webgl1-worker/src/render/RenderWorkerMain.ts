@@ -17,6 +17,7 @@ import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "m
 import { workPluginName } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
+import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
 import { componentName as geometryComponentName, dataName as geometryDataName } from "meta3d-component-geometry-worker-protocol";
 
 function _getEngineCoreExtensionName(): string {
@@ -80,6 +81,20 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 					verticesDataName: geometryDataName.vertices,
 					indicesDataName: geometryDataName.indices
 				}
+			}),
+			[
+				{
+					pipelineName: "init",
+					insertElementName: "register_ecs",
+					insertAction: "after"
+				}
+			]
+		)
+	engineCoreState =
+		registerWorkPlugin(
+			engineCoreState,
+			getWebGL1MaterialWorkPluginContribute({
+				mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllMaterialIndicesName: workPluginName
 			}),
 			[
 				{

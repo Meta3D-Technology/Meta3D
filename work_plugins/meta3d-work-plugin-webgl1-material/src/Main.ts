@@ -1,11 +1,11 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { execFunc as detect_gl } from "./jobs/init/DetectGLJob";
-import { config, state, states, workPluginName } from "meta3d-work-plugin-webgl1-detectgl-protocol";
+import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob";
+import { config, state, states, workPluginName } from "meta3d-work-plugin-webgl1-material-protocol";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "detect_gl_webgl1_detectgl_meta3d":
-			return detect_gl;
+		case "init_material_webgl1_material_meta3d":
+			return execInitMaterial;
 		default:
 			return null
 	}
@@ -14,13 +14,24 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService,
+	webgl1Service,
+	engineCoreService,
+	immutableService,
+	workPluginWhichHasAllMaterialIndicesName,
+}) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: () => {
 			return {
 				mostService,
-				webgl1Service
+				webgl1Service,
+				engineCoreService,
+				immutableService,
+				workPluginWhichHasAllMaterialIndicesName,
+				material: {
+					programMap: immutableService.createMap(),
+				},
 			}
 		},
 		initFunc: _init,
@@ -30,17 +41,17 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				name: "init",
 				groups: [
 					{
-						name: "first_webgl1_detectgl_meta3d",
+						name: "first_webgl1_material_meta3d",
 						link: "concat",
 						elements: [
 							{
-								"name": "detect_gl_webgl1_detectgl_meta3d",
+								"name": "init_material_webgl1_material_meta3d",
 								"type_": "job"
 							},
 						]
 					}
 				],
-				first_group: "first_webgl1_detectgl_meta3d"
+				first_group: "first_webgl1_material_meta3d"
 			}
 		],
 	}

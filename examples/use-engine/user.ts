@@ -13,6 +13,7 @@ import { workPluginName } from "engine-work-plugin-webgl1-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
+import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -124,6 +125,20 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                         verticesDataName: geometryDataName.vertices,
                         indicesDataName: geometryDataName.indices
                     }
+                }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "prepare_init_data_webgl_engine",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1MaterialWorkPluginContribute({
+                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllMaterialIndicesName: workPluginName
                 }),
                 [
                     {

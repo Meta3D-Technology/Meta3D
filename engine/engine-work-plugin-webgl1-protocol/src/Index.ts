@@ -5,12 +5,9 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 import { map } from "meta3d-immutable-protocol/src/service/MapType";
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
 import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
+import { workPluginName as materialWorkPluginName, state as materialState } from "meta3d-work-plugin-webgl1-material-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1"
-
-export type verticesVBOMap = map<number, WebGLBuffer>;
-export type indicesVBOMap = map<number, WebGLBuffer>;
-export type programMap = map<number, WebGLProgram>;
 
 export type state = {
     isDebug: boolean,
@@ -19,16 +16,15 @@ export type state = {
     engineCoreService: engineCoreService,
     immutableService: immutableService,
     canvas: HTMLCanvasElement,
-    allGeometryIndices:number[],
-    material: {
-        programMap: programMap
-    }
+    allGeometryIndices: number[],
+    allMaterialIndices: number[]
 }
 
 export type states = {
     [workPluginName]: state,
     [createGLWorkPluginName]: createGLState,
-    [geometryWorkPluginName]: geometryState
+    [geometryWorkPluginName]: geometryState,
+    [materialWorkPluginName]: materialState
 }
 
 export type config = {

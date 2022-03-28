@@ -1,5 +1,5 @@
 import { execFunc as execFuncType } from "../../Type"
-import { getGL, getState } from "../Utils"
+import { getGL, getMaterial, getState } from "../Utils"
 import { states } from "engine-work-plugin-webgl1-protocol"
 import { sendCameraData, getCameraView, getCameraProjection } from "engine-work-plugin-webgl1-utils/src/utils/SendCameraDataUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -10,7 +10,7 @@ import { componentName as perspectiveCameraProjectionComponentName, perspectiveC
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService,  isDebug, material } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("send uniform shader data job exec")
@@ -31,7 +31,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let pMatrix = getExn(engineCoreService.getComponentData<perspectiveCameraProjection, pMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), cameraProjection, dataName.pMatrix))
 
-		let programMap = material.programMap
+		let programMap = getMaterial(states).programMap
 
 		sendCameraData(webgl1Service, getGL(states), programMap, viewMatrix, pMatrix)
 
