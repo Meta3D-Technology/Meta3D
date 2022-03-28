@@ -378,7 +378,7 @@ module MergePipelineData = {
       (newTreeDataList, isInsertTo),
       (sameLevelTreeList, insertPluginNameOpt),
     ) => {
-      switch insertPluginNameOpt {
+      let (newTreeDataList, isInsertTo_) = switch insertPluginNameOpt {
       | Some(insertPluginName) if insertPluginName === nodeInsertPluginName => (
           newTreeDataList->Meta3dCommonlib.ListSt.addInReduce((
             sameLevelTreeList->Meta3dCommonlib.ListSt.push(node),
@@ -390,9 +390,12 @@ module MergePipelineData = {
         let (sameLevelTreeList, isInsertTo) = sameLevelTreeList->Meta3dCommonlib.ListSt.reduce(
           (list{}, false),
           ((sameLevelTreeList, isInsertTo), tree) => {
-            let (tree, isInsertTo) = tree->OperateTree.insertNode(nodeInsertPluginName, node)
+            let (tree, isInsertTo_) = tree->OperateTree.insertNode(nodeInsertPluginName, node)
 
-            (sameLevelTreeList->Meta3dCommonlib.ListSt.addInReduce(tree), isInsertTo)
+            (
+              sameLevelTreeList->Meta3dCommonlib.ListSt.addInReduce(tree),
+              isInsertTo ? isInsertTo : isInsertTo_,
+            )
           },
         )
 
@@ -404,6 +407,8 @@ module MergePipelineData = {
           isInsertTo,
         )
       }
+
+      (newTreeDataList, isInsertTo ? isInsertTo : isInsertTo_)
     })
   }
 

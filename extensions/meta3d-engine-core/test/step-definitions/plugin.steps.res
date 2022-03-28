@@ -9,8 +9,6 @@ open Js.Promise
 
 let feature = loadFeature("./test/features/plugin.feature")
 
-// TODO test is_set_state for merge
-
 defineFeature(feature, test => {
   let contribute1 = ref(Obj.magic(1))
   let contribute2 = ref(Obj.magic(1))
@@ -759,7 +757,7 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."test register four plugins", ({given, \"when", \"and", then}) => {
+  test(."test register four plugins case1", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
     let state3 = ref(Obj.magic(1))
@@ -1562,6 +1560,256 @@ defineFeature(feature, test => {
       let states = _getStates()
 
       (states->Meta3dCommonlib.ImmutableHashMap.get("a")->expect == Some(state1.contents))
+      ->resolve
+      ->Obj.magic
+    })
+  })
+
+  test(."test register four plugins case2", ({given, \"when", \"and", then}) => {
+    let stub1 = ref(Obj.magic(1))
+    let stub2 = ref(Obj.magic(1))
+    let stub3 = ref(Obj.magic(1))
+    let stub4 = ref(Obj.magic(1))
+    let stub5 = ref(Obj.magic(1))
+
+    _prepareRegister(given)
+
+    _prepareSandbox(given)
+
+    given("register plugin1, plugin2, plugin3, plugin4 contribute", () => {
+      stub1 := createEmptyStubWithJsObjSandbox(sandbox)
+      stub2 := createEmptyStubWithJsObjSandbox(sandbox)
+      stub3 := createEmptyStubWithJsObjSandbox(sandbox)
+      stub4 := createEmptyStubWithJsObjSandbox(sandbox)
+      stub5 := createEmptyStubWithJsObjSandbox(sandbox)
+
+      let rootJob_init = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        stub1.contents()
+
+        state->Meta3dBsMost.Most.just
+      }
+      let contribute1 = _buildWorkPluginContribute(
+        ~workPluginName="a1",
+        ~allPipelineData=[
+          {
+            name: "init",
+            groups: [
+              {
+                name: "first_a1",
+                link: #concat,
+                elements: [
+                  {
+                    name: "root_init",
+                    type_: #job,
+                    is_set_state: true->Js.Nullable.return,
+                  },
+                ],
+              },
+            ],
+            first_group: "first_a1",
+          },
+        ],
+        ~getExecFunc=(_, jobName) => {
+          switch jobName {
+          | "root_init" => rootJob_init->Js.Nullable.return
+          | _ => Js.Nullable.null
+          }
+        },
+        (),
+      )
+
+      let createGLJob = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        stub2.contents()
+
+        state->Meta3dBsMost.Most.just
+      }
+      let contribute2 = _buildWorkPluginContribute(
+        ~workPluginName="a2",
+        ~allPipelineData=[
+          {
+            name: "init",
+            groups: [
+              {
+                name: "first_a2",
+                link: #concat,
+                elements: [
+                  {
+                    name: "create_gl",
+                    type_: #job,
+                    is_set_state: true->Js.Nullable.return,
+                  },
+                ],
+              },
+            ],
+            first_group: "first_a2",
+          },
+        ],
+        ~getExecFunc=(_, jobName) => {
+          switch jobName {
+          | "create_gl" => createGLJob->Js.Nullable.return
+          | _ => Js.Nullable.null
+          }
+        },
+        (),
+      )
+
+      let detectGLJob = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        stub3.contents()
+
+        state->Meta3dBsMost.Most.just
+      }
+      let contribute3 = _buildWorkPluginContribute(
+        ~workPluginName="a3",
+        ~allPipelineData=[
+          {
+            name: "init",
+            groups: [
+              {
+                name: "first_a3",
+                link: #concat,
+                elements: [
+                  {
+                    name: "detect_gl",
+                    type_: #job,
+                    is_set_state: true->Js.Nullable.return,
+                  },
+                ],
+              },
+            ],
+            first_group: "first_a3",
+          },
+        ],
+        ~getExecFunc=(_, jobName) => {
+          switch jobName {
+          | "detect_gl" => detectGLJob->Js.Nullable.return
+          | _ => Js.Nullable.null
+          }
+        },
+        (),
+      )
+
+      let webglWorkerJob1 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        stub4.contents()
+
+        state->Meta3dBsMost.Most.just
+      }
+      let webglWorkerJob2 = (
+        state,
+        {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      ) => {
+        stub5.contents()
+
+        state->Meta3dBsMost.Most.just
+      }
+      let contribute4 = _buildWorkPluginContribute(
+        ~workPluginName="a4",
+        ~allPipelineData=[
+          {
+            name: "init",
+            groups: [
+              {
+                name: "first_a4",
+                link: #concat,
+                elements: [
+                  {
+                    name: "webgl_job1",
+                    type_: #job,
+                    is_set_state: true->Js.Nullable.return,
+                  },
+                  {
+                    name: "webgl_job2",
+                    type_: #job,
+                    is_set_state: true->Js.Nullable.return,
+                  },
+                ],
+              },
+            ],
+            first_group: "first_a4",
+          },
+        ],
+        ~getExecFunc=(_, jobName) => {
+          switch jobName {
+          | "webgl_job1" => webglWorkerJob1->Js.Nullable.return
+          | "webgl_job2" => webglWorkerJob2->Js.Nullable.return
+          | _ => Js.Nullable.null
+          }
+        },
+        (),
+      )
+
+      MainTool.registerWorkPlugin(~contribute=contribute1, ())
+      MainTool.registerWorkPlugin(
+        ~contribute=contribute2,
+        ~jobOrders=[
+          _buildJobOrder(
+            ~pipelineName="init",
+            ~insertElementName="webgl_job1",
+            ~insertAction=#after,
+            (),
+          ),
+        ],
+        (),
+      )
+      MainTool.registerWorkPlugin(
+        ~contribute=contribute3,
+        ~jobOrders=[
+          _buildJobOrder(
+            ~pipelineName="init",
+            ~insertElementName="create_gl",
+            ~insertAction=#after,
+            (),
+          ),
+        ],
+        (),
+      )
+      MainTool.registerWorkPlugin(
+        ~contribute=contribute4,
+        ~jobOrders=[
+          _buildJobOrder(
+            ~pipelineName="init",
+            ~insertElementName="root_init",
+            ~insertAction=#after,
+            (),
+          ),
+        ],
+        (),
+      )
+    })
+
+    \"and"("init", () => {
+      MainTool.init()
+    })
+
+    \"when"("run init pipeline", () => {
+      let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
+
+      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+    })
+
+    then("run init pipeline's all jobs", () => {
+      ((
+        stub1.contents->Obj.magic->getCallCount,
+        stub2.contents->Obj.magic->getCallCount,
+        stub3.contents->Obj.magic->getCallCount,
+        stub4.contents->Obj.magic->getCallCount,
+        stub5.contents->Obj.magic->getCallCount,
+        stub4.contents->Obj.magic->calledAfter(stub1.contents->Obj.magic),
+        stub5.contents->Obj.magic->calledAfter(stub2.contents->Obj.magic),
+        stub2.contents->Obj.magic->calledAfter(stub4.contents->Obj.magic),
+        stub3.contents->Obj.magic->calledAfter(stub2.contents->Obj.magic),
+      )->expect == (1, 1, 1, 1, 1, true, true, true, true))
       ->resolve
       ->Obj.magic
     })

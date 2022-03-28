@@ -72,7 +72,6 @@ Feature: Plugin
             When run init pipeline
             Then run init pipeline's all jobs
 
-
         Scenario: test register three plugins case1
             Given register plugin1, plugin2, plugin3 contribute
             And init
@@ -85,7 +84,13 @@ Feature: Plugin
             When run init pipeline
             Then run init pipeline's all jobs
 
-        Scenario: test register four plugins
+        Scenario: test register four plugins case1
+            Given register plugin1, plugin2, plugin3, plugin4 contribute
+            And init
+            When run init pipeline
+            Then run init pipeline's all jobs
+
+        Scenario: test register four plugins case2
             Given register plugin1, plugin2, plugin3, plugin4 contribute
             And init
             When run init pipeline
@@ -140,3 +145,4 @@ Feature: Plugin
             And init
             When run init pipeline
             Then get states should only return the first merge job's one
+

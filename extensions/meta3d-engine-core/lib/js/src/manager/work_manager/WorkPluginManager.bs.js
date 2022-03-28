@@ -323,32 +323,44 @@ function _insertToAsChildNodeOrSameLevelTree(treeDataList, nodeInsertPluginName,
             ], (function (param, param$1) {
                 var insertPluginNameOpt = param$1[1];
                 var sameLevelTreeList = param$1[0];
+                var isInsertTo = param[1];
                 var newTreeDataList = param[0];
+                var match;
+                var exit = 0;
                 if (insertPluginNameOpt !== undefined && insertPluginNameOpt === nodeInsertPluginName) {
-                  return [
-                          ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
-                                ListSt$Meta3dCommonlib.push(sameLevelTreeList, node),
-                                insertPluginNameOpt
-                              ]),
-                          true
-                        ];
+                  match = [
+                    ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
+                          ListSt$Meta3dCommonlib.push(sameLevelTreeList, node),
+                          insertPluginNameOpt
+                        ]),
+                    true
+                  ];
+                } else {
+                  exit = 1;
                 }
-                var match = ListSt$Meta3dCommonlib.reduce(sameLevelTreeList, [
-                      /* [] */0,
-                      false
-                    ], (function (param, tree) {
-                        var match = OperateTree$Meta3dEngineCore.insertNode(tree, nodeInsertPluginName, node);
-                        return [
-                                ListSt$Meta3dCommonlib.addInReduce(param[0], match[0]),
-                                match[1]
-                              ];
-                      }));
+                if (exit === 1) {
+                  var match$1 = ListSt$Meta3dCommonlib.reduce(sameLevelTreeList, [
+                        /* [] */0,
+                        false
+                      ], (function (param, tree) {
+                          var isInsertTo = param[1];
+                          var match = OperateTree$Meta3dEngineCore.insertNode(tree, nodeInsertPluginName, node);
+                          return [
+                                  ListSt$Meta3dCommonlib.addInReduce(param[0], match[0]),
+                                  isInsertTo ? isInsertTo : match[1]
+                                ];
+                        }));
+                  match = [
+                    ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
+                          match$1[0],
+                          insertPluginNameOpt
+                        ]),
+                    match$1[1]
+                  ];
+                }
                 return [
-                        ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
-                              match[0],
-                              insertPluginNameOpt
-                            ]),
-                        match[1]
+                        match[0],
+                        isInsertTo ? isInsertTo : match[1]
                       ];
               }));
 }
