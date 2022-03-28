@@ -18,6 +18,7 @@
         "meta3d-component-transform-protocol",
         "meta3d-component-pbrmaterial-protocol",
         "meta3d-component-geometry-protocol",
+        "meta3d-component-geometry-common-protocol",
         "meta3d-commonlib-type"
     ],
     "package-specs": [
