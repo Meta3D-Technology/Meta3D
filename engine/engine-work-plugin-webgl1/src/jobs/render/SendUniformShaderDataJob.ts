@@ -1,5 +1,5 @@
 import { execFunc as execFuncType } from "../../Type"
-import { getState } from "../Utils"
+import { getGL, getState } from "../Utils"
 import { states } from "engine-work-plugin-webgl1-protocol"
 import { sendCameraData, getCameraView, getCameraProjection } from "engine-work-plugin-webgl1-utils/src/utils/SendCameraDataUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -10,7 +10,7 @@ import { componentName as perspectiveCameraProjectionComponentName, perspectiveC
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, gl, isDebug, material } = getState(states)
+	let { mostService, webgl1Service, engineCoreService,  isDebug, material } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("render webgl job send camera job exec")
@@ -18,7 +18,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		let usedBasicCameraViewContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
 		let cameraView = getCameraView(engineCoreState, engineCoreService, isDebug)
-
 
 		let viewMatrix = getExn(getViewWorldToCameraMatrix(
 			usedBasicCameraViewContribute,
@@ -34,7 +33,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let programMap = material.programMap
 
-		sendCameraData(webgl1Service, getExn(gl), programMap, viewMatrix, pMatrix)
+		sendCameraData(webgl1Service, getGL(states), programMap, viewMatrix, pMatrix)
 
 		return engineCoreState
 	})

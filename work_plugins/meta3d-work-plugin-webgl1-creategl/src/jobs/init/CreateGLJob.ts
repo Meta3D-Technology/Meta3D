@@ -1,27 +1,29 @@
 import { execFunc as execFuncType } from "../../Type";
-import { getState } from "../Utils";
-import { states } from "engine-work-plugin-webgl1-protocol";
-import { createGL } from "engine-work-plugin-webgl1-utils/src/utils/CreateGLUtils";
+import { getState, setState } from "../Utils";
+import { states } from "meta3d-work-plugin-webgl1-creategl-protocol";
+import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
+
+function _createGL({ getContext }: webgl1Service, canvas: HTMLCanvasElement) {
+	return getContext(canvas)
+}
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
 	let { mostService, webgl1Service, canvas } = getState(states)
 
 	return mostService.callFunc(() => {
-		// let gl = webgl1Service.getContext(canvas)
-		let gl = createGL(webgl1Service, canvas)
+		let gl = _createGL(webgl1Service, canvas)
 
 		console.log("create gl job->gl:", gl);
 
 		return setStatesFunc<states>(
 			engineCoreState,
-			{
-				...states,
-				"engine-work-plugin-webgl1": {
+			setState(states,
+				{
 					...getState(states),
 					gl: gl
 				}
-			}
+			)
 		)
 	})
 }

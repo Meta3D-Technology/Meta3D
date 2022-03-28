@@ -777,7 +777,35 @@ finish actual engine code(like sxengine's code)
 ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
 - job utils
+
+- render
+
+- send uniform data
+
+- work plugins:
+update camera, update transform
+
+- for worker
+
+GetInitRenderDataJob->encapuslate again
+
+RenderWorkerMain->_init, worker.onmessage
+
+    - main create render data buffer, share it to render
+
+    - share component's buffer to render
+
+    - sync(send begin loop, get finish render data, send init render data)
  
+** TODO refactor(work_plugins): remove Type.ts for work plugin
+
+** TODO refactor(work_plugins): Utils add setState
+
+** TODO refactor(work_plugin_protocols): type states use workPluginName as key
+export type states = { [workPluginName]: state, }
+
+** TODO refactor(work_plugins): webgl1 worker->main, render: job should add postfix;
+export type states = { [workPluginName]: state, }
 
 ** TODO refactor: remove GameContributeType->'transformState, 'xxxState ???
 

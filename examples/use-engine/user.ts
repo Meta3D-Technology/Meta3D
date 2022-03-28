@@ -9,6 +9,7 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
+import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -67,6 +68,19 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
+                getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, canvas }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "init_webgl_extension_webgl_engine",
+                        insertAction: "before"
+                    }
+                ]
+            )
+
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
                 getWebGL1WorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, immutableService, canvas }),
                 [
                     {
@@ -102,8 +116,6 @@ function _createCubeGameObject(engineCoreState: engineCoreState, engineCoreServi
     let transform = data[1]
 
     engineCoreState = addTransform(engineCoreState, engineCoreService, gameObject, transform)
-
-
 
     data = createGeometry(engineCoreState, engineCoreService)
     engineCoreState = data[0]
@@ -257,5 +269,6 @@ function _loop(meta3dState: meta3dState) {
 }
 
 const useWorker = true
+// const useWorker = false
 
 _init(useWorker).then(_loop)

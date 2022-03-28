@@ -3,7 +3,7 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { map } from "meta3d-immutable-protocol/src/service/MapType";
-import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1"
 
@@ -18,7 +18,6 @@ export type state = {
     engineCoreService: engineCoreService,
     immutableService: immutableService,
     canvas: HTMLCanvasElement,
-    gl: nullable<WebGLRenderingContext>,
     vbo: {
         verticesVBOMap: verticesVBOMap,
         indicesVBOMap: indicesVBOMap
@@ -28,7 +27,10 @@ export type state = {
     }
 }
 
-export type states = { "engine-work-plugin-webgl1": state }
+export type states = {
+    [workPluginName]: state,
+    [createGLWorkPluginName]: createGLState
+}
 
 export type config = {
     isDebug: boolean,
