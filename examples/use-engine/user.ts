@@ -11,6 +11,7 @@ import { getExtensionService as getWebGL1ExtensionService, createExtensionState 
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
 import { workPluginName } from "engine-work-plugin-webgl1-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
+import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -73,12 +74,23 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "init",
-                        insertElementName: "init_webgl_extension_webgl_engine",
-                        insertAction: "before"
+                        insertElementName: "init_root_meta3d",
+                        insertAction: "after"
                     }
                 ]
             )
-
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1DetectGLWorkPluginContribute({ mostService, webgl1Service }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "create_gl_webgl1_creategl_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
@@ -86,7 +98,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "init",
-                        insertElementName: "init_root_meta3d",
+                        insertElementName: "detect_gl_webgl1_detectgl_meta3d",
                         insertAction: "after"
                     },
                     {

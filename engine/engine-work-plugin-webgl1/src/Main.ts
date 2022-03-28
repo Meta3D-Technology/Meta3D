@@ -1,5 +1,4 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { execFunc as init_webgl_extension } from "./jobs/init/InitWebGLExtensionJob"
 import { execFunc as init_geometry } from "./jobs/init/InitGeometryJob"
 import { execFunc as init_material } from "./jobs/init/InitMaterialJob"
 import { execFunc as updateCamera } from "./jobs/update/UpdateCameraJob";
@@ -10,8 +9,6 @@ import { config, state, states, workPluginName } from "engine-work-plugin-webgl1
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "init_webgl_extension_webgl_engine":
-			return init_webgl_extension;
 		case "init_geometry_webgl_engine":
 			return init_geometry;
 		case "init_material_webgl_engine":
@@ -62,10 +59,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						name: "first_webgl1_engine",
 						link: "concat",
 						elements: [
-							{
-								"name": "init_webgl_extension_webgl_engine",
-								"type_": "job"
-							},
 							{
 								"name": "init_geometry_webgl_engine",
 								"type_": "job"
