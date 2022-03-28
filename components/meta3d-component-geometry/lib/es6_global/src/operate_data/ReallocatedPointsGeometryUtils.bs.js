@@ -1,10 +1,10 @@
 
 
-import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
-import * as Log$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Contract$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
-import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
-import * as ReallocatedPointsGeometryUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/ReallocatedPointsGeometryUtils.bs.js";
+import * as Curry from "./../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Log$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Contract$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as ReallocatedPointsGeometryUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/ReallocatedPointsGeometryUtils.bs.js";
 
 function setInfo(infos, infoIndex, startIndex, endIndex, isDebug) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
