@@ -773,8 +773,25 @@ finish actual engine code(like sxengine's code)
 
 # ** TODO finish abstract worker
 
+** TODO fix: _getTree bug
+add test scene in plugin.feature
+
+TODO finish plugin.feature
 
 ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+
+
+
+
+
+work_plugin:
+geometry
+material
+camera
+transform
+
+
 
 - job utils
 
@@ -797,6 +814,10 @@ RenderWorkerMain->_init, worker.onmessage
 
     - sync(send begin loop, get finish render data, send init render data)
  
+
+
+
+
 ** TODO refactor(work_plugins): remove Type.ts for work plugin
 
 ** TODO refactor(work_plugins): Utils add setState

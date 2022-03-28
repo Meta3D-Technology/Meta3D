@@ -21,6 +21,7 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { workPluginName } from "engine-work-plugin-webgl1-worker-render-protocol"
+import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 
 function _getEngineCoreExtensionName(): string {
 	return "meta3d-engine-core"
@@ -58,6 +59,18 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 				{
 					pipelineName: "init",
 					insertElementName: "get_init_render_data",
+					insertAction: "after"
+				}
+			]
+		)
+	engineCoreState =
+		registerWorkPlugin(
+			engineCoreState,
+			getWebGL1DetectGLWorkPluginContribute({ mostService, webgl1Service }),
+			[
+				{
+					pipelineName: "init",
+					insertElementName: "create_gl_webgl1_creategl_meta3d",
 					insertAction: "after"
 				}
 			]
