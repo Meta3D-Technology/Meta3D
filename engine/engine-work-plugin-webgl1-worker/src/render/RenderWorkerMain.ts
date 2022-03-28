@@ -18,6 +18,7 @@ import { workPluginName } from "engine-work-plugin-webgl1-worker-render-protocol
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
 import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
+import { getWorkPluginContribute as getWebGL1SendUniformShaderDataWorkPluginContribute } from "meta3d-work-plugin-webgl1-senduniformshaderdata/src/Main"
 import { componentName as geometryComponentName, dataName as geometryDataName } from "meta3d-component-geometry-worker-protocol";
 
 function _getEngineCoreExtensionName(): string {
@@ -100,6 +101,20 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 				{
 					pipelineName: "init",
 					insertElementName: "register_ecs",
+					insertAction: "after"
+				}
+			]
+		)
+	engineCoreState =
+		registerWorkPlugin(
+			engineCoreState,
+			getWebGL1SendUniformShaderDataWorkPluginContribute({
+				mostService, webgl1Service, workPluginWhichHasUniformShaderDataName: workPluginName
+			}),
+			[
+				{
+					pipelineName: "render",
+					insertElementName: "get_render_data",
 					insertAction: "after"
 				}
 			]

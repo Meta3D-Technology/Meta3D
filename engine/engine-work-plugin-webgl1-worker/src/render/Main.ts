@@ -4,7 +4,6 @@ import { execFunc as execGetInitRenderData } from "./jobs/init/GetInitRenderData
 import { execFunc as execRegisterECS } from "./jobs/init/RegisterECSJob"
 import { execFunc as execSendFinishInitRenderData } from "./jobs/init/SendFinishInitRenderDataJob"
 import { execFunc as execGetRenderData } from "./jobs/render/GetRenderDataJob"
-import { execFunc as execSendUniformShaderData } from "./jobs/render/SendUniformShaderDataJob"
 import { execFunc as execRender } from "./jobs/render/RenderJob"
 import { execFunc as execSendFinishRenderData } from "./jobs/render/SendFinishRenderDataJob"
 
@@ -18,8 +17,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execSendFinishInitRenderData
 		case "get_render_data":
 			return execGetRenderData
-		case "send_uniform_shader_data":
-			return execSendUniformShaderData
 		case "render":
 			return execRender
 		case "send_finish_render_data":
@@ -94,10 +91,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					elements: [
 						{
 							"name": "get_render_data",
-							"type_": "job"
-						},
-						{
-							"name": "send_uniform_shader_data",
 							"type_": "job"
 						},
 						{

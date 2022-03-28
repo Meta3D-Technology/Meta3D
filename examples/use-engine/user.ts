@@ -15,6 +15,7 @@ import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "m
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
 import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
+import { getWorkPluginContribute as getWebGL1SendUniformShaderDataWorkPluginContribute } from "meta3d-work-plugin-webgl1-senduniformshaderdata/src/Main"
 import { getWorkPluginContribute as getCameraWorkPluginContribute } from "meta3d-work-plugin-camera/src/Main"
 import { getWorkPluginContribute as getTransformWorkPluginContribute } from "meta3d-work-plugin-transform/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
@@ -133,28 +134,6 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, immutableService, canvas }),
-                [
-                    {
-                        pipelineName: "init",
-                        insertElementName: "detect_gl_webgl1_detectgl_meta3d",
-                        insertAction: "after"
-                    },
-                    {
-                        pipelineName: "update",
-                        insertElementName: "update_root_meta3d",
-                        insertAction: "after"
-                    },
-                    {
-                        pipelineName: "render",
-                        insertElementName: "render_root_meta3d",
-                        insertAction: "after"
-                    }
-                ]
-            )
-        engineCoreState =
-            registerWorkPlugin(
-                engineCoreState,
                 getWebGL1GeometryWorkPluginContribute({
                     mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllGeometryIndicesName: webgl1WorkPluginName, geometryData: {
                         componentName: geometryComponentName,
@@ -212,6 +191,37 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                     {
                         pipelineName: "update",
                         insertElementName: "update_camera_camera_meta3d",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1SendUniformShaderDataWorkPluginContribute({
+                    mostService, webgl1Service, workPluginWhichHasUniformShaderDataName: webgl1WorkPluginName
+                }),
+                [
+                    {
+                        pipelineName: "render",
+                        insertElementName: "prepare_render_data_webgl_engine",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1WorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, immutableService, canvas }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "detect_gl_webgl1_detectgl_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "render",
+                        insertElementName: "render_root_meta3d",
                         insertAction: "after"
                     }
                 ]

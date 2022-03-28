@@ -1,0 +1,16 @@
+{
+    "name": "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol",
+    "version": "0.2.0",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "main": "src/Index.ts",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

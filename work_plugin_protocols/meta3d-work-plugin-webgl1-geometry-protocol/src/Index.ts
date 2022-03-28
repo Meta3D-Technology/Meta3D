@@ -29,7 +29,6 @@ export type state = {
     geometryData: geometryData
 }
 
-
 export type workPluginWhichHasAllGeometryIndicesState = {
     allGeometryIndices: number[]
 }
