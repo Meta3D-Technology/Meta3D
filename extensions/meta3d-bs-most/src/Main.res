@@ -1,12 +1,22 @@
 let _isFromEventStream = %raw(`
 
+
+
   function(stream){
+
+
 
     var source = stream.source;
 
+
+
     return !!source.event && !!source.source;
 
+
+
   }
+
+
 
   `)
 
@@ -36,7 +46,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   tap: Most.tap,
   filter: Most.filter,
   take: Most.take,
-  fromEvent: Most.fromEvent-> Obj.magic,
+  fromEvent: Most.fromEvent->Obj.magic,
   just: Most.just,
   map: Most.map,
   flatMap: Most.flatMap,
@@ -44,6 +54,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   concat: Most.concat,
   concatArray: concatArray,
   callFunc: callFunc,
+  drain: Most.drain,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<

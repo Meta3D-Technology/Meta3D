@@ -16,4 +16,5 @@ export type service = {
     mergeArray<a>(streams: Array<stream<a>>): stream<a>,
     concatArray<a>(streams: Array<stream<a>>): stream<a>,
     callFunc<a>(func: () => a): stream<a>,
+    drain<a>(stream: stream<a>): Promise<void>
 };

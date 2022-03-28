@@ -15,4 +15,5 @@ type service = {
   mergeArray: 'a. array<stream<'a>> => stream<'a>,
   concatArray: 'a. array<stream<'a>> => stream<'a>,
   callFunc: 'a. (unit => 'a) => stream<'a>,
+  drain: 'a. stream<'a> => Js.Promise.t<unit>,
 }

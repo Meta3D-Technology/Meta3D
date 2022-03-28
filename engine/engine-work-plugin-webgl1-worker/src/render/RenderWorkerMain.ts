@@ -201,10 +201,19 @@ _init(meta3dState_, isDebug).then((meta3dState) => {
 	tempMeta3DState = meta3dState
 })
 
-// mostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
-mostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false).filter((event) => {
-	console.log(event);
-	return event.data.operateType === "SEND_BEGIN_RENDER";
-}).tap((_) => {
-	return _render(getExn(tempMeta3DState));
-}).drain();
+// TODO use pipe
+
+mostService.drain(
+	mostService.tap(
+		(_) => {
+			return _render(getExn(tempMeta3DState));
+		},
+		mostService.filter(
+			(event) => {
+				console.log(event);
+				return event.data.operateType === "SEND_BEGIN_RENDER";
+			},
+			mostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false)
+		)
+	)
+)

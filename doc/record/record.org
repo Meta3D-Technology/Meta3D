@@ -817,9 +817,9 @@ RenderWorkerMain->_init, worker.onmessage
 
 
 
-** TODO refactor(components): rename transform/pbrmaterial/geometry/direction to xxx-noworker; rename transform/pbrmaterial/geometry/direction-common to xxx
+# ** TODO refactor(components): rename transform/pbrmaterial/geometry/direction to xxx-noworker; rename transform/pbrmaterial/geometry/direction-common to xxx
 
-rename components, component_protocols
+# rename components, component_protocols
 
 ** TODO refactor(work_plugins): remove Type.ts for work plugin
 
