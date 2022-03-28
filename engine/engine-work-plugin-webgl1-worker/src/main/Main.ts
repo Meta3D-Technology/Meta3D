@@ -63,7 +63,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 			name: "init",
 			groups: [
 				{
-					name: "first_webgl_worker_engine",
+					name: "first_webgl1_worker_main_engine",
 					link: "concat",
 					elements: [
 						{
@@ -106,13 +106,13 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					]
 				}
 			],
-			first_group: "first_webgl_worker_engine"
+			first_group: "first_webgl1_worker_main_engine"
 		},
 		{
 			name: "update",
 			groups: [
 				{
-					name: "first_webgl_worker_engine",
+					name: "first_webgl1_worker_main_engine",
 					link: "concat",
 					elements: [
 						{
@@ -158,13 +158,13 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					]
 				}
 			],
-			first_group: "first_webgl_worker_engine"
+			first_group: "first_webgl1_worker_main_engine"
 		},
 		{
 			name: "render",
 			groups: [
 				{
-					name: "first_webgl_worker_engine",
+					name: "first_webgl1_worker_main_engine",
 					link: "concat",
 					elements: [
 						{
@@ -174,7 +174,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					]
 				}
 			],
-			first_group: "first_webgl_worker_engine"
+			first_group: "first_webgl1_worker_main_engine"
 		}
 		],
 	}

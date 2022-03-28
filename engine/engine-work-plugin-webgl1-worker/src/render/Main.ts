@@ -1,7 +1,6 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { workPluginName, config, state, states } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { execFunc as execGetInitRenderData } from "./jobs/init/GetInitRenderDataJob"
-import { execFunc as execCreateGL } from "./jobs/init/CreateGLJob"
 import { execFunc as execDetectGL } from "./jobs/init/DetectGLJob"
 import { execFunc as execRegisterECS } from "./jobs/init/RegisterECSJob"
 import { execFunc as execInitGeometry } from "./jobs/init/InitGeometryJob"
@@ -16,8 +15,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "get_init_render_data":
 			return execGetInitRenderData
-		case "create_gl":
-			return execCreateGL
 		case "detect_gl":
 			return execDetectGL
 		case "register_ecs":
@@ -56,7 +53,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				registerECSService,
 				immutableService,
 				canvas: null,
-				gl: null,
 				vbo: {
 					verticesVBOMap: immutableService.createMap(),
 					indicesVBOMap: immutableService.createMap(),
@@ -85,15 +81,11 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 			name: "init",
 			groups: [
 				{
-					name: "first_test1_engine",
+					name: "first_webgl1_worker_render_engine",
 					link: "concat",
 					elements: [
 						{
 							"name": "get_init_render_data",
-							"type_": "job"
-						},
-						{
-							"name": "create_gl",
 							"type_": "job"
 						},
 						{
@@ -119,13 +111,13 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					]
 				}
 			],
-			first_group: "first_test1_engine"
+			first_group: "first_webgl1_worker_render_engine"
 		},
 		{
 			name: "render",
 			groups: [
 				{
-					name: "first_test1_engine",
+					name: "first_webgl1_worker_render_engine",
 					link: "concat",
 					elements: [
 						{
@@ -147,7 +139,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					]
 				}
 			],
-			first_group: "first_test1_engine"
+			first_group: "first_webgl1_worker_render_engine"
 		}
 		],
 	}

@@ -14,14 +14,14 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service, canvas }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ mostService, webgl1Service, workPluginWhichHasCanvasName }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: () => {
 			return {
 				mostService,
 				webgl1Service,
-				canvas,
+				workPluginWhichHasCanvasName,
 				gl: null
 			}
 		},

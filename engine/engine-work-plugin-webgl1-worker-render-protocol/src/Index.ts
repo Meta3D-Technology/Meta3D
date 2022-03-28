@@ -5,6 +5,7 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { map } from "meta3d-immutable-protocol/src/service/MapType";
 import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
+import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1-worker-render"
 
@@ -29,7 +30,6 @@ export type state = {
     registerECSService: registerECSWorkerService,
     immutableService: immutableService,
     canvas: nullable<OffscreenCanvas>,
-    gl: nullable<WebGLRenderingContext>,
     vbo: {
         verticesVBOMap: verticesVBOMap,
         indicesVBOMap: indicesVBOMap
@@ -52,5 +52,7 @@ export type state = {
     renderGameObjectsCount: number
 }
 
-
-export type states = { "engine-work-plugin-webgl1-worker-render": state };
+export type states = {
+    [workPluginName]: state,
+    [createGLWorkPluginName]: createGLState
+}

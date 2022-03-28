@@ -9,6 +9,7 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
+import { workPluginName } from "engine-work-plugin-webgl1-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
@@ -68,7 +69,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, canvas }),
+                getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, workPluginWhichHasCanvasName: workPluginName }),
                 [
                     {
                         pipelineName: "init",

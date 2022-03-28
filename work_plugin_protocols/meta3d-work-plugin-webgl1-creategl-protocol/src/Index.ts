@@ -7,14 +7,21 @@ export const workPluginName = "WebGL1_CreateGL"
 export type state = {
     mostService: mostService,
     webgl1Service: webgl1Service,
-    canvas: HTMLCanvasElement,
+    workPluginWhichHasCanvasName: string
     gl: nullable<WebGLRenderingContext>,
 }
 
-export type states = { "WebGL1_CreateGL": state }
+export type workPluginWhichHasCanvasState = {
+    canvas: HTMLCanvasElement
+}
+
+export type states = {
+    [workPluginWhichHasCanvasState: string]: workPluginWhichHasCanvasState | state
+    [workPluginName]: state,
+}
 
 export type config = {
     mostService: mostService,
     webgl1Service: webgl1Service,
-    canvas: HTMLCanvasElement
+    workPluginWhichHasCanvasName: string
 }

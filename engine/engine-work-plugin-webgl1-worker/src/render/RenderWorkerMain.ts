@@ -19,6 +19,8 @@ import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-
 // import { createPerspectiveCameraProjection, setAspect, setFar, setNear, setFovy } from "engine-facade/src/PerspectiveCameraProjectionAPI"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
+import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
+import { workPluginName } from "engine-work-plugin-webgl1-worker-render-protocol"
 
 function _getEngineCoreExtensionName(): string {
 	return "meta3d-engine-core"
@@ -48,6 +50,18 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	let registerECSService: registerECSWorkerService = getExtensionService(meta3dState, _getMeta3DRegisterECSWorkerExtensionName())
 	let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
 
+	engineCoreState =
+		engineCoreService.registerWorkPlugin(
+			engineCoreState,
+			getWebGL1GetGLWorkPluginContribute({ mostService, webgl1Service, workPluginWhichHasCanvasName: workPluginName }),
+			[
+				{
+					pipelineName: "init",
+					insertElementName: "get_init_render_data",
+					insertAction: "after"
+				}
+			]
+		)
 	engineCoreState =
 		registerWorkPlugin(
 			engineCoreState,
@@ -263,7 +277,7 @@ let isDebug = true
 
 let tempMeta3DState: nullable<meta3dState> = null
 
-function _loop(meta3dState: meta3dState) {
+function _render(meta3dState: meta3dState) {
 	// updateEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
 	// 	renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
 	// 		tempMeta3DState = meta3dState
@@ -296,7 +310,7 @@ _init(meta3dState_, isDebug).then((meta3dState) => {
 // mostService.fromEvent<MessageEvent, WorkerGlobalScope & typeof globalThis>("message", self, false).filter((event) => {
 mostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false).filter((event) => {
 	console.log(event);
-	return event.data.operateType === "SEND_BEGIN_LOOP";
+	return event.data.operateType === "SEND_BEGIN_RENDER";
 }).tap((_) => {
-	return _loop(getExn(tempMeta3DState));
+	return _render(getExn(tempMeta3DState));
 }).drain();

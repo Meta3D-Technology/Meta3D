@@ -11,7 +11,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		console.log("send begin loop data job webgl worker exec on main thread")
 
 		getExn(worker).postMessage({
-			operateType: "SEND_BEGIN_LOOP"
+			operateType: "SEND_BEGIN_RENDER"
 		})
 
 		return engineCoreState
