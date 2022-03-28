@@ -2,8 +2,8 @@ let componentName = "Transform"
 
 type config = {
   isDebug: bool,
-  float9Array1: Js.Typed_array.Float32_array.t,
-  float32Array1: Js.Typed_array.Float32_array.t,
+  float9Array1: Js.Typed_array.Float32Array.t,
+  float32Array1: Js.Typed_array.Float32Array.t,
   transformCount: int,
 }
 

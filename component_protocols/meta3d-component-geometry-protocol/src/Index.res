@@ -18,9 +18,7 @@ let dataName = {
   indicesCount: 5,
 }
 
-
-
-type geometry = int
+type geometry = Meta3dComponentGeometryCommonProtocol.Index.geometry
 
 type config = {
   isDebug: bool,
@@ -38,4 +36,4 @@ type batchDisposeData = Meta3dCommonlibType.MutableSparseMapType.t<
   array<Meta3dGameobjectProtocol.Index.gameObject>,
 >
 
-type cloneConfig = ()
+type cloneConfig = unit

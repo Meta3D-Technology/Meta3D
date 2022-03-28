@@ -13,7 +13,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	let { mostService, webgl1Service, engineCoreService,  isDebug, material } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("render webgl job send camera job exec")
+		console.log("send uniform shader data job exec")
 
 		let usedBasicCameraViewContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 

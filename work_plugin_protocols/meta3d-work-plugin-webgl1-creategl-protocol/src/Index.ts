@@ -16,7 +16,7 @@ export type workPluginWhichHasCanvasState = {
 }
 
 export type states = {
-    [workPluginWhichHasCanvasState: string]: workPluginWhichHasCanvasState | state,
+    [workPluginWhichHasCanvasName: string]: workPluginWhichHasCanvasState | state,
     [workPluginName]: state
 }
 

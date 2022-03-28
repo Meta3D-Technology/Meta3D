@@ -12,6 +12,7 @@ import { getExtensionService as getImmutableExtensionService, createExtensionSta
 import { workPluginName } from "engine-work-plugin-webgl1-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
 import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-detectgl/src/Main"
+import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkerWorkPluginContribute } from "engine-work-plugin-webgl1-worker/src/main/Main"
 import { createGeometry, setIndices, setVertices } from "engine-facade/src/GeometryAPI"
@@ -19,6 +20,7 @@ import { createPBRMaterial, setDiffuseColor } from "engine-facade/src/PBRMateria
 import { createTransform, setLocalPosition, lookAt } from "engine-facade/src/TransformAPI"
 import { createBasicCameraView, active } from "engine-facade/src/BasicCameraViewAPI"
 import { createPerspectiveCameraProjection, setAspect, setFar, setNear, setFovy } from "engine-facade/src/PerspectiveCameraProjectionAPI"
+import { componentName as geometryComponentName, dataName as geometryDataName } from "meta3d-component-geometry-protocol";
 
 function _getEngineCoreExtensionName(): string {
     return "meta3d-engine-core"
@@ -113,6 +115,25 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                     }
                 ]
             )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1GeometryWorkPluginContribute({
+                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllGeometryIndicesName: workPluginName, geometryData: {
+                        componentName: geometryComponentName,
+                        verticesDataName: geometryDataName.vertices,
+                        indicesDataName: geometryDataName.indices
+                    }
+                }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "prepare_init_data_webgl_engine",
+                        insertAction: "after"
+                    }
+                ]
+            )
+
     }
 
     return engineCoreState

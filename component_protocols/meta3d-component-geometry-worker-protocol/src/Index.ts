@@ -1,3 +1,5 @@
+import { geometry as geometryType, vertices as verticesType, indices as indicesType, indicesCount as indicesCountType } from "meta3d-component-geometry-common-protocol"
+
 export const componentName = "GeometryWorker"
 
 export type config = {
@@ -16,10 +18,10 @@ export const dataName = {
     indicesCount: 5,
 }
 
-export type geometry = number
+export type geometry = geometryType
 
-export type vertices = Float32Array
+export type vertices = verticesType
 
-export type indices = Uint32Array
+export type indices = indicesType
 
-export type indicesCount = number
+export type indicesCount = indicesCountType

@@ -6,6 +6,7 @@ import { map } from "meta3d-immutable-protocol/src/service/MapType";
 import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
+import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1-worker-render"
 
@@ -30,10 +31,6 @@ export type state = {
     registerECSService: registerECSWorkerService,
     immutableService: immutableService,
     canvas: nullable<OffscreenCanvas>,
-    vbo: {
-        verticesVBOMap: verticesVBOMap,
-        indicesVBOMap: indicesVBOMap
-    },
     material: {
         programMap: programMap
     },
@@ -54,5 +51,6 @@ export type state = {
 
 export type states = {
     [workPluginName]: state,
-    [createGLWorkPluginName]: createGLState
+    [createGLWorkPluginName]: createGLState,
+    [geometryWorkPluginName]: geometryState
 }

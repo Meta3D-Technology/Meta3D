@@ -1,3 +1,5 @@
+// TODO remove VBOService
+
 import { verticesVBOMap, indicesVBOMap } from "../Type"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"

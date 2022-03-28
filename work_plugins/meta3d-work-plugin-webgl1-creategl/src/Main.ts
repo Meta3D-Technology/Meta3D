@@ -1,11 +1,11 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { execFunc as create_gl } from "./jobs/init/CreateGLJob";
+import { execFunc as execCreateGL } from "./jobs/init/CreateGLJob";
 import { config, state, states, workPluginName } from "meta3d-work-plugin-webgl1-creategl-protocol";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "create_gl_webgl1_creategl_meta3d":
-			return create_gl;
+			return execCreateGL;
 		default:
 			return null
 	}

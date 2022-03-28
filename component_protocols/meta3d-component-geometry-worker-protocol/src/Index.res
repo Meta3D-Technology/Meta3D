@@ -25,7 +25,7 @@ let dataName = {
   indicesCount: 5,
 }
 
-type geometry = int
+type geometry = Meta3dComponentGeometryCommonProtocol.Index.geometry
 
 type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<
   geometry,

@@ -1,6 +1,6 @@
 import { getRenderData, render } from "engine-work-plugin-webgl1-utils/src/utils/RenderUtils"
 import { execFunc as execFuncType } from "../../Type"
-import { getGL, getState } from "../Utils"
+import { getGL, getState, getVBO } from "../Utils"
 import { states } from "engine-work-plugin-webgl1-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { componentName as pbrMaterialComponentName, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
@@ -10,12 +10,14 @@ import { gameObject } from "meta3d-gameobject-protocol"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, webgl1Service, engineCoreService, immutableService, vbo, material } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, immutableService, material } = getState(states)
 
 	return mostService.callFunc(() => {
+		console.log("render job");
+		
 		let allGameObjects = engineCoreService.getAllGameObjects<gameObject>(engineCoreState)
 
-		let { verticesVBOMap, indicesVBOMap } = vbo
+		let { verticesVBOMap, indicesVBOMap } = getVBO(states)
 		let programMap = material.programMap
 
 		let usedPBRMaterialContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)

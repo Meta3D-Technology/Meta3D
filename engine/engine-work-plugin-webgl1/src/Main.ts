@@ -1,26 +1,26 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { execFunc as init_geometry } from "./jobs/init/InitGeometryJob"
-import { execFunc as init_material } from "./jobs/init/InitMaterialJob"
-import { execFunc as updateCamera } from "./jobs/update/UpdateCameraJob";
-import { execFunc as updateTransform } from "./jobs/update/UpdateTransformJob";
-import { execFunc as sendCameraData } from "./jobs/render/SendUniformShaderDataJob";
-import { execFunc as render } from "./jobs/render/RenderJob";
+import { execFunc as execPrepareInitDataJob } from "./jobs/init/PrepareInitDataJob"
+import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob"
+import { execFunc as execUpdateCamera } from "./jobs/update/UpdateCameraJob";
+import { execFunc as execUpdateTransform } from "./jobs/update/UpdateTransformJob";
+import { execFunc as execSendCameraData } from "./jobs/render/SendUniformShaderDataJob";
+import { execFunc as execRender } from "./jobs/render/RenderJob";
 import { config, state, states, workPluginName } from "engine-work-plugin-webgl1-protocol";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "init_geometry_webgl_engine":
-			return init_geometry;
+		case "prepare_init_data_webgl_engine":
+			return execPrepareInitDataJob
 		case "init_material_webgl_engine":
-			return init_material;
+			return execInitMaterial;
 		case "update_camera_webgl_engine":
-			return updateCamera;
+			return execUpdateCamera;
 		case "update_transform_webgl_engine":
-			return updateTransform;
+			return execUpdateTransform;
 		case "send_uniform_shader_data_webgl_engine":
-			return sendCameraData;
+			return execSendCameraData;
 		case "render_webgl_engine":
-			return render;
+			return execRender;
 		default:
 			return null
 	}
@@ -40,10 +40,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				engineCoreService,
 				immutableService,
 				canvas,
-				vbo: {
-					verticesVBOMap: immutableService.createMap(),
-					indicesVBOMap: immutableService.createMap(),
-				},
+				allGeometryIndices: [],
 				material: {
 					programMap: immutableService.createMap()
 				}
@@ -60,7 +57,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						link: "concat",
 						elements: [
 							{
-								"name": "init_geometry_webgl_engine",
+								"name": "prepare_init_data_webgl_engine",
 								"type_": "job"
 							},
 							{

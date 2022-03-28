@@ -2,7 +2,6 @@ import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d
 import { workPluginName, config, state, states } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { execFunc as execGetInitRenderData } from "./jobs/init/GetInitRenderDataJob"
 import { execFunc as execRegisterECS } from "./jobs/init/RegisterECSJob"
-import { execFunc as execInitGeometry } from "./jobs/init/InitGeometryJob"
 import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob"
 import { execFunc as execSendFinishInitRenderData } from "./jobs/init/SendFinishInitRenderDataJob"
 import { execFunc as execGetRenderData } from "./jobs/render/GetRenderDataJob"
@@ -16,8 +15,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execGetInitRenderData
 		case "register_ecs":
 			return execRegisterECS
-		case "init_geometry":
-			return execInitGeometry
 		case "init_material":
 			return execInitMaterial
 		case "send_finish_init_render_data":
@@ -50,10 +47,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				registerECSService,
 				immutableService,
 				canvas: null,
-				vbo: {
-					verticesVBOMap: immutableService.createMap(),
-					indicesVBOMap: immutableService.createMap(),
-				},
 				material: {
 					programMap: immutableService.createMap()
 				},
@@ -87,10 +80,6 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 						},
 						{
 							"name": "register_ecs",
-							"type_": "job"
-						},
-						{
-							"name": "init_geometry",
 							"type_": "job"
 						},
 						{

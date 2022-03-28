@@ -2,40 +2,49 @@ import { service as mostService } from "meta3d-bs-most-protocol/src/service/Serv
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
-import { map } from "meta3d-immutable-protocol/src/service/MapType";
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
-import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
+import { map } from "meta3d-immutable-protocol/src/service/MapType"
 
-export const workPluginName = "engine-work-plugin-webgl1"
+export const workPluginName = "WebGL1_Geometry"
 
 export type verticesVBOMap = map<number, WebGLBuffer>;
 export type indicesVBOMap = map<number, WebGLBuffer>;
-export type programMap = map<number, WebGLProgram>;
+
+export type geometryData = {
+    componentName: string,
+    verticesDataName: number,
+    indicesDataName: number,
+}
 
 export type state = {
-    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
-    canvas: HTMLCanvasElement,
-    allGeometryIndices:number[],
-    material: {
-        programMap: programMap
-    }
+    vbo: {
+        verticesVBOMap: verticesVBOMap,
+        indicesVBOMap: indicesVBOMap
+    },
+    workPluginWhichHasAllGeometryIndicesName: string,
+    geometryData: geometryData
+}
+
+
+export type workPluginWhichHasAllGeometryIndicesState = {
+    allGeometryIndices: number[]
 }
 
 export type states = {
-    [workPluginName]: state,
+    [workPluginWhichHasAllGeometryIndicesName: string]: workPluginWhichHasAllGeometryIndicesState | createGLState | state,
     [createGLWorkPluginName]: createGLState,
-    [geometryWorkPluginName]: geometryState
+    [workPluginName]: state
 }
 
 export type config = {
-    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
-    canvas: HTMLCanvasElement
+    workPluginWhichHasAllGeometryIndicesName: string,
+    geometryData: geometryData
 }

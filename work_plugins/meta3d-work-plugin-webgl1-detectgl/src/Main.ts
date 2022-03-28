@@ -1,11 +1,11 @@
 import { getWorkPluginContribute as getWorkPluginContributeMeta3D } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
-import { execFunc as detect_gl } from "./jobs/init/DetectGLJob";
+import { execFunc as execDetectGL } from "./jobs/init/DetectGLJob";
 import { config, state, states, workPluginName } from "meta3d-work-plugin-webgl1-detectgl-protocol";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "detect_gl_webgl1_detectgl_meta3d":
-			return detect_gl;
+			return execDetectGL;
 		default:
 			return null
 	}
