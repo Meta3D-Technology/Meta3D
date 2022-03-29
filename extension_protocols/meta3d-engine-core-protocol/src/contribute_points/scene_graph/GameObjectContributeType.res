@@ -6,6 +6,12 @@ type pbrMaterial = Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial
 
 type geometry = Meta3dComponentGeometryProtocol.Index.geometry
 
+type transformState = ComponentType.transformState
+
+type pbrMaterialState =ComponentType.transformState 
+
+type geometryState = ComponentType.transformState 
+
 type config = Meta3dGameobjectProtocol.Index.config
 
 type createStateFunc<'state> = (. config) => 'state
@@ -14,212 +20,198 @@ type createGameObjectFunc<'state> = (. 'state) => ('state, gameObject)
 
 type getNeedDisposedGameObjectsFunc<'state> = (. 'state) => array<gameObject>
 
-type getTransformFunc<'transformState> = ComponentContributeType.getComponentFunc<
-  'transformState,
+type getTransformFunc = ComponentContributeType.getComponentFunc<
+  transformState,
   transform,
 >
 
-type getPBRMaterialFunc<'geometryState> = ComponentContributeType.getComponentFunc<
-  'geometryState,
+type getPBRMaterialFunc = ComponentContributeType.getComponentFunc<
+  geometryState,
   geometry,
 >
 
-type getGeometryFunc<'pbrMaterialState> = ComponentContributeType.getComponentFunc<
-  'pbrMaterialState,
+type getGeometryFunc = ComponentContributeType.getComponentFunc<
+  pbrMaterialState,
   pbrMaterial,
 >
 
-type deferDisposeTransformFunc<'transformState> = ComponentContributeType.deferDisposeComponentFunc<
-  'transformState,
+type deferDisposeTransformFunc = ComponentContributeType.deferDisposeComponentFunc<
+  transformState,
   transform,
 >
 
-type deferDisposePBRMaterialFunc<
-  'pbrMaterialState,
-> = ComponentContributeType.deferDisposeComponentFunc<'pbrMaterialState, pbrMaterial>
+type deferDisposePBRMaterialFunc = ComponentContributeType.deferDisposeComponentFunc<pbrMaterialState, pbrMaterial>
 
-type deferDisposeGeometryFunc<'geometryState> = ComponentContributeType.deferDisposeComponentFunc<
-  'geometryState,
+type deferDisposeGeometryFunc = ComponentContributeType.deferDisposeComponentFunc<
+  geometryState,
   geometry,
 >
 
-type deferDisposeGameObjectFunc<'state, 'transformState, 'pbrMaterialState, 'geometryState> = (
-  . ('state, 'transformState, 'pbrMaterialState, 'geometryState),
+type deferDisposeGameObjectFunc<'state> = (
+  . ('state, transformState, pbrMaterialState, geometryState),
   (
     (
-      getTransformFunc<'transformState>,
-      // (. 'transformState, (transform, gameObject)) => 'transformState,
-      deferDisposeTransformFunc<'transformState>,
+      getTransformFunc,
+      // (. transformState, (transform, gameObject)) => transformState,
+      deferDisposeTransformFunc,
     ),
     (
-      getPBRMaterialFunc<'pbrMaterialState>,
-      // (. 'pbrMaterialState, (pbrMaterial, gameObject)) => 'pbrMaterialState,
-      deferDisposePBRMaterialFunc<'pbrMaterialState>,
+      getPBRMaterialFunc,
+      // (. pbrMaterialState, (pbrMaterial, gameObject)) => pbrMaterialState,
+      deferDisposePBRMaterialFunc,
     ),
     (
-      getGeometryFunc<'geometryState>,
-      // (. 'geometryState, (geometry, gameObject)) => 'geometryState),
-      deferDisposeGeometryFunc<'geometryState>,
+      getGeometryFunc,
+      // (. geometryState, (geometry, gameObject)) => geometryState),
+      deferDisposeGeometryFunc,
     ),
   ),
   gameObject,
-) => ('state, 'transformState, 'pbrMaterialState, 'geometryState)
+) => ('state, transformState, pbrMaterialState, geometryState)
 
-type disposeTransformsFunc<'transformState> = ComponentContributeType.disposeComponentsFunc<
-  'transformState,
+type disposeTransformsFunc = ComponentContributeType.disposeComponentsFunc<
+  transformState,
   Meta3dComponentTransformProtocol.Index.batchDisposeData,
 >
 
-type disposePBRMaterialsFunc<'pbrMaterialState> = ComponentContributeType.disposeComponentsFunc<
-  'pbrMaterialState,
+type disposePBRMaterialsFunc = ComponentContributeType.disposeComponentsFunc<
+  pbrMaterialState,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
 >
 
-type disposeGeometrysFunc<'geometryState> = ComponentContributeType.disposeComponentsFunc<
-  'geometryState,
+type disposeGeometrysFunc = ComponentContributeType.disposeComponentsFunc<
+  geometryState,
   Meta3dComponentGeometryProtocol.Index.batchDisposeData,
 >
 
-type disposeGameObjectsFunc<'state, 'transformState, 'pbrMaterialState, 'geometryState> = (
-  . ('state, 'transformState, 'pbrMaterialState, 'geometryState),
+type disposeGameObjectsFunc<'state> = (
+  . ('state, transformState, pbrMaterialState, geometryState),
   (
     (
-      getTransformFunc<'transformState>,
+      getTransformFunc,
       // (
-      //   . 'transformState,
+      //   . transformState,
       //   Meta3dComponentTransformProtocol.Index.batchDisposeData,
-      // ) => 'transformState,
-      disposeTransformsFunc<'transformState>,
+      // ) => transformState,
+      disposeTransformsFunc,
     ),
     (
-      getPBRMaterialFunc<'pbrMaterialState>,
+      getPBRMaterialFunc,
       // (
-      //   . 'pbrMaterialState,
+      //   . pbrMaterialState,
       //   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
-      // ) => 'pbrMaterialState,
-      disposePBRMaterialsFunc<'pbrMaterialState>,
+      // ) => pbrMaterialState,
+      disposePBRMaterialsFunc,
     ),
     (
-      getGeometryFunc<'geometryState>,
-      // (. 'geometryState, Meta3dComponentGeometryProtocol.Index.batchDisposeData) => 'geometryState,
-      disposeGeometrysFunc<'geometryState>,
+      getGeometryFunc,
+      // (. geometryState, Meta3dComponentGeometryProtocol.Index.batchDisposeData) => geometryState,
+      disposeGeometrysFunc,
     ),
   ),
   array<gameObject>,
-) => ('state, 'transformState, 'pbrMaterialState, 'geometryState)
+) => ('state, transformState, pbrMaterialState, geometryState)
 
 type cloneCount = int
 
 type clonedGameObjects = array<array<gameObject>>
 
-type cloneTransformFunc<'transformState> = ComponentContributeType.cloneComponentFunc<
-  'transformState,
+type cloneTransformFunc = ComponentContributeType.cloneComponentFunc<
+  transformState,
   Meta3dComponentTransformProtocol.Index.cloneConfig,
   transform,
 >
 
-type clonePBRMaterialFunc<'pbrMaterialState> = ComponentContributeType.cloneComponentFunc<
-  'pbrMaterialState,
+type clonePBRMaterialFunc = ComponentContributeType.cloneComponentFunc<
+  pbrMaterialState,
   Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
   pbrMaterial,
 >
 
-type cloneGeometryFunc<'geometryState> = ComponentContributeType.cloneComponentFunc<
-  'geometryState,
+type cloneGeometryFunc = ComponentContributeType.cloneComponentFunc<
+  geometryState,
   Meta3dComponentGeometryProtocol.Index.cloneConfig,
   geometry,
 >
 
-type addTransformFunc<'transformState> = ComponentContributeType.addComponentFunc<
-  'transformState,
+type addTransformFunc = ComponentContributeType.addComponentFunc<
+  transformState,
   transform,
 >
 
-type getTransformGameObjectsFunc<'transformState> = ComponentContributeType.getGameObjectsFunc<
-  'transformState,
+type getTransformGameObjectsFunc = ComponentContributeType.getGameObjectsFunc<
+  transformState,
   transform,
 >
 
-type getTransformDataFunc<'transformState> = ComponentContributeType.getComponentDataFunc<
-  'transformState,
+type getTransformDataFunc = ComponentContributeType.getComponentDataFunc<
+  transformState,
   
   transform,
 >
 
-type setTransformDataFunc<'transformState> = ComponentContributeType.setComponentDataFunc<
-  'transformState,
+type setTransformDataFunc = ComponentContributeType.setComponentDataFunc<
+  transformState,
   
   transform,
 >
 
-type addPBRMaterialFunc<'pbrMaterialState> = ComponentContributeType.addComponentFunc<
-  'pbrMaterialState,
+type addPBRMaterialFunc = ComponentContributeType.addComponentFunc<
+  pbrMaterialState,
   pbrMaterial,
 >
 
-type addGeometryFunc<'geometryState> = ComponentContributeType.addComponentFunc<
-  'geometryState,
+type addGeometryFunc = ComponentContributeType.addComponentFunc<
+  geometryState,
   geometry,
 >
 
-type cloneGameObjectFunc<'state, 'transformState, 'pbrMaterialState, 'geometryState> = (
-  . ('state, 'transformState, 'pbrMaterialState, 'geometryState),
+type cloneGameObjectFunc<'state> = (
+  . ('state, transformState, pbrMaterialState, geometryState),
   (
     (
-      getTransformFunc<'transformState>,
-      cloneTransformFunc<'transformState>,
-      addTransformFunc<'transformState>,
-      getTransformGameObjectsFunc<'transformState>,
-      getTransformDataFunc<'transformState>,
-      setTransformDataFunc<'transformState>,
+      getTransformFunc,
+      cloneTransformFunc,
+      addTransformFunc,
+      getTransformGameObjectsFunc,
+      getTransformDataFunc,
+      setTransformDataFunc,
     ),
     (
-      getPBRMaterialFunc<'pbrMaterialState>,
-      clonePBRMaterialFunc<'pbrMaterialState>,
-      addPBRMaterialFunc<'pbrMaterialState>,
+      getPBRMaterialFunc,
+      clonePBRMaterialFunc,
+      addPBRMaterialFunc,
     ),
     (
-      getGeometryFunc<'geometryState>,
-      cloneGeometryFunc<'geometryState>,
-      addGeometryFunc<'geometryState>,
+      getGeometryFunc,
+      cloneGeometryFunc,
+      addGeometryFunc,
     ),
   ),
   cloneCount,
   Meta3dGameobjectProtocol.Index.cloneConfig,
   gameObject,
-) => (('state, 'transformState, 'pbrMaterialState, 'geometryState), clonedGameObjects)
+) => (('state, transformState, pbrMaterialState, geometryState), clonedGameObjects)
 
 type getAllGameObjectsFunc<'state> = (. 'state) => array<gameObject>
 
 // @genType
-type gameObjectContribute<'state, 'transformState, 'pbrMaterialState, 'geometryState> = {
+type gameObjectContribute<'state> = {
   createStateFunc: createStateFunc<'state>,
   createGameObjectFunc: createGameObjectFunc<'state>,
   getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc<'state>,
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<
     'state,
-    'transformState,
-    'pbrMaterialState,
-    'geometryState,
   >,
   disposeGameObjectsFunc: disposeGameObjectsFunc<
     'state,
-    'transformState,
-    'pbrMaterialState,
-    'geometryState,
   >,
   cloneGameObjectFunc: cloneGameObjectFunc<
     'state,
-    'transformState,
-    'pbrMaterialState,
-    'geometryState,
   >,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state>,
 }
 
 type getGameObjectContribute<
   'state,
-  'transformState,
-  'pbrMaterialState,
-  'geometryState,
-> = unit => gameObjectContribute<'state, 'transformState, 'pbrMaterialState, 'geometryState>
+> = unit => gameObjectContribute<'state>

@@ -1,8 +1,5 @@
 let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.getGameObjectContribute<
   StateType.state,
-  Meta3dEngineCoreProtocol.ComponentType.transformState,
-  Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
-  Meta3dEngineCoreProtocol.ComponentType.geometryState,
 > = () => {
   createStateFunc: (. config) => {
     maxUID: 0,

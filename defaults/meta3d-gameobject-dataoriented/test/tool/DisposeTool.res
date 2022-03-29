@@ -1,9 +1,6 @@
 let deferDisposeGameObject = (
   ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
     StateType.state,
-    Meta3dEngineCoreProtocol.ComponentType.transformState,
-    Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
-    Meta3dEngineCoreProtocol.ComponentType.geometryState,
   >,
   ~gameObjectState,
   ~gameObject,
@@ -33,9 +30,6 @@ let deferDisposeGameObject = (
 let disposeGameObjects = (
   ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
     Meta3dGameobjectDataoriented.StateType.state,
-    Meta3dEngineCoreProtocol.ComponentType.transformState,
-    Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
-    Meta3dEngineCoreProtocol.ComponentType.geometryState,
   >,
   ~gameObjectState,
   ~gameObjects,

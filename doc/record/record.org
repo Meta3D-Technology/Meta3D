@@ -833,15 +833,15 @@ TODO finish plugin.feature
 
 ** DONE refactor(work_plugins): remove Type.ts for work plugin
 
-** TODO refactor(work_plugins): Utils add setState
+** DONE refactor(work_plugins): Utils add setState
 
-** TODO refactor(work_plugin_protocols): type states use workPluginName as key
+** DONE refactor(work_plugin_protocols): type states use workPluginName as key
 export type states = { [workPluginName]: state, }
 
-** TODO refactor(work_plugins): webgl1 worker->main, render: job should add postfix;
+** DONE refactor(work_plugins): webgl1 worker->main, render: job should add postfix;
 export type states = { [workPluginName]: state, }
 
-** TODO refactor: remove GameContributeType->'transformState, 'xxxState ???
+** DONE refactor: remove GameContributeType->'transformState, 'xxxState ???
 
 
 

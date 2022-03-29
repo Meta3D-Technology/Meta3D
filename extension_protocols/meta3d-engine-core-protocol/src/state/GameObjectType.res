@@ -6,21 +6,12 @@ type usedGameObjectContribute = {
   getNeedDisposedGameObjectsFunc: GameObjectContributeType.getNeedDisposedGameObjectsFunc<state>,
   deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<
     state,
-    ComponentType.state,
-    ComponentType.state,
-    ComponentType.state,
   >,
   disposeGameObjectsFunc: GameObjectContributeType.disposeGameObjectsFunc<
     state,
-    ComponentType.state,
-    ComponentType.state,
-    ComponentType.state,
   >,
   cloneGameObjectFunc: GameObjectContributeType.cloneGameObjectFunc<
     state,
-    ComponentType.state,
-    ComponentType.state,
-    ComponentType.state,
   >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state>,
 }
@@ -28,7 +19,4 @@ type usedGameObjectContribute = {
 // @genType
 type gameObjectContribute = GameObjectContributeType.gameObjectContribute<
   state,
-  ComponentType.state,
-  ComponentType.state,
-  ComponentType.state,
 >
