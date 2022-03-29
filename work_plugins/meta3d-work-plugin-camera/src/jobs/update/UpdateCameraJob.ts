@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "../../Type"
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { getCanvas, getState } from "../Utils"
 import { states } from "meta3d-work-plugin-camera-protocol"
 import { updateCamera } from "../UpdateCameraUtils"

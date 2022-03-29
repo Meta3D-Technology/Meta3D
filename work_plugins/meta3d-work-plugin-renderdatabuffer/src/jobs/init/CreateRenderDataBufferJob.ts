@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "../../Type";
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { getMaxRenderGameObjectCount, getState, setState } from "../Utils";
 import { states } from "meta3d-work-plugin-renderdatabuffer-protocol";
 

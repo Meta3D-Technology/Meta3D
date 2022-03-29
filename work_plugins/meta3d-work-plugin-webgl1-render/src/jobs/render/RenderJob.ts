@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "../../Type"
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { getGL, getAllRenderComponents, getProgramMap, getState, getVBO } from "../Utils"
 import { geometryData, states, transformData } from "meta3d-work-plugin-webgl1-render-protocol"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"

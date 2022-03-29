@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "../../Type";
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType";
 import { getRenderDataBufferTypeArray, getRenderGameObjectsCount, getState } from "../../Utils";
 import { states } from "engine-work-plugin-webgl1-worker-main-protocol";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"

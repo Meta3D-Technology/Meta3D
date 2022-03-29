@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "../../Type"
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { getGL, getPMatrix, getProgramMap, getState, getViewMatrix } from "../Utils"
 import { states, viewMatrix, pMatrix } from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"

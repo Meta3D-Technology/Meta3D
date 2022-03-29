@@ -1,5 +1,5 @@
 import { range } from "lodash"
-import { execFunc as execFuncType } from "../../Type"
+import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute_points/work/WorkPluginContributeType"
 import { setState, getState } from "../../Utils"
 import { states, renderDataBufferTypeArray } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
