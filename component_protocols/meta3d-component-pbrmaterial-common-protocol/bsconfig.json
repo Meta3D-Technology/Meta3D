@@ -1,9 +1,9 @@
 {
-  "name": "meta3d-component-pbrmaterial-worker-protocol",
+  "name": "meta3d-component-pbrmaterial-common-protocol",
   "sources": [
     {
-      "dir": "./",
-      "subdirs": true
+      "dir": "./src",
+      "subdirs": false
     }
   ],
   "gentypeconfig": {
@@ -24,7 +24,6 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-gameobject-protocol",
-    "meta3d-component-pbrmaterial-common-protocol",
     "meta3d-commonlib-type"
   ],
   "package-specs": [

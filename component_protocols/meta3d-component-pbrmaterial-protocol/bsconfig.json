@@ -24,6 +24,7 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-gameobject-protocol",
+    "meta3d-component-pbrmaterial-common-protocol",
     "meta3d-commonlib-type"
   ],
   "package-specs": [

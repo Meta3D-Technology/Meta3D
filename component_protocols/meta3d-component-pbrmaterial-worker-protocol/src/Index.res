@@ -18,7 +18,7 @@ type diffuseColor = (float, float, float)
 
 type specular = float
 
-type pbrMaterial = int
+type pbrMaterial = Meta3dComponentPbrmaterialCommonProtocol.Index.pbrMateiral
 
 type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<
   pbrMaterial,

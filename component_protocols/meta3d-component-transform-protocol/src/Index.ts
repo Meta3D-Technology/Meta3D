@@ -1,4 +1,4 @@
-import { transform as transformType, update as updateType } from "meta3d-component-transform-common-protocol"
+import { transform as transformType, update as updateType, localToWorldMatrix as localToWorldMatrixType } from "meta3d-component-transform-common-protocol"
 
 export const componentName = "Transform"
 
@@ -53,7 +53,7 @@ export type localPosition = [number, number, number];
 
 // export type eulerAngles = [number, number, number];
 
-export type localToWorldMatrix = Float32Array
+export type localToWorldMatrix = localToWorldMatrixType
 
 // export type normalMatrix = Float32Array
 

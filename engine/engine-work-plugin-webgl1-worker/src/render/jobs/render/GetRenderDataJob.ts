@@ -33,7 +33,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 					...getState(states),
 					viewMatrix: viewMatrix,
 					pMatrix: pMatrix,
-					typeArray: typeArray,
+					renderDataBufferTypeArray: typeArray,
 					renderGameObjectsCount: renderGameObjectsCount
 				}
 			}

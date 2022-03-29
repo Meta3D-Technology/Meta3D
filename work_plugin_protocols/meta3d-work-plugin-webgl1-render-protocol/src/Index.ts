@@ -3,47 +3,50 @@ import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/Ser
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
-import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
 import { workPluginName as materialWorkPluginName, state as materialState } from "meta3d-work-plugin-webgl1-material-protocol"
-import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { transform } from "meta3d-component-transform-protocol"
-import { geometry } from "meta3d-component-geometry-protocol"
-import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
+import { transform } from "meta3d-component-transform-common-protocol"
+import { geometry } from "meta3d-component-geometry-common-protocol"
+import { pbrMaterial } from "meta3d-component-pbrmaterial-common-protocol"
 
-export const workPluginName = "engine-work-plugin-webgl1"
+export const workPluginName = "WebGL1_Render"
 
-// TODO duplicate with meta3d-work-plugin-webgl1-senduniformshaderdata-protocol->Index.ts
-type viewMatrix = Float32Array
+export type transformData = {
+    componentName: string,
+    localToWorldMatrixDataName: number,
+}
 
-type pMatrix = Float32Array
+export type geometryData = {
+    componentName: string,
+    indicesCountDataName: number,
+}
 
 export type state = {
-    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
-    canvas: HTMLCanvasElement,
-    allGeometryIndices: number[],
-    allMaterialIndices: number[],
-    viewMatrix: nullable<viewMatrix>,
-    pMatrix: nullable<pMatrix>,
-    // TODO duplicate with meta3d-work-plugin-webgl1-render-protocol->Index.ts
+    workPluginWhichHasAllRenderComponentsName: string,
+    transformData: transformData,
+    geometryData: geometryData
+}
+
+export type workPluginWhichHasAllRenderComponentsState = {
     allRenderComponents: Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
 }
 
 export type states = {
-    [workPluginName]: state,
+    [workPluginWhichHasAllRenderComponentsName: string]: workPluginWhichHasAllRenderComponentsState | createGLState | materialState | state,
     [createGLWorkPluginName]: createGLState,
-    [geometryWorkPluginName]: geometryState,
-    [materialWorkPluginName]: materialState
+    [materialWorkPluginName]: materialState,
+    [workPluginName]: state
 }
 
 export type config = {
-    isDebug: boolean,
     mostService: mostService,
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
-    canvas: HTMLCanvasElement
+    workPluginWhichHasAllRenderComponentsName: string,
+    transformData: transformData,
+    geometryData: geometryData
 }

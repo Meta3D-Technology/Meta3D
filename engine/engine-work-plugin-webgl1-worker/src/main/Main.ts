@@ -11,21 +11,21 @@ import { execFunc as execGeiFinishRenderData } from "./jobs/render/GetFinishRend
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "create_worker_instance":
+		case "create_worker_instance_webgl1_worker_main_engine":
 			return execCreateWorkerInstance
-		case "create_render_data_buffer":
+		case "create_render_data_buffer_webgl1_worker_main_engine":
 			return execCreateRenderDataBuffer
-		case "send_init_render_data":
+		case "send_init_render_data_webgl1_worker_main_engine":
 			return execSendInitRenderData
-		case "get_finish_send_init_render_data":
+		case "get_finish_send_init_render_data_webgl1_worker_main_engine":
 			return execGetFinishSendInitRenderData
-		case "update_render_data_buffer":
+		case "update_render_data_buffer_webgl1_worker_main_engine":
 			return execUpdateRenderDataBuffer
-		case "send_render_data":
+		case "send_render_data_webgl1_worker_main_engine":
 			return execSendRenderData
-		case "send_begin_loop_data":
+		case "send_begin_loop_data_webgl1_worker_main_engine":
 			return execSendBeginLoopData
-		case "get_finish_render_data":
+		case "get_finish_render_data_webgl1_worker_main_engine":
 			return execGeiFinishRenderData
 		default:
 			return null
@@ -61,7 +61,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					link: "concat",
 					elements: [
 						{
-							"name": "create_worker_instance",
+							"name": "create_worker_instance_webgl1_worker_main_engine",
 							"type_": "job"
 						},
 						{
@@ -79,7 +79,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 							"type_": "group"
 						},
 						{
-							"name": "get_finish_send_init_render_data",
+							"name": "get_finish_send_init_render_data_webgl1_worker_main_engine",
 							"type_": "job",
 							"is_set_state": false
 						}
@@ -90,11 +90,11 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					link: "concat",
 					elements: [
 						{
-							"name": "create_render_data_buffer",
+							"name": "create_render_data_buffer_webgl1_worker_main_engine",
 							"type_": "job"
 						},
 						{
-							"name": "send_init_render_data",
+							"name": "send_init_render_data_webgl1_worker_main_engine",
 							"type_": "job"
 						}
 					]
@@ -120,15 +120,15 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					link: "concat",
 					elements: [
 						{
-							"name": "update_render_data_buffer",
+							"name": "update_render_data_buffer_webgl1_worker_main_engine",
 							"type_": "job"
 						},
 						{
-							"name": "send_begin_loop_data",
+							"name": "send_begin_loop_data_webgl1_worker_main_engine",
 							"type_": "job"
 						},
 						{
-							"name": "send_render_data",
+							"name": "send_render_data_webgl1_worker_main_engine",
 							"type_": "job"
 						}
 					]
@@ -144,7 +144,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 					link: "concat",
 					elements: [
 						{
-							"name": "get_finish_render_data",
+							"name": "get_finish_render_data_webgl1_worker_main_engine",
 							"type_": "job"
 						}
 					]

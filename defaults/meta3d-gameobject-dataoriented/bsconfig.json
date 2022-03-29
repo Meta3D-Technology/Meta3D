@@ -34,6 +34,7 @@
     "meta3d-gameobject-protocol",
     "meta3d-component-transform-common-protocol",
     "meta3d-component-geometry-common-protocol",
+    "meta3d-component-pbrmaterial-common-protocol",
     "meta3d-component-transform-protocol",
     "meta3d-component-pbrmaterial-protocol",
     "meta3d-component-geometry-protocol",

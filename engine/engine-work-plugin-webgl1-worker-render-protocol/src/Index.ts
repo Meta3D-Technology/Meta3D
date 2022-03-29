@@ -7,6 +7,9 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
 import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
 import { workPluginName as materialWorkPluginName, state as materialState } from "meta3d-work-plugin-webgl1-material-protocol"
+import { transform } from "meta3d-component-transform-worker-protocol"
+import { geometry } from "meta3d-component-geometry-worker-protocol"
+import { pbrMaterial } from "meta3d-component-pbrmaterial-worker-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1-worker-render"
 
@@ -18,6 +21,8 @@ export type config = {
     registerECSService: registerECSWorkerService,
     immutableService: immutableService
 }
+
+export type renderDataBufferTypeArray = Uint32Array
 
 export type state = {
     isDebug: boolean,
@@ -38,8 +43,10 @@ export type state = {
     transformBuffer: nullable<SharedArrayBuffer>,
     geometryBuffer: nullable<SharedArrayBuffer>,
     pbrMaterialBuffer: nullable<SharedArrayBuffer>,
-    typeArray: nullable<Uint32Array>,
-    renderGameObjectsCount: number
+    renderDataBufferTypeArray: nullable<renderDataBufferTypeArray>,
+    renderGameObjectsCount: number,
+    // TODO duplicate with meta3d-work-plugin-webgl1-render-protocol->Index.ts
+    allRenderComponents: Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
 }
 
 export type states = {

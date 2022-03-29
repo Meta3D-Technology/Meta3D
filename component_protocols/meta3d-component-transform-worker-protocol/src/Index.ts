@@ -1,4 +1,4 @@
-import { transform as transformType, update as updateType } from "meta3d-component-transform-common-protocol"
+import { transform as transformType, update as updateType, localToWorldMatrix as localToWorldMatrixType } from "meta3d-component-transform-common-protocol"
 
 export const componentName = "TransformWorker"
 
@@ -11,6 +11,6 @@ export const dataName = {
 
 export type transform = transformType
 
-export type localToWorldMatrix = Float32Array
+export type localToWorldMatrix = localToWorldMatrixType
 
 export type update = updateType

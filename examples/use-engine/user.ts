@@ -16,6 +16,7 @@ import { getWorkPluginContribute as getWebGL1DetectGLWorkPluginContribute } from
 import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from "meta3d-work-plugin-webgl1-geometry/src/Main"
 import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
 import { getWorkPluginContribute as getWebGL1SendUniformShaderDataWorkPluginContribute } from "meta3d-work-plugin-webgl1-senduniformshaderdata/src/Main"
+import { getWorkPluginContribute as getWebGL1RenderWorkPluginContribute } from "meta3d-work-plugin-webgl1-render/src/Main"
 import { getWorkPluginContribute as getCameraWorkPluginContribute } from "meta3d-work-plugin-camera/src/Main"
 import { getWorkPluginContribute as getTransformWorkPluginContribute } from "meta3d-work-plugin-transform/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
@@ -62,7 +63,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "update",
-                        insertElementName: "send_render_data",
+                        insertElementName: "send_render_data_webgl1_worker_main_engine",
                         insertAction: "after"
                     }
                 ]
@@ -144,7 +145,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "init",
-                        insertElementName: "prepare_init_data_webgl_engine",
+                        insertElementName: "prepare_init_data_webgl1_engine",
                         insertAction: "after"
                     }
                 ]
@@ -158,7 +159,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "init",
-                        insertElementName: "prepare_init_data_webgl_engine",
+                        insertElementName: "prepare_init_data_webgl1_engine",
                         insertAction: "after"
                     }
                 ]
@@ -204,7 +205,29 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "render",
-                        insertElementName: "prepare_render_data_webgl_engine",
+                        insertElementName: "prepare_render_data_webgl1_engine",
+                        insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getWebGL1RenderWorkPluginContribute({
+                    mostService, webgl1Service, engineCoreService, immutableService, workPluginWhichHasAllRenderComponentsName: webgl1WorkPluginName,
+                    transformData: {
+                        componentName: transformComponentName,
+                        localToWorldMatrixDataName: transformDataName.localToWorldMatrix
+                    },
+                    geometryData: {
+                        componentName: geometryComponentName,
+                        indicesCountDataName: geometryDataName.indicesCount
+                    }
+                }),
+                [
+                    {
+                        pipelineName: "render",
+                        insertElementName: "send_uniform_shader_data_webgl1_senduniformshaderdata_meta3d",
                         insertAction: "after"
                     }
                 ]
