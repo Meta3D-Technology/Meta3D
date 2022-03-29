@@ -30,7 +30,7 @@ let _init = (state: state) => {
 	console.log("init: ", state)
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, canvas, maxRenderGameObjectCount }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, webgl1WorkerSyncService, canvas, maxRenderGameObjectCount }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: (): state => {
@@ -38,6 +38,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				isDebug,
 				mostService,
 				engineCoreService,
+				webgl1WorkerSyncService,
 				canvas,
 				worker: null,
 				maxRenderGameObjectCount

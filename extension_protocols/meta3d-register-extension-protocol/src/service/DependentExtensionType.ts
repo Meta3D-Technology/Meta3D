@@ -1,11 +1,11 @@
 export type meta3dEventProtocolData = {
     protocolName: "meta3d-event-protocol",
-    protocolVersion: "^0.1.0",
+    protocolVersion: "^0.2.0",
 }
 
 export type meta3dUIProtocolData = {
     protocolName: "meta3d-ui-protocol",
-    protocolVersion: "^0.1.0",
+    protocolVersion: "^0.2.0",
 }
 
 

@@ -29,7 +29,7 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, renderDataBufferService, webgl1Service, registerECSService, immutableService }) => {
+export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config, states> = ({ isDebug, mostService, engineCoreService, webgl1WorkerSyncService, renderDataBufferService, webgl1Service, registerECSService, immutableService }) => {
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: (): state => {
@@ -37,6 +37,7 @@ export let getWorkPluginContribute: getWorkPluginContributeMeta3D<state, config,
 				isDebug,
 				mostService,
 				engineCoreService,
+				webgl1WorkerSyncService,
 				renderDataBufferService,
 				webgl1Service,
 				registerECSService,

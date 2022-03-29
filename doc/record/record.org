@@ -778,49 +778,49 @@ add test scene in plugin.feature
 
 TODO finish plugin.feature
 
-** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+** DONE should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
 
 
 
 
 
 
-work_plugin:
-geometry
-material
-camera
-transform
+# work_plugin:
+# geometry
+# material
+# camera
+# transform
 
 
 
-- job utils
+# - job utils
 
-- render
+# - render
 
-- send uniform data
+# - send uniform data
 
-- work plugins:
-# update camera, update transform
+# - work plugins:
+# # update camera, update transform
 
-# add pbrmaterial commonlib
-# t,g add type
+# # add pbrmaterial commonlib
+# # t,g add type
 
 
 
-main create render data buffer, share it to render, get allRenderComponents in RenderJob
+# main create render data buffer, share it to render, get allRenderComponents in RenderJob
     # - main create render data buffer, share it to render
 
 
-- for worker
+# - for worker
 
-GetInitRenderDataJob->encapuslate again
+# GetInitRenderDataJob->encapuslate again
 
-RenderWorkerMain->_init, worker.onmessage
+# RenderWorkerMain->_init, worker.onmessage
 
 
-    - share component's buffer to render
+    # - share component's buffer to render
 
-    - sync(send begin loop, get finish render data, send init render data)
+    # - sync(send begin loop, get finish render data, send init render data)
  
 
 

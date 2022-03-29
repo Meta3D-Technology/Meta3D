@@ -5,39 +5,21 @@ import { createGetMainWorkerDataStream } from "meta3d-commonlib-ts/src/CreateWor
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService } = getState(states)
+	let { mostService, webgl1WorkerSyncService } = getState(states)
 
-	let offscreenCanvas: OffscreenCanvas
-	let allGeometryIndices: number[]
-	let allMaterialIndices: number[]
-	let transformCount: number
-	let geometryCount: number
-	let geometryPointCount: number
-	let pbrMaterialCount: number
-	let transformBuffer: SharedArrayBuffer
-	let geometryBuffer: SharedArrayBuffer
-	let pbrMaterialBuffer: SharedArrayBuffer
-
-	return createGetMainWorkerDataStream(
-		mostService,
-		(event: MessageEvent) => {
-			offscreenCanvas = event.data.canvas
-			allGeometryIndices = event.data.allGeometryIndices
-			allMaterialIndices = event.data.allMaterialIndices
-			transformCount = event.data.transformCount
-			geometryCount = event.data.geometryCount
-			geometryPointCount = event.data.geometryPointCount
-			pbrMaterialCount = event.data.pbrMaterialCount
-			transformBuffer = event.data.transformBuffer
-			geometryBuffer = event.data.geometryBuffer
-			pbrMaterialBuffer = event.data.pbrMaterialBuffer
-		},
-		"SEND_INIT_RENDER_DATA",
-		self as any as Worker
-	).map(() => {
+	return mostService.map(({
+		offscreenCanvas,
+		allMaterialIndices,
+		allGeometryIndices,
+		transformBuffer,
+		pbrMaterialBuffer,
+		geometryBuffer,
+		transformCount,
+		geometryPointCount,
+		geometryCount,
+		pbrMaterialCount
+	}) => {
 		console.log("get init render data job webgl worker exec on worker thread")
-
-		//// TODO fix: should use newest states @yyc
 
 		return setStatesFunc<states>(
 			engineCoreState,
@@ -58,5 +40,36 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 				}
 			}
 		)
-	})
+	}, webgl1WorkerSyncService.getInitRenderData(mostService))
+
+	// let offscreenCanvas: OffscreenCanvas
+	// let allGeometryIndices: number[]
+	// let allMaterialIndices: number[]
+	// let transformCount: number
+	// let geometryCount: number
+	// let geometryPointCount: number
+	// let pbrMaterialCount: number
+	// let transformBuffer: SharedArrayBuffer
+	// let geometryBuffer: SharedArrayBuffer
+	// let pbrMaterialBuffer: SharedArrayBuffer
+
+	// return createGetMainWorkerDataStream(
+	// 	mostService,
+	// 	(event: MessageEvent) => {
+	// 		offscreenCanvas = event.data.canvas
+	// 		allGeometryIndices = event.data.allGeometryIndices
+	// 		allMaterialIndices = event.data.allMaterialIndices
+	// 		transformCount = event.data.transformCount
+	// 		geometryCount = event.data.geometryCount
+	// 		geometryPointCount = event.data.geometryPointCount
+	// 		pbrMaterialCount = event.data.pbrMaterialCount
+	// 		transformBuffer = event.data.transformBuffer
+	// 		geometryBuffer = event.data.geometryBuffer
+	// 		pbrMaterialBuffer = event.data.pbrMaterialBuffer
+	// 	},
+	// 	"SEND_INIT_RENDER_DATA",
+	// 	self as any as Worker
+
+	// 	// TODO use mostService.map
+	// ).map()
 }

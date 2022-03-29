@@ -19,6 +19,8 @@ export type materialData = {
 
 export type renderDataBufferTypeArray = Uint32Array
 
+export type renderGameObjectsCount = number
+
 export type state = {
     mostService: mostService,
     engineCoreService: engineCoreService,
@@ -28,7 +30,7 @@ export type state = {
     materialData: materialData,
     workPluginWhichHasMaxRenderGameObjectCountName: string,
     renderDataBufferTypeArray: nullable<renderDataBufferTypeArray>,
-    renderGameObjectsCount: number
+    renderGameObjectsCount: renderGameObjectsCount
 }
 
 export type workPluginWhichHasMaxRenderGameObjectCountState = {

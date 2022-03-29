@@ -8,10 +8,12 @@ import { service as mostService } from "meta3d-bs-most-protocol/src/service/Serv
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { service as renderDataBufferService } from "meta3d-renderdatabuffer-protocol/src/service/ServiceType"
+import { service as webgl1WorkerSyncService } from "meta3d-webgl1-worker-sync-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getRegisterECSWorkerExtensionService, createExtensionState as createRegisterECSWorkerExtensionState } from "meta3d-register-ecs-worker"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
 import { getExtensionService as getRenderDataBufferExtensionService, createExtensionState as createRenderDataBufferExtensionState } from "meta3d-renderdatabuffer"
+import { getExtensionService as getWebGL1WorkerSyncExtensionService, createExtensionState as createWebGL1WorkerSyncExtensionState } from "meta3d-webgl1-worker-sync"
 import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
@@ -49,6 +51,11 @@ function _getMeta3DRenderDataBufferExtensionName(): string {
 	return "meta3d-renderdatabuffer"
 }
 
+function _getMeta3DWebGL1WorkerSyncExtensionName(): string {
+	return "meta3d-webgl1-worker-sync"
+}
+
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState) {
 	let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
 	let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
@@ -57,6 +64,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	let registerECSService: registerECSWorkerService = getExtensionService(meta3dState, _getMeta3DRegisterECSWorkerExtensionName())
 	let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
 	let renderDataBufferService: renderDataBufferService = getExtensionService(meta3dState, _getMeta3DRenderDataBufferExtensionName())
+	let webgl1WorkerSyncService: webgl1WorkerSyncService = getExtensionService(meta3dState, _getMeta3DWebGL1WorkerSyncExtensionName())
 
 	engineCoreState =
 		engineCoreService.registerWorkPlugin(
@@ -154,7 +162,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	engineCoreState =
 		registerWorkPlugin(
 			engineCoreState,
-			getWorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, renderDataBufferService, registerECSService, immutableService }),
+			getWorkPluginContribute({ isDebug, mostService, webgl1WorkerSyncService, webgl1Service, engineCoreService, renderDataBufferService, registerECSService, immutableService }),
 			[
 				{
 					pipelineName: "init",
@@ -172,7 +180,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	return engineCoreState
 }
 
-function _init(meta3dState: meta3dState, isDebug: boolean) {
+function _registerExtensions(meta3dState: meta3dState) {
 	meta3dState =
 		registerExtension(
 			meta3dState,
@@ -206,6 +214,60 @@ function _init(meta3dState: meta3dState, isDebug: boolean) {
 			null,
 			createRenderDataBufferExtensionState()
 		)
+	meta3dState =
+		registerExtension(
+			meta3dState,
+			_getMeta3DWebGL1WorkerSyncExtensionName(),
+			getWebGL1WorkerSyncExtensionService,
+			null,
+			createWebGL1WorkerSyncExtensionState()
+		)
+
+	return meta3dState
+}
+
+function _init(meta3dState: meta3dState, isDebug: boolean) {
+	// meta3dState =
+	// 	registerExtension(
+	// 		meta3dState,
+	// 		_getMeta3DWebGL1ExtensionName(),
+	// 		getWebGL1ExtensionService,
+	// 		null,
+	// 		createWebGL1ExtensionState()
+	// 	)
+
+	// meta3dState =
+	// 	registerExtension(
+	// 		meta3dState,
+	// 		_getMeta3DRegisterECSWorkerExtensionName(),
+	// 		getRegisterECSWorkerExtensionService,
+	// 		null,
+	// 		createRegisterECSWorkerExtensionState()
+	// 	)
+	// meta3dState =
+	// 	registerExtension(
+	// 		meta3dState,
+	// 		_getMeta3DImmutableExtensionName(),
+	// 		getImmutableExtensionService,
+	// 		null,
+	// 		createImmutableExtensionState()
+	// 	)
+	// meta3dState =
+	// 	registerExtension(
+	// 		meta3dState,
+	// 		_getMeta3DRenderDataBufferExtensionName(),
+	// 		getRenderDataBufferExtensionService,
+	// 		null,
+	// 		createRenderDataBufferExtensionState()
+	// 	)
+	// meta3dState =
+	// 	registerExtension(
+	// 		meta3dState,
+	// 		_getMeta3DWebGL1WorkerSyncExtensionName(),
+	// 		getWebGL1WorkerSyncExtensionService,
+	// 		null,
+	// 		createWebGL1WorkerSyncExtensionState()
+	// 	)
 
 	let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEngineCoreExtensionName())
 
@@ -223,18 +285,8 @@ function _init(meta3dState: meta3dState, isDebug: boolean) {
 
 let isDebug = true
 
-let tempMeta3DState: nullable<meta3dState> = null
-
 function _render(meta3dState: meta3dState) {
-	// updateEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-	// 	renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-	// 		tempMeta3DState = meta3dState
-	// 	})
-	// })
-
-	renderEngine(meta3dState, _getEngineCoreExtensionName()).then((meta3dState) => {
-		tempMeta3DState = meta3dState
-	})
+	return renderEngine(meta3dState, _getEngineCoreExtensionName())
 }
 
 let meta3dState_ = prepareMeta3D()
@@ -245,29 +297,6 @@ meta3dState_ = prepareEngine(
 	isDebug
 )
 
+meta3dState_ = _registerExtensions(meta3dState_)
 
-let mostService: mostService = getExtensionService(meta3dState_, _getMeta3DBsMostExtensionName())
-
-
-_init(meta3dState_, isDebug).then((meta3dState) => {
-	console.log("finish init on worker thread");
-
-	tempMeta3DState = meta3dState
-})
-
-// TODO use pipe
-
-mostService.drain(
-	mostService.tap(
-		(_) => {
-			return _render(getExn(tempMeta3DState));
-		},
-		mostService.filter(
-			(event) => {
-				console.log(event);
-				return event.data.operateType === "SEND_BEGIN_RENDER";
-			},
-			mostService.fromEvent<MessageEvent, Window & typeof globalThis>("message", self, false)
-		)
-	)
-)
+getExtensionService<webgl1WorkerSyncService>(meta3dState_, _getMeta3DWebGL1WorkerSyncExtensionName()).initConcatGetBeginLoopData(getExtensionService(meta3dState_, _getMeta3DBsMostExtensionName()), _init, _render, meta3dState_, isDebug)

@@ -8,9 +8,11 @@ import { service as mostService } from "meta3d-bs-most-protocol/src/service/Serv
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { service as renderDataBufferService } from "meta3d-renderdatabuffer-protocol/src/service/ServiceType"
+import { service as webgl1WorkerSyncService } from "meta3d-webgl1-worker-sync-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
 import { getExtensionService as getRenderDataBufferExtensionService, createExtensionState as createRenderDataBufferExtensionState } from "meta3d-renderdatabuffer"
+import { getExtensionService as getWebGL1WorkerSyncExtensionService, createExtensionState as createWebGL1WorkerSyncExtensionState } from "meta3d-webgl1-worker-sync"
 import { workPluginName as webgl1WorkPluginName } from "engine-work-plugin-webgl1-protocol"
 import { workPluginName as webgl1MainWorkPluginName } from "engine-work-plugin-webgl1-worker-main-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
@@ -53,6 +55,10 @@ function _getMeta3DRenderDataBufferExtensionName(): string {
     return "meta3d-renderdatabuffer"
 }
 
+function _getMeta3DWebGL1WorkerSyncExtensionName(): string {
+    return "meta3d-webgl1-worker-sync"
+}
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement, useWorker: boolean) {
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
     let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
@@ -60,6 +66,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
     let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
     let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
     let renderDataBufferService: renderDataBufferService = getExtensionService(meta3dState, _getMeta3DRenderDataBufferExtensionName())
+    let webgl1WorkerSyncService: webgl1WorkerSyncService = getExtensionService(meta3dState, _getMeta3DWebGL1WorkerSyncExtensionName())
 
     if (useWorker) {
         engineCoreState =
@@ -128,7 +135,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
         engineCoreState =
             registerWorkPlugin(
                 engineCoreState,
-                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService: mostService, engineCoreService: engineCoreService, canvas: canvas, maxRenderGameObjectCount: 100 }),
+                getWebGL1WorkerWorkPluginContribute({ isDebug, mostService, webgl1WorkerSyncService, engineCoreService, canvas, maxRenderGameObjectCount: 100 }),
                 [
                     {
                         pipelineName: "init",
@@ -434,6 +441,15 @@ function _init(useWorker: boolean) {
             null,
             createRenderDataBufferExtensionState()
         )
+    meta3dState =
+        registerExtension(
+            meta3dState,
+            _getMeta3DWebGL1WorkerSyncExtensionName(),
+            getWebGL1WorkerSyncExtensionService,
+            null,
+            createWebGL1WorkerSyncExtensionState()
+        )
+
 
     let canvas = document.querySelector("#canvas") as HTMLCanvasElement
     canvas.style.width = canvas.width + " px"

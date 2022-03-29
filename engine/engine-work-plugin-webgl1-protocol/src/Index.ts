@@ -9,13 +9,9 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { transform } from "meta3d-component-transform-protocol"
 import { geometry } from "meta3d-component-geometry-protocol"
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
+import {viewMatrix, pMatrix} from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1"
-
-// TODO duplicate with meta3d-work-plugin-webgl1-senduniformshaderdata-protocol->Index.ts
-type viewMatrix = Float32Array
-
-type pMatrix = Float32Array
 
 export type state = {
     isDebug: boolean,

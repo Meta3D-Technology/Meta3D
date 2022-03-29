@@ -5,14 +5,12 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, worker } = getState(states)
+	let { mostService, webgl1WorkerSyncService, worker } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("send begin loop data job webgl worker exec on main thread")
 
-		getExn(worker).postMessage({
-			operateType: "SEND_BEGIN_RENDER"
-		})
+		webgl1WorkerSyncService.sendBeginLoopData(getExn(worker))
 
 		return engineCoreState
 	})

@@ -3,7 +3,7 @@
 
 
 // tslint:disable-next-line:interface-over-type-literal
-export type meta3dBsMostExtensionProtocolData = { readonly protocolName: "meta3d-bs-most-protocol"; readonly protocolVersion: "^0.1.0" };
+export type meta3dBsMostExtensionProtocolData = { readonly protocolName: "meta3d-bs-most-protocol"; readonly protocolVersion: "^0.2.0" };
 
 // tslint:disable-next-line:interface-over-type-literal
 export type dependentExtensionProtocolMap = { readonly meta3dBsMostExtensionProtocol: meta3dBsMostExtensionProtocolData };
