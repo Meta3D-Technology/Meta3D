@@ -1,6 +1,6 @@
 {
     "name": "meta3d-work-plugin-camera-protocol",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
@@ -9,7 +9,6 @@
         "watch": "tsc -w"
     },
     "keywords": [],
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.3"
     }

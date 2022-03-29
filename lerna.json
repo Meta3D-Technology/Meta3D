@@ -16,7 +16,7 @@
     "element_protocols/*",
     "events/*",
     "event_protocols/*",
-		"engine/*"
+    "engine/*"
   ],
   "npmClient": "yarn",
   "command": {
@@ -31,5 +31,5 @@
   "ignoreChanges": [
     "**/*.md"
   ],
-  "version": "0.2.1"
+  "version": "0.3.0"
 }
