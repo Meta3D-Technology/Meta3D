@@ -9,10 +9,8 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 import { workPluginName as createGLWorkPluginName, state as createGLState } from "meta3d-work-plugin-webgl1-creategl-protocol"
 import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol"
 import { workPluginName as materialWorkPluginName, state as materialState } from "meta3d-work-plugin-webgl1-material-protocol"
-import { transform } from "meta3d-component-transform-worker-protocol"
-import { geometry } from "meta3d-component-geometry-worker-protocol"
-import { pbrMaterial } from "meta3d-component-pbrmaterial-worker-protocol"
-import { renderDataBufferTypeArray as renderDataBufferTypeArrayType } from "meta3d-work-plugin-renderdatabuffer-protocol"
+import { renderDataBufferTypeArray as renderDataBufferTypeArrayType, renderGameObjectsCount as renderGameObjectsCountType } from "meta3d-work-plugin-renderdatabuffer-protocol"
+import { allRenderComponents } from "meta3d-work-plugin-webgl1-render-protocol"
 
 export const workPluginName = "engine-work-plugin-webgl1-worker-render"
 
@@ -51,9 +49,8 @@ export type state = {
     geometryBuffer: nullable<SharedArrayBuffer>,
     pbrMaterialBuffer: nullable<SharedArrayBuffer>,
     renderDataBufferTypeArray: nullable<renderDataBufferTypeArray>,
-    renderGameObjectsCount: number,
-    // TODO duplicate with meta3d-work-plugin-webgl1-render-protocol->Index.ts
-    allRenderComponents: Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
+    renderGameObjectsCount: renderGameObjectsCountType,
+    allRenderComponents: allRenderComponents
 }
 
 export type states = {

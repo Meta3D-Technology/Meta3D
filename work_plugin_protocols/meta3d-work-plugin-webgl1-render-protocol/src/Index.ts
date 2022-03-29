@@ -30,8 +30,10 @@ export type state = {
     geometryData: geometryData
 }
 
+export type allRenderComponents = Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
+
 export type workPluginWhichHasAllRenderComponentsState = {
-    allRenderComponents: Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
+    allRenderComponents: allRenderComponents
 }
 
 export type states = {
