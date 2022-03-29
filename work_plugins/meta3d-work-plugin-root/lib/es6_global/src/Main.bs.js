@@ -40,7 +40,8 @@ function getWorkPluginContribute(mostService) {
                   link: "concat",
                   elements: [{
                       name: "init_root_meta3d",
-                      type_: "job"
+                      type_: "job",
+                      is_set_state: true
                     }]
                 }],
               first_group: "first_root_meta3d"
@@ -52,7 +53,8 @@ function getWorkPluginContribute(mostService) {
                   link: "concat",
                   elements: [{
                       name: "update_root_meta3d",
-                      type_: "job"
+                      type_: "job",
+                      is_set_state: true
                     }]
                 }],
               first_group: "first_root_meta3d"
@@ -64,7 +66,8 @@ function getWorkPluginContribute(mostService) {
                   link: "concat",
                   elements: [{
                       name: "render_root_meta3d",
-                      type_: "job"
+                      type_: "job",
+                      is_set_state: true
                     }]
                 }],
               first_group: "first_root_meta3d"

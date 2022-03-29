@@ -6,8 +6,8 @@ import { getExtensionService as getRegisterExtensionExtensionService, createExte
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as registerExtensionService } from "meta3d-register-extension-protocol/src/service/ServiceType"
 import { ioData } from "meta3d-ui-protocol/src/state/StateType"
-import { prepare as prepareEngine, init as initEngine } from "wonder-engine-ts/src/DirectorAPI"
-import { createGameObject, getAllGameObjects } from "wonder-engine-ts/src/GameObjectAPI"
+// import { prepare as prepareEngine, init as initEngine } from "wonder-engine-ts/src/DirectorAPI"
+// import { createGameObject, getAllGameObjects } from "wonder-engine-ts/src/GameObjectAPI"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { getExtensionService as getLogExtensionService, createExtensionState as createLogExtensionState } from "wonder-log"
@@ -39,50 +39,50 @@ let _ioData: ioData = {
     pointPosition: [0, 0]
 }
 
-function _createScene(engineCoreState: engineCoreState, engineCoreService: engineCoreService) {
-    let data = createGameObject(engineCoreState, engineCoreService)
-    engineCoreState = data[0]
-    let gameObject1 = data[1]
+// function _createScene(engineCoreState: engineCoreState, engineCoreService: engineCoreService) {
+//     let data = createGameObject(engineCoreState, engineCoreService)
+//     engineCoreState = data[0]
+//     let gameObject1 = data[1]
 
-    data = createGameObject(engineCoreState, engineCoreService)
-    engineCoreState = data[0]
-    let gameObject2 = data[1]
+//     data = createGameObject(engineCoreState, engineCoreService)
+//     engineCoreState = data[0]
+//     let gameObject2 = data[1]
 
-    console.log(getAllGameObjects(engineCoreState, engineCoreService))
+//     console.log(getAllGameObjects(engineCoreState, engineCoreService))
 
-    return engineCoreState
-}
+//     return engineCoreState
+// }
 
-function _initEditScene(meta3dState: meta3dState) {
-    let isDebug = true
+// function _initEditScene(meta3dState: meta3dState) {
+//     let isDebug = true
 
-    meta3dState = prepareEngine(meta3dState,
-        _getEditSceneEngineCoreExtensionName(),
-        {
-            isDebug: isDebug,
-            float9Array1: new Float32Array(),
-            float32Array1: new Float32Array(),
-            transformCount: 10
-        })
+//     meta3dState = prepareEngine(meta3dState,
+//         _getEditSceneEngineCoreExtensionName(),
+//         {
+//             isDebug: isDebug,
+//             float9Array1: new Float32Array(),
+//             float32Array1: new Float32Array(),
+//             transformCount: 10
+//         })
 
-    let canvas = document.querySelector("#canvas") as HTMLCanvasElement;
-    canvas.style.width = canvas.width + " px";
-    canvas.style.height = canvas.height + " px";
-
-
-    let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEditSceneEngineCoreExtensionName())
-
-    engineCoreState = _createScene(engineCoreState, getExtensionService(meta3dState, _getEditSceneEngineCoreExtensionName()))
+//     let canvas = document.querySelector("#canvas") as HTMLCanvasElement;
+//     canvas.style.width = canvas.width + " px";
+//     canvas.style.height = canvas.height + " px";
 
 
-    meta3dState = setExtensionState(meta3dState, _getEditSceneEngineCoreExtensionName(), engineCoreState)
+//     let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEditSceneEngineCoreExtensionName())
 
-    return initEngine(meta3dState, _getEditSceneEngineCoreExtensionName()).then((engineCoreState) => {
-        console.log("finish init engine")
+//     engineCoreState = _createScene(engineCoreState, getExtensionService(meta3dState, _getEditSceneEngineCoreExtensionName()))
 
-        return meta3dState
-    })
-}
+
+//     meta3dState = setExtensionState(meta3dState, _getEditSceneEngineCoreExtensionName(), engineCoreState)
+
+//     return initEngine(meta3dState, _getEditSceneEngineCoreExtensionName()).then((engineCoreState) => {
+//         console.log("finish init engine")
+
+//         return meta3dState
+//     })
+// }
 
 export function init() {
     // TODO move to UI extension 
@@ -166,7 +166,8 @@ export function init() {
 
     let { register } = getExtensionService<registerExtensionService>(meta3dState, _getMeta3DRegisterExtensionExtensionName())
 
-    return register(meta3dState).then(_initEditScene)
+    // return register(meta3dState).then(_initEditScene)
+    return register(meta3dState)
 }
 
 export function loop(meta3dState: meta3dState) {

@@ -36,6 +36,7 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.getWorkPluginCon
               {
                 name: "init_root_meta3d",
                 type_: #job,
+                is_set_state:true -> Js.Nullable.return
               },
             ],
           },
@@ -52,6 +53,7 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.getWorkPluginCon
               {
                 name: "update_root_meta3d",
                 type_: #job,
+                is_set_state:true -> Js.Nullable.return
               },
             ],
           },
@@ -68,6 +70,7 @@ let getWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.getWorkPluginCon
               {
                 name: "render_root_meta3d",
                 type_: #job,
+                is_set_state:true -> Js.Nullable.return
               },
             ],
           },

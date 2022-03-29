@@ -845,13 +845,6 @@ export type states = { [workPluginName]: state, }
 
 
 
-** TODO refactor
-
-
-*** TODO use pipe, curry
-
-*** TODO use NullableUtils for type
-
 
 
 * TODO publish
@@ -988,6 +981,15 @@ for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
 # ** TODO sxengine support dispose gameObject, component api
 
 ** TODO add or update bdd test
+
+
+
+** TODO refactor
+
+
+*** TODO use pipe, curry
+
+*** TODO use NullableUtils for type
 
 
 * TODO publish
