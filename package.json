@@ -35,5 +35,8 @@
 	},
 	"devDependencies": {
 		"lerna": "^4.0.0"
+	},
+	"resolutions": {
+		"jest-environment-jsdom": "^26.0.1"
 	}
 }
