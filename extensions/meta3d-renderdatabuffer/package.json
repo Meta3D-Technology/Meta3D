@@ -1,0 +1,15 @@
+{
+    "name": "meta3d-renderdatabuffer",
+    "version": "0.2.0",
+    "description": "",
+    "author": "Wonder",
+    "main": "src/Main.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

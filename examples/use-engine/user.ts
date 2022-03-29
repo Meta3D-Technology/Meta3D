@@ -7,8 +7,10 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
+import { service as renderDataBufferService } from "meta3d-renderdatabuffer-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
+import { getExtensionService as getRenderDataBufferExtensionService, createExtensionState as createRenderDataBufferExtensionState } from "meta3d-renderdatabuffer"
 import { workPluginName as webgl1WorkPluginName } from "engine-work-plugin-webgl1-protocol"
 import { workPluginName as webgl1MainWorkPluginName } from "engine-work-plugin-webgl1-worker-main-protocol"
 import { getWorkPluginContribute as getWebGL1GetGLWorkPluginContribute } from "meta3d-work-plugin-webgl1-creategl/src/Main"
@@ -17,6 +19,7 @@ import { getWorkPluginContribute as getWebGL1GeometryWorkPluginContribute } from
 import { getWorkPluginContribute as getWebGL1MaterialWorkPluginContribute } from "meta3d-work-plugin-webgl1-material/src/Main"
 import { getWorkPluginContribute as getWebGL1SendUniformShaderDataWorkPluginContribute } from "meta3d-work-plugin-webgl1-senduniformshaderdata/src/Main"
 import { getWorkPluginContribute as getWebGL1RenderWorkPluginContribute } from "meta3d-work-plugin-webgl1-render/src/Main"
+import { getWorkPluginContribute as getRenderDataBufferWorkPluginContribute } from "meta3d-work-plugin-renderdatabuffer/src/Main"
 import { getWorkPluginContribute as getCameraWorkPluginContribute } from "meta3d-work-plugin-camera/src/Main"
 import { getWorkPluginContribute as getTransformWorkPluginContribute } from "meta3d-work-plugin-transform/src/Main"
 import { getWorkPluginContribute as getWebGL1WorkPluginContribute } from "engine-work-plugin-webgl1/src/Main"
@@ -28,6 +31,7 @@ import { createBasicCameraView, active } from "engine-facade/src/BasicCameraView
 import { createPerspectiveCameraProjection, setAspect, setFar, setNear, setFovy } from "engine-facade/src/PerspectiveCameraProjectionAPI"
 import { componentName as geometryComponentName, dataName as geometryDataName } from "meta3d-component-geometry-protocol";
 import { componentName as transformComponentName, dataName as transformDataName } from "meta3d-component-transform-protocol";
+import { componentName as pbrMaterialName } from "meta3d-component-pbrmaterial-protocol";
 
 function _getEngineCoreExtensionName(): string {
     return "meta3d-engine-core"
@@ -45,12 +49,17 @@ function _getMeta3DImmutableExtensionName(): string {
     return "meta3d-immutable"
 }
 
+function _getMeta3DRenderDataBufferExtensionName(): string {
+    return "meta3d-renderdatabuffer"
+}
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState, canvas: HTMLCanvasElement, useWorker: boolean) {
     let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
     let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
     let webgl1Service: webgl1Service = getExtensionService(meta3dState, _getMeta3DWebGL1ExtensionName())
     let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
     let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
+    let renderDataBufferService: renderDataBufferService = getExtensionService(meta3dState, _getMeta3DRenderDataBufferExtensionName())
 
     if (useWorker) {
         engineCoreState =
@@ -82,6 +91,37 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                         pipelineName: "update",
                         insertElementName: "update_camera_camera_meta3d",
                         insertAction: "after"
+                    }
+                ]
+            )
+        engineCoreState =
+            registerWorkPlugin(
+                engineCoreState,
+                getRenderDataBufferWorkPluginContribute({
+                    mostService,
+                    engineCoreService,
+                    renderDataBufferService,
+                    workPluginWhichHasMaxRenderGameObjectCountName: webgl1MainWorkPluginName,
+                    transformData: {
+                        componentName: transformComponentName,
+                    },
+                    geometryData: {
+                        componentName: geometryComponentName,
+                    },
+                    materialData: {
+                        componentName: pbrMaterialName,
+                    }
+                }),
+                [
+                    {
+                        pipelineName: "init",
+                        insertElementName: "send_init_render_data_webgl1_worker_main_engine",
+                        insertAction: "before"
+                    },
+                    {
+                        pipelineName: "update",
+                        insertElementName: "send_begin_loop_data_webgl1_worker_main_engine",
+                        insertAction: "before"
                     }
                 ]
             )
@@ -385,6 +425,14 @@ function _init(useWorker: boolean) {
             getImmutableExtensionService,
             null,
             createImmutableExtensionState()
+        )
+    meta3dState =
+        registerExtension(
+            meta3dState,
+            _getMeta3DRenderDataBufferExtensionName(),
+            getRenderDataBufferExtensionService,
+            null,
+            createRenderDataBufferExtensionState()
         )
 
     let canvas = document.querySelector("#canvas") as HTMLCanvasElement

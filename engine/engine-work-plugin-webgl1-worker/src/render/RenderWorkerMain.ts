@@ -7,9 +7,11 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
+import { service as renderDataBufferService } from "meta3d-renderdatabuffer-protocol/src/service/ServiceType"
 import { getExtensionService as getWebGL1ExtensionService, createExtensionState as createWebGL1ExtensionState } from "meta3d-webgl1"
 import { getExtensionService as getRegisterECSWorkerExtensionService, createExtensionState as createRegisterECSWorkerExtensionState } from "meta3d-register-ecs-worker"
 import { getExtensionService as getImmutableExtensionService, createExtensionState as createImmutableExtensionState } from "meta3d-immutable"
+import { getExtensionService as getRenderDataBufferExtensionService, createExtensionState as createRenderDataBufferExtensionState } from "meta3d-renderdatabuffer"
 import { service as registerECSWorkerService } from "meta3d-register-ecs-worker-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
@@ -43,6 +45,10 @@ function _getMeta3DImmutableExtensionName(): string {
 	return "meta3d-immutable"
 }
 
+function _getMeta3DRenderDataBufferExtensionName(): string {
+	return "meta3d-renderdatabuffer"
+}
+
 function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean, meta3dState: meta3dState) {
 	let { registerWorkPlugin } = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
 	let mostService: mostService = getExtensionService(meta3dState, _getMeta3DBsMostExtensionName())
@@ -50,6 +56,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	let engineCoreService: engineCoreService = getExtensionService(meta3dState, _getEngineCoreExtensionName())
 	let registerECSService: registerECSWorkerService = getExtensionService(meta3dState, _getMeta3DRegisterECSWorkerExtensionName())
 	let immutableService: immutableService = getExtensionService(meta3dState, _getMeta3DImmutableExtensionName())
+	let renderDataBufferService: renderDataBufferService = getExtensionService(meta3dState, _getMeta3DRenderDataBufferExtensionName())
 
 	engineCoreState =
 		engineCoreService.registerWorkPlugin(
@@ -147,7 +154,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
 	engineCoreState =
 		registerWorkPlugin(
 			engineCoreState,
-			getWorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, registerECSService, immutableService }),
+			getWorkPluginContribute({ isDebug, mostService, webgl1Service, engineCoreService, renderDataBufferService, registerECSService, immutableService }),
 			[
 				{
 					pipelineName: "init",
@@ -191,7 +198,14 @@ function _init(meta3dState: meta3dState, isDebug: boolean) {
 			null,
 			createImmutableExtensionState()
 		)
-
+	meta3dState =
+		registerExtension(
+			meta3dState,
+			_getMeta3DRenderDataBufferExtensionName(),
+			getRenderDataBufferExtensionService,
+			null,
+			createRenderDataBufferExtensionState()
+		)
 
 	let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEngineCoreExtensionName())
 

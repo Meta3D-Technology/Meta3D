@@ -18,7 +18,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 			viewMatrix = event.data.camera.viewMatrix
 			pMatrix = event.data.camera.pMatrix
 			typeArray = event.data.renderDataBuffer.typeArray
-			renderGameObjectsCount = event.data.renderDataBuffer.renderGameObjectCount
+			renderGameObjectsCount = event.data.renderDataBuffer.renderGameObjectsCount
 		},
 		"SEND_RENDER_DATA",
 		self as any as Worker

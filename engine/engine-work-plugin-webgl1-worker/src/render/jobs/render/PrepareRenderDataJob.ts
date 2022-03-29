@@ -3,30 +3,26 @@ import { execFunc as execFuncType } from "../../Type"
 import { setState, getState } from "../../Utils"
 import { states, renderDataBufferTypeArray } from "engine-work-plugin-webgl1-worker-render-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { service as renderDataBufferService } from "meta3d-renderdatabuffer-protocol/src/service/ServiceType"
 
-function _getAllRenderComponents(renderGameObjectsCount: number, renderDataBufferTypeArray: renderDataBufferTypeArray) {
-	return range(0, renderGameObjectsCount).map(renderGameObjectIndex => {
-		return {
-			transform: renderDataBufferTypeArray[renderGameObjectIndex * 3 + 2],
-			material: renderDataBufferTypeArray[renderGameObjectIndex * 3 + 1],
-			geometry: renderDataBufferTypeArray[renderGameObjectIndex * 3]
-		}
-
+function _getAllRenderComponents(renderDataBufferService: renderDataBufferService, renderGameObjectsCount: number, renderDataBufferTypeArray: renderDataBufferTypeArray) {
+	return range(0, renderGameObjectsCount).map(index => {
+		return renderDataBufferService.getRenderComponents(renderDataBufferTypeArray, index)
 	})
 }
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, renderDataBufferTypeArray, renderGameObjectsCount } = getState(states)
+	let { mostService, renderDataBufferService, renderGameObjectsCount, renderDataBufferTypeArray } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("prepare render data job");
+		console.log("prepare render data job")
 
 		return setStatesFunc<states>(
 			engineCoreState,
 			setState(states, {
 				...getState(states),
-				allRenderComponents: _getAllRenderComponents(renderGameObjectsCount, getExn(renderDataBufferTypeArray))
+				allRenderComponents: _getAllRenderComponents(renderDataBufferService, renderGameObjectsCount, getExn(renderDataBufferTypeArray))
 			})
 		)
 	})

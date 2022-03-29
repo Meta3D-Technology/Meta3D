@@ -1,0 +1,14 @@
+{
+    "name": "meta3d-renderdatabuffer-protocol",
+    "version": "0.2.0",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

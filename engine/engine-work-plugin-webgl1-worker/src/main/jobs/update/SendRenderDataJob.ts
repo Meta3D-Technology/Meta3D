@@ -1,5 +1,5 @@
 import { execFunc as execFuncType } from "../../Type";
-import { getState } from "../../Utils";
+import { getRenderDataBufferTypeArray, getRenderGameObjectsCount, getState } from "../../Utils";
 import { states } from "engine-work-plugin-webgl1-worker-main-protocol";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { componentName as basicCameraViewComponentName, basicCameraView } from "meta3d-component-basiccameraview-protocol"
@@ -9,7 +9,7 @@ import { getActiveCameraView, getViewWorldToCameraMatrix } from "meta3d-componen
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
-	let { mostService, engineCoreService, typeArray, renderGameObjectsCount, worker, isDebug } = getState(states)
+	let { mostService, engineCoreService, worker, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("send render data job webgl worker exec on main thread")
@@ -38,8 +38,8 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 				pMatrix
 			},
 			renderDataBuffer: {
-				typeArray: getExn(typeArray),
-				renderGameObjectCount: getExn(renderGameObjectsCount)
+				typeArray: getRenderDataBufferTypeArray(states),
+				renderGameObjectsCount: getRenderGameObjectsCount(states)
 			}
 		})
 

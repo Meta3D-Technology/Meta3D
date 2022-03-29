@@ -1,0 +1,2 @@
+export type dependentExtensionNameMap = null
+

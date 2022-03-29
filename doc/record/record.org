@@ -802,12 +802,13 @@ transform
 - work plugins:
 # update camera, update transform
 
-add pbrmaterial commonlib
-t,g add type
+# add pbrmaterial commonlib
+# t,g add type
 
 
 
 main create render data buffer, share it to render, get allRenderComponents in RenderJob
+    # - main create render data buffer, share it to render
 
 
 - for worker
@@ -816,7 +817,6 @@ GetInitRenderDataJob->encapuslate again
 
 RenderWorkerMain->_init, worker.onmessage
 
-    - main create render data buffer, share it to render
 
     - share component's buffer to render
 
