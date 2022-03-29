@@ -22,7 +22,7 @@ export function createTransform(engineCoreState: engineCoreState, { unsafeGetUse
     ]
 }
 
-export let setLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localPosition: localPosition) => {
+export function setLocalPosition (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localPosition: localPosition) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, transform, dataName.localPosition, localPosition)
@@ -30,7 +30,7 @@ export let setLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsed
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let lookAt = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform, target: [number, number, number]) => {
+export function lookAt (engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform, target: [number, number, number]) {
     let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = lookAtTransform(contribute, engineCoreService, transform, target)

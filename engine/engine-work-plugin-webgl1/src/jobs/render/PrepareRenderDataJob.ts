@@ -13,12 +13,12 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { getActiveCameraView } from "meta3d-component-commonlib";
 
-let _getCameraView = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) => {
+function _getCameraView (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) {
 	return getExn(getActiveCameraView(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName), engineCoreService, isDebug))
 
 }
 
-let _getCameraProjection = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) => {
+function _getCameraProjection (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) {
 	return getExn(engineCoreService.getComponent<perspectiveCameraProjection>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), gameObject))
 }
 

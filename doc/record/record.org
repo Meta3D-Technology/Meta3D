@@ -829,7 +829,7 @@ TODO finish plugin.feature
 
 # rename components, component_protocols
 
-** TODO refactor(work_plugins): change function from let xxx to function xxx
+** DONE refactor(work_plugins): change function from let xxx to function xxx
 
 ** DONE refactor(work_plugins): remove Type.ts for work plugin
 

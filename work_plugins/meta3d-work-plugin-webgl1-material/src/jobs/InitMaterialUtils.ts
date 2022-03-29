@@ -3,7 +3,7 @@ import { getFragGLSL, getVertGLSL } from "./GLSLUtils"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 
-let _createProgram = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, vertexShaderSource: string, fragmentShaderSource: string) => {
+function _createProgram (webgl1Service: webgl1Service, gl: WebGLRenderingContext, vertexShaderSource: string, fragmentShaderSource: string) {
 	gl = <WebGLRenderingContext>gl
 	const vertexShader = webgl1Service.createShader(gl, webgl1Service.getVertexShaderType(gl))
 	const fragmentShader = webgl1Service.createShader(gl, webgl1Service.getFragmentShaderType(gl))
@@ -34,7 +34,7 @@ let _createProgram = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, v
 	return program
 }
 
-export let initMaterial = ([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: WebGLRenderingContext, programMap: programMap, allMaterialIndices: number[]) => {
+export function initMaterial ([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: WebGLRenderingContext, programMap: programMap, allMaterialIndices: number[]) {
 	let vertexShaderSource = getVertGLSL()
 	let fragmentShaderSource = getFragGLSL()
 

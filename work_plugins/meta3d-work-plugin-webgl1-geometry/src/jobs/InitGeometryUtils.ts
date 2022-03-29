@@ -6,7 +6,7 @@ import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/
 import { geometry, vertices, indices } from "meta3d-component-geometry-common-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-let _createVBOs = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, vertices: vertices, indices: indices) => {
+function _createVBOs(webgl1Service: webgl1Service, gl: WebGLRenderingContext, vertices: vertices, indices: indices) {
 	let verticesBuffer = webgl1Service.createBuffer(gl)
 	webgl1Service.bindBuffer(gl, webgl1Service.getArrayBufferType(gl), verticesBuffer)
 	webgl1Service.bufferFloat32ArrayData(gl, webgl1Service.getArrayBufferType(gl), webgl1Service.getStaticDraw(gl), vertices)
@@ -21,11 +21,11 @@ let _createVBOs = (webgl1Service: webgl1Service, gl: WebGLRenderingContext, vert
 	}
 }
 
-export let initGeometry = ([webgl1Service, engineCoreService, immutableService]: [webgl1Service, engineCoreService, immutableService],
+export function initGeometry([webgl1Service, engineCoreService, immutableService]: [webgl1Service, engineCoreService, immutableService],
 	engineCoreState: engineCoreState,
 	gl: WebGLRenderingContext, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, allGeometryIndices: number[],
 	{ componentName, verticesDataName, indicesDataName }: geometryData
-) => {
+) {
 	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return allGeometryIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {

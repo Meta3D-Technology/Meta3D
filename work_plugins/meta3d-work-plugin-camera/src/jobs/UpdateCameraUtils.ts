@@ -4,7 +4,7 @@ import { componentName, perspectiveCameraProjection, dataName, dirty } from "met
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 import { updatePerspectiveCameraProjection } from "meta3d-component-commonlib"
 
-export let updateCamera = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean, canvasSize: [number, number]) => {
+export function updateCamera (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean, canvasSize: [number, number]) {
 	let usedPerspectiveCameraProjectionContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 	let allDirtyPerspectiveCameraProjections = engineCoreService.getAllComponents<perspectiveCameraProjection>(usedPerspectiveCameraProjectionContribute).filter(cameraProjection => {
 		return getExn(engineCoreService.getComponentData<perspectiveCameraProjection, boolean>(usedPerspectiveCameraProjectionContribute, cameraProjection, dataName.dirty))

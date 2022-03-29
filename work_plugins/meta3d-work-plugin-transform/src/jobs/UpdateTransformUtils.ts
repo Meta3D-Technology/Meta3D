@@ -3,7 +3,7 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { transformData } from "meta3d-work-plugin-transform-protocol"
 import { transform, update } from "meta3d-component-transform-common-protocol"
 
-export let updateTransform = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, { componentName, updateDataName }: transformData) => {
+export function updateTransform (engineCoreState: engineCoreState, engineCoreService: engineCoreService, { componentName, updateDataName }: transformData) {
 	let usedTransformContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 	let allTransforms = engineCoreService.getAllComponents<transform>(usedTransformContribute)
 
