@@ -1,15 +1,16 @@
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { gameObject } from "meta3d-gameobject-protocol"
+import { gameObject, cloneConfig } from "meta3d-gameobject-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
 import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export function createGameObject(engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] {
-    let contribute = createGameObject<gameObject>(engineCoreState)
+    let contribute = createGameObject(engineCoreState)
     engineCoreState = contribute[0]
     let gameObject = contribute[1]
 
@@ -26,7 +27,7 @@ export function getAllGameObjects(engineCoreState: engineCoreState, { getAllGame
 export function getTransform(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getExn(getComponent<transform>(contribute, gameObject))
 }
 
 export function addTransform(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, transform: transform) {
@@ -44,7 +45,7 @@ export function hasTransform(engineCoreState: engineCoreState, { unsafeGetUsedCo
 export function getGeometry(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getExn(getComponent<geometry>(contribute, gameObject))
 }
 
 export function addGeometry(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, geometry: geometry) {
@@ -62,7 +63,7 @@ export function hasGeometry(engineCoreState: engineCoreState, { unsafeGetUsedCom
 export function getPBRMaterial(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getExn(getComponent<pbrMaterial>(contribute, gameObject))
 }
 
 export function addPBRMaterial(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, pbrMaterial: pbrMaterial) {
@@ -80,7 +81,7 @@ export function hasPBRMaterial(engineCoreState: engineCoreState, { unsafeGetUsed
 export function getBasicCameraView(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getExn(getComponent<basicCameraView>(contribute, gameObject))
 }
 
 export function addBasicCameraView(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, basicCameraView: basicCameraView) {
@@ -98,7 +99,7 @@ export function hasBasicCameraView(engineCoreState: engineCoreState, { unsafeGet
 export function getPerspectiveCameraProjection(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getExn(getComponent<perspectiveCameraProjection>(contribute, gameObject))
 }
 
 export function addPerspectiveCameraProjection(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) {
@@ -116,7 +117,7 @@ export function hasPerspectiveCameraProjection(engineCoreState: engineCoreState,
 export function getArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
-    return getComponent(contribute, gameObject)
+    return getComponent<arcballCameraController>(contribute, gameObject)
 }
 
 export function addArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) {
@@ -130,3 +131,8 @@ export function hasArcballCameraController(engineCoreState: engineCoreState, { u
 
     return hasComponent(contribute, gameObject)
 }
+
+export function cloneGameObject(engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) {
+    return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
+}
+

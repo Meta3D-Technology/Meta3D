@@ -14,7 +14,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	return mostService.callFunc(() => {
 		console.log("update render data buffer job")
 
-		let allGameObjects = engineCoreService.getAllGameObjects<gameObject>(engineCoreState)
+		let allGameObjects = engineCoreService.getAllGameObjects(engineCoreState)
 
 		let typeArr = getExn(renderDataBufferTypeArray)
 

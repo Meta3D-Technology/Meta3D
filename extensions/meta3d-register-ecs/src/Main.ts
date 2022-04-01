@@ -80,7 +80,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			engineCoreState = setGameObjectContribute(engineCoreState, getGameObjectContribute() as any
 			)
-			engineCoreState = createAndSetGameObjectState(engineCoreState)
+			engineCoreState = createAndSetGameObjectState(engineCoreState, { isDebug })
 
 			return engineCoreState
 		}

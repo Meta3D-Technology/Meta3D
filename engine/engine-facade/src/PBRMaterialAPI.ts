@@ -29,3 +29,9 @@ export function setDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUse
 
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
+
+export function getAllPBRMaterials(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getAllComponents<pbrMaterial>(contribute)
+}

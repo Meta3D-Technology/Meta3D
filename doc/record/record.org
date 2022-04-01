@@ -847,7 +847,7 @@ export type states = { [workPluginName]: state, }
 
 
 
-* TODO publish
+* DONE publish
 
 ** TODO pass coverage
 
@@ -865,84 +865,58 @@ export type states = { [workPluginName]: state, }
 
 
 
-
-
-
-
-
-** TODO perf:benchmark
-
-*** TODO render 7000 cube
-
-add clearColor, enable depeth test, set viewport, set pixel ratio, ...
-
-
-** TODO perf:benchmark
-
-*** TODO clone
-
-
-
-
-** TODO implement dispose job
-
-should handle vbo when dispose geometry!
-
-
-** TODO pass render run test:dispose cube
 
 
 ** TODO pass render run test:clone cube
 
 
+*** TODO no worker
 
 
-# *** TODO update editor, add clone gameObject button
-
-
-# *** TODO pass run test
-
+*** TODO worker
 
 
 
 
+** TODO pass render run test:dispose cube
 
 
-** TODO perf:benchmark
+TODO implement dispose job
 
-*** TODO dispose
-
-
+should handle vbo when dispose geometry!
 
 
-*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
-
-refer to ReallocateCPUMemoryJobUtils
-
-*** TODO sxengine add rellocate job
+*** TODO no worker
 
 
+*** TODO worker
 
 
+* TODO extract webgl render test extension to Meta3D
+
+* TODO add render test for meta3d???
+
+* TODO add render test for engine
+
+* TODO add bdd test for webgl render test extension 
 
 
-** TODO add or update bdd test
-
-95% coverage
-
-*** TODO for meta3d(only test engine code except editor code)
-
-for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
-
-
-# *** TODO for sxengine
-
+* TODO add test
 
 * TODO publish
 
 ** TODO pass coverage
 
 ** TODO publish
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1046,6 +1020,101 @@ for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
 
 
 
+
+
+* TODO optimize render 7000 cube
+
+
+
+*** TODO enhence render
+
+add clearColor, enable depeth test, set viewport, set pixel ratio, ...
+
+
+
+*** TODO perf:benchmark
+
+add benchmark test scene
+
+
+*** TODO optimize
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO clone
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO move transform
+
+
+
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO dispose
+
+
+
+
+*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+*** TODO engine add rellocate job
+
+
+
+
+
+
+* TODO extract webgl performance test extension to Meta3D
+
+* TODO add performance test for meta3d???
+
+* TODO add performance test for engine
+
+
+
+
+* TODO add or update bdd test
+
+95% coverage
+
+** TODO for meta3d(only test engine code except editor code)
+
+for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
+
+
+# *** TODO for sxengine
+
+
+* TODO publish
+
+** TODO pass coverage
+
+** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
 # * TODO update editor
 
 # ** TODO add scene tree header
@@ -1128,6 +1197,40 @@ set pixel ratio!
 * TODO publish
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO refactor
+
+** TODO user only know .ts, no .d.ts, no .gen.ts!
+
+** TODO move wonder-xxx to Wonder.js repo
+
+
+* TODO prepare to open for user to use
+
+
+
+# ** TODO prepare user's example code(typescript)
+
+
+** TODO provide new repo for user's public extension, contribute points
+
+
+
+** TODO provide 脚手架
+
+
+# ** TODO prepare doc for user
 
 
 

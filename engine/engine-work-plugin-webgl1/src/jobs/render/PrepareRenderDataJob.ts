@@ -23,7 +23,7 @@ function _getCameraProjection (engineCoreState: engineCoreState, engineCoreServi
 }
 
 function _getAllRenderComponents(engineCoreService: engineCoreService, engineCoreState: engineCoreState) {
-	let allGameObjects = engineCoreService.getAllGameObjects<gameObject>(engineCoreState)
+	let allGameObjects = engineCoreService.getAllGameObjects(engineCoreState)
 	let usedPBRMaterialContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 	let usedTransformContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)

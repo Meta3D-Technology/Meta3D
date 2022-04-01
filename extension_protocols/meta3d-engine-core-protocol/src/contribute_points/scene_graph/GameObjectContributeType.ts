@@ -11,6 +11,10 @@ export type createGameObjectFunc<state, gameObject> = (_1: state) => [state, gam
 // tslint:disable-next-line:interface-over-type-literal
 export type getAllGameObjectsFunc<state, gameObject> = (_1: state) => gameObject[];
 
+export type clonedGameObjects = Array<Array<gameObject>>
+
+// export type cloneGameObjectFunc<state, gameObject> = (_1: state) => gameObject[];
+
 // tslint:disable-next-line:interface-over-type-literal
 export type gameObjectContribute<state, gameObject> = {
   readonly createStateFunc: createStateFunc<state>;
