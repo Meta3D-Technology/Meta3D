@@ -901,6 +901,18 @@ should handle vbo when dispose geometry!
 * TODO add bdd test for webgl render test extension 
 
 
+
+
+* TODO extract performance test extension to Meta3D
+
+* TODO add performance test for meta3d???
+
+* TODO add performance test for engine
+
+* TODO add bdd test for performance test extension 
+
+
+
 * TODO add test
 
 * TODO publish
@@ -1076,12 +1088,6 @@ refer to ReallocateCPUMemoryJobUtils
 
 
 
-
-* TODO extract webgl performance test extension to Meta3D
-
-* TODO add performance test for meta3d???
-
-* TODO add performance test for engine
 
 
 

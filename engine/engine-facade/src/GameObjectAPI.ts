@@ -136,3 +136,42 @@ export function cloneGameObject(engineCoreState: engineCoreState, { cloneGameObj
     return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
 }
 
+export function disposeGameObjects(engineCoreState: engineCoreState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) {
+    return gameObjects.reduce(deferDisposeGameObject, engineCoreState)
+}
+
+export function disposeGameObjectTransformComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: transform) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<transform>(contribute, [component, gameObject]), transformComponentName)
+}
+
+export function disposeGameObjectPBRMaterialComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: pbrMaterial) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<pbrMaterial>(contribute, [component, gameObject]), pbrMaterialComponentName)
+}
+
+export function disposeGameObjectGeometryComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: geometry) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<geometry>(contribute, [component, gameObject]), geometryComponentName)
+}
+
+export function disposeGameObjectBasicCameraViewComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<basicCameraView>(contribute, [component, gameObject]), basicCameraViewComponentName)
+}
+
+export function disposeGameObjectPerspectiveCameraProjectionComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
+}
+
+export function disposeGameObjectArcballCameraControllerComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
+}
