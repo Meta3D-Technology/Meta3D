@@ -867,7 +867,7 @@ export type states = { [workPluginName]: state, }
 
 
 
-** TODO pass render run test:clone cube
+** DONE pass render run test:clone cube
 
 
 *** TODO no worker
@@ -876,6 +876,11 @@ export type states = { [workPluginName]: state, }
 *** TODO worker
 
 
+# ** TODO redeploy wonder website in tencent cloud!
+
+# update zhihu->introduce
+# jiehuo
+# 发布wonder(zhihu, bokeyuan)
 
 
 ** TODO pass render run test:dispose cube
@@ -888,28 +893,49 @@ should handle vbo when dispose geometry!
 
 *** TODO no worker
 
+rename DisposeJob to DisposeSceneJob
+
+TODO finish
+
+TODo move _disposeGeometryVBOBuffers to DisposeVBOJob(for webgl1)
+
+
+*** TODO feat(disposeGameObjects): add dispose arcball, basic camera view, persp components!
+
+pass unit test
+
+pass run test
+
+
+*** TODO feat(disposeComponents): add dispose arcball, basic camera view, persp components!
+
+pass unit test
+
+pass run test
+
 
 *** TODO worker
 
 
-* TODO extract webgl render test extension to Meta3D
+# * TODO extract webgl render test extension to Meta3D
+* TODO extract render test extension to Meta3D(should suppport webgl, webgpu!)
 
 * TODO add render test for meta3d???
 
 * TODO add render test for engine
 
-* TODO add bdd test for webgl render test extension 
+* TODO add bdd test for render test extension 
 
 
 
 
-* TODO extract performance test extension to Meta3D
+# * TODO extract performance test extension to Meta3D
 
-* TODO add performance test for meta3d???
+# * TODO add performance test for meta3d???
 
-* TODO add performance test for engine
+# * TODO add performance test for engine
 
-* TODO add bdd test for performance test extension 
+# * TODO add bdd test for performance test extension 
 
 
 
@@ -932,8 +958,297 @@ should handle vbo when dispose geometry!
 
 
 
+* TODO add webgpu render a cube(from lecture)
+
+in ray tracing pipeline
+
+** TODO specular reflection
 
 
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+use texture array
+
+# * TODO publish
+
+
+* TODO update engine
+
+# ** TODO finish pbr material glsl(support direction light)
+** TODO finish pbr material glsl(support one rect light)
+
+# ** TODO add custom material
+
+# ** TODO change pbr material to custom material?
+
+# ** TODO add phong material(use custom material?)
+
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO add arcball abstract
+
+use 1 spp when move
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add more lighs
+
+
+** TODO add more IBL
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add basic bsdf
+
+* TODO publish
+
+
+
+
+* TODO update engine
+
+** TODO engine: add implement load gltf/glb model without assetbundle, streamload
+
+** TODO extract abstract load gltf/glb model without assetbundle, streamload  to Meta3D
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO add LDR support
+
+# convert LDR to gltf, load it by three.js!
+
+
+** TODO load ldr
+
+convert LDR to msc
+
+** TODO 圆角/直角转换
+
+support rounded corner
+
+refer to:
+https://simoncourtin.github.io/research/courtin2019efficient.pdf
+
+
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+* TODO deploy cloud render service
+
+use meta3d to build web front end tool
+
+
+
+
+
+
+
+
+
+
+
+* TODO add webgpu render a cube
+
+** DONE investigate webgpu worker support
+not support
+
+** TODO investigate webgpu support now
+
+** TODO finish gpu driven extension
+
+** TODO render a cube
+
+
+** TODO worker: render a cube?(if support)
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+use texture array
+
+# * TODO publish
+
+
+* TODO update engine
+
+** TODO finish pbr material glsl(support direction light)
+
+** TODO add custom material
+
+** TODO change pbr material to custom material?
+
+** TODO add phong material(use custom material?)
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+* TODO optimize render 7000 cube
+
+
+
+*** TODO enhence render
+
+add clearColor, enable depeth test, set viewport, set pixel ratio, ...
+
+
+
+*** TODO perf:benchmark
+
+add benchmark test scene
+
+
+*** TODO optimize
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO clone
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO move transform
+
+
+
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO dispose
+
+
+
+
+*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+*** TODO engine add rellocate job
+
+
+
+
+
+
+* TODO extract performance test extension to Meta3D
+
+* TODO add performance test for meta3d???
+
+* TODO add performance test for engine
+
+* TODO add bdd test for performance test extension 
+
+
+
+
+
+
+
+* TODO add or update bdd test
+
+95% coverage
+
+** TODO for meta3d(only test engine code except editor code)
+
+for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
+
+
+# *** TODO for sxengine
+
+
+* TODO publish
+
+** TODO pass coverage
+
+** TODO publish
 
 
 
@@ -1003,112 +1318,8 @@ should handle vbo when dispose geometry!
 
 
 
-* TODO update engine
 
-** TODO add texture(e.g. diffuse/normal map for pbr material)
 
-* TODO publish
-
-
-
-
-
-* TODO update engine
-
-** TODO finish pbr material glsl(support direction light)
-
-** TODO add phong material
-
-
-* TODO publish
-
-
-
-
-
-
-
-
-
-
-
-
-
-* TODO optimize render 7000 cube
-
-
-
-*** TODO enhence render
-
-add clearColor, enable depeth test, set viewport, set pixel ratio, ...
-
-
-
-*** TODO perf:benchmark
-
-add benchmark test scene
-
-
-*** TODO optimize
-
-
-
-
-** TODO perf:benchmark
-
-*** TODO clone
-
-
-
-
-** TODO perf:benchmark
-
-*** TODO move transform
-
-
-
-
-
-
-
-** TODO perf:benchmark
-
-*** TODO dispose
-
-
-
-
-*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
-
-refer to ReallocateCPUMemoryJobUtils
-
-*** TODO engine add rellocate job
-
-
-
-
-
-
-
-
-
-* TODO add or update bdd test
-
-95% coverage
-
-** TODO for meta3d(only test engine code except editor code)
-
-for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
-
-
-# *** TODO for sxengine
-
-
-* TODO publish
-
-** TODO pass coverage
-
-** TODO publish
 
 
 
@@ -1183,10 +1394,9 @@ for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
 
 * TODO update engine
 
-** TODO add abstract load gltf/glb model without assetbundle, streamload 
+** TODO engine: add implement load gltf/glb model without assetbundle, streamload
 
-** TODO add implement load gltf/glb model without assetbundle, streamload
-
+** TODO extract abstract load gltf/glb model without assetbundle, streamload  to Meta3D
 
 * TODO publish
 
