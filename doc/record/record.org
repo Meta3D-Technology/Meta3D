@@ -917,6 +917,19 @@ pass run test
 *** TODO worker
 
 
+
+
+
+
+* TODO feat(editor): add load extension
+
+e.g.  add a edit scene(canvas), a init engine button, a render engine button, a clone gameObject button
+
+
+
+
+
+
 # * TODO extract webgl render test extension to Meta3D
 * TODO extract render test extension to Meta3D(should suppport webgl, webgpu!)
 
@@ -947,211 +960,6 @@ pass run test
 
 ** TODO publish
 
-
-
-
-
-
-
-
-
-
-
-
-* TODO add webgpu render a cube(from lecture)
-
-in ray tracing pipeline
-
-** TODO specular reflection
-
-
-* TODO publish
-
-
-
-
-
-* TODO update engine
-
-** TODO add texture(e.g. diffuse/normal map for pbr material)
-
-use texture array
-
-# * TODO publish
-
-
-* TODO update engine
-
-# ** TODO finish pbr material glsl(support direction light)
-** TODO finish pbr material glsl(support one rect light)
-
-# ** TODO add custom material
-
-# ** TODO change pbr material to custom material?
-
-# ** TODO add phong material(use custom material?)
-
-
-* TODO publish
-
-
-
-
-
-* TODO update engine
-
-** TODO add arcball abstract
-
-use 1 spp when move
-
-*** TODO add event
-
-*** TODO add arcball
-
-** TODO finish sxengine implement
-
-
-
-# ** TODO sxengine support dispose gameObject, component api
-
-
-* TODO publish
-
-
-
-
-
-
-
-
-* TODO update engine
-
-** TODO add more lighs
-
-
-** TODO add more IBL
-
-* TODO publish
-
-
-
-
-
-
-
-* TODO update engine
-
-** TODO add basic bsdf
-
-* TODO publish
-
-
-
-
-* TODO update engine
-
-** TODO engine: add implement load gltf/glb model without assetbundle, streamload
-
-** TODO extract abstract load gltf/glb model without assetbundle, streamload to Meta3D
-
-* TODO publish
-
-
-
-
-
-
-
-* TODO add LDR support
-
-# convert LDR to gltf, load it by three.js!
-
-
-** TODO load ldr
-
-convert LDR to msc
-
-** TODO 圆角/直角转换
-
-support rounded corner
-
-refer to:
-https://simoncourtin.github.io/research/courtin2019efficient.pdf
-
-
-
-
-* TODO publish
-
-
-
-
-
-
-
-
-
-* TODO deploy cloud render service
-
-use meta3d to build web front end tool
-
-
-
-
-
-
-
-
-
-
-
-* TODO add webgpu render a cube
-
-** DONE investigate webgpu worker support
-not support
-
-** TODO investigate webgpu support now
-
-** TODO finish gpu driven extension
-
-** TODO render a cube
-
-
-** TODO worker: render a cube?(if support)
-
-
-* TODO publish
-
-
-
-
-
-
-
-
-
-
-* TODO update engine
-
-** TODO add texture(e.g. diffuse/normal map for pbr material)
-
-use texture array
-
-# * TODO publish
-
-
-* TODO update engine
-
-** TODO finish pbr material glsl(support direction light)
-
-** TODO add custom material
-
-** TODO change pbr material to custom material?
-
-** TODO add phong material(use custom material?)
-
-
-* TODO publish
 
 
 
