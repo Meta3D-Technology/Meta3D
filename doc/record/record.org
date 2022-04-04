@@ -1052,7 +1052,7 @@ use 1 spp when move
 
 ** TODO engine: add implement load gltf/glb model without assetbundle, streamload
 
-** TODO extract abstract load gltf/glb model without assetbundle, streamload  to Meta3D
+** TODO extract abstract load gltf/glb model without assetbundle, streamload to Meta3D
 
 * TODO publish
 
