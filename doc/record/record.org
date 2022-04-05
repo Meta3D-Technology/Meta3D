@@ -967,6 +967,70 @@ e.g.  add a edit scene(canvas), a init engine button, a render engine button, a 
 
 
 
+* TODO add webgpu render a cube(from lecture)
+
+in ray tracing pipeline
+
+** TODO specular reflection
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add arcball abstract
+
+use 1 spp when move
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+use texture array
+
+# * TODO publish
+
+
+* TODO update engine
+
+# ** TODO finish pbr material glsl(support direction light)
+** TODO finish pbr material glsl(support one rect light)
+
+# ** TODO add custom material
+
+# ** TODO change pbr material to custom material?
+
+# ** TODO add phong material(use custom material?)
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,9 +1,9 @@
 
 
-import * as CloneUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
+import * as CloneUtils$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./CreatePBRMaterialUtils.bs.js";
 import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial from "../utils/OperateTypeArrayPBRMaterialUtils.bs.js";
-import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js";
+import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js";
 
 function _setData(state) {
   var diffuseColors = state.diffuseColors;

@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentPbrmaterialProtocol from "./../../../../../node_modules/meta3d-component-pbrmaterial-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentPbrmaterialProtocol from "./../../../../../../node_modules/meta3d-component-pbrmaterial-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentPbrmaterial from "./create_state/CreateStateUtils.bs.js";
 import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/AddPBRMaterialUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";

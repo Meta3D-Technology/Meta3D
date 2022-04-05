@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentArcballcameracontrollerProtocol from "./../../../../../node_modules/meta3d-component-arcballcameracontroller-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentArcballcameracontrollerProtocol from "./../../../../../../node_modules/meta3d-component-arcballcameracontroller-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentArcballcameracontroller from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentArcballcameracontroller from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller from "./gameobject/AddArcballCameraControllerUtils.bs.js";
