@@ -8,4 +8,6 @@ export const dataName = {
 
 export type basicCameraView = number
 
+export type needDisposedComponents = basicCameraView[]
+
 export type active = boolean

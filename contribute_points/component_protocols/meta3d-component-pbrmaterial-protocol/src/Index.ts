@@ -1,4 +1,5 @@
 import { pbrMaterial as pbrMaterialType } from "meta3d-component-pbrmaterial-common-protocol"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export const componentName = "PBRMaterial"
 
@@ -15,6 +16,8 @@ export const dataName = {
 }
 
 export type pbrMaterial = pbrMaterialType
+
+export type needDisposedComponents = Record<pbrMaterial, gameObject[]>
 
 export type diffuseColor = [number, number, number]
 

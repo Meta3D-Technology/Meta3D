@@ -136,6 +136,10 @@ export function cloneGameObject(engineCoreState: engineCoreState, { cloneGameObj
     return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
 }
 
+export function getNeedDisposedGameObjects(engineCoreState: engineCoreState, { getNeedDisposedGameObjects }: engineCoreService) {
+    return getNeedDisposedGameObjects(engineCoreState)
+}
+
 export function disposeGameObjects(engineCoreState: engineCoreState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) {
     return gameObjects.reduce(deferDisposeGameObject, engineCoreState)
 }

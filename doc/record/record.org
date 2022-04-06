@@ -893,11 +893,11 @@ should handle vbo when dispose geometry!
 
 *** TODO no worker
 
-rename DisposeJob to DisposeSceneJob
+# rename DisposeJob to DisposeSceneJob
 
 TODO finish
 
-TODo move _disposeGeometryVBOBuffers to DisposeVBOJob(for webgl1)
+# TODO move _disposeGeometryVBOBuffers to DisposeVBOJob(for webgl1)
 
 
 *** TODO feat(disposeGameObjects): add dispose arcball, basic camera view, persp components!
@@ -907,12 +907,6 @@ pass unit test
 pass run test
 
 
-*** TODO feat(disposeComponents): add dispose arcball, basic camera view, persp components!
-
-pass unit test
-
-pass run test
-
 
 *** TODO worker
 
@@ -921,50 +915,51 @@ pass run test
 
 
 
-* TODO feat(editor): add load extension
+# * TODO feat(editor): add load extension
 
-e.g.  add a edit scene(canvas), a init engine button, a render engine button, a clone gameObject button
-
-
-
-
-
-
-# * TODO extract webgl render test extension to Meta3D
-* TODO extract render test extension to Meta3D(should suppport webgl, webgpu!)
-
-* TODO add render test for meta3d???
-
-* TODO add render test for engine
-
-* TODO add bdd test for render test extension 
-
-
-
-
-# * TODO extract performance test extension to Meta3D
-
-# * TODO add performance test for meta3d???
-
-# * TODO add performance test for engine
-
-# * TODO add bdd test for performance test extension 
-
-
-
-* TODO add test
-
-* TODO publish
-
-** TODO pass coverage
-
-** TODO publish
+# e.g.  add a edit scene(canvas), a init engine button, a render engine button, a clone gameObject button
 
 
 
 
 
 
+# # * TODO extract webgl render test extension to Meta3D
+# * TODO extract render test extension to Meta3D(should suppport webgl, webgpu!)
+
+# * TODO add render test for meta3d???
+
+# * TODO add render test for engine
+
+# * TODO add bdd test for render test extension 
+
+
+
+
+# # * TODO extract performance test extension to Meta3D
+
+# # * TODO add performance test for meta3d???
+
+# # * TODO add performance test for engine
+
+# # * TODO add bdd test for performance test extension 
+
+
+
+# * TODO add test
+
+# * TODO publish
+
+# ** TODO pass coverage
+
+# ** TODO publish
+
+
+
+
+* TODO add webgpu render a triangle
+
+for lecture 3
 
 
 * TODO add webgpu render a cube(from lecture)

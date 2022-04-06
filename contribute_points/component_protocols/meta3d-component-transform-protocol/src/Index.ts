@@ -33,6 +33,8 @@ export const dataName = {
 
 export type transform = transformType
 
+export type needDisposedComponents = transform[]
+
 // export type parent = transform
 
 // export type children = Array<transform>

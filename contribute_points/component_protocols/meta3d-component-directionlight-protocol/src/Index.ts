@@ -14,6 +14,8 @@ export const dataName = {
 
 export type directionLight = number
 
+export type needDisposedComponents = directionLight[]
+
 export type color = [number, number, number]
 
 export type intensity = number

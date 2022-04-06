@@ -1,4 +1,5 @@
 import { geometry as geometryType, vertices as verticesType, indices as indicesType, indicesCount as indicesCountType } from "meta3d-component-geometry-common-protocol"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export const componentName = "Geometry"
 
@@ -23,6 +24,8 @@ export const dataName = {
 }
 
 export type geometry = geometryType
+
+export type needDisposedComponents = Record<geometry, gameObject[]>
 
 export type vertices = verticesType
 

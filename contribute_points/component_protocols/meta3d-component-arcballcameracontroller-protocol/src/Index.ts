@@ -18,6 +18,8 @@ export const dataName = {
 
 export type arcballCameraController = number
 
+export type needDisposedComponents = arcballCameraController[]
+
 export type distance = number
 
 export type minDistance = number
