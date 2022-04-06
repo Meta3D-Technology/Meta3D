@@ -342,6 +342,55 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."get need disposed gameObjects", ({given, \"when", \"and", then}) => {
+    _prepare(
+      given,
+      \"when",
+      \"and",
+      _buildGameObjectData(
+        ~createStateFunc=(. config) => {
+          {
+            "needDisposeArray": [],
+          }->Obj.magic
+        },
+        ~createGameObjectFunc=(. state) => {
+          (state, 1->Obj.magic)
+        },
+        ~getNeedDisposedGameObjectsFunc=(. state) => {
+          JsObjTool.getObjValue(state, "needDisposeArray")
+        },
+        ~deferDisposeGameObjectFunc=(.
+          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          _,
+          gameObject,
+        ) => {
+          (
+            {
+              "needDisposeArray": JsObjTool.getObjValue(
+                gameObjectState,
+                "needDisposeArray",
+              )->Meta3dCommonlib.ArraySt.push(gameObject),
+            }->Obj.magic,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+          )
+        },
+        (),
+      ),
+    )
+
+    _prepareComponentsAndCreate(\"when", \"and")
+
+    \"when"("defer dispose g1", () => {
+      MainTool.deferDisposeGameObject(g1.contents)
+    })
+
+    then("get need disposed gameObjects should return them", () => {
+      MainTool.getNeedDisposedGameObjects()->expect == [g1.contents]
+    })
+  })
+
   test(."dispose gameObjects", ({given, \"and", \"when", then}) => {
     let _buildSharedComponentBatchDisposeData = component => {
       Meta3dCommonlib.MutableSparseMap.createEmpty()->Meta3dCommonlib.MutableSparseMap.set(

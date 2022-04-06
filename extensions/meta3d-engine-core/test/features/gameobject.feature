@@ -33,11 +33,15 @@ Feature: GameObject
             And add geo1 to g1
 
         Scenario: defer dispose gameObject
-            Then defer dispose g1
+            When defer dispose g1
             Then mark g1 as need dispose
             And mark t1 as need dispose
             And mark p1 as need dispose
             And mark geo1 as need dispose
+
+        Scenario: get need disposed gameObjects
+            When defer dispose g1
+            Then get need disposed gameObjects should return them
 
         Scenario: dispose gameObjects
             When dispose [g1]

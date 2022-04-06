@@ -373,6 +373,66 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."get need disposed components", ({given, \"when", \"and", then}) => {
+    let c1 = ref(Obj.magic(1))
+    let componentName = "a1"
+
+    _prepareRegister(given)
+
+    _prepareComponent(
+      \"when",
+      \"and",
+      ComponentTool.buildComponentContribute(
+        ~componentName,
+        ~createStateFunc=(. _) => {
+          {
+            "needDisposeArray": [],
+          }->Obj.magic
+        },
+        ~createComponentFunc=(. state) => {
+          let component = 1->Obj.magic
+
+          (state, component)
+        },
+        ~deferDisposeComponentFunc=(. state, (component, _)) => {
+          {
+            "needDisposeArray": JsObjTool.getObjValue(
+              state,
+              "needDisposeArray",
+            )->Meta3dCommonlib.ArraySt.push(component),
+          }->Obj.magic
+        },
+        ~getNeedDisposedComponentsFunc=(. state) => {
+          JsObjTool.getObjValue(state, "needDisposeArray")
+        },
+        (),
+      ),
+    )
+
+    given(%re("/^create a component as c(\d+)$/")->Obj.magic, arg0 => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.createComponent
+
+      c1 := component
+      usedContribute := d
+    })
+
+    \"and"("defer dispose c1", () => {
+      usedContribute :=
+        MainTool.unsafeGetUsedComponentContribute(componentName)->MainTool.deferDisposeComponent(
+          Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(c1.contents),
+        )
+    })
+
+    then("get need disposed components should return [c1]", () => {
+      usedContribute.contents
+      ->MainTool.getNeedDisposedComponents
+      ->Obj.magic
+      ->Js.Array.includes(c1.contents, _)
+      ->expect == true
+    })
+  })
+
   test(."defer dispose component", ({given, \"and", \"when", then}) => {
     let c1 = ref(Obj.magic(1))
     let componentName = "a1"

@@ -104,6 +104,8 @@ let getComponent = (contribute, gameObject) => {
   contribute->DirectorForJs.getComponent(gameObject)
 }
 
+let getNeedDisposedComponents = DirectorForJs.getNeedDisposedComponents
+
 let deferDisposeComponent = DirectorForJs.deferDisposeComponent
 
 let disposeComponents = DirectorForJs.disposeComponents
@@ -144,6 +146,10 @@ let deferDisposeGameObject = gameObject => {
   StateContainer.unsafeGetState()
   ->DirectorForJs.deferDisposeGameObject(gameObject)
   ->StateContainer.setState
+}
+
+let getNeedDisposedGameObjects = () => {
+  StateContainer.unsafeGetState()->DirectorForJs.getNeedDisposedGameObjects
 }
 
 let disposeGameObjects = gameObjects => {

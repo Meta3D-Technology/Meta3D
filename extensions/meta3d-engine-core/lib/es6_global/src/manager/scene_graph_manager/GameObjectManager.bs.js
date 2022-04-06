@@ -76,6 +76,11 @@ function _setGameObjectStateAndAllComponentStatesToState(state, param, param$1) 
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, param[0], param$1[0]), usedTransformContribute, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute, Index$Meta3dComponentGeometryProtocol.componentName);
 }
 
+function getNeedDisposedGameObjects(state) {
+  var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
+  return usedGameObjectContribute.getNeedDisposedGameObjectsFunc(usedGameObjectContribute.state);
+}
+
 function deferDisposeGameObject(state, gameObject) {
   var match = _getAllUsedContributes(state);
   var usedGeometryContribute = match[3];
@@ -215,6 +220,7 @@ export {
   createGameObject ,
   _getAllUsedContributes ,
   _setGameObjectStateAndAllComponentStatesToState ,
+  getNeedDisposedGameObjects ,
   deferDisposeGameObject ,
   disposeGameObjects ,
   cloneGameObject ,

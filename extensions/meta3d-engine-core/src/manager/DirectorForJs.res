@@ -89,6 +89,8 @@ let hasComponent = ComponentManager.hasComponent
 
 let getComponent = ComponentManager.getComponent
 
+let getNeedDisposedComponents = ComponentManager.getNeedDisposedComponents
+
 let deferDisposeComponent = ComponentManager.deferDisposeComponent
 
 let disposeComponents = ComponentManager.disposeComponents
@@ -104,6 +106,8 @@ let setGameObjectContribute = GameObjectManager.setGameObjectContribute
 let createAndSetGameObjectState = GameObjectManager.createAndSetState
 
 let createGameObject = GameObjectManager.createGameObject
+
+let getNeedDisposedGameObjects = GameObjectManager.getNeedDisposedGameObjects
 
 let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
 

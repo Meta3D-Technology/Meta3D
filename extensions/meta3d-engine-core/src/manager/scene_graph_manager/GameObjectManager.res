@@ -125,6 +125,12 @@ let _setGameObjectStateAndAllComponentStatesToState = (
   )
 }
 
+let getNeedDisposedGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state) => {
+  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+
+  usedGameObjectContribute.getNeedDisposedGameObjectsFunc(. usedGameObjectContribute.state)
+}
+
 let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject) => {
   let (
     usedGameObjectContribute,
@@ -174,6 +180,7 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
   )
 }
 
+// TODO fix bug
 let disposeGameObjects = (state, gameObjects) => {
   let (
     usedGameObjectContribute,

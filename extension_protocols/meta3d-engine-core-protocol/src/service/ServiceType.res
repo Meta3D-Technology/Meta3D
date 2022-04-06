@@ -9,10 +9,7 @@ type service = {
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,
-  unregisterWorkPlugin: (
-    StateType.state,
-    StateType.workPluginName,
-  ) => StateType.state,
+  unregisterWorkPlugin: (StateType.state, StateType.workPluginName) => StateType.state,
   registerComponent: (
     StateType.state,
     RegisterComponentType.componentContribute,
@@ -74,6 +71,7 @@ type service = {
     ComponentType.component,
     ComponentContributeType.dataName,
   ) => Js.Nullable.t<ComponentContributeType.dataValue>,
+  getNeedDisposedComponents: RegisterComponentType.usedComponentContribute => ComponentType.needDisposedComponents,
   getComponentGameObjects: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
@@ -91,6 +89,7 @@ type service = {
     Meta3dGameobjectProtocol.Index.config,
   ) => StateType.state,
   createGameObject: StateType.state => (StateType.state, Meta3dGameobjectProtocol.Index.gameObject),
+  getNeedDisposedGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
   deferDisposeGameObject: (
     StateType.state,
     Meta3dGameobjectProtocol.Index.gameObject,

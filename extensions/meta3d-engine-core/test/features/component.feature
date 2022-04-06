@@ -61,6 +61,11 @@ Feature: Component
             And add c1 to g1
             Then get gameObject's component should return c1
 
+        Scenario: get need disposed components
+            Given create a component as c1
+            And defer dispose c1
+            Then get need disposed components should return [c1]
+
         Scenario: defer dispose component
             Given create a component as c1
             When defer dispose c1
