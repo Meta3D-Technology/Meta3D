@@ -8,11 +8,19 @@ let deferDisposeGameObject = (
     transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
     pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
     geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
+    directionLightState: Meta3dEngineCoreProtocol.ComponentType.directionLightState,
+    arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
+    basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
+    perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
   ),
   (
     (getTransformFunc, deferDisposeTransformFunc),
     (getPBRMaterialFunc, deferDisposePBRMaterialFunc),
     (getGeometryFunc, deferDisposeGeometryFunc),
+    (getDirectionLightFunc, deferDisposeDirectionLightFunc),
+    (getArcballCameraControllerFunc, deferDisposeArcballCameraControllerFunc),
+    (getBasicCameraViewFunc, deferDisposeBasicCameraViewFunc),
+    (getPerspectiveCameraProjectionFunc, deferDisposePerspectiveCameraProjectionFunc),
   ),
   gameObject,
 ) => {
@@ -37,6 +45,40 @@ let deferDisposeGameObject = (
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(geometryState)
 
+  let directionLightState =
+    getDirectionLightFunc(. directionLightState, gameObject)
+    ->Meta3dCommonlib.NullableSt.map((. directionLight) => {
+      deferDisposeDirectionLightFunc(. directionLightState, (directionLight, gameObject))
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(directionLightState)
+
+  let arcballCameraControllerState =
+    getArcballCameraControllerFunc(. arcballCameraControllerState, gameObject)
+    ->Meta3dCommonlib.NullableSt.map((. arcballCameraController) => {
+      deferDisposeArcballCameraControllerFunc(.
+        arcballCameraControllerState,
+        (arcballCameraController, gameObject),
+      )
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(arcballCameraControllerState)
+
+  let basicCameraViewState =
+    getBasicCameraViewFunc(. basicCameraViewState, gameObject)
+    ->Meta3dCommonlib.NullableSt.map((. cameraView) => {
+      deferDisposeBasicCameraViewFunc(. basicCameraViewState, (cameraView, gameObject))
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(basicCameraViewState)
+
+  let perspectiveCameraProjectionState =
+    getPerspectiveCameraProjectionFunc(. perspectiveCameraProjectionState, gameObject)
+    ->Meta3dCommonlib.NullableSt.map((. cameraProjection) => {
+      deferDisposePerspectiveCameraProjectionFunc(.
+        perspectiveCameraProjectionState,
+        (cameraProjection, gameObject),
+      )
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(perspectiveCameraProjectionState)
+
   let gameObjectState = {
     ...gameObjectState,
     needDisposedGameObjectArray: needDisposedGameObjectArray->Meta3dCommonlib.ArraySt.push(
@@ -44,12 +86,29 @@ let deferDisposeGameObject = (
     ),
   }
 
-  (gameObjectState, transformState, pbrMaterialState, geometryState)
+  (
+    gameObjectState,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  )
 }
 
-let _getTransforms = (state, getTransformFunc, gameObjects) =>
+// let _getTransforms = (state, getTransformFunc, gameObjects) =>
+//   gameObjects->Meta3dCommonlib.ArraySt.reduceOneParam((. arr, gameObject) => {
+//     switch getTransformFunc(. state, gameObject)->Meta3dCommonlib.OptionSt.fromNullable {
+//     | None => arr
+//     | Some(component) => arr->Meta3dCommonlib.ArraySt.push(component)
+//     }
+//   }, [])
+
+let _getNotSharedComponents = (state, getComponentFunc, gameObjects) =>
   gameObjects->Meta3dCommonlib.ArraySt.reduceOneParam((. arr, gameObject) => {
-    switch getTransformFunc(. state, gameObject)->Meta3dCommonlib.OptionSt.fromNullable {
+    switch getComponentFunc(. state, gameObject)->Meta3dCommonlib.OptionSt.fromNullable {
     | None => arr
     | Some(component) => arr->Meta3dCommonlib.ArraySt.push(component)
     }
@@ -73,11 +132,19 @@ let disposeGameObjects = (
     transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
     pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
     geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
+    directionLightState: Meta3dEngineCoreProtocol.ComponentType.directionLightState,
+    arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
+    basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
+    perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
   ),
   (
     (getTransformFunc, disposeTransformsFunc),
     (getPBRMaterialFunc, disposePBRMaterialsFunc),
     (getGeometryFunc, disposeGeometrysFunc),
+    (getDirectionLightFunc, disposeDirectionLightFunc),
+    (getArcballCameraControllerFunc, disposeArcballCameraControllerFunc),
+    (getBasicCameraViewFunc, disposeBasicCameraViewFunc),
+    (getPerspectiveCameraProjectionFunc, disposePerspectiveCameraProjectionFunc),
   ),
   gameObjects,
 ) => {
@@ -99,7 +166,7 @@ let disposeGameObjects = (
 
   let transformState = disposeTransformsFunc(.
     transformState,
-    _getTransforms(transformState, getTransformFunc, gameObjects),
+    _getNotSharedComponents(transformState, getTransformFunc, gameObjects),
   )
 
   let pbrMaterialState = disposePBRMaterialsFunc(.
@@ -112,5 +179,42 @@ let disposeGameObjects = (
     _getSharableComponentDataMap(geometryState, getGeometryFunc, gameObjects),
   )
 
-  (gameObjectState, transformState, pbrMaterialState, geometryState)
+  let directionLightState = disposeDirectionLightFunc(.
+    directionLightState,
+    _getNotSharedComponents(directionLightState, getDirectionLightFunc, gameObjects),
+  )
+
+  let arcballCameraControllerState = disposeArcballCameraControllerFunc(.
+    arcballCameraControllerState,
+    _getNotSharedComponents(
+      arcballCameraControllerState,
+      getArcballCameraControllerFunc,
+      gameObjects,
+    ),
+  )
+
+  let basicCameraViewState = disposeBasicCameraViewFunc(.
+    basicCameraViewState,
+    _getNotSharedComponents(basicCameraViewState, getBasicCameraViewFunc, gameObjects),
+  )
+
+  let perspectiveCameraProjectionState = disposePerspectiveCameraProjectionFunc(.
+    perspectiveCameraProjectionState,
+    _getNotSharedComponents(
+      perspectiveCameraProjectionState,
+      getPerspectiveCameraProjectionFunc,
+      gameObjects,
+    ),
+  )
+
+  (
+    gameObjectState,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  )
 }

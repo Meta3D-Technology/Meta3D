@@ -33,8 +33,20 @@ let clone = (
     transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
     pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
     geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
+    directionLightState: Meta3dEngineCoreProtocol.ComponentType.directionLightState,
+    arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
+    basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
+    perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
   ),
-  ((cloneTransformFunc, addTransformFunc), pbrMaterialFuncs, geometryFuncs),
+  (
+    (cloneTransformFunc, addTransformFunc),
+    pbrMaterialFuncs,
+    geometryFuncs,
+    directionLightFuncs,
+    arcballCameraControllerFuncs,
+    basicCameraViewFuncs,
+    perspectiveCameraProjectionFuncs,
+  ),
   isDebug,
   countRange,
   {isShareMaterial}: Meta3dGameobjectProtocol.Index.cloneConfig,
@@ -45,7 +57,7 @@ let clone = (
     transformState,
     countRange,
     (),
-    sourceTransform
+    sourceTransform,
   )
   let transformState = Meta3dCommonlib.BatchAddComponentUtils.batchAdd(
     transformState,
@@ -73,5 +85,52 @@ let clone = (
     (sourceGameObject, clonedGameObjects),
   )
 
-  ((transformState, pbrMaterialState, geometryState), clonedTransforms)
+  let (directionLightState, _) = _cloneComponent(
+    directionLightState,
+    directionLightFuncs,
+    isDebug,
+    countRange,
+    (),
+    (sourceGameObject, clonedGameObjects),
+  )
+
+  let (arcballCameraControllerState, _) = _cloneComponent(
+    arcballCameraControllerState,
+    arcballCameraControllerFuncs,
+    isDebug,
+    countRange,
+    (),
+    (sourceGameObject, clonedGameObjects),
+  )
+
+  let (basicCameraViewState, _) = _cloneComponent(
+    basicCameraViewState,
+    basicCameraViewFuncs,
+    isDebug,
+    countRange,
+    (),
+    (sourceGameObject, clonedGameObjects),
+  )
+
+  let (perspectiveCameraProjectionState, _) = _cloneComponent(
+    perspectiveCameraProjectionState,
+    perspectiveCameraProjectionFuncs,
+    isDebug,
+    countRange,
+    (),
+    (sourceGameObject, clonedGameObjects),
+  )
+
+  (
+    (
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
+    clonedTransforms,
+  )
 }

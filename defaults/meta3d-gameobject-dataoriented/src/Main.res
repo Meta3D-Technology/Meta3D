@@ -15,7 +15,16 @@ let getGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectContributeType.g
   disposeGameObjectsFunc: (. states, funcs, gameObjects) =>
     DisposeGameObjectUtils.disposeGameObjects(states, funcs, gameObjects),
   cloneGameObjectFunc: (.
-    (gameObjectState, transformState, pbrMaterialState, geometryState) as states,
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ) as states,
     funcs,
     count,
     cloneConfig,

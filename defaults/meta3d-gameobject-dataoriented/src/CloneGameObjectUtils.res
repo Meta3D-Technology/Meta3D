@@ -31,7 +31,16 @@ let _setParent = (
 }
 
 let rec _clone = (
-  (gameObjectState, transformState, pbrMaterialState, geometryState),
+  (
+    gameObjectState,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  ),
   (
     (
       getTransformFunc,
@@ -43,6 +52,18 @@ let rec _clone = (
     ),
     (getPBRMaterialFunc, clonePBRMaterialFunc, addPBRMaterialFunc),
     (getGeometryFunc, cloneGeometryFunc, addGeometryFunc),
+    (getDirectionLightFunc, cloneDirectionLightFunc, addDirectionLightFunc),
+    (
+      getArcballCameraControllerFunc,
+      cloneArcballCameraControllerFunc,
+      addArcballCameraControllerFunc,
+    ),
+    (getBasicCameraViewFunc, cloneBasicCameraViewFunc, addBasicCameraViewFunc),
+    (
+      getPerspectiveCameraProjectionFunc,
+      clonePerspectiveCameraProjectionFunc,
+      addPerspectiveCameraProjectionFunc,
+    ),
   ) as funcs,
   isDebug,
   countRange,
@@ -56,14 +77,42 @@ let rec _clone = (
     totalClonedGameObjects->Meta3dCommonlib.ListSt.push(clonedGameObjects)
 
   let (
-    (transformState, pbrMaterialState, geometryState),
+    (
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
     clonedTransforms,
   ) = CloneGameObjectComponentUtils.clone(
-    (transformState, pbrMaterialState, geometryState),
+    (
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
     (
       (cloneTransformFunc, addTransformFunc),
       (getPBRMaterialFunc, clonePBRMaterialFunc, addPBRMaterialFunc),
       (getGeometryFunc, cloneGeometryFunc, addGeometryFunc),
+      (getDirectionLightFunc, cloneDirectionLightFunc, addDirectionLightFunc),
+      (
+        getArcballCameraControllerFunc,
+        cloneArcballCameraControllerFunc,
+        addArcballCameraControllerFunc,
+      ),
+      (getBasicCameraViewFunc, cloneBasicCameraViewFunc, addBasicCameraViewFunc),
+      (
+        getPerspectiveCameraProjectionFunc,
+        clonePerspectiveCameraProjectionFunc,
+        addPerspectiveCameraProjectionFunc,
+      ),
     ),
     isDebug,
     countRange,
@@ -101,18 +150,48 @@ let rec _clone = (
           ),
         )
       },
-      ((gameObjectState, transformState, pbrMaterialState, geometryState), totalClonedGameObjects),
+      (
+        (
+          gameObjectState,
+          transformState,
+          pbrMaterialState,
+          geometryState,
+          directionLightState,
+          arcballCameraControllerState,
+          basicCameraViewState,
+          perspectiveCameraProjectionState,
+        ),
+        totalClonedGameObjects,
+      ),
     )
   })
   ->Meta3dCommonlib.NullableSt.getWithDefault((
-    (gameObjectState, transformState, pbrMaterialState, geometryState),
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
     totalClonedGameObjects,
   ))
 }
 
 let clone = (
-  (gameObjectState, transformState, pbrMaterialState, geometryState) as states,
-  ((getTransformFunc, _, _, _, _, _), pbrMaterialFuncs, geometryFuncs) as funcs,
+  (
+    gameObjectState,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  ) as states,
+  ((getTransformFunc, _, _, _, _, _), _, _, _, _, _, _) as funcs,
   isDebug,
   count,
   cloneConfig,

@@ -10,6 +10,10 @@ defineFeature(feature, test => {
   let transformContribute = ref(Obj.magic(1))
   let pbrMaterialContribute = ref(Obj.magic(1))
   let geometryContribute = ref(Obj.magic(1))
+  let directionLightContribute = ref(Obj.magic(1))
+  let arcballCameraControllerContribute = ref(Obj.magic(1))
+  let basicCameraViewContribute = ref(Obj.magic(1))
+  let perspectiveCameraProjectionContribute = ref(Obj.magic(1))
   let g1 = ref(Obj.magic(1))
   let t1 = ref(Obj.magic(1))
   let usedTransformContribute: ref<
@@ -26,6 +30,26 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   > = ref(Obj.magic(1))
   let geometryName = Meta3dComponentGeometryProtocol.Index.componentName
+  let d1 = ref(Obj.magic(1))
+  let usedDirectionLightContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let directionLightName = Meta3dComponentDirectionlightProtocol.Index.componentName
+  let a1 = ref(Obj.magic(1))
+  let usedArcballCameraControllerContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let arcballCameraControllerName = Meta3dComponentArcballcameracontrollerProtocol.Index.componentName
+  let b1 = ref(Obj.magic(1))
+  let usedBasicCameraViewContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let basicCameraViewName = Meta3dComponentBasiccameraviewProtocol.Index.componentName
+  let pcp1 = ref(Obj.magic(1))
+  let usedPerspectiveCameraProjectionContribute: ref<
+    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  > = ref(Obj.magic(1))
+  let perspectiveCameraProjectionName = Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName
 
   let _buildGameObjectData = (
     ~createStateFunc=(. config) => Obj.magic(1),
@@ -187,6 +211,10 @@ defineFeature(feature, test => {
     let transformC = _buildComponentContribute(transformName)
     let pbrMaterialC = _buildComponentContribute(pbrMaterialName)
     let geometryC = _buildComponentContribute(geometryName)
+    let directionLightC = _buildComponentContribute(directionLightName)
+    let arcballCameraControllerC = _buildComponentContribute(arcballCameraControllerName)
+    let basicCameraViewC = _buildComponentContribute(basicCameraViewName)
+    let perspectiveCameraProjectionC = _buildComponentContribute(perspectiveCameraProjectionName)
 
     \"when"("register transform contribute", () => {
       transformContribute := transformC
@@ -218,6 +246,46 @@ defineFeature(feature, test => {
       MainTool.createAndSetComponentState(geometryC.componentName, Obj.magic(1))
     })
 
+    \"and"("register arcballCameraController contribute", () => {
+      arcballCameraControllerContribute := arcballCameraControllerC
+
+      MainTool.registerComponent(arcballCameraControllerContribute.contents)
+    })
+
+    \"and"("create and set arcballCameraController state", () => {
+      MainTool.createAndSetComponentState(arcballCameraControllerC.componentName, Obj.magic(1))
+    })
+
+    \"and"("register basicCameraView contribute", () => {
+      basicCameraViewContribute := basicCameraViewC
+
+      MainTool.registerComponent(basicCameraViewContribute.contents)
+    })
+
+    \"and"("create and set basicCameraView state", () => {
+      MainTool.createAndSetComponentState(basicCameraViewC.componentName, Obj.magic(1))
+    })
+
+    \"and"("register perspectiveCameraProjection contribute", () => {
+      perspectiveCameraProjectionContribute := perspectiveCameraProjectionC
+
+      MainTool.registerComponent(perspectiveCameraProjectionContribute.contents)
+    })
+
+    \"and"("create and set perspectiveCameraProjection state", () => {
+      MainTool.createAndSetComponentState(perspectiveCameraProjectionC.componentName, Obj.magic(1))
+    })
+
+    \"and"("register directionLight contribute", () => {
+      directionLightContribute := directionLightC
+
+      MainTool.registerComponent(directionLightContribute.contents)
+    })
+
+    \"and"("create and set directionLight state", () => {
+      MainTool.createAndSetComponentState(directionLightC.componentName, Obj.magic(1))
+    })
+
     \"and"("create a gameObject as g1", () => {
       g1 := MainTool.createGameObject()
     })
@@ -246,6 +314,42 @@ defineFeature(feature, test => {
       usedGeometryContribute := d
     })
 
+    \"and"("create a arcballCameraController as a1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(
+          arcballCameraControllerName,
+        )->MainTool.createComponent
+
+      a1 := component
+      usedArcballCameraControllerContribute := d
+    })
+
+    \"and"("create a basicCameraView as b1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(basicCameraViewName)->MainTool.createComponent
+
+      b1 := component
+      usedBasicCameraViewContribute := d
+    })
+
+    \"and"("create a perspectiveCameraProjection as pcp1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(
+          perspectiveCameraProjectionName,
+        )->MainTool.createComponent
+
+      pcp1 := component
+      usedPerspectiveCameraProjectionContribute := d
+    })
+
+    \"and"("create a directionLight as d1", () => {
+      let (d, component) =
+        MainTool.unsafeGetUsedComponentContribute(directionLightName)->MainTool.createComponent
+
+      d1 := component
+      usedDirectionLightContribute := d
+    })
+
     \"and"("add t1 to g1", () => {
       ()
     })
@@ -255,6 +359,22 @@ defineFeature(feature, test => {
     })
 
     \"and"("add geo1 to g1", () => {
+      ()
+    })
+
+    \"and"("add a1 to g1", () => {
+      ()
+    })
+
+    \"and"("add b1 to g1", () => {
+      ()
+    })
+
+    \"and"("add pcp1 to g1", () => {
+      ()
+    })
+
+    \"and"("add d1 to g1", () => {
       ()
     })
   }
@@ -274,11 +394,24 @@ defineFeature(feature, test => {
           (state, 1->Obj.magic)
         },
         ~deferDisposeGameObjectFunc=(.
-          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          (
+            gameObjectState,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
+          ),
           (
             (_, deferDisposeTransformFunc),
             (_, deferDisposePBRMaterialFunc),
             (_, deferDisposeGeometryFunc),
+            (_, deferDisposeDirectionLightFunc),
+            (_, deferDisposeArcballCameraControllerFunc),
+            (_, deferDisposeBasicCameraViewFunc),
+            (_, deferDisposePerspectiveCameraProjectionFunc),
           ),
           gameObject,
         ) => {
@@ -288,11 +421,27 @@ defineFeature(feature, test => {
           )
           let pbrMaterialState = deferDisposePBRMaterialFunc(.
             pbrMaterialState,
-            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(p1.contents),
           )
           let geometryState = deferDisposeGeometryFunc(.
             geometryState,
-            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(t1.contents),
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(geo1.contents),
+          )
+          let directionLightState = deferDisposeDirectionLightFunc(.
+            directionLightState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(d1.contents),
+          )
+          let arcballCameraControllerState = deferDisposeArcballCameraControllerFunc(.
+            arcballCameraControllerState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(a1.contents),
+          )
+          let basicCameraViewState = deferDisposeBasicCameraViewFunc(.
+            basicCameraViewState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(b1.contents),
+          )
+          let perspectiveCameraProjectionState = deferDisposePerspectiveCameraProjectionFunc(.
+            perspectiveCameraProjectionState,
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(pcp1.contents),
           )
 
           (
@@ -305,6 +454,10 @@ defineFeature(feature, test => {
             transformState,
             pbrMaterialState,
             geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
           )
         },
         (),
@@ -340,6 +493,36 @@ defineFeature(feature, test => {
       ->Js.Array.includes(geo1.contents, _)
       ->expect == true
     })
+
+    \"and"("mark a1 as need dispose", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(arcballCameraControllerName),
+        "needDisposeArray",
+      )
+      ->Js.Array.includes(a1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark b1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "needDisposeArray")
+      ->Js.Array.includes(b1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark pcp1 as need dispose", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(perspectiveCameraProjectionName),
+        "needDisposeArray",
+      )
+      ->Js.Array.includes(pcp1.contents, _)
+      ->expect == true
+    })
+
+    \"and"("mark d1 as need dispose", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "needDisposeArray")
+      ->Js.Array.includes(d1.contents, _)
+      ->expect == true
+    })
   })
 
   test(."get need disposed gameObjects", ({given, \"when", \"and", then}) => {
@@ -360,7 +543,16 @@ defineFeature(feature, test => {
           JsObjTool.getObjValue(state, "needDisposeArray")
         },
         ~deferDisposeGameObjectFunc=(.
-          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          (
+            gameObjectState,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
+          ),
           _,
           gameObject,
         ) => {
@@ -374,6 +566,10 @@ defineFeature(feature, test => {
             transformState,
             pbrMaterialState,
             geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
           )
         },
         (),
@@ -413,8 +609,25 @@ defineFeature(feature, test => {
           (state, 1->Obj.magic)
         },
         ~disposeGameObjectsFunc=(.
-          (gameObjectState, transformState, pbrMaterialState, geometryState),
-          ((_, disposeTransformsFunc), (_, disposePBRMaterialsFunc), (_, disposeGeometrysFunc)),
+          (
+            gameObjectState,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
+          ),
+          (
+            (_, disposeTransformsFunc),
+            (_, disposePBRMaterialsFunc),
+            (_, disposeGeometrysFunc),
+            (_, disposeDirectionLightFunc),
+            (_, disposeArcballCameraControllerFunc),
+            (_, disposeBasicCameraViewFunc),
+            (_, disposePerspectiveCameraProjectionFunc),
+          ),
           gameObjects,
         ) => {
           let transformState = disposeTransformsFunc(. transformState, [t1.contents])
@@ -425,6 +638,19 @@ defineFeature(feature, test => {
           let geometryState = disposeGeometrysFunc(.
             geometryState,
             _buildSharedComponentBatchDisposeData(geo1.contents),
+          )
+          let directionLightState = disposeDirectionLightFunc(. directionLightState, [d1.contents])
+          let arcballCameraControllerState = disposeArcballCameraControllerFunc(.
+            arcballCameraControllerState,
+            [a1.contents],
+          )
+          let basicCameraViewState = disposeBasicCameraViewFunc(.
+            basicCameraViewState,
+            [b1.contents],
+          )
+          let perspectiveCameraProjectionState = disposePerspectiveCameraProjectionFunc(.
+            perspectiveCameraProjectionState,
+            [pcp1.contents],
           )
 
           (
@@ -437,6 +663,10 @@ defineFeature(feature, test => {
             transformState,
             pbrMaterialState,
             geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
           )
         },
         (),
@@ -470,6 +700,34 @@ defineFeature(feature, test => {
       JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "disposedArray")->expect ==
         _buildSharedComponentBatchDisposeData(geo1.contents)
     })
+
+    \"and"("mark a1 as disposed", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(arcballCameraControllerName),
+        "disposedArray",
+      )->expect == _buildSharedComponentBatchDisposeData(a1.contents)
+    })
+
+    \"and"("mark b1 as disposed", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(basicCameraViewName),
+        "disposedArray",
+      )->expect == _buildSharedComponentBatchDisposeData(b1.contents)
+    })
+
+    \"and"("mark pcp1 as disposed", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(perspectiveCameraProjectionName),
+        "disposedArray",
+      )->expect == _buildSharedComponentBatchDisposeData(pcp1.contents)
+    })
+
+    \"and"("mark d1 as disposed", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(directionLightName),
+        "disposedArray",
+      )->expect == _buildSharedComponentBatchDisposeData(d1.contents)
+    })
   })
 
   test(."clone gameObject", ({given, \"and", \"when", then}) => {
@@ -487,11 +745,24 @@ defineFeature(feature, test => {
           (state, 1->Obj.magic)
         },
         ~cloneGameObjectFunc=(.
-          (gameObjectState, transformState, pbrMaterialState, geometryState),
+          (
+            gameObjectState,
+            transformState,
+            pbrMaterialState,
+            geometryState,
+            directionLightState,
+            arcballCameraControllerState,
+            basicCameraViewState,
+            perspectiveCameraProjectionState,
+          ),
           (
             (_, cloneTransformFunc, _, _, _, _),
             (_, clonePBRMaterialFunc, _),
             (_, cloneGeometryFunc, _),
+            (_, cloneDirectionLightFunc, _),
+            (_, cloneArcballCameraControllerFunc, _),
+            (_, cloneBasicCameraViewFunc, _),
+            (_, clonePerspectiveCameraProjectionFunc, _),
           ),
           count,
           cloneConfig,
@@ -519,6 +790,30 @@ defineFeature(feature, test => {
             (),
             geo1.contents,
           )
+          let (directionLightState, _) = cloneDirectionLightFunc(.
+            directionLightState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            d1.contents,
+          )
+          let (arcballCameraControllerState, _) = cloneArcballCameraControllerFunc(.
+            arcballCameraControllerState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            a1.contents,
+          )
+          let (basicCameraViewState, _) = cloneBasicCameraViewFunc(.
+            basicCameraViewState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            b1.contents,
+          )
+          let (perspectiveCameraProjectionState, _) = clonePerspectiveCameraProjectionFunc(.
+            perspectiveCameraProjectionState,
+            Meta3dCommonlib.CloneTool.buildCountRange(count),
+            (),
+            pcp1.contents,
+          )
 
           (
             (
@@ -531,6 +826,10 @@ defineFeature(feature, test => {
               transformState,
               pbrMaterialState,
               geometryState,
+              directionLightState,
+              arcballCameraControllerState,
+              basicCameraViewState,
+              perspectiveCameraProjectionState,
             ),
             [],
           )
@@ -572,6 +871,36 @@ defineFeature(feature, test => {
       JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "cloneDataArray")
       ->Array.unsafe_get(0)
       ->expect == ([0, 1], (), geo1.contents)
+    })
+
+    \"and"("mark a1 as cloned", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(arcballCameraControllerName),
+        "cloneDataArray",
+      )
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), a1.contents)
+    })
+
+    \"and"("mark b1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "cloneDataArray")
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), b1.contents)
+    })
+
+    \"and"("mark pcp1 as cloned", () => {
+      JsObjTool.getObjValue(
+        MainTool.getComponentState(perspectiveCameraProjectionName),
+        "cloneDataArray",
+      )
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), pcp1.contents)
+    })
+
+    \"and"("mark d1 as cloned", () => {
+      JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "cloneDataArray")
+      ->Array.unsafe_get(0)
+      ->expect == ([0, 1], (), d1.contents)
     })
   })
 })

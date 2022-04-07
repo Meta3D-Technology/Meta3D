@@ -33,6 +33,10 @@
         "meta3d-component-transform-protocol",
         "meta3d-component-pbrmaterial-protocol",
         "meta3d-component-geometry-protocol",
+        "meta3d-component-directionlight-protocol",
+        "meta3d-component-arcballcameracontroller-protocol",
+        "meta3d-component-basiccameraview-protocol",
+        "meta3d-component-perspectivecameraprojection-protocol",
         "meta3d-bs-most-protocol"
     ],
     "package-specs": [

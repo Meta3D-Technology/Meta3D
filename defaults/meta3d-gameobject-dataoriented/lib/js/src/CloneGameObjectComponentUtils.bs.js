@@ -38,11 +38,31 @@ function clone(param, param$1, isDebug, countRange, param$2, sourceTransform, pa
         sourceGameObject,
         clonedGameObjects
       ]);
+  var match$4 = _cloneComponent(param[3], param$1[3], isDebug, countRange, undefined, [
+        sourceGameObject,
+        clonedGameObjects
+      ]);
+  var match$5 = _cloneComponent(param[4], param$1[4], isDebug, countRange, undefined, [
+        sourceGameObject,
+        clonedGameObjects
+      ]);
+  var match$6 = _cloneComponent(param[5], param$1[5], isDebug, countRange, undefined, [
+        sourceGameObject,
+        clonedGameObjects
+      ]);
+  var match$7 = _cloneComponent(param[6], param$1[6], isDebug, countRange, undefined, [
+        sourceGameObject,
+        clonedGameObjects
+      ]);
   return [
           [
             transformState,
             match$2[0],
-            match$3[0]
+            match$3[0],
+            match$4[0],
+            match$5[0],
+            match$6[0],
+            match$7[0]
           ],
           clonedTransforms
         ];

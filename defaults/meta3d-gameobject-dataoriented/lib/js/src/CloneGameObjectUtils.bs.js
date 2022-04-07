@@ -29,20 +29,48 @@ function _setParent(transformState, setTransformDataFunc, clonedParentTransforms
 
 function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2) {
   var sourceTransform = param$1[0];
-  var match = funcs[2];
-  var match$1 = funcs[1];
-  var match$2 = funcs[0];
-  var getTransformGameObjectsFunc = match$2[3];
-  var match$3 = _createClonedGameObjects(param[0], countRange);
-  var clonedGameObjects = match$3[1];
-  var gameObjectState = match$3[0];
+  var match = funcs[6];
+  var match$1 = funcs[5];
+  var match$2 = funcs[4];
+  var match$3 = funcs[3];
+  var match$4 = funcs[2];
+  var match$5 = funcs[1];
+  var match$6 = funcs[0];
+  var getTransformGameObjectsFunc = match$6[3];
+  var match$7 = _createClonedGameObjects(param[0], countRange);
+  var clonedGameObjects = match$7[1];
+  var gameObjectState = match$7[0];
   var totalClonedGameObjects = ListSt$Meta3dCommonlib.push(param$2[1], clonedGameObjects);
-  var match$4 = CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented.clone([
+  var match$8 = CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented.clone([
         param[1],
         param[2],
-        param[3]
+        param[3],
+        param[4],
+        param[5],
+        param[6],
+        param[7]
       ], [
         [
+          match$6[1],
+          match$6[2]
+        ],
+        [
+          match$5[0],
+          match$5[1],
+          match$5[2]
+        ],
+        [
+          match$4[0],
+          match$4[1],
+          match$4[2]
+        ],
+        [
+          match$3[0],
+          match$3[1],
+          match$3[2]
+        ],
+        [
+          match$2[0],
           match$2[1],
           match$2[2]
         ],
@@ -60,12 +88,16 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
         param$2[0],
         clonedGameObjects
       ]);
-  var clonedTransforms = match$4[1];
-  var match$5 = match$4[0];
-  var geometryState = match$5[2];
-  var pbrMaterialState = match$5[1];
-  var transformState = _setParent(match$5[0], match$2[5], param$1[1], clonedTransforms);
-  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$2[4](transformState, sourceTransform, Index$Meta3dComponentTransformProtocol.dataName.children), (function (children) {
+  var clonedTransforms = match$8[1];
+  var match$9 = match$8[0];
+  var perspectiveCameraProjectionState = match$9[6];
+  var basicCameraViewState = match$9[5];
+  var arcballCameraControllerState = match$9[4];
+  var directionLightState = match$9[3];
+  var geometryState = match$9[2];
+  var pbrMaterialState = match$9[1];
+  var transformState = _setParent(match$9[0], match$6[5], param$1[1], clonedTransforms);
+  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$6[4](transformState, sourceTransform, Index$Meta3dComponentTransformProtocol.dataName.children), (function (children) {
                     return ArraySt$Meta3dCommonlib.reduceOneParam(children, (function (param, childTransform) {
                                   return _clone(param[0], funcs, isDebug, countRange, cloneConfig, [
                                               childTransform,
@@ -79,7 +111,11 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
                                   gameObjectState,
                                   transformState,
                                   pbrMaterialState,
-                                  geometryState
+                                  geometryState,
+                                  directionLightState,
+                                  arcballCameraControllerState,
+                                  basicCameraViewState,
+                                  perspectiveCameraProjectionState
                                 ],
                                 totalClonedGameObjects
                               ]);
@@ -88,7 +124,11 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
                 gameObjectState,
                 transformState,
                 pbrMaterialState,
-                geometryState
+                geometryState,
+                directionLightState,
+                arcballCameraControllerState,
+                basicCameraViewState,
+                perspectiveCameraProjectionState
               ],
               totalClonedGameObjects
             ]);

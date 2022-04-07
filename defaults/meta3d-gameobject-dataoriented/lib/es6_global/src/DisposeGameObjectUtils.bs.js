@@ -14,34 +14,70 @@ import * as GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented from ".
 function deferDisposeGameObject(param) {
   var gameObjectState = param[0];
   var needDisposedGameObjectArray = gameObjectState.needDisposedGameObjectArray;
+  var perspectiveCameraProjectionState = param[7];
+  var basicCameraViewState = param[6];
+  var arcballCameraControllerState = param[5];
+  var directionLightState = param[4];
   var geometryState = param[3];
   var pbrMaterialState = param[2];
   var transformState = param[1];
   return function (param, gameObject) {
-    var match = param[2];
-    var deferDisposeGeometryFunc = match[1];
-    var match$1 = param[1];
-    var deferDisposePBRMaterialFunc = match$1[1];
-    var match$2 = param[0];
-    var deferDisposeTransformFunc = match$2[1];
-    var transformState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$2[0](transformState, gameObject), (function (transform) {
+    var match = param[6];
+    var deferDisposePerspectiveCameraProjectionFunc = match[1];
+    var match$1 = param[5];
+    var deferDisposeBasicCameraViewFunc = match$1[1];
+    var match$2 = param[4];
+    var deferDisposeArcballCameraControllerFunc = match$2[1];
+    var match$3 = param[3];
+    var deferDisposeDirectionLightFunc = match$3[1];
+    var match$4 = param[2];
+    var deferDisposeGeometryFunc = match$4[1];
+    var match$5 = param[1];
+    var deferDisposePBRMaterialFunc = match$5[1];
+    var match$6 = param[0];
+    var deferDisposeTransformFunc = match$6[1];
+    var transformState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$6[0](transformState, gameObject), (function (transform) {
                 return deferDisposeTransformFunc(transformState, [
                             transform,
                             gameObject
                           ]);
               })), transformState);
-    var pbrMaterialState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$1[0](pbrMaterialState, gameObject), (function (pbrMaterial) {
+    var pbrMaterialState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$5[0](pbrMaterialState, gameObject), (function (pbrMaterial) {
                 return deferDisposePBRMaterialFunc(pbrMaterialState, [
                             pbrMaterial,
                             gameObject
                           ]);
               })), pbrMaterialState);
-    var geometryState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match[0](geometryState, gameObject), (function (geometry) {
+    var geometryState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$4[0](geometryState, gameObject), (function (geometry) {
                 return deferDisposeGeometryFunc(geometryState, [
                             geometry,
                             gameObject
                           ]);
               })), geometryState);
+    var directionLightState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$3[0](directionLightState, gameObject), (function (directionLight) {
+                return deferDisposeDirectionLightFunc(directionLightState, [
+                            directionLight,
+                            gameObject
+                          ]);
+              })), directionLightState);
+    var arcballCameraControllerState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$2[0](arcballCameraControllerState, gameObject), (function (arcballCameraController) {
+                return deferDisposeArcballCameraControllerFunc(arcballCameraControllerState, [
+                            arcballCameraController,
+                            gameObject
+                          ]);
+              })), arcballCameraControllerState);
+    var basicCameraViewState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$1[0](basicCameraViewState, gameObject), (function (cameraView) {
+                return deferDisposeBasicCameraViewFunc(basicCameraViewState, [
+                            cameraView,
+                            gameObject
+                          ]);
+              })), basicCameraViewState);
+    var perspectiveCameraProjectionState$1 = NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match[0](perspectiveCameraProjectionState, gameObject), (function (cameraProjection) {
+                return deferDisposePerspectiveCameraProjectionFunc(perspectiveCameraProjectionState, [
+                            cameraProjection,
+                            gameObject
+                          ]);
+              })), perspectiveCameraProjectionState);
     var gameObjectState$1 = {
       config: gameObjectState.config,
       maxUID: gameObjectState.maxUID,
@@ -51,14 +87,18 @@ function deferDisposeGameObject(param) {
             gameObjectState$1,
             transformState$1,
             pbrMaterialState$1,
-            geometryState$1
+            geometryState$1,
+            directionLightState$1,
+            arcballCameraControllerState$1,
+            basicCameraViewState$1,
+            perspectiveCameraProjectionState$1
           ];
   };
 }
 
-function _getTransforms(state, getTransformFunc, gameObjects) {
+function _getNotSharedComponents(state, getComponentFunc, gameObjects) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(gameObjects, (function (arr, gameObject) {
-                var component = OptionSt$Meta3dCommonlib.fromNullable(getTransformFunc(state, gameObject));
+                var component = OptionSt$Meta3dCommonlib.fromNullable(getComponentFunc(state, gameObject));
                 if (component !== undefined) {
                   return ArraySt$Meta3dCommonlib.push(arr, Caml_option.valFromOption(component));
                 } else {
@@ -81,32 +121,48 @@ function _isNotNeedDispose(component, needDisposedIndexArray) {
 
 function disposeGameObjects(param) {
   var gameObjectState = param[0];
+  var perspectiveCameraProjectionState = param[7];
+  var basicCameraViewState = param[6];
+  var arcballCameraControllerState = param[5];
+  var directionLightState = param[4];
   var geometryState = param[3];
   var pbrMaterialState = param[2];
   var transformState = param[1];
   return function (param, gameObjects) {
-    var match = param[2];
-    var match$1 = param[1];
-    var match$2 = param[0];
+    var match = param[6];
+    var match$1 = param[5];
+    var match$2 = param[4];
+    var match$3 = param[3];
+    var match$4 = param[2];
+    var match$5 = param[1];
+    var match$6 = param[0];
     var isDebug = ConfigUtils$Meta3dGameobjectDataoriented.getIsDebug(gameObjectState);
     var needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented.get(gameObjectState);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "gameObject", gameObjects, needDisposedGameObjectArray);
     gameObjectState.needDisposedGameObjectArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedGameObjectArray, gameObjects);
-    var transformState$1 = match$2[1](transformState, _getTransforms(transformState, match$2[0], gameObjects));
-    var pbrMaterialState$1 = match$1[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$1[0], gameObjects));
-    var geometryState$1 = match[1](geometryState, _getSharableComponentDataMap(geometryState, match[0], gameObjects));
+    var transformState$1 = match$6[1](transformState, _getNotSharedComponents(transformState, match$6[0], gameObjects));
+    var pbrMaterialState$1 = match$5[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$5[0], gameObjects));
+    var geometryState$1 = match$4[1](geometryState, _getSharableComponentDataMap(geometryState, match$4[0], gameObjects));
+    var directionLightState$1 = match$3[1](directionLightState, _getNotSharedComponents(directionLightState, match$3[0], gameObjects));
+    var arcballCameraControllerState$1 = match$2[1](arcballCameraControllerState, _getNotSharedComponents(arcballCameraControllerState, match$2[0], gameObjects));
+    var basicCameraViewState$1 = match$1[1](basicCameraViewState, _getNotSharedComponents(basicCameraViewState, match$1[0], gameObjects));
+    var perspectiveCameraProjectionState$1 = match[1](perspectiveCameraProjectionState, _getNotSharedComponents(perspectiveCameraProjectionState, match[0], gameObjects));
     return [
             gameObjectState,
             transformState$1,
             pbrMaterialState$1,
-            geometryState$1
+            geometryState$1,
+            directionLightState$1,
+            arcballCameraControllerState$1,
+            basicCameraViewState$1,
+            perspectiveCameraProjectionState$1
           ];
   };
 }
 
 export {
   deferDisposeGameObject ,
-  _getTransforms ,
+  _getNotSharedComponents ,
   _getSharableComponentDataMap ,
   _isNotNeedDispose ,
   disposeGameObjects ,

@@ -83,6 +83,18 @@ let _getAllUsedContributes = state => {
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentGeometryProtocol.Index.componentName,
     ),
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentDirectionlightProtocol.Index.componentName,
+    ),
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
+    ),
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentBasiccameraviewProtocol.Index.componentName,
+    ),
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
+    ),
   )
 }
 
@@ -93,8 +105,21 @@ let _setGameObjectStateAndAllComponentStatesToState = (
     usedTransformContribute,
     usedPBRMaterialContribute,
     usedGeometryContribute,
+    usedDirectionLightContribute,
+    usedArcballCameraControllerContribute,
+    usedBasicCameraViewContribute,
+    usedPerspectiveCameraProjectionContribute,
   ),
-  (gameObjectState, transformState, pbrMaterialState, geometryState),
+  (
+    gameObjectState,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  ),
 ) => {
   let usedTransformContribute =
     transformState->ComponentManager.setComponentStateToUsedComponentContribute(
@@ -107,6 +132,22 @@ let _setGameObjectStateAndAllComponentStatesToState = (
   let usedGeometryContribute =
     geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedGeometryContribute,
+    )
+  let usedDirectionLightContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedDirectionLightContribute,
+    )
+  let usedArcballCameraControllerContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedArcballCameraControllerContribute,
+    )
+  let usedBasicCameraViewContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedBasicCameraViewContribute,
+    )
+  let usedPerspectiveCameraProjectionContribute =
+    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+      usedPerspectiveCameraProjectionContribute,
     )
 
   state
@@ -123,6 +164,22 @@ let _setGameObjectStateAndAllComponentStatesToState = (
     usedGeometryContribute,
     Meta3dComponentGeometryProtocol.Index.componentName,
   )
+  ->ComponentManager.setUsedComponentContribute(
+    usedDirectionLightContribute,
+    Meta3dComponentDirectionlightProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedArcballCameraControllerContribute,
+    Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedBasicCameraViewContribute,
+    Meta3dComponentBasiccameraviewProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedPerspectiveCameraProjectionContribute,
+    Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
+  )
 }
 
 let getNeedDisposedGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state) => {
@@ -137,6 +194,10 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     usedTransformContribute,
     usedPBRMaterialContribute,
     usedGeometryContribute,
+    usedDirectionLightContribute,
+    usedArcballCameraControllerContribute,
+    usedBasicCameraViewContribute,
+    usedPerspectiveCameraProjectionContribute,
   ) = _getAllUsedContributes(state)
 
   let (
@@ -144,12 +205,20 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     transformState,
     pbrMaterialState,
     geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
   ) = usedGameObjectContribute.deferDisposeGameObjectFunc(.
     (
       usedGameObjectContribute.state,
       usedTransformContribute.state,
       usedPBRMaterialContribute.state,
       usedGeometryContribute.state,
+      usedDirectionLightContribute.state,
+      usedArcballCameraControllerContribute.state,
+      usedBasicCameraViewContribute.state,
+      usedPerspectiveCameraProjectionContribute.state,
     ),
     // TODO remove magic
     (
@@ -165,6 +234,22 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
         usedGeometryContribute.getComponentFunc->Obj.magic,
         usedGeometryContribute.deferDisposeComponentFunc->Obj.magic,
       ),
+      (
+        usedDirectionLightContribute.getComponentFunc->Obj.magic,
+        usedDirectionLightContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
+      (
+        usedArcballCameraControllerContribute.getComponentFunc->Obj.magic,
+        usedArcballCameraControllerContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
+      (
+        usedBasicCameraViewContribute.getComponentFunc->Obj.magic,
+        usedBasicCameraViewContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
+      (
+        usedPerspectiveCameraProjectionContribute.getComponentFunc->Obj.magic,
+        usedPerspectiveCameraProjectionContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
     ),
     gameObject,
   )
@@ -175,18 +260,34 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
       usedTransformContribute,
       usedPBRMaterialContribute,
       usedGeometryContribute,
+      usedDirectionLightContribute,
+      usedArcballCameraControllerContribute,
+      usedBasicCameraViewContribute,
+      usedPerspectiveCameraProjectionContribute,
     ),
-    (gameObjectState, transformState, pbrMaterialState, geometryState),
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
   )
 }
 
-// TODO fix bug
 let disposeGameObjects = (state, gameObjects) => {
   let (
     usedGameObjectContribute,
     usedTransformContribute,
     usedPBRMaterialContribute,
     usedGeometryContribute,
+    usedDirectionLightContribute,
+    usedArcballCameraControllerContribute,
+    usedBasicCameraViewContribute,
+    usedPerspectiveCameraProjectionContribute,
   ) = _getAllUsedContributes(state)
 
   let (
@@ -194,12 +295,20 @@ let disposeGameObjects = (state, gameObjects) => {
     transformState,
     pbrMaterialState,
     geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
   ) = usedGameObjectContribute.disposeGameObjectsFunc(.
     (
       usedGameObjectContribute.state,
       usedTransformContribute.state,
       usedPBRMaterialContribute.state,
       usedGeometryContribute.state,
+      usedDirectionLightContribute.state,
+      usedArcballCameraControllerContribute.state,
+      usedBasicCameraViewContribute.state,
+      usedPerspectiveCameraProjectionContribute.state,
     ),
     (
       (
@@ -214,6 +323,22 @@ let disposeGameObjects = (state, gameObjects) => {
         usedGeometryContribute.getComponentFunc->Obj.magic,
         usedGeometryContribute.disposeComponentsFunc->Obj.magic,
       ),
+      (
+        usedDirectionLightContribute.getComponentFunc->Obj.magic,
+        usedDirectionLightContribute.disposeComponentsFunc->Obj.magic,
+      ),
+      (
+        usedArcballCameraControllerContribute.getComponentFunc->Obj.magic,
+        usedArcballCameraControllerContribute.disposeComponentsFunc->Obj.magic,
+      ),
+      (
+        usedBasicCameraViewContribute.getComponentFunc->Obj.magic,
+        usedBasicCameraViewContribute.disposeComponentsFunc->Obj.magic,
+      ),
+      (
+        usedPerspectiveCameraProjectionContribute.getComponentFunc->Obj.magic,
+        usedPerspectiveCameraProjectionContribute.disposeComponentsFunc->Obj.magic,
+      ),
     ),
     gameObjects,
   )
@@ -224,8 +349,21 @@ let disposeGameObjects = (state, gameObjects) => {
       usedTransformContribute,
       usedPBRMaterialContribute,
       usedGeometryContribute,
+      usedDirectionLightContribute,
+      usedArcballCameraControllerContribute,
+      usedBasicCameraViewContribute,
+      usedPerspectiveCameraProjectionContribute,
     ),
-    (gameObjectState, transformState, pbrMaterialState, geometryState),
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
   )
 }
 
@@ -235,10 +373,23 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
     usedTransformContribute,
     usedPBRMaterialContribute,
     usedGeometryContribute,
+    usedDirectionLightContribute,
+    usedArcballCameraControllerContribute,
+    usedBasicCameraViewContribute,
+    usedPerspectiveCameraProjectionContribute,
   ) = _getAllUsedContributes(state)
 
   let (
-    (gameObjectState, transformState, pbrMaterialState, geometryState),
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
     clonedGameObjects,
   ) = usedGameObjectContribute.cloneGameObjectFunc(.
     (
@@ -246,6 +397,10 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
       usedTransformContribute.state,
       usedPBRMaterialContribute.state,
       usedGeometryContribute.state,
+      usedDirectionLightContribute.state,
+      usedArcballCameraControllerContribute.state,
+      usedBasicCameraViewContribute.state,
+      usedPerspectiveCameraProjectionContribute.state,
     ),
     (
       (
@@ -266,6 +421,26 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
         usedGeometryContribute.cloneComponentFunc->Obj.magic,
         usedGeometryContribute.addComponentFunc->Obj.magic,
       ),
+      (
+        usedDirectionLightContribute.getComponentFunc->Obj.magic,
+        usedDirectionLightContribute.cloneComponentFunc->Obj.magic,
+        usedDirectionLightContribute.addComponentFunc->Obj.magic,
+      ),
+      (
+        usedArcballCameraControllerContribute.getComponentFunc->Obj.magic,
+        usedArcballCameraControllerContribute.cloneComponentFunc->Obj.magic,
+        usedArcballCameraControllerContribute.addComponentFunc->Obj.magic,
+      ),
+      (
+        usedBasicCameraViewContribute.getComponentFunc->Obj.magic,
+        usedBasicCameraViewContribute.cloneComponentFunc->Obj.magic,
+        usedBasicCameraViewContribute.addComponentFunc->Obj.magic,
+      ),
+      (
+        usedPerspectiveCameraProjectionContribute.getComponentFunc->Obj.magic,
+        usedPerspectiveCameraProjectionContribute.cloneComponentFunc->Obj.magic,
+        usedPerspectiveCameraProjectionContribute.addComponentFunc->Obj.magic,
+      ),
     ),
     count,
     cloneConfig,
@@ -279,8 +454,21 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
         usedTransformContribute,
         usedPBRMaterialContribute,
         usedGeometryContribute,
+        usedDirectionLightContribute,
+        usedArcballCameraControllerContribute,
+        usedBasicCameraViewContribute,
+        usedPerspectiveCameraProjectionContribute,
       ),
-      (gameObjectState, transformState, pbrMaterialState, geometryState),
+      (
+        gameObjectState,
+        transformState,
+        pbrMaterialState,
+        geometryState,
+        directionLightState,
+        arcballCameraControllerState,
+        basicCameraViewState,
+        perspectiveCameraProjectionState,
+      ),
     )
 
   (state, clonedGameObjects)

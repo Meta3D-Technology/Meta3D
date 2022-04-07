@@ -99,6 +99,54 @@ Feature: Batch Dispose After Defer Dispose
 			When dispose [gameObject1, gameObject2]
 			Then should dispose [[geometry1, gameObject1], [geometry2, gameObject2]]
 
+		Scenario: dispose directionLight
+			Given prepare sandbox
+			And create directionLight state
+			And create two gameObjects as gameObject1, gameObject2
+			And create two directionLights as directionLight1, directionLight2
+			And add directionLight1 to gameObject1
+			And add directionLight2 to gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [directionLight1, directionLight2]
+
+		Scenario: dispose arcballCameraController
+			Given prepare sandbox
+			And create arcballCameraController state
+			And create two gameObjects as gameObject1, gameObject2
+			And create two arcballCameraControllers as arcballCameraController1, arcballCameraController2
+			And add arcballCameraController1 to gameObject1
+			And add arcballCameraController2 to gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [arcballCameraController1, arcballCameraController2]
+
+		Scenario: dispose basicCameraView
+			Given prepare sandbox
+			And create basicCameraView state
+			And create two gameObjects as gameObject1, gameObject2
+			And create two basicCameraViews as basicCameraView1, basicCameraView2
+			And add basicCameraView1 to gameObject1
+			And add basicCameraView2 to gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [basicCameraView1, basicCameraView2]
+
+		Scenario: dispose perspectiveCameraProjection
+			Given prepare sandbox
+			And create perspectiveCameraProjection state
+			And create two gameObjects as gameObject1, gameObject2
+			And create two perspectiveCameraProjections as perspectiveCameraProjection1, perspectiveCameraProjection2
+			And add perspectiveCameraProjection1 to gameObject1
+			And add perspectiveCameraProjection2 to gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose [gameObject1, gameObject2]
+			Then should dispose [perspectiveCameraProjection1, perspectiveCameraProjection2]
+
 	Rule: dispose gameObject
 
 		Scenario: should remove disposed gameObjects from needDisposedGameObjects

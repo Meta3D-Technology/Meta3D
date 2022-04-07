@@ -46,6 +46,46 @@ Feature: Clone
 			Then should clone 2 geometrys as clonedGeometrys
 			And get 2 cloned gameObjects' geometry should return [clonedGeometrys[0], clonedGeometrys[1]]
 
+		Scenario: clone directionLight
+			Given prepare sandbox
+			And create directionLight state
+			Given create a gameObject as gameObject1
+			And create a directionLights as directionLight1
+			And add directionLight1 to gameObject1
+			When clone 2 gameObjects
+			Then should clone 2 directionLights as clonedDirectionLights
+			And get 2 cloned gameObjects' directionLight should return [clonedDirectionLights[0], clonedDirectionLights[1]]
+
+		Scenario: clone arcballCameraController
+			Given prepare sandbox
+			And create arcballCameraController state
+			Given create a gameObject as gameObject1
+			And create a arcballCameraControllers as arcballCameraController1
+			And add arcballCameraController1 to gameObject1
+			When clone 2 gameObjects
+			Then should clone 2 arcballCameraControllers as clonedArcballCameraControllers
+			And get 2 cloned gameObjects' arcballCameraController should return [clonedArcballCameraControllers[0], clonedArcballCameraControllers[1]]
+
+		Scenario: clone basicCameraView
+			Given prepare sandbox
+			And create basicCameraView state
+			Given create a gameObject as gameObject1
+			And create a basicCameraViews as basicCameraView1
+			And add basicCameraView1 to gameObject1
+			When clone 2 gameObjects
+			Then should clone 2 basicCameraViews as clonedBasicCameraViews
+			And get 2 cloned gameObjects' basicCameraView should return [clonedBasicCameraViews[0], clonedBasicCameraViews[1]]
+
+		Scenario: clone perspectiveCameraProjection
+			Given prepare sandbox
+			And create perspectiveCameraProjection state
+			Given create a gameObject as gameObject1
+			And create a perspectiveCameraProjections as perspectiveCameraProjection1
+			And add perspectiveCameraProjection1 to gameObject1
+			When clone 2 gameObjects
+			Then should clone 2 perspectiveCameraProjections as clonedPerspectiveCameraProjections
+			And get 2 cloned gameObjects' perspectiveCameraProjection should return [clonedPerspectiveCameraProjections[0], clonedPerspectiveCameraProjections[1]]
+
 	Rule: clone gameObject's children
 
 		Background: prepare scene and clone
