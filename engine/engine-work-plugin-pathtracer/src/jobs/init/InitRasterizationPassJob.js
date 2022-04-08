@@ -1,20 +1,23 @@
-import { getState, setState } from "../Utils";
-import { componentName as geometryComponentName, dataName } from "meta3d-component-geometry-protocol";
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
-export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.execFunc = void 0;
+const Utils_1 = require("../Utils");
+const meta3d_component_geometry_protocol_1 = require("meta3d-component-geometry-protocol");
+const NullableUtils_1 = require("meta3d-commonlib-ts/src/NullableUtils");
+let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc(engineCoreState);
-    let { mostService, engineCoreService, webgpuService, fsService, device, swapChainFormat } = getState(states);
-    device = getExn(device);
+    let { mostService, engineCoreService, webgpuService, fsService, device, swapChainFormat, dirname } = (0, Utils_1.getState)(states);
+    device = (0, NullableUtils_1.getExn)(device);
     return mostService.callFunc(() => {
-        let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName);
+        let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_geometry_protocol_1.componentName);
         let triangleGeometry = engineCoreService.getAllComponents(usedGeometryContribute)[0];
-        let triangleVertices = getExn(engineCoreService.getComponentData(usedGeometryContribute, triangleGeometry, dataName.vertices));
+        let triangleVertices = (0, NullableUtils_1.getExn)(engineCoreService.getComponentData(usedGeometryContribute, triangleGeometry, meta3d_component_geometry_protocol_1.dataName.vertices));
         let vertexBuffer = webgpuService.createBuffer(device, {
             size: triangleVertices.byteLength,
             usage: webgpuService.getBufferUsageVertex() | webgpuService.getBufferUsageCopyDst()
         });
         webgpuService.setSubData(vertexBuffer, 0, triangleVertices);
-        let triangleIndices = getExn(engineCoreService.getComponentData(usedGeometryContribute, triangleGeometry, dataName.indices));
+        let triangleIndices = (0, NullableUtils_1.getExn)(engineCoreService.getComponentData(usedGeometryContribute, triangleGeometry, meta3d_component_geometry_protocol_1.dataName.indices));
         let indexBuffer = webgpuService.createBuffer(device, {
             size: triangleIndices.byteLength,
             usage: webgpuService.getBufferUsageIndex() | webgpuService.getBufferUsageCopyDst()
@@ -23,10 +26,8 @@ export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
         let layout = webgpuService.createPipelineLayout(device, {
             bindGroupLayouts: []
         });
-        // let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("lessons/triangle_rasterization/code/shader/scene.vert"), "utf-8") })
-        // let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("lessons/triangle_rasterization/code/shader/scene.frag"), "utf-8") })
-        let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("scene.vert"), "utf-8") });
-        let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("scene.frag"), "utf-8") });
+        let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(dirname + "./src/shader/scene.vert", "utf-8") });
+        let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(dirname + "./src/shader/scene.frag", "utf-8") });
         let renderPipeline = webgpuService.createRenderPipeline(device, {
             layout,
             vertexStage: {
@@ -51,14 +52,15 @@ export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
                     }]
             },
             colorStates: [{
-                    format: getExn(swapChainFormat),
+                    format: (0, NullableUtils_1.getExn)(swapChainFormat),
                     alphaBlend: {},
                     colorBlend: {}
                 }]
         });
-        return setStatesFunc(engineCoreState, setState(states, Object.assign(Object.assign({}, getState(states)), { indexCount: triangleIndices.length, vertexBuffer,
+        return setStatesFunc(engineCoreState, (0, Utils_1.setState)(states, Object.assign(Object.assign({}, (0, Utils_1.getState)(states)), { indexCount: triangleIndices.length, vertexBuffer,
             indexBuffer,
             renderPipeline })));
     });
 };
+exports.execFunc = execFunc;
 //# sourceMappingURL=InitRasterizationPassJob.js.map

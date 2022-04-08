@@ -4,26 +4,22 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"sourceMap": true,
-		"jsx": "react",
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
+		"jsx": "react",
 		// "noEmit": true,
+		"noEmit": false,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"lib": [
 			"DOM",
-			"ESNext"
+			"ESNext",
 		],
-		"types": [
-			"node"
-		],
+		"types": [],
 		"strict": true
 	},
 	"include": [
-		"webgpu_node.d.ts"
+		"./src"
 	]
-	// "awesomeTypescriptLoaderOptions": {
-	// 	"transpileOnly": true
-	// }
 }

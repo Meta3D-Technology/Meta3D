@@ -4,9 +4,10 @@
     "description": "",
     "author": "Wonder",
     "license": "MIT",
-    "main": "src/Index.ts",
+    "main": "src/Index.js",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "build:ts": "tsc"
     },
     "keywords": [],
     "devDependencies": {

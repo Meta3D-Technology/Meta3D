@@ -6,7 +6,7 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(engineCoreState)
-    let { mostService, engineCoreService, webgpuService, fsService, device, swapChainFormat } = getState(states)
+    let { mostService, engineCoreService, webgpuService, fsService, device, swapChainFormat, dirname } = getState(states)
 
     device = getExn(device)
 
@@ -35,10 +35,8 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
             bindGroupLayouts: []
         })
 
-        // let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("lessons/triangle_rasterization/code/shader/scene.vert"), "utf-8") })
-        // let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("lessons/triangle_rasterization/code/shader/scene.frag"), "utf-8") })
-        let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("scene.vert"), "utf-8") })
-        let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(fsService.joinRootPath("scene.frag"), "utf-8") })
+        let vertexShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(dirname + "./src/shader/scene.vert", "utf-8") })
+        let fragmentShaderModule = webgpuService.createShaderModule(device, { code: fsService.readFileSync(dirname + "./src/shader/scene.frag", "utf-8") })
 
         let renderPipeline = webgpuService.createRenderPipeline(device, {
             layout,

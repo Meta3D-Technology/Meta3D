@@ -4,9 +4,10 @@
   "authors": "Wonder",
   "description": "",
   "license": "MIT",
-  "main": "src/Index.ts",
+  "main": "src/Index.js",
   "scripts": {
-    "watch": "rescript clean && rescript build -w"
+    "watch": "rescript clean && rescript build -w",
+    "build:ts": "tsc"
   },
   "keywords": [],
   "devDependencies": {

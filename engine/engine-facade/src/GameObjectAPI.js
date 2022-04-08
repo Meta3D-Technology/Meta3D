@@ -1,11 +1,14 @@
-import { componentName as geometryComponentName } from "meta3d-component-geometry-protocol";
-import { componentName as transformComponentName } from "meta3d-component-transform-protocol";
-import { componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol";
-import { componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol";
-import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol";
-import { componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol";
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
-export function createGameObject(engineCoreState, { createGameObject }) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.disposeGameObjectArcballCameraControllerComponent = exports.disposeGameObjectPerspectiveCameraProjectionComponent = exports.disposeGameObjectBasicCameraViewComponent = exports.disposeGameObjectGeometryComponent = exports.disposeGameObjectPBRMaterialComponent = exports.disposeGameObjectTransformComponent = exports.disposeGameObjects = exports.getNeedDisposedGameObjects = exports.cloneGameObject = exports.hasArcballCameraController = exports.addArcballCameraController = exports.getArcballCameraController = exports.hasPerspectiveCameraProjection = exports.addPerspectiveCameraProjection = exports.getPerspectiveCameraProjection = exports.hasBasicCameraView = exports.addBasicCameraView = exports.getBasicCameraView = exports.hasPBRMaterial = exports.addPBRMaterial = exports.getPBRMaterial = exports.hasGeometry = exports.addGeometry = exports.getGeometry = exports.hasTransform = exports.addTransform = exports.getTransform = exports.getAllGameObjects = exports.createGameObject = void 0;
+const meta3d_component_geometry_protocol_1 = require("meta3d-component-geometry-protocol");
+const meta3d_component_transform_protocol_1 = require("meta3d-component-transform-protocol");
+const meta3d_component_pbrmaterial_protocol_1 = require("meta3d-component-pbrmaterial-protocol");
+const meta3d_component_arcballcameracontroller_protocol_1 = require("meta3d-component-arcballcameracontroller-protocol");
+const meta3d_component_basiccameraview_protocol_1 = require("meta3d-component-basiccameraview-protocol");
+const meta3d_component_perspectivecameraprojection_protocol_1 = require("meta3d-component-perspectivecameraprojection-protocol");
+const NullableUtils_1 = require("meta3d-commonlib-ts/src/NullableUtils");
+function createGameObject(engineCoreState, { createGameObject }) {
     let contribute = createGameObject(engineCoreState);
     engineCoreState = contribute[0];
     let gameObject = contribute[1];
@@ -14,112 +17,141 @@ export function createGameObject(engineCoreState, { createGameObject }) {
         gameObject
     ];
 }
-export function getAllGameObjects(engineCoreState, { getAllGameObjects }) {
+exports.createGameObject = createGameObject;
+function getAllGameObjects(engineCoreState, { getAllGameObjects }) {
     return getAllGameObjects(engineCoreState);
 }
-export function getTransform(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName);
-    return getExn(getComponent(contribute, gameObject));
+exports.getAllGameObjects = getAllGameObjects;
+function getTransform(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_transform_protocol_1.componentName);
+    return (0, NullableUtils_1.getExn)(getComponent(contribute, gameObject));
 }
-export function addTransform(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, transform) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, transform), transformComponentName);
+exports.getTransform = getTransform;
+function addTransform(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, transform) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_transform_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, transform), meta3d_component_transform_protocol_1.componentName);
 }
-export function hasTransform(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName);
+exports.addTransform = addTransform;
+function hasTransform(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_transform_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function getGeometry(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName);
-    return getExn(getComponent(contribute, gameObject));
+exports.hasTransform = hasTransform;
+function getGeometry(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_geometry_protocol_1.componentName);
+    return (0, NullableUtils_1.getExn)(getComponent(contribute, gameObject));
 }
-export function addGeometry(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, geometry) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, geometry), geometryComponentName);
+exports.getGeometry = getGeometry;
+function addGeometry(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, geometry) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_geometry_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, geometry), meta3d_component_geometry_protocol_1.componentName);
 }
-export function hasGeometry(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName);
+exports.addGeometry = addGeometry;
+function hasGeometry(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_geometry_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function getPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName);
-    return getExn(getComponent(contribute, gameObject));
+exports.hasGeometry = hasGeometry;
+function getPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_pbrmaterial_protocol_1.componentName);
+    return (0, NullableUtils_1.getExn)(getComponent(contribute, gameObject));
 }
-export function addPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, pbrMaterial) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, pbrMaterial), pbrMaterialComponentName);
+exports.getPBRMaterial = getPBRMaterial;
+function addPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, pbrMaterial) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_pbrmaterial_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, pbrMaterial), meta3d_component_pbrmaterial_protocol_1.componentName);
 }
-export function hasPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName);
+exports.addPBRMaterial = addPBRMaterial;
+function hasPBRMaterial(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_pbrmaterial_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function getBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName);
-    return getExn(getComponent(contribute, gameObject));
+exports.hasPBRMaterial = hasPBRMaterial;
+function getBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_basiccameraview_protocol_1.componentName);
+    return (0, NullableUtils_1.getExn)(getComponent(contribute, gameObject));
 }
-export function addBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, basicCameraView) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, basicCameraView), basicCameraViewComponentName);
+exports.getBasicCameraView = getBasicCameraView;
+function addBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, basicCameraView) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_basiccameraview_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, basicCameraView), meta3d_component_basiccameraview_protocol_1.componentName);
 }
-export function hasBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName);
+exports.addBasicCameraView = addBasicCameraView;
+function hasBasicCameraView(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_basiccameraview_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function getPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName);
-    return getExn(getComponent(contribute, gameObject));
+exports.hasBasicCameraView = hasBasicCameraView;
+function getPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_perspectivecameraprojection_protocol_1.componentName);
+    return (0, NullableUtils_1.getExn)(getComponent(contribute, gameObject));
 }
-export function addPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, perspectiveCameraProjection) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, perspectiveCameraProjection), perspectiveCameraProjectionComponentName);
+exports.getPerspectiveCameraProjection = getPerspectiveCameraProjection;
+function addPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, perspectiveCameraProjection) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_perspectivecameraprojection_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, perspectiveCameraProjection), meta3d_component_perspectivecameraprojection_protocol_1.componentName);
 }
-export function hasPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName);
+exports.addPerspectiveCameraProjection = addPerspectiveCameraProjection;
+function hasPerspectiveCameraProjection(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_perspectivecameraprojection_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function getArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName);
+exports.hasPerspectiveCameraProjection = hasPerspectiveCameraProjection;
+function getArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, getComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_arcballcameracontroller_protocol_1.componentName);
     return getComponent(contribute, gameObject);
 }
-export function addArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, arcballCameraController) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName);
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName);
+exports.getArcballCameraController = getArcballCameraController;
+function addArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }, gameObject, arcballCameraController) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_arcballcameracontroller_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), meta3d_component_arcballcameracontroller_protocol_1.componentName);
 }
-export function hasArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName);
+exports.addArcballCameraController = addArcballCameraController;
+function hasArcballCameraController(engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }, gameObject) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_arcballcameracontroller_protocol_1.componentName);
     return hasComponent(contribute, gameObject);
 }
-export function cloneGameObject(engineCoreState, { cloneGameObject }, count, cloneConfig, sourceGameObject) {
+exports.hasArcballCameraController = hasArcballCameraController;
+function cloneGameObject(engineCoreState, { cloneGameObject }, count, cloneConfig, sourceGameObject) {
     return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject);
 }
-export function getNeedDisposedGameObjects(engineCoreState, { getNeedDisposedGameObjects }) {
+exports.cloneGameObject = cloneGameObject;
+function getNeedDisposedGameObjects(engineCoreState, { getNeedDisposedGameObjects }) {
     return getNeedDisposedGameObjects(engineCoreState);
 }
-export function disposeGameObjects(engineCoreState, { deferDisposeGameObject }, gameObjects) {
+exports.getNeedDisposedGameObjects = getNeedDisposedGameObjects;
+function disposeGameObjects(engineCoreState, { deferDisposeGameObject }, gameObjects) {
     return gameObjects.reduce(deferDisposeGameObject, engineCoreState);
 }
-export function disposeGameObjectTransformComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), transformComponentName);
+exports.disposeGameObjects = disposeGameObjects;
+function disposeGameObjectTransformComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_transform_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_transform_protocol_1.componentName);
 }
-export function disposeGameObjectPBRMaterialComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), pbrMaterialComponentName);
+exports.disposeGameObjectTransformComponent = disposeGameObjectTransformComponent;
+function disposeGameObjectPBRMaterialComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_pbrmaterial_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_pbrmaterial_protocol_1.componentName);
 }
-export function disposeGameObjectGeometryComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), geometryComponentName);
+exports.disposeGameObjectPBRMaterialComponent = disposeGameObjectPBRMaterialComponent;
+function disposeGameObjectGeometryComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_geometry_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_geometry_protocol_1.componentName);
 }
-export function disposeGameObjectBasicCameraViewComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), basicCameraViewComponentName);
+exports.disposeGameObjectGeometryComponent = disposeGameObjectGeometryComponent;
+function disposeGameObjectBasicCameraViewComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_basiccameraview_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_basiccameraview_protocol_1.componentName);
 }
-export function disposeGameObjectPerspectiveCameraProjectionComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName);
+exports.disposeGameObjectBasicCameraViewComponent = disposeGameObjectBasicCameraViewComponent;
+function disposeGameObjectPerspectiveCameraProjectionComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_perspectivecameraprojection_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_perspectivecameraprojection_protocol_1.componentName);
 }
-export function disposeGameObjectArcballCameraControllerComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName);
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), arcballCameraControllerComponentName);
+exports.disposeGameObjectPerspectiveCameraProjectionComponent = disposeGameObjectPerspectiveCameraProjectionComponent;
+function disposeGameObjectArcballCameraControllerComponent(engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }, gameObject, component) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, meta3d_component_arcballcameracontroller_protocol_1.componentName);
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent(contribute, [component, gameObject]), meta3d_component_arcballcameracontroller_protocol_1.componentName);
 }
+exports.disposeGameObjectArcballCameraControllerComponent = disposeGameObjectArcballCameraControllerComponent;
 //# sourceMappingURL=GameObjectAPI.js.map

@@ -15,6 +15,7 @@ export type state = {
     fsService: fsService,
     width: number,
     height: number,
+    dirname: string,
     window: nullable<window>,
     device: nullable<device>,
     adapter: nullable<adapter>,
@@ -38,5 +39,6 @@ export type config = {
     engineCoreService: engineCoreService,
     fsService: fsService,
     width: number,
-    height: number
+    height: number,
+    dirname: string,
 }

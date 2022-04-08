@@ -1,27 +1,30 @@
-import { execFunc as execInitWebGPUJob } from "./jobs/init/InitWebGPUJob";
-import { execFunc as execInitRasterizationPassJob } from "./jobs/init/InitRasterizationPassJob";
-import { execFunc as execRenderRasterizationPassJob } from "./jobs/render/RenderRasterizationPassJob";
-import { execFunc as execEndRenderJob } from "./jobs/render/EndRenderJob";
-import { workPluginName } from "engine-work-plugin-pathtracer-protocol";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getWorkPluginContribute = void 0;
+const InitWebGPUJob_1 = require("./jobs/init/InitWebGPUJob");
+const InitRasterizationPassJob_1 = require("./jobs/init/InitRasterizationPassJob");
+const RenderRasterizationPassJob_1 = require("./jobs/render/RenderRasterizationPassJob");
+const EndRenderJob_1 = require("./jobs/render/EndRenderJob");
+const engine_work_plugin_pathtracer_protocol_1 = require("engine-work-plugin-pathtracer-protocol");
 let _getExecFunc = (_pipelineName, jobName) => {
     switch (jobName) {
         case "init_webgpu_pathtracer_engine":
-            return execInitWebGPUJob;
+            return InitWebGPUJob_1.execFunc;
         case "init_rasterization_pass_pathtracer_engine":
-            return execInitRasterizationPassJob;
+            return InitRasterizationPassJob_1.execFunc;
         case "render_pathtracer_engine":
-            return execRenderRasterizationPassJob;
+            return RenderRasterizationPassJob_1.execFunc;
         case "end_pathtracer_engine":
-            return execEndRenderJob;
+            return EndRenderJob_1.execFunc;
         default:
             return null;
     }
 };
 let _init = (_state) => {
 };
-export let getWorkPluginContribute = ({ mostService, webgpuService, engineCoreService, fsService, width, height }) => {
+let getWorkPluginContribute = ({ mostService, webgpuService, engineCoreService, fsService, width, height, dirname }) => {
     return {
-        workPluginName: workPluginName,
+        workPluginName: engine_work_plugin_pathtracer_protocol_1.workPluginName,
         createStateFunc: () => {
             return {
                 mostService,
@@ -30,6 +33,7 @@ export let getWorkPluginContribute = ({ mostService, webgpuService, engineCoreSe
                 fsService,
                 width,
                 height,
+                dirname,
                 window: null,
                 device: null,
                 adapter: null,
@@ -89,4 +93,5 @@ export let getWorkPluginContribute = ({ mostService, webgpuService, engineCoreSe
         ],
     };
 };
+exports.getWorkPluginContribute = getWorkPluginContribute;
 //# sourceMappingURL=Main.js.map

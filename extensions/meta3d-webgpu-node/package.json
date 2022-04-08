@@ -7,7 +7,7 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
-        "build": "tsc"
+        "build:ts": "tsc"
     },
     "keywords": [],
     "devDependencies": {

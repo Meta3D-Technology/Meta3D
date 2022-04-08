@@ -1,9 +1,12 @@
-import { getState } from "../Utils";
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
-export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.execFunc = void 0;
+const Utils_1 = require("../Utils");
+const NullableUtils_1 = require("meta3d-commonlib-ts/src/NullableUtils");
+let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc(engineCoreState);
-    let { mostService, webgpuService, device, swapChain, queue, renderPipeline, vertexBuffer, indexBuffer, indexCount } = getState(states);
-    device = getExn(device);
+    let { mostService, webgpuService, device, swapChain, queue, renderPipeline, vertexBuffer, indexBuffer, indexCount } = (0, Utils_1.getState)(states);
+    device = (0, NullableUtils_1.getExn)(device);
     return mostService.callFunc(() => {
         let backBufferView = webgpuService.getCurrentTextureView(swapChain);
         let commandEncoder = webgpuService.createCommandEncoder(device, {});
@@ -15,14 +18,15 @@ export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
                     attachment: backBufferView
                 }]
         });
-        webgpuService.setPipeline(renderPass, getExn(renderPipeline));
-        webgpuService.setVertexBuffer(renderPass, 0, getExn(vertexBuffer), 0);
-        webgpuService.setIndexBuffer(renderPass, getExn(indexBuffer));
-        webgpuService.drawIndexed(renderPass, getExn(indexCount), 1, 0, 0, 0);
+        webgpuService.setPipeline(renderPass, (0, NullableUtils_1.getExn)(renderPipeline));
+        webgpuService.setVertexBuffer(renderPass, 0, (0, NullableUtils_1.getExn)(vertexBuffer), 0);
+        webgpuService.setIndexBuffer(renderPass, (0, NullableUtils_1.getExn)(indexBuffer));
+        webgpuService.drawIndexed(renderPass, (0, NullableUtils_1.getExn)(indexCount), 1, 0, 0, 0);
         webgpuService.endPass(renderPass);
         let commandBuffer = webgpuService.finish(commandEncoder);
-        webgpuService.submit(getExn(queue), [commandBuffer]);
+        webgpuService.submit((0, NullableUtils_1.getExn)(queue), [commandBuffer]);
         return engineCoreState;
     });
 };
+exports.execFunc = execFunc;
 //# sourceMappingURL=RenderRasterizationPassJob.js.map

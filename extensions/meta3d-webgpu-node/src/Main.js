@@ -1,14 +1,20 @@
-import WebGPU from "wonder-webgpu";
-export let getExtensionService = (_api, _dependentExtensionNameMap) => {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.createExtensionState = exports.getExtensionService = void 0;
+const wonder_webgpu_1 = __importDefault(require("wonder-webgpu"));
+let getExtensionService = (_api, _dependentExtensionNameMap) => {
     return {
         createWindow: (descriptor) => {
-            return new WebGPU.WebGPUWindow(descriptor);
+            return new wonder_webgpu_1.default.WebGPUWindow(descriptor);
         },
         getContext: (window) => {
             return window.getContext("webgpu");
         },
         requestAdapter: (descriptor) => {
-            return WebGPU.GPU.requestAdapter(descriptor);
+            return wonder_webgpu_1.default.GPU.requestAdapter(descriptor);
         },
         requestDevice: (adapter) => {
             return adapter.requestDevice({});
@@ -74,29 +80,31 @@ export let getExtensionService = (_api, _dependentExtensionNameMap) => {
             queue.submit(commandBuffers);
         },
         getBufferUsageStorage: () => {
-            return WebGPU.GPUBufferUsage.STORAGE;
+            return wonder_webgpu_1.default.GPUBufferUsage.STORAGE;
         },
         getBufferUsageUniform: () => {
-            return WebGPU.GPUBufferUsage.UNIFORM;
+            return wonder_webgpu_1.default.GPUBufferUsage.UNIFORM;
         },
         getBufferUsageIndirect: () => {
-            return WebGPU.GPUBufferUsage.INDIRECT;
+            return wonder_webgpu_1.default.GPUBufferUsage.INDIRECT;
         },
         getBufferUsageVertex: () => {
-            return WebGPU.GPUBufferUsage.VERTEX;
+            return wonder_webgpu_1.default.GPUBufferUsage.VERTEX;
         },
         getBufferUsageIndex: () => {
-            return WebGPU.GPUBufferUsage.INDEX;
+            return wonder_webgpu_1.default.GPUBufferUsage.INDEX;
         },
         getBufferUsageCopyDst: () => {
-            return WebGPU.GPUBufferUsage.COPY_DST;
+            return wonder_webgpu_1.default.GPUBufferUsage.COPY_DST;
         },
         getBufferUsageCopySrc: () => {
-            return WebGPU.GPUBufferUsage.COPY_SRC;
+            return wonder_webgpu_1.default.GPUBufferUsage.COPY_SRC;
         },
     };
 };
-export let createExtensionState = () => {
+exports.getExtensionService = getExtensionService;
+let createExtensionState = () => {
     return {};
 };
+exports.createExtensionState = createExtensionState;
 //# sourceMappingURL=Main.js.map

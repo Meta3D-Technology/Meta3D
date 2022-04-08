@@ -3,10 +3,11 @@
     "version": "0.3.0",
     "description": "",
     "author": "Wonder",
-    "main": "src/Main.ts",
+    "main": "src/Main.js",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "build:ts": "tsc"
     },
     "keywords": [],
     "devDependencies": {

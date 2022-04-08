@@ -1,7 +1,10 @@
-import { getState, setState } from "../Utils";
-export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.execFunc = void 0;
+const Utils_1 = require("../Utils");
+let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc(engineCoreState);
-    let { mostService, webgpuService, width, height } = getState(states);
+    let { mostService, webgpuService, width, height } = (0, Utils_1.getState)(states);
     // TODO use pipe
     return mostService.flatMap(({ window, context }) => {
         return mostService.fromPromise(webgpuService.requestAdapter({ window, preferredBackend: "Vulkan" }).then((adapter) => {
@@ -12,7 +15,7 @@ export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
                         device: device,
                         format: swapChainFormat
                     });
-                    return setStatesFunc(engineCoreState, setState(states, Object.assign(Object.assign({}, getState(states)), { window,
+                    return setStatesFunc(engineCoreState, (0, Utils_1.setState)(states, Object.assign(Object.assign({}, (0, Utils_1.getState)(states)), { window,
                         device,
                         queue,
                         swapChain,
@@ -32,4 +35,5 @@ export let execFunc = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
         return { window, context };
     }));
 };
+exports.execFunc = execFunc;
 //# sourceMappingURL=InitWebGPUJob.js.map
