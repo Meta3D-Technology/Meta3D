@@ -32,7 +32,7 @@ import type { state as StateType_state } from '../../src/state/StateType';
 
 import type { usedComponentContribute as RegisterComponentType_usedComponentContribute } from '../../src/state/RegisterComponentType';
 import { workPluginContribute, workPluginName } from '../contribute_points/work/WorkPluginContributeType';
-import { cloneConfig } from '../../../../defaults/meta3d-gameobject-protocol/src/Index';
+import { cloneConfig } from 'meta3d-gameobject-protocol/src/Index';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
