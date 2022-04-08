@@ -2,7 +2,15 @@ let _isFromEventStream = %raw(`
 
 
 
+
+
+
+
   function(stream){
+
+
+
+
 
 
 
@@ -10,11 +18,23 @@ let _isFromEventStream = %raw(`
 
 
 
+
+
+
+
     return !!source.event && !!source.source;
 
 
 
+
+
+
+
   }
+
+
+
+
 
 
 
@@ -47,6 +67,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   filter: Most.filter,
   take: Most.take,
   fromEvent: Most.fromEvent->Obj.magic,
+  fromPromise: Most.fromPromise->Obj.magic,
   just: Most.just,
   map: Most.map,
   flatMap: Most.flatMap,

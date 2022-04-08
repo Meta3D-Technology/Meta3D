@@ -1,11 +1,15 @@
 
 
 import * as Most from "most";
-import * as Curry from "./../../../../rescript/lib/es6/curry.js";
-import * as Caml_array from "./../../../../rescript/lib/es6/caml_array.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_array from "./../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 
 var _isFromEventStream = (function(stream){
+
+
+
+
 
 
 
@@ -13,7 +17,15 @@ var _isFromEventStream = (function(stream){
 
 
 
+
+
+
+
     return !!source.event && !!source.source;
+
+
+
+
 
 
 
@@ -51,6 +63,9 @@ function getExtensionService(api, param) {
             }),
           fromEvent: (function (prim0, prim1, prim2) {
               return Most.fromEvent(prim0, prim1, prim2);
+            }),
+          fromPromise: (function (prim) {
+              return Most.fromPromise(prim);
             }),
           just: (function (prim) {
               return Most.just(prim);

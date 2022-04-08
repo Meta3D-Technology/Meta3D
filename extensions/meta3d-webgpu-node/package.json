@@ -1,8 +1,9 @@
 {
-    "name": "engine-facade",
+    "name": "meta3d-webgpu-node",
     "version": "0.3.0",
     "description": "",
     "author": "Wonder",
+    "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",

@@ -1,14 +1,18 @@
 {
-    "name": "engine-facade",
+    "name": "meta3d-fs",
     "version": "0.3.0",
     "description": "",
     "author": "Wonder",
+    "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
         "build": "tsc"
     },
     "keywords": [],
+    "dependencies": {
+        "@types/node":"latest"
+    },
     "devDependencies": {
         "typescript": "^4.2.3"
     }

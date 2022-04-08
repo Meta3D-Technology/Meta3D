@@ -1,12 +1,12 @@
 {
-    "name": "engine-facade",
+    "name": "engine-work-plugin-pathtracer-protocol",
     "version": "0.3.0",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
+    "main": "src/Index.ts",
     "scripts": {
-        "watch": "tsc -w",
-        "build": "tsc"
+        "watch": "tsc -w"
     },
     "keywords": [],
     "devDependencies": {

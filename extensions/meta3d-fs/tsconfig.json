@@ -16,7 +16,7 @@
 			"DOM",
 			"ESNext",
 		],
-		"types": [],
+		"types": ["node"],
 		"strict": true
 	},
 	"include": [
