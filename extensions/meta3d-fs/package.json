@@ -1,6 +1,6 @@
 {
     "name": "meta3d-fs",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "",
     "author": "Wonder",
     "main": "src/Main.ts",
@@ -11,7 +11,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "@types/node":"latest"
+        "@types/node": "latest"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

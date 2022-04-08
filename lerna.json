@@ -1,36 +1,36 @@
 {
-  "packages": [
-		"examples/*",
-		"contribute_points/",
-		"defaults/*",
-		"extensions/*",
-		"extension_protocols/*",
-		"contribute_points/components/*",
-		"contribute_points/component_protocols/*",
-		"contribute_points/work_plugins/*",
-		"contribute_points/work_plugin_protocols/*",
-		"contribute_points/skin_protocols/*",
-		"contribute_points/custom_control_protocols/*",
-		"contribute_points/skins/*",
-		"contribute_points/custom_controls/*",
-		"contribute_points/elements/*",
-		"contribute_points/element_protocols/*",
-		"contribute_points/events/*",
-		"contribute_points/event_protocols/*",
-		"engine/*"
-  ],
-  "npmClient": "yarn",
-  "command": {
-    "bootstrap": {
-      "registry": "https://registry.npm.taobao.org"
-    },
-    "publish": {
-      "registry": "https://registry.npmjs.org/"
-    }
-  },
-  "useWorkspaces": true,
-  "ignoreChanges": [
-    "**/*.md"
-  ],
-  "version": "0.3.0"
+		"packages": [
+				"examples/*",
+				"contribute_points/",
+				"defaults/*",
+				"extensions/*",
+				"extension_protocols/*",
+				"contribute_points/components/*",
+				"contribute_points/component_protocols/*",
+				"contribute_points/work_plugins/*",
+				"contribute_points/work_plugin_protocols/*",
+				"contribute_points/skin_protocols/*",
+				"contribute_points/custom_control_protocols/*",
+				"contribute_points/skins/*",
+				"contribute_points/custom_controls/*",
+				"contribute_points/elements/*",
+				"contribute_points/element_protocols/*",
+				"contribute_points/events/*",
+				"contribute_points/event_protocols/*",
+				"engine/*"
+		],
+		"npmClient": "yarn",
+		"command": {
+				"bootstrap": {
+						"registry": "https://registry.npm.taobao.org"
+				},
+				"publish": {
+						"registry": "https://registry.npmjs.org/"
+				}
+		},
+		"useWorkspaces": true,
+		"ignoreChanges": [
+				"**/*.md"
+		],
+		"version": "0.3.1"
 }
