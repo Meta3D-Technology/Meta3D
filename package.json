@@ -2,7 +2,7 @@
 	"name": "meta3d",
 	"private": true,
 	"scripts": {
-		"clean": "lerna clean && rm -rf node_modules yarn.lock",
+		"clean": "lerna clean",
 		"install": "lerna bootstrap",
 		"run:editor": "lerna run buildAll:ci --concurrency 1 && cd examples/use-editor && yarn webpack:dev-server ",
 		"fastRun:editor": "cd examples/use-editor && yarn webpack:dev-server ",

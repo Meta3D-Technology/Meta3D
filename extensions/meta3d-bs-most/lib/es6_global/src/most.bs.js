@@ -1,7 +1,7 @@
 
 
 import * as Most from "most";
-import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../rescript/lib/es6/curry.js";
 
 function unfold(f) {
   return function (param) {
