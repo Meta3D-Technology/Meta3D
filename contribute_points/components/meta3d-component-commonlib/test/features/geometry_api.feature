@@ -37,4 +37,9 @@ Feature: Geometry API
             | Radius | Bands |
             | 2.0    | 2     |
 
-TODO add getDisposedGeometrys test
+    Scenario: getDisposedGeometrys
+        Given create two gameObjects as g1, g2
+        When create two geometrys as geo1, geo2
+        And add geo1 to g1
+        And add geo1 to g2
+        Then getDisposedGeometrys with geo1, geo2 should return [geo2]

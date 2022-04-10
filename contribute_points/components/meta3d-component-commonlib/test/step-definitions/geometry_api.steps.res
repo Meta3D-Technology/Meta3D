@@ -434,4 +434,47 @@ defineFeature(feature, test => {
         Uint32Array.make([0, 3, 1, 3, 4, 1, 1, 4, 2, 4, 5, 2, 3, 6, 4, 6, 7, 4, 4, 7, 5, 7, 8, 5])
     })
   })
+
+  test(."getDisposedGeometrys", ({given, \"when", \"and", then}) => {
+    let gameObject1 = 10->Obj.magic
+    let gameObject2 = 11->Obj.magic
+    let geometry1 = ref(Obj.magic(1))
+    let geometry2 = ref(Obj.magic(2))
+
+    _prepare(given, \"and")
+
+    given("create two gameObjects as g1, g2", () => {
+      ()
+    })
+
+    \"when"("create two geometrys as geo1, geo2", () => {
+      let (c, geo1) = MainTool.createComponent(contribute.contents)
+      let (c, geo2) = MainTool.createComponent(c)
+
+      contribute := c
+      geometry1 := geo1
+      geometry2 := geo2
+    })
+
+    \"and"("add geo1 to g1", () => {
+      contribute := MainTool.addComponent(contribute.contents, gameObject1, geometry1.contents)
+    })
+
+    \"and"("add geo1 to g2", () => {
+      contribute := MainTool.addComponent(contribute.contents, gameObject2, geometry1.contents)
+    })
+
+    then("getDisposedGeometrys with geo1, geo2 should return [geo2]", () => {
+      Main.getDisposedGeometrys(
+        contribute.contents,
+        MainTool.getExtensionService(),
+        Meta3dCommonlib.MutableSparseMap.createEmpty()
+        ->Meta3dCommonlib.MutableSparseMap.set(
+          geometry1.contents->Obj.magic,
+          [gameObject1, gameObject2],
+        )
+        ->Meta3dCommonlib.MutableSparseMap.set(geometry2.contents->Obj.magic, []),
+      )->expect == [geometry2.contents]
+    })
+  })
 })
