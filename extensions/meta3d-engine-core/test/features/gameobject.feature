@@ -37,14 +37,14 @@ Feature: GameObject
             And create a pbrMaterial as p1
             And create a geometry as geo1
             And create a arcballCameraController as a1
-            And create a basicCameraView as b1
+            And create two basicCameraViews as b1, b2
             And create a perspectiveCameraProjection as pcp1
             And create a directionLight as d1
             And add t1 to g1
             And add p1 to g1
             And add geo1 to g1
             And add a1 to g1
-            And add b1 to g1
+            And add b2 to g1
             And add pcp1 to g1
             And add d1 to g1
 
@@ -55,7 +55,7 @@ Feature: GameObject
             And mark p1 as need dispose
             And mark geo1 as need dispose
             And mark a1 as need dispose
-            And mark b1 as need dispose
+            And mark b2 as need dispose
             And mark pcp1 as need dispose
             And mark d1 as need dispose
 
@@ -70,7 +70,7 @@ Feature: GameObject
             And mark p1 as disposed
             And mark geo1 as disposed
             And mark a1 as disposed
-            And mark b1 as disposed
+            And mark b2 as disposed
             And mark pcp1 as disposed
             And mark d1 as disposed
 
@@ -81,6 +81,6 @@ Feature: GameObject
             And mark p1 as cloned
             And mark geo1 as cloned
             And mark a1 as cloned
-            And mark b1 as cloned
+            And mark b2 as cloned
             And mark pcp1 as cloned
             And mark d1 as cloned

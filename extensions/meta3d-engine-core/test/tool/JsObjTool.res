@@ -9,3 +9,12 @@ function(jsObj,key ) {
     return jsObj[key]
 }
 `)
+
+
+let setObjValue = %raw(`
+function(jsObj,key, value) {
+    jsObj[key] = value
+
+    return jsObj
+}
+`)

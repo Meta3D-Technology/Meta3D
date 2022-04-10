@@ -40,7 +40,7 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   > = ref(Obj.magic(1))
   let arcballCameraControllerName = Meta3dComponentArcballcameracontrollerProtocol.Index.componentName
-  let b1 = ref(Obj.magic(1))
+  let b2 = ref(Obj.magic(1))
   let usedBasicCameraViewContribute: ref<
     Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   > = ref(Obj.magic(1))
@@ -167,12 +167,13 @@ defineFeature(feature, test => {
     ComponentTool.buildComponentContribute(
       ~componentName,
       ~createComponentFunc=(. state) => {
-        let component = 1->Obj.magic
+        let component = JsObjTool.getObjValue(state, "index")->Obj.magic
 
-        (state, component)
+        (JsObjTool.setObjValue(state, "index", component + 1), component)
       },
       ~createStateFunc=(. _) => {
         {
+          "index": 0,
           "needDisposeArray": [],
           "disposedArray": [],
           "cloneDataArray": [],
@@ -324,11 +325,12 @@ defineFeature(feature, test => {
       usedArcballCameraControllerContribute := d
     })
 
-    \"and"("create a basicCameraView as b1", () => {
-      let (d, component) =
+    \"and"("create two basicCameraViews as b1, b2", () => {
+      let (d, component1) =
         MainTool.unsafeGetUsedComponentContribute(basicCameraViewName)->MainTool.createComponent
+      let (d, component2) = d->MainTool.createComponent
 
-      b1 := component
+      b2 := component2
       usedBasicCameraViewContribute := d
     })
 
@@ -366,7 +368,7 @@ defineFeature(feature, test => {
       ()
     })
 
-    \"and"("add b1 to g1", () => {
+    \"and"("add b2 to g1", () => {
       ()
     })
 
@@ -437,7 +439,7 @@ defineFeature(feature, test => {
           )
           let basicCameraViewState = deferDisposeBasicCameraViewFunc(.
             basicCameraViewState,
-            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(b1.contents),
+            Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData(b2.contents),
           )
           let perspectiveCameraProjectionState = deferDisposePerspectiveCameraProjectionFunc(.
             perspectiveCameraProjectionState,
@@ -503,9 +505,9 @@ defineFeature(feature, test => {
       ->expect == true
     })
 
-    \"and"("mark b1 as need dispose", () => {
+    \"and"("mark b2 as need dispose", () => {
       JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "needDisposeArray")
-      ->Js.Array.includes(b1.contents, _)
+      ->Js.Array.includes(b2.contents, _)
       ->expect == true
     })
 
@@ -594,6 +596,9 @@ defineFeature(feature, test => {
         [],
       )
     }
+    let _buildNotSharedComponentBatchDisposeData = component => {
+      [component]
+    }
 
     _prepare(
       given,
@@ -646,7 +651,7 @@ defineFeature(feature, test => {
           )
           let basicCameraViewState = disposeBasicCameraViewFunc(.
             basicCameraViewState,
-            [b1.contents],
+            [b2.contents],
           )
           let perspectiveCameraProjectionState = disposePerspectiveCameraProjectionFunc(.
             perspectiveCameraProjectionState,
@@ -686,9 +691,8 @@ defineFeature(feature, test => {
     })
 
     \"and"("mark t1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")
-      ->Js.Array.includes(t1.contents, _)
-      ->expect == true
+      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")->expect ==
+        _buildNotSharedComponentBatchDisposeData(t1.contents)
     })
 
     \"and"("mark p1 as disposed", () => {
@@ -705,28 +709,28 @@ defineFeature(feature, test => {
       JsObjTool.getObjValue(
         MainTool.getComponentState(arcballCameraControllerName),
         "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(a1.contents)
+      )->expect == _buildNotSharedComponentBatchDisposeData(a1.contents)
     })
 
-    \"and"("mark b1 as disposed", () => {
+    \"and"("mark b2 as disposed", () => {
       JsObjTool.getObjValue(
         MainTool.getComponentState(basicCameraViewName),
         "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(b1.contents)
+      )->expect == _buildNotSharedComponentBatchDisposeData(b2.contents)
     })
 
     \"and"("mark pcp1 as disposed", () => {
       JsObjTool.getObjValue(
         MainTool.getComponentState(perspectiveCameraProjectionName),
         "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(pcp1.contents)
+      )->expect == _buildNotSharedComponentBatchDisposeData(pcp1.contents)
     })
 
     \"and"("mark d1 as disposed", () => {
       JsObjTool.getObjValue(
         MainTool.getComponentState(directionLightName),
         "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(d1.contents)
+      )->expect == _buildNotSharedComponentBatchDisposeData(d1.contents)
     })
   })
 
@@ -806,7 +810,7 @@ defineFeature(feature, test => {
             basicCameraViewState,
             Meta3dCommonlib.CloneTool.buildCountRange(count),
             (),
-            b1.contents,
+            b2.contents,
           )
           let (perspectiveCameraProjectionState, _) = clonePerspectiveCameraProjectionFunc(.
             perspectiveCameraProjectionState,
@@ -882,10 +886,10 @@ defineFeature(feature, test => {
       ->expect == ([0, 1], (), a1.contents)
     })
 
-    \"and"("mark b1 as cloned", () => {
+    \"and"("mark b2 as cloned", () => {
       JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "cloneDataArray")
       ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), b1.contents)
+      ->expect == ([0, 1], (), b2.contents)
     })
 
     \"and"("mark pcp1 as cloned", () => {

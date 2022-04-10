@@ -134,19 +134,19 @@ let _setGameObjectStateAndAllComponentStatesToState = (
       usedGeometryContribute,
     )
   let usedDirectionLightContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    directionLightState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedDirectionLightContribute,
     )
   let usedArcballCameraControllerContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    arcballCameraControllerState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedArcballCameraControllerContribute,
     )
   let usedBasicCameraViewContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    basicCameraViewState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedBasicCameraViewContribute,
     )
   let usedPerspectiveCameraProjectionContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    perspectiveCameraProjectionState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedPerspectiveCameraProjectionContribute,
     )
 
@@ -253,6 +253,8 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     ),
     gameObject,
   )
+
+  // Js.log(( geometryState, basicCameraViewState ))
 
   state->_setGameObjectStateAndAllComponentStatesToState(
     (
