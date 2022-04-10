@@ -4,6 +4,10 @@ var Curry = require("rescript/lib/js/curry.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 
+function getExn(data) {
+  return OptionSt$Meta3dCommonlib.getExn(OptionSt$Meta3dCommonlib.fromNullable(data));
+}
+
 function $$return(data) {
   return data;
 }
@@ -20,6 +24,7 @@ function bind(nullableData, func) {
 
 var map = Js_null_undefined.bind;
 
+exports.getExn = getExn;
 exports.$$return = $$return;
 exports.getWithDefault = getWithDefault;
 exports.map = map;

@@ -5,7 +5,7 @@ var MutableSparseMap$Meta3dCommonlib = require("../structure/sparse_map/MutableS
 
 var _getGameObjects = MutableSparseMap$Meta3dCommonlib.get;
 
-function isComponentHasNoGameObject(gameObjectsMap, component, gameObjectArr) {
+function isComponentHasGameObject(gameObjectsMap, component, gameObjectArr) {
   var arr = MutableSparseMap$Meta3dCommonlib.get(gameObjectsMap, component);
   if (arr !== undefined) {
     return arr.length > 0;
@@ -19,6 +19,6 @@ function removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponen
 }
 
 exports._getGameObjects = _getGameObjects;
-exports.isComponentHasNoGameObject = isComponentHasNoGameObject;
+exports.isComponentHasGameObject = isComponentHasGameObject;
 exports.removeDisposedComponentsFromNeedDisposedComponents = removeDisposedComponentsFromNeedDisposedComponents;
 /* No side effect */

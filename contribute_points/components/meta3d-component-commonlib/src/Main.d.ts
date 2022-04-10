@@ -6,6 +6,7 @@ import { perspectiveCameraProjection } from "meta3d-component-perspectivecamerap
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 import { directionLight } from "meta3d-component-directionlight-protocol";
 import { service } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export function lookAt(contribute: usedComponentContribute, engineCoreService: service, transform: transform, target: [number, number, number], up?: [number, number, number]): usedComponentContribute
 
@@ -16,6 +17,8 @@ export function createTriangleGeometry(contribute: usedComponentContribute, engi
 export function createSphereGeometry(contribute: usedComponentContribute, engineCoreService: service): [usedComponentContribute, geometry]
 
 export function createPlaneGeometry(contribute: usedComponentContribute, engineCoreService: service): [usedComponentContribute, geometry]
+
+export function getDisposedGeometrys(contribute: usedComponentContribute, engineCoreService: service, geometryDataMap: Record<geometry, gameObject[]>): geometry[]
 
 export function updatePerspectiveCameraProjection(contribute: usedComponentContribute, engineCoreService: service, isDebug: boolean, cameraProjection: perspectiveCameraProjection, canvasSize: [number, number]): usedComponentContribute
 

@@ -7,6 +7,7 @@ type dataName = {
   tangents: int,
   indices: int,
   indicesCount: int,
+  gameObjectsMap: int,
 }
 
 let dataName = {
@@ -16,6 +17,7 @@ let dataName = {
   tangents: 3,
   indices: 4,
   indicesCount: 5,
+  gameObjectsMap: 6,
 }
 
 type geometry = Meta3dComponentGeometryCommonProtocol.Index.geometry

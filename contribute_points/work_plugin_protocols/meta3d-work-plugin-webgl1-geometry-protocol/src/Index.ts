@@ -10,6 +10,11 @@ export const workPluginName = "WebGL1_Geometry"
 export type verticesVBOMap = map<number, WebGLBuffer>;
 export type indicesVBOMap = map<number, WebGLBuffer>;
 
+export type vbo = {
+    verticesVBOMap: verticesVBOMap,
+    indicesVBOMap: indicesVBOMap
+}
+
 export type geometryData = {
     componentName: string,
     verticesDataName: number,
@@ -21,10 +26,7 @@ export type state = {
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
-    vbo: {
-        verticesVBOMap: verticesVBOMap,
-        indicesVBOMap: indicesVBOMap
-    },
+    vbo: vbo,
     workPluginWhichHasAllGeometryIndicesName: string,
     geometryData: geometryData
 }

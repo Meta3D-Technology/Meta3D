@@ -1,7 +1,7 @@
 let _getGameObjects = (gameObjectsMap, component) =>
   MutableSparseMap.get(gameObjectsMap, component)
 
-let isComponentHasNoGameObject = (gameObjectsMap, component, gameObjectArr) => {
+let isComponentHasGameObject = (gameObjectsMap, component, gameObjectArr) => {
   switch _getGameObjects(gameObjectsMap, component) {
   | Some(arr) if arr->Js.Array.length > 0 => true
   | _ => false

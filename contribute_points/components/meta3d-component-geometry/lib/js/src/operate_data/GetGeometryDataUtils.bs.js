@@ -21,6 +21,7 @@ function getData(state, param, param$1) {
   var normalsInfos = state.normalsInfos;
   var tangentsInfos = state.tangentsInfos;
   var indicesInfos = state.indicesInfos;
+  var gameObjectsMap = state.gameObjectsMap;
   var isDebug = ConfigUtils$Meta3dComponentGeometry.getIsDebug(state);
   if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
     return VerticesUtils$Meta3dComponentWorkerUtils.getVertices(vertices, verticesInfos, isDebug, param);
@@ -36,6 +37,8 @@ function getData(state, param, param$1) {
     return VerticesUtils$Meta3dComponentWorkerUtils.getVertices(vertices, verticesInfos, isDebug, param);
   } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.indicesCount) {
     return IndicesUtils$Meta3dComponentWorkerUtils.getIndicesCount(indicesInfos, isDebug, param);
+  } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.gameObjectsMap) {
+    return gameObjectsMap;
   } else {
     return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$1, "", "", ""));
   }

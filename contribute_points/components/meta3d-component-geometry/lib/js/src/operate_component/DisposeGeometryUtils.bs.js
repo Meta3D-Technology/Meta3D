@@ -46,7 +46,7 @@ function disposeComponents(state, geometryDataMap) {
           var disposedComponents = param[1];
           var state = param[0];
           state.gameObjectsMap = ArrayMapUtils$Meta3dCommonlib.batchRemoveValueArr(state.gameObjectsMap, geometry, gameObjects);
-          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasNoGameObject(state.gameObjectsMap, geometry, gameObjects)) {
+          if (DisposeSharedComponentUtils$Meta3dCommonlib.isComponentHasGameObject(state.gameObjectsMap, geometry, gameObjects)) {
             return [
                     state,
                     disposedComponents

@@ -12,6 +12,7 @@ let getData = (.
     normalsInfos,
     tangentsInfos,
     indicesInfos,
+    gameObjectsMap
   } as state,
   geometry,
   dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
@@ -65,6 +66,10 @@ let getData = (.
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.indicesCount =>
     Meta3dComponentWorkerUtils.IndicesUtils.getIndicesCount(indicesInfos, isDebug, geometry)
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.gameObjectsMap =>
+gameObjectsMap
     ->Obj.magic
     ->Js.Nullable.return
   | _ =>

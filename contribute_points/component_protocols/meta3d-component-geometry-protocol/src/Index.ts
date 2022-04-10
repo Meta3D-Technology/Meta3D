@@ -21,6 +21,7 @@ export const dataName = {
     tangents: 3,
     indices: 4,
     indicesCount: 5,
+    gameObjectsMap: 6,
 }
 
 export type geometry = geometryType

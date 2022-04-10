@@ -54,7 +54,7 @@ let disposeComponents = (state, materialDataMap) => {
           gameObjects,
         )
 
-        Meta3dCommonlib.DisposeSharedComponentUtils.isComponentHasNoGameObject(
+        Meta3dCommonlib.DisposeSharedComponentUtils.isComponentHasGameObject(
           state.gameObjectsMap,
           material,
           gameObjects,

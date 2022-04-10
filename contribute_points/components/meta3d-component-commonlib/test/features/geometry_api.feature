@@ -36,3 +36,5 @@ Feature: Geometry API
         Examples:
             | Radius | Bands |
             | 2.0    | 2     |
+
+TODO add getDisposedGeometrys test

@@ -4,6 +4,10 @@ import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
 import * as Js_null_undefined from "./../../../../../rescript/lib/es6/js_null_undefined.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 
+function getExn(data) {
+  return OptionSt$Meta3dCommonlib.getExn(OptionSt$Meta3dCommonlib.fromNullable(data));
+}
+
 function $$return(data) {
   return data;
 }
@@ -21,6 +25,7 @@ function bind(nullableData, func) {
 var map = Js_null_undefined.bind;
 
 export {
+  getExn ,
   $$return ,
   getWithDefault ,
   map ,

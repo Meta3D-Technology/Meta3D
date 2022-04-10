@@ -1,5 +1,9 @@
 external unsafeGet: Js.Nullable.t<'a> => 'a = "%identity"
 
+let getExn = data => {
+  data->OptionSt.fromNullable->OptionSt.getExn
+}
+
 let return = data => data->Js.Nullable.return
 
 let getWithDefault = (nullableData, default) => {

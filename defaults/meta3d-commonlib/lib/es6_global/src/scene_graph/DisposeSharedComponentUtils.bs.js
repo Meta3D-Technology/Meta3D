@@ -5,7 +5,7 @@ import * as MutableSparseMap$Meta3dCommonlib from "../structure/sparse_map/Mutab
 
 var _getGameObjects = MutableSparseMap$Meta3dCommonlib.get;
 
-function isComponentHasNoGameObject(gameObjectsMap, component, gameObjectArr) {
+function isComponentHasGameObject(gameObjectsMap, component, gameObjectArr) {
   var arr = MutableSparseMap$Meta3dCommonlib.get(gameObjectsMap, component);
   if (arr !== undefined) {
     return arr.length > 0;
@@ -20,7 +20,7 @@ function removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponen
 
 export {
   _getGameObjects ,
-  isComponentHasNoGameObject ,
+  isComponentHasGameObject ,
   removeDisposedComponentsFromNeedDisposedComponents ,
   
 }

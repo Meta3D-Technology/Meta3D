@@ -16,6 +16,8 @@ var createSphereGeometry = GeometryAPI$Meta3dComponentCommonlib.createSphereGeom
 
 var createTriangleGeometry = GeometryAPI$Meta3dComponentCommonlib.createTriangleGeometry;
 
+var getDisposedGeometrys = GeometryAPI$Meta3dComponentCommonlib.getDisposedGeometrys;
+
 var updatePerspectiveCameraProjection = PerspectiveCameraProjectionAPI$Meta3dComponentCommonlib.updatePerspectiveCameraProjection;
 
 var getViewWorldToCameraMatrix = BasicCameraViewAPI$Meta3dComponentCommonlib.getViewWorldToCameraMatrix;
@@ -30,6 +32,7 @@ export {
   createPlaneGeometry ,
   createSphereGeometry ,
   createTriangleGeometry ,
+  getDisposedGeometrys ,
   updatePerspectiveCameraProjection ,
   getViewWorldToCameraMatrix ,
   getActiveCameraView ,

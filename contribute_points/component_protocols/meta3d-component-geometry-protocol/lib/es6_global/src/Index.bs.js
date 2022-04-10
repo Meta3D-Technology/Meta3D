@@ -9,7 +9,8 @@ var dataName = {
   texCoords: 2,
   tangents: 3,
   indices: 4,
-  indicesCount: 5
+  indicesCount: 5,
+  gameObjectsMap: 6
 };
 
 export {

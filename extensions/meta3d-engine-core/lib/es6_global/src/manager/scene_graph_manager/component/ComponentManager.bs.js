@@ -1,11 +1,11 @@
 
 
-import * as Log$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Result$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as ContractResult$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/ContractResult.bs.js";
-import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Log$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Result$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
+import * as OptionSt$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as ContractResult$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/contract/ContractResult.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as PluginDataManager$Meta3dEngineCore from "../../work_manager/plugin_data/PluginDataManager.bs.js";
 
 function registerComponent(state, componentContribute) {

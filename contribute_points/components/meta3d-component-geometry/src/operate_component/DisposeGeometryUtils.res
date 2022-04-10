@@ -45,7 +45,7 @@ let disposeComponents = (state, geometryDataMap) => {
       (. (state, disposedComponents), gameObjects, geometry) => {
         state.gameObjectsMap = Meta3dCommonlib.ArrayMapUtils.batchRemoveValueArr(state.gameObjectsMap, geometry, gameObjects)
 
-        Meta3dCommonlib.DisposeSharedComponentUtils. isComponentHasNoGameObject(state.gameObjectsMap, geometry, gameObjects)
+        Meta3dCommonlib.DisposeSharedComponentUtils. isComponentHasGameObject(state.gameObjectsMap, geometry, gameObjects)
           ? (state, disposedComponents)
           : (
               state->_disposeData(isDebug, geometry),

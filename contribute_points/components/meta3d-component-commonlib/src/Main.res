@@ -8,6 +8,8 @@ let createSphereGeometry = GeometryAPI.createSphereGeometry
 
 let createTriangleGeometry = GeometryAPI.createTriangleGeometry
 
+let getDisposedGeometrys = GeometryAPI.getDisposedGeometrys
+
 let updatePerspectiveCameraProjection = PerspectiveCameraProjectionAPI.updatePerspectiveCameraProjection
 
 let getViewWorldToCameraMatrix = BasicCameraViewAPI.getViewWorldToCameraMatrix
