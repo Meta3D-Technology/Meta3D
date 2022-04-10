@@ -29,5 +29,5 @@ yarn(or npm install)
 
 yarn install(or npm run install)
 
-yarn run:editor
+yarn run:editor(or npm run run:editor)
 ```
