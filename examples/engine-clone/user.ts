@@ -291,6 +291,11 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                         insertAction: "after"
                     },
                     {
+                        pipelineName: "update",
+                        insertElementName: "update_root_meta3d",
+                        insertAction: "after"
+                    },
+                    {
                         pipelineName: "render",
                         insertElementName: "render_root_meta3d",
                         insertAction: "after"
@@ -389,6 +394,7 @@ let _createCameraGameObject = (engineCoreState: engineCoreState, engineCoreServi
 function _createClonedGameObjects(engineCoreState: engineCoreState, engineCoreService: engineCoreService, sourceGameObject: gameObject) {
     // let data = cloneGameObject(engineCoreState, engineCoreService, 2, { isShareMaterial: false }, sourceGameObject)
     let data = cloneGameObject(engineCoreState, engineCoreService, 2, { isShareMaterial: true }, sourceGameObject)
+    engineCoreState = data[0]
     let clonedGameObjects = data[1]
 
     console.log(clonedGameObjects, getAllPBRMaterials(engineCoreState, engineCoreService))
@@ -438,7 +444,8 @@ function _init(useWorker: boolean) {
             transformCount: 10,
             geometryCount: 10,
             geometryPointCount: 100,
-            pbrMaterialCount: 10
+            pbrMaterialCount: 10,
+            directionLightCount: 1
         }
     )
 

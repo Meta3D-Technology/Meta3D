@@ -8,9 +8,13 @@ import { componentName as transformComponentName, config as transformConfig } fr
 import { getComponentContribute as getGeometryComponentContribute } from "meta3d-component-geometry"
 import { componentName as geometryComponentName, config as geometryConfig } from "meta3d-component-geometry-protocol"
 import { getComponentContribute as getPBRMaterialComponentContribute } from "meta3d-component-pbrmaterial"
+import { getComponentContribute as getDirectionLightComponentContribute } from "meta3d-component-directionlight"
 import { componentName as pbrMaterialComponentName, config as pbrMaterialConfig } from "meta3d-component-pbrmaterial-protocol"
+import { componentName as directionLightComponentName, config as directionLightConfig } from "meta3d-component-directionlight-protocol"
 import { getComponentContribute as getBasicCameraViewComponentContribute } from "meta3d-component-basiccameraview"
+import { getComponentContribute as getArcballCameraControllerComponentContribute } from "meta3d-component-arcballcameracontroller"
 import { componentName as basicCameraViewComponentName, config as basicCameraViewConfig } from "meta3d-component-basiccameraview-protocol"
+import { componentName as arcballCameraControllerComponentName, config as arcballCameraControllerConfig } from "meta3d-component-arcballcameracontroller-protocol"
 import { getComponentContribute as getPerspecticeCameraProjectionComponentContribute } from "meta3d-component-perspectivecameraprojection"
 import { componentName as perspecticeCameraProjectionComponentName, config as perspecticeCameraProjectionConfig } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getGameObjectContribute } from "meta3d-gameobject-dataoriented"
@@ -20,7 +24,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api, { meta3dEngineCoreExtensionName }) => {
 	return {
-		register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount }: config) => {
+		register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount, directionLightCount }: config) => {
 			let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState } = api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionName)
 
 			// TODO use pipe
@@ -35,6 +39,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					float32Array1: float32Array1,
 				}
 			)
+
 			engineCoreState =
 				registerComponent(engineCoreState, getGeometryComponentContribute())
 			engineCoreState = createAndSetComponentState<geometryConfig>(engineCoreState,
@@ -46,7 +51,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				}
 			)
 
-
 			engineCoreState =
 				registerComponent(engineCoreState, getPBRMaterialComponentContribute())
 			engineCoreState = createAndSetComponentState<pbrMaterialConfig>(engineCoreState,
@@ -56,6 +60,26 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					pbrMaterialCount: pbrMaterialCount,
 				}
 			)
+
+			engineCoreState =
+				registerComponent(engineCoreState, getDirectionLightComponentContribute())
+			engineCoreState = createAndSetComponentState<directionLightConfig>(engineCoreState,
+				directionLightComponentName,
+				{
+					isDebug: isDebug,
+					directionLightCount: directionLightCount,
+				}
+			)
+
+			engineCoreState =
+				registerComponent(engineCoreState, getArcballCameraControllerComponentContribute())
+			engineCoreState = createAndSetComponentState<arcballCameraControllerConfig>(engineCoreState,
+				arcballCameraControllerComponentName,
+				{
+					isDebug: isDebug
+				}
+			)
+
 
 			engineCoreState =
 				registerComponent(engineCoreState, getBasicCameraViewComponentContribute())

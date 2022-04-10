@@ -6,15 +6,19 @@ const meta3d_component_transform_protocol_1 = require("meta3d-component-transfor
 const meta3d_component_geometry_1 = require("meta3d-component-geometry");
 const meta3d_component_geometry_protocol_1 = require("meta3d-component-geometry-protocol");
 const meta3d_component_pbrmaterial_1 = require("meta3d-component-pbrmaterial");
+const meta3d_component_directionlight_1 = require("meta3d-component-directionlight");
 const meta3d_component_pbrmaterial_protocol_1 = require("meta3d-component-pbrmaterial-protocol");
+const meta3d_component_directionlight_protocol_1 = require("meta3d-component-directionlight-protocol");
 const meta3d_component_basiccameraview_1 = require("meta3d-component-basiccameraview");
+const meta3d_component_arcballcameracontroller_1 = require("meta3d-component-arcballcameracontroller");
 const meta3d_component_basiccameraview_protocol_1 = require("meta3d-component-basiccameraview-protocol");
+const meta3d_component_arcballcameracontroller_protocol_1 = require("meta3d-component-arcballcameracontroller-protocol");
 const meta3d_component_perspectivecameraprojection_1 = require("meta3d-component-perspectivecameraprojection");
 const meta3d_component_perspectivecameraprojection_protocol_1 = require("meta3d-component-perspectivecameraprojection-protocol");
 const meta3d_gameobject_dataoriented_1 = require("meta3d-gameobject-dataoriented");
 let getExtensionService = (api, { meta3dEngineCoreExtensionName }) => {
     return {
-        register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount }) => {
+        register: (engineCoreState, meta3dState, { isDebug, float9Array1, float32Array1, transformCount, geometryCount, geometryPointCount, pbrMaterialCount, directionLightCount }) => {
             let { registerComponent, createAndSetComponentState, setGameObjectContribute, createAndSetGameObjectState } = api.getExtensionService(meta3dState, meta3dEngineCoreExtensionName);
             // TODO use pipe
             engineCoreState =
@@ -37,6 +41,17 @@ let getExtensionService = (api, { meta3dEngineCoreExtensionName }) => {
             engineCoreState = createAndSetComponentState(engineCoreState, meta3d_component_pbrmaterial_protocol_1.componentName, {
                 isDebug: isDebug,
                 pbrMaterialCount: pbrMaterialCount,
+            });
+            engineCoreState =
+                registerComponent(engineCoreState, (0, meta3d_component_directionlight_1.getComponentContribute)());
+            engineCoreState = createAndSetComponentState(engineCoreState, meta3d_component_directionlight_protocol_1.componentName, {
+                isDebug: isDebug,
+                directionLightCount: directionLightCount,
+            });
+            engineCoreState =
+                registerComponent(engineCoreState, (0, meta3d_component_arcballcameracontroller_1.getComponentContribute)());
+            engineCoreState = createAndSetComponentState(engineCoreState, meta3d_component_arcballcameracontroller_protocol_1.componentName, {
+                isDebug: isDebug
             });
             engineCoreState =
                 registerComponent(engineCoreState, (0, meta3d_component_basiccameraview_1.getComponentContribute)());

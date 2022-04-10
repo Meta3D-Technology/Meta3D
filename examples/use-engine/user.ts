@@ -413,7 +413,8 @@ function _init(useWorker: boolean) {
             transformCount: 10,
             geometryCount: 10,
             geometryPointCount: 100,
-            pbrMaterialCount: 10
+            pbrMaterialCount: 10,
+            directionLightCount: 1
         }
     )
 

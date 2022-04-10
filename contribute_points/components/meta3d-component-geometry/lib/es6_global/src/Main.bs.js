@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentGeometryProtocol from "./../../../../meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentGeometryProtocol from "./../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
 import * as AddGeometryUtils$Meta3dComponentGeometry from "./gameobject/AddGeometryUtils.bs.js";
 import * as CreateStateUtils$Meta3dComponentGeometry from "./create_state/CreateStateUtils.bs.js";
 import * as GetGeometryUtils$Meta3dComponentGeometry from "./gameobject/GetGeometryUtils.bs.js";

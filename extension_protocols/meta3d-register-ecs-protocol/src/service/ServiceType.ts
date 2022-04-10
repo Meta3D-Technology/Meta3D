@@ -9,6 +9,7 @@ export type config = {
 	geometryCount: number,
 	geometryPointCount: number,
 	pbrMaterialCount: number,
+	directionLightCount: number,
 }
 
 export type service = {

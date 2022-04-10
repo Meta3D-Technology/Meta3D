@@ -69,6 +69,8 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let pMatrix = getExn(engineCoreService.getComponentData<perspectiveCameraProjection, pMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), cameraProjection, dataName.pMatrix))
 
+		console.log(_getAllRenderComponents(engineCoreService, engineCoreState))
+
 		return setStatesFunc<states>(
 			engineCoreState,
 			setState(states, {

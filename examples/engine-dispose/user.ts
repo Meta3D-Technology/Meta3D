@@ -223,7 +223,7 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                 [
                     {
                         pipelineName: "update",
-                        insertElementName: "update_root_meta3d",
+                        insertElementName: "dispose_scene_webgl1_engine",
                         insertAction: "after"
                     }
                 ]
@@ -289,6 +289,11 @@ function _registerWorkPlugins(engineCoreState: engineCoreState, isDebug: boolean
                     {
                         pipelineName: "init",
                         insertElementName: "detect_gl_webgl1_detectgl_meta3d",
+                        insertAction: "after"
+                    },
+                    {
+                        pipelineName: "update",
+                        insertElementName: "update_root_meta3d",
                         insertAction: "after"
                     },
                     {
@@ -439,7 +444,8 @@ function _init(useWorker: boolean) {
             transformCount: 10,
             geometryCount: 10,
             geometryPointCount: 100,
-            pbrMaterialCount: 10
+            pbrMaterialCount: 10,
+            directionLightCount: 1
         }
     )
 
@@ -509,24 +515,10 @@ function _loop(meta3dState: meta3dState, frameIndex: number) {
 
         let engineCoreService = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
 
-        let allGameObjects = getAllGameObjects(engineCoreState, engineCoreService)
-        console.log(allGameObjects)
+        // let allGameObjects = getAllGameObjects(engineCoreState, engineCoreService)
 
-        engineCoreState = disposeGameObjects(engineCoreState, engineCoreService, allGameObjects.slice(1))
-
-        meta3dState = setExtensionState(meta3dState, _getEngineCoreExtensionName(), engineCoreState)
-    }
-
-    if (frameIndex === 30) {
-        let engineCoreState = getExtensionState<engineCoreState>(meta3dState, _getEngineCoreExtensionName())
-
-        let engineCoreService = getExtensionService<engineCoreService>(meta3dState, _getEngineCoreExtensionName())
-
-        let allGameObjects = getAllGameObjects(engineCoreState, engineCoreService)
-        console.log(allGameObjects)
-
-        engineCoreState = disposeGameObjectTransformComponent(engineCoreState, engineCoreService, allGameObjects[0], getTransform(engineCoreState, engineCoreService, allGameObjects[0]))
-        engineCoreState = disposeGameObjectTransformComponent(engineCoreState, engineCoreService, allGameObjects[0], getGeometry(engineCoreState, engineCoreService, allGameObjects[0]))
+        // engineCoreState = disposeGameObjects(engineCoreState, engineCoreService, [0, 1, 2, 3])
+        engineCoreState = disposeGameObjects(engineCoreState, engineCoreService, [0, 1])
 
         meta3dState = setExtensionState(meta3dState, _getEngineCoreExtensionName(), engineCoreState)
     }
