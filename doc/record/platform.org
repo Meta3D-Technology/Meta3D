@@ -1,0 +1,33 @@
+* TODO 加载多个扩展，组成引擎
+
+extension should be binary
+
+pack extension to binary file(through webpack)
+
+publish extension binary to platform
+
+load all select extension binarys when enter "build engine" button:
+# check dependent extensions
+# register extension API
+register extension's work plugin
+
+
+* TODO 扩展之间通过协议互相调用
+
+
+load all select extension binarys when enter "build engine" button:
+register extension API
+
+
+
+
+* TODO 加载contribute point到引擎的扩展中
+
+how to register components?
+
+
+* TODO feat(editor): add work plugin?
+
+
+
+* TODO check dependent extensions when load all select extension binarys
