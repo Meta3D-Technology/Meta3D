@@ -1,4 +1,4 @@
-* TODO design
+* DONE design
 ** TODO 加载多个扩展，组成引擎
 
 load all select extension binarys when enter "build engine" button:
@@ -28,6 +28,23 @@ how to register components?
 
 ** TODO feat(editor): add work plugin?
 
+
+
+
+* TODO redesign
+
+** TODO how to get protocol???
+
+
+** TODO add platform-extension
+
+** TODO add platform-extension-pacakge
+
+** TODO rewrite platform-engine
+
+** TODO rewrite platform-app
+
+** TODO rewrite platform-editor
 
 
 * TODO implement

@@ -33,7 +33,8 @@ function publishAppWithExtensionAndContributePoints(
         //// init, loop engine
         //// [startEngineExtensionId, ... ],
 
-        [extensionId1, extensionName1, extensionConfig1: {
+        // [extensionId1, extensionName1, extensionConfig1: {
+        [extensionName1, extensionGetServiceFunc, extensionCreateExtensionStateFunc, extensionConfig1: {
             isDebug:true,
         }], [extensionId2, ... ]
     ], [
@@ -45,8 +46,8 @@ function publishAppWithExtensionAndContributePoints(
         [work plugin for all scenes, ... ],
 
 
-[contributePointId1, belongedExtensionName1, contributePointConfig1,],
-    [contributePointId2, ...],
+// [contributePointId1, belongedExtensionName1, contributePointConfig1,],
+[contributeName1 in protocol, contributeGetContributeFunc1],
     ]) {
     let meta3dState = prepareMeta3D()
 
@@ -60,25 +61,33 @@ function publishAppWithExtensionAndContributePoints(
         registerExtension(
             meta3dState,
 
-            // _getExtensionName(extensionId1),
             extensionName1,
 
-            _getGetExtensionServiceFunc(extensionId1),
+            extensionGetServiceFunc,
+
             TODO handle dependency map:
             pass by user,
-            _getCreateExtensionStateFunc(extensionId1)()
+
+            extensionCreateExtensionStateFunc()
         )
 
             ...
 
-    /*register all contribute points to extension*/
-    ...
+    // /*register all contribute points to extension*/
+    /* register all contribute to contribute name in protocol */
+    meta3dState =
+        registerContribute(
+            meta3dState,
+            contributeName1,
+            contributeGetContributeFunc1,
+            // contributeConfig1
+        )
 
 
 
     /*start extensions of startExtensionIds in concat order*/
 
-    exec start extensions
+    start extensions
 
-        (contribute points not need exec!)
+        (contribute not need start!)
 }
