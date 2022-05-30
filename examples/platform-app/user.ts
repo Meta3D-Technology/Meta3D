@@ -47,7 +47,8 @@ function publishAppWithExtensionAndContributePoints(
 
 
 // [contributePointId1, belongedExtensionName1, contributePointConfig1,],
-[contributeName1 in protocol, contributeGetContributeFunc1],
+// [contributeName1 in protocol, contributeGetContributeFunc1],
+[contributeName1, contributeGetContributeFunc1],
     ]) {
     let meta3dState = prepareMeta3D()
 
@@ -74,7 +75,17 @@ function publishAppWithExtensionAndContributePoints(
             ...
 
     // /*register all contribute points to extension*/
-    /* register all contribute to contribute name in protocol */
+
+    // /* register all contribute to contribute name in protocol */
+    // meta3dState =
+    //     registerContribute(
+    //         meta3dState,
+    //         contributeName1,
+    //         contributeGetContributeFunc1,
+    //         // contributeConfig1
+    //     )
+
+    /* register all contribute to contribute name */
     meta3dState =
         registerContribute(
             meta3dState,

@@ -31,33 +31,70 @@ how to register components?
 
 
 
-* TODO redesign
+* DONE redesign
 
-** TODO how to get protocol???
+** DONE how to get protocol???
 
 
-** TODO add platform-extension
+# ** TODO add platform-extension
 
-** TODO add platform-extension-pacakge
+# ** TODO add platform-extension-pacakge
 
-** TODO rewrite platform-engine
+# ** TODO rewrite platform-engine
 
-** TODO rewrite platform-app
+# ** TODO rewrite platform-app
 
-** TODO rewrite platform-editor
+# ** TODO rewrite platform-editor
 
 
 * TODO implement
 
-** TODO engine
+** TODO remove, keep simple
+
+** TODO improve
+
+*** TODO rename contribute point to contribute
+
+*** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
+
+
+*** TODO extension add life cycle
+
+*** TODO add contribute name to dependent map
+*** TODO register contribute from dependent map
+
+
+*** TODO change engine to be extension package
+
+**** TODO engine api should be a extension
+
+
+*** TODO change editor to be app
+
+
+** TODO publish and load extension
 extension should be binary
 
-pack extension to binary file(through webpack)
+pack extension to binary file
 
 publish extension binary to platform
 
 
-** TODO editor
+
+** TODO publish and load extension package
+
+
+** TODO publish and load contribute
+
+
+** TODO pass engine(extension package)
+
+** TODO pass editor(app)
+
+
+** TODO add bdd test
+
+** TODO restore removed
 
 
 * TODO check dependent extensions when load all select extension binarys
