@@ -49,11 +49,13 @@ how to register components?
 
 * TODO implement
 
-** TODO remove, keep simple
+** DONE remove, keep simple
 
 ** TODO improve
 
 *** TODO rename contribute point to contribute
+
+*** TODO add simplest extension, contribute
 
 *** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
 
