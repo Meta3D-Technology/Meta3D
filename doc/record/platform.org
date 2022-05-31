@@ -53,12 +53,11 @@ how to register components?
 
 ** TODO improve
 
-*** TODO rename contribute point to contribute
+*** DONE rename contribute point to contribute
 
-*** TODO add simplest extension, contribute
+*** DONE add simplest extension, contribute
 
-*** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
-
+*** TODO extension, contribute implement should has name using from protocol as default name
 
 *** TODO extension add life cycle
 
@@ -70,8 +69,14 @@ how to register components?
 
 **** TODO engine api should be a extension
 
+**** TODO user should set extension, contribute dependent map(some is specific by user, some use default name)
+
 
 *** TODO change editor to be app
+
+
+*** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
+
 
 
 ** TODO publish and load extension

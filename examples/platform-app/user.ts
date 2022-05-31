@@ -1,4 +1,4 @@
-function _getAllExtensionsAndContributePoints(extensionPacakge) {
+function _getAllExtensionsAndContribute(extensionPacakge) {
     //TODO implement
     return {} as any
 }
@@ -11,16 +11,16 @@ function publishAppWithExtensionPackage(
     ...
 
 ) {
-    publishAppWithExtensionAndContributePoints(
+    publishAppWithExtensionAndContribute(
         startExtensionIds,
-        _getAllExtensionsAndContributePoints(engineExtensionPacakge).concat(
-            _getAllExtensionsAndContributePoints(scene1ExtensionPacakge),
-            _getAllExtensionsAndContributePoints(scene2ExtensionPacakge)
+        _getAllExtensionsAndContribute(engineExtensionPacakge).concat(
+            _getAllExtensionsAndContribute(scene1ExtensionPacakge),
+            _getAllExtensionsAndContribute(scene2ExtensionPacakge)
         )
     )
 }
 
-function publishAppWithExtensionAndContributePoints(
+function publishAppWithExtensionAndContribute(
     // e.g. scene1ExtensionPacakge, include :
     // [createScene1ExtensionId, ... ],
     //// [work plugin for scene1, ... ],

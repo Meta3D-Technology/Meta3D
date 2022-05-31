@@ -1,4 +1,4 @@
-function _getAllExtensionsAndContributePoints(extensionPacakge) {
+function _getAllExtensionsAndContribute(extensionPacakge) {
     //TODO implement
     return {} as any
 }
@@ -11,16 +11,16 @@ function publishEditorWithExtensionPackage(
     editorExtensionPacakge,
     ...
 ) {
-    publishEditorWithExtensionAndContributePoints(
+    publishEditorWithExtensionAndContribute(
         startExtensionIds,
-        _getAllExtensionsAndContributePoints(engineForEditSceneExtensionPacakge).concat(
-            _getAllExtensionsAndContributePoints(engineForRunSceneExtensionPacakge),
-            _getAllExtensionsAndContributePoints(editorExtensionPacakge),
+        _getAllExtensionsAndContribute(engineForEditSceneExtensionPacakge).concat(
+            _getAllExtensionsAndContribute(engineForRunSceneExtensionPacakge),
+            _getAllExtensionsAndContribute(editorExtensionPacakge),
         )
     )
 }
 
-function publishEditorWithExtensionAndContributePoints(
+function publishEditorWithExtensionAndContribute(
     // e.g. include : some extensions in editor extension package
     startExtensionIds,
     [
