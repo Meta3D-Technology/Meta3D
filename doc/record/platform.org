@@ -99,6 +99,14 @@ publish extension binary to platform
 ** TODO pass editor(app)
 
 
+
+** TODO handle extension version
+
+should publish extension with specific version
+
+version is useful for update extension! 
+
+
 ** TODO add bdd test
 
 ** TODO restore removed
