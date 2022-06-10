@@ -1,12 +1,11 @@
 {
 	"packages": [
 		"examples/*",
-		"contribute/",
+		"protocols/extension_protocols/*",
+		"protocols/contribute_protocols/*",
 		"defaults/*",
 		"extensions/*",
-		"extension_protocols/*",
-		"contribute/test_contribute_protocols/*",
-		"contribute/test_contributes/*",
+		"contributes/*",
 		"engine/*"
 	],
 	"npmClient": "yarn",

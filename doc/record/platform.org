@@ -82,22 +82,22 @@ add example/use-app
 
 
 
-*** TODO add test2 extension
-test1 dependent on test2
+# *** TODO add test2 extension
+# test1 dependent on test2
 
 
-*** TODO change engine to be extension package
+# *** TODO change engine to be extension package
 
-**** TODO engine api should be a extension
+# **** TODO engine api should be a extension
 
-**** TODO user should set extension, contribute dependent map(some is specific by user, some use default name)
+# **** TODO user should set extension, contribute dependent map(some is specific by user, some use default name)
 
 
 # *** TODO change editor to be app
 # *** TODO change use-engine to be app
 
 
-*** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
+*** DONE extract protocols/, move contribute_protocols/, extension_protocols/ here
 
 
 
