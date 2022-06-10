@@ -63,3 +63,5 @@ type getContribute<'dependentExtensionNameMap, 'dependentContributeNameMap, 'con
 ) => 'contribute
 
 type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>
+
+type getName = unit => string

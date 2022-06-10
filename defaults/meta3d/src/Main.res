@@ -14,4 +14,8 @@ let getContribute = ExtensionManager.getContributeExn
 
 let startExtensions = ExtensionManager.startExtensions
 
+let compressExtension = ExtensionFileManager.compressExtension
+
+let loadExtension = ExtensionFileManager.loadExtension
+
 let buildAPI = ExtensionManager.buildAPI

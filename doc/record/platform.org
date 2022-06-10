@@ -111,6 +111,13 @@ parse binary file
 
 
 
+
+extension,contribute add getName;
+
+
+
+
+
 # ** TODO publish and load extension package
 
 
@@ -123,15 +130,10 @@ parse binary file
 
 
 
-** TODO handle extension version
 
-should publish extension with specific version
 
-version is useful for update extension! 
 
-redesign extension protocol->ProtocolData
 
-** TODO handle contribute version
 
 
 ** TODO pass run test
@@ -139,6 +141,40 @@ redesign extension protocol->ProtocolData
 
 # ** TODO add bdd test
 
+
+* TODO improve
+
+** TODO extension,contribute remove getName
+
+
+** TODO package.json add these info:
+
+*** TODO handle extension version
+
+should publish extension with specific version
+
+version is useful for update extension! 
+
+redesign extension protocol->ProtocolData
+
+*** TODO handle contribute version
+
+
+*** TODO handle dependent extension,contribute map
+extension,contribute should define getDependentExtensionNames, getDependentContributeNames funcs, so the user can only inpute value instead of key+value???
+
+** TODO extension, contribute add README.md
+
+** TODO extension,contribute binary file add name, version, dependent map in meta data
+
+** TODO add tools/publish for publish extension, contribute for user
+
+get version, dependent map, name from package.json;
+send them and README.md;
+
+
+
+* TODO refactor(meta3d): separate extension and contribute?
 
 
 * TODO check dependent extensions when load all select extension binarys

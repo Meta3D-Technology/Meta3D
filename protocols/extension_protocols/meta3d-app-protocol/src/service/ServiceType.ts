@@ -1,4 +1,4 @@
-import { state } from "meta3d-type/src/Index"
+import { state } from "meta3d-type"
 
 export type service = {
 	run: (state: state) => state,
