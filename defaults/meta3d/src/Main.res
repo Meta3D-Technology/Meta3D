@@ -12,4 +12,6 @@ let registerContribute = ExtensionManager.registerContribute
 
 let getContribute = ExtensionManager.getContributeExn
 
+let startExtensions = ExtensionManager.getExtensionStateExn
+
 let buildAPI = ExtensionManager.buildAPI

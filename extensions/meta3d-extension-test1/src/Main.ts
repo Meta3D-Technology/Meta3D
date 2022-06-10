@@ -1,4 +1,4 @@
-import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D } from "meta3d-type/src/Index"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type/src/Index"
 import { state } from "meta3d-extension-test1-protocol/src/state/StateType"
 import { service } from "meta3d-extension-test1-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap } from "meta3d-extension-test1-protocol/src/service/DependentExtensionType"
@@ -30,5 +30,13 @@ export let createExtensionState: createExtensionStateMeta3D<
 > = () => {
 	return {
 		infos: {}
+	}
+}
+
+export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
+	return {
+		// onRegister: (meta3dState, service) => {
+		// 	return meta3dState
+		// }
 	}
 }

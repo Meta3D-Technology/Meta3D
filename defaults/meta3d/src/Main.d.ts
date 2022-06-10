@@ -34,4 +34,9 @@ export function getContribute<contribute>(
     contributeName: contributeName
 ): contribute
 
+export function startExtensions(
+    state: state,
+    extensionNames: Array<extensionName>
+): state
+
 export function buildAPI(): api

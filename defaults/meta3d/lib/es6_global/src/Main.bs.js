@@ -16,6 +16,8 @@ var registerContribute = ExtensionManager$Meta3d.registerContribute;
 
 var getContribute = ExtensionManager$Meta3d.getContributeExn;
 
+var startExtensions = ExtensionManager$Meta3d.getExtensionStateExn;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 export {
@@ -26,6 +28,7 @@ export {
   getExtensionState ,
   registerContribute ,
   getContribute ,
+  startExtensions ,
   buildAPI ,
   
 }

@@ -22,6 +22,20 @@ let getContributeExn = (state, name: contributeName) => {
   state.contributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
+let _getExtensionLifeExn = (state, name: extensionName) => {
+  state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+}
+
+let startExtensions = (state, extensionNames) => {
+  extensionNames->Meta3dCommonlib.ArraySt.reduceOneParam((. state, extensionName) => {
+    _getExtensionLifeExn(state, extensionName).onStart
+    ->Meta3dCommonlib.NullableSt.map((. onStartFunc) => {
+      onStartFunc(state, getExtensionServiceExn(state, extensionName))
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+  }, state)
+}
+
 let rec registerExtension = (
   state,
   name: extensionName,
@@ -30,6 +44,7 @@ let rec registerExtension = (
     dependentContributeNameMap,
     extensionService,
   >,
+  getLifeFunc: getExtensionLife<extensionService>,
   (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
   extensionState: extensionState,
 ) => {
@@ -38,6 +53,10 @@ let rec registerExtension = (
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       name,
       getServiceFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
+    ),
+    extensionLifeMap: state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      name,
+      getLifeFunc(buildAPI(), name),
     ),
   }->setExtensionState(name, extensionState)
 }
@@ -65,6 +84,7 @@ and buildAPI = (): api => {
       state,
       extensionName,
       getExtensionService,
+      getExtensionLife,
       (dependentExtensionNameMap, dependentContributeNameMap),
       extensionState,
     ) =>
@@ -72,6 +92,7 @@ and buildAPI = (): api => {
         state,
         extensionName,
         getExtensionService,
+        getExtensionLife,
         (dependentExtensionNameMap, dependentContributeNameMap),
         extensionState,
       )
@@ -104,6 +125,7 @@ let prepare = () => {
   {
     extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     extensionStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    extensionLifeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     contributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   }
 }

@@ -12,18 +12,28 @@ type extensionName = string
 
 type contributeName = string
 
-type state = {
+type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionService) => state
+and extensionLife<'extensionService> = {
+  onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
+  onStart: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
+}
+and state = {
   extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionService>,
   extensionStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionState>,
+  extensionLifeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    extensionName,
+    extensionLife<extensionService>,
+  >,
   contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeName, contribute>,
 }
 
 type api = {
   /* ! rank2 polymorphism */
-  registerExtension: 'getExtensionServiceFunc 'dependentExtensionNameMap 'extensionState. (
+  registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'dependentExtensionNameMap 'extensionState. (
     . state,
     extensionName,
     'getExtensionServiceFunc,
+    'getLifeFunc,
     'dependentExtensionNameMap,
     'extensionState,
   ) => state,
@@ -51,3 +61,5 @@ type getContribute<'dependentExtensionNameMap, 'dependentContributeNameMap, 'con
   api,
   ('dependentExtensionNameMap, 'dependentContributeNameMap),
 ) => 'contribute
+
+type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>

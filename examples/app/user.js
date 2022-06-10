@@ -1,4 +1,4 @@
-import { prepare as prepareMeta3D, registerExtension, registerContribute, getExtensionService } from "meta3d";
+import { prepare as prepareMeta3D, registerExtension, registerContribute, startExtensions } from "meta3d";
 import { getExtensionService as getAppExtensionService, createExtensionState as createAppExtensionState } from "meta3d-app";
 import { getExtensionService as getTest1ExtensionService, createExtensionState as createTest1ExtensionState } from "meta3d-extension-test1";
 import { getContribute as getTest1Contribute } from "meta3d-contribute-test1";
@@ -19,7 +19,10 @@ meta3dState = registerContribute(meta3dState, "meta3d-test1-contribute", getTest
     null,
     null
 ]);
-// TODO invoke life cycle->start
-let { run } = getExtensionService(meta3dState, "meta3d-app");
-meta3dState = run(meta3dState);
+// TODO invoke extensionLife cycle->start
+// let { run } = getExtensionService<appService>(meta3dState, "meta3d-app")
+// meta3dState = run(meta3dState)
+meta3dState = startExtensions(meta3dState, [
+    "meta3d-app"
+]);
 //# sourceMappingURL=user.js.map

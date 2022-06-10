@@ -72,9 +72,13 @@ add example/use-app
 
 
 
-*** TODO extension add life cycle
+*** TODO extension add extensionLife cycle
 
+draft
 
+bdd test
+
+run test
 
 
 

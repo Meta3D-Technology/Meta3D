@@ -12,7 +12,7 @@ export abstract class state { protected opaque!: any }; /* simulate opaque types
 
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
-  registerExtension<getExtensionServiceFunc, dependentExtensionNameMap, extensionState>(state: state, extensionName: extensionName, getExtensionServiceFunc: getExtensionServiceFunc, dependentExtensionNameMap: dependentExtensionNameMap, extensionState: extensionState): state,
+  registerExtension<getExtensionServiceFunc, getLifeFunc, dependentExtensionNameMap, extensionState>(state: state, extensionName: extensionName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, dependentExtensionNameMap: dependentExtensionNameMap, extensionState: extensionState): state,
   getExtensionService<extensionService>(state: state, extensionName: extensionName): extensionService,
   getExtensionState<extensionState>(state: state, extensionName: extensionName): extensionState,
   setExtensionState<extensionState>(state: state, extensionName: extensionName, extensionState: extensionState): state
@@ -27,3 +27,13 @@ export type getExtensionService<dependentExtensionNameMap, dependentContributeNa
 export type createExtensionState<extensionState> = () => extensionState;
 
 export type getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute> = (_1: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => contribute;
+
+
+export type extensionLifeEventHandler<extensionService> = (state: state, extensionService: extensionService) => state;
+
+type extensionLife<extensionService> = {
+  onRegister?: extensionLifeEventHandler<extensionService>,
+  onStart?: extensionLifeEventHandler<extensionService>,
+}
+
+export type getExtensionLife<extensionService> = (_1: api, extensionName: extensionName) => extensionLife<extensionService>
