@@ -26,13 +26,17 @@ let _getExtensionLifeExn = (state, name: extensionName) => {
   state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
+let _invokeLifeHander = (state, extensionName, handlerNullable) => {
+  handlerNullable
+  ->Meta3dCommonlib.NullableSt.map((. handler) => {
+    handler(state, getExtensionServiceExn(state, extensionName))
+  })
+  ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+}
+
 let startExtensions = (state, extensionNames) => {
   extensionNames->Meta3dCommonlib.ArraySt.reduceOneParam((. state, extensionName) => {
-    _getExtensionLifeExn(state, extensionName).onStart
-    ->Meta3dCommonlib.NullableSt.map((. onStartFunc) => {
-      onStartFunc(state, getExtensionServiceExn(state, extensionName))
-    })
-    ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+    _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeHander(state, extensionName, _)
   }, state)
 }
 
@@ -48,7 +52,7 @@ let rec registerExtension = (
   (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
   extensionState: extensionState,
 ) => {
-  {
+  let state = {
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       name,
@@ -59,6 +63,8 @@ let rec registerExtension = (
       getLifeFunc(buildAPI(), name),
     ),
   }->setExtensionState(name, extensionState)
+
+  _getExtensionLifeExn(state, name).onRegister->_invokeLifeHander(state, name, _)
 }
 and registerContribute = (
   state,

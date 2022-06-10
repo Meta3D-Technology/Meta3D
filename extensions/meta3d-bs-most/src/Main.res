@@ -61,6 +61,7 @@ let callFunc = func => {
 
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dBsMostProtocol.DependentExtensionType.dependentExtensionNameMap,
+  Meta3dBsMostProtocol.DependentContributeType.dependentContributeNameMap,
   Meta3dBsMostProtocol.ServiceType.service,
 > = (api, _) => {
   tap: Most.tap,
@@ -82,4 +83,13 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dBsMostProtocol.StateType.state,
 > = () => {
   ()
+}
+
+let getExtensionLife: Meta3dType.Index.getExtensionLife<
+  Meta3dBsMostProtocol.ServiceType.service,
+> = (_, _) => {
+  {
+    onRegister: Js.Nullable.undefined,
+    onStart: Js.Nullable.undefined,
+  }
 }

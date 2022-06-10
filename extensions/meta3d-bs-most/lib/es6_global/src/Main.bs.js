@@ -94,12 +94,20 @@ function createExtensionState(param) {
   
 }
 
+function getExtensionLife(param, param$1) {
+  return {
+          onRegister: undefined,
+          onStart: undefined
+        };
+}
+
 export {
   _isFromEventStream ,
   concatArray ,
   callFunc ,
   getExtensionService ,
   createExtensionState ,
+  getExtensionLife ,
   
 }
 /* most Not a pure module */
