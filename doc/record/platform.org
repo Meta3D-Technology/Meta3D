@@ -102,23 +102,24 @@ add example/use-app
 
 
 ** TODO publish and load extension
-extension should be binary
+# extension should be binary
 
 pack extension to binary file
 
-publish extension binary to platform
+parse binary file
 
 
 
-** TODO publish and load extension package
+
+# ** TODO publish and load extension package
 
 
-** TODO publish and load contribute
+# ** TODO publish and load contribute
 
 
-** TODO pass engine(extension package)
+# ** TODO pass engine(extension package)
 
-** TODO pass editor(app)
+# ** TODO pass editor(app)
 
 
 
@@ -133,20 +134,24 @@ redesign extension protocol->ProtocolData
 ** TODO handle contribute version
 
 
+** TODO pass run test
 
 
-** TODO add bdd test
+# ** TODO add bdd test
 
 
 
 * TODO check dependent extensions when load all select extension binarys
 
 
-* TODO publish 
+* TODO publish meta3d new version
 
 
+* TODO begin Meta3D-Platform repo
 
-* TODO deploy to tencent cloud
+** TODO finish whole in local
 
+** TODO deploy to tencent cloud
 
-* TODO restore removed
+** TODO finish whole in remote
+
