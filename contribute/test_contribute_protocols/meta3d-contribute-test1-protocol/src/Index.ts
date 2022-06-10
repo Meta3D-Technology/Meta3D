@@ -1,1 +1,3 @@
-export const name = "Test1_Contribute"
+export type dependentExtensionNameMap = null
+
+export type dependentContributeNameMap = null

@@ -1,11 +1,11 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, state, api } from "meta3d-type"
+import { extensionName, getExtensionService, state, api, contributeName, getContribute } from "meta3d-type"
 
 export function prepare(): state
 
-export function registerExtension<extensionService, dependentExtensionNameMap, extensionState>(state: state, extensionName: extensionName, getExtensionService: getExtensionService<dependentExtensionNameMap, extensionService>,
-    dependentExtensionNameMap: dependentExtensionNameMap,
+export function registerExtension<extensionService, dependentExtensionNameMap, dependentContributeNameMap, extensionState>(state: state, extensionName: extensionName, getExtensionService: getExtensionService<dependentExtensionNameMap, dependentContributeNameMap, extensionService>,
+    [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
     extensionState: extensionState
 ): state
 
@@ -24,5 +24,14 @@ export function getExtensionState<extensionState>(
     state: state,
     extensionName: extensionName,
 ): extensionState
+
+export function registerContribute<contribute, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeName: contributeName, getContributeFunc: getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute>,
+    [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
+): state
+
+export function getContribute<contribute>(
+    state: state,
+    contributeName: contributeName
+): contribute
 
 export function buildAPI(): api

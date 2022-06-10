@@ -18,25 +18,63 @@ let getExtensionStateExn = (state, name: extensionName) => {
   state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
-let rec register = (
+let getContributeExn = (state, name: contributeName) => {
+  state.contributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+}
+
+let rec registerExtension = (
   state,
   name: extensionName,
-  getServiceFunc: getExtensionService<dependentExtensionNameMap, extensionService>,
-  dependentExtensionNameMap: dependentExtensionNameMap,
+  getServiceFunc: getExtensionService<
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
+    extensionService,
+  >,
+  (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
   extensionState: extensionState,
 ) => {
   {
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       name,
-      getServiceFunc(buildAPI(), dependentExtensionNameMap),
+      getServiceFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
     ),
   }->setExtensionState(name, extensionState)
 }
+and registerContribute = (
+  state,
+  name: contributeName,
+  getContributeFunc: getContribute<
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
+    contribute,
+  >,
+  (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
+) => {
+  {
+    ...state,
+    contributeMap: state.contributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      name,
+      getContributeFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
+    ),
+  }
+}
 and buildAPI = (): api => {
   registerExtension: (
-    (. state, extensionName, getExtensionService, dependentExtensionNameMap, extensionState) =>
-      register(state, extensionName, getExtensionService, dependentExtensionNameMap, extensionState)
+    (.
+      state,
+      extensionName,
+      getExtensionService,
+      (dependentExtensionNameMap, dependentContributeNameMap),
+      extensionState,
+    ) =>
+      registerExtension(
+        state,
+        extensionName,
+        getExtensionService,
+        (dependentExtensionNameMap, dependentContributeNameMap),
+        extensionState,
+      )
   )->Obj.magic,
   getExtensionService: (. state, name: extensionName) =>
     getExtensionServiceExn(state, (name: extensionName)),
@@ -45,11 +83,27 @@ and buildAPI = (): api => {
   setExtensionState: (
     (. state, name, extensionState) => setExtensionState(state, name, extensionState)
   )->Obj.magic,
+  registerContribute: (
+    (.
+      state,
+      contributeName,
+      getContribute,
+      (dependentExtensionNameMap, dependentContributeNameMap),
+    ) =>
+      registerContribute(
+        state,
+        contributeName,
+        getContribute,
+        (dependentExtensionNameMap, dependentContributeNameMap),
+      )
+  )->Obj.magic,
+  getContribute: (. state, name: contributeName) => getContributeExn(state, (name: contributeName)),
 }
 
 let prepare = () => {
   {
     extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     extensionStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    contributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   }
 }

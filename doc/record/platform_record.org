@@ -1,0 +1,3 @@
+* extension must has extension state, while contribute may has or not has contribute state
+
+so not need createContributeState func?

@@ -1,5 +1,7 @@
 export type extensionName = string
 
+export type contributeName = string
+
 export type extensionService = any
 
 export type extensionState = any
@@ -14,10 +16,14 @@ export type api = {
   getExtensionService<extensionService>(state: state, extensionName: extensionName): extensionService,
   getExtensionState<extensionState>(state: state, extensionName: extensionName): extensionState,
   setExtensionState<extensionState>(state: state, extensionName: extensionName, extensionState: extensionState): state
+  registerContribute<getContributeFunc, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeName: contributeName, getContributeFunc: getContributeFunc, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]): state,
+  getContribute<contribute>(state: state, contributeName: contributeName): contribute,
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getExtensionService<dependentExtensionNameMap, extensionService> = (_1: api, _2: dependentExtensionNameMap) => extensionService;
+export type getExtensionService<dependentExtensionNameMap, dependentContributeNameMap, extensionService> = (_1: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => extensionService;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type createExtensionState<extensionState> = () => extensionState;
+
+export type getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute> = (_1: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => contribute;

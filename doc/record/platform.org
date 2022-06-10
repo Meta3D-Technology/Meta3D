@@ -57,12 +57,29 @@ how to register components?
 
 *** DONE add simplest extension, contribute
 
-*** TODO extension, contribute implement should has name using from protocol as default name
+# *** TODO extension, contribute implement should has name using from protocol as default name
+
+
+*** DONE add contribute name to dependent map
+
+*** DONE register contribute from dependent map
+
+*** DONE add meta3d-app extension
+
+*** DONE run test
+add example/use-app
+
+
+
 
 *** TODO extension add life cycle
 
-*** TODO add contribute name to dependent map
-*** TODO register contribute from dependent map
+
+
+
+
+*** TODO add test2 extension
+test1 dependent on test2
 
 
 *** TODO change engine to be extension package
@@ -72,7 +89,8 @@ how to register components?
 **** TODO user should set extension, contribute dependent map(some is specific by user, some use default name)
 
 
-*** TODO change editor to be app
+# *** TODO change editor to be app
+# *** TODO change use-engine to be app
 
 
 *** TODO extract protocols/, move contribute_protocols/, extension_protocols/ here
@@ -106,10 +124,25 @@ should publish extension with specific version
 
 version is useful for update extension! 
 
+redesign extension protocol->ProtocolData
+
+** TODO handle contribute version
+
+
+
 
 ** TODO add bdd test
 
-** TODO restore removed
 
 
 * TODO check dependent extensions when load all select extension binarys
+
+
+* TODO publish 
+
+
+
+* TODO deploy to tencent cloud
+
+
+* TODO restore removed

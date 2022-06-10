@@ -1,6 +1,3 @@
 export type infoContribute = {
-	name: string,
-	info: string;
+	getInfo(): string
 };
-
-export type getInfoContribute = () => infoContribute
