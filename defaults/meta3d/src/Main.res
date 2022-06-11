@@ -18,4 +18,8 @@ let compressExtension = ExtensionFileManager.compressExtension
 
 let loadExtension = ExtensionFileManager.loadExtension
 
+let compressContribute = ExtensionFileManager.compressContribute
+
+let loadContribute = ExtensionFileManager.loadContribute
+
 let buildAPI = ExtensionManager.buildAPI

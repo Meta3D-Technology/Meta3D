@@ -23,6 +23,10 @@ var compressExtension = ExtensionFileManager$Meta3d.compressExtension;
 
 var loadExtension = ExtensionFileManager$Meta3d.loadExtension;
 
+var compressContribute = ExtensionFileManager$Meta3d.compressContribute;
+
+var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 exports.prepare = prepare;
@@ -35,5 +39,7 @@ exports.getContribute = getContribute;
 exports.startExtensions = startExtensions;
 exports.compressExtension = compressExtension;
 exports.loadExtension = loadExtension;
+exports.compressContribute = compressContribute;
+exports.loadContribute = loadContribute;
 exports.buildAPI = buildAPI;
 /* No side effect */

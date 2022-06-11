@@ -1,15 +1,22 @@
 {
     "name": "meta3d-contribute-test1",
-    "version": "0.3.1",
+    "version": "0.3.0",
     "description": "",
-    "author": "Meta3D",
+    "author": "Wonder",
     "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "webpack": "webpack --config webpack.config.js"
     },
     "keywords": [],
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "typescript": "^4.2.3",
+        "clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
     }
 }

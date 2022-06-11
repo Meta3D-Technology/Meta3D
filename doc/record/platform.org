@@ -101,7 +101,7 @@ add example/use-app
 
 
 
-** TODO publish and load extension
+** DONE publish and load extension
 # extension should be binary
 
 pack extension to binary file
@@ -136,7 +136,7 @@ extension,contribute add getName;
 
 
 
-** TODO pass run test
+** DONE pass run test
 
 
 # ** TODO add bdd test
@@ -172,6 +172,14 @@ extension,contribute should define getDependentExtensionNames, getDependentContr
 get version, dependent map, name from package.json;
 send them and README.md;
 
+
+
+
+test develop webpack instead of production(for debug)!
+
+
+
+* TODO add yeoman template for add webpack extension, contribute
 
 
 * TODO refactor(meta3d): separate extension and contribute?

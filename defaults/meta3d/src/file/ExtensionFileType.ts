@@ -1,4 +1,4 @@
-import { createExtensionState, getExtensionLife, getExtensionService } from "meta3d-type";
+import { createExtensionState, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
 
 export type extensionFileData<
   dependentExtensionNameMap,
@@ -14,4 +14,17 @@ export type extensionFileData<
     >,
     readonly createExtensionStateFunc: createExtensionState<extensionState>,
     readonly getExtensionLifeFunc: getExtensionLife<extensionService>
+  };
+
+export type contributeFileData<
+  dependentExtensionNameMap,
+  dependentContributeNameMap,
+  contributeService,
+  > = {
+    readonly contributeName: string;
+    readonly getContributeFunc: getContribute<
+      dependentExtensionNameMap,
+      dependentContributeNameMap,
+      contributeService
+    >,
   };

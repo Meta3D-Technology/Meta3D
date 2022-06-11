@@ -1,6 +1,5 @@
 open Meta3dType.Index
 
-@genType
 type extensionFileData = {
   extensionName: string,
   getExtensionServiceFunc: getExtensionService<
@@ -12,7 +11,11 @@ type extensionFileData = {
   getExtensionLifeFunc: getExtensionLife<extensionService>,
 }
 
-// type contributeFileData = {
-//   contributeName: string,
-//   getContributeFunc: getContributeFunc,
-// }
+type contributeFileData = {
+  contributeName: string,
+  getContributeFunc: getContribute<
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
+    contribute,
+  >,
+}

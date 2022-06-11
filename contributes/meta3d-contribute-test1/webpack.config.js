@@ -8,7 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'static/js/[name].js',
         library: {
-            name: 'Extension',
+            name: 'Contribute',
             type: 'window',
         },
     },
