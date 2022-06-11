@@ -1,12 +1,31 @@
-import { createExtensionState, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
+import { createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
 
-export type extensionFileData<
+type dependentExtensionName = string
+
+type dependentContributeName = string
+
+export type extensionPackageData = {
+  name: extensionName,
+  protocol: {
+    name: string,
+    version: string
+  },
+  dependentExtensionNameMap: Record<dependentExtensionName, {
+    protocolName: string,
+    protocolVersion: string,
+  }>,
+  dependentContributeNameMap: Record<dependentContributeName, {
+    protocolName: string,
+    protocolVersion: string,
+  }>,
+}
+
+export type extensionFuncData<
   dependentExtensionNameMap,
   dependentContributeNameMap,
   extensionService,
   extensionState
   > = {
-    readonly extensionName: string;
     readonly getExtensionServiceFunc: getExtensionService<
       dependentExtensionNameMap,
       dependentContributeNameMap,
@@ -14,6 +33,22 @@ export type extensionFileData<
     >,
     readonly createExtensionStateFunc: createExtensionState<extensionState>,
     readonly getExtensionLifeFunc: getExtensionLife<extensionService>
+  };
+
+
+export type extensionFileData<
+  dependentExtensionNameMap,
+  dependentContributeNameMap,
+  extensionService,
+  extensionState
+  > = {
+    extensionPackageData: extensionPackageData,
+    extensionFuncData: extensionFuncData<
+      dependentExtensionNameMap,
+      dependentContributeNameMap,
+      extensionService,
+      extensionState
+    >
   };
 
 export type contributeFileData<

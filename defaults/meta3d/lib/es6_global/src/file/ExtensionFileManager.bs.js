@@ -1,27 +1,42 @@
 
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as LibUtils$Meta3d from "./LibUtils.bs.js";
+import * as BinaryFileOperator$Meta3d from "./BinaryFileOperator.bs.js";
 
-function _compress(fileStr) {
+function _generate(fileStr) {
   var encoder = new TextEncoder();
   return encoder.encode(fileStr).buffer;
 }
 
-var compressExtension = _compress;
+function generateExtension(extensionPackageData, extensionFileStr) {
+  var encoder = new TextEncoder();
+  return BinaryFileOperator$Meta3d.generate([
+              encoder.encode(JSON.stringify(extensionPackageData)),
+              encoder.encode(extensionFileStr)
+            ]);
+}
+
+function _removeAlignedEmptyChars(decodedStr) {
+  return decodedStr.trim();
+}
 
 function loadExtension(extensionBinaryFile) {
   var decoder = new TextDecoder("utf-8");
-  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(extensionBinaryFile), "Extension");
+  var dataArr = BinaryFileOperator$Meta3d.load(extensionBinaryFile);
+  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(Caml_array.get(dataArr, 1)), "Extension");
   return {
-          extensionName: Curry._1(LibUtils$Meta3d.getFuncFromLib(lib, "getName"), undefined),
-          getExtensionServiceFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionService"),
-          createExtensionStateFunc: LibUtils$Meta3d.getFuncFromLib(lib, "createExtensionState"),
-          getExtensionLifeFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionLife")
+          extensionPackageData: JSON.parse(decoder.decode(Caml_array.get(dataArr, 0)).trim()),
+          extensionFuncData: {
+            getExtensionServiceFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionService"),
+            createExtensionStateFunc: LibUtils$Meta3d.getFuncFromLib(lib, "createExtensionState"),
+            getExtensionLifeFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionLife")
+          }
         };
 }
 
-var compressContribute = _compress;
+var generateContribute = _generate;
 
 function loadContribute(contributeBinaryFile) {
   var decoder = new TextDecoder("utf-8");
@@ -33,10 +48,11 @@ function loadContribute(contributeBinaryFile) {
 }
 
 export {
-  _compress ,
-  compressExtension ,
+  _generate ,
+  generateExtension ,
+  _removeAlignedEmptyChars ,
   loadExtension ,
-  compressContribute ,
+  generateContribute ,
   loadContribute ,
   
 }

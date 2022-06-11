@@ -19,11 +19,11 @@ var getContribute = ExtensionManager$Meta3d.getContributeExn;
 
 var startExtensions = ExtensionManager$Meta3d.startExtensions;
 
-var compressExtension = ExtensionFileManager$Meta3d.compressExtension;
+var generateExtension = ExtensionFileManager$Meta3d.generateExtension;
 
 var loadExtension = ExtensionFileManager$Meta3d.loadExtension;
 
-var compressContribute = ExtensionFileManager$Meta3d.compressContribute;
+var generateContribute = ExtensionFileManager$Meta3d.generateContribute;
 
 var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
 
@@ -37,9 +37,9 @@ exports.getExtensionState = getExtensionState;
 exports.registerContribute = registerContribute;
 exports.getContribute = getContribute;
 exports.startExtensions = startExtensions;
-exports.compressExtension = compressExtension;
+exports.generateExtension = generateExtension;
 exports.loadExtension = loadExtension;
-exports.compressContribute = compressContribute;
+exports.generateContribute = generateContribute;
 exports.loadContribute = loadContribute;
 exports.buildAPI = buildAPI;
 /* No side effect */

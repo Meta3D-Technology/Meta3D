@@ -144,10 +144,95 @@ extension,contribute add getName;
 
 * TODO improve
 
-** TODO extension,contribute remove getName
+
+# TODO finish compress, load common logic here:
+# TODO finish logic
+# TODO abstract
+
+
+
+
+
+
+# TODO finish ExtensionFileManager->extension
+
+
+TODO add bdd test
+
+
+
+TODO pass run test:
+edit app example
+
+
+TODO commit
+
+
+
+
+TODO finish ExtensionFileManager->contribute
+
+TODO finish test1 contribute ->package.json add data
+
+TODO pass run test:
+edit app example
+
+TODO commit
+
+
+
+
+
+TODO extension,contribute remove getName, use package.json->name
+
+
+
+
+
+
+
+TODO add meta3d-publish tool
+use js
+
+search for protocol version
+
+send to localStorage
+
+TODO meta3d-app use publish tool
+
+
+TODO meta3d-contribute-test1 use publish tool
+
+
+TODO pass run test
+
+
+
+
+
+
+
+
+TODO meta3d-publish use gulp
+
+
+TODO meta3d-app install publish tool and npm run script
+
+TODO meta3d-contribute-test1 install publish tool and npm run script
+
+
+
+TODO pass run test
+
+
+
+
+
 
 
 ** TODO package.json add these info:
+
+*** TODO extension,contribute remove getName, use package.json->name
 
 *** TODO handle extension version
 
@@ -163,20 +248,55 @@ redesign extension protocol->ProtocolData
 *** TODO handle dependent extension,contribute map
 extension,contribute should define getDependentExtensionNames, getDependentContributeNames funcs, so the user can only inpute value instead of key+value???
 
-** TODO extension, contribute add README.md
-
 ** TODO extension,contribute binary file add name, version, dependent map in meta data
+
+
+
+
+
+
 
 ** TODO add tools/publish for publish extension, contribute for user
 
 get version, dependent map, name from package.json;
-send them and README.md;
+invoke "meta3d" to compress;
+TODO send binary file and README.md:
+
+
+get protocol version by package data and dependencies!
+
+
+
+gulp
+gulpfile.js
 
 
 
 
 test develop webpack instead of production(for debug)!
 
+
+** TODO pass run test
+
+
+# * TODO refactor: extract default/meta3d-binary-file
+* TODO refactor: move compress, load logic to Meta3dCommonlib->BinaryFileOperator
+
+move compress, load logic there
+
+
+* TODO refactor: change null dependent map to {}
+
+
+* TODO pass run test: user upload extension,contribute protocol
+
+
+
+* TODO move extension, contribute out to Meta3D-User-Test repo
+
+extension, contribute should add protocol dependent
+
+change name:remove "meta3d-"
 
 
 * TODO add yeoman template for add webpack extension, contribute
@@ -185,17 +305,50 @@ test develop webpack instead of production(for debug)!
 * TODO refactor(meta3d): separate extension and contribute?
 
 
-* TODO check dependent extensions when load all select extension binarys
-
-
 * TODO publish meta3d new version
 
 
-* TODO begin Meta3D-Platform repo
+* TODO add Meta3D-Platform repo
 
 ** TODO finish whole in local
+develop extension, contribute protocol
+
+develop extension, contribute implement
+
+publish extension, contribute
+
+*** TODO publish app
+extension, contribute package.json refer to https://code.visualstudio.com/api/references/extension-manifest
+
+TODO extension, contribute add README.md
+
+
+
+** TODO check dependent extensions when specific dependent map
+
 
 ** TODO deploy to tencent cloud
 
 ** TODO finish whole in remote
+
+
+
+
+
+* TODO add bdd test for defaults/meta3d/, improve test coverage to 95%
+
+
+* TODO open for inner user to use!!!
+
+** TODO prepare Meta3D
+
+*** TODO edit doc
+
+*** TODO add doc
+
+how to:
+develop extension, contribute protocol
+develop extension, contribute implement
+publish extension, contribute
+publish app
 

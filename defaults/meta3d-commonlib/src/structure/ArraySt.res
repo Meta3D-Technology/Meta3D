@@ -1,3 +1,17 @@
+let _getExn = %raw(`
+(nullableData) => {
+  if (nullableData !== undefined) {
+    return nullableData;
+  }
+
+  throw new Error("Not_found")
+}
+`)
+
+let getExn = (arr, index) => {
+  Array.unsafe_get(arr, index)->_getExn
+}
+
 let length = Js.Array.length
 
 let find = (arr, func) => Js.Array.find(func, arr)

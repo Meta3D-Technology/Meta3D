@@ -10,6 +10,18 @@ import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
 import * as MutableHashMap$Meta3dCommonlib from "./hash_map/MutableHashMap.bs.js";
 
+var _getExn = ((nullableData) => {
+  if (nullableData !== undefined) {
+    return nullableData;
+  }
+
+  throw new Error("Not_found")
+});
+
+function getExn(arr, index) {
+  return _getExn(arr[index]);
+}
+
 function length(prim) {
   return prim.length;
 }
@@ -119,6 +131,8 @@ function removeDuplicateItems(arr) {
 }
 
 export {
+  _getExn ,
+  getExn ,
   length ,
   find ,
   includes ,

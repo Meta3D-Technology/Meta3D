@@ -10,6 +10,18 @@ var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 var PromiseSt$Meta3dCommonlib = require("./PromiseSt.bs.js");
 var MutableHashMap$Meta3dCommonlib = require("./hash_map/MutableHashMap.bs.js");
 
+var _getExn = ((nullableData) => {
+  if (nullableData !== undefined) {
+    return nullableData;
+  }
+
+  throw new Error("Not_found")
+});
+
+function getExn(arr, index) {
+  return _getExn(arr[index]);
+}
+
 function length(prim) {
   return prim.length;
 }
@@ -118,6 +130,8 @@ function removeDuplicateItems(arr) {
   return resultArr;
 }
 
+exports._getExn = _getExn;
+exports.getExn = getExn;
 exports.length = length;
 exports.find = find;
 exports.includes = includes;

@@ -1,15 +1,25 @@
 {
     "name": "meta3d-extension-test1",
     "version": "0.3.0",
-    "description": "",
-    "author": "Wonder",
-    "main": "src/Main.ts",
+    "protocol": {
+        "name": "meta3d-extension-test1-protocol"
+    },
+    "dependentExtensionNameMap": {},
+    "dependentContributeNameMap": {
+        "meta3d-contribute-test1": {
+            "protocolName": "meta3d-contribute-test1-protocol"
+        }
+    },
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js"
     },
     "keywords": [],
+    "dependencies": {
+        "meta3d-extension-test1-protocol": "^0.3.0",
+        "meta3d-contribute-test1-protocol": "^0.3.0"
+    },
     "devDependencies": {
         "typescript": "^4.2.3",
         "clean-webpack-plugin": "^4.0.0",

@@ -1,31 +1,44 @@
 open Js.Typed_array
 
-let _compress = (fileStr: string): ArrayBuffer.t => {
+let _generate = (fileStr: string): ArrayBuffer.t => {
   let encoder = TextEncoder.newTextEncoder()
 
   TextEncoder.encodeUint8Array(fileStr, encoder)->Uint8Array.buffer
 }
 
-let compressExtension = (extensionFileStr: string): ArrayBuffer.t => {
-  _compress(extensionFileStr)
+let generateExtension = (extensionPackageData, extensionFileStr: string): ArrayBuffer.t => {
+  let encoder = TextEncoder.newTextEncoder()
+
+  BinaryFileOperator.generate([
+    TextEncoder.encodeUint8Array(extensionPackageData->Obj.magic->Js.Json.stringify, encoder),
+    TextEncoder.encodeUint8Array(extensionFileStr, encoder),
+  ])
 }
+
+let _removeAlignedEmptyChars = decodedStr => decodedStr->Js.String.trim
 
 let loadExtension = (extensionBinaryFile: ArrayBuffer.t): ExtensionFileType.extensionFileData => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
-  let lib =
-    TextDecoder.decodeArrayBuffer(extensionBinaryFile, decoder)->LibUtils.serializeLib("Extension")
+  let dataArr = BinaryFileOperator.load(extensionBinaryFile)
+
+  let lib = TextDecoder.decodeUint8Array(dataArr[1], decoder)->LibUtils.serializeLib("Extension")
 
   {
-    extensionName: LibUtils.getFuncFromLib(lib, "getName")->Obj.magic(),
-    getExtensionServiceFunc: LibUtils.getFuncFromLib(lib, "getExtensionService")->Obj.magic,
-    createExtensionStateFunc: LibUtils.getFuncFromLib(lib, "createExtensionState")->Obj.magic,
-    getExtensionLifeFunc: LibUtils.getFuncFromLib(lib, "getExtensionLife")->Obj.magic,
+    extensionPackageData: TextDecoder.decodeUint8Array(dataArr[0], decoder)
+    ->_removeAlignedEmptyChars
+    ->Js.Json.parseExn
+    ->Obj.magic,
+    extensionFuncData: {
+      getExtensionServiceFunc: LibUtils.getFuncFromLib(lib, "getExtensionService")->Obj.magic,
+      createExtensionStateFunc: LibUtils.getFuncFromLib(lib, "createExtensionState")->Obj.magic,
+      getExtensionLifeFunc: LibUtils.getFuncFromLib(lib, "getExtensionLife")->Obj.magic,
+    },
   }
 }
 
-let compressContribute = (contributeFileStr: string): ArrayBuffer.t => {
-  _compress(contributeFileStr)
+let generateContribute = (contributeFileStr: string): ArrayBuffer.t => {
+  _generate(contributeFileStr)
 }
 
 let loadContribute = (

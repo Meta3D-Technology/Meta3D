@@ -14,11 +14,11 @@ let getContribute = ExtensionManager.getContributeExn
 
 let startExtensions = ExtensionManager.startExtensions
 
-let compressExtension = ExtensionFileManager.compressExtension
+let generateExtension = ExtensionFileManager.generateExtension
 
 let loadExtension = ExtensionFileManager.loadExtension
 
-let compressContribute = ExtensionFileManager.compressContribute
+let generateContribute = ExtensionFileManager.generateContribute
 
 let loadContribute = ExtensionFileManager.loadContribute
 
