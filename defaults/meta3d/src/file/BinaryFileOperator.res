@@ -35,27 +35,38 @@ let _getDataLengthByteLengthInHeader = () => {
   4
 }
 
+let _getDataByteOffsetInHeader = dataIndex => {
+  _getDataLengthByteLengthInHeader() + dataIndex * 4
+}
+
+let _getHeaderByteLength = dataLength => {
+  _getDataLengthByteLengthInHeader() + dataLength * 4
+}
+
 let generate = (dataArr: array<Uint8Array.t>): ArrayBuffer.t => {
+  let dataLength = dataArr->Meta3dCommonlib.ArraySt.length
+
   let (totalByteLength, byteLengthArr, alignedByteLengthArr) =
-    dataArr->Meta3dCommonlib.ArraySt.reduceOneParam(
+    dataArr
+    ->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. (totalByteLength, byteLengthArr, alignedByteLengthArr), data) => {
         let byteLength = data->Uint8Array.byteLength
         let alignedByteLength = byteLength->BufferUtils.alignedLength
 
         (
           totalByteLength + alignedByteLength,
-          alignedByteLengthArr->Meta3dCommonlib.ArraySt.push(alignedByteLength),
           byteLengthArr->Meta3dCommonlib.ArraySt.push(byteLength),
+          alignedByteLengthArr->Meta3dCommonlib.ArraySt.push(alignedByteLength),
         )
       },
-      (_getDataLengthByteLengthInHeader(), [], []),
+      (_getHeaderByteLength(dataLength), [], []),
     )
 
   let binaryFile = ArrayBuffer.make(totalByteLength)
   let dataView = DataViewCommon.create(binaryFile)
 
   let byteOffset =
-    _writeHeader(dataArr->Meta3dCommonlib.ArraySt.length, byteLengthArr, dataView)->_writeDataArr(
+    _writeHeader(dataLength, byteLengthArr, dataView)->_writeDataArr(
       dataArr,
       alignedByteLengthArr,
       _buildEmptyEncodedUint8Data(),
@@ -63,14 +74,6 @@ let generate = (dataArr: array<Uint8Array.t>): ArrayBuffer.t => {
     )
 
   binaryFile
-}
-
-let _getDataByteOffsetInHeader = dataIndex => {
-  _getDataLengthByteLengthInHeader() + dataIndex * 4
-}
-
-let _getHeaderByteOffset = dataLength => {
-  _getDataLengthByteLengthInHeader() + dataLength * 4
 }
 
 let load = (binaryFile: ArrayBuffer.t): array<Uint8Array.t> => {
@@ -90,7 +93,7 @@ let load = (binaryFile: ArrayBuffer.t): array<Uint8Array.t> => {
       result->Meta3dCommonlib.ArraySt.push(
         Uint8Array.fromBufferRange(
           binaryFile,
-          ~offset=_getHeaderByteOffset(dataLength) + byteOffset,
+          ~offset=_getHeaderByteLength(dataLength) + byteOffset,
           ~length=byteLength,
         ),
       ),

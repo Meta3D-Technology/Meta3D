@@ -27,7 +27,7 @@ let copyUint8ArrayToArrayBuffer = (
       TypeArrayUtils.getUint8_1(i, uint8Array)
     }
 
-    byteOffset := DataViewCommon.writeUint8_1(. value, byteOffset.contents, dataView)
+    byteOffset := DataViewCommon.writeUint8_1(. byteOffset.contents, value, dataView)
   }
 
   resultByteOffset

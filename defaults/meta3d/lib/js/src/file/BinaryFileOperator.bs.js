@@ -33,32 +33,33 @@ function _getDataLengthByteLengthInHeader(param) {
   return 4;
 }
 
+function _getDataByteOffsetInHeader(dataIndex) {
+  return 4 + (dataIndex << 2) | 0;
+}
+
+function _getHeaderByteLength(dataLength) {
+  return 4 + (dataLength << 2) | 0;
+}
+
 function generate(dataArr) {
+  var dataLength = ArraySt$Meta3dCommonlib.length(dataArr);
   var match = ArraySt$Meta3dCommonlib.reduceOneParam(dataArr, (function (param, data) {
           var byteLength = data.byteLength;
           var alignedByteLength = BufferUtils$Meta3d.alignedLength(byteLength);
           return [
                   param[0] + alignedByteLength | 0,
-                  ArraySt$Meta3dCommonlib.push(param[2], alignedByteLength),
-                  ArraySt$Meta3dCommonlib.push(param[1], byteLength)
+                  ArraySt$Meta3dCommonlib.push(param[1], byteLength),
+                  ArraySt$Meta3dCommonlib.push(param[2], alignedByteLength)
                 ];
         }), [
-        4,
+        _getHeaderByteLength(dataLength),
         [],
         []
       ]);
   var binaryFile = new ArrayBuffer(match[0]);
   var dataView = DataViewCommon$Meta3d.create(binaryFile);
-  _writeDataArr(_writeHeader(ArraySt$Meta3dCommonlib.length(dataArr), match[1], dataView), dataArr, match[2], _buildEmptyEncodedUint8Data(undefined), dataView);
+  _writeDataArr(_writeHeader(dataLength, match[1], dataView), dataArr, match[2], _buildEmptyEncodedUint8Data(undefined), dataView);
   return binaryFile;
-}
-
-function _getDataByteOffsetInHeader(dataIndex) {
-  return 4 + (dataIndex << 2) | 0;
-}
-
-function _getHeaderByteOffset(dataLength) {
-  return 4 + (dataLength << 2) | 0;
 }
 
 function load(binaryFile) {
@@ -71,7 +72,7 @@ function load(binaryFile) {
                     var byteLength = match[0];
                     return [
                             byteOffset + BufferUtils$Meta3d.alignedLength(byteLength) | 0,
-                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile, _getHeaderByteOffset(dataLength) + byteOffset | 0, byteLength))
+                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile, _getHeaderByteLength(dataLength) + byteOffset | 0, byteLength))
                           ];
                   }), [
                   0,
@@ -83,8 +84,8 @@ exports._buildEmptyEncodedUint8Data = _buildEmptyEncodedUint8Data;
 exports._writeHeader = _writeHeader;
 exports._writeDataArr = _writeDataArr;
 exports._getDataLengthByteLengthInHeader = _getDataLengthByteLengthInHeader;
-exports.generate = generate;
 exports._getDataByteOffsetInHeader = _getDataByteOffsetInHeader;
-exports._getHeaderByteOffset = _getHeaderByteOffset;
+exports._getHeaderByteLength = _getHeaderByteLength;
+exports.generate = generate;
 exports.load = load;
 /* No side effect */

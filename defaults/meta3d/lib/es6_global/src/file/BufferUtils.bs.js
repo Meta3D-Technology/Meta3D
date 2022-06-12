@@ -24,7 +24,7 @@ function copyUint8ArrayToArrayBuffer(byteOffset, param, dataView) {
   var uint8ArrayByteLength = uint8Array.length;
   for(var i = 0; i < uint8ArrayAlignedByteLength; ++i){
     var value = i >= uint8ArrayByteLength ? emptyUint8Data : TypeArrayUtils$Meta3d.getUint8_1(i, uint8Array);
-    byteOffset$1 = DataViewCommon$Meta3d.writeUint8_1(value, byteOffset$1, dataView);
+    byteOffset$1 = DataViewCommon$Meta3d.writeUint8_1(byteOffset$1, value, dataView);
   }
   return resultByteOffset;
 }

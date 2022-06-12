@@ -157,15 +157,15 @@ extension,contribute add getName;
 # TODO finish ExtensionFileManager->extension
 
 
-TODO add bdd test
+# TODO add bdd test
 
 
 
-TODO pass run test:
-edit app example
+# TODO pass run test:
+# edit app example
 
 
-TODO commit
+# TODO commit
 
 
 
