@@ -1,11 +1,9 @@
-import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, getName as getNameMeta3D } from "meta3d-type"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { state } from "meta3d-extension-test1-protocol/src/state/StateType"
 import { service } from "meta3d-extension-test1-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap } from "meta3d-extension-test1-protocol/src/service/DependentExtensionType"
 import { dependentContributeNameMap } from "meta3d-extension-test1-protocol/src/service/DependentContributeType"
 import { infoContribute } from "meta3d-extension-test1-protocol/src/contribute/InfoContributeType"
-
-export let getName: getNameMeta3D = () => "meta3d-extension-test1"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionNameMap,

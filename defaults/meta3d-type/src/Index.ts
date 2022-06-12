@@ -37,5 +37,3 @@ type extensionLife<extensionService> = {
 }
 
 export type getExtensionLife<extensionService> = (_1: api, extensionName: extensionName) => extensionLife<extensionService>
-
-export type getName = () => string

@@ -183,7 +183,7 @@ extension,contribute add getName;
 
 
 
-TODO extension,contribute remove getName, use package.json->name
+# TODO extension,contribute remove getName, use package.json->name
 
 
 
