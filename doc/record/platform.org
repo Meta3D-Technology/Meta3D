@@ -142,7 +142,7 @@ extension,contribute add getName;
 # ** TODO add bdd test
 
 
-* TODO improve
+* DONE improve
 
 
 # TODO finish compress, load common logic here:
@@ -232,86 +232,74 @@ extension,contribute add getName;
 
 
 
-** TODO package.json add these info:
+# ** TODO package.json add these info:
 
-*** TODO extension,contribute remove getName, use package.json->name
+# *** TODO extension,contribute remove getName, use package.json->name
 
-*** TODO handle extension version
+# *** TODO handle extension version
 
-should publish extension with specific version
+# should publish extension with specific version
 
-version is useful for update extension! 
+# version is useful for update extension! 
 
-redesign extension protocol->ProtocolData
+# redesign extension protocol->ProtocolData
 
-*** TODO handle contribute version
-
-
-*** TODO handle dependent extension,contribute map
-extension,contribute should define getDependentExtensionNames, getDependentContributeNames funcs, so the user can only inpute value instead of key+value???
-
-** TODO extension,contribute binary file add name, version, dependent map in meta data
+# *** TODO handle contribute version
 
 
+# *** TODO handle dependent extension,contribute map
+# extension,contribute should define getDependentExtensionNames, getDependentContributeNames funcs, so the user can only inpute value instead of key+value???
+
+# ** TODO extension,contribute binary file add name, version, dependent map in meta data
 
 
 
 
 
-** TODO add tools/publish for publish extension, contribute for user
-
-get version, dependent map, name from package.json;
-invoke "meta3d" to compress;
-TODO send binary file and README.md:
 
 
-get protocol version by package data and dependencies!
+# ** TODO add tools/publish for publish extension, contribute for user
+
+# get version, dependent map, name from package.json;
+# invoke "meta3d" to compress;
+# TODO send binary file and README.md:
 
 
-
-gulp
-gulpfile.js
+# get protocol version by package data and dependencies!
 
 
 
+# gulp
+# gulpfile.js
 
-test develop webpack instead of production(for debug)!
 
 
-** TODO pass run test
+
+# test develop webpack instead of production(for debug)!
+
+
+# ** TODO pass run test
 
 
 
 
 
 # * TODO refactor: extract default/meta3d-binary-file
-* TODO refactor: move compress, load logic to Meta3dCommonlib->BinaryFileOperator
+# * TODO refactor: move compress, load logic to Meta3dCommonlib->BinaryFileOperator
 
-move compress, load logic there
+# move compress, load logic there
 
 
-* TODO refactor: change null dependent map to {}
+* DONE refactor: change null dependent map to {}
 
 
 * TODO pass run test: user upload extension,contribute protocol
 
 
 
-* TODO move extension, contribute out to Meta3D-User-Test repo
-
-extension, contribute should add protocol dependent
-
-change name:remove "meta3d-"
-
-
-* TODO add yeoman template for add webpack extension, contribute
-
-one for extension 
-one for contribute 
 
 
 * TODO refactor(meta3d): separate extension and contribute?
-
 
 
 
@@ -341,6 +329,20 @@ https://github.com/npm/node-semver
 ** TODO deploy to tencent cloud
 
 ** TODO finish whole in remote
+
+
+
+
+* TODO move extension, contribute out to Meta3D-User-Test repo
+
+extension, contribute should add protocol dependent
+
+change name:remove "meta3d-"
+
+* TODO add yeoman template for add webpack extension, contribute
+
+one for extension 
+one for contribute 
 
 
 

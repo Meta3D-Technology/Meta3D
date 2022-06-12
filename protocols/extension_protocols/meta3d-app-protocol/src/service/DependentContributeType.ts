@@ -1,1 +1,1 @@
-export type dependentContributeNameMap = null
+export type dependentContributeNameMap = {}

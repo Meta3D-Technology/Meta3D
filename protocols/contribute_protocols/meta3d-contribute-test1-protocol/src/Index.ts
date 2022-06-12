@@ -1,3 +1,3 @@
-export type dependentExtensionNameMap = null
+export type dependentExtensionNameMap = {}
 
-export type dependentContributeNameMap = null
+export type dependentContributeNameMap = {}
