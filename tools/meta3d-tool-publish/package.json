@@ -1,0 +1,15 @@
+{
+    "name": "meta3d-tool-publish",
+    "version": "0.3.0",
+    "main": "./src/Main.js",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@types/node": "^7.0.5",
+        "read-package-json": "^5.0.1"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

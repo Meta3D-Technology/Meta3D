@@ -191,20 +191,22 @@ extension,contribute add getName;
 
 
 
-TODO add meta3d-publish tool
-use js
+# TODO add meta3d-publish tool
+# use ts
 
-search for protocol version
+# search for protocol version
 
-send to localStorage
+/*
+# send to localStorage
 
-TODO meta3d-app use publish tool
-
-
-TODO meta3d-contribute-test1 use publish tool
+# TODO meta3d-app use publish tool
 
 
-TODO pass run test
+# TODO meta3d-contribute-test1 use publish tool
+
+
+# TODO pass run test
+*/
 
 
 
@@ -279,6 +281,10 @@ test develop webpack instead of production(for debug)!
 ** TODO pass run test
 
 
+
+* TODO check dependent extensions when specific dependent map
+
+
 # * TODO refactor: extract default/meta3d-binary-file
 * TODO refactor: move compress, load logic to Meta3dCommonlib->BinaryFileOperator
 
@@ -305,7 +311,6 @@ change name:remove "meta3d-"
 * TODO refactor(meta3d): separate extension and contribute?
 
 
-* TODO publish meta3d new version
 
 
 * TODO add Meta3D-Platform repo
@@ -324,7 +329,6 @@ TODO extension, contribute add README.md
 
 
 
-** TODO check dependent extensions when specific dependent map
 
 
 ** TODO deploy to tencent cloud
@@ -336,6 +340,8 @@ TODO extension, contribute add README.md
 
 
 * TODO add bdd test for defaults/meta3d/, improve test coverage to 95%
+
+
 
 
 * TODO open for inner user to use!!!
@@ -352,3 +358,5 @@ develop extension, contribute implement
 publish extension, contribute
 publish app
 
+
+* TODO publish meta3d new version

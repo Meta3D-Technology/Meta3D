@@ -9,5 +9,8 @@
     },
     "dependencies": {
         "rescript": "^9.1.4"
+    },
+    "devDependencies": {
+        "gentype": "^4.4.0"
     }
 }

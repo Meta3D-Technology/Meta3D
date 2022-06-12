@@ -1,6 +1,10 @@
 import { prepare as prepareMeta3D, registerExtension, registerContribute, startExtensions, generateContribute, loadContribute } from "meta3d"
 import { generateExtension, loadExtension } from "meta3d";
 
+
+
+
+
 let appExtensionFileData =
     loadExtension(generateExtension(
         {
