@@ -47,12 +47,33 @@ type extensionFileData = {
   extensionFuncData: extensionFuncData,
 }
 
-// TODO finish
-type contributeFileData = {
-  contributeName: string,
+type contributeProtocolData = {
+  name: string,
+  version: string,
+}
+
+type contributePackageData = {
+  name: contributeName,
+  protocol: contributeProtocolData,
+  dependentExtensionNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentExtensionName,
+    dependentExtensionData,
+  >,
+  dependentContributeNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentContributeName,
+    dependentContributeData,
+  >,
+}
+
+type contributeFuncData = {
   getContributeFunc: getContribute<
     dependentExtensionNameMap,
     dependentContributeNameMap,
     contribute,
   >,
+}
+
+type contributeFileData = {
+  contributePackageData: contributePackageData,
+  contributeFuncData: contributeFuncData,
 }

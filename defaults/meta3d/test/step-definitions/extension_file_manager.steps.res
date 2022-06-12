@@ -8,9 +8,9 @@ open Sinon
 let feature = loadFeature("./test/features/extension_file_manager.feature")
 
 defineFeature(feature, test => {
-  let fileData = ref(Obj.magic(1))
-
   test(."load generated extension", ({given, \"when", \"and", then}) => {
+    let fileData = ref(Obj.magic(1))
+
     given("prepare", () => {
       FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
       FileTool.buildFakeTextEncoder(.)
@@ -58,6 +58,55 @@ defineFeature(feature, test => {
         fileData.contents.extensionFuncData.createExtensionStateFunc->ExpectTool.isFunction,
         fileData.contents.extensionFuncData.getExtensionLifeFunc->ExpectTool.isFunction,
       )->expect == (true, true, true)
+    })
+  })
+
+  test(."load generated contribute", ({given, \"when", \"and", then}) => {
+    let fileData = ref(Obj.magic(1))
+
+    given("prepare", () => {
+      FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
+      FileTool.buildFakeTextEncoder(.)
+    })
+
+    \"when"("generate contribute and load it", () => {
+      let file = Main.generateContribute(
+        (
+          {
+            name: "meta3d-contribute-test1",
+            protocol: {
+              name: "meta3d-contribute-test1-protocol",
+              version: "0.3.0",
+            },
+            dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          }: ExtensionFileType.contributePackageData
+        ),
+        `
+(()=>{"use strict";var e={d:(t,o)=>{for(var r in o)e.o(o,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:o[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{getContribute:()=>r,getName:()=>o});let o=()=>"meta3d-contribute-test1",r=(e,t)=>({getInfo:()=>(console.log(e,t),"contribute_test1_info")});window.Contribute=t})();
+        `,
+      )
+
+      fileData := Main.loadContribute(file)
+    })
+
+    then("get package data", () => {
+      fileData.contents.contributePackageData->expect ==
+        (
+          {
+            name: "meta3d-contribute-test1",
+            protocol: {
+              name: "meta3d-contribute-test1-protocol",
+              version: "0.3.0",
+            },
+            dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          }: ExtensionFileType.contributePackageData
+        )
+    })
+
+    \"and"("get func data", () => {
+      fileData.contents.contributeFuncData.getContributeFunc->ExpectTool.isFunction->expect == true
     })
   })
 })

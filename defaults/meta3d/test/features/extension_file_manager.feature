@@ -8,3 +8,9 @@ Feature: Extension File Manager
         When generate extension and load it
         Then get package data
         And get func data
+
+    Scenario: load generated contribute
+        Given prepare
+        When generate contribute and load it
+        Then get package data
+        And get func data

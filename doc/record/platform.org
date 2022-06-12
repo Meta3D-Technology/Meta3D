@@ -170,14 +170,14 @@ extension,contribute add getName;
 
 
 
-TODO finish ExtensionFileManager->contribute
+# TODO finish ExtensionFileManager->contribute
 
-TODO finish test1 contribute ->package.json add data
+# TODO finish test1 contribute ->package.json add data
 
-TODO pass run test:
-edit app example
+# TODO pass run test:
+# edit app example
 
-TODO commit
+# TODO commit
 
 
 

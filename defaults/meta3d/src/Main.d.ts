@@ -1,7 +1,7 @@
 // TODO unify .d.ts, .ts!
 
 import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, dependentExtensionNameMap } from "meta3d-type"
-import { extensionFileData, contributeFileData, extensionPackageData } from "./file/ExtensionFileType"
+import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData } from "./file/ExtensionFileType"
 
 export function prepare(): state
 
@@ -61,6 +61,7 @@ export function loadExtension<
 >
 
 export function generateContribute(
+    contributePackageData: contributePackageData,
     contributeFileStr: string
 ): ArrayBuffer
 

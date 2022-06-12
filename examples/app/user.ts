@@ -48,11 +48,20 @@ let test1ExtensionName = "test1Extension"
 
 let test1ContributeFileData =
     loadContribute(generateContribute(
+        {
+            "name": "meta3d-contribute-test1",
+            "protocol": {
+                "name": "meta3d-contribute-test1-protocol",
+                "version": "0.3.0"
+            },
+            "dependentExtensionNameMap": {},
+            "dependentContributeNameMap": {}
+        },
         `
 (()=>{"use strict";var e={d:(t,o)=>{for(var r in o)e.o(o,r)&&!e.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:o[r]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{getContribute:()=>r,getName:()=>o});let o=()=>"meta3d-contribute-test1",r=(e,t)=>({getInfo:()=>(console.log(e,t),"contribute_test1_info")});window.Contribute=t})();
         `
     ))
-let test1ContributeName = test1ContributeFileData.contributeName
+let test1ContributeName = test1ContributeFileData.contributePackageData.name
 
 
 
@@ -82,7 +91,7 @@ meta3dState = registerExtension(meta3dState, test1ExtensionName, test1ExtensionF
 
 
 
-meta3dState = registerContribute(meta3dState, test1ContributeName, test1ContributeFileData.getContributeFunc, [
+meta3dState = registerContribute(meta3dState, test1ContributeName, test1ContributeFileData.contributeFuncData.getContributeFunc, [
     null,
     null
 ])
