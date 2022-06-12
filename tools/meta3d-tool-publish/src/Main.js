@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishContribute = exports.publishExtension = void 0;
 const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
 const read_package_json_1 = __importDefault(require("read-package-json"));
 const meta3d_1 = require("meta3d");
 function _error(msg) {
@@ -51,7 +50,7 @@ function _publish([loadFunc, generateFunc], packageFilePath, distFilePath) {
         _defineWindow();
         // console.log(_convertToExtensionPackageData(packageJson))
         let fileData = loadFunc(generateFunc(_convertToExtensionPackageData(packageJson), fs_1.default.readFileSync(distFilePath, "utf-8")));
-        console.log(JSON.stringify(fileData.extensionPackageData), fileData.extensionFuncData);
+        console.log(fileData);
         // fs.writeFileSync(
         // 	path.join("/Users/yang/Github/Meta3D/tools/meta3d-tool-publish/", "mine/temp_data", fileData.extensionPackageData.name + ".buffer"),
         // 	_arrayBufferToBuffer(generateExtension(
@@ -72,5 +71,5 @@ function publishContribute(packageFilePath, distFilePath) {
     return _publish([meta3d_1.loadContribute, meta3d_1.generateContribute], packageFilePath, distFilePath);
 }
 exports.publishContribute = publishContribute;
-publishExtension(path_1.default.join(__dirname, "../mine/test_data/", "package.json"), path_1.default.join(__dirname, "../mine/test_data/js/", "main.js"));
+// publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/js/", "main.js"))
 //# sourceMappingURL=Main.js.map

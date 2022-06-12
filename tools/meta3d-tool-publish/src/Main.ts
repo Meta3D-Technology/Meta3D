@@ -64,7 +64,7 @@ function _publish([loadFunc, generateFunc]: [any, any], packageFilePath: string,
 				)
 			)
 
-		console.log(JSON.stringify(fileData.extensionPackageData), fileData.extensionFuncData)
+		console.log(fileData)
 
 		// fs.writeFileSync(
 		// 	path.join("/Users/yang/Github/Meta3D/tools/meta3d-tool-publish/", "mine/temp_data", fileData.extensionPackageData.name + ".buffer"),
@@ -89,4 +89,4 @@ export function publishContribute(packageFilePath: string, distFilePath: string)
 	return _publish([loadContribute, generateContribute], packageFilePath, distFilePath)
 }
 
-publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/js/", "main.js"))
+// publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/js/", "main.js"))

@@ -9,7 +9,8 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
-        "webpack": "webpack --config webpack.config.js"
+        "webpack": "webpack --config webpack.config.js",
+        "publish": "npm run webpack && gulp publish"
     },
     "keywords": [],
     "dependencies": {
@@ -22,6 +23,8 @@
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "webpack": "^5.62.1",
-        "webpack-cli": "^4.9.1"
+        "webpack-cli": "^4.9.1",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^0.3.0"
     }
 }

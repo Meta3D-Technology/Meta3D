@@ -215,16 +215,16 @@ extension,contribute add getName;
 
 
 
-TODO meta3d-publish use gulp
+//TODO meta3d-publish use gulp
 
 
-TODO meta3d-app install publish tool and npm run script
+# TODO meta3d-app install publish tool and npm run script
 
-TODO meta3d-contribute-test1 install publish tool and npm run script
+# TODO meta3d-contribute-test1 install publish tool and npm run script
 
 
 
-TODO pass run test
+//TODO pass run test
 
 
 
@@ -282,7 +282,6 @@ test develop webpack instead of production(for debug)!
 
 
 
-* TODO check dependent extensions when specific dependent map
 
 
 # * TODO refactor: extract default/meta3d-binary-file
@@ -307,6 +306,9 @@ change name:remove "meta3d-"
 
 * TODO add yeoman template for add webpack extension, contribute
 
+one for extension 
+one for contribute 
+
 
 * TODO refactor(meta3d): separate extension and contribute?
 
@@ -329,7 +331,12 @@ TODO extension, contribute add README.md
 
 
 
+** TODO check dependent extensions when specific dependent map
+use semver:
+https://github.com/npm/node-semver
 
+        "@types/semver": "^7.3.9",
+        "semver": "^7.3.7",
 
 ** TODO deploy to tencent cloud
 
@@ -342,6 +349,7 @@ TODO extension, contribute add README.md
 * TODO add bdd test for defaults/meta3d/, improve test coverage to 95%
 
 
+* TODO publish meta3d new version
 
 
 * TODO open for inner user to use!!!
@@ -358,5 +366,5 @@ develop extension, contribute implement
 publish extension, contribute
 publish app
 
+** TODO platform: add 数据统计
 
-* TODO publish meta3d new version
