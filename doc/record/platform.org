@@ -293,13 +293,12 @@ extension,contribute add getName;
 * DONE refactor: change null dependent map to {}
 
 
-* TODO pass run test: user upload extension,contribute protocol
 
 
 
 
 
-* TODO refactor(meta3d): separate extension and contribute?
+# * TODO refactor(meta3d): separate extension and contribute?
 
 
 
@@ -345,6 +344,9 @@ one for extension
 one for contribute 
 
 
+
+
+* TODO pass run test: user upload extension,contribute protocol
 
 
 
