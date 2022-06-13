@@ -1,6 +1,7 @@
 {
     "name": "app",
     "version": "0.3.3",
+    "authors": "Wonder",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
