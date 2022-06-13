@@ -1,6 +1,6 @@
 {
   "name": "meta3d-commonlib",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "authors": "Wonder",
   "license": "MIT",
   "scripts": {
@@ -10,4 +10,3 @@
     "rescript": "^9.1.4"
   }
 }
-
