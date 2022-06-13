@@ -1,6 +1,0 @@
-* extension event
-
-onStart
-# onStop?
-onRegister
-# onUnRegister

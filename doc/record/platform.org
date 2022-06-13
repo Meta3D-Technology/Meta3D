@@ -304,7 +304,11 @@ extension,contribute add getName;
 
 * TODO add Meta3D-Platform repo
 
-** TODO finish whole in local
+react
+
+router
+
+** TODO finish whole in local for user
 develop extension, contribute protocol
 
 develop extension, contribute implement
@@ -314,7 +318,6 @@ publish extension, contribute
 *** TODO publish app
 extension, contribute package.json refer to https://code.visualstudio.com/api/references/extension-manifest
 
-TODO extension, contribute add README.md
 
 
 
@@ -325,10 +328,22 @@ https://github.com/npm/node-semver
         "@types/semver": "^7.3.9",
         "semver": "^7.3.7",
 
+
+
+** TODO finish whole in local for admin
+
+
+
 ** TODO deploy to tencent cloud
+role: admin, user
+
+no need to register, but need input user name(check unique) for user
 
 ** TODO finish whole in remote
 
+
+** TODO improve
+*** TODO extension, contribute add README.md, description, displayName, publisher, repo(github/gitlab)(public) link
 
 
 
@@ -353,22 +368,11 @@ one for contribute
 * TODO add bdd test for defaults/meta3d/, improve test coverage to 95%
 
 
-* TODO publish meta3d new version
+* TODO publish v0.4.0
 
 
-* TODO open for inner user to use!!!
 
-** TODO prepare Meta3D
+* TODO v0.5.0
 
-*** TODO edit doc
-
-*** TODO add doc
-
-how to:
-develop extension, contribute protocol
-develop extension, contribute implement
-publish extension, contribute
-publish app
-
-** TODO platform: add 数据统计
+* TODO open for inner user
 
