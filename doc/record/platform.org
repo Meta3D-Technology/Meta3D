@@ -341,17 +341,20 @@ no need to register, but need input user name(check unique) for user
 
 ** TODO finish whole in remote
 
+*** TODO move extension, contribute out to Meta3D-User-Test repo
+
+extension, contribute should add protocol dependent
+
+change name:remove "meta3d-"
+
+
+*** TODO use meta3d-tool-publish to publish
+
 
 ** TODO improve
 *** TODO extension, contribute add README.md, description, displayName, publisher, repo(github/gitlab)(public) link
 
 
-
-* TODO move extension, contribute out to Meta3D-User-Test repo
-
-extension, contribute should add protocol dependent
-
-change name:remove "meta3d-"
 
 * TODO add yeoman template for add webpack extension, contribute
 
