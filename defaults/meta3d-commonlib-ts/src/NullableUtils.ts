@@ -5,3 +5,7 @@ export function getExn<T>(nullableValue: T | null | undefined): T {
 
     return nullableValue as T
 }
+
+export function isNullable<T>(nullableValue: T | null | undefined): boolean {
+    return nullableValue === null || nullableValue === undefined
+}
