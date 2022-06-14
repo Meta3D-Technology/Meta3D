@@ -32,15 +32,17 @@ type extensionPackageData = {
   >,
 }
 
-type extensionFuncData = {
-  getExtensionServiceFunc: getExtensionService<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    extensionService,
-  >,
-  createExtensionStateFunc: createExtensionState<extensionState>,
-  getExtensionLifeFunc: getExtensionLife<extensionService>,
-}
+// type extensionFuncData = {
+//   getExtensionServiceFunc: getExtensionService<
+//     dependentExtensionNameMap,
+//     dependentContributeNameMap,
+//     extensionService,
+//   >,
+//   createExtensionStateFunc: createExtensionState<extensionState>,
+//   getExtensionLifeFunc: getExtensionLife<extensionService>,
+// }
+
+type extensionFuncData = Js.Typed_array.Uint8Array.t
 
 type extensionFileData = {
   extensionPackageData: extensionPackageData,
@@ -65,13 +67,14 @@ type contributePackageData = {
   >,
 }
 
-type contributeFuncData = {
-  getContributeFunc: getContribute<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    contribute,
-  >,
-}
+// type contributeFuncData = {
+//   getContributeFunc: getContribute<
+//     dependentExtensionNameMap,
+//     dependentContributeNameMap,
+//     contribute,
+//   >,
+// }
+type contributeFuncData = Js.Typed_array.Uint8Array.t
 
 type contributeFileData = {
   contributePackageData: contributePackageData,

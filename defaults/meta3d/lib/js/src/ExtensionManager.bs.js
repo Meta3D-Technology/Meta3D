@@ -94,15 +94,6 @@ function buildAPI(param) {
         };
 }
 
-function prepare(param) {
-  return {
-          extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          extensionStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          contributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
-        };
-}
-
 exports.getExtensionServiceExn = getExtensionServiceExn;
 exports.setExtensionState = setExtensionState;
 exports.getExtensionStateExn = getExtensionStateExn;
@@ -113,5 +104,4 @@ exports.startExtensions = startExtensions;
 exports.registerExtension = registerExtension;
 exports.registerContribute = registerContribute;
 exports.buildAPI = buildAPI;
-exports.prepare = prepare;
 /* No side effect */

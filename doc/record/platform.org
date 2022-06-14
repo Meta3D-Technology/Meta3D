@@ -301,6 +301,13 @@ extension,contribute add getName;
 # * TODO refactor(meta3d): separate extension and contribute?
 
 
+* DONE generate, load app file
+pass compile
+
+* TODO pass bdd test
+
+* TODO pass app run test
+
 
 * TODO add Meta3D-Platform repo
 

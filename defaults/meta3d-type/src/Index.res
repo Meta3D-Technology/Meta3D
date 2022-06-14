@@ -4,13 +4,27 @@ type extensionState
 
 type contribute
 
-type dependentExtensionNameMap
-
-type dependentContributeNameMap
-
 type extensionName = string
 
 type contributeName = string
+
+type dependentExtensionNameKey = string
+
+type dependentExtensionNameValue = extensionName
+
+type dependentContributeNameKey = string
+
+type dependentContributeNameValue = contributeName
+
+type dependentExtensionNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
+  dependentExtensionNameKey,
+  dependentExtensionNameValue,
+>
+
+type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
+  dependentContributeNameKey,
+  dependentContributeNameValue,
+>
 
 type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionService) => state
 and extensionLife<'extensionService> = {

@@ -1,3 +1,8 @@
+* TODO move inner repos out as private repos
+e.g. meta3d-tool-publish, ...
+
+
+
 * TODO prepare Meta3D
 
 ** TODO edit doc

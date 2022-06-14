@@ -1,7 +1,7 @@
 
 
-import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as LibUtils$Meta3d from "./LibUtils.bs.js";
+import * as Caml_array from "./../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as BinaryFileOperator$Meta3d from "./BinaryFileOperator.bs.js";
 
 function _generate(packageData, fileStr) {
@@ -12,33 +12,21 @@ function _generate(packageData, fileStr) {
             ]);
 }
 
-function _removeAlignedEmptyChars(decodedStr) {
-  return decodedStr.trim();
-}
-
 function loadExtension(extensionBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var dataArr = BinaryFileOperator$Meta3d.load(extensionBinaryFile);
-  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(Caml_array.get(dataArr, 1)), "Extension");
   return {
-          extensionPackageData: JSON.parse(decoder.decode(Caml_array.get(dataArr, 0)).trim()),
-          extensionFuncData: {
-            getExtensionServiceFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionService"),
-            createExtensionStateFunc: LibUtils$Meta3d.getFuncFromLib(lib, "createExtensionState"),
-            getExtensionLifeFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionLife")
-          }
+          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(Caml_array.get(dataArr, 0)))),
+          extensionFuncData: Caml_array.get(dataArr, 1)
         };
 }
 
 function loadContribute(contributeBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var dataArr = BinaryFileOperator$Meta3d.load(contributeBinaryFile);
-  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(Caml_array.get(dataArr, 1)), "Contribute");
   return {
-          contributePackageData: JSON.parse(decoder.decode(Caml_array.get(dataArr, 0)).trim()),
-          contributeFuncData: {
-            getContributeFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getContribute")
-          }
+          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(Caml_array.get(dataArr, 0)))),
+          contributeFuncData: Caml_array.get(dataArr, 1)
         };
 }
 
@@ -49,7 +37,6 @@ var generateContribute = _generate;
 export {
   _generate ,
   generateExtension ,
-  _removeAlignedEmptyChars ,
   loadExtension ,
   generateContribute ,
   loadContribute ,

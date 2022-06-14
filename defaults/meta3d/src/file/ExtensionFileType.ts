@@ -20,21 +20,20 @@ export type extensionPackageData = {
   }>,
 }
 
-export type extensionFuncData<
-  dependentExtensionNameMap,
-  dependentContributeNameMap,
-  extensionService,
-  extensionState
-  > = {
-    readonly getExtensionServiceFunc: getExtensionService<
-      dependentExtensionNameMap,
-      dependentContributeNameMap,
-      extensionService
-    >,
-    readonly createExtensionStateFunc: createExtensionState<extensionState>,
-    readonly getExtensionLifeFunc: getExtensionLife<extensionService>
-  };
-
+// export type extensionFuncData<
+//   dependentExtensionNameMap,
+//   dependentContributeNameMap,
+//   extensionService,
+//   extensionState
+//   > = {
+//     readonly getExtensionServiceFunc: getExtensionService<
+//       dependentExtensionNameMap,
+//       dependentContributeNameMap,
+//       extensionService
+//     >,
+//     readonly createExtensionStateFunc: createExtensionState<extensionState>,
+//     readonly getExtensionLifeFunc: getExtensionLife<extensionService>
+//   };
 
 export type extensionFileData<
   dependentExtensionNameMap,
@@ -43,12 +42,12 @@ export type extensionFileData<
   extensionState
   > = {
     extensionPackageData: extensionPackageData,
-    extensionFuncData: extensionFuncData<
-      dependentExtensionNameMap,
-      dependentContributeNameMap,
-      extensionService,
-      extensionState
-    >
+    // extensionFuncData: extensionFuncData<
+    //   dependentExtensionNameMap,
+    //   dependentContributeNameMap,
+    //   extensionService,
+    //   extensionState
+    // >
   };
 
 

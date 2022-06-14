@@ -1,9 +1,8 @@
 'use strict';
 
+var AppManager$Meta3d = require("./app/AppManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
-
-var prepare = ExtensionManager$Meta3d.prepare;
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
@@ -27,9 +26,12 @@ var generateContribute = ExtensionFileManager$Meta3d.generateContribute;
 
 var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
 
+var generateApp = AppManager$Meta3d.generate;
+
+var loadApp = AppManager$Meta3d.load;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
-exports.prepare = prepare;
 exports.registerExtension = registerExtension;
 exports.getExtensionService = getExtensionService;
 exports.setExtensionState = setExtensionState;
@@ -41,5 +43,7 @@ exports.generateExtension = generateExtension;
 exports.loadExtension = loadExtension;
 exports.generateContribute = generateContribute;
 exports.loadContribute = loadContribute;
+exports.generateApp = generateApp;
+exports.loadApp = loadApp;
 exports.buildAPI = buildAPI;
 /* No side effect */

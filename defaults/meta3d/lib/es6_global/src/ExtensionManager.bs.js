@@ -1,9 +1,9 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionServiceExn(state, name) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
@@ -94,15 +94,6 @@ function buildAPI(param) {
         };
 }
 
-function prepare(param) {
-  return {
-          extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          extensionStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          contributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
-        };
-}
-
 export {
   getExtensionServiceExn ,
   setExtensionState ,
@@ -114,7 +105,6 @@ export {
   registerExtension ,
   registerContribute ,
   buildAPI ,
-  prepare ,
   
 }
 /* No side effect */

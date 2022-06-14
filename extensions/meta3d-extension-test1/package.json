@@ -6,7 +6,7 @@
     },
     "dependentExtensionNameMap": {},
     "dependentContributeNameMap": {
-        "meta3d-contribute-test1": {
+        "meta3dTest1ContributeName": {
             "protocolName": "meta3d-contribute-test1-protocol"
         }
     },

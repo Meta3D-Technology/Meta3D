@@ -1,5 +1,3 @@
-let prepare = ExtensionManager.prepare
-
 let registerExtension = ExtensionManager.registerExtension
 
 let getExtensionService = ExtensionManager.getExtensionServiceExn
@@ -21,5 +19,9 @@ let loadExtension = ExtensionFileManager.loadExtension
 let generateContribute = ExtensionFileManager.generateContribute
 
 let loadContribute = ExtensionFileManager.loadContribute
+
+let generateApp = AppManager.generate
+
+let loadApp = AppManager.load
 
 let buildAPI = ExtensionManager.buildAPI

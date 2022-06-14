@@ -126,12 +126,3 @@ and buildAPI = (): api => {
   )->Obj.magic,
   getContribute: (. state, name: contributeName) => getContributeExn(state, (name: contributeName)),
 }
-
-let prepare = () => {
-  {
-    extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    extensionStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    extensionLifeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    contributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  }
-}

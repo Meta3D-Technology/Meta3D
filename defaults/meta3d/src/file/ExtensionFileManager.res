@@ -11,25 +11,24 @@ let _generate = (packageData, fileStr: string): ArrayBuffer.t => {
 
 let generateExtension = _generate
 
-let _removeAlignedEmptyChars = decodedStr => decodedStr->Js.String.trim
-
 let loadExtension = (extensionBinaryFile: ArrayBuffer.t): ExtensionFileType.extensionFileData => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
   let dataArr = BinaryFileOperator.load(extensionBinaryFile)
 
-  let lib = TextDecoder.decodeUint8Array(dataArr[1], decoder)->LibUtils.serializeLib("Extension")
+  // let lib = TextDecoder.decodeUint8Array(dataArr[1], decoder)->LibUtils.serializeLib("Extension")
 
   {
     extensionPackageData: TextDecoder.decodeUint8Array(dataArr[0], decoder)
-    ->_removeAlignedEmptyChars
+    ->FileUtils.removeAlignedEmptyChars
     ->Js.Json.parseExn
     ->Obj.magic,
-    extensionFuncData: {
-      getExtensionServiceFunc: LibUtils.getFuncFromLib(lib, "getExtensionService")->Obj.magic,
-      createExtensionStateFunc: LibUtils.getFuncFromLib(lib, "createExtensionState")->Obj.magic,
-      getExtensionLifeFunc: LibUtils.getFuncFromLib(lib, "getExtensionLife")->Obj.magic,
-    },
+    extensionFuncData: dataArr[1],
+    // {
+    //   getExtensionServiceFunc: LibUtils.getFuncFromLib(lib, "getExtensionService")->Obj.magic,
+    //   createExtensionStateFunc: LibUtils.getFuncFromLib(lib, "createExtensionState")->Obj.magic,
+    //   getExtensionLifeFunc: LibUtils.getFuncFromLib(lib, "getExtensionLife")->Obj.magic,
+    // },
   }
 }
 
@@ -42,15 +41,16 @@ let loadContribute = (
 
   let dataArr = BinaryFileOperator.load(contributeBinaryFile)
 
-  let lib = TextDecoder.decodeUint8Array(dataArr[1], decoder)->LibUtils.serializeLib("Contribute")
+  // let lib = TextDecoder.decodeUint8Array(dataArr[1], decoder)->LibUtils.serializeLib("Contribute")
 
   {
     contributePackageData: TextDecoder.decodeUint8Array(dataArr[0], decoder)
-    ->_removeAlignedEmptyChars
+    ->FileUtils.removeAlignedEmptyChars
     ->Js.Json.parseExn
     ->Obj.magic,
-    contributeFuncData: {
-      getContributeFunc: LibUtils.getFuncFromLib(lib, "getContribute")->Obj.magic,
-    },
+    // contributeFuncData: {
+    //   getContributeFunc: LibUtils.getFuncFromLib(lib, "getContribute")->Obj.magic,
+    // },
+    contributeFuncData: dataArr[1],
   }
 }

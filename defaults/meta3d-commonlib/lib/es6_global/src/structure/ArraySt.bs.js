@@ -1,21 +1,112 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Belt_Array from "../../../../../../node_modules/rescript/lib/es6/belt_Array.js";
-import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
+import * as Belt_Array from "./../../../../../rescript/lib/es6/belt_Array.js";
+import * as Caml_array from "./../../../../../rescript/lib/es6/caml_array.js";
+import * as Caml_option from "./../../../../../rescript/lib/es6/caml_option.js";
 import * as Log$Meta3dCommonlib from "../log/Log.bs.js";
+import * as Tuple2$Meta3dCommonlib from "./tuple/Tuple2.bs.js";
 import * as Contract$Meta3dCommonlib from "../contract/Contract.bs.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
 import * as MutableHashMap$Meta3dCommonlib from "./hash_map/MutableHashMap.bs.js";
 
 var _getExn = ((nullableData) => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if (nullableData !== undefined) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return nullableData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   throw new Error("Not_found")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 function getExn(arr, index) {
@@ -130,6 +221,27 @@ function removeDuplicateItems(arr) {
   return resultArr;
 }
 
+function chunk(arr, size) {
+  return Tuple2$Meta3dCommonlib.getFirst(Belt_Array.reduceU(arr, [
+                  [],
+                  []
+                ], (function (param, value) {
+                    var group = param[1];
+                    var result = param[0];
+                    if (group.length < size) {
+                      return [
+                              result,
+                              push(group, value)
+                            ];
+                    } else {
+                      return [
+                              push(result, group),
+                              []
+                            ];
+                    }
+                  })));
+}
+
 export {
   _getExn ,
   getExn ,
@@ -150,6 +262,7 @@ export {
   deleteBySwap ,
   range ,
   removeDuplicateItems ,
+  chunk ,
   
 }
 /* No side effect */
