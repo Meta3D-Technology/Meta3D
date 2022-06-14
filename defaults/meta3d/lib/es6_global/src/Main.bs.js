@@ -49,4 +49,4 @@ export {
   buildAPI ,
   
 }
-/* No side effect */
+/* AppManager-Meta3d Not a pure module */

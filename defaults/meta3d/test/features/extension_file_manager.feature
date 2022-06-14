@@ -1,6 +1,6 @@
 Feature: Extension File Manager
     As a Extension File Manager
-    I want to manage file
+    I want to manage extension and contribute file
     So that I can use it
 
     Scenario: load generated extension

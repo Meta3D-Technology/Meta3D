@@ -305,6 +305,9 @@ extension,contribute add getName;
 pass compile
 
 * TODO pass bdd test
+test _checkVersion
+
+test all
 
 * TODO pass app run test
 

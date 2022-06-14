@@ -5,29 +5,25 @@ type extensionProtocolData = {
   version: string,
 }
 
-type dependentExtensionName = extensionName
-
-type dependentExtensionData = {
+type dependentData = {
   protocolName: string,
   protocolVersion: string,
 }
 
-type dependentContributeName = contributeName
 
-type dependentContributeData = {
-  protocolName: string,
-  protocolVersion: string,
-}
+type dependentExtensionData = dependentData
+
+type dependentContributeData = dependentData
 
 type extensionPackageData = {
   name: extensionName,
   protocol: extensionProtocolData,
   dependentExtensionNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionName,
+    dependentExtensionNameKey,
     dependentExtensionData,
   >,
   dependentContributeNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeName,
+    dependentContributeNameKey,
     dependentContributeData,
   >,
 }
@@ -58,11 +54,11 @@ type contributePackageData = {
   name: contributeName,
   protocol: contributeProtocolData,
   dependentExtensionNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionName,
+    dependentExtensionNameKey,
     dependentExtensionData,
   >,
   dependentContributeNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeName,
+    dependentContributeNameKey,
     dependentContributeData,
   >,
 }

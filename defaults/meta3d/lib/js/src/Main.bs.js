@@ -46,4 +46,4 @@ exports.loadContribute = loadContribute;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
 exports.buildAPI = buildAPI;
-/* No side effect */
+/* AppManager-Meta3d Not a pure module */

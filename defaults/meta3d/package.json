@@ -20,6 +20,7 @@
         "meta3d-commonlib": "^0.3.5",
         "meta3d-commonlib-type": "^0.3.5",
         "meta3d-type": "^0.3.5",
+        "semver": "7.3.7",
         "rescript": "^9.1.4"
     }
 }
