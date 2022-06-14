@@ -1,7 +1,8 @@
 // TODO unify .d.ts, .ts!
 
 import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, dependentExtensionNameMap } from "meta3d-type"
-import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData } from "./file/ExtensionFileType"
+import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
+import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
 export function prepare(): state
 
@@ -76,5 +77,44 @@ export function loadContribute<
         dependentContributeNameMap,
         contributeService
     >
+
+export function convertAllFileDataForApp<
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
+    extensionService,
+    extensionState,
+    contributeService,
+    >(
+        allExtensionFileData: Array<extensionFileData<
+            dependentExtensionNameMap,
+            dependentContributeNameMap,
+            extensionService,
+            extensionState
+        >>,
+        allContributeFileData: Array<contributeFileData<
+            dependentExtensionNameMap,
+            dependentContributeNameMap,
+            contributeService
+        >>,
+        [
+            allExtensionNewNames, isStartedExtensions, allContributeNewNames
+        ]: [
+                Array<extensionName>,
+                Array<extensionName>,
+                Array<contributeName>,
+            ]
+    ): [
+        Array<[extensionPackageDataApp, extensionFuncData]>,
+        Array<[contributePackageDataApp, contributeFuncData]>
+    ]
+
+export function generateApp(
+    allExtensionFileData: Array<[extensionPackageDataApp, extensionFuncData]>,
+    allContributeFileData: Array<[contributePackageDataApp, contributeFuncData]>
+): ArrayBuffer
+
+export function loadApp(
+    appBinaryFile: ArrayBuffer
+): state
 
 export function buildAPI(): api

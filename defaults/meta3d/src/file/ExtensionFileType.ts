@@ -35,6 +35,8 @@ export type extensionPackageData = {
 //     readonly getExtensionLifeFunc: getExtensionLife<extensionService>
 //   };
 
+export type extensionFuncData = Uint8Array
+
 export type extensionFileData<
   dependentExtensionNameMap,
   dependentContributeNameMap,
@@ -42,12 +44,7 @@ export type extensionFileData<
   extensionState
   > = {
     extensionPackageData: extensionPackageData,
-    // extensionFuncData: extensionFuncData<
-    //   dependentExtensionNameMap,
-    //   dependentContributeNameMap,
-    //   extensionService,
-    //   extensionState
-    // >
+    extensionFuncData: extensionFuncData
   };
 
 
@@ -68,17 +65,19 @@ export type contributePackageData = {
   }>,
 }
 
-export type contributeFuncData<
-  dependentExtensionNameMap,
-  dependentContributeNameMap,
-  contributeService
-  > = {
-    readonly getContributeFunc: getContribute<
-      dependentExtensionNameMap,
-      dependentContributeNameMap,
-      contributeService
-    >,
-  };
+// export type contributeFuncData<
+//   dependentExtensionNameMap,
+//   dependentContributeNameMap,
+//   contributeService
+//   > = {
+//     readonly getContributeFunc: getContribute<
+//       dependentExtensionNameMap,
+//       dependentContributeNameMap,
+//       contributeService
+//     >,
+//   };
+
+export type contributeFuncData = Uint8Array
 
 export type contributeFileData<
   dependentExtensionNameMap,
@@ -86,9 +85,5 @@ export type contributeFileData<
   contribubteService
   > = {
     contributePackageData: contributePackageData,
-    contributeFuncData: contributeFuncData<
-      dependentExtensionNameMap,
-      dependentContributeNameMap,
-      contribubteService
-    >
+    contributeFuncData: contributeFuncData
   };

@@ -316,15 +316,23 @@ test all
 
 
 
-* TODO pass app run test
+* DONE pass app run test
 
 
 
-* TODO merge Meta3D-Platform into Meta3D
+# * TODO merge Meta3D-Platform into Meta3D
 * TODO move Meta3D to Meta3D-Core
 
 change to private
 
+
+repo:
+Meta3D(public)
+all extensions, contributes, protocols here
+
+Meta3D-Core, Meta3d-Platform, Meta3D-Service(private)
+
+Meta3D-Service put tool
 
 * TODO move extensions, contributes, protocols out from Meta3D-Core to Meta3D
 
