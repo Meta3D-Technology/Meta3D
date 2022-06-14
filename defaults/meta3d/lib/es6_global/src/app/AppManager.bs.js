@@ -102,10 +102,10 @@ function _parse(appBinaryFile) {
           Error: new Error()
         };
   }
-  var allExtensionBinaryTypeFile = match[0];
-  var allContributeBinaryTypeFile = match[1];
+  var allExtensionBinaryUint8File = match[0];
+  var allContributeBinaryUint8File = match[1];
   return [
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryTypeFile.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
@@ -129,13 +129,13 @@ function _parse(appBinaryFile) {
                           }
                         };
                 })),
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeBinaryTypeFile.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            216,
+                            217,
                             34
                           ],
                           Error: new Error()
@@ -181,13 +181,14 @@ function _run(param) {
                       extensionPackageData.dependentContributeNameMap
                     ], Curry._1(extensionFuncData.createExtensionStateFunc, undefined));
         }), _prepare(undefined));
-  return ExtensionManager$Meta3d.startExtensions(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (state, param) {
-                    var contributePackageData = param.contributePackageData;
-                    return ExtensionManager$Meta3d.registerContribute(state, contributePackageData.name, param.contributeFuncData.getContributeFunc, [
-                                contributePackageData.dependentExtensionNameMap,
-                                contributePackageData.dependentContributeNameMap
-                              ]);
-                  }), state), _getStartExtensionNames(allExtensionDataArr));
+  var state$1 = ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (state, param) {
+          var contributePackageData = param.contributePackageData;
+          return ExtensionManager$Meta3d.registerContribute(state, contributePackageData.name, param.contributeFuncData.getContributeFunc, [
+                      contributePackageData.dependentExtensionNameMap,
+                      contributePackageData.dependentContributeNameMap
+                    ]);
+        }), state);
+  return ExtensionManager$Meta3d.startExtensions(state$1, _getStartExtensionNames(allExtensionDataArr));
 }
 
 function load(appBinaryFile) {

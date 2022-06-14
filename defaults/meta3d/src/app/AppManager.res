@@ -188,16 +188,17 @@ let generate = (
 let _parse = (appBinaryFile: ArrayBuffer.t) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
-  let [allExtensionBinaryTypeFile, allContributeBinaryTypeFile] = BinaryFileOperator.load(
+  let [allExtensionBinaryUint8File, allContributeBinaryUint8File] = BinaryFileOperator.load(
     appBinaryFile,
   )
 
   (
-    BinaryFileOperator.load(allExtensionBinaryTypeFile->Uint8Array.buffer)
+    BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
     ->Meta3dCommonlib.ArraySt.chunk(2)
     ->Meta3dCommonlib.ArraySt.map(([extensionPackageData, extensionFuncData]) => {
       let lib =
-        TextDecoder.decodeUint8Array(extensionFuncData, decoder)->LibUtils.serializeLib("Extension")
+        TextDecoder.decodeUint8Array(extensionFuncData, decoder)
+        ->LibUtils.serializeLib("Extension")
 
       {
         extensionPackageData: TextDecoder.decodeUint8Array(extensionPackageData, decoder)
@@ -211,7 +212,7 @@ let _parse = (appBinaryFile: ArrayBuffer.t) => {
         },
       }
     }),
-    BinaryFileOperator.load(allContributeBinaryTypeFile->Uint8Array.buffer)
+    BinaryFileOperator.load(allContributeBinaryUint8File->Uint8Array.buffer)
     ->Meta3dCommonlib.ArraySt.chunk(2)
     ->Meta3dCommonlib.ArraySt.map(([contributePackageData, contributeFuncData]) => {
       let lib =
@@ -269,21 +270,22 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
       _prepare(),
     )
 
-  allContributeDataArr
-  ->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. state, {contributePackageData, contributeFuncData}: contributeFileData) => {
-      state->ExtensionManager.registerContribute(
-        contributePackageData.name,
-        contributeFuncData.getContributeFunc,
-        (
-          contributePackageData.dependentExtensionNameMap,
-          contributePackageData.dependentContributeNameMap,
-        ),
-      )
-    },
-    state,
-  )
-  ->ExtensionManager.startExtensions(_getStartExtensionNames(allExtensionDataArr))
+  let state =
+    allContributeDataArr->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, {contributePackageData, contributeFuncData}: contributeFileData) => {
+        state->ExtensionManager.registerContribute(
+          contributePackageData.name,
+          contributeFuncData.getContributeFunc,
+          (
+            contributePackageData.dependentExtensionNameMap,
+            contributePackageData.dependentContributeNameMap,
+          ),
+        )
+      },
+      state,
+    )
+
+  state->ExtensionManager.startExtensions(_getStartExtensionNames(allExtensionDataArr))
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): Meta3dType.Index.state => {

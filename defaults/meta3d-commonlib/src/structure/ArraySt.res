@@ -1,132 +1,4 @@
-let _getExn = %raw(`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(nullableData) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  if (nullableData !== undefined) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return nullableData;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  throw new Error("Not_found")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-`)
+let _getExn = %raw(` (nullableData) => { if (nullableData !== undefined) { return nullableData; } throw new Error("Not_found") } `)
 
 let getExn = (arr, index) => {
   Array.unsafe_get(arr, index)->_getExn
@@ -233,13 +105,15 @@ let removeDuplicateItems = arr => {
 }
 
 let chunk = (arr, size) => {
-  arr->reduceOneParam((. (result, group), value) => {
+  let (result, group) = arr->reduceOneParam((. (result, group), value) => {
     group->length < size
       ? {
           (result, group->push(value))
         }
       : {
-          (result->push(group), [])
+          (result->push(group), [value])
         }
-  }, ([], []))->Tuple2.getFirst
+  }, ([], []))
+
+  group->length > 0 ? result->push(group) : result
 }

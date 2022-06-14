@@ -5,109 +5,12 @@ var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Caml_array = require("rescript/lib/js/caml_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Log$Meta3dCommonlib = require("../log/Log.bs.js");
-var Tuple2$Meta3dCommonlib = require("./tuple/Tuple2.bs.js");
 var Contract$Meta3dCommonlib = require("../contract/Contract.bs.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 var PromiseSt$Meta3dCommonlib = require("./PromiseSt.bs.js");
 var MutableHashMap$Meta3dCommonlib = require("./hash_map/MutableHashMap.bs.js");
 
-var _getExn = ((nullableData) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  if (nullableData !== undefined) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    return nullableData;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  throw new Error("Not_found")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
+var _getExn = ((nullableData) => { if (nullableData !== undefined) { return nullableData; } throw new Error("Not_found") });
 
 function getExn(arr, index) {
   return _getExn(arr[index]);
@@ -222,24 +125,31 @@ function removeDuplicateItems(arr) {
 }
 
 function chunk(arr, size) {
-  return Tuple2$Meta3dCommonlib.getFirst(Belt_Array.reduceU(arr, [
-                  [],
-                  []
-                ], (function (param, value) {
-                    var group = param[1];
-                    var result = param[0];
-                    if (group.length < size) {
-                      return [
-                              result,
-                              push(group, value)
-                            ];
-                    } else {
-                      return [
-                              push(result, group),
-                              []
-                            ];
-                    }
-                  })));
+  var match = Belt_Array.reduceU(arr, [
+        [],
+        []
+      ], (function (param, value) {
+          var group = param[1];
+          var result = param[0];
+          if (group.length < size) {
+            return [
+                    result,
+                    push(group, value)
+                  ];
+          } else {
+            return [
+                    push(result, group),
+                    [value]
+                  ];
+          }
+        }));
+  var group = match[1];
+  var result = match[0];
+  if (group.length > 0) {
+    return push(result, group);
+  } else {
+    return result;
+  }
 }
 
 exports._getExn = _getExn;

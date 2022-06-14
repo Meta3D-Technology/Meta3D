@@ -47,8 +47,7 @@ let generate = (dataArr: array<Uint8Array.t>): ArrayBuffer.t => {
   let dataLength = dataArr->Meta3dCommonlib.ArraySt.length
 
   let (totalByteLength, byteLengthArr, alignedByteLengthArr) =
-    dataArr
-    ->Meta3dCommonlib.ArraySt.reduceOneParam(
+    dataArr->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. (totalByteLength, byteLengthArr, alignedByteLengthArr), data) => {
         let byteLength = data->Uint8Array.byteLength
         let alignedByteLength = byteLength->BufferUtils.alignedLength
@@ -76,13 +75,13 @@ let generate = (dataArr: array<Uint8Array.t>): ArrayBuffer.t => {
   binaryFile
 }
 
-let load = (binaryFile: ArrayBuffer.t): array<Uint8Array.t> => {
+let load = (binaryFile: ArrayBuffer.t) => {
   let dataView = DataViewCommon.create(binaryFile)
 
   let (dataLength, _) = DataViewCommon.getUint32_1(. 0, dataView)
 
   Meta3dCommonlib.ArraySt.range(0, dataLength - 1)
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. (byteOffset, result), dataIndex) => {
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. (byteOffset, uint8ArrayResult), dataIndex) => {
     let (byteLength, _byteOffset) = DataViewCommon.getUint32_1(.
       _getDataByteOffsetInHeader(dataIndex),
       dataView,
@@ -90,11 +89,13 @@ let load = (binaryFile: ArrayBuffer.t): array<Uint8Array.t> => {
 
     (
       byteOffset + byteLength->BufferUtils.alignedLength,
-      result->Meta3dCommonlib.ArraySt.push(
-        Uint8Array.fromBufferRange(
-          binaryFile,
-          ~offset=_getHeaderByteLength(dataLength) + byteOffset,
-          ~length=byteLength,
+      uint8ArrayResult->Meta3dCommonlib.ArraySt.push(
+        Uint8Array.fromBuffer(
+          ArrayBuffer.slice(
+            binaryFile,
+            ~start=_getHeaderByteLength(dataLength) + byteOffset,
+            ~end_=_getHeaderByteLength(dataLength) + byteOffset + byteLength,
+          ),
         ),
       ),
     )

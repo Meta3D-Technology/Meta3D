@@ -304,12 +304,32 @@ extension,contribute add getName;
 * DONE generate, load app file
 pass compile
 
-* TODO pass bdd test
+* DONE pass bdd test
 test _checkVersion
+
+        TODO test convertAllFileData
+
+        TODO test ^ should ==major, >=minor version!
 
 test all
 
+
+
+
 * TODO pass app run test
+
+
+
+* TODO merge Meta3D-Platform into Meta3D
+* TODO move Meta3D to Meta3D-Core
+
+change to private
+
+
+* TODO move extensions, contributes, protocols out from Meta3D-Core to Meta3D
+
+Meta3D-Core use whole version, Meta3D use independent version
+Meta3D-Core use private, Meta3D use public
 
 
 * TODO add Meta3D-Platform repo

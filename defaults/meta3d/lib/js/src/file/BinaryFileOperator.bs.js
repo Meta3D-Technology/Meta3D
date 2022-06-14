@@ -72,7 +72,7 @@ function load(binaryFile) {
                     var byteLength = match[0];
                     return [
                             byteOffset + BufferUtils$Meta3d.alignedLength(byteLength) | 0,
-                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile, _getHeaderByteLength(dataLength) + byteOffset | 0, byteLength))
+                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile.slice(_getHeaderByteLength(dataLength) + byteOffset | 0, (_getHeaderByteLength(dataLength) + byteOffset | 0) + byteLength | 0)))
                           ];
                   }), [
                   0,

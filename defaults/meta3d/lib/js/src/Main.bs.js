@@ -26,6 +26,8 @@ var generateContribute = ExtensionFileManager$Meta3d.generateContribute;
 
 var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
 
+var convertAllFileDataForApp = AppManager$Meta3d.convertAllFileData;
+
 var generateApp = AppManager$Meta3d.generate;
 
 var loadApp = AppManager$Meta3d.load;
@@ -43,6 +45,7 @@ exports.generateExtension = generateExtension;
 exports.loadExtension = loadExtension;
 exports.generateContribute = generateContribute;
 exports.loadContribute = loadContribute;
+exports.convertAllFileDataForApp = convertAllFileDataForApp;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
 exports.buildAPI = buildAPI;

@@ -20,6 +20,8 @@ let generateContribute = ExtensionFileManager.generateContribute
 
 let loadContribute = ExtensionFileManager.loadContribute
 
+let convertAllFileDataForApp = AppManager.convertAllFileData
+
 let generateApp = AppManager.generate
 
 let loadApp = AppManager.load
