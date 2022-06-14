@@ -1,5 +1,0 @@
-let shaderName = "xxx"
-
-{
-    shaderName: shaderWGSLData
-}

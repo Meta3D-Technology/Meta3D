@@ -1,8 +1,0 @@
-* TODO add Meta3D-Platform repo and deploy
-
-* TODO publish v0.4.0
-
-* TODO publish v0.5.0
-
-* TODO open for inner user
-

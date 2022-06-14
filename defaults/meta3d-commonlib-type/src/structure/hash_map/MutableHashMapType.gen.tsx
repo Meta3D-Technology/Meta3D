@@ -1,8 +1,0 @@
-/* TypeScript file generated from MutableHashMapType.res by genType. */
-/* eslint-disable import/first */
-
-
-import type {t as HashMapType_t} from './HashMapType.gen';
-
-// tslint:disable-next-line:interface-over-type-literal
-export type t<key,value> = HashMapType_t<key,value>;

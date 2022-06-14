@@ -4,22 +4,14 @@
 	"scripts": {
 		"clean": "lerna clean",
 		"install": "lerna bootstrap",
-		"run:editor": "lerna run buildAll:ci --concurrency 1 && cd examples/use-editor && yarn webpack:dev-server ",
-		"fastRun:editor": "cd examples/use-editor && yarn webpack:dev-server ",
-		"run:engine": "cd examples/use-engine && yarn webpack:dev-server ",
-		"run:app": "cd examples/app && yarn webpack:dev-server ",
 		"build": "lerna run build:ts",
 		"ci:test": "lerna run test:ci --concurrency 1"
 	},
 	"workspaces": [
-		"examples/*",
-		"tools/*",
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
-		"defaults/*",
 		"extensions/*",
-		"contributes/*",
-		"engine/*"
+		"contributes/*"
 	],
 	"config": {
 		"commitizen": {

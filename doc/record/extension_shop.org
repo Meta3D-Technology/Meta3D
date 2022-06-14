@@ -1,2 +1,0 @@
-* TODO when select extension, should do these by user:
-- set config data
