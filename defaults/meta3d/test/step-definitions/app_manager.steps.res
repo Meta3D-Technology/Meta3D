@@ -451,9 +451,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("generate app with c1 and load it", () => {
-      let (allExtensionFileData, allContributeFileData) = c1.contents
-
-      state := Main.generateApp(allExtensionFileData, allContributeFileData)->Main.loadApp
+      state := Main.generateApp(c1.contents)->Main.loadApp
     })
 
     then("the two extensions should be registered", () => {

@@ -146,10 +146,10 @@ let convertAllFileData = (
   )
 }
 
-let generate = (
+let generate = ((
   allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
   allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
-): ArrayBuffer.t => {
+)): ArrayBuffer.t => {
   let encoder = TextEncoder.newTextEncoder()
 
   [
@@ -197,8 +197,7 @@ let _parse = (appBinaryFile: ArrayBuffer.t) => {
     ->Meta3dCommonlib.ArraySt.chunk(2)
     ->Meta3dCommonlib.ArraySt.map(([extensionPackageData, extensionFuncData]) => {
       let lib =
-        TextDecoder.decodeUint8Array(extensionFuncData, decoder)
-        ->LibUtils.serializeLib("Extension")
+        TextDecoder.decodeUint8Array(extensionFuncData, decoder)->LibUtils.serializeLib("Extension")
 
       {
         extensionPackageData: TextDecoder.decodeUint8Array(extensionPackageData, decoder)

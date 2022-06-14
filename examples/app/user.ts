@@ -87,6 +87,4 @@ let isStartedExtensions = [appExtensionName]
 
 
 
-let [allExtensionFileData, allContributeFileData] = convertAllFileDataForApp([appExtensionFileData, test1ExtensionFileData], [test1ContributeFileData], [allExtensionNewNames, isStartedExtensions, allContributeNewNames])
-
-let meta3dState = loadApp(generateApp(allExtensionFileData, allContributeFileData))
+let meta3dState = loadApp(generateApp(convertAllFileDataForApp([appExtensionFileData, test1ExtensionFileData], [test1ContributeFileData], [allExtensionNewNames, isStartedExtensions, allContributeNewNames])))

@@ -76,13 +76,13 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
         ];
 }
 
-function generate(allExtensionFileData, allContributeFileData) {
+function generate(param) {
   var encoder = new TextEncoder();
   return BinaryFileOperator$Meta3d.generate([
-              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(allExtensionFileData, (function (result, param) {
+              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
                               return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
                             }), []))),
-              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(allContributeFileData, (function (result, param) {
+              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
                               return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
                             }), [])))
             ]);
@@ -135,7 +135,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            217,
+                            216,
                             34
                           ],
                           Error: new Error()

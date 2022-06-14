@@ -109,8 +109,13 @@ export function convertAllFileDataForApp<
     ]
 
 export function generateApp(
-    allExtensionFileData: Array<[extensionPackageDataApp, extensionFuncData]>,
-    allContributeFileData: Array<[contributePackageDataApp, contributeFuncData]>
+    [
+        allExtensionFileData,
+        allContributeFileData
+    ]: [
+            Array<[extensionPackageDataApp, extensionFuncData]>,
+            Array<[contributePackageDataApp, contributeFuncData]>
+        ]
 ): ArrayBuffer
 
 export function loadApp(

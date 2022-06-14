@@ -387,8 +387,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               
                             }));
                       Curry._2(param.when, "generate app with c1 and load it", (function (param) {
-                              var match = c1.contents;
-                              state.contents = Main$Meta3d.loadApp(Main$Meta3d.generateApp(match[0], match[1]));
+                              state.contents = Main$Meta3d.loadApp(Main$Meta3d.generateApp(c1.contents));
                               
                             }));
                       Curry._2(param.then, "the two extensions should be registered", (function (param) {
