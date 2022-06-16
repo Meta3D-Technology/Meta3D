@@ -1,6 +1,7 @@
 {
     "name": "meta3d-app",
     "version": "0.3.3",
+    "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-app-protocol"
     },
@@ -13,9 +14,10 @@
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
-        "publish": "npm run webpack && gulp publish"
+        "meta3d:publish": "npm run webpack && gulp publish"
     },
     "dependencies": {
+        "meta3d-type": "^0.3.8",
         "meta3d-app-protocol": "^0.3.3",
         "meta3d-extension-test1-protocol": "^0.3.3"
     },
@@ -23,7 +25,7 @@
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.3.3",
+        "meta3d-tool-publish": "^0.3.6",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

@@ -6,9 +6,9 @@ gulp.task("publish", function (done) {
     publish.publishContribute(
         path.join(__dirname, "package.json"),
         path.join(__dirname, "dist/static/js", "main.js")
-    )
-
-    done();
+    ).then(() => {
+        done()
+    })
 });
 
 
