@@ -1,6 +1,6 @@
 {
     "name": "meta3d-app",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-app-protocol"
@@ -17,9 +17,9 @@
         "meta3d:publish": "npm run webpack && gulp publish"
     },
     "dependencies": {
-        "meta3d-type": "^0.3.8",
-        "meta3d-app-protocol": "^0.3.3",
-        "meta3d-extension-test1-protocol": "^0.3.3"
+        "meta3d-app-protocol": "^0.3.4",
+        "meta3d-extension-test1-protocol": "^0.3.4",
+        "meta3d-type": "^0.3.8"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

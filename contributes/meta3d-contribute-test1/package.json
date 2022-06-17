@@ -1,6 +1,6 @@
 {
     "name": "meta3d-contribute-test1",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-contribute-test1-protocol"
@@ -15,8 +15,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type":"^0.3.8",
-        "meta3d-contribute-test1-protocol": "^0.3.3"
+        "meta3d-contribute-test1-protocol": "^0.3.4",
+        "meta3d-type": "^0.3.8"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
