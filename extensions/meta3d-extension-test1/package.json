@@ -15,7 +15,6 @@
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
-        "p": "gulp publish",
         "meta3d:publish": "npm run webpack && gulp publish"
     },
     "keywords": [],
