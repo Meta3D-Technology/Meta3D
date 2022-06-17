@@ -16,6 +16,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-contribute-test1-protocol": "^0.3.4",
+        "meta3d-extension-test1-protocol": "^0.3.4",
         "meta3d-type": "^0.3.8"
     },
     "devDependencies": {
