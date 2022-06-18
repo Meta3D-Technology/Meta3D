@@ -10,7 +10,7 @@
 
 Meta3D is A low-code development platform for developing Web3D editors and engines
 
-read [Meta3D文档]([https://www.yuque.com/docs/share/4c56226d-ffc6-4e8e-8d94-6dfa230d74fb](https://meta3d-4g18u7z10c8427f9-1302358347.tcloudbaseapp.com/website/docs/intro)) for more info.
+read [Meta3D文档](https://meta3d-4g18u7z10c8427f9-1302358347.tcloudbaseapp.com/website/docs/intro) for more info.
 
 # Feedback
 
