@@ -8,7 +8,7 @@
 
 (Meta3D is under development, not product ready)
 
-Meta3D is A low-code development platform for developing Web3D Editor and Engine
+Meta3D is a low-code development platform for developing Web3D Editor and Engine
 
 read [Meta3D文档](https://meta3d-4g18u7z10c8427f9-1302358347.tcloudbaseapp.com/website/docs/intro) for more info.
 
