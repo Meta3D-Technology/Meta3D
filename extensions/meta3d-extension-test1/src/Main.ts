@@ -40,7 +40,7 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 			return meta3dState
 		},
 		// onStart: (meta3dState, service) => {
-		// 	console.log("meta3d-app onStart")
+		// 	console.log("meta3d-editor onStart")
 		// }
 
 	}

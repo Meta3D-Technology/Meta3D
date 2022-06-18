@@ -16,11 +16,11 @@ export let createExtensionState = () => {
 export let getExtensionLife = (api, extensionName) => {
     return {
         onRegister: (meta3dState, service) => {
-            console.log("meta3d-app onRegister");
+            console.log("meta3d-editor onRegister");
             return meta3dState;
         },
         onStart: (meta3dState, service) => {
-            console.log("meta3d-app onStart");
+            console.log("meta3d-editor onStart");
             return service.run(meta3dState);
         }
     };

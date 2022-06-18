@@ -1,8 +1,8 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
-import { state } from "meta3d-app-protocol/src/state/StateType"
-import { service } from "meta3d-app-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap } from "meta3d-app-protocol/src/service/DependentExtensionType"
-import { dependentContributeNameMap } from "meta3d-app-protocol/src/service/DependentContributeType"
+import { state } from "meta3d-editor-protocol/src/state/StateType"
+import { service } from "meta3d-editor-protocol/src/service/ServiceType"
+import { dependentExtensionNameMap } from "meta3d-editor-protocol/src/service/DependentExtensionType"
+import { dependentContributeNameMap } from "meta3d-editor-protocol/src/service/DependentContributeType"
 import { service as test1Service } from "meta3d-extension-test1-protocol/src/service/ServiceType"
 import { state as test1State } from "meta3d-extension-test1-protocol/src/state/StateType"
 
@@ -40,11 +40,11 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			console.log("meta3d-app onRegister")
+			console.log("meta3d-editor onRegister")
 			return meta3dState
 		},
 		onStart: (meta3dState, service) => {
-			console.log("meta3d-app onStart")
+			console.log("meta3d-editor onStart")
 			return service.run(meta3dState)
 		}
 	}
