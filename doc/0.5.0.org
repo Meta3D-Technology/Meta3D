@@ -1,0 +1,28 @@
+* TODO add engine' extensions,contributes for render a cube with webgl1 with no worker
+
+
+* TODO add editor' extensions,contributes 
+
+** TODO finish ui with webgl
+
+** TODO finish event manager
+
+
+** TODO finish current editor demo(register custom ui)
+
+
+** TODO add menu extension
+
+** TODO add edit scene view, run scene view related extensions
+
+can render multiple cubes!
+
+edit scene view add edit arcball camera!
+
+
+
+* TODO remove v1 extensions, contributes
+
+
+
+* TODO publish
