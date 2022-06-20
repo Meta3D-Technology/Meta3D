@@ -1,6 +1,8 @@
 * TODO add editor' extensions,contributes 
 
 ** TODO finish ui with webgl
+(should be convenient to replace webgl to webgpu in the future!)
+
 
 button
 
@@ -11,13 +13,6 @@ text(english, chinese)
 
 
 ** TODO pass run test
-
-
-** TODO add edit scene view related extensions
-
-can render multiple cubes!
-
-edit scene view add edit arcball camera!
 
 
 ** TODO add menu extension

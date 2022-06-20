@@ -1,0 +1,26 @@
+* TODO add engine' extensions,contributes 
+
+** TODO add direction light
+
+** TODO add texture
+
+** TODO add shader system
+
+no shader glsl parse!
+
+
+* TODO add editor' extensions,contributes 
+
+** TODO add stop/run and edit scene view related extensions
+
+can render multiple cubes!
+
+edit scene view add edit arcball camera!
+
+** TODO more basic
+
+scene tree
+
+inspector
+
+asset
