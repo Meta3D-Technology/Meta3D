@@ -1,14 +1,41 @@
 * TODO add engine' extensions,contributes for render a cube with webgl1 with no worker
 
 
+** TODO add engine core
+
+TODO component name inject by dependent map
+
+add gameobject protocol
+
+** TODO add components
+
+** TODO add work plugins
+
+** TODO add api as extension
+
+
+** TODO add example as start extension
+
+
+** TODO pass run test
+
+
 * TODO add editor' extensions,contributes 
 
+** TODO finish current editor demo(register custom ui)
+
+
 ** TODO finish ui with webgl
+
+button
+
+text(english, chinese)
+
 
 ** TODO finish event manager
 
 
-** TODO finish current editor demo(register custom ui)
+** TODO pass run test
 
 
 ** TODO add menu extension
