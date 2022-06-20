@@ -24,28 +24,14 @@ add gameobject protocol
 
 ** TODO finish current editor demo(register custom ui)
 
+** TODO add controller and run scene view related extensions
 
-** TODO finish ui with webgl
-
-button
-
-text(english, chinese)
+add "add a cube" button in controller
 
 
-** TODO finish event manager
+can render multiple cubes in run scene view
 
-
-** TODO pass run test
-
-
-** TODO add menu extension
-
-** TODO add edit scene view, run scene view related extensions
-
-can render multiple cubes!
-
-edit scene view add edit arcball camera!
-
+# edit scene view add edit arcball camera!
 
 
 * TODO remove v1 extensions, contributes
