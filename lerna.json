@@ -3,7 +3,11 @@
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
 		"extensions/*",
-		"contributes/*"
+		"contributes/*",
+		"defaults/*",
+		"examples/*",
+		"platform/*",
+		"service/*"
 	],
 	"npmClient": "yarn",
 	"command": {
@@ -18,5 +22,5 @@
 	"ignoreChanges": [
 		"**/*.md"
 	],
-	"version": "independent"
+	"version": "1.0.0-alpha.1"
 }

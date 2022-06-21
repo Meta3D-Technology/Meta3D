@@ -1,0 +1,15 @@
+{
+    "name": "meta3d-type",
+    "version": "1.0.0-alpha.1",
+    "authors": "Wonder",
+    "main": "lib/js/src/Index.bs.js",
+    "types": "src/Index.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build"
+    },
+    "dependencies": {
+        "rescript": "^9.1.4"
+    }
+}

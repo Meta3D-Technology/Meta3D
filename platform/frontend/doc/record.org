@@ -1,0 +1,231 @@
+* DONE add first project
+
+TODO remove not used
+
+* DONE add router
+
+
+** DONE finish Main Page
+个人中心
+扩展商城
+贡献商城
+应用商城
+
+
+* DONE finish Login Page
+# frontend
+    # use antd
+backend
+    use localstorage
+    ////use dependency
+
+
+
+# and isLogin judge!
+# reducer
+
+
+* DONE add message antd
+
+for finish->error infp
+
+* DONE finish UserCenter Page
+show username
+
+
+* DONE add extension shop page
+
+show published extensions
+
+
+* DONE add extension detail page
+
+show published extension's detail
+
+
+
+* DONE add contribute shop page
+
+show published contribute
+
+
+* DONE add contribute detail page
+
+show published contribute's detail
+
+
+* DONE add 应用管理 page
+
+发布应用|查看我发布的应用
+
+
+发布应用:
+# show selected extensions, contributes: title, button(启动/取消启动)
+#     could jump to detail page
+#     can set new name(input)
+
+
+App名称////(TODO check unique)
+button: 发布
+
+->enter it
+
+
+
+查看我发布的应用:
+show Apps' name
+    click name, enter it
+
+
+
+
+enter:
+open new url to load: .../PublishApp?appId=xxx
+
+
+
+
+
+run app
+
+
+set name
+
+# set dependent map:
+# check
+
+auto generate dependent map
+    # check: error if not find
+
+
+set started extensions
+
+
+generate
+
+
+open new url to load
+
+
+
+
+
+TODO after publish:
+clear select
+jump to show
+
+
+error:
+message
+
+
+# * TODO refactor: change to function instead of let
+
+
+* DONE refactor: remove unused code
+e.g. header
+
+rename ui/model_space/ to ?
+
+
+remove package.json->three
+
+
+
+# * TODO edit extension,contribute detail page
+
+# show protocol, dependent map info
+
+
+
+
+
+
+
+# * TODO deploy to tencent cloud
+# # role: admin, user
+
+# no need to register, but need input user name(check unique) for user
+
+* TODO finish whole in remote
+
+# ** TODO keep extension, contribute in Meta3D repo
+
+# extension, contribute should add protocol dependent
+
+# # change name:remove "meta3d-"
+
+
+# ** TODO login
+
+
+** DONE database
+
+*** DONE fix login, add Register and Login
+
+register:
+username
+password
+
+** DONE storage
+
+** DONE use meta3d-tool-publish to publish
+
+** DONE fix extension,contribute shop
+
+
+** DONE fix app manager
+
+////fix appName same not replace bug
+
+
+*** DONE enter app: use react router url param
+# https://reactrouter.com/docs/en/v6/getting-started/tutorial#reading-url-params
+
+
+
+# new tab
+
+
+
+** DONE deploy to static host
+
+
+
+
+
+
+
+* DONE pass run test: user upload extension,contribute protocol
+
+register two users
+
+
+
+
+
+# * TODO publish v0.4.0
+
+
+
+
+
+
+
+
+
+
+* TODO improve
+
+** TODO make backend to be dependency
+
+** TODO use domain service
+
+
+** TODO edit extension,contribute detail page
+
+show protocol, dependent map info
+
+
+** TODO extension, contribute add description, displayName, publisher, repo(github/gitlab)(public) link
+

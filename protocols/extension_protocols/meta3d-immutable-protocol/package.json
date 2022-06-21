@@ -1,6 +1,6 @@
 {
     "name": "meta3d-immutable-protocol",
-    "version": "0.3.0",
+    "version": "1.0.0-alpha.1",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
@@ -13,6 +13,6 @@
     },
     "dependencies": {
         "@types/immutable": "^3.8.7",
-        "meta3d-commonlib-ts": "^0.3.8"
+        "meta3d-commonlib-ts": "^1.0.0-alpha.1"
     }
 }

@@ -1,0 +1,400 @@
+* DONE design
+** TODO 加载多个扩展，组成引擎
+
+load all select extension binarys when enter "build engine" button:
+# check dependent extensions
+# register extension API
+register extension's work plugin
+
+
+export engine API(e.g. for create scene)?
+
+dependent map?
+
+
+** TODO 扩展之间通过协议互相调用
+
+
+load all select extension binarys when enter "build engine" button:
+register extension API
+
+
+
+
+** TODO 加载contribute point到引擎的扩展中
+
+how to register components?
+
+
+** TODO feat(editor): add work plugin?
+
+
+
+
+* DONE redesign
+
+** DONE how to get protocol???
+
+
+# ** TODO add platform-extension
+
+# ** TODO add platform-extension-pacakge
+
+# ** TODO rewrite platform-engine
+
+# ** TODO rewrite platform-app
+
+# ** TODO rewrite platform-editor
+
+
+* TODO implement
+
+** DONE remove, keep simple
+
+** TODO improve
+
+*** DONE rename contribute point to contribute
+
+*** DONE add simplest extension, contribute
+
+# *** TODO extension, contribute implement should has name using from protocol as default name
+
+
+*** DONE add contribute name to dependent map
+
+*** DONE register contribute from dependent map
+
+*** DONE add meta3d-app extension
+
+*** DONE run test
+add example/use-app
+
+
+
+
+*** DONE extension add extensionLife cycle
+
+# draft
+
+////bdd test
+
+# run test
+
+
+
+# *** TODO add test2 extension
+# test1 dependent on test2
+
+
+# *** TODO change engine to be extension package
+
+# **** TODO engine api should be a extension
+
+# **** TODO user should set extension, contribute dependent map(some is specific by user, some use default name)
+
+
+# *** TODO change editor to be app
+# *** TODO change use-engine to be app
+
+
+*** DONE extract protocols/, move contribute_protocols/, extension_protocols/ here
+
+
+
+** DONE publish and load extension
+# extension should be binary
+
+pack extension to binary file
+
+parse binary file
+
+
+
+
+
+extension,contribute add getName;
+
+
+
+
+
+# ** TODO publish and load extension package
+
+
+# ** TODO publish and load contribute
+
+
+# ** TODO pass engine(extension package)
+
+# ** TODO pass editor(app)
+
+
+
+
+
+
+
+
+
+** DONE pass run test
+
+
+# ** TODO add bdd test
+
+
+* DONE improve
+
+
+# TODO finish compress, load common logic here:
+# TODO finish logic
+# TODO abstract
+
+
+
+
+
+
+# TODO finish ExtensionFileManager->extension
+
+
+# TODO add bdd test
+
+
+
+# TODO pass run test:
+# edit app example
+
+
+# TODO commit
+
+
+
+
+# TODO finish ExtensionFileManager->contribute
+
+# TODO finish test1 contribute ->package.json add data
+
+# TODO pass run test:
+# edit app example
+
+# TODO commit
+
+
+
+
+
+# TODO extension,contribute remove getName, use package.json->name
+
+
+
+
+
+
+
+# TODO add meta3d-publish tool
+# use ts
+
+# search for protocol version
+
+/*
+# send to localStorage
+
+# TODO meta3d-app use publish tool
+
+
+# TODO meta3d-contribute-test1 use publish tool
+
+
+# TODO pass run test
+*/
+
+
+
+
+
+
+
+
+//TODO meta3d-publish use gulp
+
+
+# TODO meta3d-app install publish tool and npm run script
+
+# TODO meta3d-contribute-test1 install publish tool and npm run script
+
+
+
+//TODO pass run test
+
+
+
+
+
+
+
+# ** TODO package.json add these info:
+
+# *** TODO extension,contribute remove getName, use package.json->name
+
+# *** TODO handle extension version
+
+# should publish extension with specific version
+
+# version is useful for update extension! 
+
+# redesign extension protocol->ProtocolData
+
+# *** TODO handle contribute version
+
+
+# *** TODO handle dependent extension,contribute map
+# extension,contribute should define getDependentExtensionNames, getDependentContributeNames funcs, so the user can only inpute value instead of key+value???
+
+# ** TODO extension,contribute binary file add name, version, dependent map in meta data
+
+
+
+
+
+
+
+# ** TODO add tools/publish for publish extension, contribute for user
+
+# get version, dependent map, name from package.json;
+# invoke "meta3d" to compress;
+# TODO send binary file and README.md:
+
+
+# get protocol version by package data and dependencies!
+
+
+
+# gulp
+# gulpfile.js
+
+
+
+
+# test develop webpack instead of production(for debug)!
+
+
+# ** TODO pass run test
+
+
+
+
+
+# * TODO refactor: extract default/meta3d-binary-file
+# * TODO refactor: move compress, load logic to Meta3dCommonlib->BinaryFileOperator
+
+# move compress, load logic there
+
+
+* DONE refactor: change null dependent map to {}
+
+
+
+
+
+
+
+# * TODO refactor(meta3d): separate extension and contribute?
+
+
+* DONE generate, load app file
+pass compile
+
+* DONE pass bdd test
+test _checkVersion
+
+        TODO test convertAllFileData
+
+        TODO test ^ should ==major, >=minor version!
+
+test all
+
+
+
+
+* DONE pass app run test
+
+
+
+# * TODO merge Meta3D-Platform into Meta3D
+* DONE move Meta3D to Meta3D-Core
+
+change to private
+
+
+repo:
+Meta3D(public)
+all extensions, contributes, protocols here
+
+Meta3D-Core, Meta3d-Platform, Meta3D-Service(private)
+
+Meta3D-Service put tool
+
+* DONE move extensions, contributes, protocols out from Meta3D-Core to Meta3D
+
+Meta3D-Core use whole version, Meta3D use independent version
+Meta3D-Core use private, Meta3D use public
+
+
+* TODO add Meta3D-Platform repo
+
+react
+
+router
+
+** DONE finish whole in local for user
+develop extension, contribute protocol
+
+develop extension, contribute implement
+
+publish extension, contribute
+
+*** TODO publish app
+extension, contribute package.json refer to https://code.visualstudio.com/api/references/extension-manifest
+
+
+
+
+** DONE check dependent extensions when specific dependent map
+use semver:
+https://github.com/npm/node-semver
+
+        "@types/semver": "^7.3.9",
+        "semver": "^7.3.7",
+
+
+
+# ** TODO finish whole in local for admin
+
+
+
+** TODO deploy to tencent cloud
+role: admin, user
+
+no need to register, but need input user name(check unique) for user
+
+** TODO finish whole in remote
+
+*** TODO move extension, contribute out to Meta3D-User-Test repo
+
+extension, contribute should add protocol dependent
+
+change name:remove "meta3d-"
+
+
+*** TODO use meta3d-tool-publish to publish
+
+
+
+
+* TODO publish v0.4.0
+
+
+
+
+* DONE open for inner user v1
+

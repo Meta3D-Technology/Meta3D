@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "allowJs": false,
+        "target": "es6",
+        "jsx": "react",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "./src",
+        "./test"
+    ]
+}

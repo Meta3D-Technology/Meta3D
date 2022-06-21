@@ -1,0 +1,1950 @@
+* DONE write user design(with imgui extend) 
+
+dispatch ui state
+custom control
+skin
+event handle
+
+
+
+middleware
+(middleware can invoke other middleware by injected middlewareAPI!
+e.g. meta3d-imgui can invoke vertex-buffer-manage!
+)
+
+
+
+
+
+# registerEventHandler
+# showAllRegistedEventHandlers
+
+# edit
+
+# TODO run
+
+
+
+# registerMenuUI
+# ////showAllRegistedMenuUIs
+
+
+# TODO run
+
+
+# registerMiddleware
+
+
+# TODO run
+
+
+
+# registerEnginePlugin
+# (need refresh page!)
+
+# TODO run
+
+
+
+# registerEngineComponent
+
+
+# TODO run
+
+
+* DONE fix "register plugin not work" bug
+
+
+
+wpk now only contain asb, not contain wdb!
+
+** DONE change to string
+
+** DONE fix "register plugin not work" bug
+
+# ** TODO generate
+
+# ** TODO load
+
+
+need generate and save to indexdb and reload
+
+
+
+# * TODO implement, pass run test
+
+# use render webgpu cube to instead of imgui render for demo!
+
+
+# * TODO add "multi edit the same scene" 
+
+
+
+
+
+
+
+
+# * TODO add "redo/undo"
+
+
+** DONE think ui
+
+editor ui state, scene ui state:{
+    all ui's state map,
+    canvas
+}
+
+
+*** DONE event handler
+
+
+*** DONE handle custom control
+
+////no need??? because register ui is already equal to custom control!!!
+
+need! because custom control is commonlib control as lib, while register ui is used one!
+
+*** DONE handle skin
+
+
+*** DONE game ui
+
+
+
+
+
+
+
+
+* TODO improve
+
+** DONE refactor: change packages(e.g. editor/, engine/, ...) to default/, middleware/, component/, work-plugin/, event-handler/, ui/
+
+
+
+# ** TODO change meta3d-commonlib, meta3d-bs-most, meta3d-engine-core to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
+** TODO inject default middlewares(e.g.  meta3d-commonlib, meta3d-bs-most, meta3d-engine-core, EventManager, UI) as api
+
+
+
+# ** TODO split type from meta3d-engine-core to be meta3d-engine-core-protocol package
+
+# edit component package(e.g. meta3d-component-transform)
+
+
+** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by meta3d-engine-core)
+
+ui,event handler no need state! so no editorState!
+
+
+** TODO inject api(only remain MiddlewareManager.unsafeGet) and { middlewareState, editorUIState, engineCoreState } as states
+
+inject api and states to ui->elementFunc, event handler->handler(
+    e.g.: 
+let handler = ((middlwareState, engineState), api , e,) => {
+...
+(middlwareState, engineState)
+
+);
+
+
+inject api to middleware->getData; inject states to middleware->getData's functions;
+
+
+how to inject to component, work plugin???
+
+
+* TODO new demo: rewrite old demo
+
+
+** DONE finish engine user design
+
+
+
+
+
+** TODO finish editor user design
+
+
+
+
+** TODO how protocol work?
+
+
+** TODO refactor: refactor all as design point
+
+packages should be defaults/; extensions/(can has xxx-type package); 
+
+components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/, 
+(these folders is to put one which will be used by multi extensions!)
+
+
+** TODO refactor current Main
+
+
+** TODO add user code
+
+
+** TODO pass run
+
+
+** TODO fix UI(support 3d ui; use visible, change for dispatch)
+
+
+
+
+* DONE finish, make engine user to use
+
+** DONE finish engine-core compile
+
+** DONE engine-core
+
+# TODO rename po to state
+# TODO add engine-core state 
+# TODO refactor meta3d-commonlib, extract type
+# TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
+# TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
+
+** DONE root work plugin
+
+
+
+
+
+** DONE design contribute point
+
+how to use protocol???
+
+
+registerWorkPlugin
+
+name XxxContribute, move to contribute_points/ folder
+e.g. workPluginContribute, getWorkPluginContribute
+
+change -type to -protocol;
+
+
+
+contribute_points/,
+xxx
+service/
+ServiceType
+state/
+StateType
+other/
+
+
+
+** DONE complete check, add getVersion?
+
+give dependent extension name, extension protocol name, version when registerExtension;
+
+
+
+
+
+
+** DONE add, gameObject, transform component
+
+////TODO remove StateContainer
+
+# TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentData
+
+# TODO rename registerWorkPlugin->data to workPluginContribute
+
+
+
+
+** DONE add webgl render(just log)
+
+add canvas
+
+add webgl
+
+# add webgl render
+
+
+** DONE pass engine core test
+
+
+
+
+
+** DONE refactor: add work-plugins, components packages
+
+
+
+** DONE refactor: move wonder-engine->register work plugins to extension
+
+# ** TODO use: await trigger("meta3d-active-extension", "all"), await trigger("meta3d-init")
+
+
+** DONE build engine by typescript
+
+** DONE pass run test
+
+** DONE finish user side
+
+
+
+* TODO finish, make editor user to use
+
+# ** TODO finish editor user design
+
+** DONE add ui, event
+
+** DONE add register extension extension
+
+# separate ui, logic
+
+fix ui;
+
+fix event;
+
+
+** DONE build editor by typescript
+
+
+** DONE pass run test
+
+
+** TODO refactor ui
+
+# *** TODO refactor state value
+
+
+*** DONE use visible, state change for dispatch;finish useSelector, dispatch, action
+
+visible, state change is related to id?
+
+add show, hidden api for UI extension;
+
+
+when render, see visible and state change of id;
+if both true, render and reset state change;
+else, do nothing;
+
+
+*** DONE add show extension extension
+
+use dispatch
+
+no inspector, only show all extensions with their name(as a button)
+
+pass run test
+
+# *** TODO add hidden, show "show extension" buttons to test visible
+
+# use show, hidden ui's api when handle event;
+
+
+*** DONE fix UI(support 3d ui; fix onClickFunc, remove event handler)
+
+
+fix onClickFunc, remove event handler
+
+# 3d ui
+
+
+*** DONE use style && skin, custom control
+
+**** DONE finish
+
+add skins, custom controls:
+getXxxContribute
+
+
+
+
+add drawBox, drawText;
+add register/get skin/customControl;
+
+default primitive control not use skin, use attribute directly in func's param
+
+custom control: button
+
+
+////register skin, custom control in wonder-editor
+
+
+**** DONE pass run test
+
+# **** TODO extract register skin extension, register custom control extension
+
+# **** TODO refactor register-extension by use skin extension, register custom control extension to register skin and custom control!!!
+
+
+*** DONE refactor: make elementFunc and elementState to be contribute like skin/custom control!!!
+
+(refacotr register-extension extension!)
+
+*** DONE refactor: rename id to elementName
+
+# *** TODO refactor: rename UI->stateMap to store
+
+*** DONE refactor: make event to be contribute
+
+*** DONE move to StateType?
+
+# *** TODO rename EventType to EventContributeType?
+
+*** DONE rename Ixxx(e.g. IWorker, ElementContributeType) to XxxContributeType
+
+*** DONE rename .gen.tsx to .ts
+
+# *** TODO add drawCopyTextArea
+
+# *** TODO update register extension with drawCopyTextArea
+
+
+
+
+
+
+# ** TODO add manager extension 
+
+# ** TODO update show extension by use manager
+
+
+** DONE use engine(for edit scene)
+
+
+** DONE pass run test
+
+
+** DONE refactor: rename getExtensionService to getExtensionService, getExtensionState to getExtensionState 
+
+** DONE finish user side
+
+
+* DONE refactor
+
+
+** DONE rename meta3d-extension-test1 to wonder-extension-test1
+
+
+
+* DONE publish v0.1.0 !!!
+
+update DependentExtensionType
+
+publish
+
+
+
+
+* DONE add work-plugin-protocols
+
+# * TODO refactor: change protocol->name to "Meta3DXxx"
+
+* DONE refactor: rename XxxMeta3d to XxxMeta3D
+
+
+
+
+* DONE refactor: refactor component
+
+# ** TODO refactor: refactor transform component and protocol
+
+#  move :
+#   StateType.state,
+#   StateType.config,
+#   
+#   StateType.transform,
+
+#   to protocol
+
+#   other to transform
+
+** DONE  refactor Main.d.ts->export function getComponentContribute(): componentContribute<state, config, dataName, transform> to export let xxx
+
+
+
+
+* TODO update engine
+
+** DONE component support dispose
+
+default keep order
+
+no config
+
+
+defer dispose
+
+batch dispose
+
+
+*** DONE pass bdd test
+
+
+** DONE gameObject support dispose
+
+** DONE pass bdd test
+
+
+** DONE update engine-core extension
+
+*** TODO component add dispose
+
+*** TODO pass bdd
+
+*** TODO gameObject add dispose
+
+*** TODO pass bdd
+
+
+
+** DONE refactor:
+component contribute:
+add  removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
+
+gameObject contribute:
+add getNeedDisposedGameObjectsFunc
+
+
+
+specify state type not move to protocol!!!
+only use abstract state type instead!
+
+
+
+when defer dispose gameObject, should defer dispose its components(include transform)!
+
+
+
+
+
+when batch dispose, should remove them from needDisposedXxxArray;
+getNeedDisposedXxxFunc should remove duplicate ones;
+
+
+when batch dispose, checkShouldNeedDisposed by invoke getNeedDisposedXxxFunc(no duplicate one!)
+
+
+
+** DONE refactor: rename batchDispose to dispose;
+
+** DONE update pbrmaterial, geometry 
+
+- state type
+- add removeComponentFunc, getComponentsFunc, getNeedDisposedComponentsFunc
+
+- add test
+
+
+** DONE pbrMaterial, geometry ->package add buildAll:ci
+
+pass run:editor
+
+
+** DONE refactor: components, component_protocols should use gameobjectProtocol instead of engine-core-protocol->GameObjectType.gameObject!!!
+
+
+
+** DONE add geometry, pbrMaterial components(include worker)
+
+need refactor, add dispose!
+
+add removeComponentFunc
+
+for pbrmaterial and geometry component:
+only use batchDisposeComponents with handleBatchDisposeComponentData, not handleBatchDisposeComponent!
+
+
+
+
+# TODO implement batch dispose
+
+# TODO pass test
+# TODO add defer, batch dispose test
+
+
+
+# TODO pbrmaterial test->defer dispose->fix magic
+
+
+
+# TODO remove getComponents
+
+
+# TODO fix transform bug
+
+# TODO pass engine core compile, test
+
+# TODO update gameObject dispose
+
+
+# TODO pass transform
+
+
+
+# TODO update gameObject dispose:  add dispose pbrMaterial
+# let _getSharableComponentDataArr = (uidArray, getComponentFunc, gameObjectRecord) =>
+#   uidArray |> WonderCommonlib.ArrayService.reduceOneParam((. dataMap, uid) =>
+#     switch getComponentFunc(. uid, gameObjectRecord) {
+#     | None => dataMap
+#     | Some(component) => dataMap |> ArrayMapService.addValue(component, uid)
+#     /* dataArr |> ArrayService.push((uid, component)) */
+#     }
+#   , WonderCommonlib.MutableSparseMapService.createEmpty())
+
+
+
+TODO update engine-core
+
+pass dispose scene
+
+** DONE refactor: GameContributeType remove 'state, 'gameObject, 'transform, 'config
+
+
+# ** TODO refactor: GameContributeType remove 'xxxState???
+
+
+////** TODO refactor: RegisterComponentType: use <'transform, 'pbrMaterial, 'geometry> ???
+
+
+
+** DONE refactor: geometry: setXxx(e.g. VerticesUtils) not return state(because it's mutable operation)
+
+
+** DONE refactor: geometry, pbrMaterial->dispose: remove duplicate
+
+
+
+
+** DONE rename needDisposedXxxArray, disposedXxxArray to Xxxs
+
+
+** DONE refactor: remove component_protocols -> state?
+
+
+** TODO component support clone
+
+
+
+
+*** DONE component support clone
+
+*** DONE refactor
+
+
+*** DONE gameObject support clone
+
+clone count gameObject:
+create count gameObjects as clonedGameObjectArr
+
+clone components:
+clone except transform: add to cloned gameObject
+clone transform: add to cloned gameObject, return cloned transform
+
+set cloned transform's parent to last level cloned transform
+
+rec clone gameObject's children
+
+
+
+accept data:
+isShareMaterial
+(geometry is shared)
+
+return data: (state, totalClonedGameObjectArr)
+
+totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned, ...]
+
+
+*** DONE pass bdd test
+
+
+*** DONE pass run:editor
+
+
+** DONE refactor: after.steps: remove
+
+# ** TODO refactor: add 'dataValue and remove "type dataValue" ?
+
+
+
+
+** DONE add remain components(include worker)
+
+
+# ** TODO add MeshRender component
+
+
+
+
+
+# ** TODO refactor: extract ComponentMapUtils to meta3d commonlib for components(e.g. add, remove, has, get, gets component)
+
+refer to ComponentMapService
+
+
+** DONE refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
+
+
+
+
+** DONE pass bdd test
+
+
+* TODO publish
+
+** DONE add coverage
+
+for component, engine-core, gameobject(> 95%)
+
+
+** DONE add ci->build, ci->test
+
+** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+
+** DONE recall
+
+
+
+** DONE finish sxengine's work without arcball, outline and worker
+
+
+** DONE finish sxengine
+
+finish actual engine code(like sxengine's code)
+
+
+
+
+
+** DONE pass render run test:render cube
+
+# ** TODO should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+
+
+** DONE finish sxengine's work with worker
+
+
+# add component worker
+
+# add register ecs worker extension
+
+# refactor DirectionAPI->prepare:
+# move register ecs extension out to regiserECSExtension
+# add registerECSExtensionWorker function
+
+# in GetInitRenderDataJob:
+# send components' buffer, config(count) to render
+# register ecs worker by invoke registerECSExtensionWorker
+
+
+# remove create scene here
+
+
+# fix count: send?
+# fix indices
+
+
+** DONE pass render run test:render cube for worker
+
+
+
+
+** DONE refactor: move immutable to extension
+
+////** TODO refactor: change StateType->empty state to null instead of {}
+
+
+
+
+
+# ** TODO finish abstract worker
+
+** DONE fix: _getTree bug
+add test scene in plugin.feature
+
+TODO finish plugin.feature
+
+** DONE should abstract sxengine code, only provide engine framework extensions instead of actually engine code!
+
+
+
+
+
+
+# work_plugin:
+# geometry
+# material
+# camera
+# transform
+
+
+
+# - job utils
+
+# - render
+
+# - send uniform data
+
+# - work plugins:
+# # update camera, update transform
+
+# # add pbrmaterial commonlib
+# # t,g add type
+
+
+
+# main create render data buffer, share it to render, get allRenderComponents in RenderJob
+    # - main create render data buffer, share it to render
+
+
+# - for worker
+
+# GetInitRenderDataJob->encapuslate again
+
+# RenderWorkerMain->_init, worker.onmessage
+
+
+    # - share component's buffer to render
+
+    # - sync(send begin loop, get finish render data, send init render data)
+ 
+
+
+
+# ** TODO refactor(components): rename transform/pbrmaterial/geometry/direction to xxx-noworker; rename transform/pbrmaterial/geometry/direction-common to xxx
+
+# rename components, component_protocols
+
+** DONE refactor(work_plugins): change function from let xxx to function xxx
+
+** DONE refactor(work_plugins): remove Type.ts for work plugin
+
+** DONE refactor(work_plugins): Utils add setState
+
+** DONE refactor(work_plugin_protocols): type states use workPluginName as key
+export type states = { [workPluginName]: state, }
+
+** DONE refactor(work_plugins): webgl1 worker->main, render: job should add postfix;
+export type states = { [workPluginName]: state, }
+
+** DONE refactor: remove GameContributeType->'transformState, 'xxxState ???
+
+
+
+
+
+* DONE publish
+
+** TODO pass coverage
+
+** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+** DONE pass render run test:clone cube
+
+
+*** TODO no worker
+
+
+*** TODO worker
+
+
+# ** TODO redeploy wonder website in tencent cloud!
+
+# update zhihu->introduce
+# jiehuo
+# 发布wonder(zhihu, bokeyuan)
+
+
+** TODO pass render run test:dispose cube
+
+
+TODO implement dispose job
+
+should handle vbo when dispose geometry!
+
+
+*** TODO no worker
+
+# rename DisposeJob to DisposeSceneJob
+
+TODO finish
+
+# TODO move _disposeGeometryVBOBuffers to DisposeVBOJob(for webgl1)
+
+
+*** TODO feat(disposeGameObjects): add dispose arcball, basic camera view, persp components!
+
+pass unit test
+
+pass run test
+
+
+
+*** TODO worker
+
+
+
+
+
+
+# * TODO feat(editor): add load extension
+
+# e.g.  add a edit scene(canvas), a init engine button, a render engine button, a clone gameObject button
+
+
+
+
+
+
+# # * TODO extract webgl render test extension to Meta3D
+# * TODO extract render test extension to Meta3D(should suppport webgl, webgpu!)
+
+# * TODO add render test for meta3d???
+
+# * TODO add render test for engine
+
+# * TODO add bdd test for render test extension 
+
+
+
+
+# # * TODO extract performance test extension to Meta3D
+
+# # * TODO add performance test for meta3d???
+
+# # * TODO add performance test for engine
+
+# # * TODO add bdd test for performance test extension 
+
+
+
+# * TODO add test
+
+# * TODO publish
+
+# ** TODO pass coverage
+
+# ** TODO publish
+
+
+
+
+* TODO add webgpu render a triangle
+
+for lecture 3
+
+
+* TODO add webgpu render a cube(from lecture)
+
+in ray tracing pipeline
+
+** TODO specular reflection
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add arcball abstract
+
+use 1 spp when move
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+use texture array
+
+# * TODO publish
+
+
+* TODO update engine
+
+# ** TODO finish pbr material glsl(support direction light)
+** TODO finish pbr material glsl(support one rect light)
+
+# ** TODO add custom material
+
+# ** TODO change pbr material to custom material?
+
+# ** TODO add phong material(use custom material?)
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO optimize render 7000 cube
+
+
+
+*** TODO enhence render
+
+add clearColor, enable depeth test, set viewport, set pixel ratio, ...
+
+
+
+*** TODO perf:benchmark
+
+add benchmark test scene
+
+
+*** TODO optimize
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO clone
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO move transform
+
+
+
+
+
+
+
+** TODO perf:benchmark
+
+*** TODO dispose
+
+
+
+
+*** TODO add reallocateGameObjectByDisposeCount, reallocateGeometry
+
+refer to ReallocateCPUMemoryJobUtils
+
+*** TODO engine add rellocate job
+
+
+
+
+
+
+* TODO extract performance test extension to Meta3D
+
+* TODO add performance test for meta3d???
+
+* TODO add performance test for engine
+
+* TODO add bdd test for performance test extension 
+
+
+
+
+
+
+
+* TODO add or update bdd test
+
+95% coverage
+
+** TODO for meta3d(only test engine code except editor code)
+
+for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
+
+
+# *** TODO for sxengine
+
+
+* TODO publish
+
+** TODO pass coverage
+
+** TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add arcball abstract
+
+*** TODO add event
+
+*** TODO add arcball
+
+** TODO finish sxengine implement
+
+
+
+# ** TODO sxengine support dispose gameObject, component api
+
+** TODO add or update bdd test
+
+
+
+** TODO refactor
+
+
+*** TODO use pipe, curry
+
+*** TODO use NullableUtils for type
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+* TODO extract shader extension for webgl
+
+** TODO shader system
+
+* TODO finish sxengine for shader system
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# * TODO update editor
+
+# ** TODO add scene tree header
+
+# *** TODO add dispose gameObject button
+
+# *** TODO add clone gameObject button
+
+
+
+
+
+
+
+
+# * TODO update engine
+
+# ** TODO extract shader extension for webgl
+
+# *** TODO shader system
+
+# *** TODO glsl builder??? or just use directly fixed glsl?
+
+# # ** TODO add custom material component
+
+
+# # * TODO update editor
+
+# # ** TODO support load custom material asset
+
+
+
+# * TODO publish
+
+
+
+
+
+
+
+
+
+# * TODO update engine
+
+# ** TODO finish abstract worker
+
+
+# ** TODO finish sxengine implement
+
+# finish actual engine code(like sxengine's code)
+
+
+# ** TODO add or update bdd test
+
+
+# * TODO publish
+
+
+
+
+* TODO update engine
+
+** TODO engine: add implement load gltf/glb model without assetbundle, streamload
+
+** TODO extract abstract load gltf/glb model without assetbundle, streamload  to Meta3D
+
+* TODO publish
+
+
+
+
+
+
+* TODO performance optimize
+
+set pixel ratio!
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO refactor
+
+** TODO user only know .ts, no .d.ts, no .gen.ts!
+
+** TODO move wonder-xxx to Wonder.js repo
+
+
+* TODO prepare to open for user to use
+
+
+
+# ** TODO prepare user's example code(typescript)
+
+
+** TODO provide new repo for user's public extension, contribute points
+
+
+
+** TODO provide 脚手架
+
+
+# ** TODO prepare doc for user
+
+
+
+
+* TODO publish to sx to make they use!
+
+@wy
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO update editor
+
+** DONE refactor service->Main.d.ts / Main.ts, use let func:type = ...
+
+
+** TODO generate and load .meta3d
+
+.meta3d = multi .mex
+
+meta data + mex data(name, service func str, state)
+
+** TODO add package extension
+
+** TODO add handle package extension
+download, load
+
+** TODO update show extensions: show all registered extensions from .meta3d
+
+*** TODO update show extension name
+
+*** TODO when click one extension, log its name, service func, initial state
+
+
+** TODO add menu
+
+add table data: first items, second items
+
+
+*** TODO finish menu
+
+
+# *** TODO move register extension, redo-undo, multi-user-edit, export/import to menu
+*** TODO move register extension, export/import to menu
+
+
+remove meta3d-handle-package
+
+
+* TODO update engine
+
+** TODO add pbrmaterial component
+
+# fixed shader
+no shader
+
+
+** TODO add geometry component
+
+
+* TODO update editor
+
+** TODO add asset manager
+only has pbrmaterial asset
+
+** TODO generate .mas
+
+
+* TODO update engine
+
+** TODO generate .msc
+
+only has gameObject, transform, pbrMaterial, geometry component
+
+
+* TODO update editor
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO update editor
+
+** TODO implement run
+
+add run scene
+
+** TODO pass run test
+
+
+** TODO add publish
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add redo-undo
+
+** TODO pass run test
+
+* TODO update editor
+
+** TODO update engine
+
+** TODO add redo-undo
+
+** TODO add multi-user-edit
+
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+
+* TODO update ui
+
+** TODO UI use webgl render imgui to implement
+
+
+*** TODO use UI-Render-WebGL extension for UI extension!  so can use UI-Render-WebGPU extension for UI to use webgpu and not edit UI code!!!
+
+UI dependent on UI-Render-Type;
+UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
+
+
+
+
+
+
+*** TODO implement drawBox
+
+
+# *** TODO implement drawImage
+
+
+*** TODO add VisualElement
+
+
+*** TODO implement drawText
+
+default load .fnt, .bitmap resources, not open its control to user
+
+
+*** TODO add window control (beginWindow, endWindow)
+
+usage:
+```
+beginWindow(x,y,width, height, title)
+(window content's z-index should + 1!)
+
+...
+
+drawButton
+
+endWindow()
+```
+
+
+
+
+*** TODO implement drawCopyTextArea
+
+
+*** TODO implement drawButton by custom control
+
+
+*** TODO use skin
+
+
+*** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
+
+
+* TODO update event
+
+refer to eventmanager package
+
+
+* TODO update engine
+
+** TODO use event
+
+add InitEventJob
+
+** TODO use ui
+
+* TODO update editor
+
+** TODO update engine
+
+
+
+* TODO all files should add bdd test
+
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO finish editor's abstract extensions(e.g. menu, window, manager, inspector, scene(for edit/run scene),  ...) 
+
+* TODO finish wonder-editor(e.g. register extension, asset manager, ...)
+
+
+* TODO publish
+
+
+
+
+* TODO refactor
+
+** TODO user only know .ts, no .d.ts, no .gen.ts!
+
+** TODO move wonder-xxx to Wonder.js repo
+
+
+* TODO prepare to open for user to use
+
+
+
+** TODO prepare user's example code(typescript)
+
+
+** TODO provide 脚手架
+
+
+** TODO prepare doc for user
+
+
+* TODO publish and open
+
+** TODO publish
+
+** TODO open for user to use and extend!!!
+
+
+
+
+
+
+* TODO performance optimize
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO add register ui, register custom control/skin, ... extension
+
+* TODO publish
+
+
+
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO add worker abstract extension
+
+** TODO finish wonder-engine(implement webgl1 worker by contribute to worker abstract extension)
+
+
+* TODO update editor
+
+** TODO add worker abstract extension
+
+** TODO finish wonder-editor
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO update engine
+
+** TODO extract shader extension for webgl
+
+** TODO add custom material component
+
+
+* TODO update editor
+
+** TODO support load custom material asset
+
+
+
+* TODO publish
+
+
+
+
+* TODO update engine
+
+** TODO add texture(e.g. diffuse/normal map for pbr material)
+
+
+
+* TODO update editor
+
+** TODO add texture
+
+add texture asset;
+material asset add texture;
+
+
+* TODO publish
+
+
+
+
+
+* TODO update engine
+
+** TODO add load gltf/glb model without assetbundle, streamload
+
+
+
+* TODO update editor
+
+** TODO add gltf/glb asset
+
+
+
+* TODO publish
+
+
+
+
+
+
+
+* TODO publish to sx to make they use!
+
+
+
+
+
+
+* TODO improve
+
+** TODO improve UI
+
+*** TODO support check state change for update geometry buffer
+
+use webgpu
+
+*** TODO support draw chinese text
+
+*** TODO support 3d ui
+
+
+
+* TODO publish
+
+
+
+
+
+
+* TODO rewrite, add bdd test and publish for user to use
+
+** TODO prepare for build editor for user
+
+menu, edit/run scene, extension manager
+
+
+
+
+** TODO prepare for build engine for user
+
+e.g. draw cubes by webgpu
+
+
+
+* TODO new demo: rewrite old demo
+
+** TODO implement register event handler
+
+# *** TODO use drawCopyTextarea
+
+** TODO refactor: UI,EventManager inject api
+
+for commonlib, MiddlewareManager, ...
+
+
+** TODO refactor: refactor all as design point
+
+# rename default/ to src/, src/extensions/(e.g. UI, EventManager, ExtensionManager), src/core(editor-core/, engine-core/); add extensions/ folder instead of other folders;
+# rename default/ to src/, src/core(editor-core/, engine-core/); add extensions/(e.g. UI, EventManager, ExtensionManager) folder instead of other folders;
+rename default/ to src/(editor core file); add extensions/(e.g. UI, EventManager, ExtensionManager), extension-types/ folder instead of other folders;
+
+
+
+** TODO refactor: change stateValue to string
+
+
+** TODO implement register middleware
+
+
+** TODO implement register ui
+
+
+** TODO improve imgui
+
+based on design
+
+*** TODO handle custom control
+
+////no need??? because register ui is already equal to custom control!!!
+
+need! because custom control is commonlib control as lib, while register ui is used one!
+
+*** TODO handle skin
+
+
+*** TODO only editor ui
+
+
+
+** TODO generate and load wpk(only has asb) instead of save!
+
+# wpk = asb + wdb, but now only has asb
+
+
+** TODO add multi user edit
+
+
+
+** TODO move multi user edit to be out repo!
+
+support generate asb, can combine it to the exist wpk(combine asb)
+
+
+
+** TODO design how multi user edit to support extend by user(e.g. in user middleware)!
+ 
+
+** TODO add redo,undo
+
+
+
+** TODO register work plugin
+
+
+** TODO register component
+
+
+
+** TODO add one edit scene
+
+has one default camera
+
+can add one gameObject + outline once
+
+add editSceneUI
+
+** TODO add one run scene
+
+use default camera
+
+add runSceneUI
+
+
+** TODO wpk should contain wdb
+
+
+** TODO publish
+
+
+
+# * TODO add custom middleware for change str to fields(for extend data, like stateValue, skin, script attribute)
+
+# write by typescript
+
+
+# ** TODO generate asb, can combine it to the exist wpk(combine asb)
+
+
+
+* TODO support upgrade user's wpk to use latest extends and default(middleware, core)!
+
+
+
+
+* TODO improve
+
+** TODO be interface(e.g. eventManager, UI, ...)
+
+
+
+
+
+* TODO rewrite, add bdd test and publish for user to use
+
+# UI still use dom to implement
+** TODO UI use webgl render imgui to implement
+
+
+*** TODO implement drawBox
+
+
+# *** TODO implement drawImage
+
+
+*** TODO implement drawText
+
+default load .fnt, .bitmap resources, not open its control to user
+
+
+
+
+*** TODO implement drawCopyTextArea
+
+
+*** TODO implement drawButton by custom control
+
+
+*** TODO use skin
+
+
+*** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
+
+
+
+** TODO finish menu
+
+provide menu extend ui(encapuslate register ui)
+
+
+
+** TODO implement transform, geometry, pbrMaterial, cameraView, perspectiveCameraProjection components
+
+component should implement dispose, redo/undo, clone
+
+
+** TODO add basic webgpu render work plugin
+shader is fixed
+
+
+** TODO implement "add cube gameObject" button, "clone gameObject" button for edit and run scene
+
+
+** TODO implement "generate, load wpk", "redo/undo", "publish"
+
+
+
+** TODO add user case
+
+
+*** TODO add user extend wpk: to change str to fields(for extend data, like stateValue, skin, script attribute)
+
+write by typescript
+
+
+# **** TODO generate asb, can combine it to the exist wpk(combine asb)
+
+
+** TODO implement "upgrade user wpk"
+
+
+** TODO publish v2.0.0-alpha.7
+
+
+** TODO prepare doc for user
+
+
+** TODO open for user to use and extend!!!
+
+
+
+
+
+
+
+
+
+
+
+* TODO change UI to use webgpu render
+
+
+
+
+
+
+* TODO implement multi user edit as a outer repo(wpk), and load it
