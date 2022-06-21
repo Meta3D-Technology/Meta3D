@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor",
-    "version": "0.3.4",
+    "version": "1.0.0-alpha.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-editor-protocol"
@@ -17,15 +17,15 @@
         "meta3d:publish": "npm run webpack && gulp publish"
     },
     "dependencies": {
-        "meta3d-editor-protocol": "^0.3.4",
+        "meta3d-editor-protocol": "^1.0.0-alpha.1",
         "meta3d-extension-test1-protocol": "^0.3.4",
-        "meta3d-type": "^0.3.8"
+        "meta3d-type": "^1.0.0-alpha.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.3.7",
+        "meta3d-tool-publish": "^1.0.0-alpha.1",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

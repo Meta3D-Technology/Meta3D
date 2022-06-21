@@ -22,5 +22,5 @@
 	"ignoreChanges": [
 		"**/*.md"
 	],
-	"version": "内测版v0"
+	"version": "1.0.0-alpha.1"
 }
