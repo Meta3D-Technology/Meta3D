@@ -1,0 +1,15 @@
+.usages {
+  /* display: flex; */
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.usageSvg {
+  height: 200px;
+  width: 200px;
+}
+
+.header{
+  text-align: center;
+}
