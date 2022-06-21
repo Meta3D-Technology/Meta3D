@@ -1,0 +1,5 @@
+* Meta3d-CommonLib
+Meta3d-CommonLib is a common library for Meta3d project.
+* License
+MIT Licence
+

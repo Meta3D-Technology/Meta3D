@@ -11,7 +11,11 @@
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
 		"extensions/*",
-		"contributes/*"
+		"contributes/*",
+		"defaults/*",
+		"examples/*",
+		"platform/*",
+		"service/*"
 	],
 	"config": {
 		"commitizen": {
@@ -22,6 +26,8 @@
 		"lerna": "^4.0.0"
 	},
 	"resolutions": {
-		"jest-environment-jsdom": "^26.0.1"
+		"jest-environment-jsdom": "^26.0.1",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1"
 	}
 }
