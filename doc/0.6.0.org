@@ -1,5 +1,8 @@
 * TODO add editor' extensions,contributes 
 
+** TODO finish current editor demo(register custom ui)
+
+
 ** TODO finish ui with webgl
 (should be convenient to replace webgl to webgpu in the future!)
 

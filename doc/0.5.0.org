@@ -1,3 +1,14 @@
+* TODO add editor' extensions,contributes 
+
+# ** TODO finish current editor demo(register custom ui)
+** TODO add a button, click can log info and change its color
+(button extension)
+
+dispatch action
+
+
+
+
 * TODO add engine' extensions,contributes for render a cube with webgl1 with no worker
 
 
@@ -22,19 +33,13 @@ add gameobject protocol
 
 * TODO add editor' extensions,contributes 
 
-** TODO finish current editor demo(register custom ui)
+# ** TODO add controller extension
+# ** TODO add button extension
 
-** TODO add controller extension
-
-add "add a cube" button in controller
+# add "add a cube" button in controller
+** TODO add "add a cube" button 
 
 ** TODO add run scene view related extensions
-
-
-
-can render multiple cubes in run scene view
-
-# edit scene view add edit arcball camera!
 
 
 * TODO remove v1 extensions, contributes
