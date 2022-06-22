@@ -21,6 +21,7 @@
         "webpack-dev-server": "^4.4.0"
     },
     "dependencies": {
-        "rescript": "^9.1.4"
+        "rescript": "^9.1.4",
+        "remporium": "^0.0.1"
     }
 }

@@ -29,6 +29,7 @@
   },
   "bs-dependencies": [
     "@rescript/react",
+    "remporium",
     "meta3d-commonlib",
     "meta3d-commonlib-type"
   ],

@@ -1,5 +1,10 @@
 
 ReactDOM.render(
-  <React.StrictMode><App/>   </React.StrictMode>,
+  <React.StrictMode>
+  <CounterStore.CounterStore.Provider store=CounterStore.store>
+  <App/>
+  </CounterStore.CounterStore.Provider>
+     </React.StrictMode>,
   ReactDOM.querySelector("#root")->Meta3dCommonlib.OptionSt.getExn,
 )
+

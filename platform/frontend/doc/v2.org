@@ -4,7 +4,8 @@
 
 * DONE pass router
 
-* TODO pass reducer
+* DONE pass redux
+https://github.com/saper150/remporium
 
 * TODO pass antd
 
