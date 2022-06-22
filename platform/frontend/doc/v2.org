@@ -2,7 +2,7 @@
 
 * DONE pass webpack:dev-server
 
-* TODO pass router
+* DONE pass router
 
 * TODO pass reducer
 

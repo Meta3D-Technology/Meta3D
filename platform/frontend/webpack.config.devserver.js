@@ -11,8 +11,7 @@ const isProd = process.env.NODE_ENV.trim() == 'production';
 const isDevelopment = !isProd;
 
 module.exports = {
-    // entry: "./src/index.tsx",
-    entry: "./lib/es6_global/src/Index.bs.js",
+    entry: "./lib/es6_global/src/Main.bs.js",
     mode: isProd ? 'production' : 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
