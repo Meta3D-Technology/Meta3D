@@ -1,6 +1,6 @@
 * DONE pass react render
 
-* TODO pass webpack:dev-server
+* DONE pass webpack:dev-server
 
 * TODO pass router
 
