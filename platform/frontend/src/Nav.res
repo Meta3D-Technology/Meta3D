@@ -4,7 +4,7 @@ let make = () => {
 //       ()
 //   }
 
-<section>
+<>
         <nav
             style={
                 ReactDOM.Style.make(
@@ -23,5 +23,5 @@ RescriptReactRouter.push("/Login")
                 }}>{React.string(`登录`)}</span> 
 {React.string("| ")}
         </nav>
-</section>
+</>
 }
