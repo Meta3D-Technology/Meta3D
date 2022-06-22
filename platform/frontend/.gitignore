@@ -7,9 +7,9 @@ reference/
 node_modules/
 mine/
 
-lib/bs/
-
-lib/js/test/
+# lib/bs/
+# lib/js/test/
+lib/
 
 coverage
 

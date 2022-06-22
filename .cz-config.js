@@ -15,6 +15,8 @@ module.exports = {
   ],
 
   scopes: [
+    { name: "platform" },
+
     { name: "defaults" },
     { name: "extensions" },
     { name: "extension_protocols" },
