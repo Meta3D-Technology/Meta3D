@@ -50,6 +50,7 @@ module Item = {
     ~labelCol: 'c=?,
     ~required: bool=?,
     ~children: React.element=?,
+    ~wrapperCol: 'e=?,
     ~name: string=?,
     ~rules: array<rule>=?,
   ) => React.element = "Item"

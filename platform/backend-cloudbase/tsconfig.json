@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "allowJs": false,
+        "target": "es6",
+        "jsx": "react",
+        "moduleResolution": "node",
+        // "noEmit": true,
+        "skipLibCheck": true
+    },
+    "include": [
+        "./src"
+    ]
+}

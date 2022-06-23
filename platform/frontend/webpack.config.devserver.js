@@ -30,8 +30,10 @@ module.exports = {
 
     resolve: {
         // extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
-        extensions: [ '.js', '.jsx', '.css'],
-        modules: ['node_modules']
+        extensions: ['.js', '.jsx', '.css'],
+        modules: ['node_modules'],
+        fallback: { "crypto": false }
+
     },
 
     module: {

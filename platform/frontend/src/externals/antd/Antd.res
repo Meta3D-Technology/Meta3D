@@ -9,3 +9,5 @@ module Upload = Antd__Upload
 module Icon = Antd__Icon
 module Modal = Antd__Modal
 module Image = Antd__Image
+
+module Message = Antd__Message
