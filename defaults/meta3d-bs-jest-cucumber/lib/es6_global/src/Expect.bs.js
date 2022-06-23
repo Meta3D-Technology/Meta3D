@@ -14,6 +14,10 @@ function toEqualFunc(param, target) {
   return Curry._1(param.toEqual, target);
 }
 
+function toMatchSnapshotFunc(expectReturnData) {
+  return _invokeMethod(expectReturnData, "toMatchSnapshot", []);
+}
+
 function toThrowMessage(param, message) {
   return Curry._1(param.toThrow, message);
 }
@@ -34,6 +38,7 @@ export {
   _invokeNotMethod ,
   _invokeMethod ,
   toEqualFunc ,
+  toMatchSnapshotFunc ,
   toThrowMessage ,
   toThrow ,
   toNotThrow ,

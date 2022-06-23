@@ -4,15 +4,20 @@
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
-        "webpack:dev-server": "webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js"
+        "webpack:dev-server": "webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js",
+        "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
+        "test:update": "jest --maxWorkers=4 -u --config jest.json"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",
         "@babel/preset-env": "^7.10.4",
         "babel-jest": "^26.1.0",
         "cz-customizable": "^5.2.0",
+		"jest": "^26.4.2",
+        "jest-cucumber": "^3.0.1",
+        "identity-obj-proxy": "^3.0.0",
         "gentype": "^3.48.0",
-        "jest": "^25.2.3",
+        "react-test-renderer": "^16.8.3",
         "@rescript/react": "0.10.3",
         "clean-webpack-plugin": "^4.0.0",
         "css-loader": "^3.6.0",

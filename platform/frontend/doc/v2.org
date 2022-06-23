@@ -9,7 +9,11 @@ https://github.com/saper150/remporium
 
 * DONE pass antd
 
-* TODO pass bdd
+* DONE pass bdd
+
+bdd test 
+
+snapshot
 
 * TODO add folders
 
