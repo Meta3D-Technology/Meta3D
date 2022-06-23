@@ -7,7 +7,7 @@
 * DONE pass redux
 https://github.com/saper150/remporium
 
-* TODO pass antd
+* DONE pass antd
 
 * TODO pass bdd
 
