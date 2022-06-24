@@ -16,23 +16,7 @@ module.exports = {
 
   scopes: [
     { name: "platform" },
-
-    { name: "defaults" },
-    { name: "extensions" },
-    { name: "extension_protocols" },
-    { name: "components" },
-    { name: "component_protocols" },
-    { name: "custom_controls" },
-    { name: "custom_control_protocols" },
-    { name: "elements" },
-    { name: "element_protocols" },
-    { name: "events" },
-    { name: "event_protocols" },
-    { name: "skins" },
-    { name: "skin_protocols" },
-    { name: "work_plugins" },
-    { name: "work_plugin_protocols" },
-    { name: "gameobject" }
+    { name: "protocols" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"
