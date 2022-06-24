@@ -26,3 +26,10 @@ snapshot
 # * TODO add bdd test
 
 # * TODO use 依赖隔离 cloudbase
+
+
+* TODO 增加“发布协议”的tool（prvatie），将通过pr而merge到Meta3D中的协议发布到cloudbase
+
+name
+version
+icon

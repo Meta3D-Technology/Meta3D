@@ -18,5 +18,13 @@ export let register = (username: string, password: string) => {
 				.add({
 					username,
 					fileIDs: []
-				})))
+				}))).concat(fromPromise(getDatabase().collection("publishedExtensionProtocols")
+					.add({
+						username,
+						protocols: []
+					}))).concat(fromPromise(getDatabase().collection("publishedContributeProtocols")
+						.add({
+							username,
+							protocols: []
+						})))
 }
