@@ -3,7 +3,6 @@
     "version": "0.3.4",
     "description": "",
     "author": "Meta3D",
-    "main": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w"
