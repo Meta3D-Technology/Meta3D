@@ -15,7 +15,8 @@
 		"defaults/*",
 		"examples/*",
 		"platform/*",
-		"services/*"
+		"services/*",
+		"supports/*"
 	],
 	"config": {
 		"commitizen": {
