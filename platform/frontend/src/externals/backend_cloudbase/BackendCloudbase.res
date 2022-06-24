@@ -6,3 +6,9 @@ external checkUserName: string => Meta3dBsMostProtocol.StreamType.stream<bool> =
 
 @module("backend-cloudbase")
 external registerUser: (string, string) => Meta3dBsMostProtocol.StreamType.stream<unit> = ""
+
+@module("backend-cloudbase")
+external isLoginSuccess: (
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<(bool, Js.Nullable.t<string>)> = ""

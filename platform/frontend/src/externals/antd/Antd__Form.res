@@ -25,6 +25,7 @@ external make: (
   ~validatedMessages: validatedMessages=?,
   ~validatedTrigger: 'd=?,
   ~wrapperCol: 'e=?,
+  ~autoComplete: string=?,
   ~onFinish: formEvent=?,
   ~onFinishFailed: formEvent=?,
   ~onFieldsChange: formEvent=?,

@@ -47,7 +47,8 @@ let make = () => {
         "remember": true,
       }}
       onFinish={_onFinish}
-      onFinishFailed={_onFinishFailed}>
+      onFinishFailed={_onFinishFailed}
+      autoComplete="off">
       <Form.Item
         label=`用户名`
         name="username"

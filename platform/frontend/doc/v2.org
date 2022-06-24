@@ -21,7 +21,7 @@ snapshot
 
 * DONE rewrite 首页
 
-* TODO rewrite Login
+* DONE rewrite Login
 
 # * TODO add bdd test
 
