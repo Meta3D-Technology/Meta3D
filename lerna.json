@@ -7,7 +7,7 @@
 		"defaults/*",
 		"examples/*",
 		"platform/*",
-		"service/*"
+		"services/*"
 	],
 	"npmClient": "yarn",
 	"command": {
