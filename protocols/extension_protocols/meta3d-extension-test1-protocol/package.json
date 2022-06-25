@@ -1,13 +1,13 @@
 {
     "name": "meta3d-extension-test1-protocol",
     "version": "0.3.4",
-    "icon": "./icon.png",
     "publisher": "meta3d",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "meta3d:publish": "gulp publish"
     },
     "keywords": [],
     "devDependencies": {

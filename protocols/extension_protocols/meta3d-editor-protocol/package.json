@@ -1,14 +1,13 @@
 {
     "name": "meta3d-editor-protocol",
     "version": "1.0.0-alpha.1",
-    "icon": "./icon.jpeg",
     "publisher": "meta3d",
     "description": "",
     "author": "Wonder",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
-        "meta3d:publish": "npm run webpack && gulp publish"
+        "meta3d:publish": "gulp publish"
     },
     "keywords": [],
     "devDependencies": {
