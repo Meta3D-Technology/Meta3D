@@ -1,7 +1,7 @@
 // TODO refactor: duplicate with tool-publish
 
 import fs from "fs"
-// import path from "path"
+import path from "path"
 import readJson from "read-package-json"
 import { getDatabase, hasData, init } from "./CloundbaseService";
 import { fromPromise } from "most";
@@ -23,7 +23,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
 	}
 }
 
-function _publish(packageFilePath: string, fileType: "extension" | "contribute") {
+function _publish(packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
 	return fromPromise(
 		new Promise((resolve, reject) => {
 			readJson(packageFilePath, null, false, (err: any, packageJson: any) => {
@@ -59,7 +59,10 @@ function _publish(packageFilePath: string, fileType: "extension" | "contribute")
 									name: packageJson.name,
 									version: packageJson.version, iconBase64:
 										// TODO check file size should be small(< 10kb)
-										fs.readFileSync(packageJson.icon, "base64")
+
+TODO fix: base64 is error????
+
+										fs.readFileSync(iconPath, "base64")
 								}])
 							}
 						)
@@ -74,13 +77,12 @@ function _publish(packageFilePath: string, fileType: "extension" | "contribute")
 		})
 }
 
-export function publishExtensionProtocol(packageFilePath: string) {
-	return _publish(packageFilePath, "extension")
+export function publishExtensionProtocol(packageFilePath: string, iconPath: string) {
+	return _publish(packageFilePath, iconPath, "extension")
 }
 
-export function publishContribute(packageFilePath: string) {
-	return _publish(packageFilePath, "contribute")
+export function publishedContributeProtocols(packageFilePath: string, iconPath: string) {
+	return _publish(packageFilePath, iconPath, "contribute")
 }
 
-// publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/", "main.js"))
-// publishExtension(path.join(__dirname, "../mine/t/", "package.json"), path.join(__dirname, "../mine/t/", "main.js"))
+publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.jpeg"))

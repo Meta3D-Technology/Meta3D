@@ -7,7 +7,8 @@
     "author": "Wonder",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "meta3d:publish": "npm run webpack && gulp publish"
     },
     "keywords": [],
     "devDependencies": {
