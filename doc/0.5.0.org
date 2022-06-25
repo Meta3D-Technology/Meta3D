@@ -1,3 +1,53 @@
+* 扩展的类型
+
+split engine-core to scene, job-pipeline
+so engine is split to these abstract extensions(with contribute):
+scene
+job-pipeline
+scene-graph(for gltf parse, generate, load, ...)
+...
+
+
+
+so engine is split to these specific extensions(without contribute):
+webgl
+webgpu
+...
+
+
+
+
+
+
+so 3rd-library is split to these specific extensions(without contribute):
+most
+immutable
+...
+
+
+
+
+
+
+editor is split to these abstract extensions(change to specific extensions?):
+ui
+event
+...
+
+
+
+
+
+editor is split to these ui extensions(may with contribute?):
+button
+menu
+scene view
+<!-- inspector -->
+布局 or container?
+modal
+...
+
+
 * TODO add editor' extensions,contributes 
 
 # ** TODO finish current editor demo(register custom ui)
