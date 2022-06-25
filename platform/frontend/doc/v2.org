@@ -1,0 +1,35 @@
+* DONE pass react render
+
+* DONE pass webpack:dev-server
+
+* DONE pass router
+
+* DONE pass redux
+https://github.com/saper150/remporium
+
+* DONE pass antd
+
+* DONE pass bdd
+
+bdd test 
+
+snapshot
+
+* DONE add folders
+
+* DONE rewrite Register
+
+* DONE rewrite 首页
+
+* DONE rewrite Login
+
+# * TODO add bdd test
+
+# * TODO use 依赖隔离 cloudbase
+
+
+* TODO 增加“发布协议”的tool（prvatie），将通过pr而merge到Meta3D中的协议发布到cloudbase
+
+name
+version
+icon

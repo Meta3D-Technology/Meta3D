@@ -2,8 +2,9 @@
     "name": "meta3d-contribute-test1-protocol",
     "version": "0.3.4",
     "description": "",
+    "icon": "./icon.png",
+    "publisher": "meta3d",
     "author": "Meta3D",
-    "main": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w"

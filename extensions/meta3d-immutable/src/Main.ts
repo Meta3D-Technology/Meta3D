@@ -1,6 +1,5 @@
 import { service } from "meta3d-immutable-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap } from "meta3d-immutable-protocol/src/service/DependentExtensionType"
-import { dependentContributeNameMap } from "meta3d-immutable-protocol/src/service/DependentContributeType"
+import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-immutable-protocol/src/service/DependentMapType"
 import { state } from "meta3d-immutable-protocol/src/state/StateType"
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { Map } from "immutable"

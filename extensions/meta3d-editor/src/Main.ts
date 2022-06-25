@@ -1,8 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { state } from "meta3d-editor-protocol/src/state/StateType"
 import { service } from "meta3d-editor-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap } from "meta3d-editor-protocol/src/service/DependentExtensionType"
-import { dependentContributeNameMap } from "meta3d-editor-protocol/src/service/DependentContributeType"
+import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-editor-protocol/src/service/DependentMapType"
 import { service as test1Service } from "meta3d-extension-test1-protocol/src/service/ServiceType"
 import { state as test1State } from "meta3d-extension-test1-protocol/src/state/StateType"
 

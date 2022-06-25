@@ -1,16 +1,16 @@
 
 
-import * as Curry from "./../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Main$Meta3d from "../../src/Main.bs.js";
 import * as JestCucumber from "jest-cucumber";
 import * as FileTool$Meta3d from "../tool/FileTool.bs.js";
 import * as AppManagerTool$Meta3d from "../tool/AppManagerTool.bs.js";
-import * as Tuple2$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Expect$Meta3dBsJestCucumber from "./../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Expect.bs.js";
+import * as Tuple2$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Expect$Meta3dBsJestCucumber from "../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Expect.bs.js";
 import * as ExtensionManagerTool$Meta3d from "../tool/ExtensionManagerTool.bs.js";
-import * as Operators$Meta3dBsJestCucumber from "./../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Operators$Meta3dBsJestCucumber from "../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/app_manager.feature");
 

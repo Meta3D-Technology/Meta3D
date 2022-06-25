@@ -15,7 +15,8 @@
 		"defaults/*",
 		"examples/*",
 		"platform/*",
-		"service/*"
+		"services/*",
+		"supports/*"
 	],
 	"config": {
 		"commitizen": {
@@ -27,6 +28,7 @@
 	},
 	"resolutions": {
 		"jest-environment-jsdom": "^26.0.1",
+		"jest": "^26.4.2",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1"
 	}

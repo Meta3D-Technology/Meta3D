@@ -1,0 +1,18 @@
+{
+    "name": "meta3d-tool-publish-protocol",
+    "version": "1.0.0-alpha.1",
+    "main": "./src/Main.js",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "@cloudbase/node-sdk": "^2.9.1",
+        "@types/node": "^7.0.5",
+        "meta3d": "^1.0.0-alpha.1",
+        "most": "^1.9.0",
+        "read-package-json": "^5.0.1"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

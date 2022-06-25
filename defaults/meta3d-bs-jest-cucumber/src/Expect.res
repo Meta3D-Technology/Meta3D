@@ -1,8 +1,14 @@
 type toEqual<'a> = 'a => unit
 
+type toMatchSnapshot<'a> = 'a => unit
+
 type toThrow<'a> = 'a => unit
 
-type expectReturnData<'a> = {toEqual: toEqual<'a>, toThrow: toThrow<'a>}
+type expectReturnData<'a> = {
+  toEqual: toEqual<'a>,
+  toMatchSnapshot: toMatchSnapshot<'a>,
+  toThrow: toThrow<'a>,
+}
 
 let _invokeNotMethod = %raw(`
 function(jsObj, methodName, paramsArr) {
@@ -18,6 +24,10 @@ function(jsObj, methodName, paramsArr) {
 
 let toEqualFunc = ({toEqual}, target) => {
   toEqual(target)
+}
+
+let toMatchSnapshotFunc = (expectReturnData) => {
+  _invokeMethod(expectReturnData, "toMatchSnapshot", [])
 }
 
 let toThrowMessage = ({toThrow}, message: string) => {

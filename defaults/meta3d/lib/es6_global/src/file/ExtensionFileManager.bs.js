@@ -1,6 +1,6 @@
 
 
-import * as Caml_array from "./../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as BinaryFileOperator$Meta3d from "./BinaryFileOperator.bs.js";
 
