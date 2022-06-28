@@ -25,7 +25,7 @@ let make = () => {
             }, _)
           }
     }, _)->Meta3dBsMost.Most.drain->Js.Promise.catch(e => {
-      Message.error((e->Obj.magic)["message"])->Obj.magic
+      BackendCloudbase.error(~message=Message.message, ~e, ())-> Obj.magic
     }, _)->Obj.magic
   }
 

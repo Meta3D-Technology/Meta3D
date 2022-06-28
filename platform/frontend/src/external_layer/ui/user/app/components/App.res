@@ -22,6 +22,7 @@ let make = () => {
     switch url.path {
     | list{"Login"} => <Login />
     | list{"Register"} => <Register />
+    | list{"ExtensionShop"} => <ExtensionShop />
     | list{}
     | _ =>
       <Index />

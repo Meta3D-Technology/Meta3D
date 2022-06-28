@@ -9,13 +9,13 @@ let make = () => {
         {React.string(`首页`)}
       </span>
       {React.string("| ")}
-    //   <span
-    //     onClick={_ => {
-    //       RescriptReactRouter.push("/Login")
-    //     }}>
-    //     {React.string(`登录`)}
-    //   </span>
-    //   {React.string("| ")}
+      <span
+        onClick={_ => {
+          RescriptReactRouter.push("/ExtensionShop")
+        }}>
+        {React.string(`扩展商城`)}
+      </span>
+      {React.string("| ")}
     </nav>
   </>
 }

@@ -1,4 +1,12 @@
 @module("backend-cloudbase")
+external error: (
+  ~message: Antd__Message.message,
+  ~e: Js.Promise.error,
+  ~duration: int=?,
+  unit,
+) => unit = ""
+
+@module("backend-cloudbase")
 external init: unit => Js.Promise.t<unit> = ""
 
 @module("backend-cloudbase")
@@ -12,3 +20,21 @@ external isLoginSuccess: (
   string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<(bool, Js.Nullable.t<string>)> = ""
+
+type protocol = {
+  name: string,
+  version: string,
+  iconBase64: string,
+}
+
+type protocols = array<protocol>
+
+@module("backend-cloudbase")
+external getAllPublishExtensionProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
+  protocols
+> = ""
+
+@module("backend-cloudbase")
+external getAllPublishContributeProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
+  protocols
+> = ""

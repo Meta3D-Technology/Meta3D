@@ -32,6 +32,8 @@
     "remporium",
     "meta3d-commonlib",
     "meta3d-commonlib-type",
+    "meta3d",
+    "meta3d-type",
     "meta3d-bs-most",
     "meta3d-bs-most-protocol"
   ],
