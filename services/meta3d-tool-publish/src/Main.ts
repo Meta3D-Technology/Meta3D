@@ -85,7 +85,6 @@ function _publish(generateFunc: any, packageFilePath: string, distFilePath: stri
 
 			_defineWindow()
 
-
 			let packageData = _convertToExtensionOrContributePackageData(packageJson)
 
 			return fromPromise(app.uploadFile({
@@ -99,14 +98,32 @@ function _publish(generateFunc: any, packageFilePath: string, distFilePath: stri
 					.where({ username: packageJson.publisher })
 					.get()
 					.then(res => {
-						let { fileIDs } = res.data[0]
+						let { fileData } = res.data[0]
+
+						let index = fileData.findIndex(({ protocolName, protocolVersion }) => {
+							return protocolName === packageJson.protocol.name && protocolVersion === packageJson.version
+						})
+
+						let newFileData = []
+						let data = {
+							protocolName: packageJson.protocol.name,
+							protocolVersion: packageJson.version,
+							fileID
+						}
+
+						if (index === -1) {
+							newFileData = fileData.concat([data])
+						}
+						else {
+							newFileData = fileData.slice()
+							newFileData[index] = data
+						}
 
 						return getDatabase(app).collection(_getPublishedCollectionName(fileType))
 							.where({ username: packageJson.publisher })
 							.update(
 								{
-									fileIDs: fileIDs.includes(fileID) ? fileIDs : fileIDs.concat([fileID])
-
+									fileData: newFileData
 								}
 							)
 					}))

@@ -11,11 +11,11 @@ export let register = (username, password) => {
     })).concat(fromPromise(getDatabase().collection("publishedExtensions")
         .add({
         username,
-        fileIDs: []
+        fileData: []
     }))).concat(fromPromise(getDatabase().collection("publishedContributes")
         .add({
         username,
-        fileIDs: []
+        fileData: []
     }))).concat(fromPromise(getDatabase().collection("publishedExtensionProtocols")
         .add({
         username,

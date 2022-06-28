@@ -16,7 +16,8 @@ module.exports = {
 
   scopes: [
     { name: "platform" },
-    { name: "protocols" }
+    { name: "protocols" },
+    { name: "services" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"
