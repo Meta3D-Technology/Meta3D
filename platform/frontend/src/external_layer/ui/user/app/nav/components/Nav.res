@@ -16,6 +16,13 @@ let make = () => {
         {React.string(`扩展商城`)}
       </span>
       {React.string("| ")}
+      <span
+        onClick={_ => {
+          RescriptReactRouter.push("/ContributeShop")
+        }}>
+        {React.string(`贡献商城`)}
+      </span>
+      {React.string("| ")}
     </nav>
   </>
 }

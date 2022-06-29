@@ -6,11 +6,23 @@ type extension = {
 }
 type selectedExtensions = list<extension>
 
-type action = SetUserName(string) | SelectExtension(extension) | NotSelectExtension(id)
+type contribute = {
+  id: id,
+  data: Meta3d.ExtensionFileType.contributeFileData,
+}
+type selectedContributes = list<contribute>
+
+type action =
+  | SetUserName(string)
+  | SelectExtension(extension)
+  | NotSelectExtension(id)
+  | SelectContribute(contribute)
+  | NotSelectContribute(id)
 
 type state = {
   username: option<string>,
   selectedExtensions: selectedExtensions,
+  selectedContributes: selectedContributes,
 }
 
 let reducer = (state, action) => {
@@ -26,10 +38,21 @@ let reducer = (state, action) => {
         selectedExtension => selectedExtension.id !== id,
       ),
     }
+  | SelectContribute(data) => {
+      ...state,
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push(data),
+    }
+  | NotSelectContribute(id) => {
+      ...state,
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.filter(
+        selectedContribute => selectedContribute.id !== id,
+      ),
+    }
   }
 }
 
 let initialState = {
   username: None,
   selectedExtensions: list{},
+  selectedContributes: list{},
 }
