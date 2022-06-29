@@ -100,14 +100,17 @@ function _publish(generateFunc: any, packageFilePath: string, distFilePath: stri
 					.then(res => {
 						let { fileData } = res.data[0]
 
-						let index = fileData.findIndex(({ protocolName, protocolVersion }) => {
-							return protocolName === packageJson.protocol.name && protocolVersion === packageJson.version
+						let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+							return protocolName === packageJson.protocol.name
+								// && protocolVersion === packageJson.protocol.version
+								&& version === packageJson.version
 						})
 
 						let newFileData = []
 						let data = {
-							protocolName: packageJson.protocol.name,
-							protocolVersion: packageJson.version,
+							protocolName: packageData.protocol.name,
+							protocolVersion: packageData.protocol.version,
+							version: packageJson.version,
 							fileID
 						}
 

@@ -1,25 +1,35 @@
-type action = SetUserName(string)
-// type userCenterAction = SetUserName(string)
+type id = string
 
-type state = {username: option<string>}
+type extension = {
+  id: id,
+  data: Meta3d.ExtensionFileType.extensionFileData,
+}
+type selectedExtensions = list<extension>
+
+type action = SetUserName(string) | SelectExtension(extension) | NotSelectExtension(id)
+
+type state = {
+  username: option<string>,
+  selectedExtensions: selectedExtensions,
+}
 
 let reducer = (state, action) => {
   switch action {
-  | SetUserName(username) => {username: Some(username)}
+  | SetUserName(username) => {...state, username: Some(username)}
+  | SelectExtension(data) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push(data),
+    }
+  | NotSelectExtension(id) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.filter(
+        selectedExtension => selectedExtension.id !== id,
+      ),
+    }
   }
 }
 
 let initialState = {
   username: None,
+  selectedExtensions: list{},
 }
-
-// let store = Remporium.makeStore(initialState, reducer)
-
-// module UserCenterStore = Remporium.CreateModule({
-//   type action = action
-//   type state = state
-// })
-
-// let useDispatch = UserCenterStore.useDispatch
-
-// let useSelector = UserCenterStore.useSelector

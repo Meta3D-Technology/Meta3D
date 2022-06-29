@@ -33,3 +33,10 @@ snapshot
 name
 version
 icon
+
+
+
+
+# empty
+
+# match version

@@ -1,5 +1,9 @@
-@module("semver")
-external satisfies: (string, string) => bool = ""
+type version = string
+
+type versionRange = string
 
 @module("semver")
-external minVersion: string => string = ""
+external satisfies: (version, versionRange) => bool = ""
+
+@module("semver")
+external minVersion: versionRange => version = ""

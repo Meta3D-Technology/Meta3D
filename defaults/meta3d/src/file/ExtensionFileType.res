@@ -1,15 +1,16 @@
 open Meta3dType.Index
 
+type versionRange = string
+
 type extensionProtocolData = {
   name: string,
-  version: string,
+  version: versionRange,
 }
 
 type dependentData = {
   protocolName: string,
-  protocolVersion: string,
+  protocolVersion: versionRange,
 }
-
 
 type dependentExtensionData = dependentData
 
@@ -47,7 +48,7 @@ type extensionFileData = {
 
 type contributeProtocolData = {
   name: string,
-  version: string,
+  version: versionRange,
 }
 
 type contributePackageData = {

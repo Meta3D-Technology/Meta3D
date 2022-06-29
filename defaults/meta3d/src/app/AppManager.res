@@ -3,7 +3,7 @@ open Js.Typed_array
 open AppFileType
 
 let _checkVersion = (protocolVersion, dependentProtocolVersion) => {
-  Semver.satisfies(protocolVersion->Semver.minVersion, dependentProtocolVersion)
+  Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
     ? ()
     : Meta3dCommonlib.Exception.throwErr(
         Meta3dCommonlib.Exception.buildErr(

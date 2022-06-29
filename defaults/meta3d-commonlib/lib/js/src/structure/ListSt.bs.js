@@ -3,6 +3,7 @@
 var Curry = require("rescript/lib/js/curry.js");
 var Belt_List = require("rescript/lib/js/belt_List.js");
 var Result$Meta3dCommonlib = require("./Result.bs.js");
+var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 var MutableHashMap$Meta3dCommonlib = require("./hash_map/MutableHashMap.bs.js");
 
 function traverseResultM(list, f) {
@@ -76,10 +77,6 @@ function _eq(source, target) {
   return source === target;
 }
 
-function includes(list, value) {
-  return Belt_List.has(list, value, _eq);
-}
-
 function push(list, value) {
   return Belt_List.concat(list, {
               hd: value,
@@ -121,11 +118,19 @@ function removeDuplicateItems(list) {
               }));
 }
 
+var addInReduce = push;
+
 function find(list, func) {
   return Belt_List.head(Belt_List.filter(list, func));
 }
 
-var addInReduce = push;
+function includes(list, value) {
+  return Belt_List.has(list, value, _eq);
+}
+
+function includesByFunc(list, func) {
+  return OptionSt$Meta3dCommonlib.isSome(Belt_List.head(Belt_List.filter(list, func)));
+}
 
 var getBy = Belt_List.getBy;
 
@@ -169,7 +174,6 @@ exports.range = range;
 exports.map = map;
 exports.mapi = mapi;
 exports._eq = _eq;
-exports.includes = includes;
 exports.getBy = getBy;
 exports.reduce = reduce;
 exports.reducei = reducei;
@@ -191,6 +195,8 @@ exports.reverse = reverse;
 exports.zip = zip;
 exports.zipBy = zipBy;
 exports.splitAt = splitAt;
-exports.find = find;
 exports.addInReduce = addInReduce;
+exports.find = find;
+exports.includes = includes;
+exports.includesByFunc = includesByFunc;
 /* No side effect */

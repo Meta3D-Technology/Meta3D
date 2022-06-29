@@ -134,7 +134,7 @@ defineFeature(feature, test => {
               name: "first-contribute",
               protocol: {
                 name: "first-contribute-protocol",
-                version: "0.3.0",
+                version: ">=0.1.0 < 0.5.0",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

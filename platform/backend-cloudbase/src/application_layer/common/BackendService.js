@@ -7,8 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getDatabase, init as initCloundbase } from "../cloudbase/CloundbaseService";
-import { fromPromise } from "most";
+import { getDatabase, getFile, init as initCloundbase } from "../cloudbase/CloundbaseService";
+import { empty, fromPromise, mergeArray } from "most";
+import { satisfies } from "semver";
 export let init = () => __awaiter(void 0, void 0, void 0, function* () {
     yield initCloundbase();
 });
@@ -29,32 +30,33 @@ export let getAllPublishExtensionProtocols = () => {
 export let getAllPublishContributeProtocols = () => {
     return _getAllPublishProtocolData("publishedContributeProtocols");
 };
-// let _getAllPublishData = (collectionName: string) => {
-//     let app = getEditor()
-//     return fromPromise(getDatabase().collection(collectionName)
-//         .get()).flatMap((res: any) => {
-//             return fromPromise(mergeArray(
-//                 res.data.map(({ fileIDs }) => {
-//                     return mergeArray(
-//                         fileIDs.map(fileID => {
-//                             return getFile(fileID).map(arrayBuffer => {
-//                                 return { id: fileID, file: arrayBuffer }
-//                             })
-//                         })
-//                     )
-//                 })
-//             ).reduce(
-//                 (result, data) => {
-//                     result.push(data)
-//                     return result
-//                 }, []
-//             )
-//             )
-//         })
-// }
-// export let getAllPublishExtensions = () => {
-//     return _getAllPublishData("publishedExtensions")
-// }
-// export let getAllPublishContributes = () => {
-//     return _getAllPublishData("publishedContributes")
-// }
+let _getAllPublishData = (collectionName, protocolName, protocolVersion) => {
+    return fromPromise(getDatabase().collection(collectionName)
+        .get()).flatMap((res) => {
+        return fromPromise(mergeArray(res.data.map(({ fileData }) => {
+            let result = fileData.filter(data => {
+                return data.protocolName === protocolName &&
+                    satisfies(protocolVersion, data.protocolVersion);
+            });
+            if (result.length === 0) {
+                return empty();
+            }
+            else if (result.length > 1) {
+                throw new Error("length should == 1");
+            }
+            let { fileID } = result[0];
+            return getFile(fileID).map(arrayBuffer => {
+                return { id: fileID, file: arrayBuffer };
+            });
+        })).reduce((result, data) => {
+            result.push(data);
+            return result;
+        }, []));
+    });
+};
+export let getAllPublishExtensions = (protocolName, protocolVersion) => {
+    return _getAllPublishData("publishedExtensions", protocolName, protocolVersion);
+};
+export let getAllPublishContributes = (protocolName, protocolVersion) => {
+    return _getAllPublishData("publishedContributes", protocolName, protocolVersion);
+};

@@ -9,3 +9,5 @@ export let registerUser = RegisterService.register;
 export let isLoginSuccess = LoginService.isLoginSuccess;
 export let getAllPublishExtensionProtocols = BackendService.getAllPublishExtensionProtocols;
 export let getAllPublishContributeProtocols = BackendService.getAllPublishContributeProtocols;
+export let getAllPublishExtensions = BackendService.getAllPublishExtensions;
+export let getAllPublishContributes = BackendService.getAllPublishContributes;

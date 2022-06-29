@@ -1,6 +1,6 @@
 import { getDatabase, getFile, init as initCloundbase } from "../cloudbase/CloundbaseService"
-import { getEditor } from "../../domain_layer/repo/CloundbaseRepo"
-import { fromPromise, mergeArray } from "most"
+import { empty, fromPromise, mergeArray } from "most"
+import { satisfies } from "semver";
 
 export let init = async () => {
     await initCloundbase()
@@ -27,36 +27,51 @@ export let getAllPublishContributeProtocols = () => {
     return _getAllPublishProtocolData("publishedContributeProtocols")
 }
 
-// let _getAllPublishData = (collectionName: string) => {
-//     let app = getEditor()
+let _getAllPublishData = (collectionName: string, protocolName: string, protocolVersion: string) => {
+    return fromPromise(getDatabase().collection(collectionName)
+        .get()).flatMap((res: any) => {
+            return fromPromise(mergeArray(
+                res.data.map(({ fileData }) => {
+                    let result = fileData.filter(data => {
+                        return data.protocolName === protocolName &&
+                            satisfies(
+                                protocolVersion,
+                                data.protocolVersion
+                            )
+                    })
 
-//     return fromPromise(getDatabase().collection(collectionName)
-//         .get()).flatMap((res: any) => {
-//             return fromPromise(mergeArray(
-//                 res.data.map(({ fileIDs }) => {
-//                     return mergeArray(
-//                         fileIDs.map(fileID => {
-//                             return getFile(fileID).map(arrayBuffer => {
-//                                 return { id: fileID, file: arrayBuffer }
-//                             })
-//                         })
-//                     )
-//                 })
-//             ).reduce(
-//                 (result, data) => {
-//                     result.push(data)
+                    if (result.length === 0) {
+                        return empty()
+                    }
+                    else if (result.length > 1) {
+                        throw new Error("length should == 1")
+                    }
 
-//                     return result
-//                 }, []
-//             )
-//             )
-//         })
-// }
+                    let { fileID } = result[0]
 
-// export let getAllPublishExtensions = () => {
-//     return _getAllPublishData("publishedExtensions")
-// }
+                    return getFile(fileID).map(arrayBuffer => {
+                        return { id: fileID, file: arrayBuffer }
+                    })
+                })
+            ).reduce(
+                (result, data) => {
+                    result.push(data)
 
-// export let getAllPublishContributes = () => {
-//     return _getAllPublishData("publishedContributes")
-// }
+                    return result
+                }, []
+            )
+            )
+        })
+}
+
+export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
+    return _getAllPublishData("publishedExtensions",
+        protocolName, protocolVersion
+    )
+}
+
+export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
+    return _getAllPublishData("publishedContributes",
+        protocolName, protocolVersion
+    )
+}

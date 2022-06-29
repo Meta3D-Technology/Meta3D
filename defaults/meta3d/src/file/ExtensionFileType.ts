@@ -4,19 +4,21 @@ type dependentExtensionName = string
 
 type dependentContributeName = string
 
+type versionRange = string
+
 export type extensionPackageData = {
   name: extensionName,
   protocol: {
     name: string,
-    version: string
+    version: versionRange
   },
   dependentExtensionNameMap: Record<dependentExtensionName, {
     protocolName: string,
-    protocolVersion: string,
+    protocolVersion: versionRange,
   }>,
   dependentContributeNameMap: Record<dependentContributeName, {
     protocolName: string,
-    protocolVersion: string,
+    protocolVersion: versionRange,
   }>,
 }
 
@@ -53,15 +55,15 @@ export type contributePackageData = {
   name: contributeName,
   protocol: {
     name: string,
-    version: string
+    version: versionRange
   },
   dependentExtensionNameMap: Record<dependentExtensionName, {
     protocolName: string,
-    protocolVersion: string,
+    protocolVersion: versionRange,
   }>,
   dependentContributeNameMap: Record<dependentContributeName, {
     protocolName: string,
-    protocolVersion: string,
+    protocolVersion: versionRange,
   }>,
 }
 

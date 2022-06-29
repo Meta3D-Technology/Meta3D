@@ -31,10 +31,29 @@ type protocols = array<protocol>
 
 @module("backend-cloudbase")
 external getAllPublishExtensionProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
-  protocols
+  protocols,
 > = ""
 
 @module("backend-cloudbase")
 external getAllPublishContributeProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
-  protocols
+  protocols,
 > = ""
+
+type implement = {
+  id: string,
+  file: Js.Typed_array.ArrayBuffer.t,
+}
+
+type implements = array<implement>
+
+@module("backend-cloudbase")
+external getAllPublishExtensions: (
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""
+
+@module("backend-cloudbase")
+external getAllPublishContributes: (
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""

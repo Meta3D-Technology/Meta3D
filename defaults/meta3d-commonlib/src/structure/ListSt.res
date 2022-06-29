@@ -80,8 +80,6 @@ let mapi = (list, func) => Belt.List.mapWithIndex(list, func)
 
 let _eq = (source, target) => source === target
 
-let includes = (list, value) => list->Belt.List.has(value, _eq)
-
 let getBy = Belt.List.getBy
 
 let reduce = Belt.List.reduce
@@ -140,8 +138,14 @@ let zipBy = Belt.List.zipBy
 
 let splitAt = Belt.List.splitAt
 
+let addInReduce = (newList, value) => newList->push(value)
+
 let find = (list, func) => {
   list->filter(func)->head
 }
 
-let addInReduce = (newList, value) => newList->push(value)
+let includes = (list, value) => list->Belt.List.has(value, _eq)
+
+let includesByFunc = (list, func) => {
+  list->find(func)->OptionSt.isSome
+}
