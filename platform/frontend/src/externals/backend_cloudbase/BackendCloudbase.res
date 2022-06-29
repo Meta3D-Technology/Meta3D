@@ -21,6 +21,7 @@ external isLoginSuccess: (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<(bool, Js.Nullable.t<string>)> = ""
 
+// TODO refactor: move type out
 type protocol = {
   name: string,
   version: string,

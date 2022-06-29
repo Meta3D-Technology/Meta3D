@@ -1,26 +1,29 @@
-import { fromPromise } from "most";
-import { getDatabase, notHasData } from "../cloudbase/CloundbaseService";
-export let checkUserName = (username) => {
-    return notHasData("user", { username: username });
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.register = exports.checkUserName = void 0;
+const most_1 = require("most");
+const CloundbaseService_1 = require("../cloudbase/CloundbaseService");
+exports.checkUserName = (username) => {
+    return CloundbaseService_1.notHasData("user", { username: username });
 };
-export let register = (username, password) => {
-    return fromPromise(getDatabase().collection("user")
+exports.register = (username, password) => {
+    return most_1.fromPromise(CloundbaseService_1.getDatabase().collection("user")
         .add({
         username,
         password
-    })).concat(fromPromise(getDatabase().collection("publishedExtensions")
+    })).concat(most_1.fromPromise(CloundbaseService_1.getDatabase().collection("publishedExtensions")
         .add({
         username,
         fileData: []
-    }))).concat(fromPromise(getDatabase().collection("publishedContributes")
+    }))).concat(most_1.fromPromise(CloundbaseService_1.getDatabase().collection("publishedContributes")
         .add({
         username,
         fileData: []
-    }))).concat(fromPromise(getDatabase().collection("publishedExtensionProtocols")
+    }))).concat(most_1.fromPromise(CloundbaseService_1.getDatabase().collection("publishedExtensionProtocols")
         .add({
         username,
         protocols: []
-    }))).concat(fromPromise(getDatabase().collection("publishedContributeProtocols")
+    }))).concat(most_1.fromPromise(CloundbaseService_1.getDatabase().collection("publishedContributeProtocols")
         .add({
         username,
         protocols: []

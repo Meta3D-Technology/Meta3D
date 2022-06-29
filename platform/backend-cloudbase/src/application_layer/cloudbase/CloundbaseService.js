@@ -1,27 +1,30 @@
-import tcb from "@cloudbase/js-sdk";
-import { fromPromise } from "most";
-import { getEditor, setEditor } from "../../domain_layer/repo/CloundbaseRepo";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getData = exports.getFile = exports.uploadFile = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
+const js_sdk_1 = require("@cloudbase/js-sdk");
+const most_1 = require("most");
+const CloundbaseRepo_1 = require("../../domain_layer/repo/CloundbaseRepo");
 // TODO invoke domain service instead of repo
-export let init = () => {
-    let app = tcb.init({
+exports.init = () => {
+    let app = js_sdk_1.default.init({
         env: "meta3d-4g18u7z10c8427f9" // 此处填入您的环境ID
     });
-    setEditor(app);
-    return fromPromise(app.auth()
+    CloundbaseRepo_1.setEditor(app);
+    return most_1.fromPromise(app.auth()
         .anonymousAuthProvider()
         .signIn());
 };
-export let getDatabase = () => {
-    return getEditor().database();
+exports.getDatabase = () => {
+    return CloundbaseRepo_1.getEditor().database();
 };
-export let hasData = (collectionName, data) => {
-    return fromPromise(getDatabase().collection(collectionName)
+exports.hasData = (collectionName, data) => {
+    return most_1.fromPromise(exports.getDatabase().collection(collectionName)
         .where(data)
         .get()
         .then(res => res.data.length > 0));
 };
-export let notHasData = (collectionName, data) => {
-    return fromPromise(getDatabase().collection(collectionName)
+exports.notHasData = (collectionName, data) => {
+    return most_1.fromPromise(exports.getDatabase().collection(collectionName)
         .where(data)
         .get()
         .then(res => res.data.length === 0));
@@ -34,8 +37,8 @@ let _blobToFile = (theBlob, fileName) => {
 let _arrayBufferToBlob = (arrayBuffer) => {
     return new Blob([arrayBuffer]);
 };
-export let uploadFile = (onUploadProgressFunc, cloudPath, arrayBuffer, fileName) => {
-    return fromPromise(getEditor().uploadFile({
+exports.uploadFile = (onUploadProgressFunc, cloudPath, arrayBuffer, fileName) => {
+    return most_1.fromPromise(CloundbaseRepo_1.getEditor().uploadFile({
         cloudPath,
         filePath: _blobToFile(_arrayBufferToBlob(arrayBuffer), fileName),
         onUploadProgress: function (progressEvent) {
@@ -44,10 +47,15 @@ export let uploadFile = (onUploadProgressFunc, cloudPath, arrayBuffer, fileName)
         }
     }).then(({ fileID }) => fileID));
 };
-export let getFile = (fileID) => {
-    return fromPromise(getEditor().getTempFileURL({
+exports.getFile = (fileID) => {
+    return most_1.fromPromise(CloundbaseRepo_1.getEditor().getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {
-        return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()));
+        return most_1.fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()));
     });
+};
+exports.getData = (collectionName, data) => {
+    return exports.getDatabase().collection(collectionName)
+        .where(data)
+        .get();
 };

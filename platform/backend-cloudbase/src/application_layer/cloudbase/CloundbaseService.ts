@@ -63,3 +63,9 @@ export let getFile = (fileID: string) => {
 		return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
 	})
 }
+
+export let getData = (collectionName: string, data: any) => {
+	return getDatabase().collection(collectionName)
+		.where(data)
+		.get()
+}
