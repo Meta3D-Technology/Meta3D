@@ -22,6 +22,7 @@
 	},
 	"include": [
 		"./src",
-		"./test"
-, "mine/pipe.d.ts"	]
+		"./test",
+		"mine/pipe.d.ts"
+	]
 }

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.arrayBufferToBuffer = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
+exports.updateData = exports.getData = exports.uploadFile = exports.arrayBufferToBuffer = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 let init = () => {
@@ -37,4 +37,23 @@ let arrayBufferToBuffer = (arrayBuffer) => {
     return Buffer.from(arrayBuffer);
 };
 exports.arrayBufferToBuffer = arrayBufferToBuffer;
+let uploadFile = (app, cloudPath, fileContent) => {
+    return (0, most_1.fromPromise)(app.uploadFile({
+        cloudPath,
+        fileContent
+    }));
+};
+exports.uploadFile = uploadFile;
+let getData = (app, collectionName, data) => {
+    return (0, exports.getDatabase)(app).collection(collectionName)
+        .where(data)
+        .get();
+};
+exports.getData = getData;
+let updateData = (app, collectionName, whereData, updateData) => {
+    return (0, exports.getDatabase)(app).collection(collectionName)
+        .where(whereData)
+        .update(updateData);
+};
+exports.updateData = updateData;
 //# sourceMappingURL=CloundbaseService.js.map

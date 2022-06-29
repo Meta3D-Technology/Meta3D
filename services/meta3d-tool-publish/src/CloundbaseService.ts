@@ -32,3 +32,22 @@ export let notHasData = (app: any, collectionName: string, data: object) => {
 export let arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): Buffer => {
 	return Buffer.from(arrayBuffer)
 }
+
+export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
+	return fromPromise(app.uploadFile({
+		cloudPath,
+		fileContent
+	}))
+}
+
+export let getData = (app: any, collectionName: string, data: any) => {
+	return getDatabase(app).collection(collectionName)
+		.where(data)
+		.get()
+}
+
+export let updateData = (app: any, collectionName: string, whereData: any, updateData:any) => {
+	return getDatabase(app).collection(collectionName)
+		.where(whereData)
+		.update(updateData)
+}
