@@ -1,9 +1,9 @@
 import fs from "fs"
-import path from "path"
-import readJson from "read-package-json"
+// import path from "path"
 import { generateContribute, generateExtension } from "meta3d";
-import { arrayBufferToBuffer, getData, getDatabase, hasData, init, updateData, uploadFile } from "./CloundbaseService";
+import { arrayBufferToBuffer, getData, hasData, init, updateData, uploadFile } from "meta3d-tool-utils/src/publish/CloundbaseService";
 import { fromPromise } from "most";
+import { buildReadJsonFunc, isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
 function _throwError(msg: string): never {
 	throw new Error(msg)
@@ -41,10 +41,6 @@ function _defineWindow() {
 	(global as any).window = {}
 }
 
-function _isPublisherRegistered(hasDataFunc, app, publisher: string) {
-	return hasDataFunc(app, "user", { username: publisher })
-}
-
 function _getFileDirname(fileType: "extension" | "contribute") {
 	switch (fileType) {
 		case "extension":
@@ -68,7 +64,7 @@ export function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ge
 		.flatMap(packageJson => {
 			return initFunc().map(app => [app, packageJson])
 		}).flatMap(([app, packageJson]) => {
-			return _isPublisherRegistered(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
+			return isPublisherRegistered(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
 				if (!isPublisherRegistered) {
 					_throwError("publishser没有注册")
 				}
@@ -134,27 +130,13 @@ export function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ge
 		})
 }
 
-function _buildReadJsonFunc(packageFilePath: string) {
-	return fromPromise(
-		new Promise((resolve, reject) => {
-			readJson(packageFilePath, null, false, (err: any, packageJson: any) => {
-				if (err) {
-					reject(err)
-					return
-				}
-
-				resolve(packageJson)
-			})
-		})
-	)
-}
 
 export function publishExtension(packageFilePath: string, distFilePath: string) {
 	return _publish([
 		fs.readFileSync,
 		console.log,
 		console.error,
-		_buildReadJsonFunc(packageFilePath),
+		buildReadJsonFunc(packageFilePath),
 		generateExtension, init, hasData, uploadFile, getData, updateData], packageFilePath, distFilePath, "extension")
 }
 
@@ -163,7 +145,7 @@ export function publishContribute(packageFilePath: string, distFilePath: string)
 		fs.readFileSync,
 		console.log,
 		console.error,
-		_buildReadJsonFunc(packageFilePath),
+		buildReadJsonFunc(packageFilePath),
 		generateContribute, init, hasData, uploadFile, getData, updateData], packageFilePath, distFilePath, "contribute")
 }
 

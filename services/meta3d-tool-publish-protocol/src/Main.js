@@ -1,19 +1,16 @@
 "use strict";
-// TODO refactor: duplicate with tool-publish
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishContributeProtocol = exports.publishExtensionProtocol = void 0;
+exports.publishContributeProtocol = exports.publishExtensionProtocol = exports._publish = void 0;
 const fs_1 = __importDefault(require("fs"));
-const read_package_json_1 = __importDefault(require("read-package-json"));
-const CloundbaseService_1 = require("./CloundbaseService");
+// import path from "path"
+const CloundbaseService_1 = require("meta3d-tool-utils/src/publish/CloundbaseService");
 const most_1 = require("most");
+const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {
     throw new Error(msg);
-}
-function _isPublisherRegistered(app, publisher) {
-    return (0, CloundbaseService_1.hasData)(app, "user", { username: publisher });
 }
 function _getPublishedCollectionName(fileType) {
     switch (fileType) {
@@ -23,26 +20,21 @@ function _getPublishedCollectionName(fileType) {
             return "publishedContributeProtocols";
     }
 }
-function _publish(packageFilePath, iconPath, fileType) {
-    return (0, most_1.fromPromise)(new Promise((resolve, reject) => {
-        (0, read_package_json_1.default)(packageFilePath, null, false, (err, packageJson) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(packageJson);
-        });
-    })).flatMap(packageJson => {
-        return (0, CloundbaseService_1.init)().map(app => [app, packageJson]);
+function _isPNG(iconPath) {
+    return iconPath.match(/\.png$/) !== null;
+}
+function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc], packageFilePath, iconPath, fileType) {
+    return readJsonFunc(packageFilePath).flatMap(packageJson => {
+        return initFunc().map(app => [app, packageJson]);
     }).flatMap(([app, packageJson]) => {
-        return _isPublisherRegistered(app, packageJson.publisher).flatMap(isPublisherRegistered => {
+        return (0, PublishUtils_1.isPublisherRegistered)(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
                 _throwError("publishser没有注册");
             }
-            return (0, most_1.fromPromise)((0, CloundbaseService_1.getDatabase)(app).collection(_getPublishedCollectionName(fileType))
-                .where({ username: packageJson.publisher })
-                .get()
-                .then(res => {
+            if (!_isPNG(iconPath)) {
+                _throwError("icon's format should be png");
+            }
+            return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }).then(res => {
                 let { protocols } = res.data[0];
                 let index = protocols.findIndex(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
@@ -53,7 +45,7 @@ function _publish(packageFilePath, iconPath, fileType) {
                     version: packageJson.version, iconBase64: 
                     // TODO check file size should be small(< 10kb)
                     // TODO icon can be any format include png
-                    "data:image/png;base64, " + fs_1.default.readFileSync(iconPath, "base64")
+                    "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
                 };
                 if (index === -1) {
                     newProtocols = protocols.concat([protocol]);
@@ -62,27 +54,38 @@ function _publish(packageFilePath, iconPath, fileType) {
                     newProtocols = protocols.slice();
                     newProtocols[index] = protocol;
                 }
-                return (0, CloundbaseService_1.getDatabase)(app).collection(_getPublishedCollectionName(fileType))
-                    .where({ username: packageJson.publisher })
-                    .update({
+                return updateDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }, {
                     protocols: newProtocols
                 });
             }));
         });
     }).drain()
         .then(_ => {
-        console.log("publish success");
+        logFunc("publish success");
     })
         .catch(e => {
-        console.error("error message: ", e);
+        errorFunc("error message: ", e);
     });
 }
+exports._publish = _publish;
 function publishExtensionProtocol(packageFilePath, iconPath) {
-    return _publish(packageFilePath, iconPath, "extension");
+    return _publish([
+        fs_1.default.readFileSync,
+        console.log,
+        console.error,
+        (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+        CloundbaseService_1.init, CloundbaseService_1.hasData, CloundbaseService_1.getData, CloundbaseService_1.updateData
+    ], packageFilePath, iconPath, "extension");
 }
 exports.publishExtensionProtocol = publishExtensionProtocol;
 function publishContributeProtocol(packageFilePath, iconPath) {
-    return _publish(packageFilePath, iconPath, "contribute");
+    return _publish([
+        fs_1.default.readFileSync,
+        console.log,
+        console.error,
+        (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+        CloundbaseService_1.init, CloundbaseService_1.hasData, CloundbaseService_1.getData, CloundbaseService_1.updateData
+    ], packageFilePath, iconPath, "contribute");
 }
 exports.publishContributeProtocol = publishContributeProtocol;
 // publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.png"))

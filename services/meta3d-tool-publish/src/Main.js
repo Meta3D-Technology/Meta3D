@@ -5,10 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishContribute = exports.publishExtension = exports._publish = void 0;
 const fs_1 = __importDefault(require("fs"));
-const read_package_json_1 = __importDefault(require("read-package-json"));
+// import path from "path"
 const meta3d_1 = require("meta3d");
-const CloundbaseService_1 = require("./CloundbaseService");
+const CloundbaseService_1 = require("meta3d-tool-utils/src/publish/CloundbaseService");
 const most_1 = require("most");
+const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {
     throw new Error(msg);
 }
@@ -38,9 +39,6 @@ function _convertToExtensionOrContributePackageData({ name, protocol, publisher,
 function _defineWindow() {
     global.window = {};
 }
-function _isPublisherRegistered(hasDataFunc, app, publisher) {
-    return hasDataFunc(app, "user", { username: publisher });
-}
 function _getFileDirname(fileType) {
     switch (fileType) {
         case "extension":
@@ -62,7 +60,7 @@ function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateF
         .flatMap(packageJson => {
         return initFunc().map(app => [app, packageJson]);
     }).flatMap(([app, packageJson]) => {
-        return _isPublisherRegistered(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
+        return (0, PublishUtils_1.isPublisherRegistered)(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
                 _throwError("publishser没有注册");
             }
@@ -105,23 +103,12 @@ function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateF
     });
 }
 exports._publish = _publish;
-function _buildReadJsonFunc(packageFilePath) {
-    return (0, most_1.fromPromise)(new Promise((resolve, reject) => {
-        (0, read_package_json_1.default)(packageFilePath, null, false, (err, packageJson) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve(packageJson);
-        });
-    }));
-}
 function publishExtension(packageFilePath, distFilePath) {
     return _publish([
         fs_1.default.readFileSync,
         console.log,
         console.error,
-        _buildReadJsonFunc(packageFilePath),
+        (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
         meta3d_1.generateExtension, CloundbaseService_1.init, CloundbaseService_1.hasData, CloundbaseService_1.uploadFile, CloundbaseService_1.getData, CloundbaseService_1.updateData
     ], packageFilePath, distFilePath, "extension");
 }
@@ -131,7 +118,7 @@ function publishContribute(packageFilePath, distFilePath) {
         fs_1.default.readFileSync,
         console.log,
         console.error,
-        _buildReadJsonFunc(packageFilePath),
+        (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
         meta3d_1.generateContribute, CloundbaseService_1.init, CloundbaseService_1.hasData, CloundbaseService_1.uploadFile, CloundbaseService_1.getData, CloundbaseService_1.updateData
     ], packageFilePath, distFilePath, "contribute");
 }

@@ -11,19 +11,19 @@ export let init = () => {
 	return just(app)
 }
 
-export let getDatabase = (app: any) => {
+let _getDatabase = (app: any) => {
 	return app.database()
 }
 
 export let hasData = (app: any, collectionName: string, data: object) => {
-	return fromPromise(getDatabase(app).collection(collectionName)
+	return fromPromise(_getDatabase(app).collection(collectionName)
 		.where(data)
 		.get()
 		.then(res => res.data.length > 0))
 }
 
 export let notHasData = (app: any, collectionName: string, data: object) => {
-	return fromPromise(getDatabase(app).collection(collectionName)
+	return fromPromise(_getDatabase(app).collection(collectionName)
 		.where(data)
 		.get()
 		.then(res => res.data.length === 0))
@@ -41,13 +41,13 @@ export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
 }
 
 export let getData = (app: any, collectionName: string, data: any) => {
-	return getDatabase(app).collection(collectionName)
+	return _getDatabase(app).collection(collectionName)
 		.where(data)
 		.get()
 }
 
-export let updateData = (app: any, collectionName: string, whereData: any, updateData:any) => {
-	return getDatabase(app).collection(collectionName)
+export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
+	return _getDatabase(app).collection(collectionName)
 		.where(whereData)
 		.update(updateData)
 }

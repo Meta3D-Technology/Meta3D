@@ -16,14 +16,11 @@
 			"ESNext",
 		],
 		"types": [
-			"node",
-			"jest"
+			"node"
 		],
 		// "strict": true
 	},
 	"include": [
-		"./src",
-		"./test",
-		"./index.d.ts"
+		"./src"
 	]
 }

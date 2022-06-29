@@ -1,17 +1,11 @@
-// TODO refactor: duplicate with tool-publish
-
 import fs from "fs"
-import path from "path"
-import readJson from "read-package-json"
-import { getDatabase, hasData, init } from "./CloundbaseService";
+// import path from "path"
+import { getData, hasData, init, updateData } from "meta3d-tool-utils/src/publish/CloundbaseService";
 import { fromPromise } from "most";
+import { buildReadJsonFunc, isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
 function _throwError(msg: string): never {
 	throw new Error(msg)
-}
-
-function _isPublisherRegistered(app, publisher: string) {
-	return hasData(app, "user", { username: publisher })
 }
 
 function _getPublishedCollectionName(fileType: "extension" | "contribute") {
@@ -23,36 +17,34 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
 	}
 }
 
-function _publish(packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
-	return fromPromise(
-		new Promise((resolve, reject) => {
-			readJson(packageFilePath, null, false, (err: any, packageJson: any) => {
-				if (err) {
-					reject(err)
-					return
-				}
+function _isPNG(iconPath: string) {
+	return iconPath.match(/\.png$/) !== null
+}
 
-				resolve(packageJson)
-			})
-		})
-	).flatMap(packageJson => {
-		return init().map(app => [app, packageJson])
+export function _publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+	return readJsonFunc(packageFilePath).flatMap(packageJson => {
+		return initFunc().map(app => [app, packageJson])
 	}).flatMap(([app, packageJson]) => {
-		return _isPublisherRegistered(app, packageJson.publisher).flatMap(isPublisherRegistered => {
+		return isPublisherRegistered(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
 			if (!isPublisherRegistered) {
 				_throwError("publishser没有注册")
 			}
 
-			return fromPromise(getDatabase(app).collection(_getPublishedCollectionName(fileType))
-				.where({ username: packageJson.publisher })
-				.get()
-				.then(res => {
+			if (!_isPNG(iconPath)) {
+				_throwError("icon's format should be png")
+			}
+
+			return fromPromise(
+				getDataFunc(
+					app,
+					_getPublishedCollectionName(fileType),
+					{ username: packageJson.publisher }
+				).then(res => {
 					let { protocols } = res.data[0]
 
 					let index = protocols.findIndex(({ name, version }) => {
 						return name === packageJson.name && version === packageJson.version
 					})
-
 
 					let newProtocols = []
 					let protocol = {
@@ -62,7 +54,7 @@ function _publish(packageFilePath: string, iconPath: string, fileType: "extensio
 
 							// TODO icon can be any format include png
 
-							"data:image/png;base64, " + fs.readFileSync(iconPath, "base64")
+							"data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
 					}
 
 					if (index === -1) {
@@ -73,30 +65,40 @@ function _publish(packageFilePath: string, iconPath: string, fileType: "extensio
 						newProtocols[index] = protocol
 					}
 
-					return getDatabase(app).collection(_getPublishedCollectionName(fileType))
-						.where({ username: packageJson.publisher })
-						.update(
-							{
-								protocols: newProtocols
-							}
-						)
+					return updateDataFunc(app,
+						_getPublishedCollectionName(fileType),
+						{ username: packageJson.publisher },
+						{
+							protocols: newProtocols
+						}
+					)
 				}))
 		})
 	}).drain()
 		.then(_ => {
-			console.log("publish success")
+			logFunc("publish success")
 		})
 		.catch(e => {
-			console.error("error message: ", e)
+			errorFunc("error message: ", e)
 		})
 }
 
 export function publishExtensionProtocol(packageFilePath: string, iconPath: string) {
-	return _publish(packageFilePath, iconPath, "extension")
+	return _publish([
+		fs.readFileSync,
+		console.log,
+		console.error,
+		buildReadJsonFunc(packageFilePath),
+		init, hasData, getData, updateData], packageFilePath, iconPath, "extension")
 }
 
 export function publishContributeProtocol(packageFilePath: string, iconPath: string) {
-	return _publish(packageFilePath, iconPath, "contribute")
+	return _publish([
+		fs.readFileSync,
+		console.log,
+		console.error,
+		buildReadJsonFunc(packageFilePath),
+		init, hasData, getData, updateData], packageFilePath, iconPath, "contribute")
 }
 
 // publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.png"))
