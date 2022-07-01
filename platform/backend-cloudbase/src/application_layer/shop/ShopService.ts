@@ -1,4 +1,4 @@
-import { getData, getFile } from "../cloudbase/CloundbaseService"
+import { getData, getFile } from "../cloudbase/CloudbaseService"
 import { empty, fromPromise, mergeArray } from "most"
 import { satisfies } from "semver";
 

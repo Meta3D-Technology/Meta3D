@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishContributeProtocol = exports.publishExtensionProtocol = exports._publish = void 0;
 const fs_1 = __importDefault(require("fs"));
 // import path from "path"
-const CloundbaseService_1 = require("meta3d-tool-utils/src/publish/CloundbaseService");
+const CloundbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseService");
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {

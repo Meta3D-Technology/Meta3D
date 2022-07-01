@@ -1,6 +1,6 @@
 import fs from "fs"
 // import path from "path"
-import { getData, hasData, init, updateData } from "meta3d-tool-utils/src/publish/CloundbaseService";
+import { getData, hasData, init, updateData } from "meta3d-tool-utils/src/publish/CloudbaseService";
 import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { publish } from "./Publish";
 

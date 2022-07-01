@@ -3,7 +3,7 @@ import * as BackendService from "./application_layer/common/BackendService";
 import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
-import { addData, getData, getFile, notHasData } from "./application_layer/cloudbase/CloundbaseService";
+import { addData, getData, getFile, notHasData } from "./application_layer/cloudbase/CloudbaseService";
 
 export let error = ErrorService.error
 

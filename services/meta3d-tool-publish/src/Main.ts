@@ -1,6 +1,6 @@
 import fs from "fs"
 import { generateContribute, generateExtension } from "meta3d";
-import { getData, hasData, init, updateData, uploadFile } from "meta3d-tool-utils/src/publish/CloundbaseService";
+import { getData, hasData, init, updateData, uploadFile } from "meta3d-tool-utils/src/publish/CloudbaseService";
 import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { publish } from "./Publish";
 
