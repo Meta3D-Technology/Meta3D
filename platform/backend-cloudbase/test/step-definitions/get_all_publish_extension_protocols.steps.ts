@@ -1,8 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
-import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { _getAllPublishProtocolData } from "../../src/application_layer/shop/ShopService"
+import { getAllPublishProtocolData } from "../../src/application_layer/shop/ShopService"
 
 const feature = loadFeature("./test/features/get_all_publish_extension_protocols.feature")
 
@@ -22,7 +21,7 @@ defineFeature(feature, test => {
     // }
 
     function _getAllPublishExtensionProtocols() {
-        return _getAllPublishProtocolData(
+        return getAllPublishProtocolData(
             getDataFunc,
             "publishedExtensionProtocols"
         )

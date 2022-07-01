@@ -1,9 +1,8 @@
 import { just } from "most"
-import { notHasData } from "../cloudbase/CloundbaseService"
 
 // TODO use domain service
 
-export let _isLoginSuccess = (notHasDataFunc: any, username: string, password: string) => {
+export let isLoginSuccess = (notHasDataFunc: any, username: string, password: string) => {
     return notHasDataFunc("user", { username }).flatMap(not => {
         if (not) {
             return just([false, "用户名未注册"])
@@ -17,8 +16,4 @@ export let _isLoginSuccess = (notHasDataFunc: any, username: string, password: s
             return [true, null]
         })
     })
-}
-
-export let isLoginSuccess = (username: string, password: string) => {
-    return _isLoginSuccess(notHasData, username, password)
 }

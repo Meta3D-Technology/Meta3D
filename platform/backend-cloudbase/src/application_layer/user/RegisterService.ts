@@ -1,15 +1,10 @@
 import { fromPromise } from "most"
-import { addData, notHasData } from "../cloudbase/CloundbaseService"
 
-export let _checkUserName = (notHasDataFunc: any, username: string) => {
+export let checkUserName = (notHasDataFunc: any, username: string) => {
 	return notHasDataFunc("user", { username: username })
 }
 
-export let checkUserName = (username: string) => {
-	return _checkUserName(notHasData, username)
-}
-
-export let _register = (addDataFunc: any, username: string, password: string) => {
+export let register = (addDataFunc: any, username: string, password: string) => {
 	return fromPromise(
 		addDataFunc("user", {
 			username,
@@ -36,8 +31,4 @@ export let _register = (addDataFunc: any, username: string, password: string) =>
 			protocols: []
 		})
 	))
-}
-
-export let register = (username: string, password: string) => {
-	return _register(addData, username, password)
 }

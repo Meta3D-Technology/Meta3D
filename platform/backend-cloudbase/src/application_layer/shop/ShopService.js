@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPublishContributes = exports.getAllPublishExtensions = exports._getAllPublishData = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports._getAllPublishProtocolData = void 0;
-const CloundbaseService_1 = require("../cloudbase/CloundbaseService");
+exports.getAllPublishData = exports.getAllPublishProtocolData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-exports._getAllPublishProtocolData = (getDataFunc, collectionName) => {
+exports.getAllPublishProtocolData = (getDataFunc, collectionName) => {
     return most_1.fromPromise(getDataFunc(collectionName)).map((res) => {
         return res.data.reduce((result, { protocols }) => {
             return result.concat(protocols.map(({ name, version, iconBase64 }) => {
@@ -13,13 +12,7 @@ exports._getAllPublishProtocolData = (getDataFunc, collectionName) => {
         }, []);
     });
 };
-exports.getAllPublishExtensionProtocols = () => {
-    return exports._getAllPublishProtocolData(CloundbaseService_1.getData, "publishedExtensionProtocols");
-};
-exports.getAllPublishContributeProtocols = () => {
-    return exports._getAllPublishProtocolData(CloundbaseService_1.getData, "publishedContributeProtocols");
-};
-exports._getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
+exports.getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
     return most_1.fromPromise(getDataFunc(collectionName)).flatMap((res) => {
         return most_1.fromPromise(most_1.mergeArray(res.data.map(({ fileData }) => {
             let result = fileData.filter(data => {
@@ -41,10 +34,4 @@ exports._getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protoc
             return result;
         }, []));
     });
-};
-exports.getAllPublishExtensions = (protocolName, protocolVersion) => {
-    return exports._getAllPublishData([CloundbaseService_1.getData, CloundbaseService_1.getFile], "publishedExtensions", protocolName, protocolVersion);
-};
-exports.getAllPublishContributes = (protocolName, protocolVersion) => {
-    return exports._getAllPublishData([CloundbaseService_1.getData, CloundbaseService_1.getFile], "publishedContributes", protocolName, protocolVersion);
 };

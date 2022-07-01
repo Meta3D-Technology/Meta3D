@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { _register, _checkUserName } from "../../src/application_layer/user/RegisterService"
+import { register, checkUserName } from "../../src/application_layer/user/RegisterService"
 import { just } from "most";
 
 const feature = loadFeature("./test/features/register.feature")
@@ -35,7 +35,7 @@ defineFeature(feature, test => {
         });
 
         when('register', () => {
-            return _register(addDataFunc, username, password)
+            return register(addDataFunc, username, password)
         });
 
         then('should add username, password to collection', () => {
@@ -104,7 +104,7 @@ defineFeature(feature, test => {
         });
 
         then('should fail', () => {
-            return _checkUserName(notHasDataFunc, username).observe(result => {
+            return checkUserName(notHasDataFunc, username).observe(result => {
                 expect(result).toBeFalsy
             })
         })
@@ -132,7 +132,7 @@ defineFeature(feature, test => {
         });
 
         then('should success', () => {
-            return _checkUserName(notHasDataFunc, username).observe(result => {
+            return checkUserName(notHasDataFunc, username).observe(result => {
                 expect(result).toBeTruthy
             })
         })

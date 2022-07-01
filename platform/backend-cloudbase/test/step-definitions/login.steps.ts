@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { just } from "most";
 import { createSandbox } from "sinon";
-import { _isLoginSuccess } from "../../src/application_layer/user/LoginService"
+import { isLoginSuccess } from "../../src/application_layer/user/LoginService"
 
 const feature = loadFeature("./test/features/login.feature")
 
@@ -37,7 +37,7 @@ defineFeature(feature, test => {
         });
 
         then('should fail', () => {
-            return _isLoginSuccess(notHasDataFunc, username, password).observe(result => {
+            return isLoginSuccess(notHasDataFunc, username, password).observe(result => {
                 expect(result).toEqual([false, "用户名未注册"])
             })
         });
@@ -67,7 +67,7 @@ defineFeature(feature, test => {
         });
 
         then('should fail', () => {
-            return _isLoginSuccess(notHasDataFunc, username, password).observe(result => {
+            return isLoginSuccess(notHasDataFunc, username, password).observe(result => {
                 expect(result).toEqual([false, "密码不正确"])
             })
         });
@@ -97,7 +97,7 @@ defineFeature(feature, test => {
         });
 
         then('should success', () => {
-            return _isLoginSuccess(notHasDataFunc, username, password).observe(result => {
+            return isLoginSuccess(notHasDataFunc, username, password).observe(result => {
                 expect(result).toEqual([true, null])
             })
         });

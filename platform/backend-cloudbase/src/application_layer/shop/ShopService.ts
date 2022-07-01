@@ -2,7 +2,7 @@ import { getData, getFile } from "../cloudbase/CloundbaseService"
 import { empty, fromPromise, mergeArray } from "most"
 import { satisfies } from "semver";
 
-export let _getAllPublishProtocolData = (
+export let getAllPublishProtocolData = (
     getDataFunc: any,
     collectionName: string) => {
     return fromPromise(getDataFunc(collectionName)).map((res: any) => {
@@ -14,17 +14,7 @@ export let _getAllPublishProtocolData = (
     })
 }
 
-export let getAllPublishExtensionProtocols = () => {
-    return _getAllPublishProtocolData(
-        getData,
-        "publishedExtensionProtocols")
-}
-
-export let getAllPublishContributeProtocols = () => {
-    return _getAllPublishProtocolData(getData, "publishedContributeProtocols")
-}
-
-export let _getAllPublishData = (
+export let getAllPublishData = (
     [getDataFunc, getFileFunc]: [any, any],
     collectionName: string, protocolName: string, protocolVersion: string) => {
     return fromPromise(getDataFunc(collectionName)).flatMap((res: any) => {
@@ -60,18 +50,4 @@ export let _getAllPublishData = (
         )
         )
     })
-}
-
-export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
-    return _getAllPublishData([getData, getFile],
-        "publishedExtensions",
-        protocolName, protocolVersion
-    )
-}
-
-export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
-    return _getAllPublishData([getData, getFile],
-        "publishedContributes",
-        protocolName, protocolVersion
-    )
 }
