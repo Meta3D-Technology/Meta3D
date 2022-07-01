@@ -29,10 +29,6 @@ export let notHasData = (app: any, collectionName: string, data: object) => {
 		.then(res => res.data.length === 0))
 }
 
-export let arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): Buffer => {
-	return Buffer.from(arrayBuffer)
-}
-
 export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
 	return fromPromise(app.uploadFile({
 		cloudPath,

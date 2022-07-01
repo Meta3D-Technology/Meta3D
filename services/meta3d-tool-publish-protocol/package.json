@@ -3,8 +3,9 @@
     "version": "1.0.0-alpha.1",
     "main": "./src/Main.js",
     "scripts": {
-        "watch": "tsc -w",
-        "test:watch": "jest --maxWorkers=4 --watch --config jest.json"
+        "watch": "tsc --watch",
+        "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
+        "test:ci": "tsc --build --clean && jest --maxWorkers=4 --config jest_coverage.json"
     },
     "dependencies": {
         "@cloudbase/node-sdk": "^2.9.1",
@@ -23,6 +24,5 @@
         "jest-cucumber": "^3.0.1",
         "ts-jest": "^26.1.4",
         "typescript": "^4.2.3"
-
     }
 }

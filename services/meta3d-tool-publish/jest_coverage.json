@@ -1,0 +1,38 @@
+{
+    "preset": "ts-jest",
+    "automock": false,
+    "moduleFileExtensions": [
+        "json",
+        "js",
+        "jsx",
+        "ts",
+        "tsx"
+    ],
+    "testRegex": "test/step-definitions/.+.steps.ts",
+    "transformIgnorePatterns": [
+        "<rootDir>/node_modules/jest-cucumber"
+    ],
+    "setupFilesAfterEnv": [
+        "<rootDir>/test/helper/jest/specHelper.js"
+    ],
+    "notify": false,
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coveragePathIgnorePatterns": [
+        "Main.ts"
+    ],
+    "collectCoverageFrom": [
+        "src/**/*.ts",
+        "!**/node_modules/**",
+        "!**/vendor/**"
+    ],
+    "coverageThreshold": {
+        "global": {
+            "lines": 92,
+            "statements": 92,
+            "branches": 76,
+            "functions": 92
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
-import { _publish } from "../../src/Main"
+import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import {resolve} from "meta3d-tool-utils/src/publish/PromiseTool"
@@ -35,7 +35,7 @@ defineFeature(feature, test => {
     }
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
-        return _publish(
+        return publish(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
             packageFilePath, distFilePath,
             "extension"

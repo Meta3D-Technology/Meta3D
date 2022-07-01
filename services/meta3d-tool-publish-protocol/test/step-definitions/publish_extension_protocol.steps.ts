@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { empty, just } from "most";
-import { _publish } from "../../src/Main"
+import { publish } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 
 const feature = loadFeature("./test/features/publish_extension_protocol.feature")
@@ -28,7 +28,7 @@ defineFeature(feature, test => {
     }
 
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
-        return _publish(
+        return publish(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc],
             packageFilePath, iconPath,
             "extension"
