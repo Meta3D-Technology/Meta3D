@@ -1,6 +1,6 @@
 @module("backend-cloudbase")
 external error: (
-  ~message: Antd__Message.message,
+  ~message: FrontendUtils.Antd__Message.message,
   ~e: Js.Promise.error,
   ~duration: int=?,
   unit,

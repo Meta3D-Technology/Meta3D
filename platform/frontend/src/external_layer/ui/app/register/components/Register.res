@@ -1,4 +1,4 @@
-open Antd
+open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 type values = {username: string, password: string}

@@ -1,4 +1,4 @@
-open Antd
+open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component

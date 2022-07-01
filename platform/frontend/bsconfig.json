@@ -35,7 +35,8 @@
     "meta3d",
     "meta3d-type",
     "meta3d-bs-most",
-    "meta3d-bs-most-protocol"
+    "meta3d-bs-most-protocol",
+    "frontend-utils"
   ],
   "refmt": 3,
   "namespace": true,
