@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getFile = exports.uploadFile = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
+exports.addData = exports.getData = exports.getFile = exports.uploadFile = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const CloundbaseRepo_1 = require("../../domain_layer/repo/CloundbaseRepo");
@@ -58,4 +58,8 @@ exports.getData = (collectionName, data) => {
     return exports.getDatabase().collection(collectionName)
         .where(data)
         .get();
+};
+exports.addData = (collectionName, data) => {
+    return exports.getDatabase().collection(collectionName)
+        .add(data);
 };

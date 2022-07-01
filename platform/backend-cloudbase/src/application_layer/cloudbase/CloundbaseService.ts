@@ -69,3 +69,9 @@ export let getData = (collectionName: string, data: any) => {
 		.where(data)
 		.get()
 }
+
+export let addData = (collectionName: string, data: any) => {
+	return getDatabase().collection(collectionName)
+		.add(data)
+}
+

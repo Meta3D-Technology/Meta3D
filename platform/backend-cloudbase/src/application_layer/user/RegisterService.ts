@@ -1,30 +1,43 @@
 import { fromPromise } from "most"
-import { getDatabase, notHasData } from "../cloudbase/CloundbaseService"
+import { addData, notHasData } from "../cloudbase/CloundbaseService"
+
+export let _checkUserName = (notHasDataFunc: any, username: string) => {
+	return notHasDataFunc("user", { username: username })
+}
 
 export let checkUserName = (username: string) => {
-	return notHasData("user", { username: username })
+	return _checkUserName(notHasData, username)
+}
+
+export let _register = (addDataFunc: any, username: string, password: string) => {
+	return fromPromise(
+		addDataFunc("user", {
+			username,
+			password
+		})
+	).concat(fromPromise(
+		addDataFunc("publishedExtensions", {
+			username,
+			fileData: []
+		})
+	)).concat(fromPromise(
+		addDataFunc("publishedContributes", {
+			username,
+			fileData: []
+		})
+	)).concat(fromPromise(
+		addDataFunc("publishedExtensionProtocols", {
+			username,
+			protocols: []
+		})
+	)).concat(fromPromise(
+		addDataFunc("publishedContributeProtocols", {
+			username,
+			protocols: []
+		})
+	))
 }
 
 export let register = (username: string, password: string) => {
-	return fromPromise(getDatabase().collection("user")
-		.add({
-			username,
-			password
-		})).concat(fromPromise(getDatabase().collection("publishedExtensions")
-			.add({
-				username,
-				fileData: []
-			}))).concat(fromPromise(getDatabase().collection("publishedContributes")
-				.add({
-					username,
-					fileData: []
-				}))).concat(fromPromise(getDatabase().collection("publishedExtensionProtocols")
-					.add({
-						username,
-						protocols: []
-					}))).concat(fromPromise(getDatabase().collection("publishedContributeProtocols")
-						.add({
-							username,
-							protocols: []
-						})))
+	return _register(addData, username, password)
 }
