@@ -45,16 +45,33 @@ icon
 * DONE add bdd test
 
 
-* TODO add assemble-space
-
-empty:
-controller: publish button
-
-body show:
-TODO 装配空间
-
-
-add bdd test(snapshot)
-
-
 * DONE refactor: flatten ui/user/ to ui/
+
+* DONE add assemble-space
+
+# empty:
+# controller: publish button
+
+# body show:
+# TODO 装配空间
+
+
+# pass bdd test(snapshot)
+
+
+
+
+# pass run test
+
+
+* TODO assemble-space: left show extension, contribute protocols and implements
+
+collapse
+
+List(horizon)
+
+
+
+* TODO assemble-space: left show selected list
+
+List(vertical)

@@ -8,6 +8,7 @@ let make = () => {
     | list{"Register"} => <Register />
     | list{"ExtensionShop"} => <ExtensionShop />
     | list{"ContributeShop"} => <ContributeShop />
+    | list{"AssembleSpace"} => <> <Nav /> <AssembleSpace.AssembleSpace /> </>
     | list{}
     | _ =>
       <Index />

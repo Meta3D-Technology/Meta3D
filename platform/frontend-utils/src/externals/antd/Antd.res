@@ -12,3 +12,4 @@ module Image = Antd__Image
 module List = Antd__List
 
 module Message = Antd__Message
+module Layout = Antd__Layout

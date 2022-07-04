@@ -1,0 +1,19 @@
+{
+  "automock": false,
+  "testEnvironment": "node",
+  "moduleFileExtensions": [
+    "js"
+  ],
+  "testRegex": "lib/js/test/step-definitions/.*.steps.bs.js$",
+  "transformIgnorePatterns": [
+    "<rootDir>/node_modules/(?!(.*bs-))"
+  ],
+  "moduleNameMapper": {
+    "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+  },
+  "setupFilesAfterEnv": [
+    "<rootDir>/test/helper/jest/specHelper.js"
+  ],
+  "notify": false,
+  "verbose": false
+}

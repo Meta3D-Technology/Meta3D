@@ -23,6 +23,13 @@ let make = () => {
         {React.string(`贡献商城`)}
       </span>
       {React.string("| ")}
+      <span
+        onClick={_ => {
+          RescriptReactRouter.push("/AssembleSpace")
+        }}>
+        {React.string(`装配空间`)}
+      </span>
+      {React.string("| ")}
     </nav>
   </>
 }
