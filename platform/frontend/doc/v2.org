@@ -81,7 +81,7 @@ add raw thenPromise function?
 
 ** DONE add error test case
 
-* TODO change snapshot path
+* DONE change snapshot path
 
 * TODO pass run test
 ** TODO pass run test

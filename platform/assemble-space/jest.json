@@ -11,6 +11,7 @@
   "moduleNameMapper": {
     "^.+\\.(css|less|scss)$": "identity-obj-proxy"
   },
+  "snapshotResolver": "<rootDir>/customSnapshotResolver.js",
   "setupFilesAfterEnv": [
     "<rootDir>/test/helper/jest/specHelper.js"
   ],
