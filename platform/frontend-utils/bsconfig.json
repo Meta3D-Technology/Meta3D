@@ -22,6 +22,7 @@
   "bs-dependencies": [
     "@rescript/react",
     "meta3d-bs-most-protocol",
+    "meta3d-commonlib",
     "meta3d"
   ],
   "refmt": 3,

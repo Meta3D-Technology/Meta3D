@@ -13,4 +13,16 @@ Feature: Assemble Space
         When render
         Then should show a's name and icon
 
-        # TODO error case
+    Rule: error case
+
+        Scenario: has zero implement of extension protocol
+            Given publish extension protocol a
+            And select extension b1 for protocol b
+            When render
+            Then should show empty
+
+        Scenario: has multiple implements of extension protocol
+            Given publish extension protocol a
+            And select extension a1 and a2 for a
+            When render
+            Then should show empty

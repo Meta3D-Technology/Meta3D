@@ -79,6 +79,16 @@ function traverseReducePromiseM(arr, func, param) {
   }
 }
 
+function traverseReduceResultM(arr, func, param) {
+  if (arr.length === 0) {
+    return Result$Meta3dCommonlib.succeed(param);
+  } else {
+    return Result$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
+                  return traverseReduceResultM(arr.slice(1), func, h);
+                }));
+  }
+}
+
 function unsafeGetFirst(arr) {
   return arr[0];
 }
@@ -186,6 +196,7 @@ exports.traverseResultM = traverseResultM;
 exports._id = _id;
 exports.sequenceResultM = sequenceResultM;
 exports.traverseReducePromiseM = traverseReducePromiseM;
+exports.traverseReduceResultM = traverseReduceResultM;
 exports.unsafeGetFirst = unsafeGetFirst;
 exports.getFirst = getFirst;
 exports.push = push;

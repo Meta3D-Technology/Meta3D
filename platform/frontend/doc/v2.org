@@ -64,7 +64,7 @@ icon
 # pass run test
 
 
-* TODO assemble-space: left show extension, contribute protocols and implements
+* DONE assemble-space: left show extension, contribute protocols and implements
 
 # collapse
 
@@ -79,7 +79,7 @@ pass extension
 ** DONE fix cucumber:
 add raw thenPromise function?
 
-** TODO add error test case
+** DONE add error test case
 
 * TODO change snapshot path
 

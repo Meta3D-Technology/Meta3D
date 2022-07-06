@@ -3,61 +3,75 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  type hookType = {isLoaded: bool, extensions: list<(string, string)>}
+  type hookType = {isLoaded: bool, extensions: array<(string, string)>}
 
   // TODO perf: defer load when panel change
   let _getExtensionsAndContributes = ({getAllPublishExtensionProtocols}, selectedExtensions) => {
-    getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(protocols => {
-      selectedExtensions->Meta3dCommonlib.ListSt.traverseResultM(({data}) => {
+    getAllPublishExtensionProtocols()
+    ->Meta3dBsMost.Most.map(protocols => {
+      // protocols->Meta3dCommonlib.ArraySt.traverseReduceResultM((. 
+      protocols->Meta3dCommonlib.ArraySt.reduceOneParam((. 
+      result,
+          {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol,
+        ) => {
+        switch selectedExtensions->Meta3dCommonlib.ListSt.filter(({ data }) => {
         let protocol = data.extensionPackageData.protocol
 
-        switch protocols
-        ->Meta3dCommonlib.ArraySt.filter((
-          {name, version}: FrontendUtils.BackendCloudbaseType.protocol,
-        ) => {
           protocol.name === name && protocol.version === version
-        }) {
-        | arr if arr->Meta3dCommonlib.ArraySt.length !== 1 =>
-          Meta3dCommonlib.Result.failWith(
-            Meta3dCommonlib.Log.buildErrorMessage(
-              ~title="should has one implement of protocol!",
-              ~description="",
-              ~reason="",
-              ~solution="",
-              ~params="",
-            ),
-          )
-        | arr =>
-          arr
-          ->Meta3dCommonlib.ArraySt.getFirst
-          ->Meta3dCommonlib.OptionSt.map(({name, iconBase64}) => (name, iconBase64))
-          ->Meta3dCommonlib.OptionSt.get
+        }){
+        // | arr if arr->Meta3dCommonlib.ArraySt.length === 1=>
+        | list{{data}} => 
+          // let {data} = arr
+          // ->Meta3dCommonlib.ArraySt.getExn(0)
+
+result -> Meta3dCommonlib.ArraySt.push((name, iconBase64))
+
+
+          // ->Meta3dCommonlib.OptionSt.map(({name, iconBase64}) => (name, iconBase64))
+          // ->Meta3dCommonlib.OptionSt.get
+
+          | _ => result
+        // | arr if arr->Meta3dCommonlib.ArraySt.length !== 1 =>
+        //   Meta3dCommonlib.Result.failWith(
+        //     Meta3dCommonlib.Log.buildErrorMessage(
+        //       ~title="should has one implement of protocol!",
+        //       ~description="",
+        //       ~reason="",
+        //       ~solution="",
+        //       ~params="",
+        //     ),
+        //   )
         }
-      })
+      }, [])
     }, _)
   }
 
-  let hook = (backendService, selectedExtensions) => {
+  let hook = (service, selectedExtensions) => {
     let (isLoaded, setIsLoaded) = React.useState(_ => false)
-    let (extensions, setExtensions) = React.useState(_ => list{})
+    let (extensions, setExtensions) = React.useState(_ => [])
 
     let e = ref(Obj.magic(1))
 
     React.useEffect1(() => {
-      _getExtensionsAndContributes(backendService, selectedExtensions)
+      _getExtensionsAndContributes(service, selectedExtensions)
       ->Meta3dBsMost.Most.observe(extensions => {
-        extensions->Meta3dCommonlib.Result.either(
-          extensions => {
+        // extensions->Meta3dCommonlib.Result.either(
+        //   extensions => {
+        //     setIsLoaded(_ => true)
+
+        //     setExtensions(_ => extensions)
+        //   },
+        //   e => {
+        //     setIsLoaded(_ => false)
+
+        //     service.error(. e, None)
+        //   },
+        // )
+
+
             setIsLoaded(_ => true)
 
             setExtensions(_ => extensions)
-          },
-          e => {
-            setIsLoaded(_ => false)
-
-            Message.error(e)
-          },
-        )
       }, _)
       ->ignore
 
@@ -85,21 +99,18 @@ module Method = {
               <Layout.Sider>
                 <List
                   grid={{gutter: 16, column: 3}}
-                  dataSource={extensions
-                  ->Meta3dCommonlib.ListSt.toArray
-                  }
+                  dataSource={extensions}
                   renderItem={((name, iconBase64)) => {
                     <List.Item>
                       <Card
-                      key={name}
+                        key={name}
                         style={ReactDOM.Style.make(~width="200px", ())}
                         cover={<img src={iconBase64} />}>
-                        <Card.Meta  title={React.string(name)} />
+                        <Card.Meta title={React.string(name)} />
                       </Card>
                     </List.Item>
                   }}
                 />
-
 
                 // <Collapse defaultActiveKey={["1"]}
                 // // activeKey={"1"}
@@ -138,6 +149,6 @@ module Method = {
 }
 
 @react.component
-let make = (~backendService: backendService, ~selectedExtensions: selectedExtensions) => {
-  Method.hook(backendService, selectedExtensions)->Method.render
+let make = (~service: service, ~selectedExtensions: selectedExtensions) => {
+  Method.hook(service, selectedExtensions)->Method.render
 }

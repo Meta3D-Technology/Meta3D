@@ -14,7 +14,8 @@
     "commonjs",
     "es6-global"
   ],
-  "bs-dev-dependencies": [],
+  "bs-dev-dependencies": [
+  ],
   "bs-dependencies": [
     "meta3d-commonlib-type"
   ],

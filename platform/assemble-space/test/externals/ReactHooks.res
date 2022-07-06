@@ -9,6 +9,7 @@ type value
 type hookResult = {
   result: result,
 rerender: unit => unit,
+  waitFor: (unit => bool) => Js.Promise.t<unit>,
   waitForValueToChange: (unit => value) => Js.Promise.t<unit>,
   waitForNextUpdate: unit => Js.Promise.t<unit>,
 }

@@ -61,6 +61,23 @@ let rec traverseReducePromiseM = (
       }
 }
 
+let rec traverseReduceResultM = (
+  arr: array<'a>,
+  func: (. 'b, 'a) => Result.t2<'b>,
+  param: 'b,
+): Result.t2<'b> => {
+  // define the monadic functions
+  let \">>=" = Result.bind
+
+  let retn = Result.succeed
+
+  length(arr) == 0
+    ? retn(param)
+    : {
+        \">>="(func(. param, arr[0]), h => traverseReduceResultM(sliceFrom(arr, 1), func, h))
+      }
+}
+
 let unsafeGetFirst = arr => Array.unsafe_get(arr, 0)
 
 let getFirst = arr => arr->length === 1 ? arr[0]->Some : None
