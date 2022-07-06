@@ -66,12 +66,52 @@ icon
 
 * TODO assemble-space: left show extension, contribute protocols and implements
 
-collapse
+# collapse
 
 List(horizon)
 
+
+pass extension
+
+** DONE refactor: extract functions to module Method
+
+
+** DONE fix cucumber:
+add raw thenPromise function?
+
+** TODO add error test case
+
+* TODO change snapshot path
+
+* TODO pass run test
+** TODO pass run test
+
+** TODO use Collapse
+
+pass frontend->run test
+
+pass assemble-space->bdd test
+
+** TODO refactor(frontend): extract functions to module Method
+
+* TODO platform: add e2e test
 
 
 * TODO assemble-space: left show selected list
 
 List(vertical)
+
+pass extension
+
+
+
+* TODO assemble-space: content show selected extensions
+
+pass extension
+
+
+
+* TODO assemble-space: pass contribute
+
+
+* TODO refactor: extract Sider component

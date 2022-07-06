@@ -1,11 +1,17 @@
+type grid = {
+  gutter: int,
+  column: int,
+}
+
 type itemLayout = [#horizontal]
 
 @module("antd") @react.component
 external make: (
+  ~grid: grid=?,
   ~itemLayout: itemLayout=?,
   ~dataSource: array<'a>=?,
+  // ~rowKey: 'a => string=?,
   ~renderItem: 'a => React.element,
-  // ~rowKey: 'a => string,
 ) => React.element = "List"
 
 module Item = {

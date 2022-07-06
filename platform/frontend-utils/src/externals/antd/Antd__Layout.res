@@ -6,6 +6,11 @@ module Header = {
   external make: (~children: React.element=?) => React.element = "Header"
 }
 
+module Sider = {
+  @module("antd") @scope("Layout") @react.component
+  external make: (~children: React.element=?) => React.element = "Sider"
+}
+
 module Content = {
   @module("antd") @scope("Layout") @react.component
   external make: (~children: React.element=?) => React.element = "Content"

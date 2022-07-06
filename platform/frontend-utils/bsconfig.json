@@ -20,7 +20,9 @@
     "react-jsx": 3
   },
   "bs-dependencies": [
-    "@rescript/react"
+    "@rescript/react",
+    "meta3d-bs-most-protocol",
+    "meta3d"
   ],
   "refmt": 3,
   "namespace": true,

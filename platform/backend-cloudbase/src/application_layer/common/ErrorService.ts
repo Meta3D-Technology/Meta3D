@@ -1,3 +1,4 @@
+// TODO remove
 export let error = (message, e, duration = 10) => {
 	console.error(e)
 

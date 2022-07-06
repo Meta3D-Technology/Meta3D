@@ -1,6 +1,6 @@
 {
   "automock": false,
-  "testEnvironment": "node",
+  "testEnvironment": "jsdom",
   "moduleFileExtensions": [
     "js"
   ],

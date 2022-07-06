@@ -26,6 +26,26 @@ let reduceOneParami = (arr, func, param) => {
   mutableParam.contents
 }
 
+let rec traverseResultM = (arr: array<'a>, func: 'a => Result.t2<'b>): Result.t2<array<'b>> => {
+  let \">>=" = Result.bind
+
+  let retn = Result.succeed
+
+  let cons = (head, tail) => Js.Array.concat(tail, [head])
+
+  length(arr) == 0
+    ? retn([])
+    : {
+        \">>="(func(arr->getExn(0)), h =>
+          \">>="(traverseResultM(sliceFrom(arr, 1), func), t => retn(cons(h, t)))
+        )
+      }
+}
+
+let _id = value => value
+
+let rec sequenceResultM = arr => traverseResultM(arr, _id)
+
 let rec traverseReducePromiseM = (
   arr: array<'a>,
   func: (. 'b, 'a) => Js.Promise.t<'b>,

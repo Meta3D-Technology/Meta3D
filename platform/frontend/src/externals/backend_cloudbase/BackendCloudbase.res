@@ -1,10 +1,12 @@
-@module("backend-cloudbase")
-external error: (
-  ~message: FrontendUtils.Antd__Message.message,
-  ~e: Js.Promise.error,
-  ~duration: int=?,
-  unit,
-) => unit = ""
+open FrontendUtils.BackendCloudbaseType
+
+// @module("backend-cloudbase")
+// external error: (
+//   ~message: FrontendUtils.Antd__Message.message,
+//   ~e: Js.Promise.error,
+//   ~duration: int=?,
+//   unit,
+// ) => unit = ""
 
 @module("backend-cloudbase")
 external init: unit => Js.Promise.t<unit> = ""
@@ -21,24 +23,11 @@ external isLoginSuccess: (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<(bool, Js.Nullable.t<string>)> = ""
 
-// TODO refactor: move type out
-type protocol = {
-  name: string,
-  version: string,
-  iconBase64: string,
-}
-
-type protocols = array<protocol>
+@module("backend-cloudbase")
+external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = ""
 
 @module("backend-cloudbase")
-external getAllPublishExtensionProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
-  protocols,
-> = ""
-
-@module("backend-cloudbase")
-external getAllPublishContributeProtocols: unit => Meta3dBsMostProtocol.StreamType.stream<
-  protocols,
-> = ""
+external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
 
 type implement = {
   id: string,

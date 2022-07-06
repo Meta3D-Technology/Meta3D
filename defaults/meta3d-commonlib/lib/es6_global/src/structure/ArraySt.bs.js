@@ -5,6 +5,7 @@ import * as Belt_Array from "../../../../../../node_modules/rescript/lib/es6/bel
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as Log$Meta3dCommonlib from "../log/Log.bs.js";
+import * as Result$Meta3dCommonlib from "./Result.bs.js";
 import * as Contract$Meta3dCommonlib from "../contract/Contract.bs.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
@@ -46,6 +47,26 @@ function reduceOneParami(arr, func, param) {
     mutableParam = func(mutableParam, arr[i], i);
   }
   return mutableParam;
+}
+
+function traverseResultM(arr, func) {
+  if (arr.length === 0) {
+    return Result$Meta3dCommonlib.succeed([]);
+  } else {
+    return Result$Meta3dCommonlib.bind(Curry._1(func, _getExn(arr[0])), (function (h) {
+                  return Result$Meta3dCommonlib.bind(traverseResultM(arr.slice(1), func), (function (t) {
+                                return Result$Meta3dCommonlib.succeed([h].concat(t));
+                              }));
+                }));
+  }
+}
+
+function _id(value) {
+  return value;
+}
+
+function sequenceResultM(arr) {
+  return traverseResultM(arr, _id);
 }
 
 function traverseReducePromiseM(arr, func, param) {
@@ -162,6 +183,9 @@ export {
   sliceFrom ,
   reduceOneParam ,
   reduceOneParami ,
+  traverseResultM ,
+  _id ,
+  sequenceResultM ,
   traverseReducePromiseM ,
   unsafeGetFirst ,
   getFirst ,

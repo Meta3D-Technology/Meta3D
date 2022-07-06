@@ -1,8 +1,11 @@
 type parsedFeature
 
 type stepFunction = unit => unit
+// type stepFunction1 = unit => Js.Promise.t<unit>
 
 type defineStepFunction = (string, stepFunction) => unit
+// type defineStepFunction1 = (string, stepFunction1) => unit
+// Js.Promise.t<unit>
 
 type stepsDefinitionCallbackOptions = {
   given: defineStepFunction,

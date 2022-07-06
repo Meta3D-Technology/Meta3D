@@ -5,6 +5,7 @@ var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Caml_array = require("rescript/lib/js/caml_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Log$Meta3dCommonlib = require("../log/Log.bs.js");
+var Result$Meta3dCommonlib = require("./Result.bs.js");
 var Contract$Meta3dCommonlib = require("../contract/Contract.bs.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 var PromiseSt$Meta3dCommonlib = require("./PromiseSt.bs.js");
@@ -46,6 +47,26 @@ function reduceOneParami(arr, func, param) {
     mutableParam = func(mutableParam, arr[i], i);
   }
   return mutableParam;
+}
+
+function traverseResultM(arr, func) {
+  if (arr.length === 0) {
+    return Result$Meta3dCommonlib.succeed([]);
+  } else {
+    return Result$Meta3dCommonlib.bind(Curry._1(func, _getExn(arr[0])), (function (h) {
+                  return Result$Meta3dCommonlib.bind(traverseResultM(arr.slice(1), func), (function (t) {
+                                return Result$Meta3dCommonlib.succeed([h].concat(t));
+                              }));
+                }));
+  }
+}
+
+function _id(value) {
+  return value;
+}
+
+function sequenceResultM(arr) {
+  return traverseResultM(arr, _id);
 }
 
 function traverseReducePromiseM(arr, func, param) {
@@ -161,6 +182,9 @@ exports.includesByFunc = includesByFunc;
 exports.sliceFrom = sliceFrom;
 exports.reduceOneParam = reduceOneParam;
 exports.reduceOneParami = reduceOneParami;
+exports.traverseResultM = traverseResultM;
+exports._id = _id;
+exports.sequenceResultM = sequenceResultM;
 exports.traverseReducePromiseM = traverseReducePromiseM;
 exports.unsafeGetFirst = unsafeGetFirst;
 exports.getFirst = getFirst;
