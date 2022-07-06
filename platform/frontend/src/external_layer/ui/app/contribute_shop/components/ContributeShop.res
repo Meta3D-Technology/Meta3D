@@ -26,7 +26,7 @@ let make = () => {
       setIsLoaded(_ => true)
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
-      BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
+FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
     }, _)->ignore
 
     None
@@ -65,7 +65,7 @@ let make = () => {
       : <List
           itemLayout=#horizontal
           dataSource={allPublishContributeProtocols}
-          renderItem={(item: BackendCloudbase.protocol) =>
+          renderItem={(item: FrontendUtils. BackendCloudbaseType.protocol) =>
             <List.Item>
               <List.Item.Meta
                 key={item.name}
@@ -89,7 +89,7 @@ let make = () => {
                     }, _)
                     ->Js.Promise.catch(e => {
                       setIsLoaded(_ => false)
-                      BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
+FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
                     }, _)
                     ->ignore
                   }}>

@@ -7,42 +7,21 @@ module Method = {
 
   // TODO perf: defer load when panel change
   let _getExtensionsAndContributes = ({getAllPublishExtensionProtocols}, selectedExtensions) => {
-    getAllPublishExtensionProtocols()
-    ->Meta3dBsMost.Most.map(protocols => {
-      // protocols->Meta3dCommonlib.ArraySt.traverseReduceResultM((. 
-      protocols->Meta3dCommonlib.ArraySt.reduceOneParam((. 
-      result,
-          {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol,
-        ) => {
-        switch selectedExtensions->Meta3dCommonlib.ListSt.filter(({ data }) => {
-        let protocol = data.extensionPackageData.protocol
+    getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(protocols => {
+      protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
+        (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
+          switch selectedExtensions->Meta3dCommonlib.ListSt.filter(({data}) => {
+            let protocol = data.extensionPackageData.protocol
 
-          protocol.name === name && protocol.version === version
-        }){
-        // | arr if arr->Meta3dCommonlib.ArraySt.length === 1=>
-        | list{{data}} => 
-          // let {data} = arr
-          // ->Meta3dCommonlib.ArraySt.getExn(0)
-
-result -> Meta3dCommonlib.ArraySt.push((name, iconBase64))
-
-
-          // ->Meta3dCommonlib.OptionSt.map(({name, iconBase64}) => (name, iconBase64))
-          // ->Meta3dCommonlib.OptionSt.get
+            protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
+          }) {
+          | list{{data}} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64))
 
           | _ => result
-        // | arr if arr->Meta3dCommonlib.ArraySt.length !== 1 =>
-        //   Meta3dCommonlib.Result.failWith(
-        //     Meta3dCommonlib.Log.buildErrorMessage(
-        //       ~title="should has one implement of protocol!",
-        //       ~description="",
-        //       ~reason="",
-        //       ~solution="",
-        //       ~params="",
-        //     ),
-        //   )
-        }
-      }, [])
+          }
+        },
+        [],
+      )
     }, _)
   }
 
@@ -55,23 +34,9 @@ result -> Meta3dCommonlib.ArraySt.push((name, iconBase64))
     React.useEffect1(() => {
       _getExtensionsAndContributes(service, selectedExtensions)
       ->Meta3dBsMost.Most.observe(extensions => {
-        // extensions->Meta3dCommonlib.Result.either(
-        //   extensions => {
-        //     setIsLoaded(_ => true)
+        setIsLoaded(_ => true)
 
-        //     setExtensions(_ => extensions)
-        //   },
-        //   e => {
-        //     setIsLoaded(_ => false)
-
-        //     service.error(. e, None)
-        //   },
-        // )
-
-
-            setIsLoaded(_ => true)
-
-            setExtensions(_ => extensions)
+        setExtensions(_ => extensions)
       }, _)
       ->ignore
 

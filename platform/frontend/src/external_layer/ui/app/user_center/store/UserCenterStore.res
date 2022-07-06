@@ -1,9 +1,10 @@
 type id = string
 
-type extension = {
-  id: id,
-  data: Meta3d.ExtensionFileType.extensionFileData,
-}
+// type extension = {
+//   id: id,
+//   data: Meta3d.ExtensionFileType.extensionFileData,
+// }
+type extension = FrontendUtils.AssembleSpaceType.extension
 type selectedExtensions = list<extension>
 
 type contribute = {

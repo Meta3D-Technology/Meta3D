@@ -26,3 +26,9 @@ Feature: Assemble Space
             And select extension a1 and a2 for a
             When render
             Then should show empty
+
+        Scenario: extension's version not match
+            Given publish extension protocol a
+            And select extension a1 for a with old version
+            When render
+            Then should show empty

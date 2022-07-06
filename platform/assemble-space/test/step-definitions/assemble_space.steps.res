@@ -25,7 +25,7 @@ defineFeature(feature, test => {
   test(."show extensions", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
-      version: "0.0.1",
+      version: "1.0.1",
       iconBase64: "i1",
     }
     let allPublishExtensionProtocols = ref([])
@@ -42,7 +42,7 @@ defineFeature(feature, test => {
         list{
           AssembleSpaceTool.buildSelectedExtension(
             ~protocolName=a.name,
-            ~protocolVersion=a.version,
+            ~protocolVersion=">= 1.0.0",
             (),
           ),
         }
@@ -100,11 +100,7 @@ defineFeature(feature, test => {
     \"and"("select extension b1 for protocol b", () => {
       selectedExtensions :=
         list{
-          AssembleSpaceTool.buildSelectedExtension(
-            ~protocolName="b",
-            ~protocolVersion="0.0.1",
-            (),
-          ),
+          AssembleSpaceTool.buildSelectedExtension(~protocolName="b", ~protocolVersion="0.0.1", ()),
         }
     })
 
@@ -115,7 +111,7 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(then, "should show empty", () => {
       // let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      let {result,waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
+      let {result, waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
         AssembleSpaceTool.hook(
           ~sandbox,
           ~service=BackendServiceTool.build(
@@ -131,12 +127,12 @@ defineFeature(feature, test => {
         )->Obj.magic
       })
 
-//       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
-//         () => {
-// errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
-//         },
-//         _,
-//       )
+      //       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
+      //         () => {
+      // errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
+      //         },
+      //         _,
+      //       )
 
       waitForNextUpdate()->then_(() => {
         ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
@@ -144,7 +140,7 @@ defineFeature(feature, test => {
     })
   })
 
-test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
+  test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
       version: "0.0.1",
@@ -163,13 +159,13 @@ test(."has multiple implements of extension protocol", ({given, \"when", \"and",
       selectedExtensions :=
         list{
           AssembleSpaceTool.buildSelectedExtension(
-  ~id="a1",
+            ~id="a1",
             ~protocolName=a.name,
             ~protocolVersion=a.version,
             (),
           ),
           AssembleSpaceTool.buildSelectedExtension(
-  ~id="a2",
+            ~id="a2",
             ~protocolName=a.name,
             ~protocolVersion=a.version,
             (),
@@ -184,7 +180,7 @@ test(."has multiple implements of extension protocol", ({given, \"when", \"and",
     CucumberAsync.execStep(then, "should show empty", () => {
       // let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      let {result,waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
+      let {result, waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
         AssembleSpaceTool.hook(
           ~sandbox,
           ~service=BackendServiceTool.build(
@@ -200,12 +196,64 @@ test(."has multiple implements of extension protocol", ({given, \"when", \"and",
         )->Obj.magic
       })
 
-//       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
-//         () => {
-// errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
-//         },
-//         _,
-//       )
+      //       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
+      //         () => {
+      // errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
+      //         },
+      //         _,
+      //       )
+      waitForNextUpdate()->then_(() => {
+        ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
+      }, _)
+    })
+  })
+
+  test(."extension's version not match", ({given, \"when", \"and", then}) => {
+    let a: FrontendUtils.BackendCloudbaseType.protocol = {
+      name: "a",
+      version: "0.1.1",
+      iconBase64: "i1",
+    }
+    let allPublishExtensionProtocols = ref([])
+    let selectedExtensions = ref(list{})
+
+    _prepare(given, \"and")
+
+    given("publish extension protocol a", () => {
+      allPublishExtensionProtocols := [a]
+    })
+
+    \"and"("select extension a1 for a with old version", () => {
+      selectedExtensions :=
+        list{
+          AssembleSpaceTool.buildSelectedExtension(
+            ~protocolName=a.name,
+            ~protocolVersion=">= 1.0.0",
+            (),
+          ),
+        }
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    CucumberAsync.execStep(then, "should show empty", () => {
+      let {result, waitForNextUpdate} = ReactHooks.renderHook(() => {
+        AssembleSpaceTool.hook(
+          ~sandbox,
+          ~service=BackendServiceTool.build(
+            ~sandbox,
+            ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _)
+            ->Obj.magic,
+            (),
+          ),
+          ~selectedExtensions=selectedExtensions.contents,
+          (),
+        )->Obj.magic
+      })
+
       waitForNextUpdate()->then_(() => {
         ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
       }, _)

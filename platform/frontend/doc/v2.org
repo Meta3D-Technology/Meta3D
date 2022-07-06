@@ -84,7 +84,9 @@ add raw thenPromise function?
 * DONE change snapshot path
 
 * TODO pass run test
-** TODO pass run test
+** DONE pass run test
+
+** DONE add error test case: version
 
 ** TODO use Collapse
 

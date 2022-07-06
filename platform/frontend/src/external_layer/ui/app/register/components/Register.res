@@ -13,7 +13,7 @@ let make = () => {
     BackendCloudbase.checkUserName(username)->Meta3dBsMost.Most.flatMap(isPass => {
       !isPass
         ? {
-            Message.error(`username已经存在，请重新输入新的username`)
+            Message.error(`username已经存在，请重新输入新的username`, 5)
 
             Meta3dBsMost.Most.empty()
           }
@@ -25,12 +25,12 @@ let make = () => {
             }, _)
           }
     }, _)->Meta3dBsMost.Most.drain->Js.Promise.catch(e => {
-      BackendCloudbase.error(~message=Message.message, ~e, ())-> Obj.magic
+FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
     }, _)->Obj.magic
   }
 
   let _onFinishFailed = errorInfo => {
-    Message.error({j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`})
+    Message.error({j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
   }
 
   <>
