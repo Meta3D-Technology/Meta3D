@@ -29,7 +29,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
     }
     let allPublishExtensionProtocols = ref([])
-    let selectedExtensions = ref(list{})
+    let selectedExtensionsFromShop = ref(list{})
 
     _prepare(given, \"and")
 
@@ -38,7 +38,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select extension a1 for a", () => {
-      selectedExtensions :=
+      selectedExtensionsFromShop :=
         list{
           AssembleSpaceTool.buildSelectedExtension(
             ~protocolName=a.name,
@@ -68,7 +68,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
         )->Obj.magic
       })
@@ -89,7 +89,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
     }
     let allPublishExtensionProtocols = ref([])
-    let selectedExtensions = ref(list{})
+    let selectedExtensionsFromShop = ref(list{})
 
     _prepare(given, \"and")
 
@@ -98,7 +98,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select extension b1 for protocol b", () => {
-      selectedExtensions :=
+      selectedExtensionsFromShop :=
         list{
           AssembleSpaceTool.buildSelectedExtension(~protocolName="b", ~protocolVersion="0.0.1", ()),
         }
@@ -122,7 +122,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
         )->Obj.magic
       })
@@ -147,7 +147,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
     }
     let allPublishExtensionProtocols = ref([])
-    let selectedExtensions = ref(list{})
+    let selectedExtensionsFromShop = ref(list{})
 
     _prepare(given, \"and")
 
@@ -156,7 +156,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select extension a1 and a2 for a", () => {
-      selectedExtensions :=
+      selectedExtensionsFromShop :=
         list{
           AssembleSpaceTool.buildSelectedExtension(
             ~id="a1",
@@ -191,7 +191,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
         )->Obj.magic
       })
@@ -215,7 +215,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
     }
     let allPublishExtensionProtocols = ref([])
-    let selectedExtensions = ref(list{})
+    let selectedExtensionsFromShop = ref(list{})
 
     _prepare(given, \"and")
 
@@ -224,7 +224,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select extension a1 for a with old version", () => {
-      selectedExtensions :=
+      selectedExtensionsFromShop :=
         list{
           AssembleSpaceTool.buildSelectedExtension(
             ~protocolName=a.name,
@@ -249,7 +249,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
         )->Obj.magic
       })

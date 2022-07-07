@@ -1,10 +1,10 @@
 let hook = (
   ~sandbox,
   ~service=BackendServiceTool.build(~sandbox, ()),
-  ~selectedExtensions=list{},
+  ~selectedExtensionsFromShop=list{},
   (),
 ) => {
-  AssembleSpace.Method.hook(service, selectedExtensions)
+  AssembleSpace.Method.hook(service, selectedExtensionsFromShop)
 }
 
 let render = AssembleSpace.Method.render
@@ -12,10 +12,10 @@ let render = AssembleSpace.Method.render
 let buildAssembleSpace = (
   ~sandbox,
   ~service=BackendServiceTool.build(~sandbox, ()),
-  ~selectedExtensions=list{},
+  ~selectedExtensionsFromShop=list{},
   (),
 ) => {
-  <AssembleSpace service selectedExtensions />
+  <AssembleSpace service selectedExtensionsFromShop />
 }
 
 let buildProtocol = (

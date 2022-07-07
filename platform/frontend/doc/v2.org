@@ -83,7 +83,7 @@ add raw thenPromise function?
 
 * DONE change snapshot path
 
-* TODO pass run test
+* DONE pass run test
 ** DONE pass run test
 
 ** DONE add error test case: version
@@ -94,21 +94,28 @@ pass frontend->run test
 
 pass assemble-space->bdd test
 
-** TODO refactor(frontend): extract functions to module Method
+# ** TODO refactor(frontend): extract functions to module Method
 
 
+* TODO assemble-space: extract Extensions ui
 
-* TODO assemble-space: left show selected list
+* TODO assemble-space: left->tree show selected list
 
 List(vertical)
 
-pass extension
-
-
-
-* TODO assemble-space: content show selected extensions
+use store
 
 pass extension
+
+pass bdd test
+
+pass run test
+
+
+
+# * TODO assemble-space: content show selected extensions
+
+# pass extension
 
 
 
