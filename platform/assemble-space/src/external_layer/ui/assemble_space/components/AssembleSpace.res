@@ -62,49 +62,30 @@ module Method = {
             <Layout>
               // TODO extract Sider component
               <Layout.Sider>
-                <List
-                  grid={{gutter: 16, column: 3}}
-                  dataSource={extensions}
-                  renderItem={((name, iconBase64)) => {
-                    <List.Item>
-                      <Card
-                        key={name}
-                        style={ReactDOM.Style.make(~width="200px", ())}
-                        cover={<img src={iconBase64} />}>
-                        <Card.Meta title={React.string(name)} />
-                      </Card>
-                    </List.Item>
-                  }}
-                />
-
-                // <Collapse defaultActiveKey={["1"]}
-                // // activeKey={"1"}
-                // >
-                //   <Collapse.Panel header="Extensions" key="1">
-                // <List
-                //   grid={{gutter: 16, column: 3}}
-                //   dataSource={extensions
-                //   ->Meta3dCommonlib.ListSt.toArray
-                //   ->Meta3dCommonlib.Log.printForDebug}
-                //   renderItem={((name, iconBase64)) => {
-                //     Js.log(("name: ", name))->ignore
-                //     // React.null
-
-                //     <List.Item>
-                //       <Card
-                //       key={name}
-                //         style={ReactDOM.Style.make(~width="200px", ())}
-                //         cover={<img src={iconBase64->Meta3dCommonlib.Log.printForDebug} />}>
-                //         <Card.Meta  title={React.string(name)} />
-                //       </Card>
-                //     </List.Item>
-                //   }}
-                // />
-                //   </Collapse.Panel>
-                //   // <Collapse.Panel header="Contributes" key="2">
-                //   //   <p> {React.string(`111`)} </p>
-                //   // </Collapse.Panel>
-                // </Collapse>
+                <Collapse defaultActiveKey={["1"]}>
+                  <Collapse.Panel header="Extensions" key="1">
+                    <List
+                      grid={{gutter: 16, column: 3}}
+                      dataSource={extensions}
+                      renderItem={((name, iconBase64)) => {
+                        <List.Item>
+                          <Card
+                            key={name}
+                            bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
+                            cover={<img
+                              style={ReactDOM.Style.make(~width="50px", ~height="50px", ())}
+                              src={iconBase64}
+                            />}>
+                            <Card.Meta
+                              style={ReactDOM.Style.make(~width="100px", ())}
+                              title={React.string(name)}
+                            />
+                          </Card>
+                        </List.Item>
+                      }}
+                    />
+                  </Collapse.Panel>
+                </Collapse>
               </Layout.Sider>
               <Layout.Content> {React.string(`装配空间`)} </Layout.Content>
             </Layout>

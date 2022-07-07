@@ -88,7 +88,7 @@ add raw thenPromise function?
 
 ** DONE add error test case: version
 
-** TODO use Collapse
+** DONE use Collapse
 
 pass frontend->run test
 
@@ -96,7 +96,6 @@ pass assemble-space->bdd test
 
 ** TODO refactor(frontend): extract functions to module Method
 
-* TODO platform: add e2e test
 
 
 * TODO assemble-space: left show selected list
@@ -113,7 +112,16 @@ pass extension
 
 
 
+* TODO assemble-space: right show set new name, ...
+
+
+
 * TODO assemble-space: pass contribute
+
+
+* TODO assemble-space: finish publish
+
+
 
 
 * TODO refactor: extract Sider component

@@ -2,7 +2,8 @@
 external make: (
   ~title: string=?,
   ~key: string=?,
-  ~style: ReactDOM.Style.t=?,
+  ~headStyle: ReactDOM.Style.t=?,
+  ~bodyStyle: ReactDOM.Style.t=?,
   ~cover: React.element=?,
   ~children: React.element=?,
 ) => React.element = "Card"
@@ -10,6 +11,7 @@ external make: (
 module Meta = {
   @react.component @module("antd") @scope("Card")
   external make: (
+    ~style: ReactDOM.Style.t=?,
     ~title: React.element=?,
     ~avatar: React.element=?,
     ~description: React.element=?,
