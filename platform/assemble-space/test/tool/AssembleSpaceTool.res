@@ -1,17 +1,17 @@
-let hook = (
-  ~sandbox,
-  ~service=BackendServiceTool.build(~sandbox, ()),
-  ~selectedExtensionsFromShop=list{},
-  (),
-) => {
-  AssembleSpace.Method.hook(service, selectedExtensionsFromShop)
-}
+// let hook = (
+//   ~sandbox,
+//   ~service=ServiceTool.build(~sandbox, ()),
+//   ~selectedExtensionsFromShop=list{},
+//   (),
+// ) => {
+//   AssembleSpace.Method.hook(service, selectedExtensionsFromShop)
+// }
 
-let render = AssembleSpace.Method.render
+// let render = AssembleSpace.Method.render
 
 let buildAssembleSpace = (
   ~sandbox,
-  ~service=BackendServiceTool.build(~sandbox, ()),
+  ~service=ServiceTool.build(~sandbox, ()),
   ~selectedExtensionsFromShop=list{},
   (),
 ) => {

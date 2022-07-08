@@ -22,241 +22,25 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."show extensions", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-    }
-    let allPublishExtensionProtocols = ref([])
-    let selectedExtensionsFromShop = ref(list{})
-
+  test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
     _prepare(given, \"and")
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
-
-    \"and"("select extension a1 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          AssembleSpaceTool.buildSelectedExtension(
-            ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
-            (),
-          ),
-        }
-    })
-
-    \"when"("render", () => {
+    \"when"("not loaded", () => {
       ()
     })
 
-    CucumberAsync.execStep(then, "should show a's name and icon", () => {
-      let {
-        result,
-        // rerender,
-        // waitForValueToChange,
-        waitForNextUpdate,
-      } = ReactHooks.renderHook(() => {
-        AssembleSpaceTool.hook(
+    CucumberAsync.execStep(then, "should show loading", () => {
+      AssembleSpaceTool.buildAssembleSpace(
+        ~sandbox,
+        ~service=ServiceTool.build(
           ~sandbox,
-          ~service=BackendServiceTool.build(
-            ~sandbox,
-            ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _)
-            ->Obj.magic,
-            (),
-          ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+          ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(false, _),
           (),
-        )->Obj.magic
-      })
-
-      // waitForValueToChange(() =>
-      //   ReactHooks.getCurrentData(result, "isLoaded")->Meta3dCommonlib.Log.printForDebug
-      // )
-      waitForNextUpdate()->then_(() => {
-        ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
-      }, _)
-    })
-  })
-
-  test(."has zero implement of extension protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.0.1",
-      iconBase64: "i1",
-    }
-    let allPublishExtensionProtocols = ref([])
-    let selectedExtensionsFromShop = ref(list{})
-
-    _prepare(given, \"and")
-
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
-
-    \"and"("select extension b1 for protocol b", () => {
-      selectedExtensionsFromShop :=
-        list{
-          AssembleSpaceTool.buildSelectedExtension(~protocolName="b", ~protocolVersion="0.0.1", ()),
-        }
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    CucumberAsync.execStep(then, "should show empty", () => {
-      // let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      let {result, waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
-        AssembleSpaceTool.hook(
-          ~sandbox,
-          ~service=BackendServiceTool.build(
-            ~sandbox,
-            // ~error=errorStub,
-            ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _)
-            ->Obj.magic,
-            (),
-          ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
-          (),
-        )->Obj.magic
-      })
-
-      //       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
-      //         () => {
-      // errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
-      //         },
-      //         _,
-      //       )
-
-      waitForNextUpdate()->then_(() => {
-        ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
-      }, _)
-    })
-  })
-
-  test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.0.1",
-      iconBase64: "i1",
-    }
-    let allPublishExtensionProtocols = ref([])
-    let selectedExtensionsFromShop = ref(list{})
-
-    _prepare(given, \"and")
-
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
-
-    \"and"("select extension a1 and a2 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          AssembleSpaceTool.buildSelectedExtension(
-            ~id="a1",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-          AssembleSpaceTool.buildSelectedExtension(
-            ~id="a2",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-        }
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    CucumberAsync.execStep(then, "should show empty", () => {
-      // let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      let {result, waitFor, waitForNextUpdate} = ReactHooks.renderHook(() => {
-        AssembleSpaceTool.hook(
-          ~sandbox,
-          ~service=BackendServiceTool.build(
-            ~sandbox,
-            // ~error=errorStub,
-            ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _)
-            ->Obj.magic,
-            (),
-          ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
-          (),
-        )->Obj.magic
-      })
-
-      //       waitFor(() => errorStub->getCallCount -> Meta3dCommonlib.EqualTool.isEqual(1))->then_(
-      //         () => {
-      // errorStub->getCall(0, _)->getArgs-> Meta3dCommonlib.ListSt.head -> Meta3dCommonlib.OptionSt.getExn -> ErrorTool.isMessageMatch("should has one implement of protocol!", expect)->resolve
-      //         },
-      //         _,
-      //       )
-      waitForNextUpdate()->then_(() => {
-        ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
-      }, _)
-    })
-  })
-
-  test(."extension's version not match", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.1.1",
-      iconBase64: "i1",
-    }
-    let allPublishExtensionProtocols = ref([])
-    let selectedExtensionsFromShop = ref(list{})
-
-    _prepare(given, \"and")
-
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
-
-    \"and"("select extension a1 for a with old version", () => {
-      selectedExtensionsFromShop :=
-        list{
-          AssembleSpaceTool.buildSelectedExtension(
-            ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
-            (),
-          ),
-        }
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    CucumberAsync.execStep(then, "should show empty", () => {
-      let {result, waitForNextUpdate} = ReactHooks.renderHook(() => {
-        AssembleSpaceTool.hook(
-          ~sandbox,
-          ~service=BackendServiceTool.build(
-            ~sandbox,
-            ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _)
-            ->Obj.magic,
-            (),
-          ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
-          (),
-        )->Obj.magic
-      })
-
-      waitForNextUpdate()->then_(() => {
-        ReactTestTool.createSnapshotAndMatchForHook(AssembleSpaceTool.render, result)
-      }, _)
+        ),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
     })
   })
 })

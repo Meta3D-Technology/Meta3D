@@ -99,6 +99,10 @@ pass assemble-space->bdd test
 
 * TODO assemble-space: extract Extensions ui
 
+pass bdd test
+
+pass run test
+
 * TODO assemble-space: left->tree show selected list
 
 List(vertical)

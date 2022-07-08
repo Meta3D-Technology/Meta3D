@@ -14,6 +14,7 @@ type error = (. Js.Exn.t, option<int>) => unit
 type service = {
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
+  useEffectOnce: ((Js.Promise.t<unit>, option<unit>)) => unit,
   error: error,
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
 }
