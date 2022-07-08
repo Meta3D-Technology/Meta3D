@@ -13,13 +13,18 @@ let build = (
   ->Obj.magic,
   (),
 ) => {
-  useDispatch: () => dispatch,
-  useSelector: useSelector->Obj.magic,
-  useEffectOnce: useEffectOnce,
-  error: error->Obj.magic,
-  getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
+  react: {
+    useDispatch: () => dispatch,
+    useSelector: useSelector->Obj.magic,
+    useEffectOnce: useEffectOnce,
+  },
+  console: {
+    error: error->Obj.magic,
+  },
+  backend: {
+    getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
+  },
 }
-
 
 let getUseEffectOncePromise = ((promise, _)) => {
   promise

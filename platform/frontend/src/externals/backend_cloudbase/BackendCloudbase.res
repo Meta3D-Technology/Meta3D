@@ -48,9 +48,9 @@ external getAllPublishContributes: (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""
 
-let buildService = (): FrontendUtils.AssembleSpaceType.service => {
-{
-  error:(. e, durationOpt) =>  FrontendUtils.ErrorUtils.error(e, durationOpt),
-  getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
-}
+let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
+  {
+    // error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
+    getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
+  }
 }

@@ -6,6 +6,34 @@ let make = () => {
     userCenterState
   )
 
+  let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
+    backend: BackendCloudbase.buildService(),
+    console: {
+      error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
+    },
+    react: {
+      useSelector: func => {
+        AppStore.useSelector(({assembleSpaceState}: AppStore.state) => {
+          func(assembleSpaceState)
+        })
+      },
+      useDispatch: () => {
+        let dispatch = AppStore.useDispatch()
+
+        assembleSpaceAction => {
+          dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
+        }
+      },
+      useEffectOnce: func => {
+        React.useEffect1(() => {
+          let (_, cleanUp) = func()
+
+          cleanUp
+        }, [])
+      },
+    },
+  }
+
   {
     switch url.path {
     | list{"Login"} => <Login />
@@ -14,7 +42,9 @@ let make = () => {
     | list{"ContributeShop"} => <ContributeShop />
     | list{"AssembleSpace"} => <>
         <Nav />
-        <AssembleSpace.AssembleSpace service={BackendCloudbase.buildService()} selectedExtensions />
+        <AssembleSpace.AssembleSpace
+          service={_buildService()} selectedExtensionsFromShop=selectedExtensions
+        />
       </>
     | list{}
     | _ =>

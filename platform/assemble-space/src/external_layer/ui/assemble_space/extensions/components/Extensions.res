@@ -26,15 +26,19 @@ module Method = {
     }, _)
   }
 
-  let useEffectOnce = ((dispatch, setExtensions), service, selectedExtensionsFromShop) => {
+  let useEffectOnce = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
     (
       _getExtensionsAndContributes(
-        service,
+        service.backend,
         selectedExtensionsFromShop,
-      )->Meta3dBsMost.Most.observe(extensions => {
-        setExtensions(_ => extensions)
-        dispatch(FrontendUtils.AssembleSpaceStoreType.SetIsLoaded(true))
-      }, _),
+      )->Meta3dBsMost.Most.observe(
+        extensions => {
+          setIsLoaded(_ => true)
+          setExtensions(_ => extensions)
+        },
+        // dispatch(FrontendUtils.AssembleSpaceStoreType.SetIsLoaded(true))
+        _,
+      ),
       None,
     )
   }
@@ -42,28 +46,33 @@ module Method = {
 
 @react.component
 let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
-  let dispatch = service.useDispatch()
+  // let dispatch = service.react.useDispatch()
 
+  let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (extensions, setExtensions) = React.useState(_ => [])
 
-  service.useEffectOnce(
-    Method.useEffectOnce((dispatch, setExtensions), service, selectedExtensionsFromShop),
+  service.react.useEffectOnce(() =>
+    Method.useEffectOnce((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
   )
 
-  <List
-    grid={{gutter: 16, column: 3}}
-    dataSource={extensions}
-    renderItem={((name, iconBase64)) => {
-      <List.Item>
-        <Card
-          key={name}
-          bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-          cover={<img
-            style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}
-          />}>
-          <Card.Meta style={ReactDOM.Style.make(~width="100px", ())} title={React.string(name)} />
-        </Card>
-      </List.Item>
-    }}
-  />
+  !isLoaded
+    ? <p> {React.string(`loading...`)} </p>
+    : <List
+        grid={{gutter: 16, column: 3}}
+        dataSource={extensions}
+        renderItem={((name, iconBase64)) => {
+          <List.Item>
+            <Card
+              key={name}
+              bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
+              cover={<img
+                style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}
+              />}>
+              <Card.Meta
+                style={ReactDOM.Style.make(~width="100px", ())} title={React.string(name)}
+              />
+            </Card>
+          </List.Item>
+        }}
+      />
 }

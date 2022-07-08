@@ -97,7 +97,7 @@ pass assemble-space->bdd test
 # ** TODO refactor(frontend): extract functions to module Method
 
 
-* TODO assemble-space: extract Extensions ui
+* DONE assemble-space: extract Extensions ui
 
 pass bdd test
 

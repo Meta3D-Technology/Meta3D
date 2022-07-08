@@ -6,11 +6,15 @@ Feature: Extensions
     Background: prepare
         Given prepare sandbox
 
+    Scenario: if not loaded, show loading
+        When not loaded
+        Then should show loading
+
     Scenario: show extensions
         Given publish extension protocol a
         And select extension a1 for a
         When render after useEffectOnce
-        Then should mark is loaded
+        Then should mark loaded
         And should show a's name and icon
 
     Rule: error case

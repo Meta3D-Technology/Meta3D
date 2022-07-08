@@ -1,6 +1,4 @@
-// type action = SetIsLoaded(bool)
-
-// type state = {isLoaded: bool}
+// TODO remove isLoaded
 
 open FrontendUtils.AssembleSpaceStoreType
 

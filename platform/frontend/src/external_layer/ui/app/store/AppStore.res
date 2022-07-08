@@ -2,11 +2,11 @@ type action = ..
 
 type action +=
   | UserCenterAction(UserCenterStore.action)
-  | AssembleSpaceAction(AssembleSpace.AssembleSpaceStore.action)
+  | AssembleSpaceAction(FrontendUtils.AssembleSpaceStoreType.action)
 
 type state = {
   userCenterState: UserCenterStore.state,
-  assembleSpaceState: AssembleSpace.AssembleSpaceStore.state,
+  assembleSpaceState: FrontendUtils.AssembleSpaceStoreType.state,
 }
 
 let reducer = (state, action) => {

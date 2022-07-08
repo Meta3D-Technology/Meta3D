@@ -11,12 +11,20 @@ type errorFunc = Js.Exn.t => unit
 // type error = (. Antd__Message.error, errorFunc, Js.Exn.t, option<int>) => unit
 type error = (. Js.Exn.t, option<int>) => unit
 
-type service = {
+type backendService = {getAllPublishExtensionProtocols: getAllPublishExtensionProtocols}
+
+type reactService = {
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
-  useEffectOnce: ((Js.Promise.t<unit>, option<unit>)) => unit,
-  error: error,
-  getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
+  useEffectOnce: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
+}
+
+type consoleService = {error: error}
+
+type service = {
+  console: consoleService,
+  react: reactService,
+  backend: backendService,
 }
 
 type id = string

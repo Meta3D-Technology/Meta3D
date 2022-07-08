@@ -20,6 +20,20 @@ defineFeature(feature, test => {
     })
   }
 
+  test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
+    _prepare(given)
+
+    \"when"("not loaded", () => {
+      ()
+    })
+
+    CucumberAsync.execStep(then, "should show loading", () => {
+      ExtensionsTool.buildExtensions(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
   let _show = extensions => {
     let setExtensionsStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
@@ -71,12 +85,13 @@ defineFeature(feature, test => {
       ()
     })
 
-    CucumberAsync.execStep(then, "should mark is loaded", () => {
-      let dispatchStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(then, "should mark loaded", () => {
+      let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       ExtensionsTool.useEffectOnce(
         ~sandbox,
-        ~dispatch=dispatchStub,
+        // ~dispatch=dispatchStub,
+        ~setIsLoaded=setIsLoadedStub,
         ~service=ServiceTool.build(
           ~sandbox,
           ~getAllPublishExtensionProtocols=createEmptyStub(
@@ -89,9 +104,7 @@ defineFeature(feature, test => {
       )
       ->ServiceTool.getUseEffectOncePromise
       ->then_(() => {
-        (dispatchStub
-        ->SinonTool.calledWith(FrontendUtils.AssembleSpaceStoreType.SetIsLoaded(true))
-        ->expect == true)->resolve
+        (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)->resolve
       }, _)
     })
 
