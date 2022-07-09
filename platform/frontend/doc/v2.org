@@ -125,6 +125,12 @@ pass run test
 
 * TODO assemble-space: right show set new name, ...
 
+  ○ 从tree中选中扩展或者贡献后 
+    ■ 右侧的Basic 可指定它们的new name
+  ○ 从tree中选中扩展后 
+    ■ 右侧的Basic 是否启动(only for extension)
+(so no need main extension: e.g. meta3d-editor extension)
+
 
 
 * TODO assemble-space: pass contribute
