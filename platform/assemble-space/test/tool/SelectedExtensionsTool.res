@@ -21,3 +21,9 @@ let buildSelectedExtension = (
     },
   }
 }
+
+let selectExtension = (~id, ~dispatch) => {
+  SelectedExtensions.Method.selectExtension(dispatch, id)
+}
+
+let useSelector = SelectedExtensions.Method.useSelector

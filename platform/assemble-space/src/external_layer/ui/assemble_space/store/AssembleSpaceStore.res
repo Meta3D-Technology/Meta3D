@@ -5,7 +5,8 @@ let reducer = (state, action) => {
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
-        id: extension.id,
+        // id: extension.id,
+        id: IdUtils.generateId(),
         protocolIconBase64: protocolIconBase64,
         newName: None,
         isStart: false,

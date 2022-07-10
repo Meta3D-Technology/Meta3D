@@ -17,7 +17,7 @@ external make: (
   ~prefix: React.element=?,
   ~size: size=?,
   ~suffix: React.element=?,
-  ~onBlur: ReactEvent.Form.t => unit=?,
+  // ~onBlur: ReactEvent.Form.t => unit=?,
   ~onPressEnter: ReactEvent.Form.t => unit=?,
 ) => React.element = "Input"
 

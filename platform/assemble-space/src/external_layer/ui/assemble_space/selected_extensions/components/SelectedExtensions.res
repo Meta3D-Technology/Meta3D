@@ -3,18 +3,24 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  // let getName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
-  //   newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
-  // }
+  let selectExtension = (dispatch, id) => {
+    dispatch(FrontendUtils.AssembleSpaceStoreType.SetInspectorCurrentExtensionId(id))
+  }
 
+  let useSelector = ({selectedExtensions}: FrontendUtils.AssembleSpaceStoreType.state) => {
+    // service.react.useSelector(store => store.selectedExtensions)
+    selectedExtensions
+  }
 }
 
 @react.component
 let make = (~service: service) => {
   let dispatch = service.react.useDispatch()
-  let selectedExtensions = service.react.useSelector((
-    {selectedExtensions}: FrontendUtils.AssembleSpaceStoreType.state,
-  ) => selectedExtensions)
+  // let selectedExtensions = service.react.useSelector((
+  //   {selectedExtensions}: FrontendUtils.AssembleSpaceStoreType.state,
+  // ) => selectedExtensions)
+
+  let selectedExtensions = service.react.useSelector(Method.useSelector)
 
   <List
     grid={{gutter: 16, column: 1}}
@@ -24,7 +30,7 @@ let make = (~service: service) => {
         <Card
           key={id}
           onClick={_ => {
-            dispatch(FrontendUtils.AssembleSpaceStoreType.SetInspectorCurrentExtensionId(id))
+            Method.selectExtension(dispatch, id)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
           cover={<img

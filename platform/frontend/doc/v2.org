@@ -137,7 +137,7 @@ use Collapse
 fix bug: id
 
 
-* TODO 修复bug: select the same extension twice->change one's new name, the other one shouldn't be affected!!!
+* DONE 修复bug: select the same extension twice->change one's new name, the other one shouldn't be affected!!!
 
 solution: set different id
 
@@ -147,6 +147,9 @@ solution: set different id
   ○ 进入assemblespace 时应该reset
     ■ 进入extension shop->选择e1->进入assemblespace->选择e1->进入extension shop->取消选择e1->进入assemblespace: selectedExtensions 应该为空！
     ■ inspector should be reset
+
+
+* TODO refactor: remove "@testing-library/react-hooks"
 
 
 * TODO assemble-space: pass contribute
