@@ -15,6 +15,7 @@ type extension = {
 type selectedExtensions = list<extension>
 
 type action =
+  | Reset
   | SelectExtension(protocolIconBase64, AssembleSpaceCommonType.extension)
   | SetInspectorCurrentExtensionId(id)
   | StartExtension(id)

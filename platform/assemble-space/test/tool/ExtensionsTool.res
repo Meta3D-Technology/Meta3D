@@ -9,7 +9,7 @@ let buildUI = (
   <Extensions service selectedExtensionsFromShop />
 }
 
-let useEffectOnce = (
+let useEffectOnceAsync = (
   ~sandbox,
   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -18,7 +18,7 @@ let useEffectOnce = (
   ~selectedExtensionsFromShop=list{},
   (),
 ) => {
-  Extensions.Method.useEffectOnce((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
+  Extensions.Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
 }
 
 let selectExtension = (

@@ -31,7 +31,7 @@ module Method = {
     dispatch(FrontendUtils.AssembleSpaceStoreType.SelectExtension(protocolIconBase64, extension))
   }
 
-  let useEffectOnce = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
+  let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
     (
       _getExtensionsAndContributes(
         service.backend,
@@ -52,8 +52,8 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (extensions, setExtensions) = React.useState(_ => [])
 
-  service.react.useEffectOnce(() =>
-    Method.useEffectOnce((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
+  service.react.useEffectOnceAsync(() =>
+    Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
   )
 
   !isLoaded

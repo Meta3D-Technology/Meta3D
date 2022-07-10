@@ -31,6 +31,13 @@ let make = () => {
           cleanUp
         }, [])
       },
+      useEffectOnceAsync: func => {
+        React.useEffect1(() => {
+          let (_, cleanUp) = func()
+
+          cleanUp
+        }, [])
+      },
     },
   }
 

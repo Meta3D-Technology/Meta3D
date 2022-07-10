@@ -143,7 +143,7 @@ solution: set different id
 
 
 
-* TODO 修复bug
+* DONE 修复bug
   ○ 进入assemblespace 时应该reset
     ■ 进入extension shop->选择e1->进入assemblespace->选择e1->进入extension shop->取消选择e1->进入assemblespace: selectedExtensions 应该为空！
     ■ inspector should be reset

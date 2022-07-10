@@ -2,6 +2,11 @@ open FrontendUtils.AssembleSpaceStoreType
 
 let reducer = (state, action) => {
   switch action {
+  | Reset => {
+      ...state,
+      selectedExtensions: list{},
+      inspectorCurrentExtensionId: None,
+    }
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({

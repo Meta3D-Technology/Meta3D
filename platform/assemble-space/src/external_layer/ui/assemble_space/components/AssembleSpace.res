@@ -2,8 +2,24 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
+module Method = {
+  let reset = dispatch => {
+    dispatch(FrontendUtils.AssembleSpaceStoreType.Reset)
+  }
+
+  let useEffectOnce = dispatch => {
+    reset(dispatch)
+
+    ((), None)
+  }
+}
+
 @react.component
 let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
+  let dispatch = service.react.useDispatch()
+
+  service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
+
   <Layout>
     <Layout.Header>
       <Button

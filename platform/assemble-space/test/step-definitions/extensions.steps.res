@@ -37,7 +37,7 @@ defineFeature(feature, test => {
   let _setExtensions = extensions => {
     let setExtensionsStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-    ExtensionsTool.useEffectOnce(
+    ExtensionsTool.useEffectOnceAsync(
       ~sandbox,
       ~setExtensions=setExtensionsStub,
       ~service=ServiceTool.build(
@@ -81,14 +81,14 @@ defineFeature(feature, test => {
         }
     })
 
-    \"when"("render after useEffectOnce", () => {
+    \"when"("render after useEffectOnceAsync", () => {
       ()
     })
 
     CucumberAsync.execStep(then, "should mark loaded", () => {
       let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      ExtensionsTool.useEffectOnce(
+      ExtensionsTool.useEffectOnceAsync(
         ~sandbox,
         ~setIsLoaded=setIsLoadedStub,
         ~service=ServiceTool.build(
@@ -139,7 +139,7 @@ defineFeature(feature, test => {
         }
     })
 
-    \"and"("render after useEffectOnce", () => {
+    \"and"("render after useEffectOnceAsync", () => {
       ()
     })
 
@@ -184,7 +184,7 @@ defineFeature(feature, test => {
         list{ExtensionTool.buildSelectedExtension(~protocolName="b", ~protocolVersion="0.0.1", ())}
     })
 
-    \"when"("render after useEffectOnce", () => {
+    \"when"("render after useEffectOnceAsync", () => {
       ()
     })
 
@@ -224,7 +224,7 @@ defineFeature(feature, test => {
         }
     })
 
-    \"when"("render after useEffectOnce", () => {
+    \"when"("render after useEffectOnceAsync", () => {
       ()
     })
 
@@ -257,7 +257,7 @@ defineFeature(feature, test => {
         }
     })
 
-    \"when"("render after useEffectOnce", () => {
+    \"when"("render after useEffectOnceAsync", () => {
       ()
     })
 

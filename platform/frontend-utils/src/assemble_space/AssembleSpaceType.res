@@ -16,7 +16,8 @@ type backendService = {getAllPublishExtensionProtocols: getAllPublishExtensionPr
 type reactService = {
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
-  useEffectOnce: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
+  useEffectOnce: (unit => (unit, option<unit => unit>)) => unit,
+  useEffectOnceAsync: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
 }
 
 type consoleService = {error: error}
