@@ -27,11 +27,4 @@ type service = {
   backend: backendService,
 }
 
-type id = string
-
-type extension = {
-  id: id,
-  data: Meta3d.ExtensionFileType.extensionFileData,
-}
-
-type selectedExtensionsFromShop = list<extension>
+type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>

@@ -20,8 +20,8 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
           <Collapse.Panel header="Extensions" key="1">
             <Extensions service selectedExtensionsFromShop />
           </Collapse.Panel>
-          <Collapse.Panel header="Select Extension List" key="2">
-            <SelectExtensionList service selectedExtensionsFromShop />
+          <Collapse.Panel header="Selected Extensions" key="2">
+            <SelectedExtensions service />
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>

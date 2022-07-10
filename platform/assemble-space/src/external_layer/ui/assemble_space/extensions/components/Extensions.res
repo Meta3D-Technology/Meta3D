@@ -11,19 +11,24 @@ module Method = {
     getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(protocols => {
       protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
         (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-          switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter(({data}) => {
+          switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter((
+            {data}: FrontendUtils.AssembleSpaceCommonType.extension,
+          ) => {
             let protocol = data.extensionPackageData.protocol
 
             protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
           }) {
-          | list{{data}} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64))
-
+          | list{extension} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64, extension))
           | _ => result
           }
         },
         [],
       )
     }, _)
+  }
+
+  let selectExtension = (dispatch, protocolIconBase64, extension) => {
+    dispatch(FrontendUtils.AssembleSpaceStoreType.SelectExtension(protocolIconBase64, extension))
   }
 
   let useEffectOnce = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
@@ -46,7 +51,7 @@ module Method = {
 
 @react.component
 let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
-  // let dispatch = service.react.useDispatch()
+  let dispatch = service.react.useDispatch()
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (extensions, setExtensions) = React.useState(_ => [])
@@ -60,10 +65,13 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
     : <List
         grid={{gutter: 16, column: 3}}
         dataSource={extensions}
-        renderItem={((name, iconBase64)) => {
+        renderItem={((name, iconBase64, extension)) => {
           <List.Item>
             <Card
               key={name}
+              onClick={_ => {
+                Method.selectExtension(dispatch, iconBase64, extension)
+              }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
               cover={<img
                 style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}

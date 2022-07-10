@@ -1,6 +1,6 @@
 open Sinon
 
-let buildExtensions = (
+let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
   ~selectedExtensionsFromShop=list{},
@@ -19,4 +19,14 @@ let useEffectOnce = (
   (),
 ) => {
   Extensions.Method.useEffectOnce((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
+}
+
+let selectExtension = (
+  // ~sandbox,
+  ~iconBase64,
+  ~extension,
+  // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~dispatch,
+) => {
+  Extensions.Method.selectExtension(dispatch, iconBase64, extension)
 }

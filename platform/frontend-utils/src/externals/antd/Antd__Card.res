@@ -2,6 +2,7 @@
 external make: (
   ~title: string=?,
   ~key: string=?,
+  ~onClick: ReactEvent.Mouse.t => unit=?,
   ~headStyle: ReactDOM.Style.t=?,
   ~bodyStyle: ReactDOM.Style.t=?,
   ~cover: React.element=?,

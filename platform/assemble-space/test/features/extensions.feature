@@ -7,15 +7,22 @@ Feature: Extensions
         Given prepare sandbox
 
     Scenario: if not loaded, show loading
-        When not loaded
+        When not loaded and render
         Then should show loading
 
-    Scenario: show extensions
+    Scenario: set extensions
         Given publish extension protocol a
         And select extension a1 for a
         When render after useEffectOnce
         Then should mark loaded
-        And should show a's name and icon
+        And should set a's name and icon and a1
+
+    Scenario: select extension
+        Given publish extension protocol a
+        And select extension a1 for a
+        And render after useEffectOnce
+        When select a1
+        Then should dispatch selectExtension action
 
     Rule: error case
 
@@ -23,16 +30,16 @@ Feature: Extensions
             Given publish extension protocol a
             And select extension b1 for protocol b
             When render after useEffectOnce
-            Then should show empty
+            Then should set empty
 
         Scenario: has multiple implements of extension protocol
             Given publish extension protocol a
             And select extension a1 and a2 for a
             When render after useEffectOnce
-            Then should show empty
+            Then should set empty
 
         Scenario: extension's version not match
             Given publish extension protocol a
             And select extension a1 for a with old version
             When render after useEffectOnce
-            Then should show empty
+            Then should set empty
