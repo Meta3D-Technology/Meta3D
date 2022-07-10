@@ -4,7 +4,7 @@ type id = string
 //   id: id,
 //   data: Meta3d.ExtensionFileType.extensionFileData,
 // }
-type extension = FrontendUtils.AssembleSpaceType.extension
+type extension = FrontendUtils.AssembleSpaceCommonType.extension
 type selectedExtensions = list<extension>
 
 type contribute = {
