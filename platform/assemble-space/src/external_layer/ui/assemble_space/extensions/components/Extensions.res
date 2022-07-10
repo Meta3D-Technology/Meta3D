@@ -36,14 +36,10 @@ module Method = {
       _getExtensionsAndContributes(
         service.backend,
         selectedExtensionsFromShop,
-      )->Meta3dBsMost.Most.observe(
-        extensions => {
-          setIsLoaded(_ => true)
-          setExtensions(_ => extensions)
-        },
-        // dispatch(FrontendUtils.AssembleSpaceStoreType.SetIsLoaded(true))
-        _,
-      ),
+      )->Meta3dBsMost.Most.observe(extensions => {
+        setIsLoaded(_ => true)
+        setExtensions(_ => extensions)
+      }, _),
       None,
     )
   }

@@ -12,9 +12,47 @@ let reducer = (state, action) => {
         data: extension.data,
       }),
     }
+  | SetInspectorCurrentExtensionId(id) => {
+      ...state,
+      inspectorCurrentExtensionId: id->Some,
+    }
+  | StartExtension(id) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+        extension.id === id
+          ? {
+              ...extension,
+              isStart: true,
+            }
+          : extension
+      }),
+    }
+  | UnStartExtension(id) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+        extension.id === id
+          ? {
+              ...extension,
+              isStart: false,
+            }
+          : extension
+      }),
+    }
+  | SetExtensionNewName(id, newName) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+        extension.id === id
+          ? {
+              ...extension,
+              newName: newName->Some,
+            }
+          : extension
+      }),
+    }
   }
 }
 
 let initialState = {
   selectedExtensions: list{},
+  inspectorCurrentExtensionId: None,
 }

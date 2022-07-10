@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inspector set new name input show default name 1`] = `
+Array [
+  <button
+    className="ant-btn ant-btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      启 动
+    </span>
+  </button>,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="new1"
+  />,
+]
+`;
+
+exports[`Inspector show nothing 1`] = `null`;
+
+exports[`Inspector show start button 1`] = `
+Array [
+  <button
+    className="ant-btn ant-btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      启 动
+    </span>
+  </button>,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="e1"
+  />,
+]
+`;
+
+exports[`Inspector show unstart button 1`] = `
+Array [
+  <button
+    className="ant-btn ant-btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      取消启动
+    </span>
+  </button>,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="e1"
+  />,
+]
+`;

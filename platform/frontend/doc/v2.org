@@ -103,7 +103,7 @@ pass bdd test
 
 pass run test
 
-* TODO assemble-space: left->tree show selected list
+* DONE assemble-space: left->tree show selected list
 
 List(vertical)
 
@@ -123,7 +123,9 @@ pass run test
 
 
 
-* TODO assemble-space: right show set new name, ...
+* DONE assemble-space: right show set new name, ...
+
+use Collapse
 
   ○ 从tree中选中扩展或者贡献后 
     ■ 右侧的Basic 可指定它们的new name
@@ -131,6 +133,20 @@ pass run test
     ■ 右侧的Basic 是否启动(only for extension)
 (so no need main extension: e.g. meta3d-editor extension)
 
+
+fix bug: id
+
+
+* TODO 修复bug: select the same extension twice->change one's new name, the other one shouldn't be affected!!!
+
+solution: set different id
+
+
+
+* TODO 修复bug
+  ○ 进入assemblespace 时应该reset
+    ■ 进入extension shop->选择e1->进入assemblespace->选择e1->进入extension shop->取消选择e1->进入assemblespace: selectedExtensions 应该为空！
+    ■ inspector should be reset
 
 
 * TODO assemble-space: pass contribute

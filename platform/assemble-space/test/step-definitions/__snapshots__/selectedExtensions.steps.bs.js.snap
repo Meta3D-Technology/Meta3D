@@ -42,6 +42,7 @@ exports[`Selected Extensions set new name 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"
@@ -110,6 +111,7 @@ exports[`Selected Extensions set new name 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"
@@ -203,6 +205,7 @@ exports[`Selected Extensions show selected extensions 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"
@@ -271,6 +274,7 @@ exports[`Selected Extensions show selected extensions 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"

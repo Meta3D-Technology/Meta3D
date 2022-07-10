@@ -3,8 +3,8 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 }
 
 let buildSelectedExtension = (
-  ~name,
-  ~protocolIconBase64,
+  ~name="e1",
+  ~protocolIconBase64="i1",
   ~newName=None,
   ~isStart=false,
   ~id="e1",

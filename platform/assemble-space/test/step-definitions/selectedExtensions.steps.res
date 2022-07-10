@@ -9,8 +9,6 @@ let feature = loadFeature("./test/features/selectedExtensions.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
-  //   let selectedExtensionsFromShop = list{
-  //   }
 
   let _prepare = (given, \"and") => {
     given("prepare sandbox", () => {

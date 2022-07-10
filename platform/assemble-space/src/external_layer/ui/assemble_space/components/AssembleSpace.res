@@ -26,6 +26,7 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
         </Collapse>
       </Layout.Sider>
       <Layout.Content> {React.string(`装配空间`)} </Layout.Content>
+      <Layout.Sider> <Inspector service /> </Layout.Sider>
     </Layout>
   </Layout>
 }
