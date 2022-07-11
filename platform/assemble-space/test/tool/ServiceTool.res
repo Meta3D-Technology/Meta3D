@@ -12,6 +12,9 @@ let build = (
   ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->Obj.magic,
   (),
 ) => {
   react: {
@@ -25,6 +28,7 @@ let build = (
   },
   backend: {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
+    getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
   },
 }
 

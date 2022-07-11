@@ -5,12 +5,13 @@ let reducer = (state, action) => {
   | Reset => {
       ...state,
       selectedExtensions: list{},
+      selectedContributes: list{},
       inspectorCurrentExtensionId: None,
+      inspectorCurrentContributeId: None,
     }
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
-        // id: extension.id,
         id: IdUtils.generateId(),
         protocolIconBase64: protocolIconBase64,
         newName: None,
@@ -21,6 +22,7 @@ let reducer = (state, action) => {
   | SetInspectorCurrentExtensionId(id) => {
       ...state,
       inspectorCurrentExtensionId: id->Some,
+      inspectorCurrentContributeId: None,
     }
   | StartExtension(id) => {
       ...state,
@@ -55,10 +57,37 @@ let reducer = (state, action) => {
           : extension
       }),
     }
+  | SelectContribute(protocolIconBase64, contribute) => {
+      ...state,
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
+        id: IdUtils.generateId(),
+        protocolIconBase64: protocolIconBase64,
+        newName: None,
+        data: contribute.data,
+      }),
+    }
+  | SetInspectorCurrentContributeId(id) => {
+      ...state,
+      inspectorCurrentExtensionId: None,
+      inspectorCurrentContributeId: id->Some,
+    }
+  | SetContributeNewName(id, newName) => {
+      ...state,
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.map(contribute => {
+        contribute.id === id
+          ? {
+              ...contribute,
+              newName: newName->Some,
+            }
+          : contribute
+      }),
+    }
   }
 }
 
 let initialState = {
   selectedExtensions: list{},
+  selectedContributes: list{},
   inspectorCurrentExtensionId: None,
+  inspectorCurrentContributeId: None,
 }

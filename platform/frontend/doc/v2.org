@@ -152,10 +152,12 @@ solution: set different id
 * DONE refactor: remove "@testing-library/react-hooks"
 
 
-* TODO assemble-space: pass contribute
+* DONE assemble-space: pass contribute
 
 
 * TODO assemble-space: finish publish
+
+publish extension, contribute
 
 
 

@@ -15,7 +15,11 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
+let make = (
+  ~service: service,
+  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
+  ~selectedContributesFromShop: selectedContributesFromShop,
+) => {
   let dispatch = service.react.useDispatch()
 
   service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
@@ -36,13 +40,19 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
           <Collapse.Panel header="Extensions" key="1">
             <Extensions service selectedExtensionsFromShop />
           </Collapse.Panel>
-          <Collapse.Panel header="Selected Extensions" key="2">
+          <Collapse.Panel header="Contributes" key="2">
+            <Contributes service selectedContributesFromShop />
+          </Collapse.Panel>
+          <Collapse.Panel header="Selected Extensions" key="3">
             <SelectedExtensions service />
+          </Collapse.Panel>
+          <Collapse.Panel header="Selected Contributes" key="4">
+            <SelectedContributes service />
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
       <Layout.Content> {React.string(`装配空间`)} </Layout.Content>
-      <Layout.Sider> <Inspector service /> </Layout.Sider>
+      <Layout.Sider> <ExtensionInspector service /> <ContributeInspector service /> </Layout.Sider>
     </Layout>
   </Layout>
 }

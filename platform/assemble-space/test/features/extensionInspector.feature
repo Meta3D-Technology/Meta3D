@@ -1,5 +1,5 @@
-Feature: Inspector
-    As a Inspector
+Feature: ExtensionInspector
+    As a ExtensionInspector
     I want to operate current extension
     So that I can update it
 

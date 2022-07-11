@@ -38,7 +38,7 @@ let make = (~service: service) => {
           />}>
           <Card.Meta
             style={ReactDOM.Style.make(~width="100px", ())}
-            title={React.string(NewNameUtils.getName(newName, data))}
+            title={React.string(NewNameUtils.getName(newName, data.extensionPackageData.name))}
           />
         </Card>
       </List.Item>

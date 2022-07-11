@@ -1,13 +1,5 @@
 open FrontendUtils.BackendCloudbaseType
 
-// @module("backend-cloudbase")
-// external error: (
-//   ~message: FrontendUtils.Antd__Message.message,
-//   ~e: Js.Promise.error,
-//   ~duration: int=?,
-//   unit,
-// ) => unit = ""
-
 @module("backend-cloudbase")
 external init: unit => Js.Promise.t<unit> = ""
 
@@ -50,7 +42,7 @@ external getAllPublishContributes: (
 
 let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
-    // error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
+    getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
   }
 }

@@ -14,6 +14,15 @@ type extension = {
 
 type selectedExtensions = list<extension>
 
+type contribute = {
+  id: id,
+  protocolIconBase64: protocolIconBase64,
+  newName: option<newName>,
+  data: Meta3d.ExtensionFileType.contributeFileData,
+}
+
+type selectedContributes = list<contribute>
+
 type action =
   | Reset
   | SelectExtension(protocolIconBase64, AssembleSpaceCommonType.extension)
@@ -21,9 +30,13 @@ type action =
   | StartExtension(id)
   | UnStartExtension(id)
   | SetExtensionNewName(id, newName)
+  | SelectContribute(protocolIconBase64, AssembleSpaceCommonType.contribute)
+  | SetInspectorCurrentContributeId(id)
+  | SetContributeNewName(id, newName)
 
 type state = {
   selectedExtensions: selectedExtensions,
-  // inspectorCurrentExtension: option<extension>,
+  selectedContributes: selectedContributes,
   inspectorCurrentExtensionId: option<id>,
+  inspectorCurrentContributeId: option<id>,
 }

@@ -5,12 +5,11 @@ type id = string
 //   data: Meta3d.ExtensionFileType.extensionFileData,
 // }
 type extension = FrontendUtils.AssembleSpaceCommonType.extension
+
 type selectedExtensions = list<extension>
 
-type contribute = {
-  id: id,
-  data: Meta3d.ExtensionFileType.contributeFileData,
-}
+type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
+
 type selectedContributes = list<contribute>
 
 type action =

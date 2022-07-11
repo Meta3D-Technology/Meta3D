@@ -2,9 +2,9 @@
 let make = () => {
   let url = RescriptReactRouter.useUrl()
 
-  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
-    userCenterState
-  )
+  let {selectedExtensions, selectedContributes} = AppStore.useSelector((
+    {userCenterState}: AppStore.state,
+  ) => userCenterState)
 
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
     backend: BackendCloudbase.buildService(),
@@ -50,7 +50,9 @@ let make = () => {
     | list{"AssembleSpace"} => <>
         <Nav />
         <AssembleSpace.AssembleSpace
-          service={_buildService()} selectedExtensionsFromShop=selectedExtensions
+          service={_buildService()}
+          selectedExtensionsFromShop=selectedExtensions
+          selectedContributesFromShop=selectedContributes
         />
       </>
     | list{}

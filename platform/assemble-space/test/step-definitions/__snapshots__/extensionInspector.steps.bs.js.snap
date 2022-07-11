@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Inspector set new name input show default name 1`] = `
+exports[`ExtensionInspector set new name input show default name 1`] = `
 Array [
   <button
     className="ant-btn ant-btn-default"
@@ -24,9 +24,9 @@ Array [
 ]
 `;
 
-exports[`Inspector show nothing 1`] = `null`;
+exports[`ExtensionInspector show nothing 1`] = `null`;
 
-exports[`Inspector show start button 1`] = `
+exports[`ExtensionInspector show start button 1`] = `
 Array [
   <button
     className="ant-btn ant-btn-default"
@@ -50,7 +50,7 @@ Array [
 ]
 `;
 
-exports[`Inspector show unstart button 1`] = `
+exports[`ExtensionInspector show unstart button 1`] = `
 Array [
   <button
     className="ant-btn ant-btn-default"

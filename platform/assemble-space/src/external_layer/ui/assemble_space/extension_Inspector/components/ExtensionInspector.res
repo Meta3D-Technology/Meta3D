@@ -76,7 +76,7 @@ let make = (~service: service) => {
       <Input
         value={NewNameUtils.getName(
           inspectorCurrentExtension.newName,
-          inspectorCurrentExtension.data,
+          inspectorCurrentExtension.data.extensionPackageData.name,
         )}
         onChange={e => {
           Method.setExtensionNewName(

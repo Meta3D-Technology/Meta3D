@@ -80,20 +80,20 @@ defineFeature(feature, test => {
 
     \"and"("start it", () => {
       store :=
-        InspectorTool.startExtension(
+        ExtensionInspectorTool.startExtension(
           ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~inspectorCurrentExtension=InspectorTool.useSelector(store.contents)
-          ->InspectorTool.getInspectorCurrentExtension
+          ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
+          ->ExtensionInspectorTool.getInspectorCurrentExtension
           ->Meta3dCommonlib.OptionSt.getExn,
         )
     })
 
     \"and"("set new name", () => {
       store :=
-        InspectorTool.setExtensionNewName(
+        ExtensionInspectorTool.setExtensionNewName(
           ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~inspectorCurrentExtension=InspectorTool.useSelector(store.contents)
-          ->InspectorTool.getInspectorCurrentExtension
+          ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
+          ->ExtensionInspectorTool.getInspectorCurrentExtension
           ->Meta3dCommonlib.OptionSt.getExn,
           ~newName="new1",
         )
@@ -107,7 +107,7 @@ defineFeature(feature, test => {
         )
     })
 
-    \"and"("render Inspector", () => {
+    \"and"("render ExtensionInspector", () => {
       ()
     })
 
@@ -116,7 +116,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("set new name input's default name should be old name", () => {
-      InspectorTool.buildUI(
+      ExtensionInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,

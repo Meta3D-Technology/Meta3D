@@ -11,7 +11,10 @@ type errorFunc = Js.Exn.t => unit
 // type error = (. Antd__Message.error, errorFunc, Js.Exn.t, option<int>) => unit
 type error = (. Js.Exn.t, option<int>) => unit
 
-type backendService = {getAllPublishExtensionProtocols: getAllPublishExtensionProtocols}
+type backendService = {
+  getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
+  getAllPublishContributeProtocols: getAllPublishContributeProtocols,
+}
 
 type reactService = {
   useDispatch: useDispatch,
@@ -29,3 +32,5 @@ type service = {
 }
 
 type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>
+
+type selectedContributesFromShop = list<AssembleSpaceCommonType.contribute>

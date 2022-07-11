@@ -10,7 +10,6 @@ Feature: Fix AssembleSpace Bug
 
     Scenario: fix "enter AssembleSpace should reset" bug
         Given select extension a1 for protocol a in Extensions
-        # And select the first extension in SelectedExtensions
         When enter AssembleSpace
         And render SelectedExtensions
         Then should reset store

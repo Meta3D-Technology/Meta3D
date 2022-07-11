@@ -15,6 +15,6 @@ Feature: Fix Extension Bug
         And start it
         And set new name
         When select the second extension in SelectedExtensions
-        And render Inspector
+        And render ExtensionInspector
         Then should show start button
         And set new name input's default name should be old name

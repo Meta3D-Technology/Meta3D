@@ -5,7 +5,7 @@ open Operators
 
 open Sinon
 
-let feature = loadFeature("./test/features/inspector.feature")
+let feature = loadFeature("./test/features/extensionInspector.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
@@ -28,7 +28,7 @@ defineFeature(feature, test => {
     })
 
     then("should show nothing", () => {
-      InspectorTool.buildUI(
+      ExtensionInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,
@@ -64,7 +64,7 @@ defineFeature(feature, test => {
     })
 
     then("should show start button", () => {
-      InspectorTool.buildUI(
+      ExtensionInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
         (),
@@ -97,7 +97,7 @@ defineFeature(feature, test => {
     })
 
     then("should show unstart button", () => {
-      InspectorTool.buildUI(
+      ExtensionInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
         (),
@@ -133,7 +133,7 @@ defineFeature(feature, test => {
     })
 
     then("set new name input's default name should be new1", () => {
-      InspectorTool.buildUI(
+      ExtensionInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
         (),
