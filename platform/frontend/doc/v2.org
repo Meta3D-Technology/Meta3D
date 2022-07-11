@@ -149,7 +149,7 @@ solution: set different id
     ■ inspector should be reset
 
 
-* TODO refactor: remove "@testing-library/react-hooks"
+* DONE refactor: remove "@testing-library/react-hooks"
 
 
 * TODO assemble-space: pass contribute
@@ -161,3 +161,7 @@ solution: set different id
 
 
 * TODO refactor: extract Sider component
+
+
+
+* TODO finish webgpu demo

@@ -17,8 +17,7 @@
         "identity-obj-proxy": "^3.0.0",
         "gentype": "^3.48.0",
         "react-test-renderer": "^16.8.3",
-        "@rescript/react": "0.10.3",
-        "@testing-library/react-hooks": "^8.0.1"
+        "@rescript/react": "0.10.3"
     },
     "dependencies": {
         "antd": "^4.21.0",

@@ -8,9 +8,6 @@ let createSnapshotJsonStringify = component =>
 let createSnapshotAndMatch = component =>
   (toMatchSnapshotFunc->Obj.magic)(expect(ReactTestRenderer.toJSON(component)))
 
-let createSnapshotAndMatchForHook = (renderFunc, result: ReactHooks.result) =>
-  result.current->Obj.magic->renderFunc->ReactTestRenderer.create->createSnapshotAndMatch
-
 let prepare = %raw(`
     function(){
 Object.defineProperty(window, 'matchMedia', {
