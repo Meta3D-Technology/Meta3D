@@ -18,5 +18,6 @@ module.exports = {
             path.basename(snapshotFilePath, snapshotExtension),
         )
     },
-    testPathForConsistencyCheck: "/Users/yang/Github/Meta3D/platform/assemble-space/lib/js/test/step-definitions/assemble_space.steps.bs.js"
+    // testPathForConsistencyCheck: "/Users/yang/Github/Meta3D/platform/assemble-space/lib/js/test/step-definitions/assemble_space.steps.bs.js"
+    testPathForConsistencyCheck: "D:\\Users\\yang\\Github\\Meta3D\\platform\\assemble-space\\test\\step-definitions\\assemble_space.steps.bs.js"
 };
