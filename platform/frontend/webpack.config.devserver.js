@@ -31,6 +31,7 @@ module.exports = {
     resolve: {
         // extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
         extensions: ['.js', '.jsx', '.css'],
+        symlinks: false,
         modules: ['node_modules'],
         fallback: { "crypto": false }
 
