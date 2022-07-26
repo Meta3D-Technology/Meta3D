@@ -6,5 +6,6 @@ external make: (
   ~visible: bool=?,
   ~onOk: fn=?,
   ~onCancel: fn=?,
+  ~footer: React.element=?,
   ~children: React.element=?,
 ) => React.element = "Modal"
