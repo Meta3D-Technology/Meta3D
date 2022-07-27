@@ -75,6 +75,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                 let packageData = _convertToExtensionOrContributePackageData(packageJson)
 
                 return uploadFileFunc(
+                    app,
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer",
                     _arrayBufferToBuffer(generateFunc(
                         packageData,

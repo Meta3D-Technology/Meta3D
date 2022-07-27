@@ -2,7 +2,7 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
-import {resolve} from "meta3d-tool-utils/src/publish/PromiseTool"
+import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 
@@ -124,7 +124,7 @@ defineFeature(feature, test => {
     });
 
     test('upload file and add to collection', ({ given, when, then, and }) => {
-        let app = {}
+        let app = { "app": true }
         let distFileContent = "dist"
         let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
@@ -182,6 +182,7 @@ defineFeature(feature, test => {
                 distFileContent
             ])
             expect(uploadFileFunc).toCalledWith([
+                app,
                 "extensions/test1_0.0.2.arrayBuffer",
                 Buffer.from(generatedResult)
             ])
@@ -204,7 +205,7 @@ defineFeature(feature, test => {
     });
 
     test('update fileID in collection if exist', ({ given, and, when, then }) => {
-        let app = {}
+        let app = { "a": true }
         let distFileContent1 = "dist1"
         let distFileContent2 = "dist2"
         let generatedResult1 = new ArrayBuffer(0)
@@ -280,6 +281,7 @@ defineFeature(feature, test => {
 
         then('should upload generated file', () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
+                app,
                 "extensions/test1_0.0.2.arrayBuffer",
                 Buffer.from(generatedResult2)
             ])
