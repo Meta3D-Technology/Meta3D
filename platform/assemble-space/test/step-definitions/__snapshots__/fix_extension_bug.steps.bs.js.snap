@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fix Extension Bug fix "multiple selected extension of the same protocol will affect each other" bug 1`] = `
+Array [
+  <button
+    className="ant-btn ant-btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      启 动
+    </span>
+  </button>,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="p1"
+  />,
+]
+`;

@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contributes if not loaded, show loading 1`] = `
+<p>
+  loading...
+</p>
+`;
