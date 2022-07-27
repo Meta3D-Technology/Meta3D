@@ -1,15 +1,15 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
 import * as Semver from "semver";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Log$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function _checkVersion(protocolVersion, dependentProtocolVersion) {
   if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
