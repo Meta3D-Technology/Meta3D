@@ -3,6 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let clickPublishButton = setVisible => {
+    setVisible(_ => true)
+  }
+
   let onFinish = (
     service,
     setVisible,
@@ -62,12 +66,12 @@ module Method = {
 let make = (~service: service, ~username: option<string>) => {
   let (selectedExtensions, selectedContributes) = service.react.useSelector(Method.useSelector)
 
-  let (visible, setVisible) = React.useState(_ => false)
+  let (visible, setVisible) = service.react.useState(_ => false)
 
   <>
     <Button
       onClick={_ => {
-        setVisible(_ => true)
+        Method.clickPublishButton(setVisible)
       }}>
       {React.string(`发布`)}
     </Button>

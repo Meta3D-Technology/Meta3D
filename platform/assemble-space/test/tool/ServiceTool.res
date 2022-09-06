@@ -5,6 +5,7 @@ open Sinon
 let build = (
   ~sandbox,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~useState=React.useState->Obj.magic,
   ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -25,6 +26,7 @@ let build = (
   (),
 ) => {
   react: {
+    useState: useState->Obj.magic,
     useDispatch: () => dispatch,
     useSelector: useSelector->Obj.magic,
     useEffectOnce: useEffectOnce,

@@ -12,6 +12,9 @@ let make = () => {
       error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
     },
     react: {
+      useState: func => {
+        React.useState(func->Obj.magic)
+      },
       useSelector: func => {
         AppStore.useSelector(({assembleSpaceState}: AppStore.state) => {
           func(assembleSpaceState)

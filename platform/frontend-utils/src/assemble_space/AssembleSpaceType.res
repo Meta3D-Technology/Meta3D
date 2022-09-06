@@ -20,6 +20,7 @@ type backendService = {
 }
 
 type reactService = {
+  useState: 'a. ('a => 'a) => ('a, ('a => 'a) => unit),
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
   useEffectOnce: (unit => (unit, option<unit => unit>)) => unit,

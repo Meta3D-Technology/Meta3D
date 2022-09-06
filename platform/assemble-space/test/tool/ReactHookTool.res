@@ -9,3 +9,7 @@ let getValue = (~setLocalValueStub, ~callIndex=0, ()) => {
     ->Meta3dCommonlib.OptionSt.getExn
   )()
 }
+
+let buildEmptySetStateFunc = () => {
+  () => ()
+}
