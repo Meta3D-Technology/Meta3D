@@ -21,15 +21,22 @@ let make = () => {
   }
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.observe(protocols => {
+    BackendCloudbase.getAllPublishExtensionProtocols()
+    ->Meta3dBsMost.Most.observe(protocols => {
       setAllPublishExtensionProtocols(_ => protocols)
       setIsLoaded(_ => true)
-    }, _)->Js.Promise.catch(e => {
-      setIsLoaded(_ => false)
+    }, _)
+    ->Js.Promise.catch(
+      e => {
+        setIsLoaded(_ => false)
+
+        FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+      },
       // BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
 
-FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
-    }, _)->ignore
+      _,
+    )
+    ->ignore
 
     None
   }, [])
@@ -67,7 +74,7 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
       : <List
           itemLayout=#horizontal
           dataSource={allPublishExtensionProtocols}
-          renderItem={(item: FrontendUtils. BackendCloudbaseType.protocol) =>
+          renderItem={(item: FrontendUtils.BackendCloudbaseType.protocol) =>
             <List.Item>
               <List.Item.Meta
                 key={item.name}
@@ -89,12 +96,16 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
                       setAllPublishExtensions(_ => data)
                       setIsShowExtensionPage(_ => true)
                     }, _)
-                    ->Js.Promise.catch(e => {
-                      setIsLoaded(_ => false)
+                    ->Js.Promise.catch(
+                      e => {
+                        setIsLoaded(_ => false)
+
+                        FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+                      },
                       // BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
 
-FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
-                    }, _)
+                      _,
+                    )
                     ->ignore
                   }}>
                   {React.string(item.name)}

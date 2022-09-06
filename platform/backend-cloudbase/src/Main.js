@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
+exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
 const ErrorService = require("./application_layer/common/ErrorService");
 const BackendService = require("./application_layer/common/BackendService");
 const LoginService = require("./application_layer/user/LoginService");
 const RegisterService = require("./application_layer/user/RegisterService");
 const ShopService = require("./application_layer/shop/ShopService");
+const PublishAppService = require("./application_layer/publish/PublishAppService");
 const CloudbaseService_1 = require("./application_layer/cloudbase/CloudbaseService");
 exports.error = ErrorService.error;
 exports.init = BackendService.init;
@@ -37,3 +38,6 @@ let getAllPublishContributes = (protocolName, protocolVersion) => {
     return ShopService.getAllPublishData([CloudbaseService_1.getData, CloudbaseService_1.getFile], "publishedContributes", protocolName, protocolVersion);
 };
 exports.getAllPublishContributes = getAllPublishContributes;
+exports.publishApp = PublishAppService.publish;
+exports.findPublishApp = PublishAppService.findPublishApp;
+exports.findAllPublishApps = PublishAppService.findAllPublishApps;

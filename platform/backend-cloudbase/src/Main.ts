@@ -3,6 +3,7 @@ import * as BackendService from "./application_layer/common/BackendService";
 import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
+import * as PublishAppService from "./application_layer/publish/PublishAppService";
 import { addData, getData, getFile, notHasData } from "./application_layer/cloudbase/CloudbaseService";
 
 export let error = ErrorService.error
@@ -44,3 +45,9 @@ export let getAllPublishContributes = (protocolName: string, protocolVersion: st
         protocolName, protocolVersion
     )
 }
+
+export let publishApp = PublishAppService.publish
+
+export let findPublishApp = PublishAppService.findPublishApp
+
+export let findAllPublishApps = PublishAppService.findAllPublishApps

@@ -14,6 +14,9 @@ type error = (. Js.Exn.t, option<int>) => unit
 type backendService = {
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
+  publishApp: publishApp,
+  findPublishApp: findPublishApp,
+  findAllPublishApps: findAllPublishApps,
 }
 
 type reactService = {

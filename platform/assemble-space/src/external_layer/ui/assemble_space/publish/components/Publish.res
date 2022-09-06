@@ -3,81 +3,123 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let publish = () => {
-    //TODO implement
-    Obj.magic(1)
+  let onFinish = (
+    service,
+    setVisible,
+    (username, selectedExtensions, selectedContributes),
+    values,
+  ) => {
+    let name = values["name"]
+
+    let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
+    let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
+
+    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+      let appBinaryFile = Meta3d.Main.generateApp(
+        Meta3d.Main.convertAllFileDataForApp(
+          selectedExtensions->Meta3dCommonlib.ArraySt.map((
+            {data}: FrontendUtils.AssembleSpaceStoreType.extension,
+          ) => data),
+          selectedContributes->Meta3dCommonlib.ArraySt.map((
+            {data}: FrontendUtils.AssembleSpaceStoreType.contribute,
+          ) => data),
+          (
+            selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName}) =>
+              newName->Meta3dCommonlib.OptionSt.getExn
+            ),
+            selectedExtensions
+            ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
+            ->Meta3dCommonlib.ArraySt.map(({newName}) => newName->Meta3dCommonlib.OptionSt.getExn),
+            selectedContributes->Meta3dCommonlib.ArraySt.map(({newName}) =>
+              newName->Meta3dCommonlib.OptionSt.getExn
+            ),
+          ),
+        ),
+      )
+
+      service.backend.publishApp(appBinaryFile, name, username->Meta3dCommonlib.OptionSt.getExn)
+      ->Meta3dBsMost.Most.drain
+      ->Js.Promise.then_(_ => {
+        setVisible(_ => false)
+
+        ()->Js.Promise.resolve
+      }, _)
+    }, 20)
   }
 
-  let handlePublishError = () => {
-    //TODO implement
-    Obj.magic(1)
-  }
-
-
-  let _onFinish = values => {
-      ()
-  }
-
-  let _onFinishFailed = errorInfo => {
+  let onFinishFailed = errorInfo => {
     Message.error({j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
+  }
+
+  let useSelector = (
+    {selectedExtensions, selectedContributes}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
+    (selectedExtensions, selectedContributes)
   }
 }
 
 @react.component
-let make = (
-  ~visible: bool,
-  ~service: service,
-  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
-  ~selectedContributesFromShop: selectedContributesFromShop,
-) => {
-  let (visible, setVisible) = React.useState(_ => visible)
+let make = (~service: service, ~username: option<string>) => {
+  let (selectedExtensions, selectedContributes) = service.react.useSelector(Method.useSelector)
 
-  <Modal
-    title="Publish"
-    visible={visible}
-    // onOk={
-    //     () =>{
-    // ()
-    //     }
-    // }
-    // onCancel={
-    //     () =>{
-    // ()
-    //     }
-    // }
-    footer={React.null}>
-    <Form
-    //   name="basic"
-      labelCol={{
-        "span": 8,
+  let (visible, setVisible) = React.useState(_ => false)
+
+  <>
+    <Button
+      onClick={_ => {
+        setVisible(_ => true)
+      }}>
+      {React.string(`发布`)}
+    </Button>
+    <Modal
+      title=`发布应用`
+      visible={visible}
+      onOk={() => {
+        setVisible(_ => false)
       }}
-      wrapperCol={{
-        "span": 6,
+      onCancel={() => {
+        setVisible(_ => false)
       }}
-      initialValues={{
-        "remember": true,
-      }}
-      onFinish={Method._onFinish}
-      onFinishFailed={Method._onFinishFailed}
-      autoComplete="off">
-      <Form.Item
-        label="名称"
-        name="name"
-        rules={[
-          {
-            required: true,
-            message: "输入名称",
-          },
-        ]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
+      footer={React.null}>
+      <Form
+      // name="basic"
+        labelCol={{
+          "span": 8,
+        }}
         wrapperCol={{
-          "offset": 8,
-          "span": 16,
-        }}>
-        <Button htmlType="submit"> {React.string(`发布`)} </Button>
-      </Form.Item>
-    </Form>
-  </Modal>
+          "span": 6,
+        }}
+        initialValues={{
+          "remember": true,
+        }}
+        onFinish={event =>
+          Method.onFinish(
+            service,
+            setVisible,
+            (username, selectedExtensions, selectedContributes),
+            event->Obj.magic,
+          )}
+        onFinishFailed={Method.onFinishFailed}
+        autoComplete="off">
+        <Form.Item
+          label=`用户名`
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: `输入用户名`,
+            },
+          ]}>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            "offset": 8,
+            "span": 16,
+          }}>
+          <Button htmlType="submit"> {React.string(`发布`)} </Button>
+        </Form.Item>
+      </Form>
+    </Modal>
+  </>
 }

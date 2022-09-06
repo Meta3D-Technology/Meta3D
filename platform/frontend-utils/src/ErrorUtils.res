@@ -12,12 +12,24 @@
 //   messageErrorFunc(Js.Exn.message(e), durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10))
 // }
 
-
 let error = (e, durationOpt) => {
   Js.Console.error(e)
 
-  Antd__Message.message.error(Js.Exn.message(e) -> Meta3dCommonlib.OptionSt.getExn, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10))
+  Antd__Message.message.error(
+    Js.Exn.message(e)->Meta3dCommonlib.OptionSt.getExn,
+    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10),
+  )
 }
+
+let showCatchedErrorMessage = %raw(`
+    function(func, duration = 10) {
+	try {
+		func()
+	} catch (e) {
+		error(e, duration)
+	}
+}
+    `)
 
 // let handleFail = result => {
 //   result->Meta3dCommonlib.Result.handleFail(Antd.Message.error)

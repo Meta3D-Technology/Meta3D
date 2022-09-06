@@ -2,7 +2,7 @@
 let make = () => {
   let url = RescriptReactRouter.useUrl()
 
-  let {selectedExtensions, selectedContributes} = AppStore.useSelector((
+  let {username, selectedExtensions, selectedContributes} = AppStore.useSelector((
     {userCenterState}: AppStore.state,
   ) => userCenterState)
 
@@ -51,10 +51,12 @@ let make = () => {
         <Nav />
         <AssembleSpace.AssembleSpace
           service={_buildService()}
+          username
           selectedExtensionsFromShop=selectedExtensions
           selectedContributesFromShop=selectedContributes
         />
       </>
+    // | list{"PublishedApps"} => <ContributeShop />
     | list{}
     | _ =>
       <Index />

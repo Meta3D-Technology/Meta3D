@@ -15,6 +15,13 @@ let build = (
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~findPublishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
+  ->Obj.magic,
+  ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->Obj.magic,
   (),
 ) => {
   react: {
@@ -29,6 +36,9 @@ let build = (
   backend: {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
+    publishApp: publishApp,
+    findPublishApp: findPublishApp,
+    findAllPublishApps: findAllPublishApps,
   },
 }
 

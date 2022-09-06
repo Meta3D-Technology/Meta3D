@@ -40,9 +40,21 @@ external getAllPublishContributes: (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""
 
+@module("backend-cloudbase")
+external publishApp: publishApp = ""
+
+@module("backend-cloudbase")
+external findPublishApp: findPublishApp = ""
+
+@module("backend-cloudbase")
+external findAllPublishApps: findAllPublishApps = ""
+
 let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
+    publishApp: publishApp,
+    findPublishApp: findPublishApp,
+    findAllPublishApps: findAllPublishApps,
   }
 }

@@ -17,6 +17,7 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
+  ~username,
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
@@ -25,14 +26,7 @@ let make = (
   service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
 
   <Layout>
-    <Layout.Header>
-      <Button
-        onClick={_ => {
-          ()
-        }}>
-        {React.string(`发布`)}
-      </Button>
-    </Layout.Header>
+    <Layout.Header> <Publish service username /> </Layout.Header>
     <Layout>
       // TODO extract Sider component
       <Layout.Sider>
