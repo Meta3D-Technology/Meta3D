@@ -56,7 +56,8 @@ let make = () => {
           selectedContributesFromShop=selectedContributes
         />
       </>
-    // | list{"PublishedApps"} => <ContributeShop />
+    | list{"ShowPublishedApps"} => <ShowPublishedApps />
+    | list{"EnterApp"} => <EnterApp />
     | list{}
     | _ =>
       <Index />
