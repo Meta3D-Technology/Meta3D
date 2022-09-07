@@ -16,6 +16,10 @@ Feature: Publish
     #     And click publish button
     #     Then should show modal
 
+    Scenario: publish when select nothing
+        When publish app
+        Then should error
+
     Rule: Publish
 
         Background: prepare selected extensions and contributes

@@ -15,6 +15,11 @@ module Method = {
     newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
   }
 
+  let _isSelectedNothing = (selectedExtensions, selectedContributes) => {
+    selectedExtensions->Meta3dCommonlib.ArraySt.length == 0 &&
+      selectedContributes->Meta3dCommonlib.ArraySt.length == 0
+  }
+
   let onFinish = (
     service,
     setVisible,
@@ -26,35 +31,49 @@ module Method = {
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
 
-    let appBinaryFile = service.meta3d.generateApp(.
-      service.meta3d.convertAllFileData(.
-        selectedExtensions->Meta3dCommonlib.ArraySt.map((
-          {data}: FrontendUtils.AssembleSpaceStoreType.extension,
-        ) => data),
-        selectedContributes->Meta3dCommonlib.ArraySt.map((
-          {data}: FrontendUtils.AssembleSpaceStoreType.contribute,
-        ) => data),
-        (
-          selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-            _getExtensionNewName(newName, data)
-          ),
-          selectedExtensions
-          ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
-          ->Meta3dCommonlib.ArraySt.map(({newName, data}) => _getExtensionNewName(newName, data)),
-          selectedContributes->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-            _getContributeNewName(newName, data)
-          ),
-        ),
-      ),
-    )
+    _isSelectedNothing(selectedExtensions, selectedContributes)
+      ? {
+          service.console.error(. {j`请至少选择一个扩展或者贡献`}, None)
 
-    service.backend.publishApp(. appBinaryFile, appName, username->Meta3dCommonlib.OptionSt.getExn)
-    ->Meta3dBsMost.Most.drain
-    ->Js.Promise.then_(_ => {
-      setVisible(_ => false)
+          ()->Js.Promise.resolve
+        }
+      : {
+          let appBinaryFile = service.meta3d.generateApp(.
+            service.meta3d.convertAllFileData(.
+              selectedExtensions->Meta3dCommonlib.ArraySt.map((
+                {data}: FrontendUtils.AssembleSpaceStoreType.extension,
+              ) => data),
+              selectedContributes->Meta3dCommonlib.ArraySt.map((
+                {data}: FrontendUtils.AssembleSpaceStoreType.contribute,
+              ) => data),
+              (
+                selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
+                  _getExtensionNewName(newName, data)
+                ),
+                selectedExtensions
+                ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
+                ->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
+                  _getExtensionNewName(newName, data)
+                ),
+                selectedContributes->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
+                  _getContributeNewName(newName, data)
+                ),
+              ),
+            ),
+          )
 
-      ()->Js.Promise.resolve
-    }, _)
+          service.backend.publishApp(.
+            appBinaryFile,
+            appName,
+            username->Meta3dCommonlib.OptionSt.getExn,
+          )
+          ->Meta3dBsMost.Most.drain
+          ->Js.Promise.then_(_ => {
+            setVisible(_ => false)
+
+            ()->Js.Promise.resolve
+          }, _)
+        }
   }
 
   let onFinishFailed = (service, errorInfo) => {

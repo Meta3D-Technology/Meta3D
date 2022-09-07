@@ -79,6 +79,33 @@ defineFeature(feature, test => {
   //   })
   // })
 
+  test(."publish when select nothing", ({given, \"when", \"and", then}) => {
+    let errorStub = ref(Obj.magic(1))
+    let selectedExtensions = ref(Obj.magic(1))
+    let selectedContributes = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    CucumberAsync.execStep(\"when", "publish app", () => {
+      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      PublishTool.publish(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+        ~selectedExtensions=list{},
+        ~selectedContributes=list{},
+        (),
+      )
+    })
+
+    then("should error", () => {
+      errorStub.contents
+      ->Obj.magic
+      ->SinonTool.calledWithArg2({j`请至少选择一个扩展或者贡献`}, None)
+      ->expect == true
+    })
+  })
+
   let _prepareSelectedExtensionsAndContributes = (
     given,
     \"and",
