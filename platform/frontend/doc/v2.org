@@ -155,7 +155,7 @@ solution: set different id
 * DONE assemble-space: pass contribute
 
 
-* TODO assemble-space: finish publish
+* DONE assemble-space: finish publish
 
 publish extension, contribute
 
@@ -169,7 +169,7 @@ modal
 ** DONE pass bdd test
 
 
-** TODO pass run test
+** DONE pass run test
 
 # TODO fix: fail
 
