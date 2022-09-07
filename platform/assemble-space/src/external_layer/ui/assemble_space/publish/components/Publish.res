@@ -127,7 +127,7 @@ let make = (~service: service, ~username: option<string>) => {
               (username, selectedExtensions, selectedContributes),
               event->Obj.magic,
             )->ignore
-          }, 20->Some)}
+          }, 5->Some)}
         onFinishFailed={Method.onFinishFailed(service)}
         autoComplete="off">
         <Form.Item

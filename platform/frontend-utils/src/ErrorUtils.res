@@ -17,7 +17,7 @@ let error = (errorMessage: string, durationOpt: option<int>) => {
 
   Antd__Message.message.error(.
     errorMessage,
-    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10),
+    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
   )
 }
 
