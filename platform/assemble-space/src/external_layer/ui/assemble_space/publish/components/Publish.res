@@ -58,7 +58,7 @@ module Method = {
   }
 
   let onFinishFailed = (service, errorInfo) => {
-    service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5 -> Some)
+    ()
   }
 
   let useSelector = (
