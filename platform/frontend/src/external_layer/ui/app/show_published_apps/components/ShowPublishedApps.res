@@ -1,6 +1,8 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
+// TODO check login
+
 @react.component
 let make = () => {
   let {username} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
@@ -16,38 +18,40 @@ let make = () => {
   }
 
   React.useEffect1(() => {
-    switch username {
-    | None => ()
-    | Some(username) =>
-      BackendCloudbase.findAllPublishApps(. username)->Meta3dBsMost.Most.observe(allPublishApps => {
-        setAllPublishApps(_ => allPublishApps)
-        setIsLoaded(_ => true)
-      }, _)->Js.Promise.catch(e => {
-        setIsLoaded(_ => false)
+    BackendCloudbase.findAllPublishApps(. username->Meta3dCommonlib.OptionSt.getExn)
+    ->Meta3dBsMost.Most.observe(allPublishApps => {
+      setAllPublishApps(_ => allPublishApps)
+      setIsLoaded(_ => true)
+    }, _)
+    ->Js.Promise.catch(e => {
+      setIsLoaded(_ => false)
 
-        FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
-      }, _)->ignore
-    }
+      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+    }, _)
+    ->ignore
 
     None
   }, [])
 
   <>
     <Nav />
-    <List
-      itemLayout=#horizontal
-      dataSource={allPublishApps}
-      renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppData) =>
-        <List.Item>
-          <List.Item.Meta
-            title={<span
-              onClick={_ => {
-                _openLink(_buildURL(item.username, item.appName))
-              }}>
-              {React.string(item.appName)}
-            </span>}
-          />
-        </List.Item>}
-    />
+    {!isLoaded
+      ? <p> {React.string(`loading...`)} </p>
+      : <List
+          itemLayout=#horizontal
+          dataSource={allPublishApps}
+          renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppData) =>
+            <List.Item>
+              <List.Item.Meta
+                key={j`${item.username}_${item.appName}`}
+                title={<span
+                  onClick={_ => {
+                    _openLink(_buildURL(item.username, item.appName))
+                  }}>
+                  {React.string(item.appName)}
+                </span>}
+              />
+            </List.Item>}
+        />}
   </>
 }
