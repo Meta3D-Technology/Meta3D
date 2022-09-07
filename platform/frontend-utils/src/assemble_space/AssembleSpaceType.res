@@ -11,7 +11,7 @@ type useDispatch = unit => dispatch
 type errorFunc = Js.Exn.t => unit
 
 // type error = (. Antd__Message.error, errorFunc, Js.Exn.t, option<int>) => unit
-type error = (. Js.Exn.t, option<int>) => unit
+type error = (. string, option<int>) => unit
 
 type backendService = {
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,

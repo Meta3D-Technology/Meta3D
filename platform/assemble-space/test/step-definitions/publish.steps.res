@@ -85,25 +85,25 @@ defineFeature(feature, test => {
     selectedExtensions,
     selectedContributes,
   ) => {
-    given("select extension e1, e2", () => {
+    given("select extension e1, e2 without newName", () => {
       selectedExtensions :=
         list{
           SelectedExtensionsTool.buildSelectedExtension(
             ~name="e1",
-            ~newName="e1"->Some,
+            ~newName=None,
             ~protocolIconBase64="i1",
             (),
           ),
           SelectedExtensionsTool.buildSelectedExtension(
             ~name="e2",
-            ~newName="e2"->Some,
+            ~newName=None,
             ~protocolIconBase64="i2",
             (),
           ),
         }
     })
 
-    \"and"("select contribute c1, c2", () => {
+    \"and"("select contribute c1, c2 with newName", () => {
       selectedContributes :=
         list{
           SelectedContributesTool.buildSelectedContribute(
@@ -179,7 +179,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~username=username->Some,
         ~values={
-          "name": appName,
+          "appName": appName,
         },
         ~service=ServiceTool.build(
           ~sandbox,

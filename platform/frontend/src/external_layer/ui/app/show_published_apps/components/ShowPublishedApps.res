@@ -19,7 +19,7 @@ let make = () => {
     switch username {
     | None => ()
     | Some(username) =>
-      BackendCloudbase.findAllPublishApps(username)->Meta3dBsMost.Most.observe(allPublishApps => {
+      BackendCloudbase.findAllPublishApps(. username)->Meta3dBsMost.Most.observe(allPublishApps => {
         setAllPublishApps(_ => allPublishApps)
         setIsLoaded(_ => true)
       }, _)->Js.Promise.catch(e => {
@@ -33,6 +33,7 @@ let make = () => {
   }, [])
 
   <>
+    <Nav />
     <List
       itemLayout=#horizontal
       dataSource={allPublishApps}

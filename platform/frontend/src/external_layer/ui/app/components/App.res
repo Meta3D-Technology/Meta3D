@@ -9,11 +9,13 @@ let make = () => {
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
     backend: BackendCloudbase.buildService(),
     meta3d: {
-      generateApp: Meta3d.Main.generateApp,
-      convertAllFileDataForApp: Meta3d.Main.convertAllFileDataForApp,
+      generateApp: (. (allExtensionFileData, allContributeFileData)) =>
+        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData)),
+      convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
+        Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
     },
     console: {
-      error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
+      error: (. errorMessage, durationOpt) => FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
     },
     react: {
       useState: func => {

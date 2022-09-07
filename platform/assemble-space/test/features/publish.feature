@@ -19,8 +19,8 @@ Feature: Publish
     Rule: Publish
 
         Background: prepare selected extensions and contributes
-            Given select extension e1, e2
-            And select contribute c1, c2
+            Given select extension e1, e2 without newName
+            And select contribute c1, c2 with newName
 
         Scenario: generate correct app
             When publish app

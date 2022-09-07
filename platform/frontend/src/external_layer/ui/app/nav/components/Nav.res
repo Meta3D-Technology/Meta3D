@@ -27,7 +27,7 @@ let make = () => {
         onClick={_ => {
           RescriptReactRouter.push("/ShowPublishedApps")
         }}>
-        {React.string(`发布的App`)}
+        {React.string(`发布的应用`)}
       </span>
       {React.string("| ")}
       <span

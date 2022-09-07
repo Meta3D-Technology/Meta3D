@@ -166,10 +166,23 @@ modal
 ** DONE implement
 
 
-** TODO pass bdd test
+** DONE pass bdd test
 
 
 ** TODO pass run test
+
+# TODO fix: fail
+
+# TODO fix: publish fail
+
+TODO fix: empty publish
+
+
+show app:
+
+unique key
+
+isLoaded
 
 
 

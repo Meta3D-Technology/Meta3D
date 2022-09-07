@@ -12,7 +12,7 @@ let publish = (
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~values={
-    "name": "n1",
+    "appName": "n1",
   },
   (),
 ) => {

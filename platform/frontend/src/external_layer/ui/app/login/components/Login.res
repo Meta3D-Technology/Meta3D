@@ -14,7 +14,7 @@ let make = () => {
     ->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
       !isSuccess
         ? {
-            Message.error(Meta3dCommonlib.NullableSt.getExn(failMsg), 5)
+            Message.error(.Meta3dCommonlib.NullableSt.getExn(failMsg), 5)
 
             ()
           }
@@ -29,7 +29,7 @@ let make = () => {
   }
 
   let _onFinishFailed = errorInfo => {
-    Message.error({j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
+    Message.error(.{j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
   }
 
   <>

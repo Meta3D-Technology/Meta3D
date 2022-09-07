@@ -7,19 +7,24 @@ module Method = {
     setVisible(_ => true)
   }
 
+  let _getExtensionNewName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
+    newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
+  }
+
+  let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeFileData) => {
+    newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
+  }
+
   let onFinish = (
     service,
     setVisible,
     (username, selectedExtensions, selectedContributes),
     values,
   ): Js.Promise.t<unit> => {
-    let name = values["name"]
+    let appName = values["appName"]
 
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
-
-    // FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-    // }, 20->Some)
 
     let appBinaryFile = service.meta3d.generateApp(.
       service.meta3d.convertAllFileData(.
@@ -30,20 +35,20 @@ module Method = {
           {data}: FrontendUtils.AssembleSpaceStoreType.contribute,
         ) => data),
         (
-          selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName}) =>
-            newName->Meta3dCommonlib.OptionSt.getExn
+          selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
+            _getExtensionNewName(newName, data)
           ),
           selectedExtensions
           ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
-          ->Meta3dCommonlib.ArraySt.map(({newName}) => newName->Meta3dCommonlib.OptionSt.getExn),
-          selectedContributes->Meta3dCommonlib.ArraySt.map(({newName}) =>
-            newName->Meta3dCommonlib.OptionSt.getExn
+          ->Meta3dCommonlib.ArraySt.map(({newName, data}) => _getExtensionNewName(newName, data)),
+          selectedContributes->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
+            _getContributeNewName(newName, data)
           ),
         ),
       ),
     )
 
-    service.backend.publishApp(. appBinaryFile, name, username->Meta3dCommonlib.OptionSt.getExn)
+    service.backend.publishApp(. appBinaryFile, appName, username->Meta3dCommonlib.OptionSt.getExn)
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.then_(_ => {
       setVisible(_ => false)
@@ -52,8 +57,8 @@ module Method = {
     }, _)
   }
 
-  let onFinishFailed = errorInfo => {
-    Message.error({j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
+  let onFinishFailed = (service, errorInfo) => {
+    service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5 -> Some)
   }
 
   let useSelector = (
@@ -87,7 +92,6 @@ let make = (~service: service, ~username: option<string>) => {
       }}
       footer={React.null}>
       <Form
-      // name="basic"
         labelCol={{
           "span": 8,
         }}
@@ -97,22 +101,23 @@ let make = (~service: service, ~username: option<string>) => {
         initialValues={{
           "remember": true,
         }}
-        onFinish={event =>
-          Method.onFinish(
-            service,
-            setVisible,
-            (username, selectedExtensions, selectedContributes),
-            event->Obj.magic,
-          )->ignore}
-        onFinishFailed={Method.onFinishFailed}
+        onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+            Method.onFinish(
+              service,
+              setVisible,
+              (username, selectedExtensions, selectedContributes),
+              event->Obj.magic,
+            )->ignore
+          }, 20->Some)}
+        onFinishFailed={Method.onFinishFailed(service)}
         autoComplete="off">
         <Form.Item
-          label=`用户名`
-          name="name"
+          label=`应用名`
+          name="appName"
           rules={[
             {
               required: true,
-              message: `输入用户名`,
+              message: `输入应用名`,
             },
           ]}>
           <Input />
