@@ -35,3 +35,11 @@ let createMethodStub = %raw(` function(sandbox, obj, method) {
     return obj[method];
 }
 `)
+
+let getFirstArg = (~callIndex=0, ~stub, ()) => {
+  stub->getCall(callIndex, _)->getArgs->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
+}
+
+let getAllArgsJson = (stub, callIndex) => {
+  Js.Json.stringify(stub->getCall(callIndex, _)->getArgs->Meta3dCommonlib.ListSt.toArray->Obj.magic)
+}

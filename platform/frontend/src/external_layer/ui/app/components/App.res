@@ -8,6 +8,10 @@ let make = () => {
 
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
     backend: BackendCloudbase.buildService(),
+    meta3d: {
+      generateApp: Meta3d.Main.generateApp,
+      convertAllFileDataForApp: Meta3d.Main.convertAllFileDataForApp,
+    },
     console: {
       error: (. e, durationOpt) => FrontendUtils.ErrorUtils.error(e, durationOpt),
     },

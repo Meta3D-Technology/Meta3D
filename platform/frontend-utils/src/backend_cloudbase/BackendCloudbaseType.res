@@ -18,14 +18,16 @@ type publishAppData = {
 }
 
 type publishApp = (
-  Js.Typed_array.ArrayBuffer.t,
+  . Js.Typed_array.ArrayBuffer.t,
   string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type findPublishApp = (
-  string,
+  . string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
-type findAllPublishApps = string => Meta3dBsMostProtocol.StreamType.stream<array<publishAppData>>
+type findAllPublishApps = (
+  . string,
+) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppData>>

@@ -23,6 +23,12 @@ let build = (
   ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~generateApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Js.Typed_array.ArrayBuffer.make(0), _)
+  ->Obj.magic,
+  ~convertAllFileData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(([], []), _)
+  ->Obj.magic,
   (),
 ) => {
   react: {
@@ -41,6 +47,10 @@ let build = (
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
+  },
+  meta3d: {
+    generateApp: generateApp,
+    convertAllFileData: convertAllFileData,
   },
 }
 

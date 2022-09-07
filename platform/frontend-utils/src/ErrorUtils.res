@@ -22,11 +22,11 @@ let error = (e, durationOpt) => {
 }
 
 let showCatchedErrorMessage = %raw(`
-    function(func, duration = 10) {
+    function(func, durationOpt) {
 	try {
 		func()
 	} catch (e) {
-		error(e, duration)
+		error(e, durationOpt)
 	}
 }
     `)
