@@ -17,6 +17,7 @@ module.exports = {
   scopes: [
     { name: "platform" },
     { name: "protocols" },
+    { name: "extensions" },
     { name: "services" }
   ],
 

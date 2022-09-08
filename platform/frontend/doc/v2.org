@@ -188,9 +188,36 @@ modal
 
 
 
-* TODO add engine extensions
+* DONE add engine extensions
+
+# split engine-core to scene, job-pipeline
+# so engine is split to these abstract extensions(with contribute):
+# scene
+# # job-pipeline
+# work-plugin
 
 
+# ** TODO extract work(rename work plugin to work) extension from engine-core
+** DONE extract work plugin extension from engine-core
+
+# ** TODO make engine facade to be root extension(named: engineAPI extension)
+
+
+
+
+* TODO render a triangle by webgpu
+
+
+** TODO add meta3d-register-default-work-plugins work extension
+
+** TODO add root work contribute
+
+** TODO add one work contribute
+
+** TODO extract webgpu extension
+
+# ** TODO add render triangle extension to be entry extension for app
+** TODO add use engine extension to be entry extension for app
 
 
 * TODO upload website
@@ -203,12 +230,13 @@ modal
 
 
 
-* TODO show published apps
+
+
+
+* TODO add scene extension of engine-core
+
+* TODO add components
 
 
 
 * TODO refactor: extract Sider component
-
-
-
-* TODO finish webgpu demo

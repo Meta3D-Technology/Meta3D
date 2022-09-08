@@ -1,7 +1,7 @@
 {
     "name": "meta3d-bs-most-protocol",
-    "version": "1.0.0-alpha.1",
-    "authors": "Wonder",
+    "version": "0.3.4",
+    "authors": "meta3d",
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
