@@ -1,11 +1,13 @@
 {
     "name": "meta3d-webgpu-protocol",
     "version": "0.3.4",
+    "publisher": "meta3d",
     "description": "",
-    "author": "meta3d",
+    "author": "Wonder",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "meta3d:publish": "gulp publish"
     },
     "keywords": [],
     "devDependencies": {

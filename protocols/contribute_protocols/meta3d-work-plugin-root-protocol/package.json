@@ -1,16 +1,14 @@
 {
     "name": "meta3d-work-plugin-root-protocol",
     "version": "0.3.4",
-    "authors": "meta3d",
+    "description": "",
+    "publisher": "meta3d",
+    "author": "Meta3D",
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
-        "buildAll:ci": "rescript clean && rescript build"
-    },
-    "config": {
-        "commitizen": {
-            "path": "node_modules/cz-customizable"
-        }
+        "buildAll:ci": "rescript clean && rescript build",
+        "meta3d:publish": "gulp publish"
     },
     "keywords": [],
     "dependencies": {

@@ -1,16 +1,34 @@
 {
     "name": "meta3d-work-plugin-webgpu-triangle",
     "version": "0.3.4",
-    "description": "",
-    "author": "meta3d",
+    "publisher": "meta3d",
+    "protocol": {
+        "name": "meta3d-work-plugin-webgpu-triangle"
+    },
+    "dependentExtensionNameMap": {},
+    "dependentContributeNameMap": {},
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "webpack": "webpack --config webpack.config.js",
+        "meta3d:publish": "npm run webpack && gulp publish"
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-work-plugin-webgpu-triangle": "^0.3.4",
+        "meta3d-webgpu-protocol": "^0.3.4",
+        "meta3d-bs-most-protocol": "^0.3.4",
+        "meta3d-type": "^1.0.0-alpha.1"
     },
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^1.0.0-alpha.1",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
     }
 }

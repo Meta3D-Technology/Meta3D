@@ -3,22 +3,35 @@
     "version": "0.3.4",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-editor-protocol"
+        "name": "meta3d-use-engine-protocol"
     },
     "dependentExtensionNameMap": {
-        "meta3dTest1ExtensionName": {
-            "protocolName": "meta3d-extension-test1-protocol"
+        "meta3dBsMostExtensionName": {
+            "protocolName": "meta3d-bs-most-protocol"
+        },
+        "meta3dEngineCoreExtensionName": {
+            "protocolName": "meta3d-engine-core-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeNameMap": {
+        "meta3dWorkPluginRootContributeName": {
+            "protocolName": "meta3d-work-plugin-root-protocol"
+        },
+        "meta3dWorkPluginWebGPUTriangleContributeName": {
+            "protocolName": "meta3d-work-plugin-webgpu-triangle-protocol"
+        }
+    },
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish": "npm run webpack && gulp publish"
     },
     "dependencies": {
-        "meta3d-editor-protocol": "^1.0.0-alpha.1",
-        "meta3d-extension-test1-protocol": "^0.3.4",
+        "meta3d-use-engine-protocol": "^0.3.4",
+        "meta3d-bs-most-protocol": "^0.3.4",
+        "meta3d-engine-core-protocol": "^0.3.4",
+        "meta3d-work-plugin-root-protocol": "^0.3.4",
+        "meta3d-work-plugin-webgpu-triangle-protocol": "^0.3.4",
         "meta3d-type": "^1.0.0-alpha.1"
     },
     "devDependencies": {

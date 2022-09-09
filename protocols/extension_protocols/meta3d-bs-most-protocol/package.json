@@ -1,13 +1,16 @@
 {
     "name": "meta3d-bs-most-protocol",
     "version": "0.3.4",
-    "authors": "meta3d",
+    "publisher": "meta3d",
+    "description": "",
+    "author": "Wonder",
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
-        "buildAll:ci": "rescript clean && rescript build"
+        "meta3d:publish": "gulp publish"
     },
-    "dependencies": {
+    "keywords": [],
+    "devDependencies": {
         "rescript": "^9.1.4"
     }
 }

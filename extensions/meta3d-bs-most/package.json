@@ -1,21 +1,34 @@
 {
   "name": "meta3d-bs-most",
-  "version": "1.0.0-alpha.1",
-  "description": "",
-  "main": "lib/js/src/Main.bs.js",
-  "types": "src/Main.d.ts",
-  "license": "MIT",
+  "version": "0.3.4",
+  "publisher": "meta3d",
+  "protocol": {
+    "name": "meta3d-bs-most-protocol"
+  },
+  "dependentExtensionNameMap": {},
+  "dependentContributeNameMap": {},
   "scripts": {
-    "watch": "rescript clean && rescript build -w"
+    "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build",
+    "webpack": "webpack --config webpack.config.js",
+    "meta3d:publish": "yarn buildAll:ci && npm run webpack && gulp publish"
+  },
+  "dependencies": {
+    "meta3d-bs-most-protocol": "^0.3.4",
+    "meta3d-type": "^1.0.0-alpha.1",
+    "most": "1.7.0",
+    "most-subject": "^5.3.0",
+    "rescript": "^9.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@babel/preset-env": "^7.10.4",
-    "gentype": "^3.48.0"
-  },
-  "dependencies": {
-    "most": "1.7.0",
-    "most-subject": "^5.3.0",
-    "rescript": "^9.1.4"
+    "gentype": "^3.48.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cz-customizable": "^6.3.0",
+    "gulp": "^4.0.2",
+    "meta3d-tool-publish": "^1.0.0-alpha.1",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1"
   }
 }

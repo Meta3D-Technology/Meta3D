@@ -2,13 +2,13 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-	entry: "./src/Main.ts",
+	entry: "./lib/js/src/Main.bs.js",
 	mode: 'production',
 	output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'static/js/[name].js',
         library: {
-            name: 'Extension',
+            name: 'Contribute',
             type: 'window',
         },
     },
@@ -17,24 +17,12 @@ module.exports = {
 	// devtool: "source-map",
 
 	resolve: {
-		extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
+		extensions: ['.js', '.jsx', '.scss'],
 		modules: ['node_modules']
 	},
 
 	module: {
 		rules: [
-			// All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-			{
-				test: /\.tsx?$/,
-				exclude: /node_modules/,
-				use: "ts-loader"
-			},
-			// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-			{
-				enforce: 'pre',
-				test: /\.js$/,
-				loader: "source-map-loader"
-			},
 		]
 	},
 	plugins: [
