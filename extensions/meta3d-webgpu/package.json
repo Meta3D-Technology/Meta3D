@@ -1,0 +1,16 @@
+{
+    "name": "meta3d-webgpu",
+    "version": "0.3.4",
+    "description": "",
+    "author": "meta3d",
+    "main": "src/Main.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "build:ts": "tsc"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

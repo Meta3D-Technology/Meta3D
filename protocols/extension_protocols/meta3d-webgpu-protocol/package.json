@@ -1,0 +1,14 @@
+{
+    "name": "meta3d-webgpu-protocol",
+    "version": "0.3.4",
+    "description": "",
+    "author": "meta3d",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}
