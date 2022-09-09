@@ -1,0 +1,16 @@
+{
+    "name": "meta3d-use-engine-protocol",
+    "version": "0.3.4",
+    "publisher": "meta3d",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "meta3d:publish": "gulp publish"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

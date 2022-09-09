@@ -22,13 +22,16 @@ fn main() -> @location(0) vec4<f32> {
 }
     `;
 
-let _getAndInitCanvas = () => {
-	let canvas = document.querySelector("#webgpu") as HTMLCanvasElement
+let _createAndInsertCanvas = () => {
+	let canvas = document.createElement("canvas") as HTMLCanvasElement;
 
 	canvas.width = 600
 	canvas.style.width = "600px"
 	canvas.height = 600
 	canvas.style.height = "600px"
+
+	let body = document.getElementsByTagName("body")[0];
+	body.appendChild(canvas);
 
 	return canvas
 }
@@ -41,7 +44,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 	return mostService.fromPromise(
 		webgpuService.requestAdapter().then(adapter => {
 			return webgpuService.requestDevice(adapter).then(device => {
-				let context = webgpuService.getContext(_getAndInitCanvas())
+				let context = webgpuService.getContext(_createAndInsertCanvas())
 
 				let presentationFormat = webgpuService.getPreferredCanvasFormat()
 
