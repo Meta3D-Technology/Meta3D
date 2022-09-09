@@ -86,7 +86,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<rootState, rootStates>>(meta3dState, meta3dWorkPluginRootContributeName)
 				)
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<webgpuTriangleState, webgpuTriangleStates>>(meta3dState, meta3dWorkPluginWebGPUTriangleContributeName)
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<webgpuTriangleState, webgpuTriangleStates>>(meta3dState, meta3dWorkPluginWebGPUTriangleContributeName),
+					[
+						{
+							pipelineName: "init",
+							insertElementName: "init_root_meta3d",
+							insertAction: "after"
+						},
+						{
+							pipelineName: "render",
+							insertElementName: "render_root_meta3d",
+							insertAction: "after"
+						}
+					]
 				)
 
 				let { init } = api.getExtensionService<engineCoreService>(
@@ -94,7 +106,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineCoreExtensionName
 				)
 
-				engineCoreState = init(engineCoreState)
+				engineCoreState = init(engineCoreState, meta3dState)
 
 				meta3dState =
 					api.setExtensionState(

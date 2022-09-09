@@ -21,10 +21,12 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, workPluginContribute<state, states>> = (api, [{
-	meta3dWebGPUExtensionName,
-	meta3dBsMostExtensionName
-}, _]) => {
+export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, workPluginContribute<state, states>> = (api, dependentMapData) => {
+	let {
+		meta3dWebGPUExtensionName,
+		meta3dBsMostExtensionName
+	} = dependentMapData[0]
+
 	return {
 		workPluginName: workPluginName,
 		createStateFunc: (meta3dState) => {

@@ -224,6 +224,15 @@ modal
 
 ** TODO pass editor1 run test
 
+
+* TODO add local debug!
+
+import instad webpack
+
+select ...
+start ...
+
+
 * TODO add extension package
 
 

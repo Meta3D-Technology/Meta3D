@@ -3,9 +3,16 @@
     "version": "0.3.4",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-work-plugin-webgpu-triangle"
+        "name": "meta3d-work-plugin-webgpu-triangle-protocol"
     },
-    "dependentExtensionNameMap": {},
+    "dependentExtensionNameMap": {
+        "meta3dBsMostExtensionName": {
+            "protocolName": "meta3d-bs-most-protocol"
+        },
+        "meta3dWebGPUExtensionName": {
+            "protocolName": "meta3d-webgpu-protocol"
+        }
+    },
     "dependentContributeNameMap": {},
     "license": "MIT",
     "scripts": {
@@ -15,7 +22,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-work-plugin-webgpu-triangle": "^0.3.4",
+        "meta3d-work-plugin-webgpu-triangle-protocol": "^0.3.4",
         "meta3d-webgpu-protocol": "^0.3.4",
         "meta3d-bs-most-protocol": "^0.3.4",
         "meta3d-type": "^1.0.0-alpha.1"

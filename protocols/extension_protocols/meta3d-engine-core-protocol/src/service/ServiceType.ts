@@ -33,7 +33,7 @@ export type service = {
     readonly getIsDebug: (_1: StateType_state) => boolean;
     readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
     readonly prepare: () => void;
-    readonly init: (_1: StateType_state) => StateType_state;
+    readonly init: (_1: StateType_state, _2: Meta3dType_Index_state) => StateType_state;
     readonly registerWorkPlugin: <state, states>(
         state: StateType_state,
         contribute: workPluginContribute<state, states>,

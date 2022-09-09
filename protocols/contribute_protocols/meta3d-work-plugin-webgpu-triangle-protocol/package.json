@@ -2,10 +2,12 @@
     "name": "meta3d-work-plugin-webgpu-triangle-protocol",
     "version": "0.3.4",
     "description": "",
-    "author": "meta3d",
+    "publisher": "meta3d",
+    "author": "Meta3D",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w",
+        "meta3d:publish": "gulp publish"
     },
     "keywords": [],
     "devDependencies": {
