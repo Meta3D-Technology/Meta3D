@@ -24,6 +24,7 @@ external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
 type implement = {
   id: string,
   file: Js.Typed_array.ArrayBuffer.t,
+  version: string,
 }
 
 type implements = array<implement>

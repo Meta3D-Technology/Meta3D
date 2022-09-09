@@ -23,12 +23,12 @@ let getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolNam
             if (result.length === 0) {
                 return (0, most_1.empty)();
             }
-            else if (result.length > 1) {
-                throw new Error("length should == 1");
-            }
-            let { fileID } = result[0];
-            return getFileFunc(fileID).map(arrayBuffer => {
-                return { id: fileID, file: arrayBuffer };
+            return (0, most_1.from)(result.map(({ fileID, version }) => {
+                return [fileID, version];
+            })).flatMap(([fileID, version]) => {
+                return getFileFunc(fileID).map(arrayBuffer => {
+                    return { id: fileID, file: arrayBuffer, version };
+                });
             });
         })).reduce((result, data) => {
             result.push(data);

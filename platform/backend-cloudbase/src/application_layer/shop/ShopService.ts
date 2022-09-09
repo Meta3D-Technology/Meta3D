@@ -1,4 +1,4 @@
-import { empty, fromPromise, mergeArray } from "most"
+import { empty, from, fromPromise, mergeArray } from "most"
 import { satisfies } from "semver";
 
 export let getAllPublishProtocolData = (
@@ -30,14 +30,13 @@ export let getAllPublishData = (
                 if (result.length === 0) {
                     return empty()
                 }
-                else if (result.length > 1) {
-                    throw new Error("length should == 1")
-                }
 
-                let { fileID } = result[0]
-
-                return getFileFunc(fileID).map(arrayBuffer => {
-                    return { id: fileID, file: arrayBuffer }
+                return from(result.map(({ fileID, version }) => {
+                    return [fileID, version]
+                })).flatMap(([fileID, version]) => {
+                    return getFileFunc(fileID).map(arrayBuffer => {
+                        return { id: fileID, file: arrayBuffer, version }
+                    })
                 })
             })
         ).reduce(

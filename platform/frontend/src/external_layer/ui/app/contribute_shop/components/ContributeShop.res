@@ -26,7 +26,7 @@ let make = () => {
       setIsLoaded(_ => true)
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
-FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
+      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
     }, _)->ignore
 
     None
@@ -47,10 +47,13 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
               title={<span> {React.string(item.data.contributePackageData.name)} </span>}
               description={React.string(`TODO`)}
             />
+            <span> {React.string({j`版本号：${item.version}`})} </span>
             {_isSelect(item.id, selectedContributes)
               ? <Button
                   onClick={_ => {
-                    dispatch(AppStore.UserCenterAction(UserCenterStore.NotSelectContribute(item.id)))
+                    dispatch(
+                      AppStore.UserCenterAction(UserCenterStore.NotSelectContribute(item.id)),
+                    )
                   }}>
                   {React.string(`取消选择`)}
                 </Button>
@@ -65,7 +68,7 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
       : <List
           itemLayout=#horizontal
           dataSource={allPublishContributeProtocols}
-          renderItem={(item: FrontendUtils. BackendCloudbaseType.protocol) =>
+          renderItem={(item: FrontendUtils.BackendCloudbaseType.protocol) =>
             <List.Item>
               <List.Item.Meta
                 key={item.name}
@@ -77,9 +80,9 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
                     BackendCloudbase.getAllPublishContributes(item.name, item.version)
                     ->Meta3dBsMost.Most.map(data => {
                       data->Meta3dCommonlib.ArraySt.map((
-                        {id, file}: BackendCloudbase.implement,
+                        {id, file, version}: BackendCloudbase.implement,
                       ): UserCenterStore.contribute => {
-                        {id: id, data: Meta3d.Main.loadContribute(file)}
+                        {id: id, data: Meta3d.Main.loadContribute(file), version: version}
                       })
                     }, _)
                     ->Meta3dBsMost.Most.observe(data => {
@@ -89,7 +92,7 @@ FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
                     }, _)
                     ->Js.Promise.catch(e => {
                       setIsLoaded(_ => false)
-FrontendUtils.ErrorUtils.error(e-> Obj.magic, None)-> Obj.magic
+                      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
                     }, _)
                     ->ignore
                   }}>

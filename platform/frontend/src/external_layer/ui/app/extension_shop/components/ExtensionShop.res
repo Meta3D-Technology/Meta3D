@@ -56,6 +56,7 @@ let make = () => {
               title={<span> {React.string(item.data.extensionPackageData.name)} </span>}
               description={React.string(`TODO`)}
             />
+            <span> {React.string({j`版本号：${item.version}`})} </span>
             {_isSelect(item.id, selectedExtensions)
               ? <Button
                   onClick={_ => {
@@ -86,9 +87,9 @@ let make = () => {
                     BackendCloudbase.getAllPublishExtensions(item.name, item.version)
                     ->Meta3dBsMost.Most.map(data => {
                       data->Meta3dCommonlib.ArraySt.map((
-                        {id, file}: BackendCloudbase.implement,
+                        {id, file, version}: BackendCloudbase.implement,
                       ): UserCenterStore.extension => {
-                        {id: id, data: Meta3d.Main.loadExtension(file)}
+                        {id: id, data: Meta3d.Main.loadExtension(file), version: version}
                       })
                     }, _)
                     ->Meta3dBsMost.Most.observe(data => {

@@ -6,10 +6,17 @@ Feature: Get All Publish Extension
     Background: prepare
         Given prepare sandbox
 
-    Scenario: get all publish extension
+    Scenario: one extension implement one protocol
         Given prepare funcs
         And publish extension1
         And publish extension2
+        When get all publish extensions
+        Then should return correct data
+
+    Scenario: two extensions implement one protocol
+        Given prepare funcs
+        And publish extension1 for protocol1
+        And publish extension2 for protocol1
         When get all publish extensions
         Then should return correct data
 
