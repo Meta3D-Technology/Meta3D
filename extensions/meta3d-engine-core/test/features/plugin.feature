@@ -6,7 +6,6 @@ Feature: Plugin
     Background: prepare register
         Given prepare register
 
-
     Rule: plugin contribute
 
         Scenario: open debug

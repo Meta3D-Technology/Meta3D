@@ -26,6 +26,8 @@ type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
   dependentContributeNameValue,
 >
 
+// type config
+
 type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionService) => state
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
@@ -71,9 +73,12 @@ type getExtensionService<
 
 type createExtensionState<'extensionState> = unit => 'extensionState
 
-type getContribute<'dependentExtensionNameMap, 'dependentContributeNameMap, 'contribute> = (
-  api,
-  ('dependentExtensionNameMap, 'dependentContributeNameMap),
-) => 'contribute
+type getContribute<
+  'dependentExtensionNameMap,
+  'dependentContributeNameMap,
+  // 'config,
+  'contribute,
+// > = (api, ('dependentExtensionNameMap, 'dependentContributeNameMap), 'config) => 'contribute
+> = (api, ('dependentExtensionNameMap, 'dependentContributeNameMap)) => 'contribute
 
 type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>

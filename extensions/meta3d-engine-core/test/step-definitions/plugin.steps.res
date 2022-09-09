@@ -14,6 +14,7 @@ defineFeature(feature, test => {
   let contribute2 = ref(Obj.magic(1))
   let contribute3 = ref(Obj.magic(1))
   let sandbox = ref(Obj.magic(1))
+  let meta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(1))
 
   let _prepareRegister = given => {
     given("prepare register", () => {
@@ -29,7 +30,7 @@ defineFeature(feature, test => {
 
   let _buildWorkPluginContribute = (
     ~workPluginName="pluginA",
-    ~createStateFunc=() => Obj.magic(1),
+    ~createStateFunc=_ => Obj.magic(1),
     ~initFunc=state => (),
     ~getExecFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
@@ -197,7 +198,7 @@ defineFeature(feature, test => {
       contribute1 :=
         _buildWorkPluginContribute(
           ~workPluginName="a1",
-          ~createStateFunc=() => state1.contents,
+          ~createStateFunc=_ => state1.contents,
           ~initFunc=state1 => {
             stub1.contents(state1)
           },
@@ -213,7 +214,7 @@ defineFeature(feature, test => {
       contribute2 :=
         _buildWorkPluginContribute(
           ~workPluginName="a2",
-          ~createStateFunc=() => state2.contents,
+          ~createStateFunc=_ => state2.contents,
           ~initFunc=state2 => {
             stub2.contents()
           },
@@ -224,7 +225,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     then("invoke plugin1's and plugin2's createStateFunc and store result", () => {
@@ -266,7 +267,7 @@ defineFeature(feature, test => {
       rootJobName,
       _buildWorkPluginContribute(
         ~workPluginName="a1",
-        ~createStateFunc=() => state1,
+        ~createStateFunc=_ => state1,
         ~initFunc,
         ~allPipelineData=[
           {
@@ -316,7 +317,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -368,7 +369,7 @@ defineFeature(feature, test => {
     }
     let contribute2 = _buildWorkPluginContribute(
       ~workPluginName="a2",
-      ~createStateFunc=() => state2,
+      ~createStateFunc=_ => state2,
       ~allPipelineData=[
         {
           name: "init",
@@ -439,7 +440,7 @@ defineFeature(feature, test => {
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
-        ~createStateFunc=() => s2,
+        ~createStateFunc=_ => s2,
         ~allPipelineData=[
           {
             name: "init",
@@ -483,7 +484,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -507,6 +508,7 @@ defineFeature(feature, test => {
   test(."test register two plugins that plugin has two jobs", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
+    let meta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
@@ -539,7 +541,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -583,7 +585,7 @@ defineFeature(feature, test => {
     }
     let contribute3 = _buildWorkPluginContribute(
       ~workPluginName="a3",
-      ~createStateFunc=() => state3,
+      ~createStateFunc=_ => state3,
       ~allPipelineData=[
         {
           name: "init",
@@ -666,7 +668,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -735,7 +737,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -800,7 +802,7 @@ defineFeature(feature, test => {
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",
-        ~createStateFunc=() => _createState3(),
+        ~createStateFunc=_ => _createState3(),
         ~allPipelineData=[
           {
             name: "init",
@@ -850,7 +852,7 @@ defineFeature(feature, test => {
       }
       let data4 = _buildWorkPluginContribute(
         ~workPluginName="a4",
-        ~createStateFunc=() => _createState4(),
+        ~createStateFunc=_ => _createState4(),
         ~allPipelineData=[
           {
             name: "init",
@@ -941,7 +943,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1002,7 +1004,7 @@ defineFeature(feature, test => {
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
-        ~createStateFunc=() => _createState2(),
+        ~createStateFunc=_ => _createState2(),
         ~allPipelineData=[
           {
             name: "init",
@@ -1056,7 +1058,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1162,7 +1164,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run update pipeline", () => {
@@ -1334,7 +1336,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1391,7 +1393,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1455,7 +1457,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1547,7 +1549,7 @@ defineFeature(feature, test => {
     )
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {
@@ -1789,7 +1791,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("init", () => {
-      MainTool.init()
+      MainTool.init(meta3dState.contents)
     })
 
     \"when"("run init pipeline", () => {

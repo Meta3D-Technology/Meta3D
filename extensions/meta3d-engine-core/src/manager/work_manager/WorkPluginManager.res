@@ -185,6 +185,7 @@ let unregisterPlugin = (
 
 let init = (
   {allRegisteredWorkPluginContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
+  meta3dState: Meta3dType.Index.state,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.reduce(
     {
@@ -192,7 +193,7 @@ let init = (
       states: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.reduce(
         Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         (states, ({workPluginName, initFunc, createStateFunc}, _)) => {
-          states->Meta3dCommonlib.ImmutableHashMap.set(workPluginName, createStateFunc())
+          states->Meta3dCommonlib.ImmutableHashMap.set(workPluginName, createStateFunc(meta3dState))
         },
       ),
     },

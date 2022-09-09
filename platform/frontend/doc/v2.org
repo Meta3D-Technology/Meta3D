@@ -208,16 +208,27 @@ modal
 * TODO render a triangle by webgpu
 
 
-** TODO add meta3d-register-default-work-plugins work extension
+# ** TODO add meta3d-register-default-work-plugins work extension
 
-** TODO add root work contribute
-
-** TODO add one work contribute
+** DONE add root work contribute
 
 ** TODO extract webgpu extension
 
+** TODO add one work contribute
+
 # ** TODO add render triangle extension to be entry extension for app
 ** TODO add use engine extension to be entry extension for app
+
+
+
+* TODO add extension package
+
+
+
+* TODO add scene extension of engine-core
+
+* TODO add components
+
 
 
 * TODO upload website
@@ -233,9 +244,6 @@ modal
 
 
 
-* TODO add scene extension of engine-core
-
-* TODO add components
 
 
 

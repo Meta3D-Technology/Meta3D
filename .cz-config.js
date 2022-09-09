@@ -18,6 +18,7 @@ module.exports = {
     { name: "platform" },
     { name: "protocols" },
     { name: "extensions" },
+    { name: "contributes" },
     { name: "services" }
   ],
 

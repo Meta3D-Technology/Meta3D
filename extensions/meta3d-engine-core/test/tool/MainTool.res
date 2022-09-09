@@ -18,8 +18,8 @@ let prepare = () => {
   DirectorForJs.prepare
 }
 
-let init = () => {
-  StateContainer.unsafeGetState()->DirectorForJs.init->StateContainer.setState
+let init = meta3dState => {
+  StateContainer.unsafeGetState()->DirectorForJs.init(meta3dState)->StateContainer.setState
 }
 
 let runPipeline = (

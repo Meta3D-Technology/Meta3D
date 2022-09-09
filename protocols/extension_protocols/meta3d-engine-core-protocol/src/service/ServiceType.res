@@ -2,7 +2,7 @@ type service = {
   getIsDebug: StateType.state => bool,
   setIsDebug: (StateType.state, bool) => StateType.state,
   prepare: unit => unit,
-  init: StateType.state => StateType.state,
+  init: (StateType.state, Meta3dType.Index.state) => StateType.state,
   registerWorkPlugin: (
     ~state: StateType.state,
     ~contribute: WorkPluginManagerType.workPluginContributeForRegister,

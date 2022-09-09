@@ -154,13 +154,13 @@ function unregisterPlugin(state, targetPluginName) {
         };
 }
 
-function init(state) {
+function init(state, meta3dState) {
   var allRegisteredWorkPluginContribute = state.allRegisteredWorkPluginContribute;
   return ListSt$Meta3dCommonlib.reduce(allRegisteredWorkPluginContribute, {
               allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
               states: ListSt$Meta3dCommonlib.reduce(allRegisteredWorkPluginContribute, ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), (function (states, param) {
                       var match = param[0];
-                      return ImmutableHashMap$Meta3dCommonlib.set(states, match.workPluginName, Curry._1(match.createStateFunc, undefined));
+                      return ImmutableHashMap$Meta3dCommonlib.set(states, match.workPluginName, Curry._1(match.createStateFunc, meta3dState));
                     })),
               pluginData: state.pluginData
             }, (function (state, param) {

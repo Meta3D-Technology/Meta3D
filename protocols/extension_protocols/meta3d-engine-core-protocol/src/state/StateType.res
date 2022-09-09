@@ -4,7 +4,7 @@ type stream<'a> = Meta3dBsMostProtocol.StreamType.stream<'a>
 
 type pipelineData = PipelineType.pipelineData
 
-type createStateFunc<'state> = unit => 'state
+type createStateFunc<'state> = Meta3dType.Index.state => 'state
 
 type initFunc<'state> = 'state => unit
 
@@ -31,10 +31,10 @@ and workPluginContribute<'state, 'states> = {
   getExecFunc: getExecFunc,
   allPipelineData: allPipelineData,
 }
-and getWorkPluginContribute<'state, 'config, 'states> = 'config => workPluginContribute<
-  'state,
-  'states,
->
+// and getWorkPluginContribute<'state, 'config, 'states> = 'config => workPluginContribute<
+//   'state,
+//   'states,
+// >
 and registeredWorkPluginContribute = (
   workPluginContribute<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
   RegisterWorkPluginType.jobOrders,

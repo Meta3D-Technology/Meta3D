@@ -28,8 +28,8 @@ let prepare = () => {
   ()
 }
 
-let init = state => {
-  state->WorkPluginManager.init
+let init = (state, meta3dState) => {
+  WorkPluginManager.init(state, meta3dState)
 }
 
 let runPipeline = (
