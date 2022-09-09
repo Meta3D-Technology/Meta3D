@@ -1,4 +1,5 @@
 import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType.gen';
+import { state as meta3dState } from "meta3d-type"
 
 import type { pipelineData as PipelineType_pipelineData } from '../../state/PipelineType';
 
@@ -22,7 +23,8 @@ export type getExecFunc = (_1: PipelineType_pipelineName, _2: jobName) => (null 
 export type pipelineData = PipelineType_pipelineData;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type createStateFunc<state> = () => state;
+// export type createStateFunc<state> = () => state;
+export type createStateFunc<state> = (meta3dState: meta3dState) => state
 
 // tslint:disable-next-line:interface-over-type-literal
 export type initFunc<state> = (_1: state) => void;
@@ -43,4 +45,4 @@ export type workPluginContribute<state, states> = {
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getWorkPluginContribute<state, config, states> = (_1: config) => workPluginContribute<state, states>;
+// export type getWorkPluginContribute<state, config, states> = (_1: config) => workPluginContribute<state, states>;

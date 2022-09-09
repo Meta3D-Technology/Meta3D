@@ -3,8 +3,6 @@
     "version": "0.3.4",
     "authors": "meta3d",
     "license": "MIT",
-    "main": "lib/js/src/Index.bs.js",
-    "types": "src/Index.d.ts",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build"

@@ -1,13 +1,13 @@
 {
 	"compilerOptions": {
 		"target": "ES6",
-		"module": "commonjs",
+		"module": "ES6",
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"jsx": "react",
-		// "noEmit": true,
+		"noEmit": true,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
 		"noImplicitReturns": true,
@@ -19,7 +19,6 @@
 		"strict": true
 	},
 	"include": [
-		"./src",
-		"webgpu_node.d.ts"
+		"./src"
 	]
 }

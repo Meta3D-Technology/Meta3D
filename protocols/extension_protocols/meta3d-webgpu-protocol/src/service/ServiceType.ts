@@ -77,20 +77,20 @@ export type primitive = {
 
 export type renderPipelineDescriptor = {
 	layout: renderPipelineLayout,
-	vertexStage: {
+	vertex: {
 		module: shaderModule,
 		entryPoint: string
 	},
-	fragmentStage: {
+	fragment: {
 		module: shaderModule,
 		entryPoint: string,
 		targets: colorTargetState[]
 	},
 	primitive: primitive,
-	vertexState: {
-		indexFormat: string,
-		vertexBuffers: vertexBuffer[]
-	},
+	// vertexState?: {
+	// 	indexFormat: string,
+	// 	vertexBuffers: vertexBuffer[]
+	// },
 	// colorStates: [{
 	// 	format: textureFormat,
 	// 	alphaBlend: {},
@@ -131,7 +131,6 @@ export type presentationFormat = textureFormat
 
 export type getPreferredCanvasFormat = () => presentationFormat
 
-
 // export type getQueue = (device: device) => queue
 
 // export type getSwapChainPreferredFormat = (device: device, context: context) => Promise<textureFormat>
@@ -169,7 +168,7 @@ export type draw = (renderPassEncoder: renderPassEncoder, vertexCount: number, i
 
 // export type drawIndexed = (renderPassEncoder: renderPassEncoder, indexCount: number, instanceCount: number, firstIndex: number, baseVertex: number, firstInstance: number) => void
 
-export type end= (renderPassEncoder: renderPassEncoder) => void
+export type end = (renderPassEncoder: renderPassEncoder) => void
 
 export type finish = (commandEncoder: commandEncoder) => commandBuffer
 
@@ -195,6 +194,7 @@ export type service = {
 	requestDevice: requestDevice,
 	// getQueue: getQueue,
 	// getSwapChainPreferredFormat: getSwapChainPreferredFormat,
+	getPreferredCanvasFormat: getPreferredCanvasFormat,
 	configure: configure,
 	// createBuffer: createBuffer,
 	createPipelineLayout: createPipelineLayout,

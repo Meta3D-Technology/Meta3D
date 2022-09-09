@@ -14,6 +14,9 @@ export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionName
         requestDevice: (adapter) => {
             return adapter.requestDevice()
         },
+        getPreferredCanvasFormat: () => {
+            return (navigator as any).gpu.getPreferredCanvasFormat()
+        },
         // getQueue: (device) => {
         //     return device.getQueue()
         // },
