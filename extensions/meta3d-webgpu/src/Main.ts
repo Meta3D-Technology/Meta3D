@@ -17,9 +17,9 @@ export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionName
         getPreferredCanvasFormat: () => {
             return (navigator as any).gpu.getPreferredCanvasFormat()
         },
-        // getQueue: (device) => {
-        //     return device.getQueue()
-        // },
+        getQueue: (device) => {
+            return device.queue
+        },
         configure: (context, configureDescriptor) => {
             return context.configure(configureDescriptor)
         },

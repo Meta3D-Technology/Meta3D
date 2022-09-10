@@ -27,7 +27,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
         webgpuService.draw(passEncoder, 3, 1, 0, 0)
         webgpuService.end(passEncoder)
 
-        webgpuService.submit(device, [webgpuService.finish(commandEncoder)])
+        webgpuService.submit(webgpuService.getQueue(device), [webgpuService.finish(commandEncoder)])
 
         return engineCoreState
     })

@@ -131,7 +131,7 @@ export type presentationFormat = textureFormat
 
 export type getPreferredCanvasFormat = () => presentationFormat
 
-// export type getQueue = (device: device) => queue
+export type getQueue = (device: device) => queue
 
 // export type getSwapChainPreferredFormat = (device: device, context: context) => Promise<textureFormat>
 
@@ -192,7 +192,7 @@ export type service = {
 	getContext: getContext,
 	requestAdapter: requestAdapter,
 	requestDevice: requestDevice,
-	// getQueue: getQueue,
+	getQueue: getQueue,
 	// getSwapChainPreferredFormat: getSwapChainPreferredFormat,
 	getPreferredCanvasFormat: getPreferredCanvasFormat,
 	configure: configure,
