@@ -100,6 +100,8 @@ let make = () => {
                 </span>}
                 description={React.string(`TODO`)}
               />
+              <span> {React.string({j`版本号：${item.version}`})} </span>
+              <span> {React.string({j`发布者：${item.username}`})} </span>
             </List.Item>}
         />}
   </>

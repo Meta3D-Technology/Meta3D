@@ -10,9 +10,8 @@ let make = () => {
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishExtensionProtocols, setAllPublishExtensionProtocols) = React.useState(_ => [])
-  let (allPublishExtensions, setAllPublishExtensions) = React.useState(_ => [])
-
-  let (isShowExtensionPage, setIsShowExtensionPage) = React.useState(_ => false)
+  let (extensionProtocolItem, setExtensionProtocolItem) = React.useState(_ => None)
+  let (allPublishExtensions, setAllPublishExtensions) = React.useState(_ => None)
 
   let _isSelect = (id, selectedExtensions: UserCenterStore.selectedExtensions) => {
     selectedExtensions->Meta3dCommonlib.ListSt.includesByFunc(selectedExtension =>
@@ -21,22 +20,14 @@ let make = () => {
   }
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishExtensionProtocols()
-    ->Meta3dBsMost.Most.observe(protocols => {
+    BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.observe(protocols => {
       setAllPublishExtensionProtocols(_ => protocols)
       setIsLoaded(_ => true)
-    }, _)
-    ->Js.Promise.catch(
-      e => {
-        setIsLoaded(_ => false)
+    }, _)->Js.Promise.catch(e => {
+      setIsLoaded(_ => false)
 
-        FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
-      },
-      // BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
-
-      _,
-    )
-    ->ignore
+      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+    }, _)->ignore
 
     None
   }, [])
@@ -45,75 +36,90 @@ let make = () => {
     <Nav />
     {!isLoaded
       ? <p> {React.string(`loading...`)} </p>
-      : isShowExtensionPage
-      ? <List
-        itemLayout=#horizontal
-        dataSource={allPublishExtensions}
-        renderItem={(item: UserCenterStore.extension) =>
-          <List.Item>
-            <List.Item.Meta
-              key={item.data.extensionPackageData.name}
-              title={<span> {React.string(item.data.extensionPackageData.name)} </span>}
-              description={React.string(`TODO`)}
-            />
-            <span> {React.string({j`版本号：${item.version}`})} </span>
-            {_isSelect(item.id, selectedExtensions)
-              ? <Button
-                  onClick={_ => {
-                    dispatch(AppStore.UserCenterAction(UserCenterStore.NotSelectExtension(item.id)))
-                  }}>
-                  {React.string(`取消选择`)}
-                </Button>
-              : <Button
-                  onClick={_ => {
-                    dispatch(AppStore.UserCenterAction(UserCenterStore.SelectExtension(item)))
-                  }}>
-                  {React.string(`选择`)}
-                </Button>}
-          </List.Item>}
-      />
-      : <List
-          itemLayout=#horizontal
-          dataSource={allPublishExtensionProtocols}
-          renderItem={(item: FrontendUtils.BackendCloudbaseType.protocol) =>
-            <List.Item>
-              <List.Item.Meta
-                key={item.name}
-                avatar={<img src={item.iconBase64} />}
-                title={<span
-                  onClick={_ => {
-                    setIsLoaded(_ => false)
-
-                    BackendCloudbase.getAllPublishExtensions(item.name, item.version)
-                    ->Meta3dBsMost.Most.map(data => {
-                      data->Meta3dCommonlib.ArraySt.map((
-                        {id, file, version}: BackendCloudbase.implement,
-                      ): UserCenterStore.extension => {
-                        {id: id, data: Meta3d.Main.loadExtension(file), version: version}
-                      })
-                    }, _)
-                    ->Meta3dBsMost.Most.observe(data => {
-                      setIsLoaded(_ => true)
-                      setAllPublishExtensions(_ => data)
-                      setIsShowExtensionPage(_ => true)
-                    }, _)
-                    ->Js.Promise.catch(
-                      e => {
-                        setIsLoaded(_ => false)
-
-                        FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
-                      },
-                      // BackendCloudbase.error(~message=Message.message, ~e, ())->Obj.magic
-
-                      _,
-                    )
-                    ->ignore
-                  }}>
-                  {React.string(item.name)}
-                </span>}
-                description={React.string(`TODO`)}
+      : {
+          switch extensionProtocolItem {
+          | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+            switch allPublishExtensions {
+            | Some(allPublishExtensions) =>
+              <List
+                itemLayout=#horizontal
+                dataSource={allPublishExtensions}
+                renderItem={(item: UserCenterStore.extension) =>
+                  <List.Item>
+                    <List.Item.Meta
+                      key={item.data.extensionPackageData.name}
+                      title={<span> {React.string(item.data.extensionPackageData.name)} </span>}
+                      description={React.string(`TODO`)}
+                    />
+                    <span> {React.string({j`版本号：${item.version}`})} </span>
+                    {_isSelect(item.id, selectedExtensions)
+                      ? <Button
+                          onClick={_ => {
+                            dispatch(
+                              AppStore.UserCenterAction(
+                                UserCenterStore.NotSelectExtension(item.id),
+                              ),
+                            )
+                          }}>
+                          {React.string(`取消选择`)}
+                        </Button>
+                      : <Button
+                          onClick={_ => {
+                            dispatch(
+                              AppStore.UserCenterAction(UserCenterStore.SelectExtension(item)),
+                            )
+                          }}>
+                          {React.string(`选择`)}
+                        </Button>}
+                  </List.Item>}
               />
-            </List.Item>}
-        />}
+            | None =>
+              setIsLoaded(_ => false)
+
+              BackendCloudbase.getAllPublishExtensions(item.name, item.version)
+              ->Meta3dBsMost.Most.map(data => {
+                data->Meta3dCommonlib.ArraySt.map((
+                  {id, file, version}: BackendCloudbase.implement,
+                ): UserCenterStore.extension => {
+                  {id: id, data: Meta3d.Main.loadExtension(file), version: version}
+                })
+              }, _)
+              ->Meta3dBsMost.Most.observe(data => {
+                setIsLoaded(_ => true)
+
+                setAllPublishExtensions(_ => data->Some)
+              }, _)
+              ->Js.Promise.catch(e => {
+                setIsLoaded(_ => false)
+
+                FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+              }, _)
+              ->ignore
+
+              <> </>
+            }
+          | None =>
+            <List
+              itemLayout=#horizontal
+              dataSource={allPublishExtensionProtocols}
+              renderItem={(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+                <List.Item>
+                  <List.Item.Meta
+                    key={item.name}
+                    avatar={<img src={item.iconBase64} />}
+                    title={<span
+                      onClick={_ => {
+                        setExtensionProtocolItem(_ => item->Some)
+                      }}>
+                      {React.string(item.name)}
+                    </span>}
+                    description={React.string(`TODO`)}
+                  />
+                  <span> {React.string({j`版本号：${item.version}`})} </span>
+                  <span> {React.string({j`发布者：${item.username}`})} </span>
+                </List.Item>}
+            />
+          }
+        }}
   </>
 }

@@ -62,6 +62,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
 
     _prepare(given)
@@ -119,6 +120,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
     let dispatchStub = ref(Obj.magic(1))
 
@@ -171,6 +173,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.0.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
 
     _prepare(given)
@@ -198,6 +201,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.0.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
 
     _prepare(given)
@@ -238,6 +242,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.1.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
 
     _prepare(given)

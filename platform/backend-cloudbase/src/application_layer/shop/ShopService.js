@@ -5,11 +5,9 @@ const most_1 = require("most");
 const semver_1 = require("semver");
 let getAllPublishProtocolData = (getDataFunc, collectionName) => {
     return (0, most_1.fromPromise)(getDataFunc(collectionName)).map((res) => {
-        return res.data.reduce((result, { protocols }) => {
-            return result.concat(protocols.map(({ name, version, iconBase64 }) => {
-                return { name, version, iconBase64 };
-            }, []));
-        }, []);
+        return res.data.map(({ name, version, username, iconBase64 }) => {
+            return { name, version, username, iconBase64 };
+        });
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;

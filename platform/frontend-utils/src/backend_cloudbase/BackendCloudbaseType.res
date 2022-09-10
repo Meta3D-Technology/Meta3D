@@ -2,6 +2,7 @@
 type protocol = {
   name: string,
   version: string,
+  username: string,
   iconBase64: string,
 }
 

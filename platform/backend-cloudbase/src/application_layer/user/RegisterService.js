@@ -16,12 +16,17 @@ let register = (addDataFunc, username, password) => {
     }))).concat((0, most_1.fromPromise)(addDataFunc("publishedContributes", {
         username,
         fileData: []
-    }))).concat((0, most_1.fromPromise)(addDataFunc("publishedExtensionProtocols", {
-        username,
-        protocols: []
-    }))).concat((0, most_1.fromPromise)(addDataFunc("publishedContributeProtocols", {
-        username,
-        protocols: []
     })));
+    // .concat(fromPromise(
+    // 	addDataFunc("publishedExtensionProtocols", {
+    // 		username,
+    // 		protocols: []
+    // 	})
+    // )).concat(fromPromise(
+    // 	addDataFunc("publishedContributeProtocols", {
+    // 		username,
+    // 		protocols: []
+    // 	})
+    // ))
 };
 exports.register = register;

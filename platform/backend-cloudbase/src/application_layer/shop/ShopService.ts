@@ -5,11 +5,9 @@ export let getAllPublishProtocolData = (
     getDataFunc: any,
     collectionName: string) => {
     return fromPromise(getDataFunc(collectionName)).map((res: any) => {
-        return res.data.reduce((result, { protocols }) => {
-            return result.concat(protocols.map(({ name, version, iconBase64 }) => {
-                return { name, version, iconBase64 }
-            }, []))
-        }, [])
+        return res.data.map(({ name, version, username, iconBase64 }) => {
+            return { name, version, username, iconBase64 }
+        })
     })
 }
 

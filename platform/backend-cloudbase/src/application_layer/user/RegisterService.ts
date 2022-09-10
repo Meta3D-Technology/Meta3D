@@ -20,15 +20,16 @@ export let register = (addDataFunc: any, username: string, password: string) => 
 			username,
 			fileData: []
 		})
-	)).concat(fromPromise(
-		addDataFunc("publishedExtensionProtocols", {
-			username,
-			protocols: []
-		})
-	)).concat(fromPromise(
-		addDataFunc("publishedContributeProtocols", {
-			username,
-			protocols: []
-		})
 	))
+	// .concat(fromPromise(
+	// 	addDataFunc("publishedExtensionProtocols", {
+	// 		username,
+	// 		protocols: []
+	// 	})
+	// )).concat(fromPromise(
+	// 	addDataFunc("publishedContributeProtocols", {
+	// 		username,
+	// 		protocols: []
+	// 	})
+	// ))
 }

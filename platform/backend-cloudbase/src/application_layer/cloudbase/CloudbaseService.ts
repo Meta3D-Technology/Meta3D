@@ -65,7 +65,7 @@ export let getFile = (fileID: string) => {
 }
 
 export let getData = (collectionName: string) => {
-	return getDatabase().collection(collectionName) .get()
+	return getDatabase().collection(collectionName).get()
 }
 
 export let addData = (collectionName: string, data: any) => {

@@ -21,6 +21,7 @@ let buildSelectedExtension = (
   ~protocolVersion,
   ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
+  ~version="0.0.1",
   (),
 ): FrontendUtils.AssembleSpaceCommonType.extension => {
   {
@@ -35,5 +36,6 @@ let buildSelectedExtension = (
       ),
       extensionFuncData: extensionFuncData,
     },
+  version
   }
 }

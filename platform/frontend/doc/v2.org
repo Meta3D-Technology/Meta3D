@@ -205,7 +205,7 @@ modal
 
 
 
-* TODO render a triangle by webgpu
+* DONE render a triangle by webgpu
 
 
 # ** TODO add meta3d-register-default-work-plugins work extension
@@ -221,7 +221,7 @@ modal
 
 
 
-** TODO pass editor1 run test
+** DONE pass editor1 run test
 
 * DONE publish multiple
 
@@ -237,11 +237,23 @@ return void
 # select ...
 # start ...
 
-* TODO extension/contribute shop should show publisher
+* DONE extension/contribute protocol should ignore publisher and unify
+
+still has publisher in package.json
+
+* DONE extension/contribute protocol show version
+
+* DONE extension/contribute shop should show publisher
+
+
 
 
 
 * TODO extension/contribute shop should refresh
+
+
+
+
 
 
 * TODO add scene extension of engine-core
@@ -249,7 +261,7 @@ return void
 * TODO add components
 
 
-* TODO add extension package
+# * TODO add extension package
 
 
 

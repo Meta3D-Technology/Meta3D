@@ -8,15 +8,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getDataFunc;
-    // function _createFuncs(sandbox, errorFuncStub = console.error) {
     function _createFuncs(sandbox) {
         getDataFunc = sandbox.stub();
     }
-    // function _buildPackageJson(name = "test1-protocol",
-    //     version = "0.0.1",
-    //     publisher = "meta3d") {
-    //     return { name, version, publisher }
-    // }
     function _getAllPublishExtensionProtocols() {
         return (0, ShopService_1.getAllPublishProtocolData)(getDataFunc, "publishedExtensionProtocols");
     }
@@ -27,18 +21,26 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
     }
     test('get all publish extension protocols', ({ given, when, then, and }) => {
         let allPublishExtensionProtocols = [
-            { name: "a1-protocol", version: "0.0.1", iconBase64: "b1" },
-            { name: "a2-protocol", version: "0.0.2", iconBase64: "b2" },
+            {
+                name: "a1-protocol",
+                username: "meta3d",
+                version: "0.0.1",
+                iconBase64: "b1"
+            },
+            {
+                name: "a2-protocol",
+                username: "user1",
+                version: "0.0.2",
+                iconBase64: "b2"
+            },
         ];
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
             getDataFunc.returns((0, PromiseTool_1.resolve)({
-                data: [
-                    {
-                        protocols: allPublishExtensionProtocols
-                    }
-                ]
+                data: allPublishExtensionProtocols.map((protocolData, index) => {
+                    return Object.assign(Object.assign({}, protocolData), { id: index.toString() });
+                })
             }));
         });
         and('publish extension protocol1', () => {

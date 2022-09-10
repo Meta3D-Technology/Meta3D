@@ -17,7 +17,7 @@ function _getPublishedCollectionName(fileType) {
 function _isPNG(iconPath) {
     return iconPath.match(/\.png$/) !== null;
 }
-function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc], packageFilePath, iconPath, fileType) {
+function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, iconPath, fileType) {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(app => [app, packageJson]);
     }).flatMap(([app, packageJson]) => {
@@ -28,28 +28,21 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
             if (!_isPNG(iconPath)) {
                 _throwError("icon's format should be png");
             }
-            return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }).then(res => {
-                let { protocols } = res.data[0];
-                let index = protocols.findIndex(({ name, version }) => {
+            return (0, most_1.fromPromise)(getCollectionFunc(app, _getPublishedCollectionName(fileType)).then(res => {
+                let index = res.data.findIndex(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
                 });
-                let newProtocols = [];
-                let protocol = {
+                if (index !== -1) {
+                    _throwError("version: " + packageJson.version + " already exist, please update version");
+                }
+                return addDataFunc(app, _getPublishedCollectionName(fileType), {
                     name: packageJson.name,
-                    version: packageJson.version, iconBase64: 
+                    version: packageJson.version,
+                    username: packageJson.publisher,
+                    iconBase64: 
                     // TODO check file size should be small(< 10kb)
                     // TODO icon can be any format include png
                     "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
-                };
-                if (index === -1) {
-                    newProtocols = protocols.concat([protocol]);
-                }
-                else {
-                    newProtocols = protocols.slice();
-                    newProtocols[index] = protocol;
-                }
-                return updateDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }, {
-                    protocols: newProtocols
                 });
             }));
         });

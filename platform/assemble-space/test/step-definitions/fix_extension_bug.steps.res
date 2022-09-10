@@ -35,6 +35,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
+                        username: "meta3d",
     }
     let a1 = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,

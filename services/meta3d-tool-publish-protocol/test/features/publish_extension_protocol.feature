@@ -17,11 +17,17 @@ Feature: Publish Extension Protocol
         When publish extension protocol
         Then should add to collection
 
-    Scenario: update icon base64 in collection if exist
+    # Scenario: update icon base64 in collection if exist
+    #     Given prepare funcs
+    #     And publish extension protocol
+    #     When publish extension protocol with same name and version but different icon
+    #     Then should update icon base64 in collection
+
+    Scenario: if extension protocol exist, throw error
         Given prepare funcs
         And publish extension protocol
-        When publish extension protocol with same name and version but different icon
-        Then should update icon base64 in collection
+        When publish extension protocol with same name and version
+        Then should error
 
     Scenario: icon's format should be png
         Given prepare funcs

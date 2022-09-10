@@ -8,7 +8,7 @@ const feature = loadFeature("./test/features/publish_extension_protocol.feature"
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -17,19 +17,19 @@ defineFeature(feature, test => {
         readJsonFunc = sandbox.stub()
         initFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
-        getDataFunc = sandbox.stub()
-        updateDataFunc = sandbox.stub()
+        getCollectionFunc = sandbox.stub()
+        addDataFunc = sandbox.stub()
     }
 
     function _buildPackageJson(name = "test1-protocol",
         version = "0.0.1",
-        publisher = "meta3d") {
-        return { name, version, publisher }
+        username = "meta3d") {
+        return { name, version, publisher: username }
     }
 
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc],
             packageFilePath, iconPath,
             "extension"
         )
@@ -97,13 +97,9 @@ defineFeature(feature, test => {
                 just(true)
             )
             readFileSyncFunc.returns(iconContent)
-            getDataFunc.returns(
+            getCollectionFunc.returns(
                 resolve({
-                    data: [
-                        {
-                            protocols: []
-                        }
-                    ]
+                    data: []
                 })
             )
         });
@@ -113,30 +109,93 @@ defineFeature(feature, test => {
         });
 
         then('should add to collection', () => {
-            expect(updateDataFunc).toCalledWith([
+            expect(addDataFunc).toCalledWith([
                 app,
                 "publishedExtensionProtocols",
-                { "username": "meta3d" },
                 {
-                    "protocols": [{
-                        "name": "test1-protocol",
-                        "version": "0.0.2",
-                        "iconBase64": "data:image/png;base64, " + iconContent
-                    }]
+                    "name": "test1-protocol",
+                    "version": "0.0.2",
+                    "username": "meta3d",
+                    "iconBase64": "data:image/png;base64, " + iconContent
                 }
             ])
         });
     });
 
-    test('update icon base64 in collection if exist', ({ given, and, when, then }) => {
+    // test('update icon base64 in collection if exist', ({ given, and, when, then }) => {
+    //     let app = {}
+    //     let iconContent1 = "i1"
+    //     let iconContent2 = "i2"
+
+    //     _prepare(given)
+
+    //     given('prepare funcs', () => {
+    //         _createFuncs(sandbox)
+
+    //         readJsonFunc.returns(
+    //             just(_buildPackageJson(
+    //                 "test1-protocol",
+    //                 "0.0.2",
+    //                 "meta3d"
+    //             ))
+    //         )
+    //         initFunc.returns(
+    //             just(app)
+    //         )
+    //         hasDataFunc.returns(
+    //             just(true)
+    //         )
+    //         readFileSyncFunc.onCall(0).returns(iconContent1)
+    //         readFileSyncFunc.onCall(1).returns(iconContent2)
+    //         getCollectionFunc.onCall(0).returns(
+    //             resolve({
+    //                 data: []
+    //             })
+    //         )
+    //         getCollectionFunc.onCall(1).returns(
+    //             resolve({
+    //                 data: [
+    //                     {
+    //                         name: "test1-protocol",
+    //                         version: "0.0.2",
+    //                         username: "meta3d"
+    //                     }
+    //                 ]
+    //             })
+    //         )
+    //     });
+
+    //     and('publish extension protocol', () => {
+    //         return _publishExtensionProtocol()
+    //     });
+
+    //     when('publish extension protocol with same name and version but different icon', () => {
+    //         return _publishExtensionProtocol()
+    //     });
+
+    //     then('should update icon base64 in collection', () => {
+    //         expect(addDataFunc.getCall(1)).toCalledWith([
+    //             app,
+    //             "publishedExtensionProtocols",
+    //             {
+    //                 "protocols": [{
+    //                     "name": "test1-protocol",
+    //                     "version": "0.0.2",
+    //                     "username": "meta3d",
+    //                     "iconBase64": "data:image/png;base64, " + iconContent2
+    //                 }]
+    //             }
+    //         ])
+    //     });
+    // });
+
+    test('if extension protocol exist, throw error', ({ given, and, when, then }) => {
         let app = {}
-        let iconContent1 = "i1"
-        let iconContent2 = "i2"
 
         _prepare(given)
 
         given('prepare funcs', () => {
-            _createFuncs(sandbox)
+            _createFuncs(sandbox, sandbox.stub())
 
             readJsonFunc.returns(
                 just(_buildPackageJson(
@@ -151,27 +210,18 @@ defineFeature(feature, test => {
             hasDataFunc.returns(
                 just(true)
             )
-            readFileSyncFunc.onCall(0).returns(iconContent1)
-            readFileSyncFunc.onCall(1).returns(iconContent2)
-            getDataFunc.onCall(0).returns(
+            getCollectionFunc.onCall(0).returns(
                 resolve({
-                    data: [
-                        {
-                            protocols: []
-                        }
-                    ]
+                    data: []
                 })
             )
-            getDataFunc.onCall(1).returns(
+            getCollectionFunc.onCall(1).returns(
                 resolve({
                     data: [
                         {
-                            protocols: [
-                                {
-                                    name: "test1-protocol",
-                                    version: "0.0.2"
-                                }
-                            ]
+                            name: "test1-protocol",
+                            version: "0.0.2",
+                            username: "meta3d"
                         }
                     ]
                 })
@@ -182,23 +232,16 @@ defineFeature(feature, test => {
             return _publishExtensionProtocol()
         });
 
-        when('publish extension protocol with same name and version but different icon', () => {
+        when('publish extension protocol with same name and version', () => {
             return _publishExtensionProtocol()
         });
 
-        then('should update icon base64 in collection', () => {
-            expect(updateDataFunc.getCall(1)).toCalledWith([
-                app,
-                "publishedExtensionProtocols",
-                { "username": "meta3d" },
-                {
-                    "protocols": [{
-                        "name": "test1-protocol",
-                        "version": "0.0.2",
-                        "iconBase64": "data:image/png;base64, " + iconContent2
-                    }]
-                }
-            ])
+        then('should error', () => {
+            expect(
+                errorFunc.getCall(0).args[1].message
+            ).toEqual(
+                "version: 0.0.2 already exist, please update version"
+            )
         });
     });
 

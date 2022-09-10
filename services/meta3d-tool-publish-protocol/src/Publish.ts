@@ -18,7 +18,7 @@ function _isPNG(iconPath: string) {
     return iconPath.match(/\.png$/) !== null
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc]: [any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(app => [app, packageJson])
     }).flatMap(([app, packageJson]) => {
@@ -32,41 +32,30 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
             }
 
             return fromPromise(
-                getDataFunc(
+                getCollectionFunc(
                     app,
                     _getPublishedCollectionName(fileType),
-                    { username: packageJson.publisher }
                 ).then(res => {
-                    let { protocols } = res.data[0]
-
-                    let index = protocols.findIndex(({ name, version }) => {
+                    let index = res.data.findIndex(({ name, version }) => {
                         return name === packageJson.name && version === packageJson.version
                     })
 
-                    let newProtocols = []
-                    let protocol = {
-                        name: packageJson.name,
-                        version: packageJson.version, iconBase64:
-                            // TODO check file size should be small(< 10kb)
-
-                            // TODO icon can be any format include png
-
-                            "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
+                    if (index !== -1) {
+                        _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
-                    if (index === -1) {
-                        newProtocols = protocols.concat([protocol])
-                    }
-                    else {
-                        newProtocols = protocols.slice()
-                        newProtocols[index] = protocol
-                    }
-
-                    return updateDataFunc(app,
+                    return addDataFunc(app,
                         _getPublishedCollectionName(fileType),
-                        { username: packageJson.publisher },
                         {
-                            protocols: newProtocols
+                            name: packageJson.name,
+                            version: packageJson.version,
+                            username: packageJson.publisher,
+                            iconBase64:
+                                // TODO check file size should be small(< 10kb)
+
+                                // TODO icon can be any format include png
+
+                                "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
                         }
                     )
                 }))

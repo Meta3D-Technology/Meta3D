@@ -9,16 +9,9 @@ defineFeature(feature, test => {
     let sandbox = null
     let getDataFunc
 
-    // function _createFuncs(sandbox, errorFuncStub = console.error) {
     function _createFuncs(sandbox) {
         getDataFunc = sandbox.stub()
     }
-
-    // function _buildPackageJson(name = "test1-protocol",
-    //     version = "0.0.1",
-    //     publisher = "meta3d") {
-    //     return { name, version, publisher }
-    // }
 
     function _getAllPublishExtensionProtocols() {
         return getAllPublishProtocolData(
@@ -35,8 +28,18 @@ defineFeature(feature, test => {
 
     test('get all publish extension protocols', ({ given, when, then, and }) => {
         let allPublishExtensionProtocols = [
-            { name: "a1-protocol", version: "0.0.1", iconBase64: "b1" },
-            { name: "a2-protocol", version: "0.0.2", iconBase64: "b2" },
+            {
+                name: "a1-protocol",
+                username: "meta3d",
+                version: "0.0.1",
+                iconBase64: "b1"
+            },
+            {
+                name: "a2-protocol",
+                username: "user1",
+                version: "0.0.2",
+                iconBase64: "b2"
+            },
         ]
 
         _prepare(given)
@@ -46,11 +49,12 @@ defineFeature(feature, test => {
 
             getDataFunc.returns(
                 resolve({
-                    data: [
-                        {
-                            protocols: allPublishExtensionProtocols
+                    data: allPublishExtensionProtocols.map((protocolData, index) => {
+                        return {
+                            ...protocolData,
+                            id: index.toString()
                         }
-                    ]
+                    })
                 })
             )
         });

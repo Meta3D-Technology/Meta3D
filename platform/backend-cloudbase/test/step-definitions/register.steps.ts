@@ -63,20 +63,20 @@ defineFeature(feature, test => {
                     fileData: []
                 }
             ])
-            expect(addDataFunc).toCalledWith([
-                "publishedExtensionProtocols",
-                {
-                    username,
-                    protocols: []
-                }
-            ])
-            expect(addDataFunc).toCalledWith([
-                "publishedContributeProtocols",
-                {
-                    username,
-                    protocols: []
-                }
-            ])
+            // expect(addDataFunc).toCalledWith([
+            //     "publishedExtensionProtocols",
+            //     {
+            //         username,
+            //         protocols: []
+            //     }
+            // ])
+            // expect(addDataFunc).toCalledWith([
+            //     "publishedContributeProtocols",
+            //     {
+            //         username,
+            //         protocols: []
+            //     }
+            // ])
         });
     });
 

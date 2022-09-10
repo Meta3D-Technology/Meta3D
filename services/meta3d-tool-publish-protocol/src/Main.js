@@ -15,7 +15,7 @@ function publishExtensionProtocol(packageFilePath, iconPath) {
         console.log,
         console.error,
         (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-        CloudbaseService_1.init, CloudbaseService_1.hasData, CloudbaseService_1.getData, CloudbaseService_1.updateData
+        CloudbaseService_1.init, CloudbaseService_1.hasData, CloudbaseService_1.getCollection, CloudbaseService_1.addData
     ], packageFilePath, iconPath, "extension");
 }
 exports.publishExtensionProtocol = publishExtensionProtocol;
@@ -25,7 +25,7 @@ function publishContributeProtocol(packageFilePath, iconPath) {
         console.log,
         console.error,
         (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-        CloudbaseService_1.init, CloudbaseService_1.hasData, CloudbaseService_1.getData, CloudbaseService_1.updateData
+        CloudbaseService_1.init, CloudbaseService_1.hasData, CloudbaseService_1.getCollection, CloudbaseService_1.addData
     ], packageFilePath, iconPath, "contribute");
 }
 exports.publishContributeProtocol = publishContributeProtocol;

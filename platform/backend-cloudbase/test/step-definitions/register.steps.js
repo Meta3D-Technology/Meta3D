@@ -52,20 +52,20 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/register.featu
                     fileData: []
                 }
             ]);
-            expect(addDataFunc).toCalledWith([
-                "publishedExtensionProtocols",
-                {
-                    username,
-                    protocols: []
-                }
-            ]);
-            expect(addDataFunc).toCalledWith([
-                "publishedContributeProtocols",
-                {
-                    username,
-                    protocols: []
-                }
-            ]);
+            // expect(addDataFunc).toCalledWith([
+            //     "publishedExtensionProtocols",
+            //     {
+            //         username,
+            //         protocols: []
+            //     }
+            // ])
+            // expect(addDataFunc).toCalledWith([
+            //     "publishedContributeProtocols",
+            //     {
+            //         username,
+            //         protocols: []
+            //     }
+            // ])
         });
     });
     test('check username fail', ({ given, and, when, then }) => {

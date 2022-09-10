@@ -36,10 +36,24 @@ export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
 	}))
 }
 
+export let getCollection = (app: any, collectionName: string) => {
+	return _getDatabase(app).collection(collectionName).get()
+}
+
 export let getData = (app: any, collectionName: string, data: any) => {
 	return _getDatabase(app).collection(collectionName)
 		.where(data)
 		.get()
+}
+
+// export let updateCollection = (app: any, collectionName: string, updateData: any) => {
+// 	return _getDatabase(app).collection(collectionName)
+// 		.update(updateData)
+// }
+
+export let addData = (app: any, collectionName: string, addData: any) => {
+	return _getDatabase(app).collection(collectionName)
+		.add(addData)
 }
 
 export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
