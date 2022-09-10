@@ -237,21 +237,11 @@ return void
 # select ...
 # start ...
 
+* TODO extension/contribute shop should show publisher
 
-* TODO upload website
-
-** TODO separate account
-
-** TODO add Origin Trial
-
-** TODO pass use engine run test
 
 
 * TODO extension/contribute shop should refresh
-
-
-* TODO add extension package
-
 
 
 * TODO add scene extension of engine-core
@@ -259,6 +249,19 @@ return void
 * TODO add components
 
 
+* TODO add extension package
+
+
+
+
+
+* TODO upload website
+
+# ** TODO add Origin Trial
+
+** TODO separate account
+
+** TODO pass use engine run test
 
 
 
