@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, dependentExtensionNameMap } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute } from "meta3d-type"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
@@ -37,10 +37,10 @@ export function getContribute<contribute>(
     contributeName: contributeName
 ): contribute
 
-export function startExtensions(
+export function startExtension(
     state: state,
-    extensionNames: Array<extensionName>
-): state
+    extensionName: extensionName
+): void
 
 export function generateExtension(
     extensionPackageData: extensionPackageData,
@@ -54,12 +54,7 @@ export function loadExtension<
     extensionState
 >(
     extensionBinaryFile: ArrayBuffer
-): extensionFileData<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    extensionService,
-    extensionState
->
+): extensionFileData
 
 export function generateContribute(
     contributePackageData: contributePackageData,
@@ -85,12 +80,7 @@ export function convertAllFileDataForApp<
     extensionState,
     contributeService,
     >(
-        allExtensionFileData: Array<extensionFileData<
-            dependentExtensionNameMap,
-            dependentContributeNameMap,
-            extensionService,
-            extensionState
-        >>,
+        allExtensionFileData: Array<extensionFileData>,
         allContributeFileData: Array<contributeFileData<
             dependentExtensionNameMap,
             dependentContributeNameMap,
@@ -120,6 +110,14 @@ export function generateApp(
 
 export function loadApp(
     appBinaryFile: ArrayBuffer
-): state
+): [state, Array<extensionFileData>]
+
+
+export function startApp(
+    [
+        state,
+        allExtensionDataArr
+    ]: [state, Array<extensionFileData>]
+): void
 
 export function buildAPI(): api

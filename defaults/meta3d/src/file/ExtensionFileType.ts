@@ -39,15 +39,10 @@ export type extensionPackageData = {
 
 export type extensionFuncData = Uint8Array
 
-export type extensionFileData<
-  dependentExtensionNameMap,
-  dependentContributeNameMap,
-  extensionService,
-  extensionState
-  > = {
-    extensionPackageData: extensionPackageData,
-    extensionFuncData: extensionFuncData
-  };
+export type extensionFileData = {
+  extensionPackageData: extensionPackageData,
+  extensionFuncData: extensionFuncData
+};
 
 
 

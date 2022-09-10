@@ -16,7 +16,7 @@ var registerContribute = ExtensionManager$Meta3d.registerContribute;
 
 var getContribute = ExtensionManager$Meta3d.getContributeExn;
 
-var startExtensions = ExtensionManager$Meta3d.startExtensions;
+var startExtension = ExtensionManager$Meta3d.startExtension;
 
 var generateExtension = ExtensionFileManager$Meta3d.generateExtension;
 
@@ -32,6 +32,8 @@ var generateApp = AppManager$Meta3d.generate;
 
 var loadApp = AppManager$Meta3d.load;
 
+var startApp = AppManager$Meta3d.start;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 exports.registerExtension = registerExtension;
@@ -40,7 +42,7 @@ exports.setExtensionState = setExtensionState;
 exports.getExtensionState = getExtensionState;
 exports.registerContribute = registerContribute;
 exports.getContribute = getContribute;
-exports.startExtensions = startExtensions;
+exports.startExtension = startExtension;
 exports.generateExtension = generateExtension;
 exports.loadExtension = loadExtension;
 exports.generateContribute = generateContribute;
@@ -48,5 +50,6 @@ exports.loadContribute = loadContribute;
 exports.convertAllFileDataForApp = convertAllFileDataForApp;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
+exports.startApp = startApp;
 exports.buildAPI = buildAPI;
 /* AppManager-Meta3d Not a pure module */

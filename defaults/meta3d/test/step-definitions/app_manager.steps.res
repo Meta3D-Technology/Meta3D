@@ -414,7 +414,13 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."load generated app", ({given, \"when", \"and", then}) => {
+  let _prepareFlag = given => {
+    given("prepare flag", () => {
+      AppManagerTool.prepareFlag()
+    })
+  }
+
+  test(."load and start generated app", ({given, \"when", \"and", then}) => {
     let firstExtension = ref(Obj.magic(1))
     let secondExtension = ref(Obj.magic(1))
     let firstContribute = ref(Obj.magic(1))
@@ -426,9 +432,7 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("prepare flag", () => {
-      AppManagerTool.prepareFlag()
-    })
+    _prepareFlag(given)
 
     \"and"("generate two extensions", () => {
       firstExtension :=
@@ -529,8 +533,12 @@ defineFeature(feature, test => {
         )
     })
 
-    \"when"("generate app with c1 and load it", () => {
-      state := Main.generateApp(c1.contents)->Main.loadApp
+    \"when"("generate app with c1 and load it and start it", () => {
+      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+
+      state := s
+
+      Main.startApp((s, allExtensionDataArr))
     })
 
     then("the two extensions should be registered", () => {
@@ -546,6 +554,81 @@ defineFeature(feature, test => {
 
     \"and"("the second extension should be started", () => {
       AppManagerTool.getFlag()->expect == 2
+    })
+  })
+
+  test(."if two extension need start, error", ({given, \"when", \"and", then}) => {
+    let firstExtension = ref(Obj.magic(1))
+    let secondExtension = ref(Obj.magic(1))
+    // let firstContribute = ref(Obj.magic(1))
+    let c1 = ref(Obj.magic(1))
+    let allExtensionNewNames = ref(Obj.magic(1))
+    // let allContributeNewNames = ref(Obj.magic(1))
+    let isStartedExtensions = ref(Obj.magic(1))
+    let loadData = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    _prepareFlag(given)
+
+    \"and"("generate two extensions", () => {
+      firstExtension :=
+        Main.generateExtension(
+          (
+            {
+              name: "first-extension",
+              protocol: {
+                name: "first-extension-protocol",
+                version: "0.3.0",
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: ExtensionFileType.extensionPackageData
+          ),
+          AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
+        )
+      secondExtension :=
+        Main.generateExtension(
+          (
+            {
+              name: "second-extension",
+              protocol: {
+                name: "second-extension-protocol",
+                version: "0.5.2",
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: ExtensionFileType.extensionPackageData
+          ),
+          AppManagerTool.buildEmptyExtensionFileStrWithOnStart(2),
+        )
+    })
+
+    \"and"("start them", () => {
+      allExtensionNewNames := ["first-extension", "second-extension"]
+      isStartedExtensions := ["first-extension", "second-extension"]
+    })
+
+    \"and"("load them and convert as c1", () => {
+      let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+      let secondExtensionFileData = Main.loadExtension(secondExtension.contents)
+
+      c1 :=
+        Main.convertAllFileDataForApp(
+          [firstExtensionFileData, secondExtensionFileData],
+          [],
+          (allExtensionNewNames.contents, isStartedExtensions.contents, []),
+        )
+    })
+
+    \"when"("generate app with c1 and load it", () => {
+      loadData := Main.generateApp(c1.contents)->Main.loadApp
+    })
+
+    then("start it should error", () => {
+      expect(() => {
+        Main.startApp(loadData.contents)
+      })->toThrowMessage("should only has one start extension")
     })
   })
 })

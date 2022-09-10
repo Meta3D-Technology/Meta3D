@@ -39,15 +39,24 @@ Feature: App Manager
             When convert l1
             Then converted package data is correct
 
-    Rule: load generated app
+    Rule: load and start generated app
 
-        Scenario: load generated app
+        Background: prepare flag
             Given prepare flag
-            And generate two extensions
+
+        Scenario: load and start generated app
+            Given generate two extensions
             And generate one contribute
             And prepare new names and start the second extension
             And load them and convert as c1
-            When generate app with c1 and load it
+            When generate app with c1 and load it and start it
             Then the two extensions should be registered
             And the one contribute should be registered
             And the second extension should be started
+
+        Scenario: if two extension need start, error
+            Given generate two extensions
+            And start them
+            And load them and convert as c1
+            When generate app with c1 and load it
+            Then start it should error

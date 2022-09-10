@@ -26,7 +26,13 @@ let _getExtensionLifeExn = (state, name: extensionName) => {
   state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
-let _invokeLifeHander = (state, extensionName, handlerNullable) => {
+let _invokeLifeOnStartHander = (state, extensionName, handlerNullable) => {
+  let handler = handlerNullable->Meta3dCommonlib.NullableSt.getExn
+
+  handler(state, getExtensionServiceExn(state, extensionName))
+}
+
+let _invokeLifeOtherHander = (state, extensionName, handlerNullable) => {
   handlerNullable
   ->Meta3dCommonlib.NullableSt.map((. handler) => {
     handler(state, getExtensionServiceExn(state, extensionName))
@@ -34,10 +40,12 @@ let _invokeLifeHander = (state, extensionName, handlerNullable) => {
   ->Meta3dCommonlib.NullableSt.getWithDefault(state)
 }
 
-let startExtensions = (state, extensionNames) => {
-  extensionNames->Meta3dCommonlib.ArraySt.reduceOneParam((. state, extensionName) => {
-    _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeHander(state, extensionName, _)
-  }, state)
+let startExtension = (state, extensionName) => {
+  _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeOnStartHander(
+    state,
+    extensionName,
+    _,
+  )
 }
 
 let rec registerExtension = (
@@ -64,7 +72,7 @@ let rec registerExtension = (
     ),
   }->setExtensionState(name, extensionState)
 
-  _getExtensionLifeExn(state, name).onRegister->_invokeLifeHander(state, name, _)
+  _getExtensionLifeExn(state, name).onRegister->_invokeLifeOtherHander(state, name, _)
 }
 and registerContribute = (
   state,

@@ -2,6 +2,7 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var Semver = require("semver");
+var Caml_array = require("rescript/lib/js/caml_array.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
@@ -163,12 +164,15 @@ function _prepare(param) {
         };
 }
 
-function _getStartExtensionNames(allExtensionDataArr) {
-  return ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
-                    return param.extensionPackageData.isStart;
-                  })), (function (param) {
-                return param.extensionPackageData.name;
-              }));
+function _getStartExtensionName(allExtensionDataArr) {
+  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
+          return param.extensionPackageData.isStart;
+        }));
+  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one start extension", "", "", "", "")));
+  } else {
+    return Caml_array.get(startExtensions, 0).extensionPackageData.name;
+  }
 }
 
 function _run(param) {
@@ -188,11 +192,18 @@ function _run(param) {
                       contributePackageData.dependentContributeNameMap
                     ]);
         }), state);
-  return ExtensionManager$Meta3d.startExtensions(state$1, _getStartExtensionNames(allExtensionDataArr));
+  return [
+          state$1,
+          allExtensionDataArr
+        ];
 }
 
 function load(appBinaryFile) {
   return _run(_parse(appBinaryFile));
+}
+
+function start(param) {
+  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]));
 }
 
 exports._checkVersion = _checkVersion;
@@ -201,7 +212,8 @@ exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
 exports._parse = _parse;
 exports._prepare = _prepare;
-exports._getStartExtensionNames = _getStartExtensionNames;
+exports._getStartExtensionName = _getStartExtensionName;
 exports._run = _run;
 exports.load = load;
+exports.start = start;
 /* semver Not a pure module */

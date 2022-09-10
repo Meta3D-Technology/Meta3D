@@ -10,7 +10,7 @@ let registerContribute = ExtensionManager.registerContribute
 
 let getContribute = ExtensionManager.getContributeExn
 
-let startExtensions = ExtensionManager.startExtensions
+let startExtension = ExtensionManager.startExtension
 
 let generateExtension = ExtensionFileManager.generateExtension
 
@@ -25,5 +25,7 @@ let convertAllFileDataForApp = AppManager.convertAllFileData
 let generateApp = AppManager.generate
 
 let loadApp = AppManager.load
+
+let startApp = AppManager.start
 
 let buildAPI = ExtensionManager.buildAPI

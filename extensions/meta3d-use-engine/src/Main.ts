@@ -11,24 +11,6 @@ import { state as rootState, states as rootStates } from "meta3d-work-plugin-roo
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-let _loop = (
-	api: api, meta3dState: meta3dState,
-	meta3dBsMostExtensionName: string,
-	meta3dEngineCoreExtensionName: string
-): Promise<void> => {
-	return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "update").then((meta3dState) => {
-		_runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "render").then((meta3dState) => {
-			requestAnimationFrame(() => {
-				_loop(
-					api, meta3dState,
-					meta3dBsMostExtensionName,
-					meta3dEngineCoreExtensionName
-				)
-			})
-		})
-	})
-}
-
 let _runPipeline = (api: api, meta3dState: meta3dState, engineCoreState: engineCoreState,
 	meta3dBsMostExtensionName: string,
 	meta3dEngineCoreExtensionName: string,
@@ -58,6 +40,24 @@ let _runPipeline = (api: api, meta3dState: meta3dState, engineCoreState: engineC
 		runPipeline(engineCoreState, meta3dState, pipelineName)
 	).drain().then((_) => {
 		return getExn(tempMeta3DState)
+	})
+}
+
+let _loop = (
+	api: api, meta3dState: meta3dState,
+	meta3dBsMostExtensionName: string,
+	meta3dEngineCoreExtensionName: string
+): Promise<void> => {
+	return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "update").then((meta3dState) => {
+		_runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "render").then((meta3dState) => {
+			requestAnimationFrame(() => {
+				_loop(
+					api, meta3dState,
+					meta3dBsMostExtensionName,
+					meta3dEngineCoreExtensionName
+				)
+			})
+		})
 	})
 }
 
@@ -142,8 +142,6 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 			console.log("meta3d-use-engine onStart")
 
 			service.run(meta3dState)
-
-			return meta3dState
 		}
 	}
 }

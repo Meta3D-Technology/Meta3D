@@ -35,7 +35,7 @@ export type extensionLifeEventHandler<extensionService> = (state: state, extensi
 
 type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
-  onStart?: extensionLifeEventHandler<extensionService>,
+  onStart?: (state: state, extensionService: extensionService) => void
 }
 
 export type getExtensionLife<extensionService> = (_1: api, extensionName: extensionName) => extensionLife<extensionService>

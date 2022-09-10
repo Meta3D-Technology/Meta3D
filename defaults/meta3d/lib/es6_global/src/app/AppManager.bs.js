@@ -2,6 +2,7 @@
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Semver from "semver";
+import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
@@ -163,12 +164,15 @@ function _prepare(param) {
         };
 }
 
-function _getStartExtensionNames(allExtensionDataArr) {
-  return ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
-                    return param.extensionPackageData.isStart;
-                  })), (function (param) {
-                return param.extensionPackageData.name;
-              }));
+function _getStartExtensionName(allExtensionDataArr) {
+  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
+          return param.extensionPackageData.isStart;
+        }));
+  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one start extension", "", "", "", "")));
+  } else {
+    return Caml_array.get(startExtensions, 0).extensionPackageData.name;
+  }
 }
 
 function _run(param) {
@@ -188,11 +192,18 @@ function _run(param) {
                       contributePackageData.dependentContributeNameMap
                     ]);
         }), state);
-  return ExtensionManager$Meta3d.startExtensions(state$1, _getStartExtensionNames(allExtensionDataArr));
+  return [
+          state$1,
+          allExtensionDataArr
+        ];
 }
 
 function load(appBinaryFile) {
   return _run(_parse(appBinaryFile));
+}
+
+function start(param) {
+  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]));
 }
 
 export {
@@ -202,9 +213,10 @@ export {
   generate ,
   _parse ,
   _prepare ,
-  _getStartExtensionNames ,
+  _getStartExtensionName ,
   _run ,
   load ,
+  start ,
   
 }
 /* semver Not a pure module */

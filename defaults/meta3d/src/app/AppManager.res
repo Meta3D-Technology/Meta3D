@@ -241,14 +241,26 @@ let _prepare = (): Meta3dType.Index.state => {
   }
 }
 
-let _getStartExtensionNames = allExtensionDataArr => {
-  allExtensionDataArr
-  ->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
+let _getStartExtensionName = allExtensionDataArr => {
+  switch allExtensionDataArr->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
     extensionPackageData.isStart
-  })
-  ->Meta3dCommonlib.ArraySt.map(({extensionPackageData}) => {
-    extensionPackageData.name
-  })
+  }) {
+  | startExtensions if startExtensions->Meta3dCommonlib.ArraySt.length !== 1 =>
+    Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
+        Meta3dCommonlib.Log.buildErrorMessage(
+          ~title="should only has one start extension",
+          ~description={
+            j``
+          },
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
+      ),
+    )
+  | startExtensions => startExtensions[0].extensionPackageData.name
+  }
 }
 
 let _run = ((allExtensionDataArr, allContributeDataArr)) => {
@@ -284,9 +296,16 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
       state,
     )
 
-  state->ExtensionManager.startExtensions(_getStartExtensionNames(allExtensionDataArr))
+  (state, allExtensionDataArr)
 }
 
-let load = (appBinaryFile: ArrayBuffer.t): Meta3dType.Index.state => {
+let load = (appBinaryFile: ArrayBuffer.t): (
+  Meta3dType.Index.state,
+  array<AppFileType.extensionFileData>,
+) => {
   appBinaryFile->_parse->_run
+}
+
+let start = ((state, allExtensionDataArr)): unit => {
+  state->ExtensionManager.startExtension(_getStartExtensionName(allExtensionDataArr))
 }
