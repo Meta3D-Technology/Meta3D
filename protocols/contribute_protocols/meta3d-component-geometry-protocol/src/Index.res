@@ -1,5 +1,7 @@
 let componentName = "Geometry"
 
+type state
+
 type dataName = {
   vertices: int,
   normals: int,

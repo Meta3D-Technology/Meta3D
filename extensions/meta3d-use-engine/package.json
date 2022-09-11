@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-engine",
-    "version": "0.3.8",
+    "version": "0.3.12",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-use-engine-protocol"
@@ -23,6 +23,18 @@
         "meta3dComponentTransformContributeName": {
             "protocolName": "meta3d-component-transform-protocol"
         },
+        "meta3dComponentGeometryContributeName": {
+            "protocolName": "meta3d-component-geometry-protocol"
+        },
+        "meta3dComponentPBRMaterialContributeName": {
+            "protocolName": "meta3d-component-pbrmaterial-protocol"
+        },
+        "meta3dComponentBasicCameraViewContributeName": {
+            "protocolName": "meta3d-component-basiccameraview-protocol"
+        },
+        "meta3dComponentPerspectiveCameraProjectionContributeName": {
+            "protocolName": "meta3d-component-perspectivecameraprojection-protocol"
+        },
         "meta3dGameObjectContributeName": {
             "protocolName": "meta3d-gameobject-protocol"
         }
@@ -39,6 +51,10 @@
         "meta3d-work-plugin-root-protocol": "^0.3.4",
         "meta3d-work-plugin-webgpu-triangle-protocol": "^0.3.4",
         "meta3d-component-transform-protocol": "^0.3.4",
+        "meta3d-component-geometry-protocol": "^0.3.4",
+        "meta3d-component-pbrmaterial-protocol": "^0.3.4",
+        "meta3d-component-basiccameraview-protocol": "^0.3.4",
+        "meta3d-component-perspectivecameraprojection-protocol": "^0.3.4",
         "meta3d-gameobject-protocol": "^0.3.4",
         "meta3d-type": "^1.0.0-alpha.1"
     },

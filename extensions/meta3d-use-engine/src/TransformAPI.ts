@@ -1,6 +1,7 @@
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { transform, componentName, dataName, localPosition } from "meta3d-component-transform-protocol"
+import { lookAt as lookAtTransform } from "meta3d-component-commonlib"
 
 export function createTransform(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
     createComponent,
@@ -35,3 +36,10 @@ export function setLocalPosition(engineCoreState: engineCoreState, { unsafeGetUs
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
+export function lookAt(engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform, target: [number, number, number]) {
+    let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    contribute = lookAtTransform(contribute, engineCoreService, transform, target)
+
+    return engineCoreService.setUsedComponentContribute(engineCoreState, contribute, componentName)
+}

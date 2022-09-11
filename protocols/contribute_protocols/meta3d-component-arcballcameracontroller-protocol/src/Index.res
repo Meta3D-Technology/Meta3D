@@ -1,5 +1,7 @@
 let componentName = "ArcballCameraController"
 
+type state
+
 type dataName = {
   distance: int,
   minDistance: int,

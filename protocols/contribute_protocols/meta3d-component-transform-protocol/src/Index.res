@@ -1,5 +1,7 @@
 let componentName = "Transform"
 
+type state
+
 type config = {
   isDebug: bool,
   float9Array1: Js.Typed_array.Float32Array.t,

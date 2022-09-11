@@ -1,5 +1,7 @@
 let componentName = "BasicCameraView"
 
+type state
+
 type dataName = {isActive: int}
 
 let dataName = {

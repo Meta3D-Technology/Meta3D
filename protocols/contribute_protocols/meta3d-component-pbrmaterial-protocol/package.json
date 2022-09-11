@@ -1,13 +1,15 @@
 {
   "name": "meta3d-component-pbrmaterial-protocol",
   "version": "0.3.4",
-  "authors": "Wonder",
   "description": "",
+  "publisher": "meta3d",
+  "author": "Meta3D",
   "license": "MIT",
   "main": "src/Index.js",
   "scripts": {
     "watch": "rescript clean && rescript build -w",
-    "build:ts": "tsc"
+    "buildAll:ci": "rescript clean && rescript build",
+    "meta3d:publish": "yarn buildAll:ci && gulp publish"
   },
   "keywords": [],
   "devDependencies": {

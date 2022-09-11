@@ -1,5 +1,7 @@
 let componentName = "PBRMaterial"
 
+type state
+
 type config = {
   isDebug: bool,
   pbrMaterialCount: int,

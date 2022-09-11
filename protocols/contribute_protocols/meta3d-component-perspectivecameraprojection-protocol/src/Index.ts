@@ -1,5 +1,7 @@
 export const componentName = "PerspectiveCameraProjection"
 
+export type state = any
+
 export type config = { readonly isDebug: boolean };
 
 export const dataName = {

@@ -1,5 +1,7 @@
 let componentName = "DirectionLight"
 
+type state
+
 type dataName = {
   color: int,
   intensity: int,

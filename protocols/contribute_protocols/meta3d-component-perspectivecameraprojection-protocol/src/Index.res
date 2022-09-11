@@ -1,5 +1,7 @@
 let componentName = "PerspectiveCameraProjection"
 
+type state
+
 type dataName = {
   pMatrix: int,
   fovy: int,

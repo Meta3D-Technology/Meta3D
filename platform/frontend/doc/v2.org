@@ -255,24 +255,27 @@ still has publisher in package.json
 
 
 
-* TODO add scene extension of engine-core
+# * TODO add scene extension of engine-core
 
-* TODO add components
+* DONE add components
 
 ** DONE add GameObject
 
 ** DONE add Transform
 
 
-** TODO render a triangle
+** DONE render a triangle
 
-** TODO add Other
+** DONE add Other components
 
 
-** TODO publish
+** DONE publish
 
 # * TODO add extension package
 
+* TODO refactor: move -common-protocol, worker-utils, meta3d-component-commonlib to ./utils package
+
+* TODO feat: publish extension/contribute should check version, publisher exist
 
 * TODO fix:extension/contribute shop should refresh
 
