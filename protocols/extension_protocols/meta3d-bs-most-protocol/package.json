@@ -7,7 +7,8 @@
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
-        "meta3d:publish": "gulp publish"
+        "buildAll:ci": "rescript clean && rescript build",
+        "meta3d:publish": "yarn buildAll:ci && gulp publish"
     },
     "keywords": [],
     "devDependencies": {

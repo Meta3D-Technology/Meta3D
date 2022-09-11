@@ -1,13 +1,16 @@
 {
   "name": "meta3d-gameobject-protocol",
   "version": "0.3.4",
-  "authors": "Wonder",
   "description": "",
+  "publisher": "meta3d",
+  "author": "Meta3D",
   "license": "MIT",
   "main": "lib/js/src/Index.bs.js",
   "types": "src/Index.d.ts",
   "scripts": {
-    "watch": "rescript clean && rescript build -w"
+    "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build",
+    "meta3d:publish": "yarn buildAll:ci && gulp publish"
   },
   "keywords": [],
   "devDependencies": {

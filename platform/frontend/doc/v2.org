@@ -251,7 +251,7 @@ still has publisher in package.json
 
 * DONE extension/contribute shop should refresh
 
-
+* TODO fix:extension/contribute shop should refresh
 
 
 
