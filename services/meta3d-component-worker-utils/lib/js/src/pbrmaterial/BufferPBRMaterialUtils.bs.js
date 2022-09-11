@@ -1,6 +1,6 @@
 'use strict';
 
-var SharedArrayBufferUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/SharedArrayBufferUtils.bs.js");
+var ArrayBufferUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/ArrayBufferUtils.bs.js");
 
 function getDiffuseColorsSize(param) {
   return 3;
@@ -119,7 +119,7 @@ function getTotalByteLength(count) {
 }
 
 function createBuffer(count) {
-  return SharedArrayBufferUtils$Meta3dCommonlib.newSharedArrayBuffer(getTotalByteLength(count));
+  return ArrayBufferUtils$Meta3dCommonlib.newArrayBuffer(getTotalByteLength(count));
 }
 
 exports.getDiffuseColorsSize = getDiffuseColorsSize;

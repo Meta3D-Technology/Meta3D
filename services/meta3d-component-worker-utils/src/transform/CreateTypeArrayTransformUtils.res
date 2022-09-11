@@ -4,22 +4,22 @@ open BufferTransformUtils
 
 let createTypeArrays = (buffer, count) => (
   Float32Array.fromBufferRange(
-    Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBufferToArrayBuffer(buffer),
+    buffer,
     ~offset=getLocalToWorldMatricesOffset(count),
     ~length=getLocalToWorldMatricesLength(count),
   ),
   Float32Array.fromBufferRange(
-    Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBufferToArrayBuffer(buffer),
+    buffer,
     ~offset=getLocalPositionsOffset(count),
     ~length=getLocalPositionsLength(count),
   ),
   Float32Array.fromBufferRange(
-    Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBufferToArrayBuffer(buffer),
+    buffer,
     ~offset=getLocalRotationsOffset(count),
     ~length=getLocalRotationsLength(count),
   ),
   Float32Array.fromBufferRange(
-    Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBufferToArrayBuffer(buffer),
+    buffer,
     ~offset=getLocalScalesOffset(count),
     ~length=getLocalScalesLength(count),
   ),

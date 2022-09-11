@@ -7,7 +7,11 @@ type children = array<child>
 type state = {
   config: Meta3dComponentTransformProtocol.Index.config,
   mutable maxIndex: Meta3dCommonlibType.ComponentType.index,
-  buffer: Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBuffer,
+  // TODO use COOP to open SharedArrayBuffer
+  // buffer: Meta3dCommonlibType.SharedArrayBufferType.sharedArrayBuffer,
+
+  buffer: Js.Typed_array.ArrayBuffer.t,
+
   mutable localToWorldMatrices: Js.Typed_array.Float32Array.t,
   mutable localPositions: Js.Typed_array.Float32Array.t,
   mutable localRotations: Js.Typed_array.Float32Array.t,

@@ -75,4 +75,4 @@ let getTotalByteLength = count =>
   getIORsSize())
 
 let createBuffer = count =>
-  Meta3dCommonlib.SharedArrayBufferUtils.newSharedArrayBuffer(getTotalByteLength(count))
+  Meta3dCommonlib.ArrayBufferUtils.newArrayBuffer(getTotalByteLength(count))

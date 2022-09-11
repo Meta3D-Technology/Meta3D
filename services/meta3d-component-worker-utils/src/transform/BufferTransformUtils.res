@@ -45,4 +45,4 @@ let getTotalByteLength = count =>
   getLocalScalesSize())
 
 let createBuffer = count =>
-  Meta3dCommonlib.SharedArrayBufferUtils.newSharedArrayBuffer(getTotalByteLength(count))
+  Meta3dCommonlib.ArrayBufferUtils.newArrayBuffer(getTotalByteLength(count))

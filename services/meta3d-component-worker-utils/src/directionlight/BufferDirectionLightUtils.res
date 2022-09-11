@@ -23,4 +23,4 @@ let getTotalByteLength = count =>
   count * Float32Array._BYTES_PER_ELEMENT * (getColorsSize() + getIntensitiesSize())
 
 let createBuffer = count =>
-  Meta3dCommonlib.SharedArrayBufferUtils.newSharedArrayBuffer(getTotalByteLength(count))
+  Meta3dCommonlib.ArrayBufferUtils.newArrayBuffer(getTotalByteLength(count))

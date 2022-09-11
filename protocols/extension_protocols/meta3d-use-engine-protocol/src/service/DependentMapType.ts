@@ -6,4 +6,6 @@ export type dependentExtensionNameMap = {
 export type dependentContributeNameMap = {
     meta3dWorkPluginRootContributeName: string,
     meta3dWorkPluginWebGPUTriangleContributeName: string,
+    meta3dComponentTransformContributeName: string,
+    meta3dGameObjectContributeName: string,
 }

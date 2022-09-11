@@ -10,6 +10,10 @@ import { state as rootState, states as rootStates } from "meta3d-work-plugin-roo
 import { addTransform, createGameObject } from "./GameObjectAPI"
 import { createTransform, getLocalPosition, setLocalPosition } from "./TransformAPI"
 import { init, render, update } from "./DirectorAPI"
+import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
+import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
+import { state as gameObjectState } from "meta3d-gameobject-protocol";
 
 
 let _loop = (
@@ -62,18 +66,25 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dEngineCoreExtensionName,
 }, {
 	meta3dWorkPluginRootContributeName,
-	meta3dWorkPluginWebGPUTriangleContributeName
+	meta3dWorkPluginWebGPUTriangleContributeName,
+	meta3dComponentTransformContributeName,
+	meta3dGameObjectContributeName
 }]) => {
 		return {
 			run: (meta3dState: meta3dState) => {
 				let isDebug = true
+				let float9Array1 = new Float32Array()
+				let float32Array1 = new Float32Array()
+				let transformCount = 1
 
 				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
 
-				let { setIsDebug, registerWorkPlugin } = api.getExtensionService<engineCoreService>(
+				let engineCoreService = api.getExtensionService<engineCoreService>(
 					meta3dState,
 					meta3dEngineCoreExtensionName
 				)
+
+				let { setIsDebug, registerWorkPlugin, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
 
 				engineCoreState = setIsDebug(engineCoreState, isDebug)
 
@@ -94,10 +105,24 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				let engineCoreService = api.getExtensionService<engineCoreService>(
-					meta3dState,
-					meta3dEngineCoreExtensionName
-				)
+
+				engineCoreState =
+					registerComponent(engineCoreState, api.getContribute<componentContribute<transformState, transformConfig, transform>>(meta3dState, meta3dComponentTransformContributeName))
+
+				engineCoreState = createAndSetComponentState<transformConfig>(engineCoreState, transformComponentName, {
+					isDebug,
+					float9Array1,
+					float32Array1,
+					transformCount
+				})
+
+
+				engineCoreState =
+					setGameObjectContribute(engineCoreState, api.getContribute<gameObjectContribute<gameObjectState>>(meta3dState, meta3dGameObjectContributeName))
+
+				engineCoreState = createAndSetGameObjectState(engineCoreState, { isDebug })
+
+
 
 				engineCoreState = _createGameObject(engineCoreState, engineCoreService)
 

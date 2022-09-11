@@ -19,9 +19,9 @@ export abstract class gameObject { protected opaque!: any }; /* simulate opaque 
 // tslint:disable-next-line:interface-over-type-literal
 export type usedGameObjectContribute = {
   state: state; 
-  readonly createGameObjectFunc: GameObjectContributeType_createGameObjectFunc<state,gameObject>; 
-  readonly getAllGameObjectsFunc: GameObjectContributeType_getAllGameObjectsFunc<state,gameObject>
+  readonly createGameObjectFunc: GameObjectContributeType_createGameObjectFunc<state>; 
+  readonly getAllGameObjectsFunc: GameObjectContributeType_getAllGameObjectsFunc<state>
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type gameObjectContribute = GameObjectContributeType_gameObjectContribute<state,gameObject>;
+export type gameObjectContribute = GameObjectContributeType_gameObjectContribute<state>;

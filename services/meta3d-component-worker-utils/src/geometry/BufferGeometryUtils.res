@@ -78,6 +78,6 @@ let getTotalByteLength = (geometryPointCount, geometryCount) =>
   geometryCount * Uint32Array._BYTES_PER_ELEMENT * (getInfoSize() * 5)
 
 let createBuffer = (geometryPointCount, geometryCount) =>
-  Meta3dCommonlib.SharedArrayBufferUtils.newSharedArrayBuffer(
+  Meta3dCommonlib.ArrayBufferUtils.newArrayBuffer(
     getTotalByteLength(geometryPointCount, geometryCount),
   )

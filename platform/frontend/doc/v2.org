@@ -249,9 +249,8 @@ still has publisher in package.json
 
 
 
-* TODO extension/contribute shop should refresh
+* DONE extension/contribute shop should refresh
 
-* TODO fix:extension/contribute shop should refresh
 
 
 
@@ -275,7 +274,7 @@ still has publisher in package.json
 # * TODO add extension package
 
 
-* TODO render a cube
+* TODO fix:extension/contribute shop should refresh
 
 
 

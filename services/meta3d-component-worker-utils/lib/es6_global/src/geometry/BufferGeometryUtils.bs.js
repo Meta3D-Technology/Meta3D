@@ -1,6 +1,6 @@
 
 
-import * as SharedArrayBufferUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/SharedArrayBufferUtils.bs.js";
+import * as ArrayBufferUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayBufferUtils.bs.js";
 
 function getVertexSize(param) {
   return 3;
@@ -111,7 +111,7 @@ function getTotalByteLength(geometryPointCount, geometryCount) {
 }
 
 function createBuffer(geometryPointCount, geometryCount) {
-  return SharedArrayBufferUtils$Meta3dCommonlib.newSharedArrayBuffer(getTotalByteLength(geometryPointCount, geometryCount));
+  return ArrayBufferUtils$Meta3dCommonlib.newArrayBuffer(getTotalByteLength(geometryPointCount, geometryCount));
 }
 
 export {

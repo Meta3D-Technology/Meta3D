@@ -1,5 +1,6 @@
 {
   "name": "meta3d-component-transform",
+  "version": "0.3.4",
   "publisher": "meta3d",
   "protocol": {
     "name": "meta3d-component-transform-protocol"
