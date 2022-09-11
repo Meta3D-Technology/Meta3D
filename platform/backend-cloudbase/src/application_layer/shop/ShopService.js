@@ -13,7 +13,7 @@ let getAllPublishProtocolData = (getDataFunc, collectionName) => {
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
 let getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
     return (0, most_1.fromPromise)(getDataFunc(collectionName)).flatMap((res) => {
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ fileData }) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ fileData, username }) => {
             let result = fileData.filter(data => {
                 return data.protocolName === protocolName &&
                     (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
@@ -25,7 +25,7 @@ let getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolNam
                 return [fileID, version];
             })).flatMap(([fileID, version]) => {
                 return getFileFunc(fileID).map(arrayBuffer => {
-                    return { id: fileID, file: arrayBuffer, version };
+                    return { id: fileID, file: arrayBuffer, version, username };
                 });
             });
         })).reduce((result, data) => {

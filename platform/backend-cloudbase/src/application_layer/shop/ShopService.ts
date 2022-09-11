@@ -16,7 +16,7 @@ export let getAllPublishData = (
     collectionName: string, protocolName: string, protocolVersion: string) => {
     return fromPromise(getDataFunc(collectionName)).flatMap((res: any) => {
         return fromPromise(mergeArray(
-            res.data.map(({ fileData }) => {
+            res.data.map(({ fileData, username }) => {
                 let result = fileData.filter(data => {
                     return data.protocolName === protocolName &&
                         satisfies(
@@ -33,7 +33,7 @@ export let getAllPublishData = (
                     return [fileID, version]
                 })).flatMap(([fileID, version]) => {
                     return getFileFunc(fileID).map(arrayBuffer => {
-                        return { id: fileID, file: arrayBuffer, version }
+                        return { id: fileID, file: arrayBuffer, version, username }
                     })
                 })
             })

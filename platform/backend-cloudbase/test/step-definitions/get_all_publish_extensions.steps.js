@@ -22,6 +22,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         });
     }
     test('one extension implement one protocol', ({ given, when, then, and }) => {
+        let username = "meta3d";
         let fileID1 = "id1";
         let fileID2 = "id2";
         let fileID3 = "id3";
@@ -36,6 +37,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             getDataFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
+                        username: username,
                         fileData: [
                             {
                                 protocolName: "test1-protocol",
@@ -79,12 +81,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                 {
                     id: fileID2,
                     file: file1,
-                    version: fileVersion2
+                    version: fileVersion2,
+                    username
                 }
             ]);
         });
     });
     test('two extensions implement one protocol', ({ given, when, then, and }) => {
+        let username = "u1";
         let fileID1 = "id1";
         let fileVersion1 = "0.1.1";
         let fileID2 = "id2";
@@ -98,6 +102,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             getDataFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
+                        username,
                         fileData: [
                             {
                                 protocolName: "test1-protocol",
@@ -139,12 +144,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                 {
                     id: fileID1,
                     file: file1,
-                    version: fileVersion1
+                    version: fileVersion1,
+                    username
                 },
                 {
                     id: fileID2,
                     file: file2,
-                    version: fileVersion2
+                    version: fileVersion2,
+                    username
                 }
             ]);
         });
