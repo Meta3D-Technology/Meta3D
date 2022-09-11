@@ -74,7 +74,24 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
 
                 let packageData = _convertToExtensionOrContributePackageData(packageJson)
 
-                return uploadFileFunc(
+                return fromPromise(
+                    getDataFunc(
+                        app,
+                        _getPublishedCollectionName(fileType),
+                        { username: packageJson.publisher }
+                    ).then(res => {
+                        let { fileData } = res.data[0]
+
+                        let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+                            return protocolName === packageJson.protocol.name
+                                && version === packageJson.version
+                        })
+
+                        if (index !== -1) {
+                            _throwError("version: " + packageJson.version + " already exist, please update version")
+                        }
+                    })
+                ).concat(uploadFileFunc(
                     app,
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer",
                     _arrayBufferToBuffer(generateFunc(
@@ -90,12 +107,6 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                         ).then(res => {
                             let { fileData } = res.data[0]
 
-                            let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
-                                return protocolName === packageJson.protocol.name
-                                    // && protocolVersion === packageJson.protocol.version
-                                    && version === packageJson.version
-                            })
-
                             let newFileData = []
                             let data = {
                                 protocolName: packageData.protocol.name,
@@ -104,13 +115,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                                 fileID
                             }
 
-                            if (index === -1) {
-                                newFileData = fileData.concat([data])
-                            }
-                            else {
-                                newFileData = fileData.slice()
-                                newFileData[index] = data
-                            }
+                            newFileData = fileData.concat([data])
 
                             return updateDataFunc(
                                 app,
@@ -122,6 +127,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                             )
                         }))
                 })
+                )
             })
         }).drain()
         .then(_ => {

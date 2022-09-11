@@ -275,7 +275,7 @@ still has publisher in package.json
 
 * DONE refactor: move -common-protocol, worker-utils, meta3d-component-commonlib to ./utils package
 
-* TODO feat: publish extension/contribute should check version, publisher exist
+* DONE feat: publish extension/contribute should check version, publisher exist
 
 * TODO fix:extension/contribute shop should refresh
 

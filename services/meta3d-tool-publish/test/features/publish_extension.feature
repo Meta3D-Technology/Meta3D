@@ -24,9 +24,15 @@ Feature: Publish Extension
         Then should upload generated file
         And should add to collection
 
-    Scenario: update fileID in collection if exist
+    # Scenario: update fileID in collection if exist
+    #     Given prepare funcs
+    #     And publish extension
+    #     When publish extension with same protocolName and version but different dist file
+    #     Then should upload generated file
+    #     And should update fileID in collection
+
+    Scenario: if extension with the same publisher, version, protocol name exist, throw error
         Given prepare funcs
         And publish extension
-        When publish extension with same protocolName and version but different dist file
-        Then should upload generated file
-        And should update fileID in collection
+        When publish extension with the same publisher, version, protocol name
+        Then should error

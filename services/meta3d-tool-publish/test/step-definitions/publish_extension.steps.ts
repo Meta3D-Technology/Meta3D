@@ -94,6 +94,15 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just({})
             )
+            getDataFunc.returns(
+                resolve({
+                    data: [
+                        {
+                            fileData: []
+                        }
+                    ]
+                })
+            )
             hasDataFunc.returns(
                 just(true)
             )
@@ -204,19 +213,115 @@ defineFeature(feature, test => {
         });
     });
 
-    test('update fileID in collection if exist', ({ given, and, when, then }) => {
-        let app = { "a": true }
-        let distFileContent1 = "dist1"
-        let distFileContent2 = "dist2"
-        let generatedResult1 = new ArrayBuffer(0)
-        let generatedResult2 = new ArrayBuffer(1)
+    // test('update fileID in collection if exist', ({ given, and, when, then }) => {
+    //     let app = { "a": true }
+    //     let distFileContent1 = "dist1"
+    //     let distFileContent2 = "dist2"
+    //     let generatedResult1 = new ArrayBuffer(0)
+    //     let generatedResult2 = new ArrayBuffer(1)
+    //     let fileID1 = "id1"
+    //     let fileID2 = "id2"
+
+    //     _prepare(given)
+
+    //     given('prepare funcs', () => {
+    //         _createFuncs(sandbox)
+
+    //         readJsonFunc.returns(
+    //             just(_buildPackageJson(
+    //                 "test1",
+    //                 "0.0.2",
+    //                 { name: "test1-protocol" }, "meta3d",
+    //                 {
+    //                 }, {},
+    //                 {
+    //                     "test1-protocol": "^0.0.1"
+    //                 }
+    //             ))
+    //         )
+    //         initFunc.returns(
+    //             just(app)
+    //         )
+    //         hasDataFunc.returns(
+    //             just(true)
+    //         )
+    //         readFileSyncFunc.onCall(0).returns(distFileContent1)
+    //         readFileSyncFunc.onCall(1).returns(distFileContent2)
+    //         generateFunc.onCall(0).returns(generatedResult1)
+    //         generateFunc.onCall(1).returns(generatedResult2)
+    //         uploadFileFunc.onCall(0).returns(
+    //             just({ fileID: fileID1 })
+    //         )
+    //         uploadFileFunc.onCall(1).returns(
+    //             just({ fileID: fileID2 })
+    //         )
+    //         getDataFunc.onCall(0).returns(
+    //             resolve({
+    //                 data: [
+    //                     {
+    //                         fileData: []
+    //                     }
+    //                 ]
+    //             })
+    //         )
+    //         getDataFunc.onCall(1).returns(
+    //             resolve({
+    //                 data: [
+    //                     {
+    //                         fileData: [
+    //                             {
+    //                                 protocolName: "test1-protocol",
+    //                                 version: "0.0.2"
+    //                             }
+    //                         ]
+    //                     }
+    //                 ]
+    //             })
+    //         )
+    //     });
+
+    //     and('publish extension', () => {
+    //         return _publishExtension()
+    //     });
+
+    //     when('publish extension with same protocolName and version but different dist file', () => {
+    //         return _publishExtension()
+    //     });
+
+    //     then('should upload generated file', () => {
+    //         expect(uploadFileFunc.getCall(1)).toCalledWith([
+    //             app,
+    //             "extensions/test1_0.0.2.arrayBuffer",
+    //             Buffer.from(generatedResult2)
+    //         ])
+    //     });
+
+    //     and('should update fileID in collection', () => {
+    //         expect(updateDataFunc.getCall(1)).toCalledWith([
+    //             app,
+    //             "publishedExtensions",
+    //             { "username": "meta3d" },
+    //             {
+    //                 "fileData": [{
+    //                     "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+    //                     "version": "0.0.2",
+    //                     "fileID": fileID2
+    //                 }]
+    //             }
+    //         ])
+    //     });
+    // });
+
+    test('if extension with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
+        let app = { "app": true }
+        let distFileContent = "dist"
+        let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
-        let fileID2 = "id2"
 
         _prepare(given)
 
         given('prepare funcs', () => {
-            _createFuncs(sandbox)
+            _createFuncs(sandbox, sandbox.stub())
 
             readJsonFunc.returns(
                 just(_buildPackageJson(
@@ -236,15 +341,10 @@ defineFeature(feature, test => {
             hasDataFunc.returns(
                 just(true)
             )
-            readFileSyncFunc.onCall(0).returns(distFileContent1)
-            readFileSyncFunc.onCall(1).returns(distFileContent2)
-            generateFunc.onCall(0).returns(generatedResult1)
-            generateFunc.onCall(1).returns(generatedResult2)
-            uploadFileFunc.onCall(0).returns(
-                just({ fileID: fileID1 })
-            )
-            uploadFileFunc.onCall(1).returns(
-                just({ fileID: fileID2 })
+            readFileSyncFunc.returns(distFileContent)
+            generateFunc.returns(generatedResult)
+            uploadFileFunc.returns(
+                empty()
             )
             getDataFunc.onCall(0).returns(
                 resolve({
@@ -275,31 +375,16 @@ defineFeature(feature, test => {
             return _publishExtension()
         });
 
-        when('publish extension with same protocolName and version but different dist file', () => {
+        when('publish extension with the same publisher, version, protocol name', () => {
             return _publishExtension()
         });
 
-        then('should upload generated file', () => {
-            expect(uploadFileFunc.getCall(1)).toCalledWith([
-                app,
-                "extensions/test1_0.0.2.arrayBuffer",
-                Buffer.from(generatedResult2)
-            ])
-        });
-
-        and('should update fileID in collection', () => {
-            expect(updateDataFunc.getCall(1)).toCalledWith([
-                app,
-                "publishedExtensions",
-                { "username": "meta3d" },
-                {
-                    "fileData": [{
-                        "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                        "version": "0.0.2",
-                        "fileID": fileID2
-                    }]
-                }
-            ])
+        then('should error', () => {
+            expect(
+                errorFunc.getCall(0).args[1].message
+            ).toEqual(
+                "version: 0.0.2 already exist, please update version"
+            )
         });
     });
 })
