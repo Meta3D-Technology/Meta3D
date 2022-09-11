@@ -219,14 +219,14 @@ how to use protocol???
 
 registerWorkPlugin
 
-name XxxContribute, move to contribute_points/ folder
+name XxxContribute, move to contribute/ folder
 e.g. workPluginContribute, getWorkPluginContribute
 
 change -type to -protocol;
 
 
 
-contribute_points/,
+contribute/,
 xxx
 service/
 ServiceType

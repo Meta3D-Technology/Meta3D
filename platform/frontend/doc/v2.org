@@ -262,7 +262,7 @@ still has publisher in package.json
 
 ** DONE add GameObject
 
-** TODO add Transform
+** DONE add Transform
 
 
 ** TODO render a triangle

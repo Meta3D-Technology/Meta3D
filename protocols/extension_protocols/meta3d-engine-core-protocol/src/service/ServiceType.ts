@@ -4,22 +4,22 @@ import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs
 
 // import { gameObject, config as gameObjectConfig } from "meta3d-gameobject-protocol"
 
-// import type { componentName as ComponentContributeType_componentName } from '../../src/contribute_points/scene_graph/ComponentContributeType';
+// import type { componentName as ComponentContributeType_componentName } from '../../src/contribute/scene_graph/ComponentContributeType';
 
 
-// import type { dataName as ComponentContributeType_dataName } from '../../src/contribute_points/scene_graph/ComponentContributeType';
+// import type { dataName as ComponentContributeType_dataName } from '../../src/contribute/scene_graph/ComponentContributeType';
 
 // import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
 // // import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
-// import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute_points/scene_graph/GameObjectContributeType';
+// import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute/scene_graph/GameObjectContributeType';
 
 import type { jobOrders as RegisterWorkPluginVOType_jobOrders } from '../../src/state/vo/RegisterWorkPluginVOType';
 
 import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType';
 
-// import type { workPluginContribute, workPluginName as WorkPluginContributeType_pluginName } from '../../src/contribute_points/work/WorkPluginContributeType';
+// import type { workPluginContribute, workPluginName as WorkPluginContributeType_pluginName } from '../../src/contribute/work/WorkPluginContributeType';
 
 
 import type { state as StateType_state } from '../../src/state/StateType';

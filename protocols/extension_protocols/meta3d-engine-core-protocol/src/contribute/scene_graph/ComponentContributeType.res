@@ -96,19 +96,19 @@ type componentContribute<
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
 }
 
-// @genType
-type getComponentContribute<
-  'state,
-  'config,
-  'needDisposedComponents,
-  'batchDisposeData,
-  'cloneConfig,
-  'component,
-> = unit => componentContribute<
-  'state,
-  'config,
-  'needDisposedComponents,
-  'batchDisposeData,
-  'cloneConfig,
-  'component,
->
+// // @genType
+// type getComponentContribute<
+//   'state,
+//   'config,
+//   'needDisposedComponents,
+//   'batchDisposeData,
+//   'cloneConfig,
+//   'component,
+// > = unit => componentContribute<
+//   'state,
+//   'config,
+//   'needDisposedComponents,
+//   'batchDisposeData,
+//   'cloneConfig,
+//   'component,
+// >

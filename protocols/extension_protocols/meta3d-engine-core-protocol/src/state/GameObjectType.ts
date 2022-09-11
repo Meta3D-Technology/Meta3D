@@ -2,11 +2,11 @@
 /* eslint-disable import/first */
 
 
-import type {createGameObjectFunc as GameObjectContributeType_createGameObjectFunc} from '../contribute_points/scene_graph/GameObjectContributeType';
+import type {createGameObjectFunc as GameObjectContributeType_createGameObjectFunc} from '../contribute/scene_graph/GameObjectContributeType';
 
-import type {gameObjectContribute as GameObjectContributeType_gameObjectContribute} from '../contribute_points/scene_graph/GameObjectContributeType';
+import type {gameObjectContribute as GameObjectContributeType_gameObjectContribute} from '../contribute/scene_graph/GameObjectContributeType';
 
-import type {getAllGameObjectsFunc as GameObjectContributeType_getAllGameObjectsFunc} from '../contribute_points/scene_graph/GameObjectContributeType';
+import type {getAllGameObjectsFunc as GameObjectContributeType_getAllGameObjectsFunc} from '../contribute/scene_graph/GameObjectContributeType';
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
