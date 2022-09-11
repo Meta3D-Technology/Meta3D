@@ -14,6 +14,17 @@
     "bs-dependencies": [
         "meta3d-type",
         "meta3d-bs-most-protocol",
+        "meta3d-gameobject-protocol",
+        "meta3d-component-transform-common-protocol",
+        "meta3d-component-geometry-common-protocol",
+        "meta3d-component-pbrmaterial-common-protocol",
+        "meta3d-component-transform-protocol",
+        "meta3d-component-pbrmaterial-protocol",
+        "meta3d-component-geometry-protocol",
+        "meta3d-component-directionlight-protocol",
+        "meta3d-component-arcballcameracontroller-protocol",
+        "meta3d-component-basiccameraview-protocol",
+        "meta3d-component-perspectivecameraprojection-protocol",
         "meta3d-commonlib-type"
     ],
     "package-specs": [

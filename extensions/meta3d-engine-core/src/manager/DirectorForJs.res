@@ -62,64 +62,64 @@ let getIsDebug = PluginDataManager.getIsDebug
 
 let setIsDebug = PluginDataManager.setIsDebug
 
-// let registerComponent = (state, componentContribute) => {
-//   state
-//   ->ComponentManager.registerComponent(componentContribute)
-//   // ->Meta3dCommonlib.Result.mapSuccess(StateContainer.setState)
-//   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
-// }
+let registerComponent = (state, componentContribute) => {
+  state
+  ->ComponentManager.registerComponent(componentContribute)
+  // ->Meta3dCommonlib.Result.mapSuccess(StateContainer.setState)
+  ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
+}
 
-// let unregisterComponent = ComponentManager.unregisterComponent
+let unregisterComponent = ComponentManager.unregisterComponent
 
-// let createAndSetComponentState = ComponentManager.createAndSetComponentState
+let createAndSetComponentState = ComponentManager.createAndSetComponentState
 
-// let unsafeGetUsedComponentContribute = ComponentManager.unsafeGetUsedComponentContribute
+let unsafeGetUsedComponentContribute = ComponentManager.unsafeGetUsedComponentContribute
 
-// let setUsedComponentContribute = ComponentManager.setUsedComponentContribute
+let setUsedComponentContribute = ComponentManager.setUsedComponentContribute
 
-// let createComponent = ComponentManager.createComponent
+let createComponent = ComponentManager.createComponent
 
-// let setComponentData = ComponentManager.setComponentData
+let setComponentData = ComponentManager.setComponentData
 
-// let addComponent = ComponentManager.addComponent
+let addComponent = ComponentManager.addComponent
 
-// let removeComponent = ComponentManager.removeComponent
+let removeComponent = ComponentManager.removeComponent
 
-// let hasComponent = ComponentManager.hasComponent
+let hasComponent = ComponentManager.hasComponent
 
-// let getComponent = ComponentManager.getComponent
+let getComponent = ComponentManager.getComponent
 
-// let getNeedDisposedComponents = ComponentManager.getNeedDisposedComponents
+let getNeedDisposedComponents = ComponentManager.getNeedDisposedComponents
 
-// let deferDisposeComponent = ComponentManager.deferDisposeComponent
+let deferDisposeComponent = ComponentManager.deferDisposeComponent
 
-// let disposeComponents = ComponentManager.disposeComponents
+let disposeComponents = ComponentManager.disposeComponents
 
-// let getAllComponents = ComponentManager.getAllComponents
+let getAllComponents = ComponentManager.getAllComponents
 
-// let getComponentData = ComponentManager.getComponentData
+let getComponentData = ComponentManager.getComponentData
 
-// let getComponentGameObjects = ComponentManager.getComponentGameObjects
+let getComponentGameObjects = ComponentManager.getComponentGameObjects
 
-// let setGameObjectContribute = GameObjectManager.setGameObjectContribute
+let setGameObjectContribute = GameObjectManager.setGameObjectContribute
 
-// let createAndSetGameObjectState = GameObjectManager.createAndSetState
+let createAndSetGameObjectState = GameObjectManager.createAndSetState
 
-// let createGameObject = GameObjectManager.createGameObject
+let createGameObject = GameObjectManager.createGameObject
 
-// let getNeedDisposedGameObjects = GameObjectManager.getNeedDisposedGameObjects
+let getNeedDisposedGameObjects = GameObjectManager.getNeedDisposedGameObjects
 
-// let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
+let deferDisposeGameObject = GameObjectManager.deferDisposeGameObject
 
-// let disposeGameObjects = GameObjectManager.disposeGameObjects
+let disposeGameObjects = GameObjectManager.disposeGameObjects
 
-// let cloneGameObject = GameObjectManager.cloneGameObject
+let cloneGameObject = GameObjectManager.cloneGameObject
 
-// let getAllGameObjects = GameObjectManager.getAllGameObjects
+let getAllGameObjects = GameObjectManager.getAllGameObjects
 
-// let getComponentState = (
-//   state,
-//   componentName: Meta3dEngineCoreProtocol.ComponentContributeType.componentName,
-// ) => {
-//   state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
-// }
+let getComponentState = (
+  state,
+  componentName: Meta3dEngineCoreProtocol.ComponentContributeType.componentName,
+) => {
+  state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
+}

@@ -39,7 +39,10 @@ function _setStates(state, states) {
   return {
           allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
           states: states,
-          pluginData: state.pluginData
+          pluginData: state.pluginData,
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -140,7 +143,10 @@ function registerPlugin(state, contribute, jobOrders) {
                 jobOrders
               ]),
           states: state.states,
-          pluginData: state.pluginData
+          pluginData: state.pluginData,
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -150,7 +156,10 @@ function unregisterPlugin(state, targetPluginName) {
                   return param[0].workPluginName !== targetPluginName;
                 })),
           states: state.states,
-          pluginData: state.pluginData
+          pluginData: state.pluginData,
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
@@ -162,7 +171,10 @@ function init(state, meta3dState) {
                       var match = param[0];
                       return ImmutableHashMap$Meta3dCommonlib.set(states, match.workPluginName, Curry._1(match.createStateFunc, meta3dState));
                     })),
-              pluginData: state.pluginData
+              pluginData: state.pluginData,
+              componentContributeData: state.componentContributeData,
+              gameObjectContribute: state.gameObjectContribute,
+              usedGameObjectContribute: state.usedGameObjectContribute
             }, (function (state, param) {
                 var match = param[0];
                 StateContainer$Meta3dEngineCore.setState(state);

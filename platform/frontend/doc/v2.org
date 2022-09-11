@@ -260,6 +260,11 @@ still has publisher in package.json
 
 * TODO add components
 
+** TODO add GameObject
+
+** TODO add Transform
+
+** TODO add Other
 
 # * TODO add extension package
 

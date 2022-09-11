@@ -18,9 +18,9 @@ type rec state = {
   allRegisteredWorkPluginContribute: list<registeredWorkPluginContribute>,
   states: RegisterWorkPluginType.states,
   pluginData: pluginData,
-  // componentContributeData: RegisterComponentType.componentContributeData,
-  // gameObjectContribute: option<GameObjectType.gameObjectContribute>,
-  // mutable usedGameObjectContribute: option<GameObjectType.usedGameObjectContribute>,
+  componentContributeData: RegisterComponentType.componentContributeData,
+  gameObjectContribute: option<GameObjectType.gameObjectContribute>,
+  mutable usedGameObjectContribute: option<GameObjectType.usedGameObjectContribute>,
 }
 and execFunc = (state, operateStatesFuncs) => stream<state>
 and getExecFunc = (PipelineType.pipelineName, jobName) => Js.Nullable.t<execFunc>

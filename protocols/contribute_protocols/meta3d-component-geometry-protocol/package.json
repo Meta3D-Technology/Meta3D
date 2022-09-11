@@ -1,0 +1,19 @@
+{
+  "name": "meta3d-component-geometry-protocol",
+  "version": "0.3.4",
+  "authors": "Wonder",
+  "description": "",
+  "license": "MIT",
+  "main": "src/Index.js",
+  "scripts": {
+    "watch": "rescript clean && rescript build -w",
+    "build:ts": "tsc"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "gentype": "^3.48.0"
+  },
+  "dependencies": {
+    "rescript": "^9.1.4"
+  }
+}

@@ -11,7 +11,10 @@ function setIsDebug(state, isDebug) {
           states: state.states,
           pluginData: {
             isDebug: isDebug
-          }
+          },
+          componentContributeData: state.componentContributeData,
+          gameObjectContribute: state.gameObjectContribute,
+          usedGameObjectContribute: state.usedGameObjectContribute
         };
 }
 
