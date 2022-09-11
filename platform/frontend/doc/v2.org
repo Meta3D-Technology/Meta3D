@@ -249,7 +249,7 @@ still has publisher in package.json
 
 
 
-* TODO extension/contribute shop should refresh
+* DONE extension/contribute shop should refresh
 
 
 
@@ -267,7 +267,14 @@ still has publisher in package.json
 
 
 
+* TODO publish version
+
+
+
+
 * TODO upload website
+
+rewrite backend data
 
 # ** TODO add Origin Trial
 
@@ -275,11 +282,6 @@ still has publisher in package.json
 
 ** TODO pass use engine run test
 
-
-
-
-
-* TODO publish version
 
 
 
