@@ -342,4 +342,4 @@ type gameObjectContribute<'state> = {
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state>,
 }
 
-type getGameObjectContribute<'state> = unit => gameObjectContribute<'state>
+// type getGameObjectContribute<'state> = unit => gameObjectContribute<'state>

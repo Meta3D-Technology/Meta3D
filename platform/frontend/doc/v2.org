@@ -260,15 +260,22 @@ still has publisher in package.json
 
 * TODO add components
 
-** TODO add GameObject
+** DONE add GameObject
 
 ** TODO add Transform
 
+
+** TODO render a triangle
+
 ** TODO add Other
+
+
+** TODO publish
 
 # * TODO add extension package
 
 
+* TODO render a cube
 
 
 
