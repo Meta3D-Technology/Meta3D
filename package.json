@@ -16,7 +16,8 @@
 		"examples/*",
 		"platform/*",
 		"services/*",
-		"supports/*"
+		"supports/*",
+		"utils/*"
 	],
 	"config": {
 		"commitizen": {
