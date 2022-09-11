@@ -54,9 +54,7 @@ let make = () => {
     switch url.path {
     | list{"Login"} => <Login />
     | list{"Register"} => <Register />
-    | list{"ExtensionShop"} => 
-
-    <ExtensionShop />
+    | list{"ExtensionShop"} => <ExtensionShop />
     | list{"ContributeShop"} => <ContributeShop />
     | list{"AssembleSpace"} => <>
         <Nav />

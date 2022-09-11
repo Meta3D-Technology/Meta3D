@@ -249,7 +249,7 @@ still has publisher in package.json
 
 
 
-* DONE extension/contribute shop should refresh
+* TODO extension/contribute shop should refresh
 
 * TODO fix:extension/contribute shop should refresh
 
@@ -279,14 +279,7 @@ still has publisher in package.json
 
 
 
-* TODO publish version
-
-
-
-
 * TODO upload website
-
-rewrite backend data
 
 # ** TODO add Origin Trial
 
@@ -294,6 +287,11 @@ rewrite backend data
 
 ** TODO pass use engine run test
 
+
+
+
+
+* TODO publish version
 
 
 

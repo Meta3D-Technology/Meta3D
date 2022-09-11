@@ -12,7 +12,6 @@ let make = () => {
       <span
         onClick={_ => {
           RescriptReactRouter.push("/ExtensionShop")
-          Window.reload()
         }}>
         {React.string(`扩展商城`)}
       </span>
@@ -20,7 +19,6 @@ let make = () => {
       <span
         onClick={_ => {
           RescriptReactRouter.push("/ContributeShop")
-          Window.reload()
         }}>
         {React.string(`贡献商城`)}
       </span>
