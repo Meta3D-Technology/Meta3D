@@ -4,7 +4,7 @@ import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
 import * as PublishAppService from "./application_layer/publish/PublishAppService";
-import { addData, getData, getFile, notHasData } from "./application_layer/cloudbase/CloudbaseService";
+import { addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/cloudbase/CloudbaseService";
 
 export let error = ErrorService.error
 
@@ -24,30 +24,52 @@ export let isLoginSuccess = (username: string, password: string) => {
 
 export let getAllPublishExtensionProtocols = () => {
     return ShopService.getAllPublishProtocolData(
-        getData,
+        getCollection,
         "publishedExtensionProtocols")
 }
 
 export let getAllPublishContributeProtocols = () => {
-    return ShopService.getAllPublishProtocolData(getData, "publishedContributeProtocols")
+    return ShopService.getAllPublishProtocolData(getCollection, "publishedContributeProtocols")
 }
 
 export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
-    return ShopService.getAllPublishData([getData, getFile],
+    return ShopService.getAllPublishData([getCollection, getFile],
         "publishedExtensions",
         protocolName, protocolVersion
     )
 }
 
 export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
-    return ShopService.getAllPublishData([getData, getFile],
+    return ShopService.getAllPublishData([getCollection, getFile],
         "publishedContributes",
         protocolName, protocolVersion
     )
 }
 
-export let publishApp = PublishAppService.publish
+export let publishApp =
+    (appBinaryFile: ArrayBuffer, appName: string, username: string) => {
+        return PublishAppService.publish(
+            [
+                console.log,
+                uploadFile,
+                hasData,
+                addData,
+                updateData
+            ],
+            appBinaryFile, appName, username
+        )
+    }
 
-export let findPublishApp = PublishAppService.findPublishApp
+export let findPublishApp = (username: string, appName: string) => {
+    return PublishAppService.findPublishApp(
+        [getData, getFile],
+        username, appName
+    )
+}
 
-export let findAllPublishApps = PublishAppService.findAllPublishApps
+export let findAllPublishApps = (username: string) => {
+    return PublishAppService.findAllPublishApps(
+        [getData, getFile],
+        username
+    )
+}

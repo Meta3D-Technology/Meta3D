@@ -2,9 +2,9 @@ import { empty, from, fromPromise, mergeArray } from "most"
 import { satisfies } from "semver";
 
 export let getAllPublishProtocolData = (
-    getDataFunc: any,
+    getCollectionFunc: any,
     collectionName: string) => {
-    return fromPromise(getDataFunc(collectionName)).map((res: any) => {
+    return fromPromise(getCollectionFunc(collectionName)).map((res: any) => {
         return res.data.map(({ name, version, username, iconBase64 }) => {
             return { name, version, username, iconBase64 }
         })
@@ -12,9 +12,9 @@ export let getAllPublishProtocolData = (
 }
 
 export let getAllPublishData = (
-    [getDataFunc, getFileFunc]: [any, any],
+    [getCollectionFunc, getFileFunc]: [any, any],
     collectionName: string, protocolName: string, protocolVersion: string) => {
-    return fromPromise(getDataFunc(collectionName)).flatMap((res: any) => {
+    return fromPromise(getCollectionFunc(collectionName)).flatMap((res: any) => {
         return fromPromise(mergeArray(
             res.data.map(({ fileData, username }) => {
                 let result = fileData.filter(data => {

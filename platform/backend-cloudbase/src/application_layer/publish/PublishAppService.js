@@ -1,23 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findAllPublishApps = exports.findPublishApp = exports.publish = void 0;
-// import { loadApp } from "meta3d"
-const CloudbaseService_1 = require("../cloudbase/CloudbaseService");
 const most_1 = require("most");
 let _buildFileName = (appName, username) => username + "_" + appName;
-let publish = (appBinaryFile, appName, username) => {
-    // TODO use message instead of log?
-    return (0, CloudbaseService_1.uploadFile)(console.log, "apps/" + _buildFileName(appName, username) + ".arrayBuffer", appBinaryFile, _buildFileName(appName, username)).concatMap((fileID) => {
-        return (0, most_1.fromPromise)((0, CloudbaseService_1.getDatabase)().collection("publishedApps").where({ username, appName }).get().then(res => {
-            if (res.data.length == 0) {
-                return (0, CloudbaseService_1.getDatabase)().collection("publishedApps")
-                    .add({
+let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc], appBinaryFile, appName, username) => {
+    return hasDataFunc("publishedApps", { username, appName }).concatMap((isExist) => {
+        return uploadFileFunc(onUploadProgressFunc, "apps/" + _buildFileName(appName, username) + ".arrayBuffer", appBinaryFile, _buildFileName(appName, username)).concatMap((fileID) => {
+            if (isExist) {
+                return (0, most_1.fromPromise)(updateDataFunc("publishedApps", { username, appName }, {
                     username,
                     appName,
                     fileID
-                });
+                }));
             }
-        }));
+            return (0, most_1.fromPromise)(addDataFunc("publishedApps", {
+                username,
+                appName,
+                fileID
+            }));
+        });
     });
 };
 exports.publish = publish;
@@ -26,23 +27,22 @@ exports.publish = publish;
 // 	// let _meta3DState = loadApp(_findAppBinaryFile(username, appName))
 // 	let _meta3DState = loadApp(appBinaryFile)
 // }
-let findPublishApp = (username, appName) => {
-    return (0, most_1.fromPromise)((0, CloudbaseService_1.getDatabase)().collection("publishedApps").where({ username, appName }).get()).flatMap((res) => {
+let findPublishApp = ([getDataFunc, getFileFunc], username, appName) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedApps", { username, appName })).flatMap((res) => {
         if (res.data.length === 0) {
             return (0, most_1.just)(null);
         }
-        return (0, CloudbaseService_1.getFile)(res.data[0].fileID);
+        return getFileFunc(res.data[0].fileID);
     });
 };
 exports.findPublishApp = findPublishApp;
-let findAllPublishApps = (username) => {
-    // let result = null
-    return (0, most_1.fromPromise)((0, CloudbaseService_1.getDatabase)().collection("publishedApps").where({ username }).get()).flatMap((res) => {
+let findAllPublishApps = ([getDataFunc, getFileFunc], username) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedApps", { username })).flatMap((res) => {
         if (res.data.length === 0) {
             return (0, most_1.just)([]);
         }
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ username, appName, fileID }) => {
-            return (0, CloudbaseService_1.getFile)(fileID).map(appBinaryFile => {
+            return getFileFunc(fileID).map(appBinaryFile => {
                 return {
                     username,
                     appName,
@@ -54,8 +54,5 @@ let findAllPublishApps = (username) => {
             return result;
         }, []));
     });
-    // .observe(allPublishApps => {
-    // 	result = allPublishApps
-    // }).then(() => result)
 };
 exports.findAllPublishApps = findAllPublishApps;

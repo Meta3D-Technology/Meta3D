@@ -8,13 +8,13 @@ const most_1 = require("most");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_extensions.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getDataFunc, getFileFunc;
+    let getCollectionFunc, getFileFunc;
     function _createFuncs(sandbox) {
-        getDataFunc = sandbox.stub();
+        getCollectionFunc = sandbox.stub();
         getFileFunc = sandbox.stub();
     }
     function _getAllPublishExtensions(protocolName, protocolVersion) {
-        return (0, ShopService_1.getAllPublishData)([getDataFunc, getFileFunc], "publishedExtensions", protocolName, protocolVersion);
+        return (0, ShopService_1.getAllPublishData)([getCollectionFunc, getFileFunc], "publishedExtensions", protocolName, protocolVersion);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -34,7 +34,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getDataFunc.returns((0, PromiseTool_1.resolve)({
+            getCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         username: username,
@@ -99,7 +99,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getDataFunc.returns((0, PromiseTool_1.resolve)({
+            getCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         username,
@@ -163,7 +163,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getDataFunc.returns((0, PromiseTool_1.resolve)({
+            getCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         fileData: [

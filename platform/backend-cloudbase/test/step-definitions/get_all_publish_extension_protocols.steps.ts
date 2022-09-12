@@ -7,15 +7,15 @@ const feature = loadFeature("./test/features/get_all_publish_extension_protocols
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getDataFunc
+    let getCollectionFunc
 
     function _createFuncs(sandbox) {
-        getDataFunc = sandbox.stub()
+        getCollectionFunc = sandbox.stub()
     }
 
     function _getAllPublishExtensionProtocols() {
         return getAllPublishProtocolData(
-            getDataFunc,
+            getCollectionFunc,
             "publishedExtensionProtocols"
         )
     }
@@ -47,7 +47,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getDataFunc.returns(
+            getCollectionFunc.returns(
                 resolve({
                     data: allPublishExtensionProtocols.map((protocolData, index) => {
                         return {

@@ -23,21 +23,36 @@ let isLoginSuccess = (username, password) => {
 };
 exports.isLoginSuccess = isLoginSuccess;
 let getAllPublishExtensionProtocols = () => {
-    return ShopService.getAllPublishProtocolData(CloudbaseService_1.getData, "publishedExtensionProtocols");
+    return ShopService.getAllPublishProtocolData(CloudbaseService_1.getCollection, "publishedExtensionProtocols");
 };
 exports.getAllPublishExtensionProtocols = getAllPublishExtensionProtocols;
 let getAllPublishContributeProtocols = () => {
-    return ShopService.getAllPublishProtocolData(CloudbaseService_1.getData, "publishedContributeProtocols");
+    return ShopService.getAllPublishProtocolData(CloudbaseService_1.getCollection, "publishedContributeProtocols");
 };
 exports.getAllPublishContributeProtocols = getAllPublishContributeProtocols;
 let getAllPublishExtensions = (protocolName, protocolVersion) => {
-    return ShopService.getAllPublishData([CloudbaseService_1.getData, CloudbaseService_1.getFile], "publishedExtensions", protocolName, protocolVersion);
+    return ShopService.getAllPublishData([CloudbaseService_1.getCollection, CloudbaseService_1.getFile], "publishedExtensions", protocolName, protocolVersion);
 };
 exports.getAllPublishExtensions = getAllPublishExtensions;
 let getAllPublishContributes = (protocolName, protocolVersion) => {
-    return ShopService.getAllPublishData([CloudbaseService_1.getData, CloudbaseService_1.getFile], "publishedContributes", protocolName, protocolVersion);
+    return ShopService.getAllPublishData([CloudbaseService_1.getCollection, CloudbaseService_1.getFile], "publishedContributes", protocolName, protocolVersion);
 };
 exports.getAllPublishContributes = getAllPublishContributes;
-exports.publishApp = PublishAppService.publish;
-exports.findPublishApp = PublishAppService.findPublishApp;
-exports.findAllPublishApps = PublishAppService.findAllPublishApps;
+let publishApp = (appBinaryFile, appName, username) => {
+    return PublishAppService.publish([
+        console.log,
+        CloudbaseService_1.uploadFile,
+        CloudbaseService_1.hasData,
+        CloudbaseService_1.addData,
+        CloudbaseService_1.updateData
+    ], appBinaryFile, appName, username);
+};
+exports.publishApp = publishApp;
+let findPublishApp = (username, appName) => {
+    return PublishAppService.findPublishApp([CloudbaseService_1.getData, CloudbaseService_1.getFile], username, appName);
+};
+exports.findPublishApp = findPublishApp;
+let findAllPublishApps = (username) => {
+    return PublishAppService.findAllPublishApps([CloudbaseService_1.getData, CloudbaseService_1.getFile], username);
+};
+exports.findAllPublishApps = findAllPublishApps;

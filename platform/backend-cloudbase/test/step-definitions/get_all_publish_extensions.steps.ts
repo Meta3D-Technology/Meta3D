@@ -8,16 +8,16 @@ const feature = loadFeature("./test/features/get_all_publish_extensions.feature"
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getDataFunc, getFileFunc
+    let getCollectionFunc, getFileFunc
 
     function _createFuncs(sandbox) {
-        getDataFunc = sandbox.stub()
+        getCollectionFunc = sandbox.stub()
         getFileFunc = sandbox.stub()
     }
 
     function _getAllPublishExtensions(protocolName, protocolVersion) {
         return getAllPublishData(
-            [getDataFunc, getFileFunc],
+            [getCollectionFunc, getFileFunc],
             "publishedExtensions",
             protocolName, protocolVersion
         )
@@ -45,7 +45,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getDataFunc.returns(
+            getCollectionFunc.returns(
                 resolve({
                     data: [
                         {
@@ -126,7 +126,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getDataFunc.returns(
+            getCollectionFunc.returns(
                 resolve({
                     data: [
                         {
@@ -208,7 +208,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getDataFunc.returns(
+            getCollectionFunc.returns(
                 resolve({
                     data: [
                         {

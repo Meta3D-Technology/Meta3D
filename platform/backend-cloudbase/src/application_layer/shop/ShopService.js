@@ -3,16 +3,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllPublishData = exports.getAllPublishProtocolData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishProtocolData = (getDataFunc, collectionName) => {
-    return (0, most_1.fromPromise)(getDataFunc(collectionName)).map((res) => {
+let getAllPublishProtocolData = (getCollectionFunc, collectionName) => {
+    return (0, most_1.fromPromise)(getCollectionFunc(collectionName)).map((res) => {
         return res.data.map(({ name, version, username, iconBase64 }) => {
             return { name, version, username, iconBase64 };
         });
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
-let getAllPublishData = ([getDataFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
-    return (0, most_1.fromPromise)(getDataFunc(collectionName)).flatMap((res) => {
+let getAllPublishData = ([getCollectionFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
+    return (0, most_1.fromPromise)(getCollectionFunc(collectionName)).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ fileData, username }) => {
             let result = fileData.filter(data => {
                 return data.protocolName === protocolName &&

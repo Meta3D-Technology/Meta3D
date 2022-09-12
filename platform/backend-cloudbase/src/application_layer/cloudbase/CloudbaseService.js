@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addData = exports.getData = exports.getFile = exports.uploadFile = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
+exports.updateData = exports.addData = exports.getData = exports.getCollection = exports.getFile = exports.uploadFile = exports.notHasData = exports.hasData = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const CloundbaseRepo_1 = require("../../domain_layer/repo/CloundbaseRepo");
@@ -60,8 +60,14 @@ let getFile = (fileID) => {
     });
 };
 exports.getFile = getFile;
-let getData = (collectionName) => {
+let getCollection = (collectionName) => {
     return (0, exports.getDatabase)().collection(collectionName).get();
+};
+exports.getCollection = getCollection;
+let getData = (collectionName, data) => {
+    return (0, exports.getDatabase)().collection(collectionName)
+        .where(data)
+        .get();
 };
 exports.getData = getData;
 let addData = (collectionName, data) => {
@@ -69,3 +75,9 @@ let addData = (collectionName, data) => {
         .add(data);
 };
 exports.addData = addData;
+let updateData = (collectionName, whereData, updateData) => {
+    return (0, exports.getDatabase)().collection(collectionName)
+        .where(whereData)
+        .update(updateData);
+};
+exports.updateData = updateData;

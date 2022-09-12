@@ -277,9 +277,18 @@ still has publisher in package.json
 
 * DONE feat: publish extension/contribute should check version, publisher exist
 
-* DONE fix:extension/contribute shop should refresh
 
 
+* TODO pass ci
+
+pass coverage:
+# assembleSpace
+# backend
+
+
+* TODO fix:extension/contribute shop should refresh
+
+* TODO wait publish should close publish button
 
 * TODO upload website
 
@@ -291,9 +300,11 @@ still has publisher in package.json
 
 
 
-
-
 * TODO publish version
+
+
+
+
 
 
 
