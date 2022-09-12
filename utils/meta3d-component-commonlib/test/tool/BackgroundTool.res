@@ -6,9 +6,7 @@ let prepare = (given, \"and", componentName, registerdComponentName, getContribu
   })
 
   \"and"({j`register ${componentName} contribute`}, () => {
-    StateContainer.unsafeGetState()
-    ->DirectorForJs.registerComponent(getContributeFunc()->Obj.magic)
-    ->StateContainer.setState
+    RegisterComponentTool.registerComponent(getContributeFunc)
   })
 
   \"and"("create and set all component states", () => {

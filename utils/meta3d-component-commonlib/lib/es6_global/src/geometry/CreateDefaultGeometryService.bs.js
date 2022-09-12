@@ -1,7 +1,7 @@
 
 
-import * as Curry from "./../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Index$Meta3dComponentGeometryProtocol from "./../../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Index$Meta3dComponentGeometryProtocol from "../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
 
 function create(usedComponentContribute, param, param$1) {
   var setComponentData = param.setComponentData;

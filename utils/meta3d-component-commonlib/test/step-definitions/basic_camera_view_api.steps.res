@@ -16,11 +16,7 @@ defineFeature(feature, test => {
     })
 
     \"and"({j`register ${basicCameraViewComponentName} contribute`}, () => {
-      StateContainer.unsafeGetState()
-      ->DirectorForJs.registerComponent(
-        Meta3dComponentBasiccameraview.MainTool.getContribute()->Obj.magic,
-      )
-      ->StateContainer.setState
+      RegisterComponentTool.registerComponent(Meta3dComponentBasiccameraview.Main.getContribute)
     })
   }
 
@@ -40,13 +36,7 @@ defineFeature(feature, test => {
     _prepareData(given, \"and", basicCameraViewComponentName)
 
     \"and"({j`register transform contribute`}, () => {
-      open Meta3dEngineCore
-
-      StateContainer.unsafeGetState()
-      ->DirectorForJs.registerComponent(
-        Meta3dComponentTransform.MainTool.getContribute()->Obj.magic,
-      )
-      ->StateContainer.setState
+      RegisterComponentTool.registerComponent(Meta3dComponentTransform.Main.getContribute)
     })
 
     \"and"("create and set all component states", () => {

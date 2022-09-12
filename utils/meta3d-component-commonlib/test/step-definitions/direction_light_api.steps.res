@@ -28,19 +28,11 @@ defineFeature(feature, test => {
     })
 
     \"and"({j`register transform contribute`}, () => {
-      StateContainer.unsafeGetState()
-      ->DirectorForJs.registerComponent(
-        Meta3dComponentTransform.MainTool.getContribute()->Obj.magic,
-      )
-      ->StateContainer.setState
+      RegisterComponentTool.registerComponent(Meta3dComponentTransform.Main.getContribute)
     })
 
     \"and"({j`register directionLight contribute`}, () => {
-      StateContainer.unsafeGetState()
-      ->DirectorForJs.registerComponent(
-        Meta3dComponentDirectionlight.MainTool.getContribute()->Obj.magic,
-      )
-      ->StateContainer.setState
+      RegisterComponentTool.registerComponent(Meta3dComponentDirectionlight.Main.getContribute)
     })
 
     \"and"("create and set all component states", () => {

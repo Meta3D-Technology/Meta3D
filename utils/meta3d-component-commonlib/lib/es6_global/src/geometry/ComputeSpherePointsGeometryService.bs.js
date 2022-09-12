@@ -1,6 +1,6 @@
 
 
-import * as ArraySt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ComputePointsGeometryService$Meta3dComponentCommonlib from "./ComputePointsGeometryService.bs.js";
 
 function compute(radius, bands) {
