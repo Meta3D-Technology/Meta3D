@@ -49,8 +49,8 @@ module Method = {
 let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
   let dispatch = service.react.useDispatch()
 
-  let (isLoaded, setIsLoaded) = React.useState(_ => false)
-  let (extensions, setExtensions) = React.useState(_ => [])
+  let (isLoaded, setIsLoaded) = service.react.useState(_ => false)
+  let (extensions, setExtensions) = service.react.useState(_ => [])
 
   service.react.useEffectOnceAsync(() =>
     Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)

@@ -22,6 +22,7 @@ let buildSelectedContribute = (
   ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
   ~version="0.0.1",
+  ~username="u1",
   (),
 ): FrontendUtils.AssembleSpaceCommonType.contribute => {
   {
@@ -36,8 +37,7 @@ let buildSelectedContribute = (
       ),
       contributeFuncData: contributeFuncData,
     },
-    version
+    version: version,
+    username: username,
   }
 }
-
-

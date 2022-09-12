@@ -1,0 +1,37 @@
+{
+    "automock": false,
+    "moduleFileExtensions": [
+        "js"
+    ],
+    "testRegex": "lib/js/test/step-definitions/.+.steps.bs.js",
+    "transformIgnorePatterns": [
+        "<rootDir>/node_modules/jest-cucumber"
+    ],
+    "moduleNameMapper": {
+        "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "snapshotResolver": "<rootDir>/customSnapshotResolver.js",
+    "setupFilesAfterEnv": [
+        "<rootDir>/test/helper/jest/specHelper.js"
+    ],
+    "notify": false,
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coveragePathIgnorePatterns": [
+        "<rootDir>/lib/js/src/.+/AssembleSpace.*"
+    ],
+    "collectCoverageFrom": [
+        "lib/js/src/**/*.js",
+        "!**/node_modules/**",
+        "!**/vendor/**"
+    ],
+    "coverageThreshold": {
+        "global": {
+            "lines": 85,
+            "statements": 85,
+            "branches": 80,
+            "functions": 65
+        }
+    }
+}

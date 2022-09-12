@@ -10,6 +10,10 @@ Feature: Contributes
         When not loaded and render
         Then should show loading
 
+    Scenario: if loaded, show contributes list
+        When loaded and render
+        Then should show contributes list
+
     Scenario: set contributes
         Given publish contribute protocol a
         And select contribute a1 for a

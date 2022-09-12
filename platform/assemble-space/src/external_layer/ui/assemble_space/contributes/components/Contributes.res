@@ -33,7 +33,11 @@ module Method = {
     dispatch(FrontendUtils.AssembleSpaceStoreType.SelectContribute(protocolIconBase64, contribute))
   }
 
-  let useEffectOnceAsync = ((setIsLoaded, setContributes), service, selectedContributesFromShop) => {
+  let useEffectOnceAsync = (
+    (setIsLoaded, setContributes),
+    service,
+    selectedContributesFromShop,
+  ) => {
     (
       _getContributesAndContributes(
         service.backend,
@@ -51,8 +55,8 @@ module Method = {
 let make = (~service: service, ~selectedContributesFromShop: selectedContributesFromShop) => {
   let dispatch = service.react.useDispatch()
 
-  let (isLoaded, setIsLoaded) = React.useState(_ => false)
-  let (contributes, setContributes) = React.useState(_ => [])
+  let (isLoaded, setIsLoaded) = service.react.useState(_ => false)
+  let (contributes, setContributes) = service.react.useState(_ => [])
 
   service.react.useEffectOnceAsync(() =>
     Method.useEffectOnceAsync((setIsLoaded, setContributes), service, selectedContributesFromShop)

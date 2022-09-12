@@ -34,6 +34,32 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."if loaded, show extensions list", ({given, \"when", \"and", then}) => {
+    _prepare(given)
+
+    \"when"("loaded and render", () => {
+      ()
+    })
+
+    then("should show extensions list", () => {
+      let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      useStateStub
+      ->onCall(0, _)
+      ->returns((true, _ => true), _)
+      ->onCall(1, _)
+      ->returns(([], _ => []), _)
+      ->ignore
+
+      ExtensionsTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useState=useStateStub->Obj.magic, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
   let _setExtensions = extensions => {
     let setExtensionsStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
@@ -62,7 +88,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
 
     _prepare(given)
@@ -120,7 +146,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
     let dispatchStub = ref(Obj.magic(1))
 
@@ -173,7 +199,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.0.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
 
     _prepare(given)
@@ -201,7 +227,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.0.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
 
     _prepare(given)
@@ -242,7 +268,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.1.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
 
     _prepare(given)

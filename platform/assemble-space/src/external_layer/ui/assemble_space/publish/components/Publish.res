@@ -3,10 +3,6 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let clickPublishButton = setVisible => {
-    setVisible(_ => true)
-  }
-
   let _getExtensionNewName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
     newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
   }
@@ -76,9 +72,9 @@ module Method = {
         }
   }
 
-  let onFinishFailed = (service, errorInfo) => {
-    ()
-  }
+  // let onFinishFailed = (service, errorInfo) => {
+  //   ()
+  // }
 
   let useSelector = (
     {selectedExtensions, selectedContributes}: FrontendUtils.AssembleSpaceStoreType.state,
@@ -96,7 +92,7 @@ let make = (~service: service, ~username: option<string>) => {
   <>
     <Button
       onClick={_ => {
-        Method.clickPublishButton(setVisible)
+        setVisible(_ => true)
       }}>
       {React.string(`发布`)}
     </Button>
@@ -128,7 +124,7 @@ let make = (~service: service, ~username: option<string>) => {
               event->Obj.magic,
             )->ignore
           }, 5->Some)}
-        onFinishFailed={Method.onFinishFailed(service)}
+        // onFinishFailed={Method.onFinishFailed(service)}
         autoComplete="off">
         <Form.Item
           label=`应用名`

@@ -10,6 +10,10 @@ Feature: Extensions
         When not loaded and render
         Then should show loading
 
+    Scenario: if loaded, show extensions list
+        When loaded and render
+        Then should show extensions list
+
     Scenario: set extensions
         Given publish extension protocol a
         And select extension a1 for a
