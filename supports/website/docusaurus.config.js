@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Meta3D（第一个内测版本）",
+  title: "Meta3D（内测版本）",
   tagline: "Web3D低代码开发平台",
   url: 'https://meta3d-4g18u7z10c8427f9-1302358347.tcloudbaseapp.com/website',
   baseUrl: '/website/',
