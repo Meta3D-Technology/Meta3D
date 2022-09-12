@@ -5,6 +5,7 @@
 		"clean": "lerna clean",
 		"install": "lerna bootstrap",
 		"build": "lerna run build:ts",
+		"meta3d:publish": "lerna run meta3d:publish --concurrency 1",
 		"ci:test": "lerna run test:ci --concurrency 1"
 	},
 	"workspaces": [

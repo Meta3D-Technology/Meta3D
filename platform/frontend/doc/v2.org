@@ -278,7 +278,7 @@ still has publisher in package.json
 * DONE feat: publish extension/contribute should check version, publisher exist
 
 
-* TODO pass ci
+* DONE pass ci
 
 pass coverage:
 # assembleSpace
@@ -287,19 +287,22 @@ pass coverage:
 
 # * TODO wait publish should close publish button
 
-* TODO upload website
+* DONE upload website
 
 # ** TODO add Origin Trial
 
-** TODO separate account
+# ** TODO separate account
 
-** TODO pass use engine run test
-
-
-
-* TODO publish version
+** DONE pass use engine run test
 
 
+
+* DONE publish version
+
+
+
+
+* TODO fix: extension/contribute shop should refresh
 
 
 
