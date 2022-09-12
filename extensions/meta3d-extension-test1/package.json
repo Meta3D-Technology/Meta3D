@@ -1,6 +1,6 @@
 {
     "name": "meta3d-extension-test1",
-    "version": "0.3.5",
+    "version": "0.4.0",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-extension-test1-protocol"
@@ -19,14 +19,14 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-contribute-test1-protocol": "^0.3.4",
-        "meta3d-extension-test1-protocol": "^0.3.4",
-        "meta3d-type": "^1.0.0-alpha.1"
+        "meta3d-contribute-test1-protocol": "^0.4.0",
+        "meta3d-extension-test1-protocol": "^0.4.0",
+        "meta3d-type": "^0.4.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
-        "meta3d-tool-publish": "^1.0.0-alpha.1",
+        "meta3d-tool-publish": "^0.4.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
