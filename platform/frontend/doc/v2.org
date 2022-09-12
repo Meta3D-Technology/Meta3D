@@ -302,7 +302,7 @@ pass coverage:
 
 
 
-* TODO fix: extension/contribute shop should refresh
+* DONE fix: extension/contribute shop should refresh
 
 
 

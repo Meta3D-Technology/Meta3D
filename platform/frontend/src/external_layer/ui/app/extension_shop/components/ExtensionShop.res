@@ -21,7 +21,9 @@ let make = () => {
 
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
-    | list{"ExtensionShop"} => setExtensionProtocolItem(_ => None)
+    | list{"ExtensionShop"} =>
+      setExtensionProtocolItem(_ => None)
+      setAllPublishExtensions(_ => None)
     | _ => ()
     }
   })->ignore

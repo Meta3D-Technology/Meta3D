@@ -21,7 +21,9 @@ let make = () => {
 
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
-    | list{"ContributeShop"} => setContributeProtocolItem(_ => None)
+    | list{"ContributeShop"} =>
+      setContributeProtocolItem(_ => None)
+      setAllPublishContributes(_ => None)
     | _ => ()
     }
   })->ignore
