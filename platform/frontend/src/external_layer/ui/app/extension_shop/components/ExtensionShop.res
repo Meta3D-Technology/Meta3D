@@ -19,6 +19,13 @@ let make = () => {
     )
   }
 
+  RescriptReactRouter.watchUrl(url => {
+    switch url.path {
+    | list{"ExtensionShop"} => setExtensionProtocolItem(_ => None)
+    | _ => ()
+    }
+  })->ignore
+
   React.useEffect1(() => {
     BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.observe(protocols => {
       setAllPublishExtensionProtocols(_ => protocols)
@@ -82,7 +89,12 @@ let make = () => {
                 data->Meta3dCommonlib.ArraySt.map((
                   {id, file, version, username}: BackendCloudbase.implement,
                 ): UserCenterStore.extension => {
-                  {id: id, data: Meta3d.Main.loadExtension(file), version: version, username}
+                  {
+                    id: id,
+                    data: Meta3d.Main.loadExtension(file),
+                    version: version,
+                    username: username,
+                  }
                 })
               }, _)
               ->Meta3dBsMost.Most.observe(data => {

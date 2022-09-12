@@ -277,7 +277,7 @@ still has publisher in package.json
 
 * DONE feat: publish extension/contribute should check version, publisher exist
 
-* TODO fix:extension/contribute shop should refresh
+* DONE fix:extension/contribute shop should refresh
 
 
 
