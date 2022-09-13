@@ -51,6 +51,10 @@ modal
 * TODO add editor' extensions,contributes 
 
 # ** TODO finish current editor demo(register custom ui)
+
+
+** TODO use imgui for ui instead of dom
+
 ** TODO add a button, click can log info and change its color
 (button extension)
 
