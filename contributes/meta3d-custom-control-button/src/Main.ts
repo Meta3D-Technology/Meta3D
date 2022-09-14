@@ -3,7 +3,7 @@ import { inputData, outputData, customControlName } from "meta3d-custom-control-
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-custom-control-button-protocol/src/DependentMapType"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
-import { buttonStyle } from "meta3d-skin-default-protocol"
+import { skinName, buttonStyle } from "meta3d-skin-default-protocol"
 import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
 
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (_api, [_, dependentContributeNameMap]) => {
@@ -35,8 +35,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 
 
-            // let { normal } = getSkin<buttonStyle>(state, skinName).button
-            let { normal } = getSkin<buttonStyle>(state, meta3dSkinDefaultContributeName).button
+            let { normal } = getSkin<buttonStyle>(state, skinName).button
+            // let { normal } = getSkin<buttonStyle>(state, meta3dSkinDefaultContributeName).button
 
             meta3dState = drawBox(meta3dState, [api, uiExtensionName], rect, normal.background_color)
             meta3dState = drawText(meta3dState, [api, uiExtensionName], rect, text)

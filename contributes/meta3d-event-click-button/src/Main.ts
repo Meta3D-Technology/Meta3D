@@ -7,7 +7,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
     return {
         // TODO remove eventName? can get it from protocol directly!
         eventName: eventName,
-        handler: (meta3dState) => {
+        handler: (meta3dState, eventData) => {
             console.log("click button")
 
             return new Promise((resolve) => {
