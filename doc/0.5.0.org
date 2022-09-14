@@ -53,51 +53,58 @@ modal
 # ** TODO finish current editor demo(register custom ui)
 
 
-** TODO use imgui for ui instead of dom
+** TODO add a button, click can log
 
-** TODO add a button, click can log info and change its color
+*** DONE add meta3d-ui, ...
+
+*** TODO pass run test
+
+
+** TODO update ui
+
+*** TODO update meta3d-ui
+
+use json for imgui ui?
+relearn unity->ui element!
+
+*** TODO use imgui for ui instead of dom
+
+use webgl
+(should be convenient to replace webgl to webgpu in the future!)
+
+
+*** TODO add bdd test
+
+
+
+** TODO finish TODO
+
+
+
+** TODO update event
+
+*** TODO update event manager
+
+
+*** TODO add bdd test
+
+
+
+# ** TODO add a button, click can log info and change its color
+** TODO add a button, click can render a triangle
 (button extension)
 
 dispatch action
 
+*** TODO add a button, click can log
 
 
-
-* TODO add engine' extensions,contributes for render a cube with webgl1 with no worker
-
-
-** TODO add engine core
-
-TODO component name inject by dependent map
-
-add gameobject protocol
-
-** TODO add components
-
-** TODO add work plugins
-
-** TODO add api as extension
+*** TODO prepare engine, click can render a triangle
 
 
-** TODO add example as start extension
+** TODO add a button, register custom ui
 
-
-** TODO pass run test
-
-
-* TODO add editor' extensions,contributes 
-
-# ** TODO add controller extension
-# ** TODO add button extension
-
-# add "add a cube" button in controller
-** TODO add "add a cube" button 
-
-** TODO add run scene view related extensions
-
-
-* TODO remove v1 extensions, contributes
-
+*** TODO implement reducer
 
 
 * TODO publish

@@ -1,0 +1,17 @@
+{
+    "name": "meta3d-event-protocol",
+    "version": "0.4.0",
+    "publisher": "meta3d",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build",
+        "meta3d:publish": "yarn buildAll:ci && gulp publish"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "rescript": "^9.1.4"
+    }
+}

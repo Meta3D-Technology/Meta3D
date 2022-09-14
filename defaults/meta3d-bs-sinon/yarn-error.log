@@ -1764,7 +1764,7 @@ Lockfile:
     resolved "http://registry.npm.taobao.org/leven/download/leven-2.1.0.tgz#c2e7a9f772094dee9d34202ae8acce4687875580"
   
   levn@~0.3.0:
-    version "0.3.0"
+    version"0.4.0"
     resolved "http://registry.npm.taobao.org/levn/download/levn-0.3.0.tgz#3b09924edf9f083c0490fdd4c0bc4421e04764ee"
     dependencies:
       prelude-ls "~1.1.2"
@@ -2786,7 +2786,7 @@ Lockfile:
     resolved "http://registry.npm.taobao.org/to-fast-properties/download/to-fast-properties-2.0.0.tgz#dc5e698cbd079265bc73e0377681a4e4e83f616e"
   
   to-object-path@^0.3.0:
-    version "0.3.0"
+    version"0.4.0"
     resolved "http://registry.npm.taobao.org/to-object-path/download/to-object-path-0.3.0.tgz#297588b7b0e7e0ac08e04e672f85c1f4999e17af"
     dependencies:
       kind-of "^3.0.2"

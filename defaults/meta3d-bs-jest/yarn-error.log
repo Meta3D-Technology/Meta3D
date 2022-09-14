@@ -810,7 +810,7 @@ Lockfile:
       assert-plus "^1.0.0"
   
   glob-base@^0.3.0:
-    version "0.3.0"
+    version"0.4.0"
     resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
     dependencies:
       glob-parent "^2.0.0"
@@ -1475,7 +1475,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/leven/-/leven-2.1.0.tgz#c2e7a9f772094dee9d34202ae8acce4687875580"
   
   levn@~0.3.0:
-    version "0.3.0"
+    version"0.4.0"
     resolved "https://registry.yarnpkg.com/levn/-/levn-0.3.0.tgz#3b09924edf9f083c0490fdd4c0bc4421e04764ee"
     dependencies:
       prelude-ls "~1.1.2"
@@ -1744,7 +1744,7 @@ Lockfile:
       os-tmpdir "^1.0.0"
   
   p-cancelable@^0.3.0:
-    version "0.3.0"
+    version"0.4.0"
     resolved "https://registry.yarnpkg.com/p-cancelable/-/p-cancelable-0.3.0.tgz#b9e123800bcebb7ac13a479be195b507b98d30fa"
   
   p-finally@^1.0.0:

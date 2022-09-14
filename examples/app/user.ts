@@ -11,7 +11,7 @@ let appExtensionFileData =
 			"name": "meta3d-app",
 			"protocol": {
 				"name": "meta3d-app-protocol",
-				"version": "0.3.0"
+				"version":"0.4.0"
 			},
 			"dependentExtensionNameMap": {
 				"meta3dTest1ExtensionName": {
@@ -33,7 +33,7 @@ let test1ExtensionFileData =
 			"name": "meta3d-extension-test1",
 			"protocol": {
 				"name": "meta3d-extension-test1-protocol",
-				"version": "0.3.0"
+				"version":"0.4.0"
 			},
 			"dependentExtensionNameMap": {},
 			"dependentContributeNameMap": {
@@ -56,7 +56,7 @@ let test1ContributeFileData =
 			"name": "meta3d-contribute-test1",
 			"protocol": {
 				"name": "meta3d-contribute-test1-protocol",
-				"version": "0.3.0"
+				"version":"0.4.0"
 			},
 			"dependentExtensionNameMap": {},
 			"dependentContributeNameMap": {}

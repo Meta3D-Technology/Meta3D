@@ -1,0 +1,5 @@
+type dependentExtensionNameMap = {.}
+
+type dependentContributeNameMap = {.}
+
+

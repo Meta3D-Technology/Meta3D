@@ -1,0 +1,17 @@
+{
+    "name": "meta3d-custom-control-button-protocol",
+    "version": "0.4.0",
+    "description": "",
+    "publisher": "meta3d",
+    "author": "Meta3D",
+    "main": "src/Index.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "meta3d:publish": "gulp publish"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}
