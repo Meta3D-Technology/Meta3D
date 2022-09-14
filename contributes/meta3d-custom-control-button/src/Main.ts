@@ -6,9 +6,7 @@ import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { skinName, buttonStyle } from "meta3d-skin-default-protocol"
 import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (_api, [_, dependentContributeNameMap]) => {
-    let { meta3dSkinDefaultContributeName } = dependentContributeNameMap
-
+export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (_api, _) => {
     return {
         customControlName: customControlName,
         func: (meta3dState, [api, uiExtensionName],

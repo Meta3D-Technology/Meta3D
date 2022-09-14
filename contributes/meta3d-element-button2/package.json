@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-event-click-button",
-    "version": "0.4.3",
+    "name": "meta3d-element-button2",
+    "version": "0.4.1",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-event-click-button-protocol"
+        "name": "meta3d-element-button2-protocol"
     },
     "dependentExtensionNameMap": {
         "meta3dUIExtensionName": {
@@ -19,8 +19,8 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-element-button2-protocol": "^0.4.0",
         "meta3d-ui-protocol": "^0.4.0",
-        "meta3d-event-click-button-protocol": "^0.4.0",
         "meta3d-type": "^0.4.0"
     },
     "devDependencies": {

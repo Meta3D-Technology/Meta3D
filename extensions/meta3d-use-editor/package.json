@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-editor",
-    "version": "0.4.0",
+    "version": "0.4.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -23,6 +23,9 @@
         "meta3dElementButtonContributeName": {
             "protocolName": "meta3d-element-button-protocol"
         },
+        "meta3dElementButton2ContributeName": {
+            "protocolName": "meta3d-element-button2-protocol"
+        },
         "meta3dEventClickButtonContributeName": {
             "protocolName": "meta3d-event-click-button-protocol"
         }
@@ -40,6 +43,7 @@
         "meta3d-skin-default-protocol": "^0.4.0",
         "meta3d-custom-control-button-protocol": "^0.4.0",
         "meta3d-element-button-protocol": "^0.4.0",
+        "meta3d-element-button2-protocol": "^0.4.0",
         "meta3d-event-click-button-protocol": "^0.4.0"
     },
     "devDependencies": {

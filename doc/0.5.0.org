@@ -59,6 +59,9 @@ modal
 
 *** DONE pass run test
 
+*** DONE implement reducer
+
+dispatch action
 
 ** TODO update ui
 
@@ -72,12 +75,79 @@ relearn unity->ui element!
 use webgl
 (should be convenient to replace webgl to webgpu in the future!)
 
+** TODO UI use webgl render imgui to implement
 
-*** TODO add bdd test
+
+*** TODO use UI-Render-WebGL extension for UI extension!  so can use UI-Render-WebGPU extension for UI to use webgpu and not edit UI code!!!
+
+UI dependent on UI-Render-Type;
+UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
+
+
+
+
+
+
+*** TODO implement drawBox
+
+
+# *** TODO implement drawImage
+
+
+*** TODO add VisualElement
+
+
+*** TODO implement drawButton by custom control
+
+
+*** TODO use skin
+
+
+*** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
+
+
+* TODO improve
+
+** TODO improve UI
+
+*** TODO support check state change for update geometry buffer
+
+use webgpu
+
+*** TODO support draw chinese text
+
+*** TODO support 3d ui
+
+
+# *** TODO add bdd test
+
+
+
+
+
+# *** TODO implement reducer
+
+# dispatch action
 
 
 
 ** TODO finish TODO
+
+
+
+
+# *** TODO add bdd test
+
+
+# ** TODO add a button, click can log info and change its color
+** TODO add a button, click can render a triangle
+(button extension)
+
+
+*** TODO add a button, click can log
+
+
+*** TODO prepare engine, click can render a triangle
 
 
 
@@ -86,25 +156,41 @@ use webgl
 *** TODO update event manager
 
 
-*** TODO add bdd test
+** TODO add bdd test
 
 
-
-# ** TODO add a button, click can log info and change its color
-** TODO add a button, click can render a triangle
-(button extension)
-
-dispatch action
-
-*** TODO add a button, click can log
-
-
-*** TODO prepare engine, click can render a triangle
-
-
-** TODO add a button, register custom ui
-
-*** TODO implement reducer
 
 
 * TODO publish
+
+
+
+
+* TODO add a button, register custom ui
+
+
+*** TODO implement drawText
+
+default load .fnt, .bitmap resources, not open its control to user
+
+
+*** TODO add window control (beginWindow, endWindow)
+
+usage:
+```
+beginWindow(x,y,width, height, title)
+(window content's z-index should + 1!)
+
+...
+
+drawButton
+
+endWindow()
+```
+
+
+
+
+*** TODO implement drawCopyTextArea
+
+
