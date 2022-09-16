@@ -1,12 +1,12 @@
 import { state as meta3dState, api } from "meta3d-type/src/Index"
 import { elementName } from "./UIType"
 
-export type elementFunc = (_1: meta3dState, elementName: elementName) => Promise<meta3dState>;
+export type elementFunc<elementState> = (_1: meta3dState, elementState: elementState) => Promise<meta3dState>;
 
 export type elementContribute<elementState> = {
     elementName: elementName,
     execOrder: number,
-    elementFunc: elementFunc,
+    elementFunc: elementFunc<elementState>,
     elementState: elementState
 }
 

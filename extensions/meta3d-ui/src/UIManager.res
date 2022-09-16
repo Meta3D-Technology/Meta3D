@@ -168,8 +168,13 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
             /* !
               TODO should judge is state change in elementFunc:
              if state not change, not update geometry buffer, but should render if isShow!!! 
+
  */
-            elementFunc(meta3dState, elementName)->Meta3dCommonlib.PromiseSt.map(meta3dState => {
+
+            elementFunc(
+              meta3dState,
+              _getElementStateExn(state, elementName),
+            )->Meta3dCommonlib.PromiseSt.map(meta3dState => {
               (meta3dState, needMarkStateNotChangeIds->Meta3dCommonlib.ArraySt.push(elementName))
             })
           }
@@ -218,7 +223,7 @@ let render = (
 let _setElementFunc = (
   state: Meta3dUiProtocol.StateType.state,
   elementName: Meta3dUiProtocol.ElementContributeType.elementName,
-  elementFunc: Meta3dUiProtocol.ElementContributeType.elementFunc,
+  elementFunc,
 ) => {
   {
     ...state,

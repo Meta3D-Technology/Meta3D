@@ -38,7 +38,7 @@ type ioData = {
 type state = {
   elementFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ElementContributeType.elementName,
-    ElementContributeType.elementFunc,
+    ElementContributeType.elementFunc<elementState>,
   >,
   elementStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ElementContributeType.elementName,

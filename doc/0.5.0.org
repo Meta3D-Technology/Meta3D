@@ -116,9 +116,9 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 # TODO render
 
 
-*** TODO feat: element: elementFunc: get elementState instead of elementName
+*** DONE feat: element: elementFunc: get elementState instead of elementName
 
-*** TODO feat: element: registerElement add execOrder
+*** DONE feat: element: registerElement add execOrder
 
 not add customData
 

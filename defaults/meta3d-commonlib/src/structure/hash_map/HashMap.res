@@ -19,7 +19,7 @@ let _getExn = %raw(`
 }
 `)
 
-let getExn = (map, key: string) => {
+let getExn = (map: Meta3dCommonlibType.HashMapType.t2<'a>, key: string): 'a => {
   unsafeGet(map, key)->_getExn
 }
 
@@ -38,16 +38,12 @@ let _mutableSet = (map, key: string, value) => {
 
 let _createEmpty = (): Js.Dict.t<'a> => Js.Dict.empty()
 
-
 let _reduceArray = (arr, func, param) => Belt.Array.reduceU(arr, param, func)
 
 let copy = (map: Js.Dict.t<Js.Nullable.t<'a>>): Js.Dict.t<Js.Nullable.t<'a>> =>
   map
   ->entries
-  ->_reduceArray(
-    (. newMap, (key, value)) => newMap->_mutableSet(key, value),
-    _createEmpty(),
-  )
+  ->_reduceArray((. newMap, (key, value)) => newMap->_mutableSet(key, value), _createEmpty())
   ->Meta3dCommonlibType.HashMapType.dictNotNullableToDictNullable
 
 // let copy = (map: Meta3dCommonlibType. HashMapType.t2('a)): Meta3dCommonlibType. HashMapType.t2('a) =>

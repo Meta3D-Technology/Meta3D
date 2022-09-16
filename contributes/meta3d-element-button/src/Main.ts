@@ -13,6 +13,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
     return {
         elementName: elementName,
+        execOrder: 0,
         elementState: {
             x: 0,
             y: 140,
@@ -20,8 +21,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
             height: 10,
             text: "button",
         },
-        elementFunc: (meta3dState, elementName) => {
-            let { getCustomControl, getElementState } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+        elementFunc: (meta3dState, elementState) => {
+            let { getCustomControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
             let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
@@ -34,7 +35,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 
             // TODO use Nullable.getExn
-            let { x, y, width, height, text } = getElementState<elementState>(uiState, elementName) as elementState
+            let { x, y, width, height, text }: elementState = elementState
 
             let drawButton = getCustomControl<inputData, outputData>(uiState, customControlName)
 

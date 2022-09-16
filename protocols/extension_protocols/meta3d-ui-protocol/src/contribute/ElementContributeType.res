@@ -1,13 +1,16 @@
 type elementName = string
 
-type elementFunc = (Meta3dType.Index.state, elementName) => Js.Promise.t<Meta3dType.Index.state>
+type elementFunc<'elementState> = (
+  Meta3dType.Index.state,
+  'elementState,
+) => Js.Promise.t<Meta3dType.Index.state>
 
 type execOrder = int
 
 type elementContribute<'elementState> = {
   elementName: elementName,
   execOrder: execOrder,
-  elementFunc: elementFunc,
+  elementFunc: elementFunc<'elementState>,
   elementState: 'elementState,
 }
 
