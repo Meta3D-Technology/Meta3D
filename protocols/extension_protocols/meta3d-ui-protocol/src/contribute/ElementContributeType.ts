@@ -5,6 +5,7 @@ export type elementFunc = (_1: meta3dState, elementName: elementName) => Promise
 
 export type elementContribute<elementState> = {
     elementName: elementName,
+    execOrder: number,
     elementFunc: elementFunc,
     elementState: elementState
 }

@@ -1,22 +1,24 @@
 {
-  "name": "meta3d-ui",
+    "name": "meta3d-ui",
     "version": "0.4.0",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-ui-protocol"
     },
-    "dependentExtensionNameMap": {},
+    "dependentExtensionNameMap": {
+        "meta3dImguiRendererExtensionName": {
+            "protocolName": "meta3d-imgui-renderer-protocol"
+        }
+    },
     "dependentContributeNameMap": {},
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
-        "test:watch": "jest --watch --config jest.json",
-        "test:coverage": "jest --maxWorkers=4 --config jest_coverage.json",
-        "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish": "yarn buildAll:ci && npm run webpack && gulp publish"
     },
     "dependencies": {
+        "meta3d-imgui-renderer-protocol": "^0.4.0",
         "meta3d-ui-protocol": "^0.4.0",
         "meta3d-type": "^0.4.0",
         "rescript": "^9.1.4"

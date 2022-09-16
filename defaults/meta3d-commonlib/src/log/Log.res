@@ -1,4 +1,5 @@
-@val @scope("console") external trace: unit => unit = ""
+@val @scope("console") external consoleTrace: unit => unit = "trace"
+@val @scope("console") external consoleDebug: string => unit = "debug"
 
 let printForDebug = value => {
   value->Obj.magic->Js.Json.stringify->Js.log
@@ -13,12 +14,26 @@ let printListForDebug = list => {
 let logForDebug = value => {
   Js.log(value)
 
-  trace()
+  consoleTrace()
 }
 
 let log = value => {
   value->Obj.magic->Js.Json.stringify->Js.log
 }
+
+let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
+
+let _debug = msg => {
+  consoleDebug(msg);
+};
+
+let debug = (buildMessageFunc, isTest: bool) =>
+  isTest ?
+    {
+      _debug(buildMessageFunc());
+      consoleTrace();
+    } :
+    ();
 
 let getJsonStr = json => Js.Json.stringify(json->Obj.magic)
 

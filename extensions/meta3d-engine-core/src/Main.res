@@ -47,7 +47,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
 }
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<
-  Meta3dBsMostProtocol.ServiceType.service,
+  Meta3dEngineCoreProtocol.ServiceType.service,
 > = (_, _) => {
   {
     onRegister: Js.Nullable.null,

@@ -88,6 +88,27 @@ let _setElementState = (
   }
 }
 
+let _getElementExecOrderExn = (
+  state: Meta3dUiProtocol.StateType.state,
+  elementName: Meta3dUiProtocol.ElementContributeType.elementName,
+) => {
+  state.elementExecOrderMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
+}
+
+let _setElementExecOrder = (
+  state: Meta3dUiProtocol.StateType.state,
+  elementName: Meta3dUiProtocol.ElementContributeType.elementName,
+  execOrder: Meta3dUiProtocol.ElementContributeType.execOrder,
+) => {
+  {
+    ...state,
+    elementExecOrderMap: state.elementExecOrderMap->Meta3dCommonlib.ImmutableHashMap.set(
+      elementName,
+      execOrder,
+    ),
+  }
+}
+
 let dispatch = (
   state: Meta3dUiProtocol.StateType.state,
   action: Meta3dUiProtocol.StateType.action,
@@ -139,6 +160,11 @@ let render = (
 
   isShowMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
+  ->Js.Array.sortInPlaceWith(
+    ((elementName1, _), (elementName2, _)) =>
+      _getElementExecOrderExn(state, elementName1) - _getElementExecOrderExn(state, elementName2),
+    _,
+  )
   ->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
     (. (meta3dState, needMarkStateNotChangeIds), (elementName, isShow)) => {
       // isShow && _getStateChangeExn(state, elementName)
@@ -177,26 +203,37 @@ let _setElementFunc = (
 ) => {
   {
     ...state,
-    elementFuncMap: state.elementFuncMap->Meta3dCommonlib.ImmutableHashMap.set(elementName, elementFunc),
+    elementFuncMap: state.elementFuncMap->Meta3dCommonlib.ImmutableHashMap.set(
+      elementName,
+      elementFunc,
+    ),
   }
 }
 
 let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
-  {elementName, elementFunc, elementState}: Meta3dUiProtocol.ElementContributeType.elementContribute<
+  {
+    elementName,
+    execOrder,
+    elementFunc,
+    elementState,
+  }: Meta3dUiProtocol.ElementContributeType.elementContribute<
     Meta3dUiProtocol.StateType.elementState,
   >,
 ) => {
   state
   ->_setElementFunc(elementName, elementFunc)
   ->_setElementState(elementName, elementState)
+  ->_setElementExecOrder(elementName, execOrder)
   ->show(elementName)
   ->_markStateChange(elementName)
 }
 
 let registerSkin = (
   state: Meta3dUiProtocol.StateType.state,
-  skinContribute: Meta3dUiProtocol.SkinContributeType.skinContribute<Meta3dUiProtocol.StateType.buttonStyle>,
+  skinContribute: Meta3dUiProtocol.SkinContributeType.skinContribute<
+    Meta3dUiProtocol.StateType.buttonStyle,
+  >,
 ) => {
   {
     ...state,
@@ -407,3 +444,5 @@ let drawText = (
 
   meta3dState
 }
+
+let init = ManageIMGUIService.init

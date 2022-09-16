@@ -63,19 +63,28 @@ modal
 
 dispatch action
 
-** TODO update ui
+# ** TODO update ui
 
-*** TODO update meta3d-ui
+# *** TODO update meta3d-ui
 
-use json for imgui ui?
-relearn unity->ui element!
+# use json for imgui ui?
+# relearn unity->ui element!
 
-*** TODO use imgui for ui instead of dom
+# *** TODO use imgui for ui instead of dom
 
-use webgl
-(should be convenient to replace webgl to webgpu in the future!)
+# use webgl
+# (should be convenient to replace webgl to webgpu in the future!)
 
 ** TODO UI use webgl render imgui to implement
+
+*** TODO move Wonder-IMGUI to be a extension!
+
+only remain drawButton
+
+how to not edit its code except extract backendRenderer(webgl/webgpu)(a contribute?) and API?
+
+
+ui->imgui->imguiWebGLRenderer(share the same protocol with webgpu renderer)
 
 
 *** TODO use UI-Render-WebGL extension for UI extension!  so can use UI-Render-WebGPU extension for UI to use webgpu and not edit UI code!!!
@@ -88,13 +97,9 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 
 
 
-*** TODO implement drawBox
 
+*** TODO implement drawBox to UI, IMGUI
 
-# *** TODO implement drawImage
-
-
-*** TODO add VisualElement
 
 
 *** TODO implement drawButton by custom control
@@ -106,17 +111,51 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 *** TODO support whole skin(e.g. can set background by set whole canvas->clearColor)
 
 
-* TODO improve
+*** TODO feat: merge imgui to ui!
 
-** TODO improve UI
+TODO render
 
-*** TODO support check state change for update geometry buffer
 
-use webgpu
+*** TODO feat: custom control ->func remove [api, uiExtensionName] 
 
-*** TODO support draw chinese text
+dependentExtensionNameMap add meta3DUIExtensionName
 
-*** TODO support 3d ui
+
+*** TODO feat: element: elementFunc: get elementState instead of elementName
+
+*** TODO feat: element: registerElement add execOrder
+
+not add customData
+
+
+*** TODO feat: custom control, element ->func change to (. )
+
+
+
+
+*** TODO pass run test
+
+
+
+
+
+
+
+*** TODO add bdd test for imgui, ui extensions
+
+
+
+# * TODO improve
+
+# ** TODO improve UI
+
+# *** TODO support check state change for update geometry buffer
+
+# use webgpu
+
+# *** TODO support draw chinese text
+
+# *** TODO support 3d ui
 
 
 # *** TODO add bdd test
@@ -131,7 +170,7 @@ use webgpu
 
 
 
-** TODO finish TODO
+** TODO finish TODOs
 
 
 
@@ -155,6 +194,8 @@ use webgpu
 
 *** TODO update event manager
 
+add order
+
 
 ** TODO add bdd test
 
@@ -167,6 +208,20 @@ use webgpu
 
 
 * TODO add a button, register custom ui
+
+*** TODO add VisualElement to UI
+
+usage:
+```
+beginVisualElement()
+
+...
+
+drawButton
+
+endVisualElement()
+```
+
 
 
 *** TODO implement drawText
@@ -194,3 +249,15 @@ endWindow()
 *** TODO implement drawCopyTextArea
 
 
+
+** TODO add webgpu render 
+
+*** TODO add webgpu render
+
+use gpu driven pipeline
+
+*** TODO only rerender the elements whose state change
+add VisualElement to UI
+judge state change in VisualElement
+
+only for webgpu

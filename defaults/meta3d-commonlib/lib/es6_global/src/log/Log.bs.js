@@ -1,5 +1,6 @@
 
 
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
 
 function printForDebug(value) {
@@ -20,6 +21,28 @@ function logForDebug(value) {
 
 function log(value) {
   console.log(JSON.stringify(value));
+  
+}
+
+function debugWithFunc(func, isTest) {
+  if (isTest) {
+    return Curry._1(func, undefined);
+  }
+  
+}
+
+function _debug(msg) {
+  console.debug(msg);
+  
+}
+
+function debug(buildMessageFunc, isTest) {
+  if (!isTest) {
+    return ;
+  }
+  var msg = Curry._1(buildMessageFunc, undefined);
+  console.debug(msg);
+  console.trace();
   
 }
 
@@ -53,6 +76,9 @@ export {
   printListForDebug ,
   logForDebug ,
   log ,
+  debugWithFunc ,
+  _debug ,
+  debug ,
   getJsonStr ,
   buildDebugMessage ,
   buildDebugJsonMessage ,

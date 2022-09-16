@@ -34,13 +34,5 @@ export let createExtensionState: createExtensionStateMeta3D<
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
-		onRegister: (meta3dState, service) => {
-			console.log("meta3d-extension-test1 onRegister")
-			return meta3dState
-		},
-		// onStart: (meta3dState, service) => {
-		// 	console.log("meta3d-editor onStart")
-		// }
-
 	}
 }

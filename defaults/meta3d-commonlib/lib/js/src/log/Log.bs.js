@@ -1,5 +1,6 @@
 'use strict';
 
+var Curry = require("rescript/lib/js/curry.js");
 var Belt_List = require("rescript/lib/js/belt_List.js");
 
 function printForDebug(value) {
@@ -20,6 +21,28 @@ function logForDebug(value) {
 
 function log(value) {
   console.log(JSON.stringify(value));
+  
+}
+
+function debugWithFunc(func, isTest) {
+  if (isTest) {
+    return Curry._1(func, undefined);
+  }
+  
+}
+
+function _debug(msg) {
+  console.debug(msg);
+  
+}
+
+function debug(buildMessageFunc, isTest) {
+  if (!isTest) {
+    return ;
+  }
+  var msg = Curry._1(buildMessageFunc, undefined);
+  console.debug(msg);
+  console.trace();
   
 }
 
@@ -52,6 +75,9 @@ exports.printForDebug = printForDebug;
 exports.printListForDebug = printListForDebug;
 exports.logForDebug = logForDebug;
 exports.log = log;
+exports.debugWithFunc = debugWithFunc;
+exports._debug = _debug;
+exports.debug = debug;
 exports.getJsonStr = getJsonStr;
 exports.buildDebugMessage = buildDebugMessage;
 exports.buildDebugJsonMessage = buildDebugJsonMessage;

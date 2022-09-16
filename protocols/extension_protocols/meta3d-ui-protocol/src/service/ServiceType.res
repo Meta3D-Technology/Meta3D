@@ -56,4 +56,10 @@ type service = {
     rect,
     text,
   ) => Meta3dType.Index.state,
+  init: (
+    Meta3dType.Index.state,
+    (Meta3dType.Index.api, Meta3dType.Index.extensionName),
+    bool,
+Dom.htmlCanvasElement
+  ) => Meta3dType.Index.state
 }
