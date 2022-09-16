@@ -113,12 +113,7 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 
 *** TODO feat: merge imgui to ui!
 
-TODO render
-
-
-*** TODO feat: custom control ->func remove [api, uiExtensionName] 
-
-dependentExtensionNameMap add meta3DUIExtensionName
+# TODO render
 
 
 *** TODO feat: element: elementFunc: get elementState instead of elementName
@@ -126,6 +121,17 @@ dependentExtensionNameMap add meta3DUIExtensionName
 *** TODO feat: element: registerElement add execOrder
 
 not add customData
+
+
+*** TODO feat: add register custom control
+
+*** TODO feat: add register skin
+
+
+*** TODO feat: custom control ->func remove [api, uiExtensionName] 
+
+dependentExtensionNameMap add meta3DUIExtensionName
+
 
 
 *** TODO feat: custom control, element ->func change to (. )

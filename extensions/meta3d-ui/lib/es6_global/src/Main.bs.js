@@ -26,16 +26,6 @@ function getExtensionService(api, param) {
         };
 }
 
-function _createEmptyDrawData(param) {
-  return {
-          noTextureDrawData: {
-            verticeArr: [],
-            colorArr: [],
-            indexArr: []
-          }
-        };
-}
-
 function createExtensionState(param) {
   return {
           elementFuncMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
@@ -46,13 +36,6 @@ function createExtensionState(param) {
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           reducers: [],
-          drawData: {
-            noTextureDrawData: {
-              verticeArr: [],
-              colorArr: [],
-              indexArr: []
-            }
-          },
           ioData: {
             pointUp: false,
             pointDown: false,
@@ -77,7 +60,6 @@ function getExtensionLife(param, param$1) {
 
 export {
   getExtensionService ,
-  _createEmptyDrawData ,
   createExtensionState ,
   getExtensionLife ,
   

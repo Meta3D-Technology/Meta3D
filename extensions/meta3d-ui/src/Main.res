@@ -3,47 +3,26 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dUiProtocol.DependentMapType.dependentContributeNameMap,
   Meta3dUiProtocol.ServiceType.service,
 > = (api, (dependentExtensionNameMap, _)) => {
-let {meta3dImguiRendererExtensionName} = dependentExtensionNameMap
+  let {meta3dImguiRendererExtensionName} = dependentExtensionNameMap
 
-{   registerElement: UIManager.registerElement->Obj.magic,
-  registerSkin: UIManager.registerSkin,
-  registerCustomControl: UIManager.registerCustomControl,
-  getSkin: UIManager.getSkinExn->Obj.magic,
-  getCustomControl: UIManager.getCustomControlExn->Obj.magic,
-  hide: UIManager.hide,
-  show: UIManager.show,
-  isStateChange: UIManager.isStateChange,
-  getElementState: UIManager.getElementState->Obj.magic,
-  drawBox: UIManager.drawBox,
-  drawText: UIManager.drawText,
-  getIOData: UIManager.getIOData,
-  render: UIManager.render(api)->Obj.magic,
-  combineReducers: UIManager.combineReducers->Obj.magic,
-  dispatch: UIManager.dispatch,
-  init: UIManager.init
-   }
-}
-
-let _createEmptyDrawData = ():Meta3dUiProtocol.StateType.drawData  => {
-  noTextureDrawData: {
-    verticeArr: [],
-    colorArr: [],
-    indexArr: [],
-  },
-  // customTextureDrawData: {
-  //   customTexture: None,
-  //   verticeArr: [],
-  //   colorArr: [],
-  //   texCoordArr: [],
-  //   indexArr: [],
-  // },
-  // fontTextureDrawData: {
-  //   verticeArr: [],
-  //   colorArr: [],
-  //   texCoordArr: [],
-  //   indexArr: [],
-  // },
-  // customTextureDrawDataMap: WonderCommonlib.MutableHashMapService.createEmpty(),
+  {
+    registerElement: UIManager.registerElement->Obj.magic,
+    registerSkin: UIManager.registerSkin,
+    registerCustomControl: UIManager.registerCustomControl,
+    getSkin: UIManager.getSkinExn->Obj.magic,
+    getCustomControl: UIManager.getCustomControlExn->Obj.magic,
+    hide: UIManager.hide,
+    show: UIManager.show,
+    isStateChange: UIManager.isStateChange,
+    getElementState: UIManager.getElementState->Obj.magic,
+    drawBox: UIManager.drawBox,
+    drawText: UIManager.drawText,
+    getIOData: UIManager.getIOData,
+    combineReducers: UIManager.combineReducers->Obj.magic,
+    dispatch: UIManager.dispatch,
+    init: UIManager.init,
+    render: UIManager.render(api),
+  }
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
@@ -60,19 +39,19 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     // ioData: None,
     reducers: [],
     // imguiData: ManageIMGUIService.createData()
-  drawData: _createEmptyDrawData(),
-  ioData: {
-    pointUp: false,
-    pointDown: false,
-    pointPosition: (0, 0),
-    pointMovementDelta: (0, 0),
-  },
+    ioData: {
+      pointUp: false,
+      pointDown: false,
+      pointPosition: (0, 0),
+      pointMovementDelta: (0, 0),
+    },
   }
 }
 
-let getExtensionLife: Meta3dType.Index.getExtensionLife<
-  Meta3dUiProtocol.ServiceType.service,
-> = (_, _) => {
+let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dUiProtocol.ServiceType.service> = (
+  _,
+  _,
+) => {
   {
     onRegister: Js.Nullable.null,
     onStart: Js.Nullable.null,

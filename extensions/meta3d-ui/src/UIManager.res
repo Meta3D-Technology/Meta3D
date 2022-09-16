@@ -132,31 +132,23 @@ let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
   ioData
 }
 
-let _setIOData = (state: Meta3dUiProtocol.StateType.state, ioData) => {
+// let _setIOData = (state: Meta3dUiProtocol.StateType.state, ioData) => {
+//   {
+//     ...state,
+//     // ioData: ioData->Some,
+//     ioData: ioData
+//   }
+// }
+
+let _prepare = (state: Meta3dUiProtocol.StateType.state, ioData) => {
   {
     ...state,
-    // ioData: ioData->Some,
-    ioData: ioData
+    ioData: ioData,
+    // drawData: createEmptyDrawData(),
   }
 }
 
-let render = (
-  api: Meta3dType.Index.api,
-  meta3dState: Meta3dType.Index.state,
-  uiExtensionName,
-  ioData,
-) => {
-  let meta3dState = api.setExtensionState(.
-    meta3dState,
-    uiExtensionName,
-    api.getExtensionState(. meta3dState, uiExtensionName)->_setIOData(ioData),
-  )
-
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
-    meta3dState,
-    uiExtensionName,
-  )
-
+let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
   let {isShowMap, isStateChangeMap, elementFuncMap, elementStateMap} = state
 
   isShowMap
@@ -185,6 +177,20 @@ let render = (
     },
     (meta3dState, []),
   )
+}
+
+let render = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  (uiExtensionName, imguiRendererExtensionName),
+  ioData,
+) => {
+  let state: Meta3dUiProtocol.StateType.state =
+    api.getExtensionState(. meta3dState, uiExtensionName)->_prepare(ioData)
+
+  let meta3dState = api.setExtensionState(. meta3dState, uiExtensionName, state)
+
+  _exec(meta3dState, state)
   ->Meta3dCommonlib.PromiseSt.map(((meta3dState, needMarkStateNotChangeIds)) => {
     let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
       meta3dState,
@@ -194,6 +200,18 @@ let render = (
     let state = state->_markAllStateNotChange(needMarkStateNotChangeIds)
 
     api.setExtensionState(. meta3dState, uiExtensionName, state)
+  })
+  ->Meta3dCommonlib.PromiseSt.map(meta3dState => {
+    let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+    let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+      meta3dState,
+      imguiRendererExtensionName,
+    )
+
+    let imguiRendererState = imguiRendererService.render(imguiRendererState, meta3dState)
+
+    api.setExtensionState(. meta3dState, imguiRendererExtensionName, imguiRendererState)
   })
 }
 

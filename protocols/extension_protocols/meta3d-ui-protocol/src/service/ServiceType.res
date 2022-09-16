@@ -1,5 +1,7 @@
 type uiExtensionName = Meta3dType.Index.extensionName
 
+type imguiRendererExtensionName = Meta3dType.Index.extensionName
+
 type color = string
 
 type text = string
@@ -16,14 +18,17 @@ type service = {
     StateType.state,
     ElementContributeType.elementContribute<'elementState>,
   ) => StateType.state,
-  registerSkin: (StateType.state, SkinContributeType.skinContribute<StateType.buttonStyle>) => StateType.state,
+  registerSkin: (
+    StateType.state,
+    SkinContributeType.skinContribute<StateType.buttonStyle>,
+  ) => StateType.state,
   registerCustomControl: (
     StateType.state,
     CustomControlContributeType.customControlContribute<StateType.inputData, StateType.outputData>,
   ) => StateType.state,
   render: (
     Meta3dType.Index.state,
-    uiExtensionName,
+    (uiExtensionName, imguiRendererExtensionName),
     StateType.ioData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
   show: (StateType.state, ElementContributeType.elementName) => StateType.state,
@@ -39,7 +44,10 @@ type service = {
   ) => StateType.state,
   dispatch: 'action. (StateType.state, StateType.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
-  getSkin: 'buttonStyle. (StateType.state, SkinContributeType.skinName) => SkinContributeType.skinContribute<'buttonStyle>,
+  getSkin: 'buttonStyle. (
+    StateType.state,
+    SkinContributeType.skinName,
+  ) => SkinContributeType.skinContribute<'buttonStyle>,
   getCustomControl: 'inputData 'outputData. (
     StateType.state,
     CustomControlContributeType.customControlName,
@@ -60,6 +68,6 @@ type service = {
     Meta3dType.Index.state,
     (Meta3dType.Index.api, Meta3dType.Index.extensionName),
     bool,
-Dom.htmlCanvasElement
-  ) => Meta3dType.Index.state
+    Dom.htmlCanvasElement,
+  ) => Meta3dType.Index.state,
 }

@@ -68,14 +68,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
   {
     init: (state, meta3dState, isDebug, canvas) => {
-      let {
-        getContext,
-        createProgram,
-        getAttribLocation,
-      }: Meta3dWebgl1Protocol.ServiceType.service as webgl1Service = api.getExtensionService(.
+      let webgl1Service: Meta3dWebgl1Protocol.ServiceType.service = api.getExtensionService(.
         meta3dState,
         meta3dWebGL1ExtensionName,
       )
+
+      let {getContext, createProgram, getAttribLocation} = webgl1Service
 
       let gl = getContext(
         canvas,
@@ -154,11 +152,24 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
         }: StateType.state
       )->StateType.stateToProtocolState
     },
+    render: (state, meta3dState) => {
+      let webgl1Service: Meta3dWebgl1Protocol.ServiceType.service = api.getExtensionService(.
+        meta3dState,
+        meta3dWebGL1ExtensionName,
+      )
+
+      RenderService.render(
+        state->StateType.protocolStateToState,
+        meta3dState,
+        webgl1Service,
+      )->StateType.stateToProtocolState
+    },
   }
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {
   isDebug: false,
+  drawData: RenderService.createEmptyDrawData()->Some,
   gl: None,
   noTextureShaderData: None,
   lastWebglData: None,

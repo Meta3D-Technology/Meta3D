@@ -3,6 +3,7 @@
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as ShaderData$Meta3dImguiWebgl1Renderer from "./ShaderData.bs.js";
+import * as RenderService$Meta3dImguiWebgl1Renderer from "./RenderService.bs.js";
 import * as Matrix4Service$Meta3dImguiWebgl1Renderer from "./Matrix4Service.bs.js";
 import * as ProgramService$Meta3dImguiWebgl1Renderer from "./ProgramService.bs.js";
 
@@ -61,6 +62,7 @@ function getExtensionService(api, param) {
               _sendNoTextureProgramUniformData(webgl1Service, gl, noTextureProgram, canvasSize);
               return {
                       isDebug: isDebug,
+                      drawData: state.drawData,
                       gl: Caml_option.some(gl),
                       noTextureShaderData: {
                         program: noTextureProgram,
@@ -72,6 +74,10 @@ function getExtensionService(api, param) {
                       },
                       lastWebglData: state.lastWebglData
                     };
+            }),
+          render: (function (state, meta3dState) {
+              var webgl1Service = api.getExtensionService(meta3dState, meta3dWebGL1ExtensionName);
+              return RenderService$Meta3dImguiWebgl1Renderer.render(state, meta3dState, webgl1Service);
             })
         };
 }
@@ -79,6 +85,7 @@ function getExtensionService(api, param) {
 function createExtensionState(param) {
   return {
           isDebug: false,
+          drawData: RenderService$Meta3dImguiWebgl1Renderer.createEmptyDrawData(undefined),
           gl: undefined,
           noTextureShaderData: undefined,
           lastWebglData: undefined

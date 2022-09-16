@@ -18,16 +18,26 @@ type noTextureShaderData = {
   indexBuffer: buffer,
 }
 
+type drawData = {
+  noTextureDrawData: DrawDataType.noTextureDrawData,
+  //   customTextureDrawData: DrawDataType.customTextureDrawData,
+  //   fontTextureDrawData: DrawDataType.fontTextureDrawData,
+  //   customTextureDrawDataMap: WonderCommonlib.MutableHashMapService.t<
+  //     DrawDataType.customTextureDrawData,
+  //   >,
+}
+
 type state = {
-  isDebug:bool,
+  isDebug: bool,
+  drawData: option<drawData>,
   gl: option<webgl1Context>,
-//   customTextureShaderData: customTextureShaderData,
-//   fontTextureShaderData: fontTextureShaderData,
+  //   customTextureShaderData: customTextureShaderData,
+  //   fontTextureShaderData: fontTextureShaderData,
   noTextureShaderData: option<noTextureShaderData>,
-//   fontTexture: texture,
+  //   fontTexture: texture,
   lastWebglData: option<lastWebglData>,
 }
 
-external protocolStateToState: Meta3dImguiRendererProtocol.StateType.state  => state = "%identity"
+external protocolStateToState: Meta3dImguiRendererProtocol.StateType.state => state = "%identity"
 
 external stateToProtocolState: state => Meta3dImguiRendererProtocol.StateType.state = "%identity"
