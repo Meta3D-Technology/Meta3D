@@ -10,12 +10,30 @@ type outputData
 
 type buttonStyle
 
-type ioData = {
-  isPointDown: bool,
-  pointPosition: (int, int),
-}
+// type ioData = {
+//   isPointDown: bool,
+//   pointPosition: (int, int),
+// }
 
 type imguiData = IMGUIDataType.imguiData
+
+type point<'a> = ('a, 'a)
+
+type ioData = {
+  pointUp: bool,
+  pointDown: bool,
+  pointPosition: point<int>,
+  pointMovementDelta: point<int>,
+}
+
+type drawData = {
+  noTextureDrawData: DrawDataType.noTextureDrawData,
+//   customTextureDrawData: DrawDataType.customTextureDrawData,
+//   fontTextureDrawData: DrawDataType.fontTextureDrawData,
+//   customTextureDrawDataMap: WonderCommonlib.MutableHashMapService.t<
+//     DrawDataType.customTextureDrawData,
+//   >,
+}
 
 type state = {
   elementFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
@@ -34,7 +52,7 @@ type state = {
     CustomControlContributeType.customControlName,
     CustomControlContributeType.customControlContribute<inputData, outputData>,
   >,
-  ioData: option<ioData>,
   reducers: array<ElementContributeType.reducerData<elementState, action>>,
-  imguiData: imguiData
+  drawData: drawData,
+  ioData: ioData,
 }

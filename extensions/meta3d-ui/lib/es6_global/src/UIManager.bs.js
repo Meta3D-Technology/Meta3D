@@ -2,9 +2,7 @@
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
-import * as ManageIMGUIService$Meta3dUi from "./imgui/ManageIMGUIService.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function hide(state, elementName) {
@@ -16,9 +14,9 @@ function hide(state, elementName) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -31,9 +29,9 @@ function show(state, elementName) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -46,9 +44,9 @@ function _markStateChange(state, elementName) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, true),
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -61,9 +59,9 @@ function _markStateNotChange(state, elementName) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, false),
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -80,9 +78,9 @@ function combineReducers(state, reducerData) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: ArraySt$Meta3dCommonlib.push(state.reducers, reducerData),
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -103,9 +101,9 @@ function _setElementState(state, elementName, elementState) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -122,9 +120,9 @@ function _setElementExecOrder(state, elementName, execOrder) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -141,8 +139,8 @@ function dispatch(state, action) {
               }), state);
 }
 
-function getIODataExn(param) {
-  return OptionSt$Meta3dCommonlib.getExn(param.ioData);
+function getIOData(param) {
+  return param.ioData;
 }
 
 function _setIOData(state, ioData) {
@@ -154,9 +152,9 @@ function _setIOData(state, ioData) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: ioData
         };
 }
 
@@ -204,9 +202,9 @@ function _setElementFunc(state, elementName, elementFunc) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -224,9 +222,9 @@ function registerSkin(state, skinContribute) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
           customControlContributeMap: state.customControlContributeMap,
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -239,9 +237,9 @@ function registerCustomControl(state, customControlContribute) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.customControlContributeMap, customControlContribute.customControlName, customControlContribute),
-          ioData: state.ioData,
           reducers: state.reducers,
-          imguiData: state.imguiData
+          drawData: state.drawData,
+          ioData: state.ioData
         };
 }
 
@@ -325,7 +323,14 @@ function drawText(meta3dState, param, rect, text) {
   return meta3dState;
 }
 
-var init = ManageIMGUIService$Meta3dUi.init;
+function init(meta3dState, param, isDebug, canvas) {
+  var imguiRendererExtensionName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var imguiRendererState$1 = Curry._4(imguiRendererService.init, imguiRendererState, meta3dState, isDebug, canvas);
+  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
+}
 
 export {
   hide ,
@@ -340,7 +345,7 @@ export {
   _getElementExecOrderExn ,
   _setElementExecOrder ,
   dispatch ,
-  getIODataExn ,
+  getIOData ,
   _setIOData ,
   render ,
   _setElementFunc ,

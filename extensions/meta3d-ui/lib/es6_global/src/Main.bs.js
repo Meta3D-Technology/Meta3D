@@ -1,7 +1,6 @@
 
 
 import * as UIManager$Meta3dUi from "./UIManager.bs.js";
-import * as ManageIMGUIService$Meta3dUi from "./imgui/ManageIMGUIService.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionService(api, param) {
@@ -18,12 +17,22 @@ function getExtensionService(api, param) {
           getElementState: UIManager$Meta3dUi.getElementState,
           combineReducers: UIManager$Meta3dUi.combineReducers,
           dispatch: UIManager$Meta3dUi.dispatch,
-          getIOData: UIManager$Meta3dUi.getIODataExn,
+          getIOData: UIManager$Meta3dUi.getIOData,
           getSkin: UIManager$Meta3dUi.getSkinExn,
           getCustomControl: UIManager$Meta3dUi.getCustomControlExn,
           drawBox: UIManager$Meta3dUi.drawBox,
           drawText: UIManager$Meta3dUi.drawText,
           init: UIManager$Meta3dUi.init
+        };
+}
+
+function _createEmptyDrawData(param) {
+  return {
+          noTextureDrawData: {
+            verticeArr: [],
+            colorArr: [],
+            indexArr: []
+          }
         };
 }
 
@@ -36,9 +45,26 @@ function createExtensionState(param) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          ioData: undefined,
           reducers: [],
-          imguiData: ManageIMGUIService$Meta3dUi.createData(undefined)
+          drawData: {
+            noTextureDrawData: {
+              verticeArr: [],
+              colorArr: [],
+              indexArr: []
+            }
+          },
+          ioData: {
+            pointUp: false,
+            pointDown: false,
+            pointPosition: [
+              0,
+              0
+            ],
+            pointMovementDelta: [
+              0,
+              0
+            ]
+          }
         };
 }
 
@@ -51,6 +77,7 @@ function getExtensionLife(param, param$1) {
 
 export {
   getExtensionService ,
+  _createEmptyDrawData ,
   createExtensionState ,
   getExtensionLife ,
   

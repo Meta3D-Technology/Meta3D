@@ -16,12 +16,34 @@ let {meta3dImguiRendererExtensionName} = dependentExtensionNameMap
   getElementState: UIManager.getElementState->Obj.magic,
   drawBox: UIManager.drawBox,
   drawText: UIManager.drawText,
-  getIOData: UIManager.getIODataExn,
+  getIOData: UIManager.getIOData,
   render: UIManager.render(api)->Obj.magic,
   combineReducers: UIManager.combineReducers->Obj.magic,
   dispatch: UIManager.dispatch,
   init: UIManager.init
    }
+}
+
+let _createEmptyDrawData = ():Meta3dUiProtocol.StateType.drawData  => {
+  noTextureDrawData: {
+    verticeArr: [],
+    colorArr: [],
+    indexArr: [],
+  },
+  // customTextureDrawData: {
+  //   customTexture: None,
+  //   verticeArr: [],
+  //   colorArr: [],
+  //   texCoordArr: [],
+  //   indexArr: [],
+  // },
+  // fontTextureDrawData: {
+  //   verticeArr: [],
+  //   colorArr: [],
+  //   texCoordArr: [],
+  //   indexArr: [],
+  // },
+  // customTextureDrawDataMap: WonderCommonlib.MutableHashMapService.createEmpty(),
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
@@ -35,9 +57,16 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     customControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    ioData: None,
+    // ioData: None,
     reducers: [],
-    imguiData: ManageIMGUIService.createData()
+    // imguiData: ManageIMGUIService.createData()
+  drawData: _createEmptyDrawData(),
+  ioData: {
+    pointUp: false,
+    pointDown: false,
+    pointPosition: (0, 0),
+    pointMovementDelta: (0, 0),
+  },
   }
 }
 

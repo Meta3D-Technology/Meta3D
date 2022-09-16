@@ -128,14 +128,15 @@ let dispatch = (
   }, state)
 }
 
-let getIODataExn = ({ioData}: Meta3dUiProtocol.StateType.state) => {
-  ioData->Meta3dCommonlib.OptionSt.getExn
+let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
+  ioData
 }
 
 let _setIOData = (state: Meta3dUiProtocol.StateType.state, ioData) => {
   {
     ...state,
-    ioData: ioData->Some,
+    // ioData: ioData->Some,
+    ioData: ioData
   }
 }
 
@@ -445,4 +446,31 @@ let drawText = (
   meta3dState
 }
 
-let init = ManageIMGUIService.init
+let init = (
+  meta3dState,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  isDebug,
+  canvas,
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  let imguiRendererState = imguiRendererService.init(
+    imguiRendererState,
+    meta3dState,
+    isDebug,
+    canvas,
+  )
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
+
+  meta3dState
+}
