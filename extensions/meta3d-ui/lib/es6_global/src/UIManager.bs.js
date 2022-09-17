@@ -255,72 +255,13 @@ function isStateChange(state, elementName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, elementName);
 }
 
-var _clearBox = (function({x,y}) {
-  let elementName = "_box" + ( x+y ).toString()
-
-  if(document.querySelector("#" + elementName) !== null){
-document.querySelector("#" + elementName).remove()
-  }
-});
-
-var _renderBox = (function(backgroundColor, {x,y,width,height}) {
-  let dom = document.createElement("div")
-
-  let elementName = "_box" + ( x+y ).toString()
-
-  dom.elementName = elementName
-
-  dom.style.position = "absolute"
-  dom.style.left = x + "px"
-  dom.style.top = y + "px"
-  dom.style.width = width + "px"
-  dom.style.height = height + "px"
-  dom.style["background-color"] = backgroundColor
-
-  document.body.appendChild(
-    dom
-  )
-});
-
 function drawBox(meta3dState, param, rect, backgroundColor) {
-  param[0].getExtensionState(meta3dState, param[1]);
-  _clearBox(rect);
-  _renderBox(backgroundColor, rect);
-  return meta3dState;
-}
-
-var _clearText = (function({x,y}) {
-  let elementName = "_text" + ( x+y ).toString()
-
-  if(document.querySelector("#" + elementName) !== null){
-document.querySelector("#" + elementName).remove()
-  }
-});
-
-var _renderText = (function(text, {x,y,width,height}) {
-  let dom = document.createElement("span")
-
-  let elementName = "_text" + ( x+y ).toString()
-
-  dom.elementName = elementName
-
-  dom.style.position = "absolute"
-  dom.style.left = x + "px"
-  dom.style.top = y + "px"
-  dom.style.width = width + "px"
-  dom.style.height = height + "px"
-  dom.innerHTML = text
-
-  document.body.appendChild(
-    dom
-  )
-});
-
-function drawText(meta3dState, param, rect, text) {
-  param[0].getExtensionState(meta3dState, param[1]);
-  _clearText(rect);
-  _renderText(text, rect);
-  return meta3dState;
+  var imguiRendererExtensionName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var imguiRendererState$1 = Curry._3(imguiRendererService.drawBox, rect, backgroundColor, imguiRendererState);
+  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
 }
 
 function init(meta3dState, param, isDebug, canvas) {
@@ -356,12 +297,7 @@ export {
   getSkinExn ,
   getCustomControlExn ,
   isStateChange ,
-  _clearBox ,
-  _renderBox ,
   drawBox ,
-  _clearText ,
-  _renderText ,
-  drawText ,
   init ,
   
 }

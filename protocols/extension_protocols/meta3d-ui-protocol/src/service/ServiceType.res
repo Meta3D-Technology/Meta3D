@@ -2,16 +2,7 @@ type uiExtensionName = Meta3dType.Index.extensionName
 
 type imguiRendererExtensionName = Meta3dType.Index.extensionName
 
-type color = string
-
-type text = string
-
-type rect = {
-  x: int,
-  y: int,
-  width: int,
-  height: int,
-}
+// type text = string
 
 type service = {
   registerElement: 'elementState. (
@@ -55,15 +46,15 @@ type service = {
   drawBox: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, Meta3dType.Index.extensionName),
-    rect,
-    color,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
+    Meta3dImguiRendererProtocol.ServiceType.color,
   ) => Meta3dType.Index.state,
-  drawText: (
-    Meta3dType.Index.state,
-    (Meta3dType.Index.api, Meta3dType.Index.extensionName),
-    rect,
-    text,
-  ) => Meta3dType.Index.state,
+  // drawText: (
+  //   Meta3dType.Index.state,
+  //   (Meta3dType.Index.api, Meta3dType.Index.extensionName),
+  //   rect,
+  //   text,
+  // ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, Meta3dType.Index.extensionName),

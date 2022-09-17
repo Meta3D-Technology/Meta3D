@@ -4,17 +4,18 @@ import { elementContribute, reducerData } from "../contribute/ElementContributeT
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { customControlContribute, customControlFunc, customControlName } from "../contribute/CustomControlContributeType"
+import { color, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
-type rect = {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-}
+// type rect = {
+//     x: number,
+//     y: number,
+//     width: number,
+//     height: number,
+// }
 
-type text = string
+// type text = string
 
-type color = string
+// type color = string
 
 export type service = {
     readonly registerElement: < elementState> (
@@ -76,10 +77,10 @@ export type service = {
         rect: rect,
         backgroundColor: color
     ) => meta3dState
-    readonly drawText: (
-        meta3dState: meta3dState,
-        [api, uiExtensionName]: [api, extensionName],
-        rect: rect,
-        text: text
-    ) => meta3dState
+    // readonly drawText: (
+    //     meta3dState: meta3dState,
+    //     [api, uiExtensionName]: [api, extensionName],
+    //     rect: rect,
+    //     text: text
+    // ) => meta3dState
 };

@@ -164,6 +164,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
         webgl1Service,
       )->StateType.stateToProtocolState
     },
+    drawBox:(rect, color, state) => DrawBoxIMGUIService.draw(rect, color, state -> StateType.protocolStateToState) -> StateType.stateToProtocolState
   }
 }
 

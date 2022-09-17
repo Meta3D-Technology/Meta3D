@@ -97,14 +97,6 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 
 
 
-
-*** TODO implement drawBox to UI, IMGUI
-
-
-
-*** TODO implement drawButton by custom control
-
-
 *** TODO use skin
 
 
@@ -123,10 +115,17 @@ UI-Render-WebGL, UI-Render-WebGPU implement UI-Render-Type.
 not add customData
 
 
+
+*** DONE implement drawBox
+
+
+*** DONE remove drawText
+
+*** TODO implement drawButton by custom control
+
+
+
 *** TODO feat: add register custom control
-
-*** TODO feat: add register skin
-
 
 *** TODO feat: custom control ->func remove [api, uiExtensionName] 
 
@@ -134,9 +133,13 @@ dependentExtensionNameMap add meta3DUIExtensionName
 
 
 
+
+
+*** TODO feat: add register skin
+
+
+
 *** TODO feat: custom control, element ->func change to (. )
-
-
 
 
 *** TODO pass run test

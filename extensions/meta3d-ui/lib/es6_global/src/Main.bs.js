@@ -21,7 +21,6 @@ function getExtensionService(api, param) {
           getSkin: UIManager$Meta3dUi.getSkinExn,
           getCustomControl: UIManager$Meta3dUi.getCustomControlExn,
           drawBox: UIManager$Meta3dUi.drawBox,
-          drawText: UIManager$Meta3dUi.drawText,
           init: UIManager$Meta3dUi.init
         };
 }

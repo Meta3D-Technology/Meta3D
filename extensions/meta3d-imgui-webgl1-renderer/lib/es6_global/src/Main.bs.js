@@ -6,6 +6,7 @@ import * as ShaderData$Meta3dImguiWebgl1Renderer from "./ShaderData.bs.js";
 import * as RenderService$Meta3dImguiWebgl1Renderer from "./RenderService.bs.js";
 import * as Matrix4Service$Meta3dImguiWebgl1Renderer from "./Matrix4Service.bs.js";
 import * as ProgramService$Meta3dImguiWebgl1Renderer from "./ProgramService.bs.js";
+import * as DrawBoxIMGUIService$Meta3dImguiWebgl1Renderer from "./DrawBoxIMGUIService.bs.js";
 
 function _createArrayBuffer(param, gl) {
   var getArrayBuffer = param.getArrayBuffer;
@@ -78,7 +79,8 @@ function getExtensionService(api, param) {
           render: (function (state, meta3dState) {
               var webgl1Service = api.getExtensionService(meta3dState, meta3dWebGL1ExtensionName);
               return RenderService$Meta3dImguiWebgl1Renderer.render(state, meta3dState, webgl1Service);
-            })
+            }),
+          drawBox: DrawBoxIMGUIService$Meta3dImguiWebgl1Renderer.draw
         };
 }
 

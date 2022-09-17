@@ -373,101 +373,80 @@ let isStateChange = (
 //   (meta3dState, isClick)
 // }
 
-let _clearBox = %raw(`
-function({x,y}) {
-  let elementName = "_box" + ( x+y ).toString()
-
-  if(document.querySelector("#" + elementName) !== null){
-document.querySelector("#" + elementName).remove()
-  }
-}
-`)
-
-let _renderBox = %raw(`
-function(backgroundColor, {x,y,width,height}) {
-  let dom = document.createElement("div")
-
-  let elementName = "_box" + ( x+y ).toString()
-
-  dom.elementName = elementName
-
-  dom.style.position = "absolute"
-  dom.style.left = x + "px"
-  dom.style.top = y + "px"
-  dom.style.width = width + "px"
-  dom.style.height = height + "px"
-  dom.style["background-color"] = backgroundColor
-
-  document.body.appendChild(
-    dom
-  )
-}
-`)
-
 let drawBox = (
   meta3dState,
-  (api: Meta3dType.Index.api, uiExtensionName),
-  rect: Meta3dUiProtocol.ServiceType.rect,
-  backgroundColor: Meta3dUiProtocol.ServiceType.color,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  rect: Meta3dImguiRendererProtocol.ServiceType.rect,
+  backgroundColor: Meta3dImguiRendererProtocol.ServiceType.color,
 ) => {
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    uiExtensionName,
+    imguiRendererExtensionName,
   )
 
-  _clearBox(rect)
-  _renderBox(backgroundColor, rect)
+  let imguiRendererState = imguiRendererService.drawBox(
+    rect, backgroundColor, 
+    imguiRendererState
+  )
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
 
   meta3dState
 }
 
-let _clearText = %raw(`
-function({x,y}) {
-  let elementName = "_text" + ( x+y ).toString()
+// let _clearText = %raw(`
+// function({x,y}) {
+//   let elementName = "_text" + ( x+y ).toString()
 
-  if(document.querySelector("#" + elementName) !== null){
-document.querySelector("#" + elementName).remove()
-  }
-}
-`)
+//   if(document.querySelector("#" + elementName) !== null){
+// document.querySelector("#" + elementName).remove()
+//   }
+// }
+// `)
 
-let _renderText = %raw(`
-function(text, {x,y,width,height}) {
-  let dom = document.createElement("span")
+// let _renderText = %raw(`
+// function(text, {x,y,width,height}) {
+//   let dom = document.createElement("span")
 
-  let elementName = "_text" + ( x+y ).toString()
+//   let elementName = "_text" + ( x+y ).toString()
 
-  dom.elementName = elementName
+//   dom.elementName = elementName
 
-  dom.style.position = "absolute"
-  dom.style.left = x + "px"
-  dom.style.top = y + "px"
-  dom.style.width = width + "px"
-  dom.style.height = height + "px"
-  dom.innerHTML = text
+//   dom.style.position = "absolute"
+//   dom.style.left = x + "px"
+//   dom.style.top = y + "px"
+//   dom.style.width = width + "px"
+//   dom.style.height = height + "px"
+//   dom.innerHTML = text
 
-  document.body.appendChild(
-    dom
-  )
-}
-`)
+//   document.body.appendChild(
+//     dom
+//   )
+// }
+// `)
 
-let drawText = (
-  meta3dState,
-  (api: Meta3dType.Index.api, uiExtensionName),
-  rect: Meta3dUiProtocol.ServiceType.rect,
-  text: Meta3dUiProtocol.ServiceType.text,
-) => {
-  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
-    meta3dState,
-    uiExtensionName,
-  )
+// let drawText = (
+//   meta3dState,
+//   (api: Meta3dType.Index.api, uiExtensionName),
+//   rect: Meta3dUiProtocol.ServiceType.rect,
+//   text: Meta3dUiProtocol.ServiceType.text,
+// ) => {
+//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+//     meta3dState,
+//     uiExtensionName,
+//   )
 
-  _clearText(rect)
-  _renderText(text, rect)
+//   _clearText(rect)
+//   _renderText(text, rect)
 
-  meta3dState
-}
+//   meta3dState
+// }
 
 let init = (
   meta3dState,

@@ -13,7 +13,8 @@
     "bs-dev-dependencies": [],
     "bs-dependencies": [
         "meta3d-type",
-        "meta3d-commonlib-type"
+        "meta3d-commonlib-type",
+        "meta3d-imgui-renderer-protocol"
     ],
     "package-specs": [
         "commonjs",

@@ -16,7 +16,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     isStateChange: UIManager.isStateChange,
     getElementState: UIManager.getElementState->Obj.magic,
     drawBox: UIManager.drawBox,
-    drawText: UIManager.drawText,
+    // drawText: UIManager.drawText,
     getIOData: UIManager.getIOData,
     combineReducers: UIManager.combineReducers->Obj.magic,
     dispatch: UIManager.dispatch,
