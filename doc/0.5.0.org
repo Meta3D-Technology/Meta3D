@@ -135,8 +135,10 @@ dependentExtensionNameMap add meta3DUIExtensionName
 
 
 
-*** TODO feat: add register skin
+*** DONE feat: add register skin
 
+
+*** TODO fix: fix skinName, component name and contribute name
 
 
 *** TODO feat: custom control, element ->func change to (. )

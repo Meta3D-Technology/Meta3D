@@ -3,7 +3,7 @@ export const skinName = "Default"
 // type color = [number, number, number]
 type color = string
 
-export type buttonStyle = {
+type buttonStyle = {
     normal: {
         background_color: color
     }

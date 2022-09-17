@@ -8,7 +8,7 @@ type inputData
 
 type outputData
 
-type buttonStyle
+type skin
 
 // type ioData = {
 //   isPointDown: bool,
@@ -55,7 +55,7 @@ type state = {
   >,
   skinContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     SkinContributeType.skinName,
-    SkinContributeType.skinContribute<buttonStyle>,
+    SkinContributeType.skinContribute<skin>,
   >,
   customControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     CustomControlContributeType.customControlName,

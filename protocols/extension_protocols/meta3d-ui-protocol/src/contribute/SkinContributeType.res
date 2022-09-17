@@ -1,8 +1,6 @@
 type skinName = string
 
-type skinContribute<'buttonStyle> = {
+type skinContribute<'skin> = {
   skinName: skinName,
-  button: 'buttonStyle,
+  skin: 'skin
 }
-
-// type getSkinContribute<'buttonStyle> = unit => skinContribute<'buttonStyle>

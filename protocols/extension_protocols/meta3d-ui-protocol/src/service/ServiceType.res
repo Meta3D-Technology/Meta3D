@@ -11,7 +11,7 @@ type service = {
   ) => StateType.state,
   registerSkin: (
     StateType.state,
-    SkinContributeType.skinContribute<StateType.buttonStyle>,
+    SkinContributeType.skinContribute<StateType.skin>,
   ) => StateType.state,
   registerCustomControl: (
     StateType.state,
@@ -35,10 +35,10 @@ type service = {
   ) => StateType.state,
   dispatch: 'action. (StateType.state, StateType.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
-  getSkin: 'buttonStyle. (
+  getSkin: 'skin. (
     StateType.state,
     SkinContributeType.skinName,
-  ) => SkinContributeType.skinContribute<'buttonStyle>,
+  ) => SkinContributeType.skinContribute<'skin>,
   getCustomControl: 'inputData 'outputData. (
     StateType.state,
     CustomControlContributeType.customControlName,

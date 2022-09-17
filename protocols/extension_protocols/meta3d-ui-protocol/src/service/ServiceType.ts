@@ -22,18 +22,18 @@ export type service = {
         state: state,
         elementContribute: elementContribute<elementState>
     ) => state;
-    readonly registerSkin: < buttonStyle> (
+    readonly registerSkin: <skin> (
         state: state,
-        skinContribute: skinContribute<buttonStyle>
+        skinContribute: skinContribute<skin>
     ) => state;
     readonly registerCustomControl: < inputData, outputData> (
         state: state,
         customControlContribute: customControlContribute<inputData, outputData>
     ) => state;
-    readonly getSkin: <buttonStyle> (
+    readonly getSkin: <skin> (
         state: state,
         skinName: skinName
-    ) => skinContribute<buttonStyle>;
+    ) => skinContribute<skin>;
     readonly getCustomControl: < inputData, outputData> (
         state: state,
         customControlName: customControlName

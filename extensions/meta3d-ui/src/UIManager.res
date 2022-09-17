@@ -256,7 +256,7 @@ let registerElement = (
 let registerSkin = (
   state: Meta3dUiProtocol.StateType.state,
   skinContribute: Meta3dUiProtocol.SkinContributeType.skinContribute<
-    Meta3dUiProtocol.StateType.buttonStyle,
+    Meta3dUiProtocol.StateType.skin,
   >,
 ) => {
   {
@@ -287,7 +287,7 @@ let registerCustomControl = (
 let getSkinExn = (
   state: Meta3dUiProtocol.StateType.state,
   skinName,
-): Meta3dUiProtocol.SkinContributeType.skinContribute<Meta3dUiProtocol.StateType.buttonStyle> => {
+): Meta3dUiProtocol.SkinContributeType.skinContribute<Meta3dUiProtocol.StateType.skin> => {
   state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
 }
 

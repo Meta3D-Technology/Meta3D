@@ -9,7 +9,7 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
-import { buttonStyle } from "meta3d-skin-default-protocol"
+import { skin } from "meta3d-skin-default-protocol"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 import { elementState as buttonElementState } from "meta3d-element-button-protocol"
 import { elementName as button2ElementName, changeTextAction, elementState as button2ElementState } from "meta3d-element-button2-protocol"
@@ -41,7 +41,7 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 	// TODO move out to another extension
 	let { registerSkin, registerCustomControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	uiState = registerSkin(uiState, api.getContribute<skinContribute<buttonStyle>>(meta3dState, meta3dSkinDefaultContributeName))
+	uiState = registerSkin(uiState, api.getContribute<skinContribute<skin>>(meta3dState, meta3dSkinDefaultContributeName))
 
 	// uiState = registerCustomControl(uiState, getButtonCustomControlContribute(defaultSkinName))
 	uiState = registerCustomControl(uiState, api.getContribute<customControlContribute<inputData, outputData>>(meta3dState, meta3dCustomControlButtonContributeName))
