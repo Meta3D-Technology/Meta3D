@@ -1,26 +1,25 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 
 function _bufferArrayBufferData(param, param$1, gl) {
   var getArrayBuffer = param.getArrayBuffer;
-  Curry._3(param.bindBuffer, Curry._1(getArrayBuffer, gl), param$1[0], gl);
-  Curry._4(param.bufferFloat32Data, Curry._1(getArrayBuffer, gl), new Float32Array(param$1[1]), Curry._1(param.getDynamicDraw, gl), gl);
+  param.bindBuffer(getArrayBuffer(gl), param$1[0], gl);
+  param.bufferFloat32Data(getArrayBuffer(gl), new Float32Array(param$1[1]), param.getDynamicDraw(gl), gl);
   return gl;
 }
 
 function _sendArrayBufferData(param, param$1, gl) {
   var $$location = param$1[0];
-  Curry._2(param.enableVertexAttribArray, $$location, gl);
-  Curry._7(param.vertexAttribPointer, $$location, param$1[1], Curry._1(param.getFloat, gl), false, 0, 0, gl);
+  param.enableVertexAttribArray($$location, gl);
+  param.vertexAttribPointer($$location, param$1[1], param.getFloat(gl), false, 0, 0, gl);
   return gl;
 }
 
 function _bufferElementArrayBufferData(param, buffer, pointArr, gl) {
   var getElementArrayBuffer = param.getElementArrayBuffer;
-  Curry._3(param.bindBuffer, Curry._1(getElementArrayBuffer, gl), buffer, gl);
-  Curry._4(param.bufferUint16Data, Curry._1(getElementArrayBuffer, gl), new Uint16Array(pointArr), Curry._1(param.getDynamicDraw, gl), gl);
+  param.bindBuffer(getElementArrayBuffer(gl), buffer, gl);
+  param.bufferUint16Data(getElementArrayBuffer(gl), new Uint16Array(pointArr), param.getDynamicDraw(gl), gl);
   return gl;
 }
 

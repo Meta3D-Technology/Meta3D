@@ -1,12 +1,12 @@
 open Meta3dWebgl1Protocol.ServiceType
 
 let _compileShader = ({ shaderSource, compileShader, getShaderParameter, getCompileStatus, getShaderInfoLog }, gl, glslSource: string, shader, isDebug) => {
-  shaderSource(  shader, glslSource, gl)
-  compileShader( shader, gl)
+  shaderSource(.   shader, glslSource, gl)
+  compileShader(. shader, gl)
   Meta3dCommonlib.Log.debugWithFunc(() =>
-    getShaderParameter( shader, getCompileStatus(gl), gl) === false
+    getShaderParameter(. shader, getCompileStatus(. gl), gl) === false
       ? {
-          let message = getShaderInfoLog( shader, gl)
+          let message = getShaderInfoLog(.  shader, gl)
           Meta3dCommonlib.Log.debug(
             Meta3dCommonlib.Log.buildDebugMessage(~description="shader info log", ~params=j`$message`),
             isDebug,
@@ -22,11 +22,11 @@ let _compileShader = ({ shaderSource, compileShader, getShaderParameter, getComp
 }
 
 let _linkProgram = ({linkProgram, getProgramParameter, getLinkStatus, getProgramInfoLog},  program, gl, isDebug) => {
-  linkProgram( program, gl)
+  linkProgram(. program, gl)
   Meta3dCommonlib.Log.debugWithFunc(() =>
-    getProgramParameter(program, getLinkStatus(gl), gl) === false
+    getProgramParameter(. program, getLinkStatus(. gl), gl) === false
       ? {
-          let message = getProgramInfoLog(program, gl)
+          let message = getProgramInfoLog(. program, gl)
     Meta3dCommonlib.Exception.throwErr(
             Meta3dCommonlib.Log.buildFatalMessage(
               ~title="link program error",
@@ -43,15 +43,15 @@ let _linkProgram = ({linkProgram, getProgramParameter, getLinkStatus, getProgram
 }
 
 let initShader = ({ createShader, getVertexShader, getFragmentShader, attachShader, bindAttribLocation, deleteShader } as webgl1Service, vsSource: string, fsSource: string, gl, isDebug, program: program) => {
-  let vs = _compileShader(webgl1Service, gl, vsSource, createShader(getVertexShader(gl), gl), isDebug)
-  let fs = _compileShader(webgl1Service, gl, fsSource, createShader(getFragmentShader(gl), gl), isDebug)
+  let vs = _compileShader(webgl1Service, gl, vsSource, createShader(. getVertexShader(. gl), gl), isDebug)
+  let fs = _compileShader(webgl1Service, gl, fsSource, createShader(. getFragmentShader(. gl), gl), isDebug)
 
   /* dispose?
      if (this.glProgram) {
          this.dispose();
      } */
-  attachShader(program, vs, gl)
-  attachShader(program, fs, gl)
+  attachShader(. program, vs, gl)
+  attachShader(. program, fs, gl)
   /* !
     if warn:"Attribute 0 is disabled. This has significant performance penalty" when run,
     then do this before linkProgram:
@@ -75,7 +75,7 @@ let initShader = ({ createShader, getVertexShader, getFragmentShader, attachShad
   /* !
     Always have vertex attrib 0 array enabled. If you draw with vertex attrib 0 array disabled, you will force the browser to do complicated emulation when running on desktop OpenGL (e.g. on Mac OSX). This is because in desktop OpenGL, nothing gets drawn if vertex attrib 0 is not array-enabled. You can use bindAttribLocation() to force a vertex attribute to use location 0, and use enableVertexAttribArray() to make it array-enabled.
  */
-  bindAttribLocation(program, 0, "a_position", gl)
+  bindAttribLocation(. program, 0, "a_position", gl)
   _linkProgram(webgl1Service, program, gl, isDebug)
   /* !
     should detach and delete shaders after linking the program
@@ -85,8 +85,8 @@ let initShader = ({ createShader, getVertexShader, getFragmentShader, attachShad
 
     "Deleting" the shader, as with all OpenGL objects, merely sets a flag that says you don't need it any more. OpenGL will keep it around for as long as it needs it itself, and will do the actual delete any time later (most likely, but not necessarily, after the program is deleted).
  */
-  deleteShader(vs, gl)
-  deleteShader(fs, gl)
+  deleteShader(. vs, gl)
+  deleteShader(. fs, gl)
   program
 }
 

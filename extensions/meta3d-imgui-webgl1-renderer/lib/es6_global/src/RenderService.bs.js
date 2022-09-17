@@ -1,6 +1,5 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BufferDataIMGUIService$Meta3dImguiWebgl1Renderer from "./BufferDataIMGUIService.bs.js";
@@ -20,9 +19,9 @@ function _getGl(param) {
 }
 
 function _unbindVAO(param, gl) {
-  var ext = OptionSt$Meta3dCommonlib.fromNullable(Curry._2(param.getExtension, "OES_vertex_array_object", gl));
+  var ext = OptionSt$Meta3dCommonlib.fromNullable(param.getExtension("OES_vertex_array_object", gl));
   if (ext !== undefined) {
-    return Curry._2(param.bindVertexArrayOES, null, Caml_option.valFromOption(ext));
+    return param.bindVertexArrayOES(null, Caml_option.valFromOption(ext));
   }
   
 }
@@ -36,11 +35,11 @@ function _backupGlState(param, gl, state) {
           gl: state.gl,
           noTextureShaderData: state.noTextureShaderData,
           lastWebglData: {
-            lastProgram: OptionSt$Meta3dCommonlib.fromNullable(Curry._2(getParameter, Curry._1(param.getCurrentProgram, gl), gl)),
-            lastElementArrayBuffer: Curry._2(getParameter, Curry._1(param.getBindingElementArrayBuffer, gl), gl),
-            lastArrayBuffer: Curry._2(getParameter, Curry._1(param.getBindingArrayBuffer, gl), gl),
-            lastIsEnableDepthTest: Curry._2(isEnabled, Curry._1(param.getDepthTest, gl), gl),
-            lastIsEnableBlend: Curry._2(isEnabled, Curry._1(param.getBlend, gl), gl)
+            lastProgram: OptionSt$Meta3dCommonlib.fromNullable(getParameter(param.getCurrentProgram(gl), gl)),
+            lastElementArrayBuffer: getParameter(param.getBindingElementArrayBuffer(gl), gl),
+            lastArrayBuffer: getParameter(param.getBindingArrayBuffer(gl), gl),
+            lastIsEnableDepthTest: isEnabled(param.getDepthTest(gl), gl),
+            lastIsEnableBlend: isEnabled(param.getBlend(gl), gl)
           }
         };
 }
@@ -54,16 +53,16 @@ function _buildAllDrawData(state) {
 }
 
 function _setGlState(param, gl) {
-  Curry._2(param.disable, Curry._1(param.getDepthTest, gl), gl);
-  Curry._2(param.enable, Curry._1(param.getBlend, gl), gl);
-  return Curry._3(param.blendFunc, Curry._1(param.getSrcAlpha, gl), Curry._1(param.getOneMinusSrcAlpha, gl), gl);
+  param.disable(param.getDepthTest(gl), gl);
+  param.enable(param.getBlend(gl), gl);
+  return param.blendFunc(param.getSrcAlpha(gl), param.getOneMinusSrcAlpha(gl), gl);
 }
 
 function _drawElements(param, count, countOffset, gl) {
   if (count === 0) {
     return gl;
   } else {
-    Curry._5(param.drawElements, Curry._1(param.getTriangles, gl), count, Curry._1(param.getUnsignedShort, gl), countOffset, gl);
+    param.drawElements(param.getTriangles(gl), count, param.getUnsignedShort(gl), countOffset, gl);
     return gl;
   }
 }
@@ -74,7 +73,7 @@ function _drawNoTexture(webgl1Service, drawElementData, gl) {
 
 function _renderNoTexture(webgl1Service, noTextureDrawData, state, gl) {
   var noTextureShaderData = OptionSt$Meta3dCommonlib.getExn(state.noTextureShaderData);
-  Curry._2(webgl1Service.useProgram, noTextureShaderData.program, gl);
+  webgl1Service.useProgram(noTextureShaderData.program, gl);
   var match = BufferDataIMGUIService$Meta3dImguiWebgl1Renderer.bufferNoTextureDataAndSend(webgl1Service, gl, noTextureDrawData, state);
   return _drawNoTexture(webgl1Service, match[1], gl);
 }
@@ -87,20 +86,20 @@ function _restoreGlState(param, state, gl) {
   var bindBuffer = param.bindBuffer;
   var match = OptionSt$Meta3dCommonlib.getExn(state.lastWebglData);
   var lastProgram = match.lastProgram;
-  Curry._3(bindBuffer, Curry._1(param.getElementArrayBuffer, gl), match.lastElementArrayBuffer, gl);
-  Curry._3(bindBuffer, Curry._1(param.getArrayBuffer, gl), match.lastArrayBuffer, gl);
+  bindBuffer(param.getElementArrayBuffer(gl), match.lastElementArrayBuffer, gl);
+  bindBuffer(param.getArrayBuffer(gl), match.lastArrayBuffer, gl);
   if (lastProgram !== undefined) {
-    Curry._2(param.useProgram, Caml_option.valFromOption(lastProgram), gl);
+    param.useProgram(Caml_option.valFromOption(lastProgram), gl);
   }
   if (match.lastIsEnableDepthTest) {
-    Curry._2(enable, Curry._1(getDepthTest, gl), gl);
+    enable(getDepthTest(gl), gl);
   } else {
-    Curry._2(disable, Curry._1(getDepthTest, gl), gl);
+    disable(getDepthTest(gl), gl);
   }
   if (match.lastIsEnableBlend) {
-    Curry._2(enable, Curry._1(getBlend, gl), gl);
+    enable(getBlend(gl), gl);
   } else {
-    Curry._2(disable, Curry._1(getBlend, gl), gl);
+    disable(getBlend(gl), gl);
   }
   return state;
 }

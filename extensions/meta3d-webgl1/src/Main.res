@@ -3,112 +3,112 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dWebgl1Protocol.DependentMapType.dependentContributeNameMap,
   Meta3dWebgl1Protocol.ServiceType.service,
 > = (api, _) => {
-  getContext: (canvas, contextConfigJsObj) => {
+  getContext: (. canvas, contextConfigJsObj) => {
     (canvas->Obj.magic)["getContext"](. "webgl", contextConfigJsObj)
   },
-  createProgram: gl => {
+  createProgram: (. gl) => {
     (gl->Obj.magic)["createProgram"]()
   },
-  linkProgram: (program, gl) => {
+  linkProgram: (. program, gl) => {
     (gl->Obj.magic)["linkProgram"](. program)
   },
-  useProgram: (program, gl) => {
+  useProgram: (. program, gl) => {
     (gl->Obj.magic)["useProgram"](. program)
   },
-  uniformMatrix4fv: (location, value, gl) => {
+  uniformMatrix4fv: (. location, value, gl) => {
     (gl->Obj.magic)["uniformMatrix4fv"](. location, false, value)
   },
-  uniform1i: (location, value, gl) => {
+  uniform1i: (. location, value, gl) => {
     (gl->Obj.magic)["uniform1i"](. location, value)
   },
-  uniform1f: (location, value, gl) => {
+  uniform1f: (. location, value, gl) => {
     (gl->Obj.magic)["uniform1f"](. location, value)
   },
-  uniform3f: (location, value1, value2, value3, gl) => {
+  uniform3f: (. location, value1, value2, value3, gl) => {
     (gl->Obj.magic)["uniform3f"](. location, value1, value2, value3)
   },
-  getAttribLocation: (program, name, gl) => {
+  getAttribLocation: (. program, name, gl) => {
     (gl->Obj.magic)["getAttribLocation"](. program, name)
   },
-  getUniformLocation: (program, name, gl) => {
+  getUniformLocation: (. program, name, gl) => {
     (gl->Obj.magic)["getUniformLocation"](. program, name)
   },
-  shaderSource: (shader, shaderSource, gl) => {
+  shaderSource: (. shader, shaderSource, gl) => {
     (gl->Obj.magic)["shaderSource"](. shader, shaderSource)
   },
-  compileShader: (shader, gl) => {
+  compileShader: (. shader, gl) => {
     (gl->Obj.magic)["compileShader"](. shader)
   },
-  createShader: (shaderType, gl) => {
+  createShader: (. shaderType, gl) => {
     (gl->Obj.magic)["createShader"](. shaderType)
   },
-  getParameter: (pname, gl) => {
+  getParameter: (. pname, gl) => {
     (gl->Obj.magic)["getParameter"](. pname)
   },
-  getCompileStatus: gl => {
+  getCompileStatus: (. gl) => {
     (gl->Obj.magic)["COMPILE_STATUS"]
   },
-  getLinkStatus: gl => {
+  getLinkStatus: (. gl) => {
     (gl->Obj.magic)["LINK_STATUS"]
   },
-  getShaderParameter: (shader, parameterName, gl) => {
+  getShaderParameter: (. shader, parameterName, gl) => {
     (gl->Obj.magic)["getShaderParameter"](. shader, parameterName)
   },
-  getProgramParameter: (program, parameterName, gl) => {
+  getProgramParameter: (. program, parameterName, gl) => {
     (gl->Obj.magic)["getProgramParameter"](. program, parameterName)
   },
-  getShaderInfoLog: (shader, gl) => {
+  getShaderInfoLog: (. shader, gl) => {
     (gl->Obj.magic)["getShaderInfoLog"](. shader)->Meta3dCommonlib.NullableSt.getWithDefault("")
   },
-  getProgramInfoLog: (program, gl) => {
+  getProgramInfoLog: (. program, gl) => {
     (gl->Obj.magic)["getProgramInfoLog"](. program)->Meta3dCommonlib.NullableSt.getWithDefault("")
   },
-  bindAttribLocation: (program, index, name, gl) => {
+  bindAttribLocation: (. program, index, name, gl) => {
     (gl->Obj.magic)["bindAttribLocation"](. program, index, name)
   },
-  attachShader: (program, shader, gl) => {
+  attachShader: (. program, shader, gl) => {
     (gl->Obj.magic)["attachShader"](. program, shader)
   },
-  deleteShader: (shader, gl) => {
+  deleteShader: (. shader, gl) => {
     (gl->Obj.magic)["deleteShader"](. shader)
   },
-  getVertexShader: gl => {
+  getVertexShader: (. gl) => {
     (gl->Obj.magic)["VERTEX_SHADER"]
   },
-  getFragmentShader: gl => {
+  getFragmentShader: (. gl) => {
     (gl->Obj.magic)["FRAGMENT_SHADER"]
   },
-  createBuffer: gl => {
+  createBuffer: (. gl) => {
     (gl->Obj.magic)["createBuffer"]()
   },
-  bindBuffer: (arrayBufferType, buffer, gl) => {
+  bindBuffer: (. arrayBufferType, buffer, gl) => {
     (gl->Obj.magic)["bindBuffer"](. arrayBufferType, buffer)
   },
-  bufferFloat32Data: (arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
+  bufferFloat32Data: (. arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
     (gl->Obj.magic)["bufferData"](. arrayBufferType, bufferData, arrayBufferUpdateType)
   },
-  bufferUint16Data: (arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
+  bufferUint16Data: (. arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
     (gl->Obj.magic)["bufferData"](. arrayBufferType, bufferData, arrayBufferUpdateType)
   },
-  bufferUint32Data: (arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
+  bufferUint32Data: (. arrayBufferType, bufferData, arrayBufferUpdateType, gl) => {
     (gl->Obj.magic)["bufferData"](. arrayBufferType, bufferData, arrayBufferUpdateType)
   },
-  getArrayBuffer: gl => {
+  getArrayBuffer: (. gl) => {
     (gl->Obj.magic)["ARRAY_BUFFER"]
   },
-  getElementArrayBuffer: gl => {
+  getElementArrayBuffer: (. gl) => {
     (gl->Obj.magic)["ELEMENT_ARRAY_BUFFER"]
   },
-  getStaticDraw: gl => {
+  getStaticDraw: (. gl) => {
     (gl->Obj.magic)["STATIC_DRAW"]
   },
-  getDynamicDraw: gl => {
+  getDynamicDraw: (. gl) => {
     (gl->Obj.magic)["DYNAMIC_DRAW"]
   },
-  disableVertexAttribArray: (index, gl) => {
+  disableVertexAttribArray: (. index, gl) => {
     (gl->Obj.magic)["disableVertexAttribArray"](. index)
   },
-  vertexAttribPointer: (attributeLocation, size, _type, normalized, stride, offset, gl) => {
+  vertexAttribPointer: (. attributeLocation, size, _type, normalized, stride, offset, gl) => {
     (gl->Obj.magic)["vertexAttribPointer"](.
       attributeLocation,
       size,
@@ -118,85 +118,85 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       offset,
     )
   },
-  enableVertexAttribArray: (attributeLocation, gl) => {
+  enableVertexAttribArray: (. attributeLocation, gl) => {
     (gl->Obj.magic)["enableVertexAttribArray"](. attributeLocation)
   },
-  getExtension: (name, gl) => {
+  getExtension: (. name, gl) => {
     (gl->Obj.magic)["getExtension"](. name)
   },
-  drawElements: (mode, count, _type, offset, gl) => {
+  drawElements: (. mode, count, _type, offset, gl) => {
     (gl->Obj.magic)["drawElements"](. mode, count, _type, offset)
   },
-  clearColor: (red, green, blue, alpha, gl) => {
+  clearColor: (. red, green, blue, alpha, gl) => {
     (gl->Obj.magic)["clearColor"](. red, green, blue, alpha)
   },
-  clear: (mask, gl) => {
+  clear: (. mask, gl) => {
     (gl->Obj.magic)["clear"](. mask)
   },
-  enable: (capability, gl) => {
+  enable: (. capability, gl) => {
     (gl->Obj.magic)["enable"](. capability)
   },
-  disable: (capability, gl) => {
+  disable: (. capability, gl) => {
     (gl->Obj.magic)["disable"](. capability)
   },
-  getFloat: gl => {
+  getFloat: (. gl) => {
     (gl->Obj.magic)["FLOAT"]
   },
-  getDepthTest: gl => {
+  getDepthTest: (. gl) => {
     (gl->Obj.magic)["DEPTH_TEST"]
   },
-  getStencilTest: gl => {
+  getStencilTest: (. gl) => {
     (gl->Obj.magic)["STENCIL_TEST"]
   },
-  getBlend: gl => {
+  getBlend: (. gl) => {
     (gl->Obj.magic)["BLEND"]
   },
-  getCullFace: gl => {
+  getCullFace: (. gl) => {
     (gl->Obj.magic)["CULL_FACE"]
   },
-  getFrontAndBack: gl => {
+  getFrontAndBack: (. gl) => {
     (gl->Obj.magic)["FRONT_AND_BACK"]
   },
-  getBack: gl => {
+  getBack: (. gl) => {
     (gl->Obj.magic)["BACK"]
   },
-  getFront: gl => {
+  getFront: (. gl) => {
     (gl->Obj.magic)["FRONT"]
   },
-  getCurrentProgram: gl => {
+  getCurrentProgram: (. gl) => {
     (gl->Obj.magic)["CURRENT_PROGRAM"]
   },
-  getBindingElementArrayBuffer: gl => {
+  getBindingElementArrayBuffer: (. gl) => {
     (gl->Obj.magic)["ELEMENT_ARRAY_BUFFER_BINDING"]
   },
-  getBindingArrayBuffer: gl => {
+  getBindingArrayBuffer: (. gl) => {
     (gl->Obj.magic)["ARRAY_BUFFER_BINDING"]
   },
-  getSrcAlpha: gl => {
+  getSrcAlpha: (. gl) => {
     (gl->Obj.magic)["SRC_ALPHA"]
   },
-  getOneMinusSrcAlpha: gl => {
+  getOneMinusSrcAlpha: (. gl) => {
     (gl->Obj.magic)["ONE_MINUS_SRC_ALPHA"]
   },
-  isEnabled: (capability, gl) => {
+  isEnabled: (. capability, gl) => {
     (gl->Obj.magic)["isEnabled"](. capability)
   },
-  bindVertexArrayOES: (arrayObject, gl) => {
+  bindVertexArrayOES: (. arrayObject, gl) => {
     (gl->Obj.magic)["bindVertexArrayOES"](. arrayObject)
   },
-  blendFunc: (sfactor, dfactor, gl) => {
+  blendFunc: (. sfactor, dfactor, gl) => {
     (gl->Obj.magic)["blendFunc"](. sfactor, dfactor)
   },
-  getTriangles: gl => {
+  getTriangles: (. gl) => {
     (gl->Obj.magic)["TRIANGLES"]
   },
-  getTriangleFan: gl => {
+  getTriangleFan: (. gl) => {
     (gl->Obj.magic)["TRIANGLE_FAN"]
   },
-  getUnsignedInt: gl => {
+  getUnsignedInt: (. gl) => {
     (gl->Obj.magic)["UNSIGNED_INT"]
   },
-  getUnsignedShort: gl => {
+  getUnsignedShort: (. gl) => {
     (gl->Obj.magic)["UNSIGNED_SHORT"]
   },
 }

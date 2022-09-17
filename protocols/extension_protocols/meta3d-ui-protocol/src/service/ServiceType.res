@@ -56,7 +56,7 @@ type service = {
   // ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
-    (Meta3dType.Index.api, Meta3dType.Index.extensionName),
+    (Meta3dType.Index.api, imguiRendererExtensionName),
     bool,
     Dom.htmlCanvasElement,
   ) => Meta3dType.Index.state,

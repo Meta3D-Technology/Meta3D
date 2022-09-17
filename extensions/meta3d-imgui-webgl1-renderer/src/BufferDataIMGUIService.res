@@ -11,8 +11,8 @@ let _bufferArrayBufferData = (
   (buffer, pointArr),
   gl,
 ) => {
-  bindBuffer(getArrayBuffer(gl), buffer, gl)
-  bufferFloat32Data(getArrayBuffer(gl), Float32Array.make(pointArr), getDynamicDraw(gl), gl)
+  bindBuffer(. getArrayBuffer(. gl), buffer, gl)
+  bufferFloat32Data(. getArrayBuffer(. gl), Float32Array.make(pointArr), getDynamicDraw(. gl), gl)
 
   gl
 }
@@ -22,8 +22,8 @@ let _sendArrayBufferData = (
   (location, size),
   gl,
 ) => {
-  enableVertexAttribArray(location, gl)
-  vertexAttribPointer(location, size, getFloat(gl), false, 0, 0, gl)
+  enableVertexAttribArray(. location, gl)
+  vertexAttribPointer(. location, size, getFloat(. gl), false, 0, 0, gl)
 
   gl
 }
@@ -34,8 +34,8 @@ let _bufferElementArrayBufferData = (
   pointArr,
   gl,
 ) => {
-  bindBuffer(getElementArrayBuffer(gl), buffer, gl)
-  bufferUint16Data(getElementArrayBuffer(gl), Uint16Array.make(pointArr), getDynamicDraw(gl), gl)
+  bindBuffer(. getElementArrayBuffer(. gl), buffer, gl)
+  bufferUint16Data(. getElementArrayBuffer(. gl), Uint16Array.make(pointArr), getDynamicDraw(. gl), gl)
 
   gl
 }
