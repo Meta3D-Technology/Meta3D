@@ -45,7 +45,6 @@ type service = {
   ) => CustomControlContributeType.customControlFunc<'inputData, 'outputData>,
   drawBox: (
     Meta3dType.Index.state,
-    (Meta3dType.Index.api, Meta3dType.Index.extensionName),
     Meta3dImguiRendererProtocol.ServiceType.rect,
     Meta3dImguiRendererProtocol.ServiceType.color,
   ) => Meta3dType.Index.state,

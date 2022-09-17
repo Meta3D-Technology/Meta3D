@@ -7,7 +7,7 @@ export type inputData = {
         width: number,
         height: number
     },
-    text: string
+    // text: string
 }
 
 type isClick = boolean

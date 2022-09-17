@@ -15,7 +15,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     show: UIManager.show,
     isStateChange: UIManager.isStateChange,
     getElementState: UIManager.getElementState->Obj.magic,
-    drawBox: UIManager.drawBox,
+    drawBox: (meta3dState, rect, backgroundColor) => {
+      UIManager.drawBox(meta3dState, (api, meta3dImguiRendererExtensionName), rect, backgroundColor)
+    },
     // drawText: UIManager.drawText,
     getIOData: UIManager.getIOData,
     combineReducers: UIManager.combineReducers->Obj.magic,

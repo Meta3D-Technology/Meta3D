@@ -6,38 +6,53 @@ import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { skinName, buttonStyle } from "meta3d-skin-default-protocol"
 import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (_api, _) => {
+export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
+    let { meta3dUIExtensionName } = dependentExtensionNameMap
+
     return {
         customControlName: customControlName,
-        func: (meta3dState, [api, uiExtensionName],
+        func: (meta3dState,
             {
                 rect,
-                text
+                // text
             }
         ) => {
-            let { getSkin, drawBox, drawText, getIOData } = api.getExtensionService<service>(meta3dState, uiExtensionName)
-            let state = api.getExtensionState<state>(meta3dState, uiExtensionName)
+            let _isClick = (
+                pointUp: boolean,
+                pointDown: boolean
+            ) => {
+                return pointUp && pointDown
+            }
+
+            let { getSkin, drawBox, getIOData } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
+            let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
 
             let { x, y, width, height } = rect
 
-            let { pointPosition, isPointDown } = getIOData(state)
+            let {
+                pointUp,
+                pointDown,
+                pointPosition,
+                // pointMovementDelta
+            } = getIOData(state)
             let [pointPositionX, pointPositionY] = pointPosition
 
             let isClick =
-                isPointDown &&
-                    pointPositionX >= x &&
+                pointPositionX >= x &&
                     pointPositionX <= x + width &&
                     pointPositionY >= y &&
                     pointPositionY <= y + height
-                    ? true : false
-
+                    ?
+                    _isClick(pointUp, pointDown) ?
+                        true : false
+                    : false
 
 
             let { normal } = getSkin<buttonStyle>(state, skinName).button
             // let { normal } = getSkin<buttonStyle>(state, meta3dSkinDefaultContributeName).button
 
-            meta3dState = drawBox(meta3dState, [api, uiExtensionName], rect, normal.background_color)
-            meta3dState = drawText(meta3dState, [api, uiExtensionName], rect, text)
+            meta3dState = drawBox(meta3dState, rect, normal.background_color)
+            // meta3dState = drawText(meta3dState, rect, text)
 
 
             return [meta3dState, isClick]

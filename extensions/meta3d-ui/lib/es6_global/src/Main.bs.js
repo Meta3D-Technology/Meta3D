@@ -4,6 +4,7 @@ import * as UIManager$Meta3dUi from "./UIManager.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionService(api, param) {
+  var meta3dImguiRendererExtensionName = param[0].meta3dImguiRendererExtensionName;
   return {
           registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
@@ -20,7 +21,12 @@ function getExtensionService(api, param) {
           getIOData: UIManager$Meta3dUi.getIOData,
           getSkin: UIManager$Meta3dUi.getSkinExn,
           getCustomControl: UIManager$Meta3dUi.getCustomControlExn,
-          drawBox: UIManager$Meta3dUi.drawBox,
+          drawBox: (function (meta3dState, rect, backgroundColor) {
+              return UIManager$Meta3dUi.drawBox(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], rect, backgroundColor);
+            }),
           init: UIManager$Meta3dUi.init
         };
 }

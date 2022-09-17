@@ -2,7 +2,6 @@ type customControlName = string
 
 type customControlFunc<'inputData, 'outputData> = (
   Meta3dType.Index.state,
-  (Meta3dType.Index.api, UIType.uiExtensionName),
   'inputData,
 ) => (Meta3dType.Index.state, 'outputData)
 

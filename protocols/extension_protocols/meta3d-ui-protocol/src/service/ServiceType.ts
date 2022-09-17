@@ -73,7 +73,6 @@ export type service = {
     ) => ioData;
     readonly drawBox: (
         meta3dState: meta3dState,
-        [api, uiExtensionName]: [api, extensionName],
         rect: rect,
         backgroundColor: color
     ) => meta3dState

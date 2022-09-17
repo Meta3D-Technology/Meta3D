@@ -41,7 +41,6 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 
             let data = drawButton(meta3dState,
-                [api, meta3dUIExtensionName],
                 {
                     rect: {
                         x,
@@ -49,7 +48,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                         width,
                         height,
                     },
-                    text
+                    // text
                 })
             meta3dState = data[0]
             let isClick = data[1]

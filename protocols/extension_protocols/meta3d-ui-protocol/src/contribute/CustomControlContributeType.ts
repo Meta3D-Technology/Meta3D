@@ -8,7 +8,7 @@ import type { uiExtensionName as UIType_uiExtensionName } from './UIType';
 export type customControlName = string;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type customControlFunc<inputData, outputData> = (_1: Meta3dType_Index_state, _2: [Meta3dType_Index_api, UIType_uiExtensionName], _3: inputData) => [Meta3dType_Index_state, outputData];
+export type customControlFunc<inputData, outputData> = (_1: Meta3dType_Index_state, _2: inputData) => [Meta3dType_Index_state, outputData];
 
 // tslint:disable-next-line:interface-over-type-literal
 export type customControlContribute<inputData, outputData> = { readonly customControlName: customControlName; readonly func: customControlFunc<inputData, outputData> };

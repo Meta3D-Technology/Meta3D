@@ -121,13 +121,13 @@ not add customData
 
 *** DONE remove drawText
 
-*** TODO implement drawButton by custom control
+# *** TODO implement drawButton by custom control
 
 
 
-*** TODO feat: add register custom control
+# *** TODO feat: add register custom control
 
-*** TODO feat: custom control ->func remove [api, uiExtensionName] 
+*** DONE feat: custom control ->func remove [api, uiExtensionName] 
 
 dependentExtensionNameMap add meta3DUIExtensionName
 
@@ -142,7 +142,6 @@ dependentExtensionNameMap add meta3DUIExtensionName
 *** TODO feat: custom control, element ->func change to (. )
 
 
-*** TODO pass run test
 
 
 
@@ -151,6 +150,9 @@ dependentExtensionNameMap add meta3DUIExtensionName
 
 
 *** TODO add bdd test for imgui, ui extensions
+
+
+*** TODO pass run test
 
 
 
