@@ -172,6 +172,7 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
  */
 
             elementFunc(
+              .
               meta3dState,
               _getElementStateExn(state, elementName),
             )->Meta3dCommonlib.PromiseSt.map(meta3dState => {

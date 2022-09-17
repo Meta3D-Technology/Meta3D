@@ -166,7 +166,7 @@ function _exec(meta3dState, state) {
                 }
                 var elementName = param$1[0];
                 var elementFunc = ImmutableHashMap$Meta3dCommonlib.getExn(elementFuncMap, elementName);
-                return PromiseSt$Meta3dCommonlib.map(Curry._2(elementFunc, meta3dState, _getElementStateExn(state, elementName)), (function (meta3dState) {
+                return PromiseSt$Meta3dCommonlib.map(elementFunc(meta3dState, _getElementStateExn(state, elementName)), (function (meta3dState) {
                               return [
                                       meta3dState,
                                       ArraySt$Meta3dCommonlib.push(needMarkStateNotChangeIds, elementName)

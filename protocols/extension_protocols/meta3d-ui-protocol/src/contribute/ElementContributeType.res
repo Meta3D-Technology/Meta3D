@@ -1,6 +1,7 @@
 type elementName = string
 
 type elementFunc<'elementState> = (
+  .
   Meta3dType.Index.state,
   'elementState,
 ) => Js.Promise.t<Meta3dType.Index.state>
