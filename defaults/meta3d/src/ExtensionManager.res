@@ -112,8 +112,8 @@ and buildAPI = (): api => {
       )
   )->Obj.magic,
   getExtensionService: (. state, name: extensionName) =>
-    getExtensionServiceExn(state, (name: extensionName)),
-  getExtensionState: (. state, name) => getExtensionStateExn(state, name),
+    getExtensionServiceExn(state, (name: extensionName))->Obj.magic,
+  getExtensionState: (. state, name) => getExtensionStateExn(state, name)->Obj.magic,
   // TODO remove magic
   setExtensionState: (
     (. state, name, extensionState) => setExtensionState(state, name, extensionState)
@@ -132,5 +132,6 @@ and buildAPI = (): api => {
         (dependentExtensionNameMap, dependentContributeNameMap),
       )
   )->Obj.magic,
-  getContribute: (. state, name: contributeName) => getContributeExn(state, (name: contributeName)),
+  getContribute: (. state, name: contributeName) =>
+    getContributeExn(state, (name: contributeName))->Obj.magic,
 }
