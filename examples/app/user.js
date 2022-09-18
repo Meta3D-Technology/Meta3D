@@ -4,7 +4,7 @@ let appExtensionFileData = loadExtension(generateExtension({
     "name": "meta3d-app",
     "protocol": {
         "name": "meta3d-app-protocol",
-        "version":"0.4.0"
+        "version":"0.4.1"
     },
     "dependentExtensionNameMap": {
         "meta3dTest1ExtensionName": {
@@ -21,7 +21,7 @@ let test1ExtensionFileData = loadExtension(generateExtension({
     "name": "meta3d-extension-test1",
     "protocol": {
         "name": "meta3d-extension-test1-protocol",
-        "version":"0.4.0"
+        "version":"0.4.1"
     },
     "dependentExtensionNameMap": {},
     "dependentContributeNameMap": {
@@ -38,7 +38,7 @@ let test1ContributeFileData = loadContribute(generateContribute({
     "name": "meta3d-contribute-test1",
     "protocol": {
         "name": "meta3d-contribute-test1-protocol",
-        "version":"0.4.0"
+        "version":"0.4.1"
     },
     "dependentExtensionNameMap": {},
     "dependentContributeNameMap": {}

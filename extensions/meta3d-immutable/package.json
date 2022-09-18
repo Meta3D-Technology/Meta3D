@@ -1,6 +1,6 @@
 {
     "name": "meta3d-immutable",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "",
     "author": "Wonder",
     "main": "src/Main.ts",

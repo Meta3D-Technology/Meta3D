@@ -23,7 +23,7 @@ defineFeature(feature, test => {
             name: "meta3d-app",
             protocol: {
               name: "meta3d-app-protocol",
-              version:"0.4.0",
+              version:"0.4.1",
             },
             dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -42,7 +42,7 @@ defineFeature(feature, test => {
             name: "meta3d-app",
             protocol: {
               name: "meta3d-app-protocol",
-              version:"0.4.0",
+              version:"0.4.1",
             },
             dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -70,7 +70,7 @@ defineFeature(feature, test => {
             name: "meta3d-contribute-test1",
             protocol: {
               name: "meta3d-contribute-test1-protocol",
-              version:"0.4.0",
+              version:"0.4.1",
             },
             dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -89,7 +89,7 @@ defineFeature(feature, test => {
             name: "meta3d-contribute-test1",
             protocol: {
               name: "meta3d-contribute-test1-protocol",
-              version:"0.4.0",
+              version:"0.4.1",
             },
             dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

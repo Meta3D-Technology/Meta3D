@@ -1,6 +1,6 @@
 {
     "name": "meta3d-event-click-button-protocol",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "",
     "publisher": "meta3d",
     "author": "Meta3D",
@@ -8,7 +8,8 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
-        "meta3d:publish": "gulp publish"
+        "meta3d:publish_dev": "gulp publish",
+        "meta3d:publish_pro": "gulp publish"
     },
     "keywords": [],
     "devDependencies": {

@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
 	entry: "./src/Main.ts",
-	mode: 'production',
+	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
 	output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'static/js/[name].js',

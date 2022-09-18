@@ -1,6 +1,6 @@
 {
     "name": "meta3d-bs-most-protocol",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "publisher": "meta3d",
     "description": "",
     "author": "Wonder",
@@ -8,7 +8,8 @@
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
-        "meta3d:publish": "yarn buildAll:ci && gulp publish"
+        "meta3d:publish_dev": "yarn buildAll:ci && gulp publish",
+        "meta3d:publish_pro": "yarn buildAll:ci && gulp publish"
     },
     "keywords": [],
     "devDependencies": {

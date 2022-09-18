@@ -1,12 +1,12 @@
 {
     "name": "frontend",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
-        "webpack": "yarn buildAll:ci && webpack --config webpack.config.js",
-        "webpack:dev-server": "webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js",
+        "webpack_pro": "yarn buildAll:ci && NODE_ENV=production webpack --config webpack.config.js",
+        "webpack:dev-server": "NODE_ENV=development webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js",
         "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
         "test:update": "jest --maxWorkers=4 -u --config jest.json"
     },

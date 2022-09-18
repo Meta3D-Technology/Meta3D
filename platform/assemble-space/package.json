@@ -1,6 +1,6 @@
 {
     "name": "assemble-space",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

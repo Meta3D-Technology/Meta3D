@@ -4,15 +4,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
-// process.env.NODE_ENV = "development";
-process.env.NODE_ENV = "production";
-
-const isProd = process.env.NODE_ENV.trim() == 'production';
-const isDevelopment = !isProd;
-
 module.exports = {
     entry: "./lib/es6_global/src/Main.bs.js",
-    mode: isProd ? 'production' : 'development',
+    mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'static/js/[name].js',

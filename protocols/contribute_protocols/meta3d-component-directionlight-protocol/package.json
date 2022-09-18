@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-directionlight-protocol",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "publisher": "meta3d",
   "author": "Meta3D",
@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build",
-    "meta3d:publish": "yarn buildAll:ci && gulp publish"
+    "meta3d:publish_dev": "yarn buildAll:ci && gulp publish",
+        "meta3d:publish_pro": "yarn buildAll:ci && gulp publish"
   },
   "keywords": [],
   "devDependencies": {

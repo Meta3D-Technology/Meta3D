@@ -32,14 +32,14 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
                 (
                   {
                     protocolName: "second-extension-protocol",
-                    protocolVersion: ">=0.4.0 < 1.0.0",
+                    protocolVersion: ">=0.4.1 < 1.0.0",
                   }: ExtensionFileType.dependentData
                 ),
               ),
@@ -108,7 +108,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -116,7 +116,7 @@ defineFeature(feature, test => {
                 (
                   {
                     protocolName: "first-contribute-protocol",
-                    protocolVersion: ">=0.4.0 < 1.0.0",
+                    protocolVersion: ">=0.4.1 < 1.0.0",
                   }: ExtensionFileType.dependentData
                 ),
               ),
@@ -187,7 +187,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -274,14 +274,14 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
                 (
                   {
                     protocolName: "second-extension-protocol",
-                    protocolVersion: ">=0.4.0 < 1.0.0",
+                    protocolVersion: ">=0.4.1 < 1.0.0",
                   }: ExtensionFileType.dependentData
                 ),
               ),
@@ -442,14 +442,14 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
                 (
                   {
                     protocolName: "second-extension-protocol",
-                    protocolVersion: ">=0.4.0 < 1.0.0",
+                    protocolVersion: ">=0.4.1 < 1.0.0",
                   }: ExtensionFileType.dependentData
                 ),
               ),
@@ -579,7 +579,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.0",
+                version:"0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

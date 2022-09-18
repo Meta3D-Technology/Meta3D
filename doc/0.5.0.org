@@ -181,7 +181,7 @@ combineReducers
 *** TODO refactor
 
 
-*** TODO add dev, prodution meta3d:publish!
+*** DONE add dev, prodution meta3d:publish!
 
 add scripts!
 
