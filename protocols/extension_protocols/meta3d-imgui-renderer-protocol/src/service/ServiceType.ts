@@ -5,4 +5,4 @@ export type rect = {
     height: number,
 }
 
-export type color = string
+export type color = [number, number, number]

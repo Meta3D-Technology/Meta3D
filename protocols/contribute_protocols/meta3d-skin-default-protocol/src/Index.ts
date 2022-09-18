@@ -1,7 +1,6 @@
 export const skinName = "Default"
 
-// type color = [number, number, number]
-type color = string
+type color = [number, number, number]
 
 type buttonStyle = {
     normal: {

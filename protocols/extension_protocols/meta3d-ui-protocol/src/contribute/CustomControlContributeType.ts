@@ -2,8 +2,6 @@ import type { api as Meta3dType_Index_api } from 'meta3d-type/src/Index';
 
 import type { state as Meta3dType_Index_state } from 'meta3d-type/src/Index';
 
-import type { uiExtensionName as UIType_uiExtensionName } from './UIType';
-
 // tslint:disable-next-line:interface-over-type-literal
 export type customControlName = string;
 

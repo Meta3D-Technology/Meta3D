@@ -1,10 +1,14 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
-import { uiExtensionName, elementName } from "../contribute/UIType"
-import { elementContribute, reducerData } from "../contribute/ElementContributeType"
+import { elementContribute, elementName, reducerData } from "../contribute/ElementContributeType"
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { customControlContribute, customControlFunc, customControlName } from "../contribute/CustomControlContributeType"
 import { color, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+
+export type uiExtensionName = extensionName
+
+export type imguiRendererExtensionName = extensionName
+
 
 // type rect = {
 //     x: number,
@@ -38,9 +42,15 @@ export type service = {
         state: state,
         customControlName: customControlName
     ) => customControlFunc<inputData, outputData>;
+    readonly init: (
+        meta3dState: meta3dState,
+        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        isDebug: boolean,
+        canvas: HTMLCanvasElement
+    ) => meta3dState;
     readonly render: (
         meta3dState: meta3dState,
-        uiExtensionName: uiExtensionName,
+        [uiExtensionName, imguiRendererExtensionName]: [uiExtensionName, imguiRendererExtensionName],
         ioData: ioData
     ) => Promise<meta3dState>;
     readonly show: (

@@ -173,7 +173,7 @@ let _restoreGlState = (
   //   | None => ()
   //   }
 
-  lastIsEnableDepthTest ? enable( . getDepthTest(. gl), gl) : disable(. getDepthTest(. gl), gl)
+  lastIsEnableDepthTest ? enable(. getDepthTest(. gl), gl) : disable(. getDepthTest(. gl), gl)
 
   lastIsEnableBlend ? enable(. getBlend(. gl), gl) : disable(. getBlend(. gl), gl)
 
@@ -181,11 +181,6 @@ let _restoreGlState = (
 }
 
 let render = (state, meta3dState, webgl1Service: Meta3dWebgl1Protocol.ServiceType.service) => {
-  let state = {
-    ...state,
-    drawData: createEmptyDrawData()->Some,
-  }
-
   let gl = state.gl->Meta3dCommonlib.OptionSt.getExn
 
   /*
@@ -220,6 +215,14 @@ let render = (state, meta3dState, webgl1Service: Meta3dWebgl1Protocol.ServiceTyp
   ->_renderNoTexture(webgl1Service, noTextureDrawData, state, _)
   ->_restoreGlState(webgl1Service, state, _)
   ->ignore
+
+/*!
+fix by meta3d
+*/
+  let state = {
+    ...state,
+    drawData: createEmptyDrawData()->Some,
+  }
 
   state
 }

@@ -2,7 +2,7 @@ open StateType
 
 open DrawDataType
 
-let draw = ({ x, y, width, height }: Meta3dImguiRendererProtocol.ServiceType.rect, color, state) => {
+let draw = ({ x, y, width, height }: Meta3dImguiRendererProtocol.ServiceType.rect, color:Meta3dImguiRendererProtocol.ServiceType.color, state) => {
   let {noTextureDrawData} as drawData = state.drawData->Meta3dCommonlib.OptionSt.getExn
 let {verticeArr, colorArr, indexArr} = noTextureDrawData
 

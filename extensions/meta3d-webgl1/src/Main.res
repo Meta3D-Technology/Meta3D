@@ -7,7 +7,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     (canvas->Obj.magic)["getContext"](. "webgl", contextConfigJsObj)
   },
   createProgram: (. gl) => {
-    (gl->Obj.magic)["createProgram"]()
+    (gl->Obj.magic)["createProgram"](.)
   },
   linkProgram: (. program, gl) => {
     (gl->Obj.magic)["linkProgram"](. program)
@@ -79,7 +79,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     (gl->Obj.magic)["FRAGMENT_SHADER"]
   },
   createBuffer: (. gl) => {
-    (gl->Obj.magic)["createBuffer"]()
+    (gl->Obj.magic)["createBuffer"](.)
   },
   bindBuffer: (. arrayBufferType, buffer, gl) => {
     (gl->Obj.magic)["bindBuffer"](. arrayBufferType, buffer)

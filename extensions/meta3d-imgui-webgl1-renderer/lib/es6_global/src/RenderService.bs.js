@@ -105,32 +105,26 @@ function _restoreGlState(param, state, gl) {
 }
 
 function render(state, meta3dState, webgl1Service) {
-  var state_isDebug = state.isDebug;
-  var state_drawData = {
-    noTextureDrawData: {
-      verticeArr: [],
-      colorArr: [],
-      indexArr: []
-    }
-  };
-  var state_gl = state.gl;
-  var state_noTextureShaderData = state.noTextureShaderData;
-  var state_lastWebglData = state.lastWebglData;
-  var state$1 = {
-    isDebug: state_isDebug,
-    drawData: state_drawData,
-    gl: state_gl,
-    noTextureShaderData: state_noTextureShaderData,
-    lastWebglData: state_lastWebglData
-  };
-  var gl = OptionSt$Meta3dCommonlib.getExn(state_gl);
+  var gl = OptionSt$Meta3dCommonlib.getExn(state.gl);
   _unbindVAO(webgl1Service, gl);
-  var state$2 = _backupGlState(webgl1Service, gl, state$1);
-  var match = _buildAllDrawData(state$2);
-  var state$3 = match[0];
+  var state$1 = _backupGlState(webgl1Service, gl, state);
+  var match = _buildAllDrawData(state$1);
+  var state$2 = match[0];
   _setGlState(webgl1Service, gl);
-  _restoreGlState(webgl1Service, state$3, _renderNoTexture(webgl1Service, match[1], state$3, gl));
-  return state$3;
+  _restoreGlState(webgl1Service, state$2, _renderNoTexture(webgl1Service, match[1], state$2, gl));
+  return {
+          isDebug: state$2.isDebug,
+          drawData: {
+            noTextureDrawData: {
+              verticeArr: [],
+              colorArr: [],
+              indexArr: []
+            }
+          },
+          gl: state$2.gl,
+          noTextureShaderData: state$2.noTextureShaderData,
+          lastWebglData: state$2.lastWebglData
+        };
 }
 
 export {

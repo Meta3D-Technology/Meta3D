@@ -21,8 +21,10 @@ import { button2Reducer } from "./Reducer"
 
 // TODO move to UI extension 
 let _ioData: ioData = {
-	isPointDown: false,
-	pointPosition: [0, 0]
+	pointUp: false,
+	pointDown: false,
+	pointPosition: [0, 0],
+	pointMovementDelta: [0, 0]
 }
 
 let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
@@ -86,6 +88,19 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 	return meta3dState
 }
 
+let _createAndInsertCanvas = () => {
+	let canvas = document.createElement("canvas") as HTMLCanvasElement;
+
+	canvas.width = 600
+	canvas.style.width = "600px"
+	canvas.height = 600
+	canvas.style.height = "600px"
+
+	let body = document.getElementsByTagName("body")[0];
+	body.appendChild(canvas);
+
+	return canvas
+}
 
 let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	// let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
@@ -95,32 +110,51 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 	// TODO fix: should only one pointdown!
 	document.onmousedown = (e) => {
 		_ioData = {
-			isPointDown: true,
-			pointPosition: [e.pageX, e.pageY]
+			pointUp: false,
+			pointDown: true,
+			pointPosition: [e.pageX, e.pageY],
+			pointMovementDelta: [0, 0]
 		}
 	}
 	document.onmouseup = (e) => {
 		_ioData = {
-			isPointDown: false,
-			pointPosition: [e.pageX, e.pageY]
+			pointUp: true,
+			pointDown: true,
+			pointPosition: [e.pageX, e.pageY],
+			pointMovementDelta: [0, 0]
 		}
 	}
 
+	let isDebug = true
+
+
+
+
+	let [dependentExtensionNameMap, _] = dependentMapData
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
+
 	meta3dState = _prepareButton(meta3dState, api, dependentMapData)
+
+
+	let canvas = _createAndInsertCanvas()
+
+	let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+
+	meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
 
 	return meta3dState
 }
 
 let _loop = (
 	api: api, meta3dState: meta3dState,
-	meta3dUIExtensionName: string
+	[meta3dUIExtensionName, meta3dImguiRendererExtensionName]: [string, string]
 ) => {
 	let { render } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	render(meta3dState, meta3dUIExtensionName, _ioData).then((meta3dState: meta3dState) => {
+	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], _ioData).then((meta3dState: meta3dState) => {
 		requestAnimationFrame(
 			() => {
-				_loop(api, meta3dState, meta3dUIExtensionName)
+				_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName])
 			}
 		)
 	})
@@ -132,13 +166,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	dependentContributeNameMap,
 	service
 > = (api, [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dUIExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
 
 	return {
 		run: (meta3dState: meta3dState) => {
 			meta3dState = _init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap])
 
-			_loop(api, meta3dState, meta3dUIExtensionName)
+			_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName])
 		}
 	}
 }

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-editor",
-    "version": "0.4.3",
+    "version": "0.4.6",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -11,6 +11,9 @@
         },
         "meta3dUIExtensionName": {
             "protocolName": "meta3d-ui-protocol"
+        },
+        "meta3dImguiRendererExtensionName": {
+            "protocolName": "meta3d-imgui-renderer-protocol"
         }
     },
     "dependentContributeNameMap": {
@@ -41,6 +44,7 @@
         "meta3d-use-editor-protocol": "^0.4.1",
         "meta3d-event-protocol": "^0.4.1",
         "meta3d-ui-protocol": "^0.4.1",
+        "meta3d-imgui-renderer-protocol": "^0.4.1",
         "meta3d-skin-default-protocol": "^0.4.1",
         "meta3d-custom-control-button-protocol": "^0.4.1",
         "meta3d-element-button-protocol": "^0.4.1",

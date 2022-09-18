@@ -9,7 +9,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
         skin: {
             button: {
                 normal: {
-                    background_color: "blue"
+                    background_color: [0.0, 0.0, 1.0]
                 }
             }
         }

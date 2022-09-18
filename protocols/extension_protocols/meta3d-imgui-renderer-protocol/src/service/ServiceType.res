@@ -5,7 +5,7 @@ type rect = {
   height: float,
 }
 
-type color = string
+type color = (float,float ,float)
 
 type service = {
   init: (. StateType.state, Meta3dType.Index.state, bool, Dom.htmlCanvasElement) => StateType.state,

@@ -186,8 +186,29 @@ combineReducers
 add scripts!
 
 
+*** DONE pass run test
+
+
+
+
+** TODO fix use-editor->ioData
+
+*** TODO update event manager
+
+add order
+
+*** TODO add bdd test
+
 *** TODO pass run test
 
+
+
+*** TODO editor: add InitEventJob
+
+*** TODO fix use-editor->ioData
+
+
+** TODO frontend: extension/contribute shop should sort by version
 
 
 # * TODO improve
@@ -230,15 +251,6 @@ add scripts!
 
 # ** TODO add a button, click can log info and change its color
 
-
-** TODO update event
-
-*** TODO update event manager
-
-add order
-
-
-** TODO add bdd test
 
 
 

@@ -1,5 +1,6 @@
 import { state as meta3dState, api } from "meta3d-type/src/Index"
-import { elementName } from "./UIType"
+
+export type elementName = string
 
 export type elementFunc<elementState> = (_1: meta3dState, elementState: elementState) => Promise<meta3dState>;
 
