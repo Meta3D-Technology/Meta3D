@@ -191,7 +191,7 @@ function render(api, meta3dState, param, ioData) {
                   })), (function (meta3dState) {
                 var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
                 var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-                var imguiRendererState$1 = Curry._2(imguiRendererService.render, imguiRendererState, meta3dState);
+                var imguiRendererState$1 = imguiRendererService.render(imguiRendererState, meta3dState);
                 return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
               }));
 }
@@ -260,7 +260,7 @@ function drawBox(meta3dState, param, rect, backgroundColor) {
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  var imguiRendererState$1 = Curry._3(imguiRendererService.drawBox, rect, backgroundColor, imguiRendererState);
+  var imguiRendererState$1 = imguiRendererService.drawBox(rect, backgroundColor, imguiRendererState);
   return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
 }
 
@@ -269,7 +269,7 @@ function init(meta3dState, param, isDebug, canvas) {
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  var imguiRendererState$1 = Curry._4(imguiRendererService.init, imguiRendererState, meta3dState, isDebug, canvas);
+  var imguiRendererState$1 = imguiRendererService.init(imguiRendererState, meta3dState, isDebug, canvas);
   return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
 }
 

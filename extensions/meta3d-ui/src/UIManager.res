@@ -171,8 +171,7 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
 
  */
 
-            elementFunc(
-              .
+            elementFunc(.
               meta3dState,
               _getElementStateExn(state, elementName),
             )->Meta3dCommonlib.PromiseSt.map(meta3dState => {
@@ -215,7 +214,7 @@ let render = (
       imguiRendererExtensionName,
     )
 
-    let imguiRendererState = imguiRendererService.render(imguiRendererState, meta3dState)
+    let imguiRendererState = imguiRendererService.render(. imguiRendererState, meta3dState)
 
     api.setExtensionState(. meta3dState, imguiRendererExtensionName, imguiRendererState)
   })
@@ -387,10 +386,7 @@ let drawBox = (
     imguiRendererExtensionName,
   )
 
-  let imguiRendererState = imguiRendererService.drawBox(
-    rect, backgroundColor, 
-    imguiRendererState
-  )
+  let imguiRendererState = imguiRendererService.drawBox(. rect, backgroundColor, imguiRendererState)
 
   let meta3dState = api.setExtensionState(.
     meta3dState,
@@ -462,7 +458,7 @@ let init = (
     imguiRendererExtensionName,
   )
 
-  let imguiRendererState = imguiRendererService.init(
+  let imguiRendererState = imguiRendererService.init(.
     imguiRendererState,
     meta3dState,
     isDebug,
