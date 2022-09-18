@@ -120,3 +120,72 @@ let show = (~state, ~elementName) => {
 let hide = (~state, ~elementName) => {
   UIManager.hide(state, elementName)
 }
+
+let drawBox = (
+  ~sandbox,
+  ~rect,
+  ~backgroundColor,
+  ~getExtensionService,
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.drawBox(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getExtensionService: getExtensionService->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+    rect,
+    backgroundColor,
+  )
+}
+
+let registerCustomControl = (~customControlName, ~func, ~state=createState(), ()) => {
+  UIManager.registerCustomControl(
+    state,
+    (
+      {
+        customControlName: customControlName,
+        func: func,
+      }: Meta3dUiProtocol.CustomControlContributeType.customControlContribute<
+        Meta3dUiProtocol.StateType.inputData,
+        Meta3dUiProtocol.StateType.outputData,
+      >
+    ),
+  )
+}
+
+let getCustomControlExn = UIManager.getCustomControlExn
+
+let buildSkinContribute = (skinName, skin): Meta3dUiProtocol.SkinContributeType.skinContribute<
+  Meta3dUiProtocol.StateType.skin,
+> => {
+  {
+    skinName: skinName,
+    skin: skin,
+  }
+}
+
+let registerSkin = (~skinName, ~skin, ~state=createState(), ()) => {
+  UIManager.registerSkin(state, buildSkinContribute(skinName, skin))
+}
+
+let getSkinExn = UIManager.getSkinExn
+
+let combineReducer = UIManager.combineReducers
+
+let dispatch = UIManager.dispatch
+
+let getElementState = UIManager.getElementState

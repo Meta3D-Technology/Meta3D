@@ -99,6 +99,57 @@ var show = UIManager$Meta3dUi.show;
 
 var hide = UIManager$Meta3dUi.hide;
 
+function drawBox(sandbox, rect, backgroundColor, getExtensionService, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+  var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
+  var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
+  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
+  return UIManager$Meta3dUi.drawBox(meta3dState, [
+              {
+                registerExtension: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
+                getExtensionService: getExtensionService,
+                getExtensionState: getExtensionState,
+                setExtensionState: setExtensionState,
+                registerContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
+                getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox)
+              },
+              imguiRendererExtensionName
+            ], rect, backgroundColor);
+}
+
+function registerCustomControl(customControlName, func, stateOpt, param) {
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  return UIManager$Meta3dUi.registerCustomControl(state, {
+              customControlName: customControlName,
+              func: func
+            });
+}
+
+function buildSkinContribute(skinName, skin) {
+  return {
+          skinName: skinName,
+          skin: skin
+        };
+}
+
+function registerSkin(skinName, skin, stateOpt, param) {
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  return UIManager$Meta3dUi.registerSkin(state, {
+              skinName: skinName,
+              skin: skin
+            });
+}
+
+var getCustomControlExn = UIManager$Meta3dUi.getCustomControlExn;
+
+var getSkinExn = UIManager$Meta3dUi.getSkinExn;
+
+var combineReducer = UIManager$Meta3dUi.combineReducers;
+
+var dispatch = UIManager$Meta3dUi.dispatch;
+
+var getElementState = UIManager$Meta3dUi.getElementState;
+
 exports.createState = createState;
 exports.init = init;
 exports.buildIOData = buildIOData;
@@ -108,4 +159,13 @@ exports.markStateChange = markStateChange;
 exports.isStateChange = isStateChange;
 exports.show = show;
 exports.hide = hide;
+exports.drawBox = drawBox;
+exports.registerCustomControl = registerCustomControl;
+exports.getCustomControlExn = getCustomControlExn;
+exports.buildSkinContribute = buildSkinContribute;
+exports.registerSkin = registerSkin;
+exports.getSkinExn = getSkinExn;
+exports.combineReducer = combineReducer;
+exports.dispatch = dispatch;
+exports.getElementState = getElementState;
 /* Sinon Not a pure module */

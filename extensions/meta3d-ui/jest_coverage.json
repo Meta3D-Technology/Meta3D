@@ -15,7 +15,6 @@
     "collectCoverage": true,
     "coverageDirectory": "<rootDir>/coverage/",
     "coveragePathIgnorePatterns": [
-        "<rootDir>/lib/js/src/.+/DirectorForJs.*",
         "<rootDir>/lib/js/src/Main.*"
     ],
     "collectCoverageFrom": [

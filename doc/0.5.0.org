@@ -163,7 +163,7 @@ init
 # custom control
 # skin
 
-*** TODO add bdd test for ui extensions
+*** DONE add bdd test for ui extensions
 
 # *** TODO add bdd test for custom control
 

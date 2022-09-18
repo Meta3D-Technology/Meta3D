@@ -1,6 +1,7 @@
 
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
@@ -124,7 +125,7 @@ function dispatch(state, action) {
                 var elementName = param[0];
                 var oldElementState = _getElementStateExn(state, elementName);
                 var newElementState = Curry._2(param[1], oldElementState, action);
-                if (oldElementState !== newElementState) {
+                if (Caml_obj.caml_notequal(oldElementState, newElementState)) {
                   return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
                 } else {
                   return _markStateNotChange(state, elementName);

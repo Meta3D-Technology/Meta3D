@@ -118,7 +118,7 @@ let dispatch = (
 
     let newElementState = reducerFunc(oldElementState, action)
 
-    oldElementState !== newElementState
+    oldElementState != newElementState
       ? {
           state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
         }
