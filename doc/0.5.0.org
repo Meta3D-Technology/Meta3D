@@ -151,25 +151,30 @@ dependentExtensionNameMap add meta3DUIExtensionName
 
 
 
-*** TODO add bdd test for imgui webgl1 renderer
+*** DONE add bdd test for imgui webgl1 renderer
 
 init 
 
-render 
+# render 
 
-drawBox
+# drawBox
 
-extend:
-custom control
-skin
+# extend:
+# custom control
+# skin
 
 *** TODO add bdd test for ui extensions
 
-*** TODO add bdd test for custom control
+# *** TODO add bdd test for custom control
 
 
 
 *** TODO refactor
+
+
+*** TODO add dev, prodution meta3d:publish!
+
+add scripts!
 
 
 *** TODO pass run test

@@ -45,11 +45,11 @@ let _sendUniformProjectionMatData = (
   program,
   canvasSize,
 ) =>
-  uniformMatrix4fv(.
+     uniformMatrix4fv(.
     getUniformLocation(. program, "u_projectionMat", gl),
     _buildOrthoProjectionMat4TypeArr(canvasSize),
     gl,
-  )
+  ) 
 
 let _sendNoTextureProgramUniformData = ({useProgram} as webgl1Service, gl, program, canvasSize) => {
   useProgram(. program, gl)

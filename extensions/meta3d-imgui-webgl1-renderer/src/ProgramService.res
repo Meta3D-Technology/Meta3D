@@ -3,6 +3,7 @@ open Meta3dWebgl1Protocol.ServiceType
 let _compileShader = ({ shaderSource, compileShader, getShaderParameter, getCompileStatus, getShaderInfoLog }, gl, glslSource: string, shader, isDebug) => {
   shaderSource(.   shader, glslSource, gl)
   compileShader(. shader, gl)
+
   Meta3dCommonlib.Log.debugWithFunc(() =>
     getShaderParameter(. shader, getCompileStatus(. gl), gl) === false
       ? {
