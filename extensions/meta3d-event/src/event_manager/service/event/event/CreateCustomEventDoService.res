@@ -1,4 +1,4 @@
-open EventType
+open Meta3dEventProtocol.EventType
 
 let create = (eventName, userData) => {
   name: eventName,

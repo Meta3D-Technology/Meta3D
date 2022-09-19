@@ -2,35 +2,35 @@
 
 
 function getPointDownEventName(param) {
-  return "wd_pointdown";
+  return "meta3d_pointdown";
 }
 
 function getPointUpEventName(param) {
-  return "wd_pointup";
+  return "meta3d_pointup";
 }
 
 function getPointTapEventName(param) {
-  return "wd_pointtap";
+  return "meta3d_pointtap";
 }
 
 function getPointMoveEventName(param) {
-  return "wd_pointmove";
+  return "meta3d_pointmove";
 }
 
 function getPointScaleEventName(param) {
-  return "wd_pointscale";
+  return "meta3d_pointscale";
 }
 
 function getPointDragStartEventName(param) {
-  return "wd_pointdragstart";
+  return "meta3d_pointdragstart";
 }
 
 function getPointDragOverEventName(param) {
-  return "wd_pointdragover";
+  return "meta3d_pointdragover";
 }
 
 function getPointDragDropEventName(param) {
-  return "wd_pointdragdrop";
+  return "meta3d_pointdragdrop";
 }
 
 export {

@@ -203,15 +203,15 @@ add scripts!
 
 
 
-*** TODO editor: add InitEventJob
+*** DONE editor: add InitEventJob
 
-*** TODO add bdd test
-
-
-*** TODO fix use-editor->ioData
+*** DONE add bdd test
 
 
-*** TODO pass run test
+*** DONE fix use-editor->ioData
+
+
+*** DONE pass run test
 
 
 # ** TODO frontend: extension/contribute shop should sort by version
@@ -245,6 +245,7 @@ add scripts!
 ** TODO finish TODOs
 
 
+** TODO showPublishApp should refresh
 
 
 # *** TODO add bdd test

@@ -2,7 +2,7 @@
 
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
-var ManageEventAPI$Meta3dEvent = require("../../../src/event_manager/api/ManageEventAPI.bs.js");
+var ManageEventAPI$Meta3dEvent = require("../api/ManageEventAPI.bs.js");
 var NameEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/NameEventDoService.bs.js");
 
 function createCustomEvent(eventName, userDataOpt, param) {
@@ -35,4 +35,4 @@ exports.getPointDragStartEventName = getPointDragStartEventName;
 exports.getPointDragOverEventName = getPointDragOverEventName;
 exports.getPointDragDropEventName = getPointDragDropEventName;
 exports.createCustomEvent = createCustomEvent;
-/* ManageEventAPI-Meta3dEvent Not a pure module */
+/* No side effect */

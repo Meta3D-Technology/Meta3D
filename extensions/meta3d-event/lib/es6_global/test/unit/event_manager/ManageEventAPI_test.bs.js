@@ -5,7 +5,7 @@ import * as Sinon from "../../../../../../../node_modules/meta3d-bs-sinon/lib/es
 import * as Sinon$1 from "sinon";
 import * as Meta3d_jest from "../../../../../../../node_modules/meta3d-bs-jest/lib/es6_global/src/meta3d_jest.bs.js";
 import * as TestTool$Meta3dEvent from "../../tool/event_manager/TestTool.bs.js";
-import * as ManageEventAPI$Meta3dEvent from "../../../src/event_manager/api/ManageEventAPI.bs.js";
+import * as ManageEventAPI$Meta3dEvent from "../../tool/api/ManageEventAPI.bs.js";
 import * as CustomEventTool$Meta3dEvent from "../../tool/event_manager/CustomEventTool.bs.js";
 
 Meta3d_jest.describe("ManageEventAPI", (function (param) {

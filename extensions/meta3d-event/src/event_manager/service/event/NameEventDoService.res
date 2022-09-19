@@ -1,15 +1,15 @@
-let getPointDownEventName = () => "wd_pointdown"
+let getPointDownEventName = () => "meta3d_pointdown"
 
-let getPointUpEventName = () => "wd_pointup"
+let getPointUpEventName = () => "meta3d_pointup"
 
-let getPointTapEventName = () => "wd_pointtap"
+let getPointTapEventName = () => "meta3d_pointtap"
 
-let getPointMoveEventName = () => "wd_pointmove"
+let getPointMoveEventName = () => "meta3d_pointmove"
 
-let getPointScaleEventName = () => "wd_pointscale"
+let getPointScaleEventName = () => "meta3d_pointscale"
 
-let getPointDragStartEventName = () => "wd_pointdragstart"
+let getPointDragStartEventName = () => "meta3d_pointdragstart"
 
-let getPointDragOverEventName = () => "wd_pointdragover"
+let getPointDragOverEventName = () => "meta3d_pointdragover"
 
-let getPointDragDropEventName = () => "wd_pointdragdrop"
+let getPointDragDropEventName = () => "meta3d_pointdragdrop"

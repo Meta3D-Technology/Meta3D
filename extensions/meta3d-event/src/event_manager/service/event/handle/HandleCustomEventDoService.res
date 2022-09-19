@@ -1,6 +1,6 @@
 open EventManagerStateType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 let _triggerHandleFunc = (customEvent, arr, state) =>
   arr -> Meta3dCommonlib.ArraySt.reduceOneParam(

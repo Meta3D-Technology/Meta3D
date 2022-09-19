@@ -1,16 +1,17 @@
 'use strict';
 
-var BodyAPI$Meta3dEvent = require("../../../src/event_manager/api/BodyAPI.bs.js");
-var CanvasAPI$Meta3dEvent = require("../../../src/event_manager/api/CanvasAPI.bs.js");
-var BrowserAPI$Meta3dEvent = require("../../../src/event_manager/api/BrowserAPI.bs.js");
-var InitEventAPI$Meta3dEvent = require("../../../src/event_manager/api/InitEventAPI.bs.js");
-var ManageEventAPI$Meta3dEvent = require("../../../src/event_manager/api/ManageEventAPI.bs.js");
+var BodyAPI$Meta3dEvent = require("../api/BodyAPI.bs.js");
+var CanvasAPI$Meta3dEvent = require("../api/CanvasAPI.bs.js");
+var BrowserAPI$Meta3dEvent = require("../api/BrowserAPI.bs.js");
+var InitEventAPI$Meta3dEvent = require("../api/InitEventAPI.bs.js");
+var ManageEventAPI$Meta3dEvent = require("../api/ManageEventAPI.bs.js");
 var ContainerManager$Meta3dEvent = require("../../../src/event_manager/data/ContainerManager.bs.js");
+var EventExtensionTool$Meta3dEvent = require("../api/EventExtensionTool.bs.js");
 var NameEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/NameEventDoService.bs.js");
 var CreateEventManagerState$Meta3dEvent = require("../../../src/event_manager/data/CreateEventManagerState.bs.js");
 
 function prepareState(param) {
-  return ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined));
+  return ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function getBrowserChromeType(param) {
@@ -114,4 +115,4 @@ exports.getBrowserFirefoxType = getBrowserFirefoxType;
 exports.getBrowserAndroidType = getBrowserAndroidType;
 exports.getBrowserIOSType = getBrowserIOSType;
 exports.getBrowserUnknownType = getBrowserUnknownType;
-/* BodyAPI-Meta3dEvent Not a pure module */
+/* InitEventAPI-Meta3dEvent Not a pure module */

@@ -1,6 +1,6 @@
 open EventManagerStateType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 let _getBody = state => state->BodyDoService.getBodyExn->bodyToEventTarget
 
@@ -92,11 +92,14 @@ let _bindTouchEventToTriggerPointEvent = (state, touchEventName, customEventName
     state,
   )
 
-let bindDomEventToTriggerPointEvent = state =>
-  switch BrowserDoService.getBrowser(state) {
+let bindDomEventToTriggerPointEvent = (
+  stateForEventHandler,
+  browser: Meta3dEventProtocol.BrowserType.browser,
+) =>
+  switch browser {
   | Chrome
   | Firefox =>
-    state
+    stateForEventHandler
     ->_bindMouseEventToTriggerPointEvent(Click, NameEventDoService.getPointTapEventName(), PointTap)
     ->_bindMouseEventToTriggerPointEvent(MouseUp, NameEventDoService.getPointUpEventName(), PointUp)
     ->_bindMouseEventToTriggerPointEvent(
@@ -131,7 +134,7 @@ let bindDomEventToTriggerPointEvent = state =>
     )
   | Android
   | IOS =>
-    state
+    stateForEventHandler
     ->_bindTouchEventToTriggerPointEvent(
       TouchTap,
       NameEventDoService.getPointTapEventName(),
@@ -180,13 +183,15 @@ let bindDomEventToTriggerPointEvent = state =>
   }
 
 let _preventContextMenuEvent = event => {
-  HandleDomEventDoService.preventDefault(event->EventType.eventTargetToDomEvent)->ignore
+  HandleDomEventDoService.preventDefault(
+    event->Meta3dEventProtocol.EventType.eventTargetToDomEvent,
+  )->ignore
 
   ()
 }
 
-let _execMouseEventHandle = (eventName, event) => {
-  let state = ContainerManager.getState()
+let _execMouseEventHandle = (eventName, event, eventExtensionName) => {
+  let state = ContainerManager.getState(eventExtensionName)
 
   state
   ->HandleMouseEventDoService.execEventHandle(
@@ -194,13 +199,18 @@ let _execMouseEventHandle = (eventName, event) => {
     ->eventTargetToMouseDomEvent
     ->HandleMouseEventDoService.convertMouseDomEventToMouseEvent(eventName, _, state),
   )
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execMouseChangePositionEventHandle = (mouseEventName, event, setPositionFunc) => {
-  let state = ContainerManager.getState()
+let _execMouseChangePositionEventHandle = (
+  mouseEventName,
+  eventExtensionName,
+  event,
+  setPositionFunc,
+) => {
+  let state = ContainerManager.getState(eventExtensionName)
 
   let mouseEvent =
     event
@@ -210,27 +220,29 @@ let _execMouseChangePositionEventHandle = (mouseEventName, event, setPositionFun
   state
   ->HandleMouseEventDoService.execEventHandle(mouseEvent)
   ->setPositionFunc(mouseEvent)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execMouseMoveEventHandle = (mouseEventName, event) =>
+let _execMouseMoveEventHandle = (mouseEventName, event, eventExtensionName) =>
   _execMouseChangePositionEventHandle(
     mouseEventName,
+    eventExtensionName,
     event,
     HandleMouseEventDoService.setLastXYWhenMouseMove,
   )
 
-let _execMouseDragingEventHandle = (mouseEventName, event) =>
+let _execMouseDragingEventHandle = (mouseEventName, event, eventExtensionName) =>
   _execMouseChangePositionEventHandle(
     mouseEventName,
+    eventExtensionName,
     event,
     HandleMouseEventDoService.setLastXYByLocation,
   )
 
-let _execMouseDragStartEventHandle = event => {
-  let state = ContainerManager.getState()
+let _execMouseDragStartEventHandle = (event, eventExtensionName) => {
+  let state = ContainerManager.getState(eventExtensionName)
 
   state
   ->HandleMouseEventDoService.execEventHandle(
@@ -240,13 +252,13 @@ let _execMouseDragStartEventHandle = event => {
   )
   ->HandleMouseEventDoService.setIsDrag(true)
   ->HandleMouseEventDoService.setLastXY(None, None)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execMouseDragDropEventHandle = event => {
-  let state = ContainerManager.getState()
+let _execMouseDragDropEventHandle = (event, eventExtensionName) => {
+  let state = ContainerManager.getState(eventExtensionName)
 
   state
   ->HandleMouseEventDoService.execEventHandle(
@@ -255,107 +267,113 @@ let _execMouseDragDropEventHandle = event => {
     ->HandleMouseEventDoService.convertMouseDomEventToMouseEvent(MouseDragDrop, _, state),
   )
   ->HandleMouseEventDoService.setIsDrag(false)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execTouchEventHandle = (touchEventName, event) => {
-  ContainerManager.getState()
+let _execTouchEventHandle = (touchEventName, event, eventExtensionName) => {
+  ContainerManager.getState(eventExtensionName)
   ->HandleTouchEventDoService.execEventHandle(touchEventName, event->eventTargetToTouchDomEvent)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execTouchChangePositionEventHandle = (touchEventName, event, setPositonFunc) => {
-  ContainerManager.getState()
+let _execTouchChangePositionEventHandle = (
+  touchEventName,
+  eventExtensionName,
+  event,
+  setPositonFunc,
+) => {
+  ContainerManager.getState(eventExtensionName)
   ->HandleTouchEventDoService.execEventHandle(touchEventName, event->eventTargetToTouchDomEvent)
   ->setPositonFunc(touchEventName, event->eventTargetToTouchDomEvent)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execTouchMoveEventHandle = (touchEventName, event) =>
+let _execTouchMoveEventHandle = (touchEventName, event, eventExtensionName) =>
   _execTouchChangePositionEventHandle(
     touchEventName,
+    eventExtensionName,
     event,
     HandleTouchEventDoService.setLastXYWhenTouchMove,
   )
 
-let _execTouchDragingEventHandle = (touchEventName, event) =>
+let _execTouchDragingEventHandle = (touchEventName, event, eventExtensionName) =>
   _execTouchChangePositionEventHandle(
     touchEventName,
+    eventExtensionName,
     event,
     HandleTouchEventDoService.setLastXYByLocation,
   )
 
-let _execTouchDragStartEventHandle = event => {
-  ContainerManager.getState()
+let _execTouchDragStartEventHandle = (event, eventExtensionName) => {
+  ContainerManager.getState(eventExtensionName)
   ->HandleTouchEventDoService.execEventHandle(TouchDragStart, event->eventTargetToTouchDomEvent)
   ->HandleTouchEventDoService.setIsDrag(true)
   ->HandleTouchEventDoService.setLastXY(None, None)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execTouchDragDropEventHandle = event => {
-  ContainerManager.getState()
+let _execTouchDragDropEventHandle = (event, eventExtensionName) => {
+  ContainerManager.getState(eventExtensionName)
   ->HandleTouchEventDoService.execEventHandle(TouchDragDrop, event->eventTargetToTouchDomEvent)
   ->HandleTouchEventDoService.setIsDrag(false)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _execKeyboardEventHandle = (keyboardEventName, event) => {
-  ContainerManager.getState()
+let _execKeyboardEventHandle = (keyboardEventName, event, eventExtensionName) => {
+  ContainerManager.getState(eventExtensionName)
   ->HandleKeyboardEventDoService.execEventHandle(
     keyboardEventName,
     event->eventTargetToKeyboardDomEvent,
   )
-  ->ContainerManager.setState
+  ->ContainerManager.setState(eventExtensionName)
 
   ()
 }
 
-let _fromPCDomEventArr = state => [
-  Meta3dBsMost.Most.fromEvent(
-    "contextmenu",
-    _getBody(state),
-    false,
-  )->Meta3dBsMost.Most.tap(event => _preventContextMenuEvent(event), _),
+let _fromPCDomEventArr = (state, eventExtensionName) => [
+  Meta3dBsMost.Most.fromEvent("contextmenu", _getBody(state), false)->Meta3dBsMost.Most.tap(
+    event => _preventContextMenuEvent(event),
+    _,
+  ),
   _fromPointDomEvent("click", state)->Meta3dBsMost.Most.tap(
-    event => _execMouseEventHandle(Click, event),
+    event => _execMouseEventHandle(Click, event, eventExtensionName),
     _,
   ),
   _fromPointDomEvent("mousedown", state)->Meta3dBsMost.Most.tap(
-    event => _execMouseEventHandle(MouseDown, event),
+    event => _execMouseEventHandle(MouseDown, event, eventExtensionName),
     _,
   ),
   _fromPointDomEvent("mouseup", state)->Meta3dBsMost.Most.tap(
-    event => _execMouseEventHandle(MouseUp, event),
+    event => _execMouseEventHandle(MouseUp, event, eventExtensionName),
     _,
   ),
   _fromPointDomEvent("mousemove", state)->Meta3dBsMost.Most.tap(
-    event => _execMouseMoveEventHandle(MouseMove, event),
+    event => _execMouseMoveEventHandle(MouseMove, event, eventExtensionName),
     _,
   ),
   _fromPointDomEvent("mousewheel", state)->Meta3dBsMost.Most.tap(
-    event => _execMouseEventHandle(MouseWheel, event),
+    event => _execMouseEventHandle(MouseWheel, event, eventExtensionName),
     _,
   ),
   _fromPointDomEvent("mousedown", state)
-  ->Meta3dBsMost.Most.tap(event => _execMouseDragStartEventHandle(event), _)
+  ->Meta3dBsMost.Most.tap(event => _execMouseDragStartEventHandle(event, eventExtensionName), _)
   ->Meta3dBsMost.Most.flatMap(
     event =>
       _fromPointDomEvent("mousemove", state)
       ->Meta3dBsMost.Most.skip(2, _)
       ->Meta3dBsMost.Most.until(
         _fromPointDomEvent("mouseup", state)->Meta3dBsMost.Most.tap(
-          event => _execMouseDragDropEventHandle(event),
+          event => _execMouseDragDropEventHandle(event, eventExtensionName),
           _,
         ),
         _,
@@ -367,62 +385,68 @@ let _fromPCDomEventArr = state => [
 
     _,
   )
-  ->Meta3dBsMost.Most.tap(event => _execMouseDragingEventHandle(MouseDragOver, event), _),
+  ->Meta3dBsMost.Most.tap(
+    event => _execMouseDragingEventHandle(MouseDragOver, event, eventExtensionName),
+    _,
+  ),
   _fromKeyboardDomEvent("keyup", state)->Meta3dBsMost.Most.tap(
-    event => _execKeyboardEventHandle(KeyUp, event),
+    event => _execKeyboardEventHandle(KeyUp, event, eventExtensionName),
     _,
   ),
   _fromKeyboardDomEvent("keydown", state)->Meta3dBsMost.Most.tap(
-    event => _execKeyboardEventHandle(KeyDown, event),
+    event => _execKeyboardEventHandle(KeyDown, event, eventExtensionName),
     _,
   ),
   _fromKeyboardDomEvent("keypress", state)->Meta3dBsMost.Most.tap(
-    event => _execKeyboardEventHandle(KeyPress, event),
+    event => _execKeyboardEventHandle(KeyPress, event, eventExtensionName),
     _,
   ),
 ]
 
-let _fromMobileDomEventArr = state => [
+let _fromMobileDomEventArr = (state, eventExtensionName) => [
   _fromMobilePointDomEvent("touchend", state)
   ->Meta3dBsMost.Most.since(_fromMobilePointDomEvent("touchstart", state), _)
-  ->Meta3dBsMost.Most.tap(event => _execTouchEventHandle(TouchTap, event), _),
+  ->Meta3dBsMost.Most.tap(event => _execTouchEventHandle(TouchTap, event, eventExtensionName), _),
   _fromMobilePointDomEvent("touchend", state)->Meta3dBsMost.Most.tap(
-    event => _execTouchEventHandle(TouchEnd, event),
+    event => _execTouchEventHandle(TouchEnd, event, eventExtensionName),
     _,
   ),
   _fromMobilePointDomEvent("touchstart", state)->Meta3dBsMost.Most.tap(
-    event => _execTouchEventHandle(TouchStart, event),
+    event => _execTouchEventHandle(TouchStart, event, eventExtensionName),
     _,
   ),
   _fromTouchMoveDomEventAndPreventnDefault(state)->Meta3dBsMost.Most.tap(
-    event => _execTouchMoveEventHandle(TouchMove, event),
+    event => _execTouchMoveEventHandle(TouchMove, event, eventExtensionName),
     _,
   ),
   _fromMobilePointDomEvent("touchstart", state)
-  ->Meta3dBsMost.Most.tap(event => _execTouchDragStartEventHandle(event), _)
+  ->Meta3dBsMost.Most.tap(event => _execTouchDragStartEventHandle(event, eventExtensionName), _)
   ->Meta3dBsMost.Most.flatMap(
     event =>
       _fromTouchMoveDomEventAndPreventnDefault(state)->Meta3dBsMost.Most.until(
         _fromMobilePointDomEvent("touchend", state)->Meta3dBsMost.Most.tap(
-          event => _execTouchDragDropEventHandle(event),
+          event => _execTouchDragDropEventHandle(event, eventExtensionName),
           _,
         ),
         _,
       ),
     _,
   )
-  ->Meta3dBsMost.Most.tap(event => _execTouchDragingEventHandle(TouchDragOver, event), _),
+  ->Meta3dBsMost.Most.tap(
+    event => _execTouchDragingEventHandle(TouchDragOver, event, eventExtensionName),
+    _,
+  ),
 ]
 
-let fromDomEvent = state =>
+let fromDomEvent = (state, eventExtensionName) =>
   Meta3dBsMost.Most.mergeArray(
     switch BrowserDoService.getBrowser(state) {
     | Chrome
     | Firefox =>
-      _fromPCDomEventArr(state)
+      _fromPCDomEventArr(state, eventExtensionName)
     | Android
     | IOS =>
-      _fromMobileDomEventArr(state)
+      _fromMobileDomEventArr(state, eventExtensionName)
     // | browser =>
     //   Meta3dLog.Log.fatal(
     //     Meta3dLog.Log.buildFatalMessage(
@@ -440,8 +464,11 @@ let handleDomEventStreamError = e => {
   Meta3dCommonlib.Log.logForDebug(e)
 }
 
-let initEvent = state => {
-  let domEventStreamSubscription = fromDomEvent(state)->Meta3dBsMost.Most.subscribe(
+let initEvent = (state, eventExtensionName) => {
+  let domEventStreamSubscription = fromDomEvent(
+    state,
+    eventExtensionName,
+  )->Meta3dBsMost.Most.subscribe(
     {
       "next": _ => (),
       "error": e => handleDomEventStreamError(e),
@@ -450,7 +477,11 @@ let initEvent = state => {
     _,
   )
 
+  let state = state->ManageEventDoService.setDomEventStreamSubscription(domEventStreamSubscription)
+
+  ContainerManager.getState(eventExtensionName)
+  ->bindDomEventToTriggerPointEvent(BrowserDoService.getBrowser(state))
+  ->ContainerManager.setState(eventExtensionName)
+
   state
-  ->ManageEventDoService.setDomEventStreamSubscription(domEventStreamSubscription)
-  ->bindDomEventToTriggerPointEvent
 }

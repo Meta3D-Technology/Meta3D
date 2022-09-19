@@ -7,6 +7,7 @@ var BodyDoService$Meta3dEvent = require("../../../src/event_manager/service/dom/
 var CanvasDoService$Meta3dEvent = require("../../../src/event_manager/service/dom/CanvasDoService.bs.js");
 var ContainerManager$Meta3dEvent = require("../../../src/event_manager/data/ContainerManager.bs.js");
 var BrowserDetectTool$Meta3dEvent = require("./BrowserDetectTool.bs.js");
+var EventExtensionTool$Meta3dEvent = require("../api/EventExtensionTool.bs.js");
 var InitEventDoService$Meta3dEvent = require("../../../src/event_manager/service/init_event/InitEventDoService.bs.js");
 
 function buildKeyboardEvent(ctrlKeyOpt, altKeyOpt, shiftKeyOpt, metaKeyOpt, keyCodeOpt, param) {
@@ -31,9 +32,9 @@ function prepare(sandbox, setBrowserFuncOpt, param) {
         0,
         null
       ]);
-  return ContainerManager$Meta3dEvent.setState(InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(undefined), BodyTool$Meta3dEvent.getBody(undefined)), canvasDom))));
+  return ContainerManager$Meta3dEvent.setState(InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), BodyTool$Meta3dEvent.getBody(undefined)), canvasDom)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 exports.buildKeyboardEvent = buildKeyboardEvent;
 exports.prepare = prepare;
-/* EventTool-Meta3dEvent Not a pure module */
+/* InitEventDoService-Meta3dEvent Not a pure module */

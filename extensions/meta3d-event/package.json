@@ -1,6 +1,6 @@
 {
   "name": "meta3d-event",
-  "version": "0.4.1",
+  "version": "0.4.8",
   "publisher": "meta3d",
   "protocol": {
     "name": "meta3d-event-protocol"

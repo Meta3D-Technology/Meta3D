@@ -22,6 +22,7 @@ type point<'a> = ('a, 'a)
 type ioData = {
   pointUp: bool,
   pointDown: bool,
+  pointTap: bool,
   pointPosition: point<int>,
   pointMovementDelta: point<int>,
 }

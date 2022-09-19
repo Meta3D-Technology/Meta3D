@@ -1,6 +1,6 @@
 open EventManagerStateType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 let getLastXY = ({touchEventData}) => (touchEventData.lastX, touchEventData.lastY)
 

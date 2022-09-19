@@ -17,21 +17,13 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                 // text
             }
         ) => {
-            let _isClick = (
-                pointUp: boolean,
-                pointDown: boolean
-            ) => {
-                return pointUp && pointDown
-            }
-
             let { getSkin, drawBox, getIOData } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
             let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
 
             let { x, y, width, height } = rect
 
             let {
-                pointUp,
-                pointDown,
+                pointTap,
                 pointPosition,
                 // pointMovementDelta
             } = getIOData(state)
@@ -43,7 +35,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                     pointPositionY >= y &&
                     pointPositionY <= y + height
                     ?
-                    _isClick(pointUp, pointDown) ?
+                    pointTap ?
                         true : false
                     : false
 

@@ -31,4 +31,4 @@ let getMovementDelta = (location, lastXYTuple, {eventData} as state) => {
 }
 
 let preventDefault = event =>
-  HandleDomEventDoService.preventDefault(event->EventType.pointDomEventToDomEvent)
+  HandleDomEventDoService.preventDefault(event->Meta3dEventProtocol.EventType.pointDomEventToDomEvent)

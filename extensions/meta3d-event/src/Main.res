@@ -5,6 +5,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 > = (api, _) => {
   trigger: EventManager.trigger(api)->Obj.magic,
   registerEvent: EventManager.registerEvent->Obj.magic,
+  onPointEvent: EventManager.onPointEvent(api),
   initEvent: EventManager.initEvent(api),
   setBrowser: EventManager.setBrowser(api),
   setCanvas: EventManager.setCanvas(api),
@@ -14,6 +15,13 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getBrowserAndroidType: EventManager.getBrowserAndroidType,
   getBrowserIOSType: EventManager.getBrowserIOSType,
   getBrowserUnknownType: EventManager.getBrowserUnknownType,
+  getPointDownEventName: EventManager.getPointDownEventName,
+  getPointUpEventName: EventManager.getPointUpEventName,
+  getPointTapEventName: EventManager.getPointTapEventName,
+  getPointMoveEventName: EventManager.getPointMoveEventName,
+  getPointScaleEventName: EventManager.getPointScaleEventName,
+  getPointDragStartEventName: EventManager.getPointDragStartEventName,
+  getPointDragOverEventName: EventManager.getPointDragOverEventName,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {

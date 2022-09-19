@@ -1,14 +1,19 @@
 open EventManagerStateType
 
 let setLastXY = (lastX, lastY) =>
-  ContainerManager.getState()
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
   ->HandleMouseEventDoService.setLastXY(lastX, lastY)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
-let getIsDrag = () => ContainerManager.getState()->HandleMouseEventDoService.getIsDrag
+let getIsDrag = () =>
+  ContainerManager.getState(
+    EventExtensionTool.buildEventExtentsionName(),
+  )->HandleMouseEventDoService.getIsDrag
 
 let setIsDrag = isDrag =>
-  ContainerManager.getState()->HandleMouseEventDoService.setIsDrag(isDrag)->ContainerManager.setState
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
+  ->HandleMouseEventDoService.setIsDrag(isDrag)
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let buildMouseEvent = (
   ~pageX=10,
@@ -61,7 +66,7 @@ let prepareWithState = (
   ->BodyDoService.setBody(BodyTool.getBody())
   ->CanvasDoService.setCanvas(canvasDom->Obj.magic)
   ->setBrowserFunc
-  ->InitEventDoService.initEvent
+  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionName())
 }
 
 let prepare = (
@@ -78,9 +83,9 @@ let prepare = (
     ~offsetTop,
     ~offsetParent,
     ~setBrowserFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let prepareForPointerLock = (sandbox, state) => {
   open Sinon

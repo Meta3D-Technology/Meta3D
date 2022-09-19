@@ -5,7 +5,7 @@ var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 var Sinon$1 = require("sinon");
 var Meta3d_jest = require("meta3d-bs-jest/lib/js/src/meta3d_jest.bs.js");
 var TestTool$Meta3dEvent = require("../../tool/event_manager/TestTool.bs.js");
-var ManageEventAPI$Meta3dEvent = require("../../../src/event_manager/api/ManageEventAPI.bs.js");
+var ManageEventAPI$Meta3dEvent = require("../../tool/api/ManageEventAPI.bs.js");
 var CustomEventTool$Meta3dEvent = require("../../tool/event_manager/CustomEventTool.bs.js");
 
 Meta3d_jest.describe("ManageEventAPI", (function (param) {

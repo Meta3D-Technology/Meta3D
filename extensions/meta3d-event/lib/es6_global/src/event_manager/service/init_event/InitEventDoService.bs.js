@@ -121,23 +121,22 @@ function _bindTouchEventToTriggerPointEvent(state, touchEventName, customEventNa
             ], state);
 }
 
-function bindDomEventToTriggerPointEvent(state) {
-  var match = BrowserDoService$Meta3dEvent.getBrowser(state);
-  if (match < 2) {
-    return _bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(state, /* Click */1, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* MouseUp */3, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* MouseDown */2, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* MouseWheel */5, NameEventDoService$Meta3dEvent.getPointScaleEventName(undefined), /* PointScale */4), /* MouseMove */4, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* MouseDragStart */6, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* MouseDragOver */7, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* MouseDragDrop */8, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
+function bindDomEventToTriggerPointEvent(stateForEventHandler, browser) {
+  if (browser < 2) {
+    return _bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(stateForEventHandler, /* Click */1, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* MouseUp */3, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* MouseDown */2, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* MouseWheel */5, NameEventDoService$Meta3dEvent.getPointScaleEventName(undefined), /* PointScale */4), /* MouseMove */4, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* MouseDragStart */6, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* MouseDragOver */7, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* MouseDragDrop */8, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
   }
-  if (match >= 4) {
+  if (browser >= 4) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "InitEventDoService.res",
-            96,
+            99,
             2
           ],
           Error: new Error()
         };
   }
-  return _bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(state, /* TouchTap */12, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* TouchEnd */13, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* TouchStart */15, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* TouchMove */14, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* TouchDragStart */16, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* TouchDragOver */17, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* TouchDragDrop */18, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
+  return _bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(stateForEventHandler, /* TouchTap */12, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* TouchEnd */13, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* TouchStart */15, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* TouchMove */14, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* TouchDragStart */16, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* TouchDragOver */17, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* TouchDragDrop */18, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
 }
 
 function _preventContextMenuEvent($$event) {
@@ -145,73 +144,73 @@ function _preventContextMenuEvent($$event) {
   
 }
 
-function _execMouseEventHandle(eventName, $$event) {
-  var state = ContainerManager$Meta3dEvent.getState(undefined);
-  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(eventName, $$event, state)));
+function _execMouseEventHandle(eventName, $$event, eventExtensionName) {
+  var state = ContainerManager$Meta3dEvent.getState(eventExtensionName);
+  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(eventName, $$event, state)), eventExtensionName);
   
 }
 
-function _execMouseChangePositionEventHandle(mouseEventName, $$event, setPositionFunc) {
-  var state = ContainerManager$Meta3dEvent.getState(undefined);
+function _execMouseChangePositionEventHandle(mouseEventName, eventExtensionName, $$event, setPositionFunc) {
+  var state = ContainerManager$Meta3dEvent.getState(eventExtensionName);
   var mouseEvent = HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(mouseEventName, $$event, state);
-  ContainerManager$Meta3dEvent.setState(Curry._2(setPositionFunc, HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, mouseEvent), mouseEvent));
+  ContainerManager$Meta3dEvent.setState(Curry._2(setPositionFunc, HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, mouseEvent), mouseEvent), eventExtensionName);
   
 }
 
-function _execMouseMoveEventHandle(mouseEventName, $$event) {
-  return _execMouseChangePositionEventHandle(mouseEventName, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYWhenMouseMove);
+function _execMouseMoveEventHandle(mouseEventName, $$event, eventExtensionName) {
+  return _execMouseChangePositionEventHandle(mouseEventName, eventExtensionName, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYWhenMouseMove);
 }
 
-function _execMouseDragingEventHandle(mouseEventName, $$event) {
-  return _execMouseChangePositionEventHandle(mouseEventName, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYByLocation);
+function _execMouseDragingEventHandle(mouseEventName, $$event, eventExtensionName) {
+  return _execMouseChangePositionEventHandle(mouseEventName, eventExtensionName, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYByLocation);
 }
 
-function _execMouseDragStartEventHandle($$event) {
-  var state = ContainerManager$Meta3dEvent.getState(undefined);
-  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setLastXY(HandleMouseEventDoService$Meta3dEvent.setIsDrag(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(/* MouseDragStart */6, $$event, state)), true), undefined, undefined));
+function _execMouseDragStartEventHandle($$event, eventExtensionName) {
+  var state = ContainerManager$Meta3dEvent.getState(eventExtensionName);
+  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setLastXY(HandleMouseEventDoService$Meta3dEvent.setIsDrag(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(/* MouseDragStart */6, $$event, state)), true), undefined, undefined), eventExtensionName);
   
 }
 
-function _execMouseDragDropEventHandle($$event) {
-  var state = ContainerManager$Meta3dEvent.getState(undefined);
-  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setIsDrag(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(/* MouseDragDrop */8, $$event, state)), false));
+function _execMouseDragDropEventHandle($$event, eventExtensionName) {
+  var state = ContainerManager$Meta3dEvent.getState(eventExtensionName);
+  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setIsDrag(HandleMouseEventDoService$Meta3dEvent.execEventHandle(state, HandleMouseEventDoService$Meta3dEvent.convertMouseDomEventToMouseEvent(/* MouseDragDrop */8, $$event, state)), false), eventExtensionName);
   
 }
 
-function _execTouchEventHandle(touchEventName, $$event) {
-  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(undefined), touchEventName, $$event));
+function _execTouchEventHandle(touchEventName, $$event, eventExtensionName) {
+  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(eventExtensionName), touchEventName, $$event), eventExtensionName);
   
 }
 
-function _execTouchChangePositionEventHandle(touchEventName, $$event, setPositonFunc) {
-  ContainerManager$Meta3dEvent.setState(Curry._3(setPositonFunc, HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(undefined), touchEventName, $$event), touchEventName, $$event));
+function _execTouchChangePositionEventHandle(touchEventName, eventExtensionName, $$event, setPositonFunc) {
+  ContainerManager$Meta3dEvent.setState(Curry._3(setPositonFunc, HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(eventExtensionName), touchEventName, $$event), touchEventName, $$event), eventExtensionName);
   
 }
 
-function _execTouchMoveEventHandle(touchEventName, $$event) {
-  return _execTouchChangePositionEventHandle(touchEventName, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYWhenTouchMove);
+function _execTouchMoveEventHandle(touchEventName, $$event, eventExtensionName) {
+  return _execTouchChangePositionEventHandle(touchEventName, eventExtensionName, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYWhenTouchMove);
 }
 
-function _execTouchDragingEventHandle(touchEventName, $$event) {
-  return _execTouchChangePositionEventHandle(touchEventName, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYByLocation);
+function _execTouchDragingEventHandle(touchEventName, $$event, eventExtensionName) {
+  return _execTouchChangePositionEventHandle(touchEventName, eventExtensionName, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYByLocation);
 }
 
-function _execTouchDragStartEventHandle($$event) {
-  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setLastXY(HandleTouchEventDoService$Meta3dEvent.setIsDrag(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(undefined), /* TouchDragStart */16, $$event), true), undefined, undefined));
+function _execTouchDragStartEventHandle($$event, eventExtensionName) {
+  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setLastXY(HandleTouchEventDoService$Meta3dEvent.setIsDrag(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(eventExtensionName), /* TouchDragStart */16, $$event), true), undefined, undefined), eventExtensionName);
   
 }
 
-function _execTouchDragDropEventHandle($$event) {
-  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setIsDrag(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(undefined), /* TouchDragDrop */18, $$event), false));
+function _execTouchDragDropEventHandle($$event, eventExtensionName) {
+  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setIsDrag(HandleTouchEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(eventExtensionName), /* TouchDragDrop */18, $$event), false), eventExtensionName);
   
 }
 
-function _execKeyboardEventHandle(keyboardEventName, $$event) {
-  ContainerManager$Meta3dEvent.setState(HandleKeyboardEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(undefined), keyboardEventName, $$event));
+function _execKeyboardEventHandle(keyboardEventName, $$event, eventExtensionName) {
+  ContainerManager$Meta3dEvent.setState(HandleKeyboardEventDoService$Meta3dEvent.execEventHandle(ContainerManager$Meta3dEvent.getState(eventExtensionName), keyboardEventName, $$event), eventExtensionName);
   
 }
 
-function _fromPCDomEventArr(state) {
+function _fromPCDomEventArr(state, eventExtensionName) {
   var __x = Most.fromEvent("contextmenu", BodyDoService$Meta3dEvent.getBodyExn(state), false);
   var __x$1 = _fromPointDomEvent("click", state);
   var __x$2 = _fromPointDomEvent("mousedown", state);
@@ -219,11 +218,15 @@ function _fromPCDomEventArr(state) {
   var __x$4 = _fromPointDomEvent("mousemove", state);
   var __x$5 = _fromPointDomEvent("mousewheel", state);
   var __x$6 = _fromPointDomEvent("mousedown", state);
-  var __x$7 = Most.tap(_execMouseDragStartEventHandle, __x$6);
+  var __x$7 = Most.tap((function ($$event) {
+          return _execMouseDragStartEventHandle($$event, eventExtensionName);
+        }), __x$6);
   var __x$8 = Most.flatMap((function ($$event) {
           var __x = Most.skip(2, _fromPointDomEvent("mousemove", state));
           var __x$1 = _fromPointDomEvent("mouseup", state);
-          return Most.until(Most.tap(_execMouseDragDropEventHandle, __x$1), __x);
+          return Most.until(Most.tap((function ($$event) {
+                            return _execMouseDragDropEventHandle($$event, eventExtensionName);
+                          }), __x$1), __x);
         }), __x$7);
   var __x$9 = _fromKeyboardDomEvent("keyup", state);
   var __x$10 = _fromKeyboardDomEvent("keydown", state);
@@ -234,68 +237,72 @@ function _fromPCDomEventArr(state) {
                   
                 }), __x),
           Most.tap((function ($$event) {
-                  return _execMouseEventHandle(/* Click */1, $$event);
+                  return _execMouseEventHandle(/* Click */1, $$event, eventExtensionName);
                 }), __x$1),
           Most.tap((function ($$event) {
-                  return _execMouseEventHandle(/* MouseDown */2, $$event);
+                  return _execMouseEventHandle(/* MouseDown */2, $$event, eventExtensionName);
                 }), __x$2),
           Most.tap((function ($$event) {
-                  return _execMouseEventHandle(/* MouseUp */3, $$event);
+                  return _execMouseEventHandle(/* MouseUp */3, $$event, eventExtensionName);
                 }), __x$3),
           Most.tap((function ($$event) {
-                  return _execMouseChangePositionEventHandle(/* MouseMove */4, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYWhenMouseMove);
+                  return _execMouseMoveEventHandle(/* MouseMove */4, $$event, eventExtensionName);
                 }), __x$4),
           Most.tap((function ($$event) {
-                  return _execMouseEventHandle(/* MouseWheel */5, $$event);
+                  return _execMouseEventHandle(/* MouseWheel */5, $$event, eventExtensionName);
                 }), __x$5),
           Most.tap((function ($$event) {
-                  return _execMouseChangePositionEventHandle(/* MouseDragOver */7, $$event, HandleMouseEventDoService$Meta3dEvent.setLastXYByLocation);
+                  return _execMouseDragingEventHandle(/* MouseDragOver */7, $$event, eventExtensionName);
                 }), __x$8),
           Most.tap((function ($$event) {
-                  return _execKeyboardEventHandle(/* KeyUp */9, $$event);
+                  return _execKeyboardEventHandle(/* KeyUp */9, $$event, eventExtensionName);
                 }), __x$9),
           Most.tap((function ($$event) {
-                  return _execKeyboardEventHandle(/* KeyDown */10, $$event);
+                  return _execKeyboardEventHandle(/* KeyDown */10, $$event, eventExtensionName);
                 }), __x$10),
           Most.tap((function ($$event) {
-                  return _execKeyboardEventHandle(/* KeyPress */11, $$event);
+                  return _execKeyboardEventHandle(/* KeyPress */11, $$event, eventExtensionName);
                 }), __x$11)
         ];
 }
 
-function _fromMobileDomEventArr(state) {
+function _fromMobileDomEventArr(state, eventExtensionName) {
   var __x = _fromMobilePointDomEvent("touchend", state);
   var __x$1 = Most.since(_fromMobilePointDomEvent("touchstart", state), __x);
   var __x$2 = _fromMobilePointDomEvent("touchend", state);
   var __x$3 = _fromMobilePointDomEvent("touchstart", state);
   var __x$4 = _fromTouchMoveDomEventAndPreventnDefault(state);
   var __x$5 = _fromMobilePointDomEvent("touchstart", state);
-  var __x$6 = Most.tap(_execTouchDragStartEventHandle, __x$5);
+  var __x$6 = Most.tap((function ($$event) {
+          return _execTouchDragStartEventHandle($$event, eventExtensionName);
+        }), __x$5);
   var __x$7 = Most.flatMap((function ($$event) {
           var __x = _fromTouchMoveDomEventAndPreventnDefault(state);
           var __x$1 = _fromMobilePointDomEvent("touchend", state);
-          return Most.until(Most.tap(_execTouchDragDropEventHandle, __x$1), __x);
+          return Most.until(Most.tap((function ($$event) {
+                            return _execTouchDragDropEventHandle($$event, eventExtensionName);
+                          }), __x$1), __x);
         }), __x$6);
   return [
           Most.tap((function ($$event) {
-                  return _execTouchEventHandle(/* TouchTap */12, $$event);
+                  return _execTouchEventHandle(/* TouchTap */12, $$event, eventExtensionName);
                 }), __x$1),
           Most.tap((function ($$event) {
-                  return _execTouchEventHandle(/* TouchEnd */13, $$event);
+                  return _execTouchEventHandle(/* TouchEnd */13, $$event, eventExtensionName);
                 }), __x$2),
           Most.tap((function ($$event) {
-                  return _execTouchEventHandle(/* TouchStart */15, $$event);
+                  return _execTouchEventHandle(/* TouchStart */15, $$event, eventExtensionName);
                 }), __x$3),
           Most.tap((function ($$event) {
-                  return _execTouchChangePositionEventHandle(/* TouchMove */14, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYWhenTouchMove);
+                  return _execTouchMoveEventHandle(/* TouchMove */14, $$event, eventExtensionName);
                 }), __x$4),
           Most.tap((function ($$event) {
-                  return _execTouchChangePositionEventHandle(/* TouchDragOver */17, $$event, HandleTouchEventDoService$Meta3dEvent.setLastXYByLocation);
+                  return _execTouchDragingEventHandle(/* TouchDragOver */17, $$event, eventExtensionName);
                 }), __x$7)
         ];
 }
 
-function fromDomEvent(state) {
+function fromDomEvent(state, eventExtensionName) {
   var match = BrowserDoService$Meta3dEvent.getBrowser(state);
   var tmp;
   if (match >= 2) {
@@ -304,23 +311,23 @@ function fromDomEvent(state) {
             RE_EXN_ID: "Match_failure",
             _1: [
               "InitEventDoService.res",
-              419,
+              443,
               4
             ],
             Error: new Error()
           };
     }
-    tmp = _fromMobileDomEventArr(state);
+    tmp = _fromMobileDomEventArr(state, eventExtensionName);
   } else {
-    tmp = _fromPCDomEventArr(state);
+    tmp = _fromPCDomEventArr(state, eventExtensionName);
   }
   return Most.mergeArray(tmp);
 }
 
 var handleDomEventStreamError = Log$Meta3dCommonlib.logForDebug;
 
-function initEvent(state) {
-  var __x = fromDomEvent(state);
+function initEvent(state, eventExtensionName) {
+  var __x = fromDomEvent(state, eventExtensionName);
   var domEventStreamSubscription = __x.subscribe({
         next: (function (param) {
             
@@ -330,7 +337,9 @@ function initEvent(state) {
             
           })
       });
-  return bindDomEventToTriggerPointEvent(ManageEventDoService$Meta3dEvent.setDomEventStreamSubscription(state, domEventStreamSubscription));
+  var state$1 = ManageEventDoService$Meta3dEvent.setDomEventStreamSubscription(state, domEventStreamSubscription);
+  ContainerManager$Meta3dEvent.setState(bindDomEventToTriggerPointEvent(ContainerManager$Meta3dEvent.getState(eventExtensionName), BrowserDoService$Meta3dEvent.getBrowser(state$1)), eventExtensionName);
+  return state$1;
 }
 
 export {

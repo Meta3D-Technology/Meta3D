@@ -2,6 +2,7 @@
 
 var BodyDoService$Meta3dEvent = require("../../../src/event_manager/service/dom/BodyDoService.bs.js");
 var ContainerManager$Meta3dEvent = require("../../../src/event_manager/data/ContainerManager.bs.js");
+var EventExtensionTool$Meta3dEvent = require("../api/EventExtensionTool.bs.js");
 var ManageEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/ManageEventDoService.bs.js");
 
 var _isHostMethod = (function(object_, property) {
@@ -24,11 +25,11 @@ var _extend = (function(destination, source){
 var getBody = BodyDoService$Meta3dEvent.getBodyExn;
 
 function getPointEventBindedDom(param) {
-  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(undefined));
+  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)));
 }
 
 function getKeyboardEventBindedDom(param) {
-  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(undefined));
+  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)));
 }
 
 var triggerDomEvent = (function(eventName, oTarget, event){
@@ -177,13 +178,13 @@ var _clearEventQueueMap = (function(){
 
 function restore(param) {
   _clearEventQueueMap();
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.unsubscribeDomEventStream(ContainerManager$Meta3dEvent.getState(undefined)));
+  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.unsubscribeDomEventStream(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function triggerFirstMouseDragOverEvent(mouseEvent) {
-  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(undefined)), mouseEvent);
-  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(undefined)), mouseEvent);
-  return triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(undefined)), mouseEvent);
+  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
+  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
+  return triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
 }
 
 exports._isHostMethod = _isHostMethod;
@@ -196,4 +197,4 @@ exports.buildFakeCanvas = buildFakeCanvas;
 exports._clearEventQueueMap = _clearEventQueueMap;
 exports.restore = restore;
 exports.triggerFirstMouseDragOverEvent = triggerFirstMouseDragOverEvent;
-/* ContainerManager-Meta3dEvent Not a pure module */
+/* No side effect */

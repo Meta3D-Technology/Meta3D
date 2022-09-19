@@ -1,5 +1,8 @@
 let prepareState = () => {
-  ContainerManager.setState(CreateEventManagerState.create())
+  ContainerManager.setState(
+    CreateEventManagerState.create(),
+    EventExtensionTool.buildEventExtentsionName(),
+  )
 }
 
 let onMouseEvent = ManageEventAPI.onMouseEvent

@@ -1,6 +1,6 @@
 open EventManagerStateType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 let onMouseEvent = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
   BindMouseDomEventDoService.bind(eventName, priority, handleFunc, state)

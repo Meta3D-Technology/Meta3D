@@ -1,19 +1,22 @@
 
 
-import * as Container$Meta3dEvent from "./container/Container.bs.js";
 
-function getState(param) {
-  return Container$Meta3dEvent.poContainer.state;
-}
+var createState = (function(createStateFunc, eventExtensionName){
+window[eventExtensionName + "_eventManagerState"] = createStateFunc()
+            });
 
-function setState(state) {
-  Container$Meta3dEvent.poContainer.state = state;
-  
-}
+var getState = (function(eventExtensionName){
+return window[eventExtensionName + "_eventManagerState"]
+            });
+
+var setState = (function(state, eventExtensionName){
+window[eventExtensionName + "_eventManagerState"] = state
+            });
 
 export {
+  createState ,
   getState ,
   setState ,
   
 }
-/* Container-Meta3dEvent Not a pure module */
+/* No side effect */

@@ -1,18 +1,18 @@
 type rec mouseDomEventData = {
   priority: int,
-  handleFunc: (. EventType.mouseEvent, state) => state,
+  handleFunc: (. Meta3dEventProtocol.EventType.mouseEvent, state) => state,
 }
 and keyboardDomEventData = {
   priority: int,
-  handleFunc: (. EventType.keyboardEvent, state) => state,
+  handleFunc: (. Meta3dEventProtocol.EventType.keyboardEvent, state) => state,
 }
 and touchDomEventData = {
   priority: int,
-  handleFunc: (. EventType.touchEvent, state) => state,
+  handleFunc: (. Meta3dEventProtocol.EventType.touchEvent, state) => state,
 }
 and customEventData = {
   priority: int,
-  handleFunc: (. EventType.customEvent, state) => (state, EventType.customEvent),
+  handleFunc: (. Meta3dEventProtocol.EventType.customEvent, state) => (state, Meta3dEventProtocol.EventType.customEvent),
 }
 and eventData = {
   domEventStreamSubscription: option<Meta3dBsMost.Most.subscription>,
@@ -24,9 +24,9 @@ and eventData = {
   //   string,
   //   Meta3dCommonlibType.MutableSparseMapType.t<int, array<customEventData>>,
   // >,
-  mouseEventData: EventType.mouseEventData,
-  keyboardEventData: EventType.keyboardEventData,
-  touchEventData: EventType.touchEventData,
+  mouseEventData: Meta3dEventProtocol.EventType.mouseEventData,
+  keyboardEventData: Meta3dEventProtocol.EventType.keyboardEventData,
+  touchEventData: Meta3dEventProtocol.EventType.touchEventData,
 }
 and state = {
   eventData: eventData,

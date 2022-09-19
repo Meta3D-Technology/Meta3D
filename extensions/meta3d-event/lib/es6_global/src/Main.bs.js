@@ -8,6 +8,9 @@ function getExtensionService(api, param) {
               return EventManager$Meta3dEvent.trigger(api, param, param$1, param$2, param$3);
             }),
           registerEvent: EventManager$Meta3dEvent.registerEvent,
+          onPointEvent: (function (param, param$1) {
+              return EventManager$Meta3dEvent.onPointEvent(api, param, param$1);
+            }),
           initEvent: (function (param, param$1) {
               return EventManager$Meta3dEvent.initEvent(api, param, param$1);
             }),
@@ -24,7 +27,14 @@ function getExtensionService(api, param) {
           getBrowserFirefoxType: EventManager$Meta3dEvent.getBrowserFirefoxType,
           getBrowserAndroidType: EventManager$Meta3dEvent.getBrowserAndroidType,
           getBrowserIOSType: EventManager$Meta3dEvent.getBrowserIOSType,
-          getBrowserUnknownType: EventManager$Meta3dEvent.getBrowserUnknownType
+          getBrowserUnknownType: EventManager$Meta3dEvent.getBrowserUnknownType,
+          getPointDownEventName: EventManager$Meta3dEvent.getPointDownEventName,
+          getPointUpEventName: EventManager$Meta3dEvent.getPointUpEventName,
+          getPointTapEventName: EventManager$Meta3dEvent.getPointTapEventName,
+          getPointMoveEventName: EventManager$Meta3dEvent.getPointMoveEventName,
+          getPointScaleEventName: EventManager$Meta3dEvent.getPointScaleEventName,
+          getPointDragStartEventName: EventManager$Meta3dEvent.getPointDragStartEventName,
+          getPointDragOverEventName: EventManager$Meta3dEvent.getPointDragOverEventName
         };
 }
 

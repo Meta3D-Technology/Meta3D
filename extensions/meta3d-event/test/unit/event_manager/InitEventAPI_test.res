@@ -1,4 +1,4 @@
-open EventType
+open Meta3dEventProtocol.EventType
 
 open Meta3d_jest
 

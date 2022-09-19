@@ -1,11 +1,11 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { ioData } from "meta3d-ui-protocol/src/state/StateType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-use-editor-protocol/src/service/DependentMapType"
 import { service } from "meta3d-use-editor-protocol/src/service/ServiceType"
 import { state } from "meta3d-use-editor-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
@@ -17,15 +17,6 @@ import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementCont
 import { eventData as clickButtonEventData } from "meta3d-event-click-button-protocol"
 import { eventContribute } from "meta3d-event-protocol/src/contribute/EventContributeType"
 import { button2Reducer } from "./Reducer"
-
-
-// TODO move to UI extension 
-let _ioData: ioData = {
-	pointUp: false,
-	pointDown: false,
-	pointPosition: [0, 0],
-	pointMovementDelta: [0, 0]
-}
 
 let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
@@ -106,24 +97,24 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 	// let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
 	// let { meta3dSkinDefaultContributeName, meta3dCustomControlButtonContributeName, meta3dElementButtonContributeName, meta3dEventClickButtonContributeName } = dependentContributeNameMap
 
-	// TODO move to UI extension 
-	// TODO fix: should only one pointdown!
-	document.onmousedown = (e) => {
-		_ioData = {
-			pointUp: false,
-			pointDown: true,
-			pointPosition: [e.pageX, e.pageY],
-			pointMovementDelta: [0, 0]
-		}
-	}
-	document.onmouseup = (e) => {
-		_ioData = {
-			pointUp: true,
-			pointDown: true,
-			pointPosition: [e.pageX, e.pageY],
-			pointMovementDelta: [0, 0]
-		}
-	}
+	// // TODO move to UI extension 
+	// // TODO fix: should only one pointdown!
+	// document.onmousedown = (e) => {
+	// 	_ioData = {
+	// 		pointUp: false,
+	// 		pointDown: true,
+	// 		pointPosition: [e.pageX, e.pageY],
+	// 		pointMovementDelta: [0, 0]
+	// 	}
+	// }
+	// document.onmouseup = (e) => {
+	// 	_ioData = {
+	// 		pointUp: true,
+	// 		pointDown: true,
+	// 		pointPosition: [e.pageX, e.pageY],
+	// 		pointMovementDelta: [0, 0]
+	// 	}
+	// }
 
 	let isDebug = true
 
@@ -131,7 +122,7 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 
 
 	let [dependentExtensionNameMap, _] = dependentMapData
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
 
 	meta3dState = _prepareButton(meta3dState, api, dependentMapData)
 
@@ -142,19 +133,42 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 
 	meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
 
+
+
+	let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+
+	meta3dState = setBody(meta3dState, meta3dEventExtensionName, document.body as HTMLBodyElement)
+	meta3dState = setBrowser(meta3dState, meta3dEventExtensionName, getBrowserChromeType())
+	meta3dState = setCanvas(meta3dState, meta3dEventExtensionName, canvas)
+
+	meta3dState = initEvent(meta3dState, meta3dEventExtensionName)
+
+
+
+
+	let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+
+	bindIOEvent(meta3dState)
+
+
+
 	return meta3dState
 }
 
 let _loop = (
 	api: api, meta3dState: meta3dState,
-	[meta3dUIExtensionName, meta3dImguiRendererExtensionName]: [string, string]
+	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string]
 ) => {
+	let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+
 	let { render } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], _ioData).then((meta3dState: meta3dState) => {
+	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
+		resetIOData()
+
 		requestAnimationFrame(
 			() => {
-				_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName])
+				_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
 			}
 		)
 	})
@@ -166,13 +180,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	dependentContributeNameMap,
 	service
 > = (api, [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
 
 	return {
 		run: (meta3dState: meta3dState) => {
 			meta3dState = _init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap])
 
-			_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName])
+			_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
 		}
 	}
 }

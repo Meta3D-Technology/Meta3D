@@ -1,16 +1,21 @@
 open EventManagerStateType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 let setLastXY = (lastX, lastY) =>
-  ContainerManager.getState()
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
   ->HandleTouchEventDoService.setLastXY(lastX, lastY)
-  ->ContainerManager.setState
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
-let getIsDrag = () => ContainerManager.getState()->HandleTouchEventDoService.getIsDrag
+let getIsDrag = () =>
+  ContainerManager.getState(
+    EventExtensionTool.buildEventExtentsionName(),
+  )->HandleTouchEventDoService.getIsDrag
 
 let setIsDrag = isDrag =>
-  ContainerManager.getState()->HandleTouchEventDoService.setIsDrag(isDrag)->ContainerManager.setState
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
+  ->HandleTouchEventDoService.setIsDrag(isDrag)
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let buildTouchData = (~pageX=10, ~pageY=20, ()) =>
   {
@@ -58,7 +63,7 @@ let prepareWithState = (
   ->BodyDoService.setBody(BodyTool.getBody())
   ->CanvasDoService.setCanvas(canvasDom->Obj.magic)
   ->setBrowserFunc
-  ->InitEventDoService.initEvent
+  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionName())
 }
 
 let prepare = (
@@ -75,7 +80,7 @@ let prepare = (
     ~offsetTop,
     ~offsetParent,
     ~setBrowserFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 }

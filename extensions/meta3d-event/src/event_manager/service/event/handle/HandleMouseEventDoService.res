@@ -2,7 +2,7 @@ open EventManagerStateType
 
 // open AllBrowserDetectType
 
-open EventType
+open Meta3dEventProtocol.EventType
 
 // let getLocation = (mouseDomEvent, {browserDetectRecord}) => {
 let getLocation = (mouseDomEvent, state) => {

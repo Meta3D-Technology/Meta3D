@@ -1,4 +1,4 @@
-open EventType
+open Meta3dEventProtocol.EventType
 
 open Meta3d_jest
 
@@ -21,7 +21,7 @@ let _ = describe("CanvasAPI", () => {
 
       CanvasAPI.setCanvas(canvas)
 
-      ContainerManager.getState()->CanvasDoService.getCanvas->expect == canvas
+      ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->CanvasDoService.getCanvas->expect == canvas
     })
   })
 })

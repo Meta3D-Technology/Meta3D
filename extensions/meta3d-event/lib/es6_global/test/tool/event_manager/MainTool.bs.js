@@ -1,16 +1,17 @@
 
 
-import * as BodyAPI$Meta3dEvent from "../../../src/event_manager/api/BodyAPI.bs.js";
-import * as CanvasAPI$Meta3dEvent from "../../../src/event_manager/api/CanvasAPI.bs.js";
-import * as BrowserAPI$Meta3dEvent from "../../../src/event_manager/api/BrowserAPI.bs.js";
-import * as InitEventAPI$Meta3dEvent from "../../../src/event_manager/api/InitEventAPI.bs.js";
-import * as ManageEventAPI$Meta3dEvent from "../../../src/event_manager/api/ManageEventAPI.bs.js";
+import * as BodyAPI$Meta3dEvent from "../api/BodyAPI.bs.js";
+import * as CanvasAPI$Meta3dEvent from "../api/CanvasAPI.bs.js";
+import * as BrowserAPI$Meta3dEvent from "../api/BrowserAPI.bs.js";
+import * as InitEventAPI$Meta3dEvent from "../api/InitEventAPI.bs.js";
+import * as ManageEventAPI$Meta3dEvent from "../api/ManageEventAPI.bs.js";
 import * as ContainerManager$Meta3dEvent from "../../../src/event_manager/data/ContainerManager.bs.js";
+import * as EventExtensionTool$Meta3dEvent from "../api/EventExtensionTool.bs.js";
 import * as NameEventDoService$Meta3dEvent from "../../../src/event_manager/service/event/NameEventDoService.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "../../../src/event_manager/data/CreateEventManagerState.bs.js";
 
 function prepareState(param) {
-  return ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined));
+  return ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function getBrowserChromeType(param) {
@@ -117,4 +118,4 @@ export {
   getBrowserUnknownType ,
   
 }
-/* BodyAPI-Meta3dEvent Not a pure module */
+/* InitEventAPI-Meta3dEvent Not a pure module */

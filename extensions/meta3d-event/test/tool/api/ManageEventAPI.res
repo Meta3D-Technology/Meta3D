@@ -2,71 +2,71 @@ let onMouseEvent = (eventName, priority, handleFunc) =>
   ManageEventDoService.onMouseEvent(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     ~priority,
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let onKeyboardEvent = (eventName, priority, handleFunc) =>
   ManageEventDoService.onKeyboardEvent(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     ~priority,
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let onTouchEvent = (eventName, priority, handleFunc) =>
   ManageEventDoService.onTouchEvent(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     ~priority,
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let offMouseEventByHandleFunc = (eventName, handleFunc) =>
   ManageEventDoService.offMouseEventByHandleFunc(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
-  )->ContainerManager.setState
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let offKeyboardEventByHandleFunc = (eventName, handleFunc) =>
   ManageEventDoService.offKeyboardEventByHandleFunc(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
-  )->ContainerManager.setState
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let offTouchEventByHandleFunc = (eventName, handleFunc) =>
   ManageEventDoService.offTouchEventByHandleFunc(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
-  )->ContainerManager.setState
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let onCustomGlobalEvent = (eventName, priority, handleFunc) =>
   ManageEventDoService.onCustomGlobalEvent(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
     ~priority,
     (),
-  )->ContainerManager.setState
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let offCustomGlobalEventByEventName = eventName =>
   ManageEventDoService.offCustomGlobalEventByEventName(
     ~eventName,
-    ~state=ContainerManager.getState(),
-  )->ContainerManager.setState
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 let offCustomGlobalEventByHandleFunc = (eventName, handleFunc) =>
   ManageEventDoService.offCustomGlobalEventByHandleFunc(
     ~eventName,
     ~handleFunc,
-    ~state=ContainerManager.getState(),
-  )->ContainerManager.setState
+    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()),
+  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 // let onCustomGameObjectEvent = (eventName, target, priority, handleFunc, state) =>
 //   ManageEventDoService.onCustomGameObjectEvent(
@@ -92,9 +92,9 @@ let offCustomGlobalEventByHandleFunc = (eventName, handleFunc) =>
 let stopPropagationCustomEvent = ManageEventDoService.stopPropagationCustomEvent
 
 let triggerCustomGlobalEvent = customEvent =>
-  ManageEventDoService.triggerCustomGlobalEvent(customEvent, ContainerManager.getState())
+  ManageEventDoService.triggerCustomGlobalEvent(customEvent, ContainerManager.getState(EventExtensionTool.buildEventExtentsionName()))
   ->Meta3dCommonlib.Tuple2.getFirst
-  ->ContainerManager.setState
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
 
 // let triggerCustomGameObjectEvent = (customEvent, target, state) =>
 //   ManageEventDoService.triggerCustomGameObjectEvent(customEvent, target, state)
@@ -111,14 +111,14 @@ let createCustomEvent = (eventName, userData) =>
 // let getCustomEventUserData = customEvent =>
 //   HandleCustomEventDoService.getCustomEventUserData(customEvent)
 
-// let getPointEventLocationInViewOfEvent = (event: EventType.pointEvent) => event.locationInView
+// let getPointEventLocationInViewOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.locationInView
 
-// let getPointEventLocationOfEvent = (event: EventType.pointEvent) => event.location
+// let getPointEventLocationOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.location
 
-// let getPointEventButtonOfEvent = (event: EventType.pointEvent) => event.button
+// let getPointEventButtonOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.button
 
-// let getPointEventWheelOfEvent = (event: EventType.pointEvent) => event.wheel
+// let getPointEventWheelOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.wheel
 
-// let getPointEventMovementDeltaOfEvent = (event: EventType.pointEvent) => event.movementDelta
+// let getPointEventMovementDeltaOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.movementDelta
 
-// let getPointEventEventOfEvent = (event: EventType.pointEvent) => event.event
+// let getPointEventEventOfEvent = (event: Meta3dEventProtocol.EventType.pointEvent) => event.event
