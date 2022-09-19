@@ -9,7 +9,6 @@ import { changeText } from "./Action"
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, eventContribute<eventData>> = (api, [dependentExtensionNameMap, _]) => {
     let { meta3dUIExtensionName } = dependentExtensionNameMap
     return {
-        // TODO remove eventName? can get it from protocol directly!
         eventName: eventName,
         handler: (meta3dState, eventData) => {
             console.log("click button")

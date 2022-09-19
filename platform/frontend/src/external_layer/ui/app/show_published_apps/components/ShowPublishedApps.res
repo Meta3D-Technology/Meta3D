@@ -7,6 +7,7 @@ open FrontendUtils.Antd
 let make = () => {
   let {username} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
 
+  let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
 
@@ -16,6 +17,16 @@ let make = () => {
   let _openLink = url => {
     Window.\"open"(url, "_blank").focus()
   }
+
+  RescriptReactRouter.watchUrl(url => {
+    switch url.path {
+    | list{"ShowPublishedApps"} =>
+      setAllPublishApps(_ => [])
+      setIsLoaded(_ => false)
+      refresh(_ => Js.Math.random())
+    | _ => ()
+    }
+  })->ignore
 
   React.useEffect1(() => {
     BackendCloudbase.findAllPublishApps(. username->Meta3dCommonlib.OptionSt.getExn)
@@ -31,7 +42,7 @@ let make = () => {
     ->ignore
 
     None
-  }, [])
+  }, [refreshValue])
 
   <>
     <Nav />

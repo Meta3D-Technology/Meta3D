@@ -242,10 +242,10 @@ add scripts!
 
 
 
-** TODO finish TODOs
+** DONE finish TODOs
 
 
-** TODO showPublishApp should refresh
+** DONE showPublishApp should refresh
 
 
 # *** TODO add bdd test
