@@ -31,9 +31,10 @@ function init(sandbox, getExtensionService, getExtensionStateOpt, setExtensionSt
             ], isDebug, canvas);
 }
 
-function buildIOData(pointUpOpt, pointDownOpt, pointPositionOpt, pointMovementDeltaOpt, param) {
+function buildIOData(pointUpOpt, pointDownOpt, pointTapOpt, pointPositionOpt, pointMovementDeltaOpt, param) {
   var pointUp = pointUpOpt !== undefined ? pointUpOpt : false;
   var pointDown = pointDownOpt !== undefined ? pointDownOpt : false;
+  var pointTap = pointTapOpt !== undefined ? pointTapOpt : false;
   var pointPosition = pointPositionOpt !== undefined ? pointPositionOpt : [
       0,
       0
@@ -45,6 +46,7 @@ function buildIOData(pointUpOpt, pointDownOpt, pointPositionOpt, pointMovementDe
   return {
           pointUp: pointUp,
           pointDown: pointDown,
+          pointTap: pointTap,
           pointPosition: pointPosition,
           pointMovementDelta: pointMovementDelta
         };
@@ -63,7 +65,7 @@ function render(sandbox, getExtensionServiceOpt, getExtensionStateOpt, setExtens
   var uiExtensionName = uiExtensionNameOpt !== undefined ? uiExtensionNameOpt : "uiExtensionName";
   var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
-  var ioData = ioDataOpt !== undefined ? ioDataOpt : buildIOData(undefined, undefined, undefined, undefined, undefined);
+  var ioData = ioDataOpt !== undefined ? ioDataOpt : buildIOData(undefined, undefined, undefined, undefined, undefined, undefined);
   return UIManager$Meta3dUi.render({
               registerExtension: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
               getExtensionService: getExtensionService,

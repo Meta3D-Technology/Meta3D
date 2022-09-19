@@ -44,6 +44,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     ioData: {
       pointUp: false,
       pointDown: false,
+      pointTap: false,
       pointPosition: (0, 0),
       pointMovementDelta: (0, 0),
     },

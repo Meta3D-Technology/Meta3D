@@ -67,7 +67,11 @@ JestCucumber.defineFeature(feature, (function (test) {
                                 width: 30,
                                 height: 40
                               };
-                              backgroundColor.contents = "blue";
+                              backgroundColor.contents = [
+                                0.0,
+                                0.0,
+                                1.0
+                              ];
                               
                             }));
                       Curry._2(param.when, "draw box", (function (param) {

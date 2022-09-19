@@ -44,6 +44,7 @@ function createExtensionState(param) {
           ioData: {
             pointUp: false,
             pointDown: false,
+            pointTap: false,
             pointPosition: [
               0,
               0

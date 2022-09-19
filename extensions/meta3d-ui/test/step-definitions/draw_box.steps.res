@@ -67,7 +67,7 @@ defineFeature(feature, test => {
           }: Meta3dImguiRendererProtocol.ServiceType.rect
         )
 
-      backgroundColor := "blue"
+      backgroundColor := (0.0, 0.0, 1.0)
     })
 
     \"when"("draw box", () => {

@@ -38,6 +38,7 @@ let init = (
 let buildIOData = (
   ~pointUp=false,
   ~pointDown=false,
+  ~pointTap=false,
   ~pointPosition=(0, 0),
   ~pointMovementDelta=(0, 0),
   (),
@@ -45,6 +46,7 @@ let buildIOData = (
   {
     pointUp: pointUp,
     pointDown: pointDown,
+    pointTap: pointTap,
     pointPosition: pointPosition,
     pointMovementDelta: pointMovementDelta,
   }
