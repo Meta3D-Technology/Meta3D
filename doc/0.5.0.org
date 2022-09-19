@@ -193,22 +193,28 @@ add scripts!
 
 ** TODO fix use-editor->ioData
 
-*** TODO update event manager
+*** DONE update event manager
 
-add order
+# add order
 
-*** TODO add bdd test
 
-*** TODO pass run test
+# *** TODO pass current run test
+
 
 
 
 *** TODO editor: add InitEventJob
 
+*** TODO add bdd test
+
+
 *** TODO fix use-editor->ioData
 
 
-** TODO frontend: extension/contribute shop should sort by version
+*** TODO pass run test
+
+
+# ** TODO frontend: extension/contribute shop should sort by version
 
 
 # * TODO improve
@@ -245,7 +251,6 @@ add order
 
 
 
-** TODO assemble space
 
 
 
