@@ -4,7 +4,7 @@ import { gameObject, cloneConfig } from "meta3d-gameobject-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
-import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
+// import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -114,23 +114,23 @@ export function hasPerspectiveCameraProjection(engineCoreState: engineCoreState,
     return hasComponent(contribute, gameObject)
 }
 
-export function getArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+// export function getArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
-    return getComponent<arcballCameraController>(contribute, gameObject)
-}
+//     return getComponent<arcballCameraController>(contribute, gameObject)
+// }
 
-export function addArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+// export function addArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName)
-}
+//     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName)
+// }
 
-export function hasArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+// export function hasArcballCameraController(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
-    return hasComponent(contribute, gameObject)
-}
+//     return hasComponent(contribute, gameObject)
+// }
 
 export function cloneGameObject(engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) {
     return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
@@ -174,8 +174,8 @@ export function disposeGameObjectPerspectiveCameraProjectionComponent(engineCore
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
 }
 
-export function disposeGameObjectArcballCameraControllerComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+// export function disposeGameObjectArcballCameraControllerComponent(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
-}
+//     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
+// }

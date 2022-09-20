@@ -21,6 +21,9 @@
   "keywords": [],
   "dependencies": {
     "meta3d-gameobject-protocol": "^0.5.0",
+    "meta3d-component-pbrmaterial-common-protocol": "^0.5.0",
+    "meta3d-component-geometry-common-protocol": "^0.5.0",
+    "meta3d-component-transform-common-protocol": "^0.5.0",
     "meta3d-type": "^0.5.0",
     "rescript": "^9.1.4"
   },
