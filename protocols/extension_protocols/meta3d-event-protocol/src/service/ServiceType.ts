@@ -1,5 +1,5 @@
 import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
-import { eventName, eventContribute } from "../contribute/EventContributeType"
+import { eventName, actionContribute } from "../contribute/ActionContributeType"
 import { state } from "../state/StateType"
 import { customEvent } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
@@ -27,9 +27,9 @@ export type service = {
         eventName: eventName,
         eventData: eventData
     ) => Promise<meta3dState>;
-    registerEvent: <eventData>(
+    registerAction: <eventData>(
         state: state,
-        eventContribute: eventContribute<eventData>
+        actionContribute: actionContribute<eventData>
     ) => state;
     onPointEvent(
         eventExtensionName: eventExtensionName,

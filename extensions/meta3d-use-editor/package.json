@@ -33,7 +33,7 @@
             "protocolName": "meta3d-element-button2-protocol"
         },
         "meta3dEventClickButtonContributeName": {
-            "protocolName": "meta3d-event-click-button-protocol"
+            "protocolName": "meta3d-action-click-button-protocol"
         }
     },
     "scripts": {
@@ -47,7 +47,7 @@
         "meta3d-custom-control-button-protocol": "^0.5.0",
         "meta3d-element-button-protocol": "^0.5.0",
         "meta3d-element-button2-protocol": "^0.5.0",
-        "meta3d-event-click-button-protocol": "^0.5.0",
+        "meta3d-action-click-button-protocol": "^0.5.0",
         "meta3d-event-protocol": "^0.5.0",
         "meta3d-imgui-renderer-protocol": "^0.5.0",
         "meta3d-skin-default-protocol": "^0.5.0",

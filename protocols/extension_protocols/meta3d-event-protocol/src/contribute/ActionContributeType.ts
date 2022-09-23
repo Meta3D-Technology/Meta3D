@@ -7,9 +7,9 @@ export type eventHandler<eventData> = (
     eventData: eventData
 ) => Promise<meta3dState>;
 
-export type eventContribute<eventData> = {
+export type actionContribute<eventData> = {
     eventName: eventName,
     handler: eventHandler<eventData>
 }
 
-// export type getEventContribute<dependentExtensionNameMap, eventData> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => eventContribute<eventData>;
+// export type getActionContribute<dependentExtensionNameMap, eventData> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => actionContribute<eventData>;

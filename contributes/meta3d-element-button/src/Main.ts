@@ -4,7 +4,7 @@ import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-el
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { eventData, eventName } from "meta3d-event-click-button-protocol"
+import { eventData, eventName } from "meta3d-action-click-button-protocol"
 import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 

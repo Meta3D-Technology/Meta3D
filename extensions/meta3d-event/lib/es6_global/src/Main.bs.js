@@ -7,7 +7,7 @@ function getExtensionService(api, param) {
           trigger: (function (param, param$1, param$2, param$3) {
               return EventManager$Meta3dEvent.trigger(api, param, param$1, param$2, param$3);
             }),
-          registerEvent: EventManager$Meta3dEvent.registerEvent,
+          registerAction: EventManager$Meta3dEvent.registerAction,
           onPointEvent: (function (param, param$1) {
               return EventManager$Meta3dEvent.onPointEvent(api, param, param$1);
             }),

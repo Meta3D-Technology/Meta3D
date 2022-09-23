@@ -1,8 +1,8 @@
 // TODO add bdd test
 
-let registerEvent = (
+let registerAction = (
   state: Meta3dEventProtocol.StateType.state,
-  eventContribute: Meta3dEventProtocol.EventContributeType.eventContribute<
+  actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
     Meta3dEventProtocol.StateType.eventData,
   >,
 ) => {
@@ -10,9 +10,9 @@ let registerEvent = (
 
   {
     ...state,
-    eventContributeMap: state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
-      eventContribute.eventName,
-      eventContribute,
+    actionContributeMap: state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      actionContribute.eventName,
+      actionContribute,
     ),
   }->StateType.stateToProtocolState
 }
@@ -27,12 +27,12 @@ let trigger = (
   let state: StateType.state =
     api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
 
-  let eventContribute: Meta3dEventProtocol.EventContributeType.eventContribute<
+  let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
     Meta3dEventProtocol.StateType.eventData,
   > =
-    state.eventContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
+    state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
 
-  eventContribute.handler(meta3dState, eventData)
+  actionContribute.handler(meta3dState, eventData)
 }
 
 let onPointEvent = (
@@ -201,7 +201,7 @@ let getPointDragDropEventName = NameEventDoService.getPointDragDropEventName->Ob
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {
   {
-    eventContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    actionContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     eventManagerState: CreateEventManagerState.create(),
   }
 }

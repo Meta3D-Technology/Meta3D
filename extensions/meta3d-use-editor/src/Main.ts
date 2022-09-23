@@ -14,8 +14,8 @@ import { inputData, outputData, customControlName } from "meta3d-custom-control-
 import { elementState as buttonElementState } from "meta3d-element-button-protocol"
 import { elementName as button2ElementName, changeTextAction, elementState as button2ElementState } from "meta3d-element-button2-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
-import { eventData as clickButtonEventData } from "meta3d-event-click-button-protocol"
-import { eventContribute } from "meta3d-event-protocol/src/contribute/EventContributeType"
+import { eventData as clickButtonEventData } from "meta3d-action-click-button-protocol"
+import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { button2Reducer } from "./Reducer"
 
 let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
@@ -65,12 +65,12 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 
 
 
-	let { registerEvent } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+	let { registerAction } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
 	let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionName)
 
 
-	eventState = registerEvent<clickButtonEventData>(eventState, api.getContribute<eventContribute<clickButtonEventData>>(meta3dState, meta3dEventClickButtonContributeName)
+	eventState = registerAction<clickButtonEventData>(eventState, api.getContribute<actionContribute<clickButtonEventData>>(meta3dState, meta3dEventClickButtonContributeName)
 	)
 
 

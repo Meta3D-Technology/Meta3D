@@ -12,17 +12,17 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/m
 import * as ManageEventDoService$Meta3dEvent from "./event_manager/service/event/ManageEventDoService.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/CreateEventManagerState.bs.js";
 
-function registerEvent(state, eventContribute) {
+function registerAction(state, actionContribute) {
   return {
-          eventContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.eventContributeMap, eventContribute.eventName, eventContribute),
+          actionContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.actionContributeMap, actionContribute.eventName, actionContribute),
           eventManagerState: state.eventManagerState
         };
 }
 
 function trigger(api, meta3dState, eventExtensionName, eventName, eventData) {
   var state = api.getExtensionState(meta3dState, eventExtensionName);
-  var eventContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.eventContributeMap, eventName);
-  return Curry._2(eventContribute.handler, meta3dState, eventData);
+  var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, eventName);
+  return Curry._2(actionContribute.handler, meta3dState, eventData);
 }
 
 function onPointEvent(api, eventExtensionName, param) {
@@ -51,7 +51,7 @@ function initEvent(api, meta3dState, eventExtensionName) {
   var eventManagerState = InitEventDoService$Meta3dEvent.initEvent(state.eventManagerState, eventExtensionName);
   _setDomToStateForEventHandler(eventManagerState, eventExtensionName);
   return api.setExtensionState(meta3dState, eventExtensionName, {
-              eventContributeMap: state.eventContributeMap,
+              actionContributeMap: state.actionContributeMap,
               eventManagerState: eventManagerState
             });
 }
@@ -60,7 +60,7 @@ function _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExte
   var state = api.getExtensionState(meta3dState, eventExtensionName);
   var eventManagerState = Curry._2(setDomDataFunc, state.eventManagerState, domData);
   return api.setExtensionState(meta3dState, eventExtensionName, {
-              eventContributeMap: state.eventContributeMap,
+              actionContributeMap: state.actionContributeMap,
               eventManagerState: eventManagerState
             });
 }
@@ -99,7 +99,7 @@ function getBrowserUnknownType(param) {
 
 function createExtensionState(param) {
   return {
-          eventContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          actionContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           eventManagerState: CreateEventManagerState$Meta3dEvent.create(undefined)
         };
 }
@@ -121,7 +121,7 @@ var getPointDragOverEventName = NameEventDoService$Meta3dEvent.getPointDragOverE
 var getPointDragDropEventName = NameEventDoService$Meta3dEvent.getPointDragDropEventName;
 
 export {
-  registerEvent ,
+  registerAction ,
   trigger ,
   onPointEvent ,
   _setDomToStateForEventHandler ,

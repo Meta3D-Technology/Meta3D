@@ -19,12 +19,12 @@ type service = {
   trigger: 'eventData. (
     Meta3dType.Index.state,
     eventExtensionName,
-    EventContributeType.eventName,
+    ActionContributeType.eventName,
     'eventData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerEvent: 'eventData. (
+  registerAction: 'eventData. (
     StateType.state,
-    EventContributeType.eventContribute<'eventData>,
+    ActionContributeType.actionContribute<'eventData>,
   ) => StateType.state,
   onPointEvent: (eventExtensionName, (pointEventName, priority, handleFunc)) => unit,
   initEvent: (Meta3dType.Index.state, eventExtensionName) => Meta3dType.Index.state,
