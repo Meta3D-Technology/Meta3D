@@ -19,7 +19,16 @@ let getExtensionStateExn = (state, name: extensionName) => {
 }
 
 let getContributeExn = (state, name: contributeName) => {
-  state.contributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+  state.contributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)->Meta3dCommonlib.Tuple2.getLast
+}
+
+let getAllContributesByType = (state, contributeType) => {
+  state.contributeMap
+  ->Meta3dCommonlib.ImmutableHashMap.getValidValues
+  ->Meta3dCommonlib.ArraySt.filter(((type_, _)) => {
+    type_ == contributeType
+  })
+  ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple2.getLast)
 }
 
 let _getExtensionLifeExn = (state, name: extensionName) => {
@@ -46,6 +55,44 @@ let startExtension = (state, extensionName) => {
     extensionName,
     _,
   )
+}
+
+let _decideContributeType = (contribute: contribute) => {
+  let contribute = contribute->Obj.magic
+
+  !(contribute["actionName"]->Js.Nullable.isNullable) &&
+  !(contribute["handler"]->Js.Nullable.isNullable)
+    ? {
+        Action
+      }
+    : !(contribute["componentName"]->Js.Nullable.isNullable) &&
+    !(contribute["createComponentFunc"]->Js.Nullable.isNullable)
+    ? Component
+    : !(contribute["elementName"]->Js.Nullable.isNullable) &&
+    !(contribute["execOrder"]->Js.Nullable.isNullable)
+    ? Element
+    : !(contribute["createGameObjectFunc"]->Js.Nullable.isNullable) &&
+    !(contribute["getAllGameObjectsFunc"]->Js.Nullable.isNullable)
+    ? GameObject
+    : !(contribute["uiControlName"]->Js.Nullable.isNullable) &&
+    !(contribute["func"]->Js.Nullable.isNullable)
+    ? UIControl
+    : !(contribute["workPluginName"]->Js.Nullable.isNullable) &&
+    !(contribute["allPipelineData"]->Js.Nullable.isNullable)
+    ? WorkPlugin
+    : Meta3dCommonlib.Exception.throwErr(
+        Meta3dCommonlib.Exception.buildErr(
+          Meta3dCommonlib.Log.buildErrorMessage(
+            ~title="unknown contribute type",
+            ~description={
+              j``
+            },
+            ~reason="",
+            ~solution=j``,
+            ~params=j``,
+          ),
+        ),
+      )
 }
 
 let rec registerExtension = (
@@ -84,11 +131,16 @@ and registerContribute = (
   >,
   (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
 ) => {
+  let contribute = getContributeFunc(
+    buildAPI(),
+    (dependentExtensionNameMap, dependentContributeNameMap),
+  )
+
   {
     ...state,
     contributeMap: state.contributeMap->Meta3dCommonlib.ImmutableHashMap.set(
       name,
-      getContributeFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
+      (_decideContributeType(contribute), contribute),
     ),
   }
 }
@@ -134,4 +186,6 @@ and buildAPI = (): api => {
   )->Obj.magic,
   getContribute: (. state, name: contributeName) =>
     getContributeExn(state, (name: contributeName))->Obj.magic,
+  getAllContributesByType: (. state, contributeType: contributeType) =>
+    getAllContributesByType(state, contributeType)->Obj.magic,
 }

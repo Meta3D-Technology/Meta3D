@@ -50,7 +50,7 @@ rename eventName to actionName
 
 
 
-* TODO contribute add type field
+* DONE contribute add type field
 
 contribute type:
 ui control
@@ -61,6 +61,7 @@ component
 work plugin
 
 
+meta3d:
 api add getAllContributesByType
 
 # * TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share

@@ -4,6 +4,15 @@ type extensionState
 
 type contribute
 
+type contributeType =
+  | UIControl
+  | Skin
+  | Element
+  | Action
+  | Component
+  | GameObject
+  | WorkPlugin
+
 type extensionName = string
 
 type contributeName = string
@@ -40,7 +49,10 @@ and state = {
     extensionName,
     extensionLife<extensionService>,
   >,
-  contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeName, contribute>,
+  contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    contributeName,
+    (contributeType, contribute),
+  >,
 }
 
 type api = {
@@ -63,6 +75,7 @@ type api = {
     ('dependentExtensionNameMap, 'dependentContributeNameMap),
   ) => state,
   getContribute: 'contribute. (. state, contributeName) => 'contribute,
+  getAllContributesByType: 'contribute. (. state, contributeType) => array<'contribute>,
 }
 
 type getExtensionService<

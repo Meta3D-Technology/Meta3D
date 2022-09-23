@@ -2,6 +2,16 @@ export type extensionName = string
 
 export type contributeName = string
 
+export enum contributeType {
+  UIControl = 0,
+  Skin,
+  Element,
+  Action,
+  Component,
+  GameObject,
+  WorkPlugin
+}
+
 export type extensionService = any
 
 export type extensionState = any
@@ -20,6 +30,7 @@ export type api = {
   setExtensionState<extensionState>(state: state, extensionName: extensionName, extensionState: extensionState): state
   registerContribute<getContributeFunc, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeName: contributeName, getContributeFunc: getContributeFunc, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]): state,
   getContribute<contribute>(state: state, contributeName: contributeName): contribute,
+  getAllContributesByType<contribute>(state: state, contributeType: contributeType): Array<contribute>,
 };
 
 // tslint:disable-next-line:interface-over-type-literal
