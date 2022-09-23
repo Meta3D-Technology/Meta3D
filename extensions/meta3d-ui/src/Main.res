@@ -8,9 +8,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   {
     registerElement: UIManager.registerElement->Obj.magic,
     registerSkin: UIManager.registerSkin,
-    registerCustomControl: UIManager.registerCustomControl,
+    registerUIControl: UIManager.registerUIControl,
     getSkin: UIManager.getSkinExn->Obj.magic,
-    getCustomControl: UIManager.getCustomControlExn->Obj.magic,
+    getUIControl: UIManager.getUIControlExn->Obj.magic,
     hide: UIManager.hide,
     show: UIManager.show,
     isStateChange: UIManager.isStateChange,
@@ -37,7 +37,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     isShowMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    customControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    uiControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     // ioData: None,
     reducers: [],
     // imguiData: ManageIMGUIService.createData()

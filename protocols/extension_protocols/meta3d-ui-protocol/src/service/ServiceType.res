@@ -13,9 +13,9 @@ type service = {
     StateType.state,
     SkinContributeType.skinContribute<StateType.skin>,
   ) => StateType.state,
-  registerCustomControl: (
+  registerUIControl: (
     StateType.state,
-    CustomControlContributeType.customControlContribute<StateType.inputData, StateType.outputData>,
+    UIControlContributeType.uiControlContribute<StateType.inputData, StateType.outputData>,
   ) => StateType.state,
   render: (
     Meta3dType.Index.state,
@@ -39,10 +39,10 @@ type service = {
     StateType.state,
     SkinContributeType.skinName,
   ) => SkinContributeType.skinContribute<'skin>,
-  getCustomControl: 'inputData 'outputData. (
+  getUIControl: 'inputData 'outputData. (
     StateType.state,
-    CustomControlContributeType.customControlName,
-  ) => CustomControlContributeType.customControlFunc<'inputData, 'outputData>,
+    UIControlContributeType.uiControlName,
+  ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
   drawBox: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.rect,

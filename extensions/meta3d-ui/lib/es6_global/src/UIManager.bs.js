@@ -14,7 +14,7 @@ function hide(state, elementName) {
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, false),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -28,7 +28,7 @@ function show(state, elementName) {
           isShowMap: ImmutableHashMap$Meta3dCommonlib.set(state.isShowMap, elementName, true),
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -42,7 +42,7 @@ function _markStateChange(state, elementName) {
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, true),
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -56,7 +56,7 @@ function _markStateNotChange(state, elementName) {
           isShowMap: state.isShowMap,
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, false),
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -74,7 +74,7 @@ function combineReducers(state, reducerData) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: ArraySt$Meta3dCommonlib.push(state.reducers, reducerData),
           ioData: state.ioData
         };
@@ -96,7 +96,7 @@ function _setElementState(state, elementName, elementState) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -114,7 +114,7 @@ function _setElementExecOrder(state, elementName, execOrder) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -145,7 +145,7 @@ function _prepare(state, ioData) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: ioData
         };
@@ -205,7 +205,7 @@ function _setElementFunc(state, elementName, elementFunc) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -224,13 +224,13 @@ function registerSkin(state, skinContribute) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
-          customControlContributeMap: state.customControlContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
           reducers: state.reducers,
           ioData: state.ioData
         };
 }
 
-function registerCustomControl(state, customControlContribute) {
+function registerUIControl(state, uiControlContribute) {
   return {
           elementFuncMap: state.elementFuncMap,
           elementStateMap: state.elementStateMap,
@@ -238,7 +238,7 @@ function registerCustomControl(state, customControlContribute) {
           isShowMap: state.isShowMap,
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
-          customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.customControlContributeMap, customControlContribute.customControlName, customControlContribute),
+          uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.uiControlContributeMap, uiControlContribute.uiControlName, uiControlContribute),
           reducers: state.reducers,
           ioData: state.ioData
         };
@@ -248,8 +248,8 @@ function getSkinExn(state, skinName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.skinContributeMap, skinName);
 }
 
-function getCustomControlExn(state, customControlName) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.customControlContributeMap, customControlName).func;
+function getUIControlExn(state, uiControlName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.uiControlContributeMap, uiControlName).func;
 }
 
 function isStateChange(state, elementName) {
@@ -294,9 +294,9 @@ export {
   _setElementFunc ,
   registerElement ,
   registerSkin ,
-  registerCustomControl ,
+  registerUIControl ,
   getSkinExn ,
-  getCustomControlExn ,
+  getUIControlExn ,
   isStateChange ,
   drawBox ,
   init ,

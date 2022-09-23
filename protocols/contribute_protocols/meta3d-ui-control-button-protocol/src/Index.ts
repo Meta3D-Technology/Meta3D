@@ -1,4 +1,4 @@
-export const customControlName = "Button"
+export const uiControlName = "Button"
 
 export type inputData = {
     rect: {

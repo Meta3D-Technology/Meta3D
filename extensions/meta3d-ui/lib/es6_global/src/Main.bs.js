@@ -8,7 +8,7 @@ function getExtensionService(api, param) {
   return {
           registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
-          registerCustomControl: UIManager$Meta3dUi.registerCustomControl,
+          registerUIControl: UIManager$Meta3dUi.registerUIControl,
           render: (function (param, param$1, param$2) {
               return UIManager$Meta3dUi.render(api, param, param$1, param$2);
             }),
@@ -20,7 +20,7 @@ function getExtensionService(api, param) {
           dispatch: UIManager$Meta3dUi.dispatch,
           getIOData: UIManager$Meta3dUi.getIOData,
           getSkin: UIManager$Meta3dUi.getSkinExn,
-          getCustomControl: UIManager$Meta3dUi.getCustomControlExn,
+          getUIControl: UIManager$Meta3dUi.getUIControlExn,
           drawBox: (function (meta3dState, rect, backgroundColor) {
               return UIManager$Meta3dUi.drawBox(meta3dState, [
                           api,
@@ -39,7 +39,7 @@ function createExtensionState(param) {
           isShowMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          customControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           reducers: [],
           ioData: {
             pointUp: false,

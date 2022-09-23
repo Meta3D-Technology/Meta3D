@@ -7,7 +7,7 @@ export type dependentExtensionNameMap = {
 
 export type dependentContributeNameMap = {
     meta3dSkinDefaultContributeName: string,
-    meta3dCustomControlButtonContributeName: string,
+    meta3dUIControlButtonContributeName: string,
     meta3dElementButtonContributeName: string,
     meta3dElementButton2ContributeName: string,
     meta3dEventClickButtonContributeName: string

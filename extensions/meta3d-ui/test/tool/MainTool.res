@@ -154,14 +154,14 @@ let drawBox = (
   )
 }
 
-let registerCustomControl = (~customControlName, ~func, ~state=createState(), ()) => {
-  UIManager.registerCustomControl(
+let registerUIControl = (~uiControlName, ~func, ~state=createState(), ()) => {
+  UIManager.registerUIControl(
     state,
     (
       {
-        customControlName: customControlName,
+        uiControlName: uiControlName,
         func: func,
-      }: Meta3dUiProtocol.CustomControlContributeType.customControlContribute<
+      }: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
         Meta3dUiProtocol.StateType.inputData,
         Meta3dUiProtocol.StateType.outputData,
       >
@@ -169,7 +169,7 @@ let registerCustomControl = (~customControlName, ~func, ~state=createState(), ()
   )
 }
 
-let getCustomControlExn = UIManager.getCustomControlExn
+let getUIControlExn = UIManager.getUIControlExn
 
 let buildSkinContribute = (skinName, skin): Meta3dUiProtocol.SkinContributeType.skinContribute<
   Meta3dUiProtocol.StateType.skin,

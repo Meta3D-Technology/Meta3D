@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-custom-control-button",
+    "name": "meta3d-ui-control-button",
     "version": "0.5.0",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-custom-control-button-protocol"
+        "name": "meta3d-ui-control-button-protocol"
     },
     "dependentExtensionNameMap": {
         "meta3dUIExtensionName": {
@@ -20,7 +20,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-custom-control-button-protocol": "^0.5.0",
+        "meta3d-ui-control-button-protocol": "^0.5.0",
         "meta3d-type": "^0.5.0",
         "meta3d-ui-protocol": "^0.5.0"
     },

@@ -268,18 +268,18 @@ let registerSkin = (
   }
 }
 
-let registerCustomControl = (
+let registerUIControl = (
   state: Meta3dUiProtocol.StateType.state,
-  customControlContribute: Meta3dUiProtocol.CustomControlContributeType.customControlContribute<
+  uiControlContribute: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
     Meta3dUiProtocol.StateType.inputData,
     Meta3dUiProtocol.StateType.outputData,
   >,
 ) => {
   {
     ...state,
-    customControlContributeMap: state.customControlContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
-      customControlContribute.customControlName,
-      customControlContribute,
+    uiControlContributeMap: state.uiControlContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      uiControlContribute.uiControlName,
+      uiControlContribute,
     ),
   }
 }
@@ -291,12 +291,12 @@ let getSkinExn = (
   state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
 }
 
-let getCustomControlExn = (state: Meta3dUiProtocol.StateType.state, customControlName) => {
-  let {func}: Meta3dUiProtocol.CustomControlContributeType.customControlContribute<
+let getUIControlExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
+  let {func}: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
     Meta3dUiProtocol.StateType.inputData,
     Meta3dUiProtocol.StateType.outputData,
   > =
-    state.customControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(customControlName)
+    state.uiControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(uiControlName)
 
   func
 }

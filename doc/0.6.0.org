@@ -46,7 +46,7 @@ so can be registered in editor entry extension one by one
 rename eventName to actionName
 
 
-* TODO rename custom control contribute to ui control contribute
+* DONE rename custom control contribute to ui control contribute
 
 
 

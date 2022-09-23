@@ -119,10 +119,10 @@ function drawBox(sandbox, rect, backgroundColor, getExtensionService, getExtensi
             ], rect, backgroundColor);
 }
 
-function registerCustomControl(customControlName, func, stateOpt, param) {
+function registerUIControl(uiControlName, func, stateOpt, param) {
   var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
-  return UIManager$Meta3dUi.registerCustomControl(state, {
-              customControlName: customControlName,
+  return UIManager$Meta3dUi.registerUIControl(state, {
+              uiControlName: uiControlName,
               func: func
             });
 }
@@ -142,7 +142,7 @@ function registerSkin(skinName, skin, stateOpt, param) {
             });
 }
 
-var getCustomControlExn = UIManager$Meta3dUi.getCustomControlExn;
+var getUIControlExn = UIManager$Meta3dUi.getUIControlExn;
 
 var getSkinExn = UIManager$Meta3dUi.getSkinExn;
 
@@ -162,8 +162,8 @@ exports.isStateChange = isStateChange;
 exports.show = show;
 exports.hide = hide;
 exports.drawBox = drawBox;
-exports.registerCustomControl = registerCustomControl;
-exports.getCustomControlExn = getCustomControlExn;
+exports.registerUIControl = registerUIControl;
+exports.getUIControlExn = getUIControlExn;
 exports.buildSkinContribute = buildSkinContribute;
 exports.registerSkin = registerSkin;
 exports.getSkinExn = getSkinExn;

@@ -1,16 +1,16 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { inputData, outputData, customControlName } from "meta3d-custom-control-button-protocol"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-custom-control-button-protocol/src/DependentMapType"
+import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
+import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-button-protocol/src/DependentMapType"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { skinName, skin } from "meta3d-skin-default-protocol"
-import { customControlContribute } from "meta3d-ui-protocol/src/contribute/CustomControlContributeType"
+import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, customControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
+export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
     let { meta3dUIExtensionName } = dependentExtensionNameMap
 
     return {
-        customControlName: customControlName,
+        uiControlName: uiControlName,
         func: (meta3dState,
             {
                 rect,

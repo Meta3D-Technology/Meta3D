@@ -58,9 +58,9 @@ type state = {
     SkinContributeType.skinName,
     SkinContributeType.skinContribute<skin>,
   >,
-  customControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    CustomControlContributeType.customControlName,
-    CustomControlContributeType.customControlContribute<inputData, outputData>,
+  uiControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    UIControlContributeType.uiControlName,
+    UIControlContributeType.uiControlContribute<inputData, outputData>,
   >,
   reducers: array<ElementContributeType.reducerData<elementState, action>>,
   // drawData: drawData,

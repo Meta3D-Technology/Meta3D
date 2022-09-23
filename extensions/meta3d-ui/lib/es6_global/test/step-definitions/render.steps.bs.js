@@ -70,7 +70,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                                 isShowMap: init.isShowMap,
                                                 isStateChangeMap: init.isStateChangeMap,
                                                 skinContributeMap: init.skinContributeMap,
-                                                customControlContributeMap: init.customControlContributeMap,
+                                                uiControlContributeMap: init.uiControlContributeMap,
                                                 reducers: init.reducers,
                                                 ioData: ioData.contents
                                               },

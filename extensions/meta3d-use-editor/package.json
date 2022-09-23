@@ -23,8 +23,8 @@
         "meta3dSkinDefaultContributeName": {
             "protocolName": "meta3d-skin-default-protocol"
         },
-        "meta3dCustomControlButtonContributeName": {
-            "protocolName": "meta3d-custom-control-button-protocol"
+        "meta3dUIControlButtonContributeName": {
+            "protocolName": "meta3d-ui-control-button-protocol"
         },
         "meta3dElementButtonContributeName": {
             "protocolName": "meta3d-element-button-protocol"
@@ -44,7 +44,7 @@
     },
     "dependencies": {
         "meta3d-bind-io-event-protocol": "^0.5.0",
-        "meta3d-custom-control-button-protocol": "^0.5.0",
+        "meta3d-ui-control-button-protocol": "^0.5.0",
         "meta3d-element-button-protocol": "^0.5.0",
         "meta3d-element-button2-protocol": "^0.5.0",
         "meta3d-action-click-button-protocol": "^0.5.0",

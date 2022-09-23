@@ -2,7 +2,7 @@ import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName, reducerData } from "../contribute/ElementContributeType"
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
-import { customControlContribute, customControlFunc, customControlName } from "../contribute/CustomControlContributeType"
+import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
 import { color, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
 export type uiExtensionName = extensionName
@@ -30,18 +30,18 @@ export type service = {
         state: state,
         skinContribute: skinContribute<skin>
     ) => state;
-    readonly registerCustomControl: < inputData, outputData> (
+    readonly registerUIControl: < inputData, outputData> (
         state: state,
-        customControlContribute: customControlContribute<inputData, outputData>
+        uiControlContribute: uiControlContribute<inputData, outputData>
     ) => state;
     readonly getSkin: <skin> (
         state: state,
         skinName: skinName
     ) => skinContribute<skin>;
-    readonly getCustomControl: < inputData, outputData> (
+    readonly getUIControl: < inputData, outputData> (
         state: state,
-        customControlName: customControlName
-    ) => customControlFunc<inputData, outputData>;
+        uiControlName: uiControlName
+    ) => uiControlFunc<inputData, outputData>;
     readonly init: (
         meta3dState: meta3dState,
         [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
