@@ -1,16 +1,16 @@
-type eventName = string
+type actionName = string
 
-type eventHandler<'eventData> = (
+type eventHandler<'actionData> = (
   Meta3dType.Index.state,
-  'eventData,
+  'actionData,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
-type actionContribute<'eventData> = {
-  eventName: eventName,
-  handler: eventHandler<'eventData>,
+type actionContribute<'actionData> = {
+  actionName: actionName,
+  handler: eventHandler<'actionData>,
 }
 
-// type getActionContribute<'dependentExtensionNameMap, 'eventData> = (
+// type getActionContribute<'dependentExtensionNameMap, 'actionData> = (
 //   Meta3dType.Index.api,
 //   'dependentExtensionNameMap,
-// ) => actionContribute<'eventData>
+// ) => actionContribute<'actionData>

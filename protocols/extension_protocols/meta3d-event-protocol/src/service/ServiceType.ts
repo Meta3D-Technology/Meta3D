@@ -1,5 +1,5 @@
 import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
-import { eventName, actionContribute } from "../contribute/ActionContributeType"
+import { actionName, actionContribute } from "../contribute/ActionContributeType"
 import { state } from "../state/StateType"
 import { customEvent } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
@@ -21,15 +21,15 @@ type priority = number
 type handleFunc = (customEvent: customEvent) => void
 
 export type service = {
-    trigger: <eventData> (
+    trigger: <actionData> (
         meta3dState: meta3dState,
         eventExtensionName: eventExtensionName,
-        eventName: eventName,
-        eventData: eventData
+        actionName: actionName,
+        actionData: actionData
     ) => Promise<meta3dState>;
-    registerAction: <eventData>(
+    registerAction: <actionData>(
         state: state,
-        actionContribute: actionContribute<eventData>
+        actionContribute: actionContribute<actionData>
     ) => state;
     onPointEvent(
         eventExtensionName: eventExtensionName,

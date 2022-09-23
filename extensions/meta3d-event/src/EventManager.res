@@ -3,7 +3,7 @@
 let registerAction = (
   state: Meta3dEventProtocol.StateType.state,
   actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
-    Meta3dEventProtocol.StateType.eventData,
+    Meta3dEventProtocol.StateType.actionData,
   >,
 ) => {
   let state = state->StateType.protocolStateToState
@@ -11,7 +11,7 @@ let registerAction = (
   {
     ...state,
     actionContributeMap: state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
-      actionContribute.eventName,
+      actionContribute.actionName,
       actionContribute,
     ),
   }->StateType.stateToProtocolState
@@ -21,18 +21,18 @@ let trigger = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
   eventExtensionName,
-  eventName,
-  eventData: Meta3dEventProtocol.StateType.eventData,
+  actionName,
+  actionData: Meta3dEventProtocol.StateType.actionData,
 ) => {
   let state: StateType.state =
     api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
 
   let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
-    Meta3dEventProtocol.StateType.eventData,
+    Meta3dEventProtocol.StateType.actionData,
   > =
-    state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(eventName)
+    state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(actionName)
 
-  actionContribute.handler(meta3dState, eventData)
+  actionContribute.handler(meta3dState, actionData)
 }
 
 let onPointEvent = (

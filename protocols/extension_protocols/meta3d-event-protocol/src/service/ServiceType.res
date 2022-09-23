@@ -16,15 +16,15 @@ type priority = int
 type handleFunc = (. EventType.customEvent) => unit
 
 type service = {
-  trigger: 'eventData. (
+  trigger: 'actionData. (
     Meta3dType.Index.state,
     eventExtensionName,
-    ActionContributeType.eventName,
-    'eventData,
+    ActionContributeType.actionName,
+    'actionData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerAction: 'eventData. (
+  registerAction: 'actionData. (
     StateType.state,
-    ActionContributeType.actionContribute<'eventData>,
+    ActionContributeType.actionContribute<'actionData>,
   ) => StateType.state,
   onPointEvent: (eventExtensionName, (pointEventName, priority, handleFunc)) => unit,
   initEvent: (Meta3dType.Index.state, eventExtensionName) => Meta3dType.Index.state,

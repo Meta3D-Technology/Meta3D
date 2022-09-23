@@ -1,15 +1,15 @@
 import { state as meta3dState, api } from "meta3d-type/src/Index"
 
-export type eventName = string;
+export type actionName = string;
 
-export type eventHandler<eventData> = (
+export type eventHandler<actionData> = (
     meta3dState: meta3dState,
-    eventData: eventData
+    actionData: actionData
 ) => Promise<meta3dState>;
 
-export type actionContribute<eventData> = {
-    eventName: eventName,
-    handler: eventHandler<eventData>
+export type actionContribute<actionData> = {
+    actionName: actionName,
+    handler: eventHandler<actionData>
 }
 
-// export type getActionContribute<dependentExtensionNameMap, eventData> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => actionContribute<eventData>;
+// export type getActionContribute<dependentExtensionNameMap, actionData> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => actionContribute<actionData>;

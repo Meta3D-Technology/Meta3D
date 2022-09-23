@@ -61,17 +61,19 @@ component
 work plugin
 
 
-* TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
-
-
-share for all elements
-
-
 api add getAllContributesByType
 
+# * TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
 
 
-common extensions get by filter by getExtensionLife -> onStart not exist)
+# share for all elements
+
+
+# api add getAllContributesByType
+
+
+
+# common extensions get by filter by getExtensionLife -> onStart not exist)
 
 
 
@@ -157,6 +159,14 @@ not register action;
 
 
 ** TODO bdd test
+
+
+
+
+
+
+
+
 
 
 ** TODO element add properties
@@ -313,6 +323,20 @@ send to server
 # so can be registered in editor entry extension one by one
 
 editor entry extension can get them by api.getAllContributesByType 
+
+
+
+* TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
+
+
+share for all elements
+
+
+
+
+
+common extensions get by filter by getExtensionLife -> onStart not exist)
+
 
 
 * TODO ap view:

@@ -14,7 +14,7 @@ import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-p
 import { elementState as buttonElementState } from "meta3d-element-button-protocol"
 import { elementName as button2ElementName, changeTextAction, elementState as button2ElementState } from "meta3d-element-button2-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
-import { eventData as clickButtonEventData } from "meta3d-action-click-button-protocol"
+import { actionData as clickButtonEventData } from "meta3d-action-click-button-protocol"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { button2Reducer } from "./Reducer"
 

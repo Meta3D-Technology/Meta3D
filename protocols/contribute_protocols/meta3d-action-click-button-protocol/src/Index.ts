@@ -1,3 +1,3 @@
-export const eventName = "ClickButton"
+export const actionName = "ClickButton"
 
-export type eventData = null
+export type actionData = null

@@ -4,7 +4,7 @@ import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-el
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { eventData, eventName } from "meta3d-action-click-button-protocol"
+import { actionData, actionName } from "meta3d-action-click-button-protocol"
 import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 
@@ -56,7 +56,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
             if (isClick) {
                 let { trigger } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
-                return trigger<eventData>(meta3dState, meta3dEventExtensionName, eventName, null)
+                return trigger<actionData>(meta3dState, meta3dEventExtensionName, actionName, null)
             }
 
             return new Promise((resolve) => {

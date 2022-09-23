@@ -1,3 +1,3 @@
-type eventData
+type actionData
 
 type state

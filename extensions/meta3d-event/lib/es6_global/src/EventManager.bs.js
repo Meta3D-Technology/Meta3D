@@ -14,15 +14,15 @@ import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/Creat
 
 function registerAction(state, actionContribute) {
   return {
-          actionContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.actionContributeMap, actionContribute.eventName, actionContribute),
+          actionContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.actionContributeMap, actionContribute.actionName, actionContribute),
           eventManagerState: state.eventManagerState
         };
 }
 
-function trigger(api, meta3dState, eventExtensionName, eventName, eventData) {
+function trigger(api, meta3dState, eventExtensionName, actionName, actionData) {
   var state = api.getExtensionState(meta3dState, eventExtensionName);
-  var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, eventName);
-  return Curry._2(actionContribute.handler, meta3dState, eventData);
+  var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, actionName);
+  return Curry._2(actionContribute.handler, meta3dState, actionData);
 }
 
 function onPointEvent(api, eventExtensionName, param) {
