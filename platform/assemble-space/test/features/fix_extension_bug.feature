@@ -4,8 +4,7 @@ Feature: Fix Extension Bug
     So that I can use it
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
         And init store
 
     Scenario: fix "multiple selected extension of the same protocol will affect each other" bug

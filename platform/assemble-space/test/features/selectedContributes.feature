@@ -4,8 +4,7 @@ Feature: Selected Contributes
     So that I can use it
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
 
     Scenario: show selected contributes
         Given select contribute a1, a2

@@ -11,11 +11,8 @@ defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
   let _prepare = (given, \"and") => {
-    given("prepare sandbox", () => {
+    given("prepare", () => {
       sandbox := createSandbox()
-    })
-
-    \"and"("prepare snapshot", () => {
       ReactTestTool.prepare()
     })
   }

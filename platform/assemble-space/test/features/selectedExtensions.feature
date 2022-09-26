@@ -4,8 +4,7 @@ Feature: Selected Extensions
     So that I can use it
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
 
     Scenario: show selected extensions
         Given select extension a1, a2

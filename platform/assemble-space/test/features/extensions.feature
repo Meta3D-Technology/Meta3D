@@ -4,7 +4,7 @@ Feature: Extensions
     So that I can use it
 
     Background: prepare
-        Given prepare sandbox
+        Given prepare
 
     Scenario: if not loaded, show loading
         When not loaded and render

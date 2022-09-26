@@ -4,8 +4,7 @@ Feature: CanvasController
     So that I can use it in ui view
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
 
     Scenario: add canvas
         When add two canvas

@@ -11,11 +11,8 @@ defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
   let _prepare = (given, \"and", initialState, store) => {
-    given("prepare sandbox", () => {
+    given("prepare", () => {
       sandbox := createSandbox()
-    })
-
-    \"and"("prepare snapshot", () => {
       ReactTestTool.prepare()
     })
 
@@ -30,7 +27,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-                        username: "meta3d",
+      username: "meta3d",
     }
     let a1 = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,

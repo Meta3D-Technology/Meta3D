@@ -4,8 +4,7 @@ Feature: ExtensionInspector
     So that I can update it
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
 
     Scenario: show nothing
         # Given select extension a1, a2

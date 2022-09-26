@@ -4,8 +4,7 @@ Feature: Fix AssembleSpace Bug
     So that I can use it
 
     Background: prepare
-        Given prepare sandbox
-        And prepare snapshot
+        Given prepare
         And init store
 
     Scenario: fix "enter AssembleSpace should reset" bug

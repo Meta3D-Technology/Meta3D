@@ -15,7 +15,7 @@ defineFeature(feature, test => {
   let selectedExtensionsFromShop = ref(list{})
 
   let _prepare = given => {
-    given("prepare sandbox", () => {
+    given("prepare", () => {
       sandbox := createSandbox()
     })
   }
