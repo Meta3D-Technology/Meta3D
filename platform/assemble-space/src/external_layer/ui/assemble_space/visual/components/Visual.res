@@ -10,17 +10,16 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = service.react.useDispatch()
-
   let allCanvasData = service.react.useSelector(Method.useSelector)
 
   <>
     <List
       grid={{gutter: 16, column: 3}}
       dataSource={allCanvasData}
-      renderItem={({width, height, zIndex}) => {
+      renderItem={({id, width, height, zIndex}) => {
         <List.Item>
           <canvas
+            key={id}
             style={ReactDOM.Style.make(
               ~borderColor="red",
               ~borderWidth="2px",
