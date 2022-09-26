@@ -4,9 +4,11 @@ open Sinon
 
 let build = (
   ~sandbox,
+  ~random=Js.Math.random,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useState=React.useState->Obj.magic,
   ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~useEffect1=React.useEffect1,
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -35,6 +37,7 @@ let build = (
     useState: useState->Obj.magic,
     useDispatch: () => dispatch,
     useSelector: useSelector->Obj.magic,
+    useEffect1: useEffect1-> Obj.magic,
     useEffectOnce: useEffectOnce,
     useEffectOnceAsync: useEffectOnceAsync,
   },
@@ -52,6 +55,9 @@ let build = (
     generateApp: generateApp,
     convertAllFileData: convertAllFileData,
   },
+  other:{
+random:random
+  }
 }
 
 let getUseEffectOncePromise = ((promise, _)) => {

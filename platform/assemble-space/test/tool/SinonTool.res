@@ -36,8 +36,13 @@ let createMethodStub = %raw(` function(sandbox, obj, method) {
 }
 `)
 
+
+let getArg = (~callIndex=0, ~argIndex=0, ~stub, ()) => {
+  stub->getCall(callIndex, _)->getArgs->Meta3dCommonlib.ListSt.nth(argIndex)->Meta3dCommonlib.OptionSt.getExn
+}
+
 let getFirstArg = (~callIndex=0, ~stub, ()) => {
-  stub->getCall(callIndex, _)->getArgs->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
+  getArg(~callIndex, ~argIndex=0,~stub, ())
 }
 
 let getAllArgsJson = (stub, callIndex) => {

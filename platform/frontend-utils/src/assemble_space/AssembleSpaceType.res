@@ -25,6 +25,7 @@ type reactService = {
   useState: 'a. ('a => 'a) => ('a, ('a => 'a) => unit),
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
+  useEffect1: 'a. (. unit => option<unit => unit>, array<'a>) => unit,
   useEffectOnce: (unit => (unit, option<unit => unit>)) => unit,
   useEffectOnceAsync: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
 }
@@ -52,11 +53,14 @@ type meta3dService = {
   ),
 }
 
+type otherService = {random: unit => float}
+
 type service = {
   console: consoleService,
   react: reactService,
   backend: backendService,
   meta3d: meta3dService,
+  other: otherService,
 }
 
 type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>

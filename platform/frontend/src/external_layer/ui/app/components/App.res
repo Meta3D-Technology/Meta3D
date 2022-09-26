@@ -7,6 +7,9 @@ let make = () => {
   ) => userCenterState)
 
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
+    other: {
+      random: Js.Math.random,
+    },
     backend: BackendCloudbase.buildService(),
     meta3d: {
       generateApp: (. (allExtensionFileData, allContributeFileData)) =>
@@ -15,7 +18,8 @@ let make = () => {
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
     },
     console: {
-      error: (. errorMessage, durationOpt) => FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+      error: (. errorMessage, durationOpt) =>
+        FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
     },
     react: {
       useState: func => {
@@ -33,6 +37,7 @@ let make = () => {
           dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
         }
       },
+      useEffect1: React.useEffect1,
       useEffectOnce: func => {
         React.useEffect1(() => {
           let (_, cleanUp) = func()

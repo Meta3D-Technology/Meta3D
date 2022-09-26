@@ -127,6 +127,7 @@ add boarder
 
 ** TODO bdd test
 
+** TODO refactor: feature->prepare to prepare, not expose sandbox, snapshot!
 
 ** TODO run test
 

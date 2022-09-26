@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CanvasController add canvas 1`] = `
+Array [
+  <button
+    className="ant-btn ant-btn-default"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    <span>
+      加入Canvas
+    </span>
+  </button>,
+  <div
+    className="ant-list ant-list-split ant-list-grid"
+  >
+    <div
+      className="ant-spin-nested-loading"
+    >
+      <div
+        className="ant-spin-container"
+      >
+        <div
+          className="ant-row"
+          style={
+            Object {
+              "marginLeft": -8,
+              "marginRight": -8,
+            }
+          }
+        >
+          <div
+            style={
+              Object {
+                "maxWidth": "100%",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="ant-col"
+              style={
+                Object {
+                  "flex": "1 1 auto",
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                }
+              }
+            >
+              <div
+                className="ant-list-item"
+              >
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            style={
+              Object {
+                "maxWidth": "100%",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="ant-col"
+              style={
+                Object {
+                  "flex": "1 1 auto",
+                  "paddingLeft": 8,
+                  "paddingRight": 8,
+                }
+              }
+            >
+              <div
+                className="ant-list-item"
+              >
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+                <input
+                  className="ant-input"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  type="text"
+                  value="0"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

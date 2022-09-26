@@ -12,7 +12,7 @@ let reducer = (state, action) => {
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
-        id: IdUtils.generateId(),
+        id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64: protocolIconBase64,
         newName: None,
         isStart: false,
@@ -60,7 +60,7 @@ let reducer = (state, action) => {
   | SelectContribute(protocolIconBase64, contribute) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
-        id: IdUtils.generateId(),
+        id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64: protocolIconBase64,
         newName: None,
         data: contribute.data,

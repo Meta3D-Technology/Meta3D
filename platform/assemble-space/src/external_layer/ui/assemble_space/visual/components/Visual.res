@@ -3,11 +3,6 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  //   let updateAllCanvas = allCanvasData => {
-  //     //TODO implement
-  //     Obj.magic(1)
-  //   }
-
   let useSelector = ({allCanvasData}: FrontendUtils.AssembleSpaceStoreType.state) => {
     allCanvasData
   }
@@ -18,12 +13,6 @@ let make = (~service: service) => {
   let dispatch = service.react.useDispatch()
 
   let allCanvasData = service.react.useSelector(Method.useSelector)
-
-  //   React.useEffect1(() => {
-  //     Method.updateAllCanvas(allCanvasData)
-
-  //     None
-  //   }, allCanvasData)
 
   <>
     <List
