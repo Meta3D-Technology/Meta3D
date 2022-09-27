@@ -48,7 +48,7 @@ defineFeature(feature, test => {
 
       store :=
         ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
         )
@@ -62,7 +62,7 @@ defineFeature(feature, test => {
       //   )
       store :=
         ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
         )
@@ -71,7 +71,7 @@ defineFeature(feature, test => {
     \"and"("select the first extension in SelectedExtensions", () => {
       store :=
         SelectedExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getHeadExn).id,
         )
     })
@@ -79,7 +79,7 @@ defineFeature(feature, test => {
     \"and"("start it", () => {
       store :=
         ExtensionInspectorTool.startExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
           ->ExtensionInspectorTool.getInspectorCurrentExtension
           ->Meta3dCommonlib.OptionSt.getExn,
@@ -89,7 +89,7 @@ defineFeature(feature, test => {
     \"and"("set new name", () => {
       store :=
         ExtensionInspectorTool.setExtensionNewName(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
           ->ExtensionInspectorTool.getInspectorCurrentExtension
           ->Meta3dCommonlib.OptionSt.getExn,
@@ -100,7 +100,7 @@ defineFeature(feature, test => {
     \"when"("select the second extension in SelectedExtensions", () => {
       store :=
         SelectedExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getNthExn(1)).id,
         )
     })
@@ -118,7 +118,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,
-          ~useSelector=ReduxTool.useSelector(store.contents),
+          ~useSelector=ReduxTool.ApView.useSelector(store.contents),
           (),
         ),
         (),

@@ -21,7 +21,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."fix \"enter AssembleSpace should reset\" bug", ({given, \"when", \"and", then}) => {
+  test(."fix \"enter ApView should reset\" bug", ({given, \"when", \"and", then}) => {
     let store = ref(Obj.magic(1))
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
@@ -41,16 +41,16 @@ defineFeature(feature, test => {
     given("select extension a1 for protocol a in Extensions", () => {
       store :=
         ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
         )
     })
 
-    \"when"("enter AssembleSpace", () => {
+    \"when"("enter ApView", () => {
       store :=
-        AssembleSpaceTool.reset(
-          ~dispatch=ReduxTool.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+        ApViewTool.reset(
+          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
         )
     })
 
@@ -59,7 +59,7 @@ defineFeature(feature, test => {
     })
 
     then("should reset store", () => {
-      let {selectedExtensions, inspectorCurrentExtensionId} = store.contents
+      let {selectedExtensions, inspectorCurrentExtensionId} = store.contents.apViewState
 
       (selectedExtensions, inspectorCurrentExtensionId)->expect == (list{}, None)
     })
@@ -69,7 +69,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,
-          ~useSelector=ReduxTool.useSelector(store.contents),
+          ~useSelector=ReduxTool.ApView.useSelector(store.contents),
           (),
         ),
         (),

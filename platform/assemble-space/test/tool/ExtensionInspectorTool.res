@@ -16,4 +16,4 @@ let setExtensionNewName = (~dispatch, ~inspectorCurrentExtension, ~newName) => {
 
 let getInspectorCurrentExtension = ExtensionInspector.Method.getInspectorCurrentExtension
 
-let useSelector = ExtensionInspector.Method.useSelector
+let useSelector =({apViewState}: FrontendUtils.AssembleSpaceStoreType.state)=> ExtensionInspector.Method.useSelector(apViewState)

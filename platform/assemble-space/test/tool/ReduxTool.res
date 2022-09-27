@@ -1,7 +1,9 @@
-let buildDispatch = (reducer, store, action) => {
-  reducer(store, action)
-}
+module ApView = {
+  let buildDispatch = (reducer, store: FrontendUtils.AssembleSpaceStoreType.state, action) => {
+    reducer(store, FrontendUtils.AssembleSpaceStoreType.ApViewAction(action))
+  }
 
-let useSelector = (store, useSelectorForStore) => {
-  useSelectorForStore(store)
+  let useSelector = (store, useSelectorForStore) => {
+    useSelectorForStore(store)
+  }
 }

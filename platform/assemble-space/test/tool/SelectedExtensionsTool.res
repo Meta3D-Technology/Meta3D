@@ -9,7 +9,7 @@ let buildSelectedExtension = (
   ~isStart=false,
   ~id="e1",
   (),
-): FrontendUtils.AssembleSpaceStoreType.extension => {
+): FrontendUtils.ApViewStoreType.extension => {
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
@@ -26,4 +26,5 @@ let selectExtension = (~id, ~dispatch) => {
   SelectedExtensions.Method.selectExtension(dispatch, id)
 }
 
-let useSelector = SelectedExtensions.Method.useSelector
+let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+  SelectedExtensions.Method.useSelector(apViewState)

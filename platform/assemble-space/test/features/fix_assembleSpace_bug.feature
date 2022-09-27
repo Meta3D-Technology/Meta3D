@@ -7,9 +7,9 @@ Feature: Fix AssembleSpace Bug
         Given prepare
         And init store
 
-    Scenario: fix "enter AssembleSpace should reset" bug
+    Scenario: fix "enter ApView should reset" bug
         Given select extension a1 for protocol a in Extensions
-        When enter AssembleSpace
+        When enter ApView
         And render SelectedExtensions
         Then should reset store
         And should show nothing

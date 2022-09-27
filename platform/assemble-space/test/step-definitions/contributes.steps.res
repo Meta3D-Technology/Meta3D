@@ -185,7 +185,7 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.AssembleSpaceStoreType.SelectContribute(
+        FrontendUtils.ApViewStoreType.SelectContribute(
           a.iconBase64,
           selectedContributesFromShop.contents->ListTool.getHeadExn,
         ),

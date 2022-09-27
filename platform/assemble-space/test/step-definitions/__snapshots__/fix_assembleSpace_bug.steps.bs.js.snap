@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fix AssembleSpace Bug fix "enter AssembleSpace should reset" bug 1`] = `
+exports[`Fix AssembleSpace Bug fix "enter ApView should reset" bug 1`] = `
 <div
   className="ant-list ant-list-split ant-list-grid"
 >

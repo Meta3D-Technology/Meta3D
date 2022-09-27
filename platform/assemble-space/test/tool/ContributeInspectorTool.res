@@ -8,4 +8,5 @@ let setContributeNewName = (~dispatch, ~inspectorCurrentContribute, ~newName) =>
 
 let getInspectorCurrentContribute = ContributeInspector.Method.getInspectorCurrentContribute
 
-let useSelector = ContributeInspector.Method.useSelector
+let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+  ContributeInspector.Method.useSelector

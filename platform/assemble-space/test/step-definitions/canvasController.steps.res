@@ -77,7 +77,9 @@ defineFeature(feature, test => {
 
       (
         dispatchStub.contents->SinonTool.calledWith(
-          FrontendUtils.AssembleSpaceStoreType.SetAllCanvasData(allCanvasData.contents),
+          FrontendUtils.AssembleSpaceStoreType.ApViewAction(
+            FrontendUtils.ApViewStoreType.SetAllCanvasData(allCanvasData.contents),
+          ),
         ),
         param,
       )->expect == (true, [allCanvasData.contents])
@@ -124,7 +126,7 @@ defineFeature(feature, test => {
               height: 11,
               id: "500000",
               width: 10,
-            }: FrontendUtils.AssembleSpaceStoreType.canvasData
+            }: FrontendUtils.ApViewStoreType.canvasData
           ),
         }
     })
