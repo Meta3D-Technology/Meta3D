@@ -15,17 +15,18 @@ let make = (~service: service) => {
   <>
     <List
       grid={{gutter: 16, column: 3}}
-      dataSource={allCanvasData}
-      renderItem={({id, width, height, zIndex}) => {
+      dataSource={allCanvasData->Meta3dCommonlib.ListSt.toArray}
+      renderItem={({id, width, height}) => {
         <List.Item>
           <canvas
             key={id}
             style={ReactDOM.Style.make(
+              ~borderStyle="solid",
               ~borderColor="red",
               ~borderWidth="2px",
               ~width={j`${width->Js.Int.toString}px`},
               ~height={j`${height->Js.Int.toString}px`},
-              ~zIndex=zIndex->Js.Int.toString,
+              // ~zIndex=zIndex->Js.Int.toString,
               (),
             )}
             width={j`${width->Js.Int.toString}px`}

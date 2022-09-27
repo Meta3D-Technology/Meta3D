@@ -78,9 +78,9 @@ api add getAllContributesByType
 
 
 
-* TODO ap view
+* DONE ap view
 
-** TODO middle: define all canvas
+** DONE middle: define all canvas
 
 
 # ui view has a global canvas
@@ -129,7 +129,7 @@ add boarder
 
 ** DONE refactor: feature->prepare to prepare, not expose sandbox, snapshot!
 
-** TODO run test
+** DONE run test
 
 test canvas dom
 

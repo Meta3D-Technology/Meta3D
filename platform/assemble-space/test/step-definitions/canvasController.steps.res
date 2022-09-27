@@ -9,6 +9,14 @@ let feature = loadFeature("./test/features/canvasController.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
+  let allCanvasData = ref(Obj.magic(1))
+  let setAllCanvasDataFlag = ref(Obj.magic(1))
+  let setAllCanvasDataFake = func => {
+    allCanvasData := func(allCanvasData.contents)
+  }
+  let setSetAllCanvasDataFlagFake = func => {
+    setAllCanvasDataFlag := func(setAllCanvasDataFlag.contents)
+  }
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -19,18 +27,23 @@ defineFeature(feature, test => {
 
   test(."add canvas", ({given, \"when", \"and", then}) => {
     let ui = ref(Obj.magic(1))
-    let allCanvasData = ref([])
-    let setAllCanvasDataFake = func => {
-      allCanvasData := func(allCanvasData.contents)
-    }
     let useEffect1Stub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     \"when"("add two canvas", () => {
-      CanvasControllerTool.addCanvasData(setAllCanvasDataFake, Js.Math.random)
-      CanvasControllerTool.addCanvasData(setAllCanvasDataFake, Js.Math.random)
+      allCanvasData := list{}
+      setAllCanvasDataFlag := false
+
+      CanvasControllerTool.addCanvasData(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        Js.Math.random,
+      )
+      CanvasControllerTool.addCanvasData(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        Js.Math.random,
+      )
     })
 
     \"and"("render", () => {
@@ -76,36 +89,44 @@ defineFeature(feature, test => {
   })
 
   test(."set canvas's data", ({given, \"when", \"and", then}) => {
-    let allCanvasData = ref([])
-    let setAllCanvasDataFake = func => {
-      allCanvasData := func(allCanvasData.contents)
-    }
-
     _prepare(given, \"and")
 
     given("add one canvas", () => {
+      allCanvasData := list{}
+      setAllCanvasDataFlag := false
+
       let randomStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(0.5, _)
 
-      CanvasControllerTool.addCanvasData(setAllCanvasDataFake, randomStub->Obj.magic)
+      CanvasControllerTool.addCanvasData(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        randomStub->Obj.magic,
+      )
     })
 
-    \"when"("set its width, height, zIndex one by one", () => {
-      CanvasControllerTool.setWidth(setAllCanvasDataFake, allCanvasData.contents[0].id, 10)
-      CanvasControllerTool.setHeight(setAllCanvasDataFake, allCanvasData.contents[0].id, 11)
-      CanvasControllerTool.setZIndex(setAllCanvasDataFake, allCanvasData.contents[0].id, 12)
+    \"when"("set its width, height one by one", () => {
+      CanvasControllerTool.setWidth(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        (allCanvasData.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn).id,
+        10,
+      )
+      CanvasControllerTool.setHeight(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        (allCanvasData.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn).id,
+        11,
+      )
     })
 
     then("should set to allCanvasData", () => {
-      allCanvasData.contents->expect == [
+      allCanvasData.contents->expect ==
+        list{
           (
             {
               height: 11,
               id: "500000",
               width: 10,
-              zIndex: 12,
             }: FrontendUtils.AssembleSpaceStoreType.canvasData
           ),
-        ]
+        }
     })
   })
 })

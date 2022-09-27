@@ -27,7 +27,7 @@ type canvasData = {
   id: string,
   width: int,
   height: int,
-  zIndex: int,
+  // zIndex: int,
 }
 
 type action =
@@ -40,12 +40,12 @@ type action =
   | SelectContribute(protocolIconBase64, AssembleSpaceCommonType.contribute)
   | SetInspectorCurrentContributeId(id)
   | SetContributeNewName(id, newName)
-  | SetAllCanvasData(array<canvasData>)
+  | SetAllCanvasData(list<canvasData>)
 
 type state = {
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
-  allCanvasData: array<canvasData>,
+  allCanvasData: list<canvasData>,
 }

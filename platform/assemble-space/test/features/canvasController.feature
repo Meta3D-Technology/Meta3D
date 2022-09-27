@@ -14,5 +14,5 @@ Feature: CanvasController
 
     Scenario: set canvas's data
         Given add one canvas
-        When set its width, height, zIndex one by one
+        When set its width, height one by one
         Then should set to allCanvasData

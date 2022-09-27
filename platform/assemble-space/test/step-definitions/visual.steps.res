@@ -9,6 +9,14 @@ let feature = loadFeature("./test/features/visual.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
+  let allCanvasData = ref(Obj.magic(1))
+  let setAllCanvasDataFlag = ref(Obj.magic(1))
+  let setAllCanvasDataFake = func => {
+    allCanvasData := func(allCanvasData.contents)
+  }
+  let setSetAllCanvasDataFlagFake = func => {
+    setAllCanvasDataFlag := func(setAllCanvasDataFlag.contents)
+  }
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -19,24 +27,26 @@ defineFeature(feature, test => {
 
   test(."show all canvas", ({given, \"when", \"and", then}) => {
     let ui = ref(Obj.magic(1))
-    let allCanvasData = ref([])
-    let setAllCanvasDataFake = func => {
-      allCanvasData := func(allCanvasData.contents)
-    }
     let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     given("add two canvas", () => {
-      CanvasControllerTool.addCanvasData(setAllCanvasDataFake, Js.Math.random)
-      CanvasControllerTool.addCanvasData(setAllCanvasDataFake, Js.Math.random)
+      CanvasControllerTool.addCanvasData(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        Js.Math.random,
+      )
+      CanvasControllerTool.addCanvasData(
+        (setAllCanvasDataFake, setSetAllCanvasDataFlagFake),
+        Js.Math.random,
+      )
 
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          [
-            CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ~zIndex=3, ()),
-            CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ~zIndex=30, ()),
-          ],
+          list{
+            CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
+            CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
+          },
           _,
         )
     })

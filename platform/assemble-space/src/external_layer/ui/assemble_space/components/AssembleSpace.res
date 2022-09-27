@@ -47,7 +47,7 @@ let make = (
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content> {React.string(`装配空间`)} </Layout.Content>
+      <Layout.Content> <CanvasController service /> <Visual service /> </Layout.Content>
       <Layout.Sider> <ExtensionInspector service /> <ContributeInspector service /> </Layout.Sider>
     </Layout>
   </Layout>

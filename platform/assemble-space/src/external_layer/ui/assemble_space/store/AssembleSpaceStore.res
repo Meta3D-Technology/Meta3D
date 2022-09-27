@@ -95,5 +95,5 @@ let initialState = {
   selectedContributes: list{},
   inspectorCurrentExtensionId: None,
   inspectorCurrentContributeId: None,
-  allCanvasData: [],
+  allCanvasData: list{},
 }

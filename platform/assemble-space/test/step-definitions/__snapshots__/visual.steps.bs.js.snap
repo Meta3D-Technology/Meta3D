@@ -45,10 +45,10 @@ exports[`Visual show all canvas 1`] = `
                 style={
                   Object {
                     "borderColor": "red",
+                    "borderStyle": "solid",
                     "borderWidth": "2px",
                     "height": "2px",
                     "width": "1px",
-                    "zIndex": "3",
                   }
                 }
                 width="1px"
@@ -82,10 +82,10 @@ exports[`Visual show all canvas 1`] = `
                 style={
                   Object {
                     "borderColor": "red",
+                    "borderStyle": "solid",
                     "borderWidth": "2px",
                     "height": "20px",
                     "width": "10px",
-                    "zIndex": "30",
                   }
                 }
                 width="10px"

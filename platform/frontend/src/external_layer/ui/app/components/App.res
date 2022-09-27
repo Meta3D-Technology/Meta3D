@@ -37,7 +37,7 @@ let make = () => {
           dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
         }
       },
-      useEffect1: React.useEffect1,
+      useEffect1: (. func, param) => React.useEffect1(func, param),
       useEffectOnce: func => {
         React.useEffect1(() => {
           let (_, cleanUp) = func()
