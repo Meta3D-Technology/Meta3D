@@ -1,10 +1,10 @@
 open FrontendUtils.UIViewStoreType
 
 let reducer = (state, action) => {
-  // switch action {
-  //   TODO
-  // }
-  state
+  switch action {
+  // TODO finish
+  | Reset => state
+  }
 }
 
 // let initialState = {

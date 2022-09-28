@@ -8,6 +8,18 @@ type view =
   | Ap
   | UI
 
+module Method = {
+  let reset = dispatch => {
+    dispatch(FrontendUtils.AssembleSpaceStoreType.Reset)
+  }
+
+  let useEffectOnce = dispatch => {
+    reset(dispatch)
+
+    ((), None)
+  }
+}
+
 @react.component
 let make = (
   ~service: service,
@@ -15,7 +27,11 @@ let make = (
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
+  let dispatch = service.react.useDispatch()
+
   let (currentView, setCurrentView) = service.react.useState(_ => Ap)
+
+  service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
 
   <Layout>
     <Layout.Header>

@@ -150,13 +150,13 @@ apViewState
 run test:
 should reset
 
-** TODO add ui view
+** DONE add ui view
 
 add ui view switch button
 
 run test
 
-*** TODO fix reset
+*** DONE fix reset
 
 apView, uiView add bdd test
 

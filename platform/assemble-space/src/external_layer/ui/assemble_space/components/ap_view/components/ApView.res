@@ -2,17 +2,6 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-module Method = {
-  let reset = dispatch => {
-    dispatch(FrontendUtils.ApViewStoreType.Reset)
-  }
-
-  let useEffectOnce = dispatch => {
-    reset(dispatch)
-
-    ((), None)
-  }
-}
 
 @react.component
 let make = (
@@ -21,9 +10,6 @@ let make = (
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
-  let dispatch = ReduxUtils.ApView.useDispatch(service.react.useDispatch)
-
-  service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
 
   <Layout>
     <Layout.Header> <Publish service username /> </Layout.Header>

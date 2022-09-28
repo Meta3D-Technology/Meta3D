@@ -21,7 +21,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."fix \"enter ApView should reset\" bug", ({given, \"when", \"and", then}) => {
+  test(."fix \"enter AssembleSpace should reset\" bug", ({given, \"when", \"and", then}) => {
     let store = ref(Obj.magic(1))
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
@@ -47,11 +47,8 @@ defineFeature(feature, test => {
         )
     })
 
-    \"when"("enter ApView", () => {
-      store :=
-        ApViewTool.reset(
-          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-        )
+    \"when"("enter AssembleSpace", () => {
+      store := AssembleSpaceTool.reset(~dispatch=AssembleSpaceStore.reducer(store.contents))
     })
 
     \"and"("render SelectedExtensions", () => {

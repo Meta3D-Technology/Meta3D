@@ -1,6 +1,7 @@
 type action = ..
 
 type action +=
+  | Reset
   | ApViewAction(ApViewStoreType.action)
   | UIViewAction(UIViewStoreType.action)
 
