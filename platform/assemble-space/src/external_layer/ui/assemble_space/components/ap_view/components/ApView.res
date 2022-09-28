@@ -14,8 +14,6 @@ module Method = {
   }
 }
 
-// TODO check login
-
 @react.component
 let make = (
   ~service: service,

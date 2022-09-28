@@ -150,10 +150,24 @@ apViewState
 run test:
 should reset
 
+** TODO add ui view
+
+add ui view switch button
+
+run test
+
+*** TODO fix reset
+
+apView, uiView add bdd test
+
+
+
 ** TODO left: UI Control Contributes, Selected UI Control Contributes
 
 show by select control one by one
 
+
+TODO get by type from selectedExtensions
 
 
 
@@ -163,41 +177,39 @@ show by select control one by one
 ** TODO run test
 
 
-** TODO start default run to draw view
+** TODO middle-top: select used canvas
+
+# render used canvas
+
+# should render all canvas with white background color
+
+
+# default background color is black
+
+with border
+
+
+** TODO bdd test
+
+** TODO start default run to draw selected canvas
 
 use the selected canvas
 
+
 with shared registered;
 
-only register this element:
-json -> element contribute:
-change -> json -> generate element contribute and replace old one
+register current element contribute(with fake one)
+
+# only register this element:
+# json -> element contribute:
+# change -> json -> generate element contribute and replace old one
 
 not register action;
 
 
 ** TODO bdd test
 
-
-** TODO middle-top: select used canvas
-
-render used canvas
-
-should render all canvas with white background color
-
-
-default background color is black
-
-
-** TODO bdd test
-
-
-
-
-
 ** TODO run test
-
-
 
 
 # ** TODO can drag button(ui control) to canvas
@@ -213,6 +225,18 @@ json -> generate element contribute code
 ui control protocol should define json related meta data?
 
 
+*** TODO update "start default run" to draw view
+
+
+# with shared registered;
+
+only register this element:
+json -> element contribute:
+change -> json -> generate element contribute and replace old one
+
+# not register action;
+
+update with json
 
 
 
