@@ -2,7 +2,6 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-
 @react.component
 let make = (
   ~service: service,
@@ -10,7 +9,6 @@ let make = (
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
-
   <Layout>
     <Layout.Header> <Publish service username /> </Layout.Header>
     <Layout>
@@ -31,7 +29,7 @@ let make = (
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content> <CanvasController service /> <Visual service /> </Layout.Content>
+      <Layout.Content />
       <Layout.Sider> <ExtensionInspector service /> <ContributeInspector service /> </Layout.Sider>
     </Layout>
   </Layout>

@@ -82,11 +82,6 @@ let reducer = (state, action) => {
           : contribute
       }),
     }
-
-  | SetAllCanvasData(allCanvasData) => {
-      ...state,
-      allCanvasData: allCanvasData,
-    }
   }
 }
 
@@ -95,5 +90,4 @@ let initialState = {
   selectedContributes: list{},
   inspectorCurrentExtensionId: None,
   inspectorCurrentContributeId: None,
-  allCanvasData: list{},
 }

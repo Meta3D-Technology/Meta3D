@@ -179,10 +179,10 @@ TODO get by type from selectedExtensions
 
 
 
-** TODO run test
+** DONE run test
 
 
-** TODO middle-top: select used canvas
+** DONE middle-top: select used canvas
 
 # render used canvas
 
@@ -194,7 +194,7 @@ TODO get by type from selectedExtensions
 with border
 
 
-** TODO bdd test
+** DONE bdd test
 
 ** TODO start default run to draw selected canvas
 

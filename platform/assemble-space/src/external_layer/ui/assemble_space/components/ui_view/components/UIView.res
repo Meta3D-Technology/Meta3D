@@ -14,7 +14,7 @@ let make = (~service: service) => {
         </Collapse.Panel>
       </Collapse>
     </Layout.Sider>
-    <Layout.Content />
+      <Layout.Content> <CanvasController service /> <Visual service /> </Layout.Content>
     <Layout.Sider />
   </Layout>
 }

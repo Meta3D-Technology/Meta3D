@@ -6,6 +6,10 @@ let reducer = (state, action) => {
       ...state,
       selectedUIControls: list{},
       inspectorCurrentUIControlId: None,
+      canvasData: {
+        width: 0,
+        height: 0,
+      },
     }
   | SelectUIControl(protocolIconBase64, name, data) => {
       ...state,
@@ -20,10 +24,18 @@ let reducer = (state, action) => {
       ...state,
       inspectorCurrentUIControlId: id->Some,
     }
+  | SetCanvasData(canvasData) => {
+      ...state,
+      canvasData: canvasData,
+    }
   }
 }
 
 let initialState = {
   selectedUIControls: list{},
   inspectorCurrentUIControlId: None,
+  canvasData: {
+    width: 0,
+    height: 0,
+  },
 }

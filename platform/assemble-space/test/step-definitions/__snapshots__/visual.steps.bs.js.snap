@@ -1,100 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Visual show all canvas 1`] = `
-<div
-  className="ant-list ant-list-split ant-list-grid"
->
-  <div
-    className="ant-spin-nested-loading"
-  >
-    <div
-      className="ant-spin-container"
-    >
-      <div
-        className="ant-row"
-        style={
-          Object {
-            "marginLeft": -8,
-            "marginRight": -8,
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "maxWidth": "33.333333333333336%",
-              "width": "33.333333333333336%",
-            }
-          }
-        >
-          <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
-          >
-            <div
-              className="ant-list-item"
-            >
-              <canvas
-                height="2px"
-                style={
-                  Object {
-                    "borderColor": "red",
-                    "borderStyle": "solid",
-                    "borderWidth": "2px",
-                    "height": "2px",
-                    "width": "1px",
-                  }
-                }
-                width="1px"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "maxWidth": "33.333333333333336%",
-              "width": "33.333333333333336%",
-            }
-          }
-        >
-          <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
-          >
-            <div
-              className="ant-list-item"
-            >
-              <canvas
-                height="20px"
-                style={
-                  Object {
-                    "borderColor": "red",
-                    "borderStyle": "solid",
-                    "borderWidth": "2px",
-                    "height": "20px",
-                    "width": "10px",
-                  }
-                }
-                width="10px"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<canvas
+  height="20px"
+  style={
+    Object {
+      "borderColor": "red",
+      "borderStyle": "solid",
+      "borderWidth": "2px",
+      "height": "20px",
+      "width": "10px",
+    }
+  }
+  width="10px"
+/>
 `;

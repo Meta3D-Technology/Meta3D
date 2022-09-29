@@ -6,7 +6,8 @@ Feature: Visual
     Background: prepare
         Given prepare
 
-    Scenario: show all canvas 
-        Given add two canvas
+    Scenario: show all canvas
+        Given prepare the canvas
+        And set its width, height
         When render
-        Then should show all canvas
+        Then should show the canvas
