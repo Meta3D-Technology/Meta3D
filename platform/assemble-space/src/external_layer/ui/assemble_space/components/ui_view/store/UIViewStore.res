@@ -2,13 +2,28 @@ open FrontendUtils.UIViewStoreType
 
 let reducer = (state, action) => {
   switch action {
-  // TODO finish
-  | Reset => state
+  | Reset => {
+      ...state,
+      selectedUIControls: list{},
+      inspectorCurrentUIControlId: None,
+    }
+  | SelectUIControl(protocolIconBase64, name, data) => {
+      ...state,
+      selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.push({
+        id: IdUtils.generateId(Js.Math.random),
+        protocolIconBase64: protocolIconBase64,
+        name: name,
+        data: data,
+      }),
+    }
+  | SetInspectorCurrentUIControlId(id) => {
+      ...state,
+      inspectorCurrentUIControlId: id->Some,
+    }
   }
 }
 
-// let initialState = {
-//   ()
-// }
-
-let initialState = ()
+let initialState = {
+  selectedUIControls: list{},
+  inspectorCurrentUIControlId: None,
+}

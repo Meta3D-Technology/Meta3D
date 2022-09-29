@@ -15,3 +15,21 @@ module ApView = {
     })
   }
 }
+
+module UIView = {
+  let useDispatch = useDispatchForAssembleSpaceAction => {
+    let dispatch = useDispatchForAssembleSpaceAction()
+
+    uiViewAction => {
+      dispatch(FrontendUtils.AssembleSpaceStoreType.UIViewAction(uiViewAction))
+    }
+  }
+
+  let useSelector = (useSelectorForAssembleSpaceStore, func) => {
+    useSelectorForAssembleSpaceStore((
+      {uiViewState}: FrontendUtils.AssembleSpaceStoreType.state,
+    ) => {
+      func(uiViewState)
+    })
+  }
+}

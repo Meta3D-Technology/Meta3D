@@ -162,7 +162,7 @@ apView, uiView add bdd test
 
 
 
-** TODO left: UI Control Contributes, Selected UI Control Contributes
+** DONE left: UI Control Contributes, Selected UI Control Contributes
 
 show by select control one by one
 
@@ -172,6 +172,10 @@ TODO get by type from selectedExtensions
 
 
 ** TODO bdd test
+
+# contributes
+
+
 
 
 ** TODO run test
@@ -228,15 +232,15 @@ ui control protocol should define json related meta data?
 *** TODO update "start default run" to draw view
 
 
-# with shared registered;
+with shared registered;
 
 only register this element:
 json -> element contribute:
 change -> json -> generate element contribute and replace old one
 
-# not register action;
+not register action;
 
-update with json
+# update with json
 
 
 

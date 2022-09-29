@@ -2,24 +2,19 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-module Method = {
-  //   let reset = dispatch => {
-  //     dispatch(FrontendUtils.UIViewStoreType.Reset)
-  //   }
-
-  //   let useEffectOnce = dispatch => {
-  //     reset(dispatch)
-
-  //     ((), None)
-  //   }
-
-}
-
 @react.component
 let make = (~service: service) => {
-  //   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
-
-  //   service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
-
-  <Layout />
+  <Layout>
+    <Layout.Header />
+    <Layout.Sider>
+      <Collapse defaultActiveKey={["1"]}>
+        <Collapse.Panel header="UI Controls" key="1"> <UIControls service /> </Collapse.Panel>
+        <Collapse.Panel header="Selected UI Controls" key="2">
+          <SelectedUIControls service />
+        </Collapse.Panel>
+      </Collapse>
+    </Layout.Sider>
+    <Layout.Content />
+    <Layout.Sider />
+  </Layout>
 }
