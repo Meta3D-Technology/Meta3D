@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIControls show uiControls list 1`] = `
+<div
+  className="ant-list ant-list-split"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <ul
+        className="ant-list-items"
+      >
+        <li
+          className="ant-list-item"
+        >
+          <div
+            className="ant-card ant-card-bordered"
+            onClick={[Function]}
+          >
+            <div
+              className="ant-card-cover"
+            >
+              <img
+                src="i1"
+                style={
+                  Object {
+                    "height": "50px",
+                    "width": "50px",
+                  }
+                }
+              />
+            </div>
+            <div
+              className="ant-card-body"
+              style={
+                Object {
+                  "padding": "0px",
+                }
+              }
+            >
+              <div
+                className="ant-card-meta"
+                style={
+                  Object {
+                    "width": "100px",
+                  }
+                }
+              >
+                <div
+                  className="ant-card-meta-detail"
+                >
+                  <div
+                    className="ant-card-meta-title"
+                  >
+                    u1
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

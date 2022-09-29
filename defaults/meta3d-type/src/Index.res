@@ -12,6 +12,7 @@ type contributeType =
   | Component
   | GameObject
   | WorkPlugin
+  | Unknown
 
 type extensionName = string
 

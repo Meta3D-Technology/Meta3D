@@ -171,9 +171,10 @@ TODO get by type from selectedExtensions
 
 
 
-** TODO bdd test
+** DONE bdd test
 
 # contributes
+
 
 
 
