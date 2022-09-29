@@ -4,7 +4,7 @@ open FrontendUtils.AssembleSpaceType
 
 module Method = {
   let _dispatchAction = (canvasData, dispatch) => {
-    dispatch(FrontendUtils.UIViewStoreType.SetCanvasData(canvasData))
+    dispatch(FrontendUtils.ApViewStoreType.SetCanvasData(canvasData))
   }
 
   let _setData = (dispatch, buildCanvasDataFunc, canvasData) => {
@@ -33,16 +33,16 @@ module Method = {
     )
   }
 
-  let useSelector = ({canvasData}: FrontendUtils.UIViewStoreType.state) => {
+  let useSelector = ({canvasData}: FrontendUtils.ApViewStoreType.state) => {
     canvasData
   }
 }
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
+  let dispatch = ReduxUtils.ApView.useDispatch(service.react.useDispatch)
 
-  let {width, height} as canvasData = ReduxUtils.UIView.useSelector(
+  let {width, height} as canvasData = ReduxUtils.ApView.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )

@@ -13,7 +13,7 @@ let buildCanvasData = (
   ~height=0,
   // ~zIndex=0,
   (),
-): FrontendUtils.UIViewStoreType.canvasData => {
+): FrontendUtils.ApViewStoreType.canvasData => {
   width: width,
   height: height,
   // zIndex: zIndex,

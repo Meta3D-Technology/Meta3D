@@ -56,7 +56,7 @@ defineFeature(feature, test => {
   //     useEffect1Stub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
   //     ui :=
-  //       CanvasControllerTool.buildUI(
+  //       CanvasControllerTool.buildAp(
   //         ~sandbox,
   //         ~service=ServiceTool.build(
   //           ~sandbox,
@@ -119,10 +119,10 @@ defineFeature(feature, test => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=1, ~stub=_, ()),
       )->expect ==
         (
-          FrontendUtils.UIViewStoreType.SetCanvasData(
+          FrontendUtils.ApViewStoreType.SetCanvasData(
             CanvasControllerTool.buildCanvasData(~width=10, ~height=0, ()),
           ),
-          FrontendUtils.UIViewStoreType.SetCanvasData(
+          FrontendUtils.ApViewStoreType.SetCanvasData(
             CanvasControllerTool.buildCanvasData(~width=10, ~height=11, ()),
           ),
         )

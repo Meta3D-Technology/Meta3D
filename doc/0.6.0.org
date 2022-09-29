@@ -196,6 +196,11 @@ with border
 
 ** DONE bdd test
 
+
+** DONE move canvas controller to ap view, ui view use it
+
+so application can use it when be published
+
 ** TODO start default run to draw selected canvas
 
 use the selected canvas
@@ -204,15 +209,30 @@ use the selected canvas
 with shared registered;
 
 register current element contribute(with fake one)
+(javascript)
+(draw one button)
 
 # only register this element:
 # json -> element contribute:
 # change -> json -> generate element contribute and replace old one
 
 not register action;
+not bind event;
 
 
-** TODO bdd test
+*** TODO extension life add onUnRegister, onInit, onStop, onUpdate
+
+
+*** TODO invoke onInit when init
+
+*** TODO invoke onUpdate when need update
+
+e.g. change canvas data
+
+
+
+
+# ** TODO bdd test
 
 ** TODO run test
 
@@ -225,7 +245,7 @@ in default rect
 *** TODO generate json
 
 
-json -> generate element contribute code
+json -> generate element contribute code(javascript)
 
 ui control protocol should define json related meta data?
 
@@ -273,9 +293,12 @@ default is empty, decide by element properties
 
 
 
-isShow: null / true / false
-    (add isShow to state when not null)
+# isShow: null / true / false
+#     (add isShow to state when not null)
 
+isShow: true / false
+    # (add isShow to state when not null)
+    mainly for multiple elements
 
 execOrder: input: 0
 
@@ -353,55 +376,27 @@ add self->reducer to meta3dState
 so can be combined in editor entry extension 
 
 
-** TODO control add 
+* TODO feat: ui view->run in new tab
 
-properies:
+register action
 
-rect:
-x y width height
+bind event
 
-
-
-
-
-
-
-event:
-
-click,
-    focus,
-...
-
-
-
-click:
-list(action name) by select action contributes
-
-
-
-styles:
-
-skin
+loop
 
 
 
 
 
+* TODO pass run test: single element
 
-properties->input data
-rect
-(input data->rect need add "property" flag?)
-
-styles->skin
-(add to input data and add "style" flag?)
-
-events->click event(add more event in the future)
-(read events from protocol->event data?)
+element contribute with two buttons:
+one button
+    when click the button, show the second button:
+one button with different rect, color
 
 
-
-
-** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
+* TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
 send to server
 
@@ -413,18 +408,6 @@ send to server
 
 editor entry extension can get them by api.getAllContributesByType 
 
-
-
-* TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
-
-
-share for all elements
-
-
-
-
-
-common extensions get by filter by getExtensionLife -> onStart not exist)
 
 
 
@@ -486,13 +469,25 @@ note: remove entry extension step!!!
 
 
 
+* TODO feat: import single element
+
+1.in ap view
+2.select other
+3.select one element(import element)
+4.switch to ui view
+5.can continue edit the element visually
+
+* TODO feat: import mutliple elements
+
+1.in ap view
+2.select other
+3.select two elements(import element)
+4.switch to ui view
+5.can continue edit the two elements visually
 
 
 
-
-
-
-* TODO pass run test
+* TODO pass run test: two elements
 
 first element contribute:
 one button
@@ -500,6 +495,89 @@ one button
 
 when click the button, show second element contribute:
 one button with different rect, color
+
+
+
+
+* TODO control add 
+
+properies:
+
+rect:
+x y width height
+
+
+
+isShow: true/false
+
+    design for single element
+
+
+
+
+event:
+
+click,
+    focus,
+...
+
+
+
+click:
+list(action name) by select action contributes
+
+
+
+styles:
+
+skin
+
+
+
+
+
+
+properties->input data
+rect
+(input data->rect need add "property" flag?)
+
+styles->skin
+(add to input data and add "style" flag?)
+
+events->click event(add more event in the future)
+(read events from protocol->event data?)
+
+
+
+
+
+
+
+* TODO pass run test: single element
+
+element contribute with two buttons:
+one button
+    when click the button, show second element contribute:
+one button with different rect, color
+
+
+
+
+
+
+
+* TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
+
+
+share for all elements
+
+
+
+
+
+common extensions get by filter by getExtensionLife -> onStart not exist)
+
+
 
 
 

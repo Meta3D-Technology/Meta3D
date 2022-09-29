@@ -8,6 +8,10 @@ let reducer = (state, action) => {
       selectedContributes: list{},
       inspectorCurrentExtensionId: None,
       inspectorCurrentContributeId: None,
+      canvasData: {
+        width: 0,
+        height: 0,
+      },
     }
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
@@ -82,6 +86,10 @@ let reducer = (state, action) => {
           : contribute
       }),
     }
+  | SetCanvasData(canvasData) => {
+      ...state,
+      canvasData: canvasData,
+    }
   }
 }
 
@@ -90,4 +98,8 @@ let initialState = {
   selectedContributes: list{},
   inspectorCurrentExtensionId: None,
   inspectorCurrentContributeId: None,
+  canvasData: {
+    width: 0,
+    height: 0,
+  },
 }

@@ -29,7 +29,7 @@ let make = (
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content />
+      <Layout.Content> <CanvasController service /> <Visual service /> </Layout.Content>
       <Layout.Sider> <ExtensionInspector service /> <ContributeInspector service /> </Layout.Sider>
     </Layout>
   </Layout>

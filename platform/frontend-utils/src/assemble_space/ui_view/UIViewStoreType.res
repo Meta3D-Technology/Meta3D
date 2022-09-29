@@ -13,21 +13,12 @@ type uiControl = {
 
 type selectedUIControls = list<uiControl>
 
-type canvasData = {
-  // id: string,
-  width: int,
-  height: int,
-  // zIndex: int,
-}
-
 type action =
   | Reset
   | SelectUIControl(protocolIconBase64, name, Meta3d.ExtensionFileType.contributeFileData)
   | SetInspectorCurrentUIControlId(id)
-  | SetCanvasData(canvasData)
 
 type state = {
   selectedUIControls: selectedUIControls,
   inspectorCurrentUIControlId: option<id>,
-  canvasData: canvasData,
 }

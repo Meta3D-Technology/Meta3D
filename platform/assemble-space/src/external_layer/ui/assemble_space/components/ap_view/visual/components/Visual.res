@@ -3,14 +3,14 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let useSelector = ({canvasData}: FrontendUtils.UIViewStoreType.state) => {
+  let useSelector = ({canvasData}: FrontendUtils.ApViewStoreType.state) => {
     canvasData
   }
 }
 
 @react.component
 let make = (~service: service) => {
-  let {width, height} = ReduxUtils.UIView.useSelector(service.react.useSelector, Method.useSelector)
+  let {width, height} = ReduxUtils.ApView.useSelector(service.react.useSelector, Method.useSelector)
 
   <>
     <canvas
