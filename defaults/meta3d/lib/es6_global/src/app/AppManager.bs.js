@@ -213,19 +213,11 @@ function _getExtensionNames(allExtensionDataArr) {
 }
 
 function init(param) {
-  var allExtensionDataArr = param[1];
-  return [
-          ArraySt$Meta3dCommonlib.reduceOneParam(_getExtensionNames(allExtensionDataArr), ExtensionManager$Meta3d.initExtension, param[0]),
-          allExtensionDataArr
-        ];
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), ExtensionManager$Meta3d.initExtension, param[0]);
 }
 
 function update(param) {
-  var allExtensionDataArr = param[1];
-  return [
-          ArraySt$Meta3dCommonlib.reduceOneParam(_getExtensionNames(allExtensionDataArr), ExtensionManager$Meta3d.updateExtension, param[0]),
-          allExtensionDataArr
-        ];
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), ExtensionManager$Meta3d.updateExtension, param[0]);
 }
 
 export {

@@ -11,6 +11,7 @@ import * as Expect$Meta3dBsJestCucumber from "../../../../../../node_modules/met
 import * as ExtensionManagerTool$Meta3d from "../tool/ExtensionManagerTool.bs.js";
 import * as Operators$Meta3dBsJestCucumber from "../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as CucumberAsync$Meta3dBsJestCucumber from "../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/CucumberAsync.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/app_manager.feature");
 
@@ -553,16 +554,18 @@ JestCucumber.defineFeature(feature, (function (test) {
                       AppManagerTool$Meta3d.prepareInitFlag,
                       AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit
                     ]);
-                Curry._2(param.when, "generate app with c1 and load it and init it", (function (param) {
+                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and init it", (function (param) {
                         var match = Main$Meta3d.loadApp(Main$Meta3d.generateApp(c1.contents));
                         var s = match[0];
                         state.contents = s;
-                        var match$1 = Main$Meta3d.initApp([
+                        var __x = Main$Meta3d.initApp([
                               s,
                               match[1]
                             ]);
-                        state.contents = match$1[0];
-                        
+                        return __x.then(function (s) {
+                                    state.contents = s;
+                                    return Promise.resolve(undefined);
+                                  });
                       }));
                 return Curry._2(param.then, "the two extensions should be inited", (function (param) {
                               return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getInitFlag(undefined)), 3);
@@ -578,16 +581,18 @@ JestCucumber.defineFeature(feature, (function (test) {
                       AppManagerTool$Meta3d.prepareUpdateFlag,
                       AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnUpdate
                     ]);
-                Curry._2(param.when, "generate app with c1 and load it and update it", (function (param) {
+                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and update it", (function (param) {
                         var match = Main$Meta3d.loadApp(Main$Meta3d.generateApp(c1.contents));
                         var s = match[0];
                         state.contents = s;
-                        var match$1 = Main$Meta3d.updateApp([
+                        var __x = Main$Meta3d.updateApp([
                               s,
                               match[1]
                             ]);
-                        state.contents = match$1[0];
-                        
+                        return __x.then(function (s) {
+                                    state.contents = s;
+                                    return Promise.resolve(undefined);
+                                  });
                       }));
                 return Curry._2(param.then, "the two extensions should be updated", (function (param) {
                               return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getUpdateFlag(undefined)), 3);

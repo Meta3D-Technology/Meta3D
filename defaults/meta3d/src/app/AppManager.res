@@ -317,25 +317,21 @@ let _getExtensionNames = allExtensionDataArr => {
 }
 
 let init = ((state, allExtensionDataArr)) => {
-  (
-    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.reduceOneParam(
+    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
       (. state, extensionName) => {
         state->ExtensionManager.initExtension(extensionName)
       },
       state,
-    ),
-    allExtensionDataArr,
-  )
+    )
 }
 
 let update = ((state, allExtensionDataArr)) => {
-  (
-    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.reduceOneParam(
+  
+    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
       (. state, extensionName) => {
         state->ExtensionManager.updateExtension(extensionName)
       },
       state,
-    ),
-    allExtensionDataArr,
-  )
+    )
+  
 }

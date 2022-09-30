@@ -125,13 +125,13 @@ export function initApp(
         state,
         allExtensionDataArr
     ]: [state, Array<extensionFileData>]
-): [state, Array<extensionFileData>]
+): Promise<state>
 
 export function updateApp(
     [
         state,
         allExtensionDataArr
     ]: [state, Array<extensionFileData>]
-): [state, Array<extensionFileData>]
+): Promise<state>
 
 export function buildAPI(): api

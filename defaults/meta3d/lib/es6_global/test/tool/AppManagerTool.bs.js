@@ -16,11 +16,11 @@ function buildEmptyExtensionFileStrWithOnStart(addNumber) {
 }
 
 function buildEmptyExtensionFileStrWithOnInit(addNumber) {
-  return "window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service) =>{ window.initFlag += " + addNumber.toString() + "; return meta3dState; } } } }";
+  return "window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service) =>{ window.initFlag += " + addNumber.toString() + "; return new Promise((resolve) =>{\nresolve(meta3dState)\n  }) ; } } } }";
 }
 
 function buildEmptyExtensionFileStrWithOnUpdate(addNumber) {
-  return "window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onUpdate: (meta3dState, service) =>{ window.updateFlag += " + addNumber.toString() + "; return meta3dState; } } } }";
+  return "window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onUpdate: (meta3dState, service) =>{ window.updateFlag += " + addNumber.toString() + "; return new Promise((resolve) =>{\nresolve(meta3dState)\n  }) ; } } } }";
 }
 
 function buildEmptyContributeFileStr(param) {

@@ -632,13 +632,17 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareInitFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnInit),
     )
 
-    \"when"("generate app with c1 and load it and init it", () => {
+    CucumberAsync.execStep(\"when", "generate app with c1 and load it and init it", () => {
       let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
 
       state := s
 
-      let (s, _) = Main.initApp((s, allExtensionDataArr))
+       Main.initApp((s, allExtensionDataArr))->Js.Promise.then_(( s ) =>{
+
       state := s
+
+        Js.Promise.resolve()
+       }, _)
     })
 
     then("the two extensions should be inited", () => {
@@ -657,13 +661,17 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareUpdateFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnUpdate),
     )
 
-    \"when"("generate app with c1 and load it and update it", () => {
+    CucumberAsync.execStep(\"when", "generate app with c1 and load it and update it", () => {
       let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
 
       state := s
 
-      let (s, _) = Main.updateApp((s, allExtensionDataArr))
+       Main.updateApp((s, allExtensionDataArr))->Js.Promise.then_(( s ) =>{
+
       state := s
+
+        Js.Promise.resolve()
+       }, _)
     })
 
     then("the two extensions should be updated", () => {

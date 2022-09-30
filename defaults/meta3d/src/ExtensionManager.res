@@ -41,13 +41,24 @@ let _invokeLifeOnStartHander = (state, extensionName, handlerNullable) => {
   handler(state, getExtensionServiceExn(state, extensionName))
 }
 
-let _invokeLifeOtherHander = (state, extensionName, handlerNullable) => {
+let _invokeSyncLifeOtherHander = (state, extensionName, handlerNullable) => {
   handlerNullable
   ->Meta3dCommonlib.NullableSt.map((. handler) => {
     handler(state, getExtensionServiceExn(state, extensionName))
   })
   ->Meta3dCommonlib.NullableSt.getWithDefault(state)
 }
+
+let _invokeAsyncLifeOtherHander = (state, extensionName, handlerNullable) => {
+  handlerNullable
+  ->Meta3dCommonlib.NullableSt.map((. handler) => {
+    handler(state, getExtensionServiceExn(state, extensionName))
+  })
+  ->Meta3dCommonlib.NullableSt.getWithDefault(
+Js.Promise.make((~resolve, ~reject) => resolve(. state))
+  )
+}
+
 
 let startExtension = (state, extensionName) => {
   _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeOnStartHander(
@@ -58,7 +69,7 @@ let startExtension = (state, extensionName) => {
 }
 
 let updateExtension = (state, extensionName) => {
-  _getExtensionLifeExn(state, extensionName).onUpdate->_invokeLifeOtherHander(
+  _getExtensionLifeExn(state, extensionName).onUpdate->_invokeAsyncLifeOtherHander(
     state,
     extensionName,
     _,
@@ -66,7 +77,7 @@ let updateExtension = (state, extensionName) => {
 }
 
 let initExtension = (state, extensionName) => {
-  _getExtensionLifeExn(state, extensionName).onInit->_invokeLifeOtherHander(state, extensionName, _)
+  _getExtensionLifeExn(state, extensionName).onInit->_invokeAsyncLifeOtherHander(state, extensionName, _)
 }
 
 let _decideContributeType = (contribute: contribute) => {
@@ -119,7 +130,7 @@ let rec registerExtension = (
     ),
   }->setExtensionState(name, extensionState)
 
-  _getExtensionLifeExn(state, name).onRegister->_invokeLifeOtherHander(state, name, _)
+  _getExtensionLifeExn(state, name).onRegister->_invokeSyncLifeOtherHander(state, name, _)
 }
 and registerContribute = (
   state,

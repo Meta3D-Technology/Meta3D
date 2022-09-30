@@ -13,11 +13,15 @@ let buildEmptyExtensionFileStrWithOnStart = (addNumber: int) => {
 }
 
 let buildEmptyExtensionFileStrWithOnInit = (addNumber: int) => {
-  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service) =>{ window.initFlag += ${addNumber->Js.Int.toString}; return meta3dState; } } } }`
+  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service) =>{ window.initFlag += ${addNumber->Js.Int.toString}; return new Promise((resolve) =>{
+resolve(meta3dState)
+  }) ; } } } }`
 }
 
 let buildEmptyExtensionFileStrWithOnUpdate = (addNumber: int) => {
-  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onUpdate: (meta3dState, service) =>{ window.updateFlag += ${addNumber->Js.Int.toString}; return meta3dState; } } } }`
+  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onUpdate: (meta3dState, service) =>{ window.updateFlag += ${addNumber->Js.Int.toString}; return new Promise((resolve) =>{
+resolve(meta3dState)
+  }) ; } } } }`
 }
 
 

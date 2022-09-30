@@ -39,11 +39,15 @@ type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
 // type config
 
 type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionService) => state
+and extensionLifeAsyncEventHandler<'extensionService> = (
+  state,
+  'extensionService,
+) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
   onStart: Js.Nullable.t<(state, 'extensionService) => unit>,
-  onInit: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
-  onUpdate: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
+  onInit: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
+  onUpdate: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
 }
 and state = {
   extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionService>,

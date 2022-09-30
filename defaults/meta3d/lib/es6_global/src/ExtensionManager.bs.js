@@ -42,10 +42,18 @@ function _invokeLifeOnStartHander(state, extensionName, handlerNullable) {
   return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName));
 }
 
-function _invokeLifeOtherHander(state, extensionName, handlerNullable) {
+function _invokeSyncLifeOtherHander(state, extensionName, handlerNullable) {
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
                     return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName));
                   })), state);
+}
+
+function _invokeAsyncLifeOtherHander(state, extensionName, handlerNullable) {
+  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
+                    return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName));
+                  })), new Promise((function (resolve, reject) {
+                    return resolve(state);
+                  })));
 }
 
 function startExtension(state, extensionName) {
@@ -53,11 +61,11 @@ function startExtension(state, extensionName) {
 }
 
 function updateExtension(state, extensionName) {
-  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
+  return _invokeAsyncLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
 }
 
 function initExtension(state, extensionName) {
-  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
+  return _invokeAsyncLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
 }
 
 function _decideContributeType(contribute) {
@@ -88,7 +96,7 @@ function registerExtension(state, name, getServiceFunc, getLifeFunc, param, exte
         extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionLifeMap, name, Curry._2(getLifeFunc, buildAPI(undefined), name)),
         contributeMap: state.contributeMap
       }, name, extensionState);
-  return _invokeLifeOtherHander(state$1, name, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, name).onRegister);
+  return _invokeSyncLifeOtherHander(state$1, name, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, name).onRegister);
 }
 
 function registerContribute(state, name, getContributeFunc, param) {
@@ -141,7 +149,8 @@ export {
   getAllContributesByType ,
   _getExtensionLifeExn ,
   _invokeLifeOnStartHander ,
-  _invokeLifeOtherHander ,
+  _invokeSyncLifeOtherHander ,
+  _invokeAsyncLifeOtherHander ,
   startExtension ,
   updateExtension ,
   initExtension ,
