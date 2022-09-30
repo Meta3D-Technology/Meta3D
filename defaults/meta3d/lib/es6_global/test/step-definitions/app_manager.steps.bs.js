@@ -554,21 +554,18 @@ JestCucumber.defineFeature(feature, (function (test) {
                       AppManagerTool$Meta3d.prepareInitFlag,
                       AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit
                     ]);
-                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and init it", (function (param) {
+                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and init the first extension", (function (param) {
                         var match = Main$Meta3d.loadApp(Main$Meta3d.generateApp(c1.contents));
                         var s = match[0];
                         state.contents = s;
-                        var __x = Main$Meta3d.initApp([
-                              s,
-                              match[1]
-                            ], 10);
+                        var __x = Main$Meta3d.initExtension(s, "first-extension", 10);
                         return __x.then(function (s) {
                                     state.contents = s;
                                     return Promise.resolve(undefined);
                                   });
                       }));
-                return Curry._2(param.then, "the two extensions should be inited", (function (param) {
-                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getInitFlag(undefined)), 23);
+                return Curry._2(param.then, "the first extension should be inited", (function (param) {
+                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getInitFlag(undefined)), 11);
                             }));
               }));
         test("load and update generated app", (function (param) {
@@ -581,21 +578,18 @@ JestCucumber.defineFeature(feature, (function (test) {
                       AppManagerTool$Meta3d.prepareUpdateFlag,
                       AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnUpdate
                     ]);
-                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and update it", (function (param) {
+                CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate app with c1 and load it and update the second extension", (function (param) {
                         var match = Main$Meta3d.loadApp(Main$Meta3d.generateApp(c1.contents));
                         var s = match[0];
                         state.contents = s;
-                        var __x = Main$Meta3d.updateApp([
-                              s,
-                              match[1]
-                            ], 20);
+                        var __x = Main$Meta3d.updateExtension(s, "second-new-extension", 20);
                         return __x.then(function (s) {
                                     state.contents = s;
                                     return Promise.resolve(undefined);
                                   });
                       }));
-                return Curry._2(param.then, "the two extensions should be updated", (function (param) {
-                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getUpdateFlag(undefined)), 43);
+                return Curry._2(param.then, "the second extension should be updated", (function (param) {
+                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getUpdateFlag(undefined)), 22);
                             }));
               }));
         return test("if two extension need start, error", (function (param) {

@@ -12,6 +12,18 @@ export function registerExtension<extensionService, dependentExtensionNameMap, d
     extensionState: extensionState
 ): state
 
+export function initExtension(
+    state:state,
+    extensionName:extensionName,
+    extensionLifeHandlerData: extensionLifeHandlerData
+): Promise<state>
+
+export function updateExtension(
+    state:state,
+    extensionName:extensionName,
+    extensionLifeHandlerData: extensionLifeHandlerData
+): Promise<state>
+
 export function getExtensionService<extensionService>(
     state: state,
     extensionName: extensionName
@@ -121,21 +133,5 @@ export function startApp(
 ): void
 
 type extensionLifeHandlerData = any
-
-export function initApp(
-    [
-        state,
-        allExtensionDataArr
-    ]: [state, Array<extensionFileData>],
-    extensionLifeHandlerData: extensionLifeHandlerData
-): Promise<state>
-
-export function updateApp(
-    [
-        state,
-        allExtensionDataArr
-    ]: [state, Array<extensionFileData>],
-    extensionLifeHandlerData: extensionLifeHandlerData
-): Promise<state>
 
 export function buildAPI(): api

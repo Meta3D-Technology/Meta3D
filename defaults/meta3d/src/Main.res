@@ -1,5 +1,9 @@
 let registerExtension = ExtensionManager.registerExtension
 
+let initExtension = ExtensionManager.initExtension
+
+let updateExtension = ExtensionManager.updateExtension
+
 let getExtensionService = ExtensionManager.getExtensionServiceExn
 
 let setExtensionState = ExtensionManager.setExtensionState
@@ -27,9 +31,5 @@ let generateApp = AppManager.generate
 let loadApp = AppManager.load
 
 let startApp = AppManager.start
-
-let initApp = AppManager.init
-
-let updateApp = AppManager.update
 
 let buildAPI = ExtensionManager.buildAPI

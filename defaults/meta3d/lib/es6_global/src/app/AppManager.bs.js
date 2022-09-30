@@ -212,18 +212,6 @@ function _getExtensionNames(allExtensionDataArr) {
               }));
 }
 
-function init(param, data) {
-  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), (function (state, extensionName) {
-                return ExtensionManager$Meta3d.initExtension(state, extensionName, data);
-              }), param[0]);
-}
-
-function update(param, data) {
-  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), (function (state, extensionName) {
-                return ExtensionManager$Meta3d.updateExtension(state, extensionName, data);
-              }), param[0]);
-}
-
 export {
   _checkVersion ,
   _convertDependentMap ,
@@ -236,8 +224,6 @@ export {
   load ,
   start ,
   _getExtensionNames ,
-  init ,
-  update ,
   
 }
 /* semver Not a pure module */

@@ -632,12 +632,12 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareInitFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnInit),
     )
 
-    CucumberAsync.execStep(\"when", "generate app with c1 and load it and init it", () => {
+    CucumberAsync.execStep(\"when", "generate app with c1 and load it and init the first extension", () => {
       let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
 
       state := s
 
-       Main.initApp((s, allExtensionDataArr), 10-> Obj.magic)->Js.Promise.then_(( s ) =>{
+       Main.initExtension(s,  "first-extension", 10-> Obj.magic)->Js.Promise.then_(( s ) =>{
 
       state := s
 
@@ -645,8 +645,8 @@ defineFeature(feature, test => {
        }, _)
     })
 
-    then("the two extensions should be inited", () => {
-      AppManagerTool.getInitFlag()->expect == 23
+    then("the first extension should be inited", () => {
+      AppManagerTool.getInitFlag()->expect == 11
     })
   })
 
@@ -661,12 +661,12 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareUpdateFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnUpdate),
     )
 
-    CucumberAsync.execStep(\"when", "generate app with c1 and load it and update it", () => {
+    CucumberAsync.execStep(\"when", "generate app with c1 and load it and update the second extension", () => {
       let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
 
       state := s
 
-       Main.updateApp((s, allExtensionDataArr), 20-> Obj.magic)->Js.Promise.then_(( s ) =>{
+       Main.updateExtension(s, "second-new-extension", 20-> Obj.magic)->Js.Promise.then_(( s ) =>{
 
       state := s
 
@@ -674,8 +674,8 @@ defineFeature(feature, test => {
        }, _)
     })
 
-    then("the two extensions should be updated", () => {
-      AppManagerTool.getUpdateFlag()->expect == 43
+    then("the second extension should be updated", () => {
+      AppManagerTool.getUpdateFlag()->expect == 22
     })
   })
 

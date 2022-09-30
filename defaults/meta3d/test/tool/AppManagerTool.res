@@ -24,7 +24,6 @@ resolve(meta3dState)
   }) ; } } } }`
 }
 
-
 let buildEmptyContributeFileStr = () => {
   `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
 }

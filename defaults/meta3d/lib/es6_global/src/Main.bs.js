@@ -6,6 +6,10 @@ import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js"
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
+var initExtension = ExtensionManager$Meta3d.initExtension;
+
+var updateExtension = ExtensionManager$Meta3d.updateExtension;
+
 var getExtensionService = ExtensionManager$Meta3d.getExtensionServiceExn;
 
 var setExtensionState = ExtensionManager$Meta3d.setExtensionState;
@@ -34,14 +38,12 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
-var initApp = AppManager$Meta3d.init;
-
-var updateApp = AppManager$Meta3d.update;
-
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 export {
   registerExtension ,
+  initExtension ,
+  updateExtension ,
   getExtensionService ,
   setExtensionState ,
   getExtensionState ,
@@ -56,8 +58,6 @@ export {
   generateApp ,
   loadApp ,
   startApp ,
-  initApp ,
-  updateApp ,
   buildAPI ,
   
 }

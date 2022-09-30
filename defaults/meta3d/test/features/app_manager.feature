@@ -70,9 +70,9 @@ Feature: App Manager
             And load them and convert as c1
 
         Scenario: load and init generated app
-            When generate app with c1 and load it and init it
-            Then the two extensions should be inited
+            When generate app with c1 and load it and init the first extension
+            Then the first extension should be inited
 
         Scenario: load and update generated app
-            When generate app with c1 and load it and update it
-            Then the two extensions should be updated
+            When generate app with c1 and load it and update the second extension
+            Then the second extension should be updated
