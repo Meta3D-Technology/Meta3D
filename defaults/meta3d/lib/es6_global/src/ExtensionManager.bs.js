@@ -1,10 +1,8 @@
 
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
@@ -54,6 +52,14 @@ function startExtension(state, extensionName) {
   return _invokeLifeOnStartHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
 }
 
+function updateExtension(state, extensionName) {
+  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
+}
+
+function initExtension(state, extensionName) {
+  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
+}
+
 function _decideContributeType(contribute) {
   if (!(contribute.actionName == null) && !(contribute.handler == null)) {
     return /* Action */3;
@@ -68,7 +74,7 @@ function _decideContributeType(contribute) {
   } else if (!(contribute.workPluginName == null) && !(contribute.allPipelineData == null)) {
     return /* WorkPlugin */6;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("unknown contribute type", "", "", "", "")));
+    return /* Unknown */7;
   }
 }
 
@@ -137,6 +143,8 @@ export {
   _invokeLifeOnStartHander ,
   _invokeLifeOtherHander ,
   startExtension ,
+  updateExtension ,
+  initExtension ,
   _decideContributeType ,
   registerExtension ,
   registerContribute ,

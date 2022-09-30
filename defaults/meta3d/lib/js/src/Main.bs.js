@@ -34,6 +34,10 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
+var initApp = AppManager$Meta3d.init;
+
+var updateApp = AppManager$Meta3d.update;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 exports.registerExtension = registerExtension;
@@ -51,5 +55,7 @@ exports.convertAllFileDataForApp = convertAllFileDataForApp;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
 exports.startApp = startApp;
+exports.initApp = initApp;
+exports.updateApp = updateApp;
 exports.buildAPI = buildAPI;
 /* AppManager-Meta3d Not a pure module */

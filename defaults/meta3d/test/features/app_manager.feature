@@ -60,3 +60,19 @@ Feature: App Manager
             And load them and convert as c1
             When generate app with c1 and load it
             Then start it should error
+
+    Rule: load and handle generated app
+
+        Background: prepare for load and handle generated app
+            Given prepare flag
+            And generate two extensions
+            And prepare new names
+            And load them and convert as c1
+
+        Scenario: load and init generated app
+            When generate app with c1 and load it and init it
+            Then the two extensions should be inited
+
+        Scenario: load and update generated app
+            When generate app with c1 and load it and update it
+            Then the two extensions should be updated

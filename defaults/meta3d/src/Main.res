@@ -28,4 +28,8 @@ let loadApp = AppManager.load
 
 let startApp = AppManager.start
 
+let initApp = AppManager.init
+
+let updateApp = AppManager.update
+
 let buildAPI = ExtensionManager.buildAPI

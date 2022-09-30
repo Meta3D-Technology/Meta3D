@@ -57,6 +57,18 @@ let startExtension = (state, extensionName) => {
   )
 }
 
+let updateExtension = (state, extensionName) => {
+  _getExtensionLifeExn(state, extensionName).onUpdate->_invokeLifeOtherHander(
+    state,
+    extensionName,
+    _,
+  )
+}
+
+let initExtension = (state, extensionName) => {
+  _getExtensionLifeExn(state, extensionName).onInit->_invokeLifeOtherHander(state, extensionName, _)
+}
+
 let _decideContributeType = (contribute: contribute) => {
   let contribute = contribute->Obj.magic
 
@@ -80,19 +92,7 @@ let _decideContributeType = (contribute: contribute) => {
     : !(contribute["workPluginName"]->Js.Nullable.isNullable) &&
     !(contribute["allPipelineData"]->Js.Nullable.isNullable)
     ? WorkPlugin
-    : Meta3dCommonlib.Exception.throwErr(
-        Meta3dCommonlib.Exception.buildErr(
-          Meta3dCommonlib.Log.buildErrorMessage(
-            ~title="unknown contribute type",
-            ~description={
-              j``
-            },
-            ~reason="",
-            ~solution=j``,
-            ~params=j``,
-          ),
-        ),
-      )
+    : Unknown
 }
 
 let rec registerExtension = (

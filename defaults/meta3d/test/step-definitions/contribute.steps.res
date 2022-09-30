@@ -117,27 +117,32 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."if register contribute with unknown type, error", ({given, \"when", \"and", then}) => {
+  test(."register contribute with unknown type", ({given, \"when", \"and", then}) => {
     let state = ref(Obj.magic(1))
 
     \"when"("register unknown type contribute", () => {
+      state := StateTool.create()
+
+      state :=
+        Main.registerContribute(
+          state.contents,
+          "a1",
+          ContributeTool.buildGetContributeFunc({
+            "a1": "a1",
+          })->Obj.magic,
+          _buildEmptyMapData(),
+        )
+    })
+
+    \"and"("get all contributes by action type by api", () => {
       ()
     })
 
-    then("error", () => {
-      expect(() => {
-        state := StateTool.create()
-
-        state :=
-          Main.registerContribute(
-            state.contents,
-            "a1",
-            ContributeTool.buildGetContributeFunc({
-              "a1": "a1",
-            })->Obj.magic,
-            _buildEmptyMapData(),
-          )
-      })->toThrowMessage("unknown contribute type")
+    then("get empty", () => {
+      APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.Action)
+      ->Obj.magic
+      ->Js.Json.stringify
+      ->expect == "[]"
     })
   })
 })

@@ -1,10 +1,8 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
-var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
-var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
@@ -54,6 +52,14 @@ function startExtension(state, extensionName) {
   return _invokeLifeOnStartHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
 }
 
+function updateExtension(state, extensionName) {
+  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
+}
+
+function initExtension(state, extensionName) {
+  return _invokeLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
+}
+
 function _decideContributeType(contribute) {
   if (!(contribute.actionName == null) && !(contribute.handler == null)) {
     return /* Action */3;
@@ -68,7 +74,7 @@ function _decideContributeType(contribute) {
   } else if (!(contribute.workPluginName == null) && !(contribute.allPipelineData == null)) {
     return /* WorkPlugin */6;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("unknown contribute type", "", "", "", "")));
+    return /* Unknown */7;
   }
 }
 
@@ -136,6 +142,8 @@ exports._getExtensionLifeExn = _getExtensionLifeExn;
 exports._invokeLifeOnStartHander = _invokeLifeOnStartHander;
 exports._invokeLifeOtherHander = _invokeLifeOtherHander;
 exports.startExtension = startExtension;
+exports.updateExtension = updateExtension;
+exports.initExtension = initExtension;
 exports._decideContributeType = _decideContributeType;
 exports.registerExtension = registerExtension;
 exports.registerContribute = registerContribute;

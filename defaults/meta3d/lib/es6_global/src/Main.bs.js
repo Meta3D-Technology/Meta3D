@@ -34,6 +34,10 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
+var initApp = AppManager$Meta3d.init;
+
+var updateApp = AppManager$Meta3d.update;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 export {
@@ -52,6 +56,8 @@ export {
   generateApp ,
   loadApp ,
   startApp ,
+  initApp ,
+  updateApp ,
   buildAPI ,
   
 }

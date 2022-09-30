@@ -8,6 +8,11 @@ open Sinon
 let feature = loadFeature("./test/features/app_manager.feature")
 
 defineFeature(feature, test => {
+  let firstExtension = ref(Obj.magic(1))
+  let secondExtension = ref(Obj.magic(1))
+  let c1 = ref(Obj.magic(1))
+  let allExtensionNewNames = ref(Obj.magic(1))
+
   let _prepare = given => {
     given("prepare", () => {
       FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
@@ -32,7 +37,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
@@ -108,7 +113,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -187,7 +192,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -274,7 +279,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
@@ -416,7 +421,7 @@ defineFeature(feature, test => {
 
   let _prepareFlag = given => {
     given("prepare flag", () => {
-      AppManagerTool.prepareFlag()
+      AppManagerTool.prepareStartFlag()
     })
   }
 
@@ -434,7 +439,7 @@ defineFeature(feature, test => {
 
     _prepareFlag(given)
 
-    \"and"("generate two extensions", () => {
+    given("generate two extensions", () => {
       firstExtension :=
         Main.generateExtension(
           (
@@ -442,7 +447,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                 "second-extension",
@@ -553,7 +558,116 @@ defineFeature(feature, test => {
     })
 
     \"and"("the second extension should be started", () => {
-      AppManagerTool.getFlag()->expect == 2
+      AppManagerTool.getStartFlag()->expect == 2
+    })
+  })
+
+  let _prepareForLoadAndHandleGeneratedApp = (
+    given,
+    \"and",
+    (prepareFlag, buildEmptyExtensionFileStrWithLifeHandle),
+  ) => {
+    given("prepare flag", () => {
+      prepareFlag()
+    })
+
+    given("generate two extensions", () => {
+      firstExtension :=
+        Main.generateExtension(
+          (
+            {
+              name: "first-extension",
+              protocol: {
+                name: "first-extension-protocol",
+                version: "0.4.1",
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: ExtensionFileType.extensionPackageData
+          ),
+          buildEmptyExtensionFileStrWithLifeHandle(1),
+        )
+      secondExtension :=
+        Main.generateExtension(
+          (
+            {
+              name: "second-extension",
+              protocol: {
+                name: "second-extension-protocol",
+                version: "0.5.2",
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: ExtensionFileType.extensionPackageData
+          ),
+          buildEmptyExtensionFileStrWithLifeHandle(2),
+        )
+    })
+
+    \"and"("prepare new names", () => {
+      allExtensionNewNames := ["first-extension", "second-new-extension"]
+    })
+
+    \"and"("load them and convert as c1", () => {
+      let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+      let secondExtensionFileData = Main.loadExtension(secondExtension.contents)
+
+      c1 :=
+        Main.convertAllFileDataForApp(
+          [firstExtensionFileData, secondExtensionFileData],
+          [],
+          (allExtensionNewNames.contents, [], []),
+        )
+    })
+  }
+
+  test(."load and init generated app", ({given, \"when", \"and", then}) => {
+    let state = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    _prepareForLoadAndHandleGeneratedApp(
+      given,
+      \"and",
+      (AppManagerTool.prepareInitFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnInit),
+    )
+
+    \"when"("generate app with c1 and load it and init it", () => {
+      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+
+      state := s
+
+      let (s, _) = Main.initApp((s, allExtensionDataArr))
+      state := s
+    })
+
+    then("the two extensions should be inited", () => {
+      AppManagerTool.getInitFlag()->expect == 3
+    })
+  })
+
+  test(."load and update generated app", ({given, \"when", \"and", then}) => {
+    let state = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    _prepareForLoadAndHandleGeneratedApp(
+      given,
+      \"and",
+      (AppManagerTool.prepareUpdateFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnUpdate),
+    )
+
+    \"when"("generate app with c1 and load it and update it", () => {
+      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+
+      state := s
+
+      let (s, _) = Main.updateApp((s, allExtensionDataArr))
+      state := s
+    })
+
+    then("the two extensions should be updated", () => {
+      AppManagerTool.getUpdateFlag()->expect == 3
     })
   })
 
@@ -579,7 +693,7 @@ defineFeature(feature, test => {
               name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
-                version:"0.4.1",
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

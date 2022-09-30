@@ -203,14 +203,18 @@ so application can use it when be published
 
 ** TODO start default run to draw selected canvas
 
+implement by rescript
+
+
 use the selected canvas
 
 
 with shared registered;
 
 register current element contribute(with fake one)
-(javascript)
+(javascript->webpack result)
 (draw one button)
+to ui view->store
 
 # only register this element:
 # json -> element contribute:
@@ -220,7 +224,7 @@ not register action;
 not bind event;
 
 
-*** TODO extension life add onUnRegister, onInit, onStop, onUpdate
+*** DONE extension life add onInit, onUpdate
 
 
 *** TODO invoke onInit when init
@@ -229,10 +233,11 @@ not bind event;
 
 e.g. change canvas data
 
+invoke update function
 
 
 
-# ** TODO bdd test
+** TODO bdd test
 
 ** TODO run test
 

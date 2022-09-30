@@ -206,6 +206,28 @@ function start(param) {
   return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]));
 }
 
+function _getExtensionNames(allExtensionDataArr) {
+  return ArraySt$Meta3dCommonlib.map(allExtensionDataArr, (function (param) {
+                return param.extensionPackageData.name;
+              }));
+}
+
+function init(param) {
+  var allExtensionDataArr = param[1];
+  return [
+          ArraySt$Meta3dCommonlib.reduceOneParam(_getExtensionNames(allExtensionDataArr), ExtensionManager$Meta3d.initExtension, param[0]),
+          allExtensionDataArr
+        ];
+}
+
+function update(param) {
+  var allExtensionDataArr = param[1];
+  return [
+          ArraySt$Meta3dCommonlib.reduceOneParam(_getExtensionNames(allExtensionDataArr), ExtensionManager$Meta3d.updateExtension, param[0]),
+          allExtensionDataArr
+        ];
+}
+
 exports._checkVersion = _checkVersion;
 exports._convertDependentMap = _convertDependentMap;
 exports.convertAllFileData = convertAllFileData;
@@ -216,4 +238,7 @@ exports._getStartExtensionName = _getStartExtensionName;
 exports._run = _run;
 exports.load = load;
 exports.start = start;
+exports._getExtensionNames = _getExtensionNames;
+exports.init = init;
+exports.update = update;
 /* semver Not a pure module */

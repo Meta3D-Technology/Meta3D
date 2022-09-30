@@ -42,6 +42,8 @@ type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionServic
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
   onStart: Js.Nullable.t<(state, 'extensionService) => unit>,
+  onInit: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
+  onUpdate: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
 }
 and state = {
   extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionService>,

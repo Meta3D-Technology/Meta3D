@@ -309,3 +309,33 @@ let load = (appBinaryFile: ArrayBuffer.t): (
 let start = ((state, allExtensionDataArr)): unit => {
   state->ExtensionManager.startExtension(_getStartExtensionName(allExtensionDataArr))
 }
+
+let _getExtensionNames = allExtensionDataArr => {
+  allExtensionDataArr->Meta3dCommonlib.ArraySt.map(({extensionPackageData}) => {
+    extensionPackageData.name
+  })
+}
+
+let init = ((state, allExtensionDataArr)) => {
+  (
+    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, extensionName) => {
+        state->ExtensionManager.initExtension(extensionName)
+      },
+      state,
+    ),
+    allExtensionDataArr,
+  )
+}
+
+let update = ((state, allExtensionDataArr)) => {
+  (
+    _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, extensionName) => {
+        state->ExtensionManager.updateExtension(extensionName)
+      },
+      state,
+    ),
+    allExtensionDataArr,
+  )
+}

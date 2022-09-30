@@ -8,6 +8,7 @@ Feature: Contribute
         When get all contributes by each type by api
         Then get them
 
-    Scenario: if register contribute with unknown type, error
+    Scenario: register contribute with unknown type
         When register unknown type contribute
-        Then error
+        And get all contributes by action type by api
+        Then get empty

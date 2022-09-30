@@ -120,4 +120,18 @@ export function startApp(
     ]: [state, Array<extensionFileData>]
 ): void
 
+export function initApp(
+    [
+        state,
+        allExtensionDataArr
+    ]: [state, Array<extensionFileData>]
+): [state, Array<extensionFileData>]
+
+export function updateApp(
+    [
+        state,
+        allExtensionDataArr
+    ]: [state, Array<extensionFileData>]
+): [state, Array<extensionFileData>]
+
 export function buildAPI(): api
