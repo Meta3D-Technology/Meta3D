@@ -120,18 +120,22 @@ export function startApp(
     ]: [state, Array<extensionFileData>]
 ): void
 
+type extensionLifeHandlerData = any
+
 export function initApp(
     [
         state,
         allExtensionDataArr
-    ]: [state, Array<extensionFileData>]
+    ]: [state, Array<extensionFileData>],
+    extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
 export function updateApp(
     [
         state,
         allExtensionDataArr
-    ]: [state, Array<extensionFileData>]
+    ]: [state, Array<extensionFileData>],
+    extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
 export function buildAPI(): api

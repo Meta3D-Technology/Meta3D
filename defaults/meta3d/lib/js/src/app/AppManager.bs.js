@@ -212,12 +212,16 @@ function _getExtensionNames(allExtensionDataArr) {
               }));
 }
 
-function init(param) {
-  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), ExtensionManager$Meta3d.initExtension, param[0]);
+function init(param, data) {
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), (function (state, extensionName) {
+                return ExtensionManager$Meta3d.initExtension(state, extensionName, data);
+              }), param[0]);
 }
 
-function update(param) {
-  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), ExtensionManager$Meta3d.updateExtension, param[0]);
+function update(param, data) {
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(_getExtensionNames(param[1]), (function (state, extensionName) {
+                return ExtensionManager$Meta3d.updateExtension(state, extensionName, data);
+              }), param[0]);
 }
 
 exports._checkVersion = _checkVersion;

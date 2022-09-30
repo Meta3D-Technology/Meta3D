@@ -637,7 +637,7 @@ defineFeature(feature, test => {
 
       state := s
 
-       Main.initApp((s, allExtensionDataArr))->Js.Promise.then_(( s ) =>{
+       Main.initApp((s, allExtensionDataArr), 10-> Obj.magic)->Js.Promise.then_(( s ) =>{
 
       state := s
 
@@ -646,7 +646,7 @@ defineFeature(feature, test => {
     })
 
     then("the two extensions should be inited", () => {
-      AppManagerTool.getInitFlag()->expect == 3
+      AppManagerTool.getInitFlag()->expect == 23
     })
   })
 
@@ -666,7 +666,7 @@ defineFeature(feature, test => {
 
       state := s
 
-       Main.updateApp((s, allExtensionDataArr))->Js.Promise.then_(( s ) =>{
+       Main.updateApp((s, allExtensionDataArr), 20-> Obj.magic)->Js.Promise.then_(( s ) =>{
 
       state := s
 
@@ -675,7 +675,7 @@ defineFeature(feature, test => {
     })
 
     then("the two extensions should be updated", () => {
-      AppManagerTool.getUpdateFlag()->expect == 3
+      AppManagerTool.getUpdateFlag()->expect == 43
     })
   })
 

@@ -561,14 +561,14 @@ JestCucumber.defineFeature(feature, (function (test) {
                         var __x = Main$Meta3d.initApp([
                               s,
                               match[1]
-                            ]);
+                            ], 10);
                         return __x.then(function (s) {
                                     state.contents = s;
                                     return Promise.resolve(undefined);
                                   });
                       }));
                 return Curry._2(param.then, "the two extensions should be inited", (function (param) {
-                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getInitFlag(undefined)), 3);
+                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getInitFlag(undefined)), 23);
                             }));
               }));
         test("load and update generated app", (function (param) {
@@ -588,14 +588,14 @@ JestCucumber.defineFeature(feature, (function (test) {
                         var __x = Main$Meta3d.updateApp([
                               s,
                               match[1]
-                            ]);
+                            ], 20);
                         return __x.then(function (s) {
                                     state.contents = s;
                                     return Promise.resolve(undefined);
                                   });
                       }));
                 return Curry._2(param.then, "the two extensions should be updated", (function (param) {
-                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getUpdateFlag(undefined)), 3);
+                              return Operators$Meta3dBsJestCucumber.$eq(expect(AppManagerTool$Meta3d.getUpdateFlag(undefined)), 43);
                             }));
               }));
         return test("if two extension need start, error", (function (param) {

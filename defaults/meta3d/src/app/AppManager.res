@@ -316,20 +316,20 @@ let _getExtensionNames = allExtensionDataArr => {
   })
 }
 
-let init = ((state, allExtensionDataArr)) => {
+let init = ((state, allExtensionDataArr), data) => {
     _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
       (. state, extensionName) => {
-        state->ExtensionManager.initExtension(extensionName)
+        state->ExtensionManager.initExtension(extensionName, data)
       },
       state,
     )
 }
 
-let update = ((state, allExtensionDataArr)) => {
+let update = ((state, allExtensionDataArr), data) => {
   
     _getExtensionNames(allExtensionDataArr)->Meta3dCommonlib.ArraySt.traverseReducePromiseM(
       (. state, extensionName) => {
-        state->ExtensionManager.updateExtension(extensionName)
+        state->ExtensionManager.updateExtension(extensionName, data)
       },
       state,
     )

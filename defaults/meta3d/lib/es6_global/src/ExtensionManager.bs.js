@@ -48,9 +48,9 @@ function _invokeSyncLifeOtherHander(state, extensionName, handlerNullable) {
                   })), state);
 }
 
-function _invokeAsyncLifeOtherHander(state, extensionName, handlerNullable) {
+function _invokeAsyncLifeOtherHander(state, extensionName, data, handlerNullable) {
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
-                    return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName));
+                    return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName), data);
                   })), new Promise((function (resolve, reject) {
                     return resolve(state);
                   })));
@@ -60,12 +60,12 @@ function startExtension(state, extensionName) {
   return _invokeLifeOnStartHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
 }
 
-function updateExtension(state, extensionName) {
-  return _invokeAsyncLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
+function updateExtension(state, extensionName, data) {
+  return _invokeAsyncLifeOtherHander(state, extensionName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
 }
 
-function initExtension(state, extensionName) {
-  return _invokeAsyncLifeOtherHander(state, extensionName, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
+function initExtension(state, extensionName, data) {
+  return _invokeAsyncLifeOtherHander(state, extensionName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
 }
 
 function _decideContributeType(contribute) {
