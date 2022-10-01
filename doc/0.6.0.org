@@ -201,7 +201,7 @@ with border
 
 so application can use it when be published
 
-** TODO start default run to draw selected canvas
+** DONE start default run to draw selected canvas
 
 implement by rescript
 
@@ -227,25 +227,51 @@ not bind event;
 *** DONE extension life add onInit, onUpdate
 
 
+*** TODO run
+
+
+*** TODO ui view: add ui view visual
+
+# *** TODO register default element
+
 *** TODO invoke onInit when init
+
+e.g. change canvas data
 
 *** TODO invoke onUpdate when need update
 
+# e.g. change canvas data, select ui control
 e.g. change canvas data
 
 invoke update function
 
 
 
-** TODO bdd test
+** TODO bdd test UIVisual
+
 
 ** TODO run test
+
+publish protocol, extension
+
+run test
 
 
 # ** TODO can drag button(ui control) to canvas
 ** TODO click button(ui control), add to canvas
 
 in default rect
+
+*** TODO update "start default run" to draw view
+
+
+test with test generated element code
+
+add action:
+InitVisual
+UpdateVisual
+
+
 
 *** TODO generate json
 
@@ -258,15 +284,11 @@ ui control protocol should define json related meta data?
 *** TODO update "start default run" to draw view
 
 
-with shared registered;
-
 only register this element:
 json -> element contribute:
 change -> json -> generate element contribute and replace old one
 
-not register action;
 
-# update with json
 
 
 
@@ -433,7 +455,7 @@ editor entry extension can get them by api.getAllContributesByType
 
 
 
-** TODO select entry extension
+** TODO select entry extension when click publish button!
 
 # type:
 # editor(default )

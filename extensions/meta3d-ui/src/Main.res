@@ -58,5 +58,7 @@ let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dUiProtocol.Service
   {
     onRegister: Js.Nullable.null,
     onStart: Js.Nullable.null,
+    onInit: Js.Nullable.null,
+    onUpdate: Js.Nullable.null,
   }
 }

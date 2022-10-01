@@ -89,7 +89,7 @@ let make = () => {
               BackendCloudbase.getAllPublishContributes(item.name, item.version)
               ->Meta3dBsMost.Most.map(data => {
                 data->Meta3dCommonlib.ArraySt.map((
-                  {id, file, version, username}: BackendCloudbase.implement,
+                  {id, file, version, username}: FrontendUtils.BackendCloudbaseType.implement,
                 ): UserCenterStore.contribute => {
                   {
                     id: id,

@@ -12,10 +12,18 @@ let make = () => {
     },
     backend: BackendCloudbase.buildService(),
     meta3d: {
+      generateExtension: (. packageData, fileStr) =>
+        Meta3d.Main.generateExtension(packageData, fileStr),
+      loadExtension: (. extensionBinaryFile) => Meta3d.Main.loadExtension(extensionBinaryFile),
+      initExtension: (. state, extensionName, data) =>
+        Meta3d.Main.initExtension(state, extensionName, data),
+      updateExtension: (. state, extensionName, data) =>
+        Meta3d.Main.updateExtension(state, extensionName, data),
       generateApp: (. (allExtensionFileData, allContributeFileData)) =>
         Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData)),
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
+      loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
     },
     console: {
       error: (. errorMessage, durationOpt) =>

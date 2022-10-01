@@ -3,14 +3,6 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getExtensionNewName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
-    newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
-  }
-
-  let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeFileData) => {
-    newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
-  }
-
   let _isSelectedNothing = (selectedExtensions, selectedContributes) => {
     selectedExtensions->Meta3dCommonlib.ArraySt.length == 0 &&
       selectedContributes->Meta3dCommonlib.ArraySt.length == 0
@@ -34,29 +26,7 @@ module Method = {
           ()->Js.Promise.resolve
         }
       : {
-          let appBinaryFile = service.meta3d.generateApp(.
-            service.meta3d.convertAllFileData(.
-              selectedExtensions->Meta3dCommonlib.ArraySt.map((
-                {data}: FrontendUtils.ApViewStoreType.extension,
-              ) => data),
-              selectedContributes->Meta3dCommonlib.ArraySt.map((
-                {data}: FrontendUtils.ApViewStoreType.contribute,
-              ) => data),
-              (
-                selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-                  _getExtensionNewName(newName, data)
-                ),
-                selectedExtensions
-                ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
-                ->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-                  _getExtensionNewName(newName, data)
-                ),
-                selectedContributes->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-                  _getContributeNewName(newName, data)
-                ),
-              ),
-            ),
-          )
+          let appBinaryFile = AppUtils.generateApp(service, selectedExtensions, selectedContributes)
 
           service.backend.publishApp(.
             appBinaryFile,

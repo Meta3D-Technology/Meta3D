@@ -14,7 +14,7 @@ let make = (~service: service) => {
         </Collapse.Panel>
       </Collapse>
     </Layout.Sider>
-    <Layout.Content> <Visual service /> </Layout.Content>
+    <Layout.Content> <UIVisual service /> </Layout.Content>
     <Layout.Sider />
   </Layout>
 }

@@ -44,9 +44,15 @@ export type getContribute<dependentExtensionNameMap, dependentContributeNameMap,
 
 export type extensionLifeEventHandler<extensionService> = (state: state, extensionService: extensionService) => state;
 
+type extensionLifeHandlerData = any
+
+export type extensionLifeAsyncEventHandler<extensionService> = (state: state, extensionService: extensionService, extensionLifeHandlerData: extensionLifeHandlerData) => Promise<state>;
+
 type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
-  onStart?: (state: state, extensionService: extensionService) => void
+  onStart?: (state: state, extensionService: extensionService) => void,
+  onInit?: extensionLifeAsyncEventHandler<extensionService>,
+  onUpdate?: extensionLifeAsyncEventHandler<extensionService>,
 }
 
 export type getExtensionLife<extensionService> = (_1: api, extensionName: extensionName) => extensionLife<extensionService>

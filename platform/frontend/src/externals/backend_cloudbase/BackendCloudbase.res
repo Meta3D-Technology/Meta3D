@@ -21,26 +21,11 @@ external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = ""
 @module("backend-cloudbase")
 external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
 
-type implement = {
-  id: string,
-  file: Js.Typed_array.ArrayBuffer.t,
-  version: string,
-  username:string
-}
-
-type implements = array<implement>
+@module("backend-cloudbase")
+external getAllPublishExtensions: getAllPublishExtensions = ""
 
 @module("backend-cloudbase")
-external getAllPublishExtensions: (
-  string,
-  string,
-) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""
-
-@module("backend-cloudbase")
-external getAllPublishContributes: (
-  string,
-  string,
-) => Meta3dBsMostProtocol.StreamType.stream<implements> = ""
+external getAllPublishContributes: getAllPublishContributes = ""
 
 @module("backend-cloudbase")
 external publishApp: publishApp = ""
@@ -55,6 +40,7 @@ let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
+    getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,

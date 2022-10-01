@@ -12,6 +12,25 @@ type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.s
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
+type implement = {
+  id: string,
+  file: Js.Typed_array.ArrayBuffer.t,
+  version: string,
+  username: string,
+}
+
+type implements = array<implement>
+
+type getAllPublishExtensions = (
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements>
+
+type getAllPublishContributes = (
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements>
+
 type publishAppData = {
   username: string,
   appName: string,

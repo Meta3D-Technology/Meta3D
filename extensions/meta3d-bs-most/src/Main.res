@@ -51,5 +51,7 @@ let getExtensionLife: Meta3dType.Index.getExtensionLife<
   {
     onRegister: Js.Nullable.null,
     onStart: Js.Nullable.null,
+    onInit: Js.Nullable.null,
+    onUpdate: Js.Nullable.null,
   }
 }
