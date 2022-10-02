@@ -261,6 +261,13 @@ run test
 
 
 # ** TODO can drag button(ui control) to canvas
+
+** DONE fix: init once
+
+** DONE fix: handle when change canvas data
+
+** DONE fix: loading
+
 ** TODO click button(ui control), add to canvas
 
 in default rect
@@ -270,9 +277,15 @@ in default rect
 
 test with test generated element code
 
+click 
+
 add action:
 InitVisual
 UpdateVisual
+
+
+
+***  TODO pass run test
 
 
 
@@ -283,6 +296,9 @@ json -> generate element contribute code(javascript)
 
 ui control protocol should define json related meta data?
 
+***  TODO pass bdd test
+
+
 
 *** TODO update "start default run" to draw view
 
@@ -292,6 +308,10 @@ json -> element contribute:
 change -> json -> generate element contribute and replace old one
 
 
+
+***  TODO pass bdd test
+
+***  TODO pass run test
 
 
 

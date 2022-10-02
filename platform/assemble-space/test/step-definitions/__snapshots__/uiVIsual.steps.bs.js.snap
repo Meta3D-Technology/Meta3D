@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UIVisual show the canvas 1`] = `
+exports[`UIVisual if loaded, show the canvas 1`] = `
 <canvas
   height="20px"
   id="ui-visual-canvas"
@@ -15,4 +15,10 @@ exports[`UIVisual show the canvas 1`] = `
   }
   width="10px"
 />
+`;
+
+exports[`UIVisual if not loaded, show loading 1`] = `
+<p>
+  loading...
+</p>
 `;

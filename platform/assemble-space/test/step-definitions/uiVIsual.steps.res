@@ -20,7 +20,31 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."show the canvas", ({given, \"when", \"and", then}) => {
+  test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
+    _prepare(given, \"and")
+
+    \"when"("not loaded and render", () => {
+      ()
+    })
+
+    then("should show loading", () => {
+      let useSelectorStub =
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
+          _,
+        )
+
+      UIVisualTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
+  test(."if loaded, show the canvas", ({given, \"when", \"and", then}) => {
     let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -32,19 +56,32 @@ defineFeature(feature, test => {
     \"and"("set its width, height", () => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()), list{}, list{}),
+          (
+            CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
+            list{},
+            list{},
+            Some(Obj.magic(1)),
+          ),
           _,
         )
     })
 
-    \"when"("render", () => {
+    \"when"("loaded and render", () => {
       ()
     })
 
     then("should show the canvas", () => {
+      let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      useStateStub->onCall(0, _)->returns((true, _ => true), _)->ignore
+
       UIVisualTool.buildUI(
         ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents->Obj.magic, ()),
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~useState=useStateStub->Obj.magic,
+          ~useSelector=useSelectorStub.contents->Obj.magic,
+          (),
+        ),
         (),
       )
       ->ReactTestRenderer.create
@@ -52,20 +89,78 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."init once", ({given, \"when", \"and", then}) => {
+  test(."get and set visual extension", ({given, \"when", \"and", then}) => {
+    let v = ref(Obj.magic(1))
+    let getAllPublishExtensionsStub = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given("generate visual extension v", () => {
+      v :=
+        Meta3d.Main.generateExtension(
+          (
+            {
+              name: UIVisualTool.getVisualExtensionName(),
+              protocol: {
+                name: UIVisualTool.getVisualExtensionProtocolName(),
+                version: UIVisualTool.getVisualExtensionProtocolVersion(),
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: Meta3d.ExtensionFileType.extensionPackageData
+          ),
+          "",
+        )
+    })
+
+    \"and"("publish v", () => {
+      getAllPublishExtensionsStub.contents =
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          Meta3dBsMost.Most.just([ExtensionTool.buildExtensionImplement(~file=v.contents, ())]),
+          _,
+        )
+    })
+
+    CucumberAsync.execStep(\"when", "get and set visual extension", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      let initData = Obj.magic(1)
+
+      UIVisualTool.getAndSetVisualExtension(
+        ServiceTool.build(
+          ~sandbox,
+          ~getAllPublishExtensions=getAllPublishExtensionsStub.contents,
+          (),
+        ),
+        dispatchStub.contents,
+      )
+    })
+
+    then("should dispatch SetVisualExtension action", () => {
+      dispatchStub.contents
+      ->Obj.magic
+      ->SinonTool.calledWith(
+        FrontendUtils.UIViewStoreType.SetVisualExtension({
+          id: "",
+          protocolIconBase64: "",
+          newName: "meta3d-ui-view-visual"->Some,
+          isStart: false,
+          data: matchAny,
+        }),
+      )
+      ->expect == true
+    })
+  })
+
+  test(."render app", ({given, \"when", \"and", then}) => {
     let v = ref(Obj.magic(1))
     let e1 = ref(Obj.magic(1))
     let c1 = ref(Obj.magic(1))
     let selectedExtensions = ref(list{})
     let selectedContributes = ref(list{})
-    let meta3dStateRef = ref(Obj.magic(1))
-    let getAllPublishExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
-    let setIsLoadedStub = ref(Obj.magic(1))
-    let setVisualExtensionDataStub = ref(Obj.magic(1))
-    let setMeta3dStateFake = func => {
-      meta3dStateRef := func()
-    }
 
     _prepare(given, \"and")
 
@@ -74,7 +169,7 @@ defineFeature(feature, test => {
       UIVisualTool.prepareUpdateFlag()
     })
 
-    \"and"("generate visual extension v", () => {
+    \"and"("get visual extension v", () => {
       v :=
         Meta3d.Main.generateExtension(
           (
@@ -89,15 +184,7 @@ defineFeature(feature, test => {
             }: Meta3d.ExtensionFileType.extensionPackageData
           ),
           UIVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
-        )
-    })
-
-    \"and"("publish v", () => {
-      getAllPublishExtensionsStub.contents =
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.just([ExtensionTool.buildExtensionImplement(~file=v.contents, ())]),
-          _,
-        )
+        )->UIVisualTool.loadAndBuildVisualExtension
     })
 
     \"and"("generate extension e1", () => {
@@ -137,16 +224,12 @@ defineFeature(feature, test => {
         }
     })
 
-    CucumberAsync.execStep(\"when", "init once", () => {
-      setIsLoadedStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      setVisualExtensionDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
+    CucumberAsync.execStep(\"when", "render app with e1, c1, v", () => {
       let initData = Obj.magic(1)
 
-      UIVisualTool.initOnce(
+      UIVisualTool.renderApp(
         ServiceTool.build(
           ~sandbox,
-          ~getAllPublishExtensions=getAllPublishExtensionsStub.contents,
           ~generateApp=Meta3d.Main.generateApp->Obj.magic,
           ~convertAllFileData=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
           ~loadApp=Meta3d.Main.loadApp->Obj.magic,
@@ -156,78 +239,14 @@ defineFeature(feature, test => {
             Meta3d.Main.updateExtension(meta3dState, extensionName, data),
           (),
         ),
-        (
-          setIsLoadedStub.contents->Obj.magic,
-          setVisualExtensionDataStub.contents->Obj.magic,
-          setMeta3dStateFake->Obj.magic,
-        ),
         (selectedExtensions.contents, selectedContributes.contents),
         initData,
+        v.contents,
       )
-    })
-
-    // CucumberAsync.execStep(\"and", "init app", () => {
-    //   meta3dStateRef.contents
-    //   ->UIVisualTool.initApp(
-    //     ServiceTool.build(
-    //       ~sandbox,
-    //       ~initExtension=(. meta3dState, extensionName, data) =>
-    //         Meta3d.Main.initExtension(meta3dState, extensionName, data),
-    //       (),
-    //     ),
-    //     Obj.magic(1),
-    //   )
-    //   ->Js.Promise.then_(meta3dState => {
-    //     meta3dStateRef := meta3dState
-
-    //     Js.Promise.resolve()
-    //   }, _)
-    // })
-
-    // CucumberAsync.execStep(\"and", "update app", () => {
-    //   meta3dStateRef.contents->UIVisualTool.updateApp(
-    //     ServiceTool.build(
-    //       ~sandbox,
-    //       ~updateExtension=(. meta3dState, extensionName, data) =>
-    //         Meta3d.Main.updateExtension(meta3dState, extensionName, data),
-    //       (),
-    //     ),
-    //     Obj.magic(2),
-    //   )
-    // })
-
-    then("get and load v as v_1", () => {
-      getAllPublishExtensionsStub.contents->getCallCount->expect == 1
     })
 
     \"and"("build app with e1, v_1 and c1", () => {
       ()
-    })
-
-    \"and"("set the v_1", () => {
-      let {
-        extensionPackageData,
-      }: Meta3d.ExtensionFileType.extensionFileData = ReactHookTool.getValue(
-        ~setLocalValueStub=setVisualExtensionDataStub.contents,
-        (),
-      )
-
-      extensionPackageData->expect ==
-        ExtensionTool.buildExtensionPackageData(
-          ~name=UIVisualTool.getVisualExtensionName(),
-          ~protocol={
-            name: UIVisualTool.getVisualExtensionProtocolName(),
-            version: UIVisualTool.getVisualExtensionProtocolVersion(),
-          },
-          (),
-        )
-    })
-
-    \"and"("mark is load", () => {
-      (
-        setIsLoadedStub.contents->getCallCount,
-        ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub.contents, ()),
-      )->expect == (1, true)
     })
 
     \"and"("v should be inited and updated", () => {

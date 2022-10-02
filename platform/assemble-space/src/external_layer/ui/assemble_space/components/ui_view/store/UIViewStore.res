@@ -20,10 +20,15 @@ let reducer = (state, action) => {
       ...state,
       inspectorCurrentUIControlId: id->Some,
     }
+  | SetVisualExtension(visualExtension) => {
+      ...state,
+      visualExtension: visualExtension->Some,
+    }
   }
 }
 
 let initialState = {
   selectedUIControls: list{},
   inspectorCurrentUIControlId: None,
+  visualExtension: None,
 }

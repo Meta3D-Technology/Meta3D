@@ -2,7 +2,11 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
   <UIVisual service />
 }
 
-let initOnce = UIVisual.Method.initOnce
+let getAndSetVisualExtension = UIVisual.Method.getAndSetVisualExtension
+
+let renderApp = UIVisual.Method.renderApp
+
+let loadAndBuildVisualExtension = UIVisual.Method._loadAndBuildVisualExtension
 
 let getVisualExtensionName = UIVisual.Method._getVisualExtensionName
 
