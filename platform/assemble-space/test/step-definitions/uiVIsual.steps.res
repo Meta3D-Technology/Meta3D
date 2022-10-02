@@ -141,6 +141,8 @@ defineFeature(feature, test => {
       setIsLoadedStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
       setVisualExtensionDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
+      let initData = Obj.magic(1)
+
       UIVisualTool.initOnce(
         ServiceTool.build(
           ~sandbox,
@@ -148,6 +150,10 @@ defineFeature(feature, test => {
           ~generateApp=Meta3d.Main.generateApp->Obj.magic,
           ~convertAllFileData=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
           ~loadApp=Meta3d.Main.loadApp->Obj.magic,
+          ~initExtension=(. meta3dState, extensionName, data) =>
+            Meta3d.Main.initExtension(meta3dState, extensionName, data),
+          ~updateExtension=(. meta3dState, extensionName, data) =>
+            Meta3d.Main.updateExtension(meta3dState, extensionName, data),
           (),
         ),
         (
@@ -156,38 +162,39 @@ defineFeature(feature, test => {
           setMeta3dStateFake->Obj.magic,
         ),
         (selectedExtensions.contents, selectedContributes.contents),
+        initData,
       )
     })
 
-    CucumberAsync.execStep(\"and", "init app", () => {
-      meta3dStateRef.contents
-      ->UIVisualTool.initApp(
-        ServiceTool.build(
-          ~sandbox,
-          ~initExtension=(. meta3dState, extensionName, data) =>
-            Meta3d.Main.initExtension(meta3dState, extensionName, data),
-          (),
-        ),
-        Obj.magic(1),
-      )
-      ->Js.Promise.then_(meta3dState => {
-        meta3dStateRef := meta3dState
+    // CucumberAsync.execStep(\"and", "init app", () => {
+    //   meta3dStateRef.contents
+    //   ->UIVisualTool.initApp(
+    //     ServiceTool.build(
+    //       ~sandbox,
+    //       ~initExtension=(. meta3dState, extensionName, data) =>
+    //         Meta3d.Main.initExtension(meta3dState, extensionName, data),
+    //       (),
+    //     ),
+    //     Obj.magic(1),
+    //   )
+    //   ->Js.Promise.then_(meta3dState => {
+    //     meta3dStateRef := meta3dState
 
-        Js.Promise.resolve()
-      }, _)
-    })
+    //     Js.Promise.resolve()
+    //   }, _)
+    // })
 
-    CucumberAsync.execStep(\"and", "update app", () => {
-      meta3dStateRef.contents->UIVisualTool.updateApp(
-        ServiceTool.build(
-          ~sandbox,
-          ~updateExtension=(. meta3dState, extensionName, data) =>
-            Meta3d.Main.updateExtension(meta3dState, extensionName, data),
-          (),
-        ),
-        Obj.magic(2),
-      )
-    })
+    // CucumberAsync.execStep(\"and", "update app", () => {
+    //   meta3dStateRef.contents->UIVisualTool.updateApp(
+    //     ServiceTool.build(
+    //       ~sandbox,
+    //       ~updateExtension=(. meta3dState, extensionName, data) =>
+    //         Meta3d.Main.updateExtension(meta3dState, extensionName, data),
+    //       (),
+    //     ),
+    //     Obj.magic(2),
+    //   )
+    // })
 
     then("get and load v as v_1", () => {
       getAllPublishExtensionsStub.contents->getCallCount->expect == 1
@@ -224,7 +231,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("v should be inited and updated", () => {
-      (UIVisualTool.getInitFlag(), UIVisualTool.getUpdateFlag())->expect == (2, 13)
+      (UIVisualTool.getInitFlag(), UIVisualTool.getUpdateFlag())->expect == (1, 11)
     })
   })
 })

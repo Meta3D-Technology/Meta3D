@@ -24,8 +24,6 @@ Feature: UIVisual
         And select e1
         And select c1
         When init once
-        And init app
-        And update app
         Then get and load v as v_1
         And build app with e1, v_1 and c1
         And set the v_1

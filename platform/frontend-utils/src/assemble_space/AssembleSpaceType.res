@@ -66,7 +66,7 @@ type meta3dService = {
   ),
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
-  ) => (Meta3dType.Index.state, array<Meta3d.ExtensionFileType.extensionFileData>),
+  ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
 }
 
 type otherService = {random: unit => float}

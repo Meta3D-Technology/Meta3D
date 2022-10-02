@@ -86,7 +86,7 @@ let make = () => {
             | None =>
               setIsLoaded(_ => false)
 
-              BackendCloudbase.getAllPublishExtensions(item.name, item.version)
+              BackendCloudbase.getAllPublishExtensions(. item.name, item.version)
               ->Meta3dBsMost.Most.map(data => {
                 data->Meta3dCommonlib.ArraySt.map((
                   {id, file, version, username}: FrontendUtils.BackendCloudbaseType.implement,

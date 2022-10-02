@@ -6,11 +6,9 @@ let initOnce = UIVisual.Method.initOnce
 
 let getVisualExtensionName = UIVisual.Method._getVisualExtensionName
 
-let getVisualExtensionVersion = UIVisual.Method._getVisualExtensionVersion
+let getVisualExtensionProtocolName = UIVisual.Method._getVisualExtensionProtocolName
 
-let getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-protocol"
-
-let getVisualExtensionProtocolVersion = getVisualExtensionVersion
+let getVisualExtensionProtocolVersion = UIVisual.Method._getVisualExtensionProtocolVersion
 
 let prepareInitFlag = %raw(` function(){window.initFlag = 0} `)
 
@@ -24,9 +22,9 @@ let buildEmptyExtensionFileStrWithOnInitAndOnUpdate = (
   addNumberForInit: int,
   addNumberForUpdate: int,
 ) => {
-  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service, data) =>{ window.initFlag += ${addNumberForInit->Js.Int.toString} + data; return new Promise((resolve) =>{
+  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service, data) =>{ window.initFlag += ${addNumberForInit->Js.Int.toString}; return new Promise((resolve) =>{
 resolve(meta3dState)
-  }) ; }, onUpdate: (meta3dState, service, data) =>{ window.updateFlag += ${addNumberForUpdate->Js.Int.toString} + data; return new Promise((resolve) =>{
+  }) ; }, onUpdate: (meta3dState, service, data) =>{ window.updateFlag += ${addNumberForUpdate->Js.Int.toString}; return new Promise((resolve) =>{
 resolve(meta3dState)
   }) ; } } } }`
 }
@@ -39,6 +37,6 @@ let getInitFlag = %raw(` function(){return window.initFlag} `)
 
 let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
 
-let initApp = UIVisual.Method._initApp
+// let initApp = UIVisual.Method._initApp
 
-let updateApp = UIVisual.Method._updateApp
+// let updateApp = UIVisual.Method._updateApp
