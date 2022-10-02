@@ -16,6 +16,17 @@ let buildExtensionPackageData = (
   }
 }
 
+let buildExtensionData = (
+  ~extensionPackageData,
+  ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
+  (),
+): Meta3d.ExtensionFileType.extensionFileData => {
+  {
+    extensionPackageData: extensionPackageData,
+    extensionFuncData: extensionFuncData,
+  }
+}
+
 let buildSelectedExtension = (
   ~protocolName,
   ~protocolVersion,
@@ -27,17 +38,56 @@ let buildSelectedExtension = (
 ): FrontendUtils.AssembleSpaceCommonType.extension => {
   {
     id: id,
-    data: {
-      extensionPackageData: buildExtensionPackageData(
+    data: buildExtensionData(
+      ~extensionPackageData=buildExtensionPackageData(
         ~protocol={
           name: protocolName,
           version: protocolVersion,
         },
         (),
       ),
-      extensionFuncData: extensionFuncData,
-    },
+      ~extensionFuncData,
+      (),
+    ),
     version: version,
     username: username,
   }
+}
+
+let buildExtensionImplement = (
+  ~file=Js.Typed_array.ArrayBuffer.make(0),
+  ~id="e1",
+  ~version="0.0.1",
+  ~username="u1",
+  (),
+): FrontendUtils.BackendCloudbaseType.implement => {
+  id: id,
+  file: file,
+  version: version,
+  username: username,
+}
+
+let generateExtension = (
+  ~name,
+  ~protocolName="",
+  ~protocolVersion="",
+  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~fileStr=UIVisualTool.buildEmptyExtensionFileStr(),
+  (),
+) => {
+  Meta3d.Main.generateExtension(
+    (
+      {
+        name: name,
+        protocol: {
+          name: protocolName,
+          version: protocolVersion,
+        },
+        dependentExtensionNameMap: dependentExtensionNameMap,
+        dependentContributeNameMap: dependentContributeNameMap,
+      }: Meta3d.ExtensionFileType.extensionPackageData
+    ),
+    fileStr,
+  )
 }

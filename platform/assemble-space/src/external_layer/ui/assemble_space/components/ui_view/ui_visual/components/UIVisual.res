@@ -7,8 +7,8 @@ module Method = {
 
   let _getVisualExtensionVersion = () => "0.5.0"
 
-  let getVisualExtension = (service, (setIsLoaded, setVisualExtensionData)) => {
-    service.backend.getAllPublishExtensions(
+  let _getVisualExtension = (service, (setIsLoaded, setVisualExtensionData)) => {
+    service.backend.getAllPublishExtensions(.
       _getVisualExtensionName(),
       _getVisualExtensionVersion(),
     )->Meta3dBsMost.Most.map(data => {
@@ -28,24 +28,80 @@ module Method = {
     data: data,
   }
 
-  let buildApp = (service, (selectedExtensions, selectedContributes), visualExtensionData) => {
-    AppUtils.generateApp(
-      service,
-      selectedExtensions->Meta3dCommonlib.ArraySt.push(
-        _buildExtension(_getVisualExtensionName(), visualExtensionData),
+  let _buildApp = (service, (selectedExtensions, selectedContributes), visualExtensionData) => {
+    service.meta3d.loadApp(.
+      AppUtils.generateApp(
+        service,
+        selectedExtensions->Meta3dCommonlib.ArraySt.push(
+          _buildExtension(_getVisualExtensionName(), visualExtensionData),
+        ),
+        selectedContributes,
       ),
-      selectedContributes,
-    )
-    ->service.meta3d.loadApp(. _)
-    ->Meta3dCommonlib.Tuple2.getFirst
+    )->Meta3dCommonlib.Tuple2.getFirst
   }
 
-  let initVisual = (meta3dState, service, data) => {
+  let initOnce = (
+    service,
+    (setIsLoaded, setVisualExtensionData, setMeta3dState),
+    (selectedExtensions, selectedContributes),
+  ) => {
+    _getVisualExtension(service, (setIsLoaded, setVisualExtensionData))
+    ->Meta3dBsMost.Most.observe(allVisualExtensionData => {
+      setIsLoaded(_ => true)
+
+      let visualExtensionData = allVisualExtensionData[0]
+
+      setMeta3dState(_ =>
+        _buildApp(
+          service,
+          (
+            selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+            selectedContributes->Meta3dCommonlib.ListSt.toArray,
+          ),
+          visualExtensionData,
+        )->Some
+      )
+
+      setVisualExtensionData(_ => visualExtensionData->Some)
+    }, _)
+    ->Js.Promise.catch(e => {
+      setIsLoaded(_ => false)
+
+      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+    }, _)
+  }
+
+  let _initApp = (meta3dState, service, data) => {
     service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), data)
   }
 
-  let updateVisual = (meta3dState, service) => {
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), Obj.magic(1))
+  let _updateApp = (meta3dState, service, data) => {
+    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), data)
+  }
+
+  let handleWhenCanvasDataChange = (service, setMeta3dState, meta3dState) => {
+    switch meta3dState {
+    | Some(meta3dState) =>
+      Meta3dBsMost.Most.fromPromise(
+        _initApp(
+          meta3dState,
+          service,
+          {
+            "isDebug": true,
+            "canvas": DomExtend.querySelector(
+              DomExtend.document,
+              "#ui-visual-canvas",
+            )->Meta3dCommonlib.OptionSt.getExn,
+          }->Obj.magic,
+        ),
+      )
+      ->Meta3dBsMost.Most.flatMap(meta3dState => {
+        meta3dState->_updateApp(service, Obj.magic(1))->Meta3dBsMost.Most.fromPromise
+      }, _)
+      ->Meta3dBsMost.Most.observe(meta3dState => {
+        setMeta3dState(_ => meta3dState->Some)
+      }, _)
+    }->ignore
   }
 
   let useSelector = (
@@ -62,62 +118,22 @@ let make = (~service: service) => {
     Method.useSelector,
   )
 
-  let (isLoaded, setIsLoaded) = React.useState(_ => false)
-  let (visualExtensionData, setVisualExtensionData) = React.useState(_ => None)
-  let (meta3dState, setMeta3dState) = React.useState(_ => None)
+  let (isLoaded, setIsLoaded) = service.react.useState(_ => false)
+  let (visualExtensionData, setVisualExtensionData) = service.react.useState(_ => None)
+  let (meta3dState, setMeta3dState) = service.react.useState(_ => None)
 
-  React.useEffect1(() => {
-    Method.getVisualExtension(service, (setIsLoaded, setVisualExtensionData))
-    ->Meta3dBsMost.Most.observe(allVisualExtensionData => {
-      setIsLoaded(_ => true)
-
-      let visualExtensionData = allVisualExtensionData[0]
-
-      setMeta3dState(_ =>
-        Method.buildApp(
-          service,
-          (
-            selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-            selectedContributes->Meta3dCommonlib.ListSt.toArray,
-          ),
-          visualExtensionData,
-        )->Some
-      )
-      setVisualExtensionData(_ => visualExtensionData->Some)
-    }, _)
-    ->Js.Promise.catch(e => {
-      setIsLoaded(_ => false)
-
-      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
-    }, _)
-    ->ignore
+  service.react.useEffect1(. () => {
+    Method.initOnce(
+      service,
+      (setIsLoaded, setVisualExtensionData, setMeta3dState),
+      (selectedExtensions, selectedContributes),
+    )->ignore
 
     None
   }, [])
 
-  React.useEffect1(() => {
-    switch meta3dState {
-    | Some(meta3dState) =>
-      Meta3dBsMost.Most.fromPromise(
-        Method.initVisual(
-          meta3dState,
-          service,
-          {
-            "isDebug": true,
-            "canvas": DomExtend.querySelector(
-              DomExtend.document,
-              "#ui-visual-canvas",
-            )->Meta3dCommonlib.OptionSt.getExn,
-          }->Obj.magic,
-        ),
-      )
-      ->Meta3dBsMost.Most.flatMap(meta3dState => {
-        meta3dState->Method.updateVisual(service)->Meta3dBsMost.Most.fromPromise
-      }, _)
-      ->Meta3dBsMost.Most.observe(meta3dState => {
-        setMeta3dState(_ => meta3dState->Some)
-      }, _)
-    }->ignore
+  service.react.useEffect1(. () => {
+    Method.handleWhenCanvasDataChange(service, setMeta3dState, meta3dState)
 
     None
   }, [canvasData])

@@ -6,7 +6,7 @@ Feature: Visual
     Background: prepare
         Given prepare
 
-    Scenario: show all canvas
+    Scenario: show the canvas
         Given prepare the canvas
         And set its width, height
         When render

@@ -8,6 +8,10 @@ let buildSelectedExtension = (
   ~newName=None,
   ~isStart=false,
   ~id="e1",
+  ~data=ExtensionTool.buildExtensionData(
+    ~extensionPackageData=ExtensionTool.buildExtensionPackageData(~name, ()),
+    (),
+  ),
   (),
 ): FrontendUtils.ApViewStoreType.extension => {
   {
@@ -15,10 +19,7 @@ let buildSelectedExtension = (
     protocolIconBase64: protocolIconBase64,
     newName: newName,
     isStart: isStart,
-    data: {
-      extensionPackageData: ExtensionTool.buildExtensionPackageData(~name, ()),
-      extensionFuncData: Js.Typed_array.Uint8Array.make([]),
-    },
+    data: data,
   }
 }
 

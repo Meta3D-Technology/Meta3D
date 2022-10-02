@@ -16,6 +16,17 @@ let buildContributePackageData = (
   }
 }
 
+let buildContributeData = (
+  ~contributePackageData,
+  ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
+  (),
+): Meta3d.ExtensionFileType.contributeFileData => {
+  {
+    contributePackageData: contributePackageData,
+    contributeFuncData: contributeFuncData,
+  }
+}
+
 let buildSelectedContribute = (
   ~protocolName,
   ~protocolVersion,
@@ -27,17 +38,43 @@ let buildSelectedContribute = (
 ): FrontendUtils.AssembleSpaceCommonType.contribute => {
   {
     id: id,
-    data: {
-      contributePackageData: buildContributePackageData(
+    data: buildContributeData(
+      ~contributePackageData=buildContributePackageData(
         ~protocol={
           name: protocolName,
           version: protocolVersion,
         },
         (),
       ),
-      contributeFuncData: contributeFuncData,
-    },
+      ~contributeFuncData,
+      (),
+    ),
     version: version,
     username: username,
   }
+}
+
+let generateContribute = (
+  ~name,
+  ~protocolName="",
+  ~protocolVersion="",
+  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~fileStr=UIVisualTool.buildEmptyContributeFileStr(),
+  (),
+) => {
+  Meta3d.Main.generateContribute(
+    (
+      {
+        name: name,
+        protocol: {
+          name: protocolName,
+          version: protocolVersion,
+        },
+        dependentExtensionNameMap: dependentExtensionNameMap,
+        dependentContributeNameMap: dependentContributeNameMap,
+      }: Meta3d.ExtensionFileType.contributePackageData
+    ),
+    fileStr,
+  )
 }

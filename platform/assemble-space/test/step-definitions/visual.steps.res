@@ -17,7 +17,7 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."show all canvas", ({given, \"when", \"and", then}) => {
+  test(."show the canvas", ({given, \"when", \"and", then}) => {
     let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")

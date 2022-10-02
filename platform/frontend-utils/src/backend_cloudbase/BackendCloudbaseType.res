@@ -22,12 +22,12 @@ type implement = {
 type implements = array<implement>
 
 type getAllPublishExtensions = (
-  string,
+  . string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
 type getAllPublishContributes = (
-  string,
+  . string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 

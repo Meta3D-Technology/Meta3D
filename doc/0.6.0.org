@@ -247,7 +247,7 @@ invoke update function
 
 
 
-** TODO bdd test UIVisual
+** DONE bdd test UIVisual
 
 
 ** TODO run test
