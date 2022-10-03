@@ -34,7 +34,9 @@ type reactService = {
 type consoleService = {error: error}
 
 type meta3dService = {
-  generateExtension: (. extensionPackageData, string) => Js.Typed_array.ArrayBuffer.t,
+  generateContribute: (. Meta3d.ExtensionFileType.contributePackageData, string) => Js.Typed_array.ArrayBuffer.t,
+  loadContribute: (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.contributeFileData,
+  generateExtension: (. Meta3d.ExtensionFileType.extensionPackageData, string) => Js.Typed_array.ArrayBuffer.t,
   loadExtension: (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.extensionFileData,
   initExtension: (
     . Meta3dType.Index.state,

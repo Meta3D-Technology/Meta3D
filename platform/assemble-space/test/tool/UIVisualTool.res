@@ -44,3 +44,9 @@ let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
 // let initApp = UIVisual.Method._initApp
 
 // let updateApp = UIVisual.Method._updateApp
+
+let generateElementContribute = UIVisual.Method.generateElementContribute
+
+let buildEmptyContributeFileStr = () => {
+  `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
+}

@@ -7,7 +7,7 @@ module Method = {
 
   let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-protocol"
 
-  let _getVisualExtensionProtocolVersion = () => "0.5.0"
+  let _getVisualExtensionProtocolVersion = () => "0.5.1"
 
   let _buildExtension = (name, data): FrontendUtils.ApViewStoreType.extension => {
     id: "",
@@ -47,12 +47,16 @@ module Method = {
     }, _)
   }
 
-  let _buildApp = (service, (selectedExtensions, selectedContributes), visualExtension) => {
+  let _buildApp = (
+    service,
+    (selectedExtensions, selectedContributes),
+    (visualExtension, elementContribute),
+  ) => {
     service.meta3d.loadApp(.
       AppUtils.generateApp(
         service,
         selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
-        selectedContributes,
+        selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
       ),
     )->Meta3dCommonlib.Tuple2.getFirst
   }
@@ -77,7 +81,7 @@ module Method = {
     service,
     (selectedExtensions, selectedContributes),
     initData,
-    visualExtension,
+    (visualExtension, elementContribute),
   ) => {
     _buildApp(
       service,
@@ -85,7 +89,7 @@ module Method = {
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
-      visualExtension,
+      (visualExtension, elementContribute),
     )
     ->_initAndUpdateApp(service, initData)
     ->Meta3dBsMost.Most.drain
@@ -111,11 +115,107 @@ module Method = {
     visualExtension->Meta3dCommonlib.OptionSt.isSome
   }
 
+  let _getElementContributeName = () => "meta3d-ui-view-element"
+
+  let _getElementContributeProtocolName = () => "meta3d-ui-view-element-protocol"
+
+  let _getElementContributeProtocolVersion = () => "0.5.0"
+
+  let buildElementContributeFileStr = () => {
+    `
+window.Contribute = {
+    getContribute: (api, [dependentExtensionNameMap, _]) => {
+        let { meta3dUIExtensionName } = dependentExtensionNameMap
+
+        return {
+            elementName: "UIViewElement",
+            execOrder: 0,
+            elementState: {
+                x: 0,
+                y: 140,
+                width: 20,
+                height: 10,
+                text: "button",
+            },
+            elementFunc: (meta3dState, elementState) => {
+                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+
+                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
+
+                let { x, y, width, height, text } = elementState
+
+                // let drawButton = getUIControl(uiState, uiControlName)
+                let drawButton = getUIControl(uiState, "Button")
+
+
+                let data = drawButton(meta3dState,
+                    {
+                        rect: {
+                            x,
+                            y,
+                            width,
+                            height,
+                        },
+                        // text
+                    })
+                meta3dState = data[0]
+
+                return new Promise((resolve) => {
+                    resolve(meta3dState)
+                })
+            }
+        }
+    }
+}
+`
+  }
+
+  let _buildContribute = (name, data): FrontendUtils.ApViewStoreType.contribute => {
+    id: "",
+    protocolIconBase64: "",
+    newName: name->Some,
+    data: data,
+  }
+
+  let generateElementContribute = (service, fileStr) => {
+    service.meta3d.generateContribute(.
+      (
+        {
+          name: _getElementContributeName(),
+          protocol: {
+            name: _getElementContributeProtocolName(),
+            version: _getElementContributeProtocolVersion(),
+          },
+          dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+            "meta3dUIExtensionName",
+            (
+              {
+                protocolName: "meta3d-ui-protocol",
+                protocolVersion: "^0.5.0",
+              }: Meta3d.ExtensionFileType.dependentData
+            ),
+          ),
+          dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        }: Meta3d.ExtensionFileType.contributePackageData
+      ),
+      fileStr,
+    )
+    ->service.meta3d.loadContribute(. _)
+    ->_buildContribute(_getElementContributeName(), _)
+  }
+
+  let updateElementContribute = (dispatch, elementContribute) => {
+    dispatch(FrontendUtils.UIViewStoreType.SetElementContribute(elementContribute))
+  }
+
   let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
     let {canvasData, selectedExtensions, selectedContributes} = apViewState
-    let {visualExtension} = uiViewState
+    let {selectedUIControls, visualExtension, elementContribute} = uiViewState
 
-    (canvasData, selectedExtensions, selectedContributes, visualExtension)
+    (
+      (canvasData, selectedExtensions, selectedContributes),
+      (selectedUIControls, visualExtension, elementContribute),
+    )
   }
 }
 
@@ -124,10 +224,8 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
 
   let (
-    canvasData,
-    selectedExtensions,
-    selectedContributes,
-    visualExtension,
+    (canvasData, selectedExtensions, selectedContributes),
+    (selectedUIControls, visualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -140,21 +238,30 @@ let make = (~service: service) => {
   }, [])
 
   service.react.useEffect1(. () => {
-    switch visualExtension {
-    | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+    Method.generateElementContribute(
+      service,
+      Method.buildElementContributeFileStr(),
+    )->Method.updateElementContribute(dispatch, _)
+
+    None
+  }, [selectedUIControls])
+
+  service.react.useEffect1(. () => {
+    switch (visualExtension, elementContribute) {
+    | (Some(visualExtension), Some(elementContribute)) =>
+      FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
         Method.renderApp(
           service,
           (selectedExtensions, selectedContributes),
           Method.getInitData(),
-          visualExtension,
+          (visualExtension, elementContribute),
         )->ignore
       }, 5->Some)
-
-    | None => ()
+    | _ => ()
     }
 
     None
-  }, [])
+  }, [elementContribute])
 
   !Method.isLoaded(visualExtension)
     ? <p> {React.string(`loading...`)} </p>

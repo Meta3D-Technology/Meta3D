@@ -272,7 +272,7 @@ run test
 
 in default rect
 
-*** TODO update "start default run" to draw view
+*** DONE update "start default run" to draw view
 
 
 test with test generated element code
@@ -284,6 +284,7 @@ InitVisual
 UpdateVisual
 
 
+***  DONE pass bdd test
 
 ***  TODO pass run test
 
@@ -323,7 +324,9 @@ change -> json -> generate element contribute and replace old one
 
 
 
-
+** TODO add e2e test to test: select ui control->should render app correctly!
+refer to:
+https://wanago.io/2019/12/30/javascript-testing-introduction-end-to-end-testing-cypress/
 
 
 

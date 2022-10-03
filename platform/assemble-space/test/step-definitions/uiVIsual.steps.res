@@ -57,10 +57,8 @@ defineFeature(feature, test => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
-            CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
-            list{},
-            list{},
-            Some(Obj.magic(1)),
+            (CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()), list{}, list{}),
+            (list{}, Some(Obj.magic(1)), None),
           ),
           _,
         )
@@ -155,8 +153,9 @@ defineFeature(feature, test => {
   })
 
   test(."render app", ({given, \"when", \"and", then}) => {
+    let element1 = ref(Obj.magic(1))
     let v = ref(Obj.magic(1))
-    let e1 = ref(Obj.magic(1))
+    let ui = ref(Obj.magic(1))
     let c1 = ref(Obj.magic(1))
     let selectedExtensions = ref(list{})
     let selectedContributes = ref(list{})
@@ -167,6 +166,19 @@ defineFeature(feature, test => {
     given("prepare flag", () => {
       UIVisualTool.prepareInitFlag()
       UIVisualTool.prepareUpdateFlag()
+    })
+
+    \"and"("generate empty element contribute element1", () => {
+      element1 :=
+        UIVisualTool.generateElementContribute(
+          ServiceTool.build(
+            ~sandbox,
+            ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+            ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+            (),
+          ),
+          UIVisualTool.buildEmptyContributeFileStr(),
+        )
     })
 
     \"and"("get visual extension v", () => {
@@ -187,15 +199,22 @@ defineFeature(feature, test => {
         )->UIVisualTool.loadAndBuildVisualExtension
     })
 
-    \"and"("generate extension e1", () => {
-      e1 := ExtensionTool.generateExtension(~name="e1", ())->Meta3d.Main.loadExtension
+    \"and"("generate extension ui", () => {
+      // ui := ExtensionTool.generateExtension(~name="ui", ())->Meta3d.Main.loadExtension
+      ui :=
+        ExtensionTool.generateExtension(
+          ~name="meta3d-ui",
+          ~protocolName="meta3d-ui-protocol",
+          ~protocolVersion="^0.5.0",
+          (),
+        )->Meta3d.Main.loadExtension
     })
     \"and"("generate contribute c1", () => {
       c1 := ContributeTool.generateContribute(~name="c1", ())->Meta3d.Main.loadContribute
     })
 
-    \"and"("select e1", () => {
-      let name = "e1"
+    \"and"("select ui", () => {
+      let name = "meta3d-ui"
 
       selectedExtensions :=
         list{
@@ -203,7 +222,7 @@ defineFeature(feature, test => {
             ~name,
             ~newName=None,
             ~id=name,
-            ~data=e1.contents,
+            ~data=ui.contents,
             (),
           ),
         }
@@ -224,7 +243,7 @@ defineFeature(feature, test => {
         }
     })
 
-    CucumberAsync.execStep(\"when", "render app with e1, c1, v", () => {
+    CucumberAsync.execStep(\"when", "render app with ui, c1, v", () => {
       let initData = Obj.magic(1)
 
       UIVisualTool.renderApp(
@@ -241,11 +260,11 @@ defineFeature(feature, test => {
         ),
         (selectedExtensions.contents, selectedContributes.contents),
         initData,
-        v.contents,
+        (v.contents, element1.contents),
       )
     })
 
-    \"and"("build app with e1, v_1 and c1", () => {
+    \"and"("build app with ui, v and c1", () => {
       ()
     })
 

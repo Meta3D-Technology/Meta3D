@@ -24,6 +24,10 @@ let reducer = (state, action) => {
       ...state,
       visualExtension: visualExtension->Some,
     }
+  | SetElementContribute(elementContribute) => {
+      ...state,
+      elementContribute: elementContribute->Some,
+    }
   }
 }
 
@@ -31,4 +35,5 @@ let initialState = {
   selectedUIControls: list{},
   inspectorCurrentUIControlId: None,
   visualExtension: None,
+  elementContribute: None,
 }

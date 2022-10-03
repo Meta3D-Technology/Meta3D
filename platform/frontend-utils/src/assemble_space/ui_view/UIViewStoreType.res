@@ -18,9 +18,11 @@ type action =
   | SelectUIControl(protocolIconBase64, name, Meta3d.ExtensionFileType.contributeFileData)
   | SetInspectorCurrentUIControlId(id)
   | SetVisualExtension(ApViewStoreType.extension)
+  | SetElementContribute(ApViewStoreType.contribute)
 
 type state = {
   selectedUIControls: selectedUIControls,
   inspectorCurrentUIControlId: option<id>,
   visualExtension: option<ApViewStoreType.extension>,
+  elementContribute: option<ApViewStoreType.contribute>,
 }

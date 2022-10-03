@@ -24,11 +24,12 @@ Feature: UIVisual
 
     Scenario: render app
         Given prepare flag
-        Given get visual extension v
-        And generate extension e1
+        And generate empty element contribute element1
+        And get visual extension v
+        And generate extension ui
         And generate contribute c1
-        And select e1
+        And select ui
         And select c1
-        When render app with e1, c1, v
-        Then build app with e1, v_1 and c1
+        When render app with ui, c1, v
+        Then build app with ui, v and c1
         And v should be inited and updated

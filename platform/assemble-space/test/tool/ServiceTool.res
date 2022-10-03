@@ -28,6 +28,8 @@ let build = (
   ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~loadContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~initExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -61,6 +63,8 @@ let build = (
     findAllPublishApps: findAllPublishApps,
   },
   meta3d: {
+    generateContribute: generateContribute,
+    loadContribute: loadContribute,
     generateExtension: generateExtension,
     loadExtension: loadExtension,
     initExtension: initExtension,

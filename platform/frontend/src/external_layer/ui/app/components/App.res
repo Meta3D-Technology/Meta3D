@@ -12,6 +12,9 @@ let make = () => {
     },
     backend: BackendCloudbase.buildService(),
     meta3d: {
+      generateContribute: (. packageData, fileStr) =>
+        Meta3d.Main.generateContribute(packageData, fileStr),
+      loadContribute: (. contributeBinaryFile) => Meta3d.Main.loadContribute(contributeBinaryFile),
       generateExtension: (. packageData, fileStr) =>
         Meta3d.Main.generateExtension(packageData, fileStr),
       loadExtension: (. extensionBinaryFile) => Meta3d.Main.loadExtension(extensionBinaryFile),

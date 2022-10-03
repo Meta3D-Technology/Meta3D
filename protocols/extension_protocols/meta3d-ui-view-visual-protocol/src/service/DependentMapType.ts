@@ -4,4 +4,8 @@ export type dependentExtensionNameMap = {
     meta3dBindIOEventExtensionName: string
 }
 
-export type dependentContributeNameMap = {}
+export type dependentContributeNameMap = {
+    meta3dSkinDefaultContributeName: string,
+    meta3dUIControlButtonContributeName: string,
+    meta3dUIViewElementContributeName: string
+}
