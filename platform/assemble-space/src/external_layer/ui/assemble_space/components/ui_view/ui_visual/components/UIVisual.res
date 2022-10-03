@@ -123,55 +123,9 @@ module Method = {
 
   let _getElementContributeProtocolName = () => "meta3d-ui-view-element-protocol"
 
-  let _getElementContributeProtocolVersion = () => "0.5.0"
+  let _getElementContributeProtocolVersion = () => "0.5.1"
 
   let buildElementContributeFileStr = selectedUIControls => {
-    //     `
-    // window.Contribute = {
-    //     getContribute: (api, [dependentExtensionNameMap, _]) => {
-    //         let { meta3dUIExtensionName } = dependentExtensionNameMap
-
-    //         return {
-    //             elementName: "UIViewElement",
-    //             execOrder: 0,
-    //             elementState: {
-    //                 x: 0,
-    //                 y: 140,
-    //                 width: 20,
-    //                 height: 10,
-    //                 text: "button",
-    //             },
-    //             elementFunc: (meta3dState, elementState) => {
-    //                 let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
-
-    //                 let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
-
-    //                 let { x, y, width, height, text } = elementState
-
-    //                 // let drawButton = getUIControl(uiState, uiControlName)
-    //                 let drawButton = getUIControl(uiState, "Button")
-
-    //                 let data = drawButton(meta3dState,
-    //                     {
-    //                         rect: {
-    //                             x,
-    //                             y,
-    //                             width,
-    //                             height,
-    //                         },
-    //                         // text
-    //                     })
-    //                 meta3dState = data[0]
-
-    //                 return new Promise((resolve) => {
-    //                     resolve(meta3dState)
-    //                 })
-    //             }
-    //         }
-    //     }
-    // }
-    // `
-
     ElementMRUtils.buildElementMR(
       selectedUIControls->Meta3dCommonlib.ListSt.toArray,
     )->ElementMRUtils.generateElementContributeFileStr

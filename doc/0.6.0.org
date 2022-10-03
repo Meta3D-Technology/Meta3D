@@ -307,25 +307,25 @@ ui control protocol should define json related meta data?
 
 
 
-*** TODO update "start default run" to draw view
+# *** TODO update "start default run" to draw view
 
 
-only register this element:
-json -> element contribute:
-change -> json -> generate element contribute and replace old one
+# only register this element:
+# json -> element contribute:
+# change -> json -> generate element contribute and replace old one
 
 
 
-***  TODO pass bdd test
+# ***  TODO pass bdd test
 
-***  TODO pass run test
+***  DONE pass run test
 
 update and publish meta3d-ui-view-element-protocol version
 let _getElementContributeProtocolVersion = () => "0.5.0"
 
-*** TODO refactor: add contract check
+# *** TODO refactor: add contract check
 
-*** TODO refactor: move to ap layer
+# *** TODO refactor: move to ap layer
 
 ** TODO rect
 

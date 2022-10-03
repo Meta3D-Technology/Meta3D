@@ -137,7 +137,7 @@ window.Contribute = {
         let { meta3dUIExtensionName } = dependentExtensionNameMap
 
         return {
-            elementName:${elementName},
+            elementName:"${elementName}",
             execOrder: ${execOrder->Js.Int.toString},
             elementState: null,
             elementFunc: (meta3dState, elementState) => {
