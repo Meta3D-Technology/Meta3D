@@ -34,3 +34,14 @@ Feature: UIVisual
         When render app with ui, c1, v
         Then build app with ui, v and c1
         And v should be inited and updated
+
+
+    Rule: build element middle represent and generate element contribute string
+
+        Scenario: build element middle represent with two buttons generate element contribute string
+            Given generate ui control button b1, b2
+            And select b1, b2
+            When build element middle represent with b1, b2
+            And generate element contribute string
+            Then should build correct result
+            And generate correct result

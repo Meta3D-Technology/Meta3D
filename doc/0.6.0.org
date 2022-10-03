@@ -296,14 +296,14 @@ UpdateVisual
 
 
 
-*** TODO generate json
+*** DONE generate mr
 
 
 json -> generate element contribute code(javascript)
 
 ui control protocol should define json related meta data?
 
-***  TODO pass bdd test
+***  DONE pass bdd test
 
 
 
@@ -320,55 +320,43 @@ change -> json -> generate element contribute and replace old one
 
 ***  TODO pass run test
 
+update and publish meta3d-ui-view-element-protocol version
+let _getElementContributeProtocolVersion = () => "0.5.0"
+
+*** TODO refactor: add contract check
+
+*** TODO refactor: move to ap layer
+
+** TODO rect
+
+*** TODO control add properies
+
+rect:
+x y width height
+
+
+** TODO event and reducer
+
+*** TODO control add event
+
+event:
+
+click,
+    focus,
+...
 
 
 
-** TODO bdd test
+click:
+list(action name) by select action contributes
 
 
+*** TODO bdd test
 
 
+*** TODO reducer
 
-
-** TODO add e2e test to test: select ui control->should render app correctly!
-refer to:
-https://wanago.io/2019/12/30/javascript-testing-introduction-end-to-end-testing-cypress/
-
-
-
-
-** TODO element add properties
-
-
-update json
-
-
-
-
-
-
-state:
-default is empty, decide by element properties
-
-
-
-# isShow: null / true / false
-#     (add isShow to state when not null)
-
-isShow: true / false
-    # (add isShow to state when not null)
-    mainly for multiple elements
-
-execOrder: input: 0
-
-# custom data:
-# field name, field type, field default value
-
-# (move wonder editor->script attribute here?)
-
-** TODO reducer
-
-*** TODO rewrite action contribute
+**** TODO rewrite action contribute
 
 return {
     ...,
@@ -411,7 +399,7 @@ return {
 )
 
 
-*** TODO element add reducers
+**** TODO element add reducers
 
 role(string):
 list by select action contributes;
@@ -435,13 +423,89 @@ add self->reducer to meta3dState
 so can be combined in editor entry extension 
 
 
-* TODO feat: ui view->run in new tab
+
+*** TODO bdd test
+
+
+*** TODO feat: ui view->run in new tab
 
 register action
 
 bind event
 
 loop
+
+update mr
+
+
+*** TODO bdd test
+
+
+*** TODO run test
+
+
+
+** TODO skin
+
+
+
+
+
+
+** TODO isShow
+
+
+isShow: true/false
+
+    design for single element
+
+
+
+# ** TODO bdd test
+
+
+
+
+
+
+
+
+** TODO element add properties
+
+
+update json
+
+
+
+
+
+
+state:
+default is empty, decide by element properties
+
+
+
+# isShow: null / true / false
+#     (add isShow to state when not null)
+
+isShow: true / false
+    # (add isShow to state when not null)
+    mainly for multiple elements
+
+execOrder: input: 0
+
+# custom data:
+# field name, field type, field default value
+
+# (move wonder editor->script attribute here?)
+
+# * TODO feat: ui view->run in new tab
+
+# register action
+
+# bind event
+
+# loop
 
 
 

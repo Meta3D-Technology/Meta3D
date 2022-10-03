@@ -125,53 +125,56 @@ module Method = {
 
   let _getElementContributeProtocolVersion = () => "0.5.0"
 
-  let buildElementContributeFileStr = () => {
-    `
-window.Contribute = {
-    getContribute: (api, [dependentExtensionNameMap, _]) => {
-        let { meta3dUIExtensionName } = dependentExtensionNameMap
+  let buildElementContributeFileStr = selectedUIControls => {
+    //     `
+    // window.Contribute = {
+    //     getContribute: (api, [dependentExtensionNameMap, _]) => {
+    //         let { meta3dUIExtensionName } = dependentExtensionNameMap
 
-        return {
-            elementName: "UIViewElement",
-            execOrder: 0,
-            elementState: {
-                x: 0,
-                y: 140,
-                width: 20,
-                height: 10,
-                text: "button",
-            },
-            elementFunc: (meta3dState, elementState) => {
-                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+    //         return {
+    //             elementName: "UIViewElement",
+    //             execOrder: 0,
+    //             elementState: {
+    //                 x: 0,
+    //                 y: 140,
+    //                 width: 20,
+    //                 height: 10,
+    //                 text: "button",
+    //             },
+    //             elementFunc: (meta3dState, elementState) => {
+    //                 let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 
-                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
+    //                 let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
 
-                let { x, y, width, height, text } = elementState
+    //                 let { x, y, width, height, text } = elementState
 
-                // let drawButton = getUIControl(uiState, uiControlName)
-                let drawButton = getUIControl(uiState, "Button")
+    //                 // let drawButton = getUIControl(uiState, uiControlName)
+    //                 let drawButton = getUIControl(uiState, "Button")
 
+    //                 let data = drawButton(meta3dState,
+    //                     {
+    //                         rect: {
+    //                             x,
+    //                             y,
+    //                             width,
+    //                             height,
+    //                         },
+    //                         // text
+    //                     })
+    //                 meta3dState = data[0]
 
-                let data = drawButton(meta3dState,
-                    {
-                        rect: {
-                            x,
-                            y,
-                            width,
-                            height,
-                        },
-                        // text
-                    })
-                meta3dState = data[0]
+    //                 return new Promise((resolve) => {
+    //                     resolve(meta3dState)
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }
+    // `
 
-                return new Promise((resolve) => {
-                    resolve(meta3dState)
-                })
-            }
-        }
-    }
-}
-`
+    ElementMRUtils.buildElementMR(
+      selectedUIControls->Meta3dCommonlib.ListSt.toArray,
+    )->ElementMRUtils.generateElementContributeFileStr
   }
 
   let _buildContribute = (name, data): FrontendUtils.ApViewStoreType.contribute => {
@@ -245,7 +248,7 @@ let make = (~service: service) => {
     selectedUIControls->Meta3dCommonlib.ListSt.length > 0
       ? Method.generateElementContribute(
           service,
-          Method.buildElementContributeFileStr(),
+          Method.buildElementContributeFileStr(selectedUIControls),
         )->Method.updateElementContribute(dispatch, _)
       : ()
 

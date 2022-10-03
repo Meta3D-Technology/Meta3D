@@ -155,6 +155,23 @@ function removeDuplicateItems(arr) {
   return resultArr;
 }
 
+function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
+  var resultArr = [];
+  var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+  for(var i = 0 ,i_finish = arr.length; i < i_finish; ++i){
+    var item = arr[i];
+    var key = buildKeyFunc(item);
+    var match = MutableHashMap$Meta3dCommonlib.get(map, key);
+    if (match !== undefined) {
+      
+    } else {
+      resultArr.push(item);
+      MutableHashMap$Meta3dCommonlib.set(map, key, item);
+    }
+  }
+  return resultArr;
+}
+
 function chunk(arr, size) {
   var match = Belt_Array.reduceU(arr, [
         [],
@@ -206,5 +223,6 @@ exports.filter = filter;
 exports.deleteBySwap = deleteBySwap;
 exports.range = range;
 exports.removeDuplicateItems = removeDuplicateItems;
+exports.removeDuplicateItemsWithBuildKeyFunc = removeDuplicateItemsWithBuildKeyFunc;
 exports.chunk = chunk;
 /* No side effect */

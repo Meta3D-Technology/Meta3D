@@ -308,4 +308,96 @@ defineFeature(feature, test => {
       (UIVisualTool.getInitFlag(), UIVisualTool.getUpdateFlag())->expect == (1, 11)
     })
   })
+
+  test(."build element middle represent with two buttons generate element contribute string", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let b1 = ref(Obj.magic(1))
+    let b2 = ref(Obj.magic(1))
+    let mr = ref(Obj.magic(1))
+    let str = ref(Obj.magic(1))
+    let selectedContributes = ref(list{})
+
+    _prepare(given, \"and")
+
+    given("generate ui control button b1, b2", () => {
+      let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+        name: "meta3d-ui-control-button-protocol",
+        version: "0.5.0",
+      }
+
+      b1 :=
+        ContributeTool.buildContributeData(
+          ~contributePackageData=ContributeTool.buildContributePackageData(
+            ~protocol=buttonProtocol,
+            (),
+          ),
+          (),
+        )
+      b2 :=
+        ContributeTool.buildContributeData(
+          ~contributePackageData=ContributeTool.buildContributePackageData(
+            ~protocol=buttonProtocol,
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("select b1, b2", () => {
+      selectedContributes :=
+        list{
+          SelectedUIControlsTool.buildSelectedUIControl(
+            // ~name,
+            // ~newName=None,
+            // ~id=name,
+            ~data=b1.contents,
+            (),
+          ),
+          SelectedUIControlsTool.buildSelectedUIControl(~data=b2.contents, ()),
+        }
+    })
+
+    \"when"("build element middle represent with b1, b2", () => {
+      mr :=
+        UIVisualTool.buildElementMR(selectedContributes.contents->Meta3dCommonlib.ListSt.toArray)
+    })
+
+    \"and"("generate element contribute string", () => {
+      str := UIVisualTool.generateElementContributeFileStr(mr.contents)
+    })
+
+    then("should build correct result", () => {
+      mr.contents->expect ==
+        (
+          {
+            meta: {
+              elementName: "UIViewElement",
+              execOrder: 0,
+            },
+            body: [
+              {
+                protocol: {
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "0.5.0",
+                },
+              },
+              {
+                protocol: {
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "0.5.0",
+                },
+              },
+            ],
+          }: ElementMRUtils.elementMR
+        )
+    })
+
+    \"and"("generate correct result", () => {
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:UIViewElement,\n            execOrder: 0,\n            elementState: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    \n{\n                        rect: {\n                            x:0,\n                            y:0,\n                            width:20,\n                            height:20,\n                        },\n                    }\n  )\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    \n{\n                        rect: {\n                            x:0,\n                            y:0,\n                            width:20,\n                            height:20,\n                        },\n                    }\n  )\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+    })
+  })
 })

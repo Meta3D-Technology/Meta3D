@@ -6,16 +6,17 @@ let buildSelectedUIControl = (
   ~name="e1",
   ~protocolIconBase64="i1",
   ~id="e1",
+  ~data=ContributeTool.buildContributeData(
+    ~contributePackageData=ContributeTool.buildContributePackageData(~name, ()),
+    (),
+  ),
   (),
 ): FrontendUtils.UIViewStoreType.uiControl => {
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
     name: name,
-    data: {
-      contributePackageData: ContributeTool.buildContributePackageData(~name, ()),
-      contributeFuncData: Js.Typed_array.Uint8Array.make([]),
-    },
+    data: data,
   }
 }
 

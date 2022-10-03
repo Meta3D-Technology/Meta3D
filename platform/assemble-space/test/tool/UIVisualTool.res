@@ -52,3 +52,7 @@ let generateElementContribute = UIVisual.Method.generateElementContribute
 let buildEmptyContributeFileStr = () => {
   `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
 }
+
+let buildElementMR = ElementMRUtils.buildElementMR
+
+let generateElementContributeFileStr = ElementMRUtils.generateElementContributeFileStr
