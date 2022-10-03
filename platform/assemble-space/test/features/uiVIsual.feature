@@ -17,10 +17,11 @@ Feature: UIVisual
         Then should show the canvas
 
     Scenario: get and set visual extension
-        Given generate visual extension v
-        And publish v
+        Given generate visual extension v1 with old version
+        And generate visual extension v2 with newest version
+        And publish v1, v2
         When get and set visual extension
-        Then should dispatch SetVisualExtension action
+        Then should dispatch SetVisualExtension action with v2
 
     Scenario: render app
         Given prepare flag

@@ -55,10 +55,9 @@ let _invokeAsyncLifeOtherHander = (state, extensionName, data, handlerNullable) 
     handler(state, getExtensionServiceExn(state, extensionName), data)
   })
   ->Meta3dCommonlib.NullableSt.getWithDefault(
-Js.Promise.make((~resolve, ~reject) => resolve(. state))
+    Js.Promise.make((~resolve, ~reject) => resolve(. state)),
   )
 }
-
 
 let startExtension = (state, extensionName) => {
   _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeOnStartHander(
@@ -78,10 +77,17 @@ let updateExtension = (state, extensionName, data) => {
 }
 
 let initExtension = (state, extensionName, data) => {
-  _getExtensionLifeExn(state, extensionName).onInit->_invokeAsyncLifeOtherHander(state, extensionName, data, _)
+  _getExtensionLifeExn(state, extensionName).onInit->_invokeAsyncLifeOtherHander(
+    state,
+    extensionName,
+    data,
+    _,
+  )
 }
 
 let _decideContributeType = (contribute: contribute) => {
+  open Meta3dType.ContributeType
+
   let contribute = contribute->Obj.magic
 
   !(contribute["actionName"]->Js.Nullable.isNullable) &&
@@ -101,6 +107,9 @@ let _decideContributeType = (contribute: contribute) => {
     : !(contribute["uiControlName"]->Js.Nullable.isNullable) &&
     !(contribute["func"]->Js.Nullable.isNullable)
     ? UIControl
+    : !(contribute["skinName"]->Js.Nullable.isNullable) &&
+    !(contribute["skin"]->Js.Nullable.isNullable)
+    ? Skin
     : !(contribute["workPluginName"]->Js.Nullable.isNullable) &&
     !(contribute["allPipelineData"]->Js.Nullable.isNullable)
     ? WorkPlugin
@@ -198,6 +207,6 @@ and buildAPI = (): api => {
   )->Obj.magic,
   getContribute: (. state, name: contributeName) =>
     getContributeExn(state, (name: contributeName))->Obj.magic,
-  getAllContributesByType: (. state, contributeType: contributeType) =>
+  getAllContributesByType: (. state, contributeType: Meta3dType.ContributeType.contributeType) =>
     getAllContributesByType(state, contributeType)->Obj.magic,
 }

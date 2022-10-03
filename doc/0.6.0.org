@@ -286,7 +286,13 @@ UpdateVisual
 
 ***  DONE pass bdd test
 
-***  TODO pass run test
+***  DONE pass run test
+
+# fix Main: use getAllContributesByType for skin, ui control
+
+
+# Main not update?
+
 
 
 

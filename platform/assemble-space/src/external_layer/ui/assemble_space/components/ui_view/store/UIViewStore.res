@@ -6,6 +6,8 @@ let reducer = (state, action) => {
       ...state,
       selectedUIControls: list{},
       inspectorCurrentUIControlId: None,
+      visualExtension: None,
+      elementContribute: None,
     }
   | SelectUIControl(protocolIconBase64, name, data) => {
       ...state,

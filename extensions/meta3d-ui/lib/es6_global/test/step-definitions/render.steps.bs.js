@@ -54,7 +54,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         
                       }));
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "render", (function (param) {
-                        return MainTool$Meta3dUi.render(sandbox, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), uiExtensionName, undefined, 22, ioData.contents, undefined);
+                        return MainTool$Meta3dUi.render(sandbox, undefined, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), uiExtensionName, undefined, 22, ioData.contents, undefined);
                       }));
                 return Curry._2(param.then, "set io data", (function (param) {
                               var init = state.contents;
@@ -115,7 +115,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         
                       }));
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "render", (function (param) {
-                        return MainTool$Meta3dUi.render(sandbox, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, undefined, undefined, undefined, undefined, undefined);
+                        return MainTool$Meta3dUi.render(sandbox, undefined, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, undefined, undefined, undefined, undefined, undefined);
                       }));
                 return Curry._2(param.then, "not exec func1", (function (param) {
                               return Operators$Meta3dBsJestCucumber.$eq(expect(Sinon.getCallCount(execFunc1Stub.contents)), 0);
@@ -177,7 +177,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         
                       }));
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "render", (function (param) {
-                        return MainTool$Meta3dUi.render(sandbox, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, undefined, undefined, undefined, undefined);
+                        return MainTool$Meta3dUi.render(sandbox, undefined, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, undefined, undefined, undefined, undefined);
                       }));
                 Curry._2(param.then, "exec func2 and func1", (function (param) {
                         return Operators$Meta3dBsJestCucumber.$eq(expect([
@@ -244,7 +244,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               
                             }));
                       CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "render", (function (param) {
-                              var __x = MainTool$Meta3dUi.render(sandbox, Caml_option.some(getExtensionServiceStub.contents), Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, imguiRendererExtensionName, 22, undefined, undefined);
+                              var __x = MainTool$Meta3dUi.render(sandbox, Caml_option.some(getExtensionServiceStub.contents), undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, imguiRendererExtensionName, 22, undefined, undefined);
                               return __x.then(function (meta3dState) {
                                           newMeta3dState.contents = meta3dState;
                                           return Promise.resolve(meta3dState);

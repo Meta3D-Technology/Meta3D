@@ -79,6 +79,8 @@ function _decideContributeType(contribute) {
     return /* GameObject */5;
   } else if (!(contribute.uiControlName == null) && !(contribute.func == null)) {
     return /* UIControl */0;
+  } else if (!(contribute.skinName == null) && !(contribute.skin == null)) {
+    return /* Skin */1;
   } else if (!(contribute.workPluginName == null) && !(contribute.allPipelineData == null)) {
     return /* WorkPlugin */6;
   } else {

@@ -14,6 +14,8 @@ let getVisualExtensionProtocolName = UIVisual.Method._getVisualExtensionProtocol
 
 let getVisualExtensionProtocolVersion = UIVisual.Method._getVisualExtensionProtocolVersion
 
+let getVisualExtensionVersion = UIVisual.Method._getVisualExtensionVersion
+
 let prepareInitFlag = %raw(` function(){window.initFlag = 0} `)
 
 let prepareUpdateFlag = %raw(` function(){window.updateFlag = 0} `)

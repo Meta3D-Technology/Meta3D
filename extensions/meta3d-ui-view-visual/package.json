@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-view-visual",
-    "version": "0.5.1",
+    "version": "0.5.5",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-ui-view-visual-protocol"
@@ -17,12 +17,6 @@
         }
     },
     "dependentContributeNameMap": {
-        "meta3dSkinDefaultContributeName": {
-            "protocolName": "meta3d-skin-default-protocol"
-        },
-        "meta3dUIControlButtonContributeName": {
-            "protocolName": "meta3d-ui-control-button-protocol"
-        },
         "meta3dUIViewElementContributeName": {
             "protocolName": "meta3d-ui-view-element-protocol"
         }
@@ -38,11 +32,9 @@
     "dependencies": {
         "meta3d-bind-io-event-protocol": "^0.5.0",
         "meta3d-imgui-renderer-protocol": "^0.5.0",
-        "meta3d-ui-protocol": "^0.5.0",
-        "meta3d-ui-control-button-protocol": "^0.5.0",
-        "meta3d-skin-default-protocol": "^0.5.0",
+        "meta3d-ui-protocol": "^0.5.1",
         "meta3d-ui-view-element-protocol": "^0.5.0",
-        "meta3d-ui-view-visual-protocol": "^0.5.1",
+        "meta3d-ui-view-visual-protocol": "^0.5.4",
         "meta3d-type": "^0.5.0"
     },
     "devDependencies": {

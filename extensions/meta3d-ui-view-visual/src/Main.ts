@@ -1,4 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
+import { contributeType } from "meta3d-type/src/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-view-visual-protocol/src/service/DependentMapType"
 import { service } from "meta3d-ui-view-visual-protocol/src/service/ServiceType"
@@ -7,8 +8,8 @@ import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
-import { skin } from "meta3d-skin-default-protocol"
-import { inputData, outputData } from "meta3d-ui-control-button-protocol"
+// import { skin } from "meta3d-skin-default-protocol"
+// import { inputData, outputData } from "meta3d-ui-control-button-protocol"
 import { elementState } from "meta3d-ui-view-element-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
@@ -18,7 +19,8 @@ import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContribute
 let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dUIExtensionName } = dependentExtensionNameMap
 	let {
-		meta3dSkinDefaultContributeName, meta3dUIControlButtonContributeName, meta3dUIViewElementContributeName,
+		// meta3dSkinDefaultContributeName, meta3dUIControlButtonContributeName,
+		meta3dUIViewElementContributeName,
 	} = dependentContributeNameMap
 
 	let { registerElement, combineReducers } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
@@ -29,9 +31,16 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 
 	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	uiState = registerSkin(uiState, api.getContribute<skinContribute<skin>>(meta3dState, meta3dSkinDefaultContributeName))
+	// uiState = registerSkin(uiState, api.getContribute<skinContribute<skin>>(meta3dState, meta3dSkinDefaultContributeName))
+	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
+		return registerSkin(uiState, contribute)
+	}, uiState)
 
-	uiState = registerUIControl(uiState, api.getContribute<uiControlContribute<inputData, outputData>>(meta3dState, meta3dUIControlButtonContributeName))
+	// uiState = registerUIControl(uiState, api.getContribute<uiControlContribute<inputData, outputData>>(meta3dState, meta3dUIControlButtonContributeName))
+	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
+		return registerUIControl(uiState, contribute)
+	}, uiState)
+
 
 
 

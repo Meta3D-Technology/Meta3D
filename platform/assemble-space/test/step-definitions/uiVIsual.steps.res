@@ -88,19 +88,38 @@ defineFeature(feature, test => {
   })
 
   test(."get and set visual extension", ({given, \"when", \"and", then}) => {
-    let v = ref(Obj.magic(1))
+    let v1 = ref(Obj.magic(1))
+    let v2 = ref(Obj.magic(1))
     let getAllPublishExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    given("generate visual extension v", () => {
-      v :=
+    given("generate visual extension v1 with old version", () => {
+      v1 :=
         Meta3d.Main.generateExtension(
           (
             {
-              name: UIVisualTool.getVisualExtensionName(),
+              name: "v1",
+              protocol: {
+                name: UIVisualTool.getVisualExtensionProtocolName(),
+                version: "0.5.0",
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: Meta3d.ExtensionFileType.extensionPackageData
+          ),
+          "",
+        )
+    })
+
+    given("generate visual extension v2 with newest version", () => {
+      v2 :=
+        Meta3d.Main.generateExtension(
+          (
+            {
+              name: "v2",
               protocol: {
                 name: UIVisualTool.getVisualExtensionProtocolName(),
                 version: UIVisualTool.getVisualExtensionProtocolVersion(),
@@ -113,10 +132,17 @@ defineFeature(feature, test => {
         )
     })
 
-    \"and"("publish v", () => {
+    \"and"("publish v1, v2", () => {
       getAllPublishExtensionsStub.contents =
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.just([ExtensionTool.buildExtensionImplement(~file=v.contents, ())]),
+          Meta3dBsMost.Most.just([
+            ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.5.0", ()),
+            ExtensionTool.buildExtensionImplement(
+              ~file=v2.contents,
+              ~version=UIVisualTool.getVisualExtensionVersion(),
+              (),
+            ),
+          ]),
           _,
         )
     })
@@ -136,16 +162,26 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should dispatch SetVisualExtension action", () => {
+    then("should dispatch SetVisualExtension action with v2", () => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
         FrontendUtils.UIViewStoreType.SetVisualExtension({
           id: "",
           protocolIconBase64: "",
-          newName: "meta3d-ui-view-visual"->Some,
+          newName: UIVisualTool.getVisualExtensionName()->Some,
           isStart: false,
-          data: matchAny,
+          data: {
+            extensionPackageData: ExtensionTool.buildExtensionPackageData(
+              ~name="v2",
+              ~protocol={
+                name: UIVisualTool.getVisualExtensionProtocolName(),
+                version: UIVisualTool.getVisualExtensionProtocolVersion(),
+              },
+              (),
+            ),
+            extensionFuncData: matchAny,
+          },
         }),
       )
       ->expect == true

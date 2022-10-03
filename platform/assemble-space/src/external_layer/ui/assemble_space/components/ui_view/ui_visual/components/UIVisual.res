@@ -7,7 +7,9 @@ module Method = {
 
   let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-protocol"
 
-  let _getVisualExtensionProtocolVersion = () => "0.5.1"
+  let _getVisualExtensionProtocolVersion = () => "0.5.4"
+
+  let _getVisualExtensionVersion = () => "0.5.5"
 
   let _buildExtension = (name, data): FrontendUtils.ApViewStoreType.extension => {
     id: "",
@@ -26,15 +28,17 @@ module Method = {
       _getVisualExtensionProtocolName(),
       _getVisualExtensionProtocolVersion(),
     )
-    ->Meta3dBsMost.Most.map(initData => {
-      initData->Meta3dCommonlib.ArraySt.map((
-        {id, file, version, username}: FrontendUtils.BackendCloudbaseType.implement,
-      ) => {
-        _loadAndBuildVisualExtension(file)
-      })
-    }, _)
     ->Meta3dBsMost.Most.map(dataArr => {
-      dataArr[0]
+      (
+        dataArr->Meta3dCommonlib.ArraySt.filter((
+          {version}: FrontendUtils.BackendCloudbaseType.implement,
+        ) => {
+          version == _getVisualExtensionVersion()
+        })
+      )[0]
+    }, _)
+    ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
+      _loadAndBuildVisualExtension(data.file)
     }, _)
     ->Meta3dBsMost.Most.observe(extension => {
       dispatch(FrontendUtils.UIViewStoreType.SetVisualExtension(extension))
@@ -238,10 +242,12 @@ let make = (~service: service) => {
   }, [])
 
   service.react.useEffect1(. () => {
-    Method.generateElementContribute(
-      service,
-      Method.buildElementContributeFileStr(),
-    )->Method.updateElementContribute(dispatch, _)
+    selectedUIControls->Meta3dCommonlib.ListSt.length > 0
+      ? Method.generateElementContribute(
+          service,
+          Method.buildElementContributeFileStr(),
+        )->Method.updateElementContribute(dispatch, _)
+      : ()
 
     None
   }, [selectedUIControls])

@@ -7,6 +7,7 @@ let createState = () => {
 let init = (
   ~sandbox,
   ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionName="imguiRendererExtensionName",
@@ -21,6 +22,7 @@ let init = (
       (
         {
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
           setExtensionState: setExtensionState->Obj.magic,
           getExtensionState: getExtensionState->Obj.magic,
@@ -58,6 +60,7 @@ let render = (
     ImguiRendererServiceTool.buildService(~sandbox, ()),
     _,
   ),
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~uiExtensionName="uiExtensionName",
@@ -70,6 +73,7 @@ let render = (
     (
       {
         registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+        getAllContributesByType: getAllContributesByType->Obj.magic,
         getExtensionService: getExtensionService->Obj.magic,
         setExtensionState: setExtensionState->Obj.magic,
         getExtensionState: getExtensionState->Obj.magic,
@@ -128,6 +132,7 @@ let drawBox = (
   ~rect,
   ~backgroundColor,
   ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionName="imguiRendererExtensionName",
@@ -140,6 +145,7 @@ let drawBox = (
       (
         {
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
           setExtensionState: setExtensionState->Obj.magic,
           getExtensionState: getExtensionState->Obj.magic,

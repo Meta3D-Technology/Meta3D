@@ -6,7 +6,7 @@ module Method = {
   let getUIControls = (selectedUIControls: FrontendUtils.ApViewStoreType.selectedContributes) => {
     selectedUIControls->Meta3dCommonlib.ListSt.filter(({data}) => {
       data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
-        Meta3dType.Index.UIControl
+        Meta3dType.ContributeType.UIControl
     })
   }
 

@@ -1,4 +1,4 @@
-let decideContributeType = (protocolName: string): Meta3dType.Index.contributeType => {
+let decideContributeType = (protocolName: string): Meta3dType.ContributeType.contributeType => {
   switch protocolName {
   | name if name->Js.String.includes("-ui-control-", _) => UIControl
   | name if name->Js.String.includes("-work-plugin-", _) => WorkPlugin

@@ -1,16 +1,8 @@
+import { contributeType } from "./ContributeType"
+
 export type extensionName = string
 
 export type contributeName = string
-
-export enum contributeType {
-  UIControl = 0,
-  Skin,
-  Element,
-  Action,
-  Component,
-  GameObject,
-  WorkPlugin
-}
 
 export type extensionService = any
 

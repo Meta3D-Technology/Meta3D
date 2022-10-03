@@ -58,7 +58,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               
                             }));
                       Curry._2(param.when, "init", (function (param) {
-                              newMeta3dState.contents = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, true, 22, 5, undefined);
+                              newMeta3dState.contents = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, true, 22, 5, undefined);
                               
                             }));
                       Curry._2(param.then, "init imgui renderer", (function (param) {

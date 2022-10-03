@@ -4,7 +4,7 @@ Feature: Contribute
     So that I can get it
 
     Scenario: get all contributes by type
-        Given register action, component, element, ui control, gameObject, workPlugin contributes
+        Given register action, component, element, ui control, skin, gameObject, workPlugin contributes
         When get all contributes by each type by api
         Then get them
 

@@ -14,7 +14,7 @@ defineFeature(feature, test => {
     let state = ref(Obj.magic(1))
 
     given(
-      "register action, component, element, ui control, gameObject, workPlugin contributes",
+      "register action, component, element, ui control, skin, gameObject, workPlugin contributes",
       () => {
         state := StateTool.create()
 
@@ -71,6 +71,16 @@ defineFeature(feature, test => {
         state :=
           Main.registerContribute(
             state.contents,
+            "s1",
+            ContributeTool.buildGetContributeFunc({
+              "skinName": "s1",
+              "skin": Obj.magic(1),
+            })->Obj.magic,
+            _buildEmptyMapData(),
+          )
+        state :=
+          Main.registerContribute(
+            state.contents,
             "w1",
             ContributeTool.buildGetContributeFunc({
               "workPluginName": "w1",
@@ -87,22 +97,43 @@ defineFeature(feature, test => {
 
     then("get them", () => {
       (
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.Action)
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.Action,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.Component)
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.Component,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.Element)
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.Element,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.GameObject)
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.GameObject,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.UIControl)
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.UIControl,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
-        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.WorkPlugin)
+        APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.ContributeType.Skin)
+        ->Obj.magic
+        ->Js.Json.stringify,
+        APITool.buildAPI().getAllContributesByType(.
+          state.contents,
+          Meta3dType.ContributeType.WorkPlugin,
+        )
         ->Obj.magic
         ->Js.Json.stringify,
       )->expect ==
@@ -112,6 +143,7 @@ defineFeature(feature, test => {
           "[{\"elementName\":\"e1\",\"execOrder\":0}]",
           "[{\"createGameObjectFunc\":1,\"getAllGameObjectsFunc\":1}]",
           "[{\"uiControlName\":\"u1\",\"func\":1}]",
+          "[{\"skinName\":\"s1\",\"skin\":1}]",
           "[{\"workPluginName\":\"w1\",\"allPipelineData\":1}]",
         )
     })
@@ -139,7 +171,7 @@ defineFeature(feature, test => {
     })
 
     then("get empty", () => {
-      APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.Index.Action)
+      APITool.buildAPI().getAllContributesByType(. state.contents, Meta3dType.ContributeType.Action)
       ->Obj.magic
       ->Js.Json.stringify
       ->expect == "[]"
