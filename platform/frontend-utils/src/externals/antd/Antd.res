@@ -15,3 +15,5 @@ module Message = Antd__Message
 module Layout = Antd__Layout
 module Collapse = Antd__Collapse
 module Card = Antd__Card
+
+module Select = Antd__Select

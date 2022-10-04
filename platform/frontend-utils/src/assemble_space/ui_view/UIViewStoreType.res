@@ -20,7 +20,14 @@ type rect = {
   height: int,
 }
 
-type uiControlInspectorData = {id: id, rect: rect}
+type eventData = {
+  eventName: UIControlInspectorType.eventName,
+  actionName: string,
+}
+
+type event = array<eventData>
+
+type uiControlInspectorData = {id: id, rect: rect, event: event}
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
@@ -29,6 +36,7 @@ type action =
   | SelectUIControl(protocolIconBase64, name, Meta3d.ExtensionFileType.contributeFileData)
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
+  | SetAction(id, eventData)
   | SetVisualExtension(ApViewStoreType.extension)
   | SetElementContribute(ApViewStoreType.contribute)
 

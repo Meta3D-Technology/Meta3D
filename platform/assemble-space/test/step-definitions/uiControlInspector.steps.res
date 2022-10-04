@@ -43,17 +43,40 @@ defineFeature(feature, test => {
   })
 
   test(."show default data", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
     let id = "d1"
+    let d1 = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    given("set inspector current selected ui control data to d1", () => {
+    given("select ui control button d1", () => {
+      d1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("set inspector current selected ui control data to d1", () => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
-            id->Some,
-            list{UIControlInspectorTool.buildSelectedUIControlInspectorData(~id, ~y=10, ())},
+            list{},
+            (
+              id->Some,
+              list{d1.contents},
+              list{UIControlInspectorTool.buildSelectedUIControlInspectorData(~id, ~y=10, ())},
+            ),
           ),
           _,
         )
@@ -95,6 +118,131 @@ defineFeature(feature, test => {
     then("should dispatch setRect action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.UIViewStoreType.SetRect(id, rect)
+    })
+  })
+
+  test(."show default action and action select", ({given, \"when", \"and", then}) => {
+    let id = "d1"
+    let d1 = ref(Obj.magic(1))
+    let a1 = ref(Obj.magic(1))
+    let a2 = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given("select ui control button d1", () => {
+      d1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("select action a1 and a2", () => {
+      a1 :=
+        SelectedContributesTool.buildSelectedContribute(
+          ~id="a1",
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name="a1",
+              ~protocol={
+                name: "meta3d-action-a1-protocol",
+                version: "0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+
+      a2 :=
+        SelectedContributesTool.buildSelectedContribute(
+          ~id="a2",
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name="a2",
+              ~protocol={
+                name: "meta3d-action-a2-protocol",
+                version: "0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"(
+      "set inspector current selected ui control data to d1 whose event's action is a2",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{a1.contents, a2.contents},
+              (
+                id->Some,
+                list{d1.contents},
+                list{
+                  UIControlInspectorTool.buildSelectedUIControlInspectorData(
+                    ~id,
+                    ~event=[UIControlInspectorTool.buildEventData(#click, "a2")],
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show a2 as default action and action select with a1, a2", () => {
+      UIControlInspectorTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
+  test(."set action", ({given, \"when", \"and", then}) => {
+    let id = "1"
+    let eventName = #click
+    let actionName = "a10"
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    \"when"("set action", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
+    })
+
+    then("should dispatch setAction action", () => {
+      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+        FrontendUtils.UIViewStoreType.SetAction(
+          id,
+          UIControlInspectorTool.buildEventData(eventName, actionName),
+        )
     })
   })
 })

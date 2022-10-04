@@ -11,10 +11,27 @@ Feature: UIControlInsepctor
         Then should show nothing
 
     Scenario: show default data
-        Given set inspector current selected ui control data to d1
+        Given select ui control button d1
+        And set inspector current selected ui control data to d1
         When render
         Then should show default data
 
-    Scenario: set rect
-        When set rect
-        Then should dispatch setRect action
+    Rule: Rect
+
+        Scenario: set rect
+            When set rect
+            Then should dispatch setRect action
+
+
+    Rule: Event
+
+        Scenario: show default action and action select
+            Given select ui control button d1
+            And select action a1 and a2
+            And set inspector current selected ui control data to d1 whose event's action is a2
+            When render
+            Then should show a2 as default action and action select with a1, a2
+
+        Scenario: set action
+            When set action
+            Then should dispatch setAction action

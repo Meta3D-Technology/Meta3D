@@ -340,7 +340,26 @@ x y width height
 
 ** TODO event and reducer
 
-*** TODO control add event
+*** DONE control add event
+
+
+# ui view store:
+# add selectedActions
+
+
+UIControlInspector:
+judge protocol name, version to show event(e.g. button only has click event)
+["click", ...]
+
+    then select action name
+        # judge action's protocol name, version to show action data input
+        no action data(use null)
+
+
+ElementMR:
+judge protocol name, version to build trigger event code
+
+
 
 event:
 
@@ -354,34 +373,58 @@ click:
 list(action name) by select action contributes
 
 
-*** TODO bdd test
+
+
+# visual extension:
+# register event
+
+
+
+*** DONE bdd test
+
+inspector
+
+element mr
+
+*** TODO run test
+
 
 
 *** TODO reducer
+
+**** TODO add ElementInspector
+
+
+**** TODO add elementState
+
+custom data:
+list:
+    field name, field type(select: string, number), field default value
 
 **** TODO rewrite action contribute
 
 return {
     ...,
     stateAction:
-    {
-        "changeText": {
+    # {
+    #     "changeText": {
+    #         role: "secondButton",
+    #         /value?
+    #     }
+    # },
+
+    [
+        {
+            name: "changeText",
+            // target:""
             role: "secondButton",
-            /value?
+            // value: Math.random().toString()
         }
-    },
-
-    // [
-    //     {
-    //         name: "changeText",
-    //         // target:""
-    //         role: "secondButton",
-    //         // value: Math.random().toString()
-    //     }
-    // ],
+    ],
 
 
-    handler: (meta3dState, stateAction, eventData) => {
+    # handler: (meta3dState, stateAction, eventData) => {
+    handler: (actionAPI, meta3dState, eventData) => {
         uiState = dispatch(uiState,
             //     uiService.buildStateAction(
             //     {
@@ -392,7 +435,7 @@ return {
             //     }
             // )
 
-            stateAction.build({
+            actionAPI.buildAction<valueType>({
                 name: "changeText",
                 value: (oldValue) => Math.random()
             })
@@ -413,6 +456,7 @@ reducer:
 
 list by stateAction names from select action contributes
     -> select state field(e.g.text)
+        directly update it
 // -> ( value, oldValue) => newValue
 update it!
 
@@ -421,16 +465,25 @@ update it!
 
 
 onRegister:
-add self->reducer to meta3dState
+# add self->reducer to meta3dState
+combine self->reducers to uiState
 
-so can be combined in editor entry extension 
+# so can be combined in editor entry extension 
 
 
 
 *** TODO bdd test
 
+*** TODO run test(without run visual)
+
+
+
+
 
 *** TODO feat: ui view->run in new tab
+
+use new visual extension:
+
 
 register action
 
@@ -446,9 +499,26 @@ update mr
 
 *** TODO run test
 
+run test with run visual
+
+
 
 
 ** TODO skin
+
+one skin to one ui control:
+change meta3d-skin-default to meta3d-skin-ui-control-button
+
+change to:
+drawButton(rect, skin)
+
+so button know use which skin protocol!
+
+
+change: let { normal } = getSkin<skin>(state, skinName).skin.button
+
+to: let { normal } = skin.button
+            
 
 
 
@@ -703,6 +773,50 @@ share for all elements
 
 common extensions get by filter by getExtensionLife -> onStart not exist)
 
+
+
+
+* TODO refactor: rename UI视图 to Element视图; rename UIView to ElementView
+
+
+
+* TODO add Skin视图
+
+** TODO implement view
+
+** TODO publish
+
+** TODO import
+
+
+* TODO add Action视图
+
+support log,dispatch system action
+
+# get actionData
+
+** TODO implement view
+
+** TODO publish
+
+** TODO import
+
+** TODO future: support combine other actions
+left panel:
+Actions
+
+# * TODO add UIControl视图
+
+# left panel:
+# Primtives, UI Controls
+
+
+
+# ** TODO implement view
+
+# ** TODO publish
+
+# ** TODO import
 
 
 

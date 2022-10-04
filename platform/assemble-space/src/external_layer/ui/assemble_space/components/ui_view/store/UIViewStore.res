@@ -9,6 +9,7 @@ let _buildDefaultUIControlInspectorData = id => {
       width: 20,
       height: 20,
     },
+    event: [],
   }
 }
 
@@ -47,6 +48,30 @@ let reducer = (state, action) => {
                 {
                   ...data,
                   rect: rect,
+                }
+              }
+            : data
+        },
+      ),
+    }
+  | SetAction(id, eventData) => {
+      ...state,
+      selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
+        data => {
+          data.id === id
+            ? {
+                {
+                  ...data,
+                  event: data.event->Meta3dCommonlib.ArraySt.map(({eventName} as eventData_) => {
+                    eventName === eventData.eventName
+                      ? {
+                          {
+                            eventName: eventName,
+                            actionName: eventData.actionName,
+                          }
+                        }
+                      : eventData_
+                  }),
                 }
               }
             : data

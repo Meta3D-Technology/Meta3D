@@ -3,10 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let getCurrentSelectedUIControlInspectorData = ((
+  let getCurrentSelectedUIControlInspectorData = (
     inspectorCurrentUIControlId,
     selectedUIControlInspectorData: FrontendUtils.UIViewStoreType.selectedUIControlInspectorData,
-  )) => {
+  ) => {
     inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
       selectedUIControlInspectorData->Meta3dCommonlib.ListSt.getBy(data =>
         data.id === inspectorCurrentUIControlId
@@ -18,13 +18,50 @@ module Method = {
     dispatch(FrontendUtils.UIViewStoreType.SetRect(id, rect))
   }
 
-  let useSelector = (
-    {
-      inspectorCurrentUIControlId,
-      selectedUIControlInspectorData,
-    }: FrontendUtils.UIViewStoreType.state,
+  let getCurrentSelectedUIControl = (
+    inspectorCurrentUIControlId,
+    selectedUIControls: FrontendUtils.UIViewStoreType.selectedUIControls,
   ) => {
-    (inspectorCurrentUIControlId, selectedUIControlInspectorData)
+    inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
+      selectedUIControls->Meta3dCommonlib.ListSt.getBy(data =>
+        data.id === inspectorCurrentUIControlId
+      )
+    )
+  }
+
+  let getActions = (selectedContributes: FrontendUtils.ApViewStoreType.selectedContributes) => {
+    selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
+      data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
+        Meta3dType.ContributeType.Action
+    })
+  }
+
+  let setAction = (
+    dispatch,
+    id,
+    eventName: HandleUIControlProtocolUtils.eventName,
+    actionName: string,
+  ) => {
+    dispatch(
+      FrontendUtils.UIViewStoreType.SetAction(
+        id,
+        ({eventName: eventName, actionName: actionName}: FrontendUtils.UIViewStoreType.eventData),
+      ),
+    )
+  }
+
+  let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+    let {selectedContributes} = apViewState
+    let {
+      inspectorCurrentUIControlId,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+    } = uiViewState
+
+    (
+      selectedContributes,
+      (inspectorCurrentUIControlId, selectedUIControls, selectedUIControlInspectorData),
+    )
   }
 }
 
@@ -32,12 +69,17 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
 
-  switch ReduxUtils.UIView.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )->Method.getCurrentSelectedUIControlInspectorData {
+  let (
+    selectedContributes,
+    (inspectorCurrentUIControlId, selectedUIControls, selectedUIControlInspectorData),
+  ) = service.react.useSelector(Method.useSelector)
+
+  switch Method.getCurrentSelectedUIControlInspectorData(
+    inspectorCurrentUIControlId,
+    selectedUIControlInspectorData,
+  ) {
   | None => React.null
-  | Some({id, rect}) =>
+  | Some({id, rect, event}) =>
     let {x, y, width, height} = rect
 
     <>
@@ -95,6 +137,53 @@ let make = (~service: service) => {
           )
         }}
       />
+      <h1> {React.string(`Event`)} </h1>
+      {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
+      | None =>
+        service.console.error(.
+          Meta3dCommonlib.Exception.buildErr(
+            Meta3dCommonlib.Log.buildErrorMessage(
+              ~title="currentSelectedUIControl should exist",
+              ~description="",
+              ~reason="",
+              ~solution=j``,
+              ~params=j``,
+            ),
+          )
+          ->Obj.magic
+          ->Js.Exn.message
+          ->Meta3dCommonlib.OptionSt.getExn
+          ->Obj.magic,
+          None,
+        )->Obj.magic
+      | Some({id, data}) =>
+        let {name, version} = data.contributePackageData.protocol
+
+        let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
+
+        <List
+          dataSource={HandleUIControlProtocolUtils.getUIControlSupportedEventNames(name, version)}
+          renderItem={eventName => {
+            <List.Item>
+              <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
+              <Select
+                defaultValue={HandleUIControlProtocolUtils.getActionName(
+                  event,
+                  eventName,
+                )->Meta3dCommonlib.OptionSt.getWithDefault("")}
+                onChange={Method.setAction(dispatch, id, eventName)}>
+                {actions
+                ->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
+                  let name = NewNameUtils.getName(newName, data.contributePackageData.name)
+
+                  <Select.Option value={name}> {React.string({name})} </Select.Option>
+                })
+                ->React.array}
+              </Select>
+            </List.Item>
+          }}
+        />
+      }}
     </>
   }
 }

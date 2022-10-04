@@ -3,8 +3,8 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let getUIControls = (selectedUIControls: FrontendUtils.ApViewStoreType.selectedContributes) => {
-    selectedUIControls->Meta3dCommonlib.ListSt.filter(({data}) => {
+  let getUIControls = (selectedContributes: FrontendUtils.ApViewStoreType.selectedContributes) => {
+    selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
       data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
         Meta3dType.ContributeType.UIControl
     })
@@ -23,7 +23,7 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
 
-  let selectedUIControls = ReduxUtils.ApView.useSelector(
+  let selectedContributes = ReduxUtils.ApView.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )
@@ -31,7 +31,7 @@ let make = (~service: service) => {
   // TODO duplicate with ap view
   <List
   // grid={{gutter: 16, column: 3}}
-    dataSource={selectedUIControls->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
+    dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
     renderItem={({id, newName, protocolIconBase64, data}) => {
       let name = NewNameUtils.getName(newName, data.contributePackageData.name)
 

@@ -1,4 +1,4 @@
-type meta = {
+type element = {
   elementName: string,
   execOrder: int,
   // elementState:
@@ -15,8 +15,8 @@ type uiControl = {
 }
 
 type elementMR = {
-  meta: meta,
-  body: array<uiControl>,
+  element: element,
+  uiControls: array<uiControl>,
 }
 
 let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) => {
@@ -29,15 +29,15 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
 
 let buildElementMR = (selectedUIControls, selectedUIControlInspectorData): elementMR => {
   {
-    meta: {
+    element: {
       elementName: "UIViewElement",
       execOrder: 0,
     },
-    body: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. body, {id, data}: FrontendUtils.UIViewStoreType.uiControl) => {
+    uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. uiControls, {id, data}: FrontendUtils.UIViewStoreType.uiControl) => {
         let {name, version} = data.contributePackageData.protocol
 
-        body->Meta3dCommonlib.ArraySt.push({
+        uiControls->Meta3dCommonlib.ArraySt.push({
           protocol: {
             name: name,
             version: version,
@@ -50,62 +50,13 @@ let buildElementMR = (selectedUIControls, selectedUIControlInspectorData): eleme
   }
 }
 
-let _generateUIControlName = protocolName => {
-  switch protocolName {
-  | "meta3d-ui-control-button-protocol" => "Button"
-  | _ =>
-    Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Exception.buildErr(
-        Meta3dCommonlib.Log.buildErrorMessage(
-          ~title={j`unknown protocol name: ${protocolName}`},
-          ~description={
-            j``
-          },
-          ~reason="",
-          ~solution=j``,
-          ~params=j``,
-        ),
-      ),
-    )
-  }
-}
-
-let _generateUIControlDataStr = (
-  protocolName,
-  protocolVersion,
-  data: FrontendUtils.UIViewStoreType.uiControlInspectorData,
-) => {
-  switch protocolName {
-  | "meta3d-ui-control-button-protocol" =>
-    j`
-  {
-    rect: ${data.rect->Obj.magic->Js.Json.stringify}
-  }
-  `
-  | _ =>
-    Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Exception.buildErr(
-        Meta3dCommonlib.Log.buildErrorMessage(
-          ~title={j`unknown protocol name: ${protocolName}`},
-          ~description={
-            j``
-          },
-          ~reason="",
-          ~solution=j``,
-          ~params=j``,
-        ),
-      ),
-    )
-  }
-}
-
-let _generateGetUIControlsStr = body => {
-  body
+let _generateGetUIControlsStr = uiControls => {
+  uiControls
   ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {protocol}) => {
     j`${protocol.name}_${protocol.version}`
   })
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {protocol}) => {
-    let uiControlName = _generateUIControlName(protocol.name)
+    let uiControlName = HandleUIControlProtocolUtils.generateUIControlName(protocol.name)
 
     str ++
     j`
@@ -114,17 +65,18 @@ let _generateGetUIControlsStr = body => {
   }, "")
 }
 
-let _generateDrawUIControlsStr = body => {
-  body->Meta3dCommonlib.ArraySt.reduceOneParam(
+let _generateAllDrawUIControlAndHandleEventStr = uiControls => {
+  uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. str, {protocol, data}) => {
-      let protocolName = protocol.name
+      let {name, version} = protocol
 
       str ++
       j`
-                data = ${_generateUIControlName(protocolName)}(meta3dState,
-                    ${_generateUIControlDataStr(protocolName, protocol.version, data)})
+                data = ${HandleUIControlProtocolUtils.generateUIControlName(name)}(meta3dState,
+                    ${HandleUIControlProtocolUtils.generateUIControlDataStr(name, version, data)})
                 meta3dState = data[0]
-    `
+    ` ++
+      HandleUIControlProtocolUtils.generateHandleUIControlEventStr(name, version, data.event)
     },
     `
                 let data = null
@@ -133,9 +85,7 @@ let _generateDrawUIControlsStr = body => {
 }
 
 let generateElementContributeFileStr = (mr: elementMR): string => {
-  // let elementFuncBody =
-
-  let {elementName, execOrder} = mr.meta
+  let {elementName, execOrder} = mr.element
 
   let str = {
     j`
@@ -154,9 +104,9 @@ window.Contribute = {
 `
   }
 
-  let str = str ++ _generateGetUIControlsStr(mr.body)
+  let str = str ++ _generateGetUIControlsStr(mr.uiControls)
 
-  let str = str ++ _generateDrawUIControlsStr(mr.body)
+  let str = str ++ _generateAllDrawUIControlAndHandleEventStr(mr.uiControls)
 
   let str =
     str ++ `
