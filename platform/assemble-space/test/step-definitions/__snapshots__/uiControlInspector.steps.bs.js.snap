@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIControlInsepctor show default data 1`] = `
+Array [
+  <h1>
+    Rect
+  </h1>,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="0"
+  />,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="10"
+  />,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="0"
+  />,
+  <input
+    className="ant-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    type="text"
+    value="0"
+  />,
+]
+`;
+
+exports[`UIControlInsepctor show nothing 1`] = `null`;

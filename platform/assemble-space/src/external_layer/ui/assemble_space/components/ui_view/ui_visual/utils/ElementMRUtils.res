@@ -9,11 +9,9 @@ type protocol = {
   version: string,
 }
 
-// type uiControlData
-
 type uiControl = {
   protocol: protocol,
-  //   data: uiControlData,
+  data: FrontendUtils.UIViewStoreType.uiControlInspectorData,
 }
 
 type elementMR = {
@@ -21,14 +19,22 @@ type elementMR = {
   body: array<uiControl>,
 }
 
-let buildElementMR = (selectedUIControls): elementMR => {
+let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) => {
+  selectedUIControlInspectorData
+  ->Meta3dCommonlib.ArraySt.find((data: FrontendUtils.UIViewStoreType.uiControlInspectorData) => {
+    data.id == id
+  })
+  ->Meta3dCommonlib.OptionSt.getExn
+}
+
+let buildElementMR = (selectedUIControls, selectedUIControlInspectorData): elementMR => {
   {
     meta: {
       elementName: "UIViewElement",
       execOrder: 0,
     },
     body: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. body, {data}: FrontendUtils.UIViewStoreType.uiControl) => {
+      (. body, {id, data}: FrontendUtils.UIViewStoreType.uiControl) => {
         let {name, version} = data.contributePackageData.protocol
 
         body->Meta3dCommonlib.ArraySt.push({
@@ -36,6 +42,7 @@ let buildElementMR = (selectedUIControls): elementMR => {
             name: name,
             version: version,
           },
+          data: _getSelectedUIControlInspectorData(selectedUIControlInspectorData, id),
         })
       },
       [],
@@ -63,17 +70,17 @@ let _generateUIControlName = protocolName => {
   }
 }
 
-let _generateUIControlDataStr = (protocolName, protocolVersion) => {
+let _generateUIControlDataStr = (
+  protocolName,
+  protocolVersion,
+  data: FrontendUtils.UIViewStoreType.uiControlInspectorData,
+) => {
   switch protocolName {
-  | "meta3d-ui-control-button-protocol" => j`
-{
-                        rect: {
-                            x:0,
-                            y:0,
-                            width:20,
-                            height:20,
-                        },
-                    }
+  | "meta3d-ui-control-button-protocol" =>
+    j`
+  {
+    rect: ${data.rect->Obj.magic->Js.Json.stringify}
+  }
   `
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
@@ -109,13 +116,13 @@ let _generateGetUIControlsStr = body => {
 
 let _generateDrawUIControlsStr = body => {
   body->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. str, {protocol}) => {
+    (. str, {protocol, data}) => {
       let protocolName = protocol.name
 
       str ++
       j`
                 data = ${_generateUIControlName(protocolName)}(meta3dState,
-                    ${_generateUIControlDataStr(protocolName, protocol.version)})
+                    ${_generateUIControlDataStr(protocolName, protocol.version, data)})
                 meta3dState = data[0]
     `
     },

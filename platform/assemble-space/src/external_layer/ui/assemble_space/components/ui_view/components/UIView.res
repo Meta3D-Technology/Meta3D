@@ -15,6 +15,6 @@ let make = (~service: service) => {
       </Collapse>
     </Layout.Sider>
     <Layout.Content> <UIVisual service /> </Layout.Content>
-    <Layout.Sider />
+    <Layout.Sider> <UIControlInspector service /> </Layout.Sider>
   </Layout>
 }

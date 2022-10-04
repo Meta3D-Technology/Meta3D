@@ -327,9 +327,12 @@ let _getElementContributeProtocolVersion = () => "0.5.0"
 
 # *** TODO refactor: move to ap layer
 
-** TODO rect
+** DONE rect
 
-*** TODO control add properies
+*** DONE control add properies
+
+selectedUIControlInspectorData
+
 
 rect:
 x y width height

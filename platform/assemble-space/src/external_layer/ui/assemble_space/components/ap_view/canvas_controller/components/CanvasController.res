@@ -51,13 +51,17 @@ let make = (~service: service) => {
     <Input
       value={width->Js.Int.toString}
       onChange={e => {
-        Method.setWidth(dispatch, canvasData, e->EventUtils.getEventTargetValue)
+        Method.setWidth(dispatch, canvasData, e->EventUtils.getEventTargetValue->IntUtils.stringToInt)
       }}
     />
     <Input
       value={height->Js.Int.toString}
       onChange={e => {
-        Method.setHeight(dispatch, canvasData, e->EventUtils.getEventTargetValue)
+        Method.setHeight(
+          dispatch,
+          canvasData,
+          e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
+        )
       }}
     />
   </>

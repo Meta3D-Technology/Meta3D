@@ -125,9 +125,10 @@ module Method = {
 
   let _getElementContributeProtocolVersion = () => "0.5.1"
 
-  let buildElementContributeFileStr = selectedUIControls => {
+  let buildElementContributeFileStr = (selectedUIControls, selectedUIControlInspectorData) => {
     ElementMRUtils.buildElementMR(
       selectedUIControls->Meta3dCommonlib.ListSt.toArray,
+      selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
     )->ElementMRUtils.generateElementContributeFileStr
   }
 
@@ -171,11 +172,16 @@ module Method = {
 
   let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
     let {canvasData, selectedExtensions, selectedContributes} = apViewState
-    let {selectedUIControls, visualExtension, elementContribute} = uiViewState
+    let {
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      visualExtension,
+      elementContribute,
+    } = uiViewState
 
     (
       (canvasData, selectedExtensions, selectedContributes),
-      (selectedUIControls, visualExtension, elementContribute),
+      (selectedUIControls, selectedUIControlInspectorData, visualExtension, elementContribute),
     )
   }
 }
@@ -186,7 +192,7 @@ let make = (~service: service) => {
 
   let (
     (canvasData, selectedExtensions, selectedContributes),
-    (selectedUIControls, visualExtension, elementContribute),
+    (selectedUIControls, selectedUIControlInspectorData, visualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -199,15 +205,15 @@ let make = (~service: service) => {
   }, [])
 
   service.react.useEffect1(. () => {
-    selectedUIControls->Meta3dCommonlib.ListSt.length > 0
+    selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
       ? Method.generateElementContribute(
           service,
-          Method.buildElementContributeFileStr(selectedUIControls),
+          Method.buildElementContributeFileStr(selectedUIControls, selectedUIControlInspectorData),
         )->Method.updateElementContribute(dispatch, _)
       : ()
 
     None
-  }, [selectedUIControls])
+  }, [selectedUIControlInspectorData])
 
   service.react.useEffect1(. () => {
     switch (visualExtension, elementContribute) {
