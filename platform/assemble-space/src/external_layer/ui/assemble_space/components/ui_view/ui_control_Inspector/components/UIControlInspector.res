@@ -36,6 +36,10 @@ module Method = {
     })
   }
 
+  let buildEmptySelectOptionValue = () => "empty"
+
+  let _isEmptySelectOptionValue = value => value === buildEmptySelectOptionValue()
+
   let setAction = (
     dispatch,
     id,
@@ -45,7 +49,7 @@ module Method = {
     dispatch(
       FrontendUtils.UIViewStoreType.SetAction(
         id,
-        ({eventName: eventName, actionName: actionName}: FrontendUtils.UIViewStoreType.eventData),
+        (eventName, _isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
       ),
     )
   }
@@ -164,19 +168,28 @@ let make = (~service: service) => {
         <List
           dataSource={HandleUIControlProtocolUtils.getUIControlSupportedEventNames(name, version)}
           renderItem={eventName => {
-            <List.Item>
+            let defaultValue =
+              HandleUIControlProtocolUtils.getActionName(
+                event,
+                eventName,
+              )->Meta3dCommonlib.OptionSt.getWithDefault(Method.buildEmptySelectOptionValue())
+
+            <List.Item key={eventName->Obj.magic}>
               <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
               <Select
-                defaultValue={HandleUIControlProtocolUtils.getActionName(
-                  event,
-                  eventName,
-                )->Meta3dCommonlib.OptionSt.getWithDefault("")}
+                key={defaultValue}
+                defaultValue={defaultValue}
                 onChange={Method.setAction(dispatch, id, eventName)}>
+                <Select.Option
+                  key={Method.buildEmptySelectOptionValue()}
+                  value={Method.buildEmptySelectOptionValue()}>
+                  {React.string({Method.buildEmptySelectOptionValue()})}
+                </Select.Option>
                 {actions
                 ->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
                   let name = NewNameUtils.getName(newName, data.contributePackageData.name)
 
-                  <Select.Option value={name}> {React.string({name})} </Select.Option>
+                  <Select.Option key={name} value={name}> {React.string({name})} </Select.Option>
                 })
                 ->React.array}
               </Select>

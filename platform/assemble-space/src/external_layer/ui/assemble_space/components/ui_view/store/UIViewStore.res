@@ -54,7 +54,7 @@ let reducer = (state, action) => {
         },
       ),
     }
-  | SetAction(id, eventData) => {
+  | SetAction(id, (eventName, actionNameOpt)) => {
       ...state,
       selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
         data => {
@@ -62,16 +62,34 @@ let reducer = (state, action) => {
             ? {
                 {
                   ...data,
-                  event: data.event->Meta3dCommonlib.ArraySt.map(({eventName} as eventData_) => {
-                    eventName === eventData.eventName
-                      ? {
-                          {
-                            eventName: eventName,
-                            actionName: eventData.actionName,
+                  event: switch data.event {
+                  | event
+                    if event->Meta3dCommonlib.ArraySt.length == 0 &&
+                      actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
+                      {
+                        eventName: eventName,
+                        actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+                      },
+                    ]
+                  | _ =>
+                    data.event
+                    ->Meta3dCommonlib.ArraySt.filter(eventData => {
+                      eventData.eventName === eventName &&
+                        !(actionNameOpt->Meta3dCommonlib.OptionSt.isSome)
+                        ? false
+                        : true
+                    })
+                    ->Meta3dCommonlib.ArraySt.map(eventData => {
+                      eventData.eventName === eventName
+                        ? {
+                            {
+                              eventName: eventName,
+                              actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+                            }
                           }
-                        }
-                      : eventData_
-                  }),
+                        : eventData
+                    })
+                  },
                 }
               }
             : data

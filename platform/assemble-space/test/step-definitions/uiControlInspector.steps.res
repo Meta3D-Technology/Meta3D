@@ -239,10 +239,27 @@ defineFeature(feature, test => {
 
     then("should dispatch setAction action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetAction(
-          id,
-          UIControlInspectorTool.buildEventData(eventName, actionName),
-        )
+        FrontendUtils.UIViewStoreType.SetAction(id, (eventName, actionName->Some))
+    })
+  })
+
+  test(."set action with empty action name", ({given, \"when", \"and", then}) => {
+    let id = "1"
+    let eventName = #click
+    let actionName = UIControlInspectorTool.buildEmptySelectOptionValue()
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    \"when"("set action with empty action name", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
+    })
+
+    then("should dispatch setAction action", () => {
+      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+        FrontendUtils.UIViewStoreType.SetAction(id, (eventName, None))
     })
   })
 })

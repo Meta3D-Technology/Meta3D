@@ -35,3 +35,7 @@ Feature: UIControlInsepctor
         Scenario: set action
             When set action
             Then should dispatch setAction action
+
+        Scenario: set action with empty action name
+            When set action with empty action name
+            Then should dispatch setAction action

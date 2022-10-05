@@ -11,6 +11,15 @@ let getCurrentSelectedUIControlInspectorData = UIControlInspector.Method.getCurr
 let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   UIControlInspector.Method.useSelector
 
+let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.UIViewStoreType.rect => {
+  {
+    x: x,
+    y: y,
+    width: width,
+    height: height,
+  }
+}
+
 let buildEventData = (
   eventName: FrontendUtils.UIControlInspectorType.eventName,
   actionName,
@@ -29,15 +38,12 @@ let buildSelectedUIControlInspectorData = (
   (),
 ): FrontendUtils.UIViewStoreType.uiControlInspectorData => {
   id: id,
-  rect: {
-    x: x,
-    y: y,
-    width: width,
-    height: height,
-  },
+  rect: buildRect(~x, ~y, ~width, ~height, ()),
   event: event,
 }
 
 let setRect = UIControlInspector.Method.setRect
 
 let setAction = UIControlInspector.Method.setAction
+
+let buildEmptySelectOptionValue = UIControlInspector.Method.buildEmptySelectOptionValue

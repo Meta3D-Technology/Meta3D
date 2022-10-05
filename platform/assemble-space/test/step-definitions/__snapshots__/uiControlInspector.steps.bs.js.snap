@@ -261,9 +261,9 @@ Array [
                 </span>
                 <span
                   className="ant-select-selection-item"
-                  title=""
+                  title="empty"
                 >
-                  
+                  empty
                 </span>
               </div>
               <span

@@ -1,0 +1,113 @@
+open Meta3dBsJestCucumber
+open Cucumber
+open Expect
+open Operators
+
+open Sinon
+
+let feature = loadFeature("./test/features/store/uiViewStore.feature")
+
+defineFeature(feature, test => {
+  let sandbox = ref(Obj.magic(1))
+  let id1 = ref(Obj.magic(1))
+  let store = ref(Obj.magic(1))
+  let rect = UIControlInspectorTool.buildRect()
+
+  let _prepare = given => {
+    given("prepare", () => {
+      sandbox := createSandbox()
+    })
+  }
+
+  let _prepareForSetAction = (given, \"and") => {
+    given("init store", () => {
+      store := UIViewStore.initialState
+    })
+
+    \"and"("select ui control u1 with id1", () => {
+      store :=
+        UIViewStore.reducer(
+          store.contents,
+          FrontendUtils.UIViewStoreType.SelectUIControl("", "", Obj.magic(1)),
+        )
+
+      id1 :=
+        (
+          store.contents.selectedUIControls
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+    })
+
+    \"and"("set rect with id1", () => {
+      store :=
+        UIViewStore.reducer(
+          store.contents,
+          FrontendUtils.UIViewStoreType.SetRect(id1.contents, rect),
+        )
+    })
+  }
+
+  test(."set action", ({given, \"when", \"and", then}) => {
+    let eventName = #click
+    let actionName = "a1"
+
+    _prepare(given)
+
+    _prepareForSetAction(given, \"and")
+
+    \"when"("set action with id1, event data1", () => {
+      store :=
+        UIViewStore.reducer(
+          store.contents,
+          FrontendUtils.UIViewStoreType.SetAction(id1.contents, (eventName, actionName->Some)),
+        )
+    })
+
+    then("should add event data1", () => {
+      store.contents.selectedUIControlInspectorData->expect ==
+        list{
+          UIControlInspectorTool.buildSelectedUIControlInspectorData(
+            ~id=id1.contents,
+            ~event=[UIControlInspectorTool.buildEventData(eventName, actionName)],
+            (),
+          ),
+        }
+    })
+  })
+
+  test(."set action with empty action name", ({given, \"when", \"and", then}) => {
+    let eventName = #click
+
+    _prepare(given)
+
+    _prepareForSetAction(given, \"and")
+
+    given("set action with id1, event data1", () => {
+      store :=
+        UIViewStore.reducer(
+          store.contents,
+          FrontendUtils.UIViewStoreType.SetAction(id1.contents, (eventName, "a1"->Some)),
+        )
+    })
+
+    \"when"("set action with id1, event data1 with empty action name", () => {
+      store :=
+        UIViewStore.reducer(
+          store.contents,
+          FrontendUtils.UIViewStoreType.SetAction(id1.contents, (eventName, None)),
+        )
+    })
+
+    then("should remove the event data of id1", () => {
+      store.contents.selectedUIControlInspectorData->expect ==
+        list{
+          UIControlInspectorTool.buildSelectedUIControlInspectorData(
+            ~id=id1.contents,
+            ~event=[],
+            (),
+          ),
+        }
+    })
+  })
+})
