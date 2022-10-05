@@ -356,6 +356,7 @@ judge protocol name, version to show event(e.g. button only has click event)
         no action data(use null)
 
 
+
 ElementMR:
 judge protocol name, version to build trigger event code
 
@@ -395,14 +396,38 @@ key
 
 *** TODO reducer
 
-**** TODO add ElementInspector
+**** DONE add ElementInspector
 
 
-**** TODO add elementState
+**** DONE add ElementController
+
+
+**** DONE add elementState
 
 custom data:
 list:
     field name, field type(select: string, number), field default value
+
+
+
+# fix:
+# type select
+# type miss
+
+# reset
+
+
+
+**** DONE ElementMR
+
+
+**** DONE bdd test
+
+# test dispatch -> reducer -> update view
+
+**** DONE run test
+
+
 
 **** TODO rewrite action contribute
 
@@ -477,6 +502,9 @@ combine self->reducers to uiState
 
 *** TODO bdd test
 
+mainly test:
+dispatch to invoke reducer!
+
 *** TODO run test(without run visual)
 
 
@@ -506,8 +534,53 @@ run test with run visual
 
 
 
+** TODO fix control properies
 
-** TODO skin
+
+*** TODO rect add use element state
+
+# add select(select field)(default is empty) + func input(
+#      default value: (fieldValue) => fieldValue
+# )
+
+
+add func input(
+     default value: function (elementState){
+         return 0
+     }
+)
+
+e.g. new value:
+      function (elementState) {
+          return elementState.x
+      }
+
+
+
+*** TODO run test: test reducer to change rect when run
+
+
+
+*** TODO isDraw
+
+
+# isShow: true/false
+
+#     design for single element
+
+
+# aselect(select field)(default is empty) + func input(
+#      default value: (fieldValue) => true
+# )
+
+func input(
+     default value: function (elementState) {
+         return true
+     }
+)
+
+
+*** TODO skin
 
 one skin to one ui control:
 change meta3d-skin-default to meta3d-skin-ui-control-button
@@ -528,13 +601,6 @@ to: let { normal } = skin.button
 
 
 
-** TODO isShow
-
-
-isShow: true/false
-
-    design for single element
-
 
 
 # ** TODO bdd test
@@ -546,42 +612,42 @@ isShow: true/false
 
 
 
-** TODO element add properties
+# ** TODO element add properties
 
 
-update json
-
-
-
+# update json
 
 
 
-state:
-default is empty, decide by element properties
 
 
 
-# isShow: null / true / false
-#     (add isShow to state when not null)
+# state:
+# default is empty, decide by element properties
 
-isShow: true / false
-    # (add isShow to state when not null)
-    mainly for multiple elements
 
-execOrder: input: 0
 
-# custom data:
-# field name, field type, field default value
+# # isShow: null / true / false
+# #     (add isShow to state when not null)
 
-# (move wonder editor->script attribute here?)
+# isShow: true / false
+#     # (add isShow to state when not null)
+#     mainly for multiple elements
 
-# * TODO feat: ui view->run in new tab
+# execOrder: input: 0
 
-# register action
+# # custom data:
+# # field name, field type, field default value
 
-# bind event
+# # (move wonder editor->script attribute here?)
 
-# loop
+# # * TODO feat: ui view->run in new tab
+
+# # register action
+
+# # bind event
+
+# # loop
 
 
 
@@ -608,6 +674,25 @@ send to server
 editor entry extension can get them by api.getAllContributesByType 
 
 
+
+* TODO feat: import single element
+
+1.in ap view
+2.select other
+3.select one element(import element)
+4.switch to ui view
+5.can continue edit the element visually
+
+
+
+* TODO feat: select other elements and edit new element
+
+ui view only show new element;
+when run, run together
+
+** TODO run test
+
+test reducer for multiple elements when run
 
 
 * TODO ap view:
@@ -668,21 +753,13 @@ note: remove entry extension step!!!
 
 
 
-* TODO feat: import single element
+# * TODO feat: import mutliple elements
 
-1.in ap view
-2.select other
-3.select one element(import element)
-4.switch to ui view
-5.can continue edit the element visually
-
-* TODO feat: import mutliple elements
-
-1.in ap view
-2.select other
-3.select two elements(import element)
-4.switch to ui view
-5.can continue edit the two elements visually
+# 1.in ap view
+# 2.select other
+# 3.select two elements(import element)
+# 4.switch to ui view
+# 5.can continue edit the two elements visually
 
 
 

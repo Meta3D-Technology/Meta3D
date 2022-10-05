@@ -125,10 +125,15 @@ module Method = {
 
   let _getElementContributeProtocolVersion = () => "0.5.1"
 
-  let buildElementContributeFileStr = (selectedUIControls, selectedUIControlInspectorData) => {
+  let buildElementContributeFileStr = (
+    selectedUIControls,
+    selectedUIControlInspectorData,
+    elementStateFields,
+  ) => {
     ElementMRUtils.buildElementMR(
       selectedUIControls->Meta3dCommonlib.ListSt.toArray,
       selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
+      elementStateFields->Meta3dCommonlib.ListSt.toArray,
     )->ElementMRUtils.generateElementContributeFileStr
   }
 
@@ -177,11 +182,18 @@ module Method = {
       selectedUIControlInspectorData,
       visualExtension,
       elementContribute,
+      elementInspectorData,
     } = uiViewState
 
     (
       (canvasData, selectedExtensions, selectedContributes),
-      (selectedUIControls, selectedUIControlInspectorData, visualExtension, elementContribute),
+      (
+        selectedUIControls,
+        selectedUIControlInspectorData,
+        visualExtension,
+        elementContribute,
+        elementInspectorData.elementStateFields,
+      ),
     )
   }
 }
@@ -192,7 +204,13 @@ let make = (~service: service) => {
 
   let (
     (canvasData, selectedExtensions, selectedContributes),
-    (selectedUIControls, selectedUIControlInspectorData, visualExtension, elementContribute),
+    (
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      visualExtension,
+      elementContribute,
+      elementStateFields,
+    ),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -208,7 +226,11 @@ let make = (~service: service) => {
     selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
       ? Method.generateElementContribute(
           service,
-          Method.buildElementContributeFileStr(selectedUIControls, selectedUIControlInspectorData),
+          Method.buildElementContributeFileStr(
+            selectedUIControls,
+            selectedUIControlInspectorData,
+            elementStateFields,
+          ),
         )->Method.updateElementContribute(dispatch, _)
       : ()
 

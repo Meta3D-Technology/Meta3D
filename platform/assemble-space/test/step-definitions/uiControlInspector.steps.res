@@ -10,7 +10,7 @@ let feature = loadFeature("./test/features/uiControlInspector.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
-  let _prepare = (given, \"and") => {
+  let _prepare = (given) => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
@@ -18,7 +18,7 @@ defineFeature(feature, test => {
   }
 
   test(."show nothing", ({given, \"when", \"and", then}) => {
-    _prepare(given, \"and")
+    _prepare(given)
 
     \"when"("render", () => {
       ()
@@ -47,7 +47,7 @@ defineFeature(feature, test => {
     let d1 = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     given("select ui control button d1", () => {
       d1 :=
@@ -107,7 +107,7 @@ defineFeature(feature, test => {
     }
     let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     \"when"("set rect", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -128,7 +128,7 @@ defineFeature(feature, test => {
     let a2 = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     given("select ui control button d1", () => {
       d1 :=
@@ -229,7 +229,7 @@ defineFeature(feature, test => {
     let actionName = "a10"
     let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     \"when"("set action", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -249,7 +249,7 @@ defineFeature(feature, test => {
     let actionName = UIControlInspectorTool.buildEmptySelectOptionValue()
     let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     \"when"("set action with empty action name", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))

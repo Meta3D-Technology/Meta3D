@@ -8,6 +8,27 @@ type rule = {
   message: string,
 }
 
+type fieldValue
+
+type field = {
+  key: string,
+  name: string,
+  value: fieldValue,
+}
+
+type fields = array<field>
+
+type crudOperator = {
+  add: (. unit) => unit,
+  remove: (. string) => unit,
+}
+
+// TODO handle error(need ErrorList)
+// type errorOperator = {
+// errors
+// }
+
+
 @module("antd") @react.component
 external make: (
   ~component: React.element=?,
@@ -24,6 +45,7 @@ external make: (
   ~size: size=?,
   ~validatedMessages: validatedMessages=?,
   ~validatedTrigger: 'd=?,
+  ~name: string=?,
   ~wrapperCol: 'e=?,
   ~autoComplete: string=?,
   ~onFinish: formEvent=?,
@@ -55,4 +77,15 @@ module Item = {
     ~name: string=?,
     ~rules: array<rule>=?,
   ) => React.element = "Item"
+}
+
+module List = {
+  @react.component @module("antd") @scope("Form")
+  external make: (
+    ~initialValue: array<fieldValue>=?,
+    // ~children: (fields, crudOperator, errorOperator) => React.element=?,
+    ~children: (fields, crudOperator) => React.element=?,
+    ~name: string=?,
+    ~rules: array<rule>=?,
+  ) => React.element = "List"
 }

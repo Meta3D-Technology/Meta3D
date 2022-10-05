@@ -1,18 +1,21 @@
 open FrontendUtils.ApViewStoreType
 
+let _createState = () => {
+  {
+    selectedExtensions: list{},
+    selectedContributes: list{},
+    inspectorCurrentExtensionId: None,
+    inspectorCurrentContributeId: None,
+    canvasData: {
+      width: 0,
+      height: 0,
+    },
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
-  | Reset => {
-      ...state,
-      selectedExtensions: list{},
-      selectedContributes: list{},
-      inspectorCurrentExtensionId: None,
-      inspectorCurrentContributeId: None,
-      canvasData: {
-        width: 0,
-        height: 0,
-      },
-    }
+  | Reset => _createState()
   | SelectExtension(protocolIconBase64, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
@@ -93,13 +96,4 @@ let reducer = (state, action) => {
   }
 }
 
-let initialState = {
-  selectedExtensions: list{},
-  selectedContributes: list{},
-  inspectorCurrentExtensionId: None,
-  inspectorCurrentContributeId: None,
-  canvasData: {
-    width: 0,
-    height: 0,
-  },
-}
+let initialState = _createState()

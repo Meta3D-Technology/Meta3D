@@ -1,7 +1,7 @@
 type element = {
   elementName: string,
   execOrder: int,
-  // elementState:
+  elementStateFields: array<FrontendUtils.UIViewStoreType.elementStateFieldData>,
 }
 
 type protocol = {
@@ -27,11 +27,16 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
   ->Meta3dCommonlib.OptionSt.getExn
 }
 
-let buildElementMR = (selectedUIControls, selectedUIControlInspectorData): elementMR => {
+let buildElementMR = (
+  selectedUIControls,
+  selectedUIControlInspectorData,
+  elementStateFields,
+): elementMR => {
   {
     element: {
       elementName: "UIViewElement",
       execOrder: 0,
+      elementStateFields: elementStateFields,
     },
     uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. uiControls, {id, data}: FrontendUtils.UIViewStoreType.uiControl) => {
@@ -84,8 +89,20 @@ let _generateAllDrawUIControlAndHandleEventStr = uiControls => {
   )
 }
 
+let _generateElementState = elementStateFields => {
+  elementStateFields
+  ->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. map, {name, defaultValue}: FrontendUtils.UIViewStoreType.elementStateFieldData) => {
+      map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+    },
+    Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  )
+  ->Obj.magic
+  ->Js.Json.stringify
+}
+
 let generateElementContributeFileStr = (mr: elementMR): string => {
-  let {elementName, execOrder} = mr.element
+  let {elementName, execOrder, elementStateFields} = mr.element
 
   let str = {
     j`
@@ -96,7 +113,7 @@ window.Contribute = {
         return {
             elementName:"${elementName}",
             execOrder: ${execOrder->Js.Int.toString},
-            elementState: null,
+            elementState: ${_generateElementState(elementStateFields)},
             elementFunc: (meta3dState, elementState) => {
                 let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 

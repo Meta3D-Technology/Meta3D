@@ -13,16 +13,21 @@ let _buildDefaultUIControlInspectorData = id => {
   }
 }
 
+let _createState = () => {
+  selectedUIControls: list{},
+  inspectorCurrentUIControlId: None,
+  selectedUIControlInspectorData: list{},
+  visualExtension: None,
+  elementContribute: None,
+  isShowElementInspector: false,
+  elementInspectorData: {
+    elementStateFields: list{},
+  },
+}
+
 let reducer = (state, action) => {
   switch action {
-  | Reset => {
-      ...state,
-      selectedUIControls: list{},
-      inspectorCurrentUIControlId: None,
-      selectedUIControlInspectorData: list{},
-      visualExtension: None,
-      elementContribute: None,
-    }
+  | Reset => _createState()
   | SelectUIControl(protocolIconBase64, name, data) => {
       let id = IdUtils.generateId(Js.Math.random)
 
@@ -99,6 +104,12 @@ let reducer = (state, action) => {
   | SetInspectorCurrentUIControlId(id) => {
       ...state,
       inspectorCurrentUIControlId: id->Some,
+      isShowElementInspector: false,
+    }
+  | ShowElementInspector => {
+      ...state,
+      inspectorCurrentUIControlId: None,
+      isShowElementInspector: true,
     }
   | SetVisualExtension(visualExtension) => {
       ...state,
@@ -108,13 +119,21 @@ let reducer = (state, action) => {
       ...state,
       elementContribute: elementContribute->Some,
     }
+  // | AddElementStateField(elementStateFieldData) => {
+  //     ...state,
+  //     elementInspectorData: state.elementInspectorData.elementStateFields->Meta3dCommonlib.ListSt.push(
+  //       elementStateFieldData,
+  //     ),
+  //   }
+
+  | SetElementStateFields(elementStateFields) => {
+      ...state,
+      elementInspectorData: {
+        ...state.elementInspectorData,
+        elementStateFields: elementStateFields,
+      },
+    }
   }
 }
 
-let initialState = {
-  selectedUIControls: list{},
-  inspectorCurrentUIControlId: None,
-  selectedUIControlInspectorData: list{},
-  visualExtension: None,
-  elementContribute: None,
-}
+let initialState = _createState()

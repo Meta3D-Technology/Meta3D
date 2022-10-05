@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ElementInsepctor show current element state 1`] = `
+Array [
+  <h1>
+    State
+  </h1>,
+  <form
+    className="ant-form ant-form-horizontal"
+    id="dynamic_form_item"
+    onReset={[Function]}
+    onSubmit={[Function]}
+  >
+    <div
+      className="ant-form-item"
+    >
+      <div
+        className="ant-row ant-form-item-row"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <div
+                className="ant-form-item"
+              >
+                <div
+                  className="ant-row ant-form-item-row"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-label"
+                    style={Object {}}
+                  >
+                    <label
+                      className=""
+                      htmlFor="dynamic_form_item_fields_0_name"
+                      title="Name"
+                    >
+                      Name
+                    </label>
+                  </div>
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <input
+                          className="ant-input"
+                          id="dynamic_form_item_fields_0_name"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="text"
+                          value="a1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="ant-form-item"
+              >
+                <div
+                  className="ant-row ant-form-item-row"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-label"
+                    style={Object {}}
+                  >
+                    <label
+                      className=""
+                      htmlFor="dynamic_form_item_fields_0_type_"
+                      title="Type"
+                    >
+                      Type
+                    </label>
+                  </div>
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <div
+                          className="ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow"
+                          onBlur={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          onKeyUp={[Function]}
+                          onMouseDown={[Function]}
+                        >
+                          <div
+                            className="ant-select-selector"
+                            onClick={[Function]}
+                            onMouseDown={[Function]}
+                          >
+                            <span
+                              className="ant-select-selection-search"
+                            >
+                              <input
+                                aria-activedescendant="dynamic_form_item_fields_0_type__list_0"
+                                aria-autocomplete="list"
+                                aria-controls="dynamic_form_item_fields_0_type__list"
+                                aria-haspopup="listbox"
+                                aria-owns="dynamic_form_item_fields_0_type__list"
+                                autoComplete="off"
+                                className="ant-select-selection-search-input"
+                                disabled={false}
+                                id="dynamic_form_item_fields_0_type_"
+                                onChange={[Function]}
+                                onCompositionEnd={[Function]}
+                                onCompositionStart={[Function]}
+                                onKeyDown={[Function]}
+                                onMouseDown={[Function]}
+                                onPaste={[Function]}
+                                readOnly={true}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "opacity": 0,
+                                  }
+                                }
+                                type="search"
+                                unselectable="on"
+                                value=""
+                              />
+                            </span>
+                            <span
+                              className="ant-select-selection-item"
+                              title="int"
+                            >
+                              int
+                            </span>
+                          </div>
+                          <span
+                            aria-hidden={true}
+                            className="ant-select-arrow"
+                            onMouseDown={[Function]}
+                            style={
+                              Object {
+                                "WebkitUserSelect": "none",
+                                "userSelect": "none",
+                              }
+                            }
+                            unselectable="on"
+                          >
+                            <span
+                              aria-label="down"
+                              className="anticon anticon-down ant-select-suffix"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="64 64 896 896"
+                                width="1em"
+                              >
+                                <path
+                                  d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="ant-form-item"
+              >
+                <div
+                  className="ant-row ant-form-item-row"
+                  style={Object {}}
+                >
+                  <div
+                    className="ant-col ant-form-item-label"
+                    style={Object {}}
+                  >
+                    <label
+                      className=""
+                      htmlFor="dynamic_form_item_fields_0_defaultValue"
+                      title="Default Value"
+                    >
+                      Default Value
+                    </label>
+                  </div>
+                  <div
+                    className="ant-col ant-form-item-control"
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-form-item-control-input"
+                    >
+                      <div
+                        className="ant-form-item-control-input-content"
+                      >
+                        <input
+                          className="ant-input"
+                          id="dynamic_form_item_fields_0_defaultValue"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="text"
+                          value="1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span
+                aria-label="minus-circle"
+                className="anticon anticon-minus-circle"
+                onClick={[Function]}
+                role="img"
+                tabIndex={-1}
+              >
+                <svg
+                  aria-hidden="true"
+                  data-icon="minus-circle"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="64 64 896 896"
+                  width="1em"
+                >
+                  <path
+                    d="M696 480H328c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8h368c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8z"
+                  />
+                  <path
+                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-form-item"
+    >
+      <div
+        className="ant-row ant-form-item-row"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <button
+                className="ant-btn ant-btn-default"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <span>
+                  Add Field
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-form-item"
+    >
+      <div
+        className="ant-row ant-form-item-row"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <button
+                className="ant-btn ant-btn-default"
+                disabled={false}
+                onClick={[Function]}
+                type="submit"
+              >
+                <span>
+                  Submit
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>,
+]
+`;
+
+exports[`ElementInsepctor show nothing 1`] = `null`;

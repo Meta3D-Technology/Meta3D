@@ -33,6 +33,20 @@ type uiControlInspectorData = {id: id, rect: rect, event: event}
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
+type elementStateFieldType = [#string | #int]
+
+type elementStateFieldValue
+
+type elementStateFieldData = {
+  name: string,
+  type_: elementStateFieldType,
+  defaultValue: elementStateFieldValue,
+}
+
+type elementStateFields = list<elementStateFieldData>
+
+type elementInspectorData = {elementStateFields: elementStateFields}
+
 type action =
   | Reset
   | SelectUIControl(protocolIconBase64, name, Meta3d.ExtensionFileType.contributeFileData)
@@ -41,6 +55,9 @@ type action =
   | SetAction(id, (UIControlInspectorType.eventName, option<actionName>))
   | SetVisualExtension(ApViewStoreType.extension)
   | SetElementContribute(ApViewStoreType.contribute)
+  | ShowElementInspector
+  // | AddElementStateField(elementStateFieldData)
+  | SetElementStateFields(elementStateFields)
 
 type state = {
   selectedUIControls: selectedUIControls,
@@ -48,4 +65,6 @@ type state = {
   selectedUIControlInspectorData: selectedUIControlInspectorData,
   visualExtension: option<ApViewStoreType.extension>,
   elementContribute: option<ApViewStoreType.contribute>,
+  isShowElementInspector: bool,
+  elementInspectorData: elementInspectorData,
 }
