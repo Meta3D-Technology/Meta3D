@@ -427,9 +427,40 @@ list:
 
 **** DONE run test
 
+**** DONE ui control protocol define data which can be send and get in assemble-space!  
+
+**** DONE refactor HandleUIControlProtocolUtils: invoke protocol's handler data instead of judge protocol name!
+
+
+**** TODO pass bdd test
+
+need test:
+publish tool
+backend-cloudbase
+assemble-space:
+    Contributes
+    UIControls
+    ElementMRUtils
+
+
+
+
+**** TODO pass run test
+
+
+# **** TODO implement publish element
+
+
+**** TODO move actions to action's protocol
+
+publish;
+protocol can be send and get in assemble-space!  
 
 
 **** TODO rewrite action contribute
+
+
+
 
 return {
     ...,
@@ -491,13 +522,26 @@ update it!
 
 
 
+**** TODO move reducer, element state(with default value) to element's protocol
+publish;
+protocol can be send and get in assemble-space!  
 
-onRegister:
-# add self->reducer to meta3dState
+
+so can get reducer, element state from protocol when switch to ui view!
+
+
+
+
+**** TODO update ui->init
+get all elements' protocol data
+
 combine self->reducers to uiState
 
 # so can be combined in editor entry extension 
 
+
+
+**** TODO update UIManager->dispatch
 
 
 *** TODO bdd test
@@ -533,6 +577,43 @@ update mr
 run test with run visual
 
 
+** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
+
+send to server
+
+
+# onRegister:
+# add self to meta3dState
+
+# so can be registered in editor entry extension one by one
+
+# editor entry extension can get them by api.getAllContributesByType 
+
+should publish element protocol
+protocol has:
+element state
+reducer
+
+
+provide when publish:
+element name
+element version
+element protocol name
+element protocol version
+
+
+
+** TODO feat: import single element
+
+1.in ap view
+2.select other
+3.select one element(import element)
+4.switch to ui view
+5.can continue edit the element visually
+
+*** TODO implement
+
+*** TODO update "so can get reducer, element state from protocol when switch to ui view!" logic: to the specific element instead of switch to ui view!
 
 ** TODO fix control properies
 
@@ -651,6 +732,15 @@ to: let { normal } = skin.button
 
 
 
+* TODO feat: select other elements and edit new element
+
+ui view only show new element;
+when run, run together
+
+** TODO run test
+
+test reducer for multiple elements when run
+
 
 
 * TODO pass run test: single element
@@ -661,38 +751,7 @@ one button
 one button with different rect, color
 
 
-* TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
-send to server
-
-
-# onRegister:
-# add self to meta3dState
-
-# so can be registered in editor entry extension one by one
-
-editor entry extension can get them by api.getAllContributesByType 
-
-
-
-* TODO feat: import single element
-
-1.in ap view
-2.select other
-3.select one element(import element)
-4.switch to ui view
-5.can continue edit the element visually
-
-
-
-* TODO feat: select other elements and edit new element
-
-ui view only show new element;
-when run, run together
-
-** TODO run test
-
-test reducer for multiple elements when run
 
 
 * TODO ap view:

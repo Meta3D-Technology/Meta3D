@@ -24,6 +24,8 @@ let useEffectOnceAsync = (
   )
 }
 
-let selectContribute = (~iconBase64, ~contribute, ~dispatch) => {
-  Contributes.Method.selectContribute(dispatch, iconBase64, contribute)
+let selectContribute = (~iconBase64, ~protocolConfigStr, ~contribute, ~dispatch) => {
+  Contributes.Method.selectContribute(dispatch, iconBase64,protocolConfigStr, contribute)
 }
+
+let getProtocolConfigStr = Contributes.Method._getProtocolConfigStr

@@ -1,5 +1,7 @@
 type protocolIconBase64 = string
 
+type protocolConfigStr = string
+
 type id = string
 
 type name = string
@@ -7,18 +9,12 @@ type name = string
 type uiControl = {
   id: id,
   protocolIconBase64: protocolIconBase64,
+  protocolConfigStr: protocolConfigStr,
   name: name,
   data: Meta3d.ExtensionFileType.contributeFileData,
 }
 
 type selectedUIControls = list<uiControl>
-
-type rect = {
-  x: int,
-  y: int,
-  width: int,
-  height: int,
-}
 
 type actionName = string
 
@@ -28,6 +24,8 @@ type eventData = {
 }
 
 type event = array<eventData>
+
+type rect = Meta3dType.Index.rect
 
 type uiControlInspectorData = {id: id, rect: rect, event: event}
 
@@ -49,7 +47,12 @@ type elementInspectorData = {elementStateFields: elementStateFields}
 
 type action =
   | Reset
-  | SelectUIControl(protocolIconBase64, name, Meta3d.ExtensionFileType.contributeFileData)
+  | SelectUIControl(
+      protocolIconBase64,
+      protocolConfigStr,
+      name,
+      Meta3d.ExtensionFileType.contributeFileData,
+    )
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
   | SetAction(id, (UIControlInspectorType.eventName, option<actionName>))

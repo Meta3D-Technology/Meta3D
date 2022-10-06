@@ -43,7 +43,7 @@ module Method = {
   let setAction = (
     dispatch,
     id,
-    eventName: HandleUIControlProtocolUtils.eventName,
+    eventName: Meta3dType.Index.supportedEventName,
     actionName: string,
   ) => {
     dispatch(
@@ -160,19 +160,21 @@ let make = (~service: service) => {
           ->Obj.magic,
           None,
         )->Obj.magic
-      | Some({id, data}) =>
+      | Some({id, protocolConfigStr, data}) =>
         let {name, version} = data.contributePackageData.protocol
 
         let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
 
+        let configLib = service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr)
+
         <List
-          dataSource={HandleUIControlProtocolUtils.getUIControlSupportedEventNames(name, version)}
+          dataSource={service.meta3d.getUIControlSupportedEventNames(. configLib)}
           renderItem={eventName => {
             let defaultValue =
-              HandleUIControlProtocolUtils.getActionName(
+              ElementMRUtils.getActionName(
                 event,
                 eventName,
-              )->Meta3dCommonlib.OptionSt.getWithDefault(Method.buildEmptySelectOptionValue())
+              )->Meta3dCommonlib.NullableSt.getWithDefault(Method.buildEmptySelectOptionValue())
 
             <List.Item key={eventName->Obj.magic}>
               <span> {React.string({j`${eventName->Obj.magic}: `})} </span>

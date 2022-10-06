@@ -34,7 +34,7 @@ type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionServic
 and extensionLifeAsyncEventHandler<'extensionService> = (
   state,
   'extensionService,
-  extensionLifeHandlerData
+  extensionLifeHandlerData,
 ) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
@@ -51,7 +51,7 @@ and state = {
   >,
   contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     contributeName,
-    (ContributeType. contributeType, contribute),
+    (ContributeType.contributeType, contribute),
   >,
 }
 
@@ -75,7 +75,10 @@ type api = {
     ('dependentExtensionNameMap, 'dependentContributeNameMap),
   ) => state,
   getContribute: 'contribute. (. state, contributeName) => 'contribute,
-  getAllContributesByType: 'contribute. (. state, ContributeType.contributeType) => array<'contribute>,
+  getAllContributesByType: 'contribute. (
+    . state,
+    ContributeType.contributeType,
+  ) => array<'contribute>,
 }
 
 type getExtensionService<
@@ -95,3 +98,26 @@ type getContribute<
 (api, ('dependentExtensionNameMap, 'dependentContributeNameMap)) => 'contribute
 
 type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>
+
+/* ! ui control protocol config */
+
+type rect = {
+  x: int,
+  y: int,
+  width: int,
+  height: int,
+}
+
+type uiControlName = string
+
+type supportedEventName = [#click]
+
+type actionName = Js.Nullable.t<string>
+
+type generateUIControlDataStr = rect => string
+
+type generateUIControlName = unit => uiControlName
+
+type getUIControlSupportedEventNames = unit => array<supportedEventName>
+
+type generateHandleUIControlEventStr = array<actionName> => string

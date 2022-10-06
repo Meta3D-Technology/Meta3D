@@ -11,6 +11,16 @@ export let getAllPublishProtocolData = (
     })
 }
 
+export let getAllPublishProtocolConfigData = (
+    getCollectionFunc: any,
+    collectionName: string) => {
+    return fromPromise(getCollectionFunc(collectionName)).map((res: any) => {
+        return res.data.map(({ name, version, username, configStr }) => {
+            return { name, version, username, configStr }
+        })
+    })
+}
+
 export let getAllPublishData = (
     [getCollectionFunc, getFileFunc]: [any, any],
     collectionName: string, protocolName: string, protocolVersion: string) => {

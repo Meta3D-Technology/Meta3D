@@ -64,11 +64,12 @@ let reducer = (state, action) => {
           : extension
       }),
     }
-  | SelectContribute(protocolIconBase64, contribute) => {
+  | SelectContribute(protocolIconBase64, protocolConfigStr, contribute) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64: protocolIconBase64,
+        protocolConfigStr: protocolConfigStr,
         newName: None,
         data: contribute.data,
       }),

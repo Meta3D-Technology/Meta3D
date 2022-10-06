@@ -30,28 +30,32 @@ let buildContributeData = (
 let buildSelectedContribute = (
   ~protocolName,
   ~protocolVersion,
+  ~protocolConfigStr=None,
   ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
   ~version="0.0.1",
   ~username="u1",
   (),
-): FrontendUtils.AssembleSpaceCommonType.contribute => {
-  {
-    id: id,
-    data: buildContributeData(
-      ~contributePackageData=buildContributePackageData(
-        ~protocol={
-          name: protocolName,
-          version: protocolVersion,
-        },
+): FrontendUtils.AssembleSpaceCommonType.contributeData => {
+  (
+    {
+      id: id,
+      data: buildContributeData(
+        ~contributePackageData=buildContributePackageData(
+          ~protocol={
+            name: protocolName,
+            version: protocolVersion,
+          },
+          (),
+        ),
+        ~contributeFuncData,
         (),
       ),
-      ~contributeFuncData,
-      (),
-    ),
-    version: version,
-    username: username,
-  }
+      version: version,
+      username: username,
+    },
+    protocolConfigStr,
+  )
 }
 
 let generateContribute = (

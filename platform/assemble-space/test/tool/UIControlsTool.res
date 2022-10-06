@@ -5,6 +5,7 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 let buildSelectedContribute = (
   ~protocolName="e1",
   ~protocolIconBase64="i1",
+  ~protocolConfigStr=None,
   ~newName=None,
   ~id="e1",
   (),
@@ -12,6 +13,7 @@ let buildSelectedContribute = (
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
+    protocolConfigStr: protocolConfigStr,
     newName: newName,
     data: {
       contributePackageData: ContributeTool.buildContributePackageData(

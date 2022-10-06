@@ -3,6 +3,7 @@
 var AppManager$Meta3d = require("./app/AppManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
+var UIControlProtocolConfig$Meta3d = require("./contribute_protocol_config/UIControlProtocolConfig.bs.js");
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
@@ -38,6 +39,16 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
+var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
+
+var generateUIControlName = UIControlProtocolConfig$Meta3d.generateUIControlName;
+
+var generateUIControlDataStr = UIControlProtocolConfig$Meta3d.generateUIControlDataStr;
+
+var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIControlSupportedEventNames;
+
+var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 exports.registerExtension = registerExtension;
@@ -57,5 +68,10 @@ exports.convertAllFileDataForApp = convertAllFileDataForApp;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
 exports.startApp = startApp;
+exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLib;
+exports.generateUIControlName = generateUIControlName;
+exports.generateUIControlDataStr = generateUIControlDataStr;
+exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
+exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 exports.buildAPI = buildAPI;
 /* AppManager-Meta3d Not a pure module */

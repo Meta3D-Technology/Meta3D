@@ -10,6 +10,10 @@ let make = () => {
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishContributeProtocols, setAllPublishContributeProtocols) = React.useState(_ => [])
+  let (
+    allPublishContributeProtocolConfigs,
+    setAllPublishContributeProtocolConfigs,
+  ) = React.useState(_ => [])
   let (contributeProtocolItem, setContributeProtocolItem) = React.useState(_ => None)
   let (allPublishContributes, setAllPublishContributes) = React.useState(_ => None)
 
@@ -29,8 +33,16 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishContributeProtocols()->Meta3dBsMost.Most.observe(protocols => {
+    BackendCloudbase.getAllPublishContributeProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
+      BackendCloudbase.getAllPublishContributeProtocolConfigs()->Meta3dBsMost.Most.map(
+        protocolConfigs => {
+          (protocols, protocolConfigs)
+        },
+        _,
+      )
+    }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
       setAllPublishContributeProtocols(_ => protocols)
+      setAllPublishContributeProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
@@ -48,6 +60,8 @@ let make = () => {
       : {
           switch contributeProtocolItem {
           | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+            let (protocolName, protocolVersion) = (item.name, item.version)
+
             switch allPublishContributes {
             | Some(allPublishContributes) =>
               <List
@@ -76,7 +90,21 @@ let make = () => {
                       : <Button
                           onClick={_ => {
                             dispatch(
-                              AppStore.UserCenterAction(UserCenterStore.SelectContribute(item)),
+                              AppStore.UserCenterAction(
+                                UserCenterStore.SelectContribute(
+                                  item,
+                                  allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                    (
+                                      {
+                                        name,
+                                        version,
+                                      }: FrontendUtils.BackendCloudbaseType.protocolConfig,
+                                    ) => {
+                                      name === protocolName && version === protocolVersion
+                                    },
+                                  ),
+                                ),
+                              ),
                             )
                           }}>
                           {React.string(`选择`)}

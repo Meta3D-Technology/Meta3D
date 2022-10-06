@@ -11,4 +11,13 @@ gulp.task("publish", function (done) {
     })
 });
 
+gulp.task("publishConfig", function (done) {
+    publish.publishContributeProtocolCOnfig(
+        path.join(__dirname, "package.json"),
+        path.join(__dirname, "dist/static/js", "main.js")
+    ).then(() => {
+        done()
+    })
+});
+
 

@@ -28,7 +28,7 @@ let _createState = () => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
-  | SelectUIControl(protocolIconBase64, name, data) => {
+  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       {
@@ -36,6 +36,7 @@ let reducer = (state, action) => {
         selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.push({
           id: id,
           protocolIconBase64: protocolIconBase64,
+          protocolConfigStr: protocolConfigStr,
           name: name,
           data: data,
         }),

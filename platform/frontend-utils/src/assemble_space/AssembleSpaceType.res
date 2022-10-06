@@ -16,6 +16,7 @@ type error = (. string, option<int>) => unit
 type backendService = {
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
+  getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
   getAllPublishExtensions: getAllPublishExtensions,
   publishApp: publishApp,
   findPublishApp: findPublishApp,
@@ -34,9 +35,15 @@ type reactService = {
 type consoleService = {error: error}
 
 type meta3dService = {
-  generateContribute: (. Meta3d.ExtensionFileType.contributePackageData, string) => Js.Typed_array.ArrayBuffer.t,
+  generateContribute: (
+    . Meta3d.ExtensionFileType.contributePackageData,
+    string,
+  ) => Js.Typed_array.ArrayBuffer.t,
   loadContribute: (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.contributeFileData,
-  generateExtension: (. Meta3d.ExtensionFileType.extensionPackageData, string) => Js.Typed_array.ArrayBuffer.t,
+  generateExtension: (
+    . Meta3d.ExtensionFileType.extensionPackageData,
+    string,
+  ) => Js.Typed_array.ArrayBuffer.t,
   loadExtension: (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.extensionFileData,
   initExtension: (
     . Meta3dType.Index.state,
@@ -69,6 +76,21 @@ type meta3dService = {
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
+  serializeUIControlProtocolConfigLib: (
+    . string
+  ) => Meta3d.LibUtils.lib ,
+  generateUIControlDataStr: (
+    . Meta3d.LibUtils.lib , Meta3dType.Index.rect
+  ) => string,
+  generateUIControlName: (
+    . Meta3d.LibUtils.lib 
+  ) => Meta3dType.Index.uiControlName,
+  getUIControlSupportedEventNames: (
+    . Meta3d.LibUtils.lib 
+  ) => array<Meta3dType.Index.supportedEventName>,
+  generateHandleUIControlEventStr: (
+    . Meta3d.LibUtils.lib , array<Meta3dType.Index.actionName>
+  ) => string
 }
 
 type otherService = {random: unit => float}
@@ -83,4 +105,4 @@ type service = {
 
 type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>
 
-type selectedContributesFromShop = list<AssembleSpaceCommonType.contribute>
+type selectedContributesFromShop = list<AssembleSpaceCommonType.contributeData>

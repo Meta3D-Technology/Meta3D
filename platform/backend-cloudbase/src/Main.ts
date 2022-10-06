@@ -32,6 +32,11 @@ export let getAllPublishContributeProtocols = () => {
     return ShopService.getAllPublishProtocolData(getCollection, "publishedContributeProtocols")
 }
 
+export let getAllPublishContributeProtocolConfigs = () => {
+    return ShopService.getAllPublishProtocolConfigData(getCollection, "publishedContributeProtocolConfigs")
+}
+
+
 export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
     return ShopService.getAllPublishData([getCollection, getFile],
         "publishedExtensions",

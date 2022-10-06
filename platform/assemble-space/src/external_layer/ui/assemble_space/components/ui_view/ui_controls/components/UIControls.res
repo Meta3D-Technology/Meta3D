@@ -10,8 +10,15 @@ module Method = {
     })
   }
 
-  let selectUIControl = (dispatch, protocolIconBase64, name, data) => {
-    dispatch(FrontendUtils.UIViewStoreType.SelectUIControl(protocolIconBase64, name, data))
+  let selectUIControl = (dispatch, protocolIconBase64, protocolConfigStr, name, data) => {
+    dispatch(
+      FrontendUtils.UIViewStoreType.SelectUIControl(
+        protocolIconBase64,
+        protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+        name,
+        data,
+      ),
+    )
   }
 
   let useSelector = ({selectedContributes}: FrontendUtils.ApViewStoreType.state) => {
@@ -32,14 +39,14 @@ let make = (~service: service) => {
   <List
   // grid={{gutter: 16, column: 3}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
-    renderItem={({id, newName, protocolIconBase64, data}) => {
+    renderItem={({id, newName, protocolIconBase64, protocolConfigStr, data}) => {
       let name = NewNameUtils.getName(newName, data.contributePackageData.name)
 
       <List.Item>
         <Card
           key={id}
           onClick={_ => {
-            Method.selectUIControl(dispatch, protocolIconBase64, name, data)
+            Method.selectUIControl(dispatch, protocolIconBase64, protocolConfigStr, name, data)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
           cover={<img

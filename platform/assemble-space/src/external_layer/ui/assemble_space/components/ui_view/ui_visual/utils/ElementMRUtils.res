@@ -4,9 +4,12 @@ type element = {
   elementStateFields: array<FrontendUtils.UIViewStoreType.elementStateFieldData>,
 }
 
+type protocolConfigLib = Meta3d.LibUtils.lib
+
 type protocol = {
   name: string,
   version: string,
+  configLib: protocolConfigLib,
 }
 
 type uiControl = {
@@ -28,6 +31,7 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
 }
 
 let buildElementMR = (
+  service: FrontendUtils.AssembleSpaceType.service ,
   selectedUIControls,
   selectedUIControlInspectorData,
   elementStateFields,
@@ -39,13 +43,15 @@ let buildElementMR = (
       elementStateFields: elementStateFields,
     },
     uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. uiControls, {id, data}: FrontendUtils.UIViewStoreType.uiControl) => {
+      (. uiControls, {id, protocolConfigStr, data}: FrontendUtils.UIViewStoreType.uiControl) => {
         let {name, version} = data.contributePackageData.protocol
+
 
         uiControls->Meta3dCommonlib.ArraySt.push({
           protocol: {
             name: name,
             version: version,
+            configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
           },
           data: _getSelectedUIControlInspectorData(selectedUIControlInspectorData, id),
         })
@@ -55,13 +61,13 @@ let buildElementMR = (
   }
 }
 
-let _generateGetUIControlsStr = uiControls => {
+let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service , uiControls ) => {
   uiControls
   ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {protocol}) => {
     j`${protocol.name}_${protocol.version}`
   })
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {protocol}) => {
-    let uiControlName = HandleUIControlProtocolUtils.generateUIControlName(protocol.name)
+    let uiControlName = service.meta3d.generateUIControlName(. protocol.configLib)
 
     str ++
     j`
@@ -70,18 +76,37 @@ let _generateGetUIControlsStr = uiControls => {
   }, "")
 }
 
-let _generateAllDrawUIControlAndHandleEventStr = uiControls => {
+let getActionName = (event: FrontendUtils.UIViewStoreType.event, eventName) => {
+  event
+  ->Meta3dCommonlib.ArraySt.find(eventData => {
+    eventData.eventName === eventName
+  })
+  ->Meta3dCommonlib.OptionSt.map(({actionName}) => actionName)->Meta3dCommonlib.OptionSt.toNullable
+}
+
+let _generateHandleUIControlEventStr = (service: FrontendUtils.AssembleSpaceType.service , configLib, event) => {
+
+
+      service.meta3d.generateHandleUIControlEventStr(. configLib, 
+      service.meta3d.getUIControlSupportedEventNames(. configLib) -> Meta3dCommonlib.ArraySt.map((eventName) =>{
+getActionName(event, eventName)
+      })
+
+)
+}
+
+let _generateAllDrawUIControlAndHandleEventStr = (service: FrontendUtils.AssembleSpaceType.service , uiControls ) => {
   uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. str, {protocol, data}) => {
-      let {name, version} = protocol
+      let {name, version, configLib} = protocol
 
       str ++
       j`
-                data = ${HandleUIControlProtocolUtils.generateUIControlName(name)}(meta3dState,
-                    ${HandleUIControlProtocolUtils.generateUIControlDataStr(name, version, data)})
+                data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
+                    ${service.meta3d.generateUIControlDataStr(. configLib, data.rect)})
                 meta3dState = data[0]
     ` ++
-      HandleUIControlProtocolUtils.generateHandleUIControlEventStr(name, version, data.event)
+      _generateHandleUIControlEventStr (service, configLib, data.event)
     },
     `
                 let data = null
@@ -101,7 +126,7 @@ let _generateElementState = elementStateFields => {
   ->Js.Json.stringify
 }
 
-let generateElementContributeFileStr = (mr: elementMR): string => {
+let generateElementContributeFileStr = (service, mr: elementMR): string => {
   let {elementName, execOrder, elementStateFields} = mr.element
 
   let str = {
@@ -121,9 +146,9 @@ window.Contribute = {
 `
   }
 
-  let str = str ++ _generateGetUIControlsStr(mr.uiControls)
+  let str = str ++ _generateGetUIControlsStr(service, mr.uiControls)
 
-  let str = str ++ _generateAllDrawUIControlAndHandleEventStr(mr.uiControls)
+  let str = str ++ _generateAllDrawUIControlAndHandleEventStr(service, mr.uiControls)
 
   let str =
     str ++ `

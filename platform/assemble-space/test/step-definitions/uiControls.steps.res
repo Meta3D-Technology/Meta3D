@@ -85,6 +85,7 @@ defineFeature(feature, test => {
       UIControlsTool.selectUIControl(
         dispatchStub.contents,
         protocolIconBase64.contents,
+        ""->Some,
         name.contents,
         data.contents,
       )
@@ -96,6 +97,7 @@ defineFeature(feature, test => {
       ->SinonTool.calledWith(
         FrontendUtils.UIViewStoreType.SelectUIControl(
           protocolIconBase64.contents,
+          "",
           name.contents,
           data.contents,
         ),

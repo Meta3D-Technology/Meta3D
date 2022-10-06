@@ -1,5 +1,7 @@
 type protocolIconBase64 = string
 
+type protocolConfigStr = string
+
 type id = string
 
 type newName = string
@@ -17,9 +19,15 @@ type selectedExtensions = list<extension>
 type contribute = {
   id: id,
   protocolIconBase64: protocolIconBase64,
+  protocolConfigStr: option<protocolConfigStr>,
   newName: option<newName>,
   data: Meta3d.ExtensionFileType.contributeFileData,
 }
+
+// type selectedContributes = list<(
+//   contribute,
+//   option<FrontendUtils.BackendCloudbaseType.protocolConfig>,
+// )>
 
 type selectedContributes = list<contribute>
 
@@ -37,7 +45,11 @@ type action =
   | StartExtension(id)
   | UnStartExtension(id)
   | SetExtensionNewName(id, newName)
-  | SelectContribute(protocolIconBase64, AssembleSpaceCommonType.contribute)
+  | SelectContribute(
+      protocolIconBase64,
+      option<protocolConfigStr>,
+      AssembleSpaceCommonType.contribute,
+    )
   | SetInspectorCurrentContributeId(id)
   | SetContributeNewName(id, newName)
   | SetCanvasData(canvasData)

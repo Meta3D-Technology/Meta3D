@@ -1,12 +1,14 @@
 export const uiControlName = "Button"
 
+type rect = {
+    x: number,
+    y: number,
+    width: number,
+    height: number
+}
+
 export type inputData = {
-    rect: {
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    },
+    rect: rect,
     // text: string
 }
 

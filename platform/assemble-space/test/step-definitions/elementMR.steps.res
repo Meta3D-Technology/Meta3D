@@ -9,11 +9,23 @@ let feature = loadFeature("./test/features/elementMR.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
+  let service = ref(Obj.magic(1))
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+
+      service :=
+        ServiceTool.build(
+          ~sandbox,
+          ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
+          ~generateUIControlName=Meta3d.Main.generateUIControlName->Obj.magic,
+          ~generateUIControlDataStr=Meta3d.Main.generateUIControlDataStr->Obj.magic,
+          ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
+          ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
+          (),
+        )
     })
   }
 
@@ -100,6 +112,7 @@ defineFeature(feature, test => {
     \"when"("build element middle represent with b1, b2 and their inspector data", () => {
       mr :=
         UIVisualTool.buildElementMR(
+          service.contents,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
           elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
@@ -107,7 +120,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate element contribute string", () => {
-      str := UIVisualTool.generateElementContributeFileStr(mr.contents)
+      str := UIVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
     })
 
     then("should build correct result", () => {
@@ -124,6 +137,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
+                  configLib: matchAny,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.head
@@ -133,6 +147,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
+                  configLib: matchAny,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.getLast
@@ -144,7 +159,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect =="\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":2,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":2,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 
@@ -198,6 +213,7 @@ defineFeature(feature, test => {
     \"when"("build element middle represent with b1 and their inspector data", () => {
       mr :=
         UIVisualTool.buildElementMR(
+          service.contents,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
           [],
@@ -205,7 +221,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate element contribute string", () => {
-      str := UIVisualTool.generateElementContributeFileStr(mr.contents)
+      str := UIVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
     })
 
     then("should build correct result", () => {
@@ -222,6 +238,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
+                  configLib: matchAny,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.head

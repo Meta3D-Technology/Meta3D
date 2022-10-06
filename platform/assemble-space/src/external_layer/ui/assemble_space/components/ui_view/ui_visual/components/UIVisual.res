@@ -19,8 +19,8 @@ module Method = {
     data: data,
   }
 
-  let _loadAndBuildVisualExtension = file => {
-    Meta3d.Main.loadExtension(file)->_buildExtension(_getVisualExtensionName(), _)
+  let _loadAndBuildVisualExtension = (service, file) => {
+    service.meta3d.loadExtension(. file)->_buildExtension(_getVisualExtensionName(), _)
   }
 
   let getAndSetVisualExtension = (service, dispatch) => {
@@ -38,7 +38,7 @@ module Method = {
       )[0]
     }, _)
     ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
-      _loadAndBuildVisualExtension(data.file)
+      _loadAndBuildVisualExtension(service, data.file)
     }, _)
     ->Meta3dBsMost.Most.observe(extension => {
       dispatch(FrontendUtils.UIViewStoreType.SetVisualExtension(extension))
@@ -126,20 +126,23 @@ module Method = {
   let _getElementContributeProtocolVersion = () => "0.5.1"
 
   let buildElementContributeFileStr = (
+    service,
     selectedUIControls,
     selectedUIControlInspectorData,
     elementStateFields,
   ) => {
     ElementMRUtils.buildElementMR(
+      service,
       selectedUIControls->Meta3dCommonlib.ListSt.toArray,
       selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
       elementStateFields->Meta3dCommonlib.ListSt.toArray,
-    )->ElementMRUtils.generateElementContributeFileStr
+    )->ElementMRUtils.generateElementContributeFileStr(service, _)
   }
 
   let _buildContribute = (name, data): FrontendUtils.ApViewStoreType.contribute => {
     id: "",
     protocolIconBase64: "",
+    protocolConfigStr: None,
     newName: name->Some,
     data: data,
   }
@@ -227,6 +230,7 @@ let make = (~service: service) => {
       ? Method.generateElementContribute(
           service,
           Method.buildElementContributeFileStr(
+            service,
             selectedUIControls,
             selectedUIControlInspectorData,
             elementStateFields,

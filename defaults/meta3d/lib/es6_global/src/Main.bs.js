@@ -3,6 +3,7 @@
 import * as AppManager$Meta3d from "./app/AppManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
+import * as UIControlProtocolConfig$Meta3d from "./contribute_protocol_config/UIControlProtocolConfig.bs.js";
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
@@ -38,6 +39,16 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
+var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
+
+var generateUIControlName = UIControlProtocolConfig$Meta3d.generateUIControlName;
+
+var generateUIControlDataStr = UIControlProtocolConfig$Meta3d.generateUIControlDataStr;
+
+var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIControlSupportedEventNames;
+
+var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 export {
@@ -58,6 +69,11 @@ export {
   generateApp ,
   loadApp ,
   startApp ,
+  serializeUIControlProtocolConfigLib ,
+  generateUIControlName ,
+  generateUIControlDataStr ,
+  getUIControlSupportedEventNames ,
+  generateHandleUIControlEventStr ,
   buildAPI ,
   
 }

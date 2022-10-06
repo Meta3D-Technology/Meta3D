@@ -27,6 +27,15 @@ let make = () => {
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
+      serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>
+        Meta3d.Main.serializeUIControlProtocolConfigLib(protocolConfigStr),
+      generateUIControlName: (. configLib) => Meta3d.Main.generateUIControlName(configLib),
+      generateUIControlDataStr: (. configLib, rect) =>
+        Meta3d.Main.generateUIControlDataStr(configLib, rect),
+      getUIControlSupportedEventNames: (. configLib) =>
+        Meta3d.Main.getUIControlSupportedEventNames(configLib),
+      generateHandleUIControlEventStr: (. configLib, actionNames) =>
+        Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames),
     },
     console: {
       error: (. errorMessage, durationOpt) =>

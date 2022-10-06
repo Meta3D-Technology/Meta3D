@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, rect } from "meta3d-type"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
@@ -12,15 +12,17 @@ export function registerExtension<extensionService, dependentExtensionNameMap, d
     extensionState: extensionState
 ): state
 
+type extensionLifeHandlerData = any
+
 export function initExtension(
-    state:state,
-    extensionName:extensionName,
+    state: state,
+    extensionName: extensionName,
     extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
 export function updateExtension(
-    state:state,
-    extensionName:extensionName,
+    state: state,
+    extensionName: extensionName,
     extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
@@ -132,6 +134,18 @@ export function startApp(
     ]: [state, Array<extensionFileData>]
 ): void
 
-type extensionLifeHandlerData = any
+type protocolConfigStr = string
+
+type protocolConfigLib = any
+
+export type serializeUIControlProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
+
+export type generateUIControlName = (configLib: protocolConfigLib) => uiControlName
+
+export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: rect) => string
+
+export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<supportedEventName>
+
+export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, actionNames: Array<actionName>) => string
 
 export function buildAPI(): api

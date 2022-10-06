@@ -10,19 +10,24 @@ type selectedExtensions = list<extension>
 
 type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
 
-type selectedContributes = list<contribute>
+type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
+
+// type selectedContributeProtocolConfigs = list<
+//   option<FrontendUtils.BackendCloudbaseType.protocolConfig>,
+// >
 
 type action =
   | SetUserName(string)
   | SelectExtension(extension)
   | NotSelectExtension(id)
-  | SelectContribute(contribute)
+  | SelectContribute(contribute, option<FrontendUtils.BackendCloudbaseType.protocolConfig>)
   | NotSelectContribute(id)
 
 type state = {
   username: option<string>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
+  // selectedContributeProtocolConfigs: selectedContributeProtocolConfigs,
 }
 
 let reducer = (state, action) => {
@@ -38,15 +43,22 @@ let reducer = (state, action) => {
         selectedExtension => selectedExtension.id !== id,
       ),
     }
-  | SelectContribute(data) => {
+  | SelectContribute(data, protocolConfigOpt) => {
       ...state,
-      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push(data),
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push((
+        data,
+        protocolConfigOpt,
+      )),
+      // selectedContributeProtocolConfigs: state.selectedContributeProtocolConfigs->Meta3dCommonlib.ListSt.push(
+      //   protocolConfigOpt,
+      // ),
     }
   | NotSelectContribute(id) => {
       ...state,
-      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.filter(
-        selectedContribute => selectedContribute.id !== id,
-      ),
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.filter(((
+        selectedContribute,
+        _,
+      )) => selectedContribute.id !== id),
     }
   }
 }
@@ -55,4 +67,5 @@ let initialState = {
   username: None,
   selectedExtensions: list{},
   selectedContributes: list{},
+  // selectedContributeProtocolConfigs: list{},
 }

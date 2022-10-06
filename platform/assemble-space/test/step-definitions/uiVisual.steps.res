@@ -232,7 +232,10 @@ defineFeature(feature, test => {
             }: Meta3d.ExtensionFileType.extensionPackageData
           ),
           UIVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
-        )->UIVisualTool.loadAndBuildVisualExtension
+        )->UIVisualTool.loadAndBuildVisualExtension(
+          ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
+          _,
+        )
     })
 
     \"and"("generate extension ui", () => {

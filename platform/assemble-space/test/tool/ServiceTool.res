@@ -12,10 +12,11 @@ let build = (
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))-> Obj.magic,
+  ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
-  ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ~getAllPublishContributeProtocolConfigs=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
   ~getAllPublishExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -41,6 +42,11 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~serializeUIControlProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~generateUIControlDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~generateUIControlName=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   (),
 ) => {
   react: {
@@ -57,7 +63,10 @@ let build = (
   backend: {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
+getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs-> Obj.magic,
     getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
+
+
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
@@ -72,6 +81,11 @@ let build = (
     generateApp: generateApp,
     convertAllFileData: convertAllFileData,
     loadApp: loadApp,
+serializeUIControlProtocolConfigLib,
+generateUIControlDataStr,
+generateUIControlName,
+getUIControlSupportedEventNames,
+generateHandleUIControlEventStr,
   },
   other: {
     random: random,

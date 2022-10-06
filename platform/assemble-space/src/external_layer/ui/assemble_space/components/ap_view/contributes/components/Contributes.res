@@ -5,6 +5,12 @@ open FrontendUtils.AssembleSpaceType
 // TODO refactor: duplicate
 
 module Method = {
+  let _getProtocolConfigStr = protocolConfig => {
+    protocolConfig->Meta3dCommonlib.OptionSt.map((
+      {configStr}: FrontendUtils.BackendCloudbaseType.protocolConfig,
+    ) => configStr)
+  }
+
   // TODO perf: defer load when panel change
   let _getContributesAndContributes = (
     {getAllPublishContributeProtocols},
@@ -13,14 +19,21 @@ module Method = {
     getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(protocols => {
       protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
         (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-          switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter((
+          switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter(((
             {data}: FrontendUtils.AssembleSpaceCommonType.contribute,
-          ) => {
+            _,
+          )) => {
             let protocol = data.contributePackageData.protocol
 
             protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
           }) {
-          | list{contribute} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64, contribute))
+          | list{(contribute, protocolConfig)} =>
+            result->Meta3dCommonlib.ArraySt.push((
+              name,
+              iconBase64,
+              protocolConfig->_getProtocolConfigStr,
+              contribute,
+            ))
           | _ => result
           }
         },
@@ -29,8 +42,14 @@ module Method = {
     }, _)
   }
 
-  let selectContribute = (dispatch, protocolIconBase64, contribute) => {
-    dispatch(FrontendUtils.ApViewStoreType.SelectContribute(protocolIconBase64, contribute))
+  let selectContribute = (dispatch, protocolIconBase64, protocolConfigStr, contribute) => {
+    dispatch(
+      FrontendUtils.ApViewStoreType.SelectContribute(
+        protocolIconBase64,
+        protocolConfigStr,
+        contribute,
+      ),
+    )
   }
 
   let useEffectOnceAsync = (
@@ -67,12 +86,12 @@ let make = (~service: service, ~selectedContributesFromShop: selectedContributes
     : <List
         grid={{gutter: 16, column: 3}}
         dataSource={contributes}
-        renderItem={((name, iconBase64, contribute)) => {
+        renderItem={((name, iconBase64, configStr, contribute)) => {
           <List.Item>
             <Card
               key={name}
               onClick={_ => {
-                Method.selectContribute(dispatch, iconBase64, contribute)
+                Method.selectContribute(dispatch, iconBase64, configStr, contribute)
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
               cover={<img

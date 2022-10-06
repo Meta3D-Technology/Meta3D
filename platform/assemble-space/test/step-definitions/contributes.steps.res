@@ -174,20 +174,26 @@ defineFeature(feature, test => {
     \"when"("select a1", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
+      let (contribute, protocolConfig) = selectedContributesFromShop.contents->ListTool.getHeadExn
+
       ContributesTool.selectContribute(
         ~dispatch=dispatchStub.contents,
         ~iconBase64=a.iconBase64,
-        ~contribute=selectedContributesFromShop.contents->ListTool.getHeadExn,
+        ~contribute,
+        ~protocolConfigStr=protocolConfig->ContributesTool.getProtocolConfigStr,
       )
     })
 
     then("should dispatch selectContribute action", () => {
+      let (contribute, protocolConfig) = selectedContributesFromShop.contents->ListTool.getHeadExn
+
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
         FrontendUtils.ApViewStoreType.SelectContribute(
           a.iconBase64,
-          selectedContributesFromShop.contents->ListTool.getHeadExn,
+          protocolConfig->ContributesTool.getProtocolConfigStr,
+          contribute,
         ),
       )
       ->expect == true

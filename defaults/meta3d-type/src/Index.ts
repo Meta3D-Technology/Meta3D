@@ -1,4 +1,5 @@
 import { contributeType } from "./ContributeType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type extensionName = string
 
@@ -48,3 +49,28 @@ type extensionLife<extensionService> = {
 }
 
 export type getExtensionLife<extensionService> = (_1: api, extensionName: extensionName) => extensionLife<extensionService>
+
+
+
+/* ! ui control config */
+
+export type rect = {
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+}
+
+export type uiControlName = string
+
+export type supportedEventName = "click"
+
+export type actionName = nullable<string>
+
+export type generateUIControlDataStr = (rect: rect) => string
+
+export type generateUIControlName = () => uiControlName
+
+export type getUIControlSupportedEventNames = () => Array<supportedEventName>
+
+export type generateHandleUIControlEventStr = (actionNames: Array<actionName>) => string

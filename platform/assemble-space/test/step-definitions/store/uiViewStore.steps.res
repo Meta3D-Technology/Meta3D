@@ -28,7 +28,7 @@ defineFeature(feature, test => {
       store :=
         UIViewStore.reducer(
           store.contents,
-          FrontendUtils.UIViewStoreType.SelectUIControl("", "", Obj.magic(1)),
+          FrontendUtils.UIViewStoreType.SelectUIControl("", "", "", Obj.magic(1)),
         )
 
       id1 :=
