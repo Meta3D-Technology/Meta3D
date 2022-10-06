@@ -5,11 +5,31 @@ open Operators
 
 open Sinon
 
+// @module ( "sinon"  )@scope ( "match"   )
+
+@module("sinon") @scope("match")
+external matchFunction: 'any = "func"
+
 let feature = loadFeature("./test/features/elementMR.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   let service = ref(Obj.magic(1))
+
+  let _setFakeConfigLib = (mr: ElementMRUtils.elementMR, configLib) => {
+    {
+      ...mr,
+      uiControls: mr.uiControls->Meta3dCommonlib.ArraySt.map(({protocol} as uiControl) => {
+        {
+          ...uiControl,
+          protocol: {
+            ...protocol,
+            configLib: configLib,
+          },
+        }
+      }),
+    }
+  }
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -76,10 +96,16 @@ defineFeature(feature, test => {
             // ~name,
             // ~newName=None,
             ~id="b1",
+            ~protocolConfigStr=ElementMRTool.buildButtonContributeProtocolConfigStr(),
             ~data=b1.contents,
             (),
           ),
-          SelectedUIControlsTool.buildSelectedUIControl(~id="b2", ~data=b2.contents, ()),
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id="b2",
+            ~protocolConfigStr=ElementMRTool.buildButtonContributeProtocolConfigStr(),
+            ~data=b2.contents,
+            (),
+          ),
         }
     })
 
@@ -124,6 +150,9 @@ defineFeature(feature, test => {
     })
 
     then("should build correct result", () => {
+      let configLib = Obj.magic(1)
+      mr := _setFakeConfigLib(mr.contents, configLib)
+
       mr.contents->expect ==
         (
           {
@@ -137,7 +166,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
-                  configLib: matchAny,
+                  configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.head
@@ -147,7 +176,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
-                  configLib: matchAny,
+                  configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.getLast
@@ -159,7 +188,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":2,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    {    rect: {\"x\":2,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 
@@ -195,7 +224,14 @@ defineFeature(feature, test => {
 
     \"and"("select b1", () => {
       selectedUIControls :=
-        list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~data=b1.contents, ())}
+        list{
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id="b1",
+            ~protocolConfigStr=ElementMRTool.buildButtonContributeProtocolConfigStr(),
+            ~data=b1.contents,
+            (),
+          ),
+        }
     })
 
     \"and"("prepare b1's inspector data", () => {
@@ -225,6 +261,9 @@ defineFeature(feature, test => {
     })
 
     then("should build correct result", () => {
+      let configLib = Obj.magic(1)
+      mr := _setFakeConfigLib(mr.contents, configLib)
+
       mr.contents->expect ==
         (
           {
@@ -238,7 +277,7 @@ defineFeature(feature, test => {
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.5.0",
-                  configLib: matchAny,
+                  configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents
                 ->Meta3dCommonlib.ListSt.head
@@ -250,7 +289,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    \n  {\n    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}\n  }\n  )\n                meta3dState = data[0]\n    \n            let isClick = data[1]\n            if (isClick) {\n                let { trigger } = api.getExtensionService(meta3dState, meta3dEventExtensionName)\n\n                return trigger(meta3dState, meta3dEventExtensionName, \"a1\", null)\n            }\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"UIViewElement\",\n            execOrder: 0,\n            elementState: {},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    handle click event code...\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 })

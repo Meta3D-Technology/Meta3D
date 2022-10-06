@@ -37,6 +37,7 @@ defineFeature(feature, test => {
               ~id="1",
               ~newName="u1"->Some,
               ~protocolName="meta3d-ui-control-u1",
+              ~protocolConfigStr="u1_config"->Some,
               (),
             ),
             UIControlsTool.buildSelectedContribute(
@@ -67,6 +68,7 @@ defineFeature(feature, test => {
 
   test(."select uiControl", ({given, \"when", \"and", then}) => {
     let protocolIconBase64 = ref(Obj.magic(1))
+    let protocolConfigStr = ref(Obj.magic(1))
     let name = ref(Obj.magic(1))
     let data = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
@@ -75,6 +77,7 @@ defineFeature(feature, test => {
 
     given("select uiControl u1 in ap view", () => {
       protocolIconBase64 := "1"
+      protocolConfigStr := "c"
       name := "u1"
       data := Obj.magic(11)
     })
@@ -85,7 +88,7 @@ defineFeature(feature, test => {
       UIControlsTool.selectUIControl(
         dispatchStub.contents,
         protocolIconBase64.contents,
-        ""->Some,
+        protocolConfigStr.contents->Some,
         name.contents,
         data.contents,
       )
@@ -97,7 +100,7 @@ defineFeature(feature, test => {
       ->SinonTool.calledWith(
         FrontendUtils.UIViewStoreType.SelectUIControl(
           protocolIconBase64.contents,
-          "",
+          protocolConfigStr.contents,
           name.contents,
           data.contents,
         ),

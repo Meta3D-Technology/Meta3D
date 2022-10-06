@@ -21,6 +21,15 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
             height: 10,
             text: "button",
         },
+        reducer: {
+            role: "firstButton",
+            handler: [
+                {
+                    name: "changeX",
+                    elementStateFieldName: "x"
+                }
+            ],
+        },
         elementFunc: (meta3dState, elementState) => {
             let { getUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 

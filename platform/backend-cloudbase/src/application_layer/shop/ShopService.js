@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPublishData = exports.getAllPublishProtocolData = void 0;
+exports.getAllPublishData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
 let getAllPublishProtocolData = (getCollectionFunc, collectionName) => {
@@ -11,6 +11,14 @@ let getAllPublishProtocolData = (getCollectionFunc, collectionName) => {
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
+let getAllPublishProtocolConfigData = (getCollectionFunc, collectionName) => {
+    return (0, most_1.fromPromise)(getCollectionFunc(collectionName)).map((res) => {
+        return res.data.map(({ name, version, username, configStr }) => {
+            return { name, version, username, configStr };
+        });
+    });
+};
+exports.getAllPublishProtocolConfigData = getAllPublishProtocolConfigData;
 let getAllPublishData = ([getCollectionFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
     return (0, most_1.fromPromise)(getCollectionFunc(collectionName)).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ fileData, username }) => {

@@ -10,7 +10,11 @@ let feature = loadFeature("./test/features/uiControlInspector.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
-  let _prepare = (given) => {
+  let _getButtonSupportedEventNames = () => {
+    [#click]
+  }
+
+  let _prepare = given => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
@@ -89,7 +93,14 @@ defineFeature(feature, test => {
     then("should show default data", () => {
       UIControlInspectorTool.buildUI(
         ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->returns(_getButtonSupportedEventNames(), _)
+          ->Obj.magic,
+          ~useSelector=useSelectorStub.contents,
+          (),
+        ),
         (),
       )
       ->ReactTestRenderer.create
@@ -126,7 +137,10 @@ defineFeature(feature, test => {
     let d1 = ref(Obj.magic(1))
     let a1 = ref(Obj.magic(1))
     let a2 = ref(Obj.magic(1))
+    let d1ConfigLib = Obj.magic(11)
     let useSelectorStub = ref(Obj.magic(1))
+    let serializeUIControlProtocolConfigLibStub = ref(Obj.magic(1))
+    let getUIControlSupportedEventNamesStub = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -146,6 +160,13 @@ defineFeature(feature, test => {
           ),
           (),
         )
+
+      serializeUIControlProtocolConfigLibStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(d1ConfigLib, _)
+      getUIControlSupportedEventNamesStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        ->withOneArg(d1ConfigLib, _)
+        ->returns(_getButtonSupportedEventNames(), _)
     })
 
     \"and"("select action a1 and a2", () => {
@@ -215,7 +236,13 @@ defineFeature(feature, test => {
     then("should show a2 as default action and action select with a1, a2", () => {
       UIControlInspectorTool.buildUI(
         ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~serializeUIControlProtocolConfigLib=serializeUIControlProtocolConfigLibStub.contents->Obj.magic,
+          ~getUIControlSupportedEventNames=getUIControlSupportedEventNamesStub.contents->Obj.magic,
+          ~useSelector=useSelectorStub.contents,
+          (),
+        ),
         (),
       )
       ->ReactTestRenderer.create

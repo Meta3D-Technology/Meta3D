@@ -432,20 +432,20 @@ list:
 **** DONE refactor HandleUIControlProtocolUtils: invoke protocol's handler data instead of judge protocol name!
 
 
-**** TODO pass bdd test
+**** DONE pass bdd test
 
 need test:
-publish tool
-backend-cloudbase
+# publish tool
+# backend-cloudbase
 assemble-space:
-    Contributes
-    UIControls
-    ElementMRUtils
+    # Contributes
+    # UIControls
+    # ElementMRUtils
 
 
 
 
-**** TODO pass run test
+**** DONE pass run test
 
 
 # **** TODO implement publish element

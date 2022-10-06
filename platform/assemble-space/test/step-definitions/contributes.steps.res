@@ -90,6 +90,8 @@ defineFeature(feature, test => {
       iconBase64: "i1",
       username: "meta3d",
     }
+    // let protocolConfig:FrontendUtils.BackendCloudbaseType.protocolConfig = { "a_config" }
+    let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
 
@@ -103,6 +105,7 @@ defineFeature(feature, test => {
           ContributeTool.buildSelectedContribute(
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
             (),
           ),
         }
@@ -134,9 +137,14 @@ defineFeature(feature, test => {
       }, _)
     })
 
-    CucumberAsync.execStep(\"and", "should set a's name and icon and a1", () => {
+    CucumberAsync.execStep(\"and", "should set a's name, icon, config str and a1", () => {
       _setContributes([
-        (a.name, a.iconBase64, selectedContributesFromShop.contents->ListTool.getHeadExn),
+        (
+          a.name,
+          a.iconBase64,
+          protocolConfig.configStr,
+          selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
+        ),
       ])
     })
   })

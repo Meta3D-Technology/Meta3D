@@ -155,6 +155,7 @@ defineFeature(feature, test => {
       UIVisualTool.getAndSetVisualExtension(
         ServiceTool.build(
           ~sandbox,
+          ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
           ~getAllPublishExtensions=getAllPublishExtensionsStub.contents,
           (),
         ),

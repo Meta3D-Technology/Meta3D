@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishContributeProtocol = exports.publishExtensionProtocol = void 0;
+exports.publishContributeProtocolCOnfig = exports.publishContributeProtocol = exports.publishExtensionProtocol = void 0;
 const fs_1 = __importDefault(require("fs"));
 // import path from "path"
 const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseService");
@@ -29,5 +29,15 @@ function publishContributeProtocol(packageFilePath, iconPath) {
     ], packageFilePath, iconPath, "contribute");
 }
 exports.publishContributeProtocol = publishContributeProtocol;
+function publishContributeProtocolCOnfig(packageFilePath, distFilePath) {
+    return (0, Publish_1.publishContributeConfig)([
+        fs_1.default.readFileSync,
+        console.log,
+        console.error,
+        (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+        CloudbaseService_1.init, CloudbaseService_1.hasData, CloudbaseService_1.getCollection, CloudbaseService_1.addData
+    ], packageFilePath, distFilePath);
+}
+exports.publishContributeProtocolCOnfig = publishContributeProtocolCOnfig;
 // publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.png"))
 //# sourceMappingURL=Main.js.map

@@ -19,7 +19,7 @@ type selectedUIControls = list<uiControl>
 type actionName = string
 
 type eventData = {
-  eventName: UIControlInspectorType.eventName,
+  eventName: Meta3dType.Index.eventName,
   actionName: actionName,
 }
 
@@ -55,7 +55,7 @@ type action =
     )
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
-  | SetAction(id, (UIControlInspectorType.eventName, option<actionName>))
+  | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApViewStoreType.extension)
   | SetElementContribute(ApViewStoreType.contribute)
   | ShowElementInspector

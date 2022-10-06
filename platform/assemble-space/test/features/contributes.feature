@@ -19,7 +19,7 @@ Feature: Contributes
         And select contribute a1 for a
         When render after useEffectOnceAsync
         Then should mark loaded
-        And should set a's name and icon and a1
+        And should set a's name, icon, config str and a1
 
     Scenario: select contribute
         Given publish contribute protocol a

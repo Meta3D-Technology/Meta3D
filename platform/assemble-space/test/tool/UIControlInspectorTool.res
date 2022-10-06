@@ -21,7 +21,7 @@ let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.UIViewStore
 }
 
 let buildEventData = (
-  eventName: FrontendUtils.UIControlInspectorType.eventName,
+  eventName: Meta3dType.Index.eventName,
   actionName,
 ): FrontendUtils.UIViewStoreType.eventData => {
   eventName: eventName,

@@ -99,6 +99,10 @@ type getContribute<
 
 type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>
 
+/* !contribute protocol config */
+
+type eventName = [#click]
+
 /* ! ui control protocol config */
 
 type rect = {

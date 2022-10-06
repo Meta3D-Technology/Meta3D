@@ -30,7 +30,7 @@ let buildContributeData = (
 let buildSelectedContribute = (
   ~protocolName,
   ~protocolVersion,
-  ~protocolConfigStr=None,
+  ~protocolConfig=None,
   ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
   ~version="0.0.1",
@@ -54,7 +54,7 @@ let buildSelectedContribute = (
       version: version,
       username: username,
     },
-    protocolConfigStr,
+    protocolConfig,
   )
 }
 
@@ -81,4 +81,8 @@ let generateContribute = (
     ),
     fileStr,
   )
+}
+
+let getContribute = (contributeData: FrontendUtils.AssembleSpaceCommonType.contributeData) => {
+  contributeData->Meta3dCommonlib.Tuple2.getFirst
 }

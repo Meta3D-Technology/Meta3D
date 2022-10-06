@@ -16,7 +16,7 @@ let buildSelectedUIControl = (
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
-protocolConfigStr,
+    protocolConfigStr: protocolConfigStr,
     name: name,
     data: data,
   }

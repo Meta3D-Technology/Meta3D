@@ -1,6 +1,5 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 
 function serializeLib(protocolConfigStr) {
@@ -8,19 +7,19 @@ function serializeLib(protocolConfigStr) {
 }
 
 function generateUIControlName(configLib) {
-  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlName"), undefined);
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlName")();
 }
 
 function generateUIControlDataStr(configLib, rect) {
-  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlDataStr"), rect);
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlDataStr")(rect);
 }
 
 function getUIControlSupportedEventNames(configLib) {
-  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSupportedEventNames"), undefined);
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSupportedEventNames")();
 }
 
 function generateHandleUIControlEventStr(configLib, actionNames) {
-  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "generateHandleUIControlEventStr"), actionNames);
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateHandleUIControlEventStr")(actionNames);
 }
 
 export {

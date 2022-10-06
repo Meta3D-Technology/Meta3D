@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
+exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
 const ErrorService = require("./application_layer/common/ErrorService");
 const BackendService = require("./application_layer/common/BackendService");
 const LoginService = require("./application_layer/user/LoginService");
@@ -30,6 +30,10 @@ let getAllPublishContributeProtocols = () => {
     return ShopService.getAllPublishProtocolData(CloudbaseService_1.getCollection, "publishedContributeProtocols");
 };
 exports.getAllPublishContributeProtocols = getAllPublishContributeProtocols;
+let getAllPublishContributeProtocolConfigs = () => {
+    return ShopService.getAllPublishProtocolConfigData(CloudbaseService_1.getCollection, "publishedContributeProtocolConfigs");
+};
+exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
 let getAllPublishExtensions = (protocolName, protocolVersion) => {
     return ShopService.getAllPublishData([CloudbaseService_1.getCollection, CloudbaseService_1.getFile], "publishedExtensions", protocolName, protocolVersion);
 };

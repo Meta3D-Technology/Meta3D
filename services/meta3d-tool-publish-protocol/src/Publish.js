@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publish = void 0;
+exports.publishContributeConfig = exports.publish = void 0;
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {
@@ -55,4 +55,39 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
     });
 }
 exports.publish = publish;
+function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, distFilePath) {
+    return readJsonFunc(packageFilePath).flatMap(packageJson => {
+        return initFunc().map(app => [app, packageJson]);
+    }).flatMap(([app, packageJson]) => {
+        return (0, PublishUtils_1.isPublisherRegistered)(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
+            if (!isPublisherRegistered) {
+                _throwError("publishser没有注册");
+            }
+            let collectioName = "publishedContributeProtocolConfigs";
+            return (0, most_1.fromPromise)(getCollectionFunc(app, collectioName).then(res => {
+                let index = res.data.findIndex(({ name, version }) => {
+                    return name === packageJson.name && version === packageJson.version;
+                });
+                if (index !== -1) {
+                    _throwError("version: " + packageJson.version + " already exist, please update version");
+                }
+                return addDataFunc(app, collectioName, {
+                    name: packageJson.name,
+                    version: packageJson.version,
+                    username: packageJson.publisher,
+                    configStr: 
+                    // TODO check file size should be small(< 10kb)
+                    readFileSyncFunc(distFilePath, "utf8")
+                });
+            }));
+        });
+    }).drain()
+        .then(_ => {
+        logFunc("publish config success");
+    })
+        .catch(e => {
+        errorFunc("error message: ", e);
+    });
+}
+exports.publishContributeConfig = publishContributeConfig;
 //# sourceMappingURL=Publish.js.map

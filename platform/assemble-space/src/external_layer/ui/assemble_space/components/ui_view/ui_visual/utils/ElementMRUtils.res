@@ -31,7 +31,7 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
 }
 
 let buildElementMR = (
-  service: FrontendUtils.AssembleSpaceType.service ,
+  service: FrontendUtils.AssembleSpaceType.service,
   selectedUIControls,
   selectedUIControlInspectorData,
   elementStateFields,
@@ -45,7 +45,6 @@ let buildElementMR = (
     uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. uiControls, {id, protocolConfigStr, data}: FrontendUtils.UIViewStoreType.uiControl) => {
         let {name, version} = data.contributePackageData.protocol
-
 
         uiControls->Meta3dCommonlib.ArraySt.push({
           protocol: {
@@ -61,7 +60,7 @@ let buildElementMR = (
   }
 }
 
-let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service , uiControls ) => {
+let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service, uiControls) => {
   uiControls
   ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {protocol}) => {
     j`${protocol.name}_${protocol.version}`
@@ -81,21 +80,29 @@ let getActionName = (event: FrontendUtils.UIViewStoreType.event, eventName) => {
   ->Meta3dCommonlib.ArraySt.find(eventData => {
     eventData.eventName === eventName
   })
-  ->Meta3dCommonlib.OptionSt.map(({actionName}) => actionName)->Meta3dCommonlib.OptionSt.toNullable
+  ->Meta3dCommonlib.OptionSt.map(({actionName}) => actionName)
+  ->Meta3dCommonlib.OptionSt.toNullable
 }
 
-let _generateHandleUIControlEventStr = (service: FrontendUtils.AssembleSpaceType.service , configLib, event) => {
-
-
-      service.meta3d.generateHandleUIControlEventStr(. configLib, 
-      service.meta3d.getUIControlSupportedEventNames(. configLib) -> Meta3dCommonlib.ArraySt.map((eventName) =>{
-getActionName(event, eventName)
-      })
-
-)
+let _generateHandleUIControlEventStr = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  configLib,
+  event,
+) => {
+  service.meta3d.generateHandleUIControlEventStr(.
+    configLib,
+    service.meta3d.getUIControlSupportedEventNames(.
+      configLib,
+    )->Meta3dCommonlib.ArraySt.map(eventName => {
+      getActionName(event, eventName)
+    }),
+  )
 }
 
-let _generateAllDrawUIControlAndHandleEventStr = (service: FrontendUtils.AssembleSpaceType.service , uiControls ) => {
+let _generateAllDrawUIControlAndHandleEventStr = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  uiControls,
+) => {
   uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. str, {protocol, data}) => {
       let {name, version, configLib} = protocol
@@ -106,7 +113,7 @@ let _generateAllDrawUIControlAndHandleEventStr = (service: FrontendUtils.Assembl
                     ${service.meta3d.generateUIControlDataStr(. configLib, data.rect)})
                 meta3dState = data[0]
     ` ++
-      _generateHandleUIControlEventStr (service, configLib, data.event)
+      _generateHandleUIControlEventStr(service, configLib, data.event)
     },
     `
                 let data = null

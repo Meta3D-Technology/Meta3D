@@ -18,7 +18,7 @@ let make = () => {
   let (allPublishContributes, setAllPublishContributes) = React.useState(_ => None)
 
   let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
-    selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(selectedContribute =>
+    selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
       id === selectedContribute.id
     )
   }
