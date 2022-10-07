@@ -74,3 +74,17 @@ export type generateUIControlName = () => uiControlName
 export type getUIControlSupportedEventNames = () => Array<supportedEventName>
 
 export type generateHandleUIControlEventStr = (actionNames: Array<actionName>) => string
+
+
+
+
+
+
+export type action = {
+  name: string,
+  role: string,
+}
+
+export type actions = Array<action>
+
+export type getActions = () => actions

@@ -43,7 +43,26 @@ type elementStateFieldData = {
 
 type elementStateFields = list<elementStateFieldData>
 
-type elementInspectorData = {elementStateFields: elementStateFields}
+type reducerHandler = {
+  actionName: string,
+  updatedElementStateFieldName: string,
+}
+
+type handlers = list<reducerHandler>
+
+type reducers = {
+  role: option<string>,
+  // handlerActionName:string,
+  handlers: handlers,
+  // updatedElementStateFieldName: string,
+}
+
+// type reducer = list<reducer>
+
+type elementInspectorData = {
+  elementStateFields: elementStateFields,
+  reducers: reducers,
+}
 
 type action =
   | Reset
@@ -61,6 +80,8 @@ type action =
   | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
   | SetElementStateFields(elementStateFields)
+  | SetRole(option<string>)
+  | SetHandlers(handlers)
 
 type state = {
   selectedUIControls: selectedUIControls,

@@ -2,6 +2,7 @@ type element = {
   elementName: string,
   execOrder: int,
   elementStateFields: array<FrontendUtils.UIViewStoreType.elementStateFieldData>,
+  reducers: FrontendUtils.UIViewStoreType.reducers,
 }
 
 type protocolConfigLib = Meta3d.LibUtils.lib
@@ -34,13 +35,14 @@ let buildElementMR = (
   service: FrontendUtils.AssembleSpaceType.service,
   selectedUIControls,
   selectedUIControlInspectorData,
-  elementStateFields,
+  (elementStateFields, reducers),
 ): elementMR => {
   {
     element: {
       elementName: "UIViewElement",
       execOrder: 0,
-      elementStateFields: elementStateFields,
+      elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
+      reducers: reducers,
     },
     uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. uiControls, {id, protocolConfigStr, data}: FrontendUtils.UIViewStoreType.uiControl) => {
@@ -133,8 +135,27 @@ let _generateElementState = elementStateFields => {
   ->Js.Json.stringify
 }
 
+let _generateReducers = (reducers: FrontendUtils.UIViewStoreType.reducers) => {
+  switch reducers.role {
+  | None => "null"
+  | Some(role) =>
+    // Meta3dCommonlib.ImmutableHashMap.createEmpty()
+    // ->Meta3dCommonlib.ImmutableHashMap.set("role", role)
+    // ->Meta3dCommonlib.ImmutableHashMap.set(
+    //   "handlers",
+    //   reducers.handlers->Meta3dCommonlib.ListSt.toArray,
+    // )
+    {
+      "role": role,
+      "handlers": reducers.handlers->Meta3dCommonlib.ListSt.toArray,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify
+  }
+}
+
 let generateElementContributeFileStr = (service, mr: elementMR): string => {
-  let {elementName, execOrder, elementStateFields} = mr.element
+  let {elementName, execOrder, elementStateFields, reducers} = mr.element
 
   let str = {
     j`
@@ -146,6 +167,7 @@ window.Contribute = {
             elementName:"${elementName}",
             execOrder: ${execOrder->Js.Int.toString},
             elementState: ${_generateElementState(elementStateFields)},
+            reducers: ${_generateReducers(reducers)},
             elementFunc: (meta3dState, elementState) => {
                 let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 

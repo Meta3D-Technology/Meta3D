@@ -1,5 +1,5 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
-import { elementContribute, elementName, reducerData } from "../contribute/ElementContributeType"
+import { elementContribute, elementName } from "../contribute/ElementContributeType"
 import { state, ioData } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
@@ -20,6 +20,12 @@ export type imguiRendererExtensionName = extensionName
 // type text = string
 
 // type color = string
+
+
+type elementStateField = any
+
+type updateElementStateFieldFunc = (elementStateField: elementStateField) => elementStateField
+
 
 export type service = {
     readonly registerElement: < elementState> (
@@ -44,7 +50,7 @@ export type service = {
     ) => uiControlFunc<inputData, outputData>;
     readonly init: (
         meta3dState: meta3dState,
-        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        [api, uiExtensionName, imguiRendererExtensionName]: [api, uiExtensionName, imguiRendererExtensionName],
         isDebug: boolean,
         canvas: HTMLCanvasElement
     ) => meta3dState;
@@ -70,13 +76,11 @@ export type service = {
         elementName: elementName
     ) => // TODO use nullable.d
         elementState | null | undefined;
-    readonly combineReducers: <elementState, action> (
-        state: state,
-        reducerData: reducerData<elementState, action>
-    ) => state;
     readonly dispatch: <action> (
         state: state,
-        action: action
+        actionName: string,
+        role: string,
+        updateElementStateFieldFunc: updateElementStateFieldFunc
     ) => state;
     readonly getIOData: (
         state: state,

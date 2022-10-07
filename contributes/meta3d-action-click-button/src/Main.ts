@@ -4,18 +4,11 @@ import { actionName, actionData } from "meta3d-action-click-button-protocol"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-action-click-button-protocol/src/DependentMapType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-// import { changeText } from "./Action"
 
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, actionContribute<actionData>> = (api, [dependentExtensionNameMap, _]) => {
     let { meta3dUIExtensionName } = dependentExtensionNameMap
     return {
         actionName: actionName,
-        actions: [
-            {
-                name: "changeX",
-                role: "firstButton"
-            }
-        ],
         handler: (meta3dState, actionData) => {
             console.log("click button")
 
@@ -23,10 +16,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
             let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-            // uiState = dispatch(uiState, changeText(Math.random().toString()))
             uiState = dispatch(uiState,
-                // actionAPI.buildAction<string>("changeX", (oldValue) => oldValue + 1)
-                "changeX", "firstButton", (oldValue) => oldValue + 1
+                "changeX", "firstButton", (oldValue) => oldValue + 10
             )
 
             meta3dState = api.setExtensionState(meta3dState, meta3dUIExtensionName, uiState)

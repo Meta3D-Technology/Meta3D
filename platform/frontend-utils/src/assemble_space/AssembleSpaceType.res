@@ -76,21 +76,18 @@ type meta3dService = {
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
-  serializeUIControlProtocolConfigLib: (
-    . string
-  ) => Meta3d.LibUtils.lib ,
-  generateUIControlDataStr: (
-    . Meta3d.LibUtils.lib , Meta3dType.Index.rect
-  ) => string,
-  generateUIControlName: (
-    . Meta3d.LibUtils.lib 
-  ) => Meta3dType.Index.uiControlName,
+  serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  generateUIControlDataStr: (. Meta3d.LibUtils.lib, Meta3dType.Index.rect) => string,
+  generateUIControlName: (. Meta3d.LibUtils.lib) => Meta3dType.Index.uiControlName,
   getUIControlSupportedEventNames: (
-    . Meta3d.LibUtils.lib 
+    . Meta3d.LibUtils.lib,
   ) => array<Meta3dType.Index.supportedEventName>,
   generateHandleUIControlEventStr: (
-    . Meta3d.LibUtils.lib , array<Meta3dType.Index.actionName>
-  ) => string
+    . Meta3d.LibUtils.lib,
+    array<Meta3dType.Index.actionName>,
+  ) => string,
+  serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  getActions: (. Meta3d.LibUtils.lib) => Meta3dType.Index.actions,
 }
 
 type otherService = {random: unit => float}

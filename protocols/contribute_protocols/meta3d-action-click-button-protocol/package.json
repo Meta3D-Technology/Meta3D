@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-click-button-protocol",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "",
     "publisher": "meta3d",
     "author": "Meta3D",
@@ -8,11 +8,20 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
-        "meta3d:publish_dev": "gulp publish",
-        "meta3d:publish_pro": "gulp publish"
+        "webpack": "webpack --config webpack.config.js",
+        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publishConfig && gulp publish",
+        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publishConfig &&gulp publish"
     },
     "keywords": [],
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^0.5.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
     }
 }

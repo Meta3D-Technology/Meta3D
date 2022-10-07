@@ -36,6 +36,9 @@ let make = () => {
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
       generateHandleUIControlEventStr: (. configLib, actionNames) =>
         Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames),
+      serializeActionProtocolConfigLib: (. protocolConfigStr) =>
+        Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
+      getActions: (. configLib) => Meta3d.Main.getActions(configLib),
     },
     console: {
       error: (. errorMessage, durationOpt) =>

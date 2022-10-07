@@ -30,7 +30,6 @@ let generateApp = AppManager.generate
 
 let loadApp = AppManager.load
 
-
 let startApp = AppManager.start
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
@@ -43,5 +42,8 @@ let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSuppor
 
 let generateHandleUIControlEventStr = UIControlProtocolConfig.generateHandleUIControlEventStr
 
+let serializeActionProtocolConfigLib = ActionProtocolConfig.serializeLib
+
+let getActions = ActionProtocolConfig.getActions
 
 let buildAPI = ExtensionManager.buildAPI

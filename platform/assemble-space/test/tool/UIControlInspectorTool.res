@@ -46,4 +46,4 @@ let setRect = UIControlInspector.Method.setRect
 
 let setAction = UIControlInspector.Method.setAction
 
-let buildEmptySelectOptionValue = UIControlInspector.Method.buildEmptySelectOptionValue
+let buildEmptySelectOptionValue = SelectUtils.buildEmptySelectOptionValue

@@ -12,7 +12,7 @@ let build = (
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))-> Obj.magic,
+  ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
@@ -42,11 +42,15 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~serializeUIControlProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~serializeUIControlProtocolConfigLib=createEmptyStub(
+    refJsObjToSandbox(sandbox.contents),
+  )->Obj.magic,
   ~generateUIControlDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateUIControlName=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~serializeActionProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getActions=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   (),
 ) => {
   react: {
@@ -63,10 +67,8 @@ let build = (
   backend: {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
-getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs-> Obj.magic,
+    getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
-
-
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
@@ -81,11 +83,13 @@ getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->
     generateApp: generateApp,
     convertAllFileData: convertAllFileData,
     loadApp: loadApp,
-serializeUIControlProtocolConfigLib,
-generateUIControlDataStr,
-generateUIControlName,
-getUIControlSupportedEventNames,
-generateHandleUIControlEventStr,
+    serializeUIControlProtocolConfigLib: serializeUIControlProtocolConfigLib,
+    generateUIControlDataStr: generateUIControlDataStr,
+    generateUIControlName: generateUIControlName,
+    getUIControlSupportedEventNames: getUIControlSupportedEventNames,
+    generateHandleUIControlEventStr: generateHandleUIControlEventStr,
+    serializeActionProtocolConfigLib: serializeActionProtocolConfigLib,
+    getActions: getActions,
   },
   other: {
     random: random,

@@ -125,3 +125,14 @@ type generateUIControlName = unit => uiControlName
 type getUIControlSupportedEventNames = unit => array<supportedEventName>
 
 type generateHandleUIControlEventStr = array<actionName> => string
+
+/* ! action protocol config */
+
+type action = {
+  name: string,
+  role: string,
+}
+
+type actions = array<action>
+
+type getActions = unit => actions

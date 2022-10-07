@@ -36,10 +36,6 @@ module Method = {
     })
   }
 
-  let buildEmptySelectOptionValue = () => "empty"
-
-  let _isEmptySelectOptionValue = value => value === buildEmptySelectOptionValue()
-
   let setAction = (
     dispatch,
     id,
@@ -49,7 +45,7 @@ module Method = {
     dispatch(
       FrontendUtils.UIViewStoreType.SetAction(
         id,
-        (eventName, _isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
+        (eventName, SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
       ),
     )
   }
@@ -174,27 +170,19 @@ let make = (~service: service) => {
               ElementMRUtils.getActionName(
                 event,
                 eventName,
-              )->Meta3dCommonlib.NullableSt.getWithDefault(Method.buildEmptySelectOptionValue())
+              )->Meta3dCommonlib.NullableSt.getWithDefault(
+                SelectUtils.buildEmptySelectOptionValue(),
+              )
 
             <List.Item key={eventName->Obj.magic}>
               <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-              <Select
-                key={defaultValue}
-                defaultValue={defaultValue}
-                onChange={Method.setAction(dispatch, id, eventName)}>
-                <Select.Option
-                  key={Method.buildEmptySelectOptionValue()}
-                  value={Method.buildEmptySelectOptionValue()}>
-                  {React.string({Method.buildEmptySelectOptionValue()})}
-                </Select.Option>
-                {actions
-                ->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
-                  let name = NewNameUtils.getName(newName, data.contributePackageData.name)
-
-                  <Select.Option key={name} value={name}> {React.string({name})} </Select.Option>
-                })
-                ->React.array}
-              </Select>
+              {SelectUtils.buildSelect(
+                Method.setAction(dispatch, id, eventName),
+                defaultValue,
+                actions->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
+                  NewNameUtils.getName(newName, data.contributePackageData.name)
+                }),
+              )}
             </List.Item>
           }}
         />

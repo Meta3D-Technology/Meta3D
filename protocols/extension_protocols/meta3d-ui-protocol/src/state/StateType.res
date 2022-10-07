@@ -2,7 +2,7 @@ type elementState
 
 type dependentExtensionNameMap
 
-type action
+// type action
 
 type inputData
 
@@ -62,7 +62,9 @@ type state = {
     UIControlContributeType.uiControlName,
     UIControlContributeType.uiControlContribute<inputData, outputData>,
   >,
-  reducers: array<ElementContributeType.reducerData<elementState, action>>,
+  // reducers: array<ElementContributeType.reducerData<elementState, action>>,
+  // reducers: array<ElementContributeType.reducerData<elementState, action>>,
+  reducers: array<ElementContributeType.reducerData>,
   // drawData: drawData,
   ioData: ioData,
 }

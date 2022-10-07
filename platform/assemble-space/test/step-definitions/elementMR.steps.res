@@ -141,7 +141,7 @@ defineFeature(feature, test => {
           service.contents,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-          elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
+          (elementStateFields.contents, ReducerTool.buildReducers()),
         )
     })
 
@@ -160,6 +160,7 @@ defineFeature(feature, test => {
               elementName: "UIViewElement",
               execOrder: 0,
               elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
+              reducers: ReducerTool.buildReducers(),
             },
             uiControls: [
               {
@@ -252,7 +253,7 @@ defineFeature(feature, test => {
           service.contents,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-          [],
+          (list{}, ReducerTool.buildReducers()),
         )
     })
 
@@ -271,6 +272,7 @@ defineFeature(feature, test => {
               elementName: "UIViewElement",
               execOrder: 0,
               elementStateFields: [],
+              reducers: ReducerTool.buildReducers(),
             },
             uiControls: [
               {

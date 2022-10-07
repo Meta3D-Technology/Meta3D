@@ -129,13 +129,13 @@ module Method = {
     service,
     selectedUIControls,
     selectedUIControlInspectorData,
-    elementStateFields,
+    (elementStateFields, reducers),
   ) => {
     ElementMRUtils.buildElementMR(
       service,
       selectedUIControls->Meta3dCommonlib.ListSt.toArray,
       selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
-      elementStateFields->Meta3dCommonlib.ListSt.toArray,
+      (elementStateFields, reducers),
     )->ElementMRUtils.generateElementContributeFileStr(service, _)
   }
 
@@ -195,7 +195,7 @@ module Method = {
         selectedUIControlInspectorData,
         visualExtension,
         elementContribute,
-        elementInspectorData.elementStateFields,
+        elementInspectorData,
       ),
     )
   }
@@ -212,9 +212,11 @@ let make = (~service: service) => {
       selectedUIControlInspectorData,
       visualExtension,
       elementContribute,
-      elementStateFields,
+      elementInspectorData,
     ),
   ) = service.react.useSelector(Method.useSelector)
+
+  let {elementStateFields, reducers} = elementInspectorData
 
   service.react.useEffect1(. () => {
     switch visualExtension {
@@ -233,7 +235,7 @@ let make = (~service: service) => {
             service,
             selectedUIControls,
             selectedUIControlInspectorData,
-            elementStateFields,
+            (elementStateFields, reducers),
           ),
         )->Method.updateElementContribute(dispatch, _)
       : ()

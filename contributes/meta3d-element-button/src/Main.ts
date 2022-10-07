@@ -21,12 +21,12 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
             height: 10,
             text: "button",
         },
-        reducer: {
+        reducers: {
             role: "firstButton",
-            handler: [
+            handlers: [
                 {
-                    name: "changeX",
-                    elementStateFieldName: "x"
+                    actionName: "changeX",
+                    updatedElementStateFieldName: "x"
                 }
             ],
         },

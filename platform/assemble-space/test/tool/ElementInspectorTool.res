@@ -13,4 +13,4 @@ let buildElementStateFieldData = (
   defaultValue: defaultValue->Obj.magic,
 }
 
-let submitElementState = ElementInspector.Method.onFinish
+let submitElementState = ElementInspector.Method.onFinishState

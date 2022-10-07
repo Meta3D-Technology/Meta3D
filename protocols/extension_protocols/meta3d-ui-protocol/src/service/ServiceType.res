@@ -4,6 +4,10 @@ type imguiRendererExtensionName = Meta3dType.Index.extensionName
 
 // type text = string
 
+type elementStateField
+
+type updateElementStateFieldFunc = elementStateField => elementStateField
+
 type service = {
   registerElement: 'elementState. (
     StateType.state,
@@ -29,11 +33,12 @@ type service = {
     StateType.state,
     ElementContributeType.elementName,
   ) => Js.Nullable.t<'elementState>,
-  combineReducers: 'elementState 'action. (
+  dispatch: 'action. (
     StateType.state,
-    ElementContributeType.reducerData<'elementState, 'action>,
+    string,
+    string,
+    updateElementStateFieldFunc,
   ) => StateType.state,
-  dispatch: 'action. (StateType.state, StateType.action) => StateType.state,
   getIOData: StateType.state => StateType.ioData,
   getSkin: 'skin. (
     StateType.state,
@@ -56,7 +61,7 @@ type service = {
   // ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
-    (Meta3dType.Index.api, imguiRendererExtensionName),
+    (Meta3dType.Index.api, uiExtensionName, imguiRendererExtensionName),
     bool,
     Dom.htmlCanvasElement,
   ) => Meta3dType.Index.state,

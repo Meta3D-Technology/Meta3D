@@ -22,6 +22,10 @@ let _createState = () => {
   isShowElementInspector: false,
   elementInspectorData: {
     elementStateFields: list{},
+    reducers: {
+      role: None,
+      handlers: list{},
+    },
   },
 }
 
@@ -120,18 +124,31 @@ let reducer = (state, action) => {
       ...state,
       elementContribute: elementContribute->Some,
     }
-  // | AddElementStateField(elementStateFieldData) => {
-  //     ...state,
-  //     elementInspectorData: state.elementInspectorData.elementStateFields->Meta3dCommonlib.ListSt.push(
-  //       elementStateFieldData,
-  //     ),
-  //   }
-
   | SetElementStateFields(elementStateFields) => {
       ...state,
       elementInspectorData: {
         ...state.elementInspectorData,
         elementStateFields: elementStateFields,
+      },
+    }
+  | SetRole(role) => {
+      ...state,
+      elementInspectorData: {
+        ...state.elementInspectorData,
+        reducers: {
+          ...state.elementInspectorData.reducers,
+          role: role,
+        },
+      },
+    }
+  | SetHandlers(handlers) => {
+      ...state,
+      elementInspectorData: {
+        ...state.elementInspectorData,
+        reducers: {
+          ...state.elementInspectorData.reducers,
+          handlers: handlers,
+        },
       },
     }
   }

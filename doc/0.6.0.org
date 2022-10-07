@@ -451,13 +451,13 @@ assemble-space:
 # **** TODO implement publish element
 
 
-**** TODO move actions to action's protocol
+**** DONE move actions to action's protocol
 
 publish;
 protocol can be send and get in assemble-space!  
 
 
-**** TODO rewrite action contribute
+**** DONE rewrite action contribute
 
 
 
@@ -504,13 +504,13 @@ return {
 )
 
 
-**** TODO element add reducers
+**** DONE element add reducers
 
 role(string):
 list by select action contributes;
 // can add custom role
 
-reducer:
+handler:
 // "changeText": { role: "secondButton" }
 
 list by stateAction names from select action contributes
@@ -522,17 +522,8 @@ update it!
 
 
 
-**** TODO move reducer, element state(with default value) to element's protocol
-publish;
-protocol can be send and get in assemble-space!  
 
-
-so can get reducer, element state from protocol when switch to ui view!
-
-
-
-
-**** TODO update ui->init
+**** DONE update ui->init
 get all elements' protocol data
 
 combine self->reducers to uiState
@@ -541,17 +532,30 @@ combine self->reducers to uiState
 
 
 
-**** TODO update UIManager->dispatch
+**** DONE update UIManager->dispatch
 
+*** TODO pass compile
 
 *** TODO bdd test
 
 mainly test:
 dispatch to invoke reducer!
 
+
+need test: 
+ElementInspector
+UIVisual
+ElementMR
+ui->UIManager->init, dispatch
+
 *** TODO run test(without run visual)
 
-
+publish:
+action
+action protocol
+view extension
+ui
+ui protocol
 
 
 
@@ -579,6 +583,8 @@ run test with run visual
 
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
+*** TODO implement
+
 send to server
 
 
@@ -588,6 +594,10 @@ send to server
 # so can be registered in editor entry extension one by one
 
 # editor entry extension can get them by api.getAllContributesByType 
+
+
+
+
 
 should publish element protocol
 protocol has:
@@ -602,6 +612,20 @@ element protocol name
 element protocol version
 
 
+*** TODO should generate element contribute and protocol config data
+
+*** TODO add reducer, element state(with default value) to element's protocol config and element contribute!
+publish;
+protocol can be send and get in assemble-space!  
+
+
+# so can get reducer, element state from protocol when switch to ui view!
+
+
+
+# TODO should generate element protocol config data
+
+
 
 ** TODO feat: import single element
 
@@ -614,6 +638,11 @@ element protocol version
 *** TODO implement
 
 *** TODO update "so can get reducer, element state from protocol when switch to ui view!" logic: to the specific element instead of switch to ui view!
+
+
+
+
+
 
 ** TODO fix control properies
 

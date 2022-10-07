@@ -53,12 +53,12 @@ let _markAllStateNotChange = (
   }, state)
 }
 
-let combineReducers = (state: Meta3dUiProtocol.StateType.state, reducerData) => {
-  {
-    ...state,
-    reducers: state.reducers->Meta3dCommonlib.ArraySt.push(reducerData),
-  }
-}
+// let combineReducers = (state: Meta3dUiProtocol.StateType.state, reducerData) => {
+//   {
+//     ...state,
+//     reducers: state.reducers->Meta3dCommonlib.ArraySt.push(reducerData),
+//   }
+// }
 
 let _getElementStateExn = (
   {elementStateMap}: Meta3dUiProtocol.StateType.state,
@@ -109,21 +109,53 @@ let _setElementExecOrder = (
   }
 }
 
+let _updateElementField = %raw(` function(
+elementState, 
+updatedElementStateFieldName,
+updateElementStateFieldFunc
+){
+  var newElementState = Object.assign({}, elementState)
+
+ newElementState[updatedElementStateFieldName] = updateElementStateFieldFunc(newElementState[updatedElementStateFieldName])
+
+  return newElementState
+} `)
+
 let dispatch = (
   state: Meta3dUiProtocol.StateType.state,
-  action: Meta3dUiProtocol.StateType.action,
+  actionName,
+  role,
+  updateElementStateFieldFunc,
 ) => {
-  state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (elementName, reducerFunc)) => {
-    let oldElementState = _getElementStateExn(state, elementName)
-
-    let newElementState = reducerFunc(oldElementState, action)
-
-    oldElementState != newElementState
+  state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (elementName, reducers)) => {
+    reducers.role === role
       ? {
-          state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
+          let oldElementState = _getElementStateExn(state, elementName)
+
+          let newElementState =
+            reducers.handlers
+            ->Meta3dCommonlib.ArraySt.filter(handler => handler.actionName === actionName)
+            ->Meta3dCommonlib.ArraySt.reduceOneParam(
+              (. elementState, {updatedElementStateFieldName}) => {
+                _updateElementField(
+                  elementState,
+                  updatedElementStateFieldName,
+                  updateElementStateFieldFunc,
+                )
+              },
+              oldElementState,
+            )
+
+          oldElementState != newElementState
+            ? {
+                state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
+              }
+            : {
+                state->_markStateNotChange(elementName)
+              }
         }
       : {
-          state->_markStateNotChange(elementName)
+          state
         }
   }, state)
 }
@@ -447,10 +479,29 @@ let drawBox = (
 
 let init = (
   meta3dState,
-  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  (api: Meta3dType.Index.api, uiExtensionName, imguiRendererExtensionName),
   isDebug,
   canvas,
 ) => {
+  let uiState =
+    api.getAllContributesByType(.
+      meta3dState,
+      Meta3dType.ContributeType.Element,
+    )->Meta3dCommonlib.ArraySt.reduceOneParam((. uiState, elementContribute) => {
+      let {elementName, reducers} = elementContribute->Obj.magic
+
+      reducers
+      ->Meta3dCommonlib.NullableSt.bind(reducers => {
+        {
+          ...ui,
+          reducers: ui.reducers->Meta3dCommonlib.ArraySt.push((elementName, reducers)),
+        }
+      })
+      ->Meta3dCommonlib.NullableSt.getWithDefault(uiState)
+    }, api.getExtensionState(. meta3dState, uiExtensionName))
+
+  let meta3dState = api.setExtensionState(. meta3dState, uiExtensionName, uiState)
+
   let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
