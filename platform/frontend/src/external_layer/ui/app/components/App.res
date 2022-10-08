@@ -95,6 +95,7 @@ let make = () => {
       </>
     | list{"ShowPublishedApps"} => <ShowPublishedApps />
     | list{"EnterApp"} => <EnterApp />
+    | list{"RunUIVisual"} => <AssembleSpace.RunUIVisual service={_buildService()} />
     | list{}
     | _ =>
       <Index />

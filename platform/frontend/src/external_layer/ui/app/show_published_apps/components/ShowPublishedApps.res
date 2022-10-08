@@ -15,7 +15,7 @@ let make = () => {
     j`EnterApp?username=${username}&appName=${appName}`
 
   let _openLink = url => {
-    Window.\"open"(url, "_blank").focus()
+    FrontendUtils.Window.\"open"(url, "_blank").focus()
   }
 
   RescriptReactRouter.watchUrl(url => {

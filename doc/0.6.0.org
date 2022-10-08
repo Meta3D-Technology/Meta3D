@@ -576,7 +576,7 @@ publish:
 
 
 
-*** TODO feat: ui view->run in new tab
+*** DONE feat: ui view->run in new tab
 
 use new visual extension:
 
@@ -587,7 +587,7 @@ bind event
 
 loop
 
-update mr
+//update mr
 
 
 *** TODO bdd test
@@ -596,6 +596,11 @@ update mr
 *** TODO run test
 
 run test with run visual
+
+publish:
+run visual extension, protocol
+
+*** TODO feat: remove onStart, startApp
 
 
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes

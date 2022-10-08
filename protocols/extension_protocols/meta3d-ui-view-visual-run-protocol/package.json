@@ -1,0 +1,17 @@
+{
+    "name": "meta3d-ui-view-visual-run-protocol",
+    "version": "0.5.0",
+    "publisher": "meta3d",
+    "description": "",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "meta3d:publish_dev": "gulp publish",
+        "meta3d:publish_pro": "gulp publish"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

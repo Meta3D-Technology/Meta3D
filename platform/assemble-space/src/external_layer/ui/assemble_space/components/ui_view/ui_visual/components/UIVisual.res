@@ -11,43 +11,33 @@ module Method = {
 
   let _getVisualExtensionVersion = () => "0.5.5"
 
-  let _buildExtension = (name, data): FrontendUtils.ApViewStoreType.extension => {
-    id: "",
-    protocolIconBase64: "",
-    newName: name->Some,
-    isStart: false,
-    data: data,
-  }
-
-  let _loadAndBuildVisualExtension = (service, file) => {
-    service.meta3d.loadExtension(. file)->_buildExtension(_getVisualExtensionName(), _)
-  }
-
   let getAndSetVisualExtension = (service, dispatch) => {
-    service.backend.getAllPublishExtensions(.
-      _getVisualExtensionProtocolName(),
-      _getVisualExtensionProtocolVersion(),
-    )
-    ->Meta3dBsMost.Most.map(dataArr => {
+    UIVisualUtils.getAndSetVisualExtension(
+      service,
+      dispatch,
+      extension => FrontendUtils.UIViewStoreType.SetVisualExtension(extension),
       (
-        dataArr->Meta3dCommonlib.ArraySt.filter((
-          {version}: FrontendUtils.BackendCloudbaseType.implement,
-        ) => {
-          version == _getVisualExtensionVersion()
-        })
-      )[0]
-    }, _)
-    ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
-      _loadAndBuildVisualExtension(service, data.file)
-    }, _)
-    ->Meta3dBsMost.Most.observe(extension => {
-      dispatch(FrontendUtils.UIViewStoreType.SetVisualExtension(extension))
-    }, _)
-    ->Js.Promise.catch(e => {
-      service.console.error(.
-        e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-        None,
-      )->Obj.magic
+        _getVisualExtensionProtocolName(),
+        _getVisualExtensionProtocolVersion(),
+        _getVisualExtensionName(),
+        _getVisualExtensionVersion(),
+      ),
+    )
+  }
+
+  let _initApp = (meta3dState, service, initData) => {
+    service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), initData)
+  }
+
+  let _updateApp = (meta3dState, service, updateData) => {
+    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
+  }
+
+  let _initAndUpdateApp = (meta3dState, service, initData) => {
+    Meta3dBsMost.Most.fromPromise(
+      _initApp(meta3dState, service, initData),
+    )->Meta3dBsMost.Most.flatMap(meta3dState => {
+      meta3dState->_updateApp(service, Obj.magic(1))->Meta3dBsMost.Most.fromPromise
     }, _)
   }
 
@@ -57,28 +47,12 @@ module Method = {
     (visualExtension, elementContribute),
   ) => {
     service.meta3d.loadApp(.
-      AppUtils.generateApp(
+      UIVisualUtils.generateApp(
         service,
-        selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
-        selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
+        (selectedExtensions, selectedContributes),
+        (visualExtension, elementContribute),
       ),
     )->Meta3dCommonlib.Tuple2.getFirst
-  }
-
-  let _initApp = (meta3dState, service, initData) => {
-    service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), initData)
-  }
-
-  let _updateApp = (meta3dState, service, initData) => {
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), initData)
-  }
-
-  let _initAndUpdateApp = (meta3dState, service, initData) => {
-    Meta3dBsMost.Most.fromPromise(
-      _initApp(meta3dState, service, initData),
-    )->Meta3dBsMost.Most.flatMap(meta3dState => {
-      meta3dState->_updateApp(service, Obj.magic(1))->Meta3dBsMost.Most.fromPromise
-    }, _)
   }
 
   let renderApp = (

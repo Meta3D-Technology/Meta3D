@@ -5,7 +5,7 @@ open FrontendUtils.AssembleSpaceType
 @react.component
 let make = (~service: service) => {
   <Layout>
-    <Layout.Header> <ElementController service /> </Layout.Header>
+    <Layout.Header> <ElementController service /> <RunUIVisualController service /> </Layout.Header>
     <Layout>
       <Layout.Sider>
         <Collapse defaultActiveKey={["1"]}>

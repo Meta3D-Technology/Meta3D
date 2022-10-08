@@ -6,9 +6,10 @@ let getAndSetVisualExtension = UIVisual.Method.getAndSetVisualExtension
 
 let renderApp = UIVisual.Method.renderApp
 
-let loadAndBuildVisualExtension = UIVisual.Method._loadAndBuildVisualExtension
-
 let getVisualExtensionName = UIVisual.Method._getVisualExtensionName
+
+let loadAndBuildVisualExtension = (service, file) =>
+  UIVisualUtils._loadAndBuildVisualExtension(service, file, getVisualExtensionName())
 
 let getVisualExtensionProtocolName = UIVisual.Method._getVisualExtensionProtocolName
 

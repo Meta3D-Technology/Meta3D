@@ -76,6 +76,7 @@ type action =
   | SetRect(id, rect)
   | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApViewStoreType.extension)
+  | SetRunVisualExtension(ApViewStoreType.extension)
   | SetElementContribute(ApViewStoreType.contribute)
   | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
@@ -88,6 +89,7 @@ type state = {
   inspectorCurrentUIControlId: option<id>,
   selectedUIControlInspectorData: selectedUIControlInspectorData,
   visualExtension: option<ApViewStoreType.extension>,
+  runVisualExtension: option<ApViewStoreType.extension>,
   elementContribute: option<ApViewStoreType.contribute>,
   isShowElementInspector: bool,
   elementInspectorData: elementInspectorData,
