@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-click-button",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-click-button-protocol"
@@ -20,7 +20,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-click-button-protocol": "^0.5.0",
+        "meta3d-action-click-button-protocol": "^0.5.1",
         "meta3d-type": "^0.5.0",
         "meta3d-ui-protocol": "^0.5.0"
     },

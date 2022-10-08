@@ -548,18 +548,31 @@ need test:
 # ElementMR
 # ui->UIManager->init, dispatch
 
-*** TODO run test(without run visual)
+*** DONE run test(without run visual)
 
 
-ElementInspector -> Role bug?
+# ElementInspector -> Role bug?
+
+role: empty
+
+update: no select
+
+
+
+fix: 
+        SelectUtils.isEmptySelectOptionValue(actionName) ||
+
+show style:inline
+
+
 
 
 publish:
-action
-action protocol
-view extension
-ui
-ui protocol
+# action
+# action protocol
+//view extension
+# ui
+# ui protocol
 
 
 

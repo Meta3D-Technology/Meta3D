@@ -1,12 +1,12 @@
 let buildEmptySelectOptionValue = () => "empty"
 
-let isEmptySelectOptionValue = value => value === buildEmptySelectOptionValue()
+let isEmptySelectOptionValue = value =>
+  value === buildEmptySelectOptionValue() || value->Obj.magic === Js.Nullable.undefined
 
 let buildSelect = (onChange, defaultValue, values) => {
   open FrontendUtils.Antd
 
   <Select key={defaultValue} defaultValue={defaultValue} onChange>
-  // <Select >
     <Select.Option key={buildEmptySelectOptionValue()} value={buildEmptySelectOptionValue()}>
       {React.string({buildEmptySelectOptionValue()})}
     </Select.Option>

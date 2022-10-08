@@ -168,7 +168,9 @@ let make = (~service: service) => {
         <span> {React.string(`Role: `)} </span>
         {SelectUtils.buildSelect(
           Method.setRole(dispatch),
-          SelectUtils.buildEmptySelectOptionValue(),
+          reducers.role->Meta3dCommonlib.OptionSt.getWithDefault(
+            SelectUtils.buildEmptySelectOptionValue(),
+          ),
           protocolConfigActions->Method.getUniqueRoles,
         )}
         {switch reducers.role {
@@ -194,7 +196,8 @@ let make = (~service: service) => {
                         )}
                       </Form.Item>
                       <Form.Item
-                        label=`Updated Element State Field Name`
+                      // label=`Updated Element State Field Name`
+                        label=`Field Name`
                         name={[field.name, "updatedElementStateFieldName"]->Obj.magic}>
                         {SelectUtils.buildSelect(
                           _ => (),
