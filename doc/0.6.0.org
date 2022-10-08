@@ -534,21 +534,25 @@ combine self->reducers to uiState
 
 **** DONE update UIManager->dispatch
 
-*** TODO pass compile
+*** DONE pass compile
 
-*** TODO bdd test
+*** DONE bdd test
 
-mainly test:
+////mainly test:
 dispatch to invoke reducer!
 
 
 need test: 
-ElementInspector
-UIVisual
-ElementMR
-ui->UIManager->init, dispatch
+# ElementInspector
+# UIVisual
+# ElementMR
+# ui->UIManager->init, dispatch
 
 *** TODO run test(without run visual)
+
+
+ElementInspector -> Role bug?
+
 
 publish:
 action

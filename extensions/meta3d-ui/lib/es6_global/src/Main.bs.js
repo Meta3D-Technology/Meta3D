@@ -16,7 +16,6 @@ function getExtensionService(api, param) {
           hide: UIManager$Meta3dUi.hide,
           isStateChange: UIManager$Meta3dUi.isStateChange,
           getElementState: UIManager$Meta3dUi.getElementState,
-          combineReducers: UIManager$Meta3dUi.combineReducers,
           dispatch: UIManager$Meta3dUi.dispatch,
           getIOData: UIManager$Meta3dUi.getIOData,
           getSkin: UIManager$Meta3dUi.getSkinExn,

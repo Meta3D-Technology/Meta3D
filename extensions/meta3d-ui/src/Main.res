@@ -20,7 +20,6 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     },
     // drawText: UIManager.drawText,
     getIOData: UIManager.getIOData,
-    combineReducers: UIManager.combineReducers->Obj.magic,
     dispatch: UIManager.dispatch,
     init: UIManager.init,
     render: UIManager.render(api),

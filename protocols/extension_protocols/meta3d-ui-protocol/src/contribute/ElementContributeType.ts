@@ -11,7 +11,7 @@ type handler = {
     updatedElementStateFieldName: string,
 }
 
-type reducer = {
+type reducers = {
     role: string,
     handlers: Array<handler>,
 }
@@ -21,7 +21,7 @@ export type elementContribute<elementState> = {
     execOrder: number,
     elementFunc: elementFunc<elementState>,
     elementState: elementState
-    reducer: nullable<reducer>
+    reducers: nullable<reducers>
 }
 
 // export type getElementContribute<dependentExtensionNameMap, elementState> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => elementContribute<elementState>;

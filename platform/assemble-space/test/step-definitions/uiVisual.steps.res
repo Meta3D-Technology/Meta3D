@@ -28,11 +28,21 @@ defineFeature(feature, test => {
     })
 
     then("should show loading", () => {
-      let useSelectorStub =
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
-          _,
-        )
+      let useSelectorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+        (
+          (CanvasControllerTool.buildCanvasData(), list{}, list{}),
+          (
+            list{},
+            list{},
+            None,
+            None,
+            ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+          ),
+        ),
+        // (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
+
+        _,
+      )
 
       UIVisualTool.buildUI(
         ~sandbox,
@@ -58,7 +68,13 @@ defineFeature(feature, test => {
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
             (CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()), list{}, list{}),
-            (list{}, list{}, Some(Obj.magic(1)), None),
+            (
+              list{},
+              list{},
+              Some(Obj.magic(1)),
+              None,
+              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+            ),
           ),
           _,
         )

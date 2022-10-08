@@ -27,48 +27,30 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    \"and"(
-      %re("/^register element(\d+) whose elementState(\d+) has data(\d+) = (\d+)$/")->Obj.magic,
-      () => {
-        let arguments =
-          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    given("register element1 with reducer1 and elementState1 whose data1 = 1", () => {
+      elementState1 :=
+        {
+          "data1": 1,
+        }
 
-        elementState1 :=
-          {
-            "data1": arguments[3],
-          }
-
-        state :=
-          MainTool.registerElement(
-            ~sandbox,
-            ~state=state.contents,
-            ~elementName=elementName1,
-            ~elementFunc=Obj.magic(1),
-            ~elementState=elementState1.contents->Obj.magic,
-            (),
-          )
-      },
-    )
-
-    \"and"("combine reducer1", () => {
       state :=
-        MainTool.combineReducer(
-          state.contents,
-          (
-            elementName1,
-            (elementState, action) => {
-              let elementState = elementState->Obj.magic
-              let action = action->Obj.magic
-
-              switch action["type"] {
-              | "Set" =>
-                elementState
-                ->Meta3dCommonlib.ImmutableHashMap.set("data1", action["value"])
-                ->Obj.magic
-              | _ => elementState
-              }
-            },
-          ),
+        MainTool.registerElement(
+          ~sandbox,
+          ~state=state.contents,
+          ~elementName=elementName1,
+          ~elementFunc=Obj.magic(1),
+          ~elementState=elementState1.contents->Obj.magic,
+          ~reducers=ReducerTool.buildReducers(
+            ~role="role1",
+            ~handlers=[
+              {
+                actionName: "action1",
+                updatedElementStateFieldName: "data1",
+              },
+            ],
+            (),
+          )->Meta3dCommonlib.NullableSt.return,
+          (),
         )
     })
 
@@ -79,10 +61,13 @@ defineFeature(feature, test => {
       state :=
         MainTool.dispatch(
           state.contents,
-          {
-            "type": "Set",
-            "value": arguments[1],
-          }->Obj.magic,
+          // {
+          //   "type": "Set",
+          //   "value": arguments[1],
+          // }->Obj.magic,
+          "action1",
+          "role1",
+          v => 10,
         )
     })
 
@@ -102,54 +87,33 @@ defineFeature(feature, test => {
   test(."else, not update data", ({given, \"and", \"when", then}) => {
     let elementName1 = "e1"
     let elementState1 = ref(Obj.magic(1))
-    let originData1 = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    \"and"(
-      %re("/^register element(\d+) whose elementState(\d+) has data(\d+) = (\d+)$/")->Obj.magic,
-      () => {
-        let arguments =
-          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    given("register element1 with reducer1 and elementState1 whose data1 = 10", () => {
+      elementState1 :=
+        {
+          "data1": 10,
+        }
 
-        originData1 := arguments[3]
-
-        elementState1 :=
-          {
-            "data1": arguments[3],
-          }
-
-        state :=
-          MainTool.registerElement(
-            ~sandbox,
-            ~state=state.contents,
-            ~elementName=elementName1,
-            ~elementFunc=Obj.magic(1),
-            ~elementState=elementState1.contents->Obj.magic,
-            (),
-          )
-      },
-    )
-
-    \"and"("combine reducer1", () => {
       state :=
-        MainTool.combineReducer(
-          state.contents,
-          (
-            elementName1,
-            (elementState, action) => {
-              let elementState = elementState->Obj.magic
-              let action = action->Obj.magic
-
-              switch action["type"] {
-              | "Set" =>
-                elementState
-                ->Meta3dCommonlib.ImmutableHashMap.set("data1", action["value"])
-                ->Obj.magic
-              | _ => elementState
-              }
-            },
-          ),
+        MainTool.registerElement(
+          ~sandbox,
+          ~state=state.contents,
+          ~elementName=elementName1,
+          ~elementFunc=Obj.magic(1),
+          ~elementState=elementState1.contents->Obj.magic,
+          ~reducers=ReducerTool.buildReducers(
+            ~role="role1",
+            ~handlers=[
+              {
+                actionName: "action1",
+                updatedElementStateFieldName: "data1",
+              },
+            ],
+            (),
+          )->Meta3dCommonlib.NullableSt.return,
+          (),
         )
     })
 
@@ -157,14 +121,7 @@ defineFeature(feature, test => {
       let arguments =
         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      state :=
-        MainTool.dispatch(
-          state.contents,
-          {
-            "type": "Set",
-            "value": arguments[1],
-          }->Obj.magic,
-        )
+      state := MainTool.dispatch(state.contents, "action1", "role1", v => 10)
     })
 
     then("mark state not change", () => {
@@ -172,8 +129,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("data1 should not change", () => {
-      (MainTool.getElementState(state.contents, elementName1)->Obj.magic)["data1"]->expect ==
-        originData1.contents
+      (MainTool.getElementState(state.contents, elementName1)->Obj.magic)["data1"]->expect == 10
     })
   })
 })

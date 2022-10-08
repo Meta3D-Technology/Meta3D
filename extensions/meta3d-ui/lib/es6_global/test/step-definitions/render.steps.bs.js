@@ -102,7 +102,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 Curry._2(and, "register element func1", (function (param) {
                         state.contents = MainTool$Meta3dUi.createState(undefined);
                         execFunc1Stub.contents = Sinon.createEmptyStub(sandbox.contents);
-                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc1Stub.contents, elementName1, undefined, undefined, undefined);
+                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc1Stub.contents, elementName1, undefined, undefined, undefined, undefined);
                         
                       }));
                 Curry._2(and, "hide it", (function (param) {
@@ -151,13 +151,13 @@ JestCucumber.defineFeature(feature, (function (test) {
                         state.contents = MainTool$Meta3dUi.createState(undefined);
                         var __x = Sinon.createEmptyStub(sandbox.contents);
                         execFunc1Stub.contents = Sinon.returns(Promise.resolve(1), __x);
-                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc1Stub.contents, elementName1, 1, undefined, undefined);
+                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc1Stub.contents, elementName1, 1, undefined, undefined, undefined);
                         
                       }));
                 Curry._2(and, "register element func2 with exec order=0", (function (param) {
                         var __x = Sinon.createEmptyStub(sandbox.contents);
                         execFunc2Stub.contents = Sinon.returns(Promise.resolve(1), __x);
-                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc2Stub.contents, elementName2, 0, undefined, undefined);
+                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, execFunc2Stub.contents, elementName2, 0, undefined, undefined, undefined);
                         
                       }));
                 Curry._2(and, "mark their states change", (function (param) {

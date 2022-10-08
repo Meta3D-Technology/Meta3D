@@ -4,9 +4,9 @@ let isEmptySelectOptionValue = value => value === buildEmptySelectOptionValue()
 
 let buildSelect = (onChange, defaultValue, values) => {
   open FrontendUtils.Antd
-  // %%raw("import 'antd/dist/antd.css'")
 
   <Select key={defaultValue} defaultValue={defaultValue} onChange>
+  // <Select >
     <Select.Option key={buildEmptySelectOptionValue()} value={buildEmptySelectOptionValue()}>
       {React.string({buildEmptySelectOptionValue()})}
     </Select.Option>
@@ -17,7 +17,5 @@ let buildSelect = (onChange, defaultValue, values) => {
     ->React.array}
   </Select>
 }
-
-
 
 let buildSelect2 = () => React.null

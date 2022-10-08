@@ -11,7 +11,7 @@ Feature: ElementMR
         And select b1, b2
         And prepare element inspector data
         And prepare b1's, b2's inspector data
-        When build element middle represent with b1, b2 and their inspector data
+        When build element middle represent with b1, b2 and inspector data
         And generate element contribute string
         Then should build correct result
         And generate correct result
@@ -20,7 +20,14 @@ Feature: ElementMR
         Given generate ui control button b1
         And select b1
         And prepare b1's inspector data
-        When build element middle represent with b1 and their inspector data
+        When build element middle represent with b1 and inspector data
+        And generate element contribute string
+        Then should build correct result
+        And generate correct result
+
+    Scenario: build element middle represent with reducer and generate element contribute string
+        Given prepare reducers
+        When build element middle represent with reducers
         And generate element contribute string
         Then should build correct result
         And generate correct result

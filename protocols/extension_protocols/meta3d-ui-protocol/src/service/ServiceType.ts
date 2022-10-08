@@ -50,7 +50,7 @@ export type service = {
     ) => uiControlFunc<inputData, outputData>;
     readonly init: (
         meta3dState: meta3dState,
-        [api, uiExtensionName, imguiRendererExtensionName]: [api, uiExtensionName, imguiRendererExtensionName],
+        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
         isDebug: boolean,
         canvas: HTMLCanvasElement
     ) => meta3dState;

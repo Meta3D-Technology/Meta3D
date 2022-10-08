@@ -84,7 +84,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-			meta3dState = init(meta3dState, [api, meta3dUIExtensionName, meta3dImguiRendererExtensionName], isDebug, canvas)
+			meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
 
 
 

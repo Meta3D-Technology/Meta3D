@@ -14,3 +14,14 @@ let buildElementStateFieldData = (
 }
 
 let submitElementState = ElementInspector.Method.onFinishState
+
+let buildElementInspectorData = (
+  elementStateFields,
+  reducers,
+): FrontendUtils.UIViewStoreType.elementInspectorData => {
+  {elementStateFields: elementStateFields, reducers: reducers}
+}
+
+let setRole = ElementInspector.Method.setRole
+
+let submitHandlers = ElementInspector.Method.onFinishReducerHandlers

@@ -139,12 +139,6 @@ let _generateReducers = (reducers: FrontendUtils.UIViewStoreType.reducers) => {
   switch reducers.role {
   | None => "null"
   | Some(role) =>
-    // Meta3dCommonlib.ImmutableHashMap.createEmpty()
-    // ->Meta3dCommonlib.ImmutableHashMap.set("role", role)
-    // ->Meta3dCommonlib.ImmutableHashMap.set(
-    //   "handlers",
-    //   reducers.handlers->Meta3dCommonlib.ListSt.toArray,
-    // )
     {
       "role": role,
       "handlers": reducers.handlers->Meta3dCommonlib.ListSt.toArray,

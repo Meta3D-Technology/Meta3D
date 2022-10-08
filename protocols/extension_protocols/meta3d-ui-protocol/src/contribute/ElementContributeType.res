@@ -1,3 +1,5 @@
+type elementState
+
 type elementName = string
 
 type elementFunc<'elementState> = (
@@ -12,7 +14,7 @@ type handler = {
   updatedElementStateFieldName: string,
 }
 
-type reducer = {
+type reducers = {
   role: string,
   handlers: array<handler>,
 }
@@ -22,7 +24,7 @@ type elementContribute<'elementState> = {
   execOrder: execOrder,
   elementFunc: elementFunc<'elementState>,
   elementState: 'elementState,
-  reducer: Js.Nullable.t<reducer>,
+  reducers: Js.Nullable.t<reducers>,
 }
 
 // type getElementContribute<'dependentExtensionNameMap, 'elementState> = (
@@ -33,4 +35,4 @@ type elementContribute<'elementState> = {
 // type reducerFunc<'elementState, 'action> = ('elementState, 'action) => 'elementState
 
 // type reducerData<'elementState, 'action> = (elementName, reducerFunc<'elementState, 'action>)
-type reducerData = (elementName, reducer)
+type reducerData = (elementName, reducers)

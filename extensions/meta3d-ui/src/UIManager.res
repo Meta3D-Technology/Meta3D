@@ -266,6 +266,17 @@ let _setElementFunc = (
   }
 }
 
+let _addReducers = (state: Meta3dUiProtocol.StateType.state, elementName, reducers) => {
+  reducers
+  ->Meta3dCommonlib.NullableSt.map((. reducers): Meta3dUiProtocol.StateType.state => {
+    {
+      ...state,
+      reducers: state.reducers->Meta3dCommonlib.ArraySt.push((elementName, reducers)),
+    }
+  })
+  ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+}
+
 let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
   {
@@ -273,6 +284,7 @@ let registerElement = (
     execOrder,
     elementFunc,
     elementState,
+    reducers,
   }: Meta3dUiProtocol.ElementContributeType.elementContribute<
     Meta3dUiProtocol.StateType.elementState,
   >,
@@ -281,6 +293,7 @@ let registerElement = (
   ->_setElementFunc(elementName, elementFunc)
   ->_setElementState(elementName, elementState)
   ->_setElementExecOrder(elementName, execOrder)
+  ->_addReducers(elementName, reducers)
   ->show(elementName)
   ->_markStateChange(elementName)
 }
@@ -479,29 +492,10 @@ let drawBox = (
 
 let init = (
   meta3dState,
-  (api: Meta3dType.Index.api, uiExtensionName, imguiRendererExtensionName),
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
   isDebug,
   canvas,
 ) => {
-  let uiState =
-    api.getAllContributesByType(.
-      meta3dState,
-      Meta3dType.ContributeType.Element,
-    )->Meta3dCommonlib.ArraySt.reduceOneParam((. uiState, elementContribute) => {
-      let {elementName, reducers} = elementContribute->Obj.magic
-
-      reducers
-      ->Meta3dCommonlib.NullableSt.bind(reducers => {
-        {
-          ...ui,
-          reducers: ui.reducers->Meta3dCommonlib.ArraySt.push((elementName, reducers)),
-        }
-      })
-      ->Meta3dCommonlib.NullableSt.getWithDefault(uiState)
-    }, api.getExtensionState(. meta3dState, uiExtensionName))
-
-  let meta3dState = api.setExtensionState(. meta3dState, uiExtensionName, uiState)
-
   let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.

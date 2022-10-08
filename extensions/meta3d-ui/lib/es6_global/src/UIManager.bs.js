@@ -1,9 +1,9 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function hide(state, elementName) {
@@ -66,20 +66,6 @@ function _markAllStateNotChange(state, needMarkStateNotChangeIds) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(needMarkStateNotChangeIds, _markStateNotChange, state);
 }
 
-function combineReducers(state, reducerData) {
-  return {
-          elementFuncMap: state.elementFuncMap,
-          elementStateMap: state.elementStateMap,
-          elementExecOrderMap: state.elementExecOrderMap,
-          isShowMap: state.isShowMap,
-          isStateChangeMap: state.isStateChangeMap,
-          skinContributeMap: state.skinContributeMap,
-          uiControlContributeMap: state.uiControlContributeMap,
-          reducers: ArraySt$Meta3dCommonlib.push(state.reducers, reducerData),
-          ioData: state.ioData
-        };
-}
-
 function _getElementStateExn(param, elementName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(param.elementStateMap, elementName);
 }
@@ -120,11 +106,31 @@ function _setElementExecOrder(state, elementName, execOrder) {
         };
 }
 
-function dispatch(state, action) {
+var _updateElementField = (function(
+elementState, 
+updatedElementStateFieldName,
+updateElementStateFieldFunc
+){
+  var newElementState = Object.assign({}, elementState)
+
+ newElementState[updatedElementStateFieldName] = updateElementStateFieldFunc(newElementState[updatedElementStateFieldName])
+
+  return newElementState
+});
+
+function dispatch(state, actionName, role, updateElementStateFieldFunc) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(state.reducers, (function (state, param) {
+                var reducers = param[1];
+                if (reducers.role !== role) {
+                  return state;
+                }
                 var elementName = param[0];
                 var oldElementState = _getElementStateExn(state, elementName);
-                var newElementState = Curry._2(param[1], oldElementState, action);
+                var newElementState = ArraySt$Meta3dCommonlib.reduceOneParam(ArraySt$Meta3dCommonlib.filter(reducers.handlers, (function (handler) {
+                            return handler.actionName === actionName;
+                          })), (function (elementState, param) {
+                        return _updateElementField(elementState, param.updatedElementStateFieldName, updateElementStateFieldFunc);
+                      }), oldElementState);
                 if (Caml_obj.caml_notequal(oldElementState, newElementState)) {
                   return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
                 } else {
@@ -211,9 +217,28 @@ function _setElementFunc(state, elementName, elementFunc) {
         };
 }
 
+function _addReducers(state, elementName, reducers) {
+  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(reducers, (function (reducers) {
+                    return {
+                            elementFuncMap: state.elementFuncMap,
+                            elementStateMap: state.elementStateMap,
+                            elementExecOrderMap: state.elementExecOrderMap,
+                            isShowMap: state.isShowMap,
+                            isStateChangeMap: state.isStateChangeMap,
+                            skinContributeMap: state.skinContributeMap,
+                            uiControlContributeMap: state.uiControlContributeMap,
+                            reducers: ArraySt$Meta3dCommonlib.push(state.reducers, [
+                                  elementName,
+                                  reducers
+                                ]),
+                            ioData: state.ioData
+                          };
+                  })), state);
+}
+
 function registerElement(state, param) {
   var elementName = param.elementName;
-  return _markStateChange(show(_setElementExecOrder(_setElementState(_setElementFunc(state, elementName, param.elementFunc), elementName, param.elementState), elementName, param.execOrder), elementName), elementName);
+  return _markStateChange(show(_addReducers(_setElementExecOrder(_setElementState(_setElementFunc(state, elementName, param.elementFunc), elementName, param.elementState), elementName, param.execOrder), elementName, param.reducers), elementName), elementName);
 }
 
 function registerSkin(state, skinContribute) {
@@ -280,18 +305,19 @@ export {
   _markStateChange ,
   _markStateNotChange ,
   _markAllStateNotChange ,
-  combineReducers ,
   _getElementStateExn ,
   getElementState ,
   _setElementState ,
   _getElementExecOrderExn ,
   _setElementExecOrder ,
+  _updateElementField ,
   dispatch ,
   getIOData ,
   _prepare ,
   _exec ,
   render ,
   _setElementFunc ,
+  _addReducers ,
   registerElement ,
   registerSkin ,
   registerUIControl ,
