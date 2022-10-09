@@ -590,7 +590,7 @@ loop
 //update mr
 
 
-*** TODO bdd test
+*** DONE bdd test
 
 
 *** TODO run test

@@ -26,14 +26,14 @@ module Method = {
   }
 
   // TODO use indexDB instead
-  let _saveToLocalStorage = appBinaryFile => {
-    LocalStorageUtils.set(UIVisualUtils.getRunUIVisualAppName(), appBinaryFile)
+  let _saveToLocalStorage = (service, appBinaryFile) => {
+    service.storage.setItem(. UIVisualUtils.getRunUIVisualAppName(), appBinaryFile->Obj.magic)
   }
 
   let _buildURL = canvasData => j`RunUIVisual?canvasData=${canvasData}`
 
-  let _openLink = url => {
-    FrontendUtils.Window.\"open"(url, "_blank").focus()
+  let _openLink = (service, url) => {
+    service.tab.openUrl(. url)
   }
 
   let run = (
@@ -50,9 +50,9 @@ module Method = {
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
       (runVisualExtension, elementContribute),
-    )->_saveToLocalStorage
+    )->_saveToLocalStorage(service, _)
 
-    _openLink(_buildURL(canvasData->Obj.magic->Js.Json.stringify))
+    _openLink(service, _buildURL(canvasData->Obj.magic->Js.Json.stringify))
   }
 
   let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {

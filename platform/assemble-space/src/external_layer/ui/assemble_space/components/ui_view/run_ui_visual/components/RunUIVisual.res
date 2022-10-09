@@ -2,58 +2,57 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 module Method = {
-  let getVisualExtensionName = () => "meta3d-ui-view-visual-run"
+  let _getVisualExtensionName = () => "meta3d-ui-view-visual-run"
 
-  let getInitData = () => {
+  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
     {
       "isDebug": true,
-      "canvas": DomExtend.querySelector(
-        DomExtend.document,
-        "#ui-visual-run-canvas",
-      )->Meta3dCommonlib.OptionSt.getExn,
+      "canvas": service.dom.querySelector("#ui-visual-run-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
   }
 
-  let updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
-    service.meta3d.updateExtension(. meta3dState, getVisualExtensionName(), updateData)
+  let _updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
+    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
   }
 
-  let rec loop = (meta3dState, update) => {
+  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, meta3dState, update) => {
     update(meta3dState)->Js.Promise.then_(meta3dState => {
-      RequestAnimationFrameExtend.requestAnimationFrame(() =>
-        loop(meta3dState, update)
+      service.other.requestAnimationFrame(() =>
+        _loop(service, meta3dState, update)
       )->Js.Promise.resolve
     }, _)->ignore
   }
-}
 
-@react.component
-let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
-  let url = RescriptReactRouter.useUrl()
-
-  let canvasData: FrontendUtils.ApViewStoreType.canvasData =
-    FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
-
-  React.useEffect1(() => {
-    let appBinaryFile = LocalStorageUtils.get(UIVisualUtils.getRunUIVisualAppName())
+  let startApp = (service: FrontendUtils.AssembleSpaceType.service) => {
+    let appBinaryFile = service.storage.getItem(. UIVisualUtils.getRunUIVisualAppName())->Obj.magic
 
     Js.Nullable.isNullable(appBinaryFile)
       ? {
-          service.console.error(. {j`appBinaryFile not exist`}, None)->Obj.magic
+          service.console.error(. {j`appBinaryFile not exist`}, None)->Js.Promise.resolve
         }
       : {
           let meta3dState = service.meta3d.loadApp(. appBinaryFile)->Meta3dCommonlib.Tuple2.getFirst
 
           service.meta3d.initExtension(.
             meta3dState,
-            Method.getVisualExtensionName(),
-            Method.getInitData(),
-          )
-          ->Js.Promise.then_(meta3dState => {
-            Method.loop(meta3dState, Method.updateApp(service, Obj.magic(1)))->Js.Promise.resolve
+            _getVisualExtensionName(),
+            _getInitData(service),
+          )->Js.Promise.then_(meta3dState => {
+            _loop(service, meta3dState, _updateApp(service, Obj.magic(1)))->Js.Promise.resolve
           }, _)
-          ->ignore
         }
+  }
+}
+
+@react.component
+let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
+  let url = service.url.useUrl()
+
+  let canvasData: FrontendUtils.ApViewStoreType.canvasData =
+    FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
+
+  React.useEffect1(() => {
+    Method.startApp(service)->ignore
 
     None
   }, [])

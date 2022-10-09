@@ -79,13 +79,10 @@ module Method = {
     }, _)
   }
 
-  let getInitData = () => {
+  let getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
     {
       "isDebug": true,
-      "canvas": DomExtend.querySelector(
-        DomExtend.document,
-        "#ui-visual-canvas",
-      )->Meta3dCommonlib.OptionSt.getExn,
+      "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
   }
 
@@ -224,7 +221,7 @@ let make = (~service: service) => {
         Method.renderApp(
           service,
           (selectedExtensions, selectedContributes),
-          Method.getInitData(),
+          Method.getInitData(service),
           (visualExtension, elementContribute),
         )->ignore
       }, 5->Some)

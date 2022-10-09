@@ -1,6 +1,6 @@
 Feature: UIVisual
     As a UIVisual
-    I want to run app
+    I want to visual app
     So that I can see
 
     Background: prepare
@@ -31,8 +31,8 @@ Feature: UIVisual
         And generate contribute c1
         And select ui
         And select c1
-        When render app with ui, c1, v
-        Then build app with ui, v and c1
+        When render app with ui, c1, v, element1
+        Then build app with ui, c1, v, element1
         And v should be inited and updated
 
 

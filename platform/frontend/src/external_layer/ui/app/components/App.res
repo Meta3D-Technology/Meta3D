@@ -7,8 +7,32 @@ let make = () => {
   ) => userCenterState)
 
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
+    dom: {
+      querySelector: str => {
+        DomExtend.querySelector(DomExtend.document, "#ui-visual-run-canvas")
+      },
+    },
+    url: {
+      useUrl: () => {
+        RescriptReactRouter.useUrl()
+      },
+    },
+    tab: {
+      openUrl: url => {
+        FrontendUtils.Window.\"open"(url, "_blank").focus()
+      },
+    },
+    storage: {
+      getItem: name => {
+        LocalStorageUtils.get(name)
+      },
+      setItem: (name, value) => {
+        LocalStorageUtils.set(name, value)
+      },
+    },
     other: {
       random: Js.Math.random,
+      requestAnimationFrame: RequestAnimationFrameExtend.requestAnimationFrame,
     },
     backend: BackendCloudbase.buildService(),
     meta3d: {

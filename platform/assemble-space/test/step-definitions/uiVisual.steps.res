@@ -85,17 +85,9 @@ defineFeature(feature, test => {
     })
 
     then("should show the canvas", () => {
-      let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      useStateStub->onCall(0, _)->returns((true, _ => true), _)->ignore
-
       UIVisualTool.buildUI(
         ~sandbox,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~useState=useStateStub->Obj.magic,
-          ~useSelector=useSelectorStub.contents->Obj.magic,
-          (),
-        ),
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents->Obj.magic, ()),
         (),
       )
       ->ReactTestRenderer.create
@@ -299,7 +291,7 @@ defineFeature(feature, test => {
         }
     })
 
-    CucumberAsync.execStep(\"when", "render app with ui, c1, v", () => {
+    CucumberAsync.execStep(\"when", "render app with ui, c1, v, element1", () => {
       let initData = Obj.magic(1)
 
       UIVisualTool.renderApp(
@@ -320,7 +312,7 @@ defineFeature(feature, test => {
       )
     })
 
-    \"and"("build app with ui, v and c1", () => {
+    \"and"("build app with ui, c1, v, element1", () => {
       ()
     })
 

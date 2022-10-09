@@ -90,14 +90,42 @@ type meta3dService = {
   getActions: (. Meta3d.LibUtils.lib) => Meta3dType.Index.actions,
 }
 
-type otherService = {random: unit => float}
+type otherService = {
+  random: unit => float,
+  requestAnimationFrame: (unit => unit) => int,
+}
+
+type url = string
+
+type tabService = {openUrl: (. url) => unit}
+
+type itemValue
+
+type storageService = {
+  getItem: (. string) => itemValue,
+  setItem: (. string, itemValue) => unit,
+}
+
+type urlData = {
+  path: list<string>,
+  hash: string,
+  search: string,
+}
+
+type urlService = {useUrl: unit => urlData}
+
+type domService = {querySelector: string => option<Dom.htmlElement>}
 
 type service = {
+  url: urlService,
+  tab: tabService,
+  storage: storageService,
   console: consoleService,
   react: reactService,
   backend: backendService,
   meta3d: meta3dService,
   other: otherService,
+  dom: domService,
 }
 
 type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>

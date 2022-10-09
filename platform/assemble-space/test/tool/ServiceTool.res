@@ -4,6 +4,12 @@ open Sinon
 
 let build = (
   ~sandbox,
+  ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~requestAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~useUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~openUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getItem=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setItem=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~random=Js.Math.random,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useState=React.useState->Obj.magic,
@@ -93,6 +99,20 @@ let build = (
   },
   other: {
     random: random,
+    requestAnimationFrame: requestAnimationFrame,
+  },
+  tab: {
+    openUrl: openUrl,
+  },
+  storage: {
+    getItem: getItem,
+    setItem: setItem,
+  },
+  url: {
+    useUrl: useUrl,
+  },
+  dom: {
+    querySelector: querySelector,
   },
 }
 
