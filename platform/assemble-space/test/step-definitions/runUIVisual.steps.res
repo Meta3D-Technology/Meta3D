@@ -50,7 +50,8 @@ defineFeature(feature, test => {
   })
 
   test(."if not get app binary file from storage, error", ({given, \"when", \"and", then}) => {
-    let getItemStub = ref(Obj.magic(1))
+    let initForUIVisualAppStub = ref(Obj.magic(1))
+    let getUIVisualAppStub = ref(Obj.magic(1))
     let errorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -58,15 +59,30 @@ defineFeature(feature, test => {
     given("empty storage", () => {
       errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      getItemStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Js.Nullable.null, _)
+      initForUIVisualAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+
+      getUIVisualAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          Meta3dBsMost.Most.fromPromise(
+            Js.Promise.make((~resolve, ~reject) => {
+              reject(.
+                Js.Exn.raiseError({
+                  "error"
+                }),
+              )
+            }),
+          ),
+          _,
+        )
     })
 
     CucumberAsync.execStep(\"when", "start app", () => {
       RunUIVisualTool.startApp(
         ServiceTool.build(
           ~sandbox,
-          ~getItem=getItemStub.contents->Obj.magic,
+          ~initForUIVisualApp=initForUIVisualAppStub.contents->Obj.magic,
+          ~getUIVisualApp=getUIVisualAppStub.contents->Obj.magic,
           ~error=errorStub.contents->Obj.magic,
           (),
         ),
@@ -76,7 +92,7 @@ defineFeature(feature, test => {
     then("should error", () => {
       errorStub.contents
       ->Obj.magic
-      ->SinonTool.calledWithArg2({j`appBinaryFile not exist`}, None)
+      ->SinonTool.calledWithArg2("error", None)
       ->expect == true
     })
   })
@@ -85,7 +101,8 @@ defineFeature(feature, test => {
     let appBinaryFile = Obj.magic(10)
     let canvas = Obj.magic(22)
     let meta3dState = ref(Obj.magic(100))
-    let getItemStub = ref(Obj.magic(1))
+    let initForUIVisualAppStub = ref(Obj.magic(1))
+    let getUIVisualAppStub = ref(Obj.magic(1))
     let loadAppStub = ref(Obj.magic(1))
     let initExtensionStub = ref(Obj.magic(1))
     let updateExtensionStub = ref(Obj.magic(1))
@@ -95,9 +112,15 @@ defineFeature(feature, test => {
     _prepare(given, \"and")
 
     given("storage has app binary file", () => {
-      getItemStub :=
+      initForUIVisualAppStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Js.Nullable.return(appBinaryFile),
+          Meta3dBsMost.Most.just(Obj.magic(1)),
+          _,
+        )
+
+      getUIVisualAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          Meta3dBsMost.Most.just(appBinaryFile),
           _,
         )
     })
@@ -131,7 +154,8 @@ defineFeature(feature, test => {
       RunUIVisualTool.startApp(
         ServiceTool.build(
           ~sandbox,
-          ~getItem=getItemStub.contents->Obj.magic,
+          ~initForUIVisualApp=initForUIVisualAppStub.contents->Obj.magic,
+          ~getUIVisualApp=getUIVisualAppStub.contents->Obj.magic,
           ~loadApp=loadAppStub.contents->Obj.magic,
           ~initExtension=initExtensionStub.contents->Obj.magic,
           ~updateExtension=updateExtensionStub.contents->Obj.magic,

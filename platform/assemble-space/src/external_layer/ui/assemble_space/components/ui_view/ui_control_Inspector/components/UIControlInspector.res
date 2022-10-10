@@ -179,8 +179,12 @@ let make = (~service: service) => {
               {SelectUtils.buildSelect(
                 Method.setAction(dispatch, id, eventName),
                 defaultValue,
-                actions->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
-                  NewNameUtils.getName(newName, data.contributePackageData.name)
+                actions->Meta3dCommonlib.ArraySt.map(({protocolConfigStr}) => {
+                  let configLib = service.meta3d.serializeActionProtocolConfigLib(.
+                    protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+                  )
+
+                  service.meta3d.getActionName(. configLib)
                 }),
               )}
             </List.Item>

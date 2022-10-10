@@ -17,4 +17,4 @@ let loadAndBuildVisualExtension = (service, file) =>
 
 let run = RunUIVisualController.Method.run
 
-let getRunUIVisualAppName = UIVisualUtils.getRunUIVisualAppName
+// let getRunUIVisualAppName = UIVisualUtils.getRunUIVisualAppName

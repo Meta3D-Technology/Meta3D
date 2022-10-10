@@ -133,6 +133,10 @@ type action = {
   role: string,
 }
 
+type actionNameForAction = string
+
 type actions = array<action>
+
+type getActionName = unit => actionNameForAction
 
 type getActions = unit => actions

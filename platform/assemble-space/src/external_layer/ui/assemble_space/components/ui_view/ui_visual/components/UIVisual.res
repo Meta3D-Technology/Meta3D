@@ -127,12 +127,22 @@ module Method = {
             name: _getElementContributeProtocolName(),
             version: _getElementContributeProtocolVersion(),
           },
-          dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+          dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+          ->Meta3dCommonlib.ImmutableHashMap.set(
             "meta3dUIExtensionName",
             (
               {
                 protocolName: "meta3d-ui-protocol",
                 protocolVersion: "^0.5.0",
+              }: Meta3d.ExtensionFileType.dependentData
+            ),
+          )
+          ->Meta3dCommonlib.ImmutableHashMap.set(
+            "meta3dEventExtensionName",
+            (
+              {
+                protocolName: "meta3d-event-protocol",
+                protocolVersion: "^0.5.1",
               }: Meta3d.ExtensionFileType.dependentData
             ),
           ),
@@ -212,7 +222,7 @@ let make = (~service: service) => {
       : ()
 
     None
-  }, [selectedUIControlInspectorData])
+  }, [selectedUIControlInspectorData, elementInspectorData->Obj.magic])
 
   service.react.useEffect1(. () => {
     switch (visualExtension, elementContribute) {

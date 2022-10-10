@@ -24,23 +24,24 @@ module Method = {
   }
 
   let startApp = (service: FrontendUtils.AssembleSpaceType.service) => {
-    let appBinaryFile = service.storage.getItem(. UIVisualUtils.getRunUIVisualAppName())->Obj.magic
+    service.storage.initForUIVisualApp()
+    ->service.storage.getUIVisualApp(. _)
+    ->Meta3dBsMost.Most.flatMap(appBinaryFile => {
+      let meta3dState = service.meta3d.loadApp(. appBinaryFile)->Meta3dCommonlib.Tuple2.getFirst
 
-    Js.Nullable.isNullable(appBinaryFile)
-      ? {
-          service.console.error(. {j`appBinaryFile not exist`}, None)->Js.Promise.resolve
-        }
-      : {
-          let meta3dState = service.meta3d.loadApp(. appBinaryFile)->Meta3dCommonlib.Tuple2.getFirst
-
-          service.meta3d.initExtension(.
-            meta3dState,
-            _getVisualExtensionName(),
-            _getInitData(service),
-          )->Js.Promise.then_(meta3dState => {
-            _loop(service, meta3dState, _updateApp(service, Obj.magic(1)))->Js.Promise.resolve
-          }, _)
-        }
+      service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
+      ->Js.Promise.then_(meta3dState => {
+        _loop(service, meta3dState, _updateApp(service, Obj.magic(1)))->Js.Promise.resolve
+      }, _)
+      ->Meta3dBsMost.Most.fromPromise
+    }, _)
+    ->Meta3dBsMost.Most.drain
+    ->Js.Promise.catch(e => {
+      service.console.error(.
+        e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+        None,
+      )->Obj.magic
+    }, _)
   }
 }
 

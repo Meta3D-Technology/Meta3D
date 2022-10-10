@@ -138,9 +138,15 @@ defineFeature(feature, test => {
     let a1 = ref(Obj.magic(1))
     let a2 = ref(Obj.magic(1))
     let d1ConfigLib = Obj.magic(11)
+    let a1ConfigLib = Obj.magic(12)
+    let a2ConfigLib = Obj.magic(13)
+    let action1Name = "a1"
+    let action2Name = "a2"
     let useSelectorStub = ref(Obj.magic(1))
     let serializeUIControlProtocolConfigLibStub = ref(Obj.magic(1))
     let getUIControlSupportedEventNamesStub = ref(Obj.magic(1))
+    let serializeActionProtocolConfigLibStub = ref(Obj.magic(1))
+    let getActionNameStub = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -173,6 +179,7 @@ defineFeature(feature, test => {
       a1 :=
         SelectedContributesTool.buildSelectedContribute(
           ~id="a1",
+          ~protocolConfigStr=Some(""),
           ~data=ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~name="a1",
@@ -190,6 +197,7 @@ defineFeature(feature, test => {
       a2 :=
         SelectedContributesTool.buildSelectedContribute(
           ~id="a2",
+          ~protocolConfigStr=Some(""),
           ~data=ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~name="a2",
@@ -203,6 +211,22 @@ defineFeature(feature, test => {
           ),
           (),
         )
+
+      serializeActionProtocolConfigLibStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      serializeActionProtocolConfigLibStub.contents
+      ->onCall(0, _)
+      ->returns(a1ConfigLib, _)
+      ->onCall(1, _)
+      ->returns(a2ConfigLib, _)
+      ->ignore
+
+      getActionNameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      getActionNameStub.contents
+      ->withOneArg(a1ConfigLib, _)
+      ->returns(action1Name, _)
+      ->withOneArg(a2ConfigLib, _)
+      ->returns(action2Name, _)
+      ->ignore
     })
 
     \"and"(
@@ -240,6 +264,8 @@ defineFeature(feature, test => {
           ~sandbox,
           ~serializeUIControlProtocolConfigLib=serializeUIControlProtocolConfigLibStub.contents->Obj.magic,
           ~getUIControlSupportedEventNames=getUIControlSupportedEventNamesStub.contents->Obj.magic,
+          ~serializeActionProtocolConfigLib=serializeActionProtocolConfigLibStub.contents->Obj.magic,
+          ~getActionName=getActionNameStub.contents->Obj.magic,
           ~useSelector=useSelectorStub.contents,
           (),
         ),

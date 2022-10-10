@@ -64,6 +64,6 @@ let generateApp = (
   )
 }
 
-let getRunUIVisualAppName = () => {
-  "meta3d_run_ui_visual"
-}
+// let getRunUIVisualAppName = () => {
+//   "meta3d_run_ui_visual"
+// }

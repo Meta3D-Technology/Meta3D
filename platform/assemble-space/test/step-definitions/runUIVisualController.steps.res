@@ -180,11 +180,13 @@ defineFeature(feature, test => {
   test(."run", ({given, \"when", \"and", then}) => {
     let element1 = ref(Obj.magic(1))
     let v = ref(Obj.magic(1))
+    let db = Obj.magic(11)
     let selectedExtensions = ref(list{})
     let selectedContributes = ref(list{})
     let canvasData = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
-    let setItemStub = ref(Obj.magic(1))
+    let initForUIVisualAppStub = ref(Obj.magic(1))
+    let setUIVisualAppStub = ref(Obj.magic(1))
     let openUrlStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -228,7 +230,11 @@ defineFeature(feature, test => {
     })
 
     \"and"("prepare local storage", () => {
-      setItemStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      initForUIVisualAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.just(db), _)
+
+      setUIVisualAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.just(db), _)
     })
 
     \"and"("prepare open", () => {
@@ -242,7 +248,8 @@ defineFeature(feature, test => {
         ServiceTool.build(
           ~sandbox,
           ~openUrl=openUrlStub.contents->Obj.magic,
-          ~setItem=setItemStub.contents->Obj.magic,
+          ~initForUIVisualApp=initForUIVisualAppStub.contents->Obj.magic,
+          ~setUIVisualApp=setUIVisualAppStub.contents->Obj.magic,
           ~generateApp=Meta3d.Main.generateApp->Obj.magic,
           (),
         ),
@@ -258,8 +265,9 @@ defineFeature(feature, test => {
     })
 
     \"and"("save app to local storage", () => {
-      setItemStub.contents
-      ->SinonTool.calledWithArg2(RunUIVisualControllerTool.getRunUIVisualAppName(), matchAny)
+      setUIVisualAppStub.contents
+      ->Obj.magic
+      ->SinonTool.calledWithArg2(db->Meta3dBsMost.Most.just, matchAny)
       ->expect == true
     })
 

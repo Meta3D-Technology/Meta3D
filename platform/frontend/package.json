@@ -32,6 +32,7 @@
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
+        "rescript-indexeddb": "^0.0.3",
         "antd": "^4.21.0",
         "remporium": "^0.0.1",
         "rescript": "^9.1.4"

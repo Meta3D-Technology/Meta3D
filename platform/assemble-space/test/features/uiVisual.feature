@@ -28,8 +28,10 @@ Feature: UIVisual
         And generate empty element contribute element1
         And get visual extension v
         And generate extension ui
+        And generate extension event
         And generate contribute c1
         And select ui
+        And select event
         And select c1
         When render app with ui, c1, v, element1
         Then build app with ui, c1, v, element1

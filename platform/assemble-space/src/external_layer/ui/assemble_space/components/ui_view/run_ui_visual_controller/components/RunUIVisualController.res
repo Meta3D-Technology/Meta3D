@@ -25,9 +25,8 @@ module Method = {
     )
   }
 
-  // TODO use indexDB instead
   let _saveToLocalStorage = (service, appBinaryFile) => {
-    service.storage.setItem(. UIVisualUtils.getRunUIVisualAppName(), appBinaryFile->Obj.magic)
+    service.storage.initForUIVisualApp()->service.storage.setUIVisualApp(. _, appBinaryFile)
   }
 
   let _buildURL = canvasData => j`RunUIVisual?canvasData=${canvasData}`
@@ -50,9 +49,18 @@ module Method = {
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
       (runVisualExtension, elementContribute),
-    )->_saveToLocalStorage(service, _)
-
-    _openLink(service, _buildURL(canvasData->Obj.magic->Js.Json.stringify))
+    )
+    ->_saveToLocalStorage(service, _)
+    ->Meta3dBsMost.Most.tap(_ => {
+      _openLink(service, _buildURL(canvasData->Obj.magic->Js.Json.stringify))
+    }, _)
+    ->Meta3dBsMost.Most.drain
+    ->Js.Promise.catch(e => {
+      service.console.error(.
+        e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+        None,
+      )->Obj.magic
+    }, _)
   }
 
   let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
@@ -83,7 +91,6 @@ let make = (~service: service) => {
 
   {
     switch (runVisualExtension, elementContribute) {
-    | (None, None) => <p> {React.string(`waiting...`)} </p>
     | (Some(runVisualExtension), Some(elementContribute)) =>
       <Button
         onClick={_ => {
@@ -93,10 +100,11 @@ let make = (~service: service) => {
               (canvasData, selectedExtensions, selectedContributes),
               (runVisualExtension, elementContribute),
             ),
-          )
+          )->ignore
         }}>
         {React.string(`运行`)}
       </Button>
+    | _ => <p> {React.string(`waiting...`)} </p>
     }
   }
 }

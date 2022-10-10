@@ -14,14 +14,14 @@
     "commonjs",
     "es6-global"
   ],
-  "bs-dev-dependencies": [
-  ],
+  "bs-dev-dependencies": [],
   "reason": {
     "react-jsx": 3
   },
   "bs-dependencies": [
     "@rescript/react",
     "meta3d-bs-most-protocol",
+    "rescript-indexeddb",
     "meta3d-commonlib",
     "meta3d",
     "meta3d-type"

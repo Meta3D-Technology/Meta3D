@@ -85,6 +85,11 @@ export type action = {
   role: string,
 }
 
+
+export type actionNameForAction = string
+
 export type actions = Array<action>
+
+export type getActionName = () => actionNameForAction
 
 export type getActions = () => actions

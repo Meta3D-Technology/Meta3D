@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, rect, actions } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, rect, actions, actionNameForAction } from "meta3d-type"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
@@ -150,6 +150,8 @@ export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, act
 
 
 export type serializeActionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
+
+export type getActionName = (configLib: protocolConfigLib) => actionNameForAction
 
 export type getActions = (configLib: protocolConfigLib) => actions
 

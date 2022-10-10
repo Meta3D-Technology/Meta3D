@@ -593,12 +593,33 @@ loop
 *** DONE bdd test
 
 
-*** TODO run test
+*** DONE run test
 
 run test with run visual
 
 publish:
 run visual extension, protocol
+
+
+
+fix:
+indexdb
+
+action name
+
+submit not update
+
+event
+
+string type convert
+
+mr
+
+
+
+pass bdd test:
+
+
 
 *** TODO feat: remove onStart, startApp
 

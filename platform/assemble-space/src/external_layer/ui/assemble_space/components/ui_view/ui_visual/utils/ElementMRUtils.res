@@ -126,8 +126,15 @@ let _generateAllDrawUIControlAndHandleEventStr = (
 let _generateElementState = elementStateFields => {
   elementStateFields
   ->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. map, {name, defaultValue}: FrontendUtils.UIViewStoreType.elementStateFieldData) => {
-      map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+    (. map, {name, type_, defaultValue}: FrontendUtils.UIViewStoreType.elementStateFieldData) => {
+      switch type_ {
+      | #string => map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+      | #int =>
+        map->Meta3dCommonlib.ImmutableHashMap.set(
+          name,
+          defaultValue->Obj.magic->IntUtils.stringToInt->Obj.magic,
+        )
+      }
     },
     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   )
@@ -155,7 +162,7 @@ let generateElementContributeFileStr = (service, mr: elementMR): string => {
     j`
 window.Contribute = {
     getContribute: (api, [dependentExtensionNameMap, _]) => {
-        let { meta3dUIExtensionName } = dependentExtensionNameMap
+        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
 
         return {
             elementName:"${elementName}",

@@ -9,7 +9,7 @@ let make = () => {
   let _buildService = (): FrontendUtils.AssembleSpaceType.service => {
     dom: {
       querySelector: str => {
-        DomExtend.querySelector(DomExtend.document, "#ui-visual-run-canvas")
+        DomExtend.querySelector(DomExtend.document, str)
       },
     },
     url: {
@@ -18,16 +18,19 @@ let make = () => {
       },
     },
     tab: {
-      openUrl: url => {
+      openUrl: (. url) => {
         FrontendUtils.Window.\"open"(url, "_blank").focus()
       },
     },
     storage: {
-      getItem: name => {
-        LocalStorageUtils.get(name)
+      initForUIVisualApp: () => {
+        IndexdDBUtils.initForUIVisualApp()
       },
-      setItem: (name, value) => {
-        LocalStorageUtils.set(name, value)
+      getUIVisualApp: (. stream) => {
+        IndexdDBUtils.getUIVisualApp(stream)
+      },
+      setUIVisualApp: (. stream, appBinaryFile) => {
+        IndexdDBUtils.setUIVisualApp(stream, appBinaryFile)
       },
     },
     other: {
@@ -62,6 +65,7 @@ let make = () => {
         Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames),
       serializeActionProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
+      getActionName: (. configLib) => Meta3d.Main.getActionName(configLib),
       getActions: (. configLib) => Meta3d.Main.getActions(configLib),
     },
     console: {

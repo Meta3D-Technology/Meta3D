@@ -87,6 +87,7 @@ type meta3dService = {
     array<Meta3dType.Index.actionName>,
   ) => string,
   serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  getActionName: (. Meta3d.LibUtils.lib) => Meta3dType.Index.actionNameForAction,
   getActions: (. Meta3d.LibUtils.lib) => Meta3dType.Index.actions,
 }
 
@@ -99,20 +100,19 @@ type url = string
 
 type tabService = {openUrl: (. url) => unit}
 
-type itemValue
+type db = IndexedDB.IDBDatabase.t
+
+type initStream = Meta3dBsMostProtocol.StreamType.stream<db>
 
 type storageService = {
-  getItem: (. string) => itemValue,
-  setItem: (. string, itemValue) => unit,
+  initForUIVisualApp: unit => initStream,
+  getUIVisualApp: (
+    . initStream,
+  ) => Meta3dBsMostProtocol.StreamType.stream<Js.Typed_array.ArrayBuffer.t>,
+  setUIVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 
-type urlData = {
-  path: list<string>,
-  hash: string,
-  search: string,
-}
-
-type urlService = {useUrl: unit => urlData}
+type urlService = {useUrl: unit => RescriptReactRouter.url}
 
 type domService = {querySelector: string => option<Dom.htmlElement>}
 

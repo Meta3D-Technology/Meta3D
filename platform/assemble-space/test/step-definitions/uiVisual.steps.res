@@ -201,6 +201,7 @@ defineFeature(feature, test => {
     let element1 = ref(Obj.magic(1))
     let v = ref(Obj.magic(1))
     let ui = ref(Obj.magic(1))
+    let event = ref(Obj.magic(1))
     let c1 = ref(Obj.magic(1))
     let selectedExtensions = ref(list{})
     let selectedContributes = ref(list{})
@@ -248,7 +249,6 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate extension ui", () => {
-      // ui := ExtensionTool.generateExtension(~name="ui", ())->Meta3d.Main.loadExtension
       ui :=
         ExtensionTool.generateExtension(
           ~name="meta3d-ui",
@@ -257,6 +257,17 @@ defineFeature(feature, test => {
           (),
         )->Meta3d.Main.loadExtension
     })
+
+    \"and"("generate extension event", () => {
+      event :=
+        ExtensionTool.generateExtension(
+          ~name="meta3d-event",
+          ~protocolName="meta3d-event-protocol",
+          ~protocolVersion="^0.5.1",
+          (),
+        )->Meta3d.Main.loadExtension
+    })
+
     \"and"("generate contribute c1", () => {
       c1 := ContributeTool.generateContribute(~name="c1", ())->Meta3d.Main.loadContribute
     })
@@ -274,6 +285,21 @@ defineFeature(feature, test => {
             (),
           ),
         }
+    })
+
+    \"and"("select event", () => {
+      let name = "meta3d-event"
+
+      selectedExtensions :=
+        selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name,
+            ~newName=None,
+            ~id=name,
+            ~data=event.contents,
+            (),
+          ),
+        )
     })
 
     \"and"("select c1", () => {

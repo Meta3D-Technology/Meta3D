@@ -8,8 +8,9 @@ let build = (
   ~requestAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~openUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~getItem=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~setItem=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~initForUIVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getUIVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setUIVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~random=Js.Math.random,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useState=React.useState->Obj.magic,
@@ -56,6 +57,7 @@ let build = (
   ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeActionProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getActionName=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getActions=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   (),
 ) => {
@@ -95,6 +97,7 @@ let build = (
     getUIControlSupportedEventNames: getUIControlSupportedEventNames,
     generateHandleUIControlEventStr: generateHandleUIControlEventStr,
     serializeActionProtocolConfigLib: serializeActionProtocolConfigLib,
+    getActionName: getActionName,
     getActions: getActions,
   },
   other: {
@@ -105,8 +108,9 @@ let build = (
     openUrl: openUrl,
   },
   storage: {
-    getItem: getItem,
-    setItem: setItem,
+    initForUIVisualApp: initForUIVisualApp,
+    getUIVisualApp: getUIVisualApp,
+    setUIVisualApp: setUIVisualApp,
   },
   url: {
     useUrl: useUrl,

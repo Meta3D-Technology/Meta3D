@@ -44,6 +44,8 @@ let generateHandleUIControlEventStr = UIControlProtocolConfig.generateHandleUICo
 
 let serializeActionProtocolConfigLib = ActionProtocolConfig.serializeLib
 
+let getActionName = ActionProtocolConfig.getActionName
+
 let getActions = ActionProtocolConfig.getActions
 
 let buildAPI = ExtensionManager.buildAPI
