@@ -54,11 +54,17 @@ module Method = {
     }, _)
   }
 
-  let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+  let useSelector = (
+    {isDebug, apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
     let {canvasData, selectedExtensions, selectedContributes} = apViewState
     let {runVisualExtension, elementContribute} = uiViewState
 
-    ((canvasData, selectedExtensions, selectedContributes), (runVisualExtension, elementContribute))
+    (
+      isDebug,
+      (canvasData, selectedExtensions, selectedContributes),
+      (runVisualExtension, elementContribute),
+    )
   }
 }
 
@@ -67,6 +73,7 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
 
   let (
+    isDebug,
     (canvasData, selectedExtensions, selectedContributes),
     (runVisualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
@@ -74,7 +81,7 @@ let make = (~service: service) => {
   service.react.useEffect1(. () => {
     switch runVisualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetNewestVisualExtension(service, dispatch)->ignore
+    | None => Method.getAndSetNewestVisualExtension(service, dispatch, isDebug)->ignore
     }
 
     None

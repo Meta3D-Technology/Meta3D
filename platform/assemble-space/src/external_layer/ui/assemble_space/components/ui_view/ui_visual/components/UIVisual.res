@@ -7,15 +7,13 @@ module Method = {
 
   let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-protocol"
 
-  let getAndSetNewestVisualExtension = (service, dispatch) => {
+  let getAndSetNewestVisualExtension = (service, dispatch, isDebug) => {
     UIVisualUtils.getAndSetNewestVisualExtension(
       service,
       dispatch,
       extension => FrontendUtils.UIViewStoreType.SetVisualExtension(extension),
-      (
-        _getVisualExtensionProtocolName(),
-        _getVisualExtensionName(),
-      ),
+      (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
+      isDebug,
     )
   }
 
@@ -153,7 +151,9 @@ module Method = {
     dispatch(FrontendUtils.UIViewStoreType.SetElementContribute(elementContribute))
   }
 
-  let useSelector = ({apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+  let useSelector = (
+    {isDebug, apViewState, uiViewState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
     let {canvasData, selectedExtensions, selectedContributes} = apViewState
     let {
       selectedUIControls,
@@ -164,6 +164,7 @@ module Method = {
     } = uiViewState
 
     (
+      isDebug,
       (canvasData, selectedExtensions, selectedContributes),
       (
         selectedUIControls,
@@ -181,6 +182,7 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.UIView.useDispatch(service.react.useDispatch)
 
   let (
+    isDebug,
     (canvasData, selectedExtensions, selectedContributes),
     (
       selectedUIControls,
@@ -196,7 +198,7 @@ let make = (~service: service) => {
   service.react.useEffect1(. () => {
     switch visualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetNewestVisualExtension(service, dispatch)->ignore
+    | None => Method.getAndSetNewestVisualExtension(service, dispatch, isDebug)->ignore
     }
 
     None

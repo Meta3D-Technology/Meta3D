@@ -19,6 +19,7 @@ let reducer = (state, action) => {
 }
 
 let initialState = {
+  isDebug: true,
   apViewState: ApViewStore.initialState,
   uiViewState: UIViewStore.initialState,
 }

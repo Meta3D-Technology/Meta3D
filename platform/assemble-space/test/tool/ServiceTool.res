@@ -18,7 +18,7 @@ let build = (
   ~useEffect1=React.useEffect1,
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~error=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~error=Js.Console.error,
   ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)

@@ -639,7 +639,7 @@ pass bdd test:
 # run test
 
 
-** TODO add contract check: name should unique
+** DONE add contract check: name should unique
 
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 

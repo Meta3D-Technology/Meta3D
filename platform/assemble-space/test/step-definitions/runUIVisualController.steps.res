@@ -9,6 +9,7 @@ let feature = loadFeature("./test/features/runUIVisualController.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
+  let isDebug = true
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -30,7 +31,7 @@ defineFeature(feature, test => {
     then("should show waiting", () => {
       let useSelectorStub =
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          ((CanvasControllerTool.buildCanvasData(), list{}, list{}), (None, None)),
+          (isDebug, (CanvasControllerTool.buildCanvasData(), list{}, list{}), (None, None)),
           _,
         )
 
@@ -53,6 +54,7 @@ defineFeature(feature, test => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
+            isDebug,
             (CanvasControllerTool.buildCanvasData(), list{}, list{}),
             (Some(Obj.magic(1)), Some(Obj.magic(1))),
           ),
@@ -76,6 +78,7 @@ defineFeature(feature, test => {
   })
 
   test(."get and set newest run visual extension", ({given, \"when", \"and", then}) => {
+    let name = RunUIVisualControllerTool.getVisualExtensionName()
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
@@ -89,7 +92,7 @@ defineFeature(feature, test => {
         Meta3d.Main.generateExtension(
           (
             {
-              name: "v1",
+              name: name,
               protocol: {
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
                 version: "0.4.0",
@@ -107,7 +110,7 @@ defineFeature(feature, test => {
         Meta3d.Main.generateExtension(
           (
             {
-              name: "v2",
+              name: name,
               protocol: {
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
                 version: "0.4.1",
@@ -144,6 +147,7 @@ defineFeature(feature, test => {
           (),
         ),
         dispatchStub.contents,
+        isDebug,
       )
     })
 
@@ -158,7 +162,7 @@ defineFeature(feature, test => {
           isStart: false,
           data: {
             extensionPackageData: ExtensionTool.buildExtensionPackageData(
-              ~name="v2",
+              ~name,
               ~protocol={
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
                 version: "0.4.1",

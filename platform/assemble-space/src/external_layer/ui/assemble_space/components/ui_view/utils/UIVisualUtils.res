@@ -14,8 +14,35 @@ let _loadAndBuildVisualExtension = (
   service.meta3d.loadExtension(. file)->_buildExtension(visualExtensionName, _)
 }
 
-let _getNewestImplement = dataArr => {
-  // TODO add contract
+let _getNewestImplement = (
+  dataArr,
+  service: FrontendUtils.AssembleSpaceType.service,
+  visualExtensionName,
+  isDebug,
+) => {
+  Meta3dCommonlib.Contract.requireCheck(() => {
+    open Meta3dCommonlib.Contract
+    open Operators
+    test(Meta3dCommonlib.Log.buildAssertMessage(~expect=j`has data`, ~actual=j`not`), () => {
+      dataArr->Meta3dCommonlib.ArraySt.length > 0
+    })
+    test(
+      Meta3dCommonlib.Log.buildAssertMessage(
+        ~expect=j`only has one implement with different versions`,
+        ~actual=j`not`,
+      ),
+      () => {
+        dataArr
+        ->Meta3dCommonlib.ArraySt.filter(({file}: FrontendUtils.BackendCloudbaseType.implement) => {
+          let {extensionPackageData} = service.meta3d.loadExtension(. file)
+
+          extensionPackageData.name !== visualExtensionName
+        })
+        ->Meta3dCommonlib.ArraySt.length == 0
+      },
+    )
+  }, isDebug)
+
   dataArr
   ->Js.Array.sortInPlaceWith(
     (
@@ -36,9 +63,10 @@ let getAndSetNewestVisualExtension = (
   dispatch,
   buildAction,
   (visualExtensionProtocolName, visualExtensionName),
+  isDebug,
 ) => {
   service.backend.getAllPublishNewestExtensions(. visualExtensionProtocolName)
-  ->Meta3dBsMost.Most.map(_getNewestImplement, _)
+  ->Meta3dBsMost.Most.map(_getNewestImplement(_, service, visualExtensionName, isDebug), _)
   ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
     _loadAndBuildVisualExtension(service, data.file, visualExtensionName)
   }, _)
@@ -46,7 +74,10 @@ let getAndSetNewestVisualExtension = (
     dispatch(buildAction(extension))
   }, _)
   ->Js.Promise.catch(e => {
-    service.console.error(. e->Obj.magic, None)->Obj.magic
+    service.console.error(.
+      e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+      None,
+    )->Obj.magic
   }, _)
 }
 

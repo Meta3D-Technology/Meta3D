@@ -6,6 +6,7 @@ type action +=
   | UIViewAction(UIViewStoreType.action)
 
 type state = {
+  isDebug: bool,
   apViewState: ApViewStoreType.state,
   uiViewState: UIViewStoreType.state,
 }

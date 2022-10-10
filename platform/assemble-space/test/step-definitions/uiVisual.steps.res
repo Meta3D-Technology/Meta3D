@@ -9,6 +9,7 @@ let feature = loadFeature("./test/features/uiVisual.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
+  let isDebug = true
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -30,6 +31,7 @@ defineFeature(feature, test => {
     then("should show loading", () => {
       let useSelectorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
         (
+          isDebug,
           (CanvasControllerTool.buildCanvasData(), list{}, list{}),
           (
             list{},
@@ -67,6 +69,7 @@ defineFeature(feature, test => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
+            isDebug,
             (CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()), list{}, list{}),
             (
               list{},
@@ -96,6 +99,7 @@ defineFeature(feature, test => {
   })
 
   test(."get and set newest visual extension", ({given, \"when", \"and", then}) => {
+    let name = UIVisualTool.getVisualExtensionName()
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
@@ -109,7 +113,7 @@ defineFeature(feature, test => {
         Meta3d.Main.generateExtension(
           (
             {
-              name: "v1",
+              name: name,
               protocol: {
                 name: UIVisualTool.getVisualExtensionProtocolName(),
                 version: "0.5.0",
@@ -127,7 +131,7 @@ defineFeature(feature, test => {
         Meta3d.Main.generateExtension(
           (
             {
-              name: "v2",
+              name: name,
               protocol: {
                 name: UIVisualTool.getVisualExtensionProtocolName(),
                 version: "0.5.1",
@@ -164,6 +168,7 @@ defineFeature(feature, test => {
           (),
         ),
         dispatchStub.contents,
+        isDebug,
       )
     })
 
@@ -178,7 +183,7 @@ defineFeature(feature, test => {
           isStart: false,
           data: {
             extensionPackageData: ExtensionTool.buildExtensionPackageData(
-              ~name="v2",
+              ~name,
               ~protocol={
                 name: UIVisualTool.getVisualExtensionProtocolName(),
                 version: "0.5.1",
