@@ -7,20 +7,14 @@ module Method = {
 
   let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-protocol"
 
-  let _getVisualExtensionProtocolVersion = () => "0.5.4"
-
-  let _getVisualExtensionVersion = () => "0.5.5"
-
-  let getAndSetVisualExtension = (service, dispatch) => {
-    UIVisualUtils.getAndSetVisualExtension(
+  let getAndSetNewestVisualExtension = (service, dispatch) => {
+    UIVisualUtils.getAndSetNewestVisualExtension(
       service,
       dispatch,
       extension => FrontendUtils.UIViewStoreType.SetVisualExtension(extension),
       (
         _getVisualExtensionProtocolName(),
-        _getVisualExtensionProtocolVersion(),
         _getVisualExtensionName(),
-        _getVisualExtensionVersion(),
       ),
     )
   }
@@ -202,7 +196,7 @@ let make = (~service: service) => {
   service.react.useEffect1(. () => {
     switch visualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetVisualExtension(service, dispatch)->ignore
+    | None => Method.getAndSetNewestVisualExtension(service, dispatch)->ignore
     }
 
     None

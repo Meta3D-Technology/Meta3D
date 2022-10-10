@@ -16,11 +16,11 @@ Feature: UIVisual
         When loaded and render
         Then should show the canvas
 
-    Scenario: get and set visual extension
+    Scenario: get and set newest visual extension
         Given generate visual extension v1 with old version
         And generate visual extension v2 with newest version
         And publish v1, v2
-        When get and set visual extension
+        When get and set newest visual extension
         Then should dispatch SetVisualExtension action with v2
 
     Scenario: render app

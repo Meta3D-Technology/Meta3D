@@ -95,10 +95,10 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."get and set visual extension", ({given, \"when", \"and", then}) => {
+  test(."get and set newest visual extension", ({given, \"when", \"and", then}) => {
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
-    let getAllPublishExtensionsStub = ref(Obj.magic(1))
+    let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
 
@@ -130,7 +130,7 @@ defineFeature(feature, test => {
               name: "v2",
               protocol: {
                 name: UIVisualTool.getVisualExtensionProtocolName(),
-                version: UIVisualTool.getVisualExtensionProtocolVersion(),
+                version: "0.5.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -141,30 +141,26 @@ defineFeature(feature, test => {
     })
 
     \"and"("publish v1, v2", () => {
-      getAllPublishExtensionsStub.contents =
+      getAllPublishNewestExtensionsStub.contents =
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           Meta3dBsMost.Most.just([
             ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.5.0", ()),
-            ExtensionTool.buildExtensionImplement(
-              ~file=v2.contents,
-              ~version=UIVisualTool.getVisualExtensionVersion(),
-              (),
-            ),
+            ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.5.1", ()),
           ]),
           _,
         )
     })
 
-    CucumberAsync.execStep(\"when", "get and set visual extension", () => {
+    CucumberAsync.execStep(\"when", "get and set newest visual extension", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       let initData = Obj.magic(1)
 
-      UIVisualTool.getAndSetVisualExtension(
+      UIVisualTool.getAndSetNewestVisualExtension(
         ServiceTool.build(
           ~sandbox,
           ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
-          ~getAllPublishExtensions=getAllPublishExtensionsStub.contents,
+          ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
           (),
         ),
         dispatchStub.contents,
@@ -185,7 +181,7 @@ defineFeature(feature, test => {
               ~name="v2",
               ~protocol={
                 name: UIVisualTool.getVisualExtensionProtocolName(),
-                version: UIVisualTool.getVisualExtensionProtocolVersion(),
+                version: "0.5.1",
               },
               (),
             ),
@@ -235,7 +231,7 @@ defineFeature(feature, test => {
               name: UIVisualTool.getVisualExtensionName(),
               protocol: {
                 name: UIVisualTool.getVisualExtensionProtocolName(),
-                version: UIVisualTool.getVisualExtensionProtocolVersion(),
+                version: "0.5.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

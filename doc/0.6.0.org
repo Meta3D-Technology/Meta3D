@@ -621,8 +621,25 @@ pass bdd test:
 
 
 
-*** TODO feat: remove onStart, startApp
+# *** TODO feat: remove onStart, startApp
 
+
+
+** DONE refactor: remove version, get newest version
+
+# add getAllPublishNewestExtensions
+
+# implement add name
+
+
+
+
+# bdd test
+
+# run test
+
+
+** TODO add contract check: name should unique
 
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
@@ -642,24 +659,47 @@ send to server
 
 
 
-should publish element protocol
-protocol has:
-element state
-reducer
+# should publish element protocol
+# protocol has:
+# element state
+# reducer
+
+
+should publish ui view data:
+element:
+    element state
+    reducer
+uiControls:
+    array<{
+name,
+
+rect,
+event
+    }>
+
+ui view can generate by them:
+selectedUIControls
+selectedUIControlInspectorData
+elementInspectorData
+
 
 
 provide when publish:
 element name
 element version
-element protocol name
-element protocol version
+# element protocol name
+# element protocol version
 
 
-*** TODO should generate element contribute and protocol config data
+all elements use the same element protocol!
+(not define elementName in protocol!)
 
-*** TODO add reducer, element state(with default value) to element's protocol config and element contribute!
-publish;
-protocol can be send and get in assemble-space!  
+
+# *** TODO should generate element contribute and protocol config data
+
+# *** TODO add reducer, element state(with default value) to element's protocol config and element contribute!
+# publish;
+# protocol can be send and get in assemble-space!  
 
 
 # so can get reducer, element state from protocol when switch to ui view!
@@ -674,15 +714,28 @@ protocol can be send and get in assemble-space!
 
 1.in ap view
 2.select other
-3.select one element(import element)
+# 3.select one element(import element)
+3.select one element (select contribute)
 4.switch to ui view
 5.can continue edit the element visually
 
 *** TODO implement
 
-*** TODO update "so can get reducer, element state from protocol when switch to ui view!" logic: to the specific element instead of switch to ui view!
+# *** TODO update "so can get reducer, element state from protocol when switch to ui view!" logic: to the specific element instead of switch to ui view!
+# *** TODO can get reducer and element state by parse to element->"getContribute"
+*** TODO can get reducer and element state by element ui view data
 
 
+ui view can generate by them:
+selectedUIControls
+selectedUIControlInspectorData
+elementInspectorData
+
+
+when switch to ui view, get element ui view data!
+
+
+*** TODO check when switch to ui view: should only select <=1 element!
 
 
 
@@ -804,14 +857,14 @@ to: let { normal } = skin.button
 
 
 
-* TODO feat: select other elements and edit new element
+# * TODO feat: select other elements and edit new element
 
-ui view only show new element;
-when run, run together
+# ui view only show new element;
+# when run, run together
 
-** TODO run test
+# ** TODO run test
 
-test reducer for multiple elements when run
+# test reducer for multiple elements when run
 
 
 
@@ -1006,9 +1059,31 @@ support log,dispatch system action
 
 # get actionData
 
+
+# ** TODO remove protocol->Config.ts, move getActions to getContribute as actions; remove getActionName(protocol not define actionName!)
+
+
+# ** TODO read actions by parse getContribute instead of get from protocol config str!!!
+
+
+** TODO remove protocol->Config.ts, move them to action view data
+
+refer to element!
+
+** TODO when switch to ui view, get selected actions' view data!
+
+
 ** TODO implement view
 
+
 ** TODO publish
+
+
+note:
+all actions use the same element protocol!
+(not define actionName in protocol)
+
+
 
 ** TODO import
 

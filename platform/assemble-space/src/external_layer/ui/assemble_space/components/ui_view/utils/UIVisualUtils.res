@@ -14,30 +14,31 @@ let _loadAndBuildVisualExtension = (
   service.meta3d.loadExtension(. file)->_buildExtension(visualExtensionName, _)
 }
 
-let getAndSetVisualExtension = (
+let _getNewestImplement = dataArr => {
+  // TODO add contract
+  dataArr
+  ->Js.Array.sortInPlaceWith(
+    (
+      a: FrontendUtils.BackendCloudbaseType.implement,
+      b: FrontendUtils.BackendCloudbaseType.implement,
+    ) => {
+      Meta3d.Semver.gt(a.version, b.version) ? -1 : 1
+    },
+    _,
+  )
+  ->ignore
+
+  dataArr[0]
+}
+
+let getAndSetNewestVisualExtension = (
   service: FrontendUtils.AssembleSpaceType.service,
   dispatch,
   buildAction,
-  (
-    visualExtensionProtocolName,
-    visualExtensionProtocolVersion,
-    visualExtensionName,
-    visualExtensionVersion,
-  ),
+  (visualExtensionProtocolName, visualExtensionName),
 ) => {
-  service.backend.getAllPublishExtensions(.
-    visualExtensionProtocolName,
-    visualExtensionProtocolVersion,
-  )
-  ->Meta3dBsMost.Most.map(dataArr => {
-    (
-      dataArr->Meta3dCommonlib.ArraySt.filter((
-        {version}: FrontendUtils.BackendCloudbaseType.implement,
-      ) => {
-        version == visualExtensionVersion
-      })
-    )[0]
-  }, _)
+  service.backend.getAllPublishNewestExtensions(. visualExtensionProtocolName)
+  ->Meta3dBsMost.Most.map(_getNewestImplement, _)
   ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
     _loadAndBuildVisualExtension(service, data.file, visualExtensionName)
   }, _)
@@ -45,10 +46,7 @@ let getAndSetVisualExtension = (
     dispatch(buildAction(extension))
   }, _)
   ->Js.Promise.catch(e => {
-    service.console.error(.
-      e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-      None,
-    )->Obj.magic
+    service.console.error(. e->Obj.magic, None)->Obj.magic
   }, _)
 }
 

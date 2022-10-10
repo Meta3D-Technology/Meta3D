@@ -29,6 +29,9 @@ let build = (
   ~getAllPublishExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~getAllPublishNewestExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->Obj.magic,
   ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~findPublishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
@@ -77,6 +80,7 @@ let build = (
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
+    getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,

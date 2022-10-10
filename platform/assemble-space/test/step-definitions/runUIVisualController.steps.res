@@ -75,10 +75,10 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."get and set run visual extension", ({given, \"when", \"and", then}) => {
+  test(."get and set newest run visual extension", ({given, \"when", \"and", then}) => {
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
-    let getAllPublishExtensionsStub = ref(Obj.magic(1))
+    let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
 
@@ -110,7 +110,7 @@ defineFeature(feature, test => {
               name: "v2",
               protocol: {
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
-                version: RunUIVisualControllerTool.getVisualExtensionProtocolVersion(),
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -121,30 +121,26 @@ defineFeature(feature, test => {
     })
 
     \"and"("publish v1, v2", () => {
-      getAllPublishExtensionsStub.contents =
+      getAllPublishNewestExtensionsStub.contents =
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           Meta3dBsMost.Most.just([
             ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.4.0", ()),
-            ExtensionTool.buildExtensionImplement(
-              ~file=v2.contents,
-              ~version=RunUIVisualControllerTool.getVisualExtensionVersion(),
-              (),
-            ),
+            ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.4.1", ()),
           ]),
           _,
         )
     })
 
-    CucumberAsync.execStep(\"when", "get and set run visual extension", () => {
+    CucumberAsync.execStep(\"when", "get and set newest run visual extension", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       let initData = Obj.magic(1)
 
-      RunUIVisualControllerTool.getAndSetVisualExtension(
+      RunUIVisualControllerTool.getAndSetNewestVisualExtension(
         ServiceTool.build(
           ~sandbox,
           ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
-          ~getAllPublishExtensions=getAllPublishExtensionsStub.contents,
+          ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
           (),
         ),
         dispatchStub.contents,
@@ -165,7 +161,7 @@ defineFeature(feature, test => {
               ~name="v2",
               ~protocol={
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
-                version: RunUIVisualControllerTool.getVisualExtensionProtocolVersion(),
+                version: "0.4.1",
               },
               (),
             ),
@@ -212,7 +208,7 @@ defineFeature(feature, test => {
               name: RunUIVisualControllerTool.getVisualExtensionName(),
               protocol: {
                 name: RunUIVisualControllerTool.getVisualExtensionProtocolName(),
-                version: RunUIVisualControllerTool.getVisualExtensionProtocolVersion(),
+                version: "0.4.1",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

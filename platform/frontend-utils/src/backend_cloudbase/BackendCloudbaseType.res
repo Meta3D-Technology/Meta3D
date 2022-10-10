@@ -39,6 +39,10 @@ type getAllPublishExtensions = (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
+type getAllPublishNewestExtensions = (
+  . string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements>
+
 type getAllPublishContributes = (
   . string,
   string,

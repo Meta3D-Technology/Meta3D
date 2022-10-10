@@ -5,23 +5,14 @@ open FrontendUtils.AssembleSpaceType
 module Method = {
   let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-run-protocol"
 
-  let _getVisualExtensionProtocolVersion = () => "0.5.0"
-
-  let _getVisualExtensionVersion = () => "0.5.0"
-
   let _getVisualExtensionName = () => "meta3d-ui-view-visual-run"
 
-  let getAndSetVisualExtension = (service, dispatch) => {
-    UIVisualUtils.getAndSetVisualExtension(
+  let getAndSetNewestVisualExtension = (service, dispatch) => {
+    UIVisualUtils.getAndSetNewestVisualExtension(
       service,
       dispatch,
       extension => FrontendUtils.UIViewStoreType.SetRunVisualExtension(extension),
-      (
-        _getVisualExtensionProtocolName(),
-        _getVisualExtensionProtocolVersion(),
-        _getVisualExtensionName(),
-        _getVisualExtensionVersion(),
-      ),
+      (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
     )
   }
 
@@ -83,7 +74,7 @@ let make = (~service: service) => {
   service.react.useEffect1(. () => {
     switch runVisualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetVisualExtension(service, dispatch)->ignore
+    | None => Method.getAndSetNewestVisualExtension(service, dispatch)->ignore
     }
 
     None

@@ -15,11 +15,11 @@ Feature: RunUIVisualController
         When render
         Then should show run button
 
-    Scenario: get and set run visual extension
+    Scenario: get and set newest run visual extension
         Given generate run visual extension v1 with old version
         And generate run visual extension v2 with newest version
         And publish v1, v2
-        When get and set run visual extension
+        When get and set newest run visual extension
         Then should dispatch SetRunVisualExtension action with v2
 
     Scenario: run

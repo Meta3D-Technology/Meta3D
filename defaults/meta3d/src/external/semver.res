@@ -7,3 +7,6 @@ external satisfies: (version, versionRange) => bool = ""
 
 @module("semver")
 external minVersion: versionRange => version = ""
+
+@module("semver")
+external gt: (version, version) => bool = ""

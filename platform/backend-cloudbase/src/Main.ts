@@ -44,6 +44,13 @@ export let getAllPublishExtensions = (protocolName: string, protocolVersion: str
     )
 }
 
+export let getAllPublishNewestExtensions = (protocolName: string) => {
+    return ShopService.getAllPublishNewestData([getCollection, getFile],
+        "publishedExtensions",
+        protocolName
+    )
+}
+
 export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
     return ShopService.getAllPublishData([getCollection, getFile],
         "publishedContributes",

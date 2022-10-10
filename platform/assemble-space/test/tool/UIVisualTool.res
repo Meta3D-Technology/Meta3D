@@ -2,7 +2,7 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
   <UIVisual service />
 }
 
-let getAndSetVisualExtension = UIVisual.Method.getAndSetVisualExtension
+let getAndSetNewestVisualExtension = UIVisual.Method.getAndSetNewestVisualExtension
 
 let renderApp = UIVisual.Method.renderApp
 
@@ -12,10 +12,6 @@ let loadAndBuildVisualExtension = (service, file) =>
   UIVisualUtils._loadAndBuildVisualExtension(service, file, getVisualExtensionName())
 
 let getVisualExtensionProtocolName = UIVisual.Method._getVisualExtensionProtocolName
-
-let getVisualExtensionProtocolVersion = UIVisual.Method._getVisualExtensionProtocolVersion
-
-let getVisualExtensionVersion = UIVisual.Method._getVisualExtensionVersion
 
 let prepareInitFlag = %raw(` function(){window.initFlag = 0} `)
 
