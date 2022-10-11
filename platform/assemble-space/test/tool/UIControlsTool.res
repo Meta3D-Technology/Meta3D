@@ -9,7 +9,7 @@ let buildSelectedContribute = (
   ~newName=None,
   ~id="e1",
   (),
-): FrontendUtils.ApViewStoreType.contribute => {
+): FrontendUtils.ApAssembleStoreType.contribute => {
   {
     id: id,
     protocolIconBase64: protocolIconBase64,

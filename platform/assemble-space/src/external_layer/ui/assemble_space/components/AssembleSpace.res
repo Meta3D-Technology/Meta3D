@@ -6,7 +6,7 @@ open FrontendUtils.AssembleSpaceType
 
 type view =
   | Ap
-  | UI
+  | Element
 
 module Method = {
   let reset = dispatch => {
@@ -29,7 +29,7 @@ let make = (
 ) => {
   let dispatch = service.react.useDispatch()
 
-  let (currentView, setCurrentView) = service.react.useState(_ => Ap)
+  let (currentAssemble, setCurrentAssemble) = service.react.useState(_ => Ap)
 
   service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
 
@@ -37,21 +37,21 @@ let make = (
     <Layout.Header>
       <Button
         onClick={_ => {
-          setCurrentView(_ => Ap)
+          setCurrentAssemble(_ => Ap)
         }}>
-        {React.string(`应用视图`)}
+        {React.string(`应用装配`)}
       </Button>
       <Button
         onClick={_ => {
-          setCurrentView(_ => UI)
+          setCurrentAssemble(_ => Element)
         }}>
-        {React.string(`UI视图`)}
+        {React.string(`Element装配`)}
       </Button>
     </Layout.Header>
     <Layout.Content>
-      {switch currentView {
-      | Ap => <ApView service username selectedExtensionsFromShop selectedContributesFromShop />
-      | UI => <UIView service />
+      {switch currentAssemble {
+      | Ap => <ApAssemble service username selectedExtensionsFromShop selectedContributesFromShop />
+      | Element => <ElementAssemble service />
       }}
     </Layout.Content>
   </Layout>

@@ -110,7 +110,7 @@ defineFeature(feature, test => {
 
   test(."set rect", ({given, \"when", \"and", then}) => {
     let id = "1"
-    let rect: FrontendUtils.UIViewStoreType.rect = {
+    let rect: FrontendUtils.ElementAssembleStoreType.rect = {
       x: 1,
       y: 2,
       width: 3,
@@ -128,7 +128,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setRect action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetRect(id, rect)
+        FrontendUtils.ElementAssembleStoreType.SetRect(id, rect)
     })
   })
 
@@ -292,7 +292,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setAction action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetAction(id, (eventName, actionName->Some))
+        FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some))
     })
   })
 
@@ -312,7 +312,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setAction action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetAction(id, (eventName, None))
+        FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, None))
     })
   })
 })

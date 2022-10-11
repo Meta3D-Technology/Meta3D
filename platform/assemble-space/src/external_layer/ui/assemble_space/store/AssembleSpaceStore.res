@@ -4,22 +4,22 @@ let reducer = (state, action) => {
   switch action {
   | Reset => {
       ...state,
-      apViewState: ApViewStore.reducer(state.apViewState, FrontendUtils.ApViewStoreType.Reset),
-      uiViewState: UIViewStore.reducer(state.uiViewState, FrontendUtils.UIViewStoreType.Reset),
+      apAssembleState: ApAssembleStore.reducer(state.apAssembleState, FrontendUtils.ApAssembleStoreType.Reset),
+      elementAssembleState: ElementAssembleStore.reducer(state.elementAssembleState, FrontendUtils.ElementAssembleStoreType.Reset),
     }
-  | ApViewAction(action) => {
+  | ApAssembleAction(action) => {
       ...state,
-      apViewState: ApViewStore.reducer(state.apViewState, action),
+      apAssembleState: ApAssembleStore.reducer(state.apAssembleState, action),
     }
-  | UIViewAction(action) => {
+  | ElementAssembleAction(action) => {
       ...state,
-      uiViewState: UIViewStore.reducer(state.uiViewState, action),
+      elementAssembleState: ElementAssembleStore.reducer(state.elementAssembleState, action),
     }
   }
 }
 
 let initialState = {
   isDebug: true,
-  apViewState: ApViewStore.initialState,
-  uiViewState: UIViewStore.initialState,
+  apAssembleState: ApAssembleStore.initialState,
+  elementAssembleState: ElementAssembleStore.initialState,
 }

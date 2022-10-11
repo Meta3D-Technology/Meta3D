@@ -3,18 +3,18 @@ open IndexedDB
 open Meta3dBsMost.Most
 
 let _getDatabseName = () => {
-  "Meta3d_UIVisualApp_Database"
+  "Meta3d_ElementVisualApp_Database"
 }
 
 let _getTabeleName = () => {
-  "Meta3d_UIVisualApp_Table"
+  "Meta3d_ElementVisualApp_Table"
 }
 
 let _getKeyFieldName = () => {
   "key"
 }
 
-let initForUIVisualApp = () => {
+let initForElementVisualApp = () => {
   let request = IDBGlobalScope.indexedDB->IDBFactory.open_(_getDatabseName())
 
   let db = ref(Obj.magic(1))
@@ -65,7 +65,7 @@ let initForUIVisualApp = () => {
   ->map(_ => db.contents, _)
 }
 
-let getUIVisualApp = stream => {
+let getElementVisualApp = stream => {
   stream->flatMap(db => {
     let transaction = IDBDatabase.transaction(db, ~mode=#readwrite, [_getTabeleName()])
 
@@ -103,7 +103,7 @@ let getUIVisualApp = stream => {
   }, _)
 }
 
-let setUIVisualApp = (stream, appBinaryFile: Js.Typed_array.ArrayBuffer.t) => {
+let setElementVisualApp = (stream, appBinaryFile: Js.Typed_array.ArrayBuffer.t) => {
   stream->flatMap(db => {
     let transaction = IDBDatabase.transaction(db, ~mode=#readwrite, [_getTabeleName()])
 

@@ -64,7 +64,7 @@ let generateContribute = (
   ~protocolVersion="",
   ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~fileStr=UIVisualTool.buildEmptyContributeFileStr(),
+  ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
   (),
 ) => {
   Meta3d.Main.generateContribute(

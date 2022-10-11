@@ -1,4 +1,4 @@
-let buildReducers = (~role=None, ~handlers=list{}, ()): FrontendUtils.UIViewStoreType.reducers => {
+let buildReducers = (~role=None, ~handlers=list{}, ()): FrontendUtils.ElementAssembleStoreType.reducers => {
   role: role,
   handlers: handlers,
 }
@@ -6,7 +6,7 @@ let buildReducers = (~role=None, ~handlers=list{}, ()): FrontendUtils.UIViewStor
 let buildHandler = (
   actionName,
   updatedElementStateFieldName,
-): FrontendUtils.UIViewStoreType.reducerHandler => {
+): FrontendUtils.ElementAssembleStoreType.reducerHandler => {
   {
     actionName: actionName,
     updatedElementStateFieldName: updatedElementStateFieldName,

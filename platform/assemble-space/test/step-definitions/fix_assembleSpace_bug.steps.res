@@ -41,7 +41,7 @@ defineFeature(feature, test => {
     given("select extension a1 for protocol a in Extensions", () => {
       store :=
         ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApView.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
         )
@@ -56,7 +56,7 @@ defineFeature(feature, test => {
     })
 
     then("should reset store", () => {
-      let {selectedExtensions, inspectorCurrentExtensionId} = store.contents.apViewState
+      let {selectedExtensions, inspectorCurrentExtensionId} = store.contents.apAssembleState
 
       (selectedExtensions, inspectorCurrentExtensionId)->expect == (list{}, None)
     })
@@ -66,7 +66,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,
-          ~useSelector=ReduxTool.ApView.useSelector(store.contents),
+          ~useSelector=ReduxTool.ApAssemble.useSelector(store.contents),
           (),
         ),
         (),

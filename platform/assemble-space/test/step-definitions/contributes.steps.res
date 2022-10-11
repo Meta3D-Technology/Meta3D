@@ -198,7 +198,7 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.ApViewStoreType.SelectContribute(
+        FrontendUtils.ApAssembleStoreType.SelectContribute(
           a.iconBase64,
           protocolConfig->ContributesTool.getProtocolConfigStr,
           contribute,

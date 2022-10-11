@@ -73,7 +73,7 @@ let generateExtension = (
   ~protocolVersion="",
   ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~fileStr=UIVisualTool.buildEmptyExtensionFileStr(),
+  ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
   (),
 ) => {
   Meta3d.Main.generateExtension(

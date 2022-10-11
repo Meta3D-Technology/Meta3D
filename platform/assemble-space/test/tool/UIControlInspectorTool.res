@@ -8,10 +8,10 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 
 let getCurrentSelectedUIControlInspectorData = UIControlInspector.Method.getCurrentSelectedUIControlInspectorData
 
-let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   UIControlInspector.Method.useSelector
 
-let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.UIViewStoreType.rect => {
+let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.ElementAssembleStoreType.rect => {
   {
     x: x,
     y: y,
@@ -23,7 +23,7 @@ let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.UIViewStore
 let buildEventData = (
   eventName: Meta3dType.Index.eventName,
   actionName,
-): FrontendUtils.UIViewStoreType.eventData => {
+): FrontendUtils.ElementAssembleStoreType.eventData => {
   eventName: eventName,
   actionName: actionName,
 }
@@ -36,7 +36,7 @@ let buildSelectedUIControlInspectorData = (
   ~height=0,
   ~event=[],
   (),
-): FrontendUtils.UIViewStoreType.uiControlInspectorData => {
+): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
   id: id,
   rect: buildRect(~x, ~y, ~width, ~height, ()),
   event: event,

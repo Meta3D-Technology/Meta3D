@@ -77,8 +77,8 @@ defineFeature(feature, test => {
 
   //     (
   //       dispatchStub.contents->SinonTool.calledWith(
-  //         FrontendUtils.AssembleSpaceStoreType.ApViewAction(
-  //           FrontendUtils.ApViewStoreType.SetAllCanvasData(allCanvasData.contents),
+  //         FrontendUtils.AssembleSpaceStoreType.ApAssembleAction(
+  //           FrontendUtils.ApAssembleStoreType.SetAllCanvasData(allCanvasData.contents),
   //         ),
   //       ),
   //       param,
@@ -119,10 +119,10 @@ defineFeature(feature, test => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=1, ~stub=_, ()),
       )->expect ==
         (
-          FrontendUtils.ApViewStoreType.SetCanvasData(
+          FrontendUtils.ApAssembleStoreType.SetCanvasData(
             CanvasControllerTool.buildCanvasData(~width=10, ~height=0, ()),
           ),
-          FrontendUtils.ApViewStoreType.SetCanvasData(
+          FrontendUtils.ApAssembleStoreType.SetCanvasData(
             CanvasControllerTool.buildCanvasData(~width=10, ~height=11, ()),
           ),
         )

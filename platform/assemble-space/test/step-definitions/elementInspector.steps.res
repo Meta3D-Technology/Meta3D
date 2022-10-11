@@ -123,7 +123,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setElementStateFields action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetElementStateFields(
+        FrontendUtils.ElementAssembleStoreType.SetElementStateFields(
           values.contents["fields"]->Meta3dCommonlib.ListSt.fromArray,
         )
     })
@@ -268,7 +268,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setRole action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetRole(role.contents->Some)
+        FrontendUtils.ElementAssembleStoreType.SetRole(role.contents->Some)
     })
   })
 
@@ -296,7 +296,7 @@ defineFeature(feature, test => {
 
     then("should dispatch setHandlers action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.UIViewStoreType.SetHandlers(
+        FrontendUtils.ElementAssembleStoreType.SetHandlers(
           values.contents["handlers"]->Meta3dCommonlib.ListSt.fromArray,
         )
     })

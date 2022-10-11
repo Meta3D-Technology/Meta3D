@@ -23,14 +23,14 @@ let make = () => {
       },
     },
     storage: {
-      initForUIVisualApp: () => {
-        IndexdDBUtils.initForUIVisualApp()
+      initForElementVisualApp: () => {
+        IndexdDBUtils.initForElementVisualApp()
       },
-      getUIVisualApp: (. stream) => {
-        IndexdDBUtils.getUIVisualApp(stream)
+      getElementVisualApp: (. stream) => {
+        IndexdDBUtils.getElementVisualApp(stream)
       },
-      setUIVisualApp: (. stream, appBinaryFile) => {
-        IndexdDBUtils.setUIVisualApp(stream, appBinaryFile)
+      setElementVisualApp: (. stream, appBinaryFile) => {
+        IndexdDBUtils.setElementVisualApp(stream, appBinaryFile)
       },
     },
     other: {
@@ -123,7 +123,7 @@ let make = () => {
       </>
     | list{"ShowPublishedApps"} => <ShowPublishedApps />
     | list{"EnterApp"} => <EnterApp />
-    | list{"RunUIVisual"} => <AssembleSpace.RunUIVisual service={_buildService()} />
+    | list{"RunElementVisual"} => <AssembleSpace.RunElementVisual service={_buildService()} />
     | list{}
     | _ =>
       <Index />

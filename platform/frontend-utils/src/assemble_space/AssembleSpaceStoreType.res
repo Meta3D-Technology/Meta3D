@@ -2,11 +2,11 @@ type action = ..
 
 type action +=
   | Reset
-  | ApViewAction(ApViewStoreType.action)
-  | UIViewAction(UIViewStoreType.action)
+  | ApAssembleAction(ApAssembleStoreType.action)
+  | ElementAssembleAction(ElementAssembleStoreType.action)
 
 type state = {
   isDebug: bool,
-  apViewState: ApViewStoreType.state,
-  uiViewState: UIViewStoreType.state,
+  apAssembleState: ApAssembleStoreType.state,
+  elementAssembleState: ElementAssembleStoreType.state,
 }

@@ -12,10 +12,10 @@ let generateApp = (service, selectedExtensions, selectedContributes) => {
   service.meta3d.generateApp(.
     service.meta3d.convertAllFileData(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
-        {data}: FrontendUtils.ApViewStoreType.extension,
+        {data}: FrontendUtils.ApAssembleStoreType.extension,
       ) => data),
       selectedContributes->Meta3dCommonlib.ArraySt.map((
-        {data}: FrontendUtils.ApViewStoreType.contribute,
+        {data}: FrontendUtils.ApAssembleStoreType.contribute,
       ) => data),
       (
         selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>

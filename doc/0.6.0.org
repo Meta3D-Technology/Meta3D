@@ -641,6 +641,8 @@ pass bdd test:
 
 ** DONE add contract check: name should unique
 
+** DONE rename
+
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
 *** TODO implement

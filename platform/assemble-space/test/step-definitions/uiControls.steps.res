@@ -98,7 +98,7 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.UIViewStoreType.SelectUIControl(
+        FrontendUtils.ElementAssembleStoreType.SelectUIControl(
           protocolIconBase64.contents,
           protocolConfigStr.contents,
           name.contents,

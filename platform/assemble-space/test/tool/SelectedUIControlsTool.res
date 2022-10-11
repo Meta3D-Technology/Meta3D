@@ -12,7 +12,7 @@ let buildSelectedUIControl = (
     (),
   ),
   (),
-): FrontendUtils.UIViewStoreType.uiControl => {
+): FrontendUtils.ElementAssembleStoreType.uiControl => {
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
@@ -26,5 +26,5 @@ let buildSelectedUIControl = (
 //   SelectedUIControls.Method.selectUIControl(dispatch, id)
 // }
 
-let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   SelectedUIControls.Method.useSelector

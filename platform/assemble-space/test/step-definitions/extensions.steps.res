@@ -185,7 +185,7 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.ApViewStoreType.SelectExtension(
+        FrontendUtils.ApAssembleStoreType.SelectExtension(
           a.iconBase64,
           selectedExtensionsFromShop.contents->ListTool.getHeadExn,
         ),

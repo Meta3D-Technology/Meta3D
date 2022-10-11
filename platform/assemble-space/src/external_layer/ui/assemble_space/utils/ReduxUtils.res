@@ -1,35 +1,35 @@
-module ApView = {
+module ApAssemble = {
   let useDispatch = useDispatchForAssembleSpaceAction => {
     let dispatch = useDispatchForAssembleSpaceAction()
 
-    apViewAction => {
-      dispatch(FrontendUtils.AssembleSpaceStoreType.ApViewAction(apViewAction))
+    apAssembleAction => {
+      dispatch(FrontendUtils.AssembleSpaceStoreType.ApAssembleAction(apAssembleAction))
     }
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
     useSelectorForAssembleSpaceStore((
-      {apViewState}: FrontendUtils.AssembleSpaceStoreType.state,
+      {apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
     ) => {
-      func(apViewState)
+      func(apAssembleState)
     })
   }
 }
 
-module UIView = {
+module ElementAssemble = {
   let useDispatch = useDispatchForAssembleSpaceAction => {
     let dispatch = useDispatchForAssembleSpaceAction()
 
-    uiViewAction => {
-      dispatch(FrontendUtils.AssembleSpaceStoreType.UIViewAction(uiViewAction))
+    elementAssembleAction => {
+      dispatch(FrontendUtils.AssembleSpaceStoreType.ElementAssembleAction(elementAssembleAction))
     }
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
     useSelectorForAssembleSpaceStore((
-      {uiViewState}: FrontendUtils.AssembleSpaceStoreType.state,
+      {elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
     ) => {
-      func(uiViewState)
+      func(elementAssembleState)
     })
   }
 }

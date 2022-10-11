@@ -106,11 +106,11 @@ type db = IndexedDB.IDBDatabase.t
 type initStream = Meta3dBsMostProtocol.StreamType.stream<db>
 
 type storageService = {
-  initForUIVisualApp: unit => initStream,
-  getUIVisualApp: (
+  initForElementVisualApp: unit => initStream,
+  getElementVisualApp: (
     . initStream,
   ) => Meta3dBsMostProtocol.StreamType.stream<Js.Typed_array.ArrayBuffer.t>,
-  setUIVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
+  setElementVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 
 type urlService = {useUrl: unit => RescriptReactRouter.url}

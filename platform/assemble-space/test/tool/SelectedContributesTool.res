@@ -13,7 +13,7 @@ let buildSelectedContribute = (
     (),
   ),
   (),
-): FrontendUtils.ApViewStoreType.contribute => {
+): FrontendUtils.ApAssembleStoreType.contribute => {
   {
     id: id,
     protocolIconBase64: protocolIconBase64,
@@ -27,5 +27,5 @@ let selectContribute = (~id, ~dispatch) => {
   SelectedContributes.Method.selectContribute(dispatch, id)
 }
 
-let useSelector = ({apViewState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   SelectedContributes.Method.useSelector
