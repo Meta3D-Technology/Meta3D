@@ -2,7 +2,7 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 module Method = {
-  let _getVisualExtensionName = () => "meta3d-ui-view-visual-run"
+  let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
 
   let _getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
     {

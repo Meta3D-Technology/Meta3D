@@ -8,11 +8,10 @@ const PublishElementContributeService_1 = require("../../src/application_layer/p
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_contribute.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc;
+    let logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
-        initFunc = sandbox.stub();
         hasDataFunc = sandbox.stub();
         uploadFileFunc = sandbox.stub();
         getDataFunc = sandbox.stub();
@@ -24,7 +23,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         "",
         "",
     ], contributeBinaryFile = new ArrayBuffer(0)) {
-        return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile);
+        return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -35,7 +34,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            initFunc.returns((0, most_1.just)({}));
         });
         and('make publisher not be registered', () => {
             hasDataFunc.returns((0, most_1.just)(false));
@@ -48,7 +46,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     });
     test('upload file and add to collection', ({ given, when, then, and }) => {
-        let app = { "app": true };
         let username = "meta3d";
         let name = "test1";
         let version = "0.0.2";
@@ -59,7 +56,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            initFunc.returns((0, most_1.just)(app));
             hasDataFunc.returns((0, most_1.just)(true));
             uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
             getDataFunc.returns((0, PromiseTool_1.resolve)({
@@ -80,14 +76,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
         then('should upload file', () => {
             expect(uploadFileFunc).toCalledWith([
-                app,
+                logFunc,
                 "contributes/test1_0.0.2.arrayBuffer",
-                Buffer.from(binaryFile)
+                binaryFile
             ]);
         });
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
-                app,
                 "publishedContributes",
                 { "username": "meta3d" },
                 {
@@ -101,7 +96,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     });
     test('if element contribute with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
-        let app = { "app": true };
         let username = "meta3d";
         let name = "test1";
         let version = "0.0.2";
@@ -112,7 +106,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            initFunc.returns((0, most_1.just)(app));
             hasDataFunc.returns((0, most_1.just)(true));
             uploadFileFunc.returns((0, most_1.empty)());
             getDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)({

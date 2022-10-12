@@ -1,16 +1,16 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { contributeType } from "meta3d-type/src/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-view-visual-protocol/src/service/DependentMapType"
-import { service } from "meta3d-ui-view-visual-protocol/src/service/ServiceType"
-import { state } from "meta3d-ui-view-visual-protocol/src/state/StateType"
+import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-element-assemble-visual-protocol/src/service/DependentMapType"
+import { service } from "meta3d-element-assemble-visual-protocol/src/service/ServiceType"
+import { state } from "meta3d-element-assemble-visual-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 // import { skin } from "meta3d-skin-default-protocol"
 // import { inputData, outputData } from "meta3d-ui-control-button-protocol"
-import { elementState } from "meta3d-ui-view-element-protocol"
+import { elementState } from "meta3d-element-assemble-element-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 
@@ -128,18 +128,18 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			console.log("meta3d-ui-view-visual onRegister")
+			console.log("meta3d-element-assemble-visual onRegister")
 			return meta3dState
 		},
 		onInit: (meta3dState, service, data) => {
-			console.log("meta3d-ui-view-visual onInit")
+			console.log("meta3d-element-assemble-visual onInit")
 
 			return new Promise((resolve) => {
 				resolve(service.init(meta3dState, data))
 			})
 		},
 		onUpdate: (meta3dState, service, _) => {
-			console.log("meta3d-ui-view-visual onUpdate")
+			console.log("meta3d-element-assemble-visual onUpdate")
 
 			return service.update(meta3dState)
 		}

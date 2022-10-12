@@ -2,14 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishElementAssembleData = exports.publishElementContribute = void 0;
 const most_1 = require("most");
-function _arrayBufferToBuffer(arrayBuffer) {
-    return Buffer.from(arrayBuffer);
-}
 function _throwError(msg) {
     throw new Error(msg);
 }
-function _isPublisherRegistered(hasDataFunc, app, publisher) {
-    return hasDataFunc(app, "user", { username: publisher });
+function _isPublisherRegistered(hasDataFunc, publisher) {
+    return hasDataFunc("user", { username: publisher });
 }
 // function _defineWindow() {
 //     (global as any).window = {}
@@ -30,39 +27,37 @@ function _getPublishedCollectionName(fileType) {
             return "publishedContributes";
     }
 }
-function _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, [name, version, protocolName, protocolVersion], binaryFile, fileType) {
-    return initFunc().flatMap((app) => {
-        return _isPublisherRegistered(hasDataFunc, app, username).flatMap(_isPublisherRegistered => {
-            if (!_isPublisherRegistered) {
-                _throwError("publishser没有注册");
+function _publish([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, [name, version, protocolName, protocolVersion], binaryFile, fileType) {
+    return _isPublisherRegistered(hasDataFunc, username).flatMap(_isPublisherRegistered => {
+        if (!_isPublisherRegistered) {
+            _throwError("publishser没有注册");
+        }
+        // _defineWindow()
+        return (0, most_1.fromPromise)(getDataFunc(_getPublishedCollectionName(fileType), { username: username }).then(res => {
+            let { fileData } = res.data[0];
+            let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+                return protocolName === protocolName
+                    && version === version;
+            });
+            if (index !== -1) {
+                _throwError("version: " + version + " already exist, please update version");
             }
-            // _defineWindow()
-            return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: username }).then(res => {
+        })).concat(uploadFileFunc(logFunc, _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer", binaryFile).flatMap(({ fileID }) => {
+            return (0, most_1.fromPromise)(getDataFunc(_getPublishedCollectionName(fileType), { username: username }).then(res => {
                 let { fileData } = res.data[0];
-                let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
-                    return protocolName === protocolName
-                        && version === version;
+                let newFileData = [];
+                let data = {
+                    protocolName: protocolName,
+                    protocolVersion: protocolVersion,
+                    version: version,
+                    fileID
+                };
+                newFileData = fileData.concat([data]);
+                return updateDataFunc(_getPublishedCollectionName(fileType), { username: username }, {
+                    fileData: newFileData
                 });
-                if (index !== -1) {
-                    _throwError("version: " + version + " already exist, please update version");
-                }
-            })).concat(uploadFileFunc(app, _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer", _arrayBufferToBuffer(binaryFile)).flatMap(({ fileID }) => {
-                return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: username }).then(res => {
-                    let { fileData } = res.data[0];
-                    let newFileData = [];
-                    let data = {
-                        protocolName: protocolName,
-                        protocolVersion: protocolVersion,
-                        version: version,
-                        fileID
-                    };
-                    newFileData = fileData.concat([data]);
-                    return updateDataFunc(app, _getPublishedCollectionName(fileType), { username: username }, {
-                        fileData: newFileData
-                    });
-                }));
             }));
-        });
+        }));
     }).drain()
         .then(_ => {
         logFunc("publish success");
@@ -71,40 +66,37 @@ function _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, ge
         errorFunc("error message: ", e);
     });
 }
-function publishElementContribute([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile) {
-    return _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile, "contribute");
+function publishElementContribute([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile) {
+    return _publish([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile, "contribute");
 }
 exports.publishElementContribute = publishElementContribute;
-function publishElementAssembleData([logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData) {
-    return initFunc()
-        .flatMap((app) => {
-        return _isPublisherRegistered(hasDataFunc, app, username).flatMap(isPublisherRegistered => {
-            if (!isPublisherRegistered) {
-                _throwError("publishser没有注册");
+function publishElementAssembleData([logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData) {
+    return _isPublisherRegistered(hasDataFunc, username).flatMap(isPublisherRegistered => {
+        if (!isPublisherRegistered) {
+            _throwError("publishser没有注册");
+        }
+        return (0, most_1.fromPromise)(getDataFunc("publishedElementAssembleData", {
+            username: username
+        }).then(res => {
+            let { fileData } = res.data[0];
+            let index = fileData.findIndex((fileData) => {
+                return fileData.elementName === elementName
+                    && fileData.elementVersion === elementVersion;
+            });
+            if (index !== -1) {
+                _throwError("version: " + elementVersion + " already exist, please update version");
             }
-            return (0, most_1.fromPromise)(getDataFunc(app, "publishedElementAssembleData", {
-                username: username
-            }).then(res => {
-                let { fileData } = res.data[0];
-                let index = fileData.findIndex((fileData) => {
-                    return fileData.elementName === elementName
-                        && fileData.elementVersion === elementVersion;
-                });
-                if (index !== -1) {
-                    _throwError("version: " + elementVersion + " already exist, please update version");
-                }
-                let newFileData = [];
-                let data = {
-                    elementName,
-                    elementVersion,
-                    inspectorData
-                };
-                newFileData = fileData.concat([data]);
-                return updateDataFunc(app, "publishedElementAssembleData", { username: username }, {
-                    fileData: newFileData
-                });
-            }));
-        });
+            let newFileData = [];
+            let data = {
+                elementName,
+                elementVersion,
+                inspectorData
+            };
+            newFileData = fileData.concat([data]);
+            return updateDataFunc("publishedElementAssembleData", { username: username }, {
+                fileData: newFileData
+            });
+        }));
     }).drain()
         .then(_ => {
         logFunc("publish success");

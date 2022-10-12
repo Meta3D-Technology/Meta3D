@@ -1,7 +1,7 @@
 open FrontendUtils.BackendCloudbaseType
 
 @module("backend-cloudbase")
-external init: unit => Js.Promise.t<unit> = ""
+external init: unit => Meta3dBsMostProtocol.StreamType.stream<unit> = ""
 
 @module("backend-cloudbase")
 external checkUserName: string => Meta3dBsMostProtocol.StreamType.stream<bool> = ""

@@ -6,7 +6,7 @@ let _hiddenLoadding = %raw(`
 
 _hiddenLoadding()
 
-BackendCloudbase.init()->Js.Promise.then_(_ => {
+BackendCloudbase.init()->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
 }, _)->ignore
 

@@ -1,16 +1,15 @@
 import * as ErrorService from "./application_layer/common/ErrorService";
-import * as BackendService from "./application_layer/common/BackendService";
 import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
 import * as PublishAppService from "./application_layer/publish/PublishAppService";
 import * as PublishElementContributeService from "./application_layer/publish/PublishElementContributeService"
 
-import { addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/cloudbase/CloudbaseService";
+import { init as initCloud, addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/cloudbase/CloudbaseService";
 
 export let error = ErrorService.error
 
-export let init = BackendService.init
+export let init = initCloud
 
 export let checkUserName = (username: string) => {
     return RegisterService.checkUserName(notHasData, username)
@@ -96,7 +95,7 @@ export function publishElementContribute(
     return PublishElementContributeService.publishElementContribute([
         console.log,
         console.error,
-        init, hasData, uploadFile, getData, updateData],
+        hasData, uploadFile, getData, updateData],
         username, packageData, contributeBinaryFile)
 }
 
@@ -109,7 +108,7 @@ export function publishedElementAssembleData(
     return PublishElementContributeService.publishElementAssembleData([
         console.log,
         console.error,
-        init, hasData, getData, updateData],
+        hasData, getData, updateData],
         username,
         elementName,
         elementVersion,

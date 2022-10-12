@@ -8,12 +8,11 @@ const feature = loadFeature("./test/features/publish_element_assemble_data.featu
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc
+    let logFunc, errorFunc,  hasDataFunc, getDataFunc, updateDataFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
-        initFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
         getDataFunc = sandbox.stub()
         updateDataFunc = sandbox.stub()
@@ -26,7 +25,7 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc],
+            [logFunc, errorFunc,  hasDataFunc, getDataFunc, updateDataFunc],
             username,
             elementName, elementVersion, inspectorData
         )
@@ -43,10 +42,6 @@ defineFeature(feature, test => {
 
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub())
-
-            initFunc.returns(
-                just({})
-            )
         });
 
         and('make publisher not be registered', () => {
@@ -69,7 +64,6 @@ defineFeature(feature, test => {
     });
 
     test('add to collection', ({ given, when, then, and }) => {
-        let app = { "app": true }
         let username = "meta3d"
         let elementName = "test1"
         let elementVersion = "0.0.2"
@@ -83,9 +77,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            initFunc.returns(
-                just(app)
-            )
             hasDataFunc.returns(
                 just(true)
             )
@@ -111,7 +102,6 @@ defineFeature(feature, test => {
 
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
-                app,
                 "publishedElementAssembleData",
                 { "username": "meta3d" },
                 {
@@ -139,9 +129,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub())
 
-            initFunc.returns(
-                just(app)
-            )
             hasDataFunc.returns(
                 just(true)
             )

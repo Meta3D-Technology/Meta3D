@@ -8,12 +8,11 @@ const feature = loadFeature("./test/features/publish_element_contribute.feature"
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc
+    let logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
-        initFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
         uploadFileFunc = sandbox.stub()
         getDataFunc = sandbox.stub()
@@ -31,7 +30,7 @@ defineFeature(feature, test => {
         contributeBinaryFile = new ArrayBuffer(0)
     ) {
         return publishElementContribute(
-            [logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
+            [logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
             username,
             packageData,
             contributeBinaryFile
@@ -50,9 +49,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub())
 
-            initFunc.returns(
-                just({})
-            )
         });
 
         and('make publisher not be registered', () => {
@@ -75,7 +71,6 @@ defineFeature(feature, test => {
     });
 
     test('upload file and add to collection', ({ given, when, then, and }) => {
-        let app = { "app": true }
         let username = "meta3d"
         let name = "test1"
         let version = "0.0.2"
@@ -89,9 +84,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            initFunc.returns(
-                just(app)
-            )
             hasDataFunc.returns(
                 just(true)
             )
@@ -124,15 +116,14 @@ defineFeature(feature, test => {
 
         then('should upload file', () => {
             expect(uploadFileFunc).toCalledWith([
-                app,
+                logFunc,
                 "contributes/test1_0.0.2.arrayBuffer",
-                Buffer.from(binaryFile)
+                binaryFile
             ])
         });
 
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
-                app,
                 "publishedContributes",
                 { "username": "meta3d" },
                 {
@@ -147,7 +138,6 @@ defineFeature(feature, test => {
     });
 
     test('if element contribute with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
-        let app = { "app": true }
         let username = "meta3d"
         let name = "test1"
         let version = "0.0.2"
@@ -161,9 +151,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub())
 
-            initFunc.returns(
-                just(app)
-            )
             hasDataFunc.returns(
                 just(true)
             )

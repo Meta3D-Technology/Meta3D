@@ -73,7 +73,7 @@ type publishElementContribute = (
   . string,
   (string, string, string, string),
   Js.Typed_array.ArrayBuffer.t,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+) => Js.Promise.t<unit>
 
 type uiControl = {
   name: string,
@@ -86,9 +86,4 @@ type inspectorData = {
   uiControls: array<uiControl>,
 }
 
-type publishedElementAssembleData = (
-  . string,
-  string,
-  string,
-  inspectorData,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+type publishedElementAssembleData = (. string, string, string, inspectorData) => Js.Promise.t<unit>

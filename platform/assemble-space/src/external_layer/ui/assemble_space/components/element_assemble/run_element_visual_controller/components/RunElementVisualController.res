@@ -3,9 +3,9 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getVisualExtensionProtocolName = () => "meta3d-ui-view-visual-run-protocol"
+  let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
 
-  let _getVisualExtensionName = () => "meta3d-ui-view-visual-run"
+  let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
 
   let getAndSetNewestVisualExtension = (service, dispatch) => {
     ElementVisualUtils.getAndSetNewestVisualExtension(

@@ -40,7 +40,7 @@ module Method = {
             protocolVersion,
             fileStr,
           ),
-        ),
+        )->Meta3dBsMost.Most.fromPromise,
         service.backend.publishedElementAssembleData(.
           username->Meta3dCommonlib.OptionSt.getExn,
           elementName,
@@ -60,7 +60,7 @@ module Method = {
               ->Meta3dCommonlib.ListSt.toArray,
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
-        ),
+        )->Meta3dBsMost.Most.fromPromise,
       ])
       ->Meta3dBsMost.Most.drain
       ->Js.Promise.then_(_ => {

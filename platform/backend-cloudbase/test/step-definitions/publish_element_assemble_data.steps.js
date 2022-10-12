@@ -8,17 +8,16 @@ const PublishElementContributeService_1 = require("../../src/application_layer/p
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc;
+    let logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
-        initFunc = sandbox.stub();
         hasDataFunc = sandbox.stub();
         getDataFunc = sandbox.stub();
         updateDataFunc = sandbox.stub();
     }
     function _publish(username = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData);
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -29,7 +28,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            initFunc.returns((0, most_1.just)({}));
         });
         and('make publisher not be registered', () => {
             hasDataFunc.returns((0, most_1.just)(false));
@@ -42,7 +40,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     });
     test('add to collection', ({ given, when, then, and }) => {
-        let app = { "app": true };
         let username = "meta3d";
         let elementName = "test1";
         let elementVersion = "0.0.2";
@@ -53,7 +50,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            initFunc.returns((0, most_1.just)(app));
             hasDataFunc.returns((0, most_1.just)(true));
             getDataFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
@@ -68,7 +64,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
-                app,
                 "publishedElementAssembleData",
                 { "username": "meta3d" },
                 {
@@ -92,7 +87,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            initFunc.returns((0, most_1.just)(app));
             hasDataFunc.returns((0, most_1.just)(true));
             getDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
                 data: [

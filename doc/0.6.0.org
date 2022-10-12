@@ -643,7 +643,7 @@ pass bdd test:
 
 ** DONE rename
 
-** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
+** DONE publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
 *** DONE implement
 
@@ -744,17 +744,17 @@ need test:
 
 *** DONE fix: fix element name for generate
 
-*** TODO update protocol
+*** DONE update protocol
 
 TODO publish
 
 
 
+*** DONE rename ui-view-visual to element-assemble-visual
 
-*** TODO rename ui-view-visual to element-assemble-visual
+TODO publish
 
-
-*** TODO run test
+*** DONE run test
 
 
 

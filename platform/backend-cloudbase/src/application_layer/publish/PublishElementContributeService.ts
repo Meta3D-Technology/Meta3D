@@ -1,16 +1,11 @@
 import { fromPromise } from "most";
 
-function _arrayBufferToBuffer(arrayBuffer: ArrayBuffer): Buffer {
-    return Buffer.from(arrayBuffer)
-}
-
-
 function _throwError(msg: string): never {
     throw new Error(msg)
 }
 
-function _isPublisherRegistered(hasDataFunc, app, publisher: string) {
-    return hasDataFunc(app, "user", { username: publisher })
+function _isPublisherRegistered(hasDataFunc, publisher: string) {
+    return hasDataFunc("user", { username: publisher })
 }
 
 // function _defineWindow() {
@@ -37,7 +32,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
 
 
 
-function _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any, any],
+function _publish([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any],
     username: string,
     [
         name,
@@ -53,68 +48,61 @@ function _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, ge
     binaryFile: ArrayBuffer,
     fileType: "extension" | "contribute"
 ) {
-    return initFunc().flatMap((app) => {
-        return _isPublisherRegistered(hasDataFunc, app, username).flatMap(_isPublisherRegistered => {
-            if (!_isPublisherRegistered) {
-                _throwError("publishser没有注册")
-            }
+    return _isPublisherRegistered(hasDataFunc, username).flatMap(_isPublisherRegistered => {
+        if (!_isPublisherRegistered) {
+            _throwError("publishser没有注册")
+        }
 
-            // _defineWindow()
+        // _defineWindow()
 
+        return fromPromise(
+            getDataFunc(
+                _getPublishedCollectionName(fileType),
+                { username: username }
+            ).then(res => {
+                let { fileData } = res.data[0]
+
+                let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+                    return protocolName === protocolName
+                        && version === version
+                })
+
+                if (index !== -1) {
+                    _throwError("version: " + version + " already exist, please update version")
+                }
+            })
+        ).concat(uploadFileFunc(
+            logFunc,
+            _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer",
+            binaryFile
+        ).flatMap(({ fileID }) => {
             return fromPromise(
                 getDataFunc(
-                    app,
                     _getPublishedCollectionName(fileType),
                     { username: username }
                 ).then(res => {
                     let { fileData } = res.data[0]
 
-                    let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
-                        return protocolName === protocolName
-                            && version === version
-                    })
-
-                    if (index !== -1) {
-                        _throwError("version: " + version + " already exist, please update version")
+                    let newFileData = []
+                    let data = {
+                        protocolName: protocolName,
+                        protocolVersion: protocolVersion,
+                        version: version,
+                        fileID
                     }
-                })
-            ).concat(uploadFileFunc(
-                app,
-                _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer",
-                _arrayBufferToBuffer(
-                    binaryFile
-                )
-            ).flatMap(({ fileID }) => {
-                return fromPromise(
-                    getDataFunc(
-                        app,
+
+                    newFileData = fileData.concat([data])
+
+                    return updateDataFunc(
                         _getPublishedCollectionName(fileType),
-                        { username: username }
-                    ).then(res => {
-                        let { fileData } = res.data[0]
-
-                        let newFileData = []
-                        let data = {
-                            protocolName: protocolName,
-                            protocolVersion: protocolVersion,
-                            version: version,
-                            fileID
+                        { username: username },
+                        {
+                            fileData: newFileData
                         }
-
-                        newFileData = fileData.concat([data])
-
-                        return updateDataFunc(
-                            app,
-                            _getPublishedCollectionName(fileType),
-                            { username: username },
-                            {
-                                fileData: newFileData
-                            }
-                        )
-                    }))
-            })
-            )
+                    )
+                }))
         })
+        )
     }).drain()
         .then(_ => {
             logFunc("publish success")
@@ -124,12 +112,12 @@ function _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, ge
         })
 }
 
-export function publishElementContribute([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any, any],
+export function publishElementContribute([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any],
     username: string,
     packageData: any,
     contributeBinaryFile: ArrayBuffer
 ) {
-    return _publish([logFunc, errorFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
+    return _publish([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
         username,
         packageData,
         contributeBinaryFile,
@@ -137,7 +125,7 @@ export function publishElementContribute([logFunc, errorFunc, initFunc, hasDataF
     )
 }
 
-export function publishElementAssembleData([logFunc, errorFunc, initFunc, hasDataFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any],
+export function publishElementAssembleData([logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any],
     username: string,
     elementName: string,
     elementVersion: string,
@@ -153,53 +141,48 @@ export function publishElementAssembleData([logFunc, errorFunc, initFunc, hasDat
         }>
     }
 ) {
-    return initFunc()
-        .flatMap((app) => {
-            return _isPublisherRegistered(hasDataFunc, app, username).flatMap(isPublisherRegistered => {
-                if (!isPublisherRegistered) {
-                    _throwError("publishser没有注册")
+    return _isPublisherRegistered(hasDataFunc, username).flatMap(isPublisherRegistered => {
+        if (!isPublisherRegistered) {
+            _throwError("publishser没有注册")
+        }
+
+        return fromPromise(
+            getDataFunc(
+                "publishedElementAssembleData",
+                {
+                    username: username
+                },
+            ).then(res => {
+                let { fileData } = res.data[0]
+
+                let index = fileData.findIndex((fileData) => {
+                    return fileData.elementName === elementName
+                        && fileData.elementVersion === elementVersion
+                })
+
+                if (index !== -1) {
+                    _throwError("version: " + elementVersion + " already exist, please update version")
                 }
 
-                return fromPromise(
-                    getDataFunc(
-                        app,
-                        "publishedElementAssembleData",
-                        {
-                            username: username
-                        },
-                    ).then(res => {
-                        let { fileData } = res.data[0]
+                let newFileData = []
+                let data = {
+                    elementName,
+                    elementVersion,
+                    inspectorData
+                }
 
-                        let index = fileData.findIndex((fileData) => {
-                            return fileData.elementName === elementName
-                                && fileData.elementVersion === elementVersion
-                        })
+                newFileData = fileData.concat([data])
 
-                        if (index !== -1) {
-                            _throwError("version: " + elementVersion + " already exist, please update version")
-                        }
-
-                        let newFileData = []
-                        let data = {
-                            elementName,
-                            elementVersion,
-                            inspectorData
-                        }
-
-                        newFileData = fileData.concat([data])
-
-                        return updateDataFunc(
-                            app,
-                            "publishedElementAssembleData",
-                            { username: username },
-                            {
-                                fileData: newFileData
-                            }
-                        )
-                    })
+                return updateDataFunc(
+                    "publishedElementAssembleData",
+                    { username: username },
+                    {
+                        fileData: newFileData
+                    }
                 )
             })
-        }).drain()
+        )
+    }).drain()
         .then(_ => {
             logFunc("publish success")
         })
