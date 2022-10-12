@@ -79,7 +79,7 @@ defineFeature(feature, test => {
             (
               id->Some,
               list{d1.contents},
-              list{UIControlInspectorTool.buildSelectedUIControlInspectorData(~id, ~y=10, ())},
+              list{UIControlInspectorTool.buildUIControlInspectorData(~id, ~y=10, ())},
             ),
           ),
           _,
@@ -240,7 +240,7 @@ defineFeature(feature, test => {
                 id->Some,
                 list{d1.contents},
                 list{
-                  UIControlInspectorTool.buildSelectedUIControlInspectorData(
+                  UIControlInspectorTool.buildUIControlInspectorData(
                     ~id,
                     ~event=[UIControlInspectorTool.buildEventData(#click, "a2")],
                     (),

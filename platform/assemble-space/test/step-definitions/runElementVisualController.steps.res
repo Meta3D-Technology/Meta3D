@@ -201,7 +201,7 @@ defineFeature(feature, test => {
             (),
           ),
           ElementVisualTool.buildEmptyContributeFileStr(),
-        )
+        )->Meta3dCommonlib.Tuple2.getLast
     })
 
     \"and"("get run visual extension v", () => {

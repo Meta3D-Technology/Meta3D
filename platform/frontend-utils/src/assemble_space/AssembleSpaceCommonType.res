@@ -14,4 +14,4 @@ type contribute = {
   username: string,
 }
 
-type contributeData = (contribute, option<BackendCloudbaseType.protocolConfig>)
+type contributeData = (contribute, option<CommonType.protocolConfig>)

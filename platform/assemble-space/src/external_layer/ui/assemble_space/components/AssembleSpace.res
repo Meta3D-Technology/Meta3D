@@ -51,7 +51,7 @@ let make = (
     <Layout.Content>
       {switch currentAssemble {
       | Ap => <ApAssemble service username selectedExtensionsFromShop selectedContributesFromShop />
-      | Element => <ElementAssemble service />
+      | Element => <ElementAssemble service username />
       }}
     </Layout.Content>
   </Layout>

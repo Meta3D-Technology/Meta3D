@@ -42,6 +42,15 @@ external findPublishApp: findPublishApp = ""
 @module("backend-cloudbase")
 external findAllPublishApps: findAllPublishApps = ""
 
+@module("backend-cloudbase")
+external publishElementContribute: publishElementContribute = ""
+
+@module("backend-cloudbase")
+external publishedElementAssembleData: publishedElementAssembleData = ""
+
+@module("backend-cloudbase")
+external publishApp: publishApp = ""
+
 let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
@@ -52,5 +61,7 @@ let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
+    publishElementContribute: publishElementContribute,
+    publishedElementAssembleData: publishedElementAssembleData,
   }
 }

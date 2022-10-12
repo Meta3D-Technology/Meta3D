@@ -130,8 +130,8 @@ defineFeature(feature, test => {
     \"and"("prepare b1's, b2's inspector data", () => {
       selectedUIControlInspectorData :=
         list{
-          UIControlInspectorTool.buildSelectedUIControlInspectorData(~id="b1", ~x=1, ()),
-          UIControlInspectorTool.buildSelectedUIControlInspectorData(~id="b2", ~x=2, ()),
+          UIControlInspectorTool.buildUIControlInspectorData(~id="b1", ~x=1, ()),
+          UIControlInspectorTool.buildUIControlInspectorData(~id="b2", ~x=2, ()),
         }
     })
 
@@ -238,7 +238,7 @@ defineFeature(feature, test => {
     \"and"("prepare b1's inspector data", () => {
       selectedUIControlInspectorData :=
         list{
-          UIControlInspectorTool.buildSelectedUIControlInspectorData(
+          UIControlInspectorTool.buildUIControlInspectorData(
             ~id="b1",
             ~x=1,
             ~event=[UIControlInspectorTool.buildEventData(#click, "a1")],

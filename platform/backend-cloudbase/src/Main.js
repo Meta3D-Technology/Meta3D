@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishNewestExtensions = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
+exports.publishedElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishNewestExtensions = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
 const ErrorService = require("./application_layer/common/ErrorService");
 const BackendService = require("./application_layer/common/BackendService");
 const LoginService = require("./application_layer/user/LoginService");
 const RegisterService = require("./application_layer/user/RegisterService");
 const ShopService = require("./application_layer/shop/ShopService");
 const PublishAppService = require("./application_layer/publish/PublishAppService");
+const PublishElementContributeService = require("./application_layer/publish/PublishElementContributeService");
 const CloudbaseService_1 = require("./application_layer/cloudbase/CloudbaseService");
 exports.error = ErrorService.error;
 exports.init = BackendService.init;
@@ -64,3 +65,19 @@ let findAllPublishApps = (username) => {
     return PublishAppService.findAllPublishApps([CloudbaseService_1.getData, CloudbaseService_1.getFile], username);
 };
 exports.findAllPublishApps = findAllPublishApps;
+function publishElementContribute(username, packageData, contributeBinaryFile) {
+    return PublishElementContributeService.publishElementContribute([
+        console.log,
+        console.error,
+        exports.init, CloudbaseService_1.hasData, CloudbaseService_1.uploadFile, CloudbaseService_1.getData, CloudbaseService_1.updateData
+    ], username, packageData, contributeBinaryFile);
+}
+exports.publishElementContribute = publishElementContribute;
+function publishedElementAssembleData(username, elementName, elementVersion, inspectorData) {
+    return PublishElementContributeService.publishElementAssembleData([
+        console.log,
+        console.error,
+        exports.init, CloudbaseService_1.hasData, CloudbaseService_1.getData, CloudbaseService_1.updateData
+    ], username, elementName, elementVersion, inspectorData);
+}
+exports.publishedElementAssembleData = publishedElementAssembleData;

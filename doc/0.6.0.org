@@ -645,7 +645,7 @@ pass bdd test:
 
 ** TODO publish element contribute(to replace element-button, element-button2) to user's Element Contributes
 
-*** TODO implement
+*** DONE implement
 
 send to server
 
@@ -667,7 +667,10 @@ send to server
 # reducer
 
 
-should publish ui view data:
+should publish element assemble data:
+username(publisher)
+
+
 element:
     element state
     reducer
@@ -679,7 +682,23 @@ rect,
 event
     }>
 
-ui view can generate by them:
+
+    username: string,
+    elementName: string,
+    elementVersion: string,
+    inspectorData: {
+        element: {
+            elementState: any,
+            reducer: any
+        },
+        uiControls: Array<{
+            name: string,
+            rect: any,
+            event: any
+        }>
+    }
+
+element assemble can generate by them:
 selectedUIControls
 selectedUIControlInspectorData
 elementInspectorData
@@ -711,6 +730,34 @@ all elements use the same element protocol!
 # TODO should generate element protocol config data
 
 
+*** DONE pass compile
+
+*** DONE bdd test
+
+need test:
+# register
+//publisheleassda
+//publishelecon
+# backend->PublishElementContributeService
+
+# PublishElement
+
+*** DONE fix: fix element name for generate
+
+*** TODO update protocol
+
+TODO publish
+
+
+
+
+*** TODO rename ui-view-visual to element-assemble-visual
+
+
+*** TODO run test
+
+
+
 
 ** TODO feat: import single element
 
@@ -738,6 +785,12 @@ when switch to ui view, get element ui view data!
 
 
 *** TODO check when switch to ui view: should only select <=1 element!
+
+
+*** TODO bdd test
+
+
+** TODO run test
 
 
 

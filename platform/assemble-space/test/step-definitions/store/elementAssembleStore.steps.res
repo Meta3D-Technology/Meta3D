@@ -67,7 +67,7 @@ defineFeature(feature, test => {
     then("should add event data1", () => {
       store.contents.selectedUIControlInspectorData->expect ==
         list{
-          UIControlInspectorTool.buildSelectedUIControlInspectorData(
+          UIControlInspectorTool.buildUIControlInspectorData(
             ~id=id1.contents,
             ~event=[UIControlInspectorTool.buildEventData(eventName, actionName)],
             (),
@@ -102,7 +102,7 @@ defineFeature(feature, test => {
     then("should remove the event data of id1", () => {
       store.contents.selectedUIControlInspectorData->expect ==
         list{
-          UIControlInspectorTool.buildSelectedUIControlInspectorData(
+          UIControlInspectorTool.buildUIControlInspectorData(
             ~id=id1.contents,
             ~event=[],
             (),

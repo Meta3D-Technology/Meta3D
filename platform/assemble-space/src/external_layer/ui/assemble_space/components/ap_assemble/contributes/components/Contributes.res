@@ -7,7 +7,7 @@ open FrontendUtils.AssembleSpaceType
 module Method = {
   let _getProtocolConfigStr = protocolConfig => {
     protocolConfig->Meta3dCommonlib.OptionSt.map((
-      {configStr}: FrontendUtils.BackendCloudbaseType.protocolConfig,
+      {configStr}: FrontendUtils.CommonType.protocolConfig,
     ) => configStr)
   }
 

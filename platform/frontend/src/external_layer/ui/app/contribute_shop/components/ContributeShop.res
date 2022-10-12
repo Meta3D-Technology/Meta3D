@@ -98,7 +98,7 @@ let make = () => {
                                       {
                                         name,
                                         version,
-                                      }: FrontendUtils.BackendCloudbaseType.protocolConfig,
+                                      }: FrontendUtils.CommonType.protocolConfig,
                                     ) => {
                                       name === protocolName && version === protocolVersion
                                     },

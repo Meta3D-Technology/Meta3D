@@ -13,14 +13,14 @@ type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
 type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
 
 // type selectedContributeProtocolConfigs = list<
-//   option<FrontendUtils.BackendCloudbaseType.protocolConfig>,
+//   option<FrontendUtils.CommonType.protocolConfig>,
 // >
 
 type action =
   | SetUserName(string)
   | SelectExtension(extension)
   | NotSelectExtension(id)
-  | SelectContribute(contribute, option<FrontendUtils.BackendCloudbaseType.protocolConfig>)
+  | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectContribute(id)
 
 type state = {

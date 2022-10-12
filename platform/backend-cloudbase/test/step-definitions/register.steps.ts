@@ -63,6 +63,13 @@ defineFeature(feature, test => {
                     fileData: []
                 }
             ])
+            expect(addDataFunc).toCalledWith([
+                "publishedElementAssembleData",
+                {
+                    username,
+                    fileData: []
+                }
+            ])
             // expect(addDataFunc).toCalledWith([
             //     "publishedExtensionProtocols",
             //     {

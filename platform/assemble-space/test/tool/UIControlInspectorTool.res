@@ -28,7 +28,7 @@ let buildEventData = (
   actionName: actionName,
 }
 
-let buildSelectedUIControlInspectorData = (
+let buildUIControlInspectorData = (
   ~id,
   ~x=0,
   ~y=0,

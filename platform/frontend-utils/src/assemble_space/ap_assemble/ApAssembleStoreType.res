@@ -26,7 +26,7 @@ type contribute = {
 
 // type selectedContributes = list<(
 //   contribute,
-//   option<FrontendUtils.BackendCloudbaseType.protocolConfig>,
+//   option<FrontendUtils.CommonType.protocolConfig>,
 // )>
 
 type selectedContributes = list<contribute>

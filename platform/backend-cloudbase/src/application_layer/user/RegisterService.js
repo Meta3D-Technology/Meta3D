@@ -16,6 +16,9 @@ let register = (addDataFunc, username, password) => {
     }))).concat((0, most_1.fromPromise)(addDataFunc("publishedContributes", {
         username,
         fileData: []
+    }))).concat((0, most_1.fromPromise)(addDataFunc("publishedElementAssembleData", {
+        username,
+        fileData: []
     })));
     // .concat(fromPromise(
     // 	addDataFunc("publishedExtensionProtocols", {

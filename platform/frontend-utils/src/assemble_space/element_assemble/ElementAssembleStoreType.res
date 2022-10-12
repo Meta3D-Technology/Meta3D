@@ -44,7 +44,7 @@ type elementStateFieldData = {
 type elementStateFields = list<elementStateFieldData>
 
 type reducerHandler = {
-  actionName: string,
+  actionName: actionName,
   updatedElementStateFieldName: string,
 }
 
@@ -64,6 +64,12 @@ type elementInspectorData = {
   reducers: reducers,
 }
 
+type elementContributeData = (
+  // (string, string, Js.Typed_array.ArrayBuffer.t),
+  (string, string, string),
+  ApAssembleStoreType.contribute,
+)
+
 type action =
   | Reset
   | SelectUIControl(
@@ -77,7 +83,7 @@ type action =
   | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)
-  | SetElementContribute(ApAssembleStoreType.contribute)
+  | SetElementContributeData(elementContributeData)
   | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
   | SetElementStateFields(elementStateFields)
@@ -90,7 +96,7 @@ type state = {
   selectedUIControlInspectorData: selectedUIControlInspectorData,
   visualExtension: option<ApAssembleStoreType.extension>,
   runVisualExtension: option<ApAssembleStoreType.extension>,
-  elementContribute: option<ApAssembleStoreType.contribute>,
+  elementContributeData: option<elementContributeData>,
   isShowElementInspector: bool,
   elementInspectorData: elementInspectorData,
 }

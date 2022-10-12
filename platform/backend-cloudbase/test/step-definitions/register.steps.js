@@ -52,6 +52,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/register.featu
                     fileData: []
                 }
             ]);
+            expect(addDataFunc).toCalledWith([
+                "publishedElementAssembleData",
+                {
+                    username,
+                    fileData: []
+                }
+            ]);
             // expect(addDataFunc).toCalledWith([
             //     "publishedExtensionProtocols",
             //     {

@@ -4,6 +4,8 @@ import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
 import * as PublishAppService from "./application_layer/publish/PublishAppService";
+import * as PublishElementContributeService from "./application_layer/publish/PublishElementContributeService"
+
 import { addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/cloudbase/CloudbaseService";
 
 export let error = ErrorService.error
@@ -83,5 +85,34 @@ export let findAllPublishApps = (username: string) => {
     return PublishAppService.findAllPublishApps(
         [getData, getFile],
         username
+    )
+}
+
+export function publishElementContribute(
+    username: string,
+    packageData: any,
+    contributeBinaryFile: ArrayBuffer
+) {
+    return PublishElementContributeService.publishElementContribute([
+        console.log,
+        console.error,
+        init, hasData, uploadFile, getData, updateData],
+        username, packageData, contributeBinaryFile)
+}
+
+export function publishedElementAssembleData(
+    username: string,
+    elementName: string,
+    elementVersion: string,
+    inspectorData: any
+) {
+    return PublishElementContributeService.publishElementAssembleData([
+        console.log,
+        console.error,
+        init, hasData, getData, updateData],
+        username,
+        elementName,
+        elementVersion,
+        inspectorData
     )
 }

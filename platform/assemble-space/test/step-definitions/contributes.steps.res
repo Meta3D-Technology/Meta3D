@@ -90,7 +90,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
       username: "meta3d",
     }
-    // let protocolConfig:FrontendUtils.BackendCloudbaseType.protocolConfig = { "a_config" }
+    // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
     let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)

@@ -19,7 +19,7 @@ let _createState = () => {
   selectedUIControlInspectorData: list{},
   visualExtension: None,
   runVisualExtension: None,
-  elementContribute: None,
+  elementContributeData: None,
   isShowElementInspector: false,
   elementInspectorData: {
     elementStateFields: list{},
@@ -125,9 +125,9 @@ let reducer = (state, action) => {
       ...state,
       runVisualExtension: runVisualExtension->Some,
     }
-  | SetElementContribute(elementContribute) => {
+  | SetElementContributeData(elementContributeData) => {
       ...state,
-      elementContribute: elementContribute->Some,
+      elementContributeData: elementContributeData->Some,
     }
   | SetElementStateFields(elementStateFields) => {
       ...state,

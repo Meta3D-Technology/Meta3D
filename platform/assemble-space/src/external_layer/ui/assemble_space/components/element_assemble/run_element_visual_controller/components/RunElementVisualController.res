@@ -17,7 +17,10 @@ module Method = {
   }
 
   let _saveToLocalStorage = (service, appBinaryFile) => {
-    service.storage.initForElementVisualApp()->service.storage.setElementVisualApp(. _, appBinaryFile)
+    service.storage.initForElementVisualApp()->service.storage.setElementVisualApp(.
+      _,
+      appBinaryFile,
+    )
   }
 
   let _buildURL = canvasData => j`RunElementVisual?canvasData=${canvasData}`
@@ -58,12 +61,14 @@ module Method = {
     {isDebug, apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {canvasData, selectedExtensions, selectedContributes} = apAssembleState
-    let {runVisualExtension, elementContribute} = elementAssembleState
+    let {runVisualExtension, elementContributeData} = elementAssembleState
+
+    // let (_, elementContribute) = elementContributeData
 
     (
       isDebug,
       (canvasData, selectedExtensions, selectedContributes),
-      (runVisualExtension, elementContribute),
+      (runVisualExtension, elementContributeData),
     )
   }
 }
@@ -75,7 +80,7 @@ let make = (~service: service) => {
   let (
     isDebug,
     (canvasData, selectedExtensions, selectedContributes),
-    (runVisualExtension, elementContribute),
+    (runVisualExtension, elementContributeData),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -88,8 +93,10 @@ let make = (~service: service) => {
   }, [])
 
   {
-    switch (runVisualExtension, elementContribute) {
-    | (Some(runVisualExtension), Some(elementContribute)) =>
+    switch (runVisualExtension, elementContributeData) {
+    | (Some(runVisualExtension), Some(elementContributeData)) =>
+      let (_, elementContribute) = elementContributeData
+
       <Button
         onClick={_ => {
           Method.run(

@@ -3,9 +3,13 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~username) => {
   <Layout>
-    <Layout.Header> <ElementController service /> <RunElementVisualController service /> </Layout.Header>
+    <Layout.Header>
+      <PublishElement service username />
+      <ElementController service />
+      <RunElementVisualController service />
+    </Layout.Header>
     <Layout>
       <Layout.Sider>
         <Collapse defaultActiveKey={["1"]}>

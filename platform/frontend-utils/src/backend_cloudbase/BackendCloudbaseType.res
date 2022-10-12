@@ -12,14 +12,14 @@ type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.s
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
-type protocolConfig = {
-  name: string,
-  version: string,
-  username: string,
-  configStr: string,
-}
+// type protocolConfig = {
+//   name: string,
+//   version: string,
+//   username: string,
+//   configStr: string,
+// }
 
-type protocolConfigs = array<protocolConfig>
+type protocolConfigs = array<CommonType.protocolConfig>
 
 type getAllPublishContributeProtocolConfigs = unit => Meta3dBsMostProtocol.StreamType.stream<
   protocolConfigs,
@@ -68,3 +68,27 @@ type findPublishApp = (
 type findAllPublishApps = (
   . string,
 ) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppData>>
+
+type publishElementContribute = (
+  . string,
+  (string, string, string, string),
+  Js.Typed_array.ArrayBuffer.t,
+) => Meta3dBsMostProtocol.StreamType.stream<unit>
+
+type uiControl = {
+  name: string,
+  rect: ElementAssembleStoreType.rect,
+  event: ElementAssembleStoreType.event,
+}
+
+type inspectorData = {
+  element: ElementAssembleStoreType.elementInspectorData,
+  uiControls: array<uiControl>,
+}
+
+type publishedElementAssembleData = (
+  . string,
+  string,
+  string,
+  inspectorData,
+) => Meta3dBsMostProtocol.StreamType.stream<unit>

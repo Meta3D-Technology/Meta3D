@@ -4,7 +4,7 @@ let buildProtocolConfig = (
   ~username="",
   ~configStr="",
   (),
-): FrontendUtils.BackendCloudbaseType.protocolConfig => {
+): FrontendUtils.CommonType.protocolConfig => {
   name: name,
   version: version,
   username: username,

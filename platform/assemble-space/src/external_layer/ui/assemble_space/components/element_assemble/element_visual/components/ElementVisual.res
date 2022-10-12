@@ -111,44 +111,58 @@ module Method = {
   }
 
   let generateElementContribute = (service, fileStr) => {
-    service.meta3d.generateContribute(.
-      (
-        {
-          name: _getElementContributeName(),
-          protocol: {
-            name: _getElementContributeProtocolName(),
-            version: _getElementContributeProtocolVersion(),
-          },
-          dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
-          ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dUIExtensionName",
-            (
-              {
-                protocolName: "meta3d-ui-protocol",
-                protocolVersion: "^0.5.0",
-              }: Meta3d.ExtensionFileType.dependentData
-            ),
-          )
-          ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dEventExtensionName",
-            (
-              {
-                protocolName: "meta3d-event-protocol",
-                protocolVersion: "^0.5.1",
-              }: Meta3d.ExtensionFileType.dependentData
-            ),
-          ),
-          dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        }: Meta3d.ExtensionFileType.contributePackageData
-      ),
-      fileStr,
+    let protocolName = _getElementContributeProtocolName()
+    let protocolVersion = _getElementContributeProtocolVersion()
+
+    // let contributeBinaryFile = service.meta3d.generateContribute(.
+    //   (
+    //     {
+    //       name: _getElementContributeName(),
+    //       protocol: {
+    //         name: protocolName,
+    //         version: protocolVersion,
+    //       },
+    //       dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+    //       ->Meta3dCommonlib.ImmutableHashMap.set(
+    //         "meta3dUIExtensionName",
+    //         (
+    //           {
+    //             protocolName: "meta3d-ui-protocol",
+    //             protocolVersion: "^0.5.0",
+    //           }: Meta3d.ExtensionFileType.dependentData
+    //         ),
+    //       )
+    //       ->Meta3dCommonlib.ImmutableHashMap.set(
+    //         "meta3dEventExtensionName",
+    //         (
+    //           {
+    //             protocolName: "meta3d-event-protocol",
+    //             protocolVersion: "^0.5.1",
+    //           }: Meta3d.ExtensionFileType.dependentData
+    //         ),
+    //       ),
+    //       dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //     }: Meta3d.ExtensionFileType.contributePackageData
+    //   ),
+    //   fileStr,
+    // )
+
+    (
+      (protocolName, protocolVersion, fileStr),
+      ElementVisualUtils.generateElementContributeBinaryFile(
+        service,
+        _getElementContributeName(),
+        protocolName,
+        protocolVersion,
+        fileStr,
+      )
+      ->service.meta3d.loadContribute(. _)
+      ->_buildContribute(_getElementContributeName(), _),
     )
-    ->service.meta3d.loadContribute(. _)
-    ->_buildContribute(_getElementContributeName(), _)
   }
 
-  let updateElementContribute = (dispatch, elementContribute) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContribute(elementContribute))
+  let updateElementContribute = (dispatch, elementContributeData) => {
+    dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContributeData(elementContributeData))
   }
 
   let useSelector = (
@@ -159,9 +173,11 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       visualExtension,
-      elementContribute,
+      elementContributeData,
       elementInspectorData,
     } = elementAssembleState
+
+    // let (_, elementContribute) = elementContributeData
 
     (
       isDebug,
@@ -170,7 +186,8 @@ module Method = {
         selectedUIControls,
         selectedUIControlInspectorData,
         visualExtension,
-        elementContribute,
+        // elementContribute,
+        elementContributeData,
         elementInspectorData,
       ),
     )
@@ -188,7 +205,8 @@ let make = (~service: service) => {
       selectedUIControls,
       selectedUIControlInspectorData,
       visualExtension,
-      elementContribute,
+      // elementContribute,
+      elementContributeData,
       elementInspectorData,
     ),
   ) = service.react.useSelector(Method.useSelector)
@@ -221,8 +239,10 @@ let make = (~service: service) => {
   }, [selectedUIControlInspectorData, elementInspectorData->Obj.magic])
 
   service.react.useEffect1(. () => {
-    switch (visualExtension, elementContribute) {
-    | (Some(visualExtension), Some(elementContribute)) =>
+    switch (visualExtension, elementContributeData) {
+    | (Some(visualExtension), Some(elementContributeData)) =>
+      let (_, elementContribute) = elementContributeData
+
       FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
         Method.renderApp(
           service,
@@ -235,7 +255,7 @@ let make = (~service: service) => {
     }
 
     None
-  }, [elementContribute])
+  }, [elementContributeData])
 
   !Method.isLoaded(visualExtension)
     ? <p> {React.string(`loading...`)} </p>
