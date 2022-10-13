@@ -216,10 +216,7 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(\"when", "publish", () => {
       publishElementContributeStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Js.Promise.make((~resolve, ~reject) => resolve(. Obj.magic())),
-          _,
-        )
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
       PublishElementTool.publish(
         ~sandbox,
@@ -267,7 +264,7 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(\"when", "publish", () => {
       publishedElementAssembleDataStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Js.Promise.make((~resolve, ~reject) => resolve(. Obj.magic())),
+          Meta3dBsMost.Most.empty(),
           _,
         )
 

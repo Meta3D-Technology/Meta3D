@@ -71,7 +71,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                 if (index !== -1) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
-            })).concat(uploadFileFunc(app, _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer", _arrayBufferToBuffer(generateFunc(packageData, readFileSyncFunc(distFilePath, "utf-8")))).flatMap(({ fileID }) => {
+            })).flatMap(_ => uploadFileFunc(app, _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer", _arrayBufferToBuffer(generateFunc(packageData, readFileSyncFunc(distFilePath, "utf-8")))).flatMap(({ fileID }) => {
                 return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }).then(res => {
                     let { fileData } = res.data[0];
                     let newFileData = [];

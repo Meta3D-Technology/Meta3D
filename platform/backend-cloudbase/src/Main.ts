@@ -81,6 +81,10 @@ export let findAllPublishApps = (username: string) => {
     )
 }
 
+function _throwError(msg: string): never {
+    throw new Error(msg)
+}
+
 export function publishElementContribute(
     username: string,
     packageData: any,
@@ -88,8 +92,7 @@ export function publishElementContribute(
 ) {
     return PublishElementContributeService.publishElementContribute([
         console.log,
-        console.error,
-        hasData, uploadFile, getData, updateData],
+        _throwError, uploadFile, getData, updateData],
         username, packageData, contributeBinaryFile)
 }
 
@@ -100,9 +103,7 @@ export function publishedElementAssembleData(
     inspectorData: any
 ) {
     return PublishElementContributeService.publishElementAssembleData([
-        console.log,
-        console.error,
-        hasData, getData, updateData],
+        _throwError, getData, updateData],
         username,
         elementName,
         elementVersion,

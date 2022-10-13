@@ -91,7 +91,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                             _throwError("version: " + packageJson.version + " already exist, please update version")
                         }
                     })
-                ).concat(uploadFileFunc(
+                ).flatMap(_ => uploadFileFunc(
                     app,
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer",
                     _arrayBufferToBuffer(generateFunc(

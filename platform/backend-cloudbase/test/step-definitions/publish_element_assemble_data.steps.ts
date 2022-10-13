@@ -8,12 +8,10 @@ const feature = loadFeature("./test/features/publish_element_assemble_data.featu
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc
+    let errorFunc, getDataFunc, updateDataFunc
 
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
-        logFunc = sandbox.stub()
-        errorFunc = errorFuncStub
-        hasDataFunc = sandbox.stub()
+    function _createFuncs(sandbox) {
+        errorFunc = sandbox.stub()
         getDataFunc = sandbox.stub()
         updateDataFunc = sandbox.stub()
     }
@@ -25,7 +23,7 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc],
+            [errorFunc, getDataFunc, updateDataFunc],
             username,
             elementName, elementVersion, inspectorData
         )
@@ -36,32 +34,6 @@ defineFeature(feature, test => {
             sandbox = createSandbox()
         });
     }
-
-    test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
-        _prepare(given)
-
-        given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub())
-        });
-
-        and('make publisher not be registered', () => {
-            hasDataFunc.returns(
-                just(false)
-            )
-        });
-
-        when('publish', () => {
-            return _publish()
-        });
-
-        then(/^should error:                 "(.*)"$/, (arg0) => {
-            expect(
-                errorFunc.getCall(0).args[1].message
-            ).toEqual(
-                arg0
-            )
-        });
-    });
 
     test('add to collection', ({ given, when, then, and }) => {
         let username = "meta3d"
@@ -77,9 +49,6 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            hasDataFunc.returns(
-                just(true)
-            )
             getDataFunc.returns(
                 resolve({
                     data: [
@@ -97,7 +66,7 @@ defineFeature(feature, test => {
                 elementName,
                 elementVersion,
                 inspectorData
-            )
+            ).drain()
         });
 
         and('should add to collection', () => {
@@ -127,11 +96,8 @@ defineFeature(feature, test => {
         _prepare(given)
 
         given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub())
+            _createFuncs(sandbox)
 
-            hasDataFunc.returns(
-                just(true)
-            )
             getDataFunc.onCall(0).returns(
                 resolve({
                     data: [
@@ -163,7 +129,7 @@ defineFeature(feature, test => {
                 elementName,
                 elementVersion,
                 inspectorData
-            )
+            ).drain()
         });
 
         when('publish with the same publisher, element name, element version', () => {
@@ -172,12 +138,12 @@ defineFeature(feature, test => {
                 elementName,
                 elementVersion,
                 inspectorData
-            )
+            ).drain()
         });
 
         then('should error', () => {
             expect(
-                errorFunc.getCall(0).args[1].message
+                errorFunc.getCall(0).args[0]
             ).toEqual(
                 "version: 0.0.2 already exist, please update version"
             )

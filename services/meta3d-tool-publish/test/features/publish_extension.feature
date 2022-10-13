@@ -36,3 +36,4 @@ Feature: Publish Extension
         And publish extension
         When publish extension with the same publisher, version, protocol name
         Then should error
+        And not upload file

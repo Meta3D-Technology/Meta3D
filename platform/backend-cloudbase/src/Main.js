@@ -61,19 +61,19 @@ let findAllPublishApps = (username) => {
     return PublishAppService.findAllPublishApps([CloudbaseService_1.getData, CloudbaseService_1.getFile], username);
 };
 exports.findAllPublishApps = findAllPublishApps;
+function _throwError(msg) {
+    throw new Error(msg);
+}
 function publishElementContribute(username, packageData, contributeBinaryFile) {
     return PublishElementContributeService.publishElementContribute([
         console.log,
-        console.error,
-        CloudbaseService_1.hasData, CloudbaseService_1.uploadFile, CloudbaseService_1.getData, CloudbaseService_1.updateData
+        _throwError, CloudbaseService_1.uploadFile, CloudbaseService_1.getData, CloudbaseService_1.updateData
     ], username, packageData, contributeBinaryFile);
 }
 exports.publishElementContribute = publishElementContribute;
 function publishedElementAssembleData(username, elementName, elementVersion, inspectorData) {
     return PublishElementContributeService.publishElementAssembleData([
-        console.log,
-        console.error,
-        CloudbaseService_1.hasData, CloudbaseService_1.getData, CloudbaseService_1.updateData
+        _throwError, CloudbaseService_1.getData, CloudbaseService_1.updateData
     ], username, elementName, elementVersion, inspectorData);
 }
 exports.publishedElementAssembleData = publishedElementAssembleData;

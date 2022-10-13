@@ -39,6 +39,17 @@ module Method = {
 
             ()->Js.Promise.resolve
           }, _)
+          ->Js.Promise.catch(e => {
+            service.console.error(.
+              e
+              ->Obj.magic
+              ->Js.Exn.message
+              ->Meta3dCommonlib.OptionSt.getExn
+              ->Obj.magic
+              ->Meta3dCommonlib.Log.printForDebug,
+              None,
+            )->Obj.magic
+          }, _)
         }
   }
 

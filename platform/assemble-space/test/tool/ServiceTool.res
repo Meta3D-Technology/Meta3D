@@ -40,10 +40,10 @@ let build = (
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
   ~publishElementContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Js.Promise.make((~resolve, ~reject) => resolve(. Obj.magic())), _)
+  ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
   ~publishedElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Js.Promise.make((~resolve, ~reject) => resolve(. Obj.magic())), _)
+  ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
   ~getElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.empty(), _)

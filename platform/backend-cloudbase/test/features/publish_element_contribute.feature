@@ -6,20 +6,15 @@ Feature: Publish Element Contribute
     Background: prepare
         Given prepare sandbox
 
-    Scenario: if publisher is not registered, throw error
-        Given prepare funcs
-        And make publisher not be registered
-        When publish
-        Then should error:                 "publishser没有注册"
-
     Scenario: upload file and add to collection
         Given prepare funcs
         When publish
         Then should upload file
         And should add to collection
 
-    Scenario: if element contribute with the same publisher, version, protocol name exist, throw error
+    Scenario: if element contribute with the same publisher, name, version exist, throw error
         Given prepare funcs
         And publish
-        When publish with the same publisher, version, protocol name
+        When publish with the same publisher, name, version
         Then should error
+        And not upload file

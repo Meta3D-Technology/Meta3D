@@ -8,11 +8,10 @@ const PublishElementContributeService_1 = require("../../src/application_layer/a
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_contribute.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc;
+    let logFunc, errorFunc, uploadFileFunc, getDataFunc, updateDataFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
-        hasDataFunc = sandbox.stub();
         uploadFileFunc = sandbox.stub();
         getDataFunc = sandbox.stub();
         updateDataFunc = sandbox.stub();
@@ -23,28 +22,16 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         "",
         "",
     ], contributeBinaryFile = new ArrayBuffer(0)) {
-        return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile);
+        return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, (message) => {
+                errorFunc(message);
+                throw new Error(message);
+            }, uploadFileFunc, getDataFunc, updateDataFunc], username, packageData, contributeBinaryFile);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
     }
-    test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
-        _prepare(given);
-        given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub());
-        });
-        and('make publisher not be registered', () => {
-            hasDataFunc.returns((0, most_1.just)(false));
-        });
-        when('publish', () => {
-            return _publish();
-        });
-        then(/^should error:                 "(.*)"$/, (arg0) => {
-            expect(errorFunc.getCall(0).args[1].message).toEqual(arg0);
-        });
-    });
     test('upload file and add to collection', ({ given, when, then, and }) => {
         let username = "meta3d";
         let name = "test1";
@@ -56,8 +43,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            hasDataFunc.returns((0, most_1.just)(true));
-            uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
+            uploadFileFunc.returns((0, most_1.just)(fileID1));
             getDataFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
@@ -72,7 +58,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 version,
                 protocolName,
                 protocolVersion,
-            ], binaryFile);
+            ], binaryFile).drain();
         });
         then('should upload file', () => {
             expect(uploadFileFunc).toCalledWith([
@@ -87,26 +73,25 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 { "username": "meta3d" },
                 {
                     "fileData": [{
-                            "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                            "version": "0.0.2",
+                            "protocolName": protocolName, "protocolVersion": protocolVersion,
+                            "name": name,
+                            "version": version,
                             "fileID": fileID1
                         }]
                 }
             ]);
         });
     });
-    test('if element contribute with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
+    test('if element contribute with the same publisher, name, version exist, throw error', ({ given, when, then, and }) => {
         let username = "meta3d";
         let name = "test1";
         let version = "0.0.2";
-        let protocolName = "test1-protocol";
-        let protocolVersion = "^0.0.1";
+        // let protocolName = "test1-protocol"
+        // let protocolVersion = "^0.0.1"
         let binaryFile = new ArrayBuffer(10);
-        let fileID1 = "id1";
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            hasDataFunc.returns((0, most_1.just)(true));
             uploadFileFunc.returns((0, most_1.empty)());
             getDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
                 data: [
@@ -120,8 +105,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                     {
                         fileData: [
                             {
-                                protocolName: "test1-protocol",
-                                version: "0.0.2"
+                                name: name,
+                                version: version
                             }
                         ]
                     }
@@ -132,20 +117,27 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             return _publish(username, [
                 name,
                 version,
-                protocolName,
-                protocolVersion,
-            ], binaryFile);
+                // protocolName,
+                // protocolVersion,
+                "",
+                ""
+            ], binaryFile).drain();
         });
-        when('publish with the same publisher, version, protocol name', () => {
+        when('publish with the same publisher, name, version', () => {
             return _publish(username, [
                 name,
                 version,
-                protocolName,
-                protocolVersion,
-            ], binaryFile);
+                // protocolName,
+                // protocolVersion,
+                "",
+                ""
+            ], binaryFile).drain().catch(e => { });
         });
         then('should error', () => {
-            expect(errorFunc.getCall(0).args[1].message).toEqual("version: 0.0.2 already exist, please update version");
+            expect(errorFunc.getCall(0).args[0]).toEqual("version: 0.0.2 already exist, please update version");
+        });
+        and('not upload file', () => {
+            expect(uploadFileFunc.callCount).toEqual(1);
         });
     });
 });

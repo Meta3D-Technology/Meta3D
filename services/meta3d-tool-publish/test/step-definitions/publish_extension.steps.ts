@@ -386,5 +386,13 @@ defineFeature(feature, test => {
                 "version: 0.0.2 already exist, please update version"
             )
         });
+
+        and('not upload file', () => {
+            expect(
+                uploadFileFunc.callCount
+            ).toEqual(
+                1
+            )
+        });
     });
 })

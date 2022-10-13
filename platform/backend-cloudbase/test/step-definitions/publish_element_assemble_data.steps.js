@@ -2,43 +2,25 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
-const most_1 = require("most");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
 const PublishElementContributeService_1 = require("../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc;
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
-        logFunc = sandbox.stub();
-        errorFunc = errorFuncStub;
-        hasDataFunc = sandbox.stub();
+    let errorFunc, getDataFunc, updateDataFunc;
+    function _createFuncs(sandbox) {
+        errorFunc = sandbox.stub();
         getDataFunc = sandbox.stub();
         updateDataFunc = sandbox.stub();
     }
     function _publish(username = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData);
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getDataFunc, updateDataFunc], username, elementName, elementVersion, inspectorData);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
     }
-    test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
-        _prepare(given);
-        given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub());
-        });
-        and('make publisher not be registered', () => {
-            hasDataFunc.returns((0, most_1.just)(false));
-        });
-        when('publish', () => {
-            return _publish();
-        });
-        then(/^should error:                 "(.*)"$/, (arg0) => {
-            expect(errorFunc.getCall(0).args[1].message).toEqual(arg0);
-        });
-    });
     test('add to collection', ({ given, when, then, and }) => {
         let username = "meta3d";
         let elementName = "test1";
@@ -50,7 +32,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            hasDataFunc.returns((0, most_1.just)(true));
             getDataFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
@@ -60,7 +41,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             }));
         });
         when('publish', () => {
-            return _publish(username, elementName, elementVersion, inspectorData);
+            return _publish(username, elementName, elementVersion, inspectorData).drain();
         });
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
@@ -86,8 +67,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         };
         _prepare(given);
         given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub());
-            hasDataFunc.returns((0, most_1.just)(true));
+            _createFuncs(sandbox);
             getDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
@@ -109,13 +89,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             }));
         });
         and('publish', () => {
-            return _publish(username, elementName, elementVersion, inspectorData);
+            return _publish(username, elementName, elementVersion, inspectorData).drain();
         });
         when('publish with the same publisher, element name, element version', () => {
-            return _publish(username, elementName, elementVersion, inspectorData);
+            return _publish(username, elementName, elementVersion, inspectorData).drain();
         });
         then('should error', () => {
-            expect(errorFunc.getCall(0).args[1].message).toEqual("version: 0.0.2 already exist, please update version");
+            expect(errorFunc.getCall(0).args[0]).toEqual("version: 0.0.2 already exist, please update version");
         });
     });
 });

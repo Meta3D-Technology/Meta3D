@@ -8,12 +8,11 @@ const feature = loadFeature("./test/features/publish_element_contribute.feature"
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc
+    let logFunc, errorFunc, uploadFileFunc, getDataFunc, updateDataFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
-        hasDataFunc = sandbox.stub()
         uploadFileFunc = sandbox.stub()
         getDataFunc = sandbox.stub()
         updateDataFunc = sandbox.stub()
@@ -30,7 +29,10 @@ defineFeature(feature, test => {
         contributeBinaryFile = new ArrayBuffer(0)
     ) {
         return publishElementContribute(
-            [logFunc, errorFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
+            [logFunc, (message) => {
+                errorFunc(message)
+                throw new Error(message)
+            }, uploadFileFunc, getDataFunc, updateDataFunc],
             username,
             packageData,
             contributeBinaryFile
@@ -43,32 +45,6 @@ defineFeature(feature, test => {
         });
     }
 
-    test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
-        _prepare(given)
-
-        given('prepare funcs', () => {
-            _createFuncs(sandbox, sandbox.stub())
-
-        });
-
-        and('make publisher not be registered', () => {
-            hasDataFunc.returns(
-                just(false)
-            )
-        });
-
-        when('publish', () => {
-            return _publish()
-        });
-
-        then(/^should error:                 "(.*)"$/, (arg0) => {
-            expect(
-                errorFunc.getCall(0).args[1].message
-            ).toEqual(
-                arg0
-            )
-        });
-    });
 
     test('upload file and add to collection', ({ given, when, then, and }) => {
         let username = "meta3d"
@@ -84,11 +60,8 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            hasDataFunc.returns(
-                just(true)
-            )
             uploadFileFunc.returns(
-                just({ fileID: fileID1 })
+                just(fileID1)
             )
             getDataFunc.returns(
                 resolve({
@@ -111,7 +84,7 @@ defineFeature(feature, test => {
                     protocolVersion,
                 ],
                 binaryFile
-            )
+            ).drain()
         });
 
         then('should upload file', () => {
@@ -128,8 +101,9 @@ defineFeature(feature, test => {
                 { "username": "meta3d" },
                 {
                     "fileData": [{
-                        "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                        "version": "0.0.2",
+                        "protocolName": protocolName, "protocolVersion": protocolVersion,
+                        "name": name,
+                        "version": version,
                         "fileID": fileID1
                     }]
                 }
@@ -137,23 +111,19 @@ defineFeature(feature, test => {
         });
     });
 
-    test('if element contribute with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
+    test('if element contribute with the same publisher, name, version exist, throw error', ({ given, when, then, and }) => {
         let username = "meta3d"
         let name = "test1"
         let version = "0.0.2"
-        let protocolName = "test1-protocol"
-        let protocolVersion = "^0.0.1"
+        // let protocolName = "test1-protocol"
+        // let protocolVersion = "^0.0.1"
         let binaryFile = new ArrayBuffer(10)
-        let fileID1 = "id1"
 
         _prepare(given)
 
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub())
 
-            hasDataFunc.returns(
-                just(true)
-            )
             uploadFileFunc.returns(
                 empty()
             )
@@ -172,8 +142,8 @@ defineFeature(feature, test => {
                         {
                             fileData: [
                                 {
-                                    protocolName: "test1-protocol",
-                                    version: "0.0.2"
+                                    name: name,
+                                    version: version
                                 }
                             ]
                         }
@@ -188,31 +158,44 @@ defineFeature(feature, test => {
                 [
                     name,
                     version,
-                    protocolName,
-                    protocolVersion,
+                    // protocolName,
+                    // protocolVersion,
+                    "",
+                    ""
                 ],
                 binaryFile
-            )
+            ).drain()
         });
 
-        when('publish with the same publisher, version, protocol name', () => {
+        when('publish with the same publisher, name, version', () => {
             return _publish(
                 username,
                 [
                     name,
                     version,
-                    protocolName,
-                    protocolVersion,
+                    // protocolName,
+                    // protocolVersion,
+                    "",
+                    ""
                 ],
                 binaryFile
+            ).drain().catch(e => { }
             )
         });
 
         then('should error', () => {
             expect(
-                errorFunc.getCall(0).args[1].message
+                errorFunc.getCall(0).args[0]
             ).toEqual(
                 "version: 0.0.2 already exist, please update version"
+            )
+        });
+
+        and('not upload file', () => {
+            expect(
+                uploadFileFunc.callCount
+            ).toEqual(
+                1
             )
         });
     });

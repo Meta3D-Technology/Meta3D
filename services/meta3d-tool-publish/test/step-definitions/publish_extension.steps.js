@@ -275,6 +275,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         then('should error', () => {
             expect(errorFunc.getCall(0).args[1].message).toEqual("version: 0.0.2 already exist, please update version");
         });
+        and('not upload file', () => {
+            expect(uploadFileFunc.callCount).toEqual(1);
+        });
     });
 });
 //# sourceMappingURL=publish_extension.steps.js.map

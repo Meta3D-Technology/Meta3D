@@ -40,7 +40,7 @@ module Method = {
             protocolVersion,
             fileStr,
           ),
-        )->Meta3dBsMost.Most.fromPromise,
+        ),
         service.backend.publishedElementAssembleData(.
           username->Meta3dCommonlib.OptionSt.getExn,
           elementName,
@@ -60,7 +60,7 @@ module Method = {
               ->Meta3dCommonlib.ListSt.toArray,
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
-        )->Meta3dBsMost.Most.fromPromise,
+        ),
       ])
       ->Meta3dBsMost.Most.drain
       ->Js.Promise.then_(_ => {
@@ -68,13 +68,17 @@ module Method = {
 
         ()->Js.Promise.resolve
       }, _)
-    }
-    // ->Js.Promise.catch(e => {
-    //   service.console.error(.
-    //     e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic->Meta3dCommonlib.Log.printForDebug,
-    //     None,
-    //   )->Obj.magic
-    // }, _)
+    }->Js.Promise.catch(e => {
+      service.console.error(.
+        e
+        ->Obj.magic
+        ->Js.Exn.message
+        ->Meta3dCommonlib.OptionSt.getExn
+        ->Obj.magic
+        ->Meta3dCommonlib.Log.printForDebug,
+        None,
+      )->Obj.magic
+    }, _)
   }
 
   // let onFinishFailed = (service, errorInfo) => {
