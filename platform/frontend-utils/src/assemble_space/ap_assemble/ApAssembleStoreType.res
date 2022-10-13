@@ -16,11 +16,14 @@ type extension = {
 
 type selectedExtensions = list<extension>
 
+type version = string
+
 type contribute = {
   id: id,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
   newName: option<newName>,
+  version: version,
   data: Meta3d.ExtensionFileType.contributeFileData,
 }
 

@@ -1,6 +1,6 @@
 Feature: Get All Publish Extension Protocols
     As a Get All Publish Extension Protocols
-    i want to get all publish extension protocols
+    I want to get all publish extension protocols
     So that I can use it
 
     Background: prepare

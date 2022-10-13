@@ -2,7 +2,7 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { publishElementContribute } from "../../src/application_layer/publish/PublishElementContributeService";
+import { publishElementContribute } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
 
 const feature = loadFeature("./test/features/publish_element_contribute.feature")
 

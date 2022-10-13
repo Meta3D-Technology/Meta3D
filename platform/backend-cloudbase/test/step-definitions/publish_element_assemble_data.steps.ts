@@ -2,13 +2,13 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { publishElementAssembleData } from "../../src/application_layer/publish/PublishElementContributeService";
+import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc,  hasDataFunc, getDataFunc, updateDataFunc
+    let logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub()
@@ -25,7 +25,7 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [logFunc, errorFunc,  hasDataFunc, getDataFunc, updateDataFunc],
+            [logFunc, errorFunc, hasDataFunc, getDataFunc, updateDataFunc],
             username,
             elementName, elementVersion, inspectorData
         )

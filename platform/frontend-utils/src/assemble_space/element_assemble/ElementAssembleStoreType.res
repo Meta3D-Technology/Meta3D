@@ -89,6 +89,7 @@ type action =
   | SetElementStateFields(elementStateFields)
   | SetRole(option<string>)
   | SetHandlers(handlers)
+  | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
 
 type state = {
   selectedUIControls: selectedUIControls,

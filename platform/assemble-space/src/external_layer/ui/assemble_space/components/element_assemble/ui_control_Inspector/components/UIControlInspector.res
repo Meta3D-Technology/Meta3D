@@ -29,12 +29,7 @@ module Method = {
     )
   }
 
-  let getActions = (selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes) => {
-    selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
-      data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
-        Meta3dType.ContributeType.Action
-    })
-  }
+  let getActions = SelectedContributesUtils.getActions
 
   let setAction = (
     dispatch,
@@ -50,7 +45,9 @@ module Method = {
     )
   }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
     let {selectedContributes} = apAssembleState
     let {
       inspectorCurrentUIControlId,

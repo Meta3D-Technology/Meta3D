@@ -1,6 +1,6 @@
 Feature: Publish App
     As a Publish App
-    i want to publish app
+    I want to publish app
     So that I can enter it
 
     Background: prepare

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
-const ShopService_1 = require("../../src/application_layer/shop/ShopService");
+const GetElementDataService_1 = require("../../src/application_layer/assemble_space/element_assemble/GetElementDataService");
 const most_1 = require("most");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_newest_extensions.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
@@ -14,7 +14,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         getFileFunc = sandbox.stub();
     }
     function _getAllPublishNewestExtensions(protocolName) {
-        return (0, ShopService_1.getAllPublishNewestData)([getCollectionFunc, getFileFunc], "publishedExtensions", protocolName);
+        return (0, GetElementDataService_1.getAllPublishNewestData)([getCollectionFunc, getFileFunc], "publishedExtensions", protocolName);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {

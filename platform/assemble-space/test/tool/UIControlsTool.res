@@ -8,10 +8,12 @@ let buildSelectedContribute = (
   ~protocolConfigStr=None,
   ~newName=None,
   ~id="e1",
+  ~version="0.0.1",
   (),
 ): FrontendUtils.ApAssembleStoreType.contribute => {
   {
     id: id,
+    version: version,
     protocolIconBase64: protocolIconBase64,
     protocolConfigStr: protocolConfigStr,
     newName: newName,

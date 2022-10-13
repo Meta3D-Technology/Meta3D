@@ -3,12 +3,7 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getActions = (selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes) => {
-    selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
-      data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
-        Meta3dType.ContributeType.Action
-    })
-  }
+  let _getActions = SelectedContributesUtils.getActions
 
   let getProtocolConfigActions = (
     service,
@@ -87,7 +82,9 @@ module Method = {
 
   let onFinishFailedReducerHandlers = onFinishFailedState
 
-  let useSelector = ({apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
     let {selectedContributes} = apAssembleState
     let {isShowElementInspector, elementInspectorData} = elementAssembleState
 

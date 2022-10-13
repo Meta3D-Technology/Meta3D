@@ -768,11 +768,18 @@ TODO publish
 4.switch to ui view
 5.can continue edit the element visually
 
-*** TODO implement
+*** DONE implement
+
+if selectedContributes change,
+
+check:should only select <=1 element!
+and load element assemble data and set
+
+if element assemble data change, update data by dispatch
 
 # *** TODO update "so can get reducer, element state from protocol when switch to ui view!" logic: to the specific element instead of switch to ui view!
 # *** TODO can get reducer and element state by parse to element->"getContribute"
-*** TODO can get reducer and element state by element ui view data
+*** DONE can get reducer and element state by element ui view data
 
 
 ui view can generate by them:
@@ -784,16 +791,21 @@ elementInspectorData
 when switch to ui view, get element ui view data!
 
 
-*** TODO check when switch to ui view: should only select <=1 element!
-
-
-*** TODO bdd test
-
-
-** TODO run test
+*** DONE check when switch to ui view: should only select <=1 element!
 
 
 
+*** DONE pass compile
+
+
+*** DONE bdd test
+
+
+*** TODO run test
+
+
+
+** TODO refactor: test->feature->dispatch xxx action change to Xxx action
 
 ** TODO fix control properies
 

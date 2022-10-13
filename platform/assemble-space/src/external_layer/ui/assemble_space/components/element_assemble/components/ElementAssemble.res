@@ -19,7 +19,7 @@ let make = (~service: service, ~username) => {
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content> <ElementVisual service /> </Layout.Content>
+      <Layout.Content> <ElementVisual service username /> </Layout.Content>
       <Layout.Sider> <ElementInspector service /> <UIControlInspector service /> </Layout.Sider>
     </Layout>
   </Layout>

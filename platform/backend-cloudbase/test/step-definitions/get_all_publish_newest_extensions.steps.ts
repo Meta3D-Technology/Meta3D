@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { getAllPublishNewestData } from "../../src/application_layer/shop/ShopService"
+import { getAllPublishNewestData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService"
 import { just } from "most";
 
 const feature = loadFeature("./test/features/get_all_publish_newest_extensions.feature")

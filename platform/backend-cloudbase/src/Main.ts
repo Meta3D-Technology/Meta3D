@@ -3,7 +3,8 @@ import * as LoginService from "./application_layer/user/LoginService";
 import * as RegisterService from "./application_layer/user/RegisterService";
 import * as ShopService from "./application_layer/shop/ShopService";
 import * as PublishAppService from "./application_layer/publish/PublishAppService";
-import * as PublishElementContributeService from "./application_layer/publish/PublishElementContributeService"
+import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
+import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 
 import { init as initCloud, addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/cloudbase/CloudbaseService";
 
@@ -42,13 +43,6 @@ export let getAllPublishExtensions = (protocolName: string, protocolVersion: str
     return ShopService.getAllPublishData([getCollection, getFile],
         "publishedExtensions",
         protocolName, protocolVersion
-    )
-}
-
-export let getAllPublishNewestExtensions = (protocolName: string) => {
-    return ShopService.getAllPublishNewestData([getCollection, getFile],
-        "publishedExtensions",
-        protocolName
     )
 }
 
@@ -113,5 +107,24 @@ export function publishedElementAssembleData(
         elementName,
         elementVersion,
         inspectorData
+    )
+}
+
+export let getAllPublishNewestExtensions = (protocolName: string) => {
+    return GetElementDataService.getAllPublishNewestData([getCollection, getFile],
+        "publishedExtensions",
+        protocolName
+    )
+}
+
+export let getElementAssembleData = (
+    username: string,
+    elementName: string,
+    elementVersion: string,
+) => {
+    return GetElementDataService.getElementAssembleData(getData,
+        username,
+        elementName,
+        elementVersion,
     )
 }

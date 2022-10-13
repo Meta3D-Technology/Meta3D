@@ -3,12 +3,7 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let getUIControls = (selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes) => {
-    selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
-      data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
-        Meta3dType.ContributeType.UIControl
-    })
-  }
+  let getUIControls = SelectedContributesUtils.getUIControls
 
   let selectUIControl = (dispatch, protocolIconBase64, protocolConfigStr, name, data) => {
     dispatch(

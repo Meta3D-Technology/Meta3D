@@ -1,6 +1,6 @@
 Feature: Get All Publish Newest Extension
     As a Get All Publish Newest Extension
-    i want to get all publish newest extension
+    I want to get all publish newest extension
     So that I can use it
 
     Background: prepare

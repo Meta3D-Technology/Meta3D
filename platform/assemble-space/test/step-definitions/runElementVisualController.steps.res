@@ -194,14 +194,16 @@ defineFeature(feature, test => {
     given("generate empty element contribute element1", () => {
       element1 :=
         ElementVisualTool.generateElementContribute(
-          ServiceTool.build(
+          ~sandbox,
+          ~service=ServiceTool.build(
             ~sandbox,
             ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
             ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
             (),
           ),
-          ElementVisualTool.buildEmptyContributeFileStr(),
-        )->Meta3dCommonlib.Tuple2.getLast
+          ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+          (),
+        )
     })
 
     \"and"("get run visual extension v", () => {

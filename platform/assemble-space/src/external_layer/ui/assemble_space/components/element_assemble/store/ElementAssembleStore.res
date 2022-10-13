@@ -156,6 +156,12 @@ let reducer = (state, action) => {
         },
       },
     }
+  | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData) => {
+      ...state,
+      selectedUIControls: selectedUIControls,
+      selectedUIControlInspectorData: selectedUIControlInspectorData,
+      elementInspectorData: elementInspectorData,
+    }
   }
 }
 

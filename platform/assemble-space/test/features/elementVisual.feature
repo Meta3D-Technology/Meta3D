@@ -36,5 +36,3 @@ Feature: ElementVisual
         When render app with ui, c1, v, element1
         Then build app with ui, c1, v, element1
         And v should be inited and updated
-
-

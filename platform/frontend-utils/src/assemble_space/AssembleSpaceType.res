@@ -24,6 +24,7 @@ type backendService = {
   findAllPublishApps: findAllPublishApps,
   publishElementContribute: publishElementContribute,
   publishedElementAssembleData: publishedElementAssembleData,
+  getElementAssembleData: getElementAssembleData,
 }
 
 type reactService = {

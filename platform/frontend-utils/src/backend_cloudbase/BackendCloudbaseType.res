@@ -1,8 +1,10 @@
+type username = string
+
 // TODO refactor: move type out
 type protocol = {
   name: string,
   version: string,
-  username: string,
+  username: username,
   iconBase64: string,
 }
 
@@ -29,7 +31,7 @@ type implement = {
   id: string,
   file: Js.Typed_array.ArrayBuffer.t,
   version: string,
-  username: string,
+  username: username,
 }
 
 type implements = array<implement>
@@ -39,17 +41,13 @@ type getAllPublishExtensions = (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
-type getAllPublishNewestExtensions = (
-  . string,
-) => Meta3dBsMostProtocol.StreamType.stream<implements>
-
 type getAllPublishContributes = (
   . string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
 type publishAppData = {
-  username: string,
+  username: username,
   appName: string,
   appBinaryFile: Js.Typed_array.ArrayBuffer.t,
 }
@@ -87,3 +85,23 @@ type inspectorData = {
 }
 
 type publishedElementAssembleData = (. string, string, string, inspectorData) => Js.Promise.t<unit>
+
+type getAllPublishNewestExtensions = (
+  . string,
+) => Meta3dBsMostProtocol.StreamType.stream<implements>
+
+type elementName = string
+
+type elementVersion = string
+
+type elementAssembleData = {
+  elementName: elementName,
+  elementVersion: elementVersion,
+  inspectorData: inspectorData,
+}
+
+type getElementAssembleData = (
+  . username,
+  elementName,
+  elementVersion,
+) => Meta3dBsMostProtocol.StreamType.stream<elementAssembleData>

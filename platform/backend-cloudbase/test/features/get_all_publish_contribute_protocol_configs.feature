@@ -1,6 +1,6 @@
 Feature: Get All Publish Contribute Protocol Configs
     As a Get All Publish Contribute Protocol Configs
-    i want to get all publish contribute protocol configs
+    I want to get all publish contribute protocol configs
     So that I can use it
 
     Background: prepare

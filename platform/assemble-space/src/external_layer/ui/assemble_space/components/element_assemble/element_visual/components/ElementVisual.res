@@ -2,6 +2,11 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
+type elementAssembleData =
+  | No
+  | Loading
+  | Loaded(FrontendUtils.BackendCloudbaseType.elementAssembleData)
+
 module Method = {
   let _getVisualExtensionName = () => "meta3d-element-assemble-visual"
 
@@ -78,11 +83,17 @@ module Method = {
     }->Obj.magic
   }
 
-  let isLoaded = visualExtension => {
-    visualExtension->Meta3dCommonlib.OptionSt.isSome
+  let isLoaded = (visualExtension, elementAssembleData) => {
+    visualExtension->Meta3dCommonlib.OptionSt.isSome &&
+      switch elementAssembleData {
+      | Loading => false
+      | _ => true
+      }
   }
 
   let _getElementContributeName = () => "meta3d-element-assemble-element"
+
+  let _getElementContributeVersion = () => "0.5.0"
 
   let _getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
 
@@ -102,67 +113,161 @@ module Method = {
     )->ElementMRUtils.generateElementContributeFileStr(service, _)
   }
 
-  let _buildContribute = (name, data): FrontendUtils.ApAssembleStoreType.contribute => {
+  let _buildContribute = (name, version, data): FrontendUtils.ApAssembleStoreType.contribute => {
     id: "",
+    version: // version: _getElementContributeVersion(),
+    version,
     protocolIconBase64: "",
     protocolConfigStr: None,
     newName: name->Some,
     data: data,
   }
 
-  let generateElementContribute = (service, fileStr) => {
+  let _generateElementContribute = (
+    service,
+    protocolName,
+    protocolVersion,
+    elementName,
+    elementVersion,
+    fileStr,
+  ) => {
+    ElementVisualUtils.generateElementContributeBinaryFile(
+      service,
+      elementName,
+      protocolName,
+      protocolVersion,
+      fileStr,
+    )
+    ->service.meta3d.loadContribute(. _)
+    ->_buildContribute(elementName, elementVersion, _)
+  }
+
+  let generateElementContributeData = (service, fileStr) => {
     let protocolName = _getElementContributeProtocolName()
     let protocolVersion = _getElementContributeProtocolVersion()
 
-    // let contributeBinaryFile = service.meta3d.generateContribute(.
-    //   (
-    //     {
-    //       name: _getElementContributeName(),
-    //       protocol: {
-    //         name: protocolName,
-    //         version: protocolVersion,
-    //       },
-    //       dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
-    //       ->Meta3dCommonlib.ImmutableHashMap.set(
-    //         "meta3dUIExtensionName",
-    //         (
-    //           {
-    //             protocolName: "meta3d-ui-protocol",
-    //             protocolVersion: "^0.5.0",
-    //           }: Meta3d.ExtensionFileType.dependentData
-    //         ),
-    //       )
-    //       ->Meta3dCommonlib.ImmutableHashMap.set(
-    //         "meta3dEventExtensionName",
-    //         (
-    //           {
-    //             protocolName: "meta3d-event-protocol",
-    //             protocolVersion: "^0.5.1",
-    //           }: Meta3d.ExtensionFileType.dependentData
-    //         ),
-    //       ),
-    //       dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    //     }: Meta3d.ExtensionFileType.contributePackageData
-    //   ),
-    //   fileStr,
-    // )
-
     (
       (protocolName, protocolVersion, fileStr),
-      ElementVisualUtils.generateElementContributeBinaryFile(
+      _generateElementContribute(
         service,
-        _getElementContributeName(),
         protocolName,
         protocolVersion,
+        _getElementContributeName(),
+        _getElementContributeVersion(),
         fileStr,
-      )
-      ->service.meta3d.loadContribute(. _)
-      ->_buildContribute(_getElementContributeName(), _),
+      ),
     )
   }
 
   let updateElementContribute = (dispatch, elementContributeData) => {
     dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContributeData(elementContributeData))
+  }
+
+  let getAndSetElementAssembleData = (
+    service,
+    setElementAssembleData,
+    selectedContributes,
+    username,
+  ) => {
+    switch selectedContributes->SelectedContributesUtils.getElements {
+    | elements if elements->Meta3dCommonlib.ListSt.length > 1 =>
+      service.console.error(. {j`should only select 1 element at most`}, None)
+
+      Js.Promise.resolve()
+    | elements if elements->Meta3dCommonlib.ListSt.length === 0 =>
+      setElementAssembleData(_ => No)
+
+      Js.Promise.resolve()
+    | list{element} =>
+      let {version, newName, data} = element
+
+      service.backend.getElementAssembleData(.
+        username->Meta3dCommonlib.OptionSt.getExn,
+        NewNameUtils.getName(newName, data.contributePackageData.name),
+        version,
+      )
+      ->Meta3dBsMost.Most.tap(elementAssembleData => {
+        setElementAssembleData(_ => Loaded(elementAssembleData))
+      }, _)
+      ->Meta3dBsMost.Most.drain
+      ->Js.Promise.catch(e => {
+        service.console.error(.
+          e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+          None,
+        )->Obj.magic
+      }, _)
+    }
+  }
+
+  let _generateSelectedUIControls = (selectedContributes, uiControls) => {
+    let selectedUIControls =
+      selectedContributes->SelectedContributesUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
+
+    uiControls
+    ->Meta3dCommonlib.ArraySt.map(({name}: FrontendUtils.BackendCloudbaseType.uiControl) => {
+      switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
+        NewNameUtils.getName(
+          selectedUIControl.newName,
+          selectedUIControl.data.contributePackageData.name,
+        ) === name
+      ) {
+      | None =>
+        Meta3dCommonlib.Exception.throwErr(
+          Meta3dCommonlib.Exception.buildErr(
+            Meta3dCommonlib.Log.buildErrorMessage(
+              ~title={j`${name} not select`},
+              ~description={
+                ""
+              },
+              ~reason="",
+              ~solution=j``,
+              ~params=j``,
+            ),
+          ),
+        )
+      | Some({protocolIconBase64, protocolConfigStr, newName, data}) =>
+        (
+          {
+            id: IdUtils.generateId(Js.Math.random),
+            protocolIconBase64: protocolIconBase64,
+            protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+            name: NewNameUtils.getName(newName, data.contributePackageData.name),
+            data: data,
+          }: FrontendUtils.ElementAssembleStoreType.uiControl
+        )
+      }
+    })
+    ->Meta3dCommonlib.ListSt.fromArray
+  }
+
+  let _generateSelectedUIControlInspectorData = uiControls => {
+    uiControls
+    ->Meta3dCommonlib.ArraySt.map((
+      {rect, event}: FrontendUtils.BackendCloudbaseType.uiControl,
+    ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
+      id: IdUtils.generateId(Js.Math.random),
+      rect: rect,
+      event: event,
+    })
+    ->Meta3dCommonlib.ListSt.fromArray
+  }
+
+  let importElement = (dispatch, elementAssembleData, selectedContributes) => {
+    switch elementAssembleData {
+    | Loaded(elementAssembleData) =>
+      let {elementName, elementVersion, inspectorData} = elementAssembleData
+      let {element, uiControls} = inspectorData
+
+      dispatch(
+        FrontendUtils.ElementAssembleStoreType.Import(
+          _generateSelectedUIControls(selectedContributes, uiControls),
+          _generateSelectedUIControlInspectorData(uiControls),
+          element,
+        ),
+      )
+
+    | _ => ()
+    }
   }
 
   let useSelector = (
@@ -195,7 +300,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~username: option<string>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -211,6 +316,8 @@ let make = (~service: service) => {
     ),
   ) = service.react.useSelector(Method.useSelector)
 
+  let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
+
   let {elementStateFields, reducers} = elementInspectorData
 
   service.react.useEffect1(. () => {
@@ -223,8 +330,27 @@ let make = (~service: service) => {
   }, [])
 
   service.react.useEffect1(. () => {
+    Method.getAndSetElementAssembleData(
+      service,
+      setElementAssembleData,
+      selectedContributes,
+      username,
+    )->ignore
+
+    None
+  }, [selectedContributes])
+
+  service.react.useEffect1(. () => {
+    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+      Method.importElement(dispatch, elementAssembleData, selectedContributes)
+    }, 5->Some)
+
+    None
+  }, [elementAssembleData])
+
+  service.react.useEffect1(. () => {
     selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
-      ? Method.generateElementContribute(
+      ? Method.generateElementContributeData(
           service,
           Method.buildElementContributeFileStr(
             service,
@@ -236,7 +362,11 @@ let make = (~service: service) => {
       : ()
 
     None
-  }, [selectedUIControlInspectorData, elementInspectorData->Obj.magic])
+  }, [
+    selectedUIControls,
+    selectedUIControlInspectorData->Obj.magic,
+    elementInspectorData->Obj.magic,
+  ])
 
   service.react.useEffect1(. () => {
     switch (visualExtension, elementContributeData) {
@@ -257,7 +387,7 @@ let make = (~service: service) => {
     None
   }, [elementContributeData])
 
-  !Method.isLoaded(visualExtension)
+  !Method.isLoaded(visualExtension, elementAssembleData)
     ? <p> {React.string(`loading...`)} </p>
     : <canvas
         id="ui-visual-canvas"

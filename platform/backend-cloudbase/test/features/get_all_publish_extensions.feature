@@ -1,6 +1,6 @@
 Feature: Get All Publish Extension
     As a Get All Publish Extension
-    i want to get all publish extension
+    I want to get all publish extension
     So that I can use it
 
     Background: prepare

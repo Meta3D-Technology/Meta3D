@@ -1,5 +1,5 @@
-let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <ElementVisual service />
+let buildUI = (~sandbox, ~username=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <ElementVisual service username />
 }
 
 let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension
@@ -44,7 +44,24 @@ let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
 
 // let updateApp = ElementVisual.Method._updateApp
 
-let generateElementContribute = ElementVisual.Method.generateElementContribute
+let generateElementContribute = (
+  ~sandbox,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~protocolName=ElementVisual.Method._getElementContributeProtocolName(),
+  ~protocolVersion=ElementVisual.Method._getElementContributeProtocolVersion(),
+  ~elementName=ElementVisual.Method._getElementContributeName(),
+  ~elementVersion=ElementVisual.Method._getElementContributeVersion(),
+  ~fileStr="",
+  (),
+) =>
+  ElementVisual.Method._generateElementContribute(
+    service,
+    protocolName,
+    protocolVersion,
+    elementName,
+    elementVersion,
+    fileStr,
+  )
 
 let buildEmptyContributeFileStr = () => {
   `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`

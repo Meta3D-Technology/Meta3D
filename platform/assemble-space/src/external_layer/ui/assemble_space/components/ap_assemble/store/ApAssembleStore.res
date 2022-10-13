@@ -71,6 +71,7 @@ let reducer = (state, action) => {
         protocolIconBase64: protocolIconBase64,
         protocolConfigStr: protocolConfigStr,
         newName: None,
+        version: contribute.version,
         data: contribute.data,
       }),
     }
