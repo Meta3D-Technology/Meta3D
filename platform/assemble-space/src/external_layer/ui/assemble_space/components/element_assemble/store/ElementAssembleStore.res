@@ -33,6 +33,11 @@ let _createState = () => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
+  | ResetWhenSwitch => {
+      ..._createState(),
+      visualExtension: state.visualExtension,
+    }
+
   | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data) => {
       let id = IdUtils.generateId(Js.Math.random)
 
@@ -161,6 +166,7 @@ let reducer = (state, action) => {
       selectedUIControls: selectedUIControls,
       selectedUIControlInspectorData: selectedUIControlInspectorData,
       elementInspectorData: elementInspectorData,
+      // elementContributeData: None,
     }
   }
 }

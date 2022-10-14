@@ -13,6 +13,7 @@ defineFeature(feature, test => {
   let elementVersion = ref(Obj.magic(1))
   let elementContributeData = ref(Obj.magic(1))
   let elementInspectorData = ref(Obj.magic(1))
+  let selectedUIControls = ref(Obj.magic(1))
   let selectedUIControlInspectorData = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
 
@@ -126,6 +127,9 @@ defineFeature(feature, test => {
         ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers())
 
       event := [UIControlInspectorTool.buildEventData(#click, "a1")]
+
+      selectedUIControls :=
+        list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}
       selectedUIControlInspectorData :=
         list{
           UIControlInspectorTool.buildUIControlInspectorData(
@@ -235,6 +239,7 @@ defineFeature(feature, test => {
         ),
         ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~elementInspectorData=elementInspectorData.contents,
+        ~selectedUIControls=selectedUIControls.contents,
         ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
         (),
       )
@@ -263,10 +268,7 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(\"when", "publish", () => {
       publishedElementAssembleDataStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.empty(),
-          _,
-        )
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
       PublishElementTool.publish(
         ~sandbox,
@@ -282,6 +284,7 @@ defineFeature(feature, test => {
         ),
         ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~elementInspectorData=elementInspectorData.contents,
+        ~selectedUIControls=selectedUIControls.contents,
         ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
         (),
       )
@@ -301,7 +304,7 @@ defineFeature(feature, test => {
             element: elementInspectorData.contents,
             uiControls: [
               {
-                name: elementName.contents,
+                name: "b1",
                 rect: UIControlInspectorTool.buildRect(~x=1, ()),
                 event: event.contents,
               },

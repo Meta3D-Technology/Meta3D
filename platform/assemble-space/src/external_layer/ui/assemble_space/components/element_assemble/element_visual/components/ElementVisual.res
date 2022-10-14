@@ -199,7 +199,7 @@ module Method = {
     }
   }
 
-  let _generateSelectedUIControls = (selectedContributes, uiControls) => {
+  let _generateSelectedUIControls = (service, selectedContributes, uiControls) => {
     let selectedUIControls =
       selectedContributes->SelectedContributesUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
 
@@ -228,7 +228,7 @@ module Method = {
       | Some({protocolIconBase64, protocolConfigStr, newName, data}) =>
         (
           {
-            id: IdUtils.generateId(Js.Math.random),
+            id: IdUtils.generateId(service.other.random),
             protocolIconBase64: protocolIconBase64,
             protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
             name: NewNameUtils.getName(newName, data.contributePackageData.name),
@@ -240,28 +240,36 @@ module Method = {
     ->Meta3dCommonlib.ListSt.fromArray
   }
 
-  let _generateSelectedUIControlInspectorData = uiControls => {
+  let _generateSelectedUIControlInspectorData = (
+    uiControls,
+    selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
+  ) => {
     uiControls
-    ->Meta3dCommonlib.ArraySt.map((
+    ->Meta3dCommonlib.ArraySt.mapi((
       {rect, event}: FrontendUtils.BackendCloudbaseType.uiControl,
+      index,
     ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
-      id: IdUtils.generateId(Js.Math.random),
+      id: (
+        selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
+      ).id,
       rect: rect,
       event: event,
     })
     ->Meta3dCommonlib.ListSt.fromArray
   }
 
-  let importElement = (dispatch, elementAssembleData, selectedContributes) => {
+  let importElement = (service, dispatch, elementAssembleData, selectedContributes) => {
     switch elementAssembleData {
     | Loaded(elementAssembleData) =>
       let {elementName, elementVersion, inspectorData} = elementAssembleData
       let {element, uiControls} = inspectorData
 
+      let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
+
       dispatch(
         FrontendUtils.ElementAssembleStoreType.Import(
-          _generateSelectedUIControls(selectedContributes, uiControls),
-          _generateSelectedUIControlInspectorData(uiControls),
+          selectedUIControls,
+          _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
           element,
         ),
       )
@@ -320,14 +328,14 @@ let make = (~service: service, ~username: option<string>) => {
 
   let {elementStateFields, reducers} = elementInspectorData
 
-  service.react.useEffect1(. () => {
+  service.react.useEffectOnce(() => {
     switch visualExtension {
     | Some(_) => ()
     | None => Method.getAndSetNewestVisualExtension(service, dispatch, isDebug)->ignore
     }
 
-    None
-  }, [])
+    ((), None)
+  })
 
   service.react.useEffect1(. () => {
     Method.getAndSetElementAssembleData(
@@ -342,7 +350,7 @@ let make = (~service: service, ~username: option<string>) => {
 
   service.react.useEffect1(. () => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      Method.importElement(dispatch, elementAssembleData, selectedContributes)
+      Method.importElement(service, dispatch, elementAssembleData, selectedContributes)
     }, 5->Some)
 
     None
@@ -385,7 +393,7 @@ let make = (~service: service, ~username: option<string>) => {
     }
 
     None
-  }, [elementContributeData])
+  }, [visualExtension, elementContributeData->Obj.magic])
 
   !Method.isLoaded(visualExtension, elementAssembleData)
     ? <p> {React.string(`loading...`)} </p>

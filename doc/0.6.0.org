@@ -759,7 +759,7 @@ TODO publish
 
 
 
-** TODO feat: import single element
+** DONE feat: import single element
 
 1.in ap view
 2.select other
@@ -801,7 +801,39 @@ when switch to ui view, get element ui view data!
 *** DONE bdd test
 
 
-*** TODO run test
+*** DONE run test
+
+# should message error
+
+# concat bug
+
+# no FileID
+
+
+# why not message modal?
+
+
+# not found
+
+
+# add one;
+# switch;
+
+# miss!
+
+
+# TODO continue:
+# select two elements->not show?
+
+
+# select one element->add ->publish->select new: 'isClick' has already been declared
+
+
+# why together?
+
+
+# first switch not render?
+
 
 
 

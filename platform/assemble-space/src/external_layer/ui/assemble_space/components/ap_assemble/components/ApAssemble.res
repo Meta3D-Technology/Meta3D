@@ -2,6 +2,12 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
+module Method = {
+  let resetElementAssemble = dispatch => {
+    dispatch(FrontendUtils.ElementAssembleStoreType.ResetWhenSwitch)
+  }
+}
+
 @react.component
 let make = (
   ~service: service,
@@ -9,6 +15,14 @@ let make = (
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
+  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+
+  service.react.useEffectOnce(() => {
+    Method.resetElementAssemble(dispatch)
+
+    ((), None)
+  })
+
   <Layout>
     <Layout.Header> <Publish service username /> </Layout.Header>
     <Layout>

@@ -14,6 +14,7 @@ let publish = (
     list{},
     ReducerTool.buildReducers(),
   ),
+  ~selectedUIControls=list{},
   ~selectedUIControlInspectorData=list{},
   ~values={
     "elementName": "n1",
@@ -24,7 +25,15 @@ let publish = (
   PublishElement.Method.onFinish(
     service,
     setVisible,
-    (username, (elementContributeData, elementInspectorData, selectedUIControlInspectorData)),
+    (
+      username,
+      (
+        elementContributeData,
+        elementInspectorData,
+        selectedUIControls,
+        selectedUIControlInspectorData,
+      ),
+    ),
     values,
   )
 }

@@ -137,16 +137,20 @@ defineFeature(feature, test => {
       }, _)
     })
 
-    CucumberAsync.execStep(\"and", "should set a's name, icon, config str and a1", () => {
-      _setContributes([
-        (
-          a.name,
-          a.iconBase64,
-          protocolConfig.configStr,
-          selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
-        ),
-      ])
-    })
+    CucumberAsync.execStep(
+      \"and",
+      "should set a's name, icon, config str and a1 as contributes",
+      () => {
+        _setContributes([
+          (
+            a.name,
+            a.iconBase64,
+            protocolConfig.configStr,
+            selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
+          ),
+        ])
+      },
+    )
   })
 
   test(."select contribute", ({given, \"when", \"and", then}) => {

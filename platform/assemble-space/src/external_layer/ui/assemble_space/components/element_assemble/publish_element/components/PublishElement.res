@@ -3,6 +3,17 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let _getSelectedUIControlName = (
+    id,
+    selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
+  ) => {
+    (
+      selectedUIControls
+      ->Meta3dCommonlib.ListSt.find(selectedUIControl => selectedUIControl.id === id)
+      ->Meta3dCommonlib.OptionSt.getExn
+    ).name
+  }
+
   let onFinish = (
     service,
     setVisible,
@@ -11,6 +22,7 @@ module Method = {
       (
         elementContributeData,
         elementInspectorData,
+        selectedUIControls,
         selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
       ),
     ),
@@ -50,10 +62,11 @@ module Method = {
               element: elementInspectorData,
               uiControls: selectedUIControlInspectorData
               ->Meta3dCommonlib.ListSt.map(({
+                id,
                 rect,
                 event,
               }): FrontendUtils.BackendCloudbaseType.uiControl => {
-                name: elementName,
+                name: _getSelectedUIControlName(id, selectedUIControls),
                 rect: rect,
                 event: event,
               })
@@ -89,10 +102,16 @@ module Method = {
     {
       elementContributeData,
       elementInspectorData,
+      selectedUIControls,
       selectedUIControlInspectorData,
     }: FrontendUtils.ElementAssembleStoreType.state,
   ) => {
-    (elementContributeData, elementInspectorData, selectedUIControlInspectorData)
+    (
+      elementContributeData,
+      elementInspectorData,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+    )
   }
 }
 
@@ -101,6 +120,7 @@ let make = (~service: service, ~username: option<string>) => {
   let (
     elementContributeData,
     elementInspectorData,
+    selectedUIControls,
     selectedUIControlInspectorData,
   ) = ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
@@ -139,7 +159,12 @@ let make = (~service: service, ~username: option<string>) => {
               setVisible,
               (
                 username,
-                (elementContributeData, elementInspectorData, selectedUIControlInspectorData),
+                (
+                  elementContributeData,
+                  elementInspectorData,
+                  selectedUIControls,
+                  selectedUIControlInspectorData,
+                ),
               ),
               event->Obj.magic,
             )->ignore

@@ -92,6 +92,8 @@ let forEach = (arr, func) => Js.Array.forEach(func, arr)
 
 let map = (arr, func) => Js.Array.map(func, arr)
 
+let mapi = (arr, func) => Js.Array.mapi(func, arr)
+
 let filter = (arr, func) => Js.Array.filter(func, arr)
 
 let deleteBySwap = (arr, isDebug, index: int, lastIndex: int) => {

@@ -184,6 +184,7 @@ defineFeature(feature, test => {
     // let selectedUIControls = ref(list{})
     let ei1 = ref(Obj.magic(1))
     let uiControl1 = ref(Obj.magic(1))
+    let id1RandomResult = 0.3
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -253,6 +254,14 @@ defineFeature(feature, test => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       ImportElementTool.importElement(
+        ServiceTool.build(
+          ~sandbox,
+          ~random=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->onCall(0, _)
+          ->returns(id1RandomResult, _)
+          ->Obj.magic,
+          (),
+        ),
         dispatchStub.contents,
         elementAssembleData1.contents,
         selectedContributes.contents,
@@ -275,23 +284,23 @@ defineFeature(feature, test => {
 
       let {rect, event} = uiControl1.contents
 
+      let id1 = IdTool.generateId(id1RandomResult)
+
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
         FrontendUtils.ElementAssembleStoreType.Import(
           list{
             SelectedUIControlsTool.buildSelectedUIControl(
-              ~id=matchAny,
+              ~id=id1,
               ~protocolConfigStr=protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
               ~name="u1",
               ~protocolIconBase64,
               ~data=uiControlContribute.data,
               (),
-            ),
+            )->Meta3dCommonlib.Log.printForDebug,
           },
-          list{
-            UIControlInspectorTool.buildUIControlInspectorData(~id=matchAny, ~x=rect.x, ~event, ()),
-          },
+          list{UIControlInspectorTool.buildUIControlInspectorData(~id=id1, ~x=rect.x, ~event, ())},
           ei1.contents,
         ),
       )

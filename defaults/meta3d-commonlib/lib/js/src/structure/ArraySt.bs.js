@@ -114,6 +114,10 @@ function map(arr, func) {
   return arr.map(Curry.__1(func));
 }
 
+function mapi(arr, func) {
+  return arr.map(Curry.__2(func));
+}
+
 function filter(arr, func) {
   return arr.filter(Curry.__1(func));
 }
@@ -219,6 +223,7 @@ exports.getFirst = getFirst;
 exports.push = push;
 exports.forEach = forEach;
 exports.map = map;
+exports.mapi = mapi;
 exports.filter = filter;
 exports.deleteBySwap = deleteBySwap;
 exports.range = range;

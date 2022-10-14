@@ -72,6 +72,7 @@ type elementContributeData = (
 
 type action =
   | Reset
+  | ResetWhenSwitch
   | SelectUIControl(
       protocolIconBase64,
       protocolConfigStr,

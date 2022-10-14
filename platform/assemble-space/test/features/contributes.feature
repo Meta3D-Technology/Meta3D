@@ -14,19 +14,22 @@ Feature: Contributes
         When loaded and render
         Then should show contributes list
 
-    Scenario: set contributes
-        Given publish contribute protocol a
-        And select contribute a1 for a
-        When render after useEffectOnceAsync
-        Then should mark loaded
-        And should set a's name, icon, config str and a1
-
     Scenario: select contribute
         Given publish contribute protocol a
         And select contribute a1 for a
         And render after useEffectOnceAsync
         When select a1
         Then should dispatch selectContribute action
+
+
+    Rule: set contributes
+
+        Scenario: set contributes
+            Given publish contribute protocol a
+            And select contribute a1 for a
+            When render after useEffectOnceAsync
+            Then should mark loaded
+            And should set a's name, icon, config str and a1 as contributes
 
     Rule: error case
 
