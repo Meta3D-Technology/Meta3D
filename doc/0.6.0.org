@@ -882,7 +882,7 @@ publish:
 # ui control button protocol
 
 
-*** TODO isDraw
+*** DONE isDraw
 
 
 # isShow: true/false
@@ -904,6 +904,27 @@ func input(
          return true
      }
 )
+
+*** DONE bdd test
+
+# need test:
+# UIControlInspector
+# PublishElement
+# ElementMRUtils
+# importElement
+
+
+
+# select->
+# open
+# defaultOpen
+
+
+*** TODO run test
+
+# select
+
+isDraw should refresh
 
 
 *** TODO skin

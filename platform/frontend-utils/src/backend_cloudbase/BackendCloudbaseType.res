@@ -76,6 +76,7 @@ type publishElementContribute = (
 type uiControl = {
   name: string,
   rect: ElementAssembleStoreType.rect,
+  isDraw: ElementAssembleStoreType.isDraw,
   event: ElementAssembleStoreType.event,
 }
 

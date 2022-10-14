@@ -64,10 +64,12 @@ module Method = {
               ->Meta3dCommonlib.ListSt.map(({
                 id,
                 rect,
+                isDraw,
                 event,
               }): FrontendUtils.BackendCloudbaseType.uiControl => {
                 name: _getSelectedUIControlName(id, selectedUIControls),
                 rect: rect,
+                isDraw: isDraw,
                 event: event,
               })
               ->Meta3dCommonlib.ListSt.toArray,

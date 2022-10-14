@@ -7,11 +7,13 @@ let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
 let buildUIControl = (
   ~name="u1",
   ~rect=UIControlInspectorTool.buildRect(),
+  ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
   ~event=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.uiControl => {
   name: name,
   rect: rect,
+  isDraw: isDraw,
   event: event,
 }
 

@@ -12,10 +12,10 @@ let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state
   UIControlInspector.Method.useSelector
 
 let buildRect = (
-  ~x=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~y=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~width=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~height=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~y=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   (),
 ): FrontendUtils.ElementAssembleStoreType.rect => {
   {
@@ -36,15 +36,17 @@ let buildEventData = (
 
 let buildUIControlInspectorData = (
   ~id,
-  ~x=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~y=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~width=0->FrontendUtils.ElementAssembleStoreType.Int,
-  ~height=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~y=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
   ~event=[],
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
   id: id,
   rect: buildRect(~x, ~y, ~width, ~height, ()),
+  isDraw: isDraw,
   event: event,
 }
 
@@ -55,6 +57,8 @@ let setRectY = UIControlInspector.Method.setRectY
 let setRectWidth = UIControlInspector.Method.setRectWidth
 
 let setRectHeight = UIControlInspector.Method.setRectHeight
+
+let setIsDraw = UIControlInspector.Method.setIsDraw
 
 let setAction = UIControlInspector.Method.setAction
 

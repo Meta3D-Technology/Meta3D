@@ -4,11 +4,12 @@ let _buildDefaultUIControlInspectorData = id => {
   {
     id: id,
     rect: {
-      x: 0->Int,
-      y: 0->Int,
-      width: 20->Int,
-      height: 20->Int,
+      x: 0->IntForRectField,
+      y: 0->IntForRectField,
+      width: 20->IntForRectField,
+      height: 20->IntForRectField,
     },
+    isDraw: true->BoolForIsDraw,
     event: [],
   }
 }
@@ -28,6 +29,17 @@ let _createState = () => {
       handlers: list{},
     },
   },
+}
+
+let _setUIControlInspectorData = (state, setFunc, id) => {
+  {
+    ...state,
+    selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
+      data => {
+        data.id === id ? setFunc(data) : data
+      },
+    ),
+  }
 }
 
 let reducer = (state, action) => {
@@ -55,63 +67,61 @@ let reducer = (state, action) => {
         ),
       }
     }
-  | SetRect(id, rect) => {
-      ...state,
-      selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
-        data => {
-          data.id === id
-            ? {
-                {
-                  ...data,
-                  rect: rect,
+  | SetRect(id, rect) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        rect: rect,
+      },
+      id,
+    )
+  | SetIsDraw(id, isDraw) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        isDraw: isDraw,
+      },
+      id,
+    )
+
+  | SetAction(id, (eventName, actionNameOpt)) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        event: switch data.event {
+        | event
+          if event->Meta3dCommonlib.ArraySt.length == 0 &&
+            actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
+            {
+              eventName: eventName,
+              actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+            },
+          ]
+        | _ =>
+          data.event
+          ->Meta3dCommonlib.ArraySt.filter(eventData => {
+            eventData.eventName === eventName && !(actionNameOpt->Meta3dCommonlib.OptionSt.isSome)
+              ? false
+              : true
+          })
+          ->Meta3dCommonlib.ArraySt.map(eventData => {
+            eventData.eventName === eventName
+              ? {
+                  {
+                    eventName: eventName,
+                    actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+                  }
                 }
-              }
-            : data
+              : eventData
+          })
         },
-      ),
-    }
-  | SetAction(id, (eventName, actionNameOpt)) => {
-      ...state,
-      selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
-        data => {
-          data.id === id
-            ? {
-                {
-                  ...data,
-                  event: switch data.event {
-                  | event
-                    if event->Meta3dCommonlib.ArraySt.length == 0 &&
-                      actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
-                      {
-                        eventName: eventName,
-                        actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
-                      },
-                    ]
-                  | _ =>
-                    data.event
-                    ->Meta3dCommonlib.ArraySt.filter(eventData => {
-                      eventData.eventName === eventName &&
-                        !(actionNameOpt->Meta3dCommonlib.OptionSt.isSome)
-                        ? false
-                        : true
-                    })
-                    ->Meta3dCommonlib.ArraySt.map(eventData => {
-                      eventData.eventName === eventName
-                        ? {
-                            {
-                              eventName: eventName,
-                              actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
-                            }
-                          }
-                        : eventData
-                    })
-                  },
-                }
-              }
-            : data
-        },
-      ),
-    }
+      },
+      id,
+    )
+
   | SetInspectorCurrentUIControlId(id) => {
       ...state,
       inspectorCurrentUIControlId: id->Some,

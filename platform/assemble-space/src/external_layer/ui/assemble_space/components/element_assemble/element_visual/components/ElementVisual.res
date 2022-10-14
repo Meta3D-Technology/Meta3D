@@ -246,13 +246,14 @@ module Method = {
   ) => {
     uiControls
     ->Meta3dCommonlib.ArraySt.mapi((
-      {rect, event}: FrontendUtils.BackendCloudbaseType.uiControl,
+      {rect, isDraw, event}: FrontendUtils.BackendCloudbaseType.uiControl,
       index,
     ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
       id: (
         selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
       ).id,
       rect: rect,
+      isDraw: isDraw,
       event: event,
     })
     ->Meta3dCommonlib.ListSt.fromArray

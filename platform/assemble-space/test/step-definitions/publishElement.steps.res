@@ -16,6 +16,7 @@ defineFeature(feature, test => {
   let selectedUIControls = ref(Obj.magic(1))
   let selectedUIControlInspectorData = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
+  let isDraw = ref(Obj.magic(1))
 
   let sandbox = ref(Obj.magic(1))
 
@@ -128,14 +129,17 @@ defineFeature(feature, test => {
 
       event := [UIControlInspectorTool.buildEventData(#click, "a1")]
 
+      isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
+
       selectedUIControls :=
         list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}
       selectedUIControlInspectorData :=
         list{
           UIControlInspectorTool.buildUIControlInspectorData(
             ~id="b1",
-            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
             ~event=event.contents,
+            ~isDraw=isDraw.contents,
             (),
           ),
         }
@@ -306,9 +310,10 @@ defineFeature(feature, test => {
               {
                 name: "b1",
                 rect: UIControlInspectorTool.buildRect(
-                  ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+                  ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                   (),
                 ),
+                isDraw: isDraw.contents,
                 event: event.contents,
               },
             ],

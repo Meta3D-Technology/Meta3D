@@ -23,12 +23,24 @@ Feature: UIControlInsepctor
             And select ui control button d1
             And set inspector current selected ui control data to d1
             When render
-            Then should show element state fields select
+            Then should show element state int field select
 
         Scenario: set rect x
             When set rect x
             Then should dispatch SetRect action with x
 
+    Rule: isDraw
+
+        Scenario: show isDraw with element state fields
+            Given element state add fields
+            And select ui control button d1
+            And set inspector current selected ui control data to d1
+            When render
+            Then should show element state bool field select
+
+        Scenario: set isDraw
+            When set isDraw
+            Then should dispatch SetIsDraw action
 
     Rule: Event
 

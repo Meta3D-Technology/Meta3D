@@ -138,6 +138,7 @@ let make = (~service: service) => {
                       <Select>
                         <Select.Option value={`int`}> {React.string(`int`)} </Select.Option>
                         <Select.Option value={`string`}> {React.string(`string`)} </Select.Option>
+                        <Select.Option value={`bool`}> {React.string(`bool`)} </Select.Option>
                       </Select>
                     </Form.Item>
                     <Form.Item label=`Default Value` name={[field.name, "defaultValue"]->Obj.magic}>

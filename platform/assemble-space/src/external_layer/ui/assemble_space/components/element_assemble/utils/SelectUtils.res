@@ -18,4 +18,16 @@ let buildSelect = (onChange, defaultValue, values) => {
   </Select>
 }
 
+let buildSelectWithoutEmpty = (onChange, defaultValue, values) => {
+  open FrontendUtils.Antd
+
+  <Select key={defaultValue} defaultValue={defaultValue} onChange>
+    {values
+    ->Meta3dCommonlib.ArraySt.map(value => {
+      <Select.Option key={value} value={value}> {React.string({value})} </Select.Option>
+    })
+    ->React.array}
+  </Select>
+}
+
 let buildSelect2 = () => React.null

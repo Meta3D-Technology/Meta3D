@@ -91,7 +91,7 @@ defineFeature(feature, test => {
               list{
                 UIControlInspectorTool.buildUIControlInspectorData(
                   ~id,
-                  ~y=10->FrontendUtils.ElementAssembleStoreType.Int,
+                  ~y=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                   (),
                 ),
               },
@@ -179,7 +179,13 @@ defineFeature(feature, test => {
               ),
               id->Some,
               list{d1.contents},
-              list{UIControlInspectorTool.buildUIControlInspectorData(~id, ())},
+              list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id,
+                  ~width=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                  (),
+                ),
+              },
             ),
           ),
           _,
@@ -190,7 +196,7 @@ defineFeature(feature, test => {
       ()
     })
 
-    then("should show element state fields select", () => {
+    then("should show element state int field select", () => {
       UIControlInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
@@ -204,13 +210,13 @@ defineFeature(feature, test => {
   test(."set rect x", ({given, \"when", \"and", then}) => {
     let id = "1"
     let rect: FrontendUtils.ElementAssembleStoreType.rect = UIControlInspectorTool.buildRect(
-      ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
-      ~y=2->FrontendUtils.ElementAssembleStoreType.Int,
-      ~width=3->FrontendUtils.ElementAssembleStoreType.Int,
-      ~height=4->FrontendUtils.ElementAssembleStoreType.Int,
+      ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+      ~y=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+      ~width=3->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+      ~height=4->FrontendUtils.ElementAssembleStoreType.IntForRectField,
       (),
     )
-    let x = 11->FrontendUtils.ElementAssembleStoreType.Int
+    let x = 11->FrontendUtils.ElementAssembleStoreType.IntForRectField
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given)
@@ -230,6 +236,109 @@ defineFeature(feature, test => {
             x: x,
           },
         )
+    })
+  })
+
+  test(."show isDraw with element state fields", ({given, \"when", \"and", then}) => {
+    let elementStateFields = ref(Obj.magic(1))
+    let id = "d1"
+    let d1 = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given("element state add fields", () => {
+      elementStateFields :=
+        list{
+          ElementInspectorTool.buildElementStateFieldData(
+            ~name="f1",
+            ~type_=#string,
+            ~defaultValue="true",
+            (),
+          ),
+          ElementInspectorTool.buildElementStateFieldData(
+            ~name="f2",
+            ~type_=#bool,
+            ~defaultValue=false,
+            (),
+          ),
+        }
+    })
+
+    \"and"("select ui control button d1", () => {
+      d1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("set inspector current selected ui control data to d1", () => {
+      useSelectorStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          (
+            list{},
+            (
+              ElementInspectorTool.buildElementInspectorData(
+                elementStateFields.contents,
+                ReducerTool.buildReducers(),
+              ),
+              id->Some,
+              list{d1.contents},
+              list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id,
+                  ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                  (),
+                ),
+              },
+            ),
+          ),
+          _,
+        )
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show element state bool field select", () => {
+      UIControlInspectorTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
+  test(."set isDraw", ({given, \"when", \"and", then}) => {
+    let id = "1"
+    let isDraw = false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    \"when"("set isDraw", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      UIControlInspectorTool.setIsDraw(dispatchStub.contents->Obj.magic, id, isDraw)
+    })
+
+    then("should dispatch SetIsDraw action", () => {
+      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+        FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw)
     })
   })
 

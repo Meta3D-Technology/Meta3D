@@ -236,9 +236,10 @@ defineFeature(feature, test => {
         ImportElementTool.buildUIControl(
           ~name="u1",
           ~rect=UIControlInspectorTool.buildRect(
-            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
             (),
           ),
+          ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
           ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
           (),
         )
@@ -285,7 +286,7 @@ defineFeature(feature, test => {
 
       let {protocolIconBase64, protocolConfigStr, newName, data} = uiControlContribute
 
-      let {rect, event} = uiControl1.contents
+      let {rect, isDraw, event} = uiControl1.contents
 
       let id1 = IdTool.generateId(id1RandomResult)
 
@@ -301,9 +302,17 @@ defineFeature(feature, test => {
               ~protocolIconBase64,
               ~data=uiControlContribute.data,
               (),
-            )->Meta3dCommonlib.Log.printForDebug,
+            ),
           },
-          list{UIControlInspectorTool.buildUIControlInspectorData(~id=id1, ~x=rect.x, ~event, ())},
+          list{
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id=id1,
+              ~x=rect.x,
+              ~isDraw,
+              ~event,
+              (),
+            ),
+          },
           ei1.contents,
         ),
       )

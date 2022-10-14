@@ -26,8 +26,8 @@ type eventData = {
 type event = array<eventData>
 
 type rectField =
-  | Int(int)
-  | ElementStateField(string)
+  | IntForRectField(int)
+  | ElementStateFieldForRectField(string)
 
 type rect = {
   x: rectField,
@@ -36,11 +36,15 @@ type rect = {
   height: rectField,
 }
 
-type uiControlInspectorData = {id: id, rect: rect, event: event}
+type isDraw =
+  | BoolForIsDraw(bool)
+  | ElementStateFieldForIsDraw(string)
+
+type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event}
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
-type elementStateFieldType = [#string | #int]
+type elementStateFieldType = [#string | #int | #bool]
 
 type elementStateFieldValue
 
@@ -90,6 +94,7 @@ type action =
     )
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
+  | SetIsDraw(id, isDraw)
   | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)

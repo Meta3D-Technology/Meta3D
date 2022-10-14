@@ -112,17 +112,7 @@ export function publishElementAssembleData([errorFunc, getDataFunc, updateDataFu
     username: string,
     elementName: string,
     elementVersion: string,
-    inspectorData: {
-        element: {
-            elementState: any,
-            reducer: any
-        },
-        uiControls: Array<{
-            name: string,
-            rect: any,
-            event: any
-        }>
-    }
+    inspectorData: any
 ) {
     return fromPromise(
         getDataFunc(

@@ -108,8 +108,8 @@ let _generateHandleUIControlEventStr = (
 
 let _generateRectField = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
   switch rectField {
-  | Int(value) => value->Js.Int.toString
-  | ElementStateField(value) => j`elementState.${value}`
+  | IntForRectField(value) => value->Js.Int.toString
+  | ElementStateFieldForRectField(value) => j`elementState.${value}`
   }
 }
 
@@ -124,6 +124,17 @@ let _generateRect = (rect: FrontendUtils.ElementAssembleStoreType.rect): string 
     }`
 }
 
+let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
+  switch isDraw {
+  | BoolForIsDraw(value) => j`if(${value->BoolUtils.boolToString}){`
+  | ElementStateFieldForIsDraw(value) => j`if(elementState.${value}){`
+  }
+}
+
+let _generateIsDrawIfEnd = () => {
+  j`}`
+}
+
 let _generateAllDrawUIControlAndHandleEventStr = (
   service: FrontendUtils.AssembleSpaceType.service,
   uiControls,
@@ -133,6 +144,7 @@ let _generateAllDrawUIControlAndHandleEventStr = (
       let {name, version, configLib} = protocol
 
       str ++
+      _generateIsDrawIfBegin(data.isDraw) ++
       j`
                 data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
                     ${service.meta3d.generateUIControlDataStr(.
@@ -141,7 +153,8 @@ let _generateAllDrawUIControlAndHandleEventStr = (
         )})
                 meta3dState = data[0]
     ` ++
-      _generateHandleUIControlEventStr(service, configLib, data.event)
+      _generateHandleUIControlEventStr(service, configLib, data.event) ++
+      _generateIsDrawIfEnd()
     },
     `
                 let data = null
@@ -162,6 +175,11 @@ let _generateElementState = elementStateFields => {
         map->Meta3dCommonlib.ImmutableHashMap.set(
           name,
           defaultValue->Obj.magic->IntUtils.stringToInt->Obj.magic,
+        )
+      | #bool =>
+        map->Meta3dCommonlib.ImmutableHashMap.set(
+          name,
+          defaultValue->Obj.magic->BoolUtils.stringToBool->Obj.magic,
         )
       }
     },

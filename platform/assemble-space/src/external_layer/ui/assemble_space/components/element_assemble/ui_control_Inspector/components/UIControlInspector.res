@@ -65,6 +65,10 @@ module Method = {
     )
   }
 
+  let setIsDraw = (dispatch, id, isDraw) => {
+    dispatch(FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw))
+  }
+
   let getCurrentSelectedUIControl = (
     inspectorCurrentUIControlId,
     selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
@@ -94,7 +98,7 @@ module Method = {
 
   let getRectFieldIntValue = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
     switch rectField {
-    | Int(value) => value->Some
+    | IntForRectField(value) => value->Some
     | _ => None
     }
   }
@@ -103,7 +107,7 @@ module Method = {
     rectField: FrontendUtils.ElementAssembleStoreType.rectField,
   ) => {
     switch rectField {
-    | ElementStateField(value) => value->Some
+    | ElementStateFieldForRectField(value) => value->Some
     | _ => None
     }
   }
@@ -132,23 +136,81 @@ module Method = {
             e
             ->EventUtils.getEventTargetValue
             ->IntUtils.stringToInt
-            ->FrontendUtils.ElementAssembleStoreType.Int,
+            ->FrontendUtils.ElementAssembleStoreType.IntForRectField,
           )
         }}
       />
-      {SelectUtils.buildSelect(
+      {SelectUtils.buildSelect(value =>
+        SelectUtils.isEmptySelectOptionValue(value)
+          ? ()
+          : {
+              setRectField(
+                dispatch,
+                id,
+                rect,
+                value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+              )
+            }
+      , rectField
+      ->getRectFieldElementFieldValue
+      ->Meta3dCommonlib.OptionSt.getWithDefault(
+        SelectUtils.buildEmptySelectOptionValue(),
+      ), elementStateFields->getIntElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
+    </>
+  }
+
+  let getIsDrawBoolValue = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
+    switch isDraw {
+    | BoolForIsDraw(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let getIsDrawElementFieldValue = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
+    switch isDraw {
+    | ElementStateFieldForIsDraw(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let getBoolElementStateFieldNames = (
+    elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
+  ) => {
+    elementStateFields
+    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == #bool)
+    ->Meta3dCommonlib.ListSt.map(({name}) => name)
+  }
+
+  let buildIsDraw = (dispatch, elementStateFields, id, isDraw) => {
+    <>
+      {SelectUtils.buildSelectWithoutEmpty(
         value =>
-          setRectField(
+          setIsDraw(
             dispatch,
             id,
-            rect,
-            value->FrontendUtils.ElementAssembleStoreType.ElementStateField,
+            value->BoolUtils.stringToBool->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
           ),
-        rectField
-        ->getRectFieldElementFieldValue
-        ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
-        elementStateFields->getIntElementStateFieldNames->Meta3dCommonlib.ListSt.toArray,
+        isDraw
+        ->getIsDrawBoolValue
+        ->Meta3dCommonlib.OptionSt.getWithDefault(true)
+        ->BoolUtils.boolToString,
+        ["true", "false"],
       )}
+      {SelectUtils.buildSelect(value =>
+        SelectUtils.isEmptySelectOptionValue(value)
+          ? ()
+          : {
+              setIsDraw(
+                dispatch,
+                id,
+                value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+              )
+            }
+      , isDraw
+      ->getIsDrawElementFieldValue
+      ->Meta3dCommonlib.OptionSt.getWithDefault(
+        SelectUtils.buildEmptySelectOptionValue(),
+      ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
     </>
   }
 
@@ -196,7 +258,7 @@ let make = (~service: service) => {
     selectedUIControlInspectorData,
   ) {
   | None => React.null
-  | Some({id, rect, event}) =>
+  | Some({id, rect, isDraw, event}) =>
     let {x, y, width, height} = rect
 
     <>
@@ -205,6 +267,8 @@ let make = (~service: service) => {
       {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
       {Method.buildRectField(dispatch, Method.setRectWidth, elementStateFields, id, rect, width)}
       {Method.buildRectField(dispatch, Method.setRectHeight, elementStateFields, id, rect, height)}
+      <h1> {React.string(`IsDraw`)} </h1>
+      {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
       <h1> {React.string(`Event`)} </h1>
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
