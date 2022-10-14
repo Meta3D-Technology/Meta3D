@@ -837,7 +837,7 @@ when switch to ui view, get element ui view data!
 
 
 
-** TODO refactor: test->feature->dispatch xxx action change to Xxx action
+** DONE refactor: test->feature->dispatch xxx action change to Xxx action
 
 ** TODO fix control properies
 

@@ -196,7 +196,7 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should dispatch selectContribute action", () => {
+    then("should dispatch SelectContribute action", () => {
       let (contribute, protocolConfig) = selectedContributesFromShop.contents->ListTool.getHeadExn
 
       dispatchStub.contents

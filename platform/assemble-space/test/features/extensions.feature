@@ -26,7 +26,7 @@ Feature: Extensions
         And select extension a1 for a
         And render after useEffectOnceAsync
         When select a1
-        Then should dispatch selectExtension action
+        Then should dispatch SelectExtension action
 
     Rule: error case
 

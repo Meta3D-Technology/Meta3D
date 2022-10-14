@@ -181,7 +181,7 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should dispatch selectExtension action", () => {
+    then("should dispatch SelectExtension action", () => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(

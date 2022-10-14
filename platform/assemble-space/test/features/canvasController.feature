@@ -9,10 +9,10 @@ Feature: CanvasController
     # Scenario: add canvas
     #     When add two canvas
     #     And render
-    #     Then should dispatch setAllCanvasData action
+    #     Then should dispatch SetAllCanvasData action
     #     And show their data
 
     Scenario: set canvas's data
         Given prepare the canvas
         When set its width, height one by one
-        Then should dispatch setAllCanvasData action twice
+        Then should dispatch SetAllCanvasData action twice

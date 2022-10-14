@@ -126,7 +126,7 @@ defineFeature(feature, test => {
       UIControlInspectorTool.setRect(dispatchStub.contents->Obj.magic, id, rect)
     })
 
-    then("should dispatch setRect action", () => {
+    then("should dispatch SetRect action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetRect(id, rect)
     })
@@ -290,7 +290,7 @@ defineFeature(feature, test => {
       UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
     })
 
-    then("should dispatch setAction action", () => {
+    then("should dispatch SetAction action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some))
     })
@@ -310,7 +310,7 @@ defineFeature(feature, test => {
       UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
     })
 
-    then("should dispatch setAction action", () => {
+    then("should dispatch SetAction action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, None))
     })

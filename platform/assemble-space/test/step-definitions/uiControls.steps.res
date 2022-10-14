@@ -94,7 +94,7 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should dispatch selectUIControl action", () => {
+    then("should dispatch SelectUIControl action", () => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(

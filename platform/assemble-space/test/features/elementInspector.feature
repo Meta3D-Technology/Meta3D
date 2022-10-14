@@ -23,7 +23,7 @@ Feature: ElementInsepctor
         Scenario: submit element state
             Given prepare element state e1
             When submit element state
-            Then should dispatch setElementStateFields action
+            Then should dispatch SetElementStateFields action
 
 
     Rule: Show Reducer
@@ -47,9 +47,9 @@ Feature: ElementInsepctor
         Scenario: set role
             Given prepare role
             When set role
-            Then should dispatch setRole action
+            Then should dispatch SetRole action
 
         Scenario: submit handlers
             Given prepare reducers
             When submit handlers
-            Then should dispatch setHandlers action
+            Then should dispatch SetHandlers action

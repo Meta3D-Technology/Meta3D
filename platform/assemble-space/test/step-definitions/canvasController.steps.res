@@ -69,7 +69,7 @@ defineFeature(feature, test => {
   //       )->ReactTestRenderer.create
   //   })
 
-  //   then("should dispatch setAllCanvasData action", () => {
+  //   then("should dispatch SetAllCanvasData action", () => {
   //     let func = SinonTool.getFirstArg(~stub=useEffect1Stub.contents, ())
   //     let param = SinonTool.getArg(~argIndex=1, ~stub=useEffect1Stub.contents, ())
 
@@ -113,7 +113,7 @@ defineFeature(feature, test => {
       CanvasControllerTool.setHeight(dispatchStub.contents->Obj.magic, canvasData.contents, 11)
     })
 
-    then("should dispatch setAllCanvasData action twice", () => {
+    then("should dispatch SetAllCanvasData action twice", () => {
       (
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ()),
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=1, ~stub=_, ()),

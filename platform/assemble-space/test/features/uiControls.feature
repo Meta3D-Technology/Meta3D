@@ -20,7 +20,7 @@ Feature: UIControls
     Scenario: select uiControl
         Given select uiControl u1 in ap view
         When select u1
-        Then should dispatch selectUIControl action
+        Then should dispatch SelectUIControl action
 
 
 # Scenario: set uiControls
@@ -35,7 +35,7 @@ Feature: UIControls
 #     And select uiControl a1 for a
 #     And render after useEffectOnceAsync
 #     When select a1
-#     Then should dispatch selectUIControl action
+#     Then should dispatch SelectUIControl action
 
 # # Rule: error case
 

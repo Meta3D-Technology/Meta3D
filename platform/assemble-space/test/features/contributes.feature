@@ -19,7 +19,7 @@ Feature: Contributes
         And select contribute a1 for a
         And render after useEffectOnceAsync
         When select a1
-        Then should dispatch selectContribute action
+        Then should dispatch SelectContribute action
 
 
     Rule: set contributes

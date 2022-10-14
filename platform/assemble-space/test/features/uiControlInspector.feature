@@ -20,7 +20,7 @@ Feature: UIControlInsepctor
 
         Scenario: set rect
             When set rect
-            Then should dispatch setRect action
+            Then should dispatch SetRect action
 
 
     Rule: Event
@@ -34,8 +34,8 @@ Feature: UIControlInsepctor
 
         Scenario: set action
             When set action
-            Then should dispatch setAction action
+            Then should dispatch SetAction action
 
         Scenario: set action with empty action name
             When set action with empty action name
-            Then should dispatch setAction action
+            Then should dispatch SetAction action

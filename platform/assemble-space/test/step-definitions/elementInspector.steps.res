@@ -121,7 +121,7 @@ defineFeature(feature, test => {
       ElementInspectorTool.submitElementState(dispatchStub.contents->Obj.magic, values.contents)
     })
 
-    then("should dispatch setElementStateFields action", () => {
+    then("should dispatch SetElementStateFields action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetElementStateFields(
           values.contents["fields"]->Meta3dCommonlib.ListSt.fromArray,
@@ -266,7 +266,7 @@ defineFeature(feature, test => {
       ElementInspectorTool.setRole(dispatchStub.contents->Obj.magic, role.contents)
     })
 
-    then("should dispatch setRole action", () => {
+    then("should dispatch SetRole action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetRole(role.contents->Some)
     })
@@ -294,7 +294,7 @@ defineFeature(feature, test => {
       ElementInspectorTool.submitHandlers(dispatchStub.contents->Obj.magic, values.contents)
     })
 
-    then("should dispatch setHandlers action", () => {
+    then("should dispatch SetHandlers action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetHandlers(
           values.contents["handlers"]->Meta3dCommonlib.ListSt.fromArray,
