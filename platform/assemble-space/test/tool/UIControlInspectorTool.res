@@ -11,7 +11,13 @@ let getCurrentSelectedUIControlInspectorData = UIControlInspector.Method.getCurr
 let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   UIControlInspector.Method.useSelector
 
-let buildRect = (~x=0, ~y=0, ~width=0, ~height=0, ()): FrontendUtils.ElementAssembleStoreType.rect => {
+let buildRect = (
+  ~x=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~y=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~width=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~height=0->FrontendUtils.ElementAssembleStoreType.Int,
+  (),
+): FrontendUtils.ElementAssembleStoreType.rect => {
   {
     x: x,
     y: y,
@@ -30,10 +36,10 @@ let buildEventData = (
 
 let buildUIControlInspectorData = (
   ~id,
-  ~x=0,
-  ~y=0,
-  ~width=0,
-  ~height=0,
+  ~x=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~y=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~width=0->FrontendUtils.ElementAssembleStoreType.Int,
+  ~height=0->FrontendUtils.ElementAssembleStoreType.Int,
   ~event=[],
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
@@ -42,7 +48,13 @@ let buildUIControlInspectorData = (
   event: event,
 }
 
-let setRect = UIControlInspector.Method.setRect
+let setRectX = UIControlInspector.Method.setRectX
+
+let setRectY = UIControlInspector.Method.setRectY
+
+let setRectWidth = UIControlInspector.Method.setRectWidth
+
+let setRectHeight = UIControlInspector.Method.setRectHeight
 
 let setAction = UIControlInspector.Method.setAction
 

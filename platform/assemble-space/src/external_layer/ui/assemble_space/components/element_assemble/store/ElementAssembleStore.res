@@ -4,10 +4,10 @@ let _buildDefaultUIControlInspectorData = id => {
   {
     id: id,
     rect: {
-      x: 0,
-      y: 0,
-      width: 20,
-      height: 20,
+      x: 0->Int,
+      y: 0->Int,
+      width: 20->Int,
+      height: 20->Int,
     },
     event: [],
   }

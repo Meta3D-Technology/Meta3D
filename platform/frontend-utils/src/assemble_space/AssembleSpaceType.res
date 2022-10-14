@@ -81,7 +81,7 @@ type meta3dService = {
     . Js.Typed_array.ArrayBuffer.t,
   ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
   serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
-  generateUIControlDataStr: (. Meta3d.LibUtils.lib, Meta3dType.Index.rect) => string,
+  generateUIControlDataStr: (. Meta3d.LibUtils.lib, string) => string,
   generateUIControlName: (. Meta3d.LibUtils.lib) => Meta3dType.Index.uiControlName,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,

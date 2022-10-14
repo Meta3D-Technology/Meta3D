@@ -134,7 +134,7 @@ defineFeature(feature, test => {
         list{
           UIControlInspectorTool.buildUIControlInspectorData(
             ~id="b1",
-            ~x=1,
+            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
             ~event=event.contents,
             (),
           ),
@@ -305,7 +305,10 @@ defineFeature(feature, test => {
             uiControls: [
               {
                 name: "b1",
-                rect: UIControlInspectorTool.buildRect(~x=1, ()),
+                rect: UIControlInspectorTool.buildRect(
+                  ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+                  (),
+                ),
                 event: event.contents,
               },
             ],

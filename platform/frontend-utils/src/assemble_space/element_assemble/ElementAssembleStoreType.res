@@ -25,7 +25,16 @@ type eventData = {
 
 type event = array<eventData>
 
-type rect = Meta3dType.Index.rect
+type rectField =
+  | Int(int)
+  | ElementStateField(string)
+
+type rect = {
+  x: rectField,
+  y: rectField,
+  width: rectField,
+  height: rectField,
+}
 
 type uiControlInspectorData = {id: id, rect: rect, event: event}
 

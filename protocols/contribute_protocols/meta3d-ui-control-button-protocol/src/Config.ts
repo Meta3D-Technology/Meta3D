@@ -3,7 +3,7 @@ import { generateUIControlDataStr as generateUIControlDataStrMeta3D, generateUIC
 import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let generateUIControlDataStr: generateUIControlDataStrMeta3D = (rect) => {
-    return "\n  {\n    rect: " + JSON.stringify(rect) + "\n  }\n  "
+    return "\n  {\n    rect: " + rect + "\n  }\n  "
 }
 
 export let generateUIControlName: generateUIControlNameMeta3D = () => uiControlName

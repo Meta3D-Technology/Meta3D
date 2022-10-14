@@ -25,7 +25,9 @@ type elementMR = {
 
 let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) => {
   selectedUIControlInspectorData
-  ->Meta3dCommonlib.ArraySt.find((data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => {
+  ->Meta3dCommonlib.ArraySt.find((
+    data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
+  ) => {
     data.id == id
   })
   ->Meta3dCommonlib.OptionSt.getExn
@@ -45,7 +47,10 @@ let buildElementMR = (
       reducers: reducers,
     },
     uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. uiControls, {id, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl) => {
+      (.
+        uiControls,
+        {id, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl,
+      ) => {
         let {name, version} = data.contributePackageData.protocol
 
         uiControls->Meta3dCommonlib.ArraySt.push({
@@ -101,6 +106,24 @@ let _generateHandleUIControlEventStr = (
   )
 }
 
+let _generateRectField = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
+  switch rectField {
+  | Int(value) => value->Js.Int.toString
+  | ElementStateField(value) => j`elementState.${value}`
+  }
+}
+
+let _generateRect = (rect: FrontendUtils.ElementAssembleStoreType.rect): string => {
+  let {x, y, width, height} = rect
+
+  j`{
+    x: ${_generateRectField(x)},
+    y: ${_generateRectField(y)},
+    width: ${_generateRectField(width)},
+    height: ${_generateRectField(height)}
+    }`
+}
+
 let _generateAllDrawUIControlAndHandleEventStr = (
   service: FrontendUtils.AssembleSpaceType.service,
   uiControls,
@@ -112,7 +135,10 @@ let _generateAllDrawUIControlAndHandleEventStr = (
       str ++
       j`
                 data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
-                    ${service.meta3d.generateUIControlDataStr(. configLib, data.rect)})
+                    ${service.meta3d.generateUIControlDataStr(.
+          configLib,
+          data.rect->_generateRect,
+        )})
                 meta3dState = data[0]
     ` ++
       _generateHandleUIControlEventStr(service, configLib, data.event)
@@ -126,7 +152,10 @@ let _generateAllDrawUIControlAndHandleEventStr = (
 let _generateElementState = elementStateFields => {
   elementStateFields
   ->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. map, {name, type_, defaultValue}: FrontendUtils.ElementAssembleStoreType.elementStateFieldData) => {
+    (.
+      map,
+      {name, type_, defaultValue}: FrontendUtils.ElementAssembleStoreType.elementStateFieldData,
+    ) => {
       switch type_ {
       | #string => map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
       | #int =>

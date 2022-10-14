@@ -14,8 +14,55 @@ module Method = {
     )
   }
 
-  let setRect = (dispatch, id, rect) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SetRect(id, rect))
+  // let setRect = (dispatch, id, rect) => {
+  //   dispatch(FrontendUtils.ElementAssembleStoreType.SetRect(id, rect))
+  // }
+  let setRectX = (dispatch, id, rect, x) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetRect(
+        id,
+        {
+          ...rect,
+          x: x,
+        },
+      ),
+    )
+  }
+
+  let setRectY = (dispatch, id, rect, y) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetRect(
+        id,
+        {
+          ...rect,
+          y: y,
+        },
+      ),
+    )
+  }
+
+  let setRectWidth = (dispatch, id, rect, width) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetRect(
+        id,
+        {
+          ...rect,
+          width: width,
+        },
+      ),
+    )
+  }
+
+  let setRectHeight = (dispatch, id, rect, height) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetRect(
+        id,
+        {
+          ...rect,
+          height: height,
+        },
+      ),
+    )
   }
 
   let getCurrentSelectedUIControl = (
@@ -45,11 +92,72 @@ module Method = {
     )
   }
 
+  let getRectFieldIntValue = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
+    switch rectField {
+    | Int(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let getRectFieldElementFieldValue = (
+    rectField: FrontendUtils.ElementAssembleStoreType.rectField,
+  ) => {
+    switch rectField {
+    | ElementStateField(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let getIntElementStateFieldNames = (
+    elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
+  ) => {
+    elementStateFields
+    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == #int)
+    ->Meta3dCommonlib.ListSt.map(({name}) => name)
+  }
+
+  let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
+    <>
+      // TODO extract IntInput
+      <Input
+        value={rectField
+        ->getRectFieldIntValue
+        ->Meta3dCommonlib.OptionSt.getWithDefault(0)
+        ->Js.Int.toString}
+        onChange={e => {
+          setRectField(
+            dispatch,
+            id,
+            rect,
+            e
+            ->EventUtils.getEventTargetValue
+            ->IntUtils.stringToInt
+            ->FrontendUtils.ElementAssembleStoreType.Int,
+          )
+        }}
+      />
+      {SelectUtils.buildSelect(
+        value =>
+          setRectField(
+            dispatch,
+            id,
+            rect,
+            value->FrontendUtils.ElementAssembleStoreType.ElementStateField,
+          ),
+        rectField
+        ->getRectFieldElementFieldValue
+        ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
+        elementStateFields->getIntElementStateFieldNames->Meta3dCommonlib.ListSt.toArray,
+      )}
+    </>
+  }
+
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {selectedContributes} = apAssembleState
     let {
+      elementInspectorData,
       inspectorCurrentUIControlId,
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -57,7 +165,12 @@ module Method = {
 
     (
       selectedContributes,
-      (inspectorCurrentUIControlId, selectedUIControls, selectedUIControlInspectorData),
+      (
+        elementInspectorData,
+        inspectorCurrentUIControlId,
+        selectedUIControls,
+        selectedUIControlInspectorData,
+      ),
     )
   }
 }
@@ -68,8 +181,15 @@ let make = (~service: service) => {
 
   let (
     selectedContributes,
-    (inspectorCurrentUIControlId, selectedUIControls, selectedUIControlInspectorData),
+    (
+      elementInspectorData,
+      inspectorCurrentUIControlId,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+    ),
   ) = service.react.useSelector(Method.useSelector)
+
+  let {elementStateFields} = elementInspectorData
 
   switch Method.getCurrentSelectedUIControlInspectorData(
     inspectorCurrentUIControlId,
@@ -81,59 +201,10 @@ let make = (~service: service) => {
 
     <>
       <h1> {React.string(`Rect`)} </h1>
-      // TODO extract IntInput
-      <Input
-        value={x->Js.Int.toString}
-        onChange={e => {
-          Method.setRect(
-            dispatch,
-            id,
-            {
-              ...rect,
-              x: e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-            },
-          )
-        }}
-      />
-      <Input
-        value={y->Js.Int.toString}
-        onChange={e => {
-          Method.setRect(
-            dispatch,
-            id,
-            {
-              ...rect,
-              y: e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-            },
-          )
-        }}
-      />
-      <Input
-        value={width->Js.Int.toString}
-        onChange={e => {
-          Method.setRect(
-            dispatch,
-            id,
-            {
-              ...rect,
-              width: e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-            },
-          )
-        }}
-      />
-      <Input
-        value={height->Js.Int.toString}
-        onChange={e => {
-          Method.setRect(
-            dispatch,
-            id,
-            {
-              ...rect,
-              height: e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-            },
-          )
-        }}
-      />
+      {Method.buildRectField(dispatch, Method.setRectX, elementStateFields, id, rect, x)}
+      {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
+      {Method.buildRectField(dispatch, Method.setRectWidth, elementStateFields, id, rect, width)}
+      {Method.buildRectField(dispatch, Method.setRectHeight, elementStateFields, id, rect, height)}
       <h1> {React.string(`Event`)} </h1>
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>

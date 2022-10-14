@@ -5,8 +5,6 @@ open Operators
 
 open Sinon
 
-// @module ( "sinon"  )@scope ( "match"   )
-
 @module("sinon") @scope("match")
 external matchFunction: 'any = "func"
 
@@ -130,8 +128,16 @@ defineFeature(feature, test => {
     \"and"("prepare b1's, b2's inspector data", () => {
       selectedUIControlInspectorData :=
         list{
-          UIControlInspectorTool.buildUIControlInspectorData(~id="b1", ~x=1, ()),
-          UIControlInspectorTool.buildUIControlInspectorData(~id="b2", ~x=2, ()),
+          UIControlInspectorTool.buildUIControlInspectorData(
+            ~id="b1",
+            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+            (),
+          ),
+          UIControlInspectorTool.buildUIControlInspectorData(
+            ~id="b2",
+            ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateField,
+            (),
+          ),
         }
     })
 
@@ -189,7 +195,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    {    rect: {\"x\":2,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }})\n                meta3dState = data[0]\n    \n                data = Button(meta3dState,\n                    {    rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }})\n                meta3dState = data[0]\n    \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 
@@ -240,7 +246,7 @@ defineFeature(feature, test => {
         list{
           UIControlInspectorTool.buildUIControlInspectorData(
             ~id="b1",
-            ~x=1,
+            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
             ~event=[UIControlInspectorTool.buildEventData(#click, "a1")],
             (),
           ),
@@ -291,7 +297,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\"x\":1,\"y\":0,\"width\":0,\"height\":0}})\n                meta3dState = data[0]\n    handle click event code...\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Button = getUIControl(uiState,\"Button\")\n    \n                let data = null\n  \n                data = Button(meta3dState,\n                    {    rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }})\n                meta3dState = data[0]\n    handle click event code...\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 

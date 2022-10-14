@@ -235,7 +235,10 @@ defineFeature(feature, test => {
       uiControl1 :=
         ImportElementTool.buildUIControl(
           ~name="u1",
-          ~rect=UIControlInspectorTool.buildRect(~x=1, ()),
+          ~rect=UIControlInspectorTool.buildRect(
+            ~x=1->FrontendUtils.ElementAssembleStoreType.Int,
+            (),
+          ),
           ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
           (),
         )

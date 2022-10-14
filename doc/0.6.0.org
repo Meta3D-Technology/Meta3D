@@ -842,7 +842,12 @@ when switch to ui view, get element ui view data!
 ** TODO fix control properies
 
 
-*** TODO rect add use element state
+*** DONE rect add use element state
+
+choose element field
+empty
+...
+
 
 # add select(select field)(default is empty) + func input(
 #      default value: (fieldValue) => fieldValue
@@ -862,8 +867,19 @@ e.g. new value:
 
 
 
-*** TODO run test: test reducer to change rect when run
+*** DONE bdd test
 
+# need test:
+# UIControlInspector
+# ElementMR
+
+
+
+*** DONE run test: test reducer to change rect when run
+
+
+publish:
+# ui control button protocol
 
 
 *** TODO isDraw
@@ -877,6 +893,11 @@ e.g. new value:
 # aselect(select field)(default is empty) + func input(
 #      default value: (fieldValue) => true
 # )
+
+
+element: 
+add bool type
+
 
 func input(
      default value: function (elementState) {
@@ -978,7 +999,7 @@ one button with different rect, color
 
 
 
-* TODO ap view:
+* TODO ap view: pass publish run test
 
 
 ** TODO select element contribute
@@ -1046,65 +1067,65 @@ note: remove entry extension step!!!
 
 
 
-* TODO pass run test: two elements
+# * TODO pass run test: two elements
 
-first element contribute:
-one button
+# first element contribute:
+# one button
 
 
-when click the button, show second element contribute:
-one button with different rect, color
+# when click the button, show second element contribute:
+# one button with different rect, color
 
 
 
 
-* TODO control add 
+# * TODO control add 
 
-properies:
+# properies:
 
-rect:
-x y width height
+# rect:
+# x y width height
 
 
 
-isShow: true/false
+# isShow: true/false
 
-    design for single element
+#     design for single element
 
 
 
 
-event:
+# event:
 
-click,
-    focus,
-...
+# click,
+#     focus,
+# ...
 
 
 
-click:
-list(action name) by select action contributes
+# click:
+# list(action name) by select action contributes
 
 
 
-styles:
+# styles:
 
-skin
+# skin
 
 
 
 
 
 
-properties->input data
-rect
-(input data->rect need add "property" flag?)
+# properties->input data
+# rect
+# (input data->rect need add "property" flag?)
 
-styles->skin
-(add to input data and add "style" flag?)
+# styles->skin
+# (add to input data and add "style" flag?)
 
-events->click event(add more event in the future)
-(read events from protocol->event data?)
+# events->click event(add more event in the future)
+# (read events from protocol->event data?)
 
 
 
@@ -1112,12 +1133,12 @@ events->click event(add more event in the future)
 
 
 
-* TODO pass run test: single element
+# * TODO pass run test: single element
 
-element contribute with two buttons:
-one button
-    when click the button, show second element contribute:
-one button with different rect, color
+# element contribute with two buttons:
+# one button
+#     when click the button, show second element contribute:
+# one button with different rect, color
 
 
 
@@ -1125,106 +1146,23 @@ one button with different rect, color
 
 
 
-* TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
+# * TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
 
 
-share for all elements
+# share for all elements
 
 
 
 
 
-common extensions get by filter by getExtensionLife -> onStart not exist)
+# common extensions get by filter by getExtensionLife -> onStart not exist)
 
 
 
 
-* TODO refactor: rename UI视图 to Element视图; rename UIView to ElementView
+* DONE refactor: rename UI视图 to Element视图; rename UIView to ElementView
 
 
-
-* TODO add Skin视图
-
-** TODO implement view
-
-** TODO publish
-
-** TODO import
-
-
-* TODO add Action视图
-
-support log,dispatch system action
-
-# get actionData
-
-
-# ** TODO remove protocol->Config.ts, move getActions to getContribute as actions; remove getActionName(protocol not define actionName!)
-
-
-# ** TODO read actions by parse getContribute instead of get from protocol config str!!!
-
-
-** TODO remove protocol->Config.ts, move them to action view data
-
-refer to element!
-
-** TODO when switch to ui view, get selected actions' view data!
-
-
-** TODO implement view
-
-
-** TODO publish
-
-
-note:
-all actions use the same element protocol!
-(not define actionName in protocol)
-
-
-
-** TODO import
-
-** TODO future: support combine other actions
-left panel:
-Actions
-
-# * TODO add UIControl视图
-
-# left panel:
-# Primtives, UI Controls
-
-
-
-# ** TODO implement view
-
-# ** TODO publish
-
-# ** TODO import
-
-
-
-
-* TODO more
-
-** TODO add resize(%)
-
-
-** TODO add effect of select in canvas
-
-
-** TODO element properies add custom data
-field name, field type, field default value
-
-(move wonder editor->script attribute here?)
-
-
-
-** TODO bdd test
-
-
-** TODO run test
 
 
 

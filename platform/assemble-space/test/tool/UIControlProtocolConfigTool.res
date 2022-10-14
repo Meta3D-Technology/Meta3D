@@ -1,7 +1,7 @@
 let buildButtonContributeProtocolConfigStr = () => {
   `window.UIControlProtocolConfig = {
     generateUIControlDataStr: (rect) => {
-        return "{    rect: " + JSON.stringify(rect) + "}"
+        return "{    rect: " + rect + "}"
     },
     generateUIControlName: () => "Button",
     getUIControlSupportedEventNames: () => ["click"],
