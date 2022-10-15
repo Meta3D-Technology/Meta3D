@@ -69,7 +69,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -157,7 +157,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -273,7 +273,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -342,6 +342,147 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."show skin", ({given, \"when", \"and", then}) => {
+    let id = "d1"
+    let d1 = ref(Obj.magic(1))
+    let s1 = ref(Obj.magic(1))
+    let s2 = ref(Obj.magic(1))
+    let skin1Name = "s1"
+    let skin2Name = "s2"
+    let useSelectorStub = ref(Obj.magic(1))
+    let getSkinProtocolDataStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given("select ui control button d1", () => {
+      d1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "^0.5.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("select skin s1 and s2", () => {
+      let protocolName = "meta3d-skin-s-protocol"
+
+      getSkinProtocolDataStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          UIControlInspectorTool.buildSkinProtocolData(
+            ~protocolName,
+            ~protocolVersion="^0.5.0",
+            (),
+          ),
+          _,
+        )
+
+      s1 :=
+        SelectedContributesTool.buildSelectedContribute(
+          ~id=skin1Name,
+          ~protocolConfigStr=Some(""),
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name=skin1Name,
+              ~protocol={
+                name: protocolName,
+                version: "^0.5.1",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+
+      s2 :=
+        SelectedContributesTool.buildSelectedContribute(
+          ~id=skin2Name,
+          ~protocolConfigStr=Some(""),
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name=skin2Name,
+              ~protocol={
+                name: protocolName,
+                version: "^0.5.1",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("set inspector current selected ui control data to d1 whose skin is s1", () => {
+      useSelectorStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          (
+            list{s1.contents, s2.contents},
+            (
+              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+              id->Some,
+              list{d1.contents},
+              list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id,
+                  ~skin=UIControlInspectorTool.buildSkin(skin1Name)->Some,
+                  (),
+                ),
+              },
+            ),
+          ),
+          _,
+        )
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show s1 as default skin and select with s1, s2", () => {
+      UIControlInspectorTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~getSkinProtocolData=getSkinProtocolDataStub.contents->Obj.magic,
+          ~useSelector=useSelectorStub.contents,
+          (),
+        ),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
+  test(."set skin", ({given, \"when", \"and", then}) => {
+    let id = "1"
+    let skinName = "skin1"
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    \"when"("set skin", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      UIControlInspectorTool.setSkin(dispatchStub.contents->Obj.magic, id, skinName)
+    })
+
+    then("should dispatch SetSkin action", () => {
+      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+        FrontendUtils.ElementAssembleStoreType.SetSkin(id, skinName->Some)
+    })
+  })
+
   test(."show default action and action select", ({given, \"when", \"and", then}) => {
     let id = "d1"
     let d1 = ref(Obj.magic(1))
@@ -368,7 +509,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -388,14 +529,14 @@ defineFeature(feature, test => {
     \"and"("select action a1 and a2", () => {
       a1 :=
         SelectedContributesTool.buildSelectedContribute(
-          ~id="a1",
+          ~id=action1Name,
           ~protocolConfigStr=Some(""),
           ~data=ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~name="a1",
+              ~name=action1Name,
               ~protocol={
                 name: "meta3d-action-a1-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -406,14 +547,14 @@ defineFeature(feature, test => {
 
       a2 :=
         SelectedContributesTool.buildSelectedContribute(
-          ~id="a2",
+          ~id=action2Name,
           ~protocolConfigStr=Some(""),
           ~data=ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~name="a2",
+              ~name=action2Name,
               ~protocol={
                 name: "meta3d-action-a2-protocol",
-                version: "0.5.0",
+                version: "^0.5.0",
               },
               (),
             ),
@@ -453,7 +594,7 @@ defineFeature(feature, test => {
                 list{
                   UIControlInspectorTool.buildUIControlInspectorData(
                     ~id,
-                    ~event=[UIControlInspectorTool.buildEventData(#click, "a2")],
+                    ~event=[UIControlInspectorTool.buildEventData(#click, action2Name)],
                     (),
                   ),
                 },
@@ -468,7 +609,7 @@ defineFeature(feature, test => {
       ()
     })
 
-    then("should show a2 as default action and action select with a1, a2", () => {
+    then("should show a2 as default action and select with a1, a2", () => {
       UIControlInspectorTool.buildUI(
         ~sandbox,
         ~service=ServiceTool.build(

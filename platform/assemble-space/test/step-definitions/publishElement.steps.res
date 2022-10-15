@@ -17,6 +17,7 @@ defineFeature(feature, test => {
   let selectedUIControlInspectorData = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
   let isDraw = ref(Obj.magic(1))
+  let skin = ref(Obj.magic(1))
 
   let sandbox = ref(Obj.magic(1))
 
@@ -131,6 +132,8 @@ defineFeature(feature, test => {
 
       isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
 
+      skin := UIControlInspectorTool.buildSkin("skin1")
+
       selectedUIControls :=
         list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}
       selectedUIControlInspectorData :=
@@ -140,6 +143,7 @@ defineFeature(feature, test => {
             ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
             ~event=event.contents,
             ~isDraw=isDraw.contents,
+            ~skin=skin.contents->Some,
             (),
           ),
         }
@@ -314,6 +318,7 @@ defineFeature(feature, test => {
                   (),
                 ),
                 isDraw: isDraw.contents,
+                skin: skin.contents,
                 event: event.contents,
               },
             ],

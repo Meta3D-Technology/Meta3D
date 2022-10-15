@@ -67,7 +67,16 @@ export type supportedEventName = "click"
 
 export type actionName = nullable<string>
 
-export type generateUIControlDataStr = (rect: rect) => string
+export type versionRange = string
+
+export type skinProtocolData = {
+  protocolName: string,
+  protocolVersion: versionRange,
+}
+
+export type getSkinProtocolData = () => skinProtocolData
+
+export type generateUIControlDataStr = (rect: string, skin: string) => string
 
 export type generateUIControlName = () => uiControlName
 
@@ -93,3 +102,4 @@ export type actions = Array<action>
 export type getActionName = () => actionNameForAction
 
 export type getActions = () => actions
+

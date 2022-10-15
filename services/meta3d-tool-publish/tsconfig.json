@@ -25,5 +25,5 @@
 		"./src",
 		"./test",
 		"./index.d.ts"
-	]
+, "mine/PublishContributeService.ts"	]
 }

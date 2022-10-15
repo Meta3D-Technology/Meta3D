@@ -1,3 +1,5 @@
+import { skin } from "meta3d-skin-button-protocol"
+
 export const uiControlName = "Button"
 
 type rect = {
@@ -10,6 +12,7 @@ type rect = {
 export type inputData = {
     rect: rect,
     // text: string
+    skin: skin
 }
 
 type isClick = boolean

@@ -1,7 +1,14 @@
 let buildButtonContributeProtocolConfigStr = () => {
-  `window.UIControlProtocolConfig = {
-    generateUIControlDataStr: (rect) => {
-        return "{    rect: " + rect + "}"
+  `
+window.UIControlProtocolConfig = {
+    getSkinProtocolData: () => {
+        return {
+            protocolName: "meta3d-skin-button-protocol",
+            protocolVersion: "^0.5.0",
+        }
+    },
+    generateUIControlDataStr: (rect, skin) => {
+        return "{rect: " + rect + ", skin: " + skin + "}"
     },
     generateUIControlName: () => "Button",
     getUIControlSupportedEventNames: () => ["click"],
@@ -12,5 +19,6 @@ let buildButtonContributeProtocolConfigStr = () => {
 
         return ""
     }
-}`
+}
+`
 }

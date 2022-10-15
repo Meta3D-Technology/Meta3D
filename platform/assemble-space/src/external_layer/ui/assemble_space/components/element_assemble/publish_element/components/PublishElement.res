@@ -65,11 +65,13 @@ module Method = {
                 id,
                 rect,
                 isDraw,
+                skin,
                 event,
               }): FrontendUtils.BackendCloudbaseType.uiControl => {
                 name: _getSelectedUIControlName(id, selectedUIControls),
                 rect: rect,
                 isDraw: isDraw,
+                skin: skin->Meta3dCommonlib.OptionSt.getExn,
                 event: event,
               })
               ->Meta3dCommonlib.ListSt.toArray,

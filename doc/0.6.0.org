@@ -952,12 +952,71 @@ to: let { normal } = skin.button
             
 
 
+Config.ts: 
+skin protocol name, protocol version
+
+
+TODO fix skin: multiple implement for one protocol
+remove Config.ts
+set skinName in implement
+
+# publish to assemble data:
+# skinName
+# skinVersion
+
+
+bdd test
+
+
+run test
+
+need publish:
 
 
 
-*** TODO fix: shop: refresh bug
 
-when not load?
+
+
+*** TODO fix extension shop, contribute shop, assemble-space: support select multiple implement for one protocol
+
+*** TODO run test: two elements
+
+*** TODO run test: two skins
+
+
+*** TODO fix action: multiple implement for one protocol
+TODO remove Config.ts->getActionName
+TODO set actionName in implement
+
+# remove Config.ts
+
+# publish to assemble data:
+# actionName
+# actionVersion
+# inspectorData->actions
+
+
+bdd test
+
+
+*** TODO run test: two actions
+
+
+*** TODO fix ui control: multiple implement for one protocol
+TODO remove Config.ts->generateUIControlName
+TODO set uiControlName in implement
+
+bdd test
+
+
+
+*** TODO run test: two ui controls
+
+*** TODO fix: assemble-space->element assemble: ui control show two!
+
+# *** TODO fix: shop: refresh bug
+
+# when not load?
 
 
 
@@ -967,6 +1026,22 @@ when not load?
 
 
 
+*** TODO pass publish run test with two elements
+
+# TODO publish element should publish unique protocol(name ++ "_protocol", protocol version = element's version)
+# add icon;
+
+
+
+
+
+contributes.feature:
+        Scenario: set contributes by selected two element contributes
+            Given publish element contribute protocol a
+            And select element contribute e1 for a
+            And select element contribute e2 for a
+            When render after useEffectOnceAsync
+            Then should set a's icon and e1's,e2's name as contributes
 
 
 
@@ -1197,6 +1272,12 @@ note: remove entry extension step!!!
 
 
 
+* TODO remove unused extensions, contributes
+
+
+
+
+* TODO version management
 
 
 

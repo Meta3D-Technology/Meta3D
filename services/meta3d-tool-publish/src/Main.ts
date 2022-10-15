@@ -22,5 +22,6 @@ export function publishContribute(packageFilePath: string, distFilePath: string)
 		generateContribute, init, hasData, uploadFile, getData, updateData], packageFilePath, distFilePath, "contribute")
 }
 
+
 // publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/", "main.js"))
 // publishExtension(path.join(__dirname, "../mine/t/", "package.json"), path.join(__dirname, "../mine/t/", "main.js"))

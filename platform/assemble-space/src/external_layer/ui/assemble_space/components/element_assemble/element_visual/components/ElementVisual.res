@@ -252,7 +252,7 @@ module Method = {
   ) => {
     uiControls
     ->Meta3dCommonlib.ArraySt.mapi((
-      {rect, isDraw, event}: FrontendUtils.BackendCloudbaseType.uiControl,
+      {rect, isDraw, skin, event}: FrontendUtils.BackendCloudbaseType.uiControl,
       index,
     ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
       id: (
@@ -260,6 +260,7 @@ module Method = {
       ).id,
       rect: rect,
       isDraw: isDraw,
+      skin: skin->Some,
       event: event,
     })
     ->Meta3dCommonlib.ListSt.fromArray
@@ -365,15 +366,17 @@ let make = (~service: service, ~username: option<string>) => {
 
   service.react.useEffect1(. () => {
     selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
-      ? Method.generateElementContributeData(
-          service,
-          Method.buildElementContributeFileStr(
+      ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+          Method.generateElementContributeData(
             service,
-            selectedUIControls,
-            selectedUIControlInspectorData,
-            (elementStateFields, reducers),
-          ),
-        )->Method.updateElementContribute(dispatch, _)
+            Method.buildElementContributeFileStr(
+              service,
+              selectedUIControls,
+              selectedUIControlInspectorData,
+              (elementStateFields, reducers),
+            ),
+          )->Method.updateElementContribute(dispatch, _)
+        }, 5->Some)
       : ()
 
     None

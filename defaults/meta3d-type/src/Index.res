@@ -118,7 +118,16 @@ type supportedEventName = [#click]
 
 type actionName = Js.Nullable.t<string>
 
-type generateUIControlDataStr = rect => string
+type versionRange = string
+
+type skinProtocolData = {
+  protocolName: string,
+  protocolVersion: versionRange,
+}
+
+type getSkinProtocolData = unit => skinProtocolData
+
+type generateUIControlDataStr = (string, string) => string
 
 type generateUIControlName = unit => uiControlName
 
@@ -140,3 +149,9 @@ type actions = array<action>
 type getActionName = unit => actionNameForAction
 
 type getActions = unit => actions
+
+/* ! skin protocol config */
+
+type skinName = string
+
+type getSkinName = unit => skinName

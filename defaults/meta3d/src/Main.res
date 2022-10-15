@@ -34,6 +34,8 @@ let startApp = AppManager.start
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
+let getSkinProtocolData = UIControlProtocolConfig.getSkinProtocolData
+
 let generateUIControlName = UIControlProtocolConfig.generateUIControlName
 
 let generateUIControlDataStr = UIControlProtocolConfig.generateUIControlDataStr

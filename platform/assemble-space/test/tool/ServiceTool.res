@@ -64,6 +64,9 @@ let build = (
   ~serializeUIControlProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
+  ~getSkinProtocolData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(UIControlInspectorTool.buildSkinProtocolData(), _)
+  ->Obj.magic,
   ~generateUIControlDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateUIControlName=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -108,6 +111,7 @@ let build = (
     convertAllFileData: convertAllFileData,
     loadApp: loadApp,
     serializeUIControlProtocolConfigLib: serializeUIControlProtocolConfigLib,
+    getSkinProtocolData: getSkinProtocolData,
     generateUIControlDataStr: generateUIControlDataStr,
     generateUIControlName: generateUIControlName,
     getUIControlSupportedEventNames: getUIControlSupportedEventNames,

@@ -8,12 +8,14 @@ let buildUIControl = (
   ~name="u1",
   ~rect=UIControlInspectorTool.buildRect(),
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  ~skin=UIControlInspectorTool.buildSkin("skin1"),
   ~event=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.uiControl => {
   name: name,
   rect: rect,
   isDraw: isDraw,
+  skin: skin,
   event: event,
 }
 

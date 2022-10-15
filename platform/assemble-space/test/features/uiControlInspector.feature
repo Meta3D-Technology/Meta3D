@@ -42,6 +42,20 @@ Feature: UIControlInsepctor
             When set isDraw
             Then should dispatch SetIsDraw action
 
+    Rule: Skin
+
+        Scenario: show skin
+            Given select ui control button d1
+            And select skin s1 and s2
+            And set inspector current selected ui control data to d1 whose skin is s1
+            When render
+            Then should show s1 as default skin and select with s1, s2
+
+        Scenario: set skin
+            When set skin
+            Then should dispatch SetSkin action
+
+
     Rule: Event
 
         Scenario: show default action and action select
@@ -49,7 +63,7 @@ Feature: UIControlInsepctor
             And select action a1 and a2
             And set inspector current selected ui control data to d1 whose event's action is a2
             When render
-            Then should show a2 as default action and action select with a1, a2
+            Then should show a2 as default action and select with a1, a2
 
         Scenario: set action
             When set action

@@ -82,6 +82,17 @@ module Method = {
 
   let getActions = SelectedContributesUtils.getActions
 
+  let getSkins = SelectedContributesUtils.getSkins
+
+  let setSkin = (dispatch, id, skinName: string) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetSkin(
+        id,
+        SelectUtils.isEmptySelectOptionValue(skinName) ? None : Some(skinName),
+      ),
+    )
+  }
+
   let setAction = (
     dispatch,
     id,
@@ -258,7 +269,7 @@ let make = (~service: service) => {
     selectedUIControlInspectorData,
   ) {
   | None => React.null
-  | Some({id, rect, isDraw, event}) =>
+  | Some({id, rect, isDraw, skin, event}) =>
     let {x, y, width, height} = rect
 
     <>
@@ -269,7 +280,6 @@ let make = (~service: service) => {
       {Method.buildRectField(dispatch, Method.setRectHeight, elementStateFields, id, rect, height)}
       <h1> {React.string(`IsDraw`)} </h1>
       {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
-      <h1> {React.string(`Event`)} </h1>
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
         service.console.error(.
@@ -288,40 +298,96 @@ let make = (~service: service) => {
           ->Obj.magic,
           None,
         )->Obj.magic
-      | Some({id, protocolConfigStr, data}) =>
-        let {name, version} = data.contributePackageData.protocol
+      | Some({id, protocolConfigStr}) =>
+        // let {name, version} = data.contributePackageData.protocol
 
         let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
 
-        let configLib = service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr)
+        let skins = selectedContributes->Method.getSkins->Meta3dCommonlib.ListSt.toArray
 
-        <List
-          dataSource={service.meta3d.getUIControlSupportedEventNames(. configLib)}
-          renderItem={eventName => {
-            let defaultValue =
-              ElementMRUtils.getActionName(
-                event,
-                eventName,
-              )->Meta3dCommonlib.NullableSt.getWithDefault(
-                SelectUtils.buildEmptySelectOptionValue(),
-              )
+        let uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(.
+          protocolConfigStr,
+        )
 
-            <List.Item key={eventName->Obj.magic}>
-              <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-              {SelectUtils.buildSelect(
-                Method.setAction(dispatch, id, eventName),
-                defaultValue,
-                actions->Meta3dCommonlib.ArraySt.map(({protocolConfigStr}) => {
-                  let configLib = service.meta3d.serializeActionProtocolConfigLib(.
-                    protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+        <>
+          <h1> {React.string(`Skin`)} </h1>
+          {
+            let {protocolName, protocolVersion} = service.meta3d.getSkinProtocolData(.
+              uiControlConfigLib,
+            )
+
+            SelectUtils.buildSelect(
+              Method.setSkin(dispatch, id),
+              skin
+              ->Meta3dCommonlib.OptionSt.map(({skinName}) => skinName)
+              ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
+              switch skins->Meta3dCommonlib.ArraySt.filter(({data}) => {
+                let protocol = data.contributePackageData.protocol
+
+                protocol.name === protocolName &&
+                  Meta3d.Semver.satisfies(
+                    Meta3d.Semver.minVersion(protocol.version),
+                    protocolVersion,
                   )
+              }) {
+              | skins if skins->Meta3dCommonlib.ArraySt.length === 0 =>
+                service.console.error(.
+                  Meta3dCommonlib.Exception.buildErr(
+                    Meta3dCommonlib.Log.buildErrorMessage(
+                      ~title="currentSelectedUIControl need skin",
+                      ~description={
+                        j`skin protocol:
+                      protocolName: ${protocolName}, protocolVersion: ${protocolVersion}`
+                      },
+                      ~reason="",
+                      ~solution=j``,
+                      ~params=j``,
+                    ),
+                  )
+                  ->Obj.magic
+                  ->Js.Exn.message
+                  ->Meta3dCommonlib.OptionSt.getExn
+                  ->Obj.magic,
+                  None,
+                )
 
-                  service.meta3d.getActionName(. configLib)
-                }),
-              )}
-            </List.Item>
-          }}
-        />
+                []
+              | skins =>
+                skins->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
+                  NewNameUtils.getName(newName, data.contributePackageData.name)
+                })
+              },
+            )
+          }
+          <h1> {React.string(`Event`)} </h1>
+          <List
+            dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
+            renderItem={eventName => {
+              let defaultValue =
+                ElementMRUtils.getActionName(
+                  event,
+                  eventName,
+                )->Meta3dCommonlib.NullableSt.getWithDefault(
+                  SelectUtils.buildEmptySelectOptionValue(),
+                )
+
+              <List.Item key={eventName->Obj.magic}>
+                <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
+                {SelectUtils.buildSelect(
+                  Method.setAction(dispatch, id, eventName),
+                  defaultValue,
+                  actions->Meta3dCommonlib.ArraySt.map(({protocolConfigStr}) => {
+                    let actionConfigLib = service.meta3d.serializeActionProtocolConfigLib(.
+                      protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+                    )
+
+                    service.meta3d.getActionName(. actionConfigLib)
+                  }),
+                )}
+              </List.Item>
+            }}
+          />
+        </>
       }}
     </>
   }

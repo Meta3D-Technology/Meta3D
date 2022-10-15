@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, actions, actionNameForAction } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, actions, actionNameForAction, skinProtocolData } from "meta3d-type"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
@@ -138,11 +138,15 @@ type protocolConfigStr = string
 
 type protocolConfigLib = any
 
+type versionRange = string
+
 export type serializeUIControlProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
+
+export type getSkinProtocolData = (configLib: protocolConfigLib) => skinProtocolData
 
 export type generateUIControlName = (configLib: protocolConfigLib) => uiControlName
 
-export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: string) => string
+export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: string, skin: string) => string
 
 export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<supportedEventName>
 

@@ -40,7 +40,11 @@ type isDraw =
   | BoolForIsDraw(bool)
   | ElementStateFieldForIsDraw(string)
 
-type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event}
+type skinName = string
+
+type skin = {skinName: skinName}
+
+type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event, skin: option<skin>}
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
@@ -95,6 +99,7 @@ type action =
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
+  | SetSkin(id, option<skinName>)
   | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)

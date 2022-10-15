@@ -124,6 +124,10 @@ let _generateRect = (rect: FrontendUtils.ElementAssembleStoreType.rect): string 
     }`
 }
 
+let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string => {
+  j` getSkin(uiState, "${skin.skinName}") `
+}
+
 let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
   switch isDraw {
   | BoolForIsDraw(value) => j`if(${value->BoolUtils.boolToString}){`
@@ -145,14 +149,32 @@ let _generateAllDrawUIControlAndHandleEventStr = (
 
       str ++
       _generateIsDrawIfBegin(data.isDraw) ++
-      j`
+      switch data.skin {
+      | None =>
+        Meta3dCommonlib.Exception.throwErr(
+          Meta3dCommonlib.Exception.buildErr(
+            Meta3dCommonlib.Log.buildErrorMessage(
+              ~title={j`skin not exist`},
+              ~description={
+                ""
+              },
+              ~reason="",
+              ~solution=j``,
+              ~params=j``,
+            ),
+          ),
+        )
+      | Some(skin) =>
+        j`
                 data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
                     ${service.meta3d.generateUIControlDataStr(.
-          configLib,
-          data.rect->_generateRect,
-        )})
+            configLib,
+            _generateRect(data.rect),
+            _generateSkin(skin),
+          )})
                 meta3dState = data[0]
-    ` ++
+    `
+      } ++
       _generateHandleUIControlEventStr(service, configLib, data.event) ++
       _generateIsDrawIfEnd()
     },
@@ -217,7 +239,7 @@ window.Contribute = {
             elementState: ${_generateElementState(elementStateFields)},
             reducers: ${_generateReducers(reducers)},
             elementFunc: (meta3dState, elementState) => {
-                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 
                 let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
 `

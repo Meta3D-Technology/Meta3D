@@ -10,6 +10,7 @@ let _buildDefaultUIControlInspectorData = id => {
       height: 20->IntForRectField,
     },
     isDraw: true->BoolForIsDraw,
+    skin: None,
     event: [],
   }
 }
@@ -121,7 +122,17 @@ let reducer = (state, action) => {
       },
       id,
     )
-
+  | SetSkin(id, skinNameOpt) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        skin: skinNameOpt->Meta3dCommonlib.OptionSt.map(skinName => {
+          {skinName: skinName}
+        }),
+      },
+      id,
+    )
   | SetInspectorCurrentUIControlId(id) => {
       ...state,
       inspectorCurrentUIControlId: id->Some,

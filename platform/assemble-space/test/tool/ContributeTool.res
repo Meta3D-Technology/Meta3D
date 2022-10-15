@@ -2,7 +2,7 @@ let buildContributePackageData = (
   ~name="p1",
   ~protocol={
     name: "p1",
-    version: "0.0.1",
+    version: "^0.0.1",
   }: Meta3d.ExtensionFileType.contributeProtocolData,
   ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),

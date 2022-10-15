@@ -240,6 +240,7 @@ defineFeature(feature, test => {
             (),
           ),
           ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+          ~skin=UIControlInspectorTool.buildSkin("skin1"),
           ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
           (),
         )
@@ -286,7 +287,7 @@ defineFeature(feature, test => {
 
       let {protocolIconBase64, protocolConfigStr, newName, data} = uiControlContribute
 
-      let {rect, isDraw, event} = uiControl1.contents
+      let {rect, isDraw, skin, event} = uiControl1.contents
 
       let id1 = IdTool.generateId(id1RandomResult)
 
@@ -309,6 +310,7 @@ defineFeature(feature, test => {
               ~id=id1,
               ~x=rect.x,
               ~isDraw,
+              ~skin=skin->Some,
               ~event,
               (),
             ),

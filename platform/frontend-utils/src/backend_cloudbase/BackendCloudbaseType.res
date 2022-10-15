@@ -77,6 +77,7 @@ type uiControl = {
   name: string,
   rect: ElementAssembleStoreType.rect,
   isDraw: ElementAssembleStoreType.isDraw,
+  skin: ElementAssembleStoreType.skin,
   event: ElementAssembleStoreType.event,
 }
 
