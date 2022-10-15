@@ -7,36 +7,34 @@ open Sinon
 
 open Js.Typed_array
 
-let feature = loadFeature("./test/features/init.feature")
+let feature = loadFeature("./test/features/clear.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
-  test(."init imgui renderer", ({given, \"when", \"and", then}) => {
+  test(."clear imgui renderer", ({given, \"when", \"and", then}) => {
     let newMeta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(12))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
     let imguiRendererExtensionName = "imguiRendererExtensionName"
-    let isDebug = true
-    let canvas = Obj.magic(5)
+    let clearColor = (1., 0.1, 0.2, 0.3)
     let imguiRendererService = ref(Obj.magic(1))
     let imguiRendererState1 = Obj.magic(12)
     let imguiRendererState2 = Obj.magic(13)
-    let initStub = ref(Obj.magic(1))
+    let clearStub = ref(Obj.magic(1))
     let getExtensionServiceStub = ref(Obj.magic(1))
     let getExtensionStateStub = ref(Obj.magic(1))
-    let setExtensionStateStub = ref(Obj.magic(1))
 
     given("prepare sandbox", () => {
       sandbox := createSandbox()
     })
 
     \"and"("prepare imgui renderer service", () => {
-      initStub :=
+      clearStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState2, _)
 
       imguiRendererService :=
-        ImguiRendererServiceTool.buildService(~sandbox, ~init=initStub.contents->Obj.magic, ())
+        ImguiRendererServiceTool.buildService(~sandbox, ~clear=clearStub.contents->Obj.magic, ())
     })
 
     \"and"("prepare api", () => {
@@ -48,30 +46,22 @@ defineFeature(feature, test => {
 
       getExtensionStateStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState1, _)
-      setExtensionStateStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(meta3dState2, _)
     })
 
-    \"and"("prepare canvas", () => {
-      ()
-    })
-
-    \"when"("init", () => {
+    \"when"("clear", () => {
       newMeta3dState :=
-        MainTool.init(
+        MainTool.clear(
           ~sandbox,
           ~imguiRendererExtensionName,
           ~getExtensionService=getExtensionServiceStub.contents,
           ~getExtensionState=getExtensionStateStub.contents,
-          ~setExtensionState=setExtensionStateStub.contents,
           ~meta3dState=meta3dState1,
-          ~isDebug,
-          ~canvas,
+          ~clearColor,
           (),
         )
     })
 
-    then("init imgui renderer", () => {
+    then("clear imgui renderer", () => {
       (
         getExtensionStateStub.contents
         ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
@@ -79,19 +69,10 @@ defineFeature(feature, test => {
         getExtensionServiceStub.contents
         ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
         ->getCallCount,
-        initStub.contents
+        clearStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg4(imguiRendererState1, meta3dState1, isDebug, canvas),
+        ->SinonTool.calledWithArg3(imguiRendererState1, meta3dState1, clearColor),
       )->expect == (1, 1, true)
-    })
-
-    \"and"("update imgui renderer state", () => {
-      (
-        setExtensionStateStub.contents
-        ->getCall(0, _)
-        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionName, imguiRendererState2),
-        newMeta3dState.contents,
-      )->expect == (true, meta3dState2)
     })
   })
 })

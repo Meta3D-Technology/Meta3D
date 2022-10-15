@@ -1,6 +1,7 @@
 
 
 import * as InitService$Meta3dImguiWebgl1Renderer from "./InitService.bs.js";
+import * as ClearService$Meta3dImguiWebgl1Renderer from "./ClearService.bs.js";
 import * as RenderService$Meta3dImguiWebgl1Renderer from "./RenderService.bs.js";
 import * as DrawBoxIMGUIService$Meta3dImguiWebgl1Renderer from "./DrawBoxIMGUIService.bs.js";
 
@@ -14,6 +15,10 @@ function getExtensionService(api, param) {
           render: (function (state, meta3dState) {
               var webgl1Service = api.getExtensionService(meta3dState, meta3dWebGL1ExtensionName);
               return RenderService$Meta3dImguiWebgl1Renderer.render(state, meta3dState, webgl1Service);
+            }),
+          clear: (function (state, meta3dState, clearColor) {
+              var webgl1Service = api.getExtensionService(meta3dState, meta3dWebGL1ExtensionName);
+              return ClearService$Meta3dImguiWebgl1Renderer.clear(state, webgl1Service, clearColor);
             }),
           drawBox: DrawBoxIMGUIService$Meta3dImguiWebgl1Renderer.draw
         };
@@ -32,7 +37,9 @@ function createExtensionState(param) {
 function getExtensionLife(param, param$1) {
   return {
           onRegister: null,
-          onStart: null
+          onStart: null,
+          onInit: null,
+          onUpdate: null
         };
 }
 

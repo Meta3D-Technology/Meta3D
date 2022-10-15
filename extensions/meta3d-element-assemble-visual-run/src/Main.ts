@@ -116,10 +116,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return meta3dState
 		},
-		update: (meta3dState: meta3dState) => {
+		update: (meta3dState: meta3dState, { clearColor }) => {
 			let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
 
-			let { render } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+			let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+
+			clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
 			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
 				resetIOData()
@@ -146,8 +148,8 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 				resolve(service.init(meta3dState, data))
 			})
 		},
-		onUpdate: (meta3dState, service, _) => {
-			return service.update(meta3dState)
+		onUpdate: (meta3dState, service, data) => {
+			return service.update(meta3dState, data)
 		}
 	}
 }

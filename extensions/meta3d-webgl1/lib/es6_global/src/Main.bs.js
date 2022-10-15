@@ -127,6 +127,15 @@ function getExtensionService(api, param) {
           clear: (function (mask, gl) {
               return gl.clear(mask);
             }),
+          getColorBufferBit: (function (gl) {
+              return gl.COLOR_BUFFER_BIT;
+            }),
+          getDepthBufferBit: (function (gl) {
+              return gl.DEPTH_BUFFER_BIT;
+            }),
+          getStencilBufferBit: (function (gl) {
+              return gl.STENCIL_BUFFER_BIT;
+            }),
           enable: (function (capability, gl) {
               return gl.enable(capability);
             }),
@@ -203,7 +212,9 @@ function createExtensionState(param) {
 function getExtensionLife(param, param$1) {
   return {
           onRegister: null,
-          onStart: null
+          onStart: null,
+          onInit: null,
+          onUpdate: null
         };
 }
 

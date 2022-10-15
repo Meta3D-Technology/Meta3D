@@ -30,11 +30,11 @@ module Method = {
     service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
   }
 
-  let _initAndUpdateApp = (meta3dState, service, initData) => {
+  let _initAndUpdateApp = (meta3dState, service, (initData, updateData)) => {
     Meta3dBsMost.Most.fromPromise(
       _initApp(meta3dState, service, initData),
     )->Meta3dBsMost.Most.flatMap(meta3dState => {
-      meta3dState->_updateApp(service, Obj.magic(1))->Meta3dBsMost.Most.fromPromise
+      meta3dState->_updateApp(service, updateData)->Meta3dBsMost.Most.fromPromise
     }, _)
   }
 
@@ -55,7 +55,7 @@ module Method = {
   let renderApp = (
     service,
     (selectedExtensions, selectedContributes),
-    initData,
+    (initData, updateData),
     (visualExtension, elementContribute),
   ) => {
     _buildApp(
@@ -66,7 +66,7 @@ module Method = {
       ),
       (visualExtension, elementContribute),
     )
-    ->_initAndUpdateApp(service, initData)
+    ->_initAndUpdateApp(service, (initData, updateData))
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.catch(e => {
       service.console.error(.
@@ -80,6 +80,12 @@ module Method = {
     {
       "isDebug": true,
       "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
+    }->Obj.magic
+  }
+
+  let getUpdateData = () => {
+    {
+      "clearColor": (1., 1., 1., 1.),
     }->Obj.magic
   }
 
@@ -386,7 +392,7 @@ let make = (~service: service, ~username: option<string>) => {
         Method.renderApp(
           service,
           (selectedExtensions, selectedContributes),
-          Method.getInitData(service),
+          (Method.getInitData(service), Method.getUpdateData()),
           (visualExtension, elementContribute),
         )->ignore
       }, 5->Some)

@@ -8,6 +8,8 @@ type elementStateField
 
 type updateElementStateFieldFunc = elementStateField => elementStateField
 
+type clearColor = (float, float, float, float)
+
 type service = {
   registerElement: 'elementState. (
     StateType.state,
@@ -64,5 +66,10 @@ type service = {
     (Meta3dType.Index.api, imguiRendererExtensionName),
     bool,
     Dom.htmlCanvasElement,
+  ) => Meta3dType.Index.state,
+  clear: (
+    Meta3dType.Index.state,
+    (Meta3dType.Index.api, imguiRendererExtensionName),
+    clearColor,
   ) => Meta3dType.Index.state,
 }

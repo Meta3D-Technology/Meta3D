@@ -133,6 +133,15 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   clear: (. mask, gl) => {
     (gl->Obj.magic)["clear"](. mask)
   },
+  getColorBufferBit: (. gl) => {
+    (gl->Obj.magic)["COLOR_BUFFER_BIT"]
+  },
+  getDepthBufferBit: (. gl) => {
+    (gl->Obj.magic)["DEPTH_BUFFER_BIT"]
+  },
+  getStencilBufferBit: (. gl) => {
+    (gl->Obj.magic)["STENCIL_BUFFER_BIT"]
+  },
   enable: (. capability, gl) => {
     (gl->Obj.magic)["enable"](. capability)
   },
@@ -213,5 +222,7 @@ let getExtensionLife: Meta3dType.Index.getExtensionLife<
   {
     onRegister: Js.Nullable.null,
     onStart: Js.Nullable.null,
+    onInit: Js.Nullable.null,
+    onUpdate: Js.Nullable.null,
   }
 }

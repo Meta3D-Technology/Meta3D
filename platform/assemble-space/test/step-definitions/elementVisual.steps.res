@@ -158,8 +158,6 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(\"when", "get and set newest visual extension", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      let initData = Obj.magic(1)
-
       ElementVisualTool.getAndSetNewestVisualExtension(
         ServiceTool.build(
           ~sandbox,
@@ -321,7 +319,7 @@ defineFeature(feature, test => {
     })
 
     CucumberAsync.execStep(\"when", "render app with ui, c1, v, element1", () => {
-      let initData = Obj.magic(1)
+      let data = Obj.magic(1)
 
       ElementVisualTool.renderApp(
         ServiceTool.build(
@@ -336,7 +334,7 @@ defineFeature(feature, test => {
           (),
         ),
         (selectedExtensions.contents, selectedContributes.contents),
-        initData,
+        data,
         (v.contents, element1.contents),
       )
     })

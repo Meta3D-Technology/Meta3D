@@ -299,6 +299,15 @@ function init(meta3dState, param, isDebug, canvas) {
   return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
 }
 
+function clear(meta3dState, param, clearColor) {
+  var imguiRendererExtensionName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  imguiRendererService.clear(imguiRendererState, meta3dState, clearColor);
+  return meta3dState;
+}
+
 export {
   hide ,
   show ,
@@ -326,6 +335,7 @@ export {
   isStateChange ,
   drawBox ,
   init ,
+  clear ,
   
 }
 /* No side effect */

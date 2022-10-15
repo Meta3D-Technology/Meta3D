@@ -37,6 +37,37 @@ let init = (
   )
 }
 
+let clear = (
+  ~sandbox,
+  ~clearColor,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.clear(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+    clearColor,
+  )
+}
+
 let buildIOData = (
   ~pointUp=false,
   ~pointDown=false,

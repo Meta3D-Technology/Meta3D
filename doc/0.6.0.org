@@ -920,11 +920,19 @@ func input(
 # defaultOpen
 
 
-*** TODO run test
+*** DONE run test
 
 # select
 
-isDraw should refresh
+isDraw should refresh:
+imgui service add clear api!
+
+
+publish:
+ui implement, protocol
+imgui renderer implement, protocol
+webgl1 implement, protocol
+visual, visual run implement, protocol
 
 
 *** TODO skin
@@ -946,6 +954,10 @@ to: let { normal } = skin.button
 
 
 
+
+*** TODO fix: shop: refresh bug
+
+when not load?
 
 
 

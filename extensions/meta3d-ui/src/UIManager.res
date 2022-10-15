@@ -518,3 +518,16 @@ let init = (
 
   meta3dState
 }
+
+let clear = (meta3dState, (api: Meta3dType.Index.api, imguiRendererExtensionName), clearColor) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  imguiRendererService.clear(. imguiRendererState, meta3dState, clearColor)
+
+  meta3dState
+}

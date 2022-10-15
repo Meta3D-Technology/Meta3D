@@ -11,6 +11,12 @@ module Method = {
     }->Obj.magic
   }
 
+  let _getUpdateData = () => {
+    {
+      "clearColor": (1., 1., 1., 1.),
+    }->Obj.magic
+  }
+
   let _updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
     service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
   }
@@ -31,7 +37,7 @@ module Method = {
 
       service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
       ->Js.Promise.then_(meta3dState => {
-        _loop(service, meta3dState, _updateApp(service, Obj.magic(1)))->Js.Promise.resolve
+        _loop(service, meta3dState, _updateApp(service, _getUpdateData()))->Js.Promise.resolve
       }, _)
       ->Meta3dBsMost.Most.fromPromise
     }, _)

@@ -22,6 +22,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,
     init: UIManager.init,
+    clear: UIManager.clear,
     render: UIManager.render(api),
   }
 }

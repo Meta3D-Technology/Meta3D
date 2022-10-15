@@ -17,3 +17,13 @@ let init = (
     canvas,
   )->StateType.protocolStateToState
 }
+
+let clear = (
+  ~sandbox,
+  ~clearColor,
+  ~webgl1Service=WebGL1ServiceTool.buildService(~sandbox, ()),
+  ~state=createState(),
+  (),
+) => {
+  ClearService.clear(state, webgl1Service, clearColor)
+}

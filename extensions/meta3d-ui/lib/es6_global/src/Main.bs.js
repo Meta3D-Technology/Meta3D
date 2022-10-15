@@ -26,7 +26,8 @@ function getExtensionService(api, param) {
                           meta3dImguiRendererExtensionName
                         ], rect, backgroundColor);
             }),
-          init: UIManager$Meta3dUi.init
+          init: UIManager$Meta3dUi.init,
+          clear: UIManager$Meta3dUi.clear
         };
 }
 

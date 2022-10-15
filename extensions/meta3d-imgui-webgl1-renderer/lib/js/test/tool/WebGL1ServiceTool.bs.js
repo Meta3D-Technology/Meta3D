@@ -2,7 +2,7 @@
 
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 
-function buildService(sandbox, getContextOpt, createProgramOpt, linkProgramOpt, useProgramOpt, uniformMatrix4fvOpt, uniform1iOpt, uniform1fOpt, uniform3fOpt, getAttribLocationOpt, getUniformLocationOpt, shaderSourceOpt, compileShaderOpt, createShaderOpt, getParameterOpt, getLinkStatusOpt, getShaderParameterOpt, getProgramParameterOpt, getShaderInfoLogOpt, getProgramInfoLogOpt, attachShaderOpt, deleteShaderOpt, bindAttribLocationOpt, getCompileStatusOpt, getVertexShaderOpt, getFragmentShaderOpt, createBufferOpt, bindBufferOpt, bufferFloat32DataOpt, bufferUint16DataOpt, bufferUint32DataOpt, getArrayBufferOpt, getElementArrayBufferOpt, getStaticDrawOpt, getDynamicDrawOpt, disableVertexAttribArrayOpt, vertexAttribPointerOpt, enableVertexAttribArrayOpt, getExtensionOpt, drawElementsOpt, clearColorOpt, clearOpt, enableOpt, disableOpt, getFloatOpt, getDepthTestOpt, getStencilTestOpt, getBlendOpt, getCullFaceOpt, getFrontAndBackOpt, getBackOpt, getFrontOpt, getCurrentProgramOpt, getBindingElementArrayBufferOpt, getBindingArrayBufferOpt, getSrcAlphaOpt, getOneMinusSrcAlphaOpt, isEnabledOpt, bindVertexArrayOESOpt, blendFuncOpt, getTrianglesOpt, getTriangleFanOpt, getUnsignedIntOpt, getUnsignedShortOpt, param) {
+function buildService(sandbox, getContextOpt, createProgramOpt, linkProgramOpt, useProgramOpt, uniformMatrix4fvOpt, uniform1iOpt, uniform1fOpt, uniform3fOpt, getAttribLocationOpt, getUniformLocationOpt, shaderSourceOpt, compileShaderOpt, createShaderOpt, getParameterOpt, getLinkStatusOpt, getShaderParameterOpt, getProgramParameterOpt, getShaderInfoLogOpt, getProgramInfoLogOpt, attachShaderOpt, deleteShaderOpt, bindAttribLocationOpt, getCompileStatusOpt, getVertexShaderOpt, getFragmentShaderOpt, createBufferOpt, bindBufferOpt, bufferFloat32DataOpt, bufferUint16DataOpt, bufferUint32DataOpt, getArrayBufferOpt, getElementArrayBufferOpt, getStaticDrawOpt, getDynamicDrawOpt, disableVertexAttribArrayOpt, vertexAttribPointerOpt, enableVertexAttribArrayOpt, getExtensionOpt, drawElementsOpt, clearColorOpt, clearOpt, getColorBufferBitOpt, getDepthBufferBitOpt, getStencilBufferBitOpt, enableOpt, disableOpt, getFloatOpt, getDepthTestOpt, getStencilTestOpt, getBlendOpt, getCullFaceOpt, getFrontAndBackOpt, getBackOpt, getFrontOpt, getCurrentProgramOpt, getBindingElementArrayBufferOpt, getBindingArrayBufferOpt, getSrcAlphaOpt, getOneMinusSrcAlphaOpt, isEnabledOpt, bindVertexArrayOESOpt, blendFuncOpt, getTrianglesOpt, getTriangleFanOpt, getUnsignedIntOpt, getUnsignedShortOpt, param) {
   var getContext = getContextOpt !== undefined ? getContextOpt : Sinon.createEmptyStub(sandbox.contents);
   var createProgram = createProgramOpt !== undefined ? createProgramOpt : Sinon.createEmptyStub(sandbox.contents);
   var linkProgram = linkProgramOpt !== undefined ? linkProgramOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -44,6 +44,9 @@ function buildService(sandbox, getContextOpt, createProgramOpt, linkProgramOpt, 
   var drawElements = drawElementsOpt !== undefined ? drawElementsOpt : Sinon.createEmptyStub(sandbox.contents);
   var clearColor = clearColorOpt !== undefined ? clearColorOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getColorBufferBit = getColorBufferBitOpt !== undefined ? getColorBufferBitOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getDepthBufferBit = getDepthBufferBitOpt !== undefined ? getDepthBufferBitOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getStencilBufferBit = getStencilBufferBitOpt !== undefined ? getStencilBufferBitOpt : Sinon.createEmptyStub(sandbox.contents);
   var enable = enableOpt !== undefined ? enableOpt : Sinon.createEmptyStub(sandbox.contents);
   var disable = disableOpt !== undefined ? disableOpt : Sinon.createEmptyStub(sandbox.contents);
   var getFloat = getFloatOpt !== undefined ? getFloatOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -108,6 +111,9 @@ function buildService(sandbox, getContextOpt, createProgramOpt, linkProgramOpt, 
           drawElements: drawElements,
           clearColor: clearColor,
           clear: clear,
+          getColorBufferBit: getColorBufferBit,
+          getDepthBufferBit: getDepthBufferBit,
+          getStencilBufferBit: getStencilBufferBit,
           enable: enable,
           disable: disable,
           getFloat: getFloat,

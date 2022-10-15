@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual-run",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
@@ -34,11 +34,11 @@
     "keywords": [],
     "dependencies": {
         "meta3d-bind-io-event-protocol": "^0.5.0",
-        "meta3d-imgui-renderer-protocol": "^0.5.0",
+        "meta3d-imgui-renderer-protocol": "^0.5.1",
         "meta3d-event-protocol": "^0.5.0",
-        "meta3d-ui-protocol": "^0.5.1",
+        "meta3d-ui-protocol": "^0.5.3",
         "meta3d-element-assemble-element-protocol": "^0.5.0",
-        "meta3d-element-assemble-visual-run-protocol": "^0.5.0",
+        "meta3d-element-assemble-visual-run-protocol": "^0.5.1",
         "meta3d-type": "^0.5.0"
     },
     "devDependencies": {

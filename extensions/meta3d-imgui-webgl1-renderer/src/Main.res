@@ -16,8 +16,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
         meta3dWebGL1ExtensionName,
       )
 
-InitService.init(state,
-    webgl1Service, isDebug, canvas)
+      InitService.init(state, webgl1Service, isDebug, canvas)
     },
     render: (. state, meta3dState) => {
       let webgl1Service: Meta3dWebgl1Protocol.ServiceType.service = api.getExtensionService(.
@@ -31,7 +30,20 @@ InitService.init(state,
         webgl1Service,
       )->StateType.stateToProtocolState
     },
-    drawBox:(. rect, color, state) => DrawBoxIMGUIService.draw(rect, color, state -> StateType.protocolStateToState) -> StateType.stateToProtocolState
+    clear: (. state, meta3dState, clearColor) => {
+      let webgl1Service: Meta3dWebgl1Protocol.ServiceType.service = api.getExtensionService(.
+        meta3dState,
+        meta3dWebGL1ExtensionName,
+      )
+
+      ClearService.clear(state->StateType.protocolStateToState, webgl1Service, clearColor)
+    },
+    drawBox: (. rect, color, state) =>
+      DrawBoxIMGUIService.draw(
+        rect,
+        color,
+        state->StateType.protocolStateToState,
+      )->StateType.stateToProtocolState,
   }
 }
 

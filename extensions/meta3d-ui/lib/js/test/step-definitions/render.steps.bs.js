@@ -225,7 +225,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       _prepare(param.given);
                       Curry._2(and, "prepare imgui renderer service", (function (param) {
                               renderStub.contents = Sinon.returns(13, Sinon.createEmptyStub(sandbox.contents));
-                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, renderStub.contents, undefined, undefined);
+                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, renderStub.contents, undefined, undefined);
                               
                             }));
                       Curry._2(and, "prepare io data", (function (param) {

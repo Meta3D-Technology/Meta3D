@@ -26,6 +26,7 @@ type elementStateField = any
 
 type updateElementStateFieldFunc = (elementStateField: elementStateField) => elementStateField
 
+type clearColor = [number, number, number, number]
 
 export type service = {
     readonly registerElement: < elementState> (
@@ -53,6 +54,11 @@ export type service = {
         [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
         isDebug: boolean,
         canvas: HTMLCanvasElement
+    ) => meta3dState;
+    readonly clear: (
+        meta3dState: meta3dState,
+        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        clearColor: clearColor
     ) => meta3dState;
     readonly render: (
         meta3dState: meta3dState,

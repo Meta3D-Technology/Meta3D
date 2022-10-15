@@ -1,6 +1,6 @@
 {
     "name": "meta3d-webgl1",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-webgl1-protocol"
@@ -15,7 +15,7 @@
         "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish"
     },
     "dependencies": {
-        "meta3d-webgl1-protocol": "^0.5.0",
+        "meta3d-webgl1-protocol": "^0.5.1",
         "rescript": "^9.1.4"
     },
     "devDependencies": {
