@@ -12,34 +12,44 @@ module Method = {
   }
 
   // TODO perf: defer load when panel change
-  let _getContributesAndContributes = (
+  let _getContributes = (
     {getAllPublishContributeProtocols},
     selectedContributesFromShop,
   ) => {
-    getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(protocols => {
-      protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
-        (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-          switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter(((
-            {data}: FrontendUtils.AssembleSpaceCommonType.contribute,
-            _,
-          )) => {
-            let protocol = data.contributePackageData.protocol
+    getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(
+      protocols => {
+        protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
+          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
+            switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter(((
+              {data}: FrontendUtils.AssembleSpaceCommonType.contribute,
+              _,
+            )) => {
+              let protocol = data.contributePackageData.protocol
 
-            protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
-          }) {
-          | list{(contribute, protocolConfig)} =>
-            result->Meta3dCommonlib.ArraySt.push((
-              name,
-              iconBase64,
-              protocolConfig->_getProtocolConfigStr,
-              contribute,
-            ))
-          | _ => result
-          }
-        },
-        [],
-      )
-    }, _)
+              protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
+            }) {
+            | contributes =>
+              contributes->Meta3dCommonlib.ListSt.reduce(result, (
+                result,
+                (contribute, protocolConfig),
+              ) => {
+                result->Meta3dCommonlib.ArraySt.push((
+                  contribute.data.contributePackageData.name,
+                  iconBase64,
+                  protocolConfig->_getProtocolConfigStr,
+                  contribute,
+                ))
+              })
+            | _ => result
+            }
+          },
+          [],
+        )
+      },
+      // | list{(contribute, protocolConfig)} =>
+
+      _,
+    )
   }
 
   let selectContribute = (dispatch, protocolIconBase64, protocolConfigStr, contribute) => {
@@ -58,7 +68,7 @@ module Method = {
     selectedContributesFromShop,
   ) => {
     (
-      _getContributesAndContributes(
+      _getContributes(
         service.backend,
         selectedContributesFromShop,
       )->Meta3dBsMost.Most.observe(contributes => {

@@ -82,8 +82,9 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                     ).then(res => {
                         let { fileData } = res.data[0]
 
-                        let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+                        let index = fileData.findIndex(({ protocolName, protocolVersion, name, version }) => {
                             return protocolName === packageJson.protocol.name
+                                && name === packageJson.name
                                 && version === packageJson.version
                         })
 
@@ -111,6 +112,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                             let data = {
                                 protocolName: packageData.protocol.name,
                                 protocolVersion: packageData.protocol.version,
+                                name: packageJson.name,
                                 version: packageJson.version,
                                 fileID
                             }

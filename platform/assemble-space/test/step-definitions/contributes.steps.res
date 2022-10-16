@@ -83,13 +83,14 @@ defineFeature(feature, test => {
     }, _)
   }
 
-  test(."set contributes", ({given, \"when", \"and", then}) => {
+  test(."set contributes when select one contribute", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
       username: "meta3d",
     }
+    let a1Name = "a1"
     // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
     let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
@@ -103,6 +104,7 @@ defineFeature(feature, test => {
       selectedContributesFromShop :=
         list{
           ContributeTool.buildSelectedContribute(
+            ~name=a1Name,
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
             ~protocolConfig=protocolConfig->Some,
@@ -139,11 +141,11 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(
       \"and",
-      "should set a's name, icon, config str and a1 as contributes",
+      "should set a's icon, config str and a1's name as contributes",
       () => {
         _setContributes([
           (
-            a.name,
+            a1Name,
             a.iconBase64,
             protocolConfig.configStr,
             selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
@@ -151,6 +153,92 @@ defineFeature(feature, test => {
         ])
       },
     )
+  })
+
+  test(."set contributes when select two contributes of the same protocol", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let a: FrontendUtils.BackendCloudbaseType.protocol = {
+      name: "a",
+      version: "1.0.1",
+      iconBase64: "i1",
+      username: "meta3d",
+    }
+    let a1Name = "a1"
+    let a2Name = "a2"
+    let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+    _prepare(given)
+
+    given("publish contribute protocol a", () => {
+      allPublishContributeProtocols := [a]
+    })
+
+    \"and"("select contribute a1, a2 for a", () => {
+      selectedContributesFromShop :=
+        list{
+          ContributeTool.buildSelectedContribute(
+            ~name=a1Name,
+            ~protocolName=a.name,
+            ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
+            (),
+          ),
+          ContributeTool.buildSelectedContribute(
+            ~name=a2Name,
+            ~protocolName=a.name,
+            ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
+            (),
+          ),
+        }
+    })
+
+    \"when"("render after useEffectOnceAsync", () => {
+      ()
+    })
+
+    CucumberAsync.execStep(then, "should mark loaded", () => {
+      let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      ContributesTool.useEffectOnceAsync(
+        ~sandbox,
+        ~setIsLoaded=setIsLoadedStub,
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~getAllPublishContributeProtocols=createEmptyStub(
+            refJsObjToSandbox(sandbox.contents),
+          )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
+          (),
+        ),
+        ~selectedContributesFromShop=selectedContributesFromShop.contents,
+        (),
+      )
+      ->ServiceTool.getUseEffectOncePromise
+      ->then_(() => {
+        (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)->resolve
+      }, _)
+    })
+
+    CucumberAsync.execStep(\"and", "contributes should contain a1 and a2", () => {
+      _setContributes([
+        (
+          a1Name,
+          a.iconBase64,
+          protocolConfig.configStr,
+          selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
+        ),
+        (
+          a2Name,
+          a.iconBase64,
+          protocolConfig.configStr,
+          selectedContributesFromShop.contents->ListTool.getNthExn(1)->ContributeTool.getContribute,
+        ),
+      ])
+    })
   })
 
   test(."select contribute", ({given, \"when", \"and", then}) => {
@@ -242,46 +330,46 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."has multiple implements of contribute protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.0.1",
-      iconBase64: "i1",
-      username: "meta3d",
-    }
+  // test(."has multiple implements of contribute protocol", ({given, \"when", \"and", then}) => {
+  //   let a: FrontendUtils.BackendCloudbaseType.protocol = {
+  //     name: "a",
+  //     version: "0.0.1",
+  //     iconBase64: "i1",
+  //     username: "meta3d",
+  //   }
 
-    _prepare(given)
+  //   _prepare(given)
 
-    given("publish contribute protocol a", () => {
-      allPublishContributeProtocols := [a]
-    })
+  //   given("publish contribute protocol a", () => {
+  //     allPublishContributeProtocols := [a]
+  //   })
 
-    \"and"("select contribute a1 and a2 for a", () => {
-      selectedContributesFromShop :=
-        list{
-          ContributeTool.buildSelectedContribute(
-            ~id="a1",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-          ContributeTool.buildSelectedContribute(
-            ~id="a2",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-        }
-    })
+  //   \"and"("select contribute a1 and a2 for a", () => {
+  //     selectedContributesFromShop :=
+  //       list{
+  //         ContributeTool.buildSelectedContribute(
+  //           ~id="a1",
+  //           ~protocolName=a.name,
+  //           ~protocolVersion=a.version,
+  //           (),
+  //         ),
+  //         ContributeTool.buildSelectedContribute(
+  //           ~id="a2",
+  //           ~protocolName=a.name,
+  //           ~protocolVersion=a.version,
+  //           (),
+  //         ),
+  //       }
+  //   })
 
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
+  //   \"when"("render after useEffectOnceAsync", () => {
+  //     ()
+  //   })
 
-    CucumberAsync.execStep(then, "should set empty", () => {
-      _setContributes([])
-    })
-  })
+  //   CucumberAsync.execStep(then, "should set empty", () => {
+  //     _setContributes([])
+  //   })
+  // })
 
   test(."contribute's version not match", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {

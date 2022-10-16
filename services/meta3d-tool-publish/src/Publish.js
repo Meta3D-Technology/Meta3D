@@ -64,8 +64,9 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
             let packageData = _convertToExtensionOrContributePackageData(packageJson);
             return (0, most_1.fromPromise)(getDataFunc(app, _getPublishedCollectionName(fileType), { username: packageJson.publisher }).then(res => {
                 let { fileData } = res.data[0];
-                let index = fileData.findIndex(({ protocolName, protocolVersion, version }) => {
+                let index = fileData.findIndex(({ protocolName, protocolVersion, name, version }) => {
                     return protocolName === packageJson.protocol.name
+                        && name === packageJson.name
                         && version === packageJson.version;
                 });
                 if (index !== -1) {
@@ -78,6 +79,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                     let data = {
                         protocolName: packageData.protocol.name,
                         protocolVersion: packageData.protocol.version,
+                        name: packageJson.name,
                         version: packageJson.version,
                         fileID
                     };

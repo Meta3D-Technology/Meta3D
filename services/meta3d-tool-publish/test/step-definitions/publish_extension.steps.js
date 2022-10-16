@@ -132,6 +132,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                 {
                     "fileData": [{
                             "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                            "name": "test1",
                             "version": "0.0.2",
                             "fileID": fileID1
                         }]
@@ -230,7 +231,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //         ])
     //     });
     // });
-    test('if extension with the same publisher, version, protocol name exist, throw error', ({ given, when, then, and }) => {
+    test('if extension with the same publisher, name, version, protocol name exist, throw error', ({ given, when, then, and }) => {
         let app = { "app": true };
         let distFileContent = "dist";
         let generatedResult = new ArrayBuffer(0);
@@ -259,6 +260,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                         fileData: [
                             {
                                 protocolName: "test1-protocol",
+                                name: "test1",
                                 version: "0.0.2"
                             }
                         ]
@@ -269,7 +271,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         and('publish extension', () => {
             return _publishExtension();
         });
-        when('publish extension with the same publisher, version, protocol name', () => {
+        when('publish extension with the same publisher, name, version, protocol name', () => {
             return _publishExtension();
         });
         then('should error', () => {

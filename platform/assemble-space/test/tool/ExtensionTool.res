@@ -31,6 +31,7 @@ let buildSelectedExtension = (
   ~protocolName,
   ~protocolVersion,
   ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
+  ~name="e1",
   ~id="e1",
   ~version="0.0.1",
   ~username="u1",
@@ -40,6 +41,7 @@ let buildSelectedExtension = (
     id: id,
     data: buildExtensionData(
       ~extensionPackageData=buildExtensionPackageData(
+        ~name,
         ~protocol={
           name: protocolName,
           version: protocolVersion,

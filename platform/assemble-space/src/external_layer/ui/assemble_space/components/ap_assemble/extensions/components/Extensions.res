@@ -4,27 +4,36 @@ open FrontendUtils.AssembleSpaceType
 
 module Method = {
   // TODO perf: defer load when panel change
-  let _getExtensionsAndContributes = (
-    {getAllPublishExtensionProtocols},
-    selectedExtensionsFromShop,
-  ) => {
-    getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(protocols => {
-      protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
-        (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-          switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter((
-            {data}: FrontendUtils.AssembleSpaceCommonType.extension,
-          ) => {
-            let protocol = data.extensionPackageData.protocol
+  let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromShop) => {
+    getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(
+      protocols => {
+        protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
+          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
+            switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter((
+              {data}: FrontendUtils.AssembleSpaceCommonType.extension,
+            ) => {
+              let protocol = data.extensionPackageData.protocol
 
-            protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
-          }) {
-          | list{extension} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64, extension))
-          | _ => result
-          }
-        },
-        [],
-      )
-    }, _)
+              protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
+            }) {
+            | extensions =>
+              extensions->Meta3dCommonlib.ListSt.reduce(result, (result, extension) => {
+                result->Meta3dCommonlib.ArraySt.push((
+                  extension.data.extensionPackageData.name,
+                  iconBase64,
+                  extension,
+                ))
+              })
+            | _ => result
+            }
+          },
+          [],
+        )
+      },
+      // | list{extension} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64, extension))
+
+      _,
+    )
   }
 
   let selectExtension = (dispatch, protocolIconBase64, extension) => {
@@ -33,7 +42,7 @@ module Method = {
 
   let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
     (
-      _getExtensionsAndContributes(
+      _getExtensions(
         service.backend,
         selectedExtensionsFromShop,
       )->Meta3dBsMost.Most.observe(extensions => {

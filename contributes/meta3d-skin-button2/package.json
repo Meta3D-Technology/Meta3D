@@ -1,0 +1,33 @@
+{
+    "name": "meta3d-skin-button2",
+    "version": "0.5.0",
+    "publisher": "meta3d",
+    "protocol": {
+        "name": "meta3d-skin-button-protocol"
+    },
+    "dependentExtensionNameMap": {},
+    "dependentContributeNameMap": {},
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w",
+        "webpack": "webpack --config webpack.config.js",
+        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publish",
+        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish"
+    },
+    "keywords": [],
+    "dependencies": {
+        "meta3d-skin-button-protocol": "^0.5.0",
+        "meta3d-type": "^0.5.0"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^0.5.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
+    }
+}

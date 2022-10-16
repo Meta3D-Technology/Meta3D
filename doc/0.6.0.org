@@ -977,11 +977,15 @@ need publish:
 
 
 
-*** TODO fix extension shop, contribute shop, assemble-space: support select multiple implement for one protocol
+*** DONE fix extension shop, contribute shop, assemble-space: support select multiple implement for one protocol
 
-*** TODO run test: two elements
+# fix Contributes
 
-*** TODO run test: two skins
+# fix Extensions
+
+*** DONE run test: two elements
+
+*** DONE run test: two skins
 
 
 *** TODO fix action: multiple implement for one protocol

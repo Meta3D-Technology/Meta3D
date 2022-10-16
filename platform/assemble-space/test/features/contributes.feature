@@ -24,12 +24,20 @@ Feature: Contributes
 
     Rule: set contributes
 
-        Scenario: set contributes
+        Scenario: set contributes when select one contribute
             Given publish contribute protocol a
             And select contribute a1 for a
             When render after useEffectOnceAsync
             Then should mark loaded
-            And should set a's name, icon, config str and a1 as contributes
+            And should set a's icon, config str and a1's name as contributes
+
+        Scenario: set contributes when select two contributes of the same protocol
+            Given publish contribute protocol a
+            And select contribute a1, a2 for a
+            When render after useEffectOnceAsync
+            Then should mark loaded
+            And contributes should contain a1 and a2
+
 
     Rule: error case
 
@@ -39,11 +47,11 @@ Feature: Contributes
             When render after useEffectOnceAsync
             Then should set empty
 
-        Scenario: has multiple implements of contribute protocol
-            Given publish contribute protocol a
-            And select contribute a1 and a2 for a
-            When render after useEffectOnceAsync
-            Then should set empty
+        # Scenario: has multiple implements of contribute protocol
+        #     Given publish contribute protocol a
+        #     And select contribute a1 and a2 for a
+        #     When render after useEffectOnceAsync
+        #     Then should set empty
 
         Scenario: contribute's version not match
             Given publish contribute protocol a

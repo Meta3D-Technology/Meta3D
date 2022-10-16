@@ -83,13 +83,14 @@ defineFeature(feature, test => {
     }, _)
   }
 
-  test(."set extensions", ({given, \"when", \"and", then}) => {
+  test(."set extensions when select one extension", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
       username: "meta3d",
     }
+    let a1Name = "a1"
 
     _prepare(given)
 
@@ -101,6 +102,7 @@ defineFeature(feature, test => {
       selectedExtensionsFromShop :=
         list{
           ExtensionTool.buildSelectedExtension(
+            ~name=a1Name,
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
             (),
@@ -134,9 +136,86 @@ defineFeature(feature, test => {
       }, _)
     })
 
-    CucumberAsync.execStep(\"and", "should set a's name and icon and a1", () => {
+    CucumberAsync.execStep(
+      \"and",
+      "should set a's icon, config str and a1's name as extensions",
+      () => {
+        _setExtensions([
+          (a1Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getHeadExn),
+        ])
+      },
+    )
+  })
+
+  test(."set extensions when select two extensions of the same protocol", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let a: FrontendUtils.BackendCloudbaseType.protocol = {
+      name: "a",
+      version: "1.0.1",
+      iconBase64: "i1",
+      username: "meta3d",
+    }
+    let a1Name = "a1"
+    let a2Name = "a2"
+
+    _prepare(given)
+
+    given("publish extension protocol a", () => {
+      allPublishExtensionProtocols := [a]
+    })
+
+    \"and"("select extension a1, a2 for a", () => {
+      selectedExtensionsFromShop :=
+        list{
+          ExtensionTool.buildSelectedExtension(
+            ~name=a1Name,
+            ~protocolName=a.name,
+            ~protocolVersion=">= 1.0.0",
+            (),
+          ),
+          ExtensionTool.buildSelectedExtension(
+            ~name=a2Name,
+            ~protocolName=a.name,
+            ~protocolVersion=">= 1.0.0",
+            (),
+          ),
+        }
+    })
+
+    \"when"("render after useEffectOnceAsync", () => {
+      ()
+    })
+
+    CucumberAsync.execStep(then, "should mark loaded", () => {
+      let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      ExtensionsTool.useEffectOnceAsync(
+        ~sandbox,
+        ~setIsLoaded=setIsLoadedStub,
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~getAllPublishExtensionProtocols=createEmptyStub(
+            refJsObjToSandbox(sandbox.contents),
+          )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
+          (),
+        ),
+        ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+        (),
+      )
+      ->ServiceTool.getUseEffectOncePromise
+      ->then_(() => {
+        (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)->resolve
+      }, _)
+    })
+
+    CucumberAsync.execStep(\"and", "extensions should contain a1 and a2", () => {
       _setExtensions([
-        (a.name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getHeadExn),
+        (a1Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getHeadExn),
+        (a2Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getNthExn(1)),
       ])
     })
   })
@@ -222,46 +301,46 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.0.1",
-      iconBase64: "i1",
-      username: "meta3d",
-    }
+  // test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
+  //   let a: FrontendUtils.BackendCloudbaseType.protocol = {
+  //     name: "a",
+  //     version: "0.0.1",
+  //     iconBase64: "i1",
+  //     username: "meta3d",
+  //   }
 
-    _prepare(given)
+  //   _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+  //   given("publish extension protocol a", () => {
+  //     allPublishExtensionProtocols := [a]
+  //   })
 
-    \"and"("select extension a1 and a2 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          ExtensionTool.buildSelectedExtension(
-            ~id="a1",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-          ExtensionTool.buildSelectedExtension(
-            ~id="a2",
-            ~protocolName=a.name,
-            ~protocolVersion=a.version,
-            (),
-          ),
-        }
-    })
+  //   \"and"("select extension a1 and a2 for a", () => {
+  //     selectedExtensionsFromShop :=
+  //       list{
+  //         ExtensionTool.buildSelectedExtension(
+  //           ~id="a1",
+  //           ~protocolName=a.name,
+  //           ~protocolVersion=a.version,
+  //           (),
+  //         ),
+  //         ExtensionTool.buildSelectedExtension(
+  //           ~id="a2",
+  //           ~protocolName=a.name,
+  //           ~protocolVersion=a.version,
+  //           (),
+  //         ),
+  //       }
+  //   })
 
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
+  //   \"when"("render after useEffectOnceAsync", () => {
+  //     ()
+  //   })
 
-    CucumberAsync.execStep(then, "should set empty", () => {
-      _setExtensions([])
-    })
-  })
+  //   CucumberAsync.execStep(then, "should set empty", () => {
+  //     _setExtensions([])
+  //   })
+  // })
 
   test(."extension's version not match", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = {

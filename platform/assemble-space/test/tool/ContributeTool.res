@@ -33,6 +33,7 @@ let buildSelectedContribute = (
   ~protocolConfig=None,
   ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
+  ~name="e1",
   ~version="0.0.1",
   ~username="u1",
   (),
@@ -42,6 +43,7 @@ let buildSelectedContribute = (
       id: id,
       data: buildContributeData(
         ~contributePackageData=buildContributePackageData(
+          ~name,
           ~protocol={
             name: protocolName,
             version: protocolVersion,

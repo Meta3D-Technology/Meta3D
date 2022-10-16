@@ -31,9 +31,9 @@ Feature: Publish Extension
     #     Then should upload generated file
     #     And should update fileID in collection
 
-    Scenario: if extension with the same publisher, version, protocol name exist, throw error
+    Scenario: if extension with the same publisher, name, version, protocol name exist, throw error
         Given prepare funcs
         And publish extension
-        When publish extension with the same publisher, version, protocol name
+        When publish extension with the same publisher, name, version, protocol name
         Then should error
         And not upload file
