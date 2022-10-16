@@ -38,8 +38,6 @@ let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
 let getSkinProtocolData = UIControlProtocolConfig.getSkinProtocolData
 
-let generateUIControlName = UIControlProtocolConfig.generateUIControlName
-
 let generateUIControlDataStr = UIControlProtocolConfig.generateUIControlDataStr
 
 let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSupportedEventNames

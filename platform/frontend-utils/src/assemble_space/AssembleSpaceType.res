@@ -86,7 +86,6 @@ type meta3dService = {
   serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getSkinProtocolData: (. Meta3d.LibUtils.lib) => Meta3dType.Index.skinProtocolData,
   generateUIControlDataStr: (. Meta3d.LibUtils.lib, string, string) => string,
-  generateUIControlName: (. Meta3d.LibUtils.lib) => Meta3dType.Index.uiControlName,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,
   ) => array<Meta3dType.Index.supportedEventName>,

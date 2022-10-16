@@ -9,16 +9,16 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
     let { meta3dUIExtensionName } = dependentExtensionNameMap
 
     return {
-        uiControlName: "Button",
+        uiControlName: "Button2",
         func: (meta3dState,
             {
                 rect,
                 // text
                 skin
-            } 
+            }
         ) => {
             // let { getSkin, drawBox, getIOData } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
-            let {  drawBox, getIOData } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
+            let { drawBox, getIOData } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
             let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
 
             let { x, y, width, height } = rect
@@ -45,7 +45,10 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
             let { normal } = skin
             // let { normal } = getSkin<buttonStyle>(state, meta3dSkinDefaultContributeName).button
 
-            meta3dState = drawBox(meta3dState, rect, normal.background_color)
+            let background_color: any = normal.background_color.slice()
+            background_color[1] = 0.5
+
+            meta3dState = drawBox(meta3dState, rect, background_color)
             // meta3dState = drawText(meta3dState, rect, text)
 
 

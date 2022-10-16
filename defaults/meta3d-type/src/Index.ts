@@ -13,7 +13,7 @@ export type dependentExtensionNameMap = any
 
 export type dependentContributeNameMap = any
 
-export type getContributeFuncResult =any
+export type getContributeFuncResult = any
 
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
 
@@ -63,8 +63,6 @@ export type rect = {
   height: number,
 }
 
-export type uiControlName = string
-
 export type supportedEventName = "click"
 
 export type actionName = nullable<string>
@@ -79,8 +77,6 @@ export type skinProtocolData = {
 export type getSkinProtocolData = () => skinProtocolData
 
 export type generateUIControlDataStr = (rect: string, skin: string) => string
-
-export type generateUIControlName = () => uiControlName
 
 export type getUIControlSupportedEventNames = () => Array<supportedEventName>
 
@@ -97,11 +93,7 @@ export type action = {
 }
 
 
-export type actionNameForAction = string
-
 export type actions = Array<action>
-
-export type getActionName = () => actionNameForAction
 
 export type getActions = () => actions
 

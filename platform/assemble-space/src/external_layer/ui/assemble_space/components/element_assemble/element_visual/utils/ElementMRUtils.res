@@ -14,6 +14,7 @@ type protocol = {
 }
 
 type uiControl = {
+  name: string,
   protocol: protocol,
   data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
 }
@@ -54,6 +55,9 @@ let buildElementMR = (
         let {name, version} = data.contributePackageData.protocol
 
         uiControls->Meta3dCommonlib.ArraySt.push({
+          name: (
+            service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+          )["uiControlName"],
           protocol: {
             name: name,
             version: version,
@@ -69,15 +73,13 @@ let buildElementMR = (
 
 let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service, uiControls) => {
   uiControls
-  ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {protocol}) => {
-    j`${protocol.name}_${protocol.version}`
+  ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
+    name
   })
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {protocol}) => {
-    let uiControlName = service.meta3d.generateUIControlName(. protocol.configLib)
-
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {name, protocol}) => {
     str ++
     j`
-    let ${uiControlName} = getUIControl(uiState,"${uiControlName}")
+    let ${name} = getUIControl(uiState,"${name}")
     `
   }, "")
 }
@@ -144,21 +146,19 @@ let _generateAllDrawUIControlAndHandleEventStr = (
   uiControls,
 ) => {
   uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. str, {protocol, data}) => {
-      let {name, version, configLib} = protocol
-
+    (. str, {name, protocol, data}) => {
       str ++
       _generateIsDrawIfBegin(data.isDraw) ++
       j`
-                data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
+                data = ${name}(meta3dState,
                     ${service.meta3d.generateUIControlDataStr(.
-          configLib,
+          protocol.configLib,
           _generateRect(data.rect),
           _generateSkin(data.skin),
         )})
                 meta3dState = data[0]
     ` ++
-      _generateHandleUIControlEventStr(service, configLib, data.event) ++
+      _generateHandleUIControlEventStr(service, protocol.configLib, data.event) ++
       _generateIsDrawIfEnd()
     },
     `

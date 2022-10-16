@@ -10,10 +10,6 @@ function getSkinProtocolData(configLib) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "getSkinProtocolData")();
 }
 
-function generateUIControlName(configLib) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlName")();
-}
-
 function generateUIControlDataStr(configLib, rect, skin) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlDataStr")(rect, skin);
 }
@@ -28,7 +24,6 @@ function generateHandleUIControlEventStr(configLib, actionNames) {
 
 exports.serializeLib = serializeLib;
 exports.getSkinProtocolData = getSkinProtocolData;
-exports.generateUIControlName = generateUIControlName;
 exports.generateUIControlDataStr = generateUIControlDataStr;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;

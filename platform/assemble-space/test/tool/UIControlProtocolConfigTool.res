@@ -10,7 +10,6 @@ window.UIControlProtocolConfig = {
     generateUIControlDataStr: (rect, skin) => {
         return "{rect: " + rect + ", skin: " + skin + "}"
     },
-    generateUIControlName: () => "Button",
     getUIControlSupportedEventNames: () => ["click"],
     generateHandleUIControlEventStr: ([clickActionName]) => {
         if (clickActionName !== null && clickActionName !== undefined) {

@@ -59,7 +59,6 @@ let make = () => {
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeUIControlProtocolConfigLib(protocolConfigStr),
       getSkinProtocolData: (. configLib) => Meta3d.Main.getSkinProtocolData(configLib),
-      generateUIControlName: (. configLib) => Meta3d.Main.generateUIControlName(configLib),
       generateUIControlDataStr: (. configLib, rect, skin) =>
         Meta3d.Main.generateUIControlDataStr(configLib, rect, skin),
       getUIControlSupportedEventNames: (. configLib) =>

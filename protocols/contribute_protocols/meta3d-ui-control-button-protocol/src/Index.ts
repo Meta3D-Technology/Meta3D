@@ -1,7 +1,5 @@
 import { skin } from "meta3d-skin-button-protocol"
 
-export const uiControlName = "Button"
-
 type rect = {
     x: number,
     y: number,

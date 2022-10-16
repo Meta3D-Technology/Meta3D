@@ -114,8 +114,6 @@ type rect = {
   height: int,
 }
 
-type uiControlName = string
-
 type supportedEventName = [#click]
 
 type actionName = Js.Nullable.t<string>
@@ -131,8 +129,6 @@ type getSkinProtocolData = unit => skinProtocolData
 
 type generateUIControlDataStr = (string, string) => string
 
-type generateUIControlName = unit => uiControlName
-
 type getUIControlSupportedEventNames = unit => array<supportedEventName>
 
 type generateHandleUIControlEventStr = array<actionName> => string
@@ -144,11 +140,7 @@ type action = {
   role: string,
 }
 
-type actionNameForAction = string
-
 type actions = array<action>
-
-type getActionName = unit => actionNameForAction
 
 type getActions = unit => actions
 

@@ -46,8 +46,6 @@ var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.seriali
 
 var getSkinProtocolData = UIControlProtocolConfig$Meta3d.getSkinProtocolData;
 
-var generateUIControlName = UIControlProtocolConfig$Meta3d.generateUIControlName;
-
 var generateUIControlDataStr = UIControlProtocolConfig$Meta3d.generateUIControlDataStr;
 
 var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIControlSupportedEventNames;
@@ -80,7 +78,6 @@ exports.startApp = startApp;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLib;
 exports.getSkinProtocolData = getSkinProtocolData;
-exports.generateUIControlName = generateUIControlName;
 exports.generateUIControlDataStr = generateUIControlDataStr;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;

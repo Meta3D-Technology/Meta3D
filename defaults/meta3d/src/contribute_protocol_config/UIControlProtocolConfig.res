@@ -6,10 +6,6 @@ let getSkinProtocolData = configLib => {
   (LibUtils.getFuncFromLib(configLib, "getSkinProtocolData")->Obj.magic)(.)
 }
 
-let generateUIControlName = configLib => {
-  (LibUtils.getFuncFromLib(configLib, "generateUIControlName")->Obj.magic)(.)
-}
-
 let generateUIControlDataStr = (configLib, rect, skin) => {
   (LibUtils.getFuncFromLib(configLib, "generateUIControlDataStr")->Obj.magic)(. rect, skin)
 }
