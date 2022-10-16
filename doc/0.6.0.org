@@ -1106,6 +1106,7 @@ bdd test
 
 # test reducer for multiple elements when run
 
+* DONE refactor
 
 
 * TODO pass run test: single element
@@ -1114,6 +1115,33 @@ element contribute with two buttons:
 one button
     when click the button, show the second button:
 one button with different rect, color
+
+
+
+TODO handle canvas
+
+start extension's config:
+canvas
+isDebug
+# element's config
+
+# ui control's config
+
+canvasData is default
+
+add Config.ts?
+
+export let getNeedConfigData: needConfigDataMeta3D = () => {
+    return [
+        {
+            name:"isDebug",
+            type:"bool"|"int"|"string"
+        },
+    ]
+}
+
+
+after start, show config form:
 
 
 

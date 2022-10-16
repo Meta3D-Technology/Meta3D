@@ -19,7 +19,9 @@ module Method = {
     })
   }
 
-  let getUniqueRoles = (protocolConfigActions: list<Meta3dType.Index.actions>) => {
+  let getUniqueRoles = (
+    protocolConfigActions: list<Meta3dType.ActionProtocolConfigType.actions>,
+  ) => {
     protocolConfigActions
     ->Meta3dCommonlib.ListSt.reduce([], (roles, actions) => {
       Js.Array.concat(actions->Meta3dCommonlib.ArraySt.map(({role}) => role), roles)
@@ -36,7 +38,7 @@ module Method = {
   }
 
   let getUniqueActionNamesByRole = (
-    protocolConfigActions: list<Meta3dType.Index.actions>,
+    protocolConfigActions: list<Meta3dType.ActionProtocolConfigType.actions>,
     role,
   ) => {
     protocolConfigActions

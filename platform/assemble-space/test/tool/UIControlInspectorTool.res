@@ -31,7 +31,7 @@ let buildSkin = (skinName): FrontendUtils.ElementAssembleStoreType.skin => {
 }
 
 let buildEventData = (
-  eventName: Meta3dType.Index.eventName,
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
   actionName,
 ): FrontendUtils.ElementAssembleStoreType.eventData => {
   eventName: eventName,

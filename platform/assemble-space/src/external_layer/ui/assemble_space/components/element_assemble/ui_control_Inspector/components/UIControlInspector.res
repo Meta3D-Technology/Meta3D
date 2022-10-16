@@ -91,7 +91,7 @@ module Method = {
   let setAction = (
     dispatch,
     id,
-    eventName: Meta3dType.Index.supportedEventName,
+    eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
     actionName: string,
   ) => {
     dispatch(

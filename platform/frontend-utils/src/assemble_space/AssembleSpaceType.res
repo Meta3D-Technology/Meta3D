@@ -84,17 +84,19 @@ type meta3dService = {
     . Js.Typed_array.Uint8Array.t,
   ) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
-  getSkinProtocolData: (. Meta3d.LibUtils.lib) => Meta3dType.Index.skinProtocolData,
+  getSkinProtocolData: (
+    . Meta3d.LibUtils.lib,
+  ) => Meta3dType.UIControlProtocolConfigType.skinProtocolData,
   generateUIControlDataStr: (. Meta3d.LibUtils.lib, string, string) => string,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,
-  ) => array<Meta3dType.Index.supportedEventName>,
+  ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,
   generateHandleUIControlEventStr: (
     . Meta3d.LibUtils.lib,
-    array<Meta3dType.Index.actionName>,
+    array<Meta3dType.UIControlProtocolConfigType.actionName>,
   ) => string,
   serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
-  getActions: (. Meta3d.LibUtils.lib) => Meta3dType.Index.actions,
+  getActions: (. Meta3d.LibUtils.lib) => Meta3dType.ActionProtocolConfigType.actions,
 }
 
 type otherService = {

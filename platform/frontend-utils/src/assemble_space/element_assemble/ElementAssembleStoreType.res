@@ -19,7 +19,7 @@ type selectedUIControls = list<uiControl>
 type actionName = string
 
 type eventData = {
-  eventName: Meta3dType.Index.eventName,
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
   actionName: actionName,
 }
 
@@ -101,7 +101,7 @@ type action =
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
   | SetSkin(id, skinName)
-  | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
+  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContributeData(elementContributeData)
