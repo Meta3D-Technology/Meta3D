@@ -185,6 +185,20 @@ let generate = ((
   ]->BinaryFileOperator.generate
 }
 
+let _getContributeFunc = (contributeFuncData, decoder) => {
+  let lib =
+    TextDecoder.decodeUint8Array(contributeFuncData, decoder)->LibUtils.serializeLib("Contribute")
+
+  LibUtils.getFuncFromLib(lib, "getContribute")
+}
+
+let execGetContributeFunc = contributeFuncData => {
+  (_getContributeFunc(contributeFuncData, TextDecoder.newTextDecoder("utf-8"))->Obj.magic)(
+    Obj.magic(1),
+    Obj.magic(1),
+  )
+}
+
 let _parse = (appBinaryFile: ArrayBuffer.t) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
@@ -214,18 +228,13 @@ let _parse = (appBinaryFile: ArrayBuffer.t) => {
     BinaryFileOperator.load(allContributeBinaryUint8File->Uint8Array.buffer)
     ->Meta3dCommonlib.ArraySt.chunk(2)
     ->Meta3dCommonlib.ArraySt.map(([contributePackageData, contributeFuncData]) => {
-      let lib =
-        TextDecoder.decodeUint8Array(contributeFuncData, decoder)->LibUtils.serializeLib(
-          "Contribute",
-        )
-
       {
         contributePackageData: TextDecoder.decodeUint8Array(contributePackageData, decoder)
         ->FileUtils.removeAlignedEmptyChars
         ->Js.Json.parseExn
         ->Obj.magic,
         contributeFuncData: {
-          getContributeFunc: LibUtils.getFuncFromLib(lib, "getContribute")->Obj.magic,
+          getContributeFunc: _getContributeFunc(contributeFuncData, decoder)->Obj.magic,
         },
       }
     }),

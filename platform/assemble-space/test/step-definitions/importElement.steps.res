@@ -310,7 +310,7 @@ defineFeature(feature, test => {
               ~id=id1,
               ~x=rect.x,
               ~isDraw,
-              ~skin=skin->Some,
+              ~skin,
               ~event,
               (),
             ),

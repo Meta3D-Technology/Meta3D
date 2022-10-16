@@ -45,7 +45,7 @@ let buildUIControlInspectorData = (
   ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-  ~skin=None,
+  ~skin=buildSkin("empty"),
   ~event=[],
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {

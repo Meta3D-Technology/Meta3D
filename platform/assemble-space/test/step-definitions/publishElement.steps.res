@@ -143,7 +143,7 @@ defineFeature(feature, test => {
             ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
             ~event=event.contents,
             ~isDraw=isDraw.contents,
-            ~skin=skin.contents->Some,
+            ~skin=skin.contents,
             (),
           ),
         }

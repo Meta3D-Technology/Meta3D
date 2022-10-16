@@ -28,7 +28,13 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          FrontendUtils.ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1)),
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+          ),
         )
 
       id1 :=
@@ -60,7 +66,10 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          FrontendUtils.ElementAssembleStoreType.SetAction(id1.contents, (eventName, actionName->Some)),
+          FrontendUtils.ElementAssembleStoreType.SetAction(
+            id1.contents,
+            (eventName, actionName->Some),
+          ),
         )
     })
 
@@ -101,13 +110,7 @@ defineFeature(feature, test => {
 
     then("should remove the event data of id1", () => {
       store.contents.selectedUIControlInspectorData->expect ==
-        list{
-          UIControlInspectorTool.buildUIControlInspectorData(
-            ~id=id1.contents,
-            ~event=[],
-            (),
-          ),
-        }
+        list{UIControlInspectorTool.buildUIControlInspectorData(~id=id1.contents, ~event=[], ())}
     })
   })
 })

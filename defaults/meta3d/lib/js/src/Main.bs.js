@@ -40,6 +40,8 @@ var loadApp = AppManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
+var execGetContributeFunc = AppManager$Meta3d.execGetContributeFunc;
+
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
 
 var getSkinProtocolData = UIControlProtocolConfig$Meta3d.getSkinProtocolData;
@@ -77,6 +79,7 @@ exports.convertAllFileDataForApp = convertAllFileDataForApp;
 exports.generateApp = generateApp;
 exports.loadApp = loadApp;
 exports.startApp = startApp;
+exports.execGetContributeFunc = execGetContributeFunc;
 exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLib;
 exports.getSkinProtocolData = getSkinProtocolData;
 exports.generateUIControlName = generateUIControlName;

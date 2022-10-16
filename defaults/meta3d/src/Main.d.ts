@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, actions, actionNameForAction, skinProtocolData } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, uiControlName, supportedEventName, actionName, actions, actionNameForAction, skinProtocolData, getContributeFuncResult } from "meta3d-type"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
 
@@ -133,6 +133,11 @@ export function startApp(
         allExtensionDataArr
     ]: [state, Array<extensionFileData>]
 ): void
+
+export function execGetContributeFunc(
+    contributeFuncData: Uint8Array
+): getContributeFuncResult
+
 
 type protocolConfigStr = string
 

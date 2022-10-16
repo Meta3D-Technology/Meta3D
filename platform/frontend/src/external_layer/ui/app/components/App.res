@@ -54,12 +54,14 @@ let make = () => {
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
+      execGetContributeFunc: (. contributeFuncData) =>
+        Meta3d.Main.execGetContributeFunc(contributeFuncData),
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeUIControlProtocolConfigLib(protocolConfigStr),
       getSkinProtocolData: (. configLib) => Meta3d.Main.getSkinProtocolData(configLib),
       generateUIControlName: (. configLib) => Meta3d.Main.generateUIControlName(configLib),
-      generateUIControlDataStr: (. configLib, rect) =>
-        Meta3d.Main.generateUIControlDataStr(configLib, rect),
+      generateUIControlDataStr: (. configLib, rect, skin) =>
+        Meta3d.Main.generateUIControlDataStr(configLib, rect, skin),
       getUIControlSupportedEventNames: (. configLib) =>
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
       generateHandleUIControlEventStr: (. configLib, actionNames) =>

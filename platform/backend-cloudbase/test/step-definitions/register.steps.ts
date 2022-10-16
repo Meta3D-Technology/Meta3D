@@ -70,6 +70,13 @@ defineFeature(feature, test => {
                     fileData: []
                 }
             ])
+            expect(addDataFunc).toCalledWith([
+                "publishedSkinAssembleData",
+                {
+                    username,
+                    fileData: []
+                }
+            ])
             // expect(addDataFunc).toCalledWith([
             //     "publishedExtensionProtocols",
             //     {

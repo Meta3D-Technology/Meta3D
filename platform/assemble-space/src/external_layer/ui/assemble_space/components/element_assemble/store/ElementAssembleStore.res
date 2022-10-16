@@ -1,6 +1,6 @@
 open FrontendUtils.ElementAssembleStoreType
 
-let _buildDefaultUIControlInspectorData = id => {
+let _buildDefaultUIControlInspectorData = (id, skin) => {
   {
     id: id,
     rect: {
@@ -10,7 +10,7 @@ let _buildDefaultUIControlInspectorData = id => {
       height: 20->IntForRectField,
     },
     isDraw: true->BoolForIsDraw,
-    skin: None,
+    skin: skin,
     event: [],
   }
 }
@@ -51,7 +51,7 @@ let reducer = (state, action) => {
       visualExtension: state.visualExtension,
     }
 
-  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data) => {
+  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data, skin) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       {
@@ -64,7 +64,7 @@ let reducer = (state, action) => {
           data: data,
         }),
         selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.push(
-          _buildDefaultUIControlInspectorData(id),
+          _buildDefaultUIControlInspectorData(id, skin),
         ),
       }
     }
@@ -122,14 +122,12 @@ let reducer = (state, action) => {
       },
       id,
     )
-  | SetSkin(id, skinNameOpt) =>
+  | SetSkin(id, skinName) =>
     _setUIControlInspectorData(
       state,
       data => {
         ...data,
-        skin: skinNameOpt->Meta3dCommonlib.OptionSt.map(skinName => {
-          {skinName: skinName}
-        }),
+        skin: {skinName: skinName},
       },
       id,
     )

@@ -44,7 +44,7 @@ type skinName = string
 
 type skin = {skinName: skinName}
 
-type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event, skin: option<skin>}
+type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event, skin: skin}
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
@@ -95,11 +95,12 @@ type action =
       protocolConfigStr,
       name,
       Meta3d.ExtensionFileType.contributeFileData,
+      skin,
     )
   | SetInspectorCurrentUIControlId(id)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
-  | SetSkin(id, option<skinName>)
+  | SetSkin(id, skinName)
   | SetAction(id, (Meta3dType.Index.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)

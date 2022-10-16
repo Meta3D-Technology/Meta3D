@@ -32,6 +32,8 @@ let loadApp = AppManager.load
 
 let startApp = AppManager.start
 
+let execGetContributeFunc = AppManager.execGetContributeFunc
+
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
 let getSkinProtocolData = UIControlProtocolConfig.getSkinProtocolData

@@ -85,12 +85,7 @@ module Method = {
   let getSkins = SelectedContributesUtils.getSkins
 
   let setSkin = (dispatch, id, skinName: string) => {
-    dispatch(
-      FrontendUtils.ElementAssembleStoreType.SetSkin(
-        id,
-        SelectUtils.isEmptySelectOptionValue(skinName) ? None : Some(skinName),
-      ),
-    )
+    dispatch(FrontendUtils.ElementAssembleStoreType.SetSkin(id, skinName))
   }
 
   let setAction = (
@@ -311,54 +306,26 @@ let make = (~service: service) => {
 
         <>
           <h1> {React.string(`Skin`)} </h1>
-          {
-            let {protocolName, protocolVersion} = service.meta3d.getSkinProtocolData(.
-              uiControlConfigLib,
-            )
-
-            SelectUtils.buildSelect(
-              Method.setSkin(dispatch, id),
-              skin
-              ->Meta3dCommonlib.OptionSt.map(({skinName}) => skinName)
-              ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
-              switch skins->Meta3dCommonlib.ArraySt.filter(({data}) => {
-                let protocol = data.contributePackageData.protocol
-
-                protocol.name === protocolName &&
-                  Meta3d.Semver.satisfies(
-                    Meta3d.Semver.minVersion(protocol.version),
-                    protocolVersion,
-                  )
-              }) {
-              | skins if skins->Meta3dCommonlib.ArraySt.length === 0 =>
+          {SelectUtils.buildSelectWithoutEmpty(
+            Method.setSkin(dispatch, id),
+            skin.skinName,
+            SkinUtils.findSkins(
+              service,
+              exn => {
                 service.console.error(.
-                  Meta3dCommonlib.Exception.buildErr(
-                    Meta3dCommonlib.Log.buildErrorMessage(
-                      ~title="currentSelectedUIControl need skin",
-                      ~description={
-                        j`skin protocol:
-                      protocolName: ${protocolName}, protocolVersion: ${protocolVersion}`
-                      },
-                      ~reason="",
-                      ~solution=j``,
-                      ~params=j``,
-                    ),
-                  )
-                  ->Obj.magic
-                  ->Js.Exn.message
-                  ->Meta3dCommonlib.OptionSt.getExn
-                  ->Obj.magic,
+                  exn->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
                   None,
                 )
-
                 []
-              | skins =>
-                skins->Meta3dCommonlib.ArraySt.map(({newName, data}) => {
-                  NewNameUtils.getName(newName, data.contributePackageData.name)
-                })
               },
-            )
-          }
+              protocolConfigStr,
+              selectedContributes,
+            )->Meta3dCommonlib.ArraySt.map(({data}) => {
+              (
+                service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+              )["skinName"]
+            }),
+          )}
           <h1> {React.string(`Event`)} </h1>
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}

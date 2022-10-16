@@ -1,5 +1,6 @@
 var gulp = require("gulp");
 var path = require("path");
+var fs = require("fs");
 var publish = require("meta3d-tool-publish")
 
 gulp.task("publish", function (done) {
@@ -10,5 +11,3 @@ gulp.task("publish", function (done) {
         done()
     })
 });
-
-

@@ -80,6 +80,7 @@ type meta3dService = {
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
+  execGetContributeFunc: (. Js.Typed_array.Uint8Array.t) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getSkinProtocolData: (. Meta3d.LibUtils.lib) => Meta3dType.Index.skinProtocolData,
   generateUIControlDataStr: (. Meta3d.LibUtils.lib, string, string) => string,

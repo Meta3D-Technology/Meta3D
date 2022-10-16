@@ -935,7 +935,7 @@ webgl1 implement, protocol
 visual, visual run implement, protocol
 
 
-*** TODO skin
+*** DONE skin
 
 one skin to one ui control:
 change meta3d-skin-default to meta3d-skin-ui-control-button
@@ -988,7 +988,7 @@ need publish:
 TODO remove Config.ts->getActionName
 TODO set actionName in implement
 
-# remove Config.ts
+remove Config.ts
 
 # publish to assemble data:
 # actionName
@@ -1005,6 +1005,14 @@ bdd test
 *** TODO fix ui control: multiple implement for one protocol
 TODO remove Config.ts->generateUIControlName
 TODO set uiControlName in implement
+
+
+publish to assemble data:
+uiControlName
+uiControlVersion
+# inspectorData->actions
+
+
 
 bdd test
 

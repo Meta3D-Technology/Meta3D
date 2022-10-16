@@ -351,6 +351,7 @@ defineFeature(feature, test => {
     let skin2Name = "s2"
     let useSelectorStub = ref(Obj.magic(1))
     let getSkinProtocolDataStub = ref(Obj.magic(1))
+    let execGetContributeFuncStub = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -385,6 +386,8 @@ defineFeature(feature, test => {
           _,
         )
 
+      execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
       s1 :=
         SelectedContributesTool.buildSelectedContribute(
           ~id=skin1Name,
@@ -403,6 +406,16 @@ defineFeature(feature, test => {
           (),
         )
 
+      execGetContributeFuncStub.contents
+      ->onCall(0, _)
+      ->returns(
+        {
+          "skinName": skin1Name,
+        },
+        _,
+      )
+      ->ignore
+
       s2 :=
         SelectedContributesTool.buildSelectedContribute(
           ~id=skin2Name,
@@ -420,6 +433,16 @@ defineFeature(feature, test => {
           ),
           (),
         )
+
+      execGetContributeFuncStub.contents
+      ->onCall(1, _)
+      ->returns(
+        {
+          "skinName": skin2Name,
+        },
+        _,
+      )
+      ->ignore
     })
 
     \"and"("set inspector current selected ui control data to d1 whose skin is s1", () => {
@@ -434,7 +457,7 @@ defineFeature(feature, test => {
               list{
                 UIControlInspectorTool.buildUIControlInspectorData(
                   ~id,
-                  ~skin=UIControlInspectorTool.buildSkin(skin1Name)->Some,
+                  ~skin=UIControlInspectorTool.buildSkin(skin1Name),
                   (),
                 ),
               },
@@ -453,6 +476,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~service=ServiceTool.build(
           ~sandbox,
+          ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
           ~getSkinProtocolData=getSkinProtocolDataStub.contents->Obj.magic,
           ~useSelector=useSelectorStub.contents,
           (),
@@ -479,7 +503,7 @@ defineFeature(feature, test => {
 
     then("should dispatch SetSkin action", () => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetSkin(id, skinName->Some)
+        FrontendUtils.ElementAssembleStoreType.SetSkin(id, skinName)
     })
   })
 

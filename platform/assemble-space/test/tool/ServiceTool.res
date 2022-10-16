@@ -61,6 +61,7 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeUIControlProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
@@ -110,6 +111,7 @@ let build = (
     generateApp: generateApp,
     convertAllFileData: convertAllFileData,
     loadApp: loadApp,
+    execGetContributeFunc: execGetContributeFunc,
     serializeUIControlProtocolConfigLib: serializeUIControlProtocolConfigLib,
     getSkinProtocolData: getSkinProtocolData,
     generateUIControlDataStr: generateUIControlDataStr,

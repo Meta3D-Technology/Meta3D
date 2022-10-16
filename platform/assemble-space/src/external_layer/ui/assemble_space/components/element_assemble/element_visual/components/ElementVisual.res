@@ -260,7 +260,7 @@ module Method = {
       ).id,
       rect: rect,
       isDraw: isDraw,
-      skin: skin->Some,
+      skin: skin,
       event: event,
     })
     ->Meta3dCommonlib.ListSt.fromArray

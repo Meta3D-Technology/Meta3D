@@ -71,7 +71,7 @@ module Method = {
                 name: _getSelectedUIControlName(id, selectedUIControls),
                 rect: rect,
                 isDraw: isDraw,
-                skin: skin->Meta3dCommonlib.OptionSt.getExn,
+                skin: skin,
                 event: event,
               })
               ->Meta3dCommonlib.ListSt.toArray,

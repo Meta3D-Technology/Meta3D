@@ -13,6 +13,8 @@ export type dependentExtensionNameMap = any
 
 export type dependentContributeNameMap = any
 
+export type getContributeFuncResult =any
+
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal

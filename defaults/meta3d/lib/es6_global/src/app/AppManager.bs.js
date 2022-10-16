@@ -89,6 +89,15 @@ function generate(param) {
             ]);
 }
 
+function _getContributeFunc(contributeFuncData, decoder) {
+  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(contributeFuncData), "Contribute");
+  return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
+}
+
+function execGetContributeFunc(contributeFuncData) {
+  return Curry._2(_getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), 1, 1);
+}
+
 function _parse(appBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
@@ -97,7 +106,7 @@ function _parse(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            191,
+            205,
             6
           ],
           Error: new Error()
@@ -112,7 +121,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            198,
+                            212,
                             34
                           ],
                           Error: new Error()
@@ -136,7 +145,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            216,
+                            230,
                             34
                           ],
                           Error: new Error()
@@ -144,11 +153,10 @@ function _parse(appBinaryFile) {
                   }
                   var contributePackageData = param[0];
                   var contributeFuncData = param[1];
-                  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(contributeFuncData), "Contribute");
                   return {
                           contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(contributePackageData))),
                           contributeFuncData: {
-                            getContributeFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getContribute")
+                            getContributeFunc: _getContributeFunc(contributeFuncData, decoder)
                           }
                         };
                 }))
@@ -217,6 +225,8 @@ export {
   _convertDependentMap ,
   convertAllFileData ,
   generate ,
+  _getContributeFunc ,
+  execGetContributeFunc ,
   _parse ,
   _prepare ,
   _getStartExtensionName ,

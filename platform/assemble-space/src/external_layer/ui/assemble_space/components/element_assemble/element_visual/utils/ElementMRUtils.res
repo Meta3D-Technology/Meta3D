@@ -125,7 +125,7 @@ let _generateRect = (rect: FrontendUtils.ElementAssembleStoreType.rect): string 
 }
 
 let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string => {
-  j` getSkin(uiState, "${skin.skinName}") `
+  j` getSkin(uiState, "${skin.skinName}").skin `
 }
 
 let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
@@ -149,32 +149,15 @@ let _generateAllDrawUIControlAndHandleEventStr = (
 
       str ++
       _generateIsDrawIfBegin(data.isDraw) ++
-      switch data.skin {
-      | None =>
-        Meta3dCommonlib.Exception.throwErr(
-          Meta3dCommonlib.Exception.buildErr(
-            Meta3dCommonlib.Log.buildErrorMessage(
-              ~title={j`skin not exist`},
-              ~description={
-                ""
-              },
-              ~reason="",
-              ~solution=j``,
-              ~params=j``,
-            ),
-          ),
-        )
-      | Some(skin) =>
-        j`
+      j`
                 data = ${service.meta3d.generateUIControlName(. configLib)}(meta3dState,
                     ${service.meta3d.generateUIControlDataStr(.
-            configLib,
-            _generateRect(data.rect),
-            _generateSkin(skin),
-          )})
+          configLib,
+          _generateRect(data.rect),
+          _generateSkin(data.skin),
+        )})
                 meta3dState = data[0]
-    `
-      } ++
+    ` ++
       _generateHandleUIControlEventStr(service, configLib, data.event) ++
       _generateIsDrawIfEnd()
     },

@@ -26,6 +26,8 @@ type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
   dependentContributeNameValue,
 >
 
+type getContributeFuncResult
+
 // type config
 
 type extensionLifeHandlerData

@@ -5,13 +5,44 @@ open FrontendUtils.AssembleSpaceType
 module Method = {
   let getUIControls = SelectedContributesUtils.getUIControls
 
-  let selectUIControl = (dispatch, protocolIconBase64, protocolConfigStr, name, data) => {
+  let _findSkin = (
+    service,
+    protocolConfigStr,
+    selectedContributes,
+  ): FrontendUtils.ElementAssembleStoreType.skin => {
+    let {data} =
+      SkinUtils.findSkins(
+        service,
+        Meta3dCommonlib.Exception.throwErr,
+        protocolConfigStr,
+        selectedContributes,
+      )[0]
+
+    {
+      skinName: (
+        service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+      )["skinName"],
+    }
+  }
+
+  let selectUIControl = (
+    service,
+    dispatch,
+    selectedContributes,
+    protocolIconBase64,
+    protocolConfigStr,
+    name,
+    data,
+  ) => {
+    let protocolConfigStr = protocolConfigStr->Meta3dCommonlib.OptionSt.getExn
+
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SelectUIControl(
         protocolIconBase64,
-        protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+        protocolConfigStr,
         name,
         data,
+        _findSkin(service, protocolConfigStr, selectedContributes),
       ),
     )
   }
@@ -41,7 +72,17 @@ let make = (~service: service) => {
         <Card
           key={id}
           onClick={_ => {
-            Method.selectUIControl(dispatch, protocolIconBase64, protocolConfigStr, name, data)
+            FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+              Method.selectUIControl(
+                service,
+                dispatch,
+                selectedContributes,
+                protocolIconBase64,
+                protocolConfigStr,
+                name,
+                data,
+              )
+            }, 5->Some)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
           cover={<img
