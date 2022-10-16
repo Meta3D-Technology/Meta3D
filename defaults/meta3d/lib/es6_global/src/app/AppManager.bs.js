@@ -95,7 +95,10 @@ function _getContributeFunc(contributeFuncData, decoder) {
 }
 
 function execGetContributeFunc(contributeFuncData) {
-  return Curry._2(_getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), 1, 1);
+  return Curry._2(_getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
+              ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+              ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+            ]);
 }
 
 function _parse(appBinaryFile) {
@@ -106,7 +109,7 @@ function _parse(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            205,
+            208,
             6
           ],
           Error: new Error()
@@ -121,7 +124,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            212,
+                            215,
                             34
                           ],
                           Error: new Error()
@@ -145,7 +148,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            230,
+                            233,
                             34
                           ],
                           Error: new Error()

@@ -68,7 +68,6 @@ let make = () => {
         Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames),
       serializeActionProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
-      getActionName: (. configLib) => Meta3d.Main.getActionName(configLib),
       getActions: (. configLib) => Meta3d.Main.getActions(configLib),
     },
     console: {

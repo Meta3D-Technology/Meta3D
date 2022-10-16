@@ -194,8 +194,11 @@ let _getContributeFunc = (contributeFuncData, decoder) => {
 
 let execGetContributeFunc = contributeFuncData => {
   (_getContributeFunc(contributeFuncData, TextDecoder.newTextDecoder("utf-8"))->Obj.magic)(
-    Obj.magic(1),
-    Obj.magic(1),
+    ExtensionManager.buildAPI(),
+    (
+      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    ),
   )
 }
 

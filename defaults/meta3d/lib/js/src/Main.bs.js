@@ -56,8 +56,6 @@ var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHan
 
 var serializeActionProtocolConfigLib = ActionProtocolConfig$Meta3d.serializeLib;
 
-var getActionName = ActionProtocolConfig$Meta3d.getActionName;
-
 var getActions = ActionProtocolConfig$Meta3d.getActions;
 
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
@@ -87,7 +85,6 @@ exports.generateUIControlDataStr = generateUIControlDataStr;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 exports.serializeActionProtocolConfigLib = serializeActionProtocolConfigLib;
-exports.getActionName = getActionName;
 exports.getActions = getActions;
 exports.buildAPI = buildAPI;
 /* AppManager-Meta3d Not a pure module */

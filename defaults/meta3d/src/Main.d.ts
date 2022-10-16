@@ -160,8 +160,6 @@ export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, act
 
 export type serializeActionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
 
-export type getActionName = (configLib: protocolConfigLib) => actionNameForAction
-
 export type getActions = (configLib: protocolConfigLib) => actions
 
 

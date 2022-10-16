@@ -988,11 +988,11 @@ need publish:
 *** DONE run test: two skins
 
 
-*** TODO fix action: multiple implement for one protocol
+*** DONE fix action: multiple implement for one protocol
 TODO remove Config.ts->getActionName
 TODO set actionName in implement
 
-remove Config.ts
+# remove Config.ts
 
 # publish to assemble data:
 # actionName
@@ -1003,7 +1003,7 @@ remove Config.ts
 bdd test
 
 
-*** TODO run test: two actions
+*** DONE run test: two actions
 
 
 *** TODO fix ui control: multiple implement for one protocol

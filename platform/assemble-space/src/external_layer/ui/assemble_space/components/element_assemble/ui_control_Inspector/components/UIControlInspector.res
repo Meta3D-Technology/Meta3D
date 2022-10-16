@@ -343,12 +343,10 @@ let make = (~service: service) => {
                 {SelectUtils.buildSelect(
                   Method.setAction(dispatch, id, eventName),
                   defaultValue,
-                  actions->Meta3dCommonlib.ArraySt.map(({protocolConfigStr}) => {
-                    let actionConfigLib = service.meta3d.serializeActionProtocolConfigLib(.
-                      protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-                    )
-
-                    service.meta3d.getActionName(. actionConfigLib)
+                  actions->Meta3dCommonlib.ArraySt.map(({data}) => {
+                    (
+                      service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+                    )["actionName"]
                   }),
                 )}
               </List.Item>
