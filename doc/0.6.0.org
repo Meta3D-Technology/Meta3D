@@ -1362,12 +1362,14 @@ click first's button, alert and enter second one
 ** DONE publish to website
 
 
-** TODO register meta3d
+** DONE register meta3d
+
 
 ** TODO republish all extensions, contributes 
 
-
 ** TODO publish version
+
+
 
 
 

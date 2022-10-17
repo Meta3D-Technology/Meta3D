@@ -19,7 +19,6 @@
 		"examples/*",
 		"platform/*",
 		"services/*",
-		"supports/*",
 		"utils/*"
 	],
 	"config": {

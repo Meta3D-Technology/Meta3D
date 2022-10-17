@@ -8,7 +8,6 @@
 		"examples/*",
 		"platform/*",
 		"services/*",
-		"supports/*",
 		"utils/*"
 	],
 	"npmClient": "yarn",
