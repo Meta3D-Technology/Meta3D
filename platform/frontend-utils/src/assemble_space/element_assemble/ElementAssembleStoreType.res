@@ -81,11 +81,7 @@ type elementInspectorData = {
   reducers: reducers,
 }
 
-type elementContributeData = (
-  // (string, string, Js.Typed_array.ArrayBuffer.t),
-  (string, string, string),
-  ApAssembleStoreType.contribute,
-)
+type elementContribute = ApAssembleStoreType.contribute
 
 type action =
   | Reset
@@ -104,7 +100,7 @@ type action =
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)
-  | SetElementContributeData(elementContributeData)
+  | SetElementContribute(elementContribute)
   | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
   | SetElementStateFields(elementStateFields)
@@ -118,7 +114,7 @@ type state = {
   selectedUIControlInspectorData: selectedUIControlInspectorData,
   visualExtension: option<ApAssembleStoreType.extension>,
   runVisualExtension: option<ApAssembleStoreType.extension>,
-  elementContributeData: option<elementContributeData>,
+  elementContribute: option<elementContribute>,
   isShowElementInspector: bool,
   elementInspectorData: elementInspectorData,
 }

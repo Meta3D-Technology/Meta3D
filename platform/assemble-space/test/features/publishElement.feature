@@ -15,14 +15,14 @@ Feature: Publish Element
     #     And click publish button
     #     Then should show modal
 
-    Scenario: publish when has no element contribute data
-        When publish
-        Then should error
+    # Scenario: publish when has no element contribute data
+    #     When publish
+    #     Then should error
 
     Rule: Publish
 
-        Background: prepare element contribute data
-            Given prepare element contribute data
+        Background: prepare data
+            Given prepare data
 
         Scenario: generate element contribute
             When publish
@@ -32,10 +32,10 @@ Feature: Publish Element
             When publish
             Then should publish generated element contribute
 
-        Scenario: publish element assemble data
-            When publish
-            Then should publish element assemble data
+    Scenario: publish element assemble data
+        When publish
+        Then should publish element assemble data
 
-        Scenario: close modal after publish successfully
-            When publish
-            Then should close modal
+    Scenario: close modal after publish successfully
+        When publish
+        Then should close modal

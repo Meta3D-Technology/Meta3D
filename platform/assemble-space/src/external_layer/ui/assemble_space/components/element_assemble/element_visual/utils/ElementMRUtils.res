@@ -36,13 +36,14 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
 
 let buildElementMR = (
   service: FrontendUtils.AssembleSpaceType.service,
+  elementName,
   selectedUIControls,
   selectedUIControlInspectorData,
   (elementStateFields, reducers),
 ): elementMR => {
   {
     element: {
-      elementName: "ElementAssembleElement",
+      elementName: elementName,
       execOrder: 0,
       elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
       reducers: reducers,

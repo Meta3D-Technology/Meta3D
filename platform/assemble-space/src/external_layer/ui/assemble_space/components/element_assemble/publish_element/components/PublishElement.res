@@ -20,26 +20,21 @@ module Method = {
     (
       username,
       (
-        elementContributeData,
-        elementInspectorData,
+        elementInspectorData: FrontendUtils.ElementAssembleStoreType.elementInspectorData,
         selectedUIControls,
         selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
       ),
     ),
     values,
-  ): Js.Promise.t<unit> => {
-    let elementName: string = values["elementName"]
-    let elementVersion: string = values["elementVersion"]
+  ): Js.Promise.t<unit> =>
+    {
+      let elementName: string = values["elementName"]
+      let elementVersion: string = values["elementVersion"]
 
-    switch elementContributeData {
-    | None =>
-      //  Js.Promise.reject({j`没有找到ElementContribute Data`}-> Js.Exn)
+      let {elementStateFields, reducers} = elementInspectorData
 
-      service.console.error(. {j`没有找到ElementContribute Data`}, None)
-
-      ()->Js.Promise.resolve
-    | Some((data, _)) =>
-      let (protocolName, protocolVersion, fileStr) = data
+      let protocolName = ElementContributeUtils.getElementContributeProtocolName()
+      let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
 
       Meta3dBsMost.Most.mergeArray([
         service.backend.publishElementContribute(.
@@ -50,7 +45,13 @@ module Method = {
             elementName,
             protocolName,
             protocolVersion,
-            fileStr,
+            ElementContributeUtils.buildElementContributeFileStr(
+              service,
+              elementName,
+              selectedUIControls,
+              selectedUIControlInspectorData,
+              (elementStateFields, reducers),
+            ),
           ),
         ),
         service.backend.publishedElementAssembleData(.
@@ -96,7 +97,6 @@ module Method = {
         None,
       )->Obj.magic
     }, _)
-  }
 
   // let onFinishFailed = (service, errorInfo) => {
   //   ()
@@ -104,25 +104,18 @@ module Method = {
 
   let useSelector = (
     {
-      elementContributeData,
       elementInspectorData,
       selectedUIControls,
       selectedUIControlInspectorData,
     }: FrontendUtils.ElementAssembleStoreType.state,
   ) => {
-    (
-      elementContributeData,
-      elementInspectorData,
-      selectedUIControls,
-      selectedUIControlInspectorData,
-    )
+    (elementInspectorData, selectedUIControls, selectedUIControlInspectorData)
   }
 }
 
 @react.component
 let make = (~service: service, ~username: option<string>) => {
   let (
-    elementContributeData,
     elementInspectorData,
     selectedUIControls,
     selectedUIControlInspectorData,
@@ -163,12 +156,7 @@ let make = (~service: service, ~username: option<string>) => {
               setVisible,
               (
                 username,
-                (
-                  elementContributeData,
-                  elementInspectorData,
-                  selectedUIControls,
-                  selectedUIControlInspectorData,
-                ),
+                (elementInspectorData, selectedUIControls, selectedUIControlInspectorData),
               ),
               event->Obj.magic,
             )->ignore

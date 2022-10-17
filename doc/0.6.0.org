@@ -1171,7 +1171,7 @@ need publish:
 
 
 
-* TODO pass run test: two elements
+* DONE pass run test: two elements
 
 click first's button, alert and enter second one
 

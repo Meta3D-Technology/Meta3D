@@ -11,7 +11,6 @@ defineFeature(feature, test => {
   let username = ref(Obj.magic(1))
   let elementName = ref(Obj.magic(1))
   let elementVersion = ref(Obj.magic(1))
-  let elementContributeData = ref(Obj.magic(1))
   let elementInspectorData = ref(Obj.magic(1))
   let selectedUIControls = ref(Obj.magic(1))
   let selectedUIControlInspectorData = ref(Obj.magic(1))
@@ -42,7 +41,6 @@ defineFeature(feature, test => {
           ~sandbox,
           ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
-              None,
               ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
               list{},
             ),
@@ -80,7 +78,6 @@ defineFeature(feature, test => {
   //           ),
   //           ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
   //             (
-  //               None,
   //               ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
   //               list{},
   //             ),
@@ -95,36 +92,34 @@ defineFeature(feature, test => {
   //   })
   // })
 
-  test(."publish when has no element contribute data", ({given, \"when", \"and", then}) => {
-    let errorStub = ref(Obj.magic(1))
+  // test(."publish when has no element contribute data", ({given, \"when", \"and", then}) => {
+  //   let errorStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    CucumberAsync.execStep(\"when", "publish", () => {
-      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //   CucumberAsync.execStep(\"when", "publish", () => {
+  //     errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      PublishElementTool.publish(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
-        ~elementContributeData=None,
-        (),
-      )
-    })
+  //     PublishElementTool.publish(
+  //       ~sandbox,
+  //       ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+  //       (),
+  //     )
+  //   })
 
-    then("should error", () => {
-      errorStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2({j`没有找到ElementContribute Data`}, None)
-      ->expect == true
-    })
-  })
+  //   then("should error", () => {
+  //     errorStub.contents
+  //     ->Obj.magic
+  //     ->SinonTool.calledWithArg2({j`没有找到ElementContribute Data`}, None)
+  //     ->expect == true
+  //   })
+  // })
 
-  let _prepareElementContributeData = given => {
-    given("prepare element contribute data", () => {
+  let _prepareData = given => {
+    given("prepare data", () => {
       username := "u1"
       elementName := "e1"
       elementVersion := "0.0.1"
-      elementContributeData := ("e1-protocol", "^0.0.1", "fileStr content")
       elementInspectorData :=
         ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers())
 
@@ -155,7 +150,7 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareElementContributeData(given)
+    _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
       generateContributeStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -169,52 +164,58 @@ defineFeature(feature, test => {
         ~service=ServiceTool.build(
           ~sandbox,
           ~generateContribute=generateContributeStub.contents->Obj.magic,
+          ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
+          ~getSkinProtocolData=Meta3d.Main.getSkinProtocolData->Obj.magic,
+          ~generateUIControlDataStr=Meta3d.Main.generateUIControlDataStr->Obj.magic,
+          ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
+          ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
           (),
         ),
-        ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~username=username.contents->Some,
         (),
       )
     })
 
     then("should generat element contribute", () => {
-      let (protocolName, protocolVersion, fileStr) = elementContributeData.contents
-
-      generateContributeStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2(
-        (
-          {
-            name: elementName.contents,
-            protocol: {
-              name: protocolName,
-              version: protocolVersion,
-            },
-            dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
-            ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dUIExtensionName",
-              (
-                {
-                  protocolName: "meta3d-ui-protocol",
-                  protocolVersion: "^0.5.0",
-                }: Meta3d.ExtensionFileType.dependentData
+      (
+        generateContributeStub.contents
+        ->Obj.magic
+        ->SinonTool.getArg(~stub=_, ~argIndex=1, ())
+        ->Js.String.includes("elementName:\"e1\",", _),
+        generateContributeStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(
+          (
+            {
+              name: elementName.contents,
+              protocol: {
+                name: ElementContributeUtils.getElementContributeProtocolName(),
+                version: ElementContributeUtils.getElementContributeProtocolVersion(),
+              },
+              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+              ->Meta3dCommonlib.ImmutableHashMap.set(
+                "meta3dUIExtensionName",
+                (
+                  {
+                    protocolName: "meta3d-ui-protocol",
+                    protocolVersion: "^0.5.0",
+                  }: Meta3d.ExtensionFileType.dependentData
+                ),
+              )
+              ->Meta3dCommonlib.ImmutableHashMap.set(
+                "meta3dEventExtensionName",
+                (
+                  {
+                    protocolName: "meta3d-event-protocol",
+                    protocolVersion: "^0.5.1",
+                  }: Meta3d.ExtensionFileType.dependentData
+                ),
               ),
-            )
-            ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dEventExtensionName",
-              (
-                {
-                  protocolName: "meta3d-event-protocol",
-                  protocolVersion: "^0.5.1",
-                }: Meta3d.ExtensionFileType.dependentData
-              ),
-            ),
-            dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          }: Meta3d.ExtensionFileType.contributePackageData
+              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            }: Meta3d.ExtensionFileType.contributePackageData
+          ),
         ),
-        fileStr,
-      )
-      ->expect == true
+      )->expect == (true, true)
     })
   })
 
@@ -224,7 +225,7 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareElementContributeData(given)
+    _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
       publishElementContributeStub :=
@@ -245,22 +246,24 @@ defineFeature(feature, test => {
           ->Obj.magic,
           (),
         ),
-        ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~elementInspectorData=elementInspectorData.contents,
-        ~selectedUIControls=selectedUIControls.contents,
-        ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
+        // ~selectedUIControls=selectedUIControls.contents,
+        // ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
         (),
       )
     })
 
     then("should publish generated element contribute", () => {
-      let (protocolName, protocolVersion, _) = elementContributeData.contents
-
       publishElementContributeStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg3(
         username.contents,
-        (elementName.contents, elementVersion.contents, protocolName, protocolVersion),
+        (
+          elementName.contents,
+          elementVersion.contents,
+          ElementContributeUtils.getElementContributeProtocolName(),
+          ElementContributeUtils.getElementContributeProtocolVersion(),
+        ),
         elementContributeBinaryFile,
       )
       ->expect == true
@@ -272,7 +275,7 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareElementContributeData(given)
+    _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
       publishedElementAssembleDataStub :=
@@ -290,7 +293,6 @@ defineFeature(feature, test => {
           ~publishedElementAssembleData=publishedElementAssembleDataStub.contents->Obj.magic,
           (),
         ),
-        ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~elementInspectorData=elementInspectorData.contents,
         ~selectedUIControls=selectedUIControls.contents,
         ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
@@ -299,8 +301,6 @@ defineFeature(feature, test => {
     })
 
     then("should publish element assemble data", () => {
-      let (protocolName, protocolVersion, contributeBinaryFile) = elementContributeData.contents
-
       publishedElementAssembleDataStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg4(
@@ -334,7 +334,7 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareElementContributeData(given)
+    _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
       setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -343,7 +343,6 @@ defineFeature(feature, test => {
         ~sandbox,
         ~username=username.contents->Some,
         ~setVisible=setVisibleStub.contents->Obj.magic,
-        ~elementContributeData=(elementContributeData.contents, Obj.magic(1))->Some,
         ~service=ServiceTool.build(
           ~sandbox,
           ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -351,8 +350,6 @@ defineFeature(feature, test => {
           ->Obj.magic,
           (),
         ),
-        // ~selectedExtensions=selectedExtensions.contents,
-        // ~selectedContributes=selectedContributes.contents,
         (),
       )
     })

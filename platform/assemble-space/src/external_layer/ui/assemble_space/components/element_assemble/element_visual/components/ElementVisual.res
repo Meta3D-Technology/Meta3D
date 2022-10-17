@@ -103,23 +103,19 @@ module Method = {
 
   let _getElementContributeVersion = () => "0.5.0"
 
-  let _getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
-
-  let _getElementContributeProtocolVersion = () => "0.5.1"
-
   let buildElementContributeFileStr = (
     service,
     selectedUIControls,
     selectedUIControlInspectorData,
     (elementStateFields, reducers),
-  ) => {
-    ElementMRUtils.buildElementMR(
+  ) =>
+    ElementContributeUtils.buildElementContributeFileStr(
       service,
-      selectedUIControls->Meta3dCommonlib.ListSt.toArray,
-      selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
+      _getElementContributeName(),
+      selectedUIControls,
+      selectedUIControlInspectorData,
       (elementStateFields, reducers),
-    )->ElementMRUtils.generateElementContributeFileStr(service, _)
-  }
+    )
 
   let _buildContribute = (name, version, data): FrontendUtils.ApAssembleStoreType.contribute => {
     id: "",
@@ -151,24 +147,21 @@ module Method = {
   }
 
   let generateElementContributeData = (service, fileStr) => {
-    let protocolName = _getElementContributeProtocolName()
-    let protocolVersion = _getElementContributeProtocolVersion()
+    let protocolName = ElementContributeUtils.getElementContributeProtocolName()
+    let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
 
-    (
-      (protocolName, protocolVersion, fileStr),
-      _generateElementContribute(
-        service,
-        protocolName,
-        protocolVersion,
-        _getElementContributeName(),
-        _getElementContributeVersion(),
-        fileStr,
-      ),
+    _generateElementContribute(
+      service,
+      protocolName,
+      protocolVersion,
+      _getElementContributeName(),
+      _getElementContributeVersion(),
+      fileStr,
     )
   }
 
-  let updateElementContribute = (dispatch, elementContributeData) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContributeData(elementContributeData))
+  let updateElementContribute = (dispatch, elementContribute) => {
+    dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContribute(elementContribute))
   }
 
   let getAndSetElementAssembleData = (
@@ -296,11 +289,11 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       visualExtension,
-      elementContributeData,
+      elementContribute,
       elementInspectorData,
     } = elementAssembleState
 
-    // let (_, elementContribute) = elementContributeData
+    // let (_, elementContribute) = elementContribute
 
     (
       isDebug,
@@ -310,7 +303,7 @@ module Method = {
         selectedUIControlInspectorData,
         visualExtension,
         // elementContribute,
-        elementContributeData,
+        elementContribute,
         elementInspectorData,
       ),
     )
@@ -329,7 +322,7 @@ let make = (~service: service, ~username: option<string>) => {
       selectedUIControlInspectorData,
       visualExtension,
       // elementContribute,
-      elementContributeData,
+      elementContribute,
       elementInspectorData,
     ),
   ) = service.react.useSelector(Method.useSelector)
@@ -389,10 +382,8 @@ let make = (~service: service, ~username: option<string>) => {
   ])
 
   service.react.useEffect1(. () => {
-    switch (visualExtension, elementContributeData) {
-    | (Some(visualExtension), Some(elementContributeData)) =>
-      let (_, elementContribute) = elementContributeData
-
+    switch (visualExtension, elementContribute) {
+    | (Some(visualExtension), Some(elementContribute)) =>
       FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
         Method.renderApp(
           service,
@@ -405,7 +396,7 @@ let make = (~service: service, ~username: option<string>) => {
     }
 
     None
-  }, [visualExtension, elementContributeData->Obj.magic])
+  }, [visualExtension, elementContribute->Obj.magic])
 
   !Method.isLoaded(visualExtension, elementAssembleData)
     ? <p> {React.string(`loading...`)} </p>

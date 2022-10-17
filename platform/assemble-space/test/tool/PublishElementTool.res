@@ -9,7 +9,6 @@ let publish = (
   ~service,
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~username=None,
-  ~elementContributeData=None,
   ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
     list{},
     ReducerTool.buildReducers(),
@@ -28,7 +27,6 @@ let publish = (
     (
       username,
       (
-        elementContributeData,
         elementInspectorData,
         selectedUIControls,
         selectedUIControlInspectorData,

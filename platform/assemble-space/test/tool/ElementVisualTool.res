@@ -47,8 +47,8 @@ let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
 let generateElementContribute = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~protocolName=ElementVisual.Method._getElementContributeProtocolName(),
-  ~protocolVersion=ElementVisual.Method._getElementContributeProtocolVersion(),
+  ~protocolName=ElementContributeUtils.getElementContributeProtocolName(),
+  ~protocolVersion=ElementContributeUtils.getElementContributeProtocolVersion(),
   ~elementName=ElementVisual.Method._getElementContributeName(),
   ~elementVersion=ElementVisual.Method._getElementContributeVersion(),
   ~fileStr="",

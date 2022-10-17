@@ -61,14 +61,14 @@ module Method = {
     {isDebug, apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {canvasData, selectedExtensions, selectedContributes} = apAssembleState
-    let {runVisualExtension, elementContributeData} = elementAssembleState
+    let {runVisualExtension, elementContribute} = elementAssembleState
 
-    // let (_, elementContribute) = elementContributeData
+    // let (_, elementContribute) = elementContribute
 
     (
       isDebug,
       (canvasData, selectedExtensions, selectedContributes),
-      (runVisualExtension, elementContributeData),
+      (runVisualExtension, elementContribute),
     )
   }
 }
@@ -80,7 +80,7 @@ let make = (~service: service) => {
   let (
     isDebug,
     (canvasData, selectedExtensions, selectedContributes),
-    (runVisualExtension, elementContributeData),
+    (runVisualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -93,10 +93,8 @@ let make = (~service: service) => {
   }, [])
 
   {
-    switch (runVisualExtension, elementContributeData) {
-    | (Some(runVisualExtension), Some(elementContributeData)) =>
-      let (_, elementContribute) = elementContributeData
-
+    switch (runVisualExtension, elementContribute) {
+    | (Some(runVisualExtension), Some(elementContribute)) =>
       <Button
         onClick={_ => {
           Method.run(

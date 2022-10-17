@@ -13,6 +13,7 @@ let feature = loadFeature("./test/features/elementMR.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   let service = ref(Obj.magic(1))
+  let elementName = "ElementAssembleElement"
   let execGetContributeFuncStub = ref(Obj.magic(1))
 
   let _setFakeConfigLib = (mr: ElementMRUtils.elementMR, configLib) => {
@@ -181,6 +182,7 @@ defineFeature(feature, test => {
       mr :=
         ElementVisualTool.buildElementMR(
           service.contents,
+          elementName,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
           (elementStateFields.contents, ReducerTool.buildReducers()),
@@ -199,7 +201,7 @@ defineFeature(feature, test => {
         (
           {
             element: {
-              elementName: "ElementAssembleElement",
+              elementName: elementName,
               execOrder: 0,
               elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
               reducers: ReducerTool.buildReducers(),
@@ -307,6 +309,7 @@ defineFeature(feature, test => {
       mr :=
         ElementVisualTool.buildElementMR(
           service.contents,
+          elementName,
           selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
           selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
           (list{}, ReducerTool.buildReducers()),
@@ -325,7 +328,7 @@ defineFeature(feature, test => {
         (
           {
             element: {
-              elementName: "ElementAssembleElement",
+              elementName: elementName,
               execOrder: 0,
               elementStateFields: [],
               reducers: ReducerTool.buildReducers(),
@@ -378,7 +381,14 @@ defineFeature(feature, test => {
     })
 
     \"when"("build element middle represent with reducers", () => {
-      mr := ElementVisualTool.buildElementMR(service.contents, [], [], (list{}, reducers.contents))
+      mr :=
+        ElementVisualTool.buildElementMR(
+          service.contents,
+          elementName,
+          [],
+          [],
+          (list{}, reducers.contents),
+        )
     })
 
     \"and"("generate element contribute string", () => {

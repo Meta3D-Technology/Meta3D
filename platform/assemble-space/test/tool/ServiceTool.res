@@ -64,7 +64,9 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns({"uiControlName": ""}, _)
+  ->Obj.magic,
   ~serializeUIControlProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
@@ -72,7 +74,9 @@ let build = (
   ->returns(UIControlInspectorTool.buildSkinProtocolData(), _)
   ->Obj.magic,
   ~generateUIControlDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns([], _)
+  ->Obj.magic,
   ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeActionProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getActions=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
