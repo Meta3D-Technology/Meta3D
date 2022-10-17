@@ -6,7 +6,7 @@
     "scripts": {
         "watch": "tsc --watch",
         "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
-        "test:ci": "tsc --build --clean && jest --maxWorkers=4 --config jest_coverage.json"
+        "test:ci": "tsc --build --clean && jest --maxWorkers=4 --config jest_coverage.json && tsc --build"
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",

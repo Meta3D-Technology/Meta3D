@@ -1357,10 +1357,7 @@ click first's button, alert and enter second one
 ** DONE clear extensions, contributes
 
 
-** TODO pass ci
-
-** TODO publish version
-
+** DONE pass ci
 
 ** DONE publish to website
 
@@ -1368,6 +1365,9 @@ click first's button, alert and enter second one
 ** TODO register meta3d
 
 ** TODO republish all extensions, contributes 
+
+
+** TODO publish version
 
 
 
