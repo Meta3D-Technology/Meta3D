@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishContributeConfig = exports.publish = void 0;
+exports.publishConfig = exports.publish = void 0;
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {
@@ -55,7 +55,15 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
     });
 }
 exports.publish = publish;
-function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, distFilePath) {
+function _getPublishedConfigCollectionName(fileType) {
+    switch (fileType) {
+        case "extension":
+            return "publishedExtensionProtocolConfigs";
+        case "contribute":
+            return "publishedContributeProtocolConfigs";
+    }
+}
+function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, distFilePath, fileType) {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(app => [app, packageJson]);
     }).flatMap(([app, packageJson]) => {
@@ -63,7 +71,7 @@ function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, readJson
             if (!isPublisherRegistered) {
                 _throwError("publishser没有注册");
             }
-            let collectioName = "publishedContributeProtocolConfigs";
+            let collectioName = _getPublishedConfigCollectionName(fileType);
             return (0, most_1.fromPromise)(getCollectionFunc(app, collectioName).then(res => {
                 let index = res.data.findIndex(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
@@ -89,5 +97,5 @@ function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, readJson
         errorFunc("error message: ", e);
     });
 }
-exports.publishContributeConfig = publishContributeConfig;
+exports.publishConfig = publishConfig;
 //# sourceMappingURL=Publish.js.map

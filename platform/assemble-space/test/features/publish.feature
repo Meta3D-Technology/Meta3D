@@ -25,14 +25,15 @@ Feature: Publish
             Given select extension e1, e2 without newName
             And select contribute c1, c2 with newName
 
-        Scenario: generate correct app
+        Scenario: generate correct app without config data
             When publish app
-            Then should generat app with correct extension data and contribute data
+            Then error for get config data
 
-        Scenario: publish generated app
+        Scenario: generate correct app with config data
+            Given prepare canvas data
+            And select start extension e3
+            And prepare config data
             When publish app
-            Then should publish the generated app
-
-        Scenario: close modal after publish successfully
-            When publish app
-            Then should close modal
+            Then should generat app with correct extension data and contribute data and start config data
+            And should publish the generated app
+            And should close modal

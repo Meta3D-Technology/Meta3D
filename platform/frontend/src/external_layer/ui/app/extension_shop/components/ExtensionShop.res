@@ -10,11 +10,15 @@ let make = () => {
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishExtensionProtocols, setAllPublishExtensionProtocols) = React.useState(_ => [])
+  let (
+    allPublishExtensionProtocolConfigs,
+    setAllPublishExtensionProtocolConfigs,
+  ) = React.useState(_ => [])
   let (extensionProtocolItem, setExtensionProtocolItem) = React.useState(_ => None)
   let (allPublishExtensions, setAllPublishExtensions) = React.useState(_ => None)
 
   let _isSelect = (id, selectedExtensions: UserCenterStore.selectedExtensions) => {
-    selectedExtensions->Meta3dCommonlib.ListSt.includesByFunc(selectedExtension =>
+    selectedExtensions->Meta3dCommonlib.ListSt.includesByFunc(((selectedExtension, _)) =>
       id === selectedExtension.id
     )
   }
@@ -29,8 +33,16 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.observe(protocols => {
+    BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
+      BackendCloudbase.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
+        protocolConfigs => {
+          (protocols, protocolConfigs)
+        },
+        _,
+      )
+    }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
       setAllPublishExtensionProtocols(_ => protocols)
+      setAllPublishExtensionProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
@@ -48,6 +60,8 @@ let make = () => {
       : {
           switch extensionProtocolItem {
           | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+            let (protocolName, protocolVersion) = (item.name, item.version)
+
             switch allPublishExtensions {
             | Some(allPublishExtensions) =>
               <List
@@ -76,7 +90,16 @@ let make = () => {
                       : <Button
                           onClick={_ => {
                             dispatch(
-                              AppStore.UserCenterAction(UserCenterStore.SelectExtension(item)),
+                              AppStore.UserCenterAction(
+                                UserCenterStore.SelectExtension(
+                                  item,
+                                  allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find((
+                                    {name, version}: FrontendUtils.CommonType.protocolConfig,
+                                  ) => {
+                                    name === protocolName && version === protocolVersion
+                                  }),
+                                ),
+                              ),
                             )
                           }}>
                           {React.string(`选择`)}

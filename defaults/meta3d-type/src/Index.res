@@ -32,6 +32,16 @@ type getContributeFuncResult
 
 type extensionLifeHandlerData
 
+type canvasData = {
+  width: int,
+  height: int,
+}
+
+type configData
+
+
+type startConfigData = (canvasData, configData)
+
 type rec extensionLifeEventHandler<'extensionService> = (state, 'extensionService) => state
 and extensionLifeAsyncEventHandler<'extensionService> = (
   state,
@@ -40,7 +50,7 @@ and extensionLifeAsyncEventHandler<'extensionService> = (
 ) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
-  onStart: Js.Nullable.t<(state, 'extensionService) => unit>,
+  onStart: Js.Nullable.t<(state, 'extensionService, startConfigData) => unit>,
   onInit: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
   onUpdate: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
 }

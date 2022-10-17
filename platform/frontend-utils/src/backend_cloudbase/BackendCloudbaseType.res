@@ -27,6 +27,11 @@ type getAllPublishContributeProtocolConfigs = unit => Meta3dBsMostProtocol.Strea
   protocolConfigs,
 >
 
+type getAllPublishExtensionProtocolConfigs = unit => Meta3dBsMostProtocol.StreamType.stream<
+  protocolConfigs,
+>
+
+
 type implement = {
   id: string,
   file: Js.Typed_array.ArrayBuffer.t,

@@ -17,6 +17,7 @@ type backendService = {
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
   getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
+  getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
   getAllPublishExtensions: getAllPublishExtensions,
   getAllPublishNewestExtensions: getAllPublishNewestExtensions,
   publishApp: publishApp,
@@ -64,6 +65,7 @@ type meta3dService = {
       array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
+    Js.Nullable.t<Meta3dType.Index.startConfigData>,
   ) => Js.Typed_array.ArrayBuffer.t,
   convertAllFileData: (
     . array<Meta3d.ExtensionFileType.extensionFileData>,
@@ -79,7 +81,11 @@ type meta3dService = {
   ),
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
-  ) => (Meta3dType.Index.state, array<Meta3d.AppFileType.extensionFileData>),
+  ) => (
+    Meta3dType.Index.state,
+    array<Meta3d.AppFileType.extensionFileData>,
+    Meta3dType.Index.startConfigData,
+  ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,
   ) => Meta3dType.Index.getContributeFuncResult,
@@ -97,6 +103,10 @@ type meta3dService = {
   ) => string,
   serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getActions: (. Meta3d.LibUtils.lib) => Meta3dType.ActionProtocolConfigType.actions,
+  serializeStartExtensionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  getNeedConfigData: (
+    . Meta3d.LibUtils.lib,
+  ) => Meta3dType.StartExtensionProtocolConfigType.needConfigData,
 }
 
 type otherService = {
@@ -136,6 +146,6 @@ type service = {
   dom: domService,
 }
 
-type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extension>
+type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extensionData>
 
 type selectedContributesFromShop = list<AssembleSpaceCommonType.contributeData>

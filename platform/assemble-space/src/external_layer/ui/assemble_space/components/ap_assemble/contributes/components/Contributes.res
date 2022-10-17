@@ -2,7 +2,7 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-// TODO refactor: duplicate
+// TODO refactor: duplicate with Extensions
 
 module Method = {
   let _getProtocolConfigStr = protocolConfig => {

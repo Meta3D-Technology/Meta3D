@@ -35,10 +35,10 @@ let _getExtensionLifeExn = (state, name: extensionName) => {
   state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
 }
 
-let _invokeLifeOnStartHander = (state, extensionName, handlerNullable) => {
+let _invokeLifeOnStartHander = (state, extensionName, configData, handlerNullable) => {
   let handler = handlerNullable->Meta3dCommonlib.NullableSt.getExn
 
-  handler(state, getExtensionServiceExn(state, extensionName))
+  handler(state, getExtensionServiceExn(state, extensionName), configData)
 }
 
 let _invokeSyncLifeOtherHander = (state, extensionName, handlerNullable) => {
@@ -59,10 +59,11 @@ let _invokeAsyncLifeOtherHander = (state, extensionName, data, handlerNullable) 
   )
 }
 
-let startExtension = (state, extensionName) => {
+let startExtension = (state, extensionName, configData) => {
   _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeOnStartHander(
     state,
     extensionName,
+    configData,
     _,
   )
 }

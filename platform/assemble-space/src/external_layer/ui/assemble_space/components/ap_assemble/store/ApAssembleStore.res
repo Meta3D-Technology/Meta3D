@@ -16,13 +16,15 @@ let _createState = () => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
-  | SelectExtension(protocolIconBase64, extension) => {
+  | SelectExtension(protocolIconBase64, protocolConfigStr, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64: protocolIconBase64,
+        protocolConfigStr: protocolConfigStr,
         newName: None,
         isStart: false,
+        version: extension.version,
         data: extension.data,
       }),
     }

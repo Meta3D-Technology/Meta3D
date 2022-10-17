@@ -34,7 +34,7 @@ defineFeature(feature, test => {
       iconBase64: "i1",
       username: "meta3d",
     }
-    let a1 = ExtensionTool.buildSelectedExtension(
+    let (a1, _) = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,
       ~protocolVersion=">= 1.0.0",
       (),
@@ -51,20 +51,17 @@ defineFeature(feature, test => {
           ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
+          ~protocolConfigStr=None,
         )
     })
 
     \"and"("select extension a1 for protocol a in Extensions", () => {
-      //   ExtensionsTool.selectExtension(
-      //     ~dispatch=dispatchStub.contents,
-      //     ~iconBase64=a.iconBase64,
-      //     ~extension=a1,
-      //   )
       store :=
         ExtensionsTool.selectExtension(
           ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
           ~iconBase64=a.iconBase64,
           ~extension=a1,
+          ~protocolConfigStr=None,
         )
     })
 

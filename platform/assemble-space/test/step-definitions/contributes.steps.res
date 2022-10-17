@@ -92,7 +92,7 @@ defineFeature(feature, test => {
     }
     let a1Name = "a1"
     // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
-    let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
 
@@ -169,7 +169,7 @@ defineFeature(feature, test => {
     }
     let a1Name = "a1"
     let a2Name = "a2"
-    let protocolConfig = ContributeProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
 

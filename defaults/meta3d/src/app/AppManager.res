@@ -146,10 +146,13 @@ let convertAllFileData = (
   )
 }
 
-let generate = ((
-  allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
-  allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
-)): ArrayBuffer.t => {
+let generate = (
+  (
+    allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+    allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+  ),
+  configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
+): ArrayBuffer.t => {
   let encoder = TextEncoder.newTextEncoder()
 
   [
@@ -182,6 +185,14 @@ let generate = ((
     )
     ->BinaryFileOperator.generate
     ->Uint8Array.fromBuffer,
+    TextEncoder.encodeUint8Array(
+      configData
+      ->Obj.magic
+      ->Meta3dCommonlib.NullableSt.getWithDefault([])
+      ->Obj.magic
+      ->Js.Json.stringify,
+      encoder,
+    ),
   ]->BinaryFileOperator.generate
 }
 
@@ -205,9 +216,11 @@ let execGetContributeFunc = contributeFuncData => {
 let _parse = (appBinaryFile: ArrayBuffer.t) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
-  let [allExtensionBinaryUint8File, allContributeBinaryUint8File] = BinaryFileOperator.load(
-    appBinaryFile,
-  )
+  let [
+    allExtensionBinaryUint8File,
+    allContributeBinaryUint8File,
+    configData,
+  ] = BinaryFileOperator.load(appBinaryFile)
 
   (
     BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
@@ -241,6 +254,10 @@ let _parse = (appBinaryFile: ArrayBuffer.t) => {
         },
       }
     }),
+    TextDecoder.decodeUint8Array(configData, decoder)
+    ->FileUtils.removeAlignedEmptyChars
+    ->Js.Json.parseExn
+    ->Obj.magic,
   )
 }
 
@@ -275,7 +292,7 @@ let _getStartExtensionName = allExtensionDataArr => {
   }
 }
 
-let _run = ((allExtensionDataArr, allContributeDataArr)) => {
+let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
   let state =
     allExtensionDataArr->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. state, {extensionPackageData, extensionFuncData}: extensionFileData) => {
@@ -308,18 +325,19 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
       state,
     )
 
-  (state, allExtensionDataArr)
+  (state, allExtensionDataArr, configData)
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): (
   Meta3dType.Index.state,
   array<AppFileType.extensionFileData>,
+  Meta3dType.Index.startConfigData,
 ) => {
   appBinaryFile->_parse->_run
 }
 
-let start = ((state, allExtensionDataArr)): unit => {
-  state->ExtensionManager.startExtension(_getStartExtensionName(allExtensionDataArr))
+let start = ((state, allExtensionDataArr, configData)): unit => {
+  state->ExtensionManager.startExtension(_getStartExtensionName(allExtensionDataArr), configData)
 }
 
 let _getExtensionNames = allExtensionDataArr => {

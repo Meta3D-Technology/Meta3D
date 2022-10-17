@@ -48,4 +48,8 @@ let serializeActionProtocolConfigLib = ActionProtocolConfig.serializeLib
 
 let getActions = ActionProtocolConfig.getActions
 
+let serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig.serializeLib
+
+let getNeedConfigData = StartExtensionProtocolConfig.getNeedConfigData
+
 let buildAPI = ExtensionManager.buildAPI

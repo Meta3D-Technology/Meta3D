@@ -1,8 +1,12 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, supportedEventName, actionName, actions,  skinProtocolData, getContributeFuncResult } from "meta3d-type"
+import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
+import { supportedEventName, actionName, skinProtocolData, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
+import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
 
@@ -119,7 +123,8 @@ export function generateApp(
     ]: [
             Array<[extensionPackageDataApp, extensionFuncData]>,
             Array<[contributePackageDataApp, contributeFuncData]>
-        ]
+        ],
+    configData: nullable<startConfigData>
 ): ArrayBuffer
 
 export function loadApp(
@@ -159,6 +164,14 @@ export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, act
 export type serializeActionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
 
 export type getActions = (configLib: protocolConfigLib) => actions
+
+
+
+
+export type serializeStartExtensionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
+
+export type getNeedConfigData = (configLib: protocolConfigLib) => needConfigData
+
 
 
 export function buildAPI(): api

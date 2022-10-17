@@ -30,30 +30,34 @@ let buildExtensionData = (
 let buildSelectedExtension = (
   ~protocolName,
   ~protocolVersion,
+  ~protocolConfig=None,
   ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
   ~name="e1",
   ~id="e1",
   ~version="0.0.1",
   ~username="u1",
   (),
-): FrontendUtils.AssembleSpaceCommonType.extension => {
-  {
-    id: id,
-    data: buildExtensionData(
-      ~extensionPackageData=buildExtensionPackageData(
-        ~name,
-        ~protocol={
-          name: protocolName,
-          version: protocolVersion,
-        },
+): FrontendUtils.AssembleSpaceCommonType.extensionData => {
+  (
+    {
+      id: id,
+      data: buildExtensionData(
+        ~extensionPackageData=buildExtensionPackageData(
+          ~name,
+          ~protocol={
+            name: protocolName,
+            version: protocolVersion,
+          },
+          (),
+        ),
+        ~extensionFuncData,
         (),
       ),
-      ~extensionFuncData,
-      (),
-    ),
-    version: version,
-    username: username,
-  }
+      version: version,
+      username: username,
+    },
+    protocolConfig,
+  )
 }
 
 let buildExtensionImplement = (
@@ -92,4 +96,8 @@ let generateExtension = (
     ),
     fileStr,
   )
+}
+
+let getExtension = (extensionData: FrontendUtils.AssembleSpaceCommonType.extensionData) => {
+  extensionData->Meta3dCommonlib.Tuple2.getFirst
 }

@@ -433,6 +433,8 @@ defineFeature(feature, test => {
     let allExtensionNewNames = ref(Obj.magic(1))
     let allContributeNewNames = ref(Obj.magic(1))
     let isStartedExtensions = ref(Obj.magic(1))
+    let configData = ref(Obj.magic(1))
+    let configDataResult = ref(Obj.magic(1))
     let state = ref(Obj.magic(1))
 
     _prepare(given)
@@ -538,12 +540,31 @@ defineFeature(feature, test => {
         )
     })
 
-    \"when"("generate app with c1 and load it and start it", () => {
-      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+    \"and"("prepare config data", () => {
+      configData :=
+        (
+          {
+            "width": 1,
+            "height": 2,
+          },
+          {
+            "isDebug": true,
+          },
+        )
+    })
+
+    \"when"("generate app with c1, config data and load it and start it", () => {
+      let (s, allExtensionDataArr, configDataResult_) =
+        Main.generateApp(
+          c1.contents,
+          configData.contents->Obj.magic->Meta3dCommonlib.NullableSt.return,
+        )->Main.loadApp
+
+      configDataResult := configDataResult_
 
       state := s
 
-      Main.startApp((s, allExtensionDataArr))
+      Main.startApp((s, allExtensionDataArr, configDataResult.contents))
     })
 
     then("the two extensions should be registered", () => {
@@ -557,8 +578,12 @@ defineFeature(feature, test => {
       ExtensionManagerTool.hasContribute(state.contents, "first-new-contribute")->expect == true
     })
 
+    \"and"("load result should has correct config data", () => {
+      configDataResult.contents->expect == configData.contents
+    })
+
     \"and"("the second extension should be started", () => {
-      AppManagerTool.getStartFlag()->expect == 2
+      AppManagerTool.getStartFlag()->expect == 4
     })
   })
 
@@ -632,18 +657,22 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareInitFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnInit),
     )
 
-    CucumberAsync.execStep(\"when", "generate app with c1 and load it and init the first extension", () => {
-      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+    CucumberAsync.execStep(
+      \"when",
+      "generate app with c1 and load it and init the first extension",
+      () => {
+        let (s, allExtensionDataArr, _) =
+          Main.generateApp(c1.contents, Js.Nullable.null)->Main.loadApp
 
-      state := s
+        state := s
 
-       Main.initExtension(s,  "first-extension", 10-> Obj.magic)->Js.Promise.then_(( s ) =>{
+        Main.initExtension(s, "first-extension", 10->Obj.magic)->Js.Promise.then_(s => {
+          state := s
 
-      state := s
-
-        Js.Promise.resolve()
-       }, _)
-    })
+          Js.Promise.resolve()
+        }, _)
+      },
+    )
 
     then("the first extension should be inited", () => {
       AppManagerTool.getInitFlag()->expect == 11
@@ -661,18 +690,22 @@ defineFeature(feature, test => {
       (AppManagerTool.prepareUpdateFlag, AppManagerTool.buildEmptyExtensionFileStrWithOnUpdate),
     )
 
-    CucumberAsync.execStep(\"when", "generate app with c1 and load it and update the second extension", () => {
-      let (s, allExtensionDataArr) = Main.generateApp(c1.contents)->Main.loadApp
+    CucumberAsync.execStep(
+      \"when",
+      "generate app with c1 and load it and update the second extension",
+      () => {
+        let (s, allExtensionDataArr, _) =
+          Main.generateApp(c1.contents, Js.Nullable.null)->Main.loadApp
 
-      state := s
+        state := s
 
-       Main.updateExtension(s, "second-new-extension", 20-> Obj.magic)->Js.Promise.then_(( s ) =>{
+        Main.updateExtension(s, "second-new-extension", 20->Obj.magic)->Js.Promise.then_(s => {
+          state := s
 
-      state := s
-
-        Js.Promise.resolve()
-       }, _)
-    })
+          Js.Promise.resolve()
+        }, _)
+      },
+    )
 
     then("the second extension should be updated", () => {
       AppManagerTool.getUpdateFlag()->expect == 22
@@ -744,7 +777,7 @@ defineFeature(feature, test => {
     })
 
     \"when"("generate app with c1 and load it", () => {
-      loadData := Main.generateApp(c1.contents)->Main.loadApp
+      loadData := Main.generateApp(c1.contents, Js.Nullable.null)->Main.loadApp
     })
 
     then("start it should error", () => {

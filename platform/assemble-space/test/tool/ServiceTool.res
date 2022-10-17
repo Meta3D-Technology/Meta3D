@@ -26,6 +26,9 @@ let build = (
   ~getAllPublishContributeProtocolConfigs=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
+  ~getAllPublishExtensionProtocolConfigs=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->Obj.magic,
   ~getAllPublishExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
@@ -73,6 +76,12 @@ let build = (
   ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeActionProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getActions=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~serializeStartExtensionProtocolConfigLib=createEmptyStub(
+    refJsObjToSandbox(sandbox.contents),
+  )->Obj.magic,
+  ~getNeedConfigData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns([], _)
+  ->Obj.magic,
   (),
 ) => {
   react: {
@@ -90,6 +99,7 @@ let build = (
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
+    getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
     getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp: publishApp,
@@ -117,6 +127,8 @@ let build = (
     generateHandleUIControlEventStr: generateHandleUIControlEventStr,
     serializeActionProtocolConfigLib: serializeActionProtocolConfigLib,
     getActions: getActions,
+    serializeStartExtensionProtocolConfigLib: serializeStartExtensionProtocolConfigLib,
+    getNeedConfigData: getNeedConfigData,
   },
   other: {
     random: random,

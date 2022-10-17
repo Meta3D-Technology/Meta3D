@@ -69,8 +69,16 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
         })
 }
 
+function _getPublishedConfigCollectionName(fileType: "extension" | "contribute") {
+    switch (fileType) {
+        case "extension":
+            return "publishedExtensionProtocolConfigs"
+        case "contribute":
+            return "publishedContributeProtocolConfigs"
+    }
+}
 
-export function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc]: [any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string) {
+export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc]: [any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(app => [app, packageJson])
     }).flatMap(([app, packageJson]) => {
@@ -79,7 +87,7 @@ export function publishContributeConfig([readFileSyncFunc, logFunc, errorFunc, r
                 _throwError("publishser没有注册")
             }
 
-            let collectioName = "publishedContributeProtocolConfigs"
+            let collectioName = _getPublishedConfigCollectionName(fileType)
 
             return fromPromise(
                 getCollectionFunc(

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-editor",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -19,23 +19,7 @@
             "protocolName": "meta3d-bind-io-event-protocol"
         }
     },
-    "dependentContributeNameMap": {
-        "meta3dSkinDefaultContributeName": {
-            "protocolName": "meta3d-skin-default-protocol"
-        },
-        "meta3dUIControlButtonContributeName": {
-            "protocolName": "meta3d-ui-control-button-protocol"
-        },
-        "meta3dElementButtonContributeName": {
-            "protocolName": "meta3d-element-button-protocol"
-        },
-        "meta3dElementButton2ContributeName": {
-            "protocolName": "meta3d-element-button2-protocol"
-        },
-        "meta3dEventClickButtonContributeName": {
-            "protocolName": "meta3d-action-click-button-protocol"
-        }
-    },
+    "dependentContributeNameMap": {},
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
@@ -44,16 +28,11 @@
     },
     "dependencies": {
         "meta3d-bind-io-event-protocol": "^0.5.0",
-        "meta3d-ui-control-button-protocol": "^0.5.0",
-        "meta3d-element-button-protocol": "^0.5.0",
-        "meta3d-element-button2-protocol": "^0.5.0",
-        "meta3d-action-click-button-protocol": "^0.5.0",
         "meta3d-event-protocol": "^0.5.0",
         "meta3d-imgui-renderer-protocol": "^0.5.0",
-        "meta3d-skin-default-protocol": "^0.5.0",
         "meta3d-type": "^0.5.0",
         "meta3d-ui-protocol": "^0.5.0",
-        "meta3d-use-editor-protocol": "^0.5.0"
+        "meta3d-use-editor-protocol": "^0.5.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { contributeType } from "meta3d-type/src/ContributeType"
+import { contributeType } from "meta3d-type/src/contribute/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-element-assemble-visual-protocol/src/service/DependentMapType"
 import { service } from "meta3d-element-assemble-visual-protocol/src/service/ServiceType"

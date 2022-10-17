@@ -1,6 +1,8 @@
 let _buildExtension = (name, data): FrontendUtils.ApAssembleStoreType.extension => {
   id: "",
+  version: "",
   protocolIconBase64: "",
+  protocolConfigStr: None,
   newName: name->Some,
   isStart: false,
   data: data,
@@ -90,6 +92,7 @@ let generateApp = (
     service,
     selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
     selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
+    Js.Nullable.null,
   )
 }
 

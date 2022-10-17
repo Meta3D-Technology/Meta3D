@@ -10,6 +10,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var ExtensionManager$Meta3d = require("../ExtensionManager.bs.js");
 var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function _checkVersion(protocolVersion, dependentProtocolVersion) {
@@ -77,7 +78,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
         ];
 }
 
-function generate(param) {
+function generate(param, configData) {
   var encoder = new TextEncoder();
   return BinaryFileOperator$Meta3d.generate([
               new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
@@ -85,7 +86,8 @@ function generate(param) {
                             }), []))),
               new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
                               return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
-                            }), [])))
+                            }), []))),
+              encoder.encode(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])))
             ]);
 }
 
@@ -104,12 +106,12 @@ function execGetContributeFunc(contributeFuncData) {
 function _parse(appBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 2) {
+  if (match.length !== 3) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            208,
+            219,
             6
           ],
           Error: new Error()
@@ -117,6 +119,7 @@ function _parse(appBinaryFile) {
   }
   var allExtensionBinaryUint8File = match[0];
   var allContributeBinaryUint8File = match[1];
+  var configData = match[2];
   return [
           ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
                   if (param.length !== 2) {
@@ -124,7 +127,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            215,
+                            228,
                             34
                           ],
                           Error: new Error()
@@ -148,7 +151,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            233,
+                            246,
                             34
                           ],
                           Error: new Error()
@@ -162,7 +165,8 @@ function _parse(appBinaryFile) {
                             getContributeFunc: _getContributeFunc(contributeFuncData, decoder)
                           }
                         };
-                }))
+                })),
+          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(configData)))
         ];
 }
 
@@ -205,7 +209,8 @@ function _run(param) {
         }), state);
   return [
           state$1,
-          allExtensionDataArr
+          allExtensionDataArr,
+          param[2]
         ];
 }
 
@@ -214,7 +219,7 @@ function load(appBinaryFile) {
 }
 
 function start(param) {
-  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]));
+  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]), param[2]);
 }
 
 function _getExtensionNames(allExtensionDataArr) {

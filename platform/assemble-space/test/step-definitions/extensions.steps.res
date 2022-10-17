@@ -91,6 +91,7 @@ defineFeature(feature, test => {
       username: "meta3d",
     }
     let a1Name = "a1"
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
 
@@ -105,6 +106,7 @@ defineFeature(feature, test => {
             ~name=a1Name,
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
             (),
           ),
         }
@@ -141,7 +143,12 @@ defineFeature(feature, test => {
       "should set a's icon, config str and a1's name as extensions",
       () => {
         _setExtensions([
-          (a1Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getHeadExn),
+          (
+            a1Name,
+            a.iconBase64,
+            protocolConfig.configStr,
+            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+          ),
         ])
       },
     )
@@ -161,6 +168,7 @@ defineFeature(feature, test => {
     }
     let a1Name = "a1"
     let a2Name = "a2"
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
 
@@ -175,12 +183,14 @@ defineFeature(feature, test => {
             ~name=a1Name,
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
             (),
           ),
           ExtensionTool.buildSelectedExtension(
             ~name=a2Name,
             ~protocolName=a.name,
             ~protocolVersion=">= 1.0.0",
+            ~protocolConfig=protocolConfig->Some,
             (),
           ),
         }
@@ -214,8 +224,18 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(\"and", "extensions should contain a1 and a2", () => {
       _setExtensions([
-        (a1Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getHeadExn),
-        (a2Name, a.iconBase64, selectedExtensionsFromShop.contents->ListTool.getNthExn(1)),
+        (
+          a1Name,
+          a.iconBase64,
+          protocolConfig.configStr,
+          selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+        ),
+        (
+          a2Name,
+          a.iconBase64,
+          protocolConfig.configStr,
+          selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+        ),
       ])
     })
   })
@@ -253,20 +273,26 @@ defineFeature(feature, test => {
     \"when"("select a1", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
+      let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+
       ExtensionsTool.selectExtension(
         ~dispatch=dispatchStub.contents,
         ~iconBase64=a.iconBase64,
-        ~extension=selectedExtensionsFromShop.contents->ListTool.getHeadExn,
+        ~extension,
+        ~protocolConfigStr=protocolConfig->ExtensionsTool.getProtocolConfigStr,
       )
     })
 
     then("should dispatch SelectExtension action", () => {
+      let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
         FrontendUtils.ApAssembleStoreType.SelectExtension(
           a.iconBase64,
-          selectedExtensionsFromShop.contents->ListTool.getHeadExn,
+          protocolConfig->ExtensionsTool.getProtocolConfigStr,
+          extension,
         ),
       )
       ->expect == true

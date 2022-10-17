@@ -11,6 +11,7 @@ let publish = (
   ~username=None,
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
+  ~canvasData=CanvasControllerTool.buildCanvasData(),
   ~values={
     "appName": "n1",
   },
@@ -19,7 +20,7 @@ let publish = (
   Publish.Method.onFinish(
     service,
     setVisible,
-    (username, selectedExtensions, selectedContributes),
+    (username, selectedExtensions, selectedContributes, canvasData),
     values,
   )
 }

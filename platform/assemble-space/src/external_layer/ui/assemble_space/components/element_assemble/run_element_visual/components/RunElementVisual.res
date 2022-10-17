@@ -33,7 +33,7 @@ module Method = {
     service.storage.initForElementVisualApp()
     ->service.storage.getElementVisualApp(. _)
     ->Meta3dBsMost.Most.flatMap(appBinaryFile => {
-      let meta3dState = service.meta3d.loadApp(. appBinaryFile)->Meta3dCommonlib.Tuple2.getFirst
+      let (meta3dState, _, _) = service.meta3d.loadApp(. appBinaryFile)
 
       service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
       ->Js.Promise.then_(meta3dState => {

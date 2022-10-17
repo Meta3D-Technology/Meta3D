@@ -1,7 +1,8 @@
-import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
+import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api, canvasData } from "meta3d-type"
+import { contributeType } from "meta3d-type/src/contribute/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-use-editor-protocol/src/service/DependentMapType"
-import { service } from "meta3d-use-editor-protocol/src/service/ServiceType"
+import { configData, service } from "meta3d-use-editor-protocol/src/service/ServiceType"
 import { state } from "meta3d-use-editor-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -9,21 +10,14 @@ import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
-import { skin } from "meta3d-skin-default-protocol"
-import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
-import { elementState as buttonElementState } from "meta3d-element-button-protocol"
-import { elementName as button2ElementName, changeTextAction, elementState as button2ElementState } from "meta3d-element-button2-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
-import { actionData as clickButtonEventData } from "meta3d-action-click-button-protocol"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { button2Reducer } from "./Reducer"
 
-let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
-	let { meta3dSkinDefaultContributeName, meta3dUIControlButtonContributeName, meta3dElementButtonContributeName,
-		meta3dElementButton2ContributeName, meta3dEventClickButtonContributeName } = dependentContributeNameMap
+let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
+	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
 
-	let { registerElement, combineReducers } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+
+	let { registerElement } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
@@ -31,30 +25,27 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 
 
 
-	// TODO move out to another extension
 	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	uiState = registerSkin(uiState, api.getContribute<skinContribute<skin>>(meta3dState, meta3dSkinDefaultContributeName))
-
-	// uiState = registerUIControl(uiState, getButtonUIControlContribute(defaultSkinName))
-	uiState = registerUIControl(uiState, api.getContribute<uiControlContribute<inputData, outputData>>(meta3dState, meta3dUIControlButtonContributeName))
-
+	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
+		return registerSkin(uiState, contribute)
+	}, uiState)
 
 
+	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
+		return registerUIControl(uiState, contribute)
+	}, uiState)
 
 
 
 
 
-	uiState = registerElement<buttonElementState>(uiState,
-		api.getContribute<elementContribute<buttonElementState>>(meta3dState, meta3dElementButtonContributeName)
-	)
-	uiState = registerElement<button2ElementState>(uiState,
-		api.getContribute<elementContribute<button2ElementState>>(meta3dState, meta3dElementButton2ContributeName)
-	)
 
 
-	uiState = combineReducers<button2ElementState, changeTextAction>(uiState, [button2ElementName, button2Reducer])
+
+	uiState = api.getAllContributesByType<elementContribute<any>>(meta3dState, contributeType.Element).reduce<uiState>((uiState, contribute) => {
+		return registerElement(uiState, contribute)
+	}, uiState)
 
 
 
@@ -70,8 +61,9 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 	let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionName)
 
 
-	eventState = registerAction<clickButtonEventData>(eventState, api.getContribute<actionContribute<clickButtonEventData>>(meta3dState, meta3dEventClickButtonContributeName)
-	)
+	eventState = api.getAllContributesByType<actionContribute<any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
+		return registerAction(eventState, contribute)
+	}, eventState)
 
 
 	meta3dState = api.setExtensionState(meta3dState, meta3dEventExtensionName, eventState)
@@ -79,13 +71,13 @@ let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNam
 	return meta3dState
 }
 
-let _createAndInsertCanvas = () => {
+let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 	let canvas = document.createElement("canvas") as HTMLCanvasElement;
 
-	canvas.width = 600
-	canvas.style.width = "600px"
-	canvas.height = 600
-	canvas.style.height = "600px"
+	canvas.width = width
+	canvas.style.width = width + "px"
+	canvas.height = height
+	canvas.style.height = height + "px"
 
 	let body = document.getElementsByTagName("body")[0];
 	body.appendChild(canvas);
@@ -93,41 +85,14 @@ let _createAndInsertCanvas = () => {
 	return canvas
 }
 
-let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	// let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
-	// let { meta3dSkinDefaultContributeName, meta3dUIControlButtonContributeName, meta3dElementButtonContributeName, meta3dEventClickButtonContributeName } = dependentContributeNameMap
-
-	// // TODO move to UI extension 
-	// // TODO fix: should only one pointdown!
-	// document.onmousedown = (e) => {
-	// 	_ioData = {
-	// 		pointUp: false,
-	// 		pointDown: true,
-	// 		pointPosition: [e.pageX, e.pageY],
-	// 		pointMovementDelta: [0, 0]
-	// 	}
-	// }
-	// document.onmouseup = (e) => {
-	// 	_ioData = {
-	// 		pointUp: true,
-	// 		pointDown: true,
-	// 		pointPosition: [e.pageX, e.pageY],
-	// 		pointMovementDelta: [0, 0]
-	// 	}
-	// }
-
-	let isDebug = true
-
-
-
-
+let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap], [canvasData, { isDebug }]: configData) => {
 	let [dependentExtensionNameMap, _] = dependentMapData
 	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
 
 	meta3dState = _prepareButton(meta3dState, api, dependentMapData)
 
 
-	let canvas = _createAndInsertCanvas()
+	let canvas = _createAndInsertCanvas(canvasData)
 
 	let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
@@ -159,9 +124,14 @@ let _loop = (
 	api: api, meta3dState: meta3dState,
 	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string]
 ) => {
+	// TODO move to configData?
+	let clearColor: [number, number, number, number] = [1.0, 1.0, 1.0, 1.0]
+
 	let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
 
-	let { render } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+
+	clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
 	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
 		resetIOData()
@@ -183,8 +153,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
 
 	return {
-		run: (meta3dState: meta3dState) => {
-			meta3dState = _init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap])
+		run: (meta3dState: meta3dState, configData) => {
+			meta3dState = _init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData)
 
 			_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
 		}
@@ -203,10 +173,10 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 			console.log("meta3d-use-editor onRegister")
 			return meta3dState
 		},
-		onStart: (meta3dState, service) => {
+		onStart: (meta3dState, service, configData) => {
 			console.log("meta3d-use-editor onStart")
 
-			service.run(meta3dState)
+			service.run(meta3dState, configData)
 		}
 	}
 }

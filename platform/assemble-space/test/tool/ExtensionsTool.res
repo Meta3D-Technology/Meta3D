@@ -18,15 +18,22 @@ let useEffectOnceAsync = (
   ~selectedExtensionsFromShop=list{},
   (),
 ) => {
-  Extensions.Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
+  Extensions.Method.useEffectOnceAsync(
+    (setIsLoaded, setExtensions),
+    service,
+    selectedExtensionsFromShop,
+  )
 }
 
 let selectExtension = (
   // ~sandbox,
   ~iconBase64,
   ~extension,
+  ~protocolConfigStr,
   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~dispatch,
 ) => {
-  Extensions.Method.selectExtension(dispatch, iconBase64, extension)
+  Extensions.Method.selectExtension(dispatch, iconBase64, protocolConfigStr, extension)
 }
+
+let getProtocolConfigStr = Extensions.Method._getProtocolConfigStr

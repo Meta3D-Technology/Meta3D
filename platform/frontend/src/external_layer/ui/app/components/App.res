@@ -49,8 +49,8 @@ let make = () => {
         Meta3d.Main.initExtension(state, extensionName, data),
       updateExtension: (. state, extensionName, data) =>
         Meta3d.Main.updateExtension(state, extensionName, data),
-      generateApp: (. (allExtensionFileData, allContributeFileData)) =>
-        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData)),
+      generateApp: (. (allExtensionFileData, allContributeFileData), startConfigData) =>
+        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
@@ -68,6 +68,9 @@ let make = () => {
       serializeActionProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
       getActions: (. configLib) => Meta3d.Main.getActions(configLib),
+      serializeStartExtensionProtocolConfigLib: (. protocolConfigStr) =>
+        Meta3d.Main.serializeStartExtensionProtocolConfigLib(protocolConfigStr),
+      getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
       error: (. errorMessage, durationOpt) =>

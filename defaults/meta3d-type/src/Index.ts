@@ -42,9 +42,18 @@ type extensionLifeHandlerData = any
 
 export type extensionLifeAsyncEventHandler<extensionService> = (state: state, extensionService: extensionService, extensionLifeHandlerData: extensionLifeHandlerData) => Promise<state>;
 
+export type canvasData = {
+  width: number,
+  height: number
+}
+
+export type configData = any
+
+export type startConfigData = [canvasData, configData]
+
 type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
-  onStart?: (state: state, extensionService: extensionService) => void,
+  onStart?: (state: state, extensionService: extensionService, configData: startConfigData) => void,
   onInit?: extensionLifeAsyncEventHandler<extensionService>,
   onUpdate?: extensionLifeAsyncEventHandler<extensionService>,
 }

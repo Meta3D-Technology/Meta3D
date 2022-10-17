@@ -49,9 +49,11 @@ Feature: App Manager
             And generate one contribute
             And prepare new names and start the second extension
             And load them and convert as c1
-            When generate app with c1 and load it and start it
+            And prepare config data
+            When generate app with c1, config data and load it and start it
             Then the two extensions should be registered
             And the one contribute should be registered
+            And load result should has correct config data 
             And the second extension should be started
 
         Scenario: if two extension need start, error

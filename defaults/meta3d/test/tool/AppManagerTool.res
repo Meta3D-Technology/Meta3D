@@ -9,7 +9,7 @@ let buildEmptyExtensionFileStr = () => {
 }
 
 let buildEmptyExtensionFileStrWithOnStart = (addNumber: int) => {
-  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onStart: (meta3dState, service) =>{ window.startFlag += ${addNumber->Js.Int.toString}; } } } }`
+  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onStart: (meta3dState, service, configData) =>{ window.startFlag += ${addNumber->Js.Int.toString} + configData[0].height; } } } }`
 }
 
 let buildEmptyExtensionFileStrWithOnInit = (addNumber: int) => {

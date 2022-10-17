@@ -1109,7 +1109,7 @@ bdd test
 * DONE refactor
 
 
-* TODO pass run test: single element
+* DONE pass run test: single element
 
 element contribute with two buttons:
 one button
@@ -1131,6 +1131,10 @@ canvasData is default
 
 add Config.ts?
 
+# generate: add start extension config data
+generate: when publish
+
+
 export let getNeedConfigData: needConfigDataMeta3D = () => {
     return [
         {
@@ -1143,6 +1147,33 @@ export let getNeedConfigData: needConfigDataMeta3D = () => {
 
 after start, show config form:
 
+
+
+[
+    [100, 200],
+     {
+    isDebug: true
+}
+ ]
+
+
+# pass compile
+
+
+# bdd test
+
+
+
+run test
+
+need publish:
+
+
+
+
+* TODO pass run test: two elements
+
+click first's button, alert and enter second one
 
 
 
@@ -1317,7 +1348,7 @@ note: remove entry extension step!!!
 
 
 
-* TODO version management
+# * TODO version management
 
 
 

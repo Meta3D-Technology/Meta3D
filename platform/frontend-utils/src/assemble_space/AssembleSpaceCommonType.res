@@ -7,6 +7,8 @@ type extension = {
   username: string,
 }
 
+type extensionData = (extension, option<CommonType.protocolConfig>)
+
 type contribute = {
   id: id,
   data: Meta3d.ExtensionFileType.contributeFileData,

@@ -174,23 +174,26 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.ElementAssembleStoreType.SetVisualExtension({
-          id: "",
-          protocolIconBase64: "",
-          newName: ElementVisualTool.getVisualExtensionName()->Some,
-          isStart: false,
-          data: {
-            extensionPackageData: ExtensionTool.buildExtensionPackageData(
-              ~name,
-              ~protocol={
-                name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version: "0.5.1",
-              },
-              (),
-            ),
-            extensionFuncData: matchAny,
-          },
-        }),
+        FrontendUtils.ElementAssembleStoreType.SetVisualExtension(
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name,
+            ~protocolIconBase64="",
+            ~id="",
+            ~newName=ElementVisualTool.getVisualExtensionName()->Some,
+            ~data={
+              extensionPackageData: ExtensionTool.buildExtensionPackageData(
+                ~name,
+                ~protocol={
+                  name: ElementVisualTool.getVisualExtensionProtocolName(),
+                  version: "0.5.1",
+                },
+                (),
+              ),
+              extensionFuncData: matchAny,
+            },
+            (),
+          ),
+        ),
       )
       ->expect == true
     })

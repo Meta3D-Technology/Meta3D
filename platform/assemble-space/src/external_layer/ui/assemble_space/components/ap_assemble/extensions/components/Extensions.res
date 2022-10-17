@@ -3,24 +3,35 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let _getProtocolConfigStr = protocolConfig => {
+    protocolConfig->Meta3dCommonlib.OptionSt.map((
+      {configStr}: FrontendUtils.CommonType.protocolConfig,
+    ) => configStr)
+  }
+
   // TODO perf: defer load when panel change
   let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromShop) => {
     getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(
       protocols => {
         protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter((
+            switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter(((
               {data}: FrontendUtils.AssembleSpaceCommonType.extension,
-            ) => {
+              _,
+            )) => {
               let protocol = data.extensionPackageData.protocol
 
               protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
             }) {
             | extensions =>
-              extensions->Meta3dCommonlib.ListSt.reduce(result, (result, extension) => {
+              extensions->Meta3dCommonlib.ListSt.reduce(result, (
+                result,
+                (extension, protocolConfig),
+              ) => {
                 result->Meta3dCommonlib.ArraySt.push((
                   extension.data.extensionPackageData.name,
                   iconBase64,
+                  protocolConfig->_getProtocolConfigStr,
                   extension,
                 ))
               })
@@ -30,14 +41,20 @@ module Method = {
           [],
         )
       },
-      // | list{extension} => result->Meta3dCommonlib.ArraySt.push((name, iconBase64, extension))
+      // | list{(extension, protocolConfig)} =>
 
       _,
     )
   }
 
-  let selectExtension = (dispatch, protocolIconBase64, extension) => {
-    dispatch(FrontendUtils.ApAssembleStoreType.SelectExtension(protocolIconBase64, extension))
+  let selectExtension = (dispatch, protocolIconBase64, protocolConfigStr, extension) => {
+    dispatch(
+      FrontendUtils.ApAssembleStoreType.SelectExtension(
+        protocolIconBase64,
+        protocolConfigStr,
+        extension,
+      ),
+    )
   }
 
   let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
@@ -70,12 +87,12 @@ let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFr
     : <List
         grid={{gutter: 16, column: 3}}
         dataSource={extensions}
-        renderItem={((name, iconBase64, extension)) => {
+        renderItem={((name, iconBase64, configStr, extension)) => {
           <List.Item>
             <Card
               key={name}
               onClick={_ => {
-                Method.selectExtension(dispatch, iconBase64, extension)
+                Method.selectExtension(dispatch, iconBase64, configStr, extension)
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
               cover={<img

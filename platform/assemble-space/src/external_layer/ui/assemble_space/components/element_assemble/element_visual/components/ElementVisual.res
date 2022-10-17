@@ -43,13 +43,15 @@ module Method = {
     (selectedExtensions, selectedContributes),
     (visualExtension, elementContribute),
   ) => {
-    service.meta3d.loadApp(.
+    let (meta3dState, _, _) = service.meta3d.loadApp(.
       ElementVisualUtils.generateApp(
         service,
         (selectedExtensions, selectedContributes),
         (visualExtension, elementContribute),
       ),
-    )->Meta3dCommonlib.Tuple2.getFirst
+    )
+
+    meta3dState
   }
 
   let renderApp = (

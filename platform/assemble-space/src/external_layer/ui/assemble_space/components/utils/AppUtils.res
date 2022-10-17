@@ -8,7 +8,7 @@ let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeF
   newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
 }
 
-let generateApp = (service, selectedExtensions, selectedContributes) => {
+let generateApp = (service, selectedExtensions, selectedContributes, configData) => {
   service.meta3d.generateApp(.
     service.meta3d.convertAllFileData(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
@@ -29,5 +29,6 @@ let generateApp = (service, selectedExtensions, selectedContributes) => {
         ),
       ),
     ),
+    configData,
   )
 }

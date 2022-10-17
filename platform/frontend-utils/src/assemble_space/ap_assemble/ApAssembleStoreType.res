@@ -6,17 +6,19 @@ type id = string
 
 type newName = string
 
+type version = string
+
 type extension = {
   id: id,
   protocolIconBase64: protocolIconBase64,
+  protocolConfigStr: option<protocolConfigStr>,
   newName: option<newName>,
   isStart: bool,
+  version: version,
   data: Meta3d.ExtensionFileType.extensionFileData,
 }
 
 type selectedExtensions = list<extension>
-
-type version = string
 
 type contribute = {
   id: id,
@@ -43,7 +45,11 @@ type canvasData = {
 
 type action =
   | Reset
-  | SelectExtension(protocolIconBase64, AssembleSpaceCommonType.extension)
+  | SelectExtension(
+      protocolIconBase64,
+      option<protocolConfigStr>,
+      AssembleSpaceCommonType.extension,
+    )
   | SetInspectorCurrentExtensionId(id)
   | StartExtension(id)
   | UnStartExtension(id)

@@ -30,7 +30,7 @@ defineFeature(feature, test => {
         ~service=ServiceTool.build(
           ~sandbox,
           ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (list{}, list{}),
+            (list{}, list{}, CanvasControllerTool.buildCanvasData()),
             _,
           ),
           (),
@@ -146,26 +146,107 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."generate correct app", ({given, \"when", \"and", then}) => {
+  test(."generate correct app without config data", ({given, \"when", \"and", then}) => {
+    let errorStub = ref(Obj.magic(1))
     let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
-    let convertAllFileDataStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
 
     CucumberAsync.execStep(\"when", "publish app", () => {
-      convertAllFileDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       PublishTool.publish(
         ~sandbox,
         ~username="u1"->Some,
         ~service=ServiceTool.build(
           ~sandbox,
+          ~error=errorStub.contents->Obj.magic,
           ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->returns(Meta3dBsMost.Most.empty(), _)
           ->Obj.magic,
+          (),
+        ),
+        ~selectedExtensions=selectedExtensions.contents,
+        ~selectedContributes=selectedContributes.contents,
+        (),
+      )
+    })
+
+    then("error for get config data", () => {
+      errorStub.contents->SinonTool.calledWith({j`can't find start extension`})->expect == true
+    })
+  })
+
+  test(."generate correct app with config data", ({given, \"when", \"and", then}) => {
+    let selectedExtensions = ref(Obj.magic(1))
+    let selectedContributes = ref(Obj.magic(1))
+    let canvasData = ref(Obj.magic(1))
+    let values = ref(Obj.magic(1))
+    let username = "u1"
+    let appName = "n1"
+    let appBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
+    let generateAppStub = ref(Obj.magic(1))
+    let convertAllFileDataStub = ref(Obj.magic(1))
+    let publishAppStub = ref(Obj.magic(1))
+    let setVisibleStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
+
+    given("prepare canvas data", () => {
+      canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
+    })
+
+    \"and"("select start extension e3", () => {
+      selectedExtensions :=
+        selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name="e3",
+            ~newName=None,
+            ~id="e3",
+            ~isStart=true,
+            ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
+            (),
+          ),
+        )
+    })
+
+    \"and"("prepare config data", () => {
+      values :=
+        {
+          "configData_isDebug": "true",
+        }
+    })
+
+    CucumberAsync.execStep(\"when", "publish app", () => {
+      (values.contents->Obj.magic)["appName"] = "n1"
+
+      generateAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(appBinaryFile, _)
+
+      convertAllFileDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      publishAppStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+
+      setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      PublishTool.publish(
+        ~sandbox,
+        ~setVisible=setVisibleStub.contents->Obj.magic,
+        ~canvasData=canvasData.contents,
+        ~username="u1"->Some,
+        ~values=values.contents->Obj.magic,
+        ~service=ServiceTool.build(
+          ~sandbox,
+          ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
+          ~getNeedConfigData=Meta3d.Main.getNeedConfigData->Obj.magic,
+          ~publishApp=publishAppStub.contents->Obj.magic,
+          ~generateApp=generateAppStub.contents->Obj.magic,
           ~convertAllFileData=convertAllFileDataStub.contents->Obj.magic,
           (),
         ),
@@ -175,88 +256,30 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should generat app with correct extension data and contribute data", () => {
-      SinonTool.getAllArgsJson(
-        convertAllFileDataStub.contents,
-        0,
-      )->expect == "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[\"e1\",\"e2\"],[],[\"c1\",\"c2\"]]]"
-    })
-  })
+    then(
+      "should generat app with correct extension data and contribute data and start config data",
+      () => {
+        (
+          generateAppStub.contents
+          ->Obj.magic
+          ->SinonTool.calledWithArg2(matchAny, (canvasData.contents, {"isDebug": true})),
+          SinonTool.getAllArgsJson(convertAllFileDataStub.contents, 0),
+        )->expect ==
+          (
+            true,
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
+          )
+      },
+    )
 
-  test(."publish generated app", ({given, \"when", \"and", then}) => {
-    let selectedExtensions = ref(Obj.magic(1))
-    let selectedContributes = ref(Obj.magic(1))
-    let publishAppStub = ref(Obj.magic(1))
-    let username = "u1"
-    let appName = "n1"
-    let appBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
-
-    _prepare(given, \"and")
-
-    _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
-
-    CucumberAsync.execStep(\"when", "publish app", () => {
-      publishAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
-
-      PublishTool.publish(
-        ~sandbox,
-        ~username=username->Some,
-        ~values={
-          "appName": appName,
-        },
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~publishApp=publishAppStub.contents->Obj.magic,
-          ~generateApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(appBinaryFile, _)
-          ->Obj.magic,
-          (),
-        ),
-        ~selectedExtensions=selectedExtensions.contents,
-        ~selectedContributes=selectedContributes.contents,
-        (),
-      )
-    })
-
-    then("should publish the generated app", () => {
+    \"and"("should publish the generated app", () => {
       publishAppStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg3(appBinaryFile, appName, username)
       ->expect == true
     })
-  })
 
-  test(."close modal after publish successfully", ({given, \"when", \"and", then}) => {
-    let selectedExtensions = ref(Obj.magic(1))
-    let selectedContributes = ref(Obj.magic(1))
-    let setVisibleStub = ref(Obj.magic(1))
-
-    _prepare(given, \"and")
-
-    _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
-
-    CucumberAsync.execStep(\"when", "publish app", () => {
-      setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      PublishTool.publish(
-        ~sandbox,
-        ~username="a"->Some,
-        ~setVisible=setVisibleStub.contents->Obj.magic,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(Meta3dBsMost.Most.empty(), _)
-          ->Obj.magic,
-          (),
-        ),
-        ~selectedExtensions=selectedExtensions.contents,
-        ~selectedContributes=selectedContributes.contents,
-        (),
-      )
-    })
-
-    then("should close modal", () => {
+    \"and"("should close modal", () => {
       let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
 
       func()->expect == false

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishedElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
+exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishedElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.init = exports.error = void 0;
 const ErrorService = require("./application_layer/common/ErrorService");
 const LoginService = require("./application_layer/user/LoginService");
 const RegisterService = require("./application_layer/user/RegisterService");
@@ -35,6 +35,10 @@ let getAllPublishContributeProtocolConfigs = () => {
     return ShopService.getAllPublishProtocolConfigData(CloudbaseService_1.getCollection, "publishedContributeProtocolConfigs");
 };
 exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
+let getAllPublishExtensionProtocolConfigs = () => {
+    return ShopService.getAllPublishProtocolConfigData(CloudbaseService_1.getCollection, "publishedExtensionProtocolConfigs");
+};
+exports.getAllPublishExtensionProtocolConfigs = getAllPublishExtensionProtocolConfigs;
 let getAllPublishExtensions = (protocolName, protocolVersion) => {
     return ShopService.getAllPublishData([CloudbaseService_1.getCollection, CloudbaseService_1.getFile], "publishedExtensions", protocolName, protocolVersion);
 };

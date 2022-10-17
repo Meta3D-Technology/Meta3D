@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { empty, just } from "most";
-import { publishContributeConfig } from "../../src/Publish"
+import { publishConfig } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 
 const feature = loadFeature("./test/features/publish_contribute_protocol_config.feature")
@@ -28,9 +28,10 @@ defineFeature(feature, test => {
     }
 
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
-        return publishContributeConfig(
+        return publishConfig(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc],
-            packageFilePath, distFilePath
+            packageFilePath, distFilePath,
+            "contribute"
         )
     }
 
