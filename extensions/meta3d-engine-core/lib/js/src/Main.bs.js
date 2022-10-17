@@ -55,7 +55,9 @@ function createExtensionState(param) {
 function getExtensionLife(param, param$1) {
   return {
           onRegister: null,
-          onStart: null
+          onStart: null,
+          onInit: null,
+          onUpdate: null
         };
 }
 

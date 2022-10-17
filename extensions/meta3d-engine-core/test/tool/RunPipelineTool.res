@@ -8,6 +8,7 @@ let _buildAPI = (sandbox): Meta3dType.Index.api => {
     getExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
     registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
     getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+    getAllContributesByType: createEmptyStubWithJsObjSandbox(sandbox),
   }
 }
 
