@@ -1178,133 +1178,133 @@ click first's button, alert and enter second one
 
 
 
-* TODO ap view: pass publish run test
+# * TODO ap view: pass publish run test
 
 
-** TODO select element contribute
+# ** TODO select element contribute
 
-# get from server by user
+# # get from server by user
 
-- select from contribute shop
+# - select from contribute shop
 
-- select element contribute
+# - select element contribute
 
 
 
-** TODO remove element-button, element-button2 contributes
+# ** TODO remove element-button, element-button2 contributes
 
 
 
-** TODO select entry extension when click publish button!
+# ** TODO select entry extension when click publish button!
 
-# type:
-# editor(default )
-# // engine(default)
-# user
-#     (user implement and publish)
-#     (filter by getExtensionLife -> onStart exist)
+# # type:
+# # editor(default )
+# # // engine(default)
+# # user
+# #     (user implement and publish)
+# #     (filter by getExtensionLife -> onStart exist)
 
-# show:
-# editor entry extension
-# // engine entry extension
-# user's entry extensions(user implement and publish)
+# # show:
+# # editor entry extension
+# # // engine entry extension
+# # user's entry extensions(user implement and publish)
 
-(filter by getExtensionLife -> onStart exist)
+# (filter by getExtensionLife -> onStart exist)
 
-e.g. still use use-editor!
+# e.g. still use use-editor!
 
 
-(only use the newest selected one!)
+# (only use the newest selected one!)
 
 
-    # (engine should be extend package in the future)
+#     # (engine should be extend package in the future)
 
 
 
-note: remove entry extension step!!!
+# note: remove entry extension step!!!
 
 
-# ** TODO editor default extension
+# # ** TODO editor default extension
 
-# create and insert canvas with global size;
+# # create and insert canvas with global size;
 
 
 
 
 
-# * TODO test(assemble-space): add bdd test
+# # * TODO test(assemble-space): add bdd test
 
 
 
-# * TODO feat: import mutliple elements
+# # * TODO feat: import mutliple elements
 
-# 1.in ap view
-# 2.select other
-# 3.select two elements(import element)
-# 4.switch to ui view
-# 5.can continue edit the two elements visually
+# # 1.in ap view
+# # 2.select other
+# # 3.select two elements(import element)
+# # 4.switch to ui view
+# # 5.can continue edit the two elements visually
 
 
 
-# * TODO pass run test: two elements
+# # * TODO pass run test: two elements
 
-# first element contribute:
-# one button
+# # first element contribute:
+# # one button
 
 
-# when click the button, show second element contribute:
-# one button with different rect, color
+# # when click the button, show second element contribute:
+# # one button with different rect, color
 
 
 
 
-# * TODO control add 
+# # * TODO control add 
 
-# properies:
+# # properies:
 
-# rect:
-# x y width height
+# # rect:
+# # x y width height
 
 
 
-# isShow: true/false
+# # isShow: true/false
 
-#     design for single element
+# #     design for single element
 
 
 
 
-# event:
+# # event:
 
-# click,
-#     focus,
-# ...
+# # click,
+# #     focus,
+# # ...
 
 
 
-# click:
-# list(action name) by select action contributes
+# # click:
+# # list(action name) by select action contributes
 
 
 
-# styles:
+# # styles:
 
-# skin
+# # skin
 
 
 
 
 
 
-# properties->input data
-# rect
-# (input data->rect need add "property" flag?)
+# # properties->input data
+# # rect
+# # (input data->rect need add "property" flag?)
 
-# styles->skin
-# (add to input data and add "style" flag?)
+# # styles->skin
+# # (add to input data and add "style" flag?)
 
-# events->click event(add more event in the future)
-# (read events from protocol->event data?)
+# # events->click event(add more event in the future)
+# # (read events from protocol->event data?)
 
 
 
@@ -1312,12 +1312,12 @@ note: remove entry extension step!!!
 
 
 
-# * TODO pass run test: single element
+# # * TODO pass run test: single element
 
-# element contribute with two buttons:
-# one button
-#     when click the button, show second element contribute:
-# one button with different rect, color
+# # element contribute with two buttons:
+# # one button
+# #     when click the button, show second element contribute:
+# # one button with different rect, color
 
 
 
@@ -1325,16 +1325,16 @@ note: remove entry extension step!!!
 
 
 
-# * TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
+# # * TODO ap view: select common extensions, ui control, skin, action, component, work plugin contributes only once - global share
 
 
-# share for all elements
+# # share for all elements
 
 
 
 
 
-# common extensions get by filter by getExtensionLife -> onStart not exist)
+# # common extensions get by filter by getExtensionLife -> onStart not exist)
 
 
 
@@ -1343,7 +1343,7 @@ note: remove entry extension step!!!
 
 
 
-* TODO remove unused extensions, contributes
+* DONE remove unused extensions, contributes
 
 
 
