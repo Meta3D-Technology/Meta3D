@@ -1,6 +1,6 @@
 {
     "name": "meta3d-bind-io-event",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-bind-io-event-protocol"
@@ -20,14 +20,14 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bind-io-event-protocol": "^0.5.0",
-        "meta3d-event-protocol": "^0.5.0",
-        "meta3d-type": "^0.5.0"
+        "meta3d-bind-io-event-protocol": "^0.6.0",
+        "meta3d-event-protocol": "^0.6.0",
+        "meta3d-type": "^0.6.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
-        "meta3d-tool-publish": "^0.5.0",
+        "meta3d-tool-publish": "^0.6.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

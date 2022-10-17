@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
@@ -32,9 +32,9 @@
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
-        "rescript-indexeddb": "^0.0.3",
         "antd": "^4.21.0",
         "remporium": "^0.0.1",
-        "rescript": "^9.1.4"
+        "rescript": "^9.1.4",
+        "rescript-indexeddb": "^0.0.3"
     }
 }

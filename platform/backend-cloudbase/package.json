@@ -1,7 +1,7 @@
 {
     "name": "backend-cloudbase",
     "main": "src/Main.js",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "tsc --watch",
