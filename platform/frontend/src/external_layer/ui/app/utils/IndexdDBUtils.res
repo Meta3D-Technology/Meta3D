@@ -50,7 +50,13 @@ let initForElementVisualApp = () => {
               _getTabeleName(),
             )
 
-            resolve(. db.contents)
+            let transaction = (event->Obj.magic)["target"]["transaction"]
+
+            IDBTransaction.set_oncomplete(transaction, event => {
+              Js.log("transaction oncomplete")
+
+              resolve(. db.contents)
+            })
           }
         : {
             reject(.
