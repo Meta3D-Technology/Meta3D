@@ -1362,7 +1362,7 @@ click first's button, alert and enter second one
 ** TODO publish version
 
 
-** TODO publish to website
+** DONE publish to website
 
 
 ** TODO register meta3d

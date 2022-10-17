@@ -19,7 +19,9 @@
     "collectCoverage": true,
     "coverageDirectory": "<rootDir>/coverage/",
     "coveragePathIgnorePatterns": [
-        "<rootDir>/lib/js/src/.+/AssembleSpace.*"
+        "<rootDir>/lib/js/src/.+/AssembleSpace.*",
+        "<rootDir>/lib/js/src/.+/ApAssemble.*",
+        "<rootDir>/lib/js/src/.+/ElementAssemble.*"
     ],
     "collectCoverageFrom": [
         "lib/js/src/**/*.js",
@@ -28,9 +30,9 @@
     ],
     "coverageThreshold": {
         "global": {
-            "lines": 85,
-            "statements": 85,
-            "branches": 80,
+            "lines": 82,
+            "statements": 82,
+            "branches": 66,
             "functions": 65
         }
     }

@@ -119,8 +119,7 @@ module Method = {
 
   let _buildContribute = (name, version, data): FrontendUtils.ApAssembleStoreType.contribute => {
     id: "",
-    version: // version: _getElementContributeVersion(),
-    version,
+    version: version,
     protocolIconBase64: "",
     protocolConfigStr: None,
     newName: name->Some,
