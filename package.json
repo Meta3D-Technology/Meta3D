@@ -3,7 +3,7 @@
 	"private": true,
 	"scripts": {
 		"clean": "lerna clean",
-		"install": "lerna bootstrap",
+		"bootstrap": "lerna bootstrap",
 		"build": "lerna run build:ts",
 		"publish:all": "npm config set registry https://registry.npmjs.org/ && lerna publish",
 		"meta3d:publish_dev": "lerna run meta3d:publish_dev --concurrency 1",
