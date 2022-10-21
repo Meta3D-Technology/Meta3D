@@ -45,7 +45,7 @@ let build = (
   ~publishElementContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
-  ~publishedElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ~publishedelementassembledata=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
   ~getElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -110,7 +110,7 @@ let build = (
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
     publishElementContribute: publishElementContribute,
-    publishedElementAssembleData: publishedElementAssembleData,
+    publishedelementassembledata: publishedelementassembledata,
     getElementAssembleData: getElementAssembleData,
   },
   meta3d: {

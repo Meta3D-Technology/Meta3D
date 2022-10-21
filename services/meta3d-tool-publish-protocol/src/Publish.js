@@ -9,9 +9,9 @@ function _throwError(msg) {
 function _getPublishedCollectionName(fileType) {
     switch (fileType) {
         case "extension":
-            return "publishedExtensionProtocols";
+            return "publishedextensionprotocols";
         case "contribute":
-            return "publishedContributeProtocols";
+            return "publishedcontributeprotocols";
     }
 }
 function _isPNG(iconPath) {
@@ -58,9 +58,9 @@ exports.publish = publish;
 function _getPublishedConfigCollectionName(fileType) {
     switch (fileType) {
         case "extension":
-            return "publishedExtensionProtocolConfigs";
+            return "publishedextensionprotocolconfigs";
         case "contribute":
-            return "publishedContributeProtocolConfigs";
+            return "publishedcontributeprotocolconfigs";
     }
 }
 function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, distFilePath, fileType) {

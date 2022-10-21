@@ -290,7 +290,7 @@ defineFeature(feature, test => {
         },
         ~service=ServiceTool.build(
           ~sandbox,
-          ~publishedElementAssembleData=publishedElementAssembleDataStub.contents->Obj.magic,
+          ~publishedelementassembledata=publishedElementAssembleDataStub.contents->Obj.magic,
           (),
         ),
         ~elementInspectorData=elementInspectorData.contents,

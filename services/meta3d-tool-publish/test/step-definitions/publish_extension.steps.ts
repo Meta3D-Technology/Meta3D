@@ -200,7 +200,7 @@ defineFeature(feature, test => {
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
                 app,
-                "publishedExtensions",
+                "publishedextensions",
                 { "username": "meta3d" },
                 {
                     "fileData": [{
@@ -300,7 +300,7 @@ defineFeature(feature, test => {
     //     and('should update fileID in collection', () => {
     //         expect(updateDataFunc.getCall(1)).toCalledWith([
     //             app,
-    //             "publishedExtensions",
+    //             "publishedextensions",
     //             { "username": "meta3d" },
     //             {
     //                 "fileData": [{

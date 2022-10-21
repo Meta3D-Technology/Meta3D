@@ -54,7 +54,7 @@ module Method = {
             ),
           ),
         ),
-        service.backend.publishedElementAssembleData(.
+        service.backend.publishedelementassembledata(.
           username->Meta3dCommonlib.OptionSt.getExn,
           elementName,
           elementVersion,

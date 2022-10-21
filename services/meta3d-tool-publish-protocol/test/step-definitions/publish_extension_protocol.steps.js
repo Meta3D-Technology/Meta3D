@@ -67,7 +67,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         then('should add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 app,
-                "publishedExtensionProtocols",
+                "publishedextensionprotocols",
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
@@ -125,7 +125,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //     then('should update icon base64 in collection', () => {
     //         expect(addDataFunc.getCall(1)).toCalledWith([
     //             app,
-    //             "publishedExtensionProtocols",
+    //             "publishedextensionprotocols",
     //             {
     //                 "protocols": [{
     //                     "name": "test1-protocol",

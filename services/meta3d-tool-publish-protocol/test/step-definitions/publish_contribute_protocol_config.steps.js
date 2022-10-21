@@ -67,7 +67,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
         then('should add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 app,
-                "publishedContributeProtocolConfigs",
+                "publishedcontributeprotocolconfigs",
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",

@@ -127,7 +127,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         and('should add to collection', () => {
             expect(updateDataFunc).toCalledWith([
                 app,
-                "publishedExtensions",
+                "publishedextensions",
                 { "username": "meta3d" },
                 {
                     "fileData": [{
@@ -219,7 +219,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //     and('should update fileID in collection', () => {
     //         expect(updateDataFunc.getCall(1)).toCalledWith([
     //             app,
-    //             "publishedExtensions",
+    //             "publishedextensions",
     //             { "username": "meta3d" },
     //             {
     //                 "fileData": [{

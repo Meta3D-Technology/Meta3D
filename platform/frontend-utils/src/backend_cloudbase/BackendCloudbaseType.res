@@ -10,6 +10,10 @@ type protocol = {
 
 type protocols = array<protocol>
 
+type init = unit => Meta3dBsMostProtocol.StreamType.stream<unit>
+
+type registerUser = (string, string) => Meta3dBsMostProtocol.StreamType.stream<unit>
+
 type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.stream<protocols>
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
@@ -30,7 +34,6 @@ type getAllPublishContributeProtocolConfigs = unit => Meta3dBsMostProtocol.Strea
 type getAllPublishExtensionProtocolConfigs = unit => Meta3dBsMostProtocol.StreamType.stream<
   protocolConfigs,
 >
-
 
 type implement = {
   id: string,
@@ -91,7 +94,7 @@ type inspectorData = {
   uiControls: array<uiControl>,
 }
 
-type publishedElementAssembleData = (
+type publishedelementassembledata = (
   . string,
   string,
   string,

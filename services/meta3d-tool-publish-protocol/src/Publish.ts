@@ -8,9 +8,9 @@ function _throwError(msg: string): never {
 function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     switch (fileType) {
         case "extension":
-            return "publishedExtensionProtocols"
+            return "publishedextensionprotocols"
         case "contribute":
-            return "publishedContributeProtocols"
+            return "publishedcontributeprotocols"
     }
 }
 
@@ -72,9 +72,9 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
 function _getPublishedConfigCollectionName(fileType: "extension" | "contribute") {
     switch (fileType) {
         case "extension":
-            return "publishedExtensionProtocolConfigs"
+            return "publishedextensionprotocolconfigs"
         case "contribute":
-            return "publishedContributeProtocolConfigs"
+            return "publishedcontributeprotocolconfigs"
     }
 }
 

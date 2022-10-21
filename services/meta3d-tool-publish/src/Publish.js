@@ -46,9 +46,9 @@ function _getFileDirname(fileType) {
 function _getPublishedCollectionName(fileType) {
     switch (fileType) {
         case "extension":
-            return "publishedExtensions";
+            return "publishedextensions";
         case "contribute":
-            return "publishedContributes";
+            return "publishedcontributes";
     }
 }
 function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc], packageFilePath, distFilePath, fileType) {

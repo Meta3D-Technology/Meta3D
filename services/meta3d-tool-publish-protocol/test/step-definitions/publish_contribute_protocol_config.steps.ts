@@ -111,7 +111,7 @@ defineFeature(feature, test => {
         then('should add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 app,
-                "publishedContributeProtocolConfigs",
+                "publishedcontributeprotocolconfigs",
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",

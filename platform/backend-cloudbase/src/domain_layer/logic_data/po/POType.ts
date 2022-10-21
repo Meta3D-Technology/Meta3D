@@ -1,5 +1,5 @@
-import * as CloundbasePO from "./CloundbasePOType";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
 
 export type po = {
-    cloudbase: CloundbasePO.cloudbase
+    app: nullable<any>
 }

@@ -4,12 +4,11 @@
     "version": "0.6.0",
     "authors": "Wonder",
     "scripts": {
-        "watch": "tsc --watch",
-        "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
-        "test:ci": "tsc --build --clean && jest --maxWorkers=4 --config jest_coverage.json && tsc --build"
+        "watch": "tsc --watch"
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
+        "meta3d-fp": "^0.6.0",
         "most": "^1.9.0",
         "semver": "7.3.7"
     },

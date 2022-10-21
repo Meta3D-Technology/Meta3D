@@ -54,9 +54,9 @@ function _getFileDirname(fileType: "extension" | "contribute") {
 function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     switch (fileType) {
         case "extension":
-            return "publishedExtensions"
+            return "publishedextensions"
         case "contribute":
-            return "publishedContributes"
+            return "publishedcontributes"
     }
 }
 

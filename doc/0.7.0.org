@@ -1,105 +1,89 @@
-** TODO add a button, click can render a triangle
-(button extension)
-
-
-*** TODO add a button, click can log
-
-
-*** TODO prepare engine, click can render a triangle
+* TODO charge wallet
 
 
 
-* TODO add a button, register custom ui
+* DONE register DAO
 
-*** TODO add VisualElement to UI
 
-usage:
-```
-beginVisualElement()
-
-...
-
-drawButton
-
-endVisualElement()
-```
+* TODO register ENS/DAS
 
 
 
-*** TODO implement drawText
-
-default load .fnt, .bitmap resources, not open its control to user
+* TODO use https://lenster.xyz/ to create account
 
 
-*** TODO add window control (beginWindow, endWindow)
+* TODO use showme instead of 知识星球
 
-usage:
-```
-beginWindow(x,y,width, height, title)
-(window content's z-index should + 1!)
 
-...
+* TODO use discord instead of qq
 
-drawButton
-
-endWindow()
-```
+use nansen connect?
 
 
 
+* TODO add web3 backend: 4everland
 
-*** TODO implement drawCopyTextArea
-
-
-
-** TODO add webgpu render 
-
-*** TODO add webgpu render
-
-use gpu driven pipeline
-
-*** TODO only rerender the elements whose state change
-add VisualElement to UI
-judge state change in VisualElement
-
-only for webgpu
-
-* TODO add editor' extensions,contributes 
-
-** TODO finish current editor demo(register custom ui)
+** DONE move website, platform to 4everland
 
 
-** TODO finish ui with webgl
-(should be convenient to replace webgl to webgpu in the future!)
+** TODO use 4everland->bucket to store data, add backend
+
+# pass demo
+
+*** DONE add backend->register
+
+# compile
+
+# run test
+
+# bdd test
+
+*** TODO implement web3 login with wallet
+
+*** TODO finish login, register
+
+*** TODO finish other
 
 
-button
+*** TODO refactor: remove unused code
 
-text(english, chinese)
+e.g. BackendCloudbase
+
+
+* TODO frontend add webpack_local_and_test_env, webpack_pro_env
+
+local and test env use cloudbase;
+use development
+
+
+pro env use 4everland;
+use production
+
+* TODO 4everland add platform-development, platform-production deploy!
+
+
+* TODO publish(implement, protocol) add script for each env!
 
 
 
 
-** TODO pass run test
 
 
-** TODO add menu extension
+* TODO collect to DappRadar
 
-* TODO add engine' extensions,contributes 
 
-** TODO add scene graph
-
-gltf<->wd
+* TODO write web3 introduce articles
 
 
 
-* TODO add editor' extensions,contributes 
+* TODO update my profile to web3
+
+** TODO provide Wonder DAO to public
+
+** TODO more
 
 
-** TODO import/export pacakge
 
 
-** TODO import/export scene
+* TODO publish 0.7.0
 
-
-** TODO publish
