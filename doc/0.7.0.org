@@ -70,7 +70,7 @@ provide user to install metamask link
 
 
 
-*** TODO finish login, register
+*** DONE finish login, register
 
 *** TODO finish other
 

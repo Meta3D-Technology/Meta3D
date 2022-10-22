@@ -1,12 +1,16 @@
+let _getEnv = () => #local
+
 let _hiddenLoadding = %raw(`
     function(){
     document.querySelector("#loading").style.display = "none"
     }
     `)
 
-let _buildFrontendService = (): FrontendUtils.FrontendType.service => {
-  // backend: BackendCloudbase2.buildFrontendService(),
-  backend: Backend4everland.buildFrontendService(),
+let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
+  backend: switch env {
+  | #local => BackendCloudbase2.buildFrontendService()
+  | _ => Backend4everland.buildFrontendService()
+  },
 }
 
 _hiddenLoadding()
@@ -29,7 +33,7 @@ _hiddenLoadding()
 //   Js.log("init backend success")->Js.Promise.resolve
 // }, _)->ignore
 
-let service = _buildFrontendService()
+let service = _buildFrontendService(_getEnv())
 
 service.backend.init()->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
