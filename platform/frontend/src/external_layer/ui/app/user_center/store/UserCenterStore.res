@@ -16,18 +16,22 @@ type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contribute
 //   option<FrontendUtils.CommonType.protocolConfig>,
 // >
 
+type account = string
+
 type action =
   | SetUserName(string)
   | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectExtension(id)
   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectContribute(id)
+  | SetAccount(account)
 
 type state = {
   username: option<string>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
   // selectedContributeProtocolConfigs: selectedContributeProtocolConfigs,
+  account: option<account>,
 }
 
 let reducer = (state, action) => {
@@ -64,6 +68,7 @@ let reducer = (state, action) => {
         _,
       )) => selectedContribute.id !== id),
     }
+  | SetAccount(account) => {...state, account: Some(account)}
   }
 }
 
@@ -72,4 +77,5 @@ let initialState = {
   selectedExtensions: list{},
   selectedContributes: list{},
   // selectedContributeProtocolConfigs: list{},
+  account: None,
 }

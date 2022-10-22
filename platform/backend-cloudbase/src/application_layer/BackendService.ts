@@ -1,5 +1,5 @@
 import tcb from "@cloudbase/js-sdk"
-import { fromPromise, Stream } from "most";
+import { empty, fromPromise, just, Stream } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 
 export let init = () => {
@@ -18,6 +18,38 @@ export let getDatabase = () => {
 	return getBackend().database()
 }
 
+let _checkUserName = (account: string) => {
+	return notHasData("user", { key: account })
+}
+
+export let handleLogin = (account: string) => {
+	return _checkUserName(account).flatMap((isNotHasData: boolean) => {
+		if (isNotHasData) {
+			return fromPromise(
+				addData("user", account, {})
+			).concat(fromPromise(
+				addData("publishedextensions", account, {
+					fileData: []
+				})
+			)).concat(fromPromise(
+				addData("publishedcontributes", account, {
+					fileData: []
+				})
+			)).concat(fromPromise(
+				addData("publishedelementassembledata", account, {
+					fileData: []
+				})
+			)).concat(fromPromise(
+				addData("publishedskinassembledata", account, {
+					fileData: []
+				})
+			))
+		}
+
+		return just(account)
+	})
+}
+
 // export let hasData = (collectionName: string, data: object) => {
 // 	return fromPromise(getDatabase().collection(collectionName)
 // 		.where(data)
@@ -25,12 +57,12 @@ export let getDatabase = () => {
 // 		.then(res => res.data.length > 0))
 // }
 
-// export let notHasData = (collectionName: string, data: object) => {
-// 	return fromPromise(getDatabase().collection(collectionName)
-// 		.where(data)
-// 		.get()
-// 		.then(res => res.data.length === 0))
-// }
+export let notHasData = (collectionName: string, data: object) => {
+	return fromPromise(getDatabase().collection(collectionName)
+		.where(data)
+		.get()
+		.then(res => res.data.length === 0))
+}
 
 // let _blobToFile = (theBlob, fileName) => {
 // 	theBlob.lastModifiedDate = new Date();

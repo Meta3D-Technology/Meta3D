@@ -4,11 +4,6 @@
     {
       "dir": "src",
       "subdirs": true
-    },
-    {
-      "dir": "test",
-      "subdirs": true,
-      "type": "dev"
     }
   ],
   "bsc-flags": [
@@ -19,11 +14,7 @@
     "commonjs",
     "es6-global"
   ],
-  "bs-dev-dependencies": [
-    "meta3d-bs-jest-cucumber",
-    "meta3d-bs-jest",
-    "meta3d-bs-sinon"
-  ],
+  "bs-dev-dependencies": [],
   "reason": {
     "react-jsx": 3
   },

@@ -38,16 +38,56 @@ use nansen connect?
 
 # bdd test
 
-*** TODO implement web3 login with wallet
+*** DONE implement web3 login with wallet
+
+change username to address
+
+# remove user collection
+
+# change user ->password to loginTime
+# change user ->password to isLogin:bool
+change user ->password to isInit:true
+
+not init for 4er backend
+
+
+checkUserName:judge user
+
+
+put address to store for judge is login
+
+
+
+
+provide user to install metamask link
+
+
+# pass compile
+
+# bdd test
+
+# run test
+
+
 
 *** TODO finish login, register
 
 *** TODO finish other
 
+**** TODO publish contribute's implement and protocol
+
+
 
 *** TODO refactor: remove unused code
 
 e.g. BackendCloudbase
+
+rename BackendCloudbase2 to BackendCloudbase
+
+
+*** TODO refactor: remove username
+
+e.g. remove UserCenterStore->username
 
 
 * TODO frontend add webpack_local_and_test_env, webpack_pro_env
@@ -65,7 +105,12 @@ use production
 * TODO publish(implement, protocol) add script for each env!
 
 
+* TODO website: use 4everland's website as default!
 
+need update platform's url
+
+
+* TODO website: add "web3" feature
 
 
 

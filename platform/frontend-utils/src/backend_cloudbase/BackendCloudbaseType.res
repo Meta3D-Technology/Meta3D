@@ -12,6 +12,10 @@ type protocols = array<protocol>
 
 type init = unit => Meta3dBsMostProtocol.StreamType.stream<unit>
 
+type account = string
+
+type handleLogin = account => Meta3dBsMostProtocol.StreamType.stream<unit>
+
 type registerUser = (string, string) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.stream<protocols>

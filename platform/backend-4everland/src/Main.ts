@@ -118,8 +118,8 @@
 import { curry3 } from "meta3d-fp/src/Curry"
 import * as Abtstract from "backend-abstract";
 
-import { addData, init as initCloud } from "./application_layer/BackendService";
+import { addData, init as initCloud, handleLogin as handleLoginCloud } from "./application_layer/BackendService";
 
 export let init = () => Abtstract.init(initCloud)
 
-export let registerUser = curry3(Abtstract.registerUser)(addData)
+export let handleLogin = (account) => Abtstract.handleLogin(handleLoginCloud, account)

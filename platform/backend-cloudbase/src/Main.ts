@@ -11,17 +11,17 @@ import { curry3 } from "meta3d-fp/src/Curry"
 import * as Abtstract from "backend-abstract";
 
 // import { init as initCloud, addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/BackendService";
-import { init as initCloud, addData } from "./application_layer/BackendService";
+import { init as initCloud, handleLogin as handleLoginCloud, addData } from "./application_layer/BackendService";
 
 // export let error = ErrorService.error
 
 export let init = () => Abtstract.init(initCloud)
 
+export let handleLogin = (account) => Abtstract.handleLogin(handleLoginCloud, account)
+
 // export let checkUserName = (username: string) => {
 //     return RegisterService.checkUserName(notHasData, username)
 // }
-
-export let registerUser = curry3(Abtstract.registerUser)(addData)
 
 // export let isLoginSuccess = (username: string, password: string) => {
 //     return LoginService.isLoginSuccess(notHasData, username, password)

@@ -57,7 +57,7 @@ external getAllPublishNewestExtensions: getAllPublishNewestExtensions = ""
 @module("backend-cloudbase")
 external getElementAssembleData: getElementAssembleData = ""
 
-let buildService = (): FrontendUtils.AssembleSpaceType.backendService => {
+let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,

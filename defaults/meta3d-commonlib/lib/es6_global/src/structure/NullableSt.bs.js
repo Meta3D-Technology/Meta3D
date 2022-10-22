@@ -22,6 +22,10 @@ function bind(nullableData, func) {
                   })));
 }
 
+function isNullable(prim) {
+  return prim == null;
+}
+
 var map = Js_null_undefined.bind;
 
 export {
@@ -30,6 +34,7 @@ export {
   getWithDefault ,
   map ,
   bind ,
+  isNullable ,
   
 }
 /* No side effect */

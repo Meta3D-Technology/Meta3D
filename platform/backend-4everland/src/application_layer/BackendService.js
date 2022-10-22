@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addData = exports.init = void 0;
+exports.addData = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -19,6 +19,11 @@ let init = () => {
     return (0, most_1.empty)();
 };
 exports.init = init;
+let _buildEmptyBody = () => "";
+let handleLogin = (account) => {
+    return (0, most_1.fromPromise)((0, exports.addData)("user", account, _buildEmptyBody()));
+};
+exports.handleLogin = handleLogin;
 let addData = (collectionName, key, data) => {
     // console.log(
     //     data,

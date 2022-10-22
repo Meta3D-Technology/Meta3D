@@ -1,13 +1,13 @@
 @react.component
 let make = () => {
-  let {username} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
+  let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
 
-  let _isNotLogin = username => {
-    !(username->Meta3dCommonlib.OptionSt.isSome)
+  let _isNotLogin = account => {
+    !(account->Meta3dCommonlib.OptionSt.isSome)
   }
 
   React.useEffect0(() => {
-    _isNotLogin(username)
+    _isNotLogin(account)
       ? {
           RescriptReactRouter.push("/Login")
         }
@@ -19,11 +19,9 @@ let make = () => {
   <>
     <Nav />
     <h1> {React.string(`欢迎使用Meta3D内测版！`)} </h1>
-    {switch username {
-    | Some(username) => <span> {React.string({j`用户名：${username}`})} </span>
+    {switch account {
+    | Some(account) => <span> {React.string({j`Account：${account}`})} </span>
     | None => React.null
     }}
-
-    // <span> {React.string({j`用户名：${username->Meta3dCommonlib.OptionSt.getExn}`})} </span>
   </>
 }

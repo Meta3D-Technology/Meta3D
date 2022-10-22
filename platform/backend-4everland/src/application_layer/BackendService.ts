@@ -1,5 +1,5 @@
 import { S3 } from "@aws-sdk/client-s3";
-import { empty } from "most";
+import { empty, fromPromise, just } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 
 export let init = () => {
@@ -18,6 +18,12 @@ export let init = () => {
     setBackend(s3)
 
     return empty()
+}
+
+let _buildEmptyBody = () => ""
+
+export let handleLogin = (account: string) => {
+    return fromPromise(addData("user", account, _buildEmptyBody()))
 }
 
 export let addData = (collectionName: string, key: string, data: any) => {

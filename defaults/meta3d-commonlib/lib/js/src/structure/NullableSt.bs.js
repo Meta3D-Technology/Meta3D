@@ -22,6 +22,10 @@ function bind(nullableData, func) {
                   })));
 }
 
+function isNullable(prim) {
+  return prim == null;
+}
+
 var map = Js_null_undefined.bind;
 
 exports.getExn = getExn;
@@ -29,4 +33,5 @@ exports.$$return = $$return;
 exports.getWithDefault = getWithDefault;
 exports.map = map;
 exports.bind = bind;
+exports.isNullable = isNullable;
 /* No side effect */

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addData = exports.getDatabase = exports.init = void 0;
+exports.addData = exports.notHasData = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -18,18 +18,39 @@ let getDatabase = () => {
     return (0, Repo_1.getBackend)().database();
 };
 exports.getDatabase = getDatabase;
+let _checkUserName = (account) => {
+    return (0, exports.notHasData)("user", { key: account });
+};
+let handleLogin = (account) => {
+    return _checkUserName(account).flatMap((isNotHasData) => {
+        if (isNotHasData) {
+            return (0, most_1.fromPromise)((0, exports.addData)("user", account, {})).concat((0, most_1.fromPromise)((0, exports.addData)("publishedextensions", account, {
+                fileData: []
+            }))).concat((0, most_1.fromPromise)((0, exports.addData)("publishedcontributes", account, {
+                fileData: []
+            }))).concat((0, most_1.fromPromise)((0, exports.addData)("publishedelementassembledata", account, {
+                fileData: []
+            }))).concat((0, most_1.fromPromise)((0, exports.addData)("publishedskinassembledata", account, {
+                fileData: []
+            })));
+        }
+        return (0, most_1.just)(account);
+    });
+};
+exports.handleLogin = handleLogin;
 // export let hasData = (collectionName: string, data: object) => {
 // 	return fromPromise(getDatabase().collection(collectionName)
 // 		.where(data)
 // 		.get()
 // 		.then(res => res.data.length > 0))
 // }
-// export let notHasData = (collectionName: string, data: object) => {
-// 	return fromPromise(getDatabase().collection(collectionName)
-// 		.where(data)
-// 		.get()
-// 		.then(res => res.data.length === 0))
-// }
+let notHasData = (collectionName, data) => {
+    return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
+        .where(data)
+        .get()
+        .then(res => res.data.length === 0));
+};
+exports.notHasData = notHasData;
 // let _blobToFile = (theBlob, fileName) => {
 // 	theBlob.lastModifiedDate = new Date();
 // 	theBlob.name = fileName;

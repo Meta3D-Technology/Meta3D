@@ -4,86 +4,81 @@ open FrontendUtils.Antd
 type values = {username: string, password: string}
 
 @react.component
-let make = () => {
+let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
-  let _onFinish = values => {
-    let {username, password} = values->Obj.magic
+  let _login = () => {
+    MetamaskExtend.ethereum->Meta3dCommonlib.NullableSt.isNullable
+      ? {
+          Message.error(. {j`请开启MetaMask钱包`}, 5)
+        }
+      : {
+          let accountRef = ref(Obj.magic(1))
 
-    BackendCloudbase.isLoginSuccess(username, password)
-    ->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
-      !isSuccess
-        ? {
-            Message.error(.Meta3dCommonlib.NullableSt.getExn(failMsg), 5)
+          let {request} = MetamaskExtend.ethereum->Meta3dCommonlib.NullableSt.unsafeGet
 
-            ()
-          }
-        : {
-            dispatch(AppStore.UserCenterAction(UserCenterStore.SetUserName(username)))
+          request({
+            method: #eth_requestAccounts,
+          })
+          ->Meta3dBsMost.Most.fromPromise
+          ->Meta3dBsMost.Most.map(accounts => accounts[0], _)
+          ->Meta3dBsMost.Most.flatMap(account => {
+            accountRef := account
+
+            service.backend.handleLogin(account)
+          }, _)
+          ->Meta3dBsMost.Most.tap(_ => {
+            dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(accountRef.contents)))
 
             RescriptReactRouter.push("/")
-          }
-    }, _)
-    ->Meta3dBsMost.Most.drain
-    ->Obj.magic
+          }, _)
+          ->Meta3dBsMost.Most.drain
+          ->Js.Promise.catch(e => {
+            Message.error(.
+              e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+              None,
+            )
+          }, _)
+        }
   }
 
-  let _onFinishFailed = errorInfo => {
-    Message.error(.{j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
-  }
+  // let _onFinish = values => {
+  //   let {username, password} = values->Obj.magic
+
+  //   BackendCloudbase.isLoginSuccess(username, password)
+  //   ->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
+  //     !isSuccess
+  //       ? {
+  //           Message.error(. Meta3dCommonlib.NullableSt.getExn(failMsg), 5)
+
+  //           ()
+  //         }
+  //       : {
+  //           dispatch(AppStore.UserCenterAction(UserCenterStore.SetUserName(username)))
+
+  //           RescriptReactRouter.push("/")
+  //         }
+  //   }, _)
+  //   ->Meta3dBsMost.Most.drain
+  //   ->Obj.magic
+  // }
+
+  // let _onFinishFailed = errorInfo => {
+  //   Message.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 5)
+  // }
 
   <>
     <Nav />
     <Button
       onClick={_ => {
-        RescriptReactRouter.push("/Register")
+        _login()->ignore
       }}>
-      {React.string(`注册`)}
+      {React.string(`使用MetaMask钱包登录`)}
     </Button>
-    <Form
-    // name="basic"
-      labelCol={{
-        "span": 8,
-      }}
-      wrapperCol={{
-        "span": 6,
-      }}
-      initialValues={{
-        "remember": true,
-      }}
-      onFinish={_onFinish}
-      onFinishFailed={_onFinishFailed}
-      autoComplete="off">
-      <Form.Item
-        label=`用户名`
-        name="username"
-        rules={[
-          {
-            required: true,
-            message: `输入用户名`,
-          },
-        ]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label=`密码`
-        name="password"
-        rules={[
-          {
-            required: true,
-            message: `输入密码`,
-          },
-        ]}>
-        // <Input.Password />
-        <Input _type="password" />
-      </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          "offset": 8,
-          "span": 16,
-        }}>
-        <Button htmlType="submit"> {React.string(`登录`)} </Button>
-      </Form.Item>
-    </Form>
+    <h1>
+      <a href="https://zhuanlan.zhihu.com/p/112285438" target="_blank">
+        {React.string(`如何开启MetaMask钱包？`)}
+      </a>
+    </h1>
   </>
 }

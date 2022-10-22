@@ -18,3 +18,5 @@ let bind = (nullableData, func) => {
   ->OptionSt.bind(val => func(val)->OptionSt.fromNullable)
   ->OptionSt.toNullable
 }
+
+let isNullable = Js.Nullable.isNullable

@@ -4,4 +4,14 @@ open FrontendUtils.BackendCloudbaseType
 external init: init = ""
 
 @module("backend-4everland")
-external registerUser: registerUser = ""
+external handleLogin: handleLogin = ""
+
+// @module("backend-4everland")
+// external registerUser: registerUser = ""
+
+let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
+  {
+    init: init,
+    handleLogin: handleLogin,
+  }
+}

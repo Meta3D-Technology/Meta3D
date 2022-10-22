@@ -7,18 +7,18 @@
 // import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
 // import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerUser = exports.init = void 0;
-const Curry_1 = require("meta3d-fp/src/Curry");
+exports.handleLogin = exports.init = void 0;
 const Abtstract = require("backend-abstract");
 // import { init as initCloud, addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/BackendService";
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
 let init = () => Abtstract.init(BackendService_1.init);
 exports.init = init;
+let handleLogin = (account) => Abtstract.handleLogin(BackendService_1.handleLogin, account);
+exports.handleLogin = handleLogin;
 // export let checkUserName = (username: string) => {
 //     return RegisterService.checkUserName(notHasData, username)
 // }
-exports.registerUser = (0, Curry_1.curry3)(Abtstract.registerUser)(BackendService_1.addData);
 // export let isLoginSuccess = (username: string, password: string) => {
 //     return LoginService.isLoginSuccess(notHasData, username, password)
 // }
