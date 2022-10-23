@@ -27,7 +27,7 @@ export let addDataToBody = (collectionData: collectionData, data: any): Promise<
 
 export let addData = (s3: S3, addDataToBody: (collectionData: collectionData, data: any) => Promise<string>, collectionName: string, key: string, collectionData: collectionData, data: any) => {
     return addDataToBody(collectionData, data).then(body => {
-        console.log("add data", key, body)
+        // console.log("add data", key, body)
 
         return s3.putObject({
             Bucket: collectionName,
@@ -59,15 +59,13 @@ export let handleLogin = (s3: S3, account: string) => {
 }
 
 let _hasData = (s3: S3, collectionName: string, key: string) => {
-    console.log(collectionName, key)
-
     return fromPromise(
         s3.headObject({
             Bucket: collectionName,
             Key: key,
         }).then(
             () => {
-                console.log("find")
+                // console.log("find")
                 return true
             },
             err => {
@@ -89,7 +87,7 @@ export let hasAccount = (s3: S3, collectionName: string, account: string) => {
 }
 
 export let isContain = (find: (collectionData: collectionData) => boolean, collectionData: collectionData) => {
-    console.log("isContain")
+    // console.log("isContain")
 
     return new Promise((resolve, reject) => {
         resolve(
@@ -103,7 +101,7 @@ export let isContain = (find: (collectionData: collectionData) => boolean, colle
 let _buildEmptyArrBody = () => []
 
 export let getCollection = (s3: S3, collectionName: string): Promise<collectionData> => {
-    console.log("get collection")
+    // console.log("get collection")
 
     return s3.getObject({
         Bucket: collectionName,
@@ -112,14 +110,14 @@ export let getCollection = (s3: S3, collectionName: string): Promise<collectionD
         .then(_parseBody)
         .catch(err => {
             if (err.name === 'NoSuchKey') {
-                console.log("add")
+                // console.log("add")
 
                 return addData(s3,
                     _buildFirstAddDataToBodyFunc(),
                     collectionName, collectionName,
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
-                        console.log("after add")
+                        // console.log("after add")
                         return getCollection(s3, collectionName)
                     })
             }

@@ -4,17 +4,12 @@ import * as CloudbaseService from "meta3d-tool-utils/src/publish/CloudbaseServic
 import * as _4everlandService from "meta3d-tool-utils/src/publish/4everlandService";
 import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { env } from "meta3d-tool-utils/src/publish/PublishType"
-// import { publish, publishConfig } from "./Publish";
-import { publish } from "./Publish";
+import { publish, publishConfig } from "./Publish";
 
-export function publishExtensionProtocol(
-	env: env,
-	packageFilePath: string, iconPath: string) {
-	let funcArr = null
-
+let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any] => {
 	switch (env) {
 		case "local":
-			funcArr = [
+			return [
 				fs.readFileSync,
 				console.log,
 				console.error,
@@ -24,7 +19,7 @@ export function publishExtensionProtocol(
 			]
 			break;
 		case "production":
-			funcArr = [
+			return [
 				fs.readFileSync,
 				console.log,
 				console.error,
@@ -36,36 +31,27 @@ export function publishExtensionProtocol(
 		default:
 			throw new Error("unknown env")
 	}
-
-	return publish(funcArr, packageFilePath, iconPath, "extension")
 }
 
-// export function publishContributeProtocol(packageFilePath: string, iconPath: string) {
-// 	return publish([
-// 		fs.readFileSync,
-// 		console.log,
-// 		console.error,
-// 		buildReadJsonFunc(packageFilePath),
-// 		init, hasAccount, getCollection, addData], packageFilePath, iconPath, "contribute")
-// }
+export function publishExtensionProtocol(
+	env: env,
+	packageFilePath: string, iconPath: string) {
+	return publish(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "extension")
+}
 
-// export function publishContributeProtocolConfig(packageFilePath: string, distFilePath: string) {
-// 	return publishConfig([
-// 		fs.readFileSync,
-// 		console.log,
-// 		console.error,
-// 		buildReadJsonFunc(packageFilePath),
-// 		init, hasAccount, getCollection, addData], packageFilePath, distFilePath, "contribute")
-// }
+export function publishContributeProtocol(
+	env: env,
+	packageFilePath: string, iconPath: string) {
+	return publish(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "contribute")
+}
 
-// export function publishExtensionProtocolConfig(packageFilePath: string, distFilePath: string) {
-// 	return publishConfig([
-// 		fs.readFileSync,
-// 		console.log,
-// 		console.error,
-// 		buildReadJsonFunc(packageFilePath),
-// 		init, hasAccount, getCollection, addData], packageFilePath, distFilePath, "extension")
-// }
+export function publishContributeProtocolConfig(env: env, packageFilePath: string, distFilePath: string) {
+	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "contribute")
+}
+
+export function publishExtensionProtocolConfig(env: env, packageFilePath: string, distFilePath: string) {
+	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "extension")
+}
 
 
 // // publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.png"))

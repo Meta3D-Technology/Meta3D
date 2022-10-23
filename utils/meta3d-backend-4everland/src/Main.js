@@ -22,7 +22,7 @@ let addDataToBody = (collectionData, data) => {
 exports.addDataToBody = addDataToBody;
 let addData = (s3, addDataToBody, collectionName, key, collectionData, data) => {
     return addDataToBody(collectionData, data).then(body => {
-        console.log("add data", key, body);
+        // console.log("add data", key, body)
         return s3.putObject({
             Bucket: collectionName,
             Key: key,
@@ -44,12 +44,11 @@ let handleLogin = (s3, account) => {
 };
 exports.handleLogin = handleLogin;
 let _hasData = (s3, collectionName, key) => {
-    console.log(collectionName, key);
     return (0, most_1.fromPromise)(s3.headObject({
         Bucket: collectionName,
         Key: key,
     }).then(() => {
-        console.log("find");
+        // console.log("find")
         return true;
     }, err => {
         if (err.name === 'NotFound') {
@@ -66,7 +65,7 @@ let hasAccount = (s3, collectionName, account) => {
 };
 exports.hasAccount = hasAccount;
 let isContain = (find, collectionData) => {
-    console.log("isContain");
+    // console.log("isContain")
     return new Promise((resolve, reject) => {
         resolve(collectionData.findIndex((data) => {
             return find(data);
@@ -76,7 +75,7 @@ let isContain = (find, collectionData) => {
 exports.isContain = isContain;
 let _buildEmptyArrBody = () => [];
 let getCollection = (s3, collectionName) => {
-    console.log("get collection");
+    // console.log("get collection")
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
@@ -84,9 +83,9 @@ let getCollection = (s3, collectionName) => {
         .then(_parseBody)
         .catch(err => {
         if (err.name === 'NoSuchKey') {
-            console.log("add");
+            // console.log("add")
             return (0, exports.addData)(s3, _buildFirstAddDataToBodyFunc(), collectionName, collectionName, _buildEmptyCollectionData(), _buildEmptyArrBody()).then(_ => {
-                console.log("after add");
+                // console.log("after add")
                 return (0, exports.getCollection)(s3, collectionName);
             });
         }

@@ -26,7 +26,7 @@ defineFeature(feature, test => {
 
     function _buildPackageJson(name = "test1-protocol",
         version = "0.0.1",
-        account = "0fx60") {
+        account = "0xf60") {
         return { name, version, publisher: account }
     }
 

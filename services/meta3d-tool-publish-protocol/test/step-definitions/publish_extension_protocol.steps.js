@@ -22,7 +22,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         addDataFunc = sandbox.stub();
         addDataToBodyFunc = CloudbaseService_1.addDataToBody;
     }
-    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0fx60") {
+    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
         return { name, version, publisher: account };
     }
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {

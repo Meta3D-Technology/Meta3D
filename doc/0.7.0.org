@@ -83,7 +83,8 @@ bdd test
 run test
 
 
-**** TODO publish contribute's protocol config
+**** DONE publish contribute's protocol config
+
 
 **** TODO publish contribute's implement
 
