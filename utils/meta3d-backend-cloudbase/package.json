@@ -1,0 +1,14 @@
+{
+    "name": "meta3d-backend-cloudbase",
+    "version": "0.6.0",
+    "main": "src/Main.js",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "most": "^1.9.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

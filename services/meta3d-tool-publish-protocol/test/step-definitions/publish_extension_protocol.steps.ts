@@ -3,12 +3,13 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { publish } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
+import { addDataToBody, isContain } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension_protocol.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -18,18 +19,20 @@ defineFeature(feature, test => {
         initFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
         getCollectionFunc = sandbox.stub()
+        isContainFunc = isContain
         addDataFunc = sandbox.stub()
+        addDataToBodyFunc = addDataToBody
     }
 
     function _buildPackageJson(name = "test1-protocol",
         version = "0.0.1",
-        username = "meta3d") {
-        return { name, version, publisher: username }
+        account = "0fx60") {
+        return { name, version, publisher: account }
     }
 
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc],
             packageFilePath, iconPath,
             "extension"
         )
@@ -65,7 +68,7 @@ defineFeature(feature, test => {
             return _publishExtensionProtocol()
         });
 
-        then(/^should error:                 "(.*)"$/, (arg0) => {
+        then(/^should error: "(.*)"$/, (arg0) => {
             expect(
                 errorFunc.getCall(0).args[1].message
             ).toEqual(
@@ -77,6 +80,9 @@ defineFeature(feature, test => {
     test('add to collection', ({ given, when, then, and }) => {
         let app = {}
         let iconContent = "v91"
+        let collectionData = {
+            data: []
+        }
 
         _prepare(given)
 
@@ -98,9 +104,7 @@ defineFeature(feature, test => {
             )
             readFileSyncFunc.returns(iconContent)
             getCollectionFunc.returns(
-                resolve({
-                    data: []
-                })
+                resolve(collectionData)
             )
         });
 
@@ -111,11 +115,14 @@ defineFeature(feature, test => {
         then('should add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 app,
+                addDataToBodyFunc,
                 "publishedextensionprotocols",
+                "publishedextensionprotocols",
+                collectionData,
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
-                    "username": "meta3d",
+                    "account": "meta3d",
                     "iconBase64": "data:image/png;base64, " + iconContent
                 }
             ])
@@ -158,7 +165,7 @@ defineFeature(feature, test => {
     //                     {
     //                         name: "test1-protocol",
     //                         version: "0.0.2",
-    //                         username: "meta3d"
+    //                         account: "meta3d"
     //                     }
     //                 ]
     //             })
@@ -181,7 +188,7 @@ defineFeature(feature, test => {
     //                 "protocols": [{
     //                     "name": "test1-protocol",
     //                     "version": "0.0.2",
-    //                     "username": "meta3d",
+    //                     "account": "meta3d",
     //                     "iconBase64": "data:image/png;base64, " + iconContent2
     //                 }]
     //             }
@@ -221,7 +228,7 @@ defineFeature(feature, test => {
                         {
                             name: "test1-protocol",
                             version: "0.0.2",
-                            username: "meta3d"
+                            account: "meta3d"
                         }
                     ]
                 })

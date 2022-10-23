@@ -1,6 +1,8 @@
 import { S3 } from "@aws-sdk/client-s3";
 import { empty, fromPromise, just } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
+import * as BackendService from "meta3d-backend-4everland";
+import { curry2, curry3_1, curry4_1 } from "meta3d-fp/src/Curry";
 
 export let init = () => {
     const s3 = new S3({
@@ -20,21 +22,25 @@ export let init = () => {
     return empty()
 }
 
-let _buildEmptyBody = () => ""
+// let _buildEmptyBody = () => ""
 
-export let handleLogin = (account: string) => {
-    return fromPromise(addData("user", account, _buildEmptyBody()))
-}
+// export let handleLogin = (account: string) => {
+//     return fromPromise(addData("user", "meta3d_" + account, _buildEmptyBody()))
+// }
 
-export let addData = (collectionName: string, key: string, data: any) => {
-    // console.log(
-    //     data,
-    //     JSON.stringify(data)
-    // )
+// export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
 
-    return getBackend().putObject({
-        Bucket: collectionName,
-        Key: key,
-        Body: JSON.stringify(data),
-    })
-}
+// export let addData = curry4_1(BackendService.addData)(getBackend())
+
+// export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
+
+// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+
+
+export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
+
+export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
+
+export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
+
+export let getCollection = (collectionName) => BackendService.getCollection(getBackend(), collectionName)

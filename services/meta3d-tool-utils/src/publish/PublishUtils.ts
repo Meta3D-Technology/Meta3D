@@ -18,6 +18,6 @@ export function buildReadJsonFunc(packageFilePath: string) {
     }
 }
 
-export function isPublisherRegistered(hasDataFunc, app, publisher: string) {
-    return hasDataFunc(app, "user", { username: publisher })
+export function isPublisherRegistered(hasAccountFunc, backendInstance:any, publisher: string) {
+    return hasAccountFunc(backendInstance, "user", publisher)
 }

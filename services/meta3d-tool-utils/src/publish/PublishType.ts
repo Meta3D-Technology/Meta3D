@@ -1,0 +1,1 @@
+export type env = "local" | "production"

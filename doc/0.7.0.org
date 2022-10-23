@@ -74,7 +74,19 @@ provide user to install metamask link
 
 *** TODO finish other
 
-**** TODO publish contribute's implement and protocol
+**** DONE publish contribute's protocol
+
+compile
+
+bdd test
+
+run test
+
+
+**** TODO publish contribute's protocol config
+
+**** TODO publish contribute's implement
+
 
 
 
@@ -88,6 +100,14 @@ rename BackendCloudbase2 to BackendCloudbase
 *** TODO refactor: remove username
 
 e.g. remove UserCenterStore->username
+
+
+
+*** TODO publish all contributes, extensions
+
+
+*** TODO pass run test for local, production env
+
 
 
 * TODO frontend add webpack_local_and_test_env, webpack_pro_env

@@ -20,8 +20,8 @@ function buildReadJsonFunc(packageFilePath) {
     };
 }
 exports.buildReadJsonFunc = buildReadJsonFunc;
-function isPublisherRegistered(hasDataFunc, app, publisher) {
-    return hasDataFunc(app, "user", { username: publisher });
+function isPublisherRegistered(hasAccountFunc, backendInstance, publisher) {
+    return hasAccountFunc(backendInstance, "user", publisher);
 }
 exports.isPublisherRegistered = isPublisherRegistered;
 //# sourceMappingURL=PublishUtils.js.map

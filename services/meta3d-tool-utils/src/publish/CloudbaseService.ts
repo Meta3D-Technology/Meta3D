@@ -1,5 +1,6 @@
 import tcb from "@cloudbase/node-sdk"
 import { fromPromise, just } from "most";
+import * as BackendService from "meta3d-backend-cloudbase";
 
 export let init = () => {
 	let app: any = tcb.init({
@@ -11,53 +12,47 @@ export let init = () => {
 	return just(app)
 }
 
-let _getDatabase = (app: any) => {
-	return app.database()
-}
+// let _getDatabase = (app: any) => {
+// 	return app.database()
+// }
 
-export let hasData = (app: any, collectionName: string, data: object) => {
-	return fromPromise(_getDatabase(app).collection(collectionName)
-		.where(data)
-		.get()
-		.then(res => res.data.length > 0))
-}
+export let hasAccount = BackendService.hasAccount
 
-export let notHasData = (app: any, collectionName: string, data: object) => {
-	return fromPromise(_getDatabase(app).collection(collectionName)
-		.where(data)
-		.get()
-		.then(res => res.data.length === 0))
-}
+// export let notHasData = (app: any, collectionName: string, data: object) => {
+// 	return fromPromise(_getDatabase(app).collection(collectionName)
+// 		.where(data)
+// 		.get()
+// 		.then(res => res.data.length === 0))
+// }
 
-export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
-	return fromPromise(app.uploadFile({
-		cloudPath,
-		fileContent
-	}))
-}
+// export let uploadFile = (app: any, cloudPath: string, fileContent: Buffer) => {
+// 	return fromPromise(app.uploadFile({
+// 		cloudPath,
+// 		fileContent
+// 	}))
+// }
 
-export let getCollection = (app: any, collectionName: string) => {
-	return _getDatabase(app).collection(collectionName).get()
-}
+export let getCollection = BackendService.getCollection
 
-export let getData = (app: any, collectionName: string, data: any) => {
-	return _getDatabase(app).collection(collectionName)
-		.where(data)
-		.get()
-}
+export let isContain = BackendService.isContain
+
+// export let getData = (app: any, collectionName: string, data: any) => {
+// 	return _getDatabase(app).collection(collectionName)
+// 		.where(data)
+// 		.get()
+// }
 
 // export let updateCollection = (app: any, collectionName: string, updateData: any) => {
 // 	return _getDatabase(app).collection(collectionName)
 // 		.update(updateData)
 // }
 
-export let addData = (app: any, collectionName: string, addData: any) => {
-	return _getDatabase(app).collection(collectionName)
-		.add(addData)
-}
+export let addData = BackendService.addData
 
-export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
-	return _getDatabase(app).collection(collectionName)
-		.where(whereData)
-		.update(updateData)
-}
+export let addDataToBody = BackendService.addDataToBody
+
+// export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
+// 	return _getDatabase(app).collection(collectionName)
+// 		.where(whereData)
+// 		.update(updateData)
+// }

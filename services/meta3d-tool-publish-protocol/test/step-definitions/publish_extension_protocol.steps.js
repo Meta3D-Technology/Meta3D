@@ -5,10 +5,11 @@ const sinon_1 = require("sinon");
 const most_1 = require("most");
 const Publish_1 = require("../../src/Publish");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
+const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension_protocol.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -17,13 +18,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         initFunc = sandbox.stub();
         hasDataFunc = sandbox.stub();
         getCollectionFunc = sandbox.stub();
+        isContainFunc = CloudbaseService_1.isContain;
         addDataFunc = sandbox.stub();
+        addDataToBodyFunc = CloudbaseService_1.addDataToBody;
     }
-    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", username = "meta3d") {
-        return { name, version, publisher: username };
+    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0fx60") {
+        return { name, version, publisher: account };
     }
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
-        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, addDataFunc], packageFilePath, iconPath, "extension");
+        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc], packageFilePath, iconPath, "extension");
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -43,13 +46,16 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         when('publish extension protocol', () => {
             return _publishExtensionProtocol();
         });
-        then(/^should error:                 "(.*)"$/, (arg0) => {
+        then(/^should error: "(.*)"$/, (arg0) => {
             expect(errorFunc.getCall(0).args[1].message).toEqual(arg0);
         });
     });
     test('add to collection', ({ given, when, then, and }) => {
         let app = {};
         let iconContent = "v91";
+        let collectionData = {
+            data: []
+        };
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
@@ -57,9 +63,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             initFunc.returns((0, most_1.just)(app));
             hasDataFunc.returns((0, most_1.just)(true));
             readFileSyncFunc.returns(iconContent);
-            getCollectionFunc.returns((0, PromiseTool_1.resolve)({
-                data: []
-            }));
+            getCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
         });
         when('publish extension protocol', () => {
             return _publishExtensionProtocol();
@@ -67,11 +71,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         then('should add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 app,
+                addDataToBodyFunc,
                 "publishedextensionprotocols",
+                "publishedextensionprotocols",
+                collectionData,
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
-                    "username": "meta3d",
+                    "account": "meta3d",
                     "iconBase64": "data:image/png;base64, " + iconContent
                 }
             ]);
@@ -110,7 +117,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //                     {
     //                         name: "test1-protocol",
     //                         version: "0.0.2",
-    //                         username: "meta3d"
+    //                         account: "meta3d"
     //                     }
     //                 ]
     //             })
@@ -130,7 +137,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //                 "protocols": [{
     //                     "name": "test1-protocol",
     //                     "version": "0.0.2",
-    //                     "username": "meta3d",
+    //                     "account": "meta3d",
     //                     "iconBase64": "data:image/png;base64, " + iconContent2
     //                 }]
     //             }
@@ -153,7 +160,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     {
                         name: "test1-protocol",
                         version: "0.0.2",
-                        username: "meta3d"
+                        account: "meta3d"
                     }
                 ]
             }));

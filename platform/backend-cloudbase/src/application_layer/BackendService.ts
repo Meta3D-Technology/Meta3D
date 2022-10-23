@@ -1,6 +1,8 @@
 import tcb from "@cloudbase/js-sdk"
 import { empty, fromPromise, just, Stream } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
+import * as BackendService from "meta3d-backend-cloudbase";
+import { curry2, curry3_1, curry4, curry4_1 } from "meta3d-fp/src/Curry";
 
 export let init = () => {
 	let app: any = tcb.init({
@@ -18,51 +20,46 @@ export let getDatabase = () => {
 	return getBackend().database()
 }
 
-let _checkUserName = (account: string) => {
-	return notHasData("user", { key: account })
-}
+// let _checkUserName = (account: string) => {
+// 	return notHasData("user", { key: account })
+// }
 
-export let handleLogin = (account: string) => {
-	return _checkUserName(account).flatMap((isNotHasData: boolean) => {
-		if (isNotHasData) {
-			return fromPromise(
-				addData("user", account, {})
-			).concat(fromPromise(
-				addData("publishedextensions", account, {
-					fileData: []
-				})
-			)).concat(fromPromise(
-				addData("publishedcontributes", account, {
-					fileData: []
-				})
-			)).concat(fromPromise(
-				addData("publishedelementassembledata", account, {
-					fileData: []
-				})
-			)).concat(fromPromise(
-				addData("publishedskinassembledata", account, {
-					fileData: []
-				})
-			))
-		}
+// export let handleLogin = (account: string) => {
+// 	return _checkUserName(account).flatMap((isNotHasData: boolean) => {
+// 		if (isNotHasData) {
+// 			return fromPromise(
+// 				addData("user", account, {})
+// 			).concat(fromPromise(
+// 				addData("publishedextensions", account, {
+// 					fileData: []
+// 				})
+// 			)).concat(fromPromise(
+// 				addData("publishedcontributes", account, {
+// 					fileData: []
+// 				})
+// 			)).concat(fromPromise(
+// 				addData("publishedelementassembledata", account, {
+// 					fileData: []
+// 				})
+// 			)).concat(fromPromise(
+// 				addData("publishedskinassembledata", account, {
+// 					fileData: []
+// 				})
+// 			))
+// 		}
 
-		return just(account)
-	})
-}
+// 		return just(account)
+// 	})
+// }
 
-// export let hasData = (collectionName: string, data: object) => {
+// export let notHasData = (collectionName: string, data: object) => {
 // 	return fromPromise(getDatabase().collection(collectionName)
 // 		.where(data)
 // 		.get()
-// 		.then(res => res.data.length > 0))
+// 		.then(res => res.data.length === 0))
 // }
 
-export let notHasData = (collectionName: string, data: object) => {
-	return fromPromise(getDatabase().collection(collectionName)
-		.where(data)
-		.get()
-		.then(res => res.data.length === 0))
-}
+// export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
 
 // let _blobToFile = (theBlob, fileName) => {
 // 	theBlob.lastModifiedDate = new Date();
@@ -94,26 +91,28 @@ export let notHasData = (collectionName: string, data: object) => {
 // 	})
 // }
 
-// export let getCollection = (collectionName: string) => {
-// 	return getDatabase().collection(collectionName).get()
-// }
-
 // export let getData = (collectionName: string, data: any) => {
 // 	return getDatabase().collection(collectionName)
 // 		.where(data)
 // 		.get()
 // }
 
-export let addData = (collectionName: string, key: string, data: any) => {
-	return getDatabase().collection(collectionName)
-		.add({
-			...data,
-			key: key
-		})
-}
+// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+
+// export let addData = curry4_1(BackendService.addData)(getBackend())
+
+// export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
 
 // export let updateData = (collectionName: string, whereData: any, updateData: any) => {
 // 	return getDatabase().collection(collectionName)
 // 		.where(whereData)
 // 		.update(updateData)
 // }
+
+export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
+
+export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
+
+export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
+
+export let getCollection = (collectionName) => BackendService.getCollection(getBackend(), collectionName)
