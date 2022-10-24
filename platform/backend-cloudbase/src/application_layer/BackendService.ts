@@ -91,13 +91,13 @@ export let getDatabase = () => {
 // 	})
 // }
 
-// export let getData = (collectionName: string, data: any) => {
+// export let getShopData = (collectionName: string, data: any) => {
 // 	return getDatabase().collection(collectionName)
 // 		.where(data)
 // 		.get()
 // }
 
-// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+// export let getShopCollection = curry2(BackendService.getShopCollection)(getBackend())
 
 // export let addData = curry4_1(BackendService.addData)(getBackend())
 
@@ -115,4 +115,4 @@ export let addData = (addDataToBody, collectionName, key, collectionData, data) 
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getCollection = (collectionName) => BackendService.getCollection(getBackend(), collectionName)
+export let getShopCollection = (collectionName) => BackendService.getShopCollection(getBackend(), collectionName)

@@ -10,7 +10,7 @@ Feature: Publish Extension
         Given prepare funcs
         And make publisher not be registered
         When publish extension
-        Then should error:                 "publishser没有注册"
+        Then should error: "找不到publishser，请至少登录过一次"
 
     Scenario: define window for generateFunc
         Given prepare funcs

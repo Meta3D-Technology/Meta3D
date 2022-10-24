@@ -9,24 +9,25 @@ const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseServi
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contribute_protocol_config.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
         readJsonFunc = sandbox.stub();
         initFunc = sandbox.stub();
-        hasDataFunc = sandbox.stub();
-        getCollectionFunc = sandbox.stub();
+        hasAccountFunc = sandbox.stub();
+        getShopProtocolCollectionFunc = sandbox.stub();
         isContainFunc = CloudbaseService_1.isContain;
-        addDataFunc = sandbox.stub();
-        addDataToBodyFunc = CloudbaseService_1.addDataToBody;
+        addDataToShopProtocolCollectionFunc = sandbox.stub();
+        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = CloudbaseService_1.addShopProtocolDataToDataFromShopProtocolCollectionData;
+        getDataFromShopProtocolCollectionFunc = CloudbaseService_1.getDataFromShopProtocolCollection;
     }
     function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
         return { name, version, publisher: account };
     }
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
-        return (0, Publish_1.publishConfig)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc], packageFilePath, distFilePath, "contribute");
+        return (0, Publish_1.publishConfig)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc], packageFilePath, distFilePath, "contribute");
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -41,7 +42,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
             initFunc.returns((0, most_1.just)({}));
         });
         and('make publisher not be registered', () => {
-            hasDataFunc.returns((0, most_1.just)(false));
+            hasAccountFunc.returns((0, most_1.just)(false));
         });
         when('publish contribute protocol config', () => {
             return _publishContributeProtocolConfig();
@@ -61,20 +62,20 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
             _createFuncs(sandbox);
             readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1-protocol", "0.0.2", "meta3d")));
             initFunc.returns((0, most_1.just)(app));
-            hasDataFunc.returns((0, most_1.just)(true));
+            hasAccountFunc.returns((0, most_1.just)(true));
             readFileSyncFunc.returns(distFileContent);
-            getCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
+            getShopProtocolCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
         });
         when('publish contribute protocol config', () => {
             return _publishContributeProtocolConfig();
         });
         then('should add to collection', () => {
-            expect(addDataFunc).toCalledWith([
+            expect(addDataToShopProtocolCollectionFunc).toCalledWith([
                 app,
-                addDataToBodyFunc,
+                addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
                 "publishedcontributeprotocolconfigs",
                 "publishedcontributeprotocolconfigs",
-                collectionData,
+                getDataFromShopProtocolCollectionFunc(collectionData),
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
@@ -91,11 +92,11 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
             _createFuncs(sandbox, sandbox.stub());
             readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1-protocol", "0.0.2", "meta3d")));
             initFunc.returns((0, most_1.just)(app));
-            hasDataFunc.returns((0, most_1.just)(true));
-            getCollectionFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
+            hasAccountFunc.returns((0, most_1.just)(true));
+            getShopProtocolCollectionFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
                 data: []
             }));
-            getCollectionFunc.onCall(1).returns((0, PromiseTool_1.resolve)({
+            getShopProtocolCollectionFunc.onCall(1).returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         name: "test1-protocol",

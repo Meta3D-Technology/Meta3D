@@ -34,7 +34,7 @@ export let init = () => {
 
 // export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
 
-// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+// export let getShopCollection = curry2(BackendService.getShopCollection)(getBackend())
 
 
 export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
@@ -43,4 +43,4 @@ export let addData = (addDataToBody, collectionName, key, collectionData, data) 
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getCollection = (collectionName) => BackendService.getCollection(getBackend(), collectionName)
+export let getShopCollection = (collectionName) => BackendService.getShopCollection(getBackend(), collectionName)

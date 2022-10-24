@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleLogin = exports.init = void 0;
 const Abtstract = require("backend-abstract");
-// import { init as initCloud, addData, getCollection, getData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/BackendService";
+// import { init as initCloud, addData, getShopCollection, getShopData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/BackendService";
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
 let init = () => Abtstract.init(BackendService_1.init);
@@ -24,26 +24,26 @@ exports.handleLogin = handleLogin;
 // }
 // export let getAllPublishExtensionProtocols = () => {
 //     return ShopService.getAllPublishProtocolData(
-//         getCollection,
+//         getShopCollection,
 //         "publishedextensionprotocols")
 // }
 // export let getAllPublishContributeProtocols = () => {
-//     return ShopService.getAllPublishProtocolData(getCollection, "publishedcontributeprotocols")
+//     return ShopService.getAllPublishProtocolData(getShopCollection, "publishedcontributeprotocols")
 // }
 // export let getAllPublishContributeProtocolConfigs = () => {
-//     return ShopService.getAllPublishProtocolConfigData(getCollection, "publishedcontributeprotocolconfigs")
+//     return ShopService.getAllPublishProtocolConfigData(getShopCollection, "publishedcontributeprotocolconfigs")
 // }
 // export let getAllPublishExtensionProtocolConfigs = () => {
-//     return ShopService.getAllPublishProtocolConfigData(getCollection, "publishedextensionprotocolconfigs")
+//     return ShopService.getAllPublishProtocolConfigData(getShopCollection, "publishedextensionprotocolconfigs")
 // }
 // export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
-//     return ShopService.getAllPublishData([getCollection, getFile],
+//     return ShopService.getAllPublishData([getShopCollection, getFile],
 //         "publishedextensions",
 //         protocolName, protocolVersion
 //     )
 // }
 // export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
-//     return ShopService.getAllPublishData([getCollection, getFile],
+//     return ShopService.getAllPublishData([getShopCollection, getFile],
 //         "publishedcontributes",
 //         protocolName, protocolVersion
 //     )
@@ -63,13 +63,13 @@ exports.handleLogin = handleLogin;
 //     }
 // export let findPublishApp = (username: string, appName: string) => {
 //     return PublishAppService.findPublishApp(
-//         [getData, getFile],
+//         [getShopData, getFile],
 //         username, appName
 //     )
 // }
 // export let findAllPublishApps = (username: string) => {
 //     return PublishAppService.findAllPublishApps(
-//         [getData, getFile],
+//         [getShopData, getFile],
 //         username
 //     )
 // }
@@ -83,7 +83,7 @@ exports.handleLogin = handleLogin;
 // ) {
 //     return PublishElementContributeService.publishElementContribute([
 //         console.log,
-//         _throwError, uploadFile, getData, updateData],
+//         _throwError, uploadFile, getShopData, updateData],
 //         username, packageData, contributeBinaryFile)
 // }
 // export function publishedelementassembledata(
@@ -93,7 +93,7 @@ exports.handleLogin = handleLogin;
 //     inspectorData: any
 // ) {
 //     return PublishElementContributeService.publishElementAssembleData([
-//         _throwError, getData, updateData],
+//         _throwError, getShopData, updateData],
 //         username,
 //         elementName,
 //         elementVersion,
@@ -101,7 +101,7 @@ exports.handleLogin = handleLogin;
 //     )
 // }
 // export let getAllPublishNewestExtensions = (protocolName: string) => {
-//     return GetElementDataService.getAllPublishNewestData([getCollection, getFile],
+//     return GetElementDataService.getAllPublishNewestData([getShopCollection, getFile],
 //         "publishedextensions",
 //         protocolName
 //     )
@@ -111,7 +111,7 @@ exports.handleLogin = handleLogin;
 //     elementName: string,
 //     elementVersion: string,
 // ) => {
-//     return GetElementDataService.getElementAssembleData(getData,
+//     return GetElementDataService.getElementAssembleData(getShopData,
 //         username,
 //         elementName,
 //         elementVersion,

@@ -18,7 +18,7 @@ function _isPNG(iconPath: string) {
     return iconPath.match(/\.png$/) !== null
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc]: [any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -34,25 +34,28 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
             }
 
             return fromPromise(
-                getCollectionFunc(
+                getShopProtocolCollectionFunc(
                     backendInstance,
                     _getPublishedCollectionName(fileType),
                 ).then(res => {
+                    let resData = getDataFromShopProtocolCollectionFunc(res)
+
                     return isContainFunc(
                         ({ name, version }) => {
                             return name === packageJson.name && version === packageJson.version
                         },
-                        res).then(isContain => [isContain, res])
-                }).then(([isContain, res]) => {
+                        resData
+                    ).then(isContain => [isContain, resData])
+                }).then(([isContain, resData]) => {
                     if (isContain) {
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
-                    return addDataFunc(backendInstance,
-                        addDataToBodyFunc,
+                    return addDataToShopProtocolCollectionFunc(backendInstance,
+                        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
                         _getPublishedCollectionName(fileType),
                         _getPublishedCollectionName(fileType),
-                        res,
+                        resData,
                         {
                             name: packageJson.name,
                             version: packageJson.version,
@@ -85,7 +88,7 @@ function _getPublishedConfigCollectionName(fileType: "extension" | "contribute")
     }
 }
 
-export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc]: [any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -99,25 +102,27 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
             let collectioName = _getPublishedConfigCollectionName(fileType)
 
             return fromPromise(
-                getCollectionFunc(
+                getShopProtocolCollectionFunc(
                     backendInstance,
                     collectioName
                 ).then(res => {
+                    let resData = getDataFromShopProtocolCollectionFunc(res)
+
                     return isContainFunc(
                         ({ name, version }) => {
                             return name === packageJson.name && version === packageJson.version
                         },
-                        res).then(isContain => [isContain, res])
-                }).then(([isContain, res]) => {
+                        resData).then(isContain => [isContain, resData])
+                }).then(([isContain, resData]) => {
                     if (isContain) {
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
-                    return addDataFunc(backendInstance,
-                        addDataToBodyFunc,
+                    return addDataToShopProtocolCollectionFunc(backendInstance,
+                        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
                         collectioName,
                         collectioName,
-                        res,
+                        resData,
                         {
                             name: packageJson.name,
                             version: packageJson.version,

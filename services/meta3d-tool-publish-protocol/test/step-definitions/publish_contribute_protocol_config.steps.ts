@@ -3,13 +3,13 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { publishConfig } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addDataToBody, isContain } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { addShopProtocolDataToDataFromShopProtocolCollectionData, getDataFromShopProtocolCollection, isContain } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_contribute_protocol_config.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -17,12 +17,12 @@ defineFeature(feature, test => {
         errorFunc = errorFuncStub
         readJsonFunc = sandbox.stub()
         initFunc = sandbox.stub()
-        hasDataFunc = sandbox.stub()
-        getCollectionFunc = sandbox.stub()
+        hasAccountFunc = sandbox.stub()
+        getShopProtocolCollectionFunc = sandbox.stub()
         isContainFunc = isContain
-        addDataFunc = sandbox.stub()
-        addDataToBodyFunc = addDataToBody
-
+        addDataToShopProtocolCollectionFunc = sandbox.stub()
+        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = addShopProtocolDataToDataFromShopProtocolCollectionData
+        getDataFromShopProtocolCollectionFunc = getDataFromShopProtocolCollection
     }
 
     function _buildPackageJson(name = "test1-protocol",
@@ -33,7 +33,7 @@ defineFeature(feature, test => {
 
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
         return publishConfig(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasDataFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc],
             packageFilePath, distFilePath,
             "contribute"
         )
@@ -60,7 +60,7 @@ defineFeature(feature, test => {
         });
 
         and('make publisher not be registered', () => {
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(false)
             )
         });
@@ -100,11 +100,11 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just(app)
             )
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(true)
             )
             readFileSyncFunc.returns(distFileContent)
-            getCollectionFunc.returns(
+            getShopProtocolCollectionFunc.returns(
                 resolve(collectionData)
             )
         });
@@ -114,12 +114,12 @@ defineFeature(feature, test => {
         });
 
         then('should add to collection', () => {
-            expect(addDataFunc).toCalledWith([
+            expect(addDataToShopProtocolCollectionFunc).toCalledWith([
                 app,
-                addDataToBodyFunc,
+                addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
                 "publishedcontributeprotocolconfigs",
                 "publishedcontributeprotocolconfigs",
-                collectionData,
+                getDataFromShopProtocolCollectionFunc(collectionData),
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
@@ -148,15 +148,15 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just(app)
             )
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(true)
             )
-            getCollectionFunc.onCall(0).returns(
+            getShopProtocolCollectionFunc.onCall(0).returns(
                 resolve({
                     data: []
                 })
             )
-            getCollectionFunc.onCall(1).returns(
+            getShopProtocolCollectionFunc.onCall(1).returns(
                 resolve({
                     data: [
                         {

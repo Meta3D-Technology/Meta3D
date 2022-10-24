@@ -6,7 +6,7 @@ import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { env } from "meta3d-tool-utils/src/publish/PublishType"
 import { publish, publishConfig } from "./Publish";
 
-let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any] => {
+let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any, any] => {
 	switch (env) {
 		case "local":
 			return [
@@ -14,20 +14,24 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
-				CloudbaseService.init, CloudbaseService.hasAccount, CloudbaseService.getCollection, CloudbaseService.isContain, CloudbaseService.addData,
-				CloudbaseService.addDataToBody
+				CloudbaseService.init,
+				CloudbaseService.hasAccount,
+				CloudbaseService.getShopProtocolCollection,
+				CloudbaseService.isContain,
+				CloudbaseService.addDataToShopProtocolCollection,
+				CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+				CloudbaseService.getDataFromShopProtocolCollection
 			]
-			break;
 		case "production":
 			return [
 				fs.readFileSync,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
-				_4everlandService.init, _4everlandService.hasAccount, _4everlandService.getCollection, _4everlandService.isContain, _4everlandService.addData,
-				_4everlandService.addDataToBody
+				_4everlandService.init, _4everlandService.hasAccount, _4everlandService.getShopProtocolCollection, _4everlandService.isContain, _4everlandService.addDataToShopProtocolCollection,
+				_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+				_4everlandService.getDataFromShopProtocolCollection
 			]
-			break;
 		default:
 			throw new Error("unknown env")
 	}

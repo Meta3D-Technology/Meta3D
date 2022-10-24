@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isContain = exports.getCollection = exports.hasAccount = exports.addDataToBody = exports.addData = exports.init = void 0;
+exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.getShopProtocolCollection = exports.isContain = exports.hasAccount = exports.addDataToShopProtocolCollection = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-4everland"));
@@ -41,9 +41,17 @@ let init = () => {
     return (0, most_1.just)(s3);
 };
 exports.init = init;
-exports.addData = BackendService.addData;
-exports.addDataToBody = BackendService.addDataToBody;
+exports.addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection;
 exports.hasAccount = BackendService.hasAccount;
-exports.getCollection = BackendService.getCollection;
 exports.isContain = BackendService.isContain;
+exports.getShopProtocolCollection = BackendService.getShopProtocolCollection;
+exports.addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData;
+exports.getShopImplementAccountData = BackendService.getShopImplementAccountData;
+exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
+exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
+exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.getFileID = BackendService.getFileID;
+exports.updateShopImplementData = BackendService.updateShopImplementData;
+exports.uploadFile = BackendService.uploadFile;
 //# sourceMappingURL=4everlandService.js.map

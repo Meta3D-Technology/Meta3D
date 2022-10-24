@@ -17,12 +17,28 @@ export let init = () => {
     return just(s3)
 }
 
-export let addData = BackendService.addData
-
-export let addDataToBody = BackendService.addDataToBody
+export let addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection
 
 export let hasAccount = BackendService.hasAccount
 
-export let getCollection = BackendService.getCollection
-
 export let isContain = BackendService.isContain
+
+export let getShopProtocolCollection = BackendService.getShopProtocolCollection
+
+export let addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData
+
+export let getShopImplementAccountData = BackendService.getShopImplementAccountData
+
+export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+
+export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+
+export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+
+export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+
+export let getFileID = BackendService.getFileID
+
+export let updateShopImplementData = BackendService.updateShopImplementData
+
+export let uploadFile = BackendService.uploadFile

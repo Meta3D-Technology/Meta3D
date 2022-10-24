@@ -41,20 +41,24 @@ let _getFuncArr = (env, packageFilePath) => {
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                CloudbaseService.init, CloudbaseService.hasAccount, CloudbaseService.getCollection, CloudbaseService.isContain, CloudbaseService.addData,
-                CloudbaseService.addDataToBody
+                CloudbaseService.init,
+                CloudbaseService.hasAccount,
+                CloudbaseService.getShopProtocolCollection,
+                CloudbaseService.isContain,
+                CloudbaseService.addDataToShopProtocolCollection,
+                CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+                CloudbaseService.getDataFromShopProtocolCollection
             ];
-            break;
         case "production":
             return [
                 fs_1.default.readFileSync,
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                _4everlandService.init, _4everlandService.hasAccount, _4everlandService.getCollection, _4everlandService.isContain, _4everlandService.addData,
-                _4everlandService.addDataToBody
+                _4everlandService.init, _4everlandService.hasAccount, _4everlandService.getShopProtocolCollection, _4everlandService.isContain, _4everlandService.addDataToShopProtocolCollection,
+                _4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+                _4everlandService.getDataFromShopProtocolCollection
             ];
-            break;
         default:
             throw new Error("unknown env");
     }

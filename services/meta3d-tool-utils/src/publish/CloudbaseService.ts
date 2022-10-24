@@ -32,11 +32,11 @@ export let hasAccount = BackendService.hasAccount
 // 	}))
 // }
 
-export let getCollection = BackendService.getCollection
+export let getShopProtocolCollection = BackendService.getShopProtocolCollection
 
 export let isContain = BackendService.isContain
 
-// export let getData = (app: any, collectionName: string, data: any) => {
+// export let getShopImplementAccountData = (app: any, collectionName: string, data: any) => {
 // 	return _getDatabase(app).collection(collectionName)
 // 		.where(data)
 // 		.get()
@@ -47,12 +47,22 @@ export let isContain = BackendService.isContain
 // 		.update(updateData)
 // }
 
-export let addData = BackendService.addData
+export let addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection
 
-export let addDataToBody = BackendService.addDataToBody
+export let addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData
 
-// export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
-// 	return _getDatabase(app).collection(collectionName)
-// 		.where(whereData)
-// 		.update(updateData)
-// }
+export let getShopImplementAccountData = BackendService.getShopImplementAccountData
+
+export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+
+export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+
+export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+
+export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+
+export let getFileID = BackendService.getFileID
+
+export let updateShopImplementData = BackendService.updateShopImplementData
+
+export let uploadFile = BackendService.uploadFile

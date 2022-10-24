@@ -86,9 +86,29 @@ run test
 **** DONE publish contribute's protocol config
 
 
-**** TODO publish contribute's implement
+**** DONE publish contribute's implement
+
+# compile
+
+# bdd test
+
+# run test:
+# log
+
+# isContain not work
+
+# getShopImplementAccountData->return
 
 
+**** TODO publish other
+
+
+
+
+**** TODO assemble space backend service
+
+
+**** TODO pass all single one run test for local, production env
 
 
 *** TODO refactor: remove unused code
@@ -107,7 +127,7 @@ e.g. remove UserCenterStore->username
 *** TODO publish all contributes, extensions
 
 
-*** TODO pass run test for local, production env
+*** TODO pass frontend-> run test for local, production env
 
 
 

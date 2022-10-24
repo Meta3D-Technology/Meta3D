@@ -1,10 +1,6 @@
 import { fromPromise } from "most";
 import { isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
-function _arrayBufferToBuffer(arrayBuffer: ArrayBuffer): Buffer {
-    return Buffer.from(arrayBuffer)
-}
-
 
 function _throwError(msg: string): never {
     throw new Error(msg)
@@ -60,55 +56,65 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc]: [any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
-            return initFunc().map(app => [app, packageJson])
-        }).flatMap(([app, packageJson]) => {
-            return isPublisherRegistered(hasDataFunc, app, packageJson.publisher).flatMap(isPublisherRegistered => {
+            return initFunc().map(backendInstance => [backendInstance, packageJson])
+        }).flatMap(([backendInstance, packageJson]) => {
+            let account = packageJson.publisher
+
+            return isPublisherRegistered(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
                 if (!isPublisherRegistered) {
-                    _throwError("publishser没有注册")
+                    _throwError("找不到publishser，请至少登录过一次")
                 }
 
                 _defineWindow()
 
                 let packageData = _convertToExtensionOrContributePackageData(packageJson)
 
+                let filePath =
+                    _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer"
+
+                // TODO perf: only invoke getShopImplementAccountDataFunc once
+
                 return fromPromise(
-                    getDataFunc(
-                        app,
+                    getShopImplementAccountDataFunc(
+                        backendInstance,
                         _getPublishedCollectionName(fileType),
-                        { username: packageJson.publisher }
-                    ).then(res => {
-                        let { fileData } = res.data[0]
+                        account
+                    ).then(([shopImplementAccountData, _]) => {
+                        let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
 
-                        let index = fileData.findIndex(({ protocolName, protocolVersion, name, version }) => {
-                            return protocolName === packageJson.protocol.name
-                                && name === packageJson.name
-                                && version === packageJson.version
-                        })
-
-                        if (index !== -1) {
+                        return isContainFunc(
+                            ({ protocolName, protocolVersion, name, version }) => {
+                                return protocolName === packageJson.protocol.name
+                                    && name === packageJson.name
+                                    && version === packageJson.version
+                            },
+                            resData)
+                    }).then((isContain) => {
+                        if (isContain) {
                             _throwError("version: " + packageJson.version + " already exist, please update version")
                         }
                     })
                 ).flatMap(_ => uploadFileFunc(
-                    app,
-                    _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer",
-                    _arrayBufferToBuffer(generateFunc(
+                    backendInstance,
+                    filePath,
+                    generateFunc(
                         packageData,
                         readFileSyncFunc(distFilePath, "utf-8")
-                    ))
-                ).flatMap(({ fileID }) => {
-                    return fromPromise(
-                        getDataFunc(
-                            app,
-                            _getPublishedCollectionName(fileType),
-                            { username: packageJson.publisher }
-                        ).then(res => {
-                            let { fileData } = res.data[0]
+                    )
+                ).flatMap((uploadData) => {
+                    let fileID = getFileIDFunc(uploadData, filePath)
 
-                            let newFileData = []
+                    return fromPromise(
+                        getShopImplementAccountDataFunc(
+                            backendInstance,
+                            _getPublishedCollectionName(fileType),
+                            account
+                        ).then(([shopImplementAccountData, shopImplementCollectionData]) => {
+                            let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+
                             let data = {
                                 protocolName: packageData.protocol.name,
                                 protocolVersion: packageData.protocol.version,
@@ -117,16 +123,15 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                                 fileID
                             }
 
-                            newFileData = fileData.concat([data])
-
-                            return updateDataFunc(
-                                app,
-                                _getPublishedCollectionName(fileType),
-                                { username: packageJson.publisher },
-                                {
-                                    fileData: newFileData
-                                }
-                            )
+                            return addShopImplementDataToDataFromShopImplementCollectionDataFunc(resData, data).then(resData => {
+                                return updateShopImplementDataFunc(
+                                    backendInstance,
+                                    _getPublishedCollectionName(fileType),
+                                    account,
+                                    buildShopImplementAccountDataFunc(resData, account),
+                                    shopImplementCollectionData
+                                )
+                            })
                         }))
                 })
                 )

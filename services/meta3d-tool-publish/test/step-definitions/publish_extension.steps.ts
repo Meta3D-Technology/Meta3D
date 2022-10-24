@@ -3,12 +3,13 @@ import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
+import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain } from "../../../meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -17,10 +18,15 @@ defineFeature(feature, test => {
         readJsonFunc = sandbox.stub()
         generateFunc = sandbox.stub()
         initFunc = sandbox.stub()
-        hasDataFunc = sandbox.stub()
+        hasAccountFunc = sandbox.stub()
         uploadFileFunc = sandbox.stub()
-        getDataFunc = sandbox.stub()
-        updateDataFunc = sandbox.stub()
+        getShopImplementAccountDataFunc = sandbox.stub()
+        updateShopImplementDataFunc = sandbox.stub()
+        getDataFromShopImplementAccountDataFunc = getDataFromShopImplementAccountData
+        isContainFunc = isContain
+        buildShopImplementAccountDataFunc = buildShopImplementAccountData
+        addShopImplementDataToDataFromShopImplementCollectionDataFunc = addShopImplementDataToDataFromShopImplementCollectionData
+        getFileIDFunc = getFileID
     }
 
     function _buildPackageJson(name = "test1",
@@ -36,7 +42,7 @@ defineFeature(feature, test => {
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasDataFunc, uploadFileFunc, getDataFunc, updateDataFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc],
             packageFilePath, distFilePath,
             "extension"
         )
@@ -63,7 +69,7 @@ defineFeature(feature, test => {
         });
 
         and('make publisher not be registered', () => {
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(false)
             )
         });
@@ -72,7 +78,7 @@ defineFeature(feature, test => {
             return _publishExtension()
         });
 
-        then(/^should error:                 "(.*)"$/, (arg0) => {
+        then(/^should error: "(.*)"$/, (arg0) => {
             expect(
                 errorFunc.getCall(0).args[1].message
             ).toEqual(
@@ -94,16 +100,12 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just({})
             )
-            getDataFunc.returns(
-                resolve({
-                    data: [
-                        {
-                            fileData: []
-                        }
-                    ]
-                })
+            getShopImplementAccountDataFunc.returns(
+                resolve([{
+                    fileData: []
+                }, []])
             )
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(true)
             )
             uploadFileFunc.returns(
@@ -137,6 +139,7 @@ defineFeature(feature, test => {
         let distFileContent = "dist"
         let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
+        let shopImplementCollectionData = []
 
         _prepare(given)
 
@@ -162,7 +165,7 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just(app)
             )
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(true)
             )
             readFileSyncFunc.returns(distFileContent)
@@ -170,14 +173,10 @@ defineFeature(feature, test => {
             uploadFileFunc.returns(
                 just({ fileID: fileID1 })
             )
-            getDataFunc.returns(
-                resolve({
-                    data: [
-                        {
-                            fileData: []
-                        }
-                    ]
-                })
+            getShopImplementAccountDataFunc.returns(
+                resolve([{
+                    fileData: []
+                }, shopImplementCollectionData])
             )
         });
 
@@ -193,23 +192,25 @@ defineFeature(feature, test => {
             expect(uploadFileFunc).toCalledWith([
                 app,
                 "extensions/test1_0.0.2.arrayBuffer",
-                Buffer.from(generatedResult)
+                generatedResult
             ])
         });
 
         and('should add to collection', () => {
-            expect(updateDataFunc).toCalledWith([
+            expect(updateShopImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
-                { "username": "meta3d" },
+                "meta3d",
                 {
+                    "key": "meta3d",
                     "fileData": [{
                         "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
                         "name": "test1",
                         "version": "0.0.2",
                         "fileID": fileID1
                     }]
-                }
+                },
+                shopImplementCollectionData
             ])
         });
     });
@@ -243,7 +244,7 @@ defineFeature(feature, test => {
     //         initFunc.returns(
     //             just(app)
     //         )
-    //         hasDataFunc.returns(
+    //         hasAccountFunc.returns(
     //             just(true)
     //         )
     //         readFileSyncFunc.onCall(0).returns(distFileContent1)
@@ -256,7 +257,7 @@ defineFeature(feature, test => {
     //         uploadFileFunc.onCall(1).returns(
     //             just({ fileID: fileID2 })
     //         )
-    //         getDataFunc.onCall(0).returns(
+    //         getShopImplementAccountDataFunc.onCall(0).returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -265,7 +266,7 @@ defineFeature(feature, test => {
     //                 ]
     //             })
     //         )
-    //         getDataFunc.onCall(1).returns(
+    //         getShopImplementAccountDataFunc.onCall(1).returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -298,7 +299,7 @@ defineFeature(feature, test => {
     //     });
 
     //     and('should update fileID in collection', () => {
-    //         expect(updateDataFunc.getCall(1)).toCalledWith([
+    //         expect(updateShopImplementDataFunc.getCall(1)).toCalledWith([
     //             app,
     //             "publishedextensions",
     //             { "username": "meta3d" },
@@ -339,7 +340,7 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just(app)
             )
-            hasDataFunc.returns(
+            hasAccountFunc.returns(
                 just(true)
             )
             readFileSyncFunc.returns(distFileContent)
@@ -347,29 +348,21 @@ defineFeature(feature, test => {
             uploadFileFunc.returns(
                 empty()
             )
-            getDataFunc.onCall(0).returns(
-                resolve({
-                    data: [
-                        {
-                            fileData: []
-                        }
-                    ]
-                })
+            getShopImplementAccountDataFunc.onCall(0).returns(
+                resolve([{
+                    fileData: []
+                }, []])
             )
-            getDataFunc.onCall(1).returns(
-                resolve({
-                    data: [
+            getShopImplementAccountDataFunc.onCall(1).returns(
+                resolve([{
+                    fileData: [
                         {
-                            fileData: [
-                                {
-                                    protocolName: "test1-protocol",
-                                    name: "test1",
-                                    version: "0.0.2"
-                                }
-                            ]
+                            protocolName: "test1-protocol",
+                            name: "test1",
+                            version: "0.0.2"
                         }
                     ]
-                })
+                }, []])
             )
         });
 

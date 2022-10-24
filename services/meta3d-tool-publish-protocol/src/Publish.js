@@ -17,7 +17,7 @@ function _getPublishedCollectionName(fileType) {
 function _isPNG(iconPath) {
     return iconPath.match(/\.png$/) !== null;
 }
-function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc], packageFilePath, iconPath, fileType) {
+function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc], packageFilePath, iconPath, fileType) {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -29,15 +29,16 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
             if (!_isPNG(iconPath)) {
                 _throwError("icon's format should be png");
             }
-            return (0, most_1.fromPromise)(getCollectionFunc(backendInstance, _getPublishedCollectionName(fileType)).then(res => {
+            return (0, most_1.fromPromise)(getShopProtocolCollectionFunc(backendInstance, _getPublishedCollectionName(fileType)).then(res => {
+                let resData = getDataFromShopProtocolCollectionFunc(res);
                 return isContainFunc(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
-                }, res).then(isContain => [isContain, res]);
-            }).then(([isContain, res]) => {
+                }, resData).then(isContain => [isContain, resData]);
+            }).then(([isContain, resData]) => {
                 if (isContain) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
-                return addDataFunc(backendInstance, addDataToBodyFunc, _getPublishedCollectionName(fileType), _getPublishedCollectionName(fileType), res, {
+                return addDataToShopProtocolCollectionFunc(backendInstance, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, _getPublishedCollectionName(fileType), _getPublishedCollectionName(fileType), resData, {
                     name: packageJson.name,
                     version: packageJson.version,
                     account: account,
@@ -65,7 +66,7 @@ function _getPublishedConfigCollectionName(fileType) {
             return "publishedcontributeprotocolconfigs";
     }
 }
-function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getCollectionFunc, isContainFunc, addDataFunc, addDataToBodyFunc], packageFilePath, distFilePath, fileType) {
+function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc], packageFilePath, distFilePath, fileType) {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -75,15 +76,16 @@ function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, init
                 _throwError("找不到publishser，请至少登录过一次");
             }
             let collectioName = _getPublishedConfigCollectionName(fileType);
-            return (0, most_1.fromPromise)(getCollectionFunc(backendInstance, collectioName).then(res => {
+            return (0, most_1.fromPromise)(getShopProtocolCollectionFunc(backendInstance, collectioName).then(res => {
+                let resData = getDataFromShopProtocolCollectionFunc(res);
                 return isContainFunc(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
-                }, res).then(isContain => [isContain, res]);
-            }).then(([isContain, res]) => {
+                }, resData).then(isContain => [isContain, resData]);
+            }).then(([isContain, resData]) => {
                 if (isContain) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
-                return addDataFunc(backendInstance, addDataToBodyFunc, collectioName, collectioName, res, {
+                return addDataToShopProtocolCollectionFunc(backendInstance, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, collectioName, collectioName, resData, {
                     name: packageJson.name,
                     version: packageJson.version,
                     account: packageJson.publisher,

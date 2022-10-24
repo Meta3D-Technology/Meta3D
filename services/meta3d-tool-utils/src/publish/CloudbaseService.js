@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addDataToBody = exports.addData = exports.isContain = exports.getCollection = exports.hasAccount = exports.init = void 0;
+exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.init = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
@@ -55,9 +55,9 @@ exports.hasAccount = BackendService.hasAccount;
 // 		fileContent
 // 	}))
 // }
-exports.getCollection = BackendService.getCollection;
+exports.getShopProtocolCollection = BackendService.getShopProtocolCollection;
 exports.isContain = BackendService.isContain;
-// export let getData = (app: any, collectionName: string, data: any) => {
+// export let getShopImplementAccountData = (app: any, collectionName: string, data: any) => {
 // 	return _getDatabase(app).collection(collectionName)
 // 		.where(data)
 // 		.get()
@@ -66,11 +66,14 @@ exports.isContain = BackendService.isContain;
 // 	return _getDatabase(app).collection(collectionName)
 // 		.update(updateData)
 // }
-exports.addData = BackendService.addData;
-exports.addDataToBody = BackendService.addDataToBody;
-// export let updateData = (app: any, collectionName: string, whereData: any, updateData: any) => {
-// 	return _getDatabase(app).collection(collectionName)
-// 		.where(whereData)
-// 		.update(updateData)
-// }
+exports.addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection;
+exports.addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData;
+exports.getShopImplementAccountData = BackendService.getShopImplementAccountData;
+exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
+exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
+exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.getFileID = BackendService.getFileID;
+exports.updateShopImplementData = BackendService.updateShopImplementData;
+exports.uploadFile = BackendService.uploadFile;
 //# sourceMappingURL=CloudbaseService.js.map
