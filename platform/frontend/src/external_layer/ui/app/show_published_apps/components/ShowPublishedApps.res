@@ -5,14 +5,14 @@ open FrontendUtils.Antd
 
 @react.component
 let make = () => {
-  let {username} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
+  let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
 
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
 
-  let _buildURL = (username: string, appName: string) =>
-    j`EnterApp?username=${username}&appName=${appName}`
+  let _buildURL = (account: string, appName: string) =>
+    j`EnterApp?account=${account}&appName=${appName}`
 
   let _openLink = url => {
     FrontendUtils.Window.\"open"(url, "_blank").focus()
@@ -29,7 +29,7 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.findAllPublishApps(. username->Meta3dCommonlib.OptionSt.getExn)
+    BackendCloudbase.findAllPublishApps(. account->Meta3dCommonlib.OptionSt.getExn)
     ->Meta3dBsMost.Most.observe(allPublishApps => {
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)
@@ -54,10 +54,10 @@ let make = () => {
           renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppData) =>
             <List.Item>
               <List.Item.Meta
-                key={j`${item.username}_${item.appName}`}
+                key={j`${item.account}_${item.appName}`}
                 title={<span
                   onClick={_ => {
-                    _openLink(_buildURL(item.username, item.appName))
+                    _openLink(_buildURL(item.account, item.appName))
                   }}>
                   {React.string(item.appName)}
                 </span>}

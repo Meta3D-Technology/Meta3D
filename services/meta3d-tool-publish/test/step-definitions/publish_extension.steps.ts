@@ -3,13 +3,13 @@ import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain } from "../../../meta3d-tool-utils/src/publish/CloudbaseService";
+import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain, parseShopCollectionDataBodyForNodejs } from "../../../meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -27,6 +27,7 @@ defineFeature(feature, test => {
         buildShopImplementAccountDataFunc = buildShopImplementAccountData
         addShopImplementDataToDataFromShopImplementCollectionDataFunc = addShopImplementDataToDataFromShopImplementCollectionData
         getFileIDFunc = getFileID
+        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
     }
 
     function _buildPackageJson(name = "test1",
@@ -42,7 +43,7 @@ defineFeature(feature, test => {
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "extension"
         )

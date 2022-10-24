@@ -66,3 +66,5 @@ export let getFileID = BackendService.getFileID
 export let updateShopImplementData = BackendService.updateShopImplementData
 
 export let uploadFile = BackendService.uploadFile
+
+export let parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs

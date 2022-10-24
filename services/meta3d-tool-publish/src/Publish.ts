@@ -56,7 +56,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
             return initFunc().map(backendInstance => [backendInstance, packageJson])
@@ -80,6 +80,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                 return fromPromise(
                     getShopImplementAccountDataFunc(
                         backendInstance,
+                        parseShopCollectionDataBodyFunc,
                         _getPublishedCollectionName(fileType),
                         account
                     ).then(([shopImplementAccountData, _]) => {
@@ -110,6 +111,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                     return fromPromise(
                         getShopImplementAccountDataFunc(
                             backendInstance,
+                            parseShopCollectionDataBodyFunc,
                             _getPublishedCollectionName(fileType),
                             account
                         ).then(([shopImplementAccountData, shopImplementCollectionData]) => {

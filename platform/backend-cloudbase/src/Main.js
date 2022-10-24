@@ -1,119 +1,34 @@
 "use strict";
-// import * as ErrorService from "./application_layer/common/ErrorService";
-// import * as LoginService from "./application_layer/user/LoginService";
-// import * as RegisterService from "./application_layer/user/RegisterService";
-// import * as ShopService from "./application_layer/shop/ShopService";
-// import * as PublishAppService from "./application_layer/publish/PublishAppService";
-// import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
-// import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.handleLogin = exports.init = void 0;
+exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
 const Abtstract = require("backend-abstract");
-// import { init as initCloud, addData, getShopCollection, getShopData, getFile, hasData, notHasData, updateData, uploadFile } from "./application_layer/BackendService";
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
 let init = () => Abtstract.init(BackendService_1.init);
 exports.init = init;
 let handleLogin = (account) => Abtstract.handleLogin(BackendService_1.handleLogin, account);
 exports.handleLogin = handleLogin;
-// export let checkUserName = (username: string) => {
-//     return RegisterService.checkUserName(notHasData, username)
-// }
-// export let isLoginSuccess = (username: string, password: string) => {
-//     return LoginService.isLoginSuccess(notHasData, username, password)
-// }
-// export let getAllPublishExtensionProtocols = () => {
-//     return ShopService.getAllPublishProtocolData(
-//         getShopCollection,
-//         "publishedextensionprotocols")
-// }
-// export let getAllPublishContributeProtocols = () => {
-//     return ShopService.getAllPublishProtocolData(getShopCollection, "publishedcontributeprotocols")
-// }
-// export let getAllPublishContributeProtocolConfigs = () => {
-//     return ShopService.getAllPublishProtocolConfigData(getShopCollection, "publishedcontributeprotocolconfigs")
-// }
-// export let getAllPublishExtensionProtocolConfigs = () => {
-//     return ShopService.getAllPublishProtocolConfigData(getShopCollection, "publishedextensionprotocolconfigs")
-// }
-// export let getAllPublishExtensions = (protocolName: string, protocolVersion: string) => {
-//     return ShopService.getAllPublishData([getShopCollection, getFile],
-//         "publishedextensions",
-//         protocolName, protocolVersion
-//     )
-// }
-// export let getAllPublishContributes = (protocolName: string, protocolVersion: string) => {
-//     return ShopService.getAllPublishData([getShopCollection, getFile],
-//         "publishedcontributes",
-//         protocolName, protocolVersion
-//     )
-// }
-// export let publishApp =
-//     (appBinaryFile: ArrayBuffer, appName: string, username: string) => {
-//         return PublishAppService.publish(
-//             [
-//                 console.log,
-//                 uploadFile,
-//                 hasData,
-//                 addData,
-//                 updateData
-//             ],
-//             appBinaryFile, appName, username
-//         )
-//     }
-// export let findPublishApp = (username: string, appName: string) => {
-//     return PublishAppService.findPublishApp(
-//         [getShopData, getFile],
-//         username, appName
-//     )
-// }
-// export let findAllPublishApps = (username: string) => {
-//     return PublishAppService.findAllPublishApps(
-//         [getShopData, getFile],
-//         username
-//     )
-// }
-// function _throwError(msg: string): never {
-//     throw new Error(msg)
-// }
-// export function publishElementContribute(
-//     username: string,
-//     packageData: any,
-//     contributeBinaryFile: ArrayBuffer
-// ) {
-//     return PublishElementContributeService.publishElementContribute([
-//         console.log,
-//         _throwError, uploadFile, getShopData, updateData],
-//         username, packageData, contributeBinaryFile)
-// }
-// export function publishedelementassembledata(
-//     username: string,
-//     elementName: string,
-//     elementVersion: string,
-//     inspectorData: any
-// ) {
-//     return PublishElementContributeService.publishElementAssembleData([
-//         _throwError, getShopData, updateData],
-//         username,
-//         elementName,
-//         elementVersion,
-//         inspectorData
-//     )
-// }
-// export let getAllPublishNewestExtensions = (protocolName: string) => {
-//     return GetElementDataService.getAllPublishNewestData([getShopCollection, getFile],
-//         "publishedextensions",
-//         protocolName
-//     )
-// }
-// export let getElementAssembleData = (
-//     username: string,
-//     elementName: string,
-//     elementVersion: string,
-// ) => {
-//     return GetElementDataService.getElementAssembleData(getShopData,
-//         username,
-//         elementName,
-//         elementVersion,
-//     )
-// }
+let getAllPublishExtensionProtocols = () => Abtstract.getAllPublishProtocolData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedextensionprotocols");
+exports.getAllPublishExtensionProtocols = getAllPublishExtensionProtocols;
+let getAllPublishContributeProtocols = () => Abtstract.getAllPublishProtocolData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedcontributeprotocols");
+exports.getAllPublishContributeProtocols = getAllPublishContributeProtocols;
+let getAllPublishExtensionProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedextensionprotocolconfigs");
+exports.getAllPublishExtensionProtocolConfigs = getAllPublishExtensionProtocolConfigs;
+let getAllPublishContributeProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs");
+exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
+let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+    BackendService_1.getShopImplementCollection,
+    BackendService_1.mapShopImplementCollection,
+    BackendService_1.getAccountFromShopImplementCollectionData,
+    BackendService_1.getFileDataFromShopImplementCollectionData,
+    BackendService_1.getFile
+], "publishedextensions", protocolName, protocolVersion);
+exports.getAllPublishExtensions = getAllPublishExtensions;
+let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+    BackendService_1.getShopImplementCollection,
+    BackendService_1.mapShopImplementCollection,
+    BackendService_1.getAccountFromShopImplementCollectionData,
+    BackendService_1.getFileDataFromShopImplementCollectionData,
+    BackendService_1.getFile
+], "publishedcontributes", protocolName, protocolVersion);
+exports.getAllPublishContributes = getAllPublishContributes;

@@ -48,7 +48,7 @@ function _getPublishedCollectionName(fileType) {
             return "publishedcontributes";
     }
 }
-function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc], packageFilePath, distFilePath, fileType) {
+function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
@@ -62,7 +62,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
             let packageData = _convertToExtensionOrContributePackageData(packageJson);
             let filePath = _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer";
             // TODO perf: only invoke getShopImplementAccountDataFunc once
-            return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, _]) => {
+            return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, _]) => {
                 let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
                 return isContainFunc(({ protocolName, protocolVersion, name, version }) => {
                     return protocolName === packageJson.protocol.name
@@ -75,7 +75,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                 }
             })).flatMap(_ => uploadFileFunc(backendInstance, filePath, generateFunc(packageData, readFileSyncFunc(distFilePath, "utf-8"))).flatMap((uploadData) => {
                 let fileID = getFileIDFunc(uploadData, filePath);
-                return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementCollectionData]) => {
+                return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementCollectionData]) => {
                     let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
                     let data = {
                         protocolName: packageData.protocol.name,

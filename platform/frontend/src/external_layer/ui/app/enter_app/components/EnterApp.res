@@ -6,14 +6,14 @@ let make = () => {
   let url = RescriptReactRouter.useUrl()
 
   React.useEffect1(() => {
-    let username = FrontendUtils.UrlSearchUtils.get(url.search, "username")
+    let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
     let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
 
-    BackendCloudbase.findPublishApp(. username, appName)
+    BackendCloudbase.findPublishApp(. account, appName)
     ->Meta3dBsMost.Most.observe(appBinaryFile => {
       Js.Nullable.isNullable(appBinaryFile)
         ? {
-            Message.error(. {j`username: ${username} appName: ${appName} has no published app`}, 10)
+            Message.error(. {j`account: ${account} appName: ${appName} has no published app`}, 10)
           }
         : {
             Meta3dCommonlib.NullableSt.getExn(appBinaryFile)

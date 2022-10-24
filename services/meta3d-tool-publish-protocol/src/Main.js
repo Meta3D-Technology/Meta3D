@@ -47,7 +47,8 @@ let _getFuncArr = (env, packageFilePath) => {
                 CloudbaseService.isContain,
                 CloudbaseService.addDataToShopProtocolCollection,
                 CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-                CloudbaseService.getDataFromShopProtocolCollection
+                CloudbaseService.getDataFromShopProtocolCollection,
+                CloudbaseService.parseShopCollectionDataBodyForNodejs
             ];
         case "production":
             return [
@@ -55,9 +56,14 @@ let _getFuncArr = (env, packageFilePath) => {
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                _4everlandService.init, _4everlandService.hasAccount, _4everlandService.getShopProtocolCollection, _4everlandService.isContain, _4everlandService.addDataToShopProtocolCollection,
+                _4everlandService.init,
+                _4everlandService.hasAccount,
+                _4everlandService.getShopProtocolCollection,
+                _4everlandService.isContain,
+                _4everlandService.addDataToShopProtocolCollection,
                 _4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-                _4everlandService.getDataFromShopProtocolCollection
+                _4everlandService.getDataFromShopProtocolCollection,
+                _4everlandService.parseShopCollectionDataBodyForNodejs
             ];
         default:
             throw new Error("unknown env");

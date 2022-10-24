@@ -45,6 +45,6 @@
 type protocolConfig = {
   name: string,
   version: string,
-  username: string,
+  account: string,
   configStr: string,
 }

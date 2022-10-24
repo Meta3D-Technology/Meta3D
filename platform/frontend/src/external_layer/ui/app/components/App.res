@@ -2,7 +2,7 @@
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {username, selectedExtensions, selectedContributes} = AppStore.useSelector((
+  let {account, selectedExtensions, selectedContributes} = AppStore.useSelector((
     {userCenterState}: AppStore.state,
   ) => userCenterState)
 
@@ -114,13 +114,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     switch url.path {
     | list{"Login"} => <Login service />
     // | list{"Register"} => <Register />
-    // | list{"ExtensionShop"} => <ExtensionShop />
+    | list{"ExtensionShop"} => <ExtensionShop service />
     // | list{"ContributeShop"} => <ContributeShop />
     // | list{"AssembleSpace"} => <>
     //     <Nav />
     //     <AssembleSpace.AssembleSpace
     //       service={_buildAssembleSpaceService()}
-    //       username
+    //       account
     //       selectedExtensionsFromShop=selectedExtensions
     //       selectedContributesFromShop=selectedContributes
     //     />

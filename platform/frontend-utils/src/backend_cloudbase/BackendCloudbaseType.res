@@ -1,18 +1,16 @@
-type username = string
+type account = string
 
 // TODO refactor: move type out
 type protocol = {
   name: string,
   version: string,
-  username: username,
+  account: account,
   iconBase64: string,
 }
 
 type protocols = array<protocol>
 
 type init = unit => Meta3dBsMostProtocol.StreamType.stream<unit>
-
-type account = string
 
 type handleLogin = account => Meta3dBsMostProtocol.StreamType.stream<unit>
 
@@ -25,7 +23,7 @@ type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 // type protocolConfig = {
 //   name: string,
 //   version: string,
-//   username: string,
+//   account: string,
 //   configStr: string,
 // }
 
@@ -43,7 +41,7 @@ type implement = {
   id: string,
   file: Js.Typed_array.ArrayBuffer.t,
   version: string,
-  username: username,
+  account: account,
 }
 
 type implements = array<implement>
@@ -59,7 +57,7 @@ type getAllPublishContributes = (
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
 type publishAppData = {
-  username: username,
+  account: account,
   appName: string,
   appBinaryFile: Js.Typed_array.ArrayBuffer.t,
 }
@@ -120,7 +118,7 @@ type elementAssembleData = {
 }
 
 type getElementAssembleData = (
-  . username,
+  . account,
   elementName,
   elementVersion,
 ) => Meta3dBsMostProtocol.StreamType.stream<elementAssembleData>

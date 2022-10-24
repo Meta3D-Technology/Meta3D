@@ -3,7 +3,9 @@ import { fromPromise } from "most";
 
 type account = string
 
-type collectionData = Array<any>
+type collectionData = any
+
+type allCollectionData = Array<collectionData>
 
 type dataFromShopProtocolCollectionData = any
 
@@ -20,40 +22,26 @@ type shopImplementAccountData = {
 
 type shopImplementCollectionData = Array<shopImplementAccountData>
 
-let _parseShopCollectionDataBody = (collectionData: GetObjectCommandOutput): Promise<any> => {
-    let stream = collectionData.Body as any
-
-
+export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {
-        const chunks = [];
-        stream.on("data", (chunk) => chunks.push(chunk));
-        stream.on("error", reject);
-        stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-    }).then(v => {
-        return JSON.parse(v as string)
+        allCollectionData.push(data)
+
+        resolve(JSON.stringify(allCollectionData))
     })
 }
 
-export let addShopProtocolDataToDataFromShopProtocolCollectionData = (collectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
+export let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
-        collectionData.push(data)
+        console.log("addShopImplementDataToDataFromShopImplementCollectionData:", allCollectionData, data)
 
-        resolve(JSON.stringify(collectionData))
+        allCollectionData.push(data)
+
+        resolve(allCollectionData)
     })
 }
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = (collectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
-    return new Promise((resolve, reject) => {
-        console.log("addShopImplementDataToDataFromShopImplementCollectionData:", collectionData, data)
-
-        collectionData.push(data)
-
-        resolve(collectionData)
-    })
-}
-
-export let addDataToShopProtocolCollection = (s3: S3, addShopProtocolDataToDataFromShopProtocolCollectionData: (collectionData: collectionData, data: any) => Promise<any>, collectionName: string, key: string, collectionData: collectionData, data: any) => {
-    return addShopProtocolDataToDataFromShopProtocolCollectionData(collectionData, data).then(body => {
+export let addDataToShopProtocolCollection = (s3: S3, addShopProtocolDataToDataFromShopProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
+    return addShopProtocolDataToDataFromShopProtocolCollectionData(allCollectionData, data).then(body => {
         console.log("add data", key, body)
 
         return s3.putObject({
@@ -75,7 +63,7 @@ let _buildAccountAsKey = (account) => "meta3d_" + account
 
 let _buildEmptyCollectionData = () => null
 
-let _buildFirstAddDataToBodyFunc = () => (collectionData, data): Promise<string> => {
+let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data): Promise<string> => {
     return new Promise((resolve, reject) => {
         resolve(JSON.stringify(data))
     })
@@ -117,8 +105,8 @@ export let hasAccount = (s3: S3, collectionName: string, account: account) => {
     return _hasData(s3, collectionName, _handleKeyToLowercase(_buildAccountAsKey(account)))
 }
 
-export let getDataFromShopProtocolCollection = (collectionData: collectionData): dataFromShopProtocolCollectionData => {
-    return collectionData
+export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
+    return allCollectionData
 }
 
 export let getDataFromShopImplementAccountData = (data: shopImplementAccountData): dataFromShopImplementCollectionData => {
@@ -146,14 +134,14 @@ export let isContain = (find: (dataFromShopCollectionData: dataFromShopProtocolC
 
 let _buildEmptyArrBody = () => []
 
-export let getShopProtocolCollection = (s3: S3, collectionName: string): Promise<collectionData> => {
-    console.log("get collection")
+export let getShopProtocolCollection = (s3: S3, parseShopCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
+    console.log("get collection: ", collectionName)
 
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
     })
-        .then(_parseShopCollectionDataBody)
+        .then(data => parseShopCollectionDataBody("json", data))
         .catch(err => {
             if (err.name === 'NoSuchKey') {
                 console.log("add")
@@ -164,7 +152,7 @@ export let getShopProtocolCollection = (s3: S3, collectionName: string): Promise
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
                         console.log("after add")
-                        return getShopProtocolCollection(s3, collectionName)
+                        return getShopProtocolCollection(s3, parseShopCollectionDataBody, collectionName)
                     })
             }
 
@@ -172,11 +160,12 @@ export let getShopProtocolCollection = (s3: S3, collectionName: string): Promise
         })
 }
 
-export let getShopImplementAccountData = (s3: S3, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
+export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
-    }).then(_parseShopCollectionDataBody)
+    })
+        .then(data => parseShopCollectionDataBody("json", data))
         .then((body: shopImplementCollectionData): [shopImplementAccountData, shopImplementCollectionData] => {
             console.log("getShopImplementAccountData->body:", body)
 
@@ -207,7 +196,7 @@ export let getShopImplementAccountData = (s3: S3, collectionName: string, accoun
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
                         console.log("after add")
-                        return getShopImplementAccountData(s3, collectionName, account)
+                        return getShopImplementAccountData(s3, parseShopCollectionDataBody, collectionName, account)
                     })
             }
 
@@ -266,4 +255,49 @@ export let updateShopImplementData = (s3: S3, collectionName: string, account: a
         Body: JSON.stringify(newShopImplementCollectionData)
         ,
     })
+}
+
+export let getShopImplementCollection = getShopProtocolCollection
+
+export let mapShopImplementCollection = (allCollectionData: allCollectionData, func) => {
+    return allCollectionData.map(func)
+}
+
+export let getAccountFromShopImplementCollectionData = (data: collectionData) => {
+    return data.key
+}
+
+export let getFileDataFromShopImplementCollectionData = (data: collectionData) => {
+    return data.fileData
+}
+
+export let getFile = (s3: S3, parseShopCollectionDataBody, fileID: string) => {
+    return fromPromise(s3.getObject({
+        Bucket: _getFileBucketName(),
+        Key: _handleKeyToLowercase(fileID)
+    })
+        .then(data => parseShopCollectionDataBody("arrayBuffer", data))
+    )
+}
+
+export let parseShopCollectionDataBodyForNodejs = (returnDataType: "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
+    let stream = allCollectionData.Body as any
+
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+
+        stream.on("data", (chunk) => chunks.push(chunk));
+        stream.on("error", reject);
+        stream.on("end", () => resolve(Buffer.concat(chunks)));
+    })
+        .then((buffer: Buffer) => {
+            switch (returnDataType) {
+                // case "arrayBuffer":
+                // return buffer.buffer
+                case "json":
+                    return JSON.parse(buffer.toString("utf8") as string)
+                default:
+                    throw new Error("unkndown returnDataType:" + returnDataType)
+            }
+        })
 }

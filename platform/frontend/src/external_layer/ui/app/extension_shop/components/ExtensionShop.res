@@ -2,7 +2,7 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component
-let make = () => {
+let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
   let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
     userCenterState
@@ -33,8 +33,8 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
-      BackendCloudbase.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
+    service.backend.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
+      service.backend.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (protocols, protocolConfigs)
         },
@@ -75,7 +75,7 @@ let make = () => {
                       description={React.string(`TODO`)}
                     />
                     <span> {React.string({j`版本号：${item.version}`})} </span>
-                    <span> {React.string({j`发布者：${item.username}`})} </span>
+                    <span> {React.string({j`发布者：${item.account}`})} </span>
                     {_isSelect(item.id, selectedExtensions)
                       ? <Button
                           onClick={_ => {
@@ -109,16 +109,16 @@ let make = () => {
             | None =>
               setIsLoaded(_ => false)
 
-              BackendCloudbase.getAllPublishExtensions(. item.name, item.version)
+              service.backend.getAllPublishExtensions(. item.name, item.version)
               ->Meta3dBsMost.Most.map(data => {
                 data->Meta3dCommonlib.ArraySt.map((
-                  {id, file, version, username}: FrontendUtils.BackendCloudbaseType.implement,
+                  {id, file, version, account}: FrontendUtils.BackendCloudbaseType.implement,
                 ): UserCenterStore.extension => {
                   {
                     id: id,
                     data: Meta3d.Main.loadExtension(file),
                     version: version,
-                    username: username,
+                    account: account,
                   }
                 })
               }, _)
@@ -154,7 +154,7 @@ let make = () => {
                     description={React.string(`TODO`)}
                   />
                   <span> {React.string({j`版本号：${item.version}`})} </span>
-                  <span> {React.string({j`发布者：${item.username}`})} </span>
+                  <span> {React.string({j`发布者：${item.account}`})} </span>
                 </List.Item>}
             />
           }

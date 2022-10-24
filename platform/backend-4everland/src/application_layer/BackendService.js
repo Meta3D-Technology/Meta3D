@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCollection = exports.hasAccount = exports.addData = exports.handleLogin = exports.init = void 0;
+exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -27,12 +27,61 @@ exports.init = init;
 // export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
 // export let addData = curry4_1(BackendService.addData)(getBackend())
 // export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
-// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+// export let getShopCollection = curry2(BackendService.getShopCollection)(getBackend())
 let handleLogin = (account) => BackendService.handleLogin((0, Repo_1.getBackend)(), account);
 exports.handleLogin = handleLogin;
-let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData((0, Repo_1.getBackend)(), addDataToBody, collectionName, key, collectionData, data);
-exports.addData = addData;
+// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
-let getCollection = (collectionName) => BackendService.getCollection((0, Repo_1.getBackend)(), collectionName);
-exports.getCollection = getCollection;
+let _parseShopCollectionDataBody = (returnDataType, allCollectionData) => {
+    // let stream = allCollectionData.Body as ReadableStream<any>
+    // let reader = stream.getReader()
+    //     return new Promise((resolve, reject) => {
+    //         const chunks = [];
+    //         // stream.on("data", (chunk) => chunks.push(chunk));
+    //         // stream.on("error", reject);
+    //         // stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    // })
+    //         .then(v => {
+    //             return JSON.parse(v as string)
+    //         })
+    return new Promise((resolve, reject) => {
+        resolve(allCollectionData.Body);
+    }).then((body) => {
+        const reader = body.getReader();
+        return new ReadableStream({
+            start(controller) {
+                return pump();
+                function pump() {
+                    return reader.read().then(({ done, value }) => {
+                        if (done) {
+                            controller.close();
+                            return;
+                        }
+                        controller.enqueue(value);
+                        return pump();
+                    });
+                }
+            }
+        });
+    })
+        .then((stream) => new Response(stream))
+        .then((response) => {
+        switch (returnDataType) {
+            case "arrayBuffer":
+                return response.arrayBuffer();
+            case "json":
+                return response.json();
+        }
+    });
+};
+let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, collectionName);
+exports.getShopProtocolCollection = getShopProtocolCollection;
+let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, collectionName);
+exports.getShopImplementCollection = getShopImplementCollection;
+exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
+exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
+exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
+exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
+let getFile = (fileID) => BackendService.getFile((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, fileID);
+exports.getFile = getFile;

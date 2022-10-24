@@ -1,4 +1,4 @@
-import { S3 } from "@aws-sdk/client-s3";
+import { S3, GetObjectCommandOutput } from "@aws-sdk/client-s3";
 import { empty, fromPromise, just } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 import * as BackendService from "meta3d-backend-4everland";
@@ -39,8 +39,53 @@ export let init = () => {
 
 export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
 
-export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
+// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getShopCollection = (collectionName) => BackendService.getShopCollection(getBackend(), collectionName)
+let _parseShopCollectionDataBody = (returnDataType: "arrayBuffer" | "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
+    return new Promise((resolve, reject) => {
+        resolve(allCollectionData.Body)
+    }).then((body: ReadableStream<any>) => {
+        const reader = body.getReader();
+        return new ReadableStream({
+            start(controller) {
+                return pump();
+                function pump() {
+                    return reader.read().then(({ done, value }) => {
+                        if (done) {
+                            controller.close();
+                            return;
+                        }
+                        controller.enqueue(value);
+                        return pump();
+                    });
+                }
+            }
+        })
+    })
+        .then((stream) => new Response(stream))
+        .then((response) => {
+            switch (returnDataType) {
+                case "arrayBuffer":
+                    return response.arrayBuffer()
+                case "json":
+                    return response.json()
+            }
+        }
+        )
+}
+
+export let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection(getBackend(), _parseShopCollectionDataBody, collectionName)
+
+export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), _parseShopCollectionDataBody, collectionName)
+
+export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+
+export let mapShopImplementCollection = BackendService.mapShopImplementCollection
+
+export let getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData
+
+export let getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData
+
+export let getFile = (fileID) => BackendService.getFile(getBackend(), _parseShopCollectionDataBody, fileID)

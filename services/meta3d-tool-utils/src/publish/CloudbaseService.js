@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.init = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.init = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
@@ -76,4 +76,5 @@ exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendServi
 exports.getFileID = BackendService.getFileID;
 exports.updateShopImplementData = BackendService.updateShopImplementData;
 exports.uploadFile = BackendService.uploadFile;
+exports.parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs;
 //# sourceMappingURL=CloudbaseService.js.map

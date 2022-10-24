@@ -97,7 +97,7 @@ export let getDatabase = () => {
 // 		.get()
 // }
 
-// export let getShopCollection = curry2(BackendService.getShopCollection)(getBackend())
+// export let getShopProtocolCollection = curry2(BackendService.getShopProtocolCollection)(getBackend())
 
 // export let addData = curry4_1(BackendService.addData)(getBackend())
 
@@ -111,8 +111,21 @@ export let getDatabase = () => {
 
 export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
 
-export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
+// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getShopCollection = (collectionName) => BackendService.getShopCollection(getBackend(), collectionName)
+export let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection(getBackend(), null, collectionName)
+
+export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), null, collectionName)
+
+export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+
+export let mapShopImplementCollection = BackendService.mapShopImplementCollection
+
+export let getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData
+
+export let getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData
+
+export let getFile = (fileID) => BackendService.getFile(getBackend(), null, fileID)
+

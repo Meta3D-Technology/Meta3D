@@ -27,16 +27,14 @@ type action =
   | SetAccount(account)
 
 type state = {
-  username: option<string>,
+  account: option<string>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
-  // selectedContributeProtocolConfigs: selectedContributeProtocolConfigs,
-  account: option<account>,
 }
 
 let reducer = (state, action) => {
   switch action {
-  | SetUserName(username) => {...state, username: Some(username)}
+  | SetUserName(account) => {...state, account: Some(account)}
   | SelectExtension(data, protocolConfigOpt) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push((
@@ -73,9 +71,8 @@ let reducer = (state, action) => {
 }
 
 let initialState = {
-  username: None,
+  account: None,
   selectedExtensions: list{},
   selectedContributes: list{},
   // selectedContributeProtocolConfigs: list{},
-  account: None,
 }

@@ -9,7 +9,7 @@ const CloudbaseService_1 = require("../../../meta3d-tool-utils/src/publish/Cloud
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -26,6 +26,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         buildShopImplementAccountDataFunc = CloudbaseService_1.buildShopImplementAccountData;
         addShopImplementDataToDataFromShopImplementCollectionDataFunc = CloudbaseService_1.addShopImplementDataToDataFromShopImplementCollectionData;
         getFileIDFunc = CloudbaseService_1.getFileID;
+        parseShopCollectionDataBodyFunc = CloudbaseService_1.parseShopCollectionDataBodyForNodejs;
     }
     function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionNameMap = {}, dependentContributeNameMap = {}, dependencies = {
         "test1-protocol": "^0.0.1"
@@ -33,7 +34,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         return { name, version, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies };
     }
     function _publishExtension(packageFilePath = "", distFilePath = "") {
-        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc], packageFilePath, distFilePath, "extension");
+        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], packageFilePath, distFilePath, "extension");
     }
     function _prepare(given) {
         given('prepare sandbox', () => {

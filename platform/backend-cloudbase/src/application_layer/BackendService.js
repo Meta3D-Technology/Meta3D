@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCollection = exports.hasAccount = exports.addData = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -80,12 +80,12 @@ exports.getDatabase = getDatabase;
 // 		return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
 // 	})
 // }
-// export let getData = (collectionName: string, data: any) => {
+// export let getShopData = (collectionName: string, data: any) => {
 // 	return getDatabase().collection(collectionName)
 // 		.where(data)
 // 		.get()
 // }
-// export let getCollection = curry2(BackendService.getCollection)(getBackend())
+// export let getShopProtocolCollection = curry2(BackendService.getShopProtocolCollection)(getBackend())
 // export let addData = curry4_1(BackendService.addData)(getBackend())
 // export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
 // export let updateData = (collectionName: string, whereData: any, updateData: any) => {
@@ -95,9 +95,16 @@ exports.getDatabase = getDatabase;
 // }
 let handleLogin = (account) => BackendService.handleLogin((0, Repo_1.getBackend)(), account);
 exports.handleLogin = handleLogin;
-let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData((0, Repo_1.getBackend)(), addDataToBody, collectionName, key, collectionData, data);
-exports.addData = addData;
+// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
-let getCollection = (collectionName) => BackendService.getCollection((0, Repo_1.getBackend)(), collectionName);
-exports.getCollection = getCollection;
+let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), null, collectionName);
+exports.getShopProtocolCollection = getShopProtocolCollection;
+let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection((0, Repo_1.getBackend)(), null, collectionName);
+exports.getShopImplementCollection = getShopImplementCollection;
+exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
+exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
+exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
+exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
+let getFile = (fileID) => BackendService.getFile((0, Repo_1.getBackend)(), null, fileID);
+exports.getFile = getFile;

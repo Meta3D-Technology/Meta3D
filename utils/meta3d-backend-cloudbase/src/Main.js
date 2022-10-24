@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -15,16 +15,16 @@ let _checkUserName = (app, account) => {
     return _notHasData(app, "user", { key: account });
 };
 let _buildEmptyCollectionData = () => null;
-let _buildFirstAddDataToBodyFunc = () => (collectionData, data) => null;
-let addShopProtocolDataToDataFromShopProtocolCollectionData = (collectionData, data) => {
+let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null;
+let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         resolve(null);
     });
 };
 exports.addShopProtocolDataToDataFromShopProtocolCollectionData = addShopProtocolDataToDataFromShopProtocolCollectionData;
-let addShopImplementDataToDataFromShopImplementCollectionData = (collectionData, data) => {
+let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
-        resolve(collectionData.concat([data]));
+        resolve(allCollectionData.concat([data]));
     });
 };
 exports.addShopImplementDataToDataFromShopImplementCollectionData = addShopImplementDataToDataFromShopImplementCollectionData;
@@ -48,7 +48,7 @@ exports.handleLogin = handleLogin;
 let _handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };
-let addDataToShopProtocolCollection = (app, addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, collectionData, data) => {
+let addDataToShopProtocolCollection = (app, addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data) => {
     return _getDatabase(app).collection(collectionName)
         .add(Object.assign(Object.assign({}, data), { 
         // key: _handleKeyToLowercase(key)
@@ -67,8 +67,8 @@ let hasAccount = (app, collectionName, account) => {
     return _hasData(app, collectionName, _handleKeyToLowercase(account));
 };
 exports.hasAccount = hasAccount;
-let getDataFromShopProtocolCollection = (collectionData) => {
-    return collectionData.data;
+let getDataFromShopProtocolCollection = (allCollectionData) => {
+    return allCollectionData.data;
 };
 exports.getDataFromShopProtocolCollection = getDataFromShopProtocolCollection;
 let getDataFromShopImplementAccountData = (data) => {
@@ -111,11 +111,11 @@ let uploadFile = (app, filePath, fileContent) => {
     }));
 };
 exports.uploadFile = uploadFile;
-let getShopProtocolCollection = (app, collectionName) => {
+let getShopProtocolCollection = (app, parseShopCollectionDataBody, collectionName) => {
     return _getDatabase(app).collection(collectionName).get();
 };
 exports.getShopProtocolCollection = getShopProtocolCollection;
-let getShopImplementAccountData = (app, collectionName, account) => {
+let getShopImplementAccountData = (app, parseShopCollectionDataBody, collectionName, account) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: _handleKeyToLowercase(account) })
         .get()
@@ -132,4 +132,29 @@ let updateShopImplementData = (app, collectionName, account, updateData, _oldSho
         .update(updateData);
 };
 exports.updateShopImplementData = updateShopImplementData;
+// export let getShopImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
+//     return _getDatabase(app).collection(collectionName).get()
+// }
+exports.getShopImplementCollection = exports.getShopProtocolCollection;
+let mapShopImplementCollection = (allCollectionData, func) => {
+    return allCollectionData.data.map(func);
+};
+exports.mapShopImplementCollection = mapShopImplementCollection;
+let getAccountFromShopImplementCollectionData = (data) => {
+    return data.key;
+};
+exports.getAccountFromShopImplementCollectionData = getAccountFromShopImplementCollectionData;
+let getFileDataFromShopImplementCollectionData = (data) => {
+    return data.fileData;
+};
+exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
+let getFile = (app, parseShopCollectionDataBody, fileID) => {
+    return (0, most_1.fromPromise)(app.getTempFileURL({
+        fileList: [fileID]
+    })).flatMap(({ fileList }) => {
+        return (0, most_1.fromPromise)(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()));
+    });
+};
+exports.getFile = getFile;
+exports.parseShopCollectionDataBodyForNodejs = null;
 //# sourceMappingURL=Main.js.map

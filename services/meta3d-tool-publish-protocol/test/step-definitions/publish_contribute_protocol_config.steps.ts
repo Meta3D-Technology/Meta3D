@@ -3,13 +3,13 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { publishConfig } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addShopProtocolDataToDataFromShopProtocolCollectionData, getDataFromShopProtocolCollection, isContain } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { addShopProtocolDataToDataFromShopProtocolCollectionData, getDataFromShopProtocolCollection, isContain, parseShopCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_contribute_protocol_config.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -23,6 +23,7 @@ defineFeature(feature, test => {
         addDataToShopProtocolCollectionFunc = sandbox.stub()
         addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = addShopProtocolDataToDataFromShopProtocolCollectionData
         getDataFromShopProtocolCollectionFunc = getDataFromShopProtocolCollection
+        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
     }
 
     function _buildPackageJson(name = "test1-protocol",
@@ -33,7 +34,7 @@ defineFeature(feature, test => {
 
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
         return publishConfig(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "contribute"
         )

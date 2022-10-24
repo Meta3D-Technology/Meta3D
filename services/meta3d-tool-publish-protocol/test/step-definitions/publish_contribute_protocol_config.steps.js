@@ -9,7 +9,7 @@ const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseServi
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contribute_protocol_config.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -22,12 +22,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
         addDataToShopProtocolCollectionFunc = sandbox.stub();
         addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = CloudbaseService_1.addShopProtocolDataToDataFromShopProtocolCollectionData;
         getDataFromShopProtocolCollectionFunc = CloudbaseService_1.getDataFromShopProtocolCollection;
+        parseShopCollectionDataBodyFunc = CloudbaseService_1.parseShopCollectionDataBodyForNodejs;
     }
     function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
         return { name, version, publisher: account };
     }
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
-        return (0, Publish_1.publishConfig)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc], packageFilePath, distFilePath, "contribute");
+        return (0, Publish_1.publishConfig)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc], packageFilePath, distFilePath, "contribute");
     }
     function _prepare(given) {
         given('prepare sandbox', () => {

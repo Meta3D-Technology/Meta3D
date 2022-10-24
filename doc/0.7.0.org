@@ -100,10 +100,21 @@ run test
 # getShopImplementAccountData->return
 
 
-**** TODO publish other
+# **** TODO publish other
 
 
 
+**** DONE extension shop
+
+# TODO fix:
+
+
+# BUffer
+
+# publish 
+
+
+**** TODO contribute shop
 
 **** TODO assemble space backend service
 
@@ -124,7 +135,7 @@ e.g. remove UserCenterStore->username
 
 
 
-*** TODO publish all contributes, extensions
+*** TODO publish all contributes, extensions's implement, protocol
 
 
 *** TODO pass frontend-> run test for local, production env

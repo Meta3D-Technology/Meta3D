@@ -1,7 +1,7 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
-type values = {username: string, password: string}
+type values = {account: string, password: string}
 
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
@@ -43,9 +43,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   }
 
   // let _onFinish = values => {
-  //   let {username, password} = values->Obj.magic
+  //   let {account, password} = values->Obj.magic
 
-  //   BackendCloudbase.isLoginSuccess(username, password)
+  //   BackendCloudbase.isLoginSuccess(account, password)
   //   ->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
   //     !isSuccess
   //       ? {
@@ -54,7 +54,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   //           ()
   //         }
   //       : {
-  //           dispatch(AppStore.UserCenterAction(UserCenterStore.SetUserName(username)))
+  //           dispatch(AppStore.UserCenterAction(UserCenterStore.SetUserName(account)))
 
   //           RescriptReactRouter.push("/")
   //         }

@@ -18,7 +18,7 @@ function _isPNG(iconPath: string) {
     return iconPath.match(/\.png$/) !== null
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -36,6 +36,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
             return fromPromise(
                 getShopProtocolCollectionFunc(
                     backendInstance,
+                    parseShopCollectionDataBodyFunc,
                     _getPublishedCollectionName(fileType),
                 ).then(res => {
                     let resData = getDataFromShopProtocolCollectionFunc(res)
@@ -88,7 +89,7 @@ function _getPublishedConfigCollectionName(fileType: "extension" | "contribute")
     }
 }
 
-export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -104,6 +105,7 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
             return fromPromise(
                 getShopProtocolCollectionFunc(
                     backendInstance,
+                    parseShopCollectionDataBodyFunc,
                     collectioName
                 ).then(res => {
                     let resData = getDataFromShopProtocolCollectionFunc(res)

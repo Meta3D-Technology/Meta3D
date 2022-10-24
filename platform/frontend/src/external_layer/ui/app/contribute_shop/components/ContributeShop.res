@@ -75,7 +75,7 @@ let make = () => {
                       description={React.string(`TODO`)}
                     />
                     <span> {React.string({j`版本号：${item.version}`})} </span>
-                    <span> {React.string({j`发布者：${item.username}`})} </span>
+                    <span> {React.string({j`发布者：${item.account}`})} </span>
                     {_isSelect(item.id, selectedContributes)
                       ? <Button
                           onClick={_ => {
@@ -117,13 +117,13 @@ let make = () => {
               BackendCloudbase.getAllPublishContributes(. item.name, item.version)
               ->Meta3dBsMost.Most.map(data => {
                 data->Meta3dCommonlib.ArraySt.map((
-                  {id, file, version, username}: FrontendUtils.BackendCloudbaseType.implement,
+                  {id, file, version, account}: FrontendUtils.BackendCloudbaseType.implement,
                 ): UserCenterStore.contribute => {
                   {
                     id: id,
                     data: Meta3d.Main.loadContribute(file),
                     version: version,
-                    username: username,
+                    account: account,
                   }
                 })
               }, _)
@@ -159,7 +159,7 @@ let make = () => {
                     description={React.string(`TODO`)}
                   />
                   <span> {React.string({j`版本号：${item.version}`})} </span>
-                  <span> {React.string({j`发布者：${item.username}`})} </span>
+                  <span> {React.string({j`发布者：${item.account}`})} </span>
                 </List.Item>}
             />
           }

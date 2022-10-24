@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.getShopProtocolCollection = exports.isContain = exports.hasAccount = exports.addDataToShopProtocolCollection = exports.init = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.getShopProtocolCollection = exports.isContain = exports.hasAccount = exports.addDataToShopProtocolCollection = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-4everland"));
@@ -54,4 +54,5 @@ exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendServi
 exports.getFileID = BackendService.getFileID;
 exports.updateShopImplementData = BackendService.updateShopImplementData;
 exports.uploadFile = BackendService.uploadFile;
+exports.parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs;
 //# sourceMappingURL=4everlandService.js.map

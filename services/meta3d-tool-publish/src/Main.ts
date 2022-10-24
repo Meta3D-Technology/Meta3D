@@ -58,6 +58,7 @@ export function publishExtension(env: env, packageFilePath: string, distFilePath
 				CloudbaseService.buildShopImplementAccountData,
 				CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
 				CloudbaseService.getFileID,
+				CloudbaseService.parseShopCollectionDataBodyForNodejs,
 			]
 			break;
 		case "production":
@@ -77,6 +78,7 @@ export function publishExtension(env: env, packageFilePath: string, distFilePath
 				_4everlandService.buildShopImplementAccountData,
 				_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
 				_4everlandService.getFileID,
+				_4everlandService.parseShopCollectionDataBodyForNodejs,
 			]
 			break;
 		default:
@@ -107,6 +109,7 @@ export function publishContribute(env: env, packageFilePath: string, distFilePat
 				CloudbaseService.buildShopImplementAccountData,
 				CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
 				CloudbaseService.getFileID,
+				CloudbaseService.parseShopCollectionDataBodyForNodejs,
 			]
 			break;
 		case "production":
@@ -126,6 +129,7 @@ export function publishContribute(env: env, packageFilePath: string, distFilePat
 				_4everlandService.buildShopImplementAccountData,
 				_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
 				_4everlandService.getFileID,
+				_4everlandService.parseShopCollectionDataBodyForNodejs
 			]
 			break;
 		default:

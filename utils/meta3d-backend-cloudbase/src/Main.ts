@@ -2,8 +2,10 @@ import { fromPromise, just } from "most"
 
 type account = string
 
-type collectionData = {
-    data: Array<any>
+type collectionData = any
+
+type allCollectionData = {
+    data: Array<collectionData>
 }
 
 
@@ -40,17 +42,17 @@ let _checkUserName = (app: any, account: account) => {
 
 let _buildEmptyCollectionData = () => null
 
-let _buildFirstAddDataToBodyFunc = () => (collectionData, data) => null
+let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null
 
-export let addShopProtocolDataToDataFromShopProtocolCollectionData = (collectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
+export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {
         resolve(null)
     })
 }
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = (collectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
+export let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
-        resolve(collectionData.concat([data]))
+        resolve(allCollectionData.concat([data]))
     })
 }
 
@@ -86,7 +88,7 @@ let _handleKeyToLowercase = (key: string) => {
     return key.toLowerCase()
 }
 
-export let addDataToShopProtocolCollection = (app: any, addShopProtocolDataToDataFromShopProtocolCollectionData: (collectionData: collectionData, data: any) => Promise<any>, collectionName: string, key: string, collectionData: collectionData, data: any) => {
+export let addDataToShopProtocolCollection = (app: any, addShopProtocolDataToDataFromShopProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
     return _getDatabase(app).collection(collectionName)
         .add({
             ...data,
@@ -110,8 +112,8 @@ export let hasAccount = (app: any, collectionName: string, account: account) => 
     return _hasData(app, collectionName, _handleKeyToLowercase(account))
 }
 
-export let getDataFromShopProtocolCollection = (collectionData: collectionData): dataFromShopProtocolCollectionData => {
-    return collectionData.data
+export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
+    return allCollectionData.data
 }
 
 export let getDataFromShopImplementAccountData = (data: shopImplementAccountData): dataFromShopImplementCollectionData => {
@@ -157,11 +159,11 @@ export let uploadFile = (app: any, filePath: string, fileContent: ArrayBuffer) =
     }))
 }
 
-export let getShopProtocolCollection = (app: any, collectionName: string): Promise<collectionData> => {
+export let getShopProtocolCollection = (app: any, parseShopCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
     return _getDatabase(app).collection(collectionName).get()
 }
 
-export let getShopImplementAccountData = (app: any, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
+export let getShopImplementAccountData = (app: any, parseShopCollectionDataBody, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: _handleKeyToLowercase(account) })
         .get()
@@ -173,8 +175,35 @@ export let getShopImplementAccountData = (app: any, collectionName: string, acco
 //         .update(updateData)
 // }
 
-export let updateShopImplementData= (app: any, collectionName: string, account: account, updateData: shopImplementAccountData, _oldShopImplementCollectionData: shopImplementCollectionData) => {
+export let updateShopImplementData = (app: any, collectionName: string, account: account, updateData: shopImplementAccountData, _oldShopImplementCollectionData: shopImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: _handleKeyToLowercase(account) })
         .update(updateData)
 }
+
+// export let getShopImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
+//     return _getDatabase(app).collection(collectionName).get()
+// }
+export let getShopImplementCollection = getShopProtocolCollection
+
+export let mapShopImplementCollection = (allCollectionData: allCollectionData, func) => {
+    return allCollectionData.data.map(func)
+}
+
+export let getAccountFromShopImplementCollectionData = (data: collectionData) => {
+    return data.key
+}
+
+export let getFileDataFromShopImplementCollectionData = (data: collectionData) => {
+    return data.fileData
+}
+
+export let getFile = (app: any, parseShopCollectionDataBody, fileID: string) => {
+    return fromPromise(app.getTempFileURL({
+        fileList: [fileID]
+    })).flatMap(({ fileList }) => {
+        return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
+    })
+}
+
+export let parseShopCollectionDataBodyForNodejs = null
