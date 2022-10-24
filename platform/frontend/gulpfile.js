@@ -6,7 +6,8 @@ let _changeToEnv = (env) => {
 
     fs.writeFileSync(mainFilePath, fs.readFileSync(mainFilePath, {
         encoding: 'utf8',
-    }).replace(/^let\s_getEnv\s\=\s\(\)\s\=>\s.+$/img, "let _getEnv = () => " + env)
+        // }).replace(/^let\s_getEnv\s\=\s\(\)\s\=>\s.+$/img, "let _getEnv = () => " + env)
+    }).replace(/^let\s_getEnv\s\=\s\(\).+$/img, "let _getEnv = (): FrontendUtils.EnvType.env => " + env)
     )
 }
 

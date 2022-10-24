@@ -3,7 +3,7 @@ import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain, parseShopCollectionDataBodyForNodejs } from "../../../meta3d-tool-utils/src/publish/CloudbaseService";
+import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain, parseShopCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 

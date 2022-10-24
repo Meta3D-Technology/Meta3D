@@ -2,7 +2,7 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component
-let make = () => {
+let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
   let {selectedContributes} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
     userCenterState
@@ -33,8 +33,8 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.getAllPublishContributeProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
-      BackendCloudbase.getAllPublishContributeProtocolConfigs()->Meta3dBsMost.Most.map(
+    service.backend.getAllPublishContributeProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
+      service.backend.getAllPublishContributeProtocolConfigs()->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (protocols, protocolConfigs)
         },
@@ -94,12 +94,7 @@ let make = () => {
                                 UserCenterStore.SelectContribute(
                                   item,
                                   allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                    (
-                                      {
-                                        name,
-                                        version,
-                                      }: FrontendUtils.CommonType.protocolConfig,
-                                    ) => {
+                                    ({name, version}: FrontendUtils.CommonType.protocolConfig) => {
                                       name === protocolName && version === protocolVersion
                                     },
                                   ),
@@ -114,7 +109,7 @@ let make = () => {
             | None =>
               setIsLoaded(_ => false)
 
-              BackendCloudbase.getAllPublishContributes(. item.name, item.version)
+              service.backend.getAllPublishContributes(. item.name, item.version)
               ->Meta3dBsMost.Most.map(data => {
                 data->Meta3dCommonlib.ArraySt.map((
                   {id, file, version, account}: FrontendUtils.BackendCloudbaseType.implement,

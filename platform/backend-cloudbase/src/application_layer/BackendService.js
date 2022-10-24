@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -55,24 +55,6 @@ exports.getDatabase = getDatabase;
 // 		.then(res => res.data.length === 0))
 // }
 // export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
-// let _blobToFile = (theBlob, fileName) => {
-// 	theBlob.lastModifiedDate = new Date();
-// 	theBlob.name = fileName;
-// 	return theBlob;
-// }
-// let _arrayBufferToBlob = (arrayBuffer) => {
-// 	return new Blob([arrayBuffer]);
-// }
-// export let uploadFile = (onUploadProgressFunc, cloudPath: string, arrayBuffer: ArrayBuffer, fileName: string): Stream<string> => {
-// 	return fromPromise(getBackend().uploadFile({
-// 		cloudPath,
-// 		filePath: _blobToFile(_arrayBufferToBlob(arrayBuffer), fileName),
-// 		onUploadProgress: function (progressEvent) {
-// 			var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-// 			onUploadProgressFunc(percentCompleted)
-// 		}
-// 	}).then(({ fileID }) => fileID))
-// }
 // export let getFile = (fileID: string) => {
 // 	return fromPromise(getBackend().getTempFileURL({
 // 		fileList: [fileID]
@@ -108,3 +90,34 @@ exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFro
 exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
 let getFile = (fileID) => BackendService.getFile((0, Repo_1.getBackend)(), null, fileID);
 exports.getFile = getFile;
+let _blobToFile = (theBlob, fileName) => {
+    theBlob.lastModifiedDate = new Date();
+    theBlob.name = fileName;
+    return theBlob;
+};
+let _arrayBufferToBlob = (arrayBuffer) => {
+    return new Blob([arrayBuffer]);
+};
+let uploadFile = (onUploadProgressFunc, filePath, fileContent, fileName) => {
+    return (0, most_1.fromPromise)((0, Repo_1.getBackend)().uploadFile({
+        cloudPath: filePath,
+        filePath: _blobToFile(_arrayBufferToBlob(fileContent), fileName),
+        onUploadProgress: function (progressEvent) {
+            var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            onUploadProgressFunc(percentCompleted);
+        }
+    }));
+    // .then(({ fileID }) => fileID))
+};
+exports.uploadFile = uploadFile;
+let updateData = (collectionName, key, updateData) => BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, null);
+exports.updateData = updateData;
+let addData = (collectionName, key, data) => BackendService.addDataToShopProtocolCollection((0, Repo_1.getBackend)(), null, collectionName, key, null, data);
+exports.addData = addData;
+let getDataByKey = (collectionName, key) => {
+    return (0, exports.getDatabase)().collection(collectionName)
+        .where({ key: BackendService.handleKeyToLowercase(key) })
+        .get()
+        .then(res => res.data);
+};
+exports.getDataByKey = getDataByKey;

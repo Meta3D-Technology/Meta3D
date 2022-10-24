@@ -114,7 +114,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                             parseShopCollectionDataBodyFunc,
                             _getPublishedCollectionName(fileType),
                             account
-                        ).then(([shopImplementAccountData, shopImplementCollectionData]) => {
+                        ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
                             let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
 
                             let data = {
@@ -131,7 +131,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                                     _getPublishedCollectionName(fileType),
                                     account,
                                     buildShopImplementAccountDataFunc(resData, account),
-                                    shopImplementCollectionData
+                                    shopImplementAllCollectionData
                                 )
                             })
                         }))

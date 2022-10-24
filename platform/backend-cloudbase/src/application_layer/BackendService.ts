@@ -1,5 +1,5 @@
 import tcb from "@cloudbase/js-sdk"
-import { empty, fromPromise, just, Stream } from "most";
+import { concat, empty, fromPromise, just, Stream } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 import * as BackendService from "meta3d-backend-cloudbase";
 import { curry2, curry3_1, curry4, curry4_1 } from "meta3d-fp/src/Curry";
@@ -61,27 +61,7 @@ export let getDatabase = () => {
 
 // export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
 
-// let _blobToFile = (theBlob, fileName) => {
-// 	theBlob.lastModifiedDate = new Date();
-// 	theBlob.name = fileName;
-// 	return theBlob;
-// }
 
-// let _arrayBufferToBlob = (arrayBuffer) => {
-// 	return new Blob([arrayBuffer]);
-// }
-
-// export let uploadFile = (onUploadProgressFunc, cloudPath: string, arrayBuffer: ArrayBuffer, fileName: string): Stream<string> => {
-// 	return fromPromise(getBackend().uploadFile({
-// 		cloudPath,
-// 		filePath: _blobToFile(_arrayBufferToBlob(arrayBuffer), fileName),
-// 		onUploadProgress: function (progressEvent) {
-// 			var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-
-// 			onUploadProgressFunc(percentCompleted)
-// 		}
-// 	}).then(({ fileID }) => fileID))
-// }
 
 // export let getFile = (fileID: string) => {
 // 	return fromPromise(getBackend().getTempFileURL({
@@ -129,3 +109,42 @@ export let getFileDataFromShopImplementCollectionData = BackendService.getFileDa
 
 export let getFile = (fileID) => BackendService.getFile(getBackend(), null, fileID)
 
+
+
+
+
+
+let _blobToFile = (theBlob, fileName) => {
+	theBlob.lastModifiedDate = new Date();
+	theBlob.name = fileName;
+	return theBlob;
+}
+
+let _arrayBufferToBlob = (arrayBuffer) => {
+	return new Blob([arrayBuffer]);
+}
+
+export let uploadFile = (onUploadProgressFunc, filePath: string, fileContent: ArrayBuffer, fileName: string) => {
+	return fromPromise(getBackend().uploadFile({
+		cloudPath: filePath,
+		filePath: _blobToFile(_arrayBufferToBlob(fileContent), fileName),
+		onUploadProgress: function (progressEvent) {
+			var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+
+			onUploadProgressFunc(percentCompleted)
+		}
+	})
+	)
+	// .then(({ fileID }) => fileID))
+}
+
+export let updateData = (collectionName: string, key: string, updateData: any) => BackendService.updateShopImplementData(getBackend(), collectionName, key, updateData, null)
+
+export let addData = (collectionName: string, key: string, data: any) => BackendService.addDataToShopProtocolCollection(getBackend(), null, collectionName, key, null, data)
+
+export let getDataByKey= (collectionName: string, key: string) => {
+	return getDatabase().collection(collectionName)
+		.where({ key: BackendService.handleKeyToLowercase(key) })
+		.get()
+		.then(res => res.data)
+}

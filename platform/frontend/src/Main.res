@@ -1,4 +1,4 @@
-let _getEnv = () => #production
+let _getEnv = (): FrontendUtils.EnvType.env => #local
 
 let _hiddenLoadding = %raw(`
     function(){
@@ -9,7 +9,7 @@ let _hiddenLoadding = %raw(`
 let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
   backend: switch env {
   | #local => BackendCloudbase2.buildFrontendService()
-  | _ => Backend4everland.buildFrontendService()
+  | #production => Backend4everland.buildFrontendService()
   },
 }
 
@@ -41,7 +41,9 @@ service.backend.init()->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppStore.AppStore.Provider store=AppStore.store> <App service /> </AppStore.AppStore.Provider>
+    <AppStore.AppStore.Provider store=AppStore.store>
+      <App service env />
+    </AppStore.AppStore.Provider>
   </React.StrictMode>,
   ReactDOM.querySelector("#root")->Meta3dCommonlib.OptionSt.getExn,
 )

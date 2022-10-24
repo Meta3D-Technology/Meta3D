@@ -96,7 +96,7 @@ type inspectorData = {
   uiControls: array<uiControl>,
 }
 
-type publishedelementassembledata = (
+type publishedElementAssembleData = (
   . string,
   string,
   string,

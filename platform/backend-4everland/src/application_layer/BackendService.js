@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
+const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
 const BackendService = require("meta3d-backend-4everland");
@@ -34,17 +35,6 @@ exports.handleLogin = handleLogin;
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
 let _parseShopCollectionDataBody = (returnDataType, allCollectionData) => {
-    // let stream = allCollectionData.Body as ReadableStream<any>
-    // let reader = stream.getReader()
-    //     return new Promise((resolve, reject) => {
-    //         const chunks = [];
-    //         // stream.on("data", (chunk) => chunks.push(chunk));
-    //         // stream.on("error", reject);
-    //         // stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-    // })
-    //         .then(v => {
-    //             return JSON.parse(v as string)
-    //         })
     return new Promise((resolve, reject) => {
         resolve(allCollectionData.Body);
     }).then((body) => {
@@ -85,3 +75,57 @@ exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFro
 exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
 let getFile = (fileID) => BackendService.getFile((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, fileID);
 exports.getFile = getFile;
+let _arrayBufferToUint8Array = (arrayBuffer) => {
+    return new Uint8Array(arrayBuffer);
+};
+let uploadFile = (onUploadProgressFunc, filePath, fileContent, fileName) => {
+    console.log("uploadFile:", filePath, fileContent);
+    // return fromPromise(getBackend().putObject({
+    //     Bucket: BackendService.getFileBucketName(),
+    //     Key: BackendService.handleKeyToLowercase(filePath),
+    //     Body: _arrayBufferToUint8Array(fileContent)
+    //     ,
+    // }))
+    let task = new lib_storage_1.Upload({
+        client: (0, Repo_1.getBackend)(),
+        queueSize: 3,
+        params: {
+            Bucket: BackendService.getFileBucketName(),
+            Key: BackendService.handleKeyToLowercase(filePath),
+            Body: _arrayBufferToUint8Array(fileContent)
+        },
+    });
+    task.on("httpUploadProgress", (e) => {
+        const percentCompleted = ((e.loaded / e.total) * 100) | 0;
+        onUploadProgressFunc(percentCompleted);
+    });
+    return task.done();
+};
+exports.uploadFile = uploadFile;
+let updateData = (collectionName, key, updateData) => {
+    return BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, collectionName).then(oldCollectionData => {
+        return BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, oldCollectionData);
+    });
+};
+exports.updateData = updateData;
+let addData = (collectionName, key, data) => {
+    return BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, collectionName).then(allCollectionData => {
+        return BackendService.addDataToShopProtocolCollection((0, Repo_1.getBackend)(), BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data);
+    });
+};
+exports.addData = addData;
+let getDataByKey = (collectionName, key) => {
+    return (0, Repo_1.getBackend)().getObject({
+        Bucket: collectionName,
+        Key: collectionName
+    })
+        .then(data => _parseShopCollectionDataBody("json", data))
+        .then((body) => {
+        console.log("getDataByKeyFunc:", key, body);
+        key = BackendService.handleKeyToLowercase(key);
+        return body.filter((data) => {
+            return data.key === key;
+        });
+    });
+};
+exports.getDataByKey = getDataByKey;

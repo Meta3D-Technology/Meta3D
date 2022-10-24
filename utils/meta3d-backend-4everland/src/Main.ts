@@ -97,12 +97,17 @@ let _hasData = (s3: S3, collectionName: string, key: string) => {
         ))
 }
 
-let _handleKeyToLowercase = (key: string) => {
+export let handleKeyToLowercase = (key: string) => {
     return key.toLowerCase()
 }
 
 export let hasAccount = (s3: S3, collectionName: string, account: account) => {
-    return _hasData(s3, collectionName, _handleKeyToLowercase(_buildAccountAsKey(account)))
+    return _hasData(s3, collectionName, handleKeyToLowercase(_buildAccountAsKey(account)))
+}
+
+
+export let hasData = (s3: S3, collectionName: string, key: string) => {
+    return _hasData(s3, collectionName, handleKeyToLowercase(key))
 }
 
 export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
@@ -117,7 +122,7 @@ export let getDataFromShopImplementAccountData = (data: shopImplementAccountData
 
 export let buildShopImplementAccountData = (data: dataFromShopImplementCollectionData, account: account): shopImplementAccountData => {
     return {
-        key: _handleKeyToLowercase(account),
+        key: handleKeyToLowercase(account),
         fileData: data
     }
 }
@@ -169,7 +174,7 @@ export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, c
         .then((body: shopImplementCollectionData): [shopImplementAccountData, shopImplementCollectionData] => {
             console.log("getShopImplementAccountData->body:", body)
 
-            account = _handleKeyToLowercase(account)
+            account = handleKeyToLowercase(account)
 
             let result = body.find((data) => {
                 return data.key === account
@@ -205,29 +210,29 @@ export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, c
 
 }
 
-let _getFileBucketName = () => "meta3d-files"
+export let getFileBucketName = () => "meta3d-files"
 
 let _arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): Buffer => {
     return Buffer.from(arrayBuffer)
 }
 
 export let getFileID = (_, filePath: string) => {
-    return _handleKeyToLowercase(filePath)
+    return handleKeyToLowercase(filePath)
 }
 
 export let uploadFile = (s3: S3, filePath: string, fileContent: ArrayBuffer) => {
     console.log("uploadFile:", filePath, fileContent)
 
     return fromPromise(s3.putObject({
-        Bucket: _getFileBucketName(),
-        Key: _handleKeyToLowercase(filePath),
+        Bucket: getFileBucketName(),
+        Key: handleKeyToLowercase(filePath),
         Body: _arrayBufferToBuffer(fileContent)
         ,
     }))
 }
 
 export let updateShopImplementData = (s3: S3, collectionName: string, account: account, updateData: shopImplementAccountData, oldShopImplementCollectionData: shopImplementCollectionData) => {
-    account = _handleKeyToLowercase(account)
+    account = handleKeyToLowercase(account)
 
     let newShopImplementCollectionData = []
 
@@ -273,8 +278,8 @@ export let getFileDataFromShopImplementCollectionData = (data: collectionData) =
 
 export let getFile = (s3: S3, parseShopCollectionDataBody, fileID: string) => {
     return fromPromise(s3.getObject({
-        Bucket: _getFileBucketName(),
-        Key: _handleKeyToLowercase(fileID)
+        Bucket: getFileBucketName(),
+        Key: handleKeyToLowercase(fileID)
     })
         .then(data => parseShopCollectionDataBody("arrayBuffer", data))
     )

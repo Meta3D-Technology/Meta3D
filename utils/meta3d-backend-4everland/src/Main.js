@@ -1,50 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.uploadFile = exports.getFileID = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToShopProtocolCollection = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToShopProtocolCollection = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
 const most_1 = require("most");
-// let _parseShopCollectionDataBody = (returnDataType: "arrayBuffer" | "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
-//     // let stream = allCollectionData.Body as ReadableStream<any>
-//     // let reader = stream.getReader()
-//     //     return new Promise((resolve, reject) => {
-//     //         const chunks = [];
-//     //         // stream.on("data", (chunk) => chunks.push(chunk));
-//     //         // stream.on("error", reject);
-//     //         // stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-//     // })
-//     //         .then(v => {
-//     //             return JSON.parse(v as string)
-//     //         })
-//     return new Promise((resolve, reject) => {
-//         resolve(allCollectionData.Body)
-//     }).then((body: ReadableStream<any>) => {
-//         const reader = body.getReader();
-//         return new ReadableStream({
-//             start(controller) {
-//                 return pump();
-//                 function pump() {
-//                     return reader.read().then(({ done, value }) => {
-//                         if (done) {
-//                             controller.close();
-//                             return;
-//                         }
-//                         controller.enqueue(value);
-//                         return pump();
-//                     });
-//                 }
-//             }
-//         })
-//     })
-//         .then((stream) => new Response(stream))
-//         .then((response) => {
-//             switch (returnDataType) {
-//                 case "arrayBuffer":
-//                     return response.arrayBuffer()
-//                 case "json":
-//                     return response.json()
-//             }
-//         }
-//         )
-// }
 let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         allCollectionData.push(data);
@@ -99,13 +56,18 @@ let _hasData = (s3, collectionName, key) => {
         throw err;
     }));
 };
-let _handleKeyToLowercase = (key) => {
+let handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };
+exports.handleKeyToLowercase = handleKeyToLowercase;
 let hasAccount = (s3, collectionName, account) => {
-    return _hasData(s3, collectionName, _handleKeyToLowercase(_buildAccountAsKey(account)));
+    return _hasData(s3, collectionName, (0, exports.handleKeyToLowercase)(_buildAccountAsKey(account)));
 };
 exports.hasAccount = hasAccount;
+let hasData = (s3, collectionName, key) => {
+    return _hasData(s3, collectionName, (0, exports.handleKeyToLowercase)(key));
+};
+exports.hasData = hasData;
 let getDataFromShopProtocolCollection = (allCollectionData) => {
     return allCollectionData;
 };
@@ -117,7 +79,7 @@ let getDataFromShopImplementAccountData = (data) => {
 exports.getDataFromShopImplementAccountData = getDataFromShopImplementAccountData;
 let buildShopImplementAccountData = (data, account) => {
     return {
-        key: _handleKeyToLowercase(account),
+        key: (0, exports.handleKeyToLowercase)(account),
         fileData: data
     };
 };
@@ -158,7 +120,7 @@ let getShopImplementAccountData = (s3, parseShopCollectionDataBody, collectionNa
         .then(data => parseShopCollectionDataBody("json", data))
         .then((body) => {
         console.log("getShopImplementAccountData->body:", body);
-        account = _handleKeyToLowercase(account);
+        account = (0, exports.handleKeyToLowercase)(account);
         let result = body.find((data) => {
             return data.key === account;
         });
@@ -183,25 +145,26 @@ let getShopImplementAccountData = (s3, parseShopCollectionDataBody, collectionNa
     });
 };
 exports.getShopImplementAccountData = getShopImplementAccountData;
-let _getFileBucketName = () => "meta3d-files";
+let getFileBucketName = () => "meta3d-files";
+exports.getFileBucketName = getFileBucketName;
 let _arrayBufferToBuffer = (arrayBuffer) => {
     return Buffer.from(arrayBuffer);
 };
 let getFileID = (_, filePath) => {
-    return _handleKeyToLowercase(filePath);
+    return (0, exports.handleKeyToLowercase)(filePath);
 };
 exports.getFileID = getFileID;
 let uploadFile = (s3, filePath, fileContent) => {
     console.log("uploadFile:", filePath, fileContent);
     return (0, most_1.fromPromise)(s3.putObject({
-        Bucket: _getFileBucketName(),
-        Key: _handleKeyToLowercase(filePath),
+        Bucket: (0, exports.getFileBucketName)(),
+        Key: (0, exports.handleKeyToLowercase)(filePath),
         Body: _arrayBufferToBuffer(fileContent),
     }));
 };
 exports.uploadFile = uploadFile;
 let updateShopImplementData = (s3, collectionName, account, updateData, oldShopImplementCollectionData) => {
-    account = _handleKeyToLowercase(account);
+    account = (0, exports.handleKeyToLowercase)(account);
     let newShopImplementCollectionData = [];
     let index = oldShopImplementCollectionData.findIndex((data) => {
         data.key === account;
@@ -234,13 +197,10 @@ let getFileDataFromShopImplementCollectionData = (data) => {
     return data.fileData;
 };
 exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
-// let _arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): Buffer => {
-//     return Buffer.from(arrayBuffer)
-// }
 let getFile = (s3, parseShopCollectionDataBody, fileID) => {
     return (0, most_1.fromPromise)(s3.getObject({
-        Bucket: _getFileBucketName(),
-        Key: _handleKeyToLowercase(fileID)
+        Bucket: (0, exports.getFileBucketName)(),
+        Key: (0, exports.handleKeyToLowercase)(fileID)
     })
         .then(data => parseShopCollectionDataBody("arrayBuffer", data)));
 };

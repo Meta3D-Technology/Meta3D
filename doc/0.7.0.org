@@ -114,9 +114,23 @@ run test
 # publish 
 
 
-**** TODO contribute shop
+**** DONE contribute shop
+
 
 **** TODO assemble space backend service
+
+# PublishAppService
+
+
+compile
+
+bdd test
+
+run test
+
+**** TODO publish app
+
+**** TODO enter app
 
 
 **** TODO pass all single one run test for local, production env
@@ -134,6 +148,7 @@ rename BackendCloudbase2 to BackendCloudbase
 e.g. remove UserCenterStore->username
 
 
+*** TODO login add isLogin...
 
 *** TODO publish all contributes, extensions's implement, protocol
 

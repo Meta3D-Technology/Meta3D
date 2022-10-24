@@ -84,7 +84,7 @@ export let handleLogin = (app: any, account: account) => {
     })
 }
 
-let _handleKeyToLowercase = (key: string) => {
+export let handleKeyToLowercase = (key: string) => {
     return key.toLowerCase()
 }
 
@@ -92,7 +92,7 @@ export let addDataToShopProtocolCollection = (app: any, addShopProtocolDataToDat
     return _getDatabase(app).collection(collectionName)
         .add({
             ...data,
-            // key: _handleKeyToLowercase(key)
+            // key: handleKeyToLowercase(key)
             key: key
         })
 }
@@ -109,7 +109,11 @@ let _hasData = (app: any, collectionName: string, key: string) => {
 }
 
 export let hasAccount = (app: any, collectionName: string, account: account) => {
-    return _hasData(app, collectionName, _handleKeyToLowercase(account))
+    return _hasData(app, collectionName, handleKeyToLowercase(account))
+}
+
+export let hasData = (app: any, collectionName: string, key: string) => {
+    return _hasData(app, collectionName, handleKeyToLowercase(key))
 }
 
 export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
@@ -122,7 +126,7 @@ export let getDataFromShopImplementAccountData = (data: shopImplementAccountData
 
 export let buildShopImplementAccountData = (data: dataFromShopImplementCollectionData, account: account): shopImplementAccountData => {
     return {
-        key: _handleKeyToLowercase(account),
+        key: handleKeyToLowercase(account),
         fileData: data
     }
 }
@@ -159,13 +163,14 @@ export let uploadFile = (app: any, filePath: string, fileContent: ArrayBuffer) =
     }))
 }
 
+
 export let getShopProtocolCollection = (app: any, parseShopCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
     return _getDatabase(app).collection(collectionName).get()
 }
 
 export let getShopImplementAccountData = (app: any, parseShopCollectionDataBody, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: _handleKeyToLowercase(account) })
+        .where({ key: handleKeyToLowercase(account) })
         .get()
         .then(res => [res.data[0], []])
 }
@@ -177,7 +182,7 @@ export let getShopImplementAccountData = (app: any, parseShopCollectionDataBody,
 
 export let updateShopImplementData = (app: any, collectionName: string, account: account, updateData: shopImplementAccountData, _oldShopImplementCollectionData: shopImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: _handleKeyToLowercase(account) })
+        .where({ key: handleKeyToLowercase(account) })
         .update(updateData)
 }
 

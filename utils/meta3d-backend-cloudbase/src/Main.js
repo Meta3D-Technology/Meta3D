@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -45,13 +45,14 @@ let handleLogin = (app, account) => {
     });
 };
 exports.handleLogin = handleLogin;
-let _handleKeyToLowercase = (key) => {
+let handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };
+exports.handleKeyToLowercase = handleKeyToLowercase;
 let addDataToShopProtocolCollection = (app, addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data) => {
     return _getDatabase(app).collection(collectionName)
         .add(Object.assign(Object.assign({}, data), { 
-        // key: _handleKeyToLowercase(key)
+        // key: handleKeyToLowercase(key)
         key: key }));
 };
 exports.addDataToShopProtocolCollection = addDataToShopProtocolCollection;
@@ -64,9 +65,13 @@ let _hasData = (app, collectionName, key) => {
         .then(res => res.data.length > 0));
 };
 let hasAccount = (app, collectionName, account) => {
-    return _hasData(app, collectionName, _handleKeyToLowercase(account));
+    return _hasData(app, collectionName, (0, exports.handleKeyToLowercase)(account));
 };
 exports.hasAccount = hasAccount;
+let hasData = (app, collectionName, key) => {
+    return _hasData(app, collectionName, (0, exports.handleKeyToLowercase)(key));
+};
+exports.hasData = hasData;
 let getDataFromShopProtocolCollection = (allCollectionData) => {
     return allCollectionData.data;
 };
@@ -77,7 +82,7 @@ let getDataFromShopImplementAccountData = (data) => {
 exports.getDataFromShopImplementAccountData = getDataFromShopImplementAccountData;
 let buildShopImplementAccountData = (data, account) => {
     return {
-        key: _handleKeyToLowercase(account),
+        key: (0, exports.handleKeyToLowercase)(account),
         fileData: data
     };
 };
@@ -117,7 +122,7 @@ let getShopProtocolCollection = (app, parseShopCollectionDataBody, collectionNam
 exports.getShopProtocolCollection = getShopProtocolCollection;
 let getShopImplementAccountData = (app, parseShopCollectionDataBody, collectionName, account) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: _handleKeyToLowercase(account) })
+        .where({ key: (0, exports.handleKeyToLowercase)(account) })
         .get()
         .then(res => [res.data[0], []]);
 };
@@ -128,7 +133,7 @@ exports.getShopImplementAccountData = getShopImplementAccountData;
 // }
 let updateShopImplementData = (app, collectionName, account, updateData, _oldShopImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: _handleKeyToLowercase(account) })
+        .where({ key: (0, exports.handleKeyToLowercase)(account) })
         .update(updateData);
 };
 exports.updateShopImplementData = updateShopImplementData;
