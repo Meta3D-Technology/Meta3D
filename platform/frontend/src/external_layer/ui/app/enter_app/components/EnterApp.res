@@ -2,14 +2,14 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component
-let make = () => {
+let make = (~service: FrontendUtils.FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
   React.useEffect1(() => {
     let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
     let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
 
-    BackendCloudbase.findPublishApp(. account, appName)
+    service.backend.findPublishApp(. account, appName)
     ->Meta3dBsMost.Most.observe(appBinaryFile => {
       Js.Nullable.isNullable(appBinaryFile)
         ? {

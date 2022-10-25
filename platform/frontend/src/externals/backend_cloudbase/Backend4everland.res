@@ -58,6 +58,8 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishContributeProtocols: getAllPublishContributeProtocols,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
     getAllPublishContributes: getAllPublishContributes,
+    findAllPublishApps: findAllPublishApps,
+    findPublishApp: findPublishApp,
   }
 }
 

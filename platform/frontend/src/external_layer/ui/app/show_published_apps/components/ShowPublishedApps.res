@@ -4,7 +4,7 @@ open FrontendUtils.Antd
 // TODO check login
 
 @react.component
-let make = () => {
+let make = (~service: FrontendUtils.FrontendType.service) => {
   let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
 
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
@@ -29,7 +29,7 @@ let make = () => {
   })->ignore
 
   React.useEffect1(() => {
-    BackendCloudbase.findAllPublishApps(. account->Meta3dCommonlib.OptionSt.getExn)
+    service.backend.findAllPublishApps(. account->Meta3dCommonlib.OptionSt.getExn)
     ->Meta3dBsMost.Most.observe(allPublishApps => {
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)

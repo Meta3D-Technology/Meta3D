@@ -128,10 +128,10 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           selectedContributesFromShop=selectedContributes
         />
       </>
-    // | list{"ShowPublishedApps"} => <ShowPublishedApps />
-    // | list{"EnterApp"} => <EnterApp />
-    // | list{"RunElementVisual"} =>
-    //   <AssembleSpace.RunElementVisual service={_buildAssembleSpaceService()} />
+    | list{"ShowPublishedApps"} => <ShowPublishedApps service />
+    | list{"EnterApp"} => <EnterApp service />
+    | list{"RunElementVisual"} =>
+      <AssembleSpace.RunElementVisual service={_buildAssembleSpaceService()} />
     | list{}
     | _ =>
       <Index />

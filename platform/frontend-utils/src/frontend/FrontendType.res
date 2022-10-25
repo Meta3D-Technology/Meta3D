@@ -9,6 +9,8 @@ type backendService = {
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
   getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
   getAllPublishContributes: getAllPublishContributes,
+  findAllPublishApps: findAllPublishApps,
+  findPublishApp: findPublishApp,
 }
 
 type service = {backend: backendService}
