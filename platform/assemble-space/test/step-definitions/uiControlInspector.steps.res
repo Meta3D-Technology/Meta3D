@@ -69,7 +69,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -157,7 +157,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -273,7 +273,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -363,7 +363,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -380,7 +380,7 @@ defineFeature(feature, test => {
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           UIControlInspectorTool.buildSkinProtocolData(
             ~protocolName,
-            ~protocolVersion="^0.5.0",
+            ~protocolVersion="^0.6.0",
             (),
           ),
           _,
@@ -397,7 +397,7 @@ defineFeature(feature, test => {
               ~name=skin1Name,
               ~protocol={
                 name: protocolName,
-                version: "^0.5.1",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -425,7 +425,7 @@ defineFeature(feature, test => {
               ~name=skin2Name,
               ~protocol={
                 name: protocolName,
-                version: "^0.5.1",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -532,7 +532,7 @@ defineFeature(feature, test => {
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
                 name: "meta3d-ui-control-button-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -561,7 +561,7 @@ defineFeature(feature, test => {
               ~name=action1Name,
               ~protocol={
                 name: "meta3d-action-a1-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),
@@ -589,7 +589,7 @@ defineFeature(feature, test => {
               ~name=action2Name,
               ~protocol={
                 name: "meta3d-action-a2-protocol",
-                version: "^0.5.0",
+                version: "^0.6.0",
               },
               (),
             ),

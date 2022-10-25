@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -132,3 +132,9 @@ exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImpl
 exports.isContain = BackendService.isContain;
 exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
 exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+let getDataByKeyContain = (collectionName, value) => {
+    return (0, exports.getDatabase)().collection(collectionName)
+        .get()
+        .then(res => res.data.filter(({ key }) => key.includes(value)));
+};
+exports.getDataByKeyContain = getDataByKeyContain;

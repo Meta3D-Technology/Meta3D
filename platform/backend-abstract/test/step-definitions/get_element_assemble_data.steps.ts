@@ -2,23 +2,22 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService";
-import { getDataFromShopImplementAccountData, parseShopCollectionDataBodyForNodejs } from "meta3d-backend-cloudbase";
+import { getDataFromShopImplementAccountData } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/get_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc
+    let getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc
 
     function _createFuncs(sandbox) {
         getShopImplementAccountDataFunc = sandbox.stub()
-        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
         getDataFromShopImplementAccountDataFunc = getDataFromShopImplementAccountData
     }
 
     function _getElementAssembleData(account, elementName, elementVersion) {
         return getElementAssembleData(
-            [getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc],
+            [getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc],
             account, elementName, elementVersion
         )
     }
@@ -81,7 +80,6 @@ defineFeature(feature, test => {
 
         then('should return e2', () => {
             expect(getShopImplementAccountDataFunc).toCalledWith([
-                parseShopCollectionDataBodyFunc,
                 "publishedelementassembledata",
                 account
             ])

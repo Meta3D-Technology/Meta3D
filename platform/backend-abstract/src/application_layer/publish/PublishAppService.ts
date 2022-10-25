@@ -60,9 +60,9 @@ export let findPublishApp = ([getDataByKeyFunc, getFileFunc]: [any, any], accoun
 }
 
 export let findAllPublishApps = (
-    [getDataByKeyFunc, getFileFunc]: [any, any],
+    [getDataByKeyContainFunc, getFileFunc]: [any, any],
     account: string): Stream<Array<publishApp>> => {
-    return fromPromise(getDataByKeyFunc("publishedapps", account)).flatMap((data: any) => {
+    return fromPromise(getDataByKeyContainFunc("publishedapps", account)).flatMap((data: any) => {
         if (data.length === 0) {
             return just([])
         }

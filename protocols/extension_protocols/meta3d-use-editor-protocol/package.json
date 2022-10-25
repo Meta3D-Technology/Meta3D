@@ -2,15 +2,15 @@
     "name": "meta3d-use-editor-protocol",
     "version": "0.6.0",
     "description": "",
-    "publisher": "meta3d",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publishConfig && gulp publish",
-        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publishConfig &&gulp publish"
+        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publishConfig_local_env && gulp publish_local_env",
+        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publishConfig_production_env &&gulp publish_production_env"
     },
     "keywords": [],
     "devDependencies": {

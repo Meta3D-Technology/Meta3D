@@ -1,6 +1,6 @@
 let getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
 
-let getElementContributeProtocolVersion = () => "0.5.1"
+let getElementContributeProtocolVersion = () =>"0.6.0"
 
 let buildElementContributeFileStr = (
   service,

@@ -3,13 +3,13 @@ import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
-import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, isContain, parseShopCollectionDataBodyForNodejs } from "meta3d-backend-cloudbase";
+import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc
+    let logFunc, errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc
 
     function _createFuncs(sandbox) {
         logFunc = sandbox.stub()
@@ -20,8 +20,6 @@ defineFeature(feature, test => {
         isContainFunc = isContain
         buildShopImplementAccountDataFunc = buildShopImplementAccountData
         addShopImplementDataToDataFromShopImplementCollectionDataFunc = addShopImplementDataToDataFromShopImplementCollectionData
-        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
-
     }
 
     function _publish(
@@ -31,7 +29,7 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc],
+            [errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc,],
             account,
             elementName, elementVersion, inspectorData
         )

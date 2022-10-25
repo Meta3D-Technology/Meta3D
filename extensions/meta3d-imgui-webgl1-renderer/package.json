@@ -1,7 +1,7 @@
 {
     "name": "meta3d-imgui-webgl1-renderer",
     "version": "0.6.0",
-    "publisher": "meta3d",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-imgui-renderer-protocol"
     },
@@ -16,8 +16,8 @@
         "buildAll:ci": "rescript clean && rescript build",
         "test:watch": "jest --watch --config jest.json",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish",
-        "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish"
+        "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
         "meta3d-imgui-renderer-protocol": "^0.6.0",

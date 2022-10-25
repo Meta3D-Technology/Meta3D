@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
@@ -114,12 +114,15 @@ let addData = (collectionName, key, data) => {
     });
 };
 exports.addData = addData;
-let getDataByKey = (collectionName, key) => {
+let _getObjectWithJsonBody = (collectionName, key) => {
     return (0, Repo_1.getBackend)().getObject({
         Bucket: collectionName,
-        Key: collectionName
+        Key: key
     })
-        .then(data => _parseShopCollectionDataBody("json", data))
+        .then(data => _parseShopCollectionDataBody("json", data));
+};
+let getDataByKey = (collectionName, key) => {
+    return _getObjectWithJsonBody(collectionName, collectionName)
         .then((body) => {
         console.log("getDataByKeyFunc:", key, body);
         key = BackendService.handleKeyToLowercase(key);
@@ -129,6 +132,23 @@ let getDataByKey = (collectionName, key) => {
     });
 };
 exports.getDataByKey = getDataByKey;
+let getDataByKeyContain = (collectionName, value) => {
+    return (0, most_1.fromPromise)((0, Repo_1.getBackend)().listObjects({
+        Bucket: collectionName
+    }).then(data => {
+        return data.Contents.filter(({ Key }) => {
+            return Key.includes(value);
+        });
+    })).map(data => {
+        return (0, most_1.mergeArray)(data.map(({ Key }) => {
+            return (0, most_1.fromPromise)(_getObjectWithJsonBody(collectionName, Key));
+        })).reduce((result, data) => {
+            result.push(data);
+            return result;
+        }, []);
+    });
+};
+exports.getDataByKeyContain = getDataByKeyContain;
 let hasData = (collectionName, key) => BackendService.hasData((0, Repo_1.getBackend)(), collectionName, key);
 exports.hasData = hasData;
 exports.getFileID = BackendService.getFileID;

@@ -8,14 +8,13 @@ const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc;
+    let getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc;
     function _createFuncs(sandbox) {
         getShopImplementAccountDataFunc = sandbox.stub();
-        parseShopCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseShopCollectionDataBodyForNodejs;
         getDataFromShopImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromShopImplementAccountData;
     }
     function _getElementAssembleData(account, elementName, elementVersion) {
-        return (0, GetElementDataService_1.getElementAssembleData)([getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion);
+        return (0, GetElementDataService_1.getElementAssembleData)([getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -63,7 +62,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_as
         });
         then('should return e2', () => {
             expect(getShopImplementAccountDataFunc).toCalledWith([
-                parseShopCollectionDataBodyFunc,
                 "publishedelementassembledata",
                 account
             ]);

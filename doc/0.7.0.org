@@ -128,9 +128,22 @@ run test
 
 run test
 
-**** TODO publish app
 
-**** TODO enter app
+
+
+**** DONE publish app
+
+**** DONE enter app
+
+
+**** TODO fix: showCatch should log stack for console.error's stack
+
+**** TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
+
+e.g. meta3d-ui-control-button-protocol
+
+
+
 
 
 **** TODO pass all single one run test for local, production env

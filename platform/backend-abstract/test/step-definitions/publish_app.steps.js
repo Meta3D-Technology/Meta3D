@@ -12,6 +12,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     let sandbox = null;
     let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc;
     let getDataByKeyFunc, getFileFunc;
+    let getDataByKeyContainFunc;
     function _createFuncsForPublish(sandbox) {
         onUploadProgressFunc = "onUploadProgressFunc";
         uploadFileFunc = sandbox.stub();
@@ -115,6 +116,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         getDataByKeyFunc = sandbox.stub();
         getFileFunc = sandbox.stub();
     }
+    function _createFuncsForFindAllPublishApps(sandbox) {
+        getDataByKeyContainFunc = sandbox.stub();
+        getFileFunc = sandbox.stub();
+    }
     test('if not find, findPublishApp return empty', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {
@@ -160,13 +165,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     test('if not find, findAllPublishApps return empty array', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {
-            _createFuncsForFindPublishApp(sandbox);
-            getDataByKeyFunc.returns((0, PromiseTool_1.resolve)([]));
+            _createFuncsForFindAllPublishApps(sandbox);
+            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('find all published apps', () => {
         });
         then('should return empty array', () => {
-            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyFunc, getFileFunc], "").observe(result => {
+            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyContainFunc, getFileFunc], "").observe(result => {
                 expect(result).toEqual([]);
             });
         });
@@ -186,8 +191,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             appName2 = "app2";
         });
         given('prepare funcs', () => {
-            _createFuncsForFindPublishApp(sandbox);
-            getDataByKeyFunc.returns((0, PromiseTool_1.resolve)([
+            _createFuncsForFindAllPublishApps(sandbox);
+            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([
                 {
                     account: account1, appName: appName1, fileID: fileID1
                 },
@@ -203,7 +208,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find all published apps', () => {
         });
         then('should return the apps\' data', () => {
-            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyFunc, getFileFunc], account1).observe(result => {
+            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyContainFunc, getFileFunc], account1).observe(result => {
                 expect(getFileFunc.getCall(0)).toCalledWith([
                     fileID1
                 ]);

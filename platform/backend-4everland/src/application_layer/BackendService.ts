@@ -1,6 +1,6 @@
 import { S3, GetObjectCommandOutput } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
-import { empty, fromPromise, just } from "most";
+import { empty, fromPromise, just, mergeArray } from "most";
 import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 import * as BackendService from "meta3d-backend-4everland";
 import { curry2, curry3_1, curry4_1 } from "meta3d-fp/src/Curry";
@@ -149,12 +149,16 @@ export let addData = (collectionName: string, key: string, data: any) => {
     })
 }
 
-export let getDataByKey = (collectionName: string, key: string) => {
+let _getObjectWithJsonBody = (collectionName, key) => {
     return getBackend().getObject({
         Bucket: collectionName,
-        Key: collectionName
+        Key: key
     })
         .then(data => _parseShopCollectionDataBody("json", data))
+}
+
+export let getDataByKey = (collectionName: string, key: string) => {
+    return _getObjectWithJsonBody(collectionName, collectionName)
         .then((body) => {
             console.log("getDataByKeyFunc:", key, body)
 
@@ -164,6 +168,28 @@ export let getDataByKey = (collectionName: string, key: string) => {
                 return data.key === key
             })
         })
+}
+
+export let getDataByKeyContain = (collectionName: string, value: string) => {
+    return fromPromise(getBackend().listObjects({
+        Bucket: collectionName
+    }).then(data => {
+        return data.Contents.filter(({ Key }) => {
+            return Key.includes(value)
+        })
+    })).map(data => {
+        return mergeArray(
+            data.map(({ Key }) => {
+                return fromPromise(_getObjectWithJsonBody(collectionName, Key))
+            })
+        ).reduce(
+            (result, data) => {
+                result.push(data)
+
+                return result
+            }, []
+        )
+    })
 }
 
 export let hasData = (collectionName: string, key: string) => BackendService.hasData(getBackend(), collectionName, key)

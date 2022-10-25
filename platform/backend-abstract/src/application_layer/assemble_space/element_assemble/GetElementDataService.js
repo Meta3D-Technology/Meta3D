@@ -47,8 +47,8 @@ let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplement
     });
 };
 exports.getAllPublishNewestData = getAllPublishNewestData;
-let getElementAssembleData = ([getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion) => {
-    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(parseShopCollectionDataBodyFunc, "publishedelementassembledata", account)).flatMap(([shopImplementAccountData, shopImplementAllCollectionData]) => {
+let getElementAssembleData = ([getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion) => {
+    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc("publishedelementassembledata", account)).flatMap(([shopImplementAccountData, shopImplementAllCollectionData]) => {
         let fileData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
         let result = fileData.filter(data => {
             return data.elementName === elementName && data.elementVersion === elementVersion;

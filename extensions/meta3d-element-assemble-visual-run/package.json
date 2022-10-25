@@ -1,7 +1,7 @@
 {
     "name": "meta3d-element-assemble-visual-run",
     "version": "0.6.0",
-    "publisher": "meta3d",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
     },
@@ -28,8 +28,8 @@
     "scripts": {
         "watch": "tsc -w",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publish",
-        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish"
+        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {

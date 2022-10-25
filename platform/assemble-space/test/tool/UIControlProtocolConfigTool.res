@@ -4,7 +4,7 @@ window.UIControlProtocolConfig = {
     getSkinProtocolData: () => {
         return {
             protocolName: "meta3d-skin-button-protocol",
-            protocolVersion: "^0.5.0",
+            protocolVersion: "^0.6.0",
         }
     },
     generateUIControlDataStr: (rect, skin) => {

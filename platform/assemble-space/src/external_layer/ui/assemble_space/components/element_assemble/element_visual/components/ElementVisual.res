@@ -101,7 +101,7 @@ module Method = {
 
   let _getElementContributeName = () => "meta3d-element-assemble-element"
 
-  let _getElementContributeVersion = () => "0.5.0"
+  let _getElementContributeVersion = () =>"0.6.0"
 
   let buildElementContributeFileStr = (
     service,

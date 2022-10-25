@@ -116,7 +116,7 @@ defineFeature(feature, test => {
               name: name,
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version: "0.5.0",
+                version:"0.6.0",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -134,7 +134,7 @@ defineFeature(feature, test => {
               name: name,
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version: "0.5.1",
+                version:"0.6.0",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -185,7 +185,7 @@ defineFeature(feature, test => {
                 ~name,
                 ~protocol={
                   name: ElementVisualTool.getVisualExtensionProtocolName(),
-                  version: "0.5.1",
+                  version:"0.6.0",
                 },
                 (),
               ),
@@ -239,7 +239,7 @@ defineFeature(feature, test => {
               name: ElementVisualTool.getVisualExtensionName(),
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version: "0.5.1",
+                version:"0.6.0",
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -257,7 +257,7 @@ defineFeature(feature, test => {
         ExtensionTool.generateExtension(
           ~name="meta3d-ui",
           ~protocolName="meta3d-ui-protocol",
-          ~protocolVersion="^0.5.0",
+          ~protocolVersion="^0.6.0",
           (),
         )->Meta3d.Main.loadExtension
     })
@@ -267,7 +267,7 @@ defineFeature(feature, test => {
         ExtensionTool.generateExtension(
           ~name="meta3d-event",
           ~protocolName="meta3d-event-protocol",
-          ~protocolVersion="^0.5.1",
+          ~protocolVersion="^0.6.0",
           (),
         )->Meta3d.Main.loadExtension
     })

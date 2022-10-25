@@ -18,10 +18,10 @@ function _getPublishedCollectionName(fileType) {
             return "publishedcontributes";
     }
 }
-function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], account, [name, version, protocolName, protocolVersion], binaryFile, fileType) {
+function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc], account, [name, version, protocolName, protocolVersion], binaryFile, fileType) {
     let filePath = _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer";
     let fileName = name;
-    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, _]) => {
+    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(_getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, _]) => {
         let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
         return isContainFunc((data) => {
             return data.name === name
@@ -33,7 +33,7 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
         }
     })).flatMap(_ => uploadFileFunc(logFunc, filePath, binaryFile, fileName).flatMap((uploadData) => {
         let fileID = getFileIDFunc(uploadData, filePath);
-        return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
+        return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(_getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
             let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
             let data = {
                 protocolName: protocolName,
@@ -52,8 +52,8 @@ function publishElementContribute(funcArr, account, packageData, contributeBinar
     return _publish(funcArr, account, packageData, contributeBinaryFile, "contribute");
 }
 exports.publishElementContribute = publishElementContribute;
-function publishElementAssembleData([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc], account, elementName, elementVersion, inspectorData) {
-    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(parseShopCollectionDataBodyFunc, "publishedelementassembledata", account).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
+function publishElementAssembleData([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc], account, elementName, elementVersion, inspectorData) {
+    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc("publishedelementassembledata", account).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
         let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
         return isContainFunc((fileData) => {
             return fileData.elementName === elementName

@@ -321,7 +321,7 @@ ui control protocol should define json related meta data?
 ***  DONE pass run test
 
 update and publish meta3d-ui-view-element-protocol version
-let _getElementContributeProtocolVersion = () => "0.5.0"
+let _getElementContributeProtocolVersion = () =>"0.6.0"
 
 # *** TODO refactor: add contract check
 

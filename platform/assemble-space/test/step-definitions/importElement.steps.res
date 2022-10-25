@@ -192,7 +192,7 @@ defineFeature(feature, test => {
     given("generate ui control u1", () => {
       let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
         name: "meta3d-ui-control-button-protocol",
-        version: "0.5.0",
+        version:"0.6.0",
       }
 
       u1 :=

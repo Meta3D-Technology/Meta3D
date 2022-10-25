@@ -93,7 +93,7 @@ defineFeature(feature, test => {
 
       let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
         name: "meta3d-ui-control-button-protocol",
-        version: "0.5.0",
+        version:"0.6.0",
       }
 
       b1 :=
@@ -211,7 +211,7 @@ defineFeature(feature, test => {
                 name: b1Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
-                  version: "0.5.0",
+                  version:"0.6.0",
                   configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents
@@ -222,7 +222,7 @@ defineFeature(feature, test => {
                 name: b2Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
-                  version: "0.5.0",
+                  version:"0.6.0",
                   configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents
@@ -267,7 +267,7 @@ defineFeature(feature, test => {
 
       let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
         name: "meta3d-ui-control-button-protocol",
-        version: "0.5.0",
+        version:"0.6.0",
       }
 
       b1 :=
@@ -338,7 +338,7 @@ defineFeature(feature, test => {
                 name: b1Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
-                  version: "0.5.0",
+                  version:"0.6.0",
                   configLib: configLib,
                 },
                 data: selectedUIControlInspectorData.contents

@@ -12,6 +12,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc
     let getDataByKeyFunc, getFileFunc
+    let getDataByKeyContainFunc
 
     function _createFuncsForPublish(sandbox) {
         onUploadProgressFunc = "onUploadProgressFunc"
@@ -172,6 +173,11 @@ defineFeature(feature, test => {
         getFileFunc = sandbox.stub()
     }
 
+    function _createFuncsForFindAllPublishApps(sandbox) {
+        getDataByKeyContainFunc = sandbox.stub()
+        getFileFunc = sandbox.stub()
+    }
+
     test('if not find, findPublishApp return empty', ({ given, and, when, then }) => {
         _prepare(given)
 
@@ -241,9 +247,9 @@ defineFeature(feature, test => {
         _prepare(given)
 
         given('prepare funcs', () => {
-            _createFuncsForFindPublishApp(sandbox)
+            _createFuncsForFindAllPublishApps(sandbox)
 
-            getDataByKeyFunc.returns(
+            getDataByKeyContainFunc.returns(
                 resolve([])
             )
         });
@@ -253,7 +259,7 @@ defineFeature(feature, test => {
 
         then('should return empty array', () => {
             return findAllPublishApps(
-                [getDataByKeyFunc, getFileFunc],
+                [getDataByKeyContainFunc, getFileFunc],
                 ""
             ).observe(result => {
                 expect(result).toEqual([])
@@ -282,9 +288,9 @@ defineFeature(feature, test => {
         });
 
         given('prepare funcs', () => {
-            _createFuncsForFindPublishApp(sandbox)
+            _createFuncsForFindAllPublishApps(sandbox)
 
-            getDataByKeyFunc.returns(
+            getDataByKeyContainFunc.returns(
                 resolve([
                     {
                         account: account1, appName: appName1, fileID: fileID1
@@ -306,7 +312,7 @@ defineFeature(feature, test => {
 
         then('should return the apps\' data', () => {
             return findAllPublishApps(
-                [getDataByKeyFunc, getFileFunc],
+                [getDataByKeyContainFunc, getFileFunc],
                 account1
             ).observe(result => {
                 expect(getFileFunc.getCall(0)).toCalledWith([

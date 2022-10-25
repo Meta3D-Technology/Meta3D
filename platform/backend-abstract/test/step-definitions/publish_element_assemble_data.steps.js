@@ -8,7 +8,7 @@ const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc;
+    let logFunc, errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc;
     function _createFuncs(sandbox) {
         logFunc = sandbox.stub();
         errorFunc = sandbox.stub();
@@ -18,10 +18,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         isContainFunc = meta3d_backend_cloudbase_1.isContain;
         buildShopImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildShopImplementAccountData;
         addShopImplementDataToDataFromShopImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addShopImplementDataToDataFromShopImplementCollectionData;
-        parseShopCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseShopCollectionDataBodyForNodejs;
     }
     function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc], account, elementName, elementVersion, inspectorData);
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc,], account, elementName, elementVersion, inspectorData);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {

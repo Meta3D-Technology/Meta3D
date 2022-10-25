@@ -4,7 +4,7 @@ import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 export let getSkinProtocolData: getSkinProtocolDataMeta3D = () => {
     return {
         protocolName: "meta3d-skin-button-protocol",
-        protocolVersion: "^0.5.0",
+        protocolVersion: "^0.6.0",
     }
 }
 

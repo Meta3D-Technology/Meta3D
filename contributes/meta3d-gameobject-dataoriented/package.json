@@ -1,7 +1,7 @@
 {
   "name": "meta3d-gameobject-dataoriented",
   "version": "0.6.0",
-  "publisher": "meta3d",
+  "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-gameobject-protocol"
   },
@@ -15,8 +15,8 @@
     "test:coverage": "jest --maxWorkers=4 --config jest_coverage.json",
     "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json",
     "webpack": "webpack --config webpack.config.js",
-    "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish",
-    "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish"
+    "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish_local_env",
+    "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "keywords": [],
   "dependencies": {

@@ -165,3 +165,9 @@ export let isContain = BackendService.isContain
 export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
 
 export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+
+export let getDataByKeyContain = (collectionName: string, value: string) => {
+	return getDatabase().collection(collectionName)
+		.get()
+		.then(res => res.data.filter(({ key }: { key: string }) => key.includes(value)))
+}

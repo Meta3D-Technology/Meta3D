@@ -133,7 +133,7 @@ import {
     updateShopImplementData,
     getDataFromShopImplementAccountData,
     isContain,
-    buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
+    buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData, getDataByKeyContain,
 } from "./application_layer/BackendService";
 
 
@@ -184,7 +184,7 @@ export let findPublishApp = (account, appName) => Abtstract.findPublishApp([
 )
 
 export let findAllPublishApps = (account) => Abtstract.findAllPublishApps([
-    getDataByKey,
+    getDataByKeyContain,
     getFile
 ],
     account
@@ -202,7 +202,7 @@ export let publishElementContribute = (
     console.log,
     _throwError, uploadFile, getShopImplementAccountData, updateShopImplementData,
     getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
-    getFileID, null
+    getFileID
 ],
     account,
     packageData,
@@ -217,7 +217,6 @@ export let publishElementAssembleData = (
 ) => Abtstract.publishElementAssembleData([
     _throwError,
     getShopImplementAccountData, updateShopImplementData, getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
-    null
 ],
     account,
     elementName,
@@ -241,7 +240,7 @@ export let getElementAssembleData = (
     elementName,
     elementVersion,
 ) => Abtstract.getElementAssembleData(
-    [getShopImplementAccountData, null, getDataFromShopImplementAccountData],
+    [getShopImplementAccountData, getDataFromShopImplementAccountData],
     account,
     elementName,
     elementVersion,

@@ -93,7 +93,7 @@ defineFeature(feature, test => {
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           UIControlInspectorTool.buildSkinProtocolData(
             ~protocolName,
-            ~protocolVersion="^0.5.0",
+            ~protocolVersion="^0.6.0",
             (),
           ),
           _,
@@ -123,7 +123,7 @@ defineFeature(feature, test => {
                 ~protocol=(
                   {
                     name: protocolName,
-                    version: "^0.5.1",
+                    version: "^0.6.0",
                   }: Meta3d.ExtensionFileType.contributeProtocolData
                 ),
                 (),

@@ -69,14 +69,13 @@ export let getAllPublishNewestData = (
 }
 
 export let getElementAssembleData = (
-    [getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc]: [any, any, any],
+    [getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc]: [any, any],
     account: string,
     elementName: string,
     elementVersion: string,
 ) => {
     return fromPromise(
         getShopImplementAccountDataFunc(
-            parseShopCollectionDataBodyFunc,
             "publishedelementassembledata",
             account
         )

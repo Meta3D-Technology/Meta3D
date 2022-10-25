@@ -121,7 +121,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: "meta3d-ui-protocol",
-              protocolVersion: "^0.5.0",
+              protocolVersion: "^0.6.0",
             }: Meta3d.ExtensionFileType.dependentData
           ),
         )
@@ -130,7 +130,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: "meta3d-event-protocol",
-              protocolVersion: "^0.5.1",
+              protocolVersion: "^0.6.0",
             }: Meta3d.ExtensionFileType.dependentData
           ),
         ),

@@ -19,7 +19,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
 }
 
 function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc,
-    updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any],
+    updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any],
     account: string,
     [
         name,
@@ -41,7 +41,6 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
 
     return fromPromise(
         getShopImplementAccountDataFunc(
-            parseShopCollectionDataBodyFunc,
             _getPublishedCollectionName(fileType),
             account
         ).then(([shopImplementAccountData, _]) => {
@@ -68,7 +67,6 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
 
         return fromPromise(
             getShopImplementAccountDataFunc(
-                parseShopCollectionDataBodyFunc,
                 _getPublishedCollectionName(fileType),
                 account
             ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
@@ -109,7 +107,7 @@ export function publishElementContribute(
     )
 }
 
-export function publishElementAssembleData([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any],
+export function publishElementAssembleData([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc]: [any, any, any, any, any, any, any],
     account: string,
     elementName: string,
     elementVersion: string,
@@ -117,7 +115,6 @@ export function publishElementAssembleData([errorFunc, getShopImplementAccountDa
 ) {
     return fromPromise(
         getShopImplementAccountDataFunc(
-            parseShopCollectionDataBodyFunc,
             "publishedelementassembledata",
             account
         ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
