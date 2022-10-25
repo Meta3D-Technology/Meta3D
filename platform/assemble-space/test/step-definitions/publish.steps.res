@@ -160,7 +160,7 @@ defineFeature(feature, test => {
 
       PublishTool.publish(
         ~sandbox,
-        ~username="u1"->Some,
+        ~account="u1"->Some,
         ~service=ServiceTool.build(
           ~sandbox,
           ~error=errorStub.contents->Obj.magic,
@@ -185,7 +185,7 @@ defineFeature(feature, test => {
     let selectedContributes = ref(Obj.magic(1))
     let canvasData = ref(Obj.magic(1))
     let values = ref(Obj.magic(1))
-    let username = "u1"
+    let account = "u1"
     let appName = "n1"
     let appBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generateAppStub = ref(Obj.magic(1))
@@ -239,7 +239,7 @@ defineFeature(feature, test => {
         ~sandbox,
         ~setVisible=setVisibleStub.contents->Obj.magic,
         ~canvasData=canvasData.contents,
-        ~username="u1"->Some,
+        ~account="u1"->Some,
         ~values=values.contents->Obj.magic,
         ~service=ServiceTool.build(
           ~sandbox,
@@ -275,7 +275,7 @@ defineFeature(feature, test => {
     \"and"("should publish the generated app", () => {
       publishAppStub.contents
       ->Obj.magic
-      ->SinonTool.calledWithArg3(appBinaryFile, appName, username)
+      ->SinonTool.calledWithArg3(appBinaryFile, appName, account)
       ->expect == true
     })
 

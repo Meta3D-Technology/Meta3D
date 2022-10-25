@@ -35,7 +35,7 @@ let buildSelectedContribute = (
   ~id="e1",
   ~name="e1",
   ~version="0.0.1",
-  ~username="u1",
+  ~account="u1",
   (),
 ): FrontendUtils.AssembleSpaceCommonType.contributeData => {
   (
@@ -54,7 +54,7 @@ let buildSelectedContribute = (
         (),
       ),
       version: version,
-      username: username,
+      account: account,
     },
     protocolConfig,
   )

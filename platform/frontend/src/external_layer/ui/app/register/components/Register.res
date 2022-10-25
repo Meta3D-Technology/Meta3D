@@ -13,7 +13,7 @@ let make = () => {
     BackendCloudbase.checkUserName(account)->Meta3dBsMost.Most.flatMap(isPass => {
       !isPass
         ? {
-            Message.error(. `username已经存在，请重新输入新的username`, 5)
+            Message.error(. `account已经存在，请重新输入新的account`, 5)
 
             Meta3dBsMost.Most.empty()
           }

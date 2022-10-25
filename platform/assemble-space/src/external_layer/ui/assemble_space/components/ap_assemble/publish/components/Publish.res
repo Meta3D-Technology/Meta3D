@@ -58,7 +58,7 @@ module Method = {
     service,
     setVisible,
     (
-      username,
+      account,
       selectedExtensions,
       selectedContributes,
       canvasData: FrontendUtils.ApAssembleStoreType.canvasData,
@@ -100,7 +100,7 @@ module Method = {
               service.backend.publishApp(.
                 appBinaryFile,
                 appName,
-                username->Meta3dCommonlib.OptionSt.getExn,
+                account->Meta3dCommonlib.OptionSt.getExn,
               )
               ->Meta3dBsMost.Most.drain
               ->Js.Promise.then_(_ => {
@@ -136,7 +136,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~username: option<string>) => {
+let make = (~service: service, ~account: option<string>) => {
   let (selectedExtensions, selectedContributes, canvasData) = ReduxUtils.ApAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
@@ -176,7 +176,7 @@ let make = (~service: service, ~username: option<string>) => {
                 Method.onFinish(
                   service,
                   setVisible,
-                  (username, selectedExtensions, selectedContributes, canvasData),
+                  (account, selectedExtensions, selectedContributes, canvasData),
                   event->Obj.magic,
                 )->ignore
               }, 5->Some)}

@@ -8,7 +8,7 @@ open Sinon
 let feature = loadFeature("./test/features/publishElement.feature")
 
 defineFeature(feature, test => {
-  let username = ref(Obj.magic(1))
+  let account = ref(Obj.magic(1))
   let elementName = ref(Obj.magic(1))
   let elementVersion = ref(Obj.magic(1))
   let elementInspectorData = ref(Obj.magic(1))
@@ -117,7 +117,7 @@ defineFeature(feature, test => {
 
   let _prepareData = given => {
     given("prepare data", () => {
-      username := "u1"
+      account := "u1"
       elementName := "e1"
       elementVersion := "0.0.1"
       elementInspectorData :=
@@ -171,7 +171,7 @@ defineFeature(feature, test => {
           ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
           (),
         ),
-        ~username=username.contents->Some,
+        ~account=account.contents->Some,
         (),
       )
     })
@@ -233,7 +233,7 @@ defineFeature(feature, test => {
 
       PublishElementTool.publish(
         ~sandbox,
-        ~username=username.contents->Some,
+        ~account=account.contents->Some,
         ~values={
           "elementName": elementName.contents,
           "elementVersion": elementVersion.contents,
@@ -257,7 +257,7 @@ defineFeature(feature, test => {
       publishElementContributeStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg3(
-        username.contents,
+        account.contents,
         (
           elementName.contents,
           elementVersion.contents,
@@ -271,26 +271,26 @@ defineFeature(feature, test => {
   })
 
   test(."publish element assemble data", ({given, \"when", \"and", then}) => {
-    let publishedElementAssembleDataStub = ref(Obj.magic(1))
+    let publishElementAssembleDataStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
-      publishedElementAssembleDataStub :=
+      publishElementAssembleDataStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
       PublishElementTool.publish(
         ~sandbox,
-        ~username=username.contents->Some,
+        ~account=account.contents->Some,
         ~values={
           "elementName": elementName.contents,
           "elementVersion": elementVersion.contents,
         },
         ~service=ServiceTool.build(
           ~sandbox,
-          ~publishedelementassembledata=publishedElementAssembleDataStub.contents->Obj.magic,
+          ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
           (),
         ),
         ~elementInspectorData=elementInspectorData.contents,
@@ -301,10 +301,10 @@ defineFeature(feature, test => {
     })
 
     then("should publish element assemble data", () => {
-      publishedElementAssembleDataStub.contents
+      publishElementAssembleDataStub.contents
       ->Obj.magic
       ->SinonTool.calledWithArg4(
-        username.contents,
+        account.contents,
         elementName.contents,
         elementVersion.contents,
         (
@@ -341,7 +341,7 @@ defineFeature(feature, test => {
 
       PublishElementTool.publish(
         ~sandbox,
-        ~username=username.contents->Some,
+        ~account=account.contents->Some,
         ~setVisible=setVisibleStub.contents->Obj.magic,
         ~service=ServiceTool.build(
           ~sandbox,

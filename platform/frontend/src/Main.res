@@ -42,7 +42,7 @@ service.backend.init()->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
 ReactDOM.render(
   <React.StrictMode>
     <AppStore.AppStore.Provider store=AppStore.store>
-      <App service env />
+      <App service env=_getEnv() />
     </AppStore.AppStore.Provider>
   </React.StrictMode>,
   ReactDOM.querySelector("#root")->Meta3dCommonlib.OptionSt.getExn,

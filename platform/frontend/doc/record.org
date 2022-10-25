@@ -30,7 +30,7 @@ backend
 for finish->error infp
 
 * DONE finish UserCenter Page
-show username
+show account
 
 
 * DONE add extension shop page
@@ -164,7 +164,7 @@ remove package.json->three
 *** DONE fix login, add Register and Login
 
 register:
-username
+account
 password
 
 ** DONE storage

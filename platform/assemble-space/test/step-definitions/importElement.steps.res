@@ -114,7 +114,7 @@ defineFeature(feature, test => {
     let elementName1 = "element1"
     let elementVersion1 = "0.0.1"
     let selectedContributes = ref(list{})
-    let username = "u1"
+    let account = "u1"
     let elementAssembleData1 = ImportElementTool.buildElementAssembleData()
     let getElementAssembleDataStub = ref(Obj.magic(1))
     let setElementAssembleDataStub = ref(Obj.magic(1))
@@ -157,7 +157,7 @@ defineFeature(feature, test => {
         ),
         setElementAssembleDataStub.contents->Obj.magic,
         selectedContributes.contents,
-        username->Some,
+        account->Some,
       )
     })
 
@@ -165,7 +165,7 @@ defineFeature(feature, test => {
       (
         getElementAssembleDataStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg3(username, elementName1, elementVersion1),
+        ->SinonTool.calledWithArg3(account, elementName1, elementVersion1),
         ReactHookTool.getValue(~setLocalValueStub=setElementAssembleDataStub.contents, ()),
       )->expect == (true, elementAssembleData1->ImportElementTool.buildLoaded)
     })
@@ -176,7 +176,7 @@ defineFeature(feature, test => {
     // let elementName1 = "element1"
     // let elementVersion1 = "0.0.1"
     let selectedContributes = ref(list{})
-    // let username = "u1"
+    // let account = "u1"
     let elementAssembleData1 = ref(Obj.magic(1))
     // let getElementAssembleDataStub = ref(Obj.magic(1))
     // let setElementAssembleDataStub = ref(Obj.magic(1))

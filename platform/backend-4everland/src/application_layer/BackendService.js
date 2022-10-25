@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
@@ -129,3 +129,14 @@ let getDataByKey = (collectionName, key) => {
     });
 };
 exports.getDataByKey = getDataByKey;
+let hasData = (collectionName, key) => BackendService.hasData((0, Repo_1.getBackend)(), collectionName, key);
+exports.hasData = hasData;
+exports.getFileID = BackendService.getFileID;
+let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData((0, Repo_1.getBackend)(), _parseShopCollectionDataBody, collectionName, account);
+exports.getShopImplementAccountData = getShopImplementAccountData;
+let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) => BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldShopImplementCollectionData);
+exports.updateShopImplementData = updateShopImplementData;
+exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
+exports.isContain = BackendService.isContain;
+exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;

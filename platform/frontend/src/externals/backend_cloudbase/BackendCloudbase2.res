@@ -37,7 +37,7 @@ external findAllPublishApps: findAllPublishApps = ""
 external publishElementContribute: publishElementContribute = ""
 
 @module("backend-cloudbase")
-external publishedElementAssembleData: publishedElementAssembleData = ""
+external publishElementAssembleData: publishElementAssembleData = ""
 
 @module("backend-cloudbase")
 external publishApp: publishApp = ""
@@ -73,7 +73,7 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,
     publishElementContribute: publishElementContribute,
-    publishedElementAssembleData: publishedElementAssembleData,
+    publishElementAssembleData: publishElementAssembleData,
     getElementAssembleData: getElementAssembleData,
   }
 }

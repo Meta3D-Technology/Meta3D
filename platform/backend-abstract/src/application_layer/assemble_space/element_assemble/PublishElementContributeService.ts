@@ -18,7 +18,8 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any],
+function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc,
+    updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any],
     account: string,
     [
         name,

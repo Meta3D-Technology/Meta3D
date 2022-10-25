@@ -88,7 +88,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-      username: "meta3d",
+      account: "meta3d",
     }
     let a1Name = "a1"
     // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
@@ -165,7 +165,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-      username: "meta3d",
+      account: "meta3d",
     }
     let a1Name = "a1"
     let a2Name = "a2"
@@ -246,7 +246,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "1.0.1",
       iconBase64: "i1",
-      username: "meta3d",
+      account: "meta3d",
     }
     let dispatchStub = ref(Obj.magic(1))
 
@@ -305,7 +305,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.0.1",
       iconBase64: "i1",
-      username: "meta3d",
+      account: "meta3d",
     }
 
     _prepare(given)
@@ -335,7 +335,7 @@ defineFeature(feature, test => {
   //     name: "a",
   //     version: "0.0.1",
   //     iconBase64: "i1",
-  //     username: "meta3d",
+  //     account: "meta3d",
   //   }
 
   //   _prepare(given)
@@ -376,7 +376,7 @@ defineFeature(feature, test => {
       name: "a",
       version: "0.1.1",
       iconBase64: "i1",
-      username: "meta3d",
+      account: "meta3d",
     }
 
     _prepare(given)

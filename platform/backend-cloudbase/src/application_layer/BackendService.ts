@@ -142,9 +142,26 @@ export let updateData = (collectionName: string, key: string, updateData: any) =
 
 export let addData = (collectionName: string, key: string, data: any) => BackendService.addDataToShopProtocolCollection(getBackend(), null, collectionName, key, null, data)
 
-export let getDataByKey= (collectionName: string, key: string) => {
+export let getDataByKey = (collectionName: string, key: string) => {
 	return getDatabase().collection(collectionName)
 		.where({ key: BackendService.handleKeyToLowercase(key) })
 		.get()
 		.then(res => res.data)
 }
+
+export let hasData = (collectionName: string, key: string) => BackendService.hasData(getBackend(), collectionName, key)
+
+export let getFileID = BackendService.getFileID
+
+export let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData(getBackend(), null, collectionName, account)
+
+export let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) =>
+	BackendService.updateShopImplementData(getBackend(), collectionName, account, updateData, oldShopImplementCollectionData)
+
+export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+
+export let isContain = BackendService.isContain
+
+export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+
+export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData

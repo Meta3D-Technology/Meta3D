@@ -1,5 +1,5 @@
-let buildUI = (~sandbox, ~username=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <ElementVisual service username />
+let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <ElementVisual service account />
 }
 
 let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension

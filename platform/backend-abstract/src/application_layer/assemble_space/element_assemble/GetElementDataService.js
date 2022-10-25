@@ -3,9 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishNewestData = ([getShopCollectionFunc, getFileFunc], collectionName, protocolName) => {
-    return (0, most_1.fromPromise)(getShopCollectionFunc(collectionName)).flatMap((res) => {
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(res.data.map(({ fileData, username }) => {
+let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, getFileFunc], collectionName, protocolName) => {
+    return (0, most_1.fromPromise)(getShopImplementCollectionFunc(collectionName)).flatMap((res) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
+            let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData);
+            let fileData = getFileDataFromShopImplementCollectionDataFunc(shopImplementCollectionData);
             let result = fileData.filter(data => {
                 return data.protocolName === protocolName;
             });
@@ -17,7 +19,7 @@ let getAllPublishNewestData = ([getShopCollectionFunc, getFileFunc], collectionN
             })).flatMap(([fileID, version, protocolVersion]) => {
                 return getFileFunc(fileID).map(arrayBuffer => {
                     return {
-                        id: fileID, file: arrayBuffer, version, username,
+                        id: fileID, file: arrayBuffer, version, account,
                         protocolVersion: (0, semver_1.minVersion)(protocolVersion),
                     };
                 });
@@ -38,18 +40,16 @@ let getAllPublishNewestData = ([getShopCollectionFunc, getFileFunc], collectionN
                 }
                 r.push(data);
                 return r;
-            }, []).map(({ id, file, version, username }) => {
-                return { id, file, version, username };
+            }, []).map(({ id, file, version, account }) => {
+                return { id, file, version, account };
             });
         }));
     });
 };
 exports.getAllPublishNewestData = getAllPublishNewestData;
-let getElementAssembleData = (getShopDataFunc, username, elementName, elementVersion) => {
-    return (0, most_1.fromPromise)(getShopDataFunc("publishedelementassembledata", {
-        username: username
-    })).flatMap((res) => {
-        let { fileData } = res.data[0];
+let getElementAssembleData = ([getShopImplementAccountDataFunc, parseShopCollectionDataBodyFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion) => {
+    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(parseShopCollectionDataBodyFunc, "publishedelementassembledata", account)).flatMap(([shopImplementAccountData, shopImplementAllCollectionData]) => {
+        let fileData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
         let result = fileData.filter(data => {
             return data.elementName === elementName && data.elementVersion === elementVersion;
         });

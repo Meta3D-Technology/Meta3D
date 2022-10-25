@@ -1,14 +1,14 @@
 open Sinon
 
-let buildUI = (~sandbox, ~username=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <Publish service username />
+let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <Publish service account />
 }
 
 let publish = (
   ~sandbox,
   ~service,
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~username=None,
+  ~account=None,
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~canvasData=CanvasControllerTool.buildCanvasData(),
@@ -20,7 +20,7 @@ let publish = (
   Publish.Method.onFinish(
     service,
     setVisible,
-    (username, selectedExtensions, selectedContributes, canvasData),
+    (account, selectedExtensions, selectedContributes, canvasData),
     values,
   )
 }

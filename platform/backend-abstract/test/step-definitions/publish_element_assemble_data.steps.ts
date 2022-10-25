@@ -25,14 +25,14 @@ defineFeature(feature, test => {
     }
 
     function _publish(
-        username = "u1",
+        account = "u1",
         elementName = "",
         elementVersion = "",
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
             [errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc],
-            username,
+            account,
             elementName, elementVersion, inspectorData
         )
     }
@@ -44,7 +44,7 @@ defineFeature(feature, test => {
     }
 
     test('add to collection', ({ given, when, then, and }) => {
-        let username = "meta3d"
+        let account = "meta3d"
         let elementName = "test1"
         let elementVersion = "0.0.2"
         let inspectorData: any = {
@@ -67,7 +67,7 @@ defineFeature(feature, test => {
 
         when('publish', () => {
             return _publish(
-                username,
+                account,
                 elementName,
                 elementVersion,
                 inspectorData
@@ -92,7 +92,7 @@ defineFeature(feature, test => {
 
     test('if element assemble data with the same publisher, element name, element version exist, throw error', ({ given, when, then, and }) => {
         let app = { "app": true }
-        let username = "meta3d"
+        let account = "meta3d"
         let elementName = "test1"
         let elementVersion = "0.0.2"
         let inspectorData: any = {
@@ -128,7 +128,7 @@ defineFeature(feature, test => {
 
         and('publish', () => {
             return _publish(
-                username,
+                account,
                 elementName,
                 elementVersion,
                 inspectorData
@@ -137,7 +137,7 @@ defineFeature(feature, test => {
 
         when('publish with the same publisher, element name, element version', () => {
             return _publish(
-                username,
+                account,
                 elementName,
                 elementVersion,
                 inspectorData

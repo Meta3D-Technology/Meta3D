@@ -35,7 +35,7 @@ let buildSelectedExtension = (
   ~name="e1",
   ~id="e1",
   ~version="0.0.1",
-  ~username="u1",
+  ~account="u1",
   (),
 ): FrontendUtils.AssembleSpaceCommonType.extensionData => {
   (
@@ -54,7 +54,7 @@ let buildSelectedExtension = (
         (),
       ),
       version: version,
-      username: username,
+      account: account,
     },
     protocolConfig,
   )
@@ -64,13 +64,13 @@ let buildExtensionImplement = (
   ~file=Js.Typed_array.ArrayBuffer.make(0),
   ~id="e1",
   ~version="0.0.1",
-  ~username="u1",
+  ~account="u1",
   (),
 ): FrontendUtils.BackendCloudbaseType.implement => {
   id: id,
   file: file,
   version: version,
-  username: username,
+  account: account,
 }
 
 let generateExtension = (

@@ -23,7 +23,7 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
-  ~username,
+  ~account,
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
@@ -50,8 +50,8 @@ let make = (
     </Layout.Header>
     <Layout.Content>
       {switch currentAssemble {
-      | Ap => <ApAssemble service username selectedExtensionsFromShop selectedContributesFromShop />
-      | Element => <ElementAssemble service username />
+      | Ap => <ApAssemble service account selectedExtensionsFromShop selectedContributesFromShop />
+      | Element => <ElementAssemble service account />
       }}
     </Layout.Content>
   </Layout>

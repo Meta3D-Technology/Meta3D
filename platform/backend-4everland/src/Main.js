@@ -2,7 +2,7 @@
 // import { S3 } from "@aws-sdk/client-s3";
 // import { Upload } from "@aws-sdk/lib-storage";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
+exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
 // export let test = async () => {
 //     // const { endpoint, accessKey, secretKey, sessionToken } = s3Params;
 //     console.log("aaa")
@@ -124,3 +124,48 @@ let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getA
     BackendService_1.getFile
 ], "publishedcontributes", protocolName, protocolVersion);
 exports.getAllPublishContributes = getAllPublishContributes;
+let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
+    console.log,
+    BackendService_1.uploadFile,
+    BackendService_1.hasData,
+    BackendService_1.addData,
+    BackendService_1.updateData,
+    BackendService_1.getFileID,
+], appBinaryFile, appName, account);
+exports.publishApp = publishApp;
+let findPublishApp = (account, appName) => Abtstract.findPublishApp([
+    BackendService_1.getDataByKey,
+    BackendService_1.getFile
+], account, appName);
+exports.findPublishApp = findPublishApp;
+let findAllPublishApps = (account) => Abtstract.findAllPublishApps([
+    BackendService_1.getDataByKey,
+    BackendService_1.getFile
+], account);
+exports.findAllPublishApps = findAllPublishApps;
+function _throwError(msg) {
+    throw new Error(msg);
+}
+let publishElementContribute = (account, packageData, contributeBinaryFile) => Abtstract.publishElementContribute([
+    console.log,
+    _throwError, BackendService_1.uploadFile, BackendService_1.getShopImplementAccountData, BackendService_1.updateShopImplementData,
+    BackendService_1.getDataFromShopImplementAccountData, BackendService_1.isContain, BackendService_1.buildShopImplementAccountData, BackendService_1.addShopImplementDataToDataFromShopImplementCollectionData,
+    BackendService_1.getFileID, null
+], account, packageData, contributeBinaryFile);
+exports.publishElementContribute = publishElementContribute;
+let publishElementAssembleData = (account, elementName, elementVersion, inspectorData) => Abtstract.publishElementAssembleData([
+    _throwError,
+    BackendService_1.getShopImplementAccountData, BackendService_1.updateShopImplementData, BackendService_1.getDataFromShopImplementAccountData, BackendService_1.isContain, BackendService_1.buildShopImplementAccountData, BackendService_1.addShopImplementDataToDataFromShopImplementCollectionData,
+    null
+], account, elementName, elementVersion, inspectorData);
+exports.publishElementAssembleData = publishElementAssembleData;
+let getAllPublishNewestExtensions = (protocolName) => Abtstract.getAllPublishNewestData([
+    BackendService_1.getShopImplementCollection,
+    BackendService_1.mapShopImplementCollection,
+    BackendService_1.getAccountFromShopImplementCollectionData,
+    BackendService_1.getFileDataFromShopImplementCollectionData,
+    BackendService_1.getFile
+], "publishedextensions", protocolName);
+exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
+let getElementAssembleData = (account, elementName, elementVersion) => Abtstract.getElementAssembleData([BackendService_1.getShopImplementAccountData, null, BackendService_1.getDataFromShopImplementAccountData], account, elementName, elementVersion);
+exports.getElementAssembleData = getElementAssembleData;

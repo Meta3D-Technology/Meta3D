@@ -122,9 +122,9 @@ run test
 # PublishAppService
 
 
-compile
+# compile
 
-bdd test
+# bdd test
 
 run test
 

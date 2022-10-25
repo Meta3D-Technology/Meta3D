@@ -3,10 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 @react.component
-let make = (~service: service, ~username) => {
+let make = (~service: service, ~account) => {
   <Layout>
     <Layout.Header>
-      <PublishElement service username />
+      <PublishElement service account />
       <ElementController service />
       <RunElementVisualController service />
     </Layout.Header>
@@ -19,7 +19,7 @@ let make = (~service: service, ~username) => {
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content> <ElementVisual service username /> </Layout.Content>
+      <Layout.Content> <ElementVisual service account /> </Layout.Content>
       <Layout.Sider> <ElementInspector service /> <UIControlInspector service /> </Layout.Sider>
     </Layout>
   </Layout>

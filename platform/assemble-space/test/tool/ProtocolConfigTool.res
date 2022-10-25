@@ -1,12 +1,12 @@
 let buildProtocolConfig = (
   ~name="",
   ~version="",
-  ~username="",
+  ~account="",
   ~configStr="",
   (),
 ): FrontendUtils.CommonType.protocolConfig => {
   name: name,
   version: version,
-  username: username,
+  account: account,
   configStr: configStr,
 }

@@ -165,3 +165,20 @@ export let getDataByKey = (collectionName: string, key: string) => {
             })
         })
 }
+
+export let hasData = (collectionName: string, key: string) => BackendService.hasData(getBackend(), collectionName, key)
+
+export let getFileID = BackendService.getFileID
+
+export let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData(getBackend(), _parseShopCollectionDataBody, collectionName, account)
+
+export let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) =>
+    BackendService.updateShopImplementData(getBackend(), collectionName, account, updateData, oldShopImplementCollectionData)
+
+export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+
+export let isContain = BackendService.isContain
+
+export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+
+export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData

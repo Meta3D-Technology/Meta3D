@@ -11,7 +11,7 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
-  ~username,
+  ~account,
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
 ) => {
@@ -24,7 +24,7 @@ let make = (
   })
 
   <Layout>
-    <Layout.Header> <Publish service username /> </Layout.Header>
+    <Layout.Header> <Publish service account /> </Layout.Header>
     <Layout>
       // TODO extract Sider component
       <Layout.Sider>

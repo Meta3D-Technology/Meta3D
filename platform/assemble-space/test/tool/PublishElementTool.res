@@ -1,14 +1,14 @@
 open Sinon
 
-let buildUI = (~sandbox, ~username=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <PublishElement service username />
+let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <PublishElement service account />
 }
 
 let publish = (
   ~sandbox,
   ~service,
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~username=None,
+  ~account=None,
   ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
     list{},
     ReducerTool.buildReducers(),
@@ -25,7 +25,7 @@ let publish = (
     service,
     setVisible,
     (
-      username,
+      account,
       (
         elementInspectorData,
         selectedUIControls,

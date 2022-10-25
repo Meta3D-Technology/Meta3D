@@ -18,7 +18,7 @@ module Method = {
     service,
     setVisible,
     (
-      username,
+      account,
       (
         elementInspectorData: FrontendUtils.ElementAssembleStoreType.elementInspectorData,
         selectedUIControls,
@@ -38,7 +38,7 @@ module Method = {
 
       Meta3dBsMost.Most.mergeArray([
         service.backend.publishElementContribute(.
-          username->Meta3dCommonlib.OptionSt.getExn,
+          account->Meta3dCommonlib.OptionSt.getExn,
           (elementName, elementVersion, protocolName, protocolVersion),
           ElementVisualUtils.generateElementContributeBinaryFile(
             service,
@@ -54,8 +54,8 @@ module Method = {
             ),
           ),
         ),
-        service.backend.publishedelementassembledata(.
-          username->Meta3dCommonlib.OptionSt.getExn,
+        service.backend.publishElementAssembleData(.
+          account->Meta3dCommonlib.OptionSt.getExn,
           elementName,
           elementVersion,
           (
@@ -114,7 +114,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~username: option<string>) => {
+let make = (~service: service, ~account: option<string>) => {
   let (
     elementInspectorData,
     selectedUIControls,
@@ -155,7 +155,7 @@ let make = (~service: service, ~username: option<string>) => {
               service,
               setVisible,
               (
-                username,
+                account,
                 (elementInspectorData, selectedUIControls, selectedUIControlInspectorData),
               ),
               event->Obj.magic,

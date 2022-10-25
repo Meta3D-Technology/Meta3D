@@ -167,7 +167,7 @@ module Method = {
     service,
     setElementAssembleData,
     selectedContributes,
-    username,
+    account,
   ) => {
     switch selectedContributes->SelectedContributesUtils.getElements {
     | elements if elements->Meta3dCommonlib.ListSt.length > 1 =>
@@ -182,7 +182,7 @@ module Method = {
       let {version, newName, data} = element
 
       service.backend.getElementAssembleData(.
-        username->Meta3dCommonlib.OptionSt.getExn,
+        account->Meta3dCommonlib.OptionSt.getExn,
         NewNameUtils.getName(newName, data.contributePackageData.name),
         version,
       )
@@ -310,7 +310,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~username: option<string>) => {
+let make = (~service: service, ~account: option<string>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -344,7 +344,7 @@ let make = (~service: service, ~username: option<string>) => {
       service,
       setElementAssembleData,
       selectedContributes,
-      username,
+      account,
     )->ignore
 
     None

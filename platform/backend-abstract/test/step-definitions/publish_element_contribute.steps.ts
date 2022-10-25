@@ -27,7 +27,7 @@ defineFeature(feature, test => {
     }
 
     function _publish(
-        username = "u1",
+        account = "u1",
         packageData = [
             "",
             "",
@@ -41,7 +41,7 @@ defineFeature(feature, test => {
                 errorFunc(message)
                 throw new Error(message)
             }, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc],
-            username,
+            account,
             packageData,
             contributeBinaryFile
         )
@@ -55,7 +55,7 @@ defineFeature(feature, test => {
 
 
     test('upload file and add to collection', ({ given, when, then, and }) => {
-        let username = "meta3d"
+        let account = "meta3d"
         let name = "test1"
         let version = "0.0.2"
         let protocolName = "test1-protocol"
@@ -81,7 +81,7 @@ defineFeature(feature, test => {
 
         when('publish', () => {
             return _publish(
-                username,
+                account,
                 [
                     name,
                     version,
@@ -119,7 +119,7 @@ defineFeature(feature, test => {
     });
 
     test('if element contribute with the same publisher, name, version exist, throw error', ({ given, when, then, and }) => {
-        let username = "meta3d"
+        let account = "meta3d"
         let name = "test1"
         let version = "0.0.2"
         // let protocolName = "test1-protocol"
@@ -156,7 +156,7 @@ defineFeature(feature, test => {
 
         and('publish', () => {
             return _publish(
-                username,
+                account,
                 [
                     name,
                     version,
@@ -171,7 +171,7 @@ defineFeature(feature, test => {
 
         when('publish with the same publisher, name, version', () => {
             return _publish(
-                username,
+                account,
                 [
                     name,
                     version,

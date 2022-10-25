@@ -23,7 +23,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
         parseShopCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseShopCollectionDataBodyForNodejs;
     }
-    function _publish(username = "u1", packageData = [
+    function _publish(account = "u1", packageData = [
         "",
         "",
         "",
@@ -32,7 +32,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, (message) => {
                 errorFunc(message);
                 throw new Error(message);
-            }, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], username, packageData, contributeBinaryFile);
+            }, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], account, packageData, contributeBinaryFile);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -40,7 +40,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     }
     test('upload file and add to collection', ({ given, when, then, and }) => {
-        let username = "meta3d";
+        let account = "meta3d";
         let name = "test1";
         let version = "0.0.2";
         let protocolName = "test1-protocol";
@@ -57,7 +57,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 }, shopImplementCollectionData]));
         });
         when('publish', () => {
-            return _publish(username, [
+            return _publish(account, [
                 name,
                 version,
                 protocolName,
@@ -89,7 +89,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     });
     test('if element contribute with the same publisher, name, version exist, throw error', ({ given, when, then, and }) => {
-        let username = "meta3d";
+        let account = "meta3d";
         let name = "test1";
         let version = "0.0.2";
         // let protocolName = "test1-protocol"
@@ -115,7 +115,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             ]));
         });
         and('publish', () => {
-            return _publish(username, [
+            return _publish(account, [
                 name,
                 version,
                 // protocolName,
@@ -125,7 +125,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             ], binaryFile).drain();
         });
         when('publish with the same publisher, name, version', () => {
-            return _publish(username, [
+            return _publish(account, [
                 name,
                 version,
                 // protocolName,

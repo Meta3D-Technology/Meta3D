@@ -20,8 +20,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         addShopImplementDataToDataFromShopImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addShopImplementDataToDataFromShopImplementCollectionData;
         parseShopCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseShopCollectionDataBodyForNodejs;
     }
-    function _publish(username = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc], username, elementName, elementVersion, inspectorData);
+    function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, parseShopCollectionDataBodyFunc], account, elementName, elementVersion, inspectorData);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -29,7 +29,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         });
     }
     test('add to collection', ({ given, when, then, and }) => {
-        let username = "meta3d";
+        let account = "meta3d";
         let elementName = "test1";
         let elementVersion = "0.0.2";
         let inspectorData = {
@@ -45,7 +45,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 }, shopImplementCollectionData]));
         });
         when('publish', () => {
-            return _publish(username, elementName, elementVersion, inspectorData).drain();
+            return _publish(account, elementName, elementVersion, inspectorData).drain();
         });
         and('should add to collection', () => {
             expect(updateShopImplementDataFunc).toCalledWith([
@@ -64,7 +64,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
     });
     test('if element assemble data with the same publisher, element name, element version exist, throw error', ({ given, when, then, and }) => {
         let app = { "app": true };
-        let username = "meta3d";
+        let account = "meta3d";
         let elementName = "test1";
         let elementVersion = "0.0.2";
         let inspectorData = {
@@ -91,10 +91,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             ]));
         });
         and('publish', () => {
-            return _publish(username, elementName, elementVersion, inspectorData).drain();
+            return _publish(account, elementName, elementVersion, inspectorData).drain();
         });
         when('publish with the same publisher, element name, element version', () => {
-            return _publish(username, elementName, elementVersion, inspectorData).drain();
+            return _publish(account, elementName, elementVersion, inspectorData).drain();
         });
         then('should error', () => {
             expect(errorFunc.getCall(0).args[0]).toEqual("version: 0.0.2 already exist, please update version");
