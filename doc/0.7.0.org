@@ -137,8 +137,12 @@ perf: fast download
 
 **** DONE enter app
 
+**** DONE perf: showpublishedApp: not download, only show info!
+
+**** TODO enter app->show download progress
 
 **** TODO fix: Publish add key
+
 
 **** TODO fix: showCatch should log stack for console.error's stack
 
@@ -168,7 +172,7 @@ e.g. remove UserCenterStore->username
 
 *** TODO login add isLogin...
 
-*** TODO publish app/element add publish...
+*** TODO publish app/element add publish... and show progress
 
 *** TODO publish all contributes, extensions's implement, protocol
 

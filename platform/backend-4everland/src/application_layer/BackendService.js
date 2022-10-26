@@ -15,7 +15,10 @@ let init = () => {
             secretAccessKey: "5yhjyVdcpNNKjZ9X5sBe3738Lh9KftfDHQ6zkZKL",
             // sessionToken,
         },
-        region: "us-west-2",
+        // region: "us-west-2",
+        region: "cn-north-1"
+        // region: "cn-northwest-1"
+        // region: "ap-east-1"
     });
     (0, Repo_1.setBackend)(s3);
     return (0, most_1.empty)();

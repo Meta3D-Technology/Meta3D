@@ -54,7 +54,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       : <List
           itemLayout=#horizontal
           dataSource={allPublishApps}
-          renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppData) =>
+          renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
             <List.Item>
               <List.Item.Meta
                 key={j`${item.account}_${item.appName}`}

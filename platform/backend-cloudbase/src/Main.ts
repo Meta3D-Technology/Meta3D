@@ -67,10 +67,8 @@ export let findPublishApp = (account, appName) => Abtstract.findPublishApp([
     account, appName
 )
 
-export let findAllPublishApps = (account) => Abtstract.findAllPublishApps([
+export let findAllPublishApps = (account) => Abtstract.findAllPublishApps(
     getDataByKeyContain,
-    getFile
-],
     account
 )
 

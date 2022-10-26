@@ -118,7 +118,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     }
     function _createFuncsForFindAllPublishApps(sandbox) {
         getDataByKeyContainFunc = sandbox.stub();
-        getFileFunc = sandbox.stub();
     }
     test('if not find, findPublishApp return empty', ({ given, and, when, then }) => {
         _prepare(given);
@@ -171,7 +170,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find all published apps', () => {
         });
         then('should return empty array', () => {
-            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyContainFunc, getFileFunc], "").observe(result => {
+            return (0, PublishAppService_1.findAllPublishApps)(getDataByKeyContainFunc, "").observe(result => {
                 expect(result).toEqual([]);
             });
         });
@@ -180,46 +179,35 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         let fileID1 = "1";
         let fileID2 = "2";
         let account1;
-        let appBinaryFile1, appName1;
-        let appBinaryFile2, appName2;
+        let appName1;
+        let appName2;
         _prepare(given);
         and('generate two apps by the same user', () => {
             account1 = "account1";
-            appBinaryFile1 = new ArrayBuffer(10);
-            appName1 = "app1";
-            appBinaryFile2 = new ArrayBuffer(11);
             appName2 = "app2";
         });
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishApps(sandbox);
             getDataByKeyContainFunc.returns((0, most_1.just)([
-                {
-                    account: account1, appName: appName1, fileID: fileID1
-                },
-                {
-                    account: account1, appName: appName2, fileID: fileID2
-                }
+                [{
+                        account: account1, appName: appName1, fileID: fileID1
+                    }],
+                [{
+                        account: account1, appName: appName2, fileID: fileID2
+                    }]
             ]));
-            getFileFunc.withArgs(fileID1).returns((0, most_1.just)(appBinaryFile1));
-            getFileFunc.withArgs(fileID2).returns((0, most_1.just)(appBinaryFile2));
         });
         and('publish the apps', () => {
         });
         when('find all published apps', () => {
         });
         then('should return the apps\' data', () => {
-            return (0, PublishAppService_1.findAllPublishApps)([getDataByKeyContainFunc, getFileFunc], account1).observe(result => {
-                expect(getFileFunc.getCall(0)).toCalledWith([
-                    fileID1
-                ]);
-                expect(getFileFunc.getCall(1)).toCalledWith([
-                    fileID2
-                ]);
+            return (0, PublishAppService_1.findAllPublishApps)(getDataByKeyContainFunc, account1).observe(result => {
                 expect(result).toEqual([{
-                        account: account1, appName: appName1, appBinaryFile: appBinaryFile1
+                        account: account1, appName: appName1
                     },
                     {
-                        account: account1, appName: appName2, appBinaryFile: appBinaryFile2
+                        account: account1, appName: appName2
                     }]);
             });
         });

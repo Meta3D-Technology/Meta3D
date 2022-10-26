@@ -138,10 +138,7 @@ let findPublishApp = (account, appName) => Abtstract.findPublishApp([
     BackendService_1.getFile
 ], account, appName);
 exports.findPublishApp = findPublishApp;
-let findAllPublishApps = (account) => Abtstract.findAllPublishApps([
-    BackendService_1.getDataByKeyContain,
-    BackendService_1.getFile
-], account);
+let findAllPublishApps = (account) => Abtstract.findAllPublishApps(BackendService_1.getDataByKeyContain, account);
 exports.findAllPublishApps = findAllPublishApps;
 function _throwError(msg) {
     throw new Error(msg);

@@ -56,10 +56,9 @@ type getAllPublishContributes = (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
-type publishAppData = {
+type publishAppInfo = {
   account: account,
   appName: string,
-  appBinaryFile: Js.Typed_array.ArrayBuffer.t,
 }
 
 type publishApp = (
@@ -75,7 +74,7 @@ type findPublishApp = (
 
 type findAllPublishApps = (
   . string,
-) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppData>>
+) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppInfo>>
 
 type publishElementContribute = (
   . string,
