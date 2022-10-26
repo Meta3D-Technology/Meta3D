@@ -24,6 +24,8 @@ type shopImplementCollectionData = Array<shopImplementAccountData>
 
 export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {
+        allCollectionData = allCollectionData.slice()
+
         allCollectionData.push(data)
 
         resolve(JSON.stringify(allCollectionData))
@@ -33,6 +35,8 @@ export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollect
 export let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
         console.log("addShopImplementDataToDataFromShopImplementCollectionData:", allCollectionData, data)
+
+        allCollectionData = allCollectionData.slice()
 
         allCollectionData.push(data)
 

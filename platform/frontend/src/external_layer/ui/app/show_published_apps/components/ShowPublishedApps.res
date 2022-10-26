@@ -31,8 +31,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   React.useEffect1(() => {
     service.backend.findAllPublishApps(. account->Meta3dCommonlib.OptionSt.getExn)
     ->Meta3dBsMost.Most.observe(allPublishApps => {
+      Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)
+
+
     }, _)
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)

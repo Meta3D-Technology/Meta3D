@@ -42,11 +42,18 @@ let findPublishApp = ([getDataByKeyFunc, getFileFunc], account, appName) => {
 };
 exports.findPublishApp = findPublishApp;
 let findAllPublishApps = ([getDataByKeyContainFunc, getFileFunc], account) => {
-    return (0, most_1.fromPromise)(getDataByKeyContainFunc("publishedapps", account)).flatMap((data) => {
+    // let fileID = "apps/0xf63e1991a343814ede505d7cfc368615eae75307_zz1.arraybuffer"
+    // return getFileFunc(fileID).map(appBinaryFile => {
+    //     return appBinaryFile
+    // })
+    return getDataByKeyContainFunc("publishedapps", account).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(data.map(({ account, appName, fileID }) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(data
+            .map(d => d[0])
+            .map(({ account, appName, fileID }) => {
+            // fileID = "apps/0xf63e1991a343814ede505d7cfc368615eae75307_zz1.arraybuffer"
             return getFileFunc(fileID).map(appBinaryFile => {
                 return {
                     account,
@@ -54,6 +61,7 @@ let findAllPublishApps = ([getDataByKeyContainFunc, getFileFunc], account) => {
                     appBinaryFile
                 };
             });
+            // return just({ account, appName, fileID })
         })).reduce((result, data) => {
             result.push(data);
             return result;

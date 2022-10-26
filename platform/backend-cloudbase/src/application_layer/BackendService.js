@@ -133,8 +133,8 @@ exports.isContain = BackendService.isContain;
 exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
 exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
 let getDataByKeyContain = (collectionName, value) => {
-    return (0, exports.getDatabase)().collection(collectionName)
+    return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
         .get()
-        .then(res => res.data.filter(({ key }) => key.includes(value)));
+        .then(res => res.data.filter(({ key }) => key.includes(value))));
 };
 exports.getDataByKeyContain = getDataByKeyContain;

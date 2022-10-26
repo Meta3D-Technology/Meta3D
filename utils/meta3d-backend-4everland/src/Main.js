@@ -4,6 +4,7 @@ exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFile
 const most_1 = require("most");
 let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
+        allCollectionData = allCollectionData.slice();
         allCollectionData.push(data);
         resolve(JSON.stringify(allCollectionData));
     });
@@ -12,6 +13,7 @@ exports.addShopProtocolDataToDataFromShopProtocolCollectionData = addShopProtoco
 let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         console.log("addShopImplementDataToDataFromShopImplementCollectionData:", allCollectionData, data);
+        allCollectionData = allCollectionData.slice();
         allCollectionData.push(data);
         resolve(allCollectionData);
     });

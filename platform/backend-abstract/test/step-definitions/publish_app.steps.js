@@ -166,7 +166,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishApps(sandbox);
-            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([]));
+            getDataByKeyContainFunc.returns((0, most_1.just)([]));
         });
         when('find all published apps', () => {
         });
@@ -192,7 +192,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishApps(sandbox);
-            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([
+            getDataByKeyContainFunc.returns((0, most_1.just)([
                 {
                     account: account1, appName: appName1, fileID: fileID1
                 },

@@ -128,6 +128,8 @@ run test
 
 run test
 
+s3:
+perf: fast download
 
 
 
@@ -136,6 +138,8 @@ run test
 **** DONE enter app
 
 
+**** TODO fix: Publish add key
+
 **** TODO fix: showCatch should log stack for console.error's stack
 
 **** TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
@@ -143,6 +147,7 @@ run test
 e.g. meta3d-ui-control-button-protocol
 
 
+**** TODO fix: shop-> switch when refresh component may cause bug
 
 
 
@@ -162,6 +167,8 @@ e.g. remove UserCenterStore->username
 
 
 *** TODO login add isLogin...
+
+*** TODO publish app/element add publish...
 
 *** TODO publish all contributes, extensions's implement, protocol
 

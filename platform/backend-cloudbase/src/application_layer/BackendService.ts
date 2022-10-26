@@ -167,7 +167,7 @@ export let buildShopImplementAccountData = BackendService.buildShopImplementAcco
 export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
 
 export let getDataByKeyContain = (collectionName: string, value: string) => {
-	return getDatabase().collection(collectionName)
+	return fromPromise(getDatabase().collection(collectionName)
 		.get()
-		.then(res => res.data.filter(({ key }: { key: string }) => key.includes(value)))
+		.then(res => res.data.filter(({ key }: { key: string }) => key.includes(value))))
 }

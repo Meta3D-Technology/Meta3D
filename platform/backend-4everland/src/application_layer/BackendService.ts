@@ -15,6 +15,7 @@ export let init = () => {
             // sessionToken,
         },
         region: "us-west-2",
+        // region: "Beijing"
     } as any);
 
 
@@ -122,7 +123,7 @@ export let uploadFile = (onUploadProgressFunc, filePath: string, fileContent: Ar
         onUploadProgressFunc(percentCompleted)
     })
 
-    return task.done()
+    return fromPromise(task.done())
 }
 
 export let updateData = (collectionName: string, key: string, updateData: any) => {
@@ -158,15 +159,11 @@ let _getObjectWithJsonBody = (collectionName, key) => {
 }
 
 export let getDataByKey = (collectionName: string, key: string) => {
-    return _getObjectWithJsonBody(collectionName, collectionName)
+    return _getObjectWithJsonBody(collectionName, key)
         .then((body) => {
             console.log("getDataByKeyFunc:", key, body)
 
-            key = BackendService.handleKeyToLowercase(key)
-
-            return body.filter((data) => {
-                return data.key === key
-            })
+            return body
         })
 }
 
@@ -174,11 +171,15 @@ export let getDataByKeyContain = (collectionName: string, value: string) => {
     return fromPromise(getBackend().listObjects({
         Bucket: collectionName
     }).then(data => {
+        if (data.Contents === undefined) {
+            return []
+        }
+
         return data.Contents.filter(({ Key }) => {
             return Key.includes(value)
         })
-    })).map(data => {
-        return mergeArray(
+    })).flatMap(data => {
+        return fromPromise(mergeArray(
             data.map(({ Key }) => {
                 return fromPromise(_getObjectWithJsonBody(collectionName, Key))
             })
@@ -188,7 +189,7 @@ export let getDataByKeyContain = (collectionName: string, value: string) => {
 
                 return result
             }, []
-        )
+        ))
     })
 }
 

@@ -250,7 +250,7 @@ defineFeature(feature, test => {
             _createFuncsForFindAllPublishApps(sandbox)
 
             getDataByKeyContainFunc.returns(
-                resolve([])
+                just([])
             )
         });
 
@@ -291,7 +291,7 @@ defineFeature(feature, test => {
             _createFuncsForFindAllPublishApps(sandbox)
 
             getDataByKeyContainFunc.returns(
-                resolve([
+                just([
                     {
                         account: account1, appName: appName1, fileID: fileID1
                     },

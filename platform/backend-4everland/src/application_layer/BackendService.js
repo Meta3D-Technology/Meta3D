@@ -99,7 +99,7 @@ let uploadFile = (onUploadProgressFunc, filePath, fileContent, fileName) => {
         const percentCompleted = ((e.loaded / e.total) * 100) | 0;
         onUploadProgressFunc(percentCompleted);
     });
-    return task.done();
+    return (0, most_1.fromPromise)(task.done());
 };
 exports.uploadFile = uploadFile;
 let updateData = (collectionName, key, updateData) => {
@@ -122,13 +122,10 @@ let _getObjectWithJsonBody = (collectionName, key) => {
         .then(data => _parseShopCollectionDataBody("json", data));
 };
 let getDataByKey = (collectionName, key) => {
-    return _getObjectWithJsonBody(collectionName, collectionName)
+    return _getObjectWithJsonBody(collectionName, key)
         .then((body) => {
         console.log("getDataByKeyFunc:", key, body);
-        key = BackendService.handleKeyToLowercase(key);
-        return body.filter((data) => {
-            return data.key === key;
-        });
+        return body;
     });
 };
 exports.getDataByKey = getDataByKey;
@@ -136,16 +133,19 @@ let getDataByKeyContain = (collectionName, value) => {
     return (0, most_1.fromPromise)((0, Repo_1.getBackend)().listObjects({
         Bucket: collectionName
     }).then(data => {
+        if (data.Contents === undefined) {
+            return [];
+        }
         return data.Contents.filter(({ Key }) => {
             return Key.includes(value);
         });
-    })).map(data => {
-        return (0, most_1.mergeArray)(data.map(({ Key }) => {
+    })).flatMap(data => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(data.map(({ Key }) => {
             return (0, most_1.fromPromise)(_getObjectWithJsonBody(collectionName, Key));
         })).reduce((result, data) => {
             result.push(data);
             return result;
-        }, []);
+        }, []));
     });
 };
 exports.getDataByKeyContain = getDataByKeyContain;
