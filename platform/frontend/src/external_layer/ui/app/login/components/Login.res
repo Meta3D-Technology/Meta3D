@@ -7,12 +7,17 @@ type values = {account: string, password: string}
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
+  let (isLoginBegin, setIsLoginBegin) = React.useState(_ => false)
+
   let _login = () => {
     MetamaskExtend.ethereum->Meta3dCommonlib.NullableSt.isNullable
       ? {
+          setIsLoginBegin(_ => false)
           Message.error(. {j`请开启MetaMask钱包`}, 5)
         }
       : {
+          setIsLoginBegin(_ => true)
+
           let accountRef = ref(Obj.magic(1))
 
           let {request} = MetamaskExtend.ethereum->Meta3dCommonlib.NullableSt.unsafeGet
@@ -33,6 +38,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             RescriptReactRouter.push("/")
           }, _)
           ->Meta3dBsMost.Most.drain
+          ->Js.Promise.then_(_ => {
+            setIsLoginBegin(_ => false)
+
+            ()->Js.Promise.resolve
+          }, _)
           ->Js.Promise.catch(e => {
             Message.error(.
               e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
@@ -80,5 +90,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         {React.string(`如何开启MetaMask钱包？`)}
       </a>
     </h1>
+    {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
   </>
 }

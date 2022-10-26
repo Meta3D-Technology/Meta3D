@@ -147,7 +147,7 @@ production
 
 **** DONE publish app/element add publish... and show progress
 
-**** TODO login add isLogin...
+**** DONE login add isLogin...
 
 
 **** TODO perf: shop not download; download when select(and show download progress)
