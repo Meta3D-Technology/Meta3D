@@ -7,6 +7,8 @@ let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ())
 let publish = (
   ~sandbox,
   ~service,
+  ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account=None,
   ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
@@ -23,15 +25,8 @@ let publish = (
 ) => {
   PublishElement.Method.onFinish(
     service,
-    setVisible,
-    (
-      account,
-      (
-        elementInspectorData,
-        selectedUIControls,
-        selectedUIControlInspectorData,
-      ),
-    ),
+    (setUploadProgress, setIsUploadBegin, setVisible),
+    (account, (elementInspectorData, selectedUIControls, selectedUIControlInspectorData)),
     values,
   )
 }

@@ -16,7 +16,7 @@ module Method = {
 
   let onFinish = (
     service,
-    setVisible,
+    (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
       (
@@ -36,8 +36,11 @@ module Method = {
       let protocolName = ElementContributeUtils.getElementContributeProtocolName()
       let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
 
+      setIsUploadBegin(_ => true)
+
       Meta3dBsMost.Most.mergeArray([
         service.backend.publishElementContribute(.
+          progress => setUploadProgress(_ => progress),
           account->Meta3dCommonlib.OptionSt.getExn,
           (elementName, elementVersion, protocolName, protocolVersion),
           ElementVisualUtils.generateElementContributeBinaryFile(
@@ -82,6 +85,7 @@ module Method = {
       ])
       ->Meta3dBsMost.Most.drain
       ->Js.Promise.then_(_ => {
+        setIsUploadBegin(_ => false)
         setVisible(_ => false)
 
         ()->Js.Promise.resolve
@@ -123,6 +127,9 @@ let make = (~service: service, ~account: option<string>) => {
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
+  let (uploadProgress, setUploadProgress) = service.react.useState(_ => 0)
+  let (isUploadBegin, setIsUploadBegin) = service.react.useState(_ => false)
+
   <>
     <Button
       onClick={_ => {
@@ -140,59 +147,61 @@ let make = (~service: service, ~account: option<string>) => {
         setVisible(_ => false)
       }}
       footer={React.null}>
-      <Form
-      // labelCol={{
-      //   "span": 8,
-      // }}
-      // wrapperCol={{
-      //   "span": 6,
-      // }}
-        initialValues={{
-          "remember": true,
-        }}
-        onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-            Method.onFinish(
-              service,
-              setVisible,
-              (
-                account,
-                (elementInspectorData, selectedUIControls, selectedUIControlInspectorData),
-              ),
-              event->Obj.magic,
-            )->ignore
-          }, 5->Some)}
-        // onFinishFailed={Method.onFinishFailed(service)}
-        autoComplete="off">
-        <Form.Item
-          label=`Element名`
-          name="elementName"
-          rules={[
-            {
-              required: true,
-              message: `输入Element名`,
-            },
-          ]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label=`Element版本号`
-          name="elementVersion"
-          rules={[
-            {
-              required: true,
-              message: `输入Element版本号`,
-            },
-          ]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            "offset": 8,
-            "span": 16,
-          }}>
-          <Button htmlType="submit"> {React.string(`发布`)} </Button>
-        </Form.Item>
-      </Form>
+      {isUploadBegin
+        ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
+        : <Form
+          // labelCol={{
+          //   "span": 8,
+          // }}
+          // wrapperCol={{
+          //   "span": 6,
+          // }}
+            initialValues={{
+              "remember": true,
+            }}
+            onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                Method.onFinish(
+                  service,
+                  (setUploadProgress, setIsUploadBegin, setVisible),
+                  (
+                    account,
+                    (elementInspectorData, selectedUIControls, selectedUIControlInspectorData),
+                  ),
+                  event->Obj.magic,
+                )->ignore
+              }, 5->Some)}
+            // onFinishFailed={Method.onFinishFailed(service)}
+            autoComplete="off">
+            <Form.Item
+              label=`Element名`
+              name="elementName"
+              rules={[
+                {
+                  required: true,
+                  message: `输入Element名`,
+                },
+              ]}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label=`Element版本号`
+              name="elementVersion"
+              rules={[
+                {
+                  required: true,
+                  message: `输入Element版本号`,
+                },
+              ]}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                "offset": 8,
+                "span": 16,
+              }}>
+              <Button htmlType="submit"> {React.string(`发布`)} </Button>
+            </Form.Item>
+          </Form>}
     </Modal>
   </>
 }

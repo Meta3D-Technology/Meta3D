@@ -1,12 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.curry4_1 = exports.curry3_1 = exports.curry4 = exports.curry3 = exports.curry2 = void 0;
 // export function curry2<T, K, R>(func: (param1: T, param2: K) => R): (param1: T) => (param2: K) => R {
-export function curry2(func) {
+function curry2(func) {
     return (param1) => {
         return (param2) => {
             return func(param1, param2);
         };
     };
 }
-export function curry3(func) {
+exports.curry2 = curry2;
+function curry3(func) {
     return (param1) => {
         return (param2) => {
             return (param3) => {
@@ -15,7 +19,8 @@ export function curry3(func) {
         };
     };
 }
-export function curry4(func) {
+exports.curry3 = curry3;
+function curry4(func) {
     return (param1) => {
         return (param2) => {
             return (param3) => {
@@ -26,18 +31,20 @@ export function curry4(func) {
         };
     };
 }
-export function curry3_1(func) {
+exports.curry4 = curry4;
+function curry3_1(func) {
     return (param1) => {
         return (param2, param3) => {
             return func(param1, param2, param3);
         };
     };
 }
-export function curry4_1(func) {
+exports.curry3_1 = curry3_1;
+function curry4_1(func) {
     return (param1) => {
         return (param2, param3, param4) => {
             return func(param1, param2, param3, param4);
         };
     };
 }
-//# sourceMappingURL=Curry.js.map
+exports.curry4_1 = curry4_1;

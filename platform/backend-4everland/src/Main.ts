@@ -166,8 +166,8 @@ export let getAllPublishContributes = (protocolName, protocolVersion) => Abtstra
     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion)
 
-export let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
-    console.log,
+export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abtstract.publishApp([
+    onUploadProgressFunc,
     uploadFile,
     hasData,
     addData,
@@ -194,11 +194,12 @@ function _throwError(msg: string): never {
 }
 
 export let publishElementContribute = (
+    onUploadProgressFunc,
     account,
     packageData,
     contributeBinaryFile,
 ) => Abtstract.publishElementContribute([
-    console.log,
+    onUploadProgressFunc,
     _throwError, uploadFile, getShopImplementAccountData, updateShopImplementData,
     getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
     getFileID

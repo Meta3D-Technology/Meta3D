@@ -8,6 +8,8 @@ let publish = (
   ~sandbox,
   ~service,
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account=None,
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
@@ -19,7 +21,7 @@ let publish = (
 ) => {
   Publish.Method.onFinish(
     service,
-    setVisible,
+    (setUploadProgress, setIsUploadBegin, setVisible),
     (account, selectedExtensions, selectedContributes, canvasData),
     values,
   )

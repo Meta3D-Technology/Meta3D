@@ -145,12 +145,21 @@ run test:
 local
 production
 
-**** TODO publish app/element add publish... and show progress
+**** DONE publish app/element add publish... and show progress
+
+**** TODO login add isLogin...
+
+
+**** TODO perf: shop not download; download when select(and show download progress)
+
 
 **** TODO fix: Publish add key
 
 
-**** TODO fix: showCatch should log stack for console.error's stack
+**** TODO fix: catch/showCatch should log stack for console.error's stack
+
+**** TODO perf: extension shop not show inner protocols:  meta3d-element-assemble-visual-protocol, meta3d-element-assemble-visual-run-protocol
+
 
 **** TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
 
@@ -176,7 +185,6 @@ rename BackendCloudbase2 to BackendCloudbase
 e.g. remove UserCenterStore->username
 
 
-*** TODO login add isLogin...
 
 
 *** TODO publish all contributes, extensions's implement, protocol

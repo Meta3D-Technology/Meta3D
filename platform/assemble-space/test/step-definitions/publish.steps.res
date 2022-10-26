@@ -191,6 +191,8 @@ defineFeature(feature, test => {
     let generateAppStub = ref(Obj.magic(1))
     let convertAllFileDataStub = ref(Obj.magic(1))
     let publishAppStub = ref(Obj.magic(1))
+    let setUploadProgressStub = ref(Obj.magic(1))
+    let setIsUploadBeginStub = ref(Obj.magic(1))
     let setVisibleStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -233,10 +235,14 @@ defineFeature(feature, test => {
       publishAppStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
+      setUploadProgressStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
       setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       PublishTool.publish(
         ~sandbox,
+        ~setUploadProgress=setUploadProgressStub.contents->Obj.magic,
+        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
         ~setVisible=setVisibleStub.contents->Obj.magic,
         ~canvasData=canvasData.contents,
         ~account="u1"->Some,
@@ -256,7 +262,18 @@ defineFeature(feature, test => {
       )
     })
 
-    then(
+    then("should mark begin upload", () => {
+      let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
+
+      (
+        setIsUploadBeginStub.contents
+        ->getCall(0, _)
+        ->calledBefore(publishAppStub.contents->getCall(0, _)),
+        func(),
+      )->expect == (true, true)
+    })
+
+    \"and"(
       "should generat app with correct extension data and contribute data and start config data",
       () => {
         (
@@ -275,8 +292,19 @@ defineFeature(feature, test => {
     \"and"("should publish the generated app", () => {
       publishAppStub.contents
       ->Obj.magic
-      ->SinonTool.calledWithArg3(appBinaryFile, appName, account)
+      ->SinonTool.calledWithArg4(matchAny, appBinaryFile, appName, account)
       ->expect == true
+    })
+
+    then("should mark finish upload", () => {
+      let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
+
+      (
+        setIsUploadBeginStub.contents
+        ->getCall(1, _)
+        ->calledAfter(publishAppStub.contents->getCall(0, _)),
+        func(),
+      )->expect == (true, false)
     })
 
     \"and"("should close modal", () => {

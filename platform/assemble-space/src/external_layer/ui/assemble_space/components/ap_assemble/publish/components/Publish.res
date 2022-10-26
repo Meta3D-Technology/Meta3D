@@ -56,7 +56,7 @@ module Method = {
 
   let onFinish = (
     service,
-    setVisible,
+    (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
       selectedExtensions,
@@ -97,13 +97,17 @@ module Method = {
                 )->Meta3dCommonlib.NullableSt.return,
               )
 
+              setIsUploadBegin(_ => true)
+
               service.backend.publishApp(.
+                progress => setUploadProgress(_ => progress),
                 appBinaryFile,
                 appName,
                 account->Meta3dCommonlib.OptionSt.getExn,
               )
               ->Meta3dBsMost.Most.drain
               ->Js.Promise.then_(_ => {
+                setIsUploadBegin(_ => false)
                 setVisible(_ => false)
 
                 ()->Js.Promise.resolve
@@ -144,6 +148,9 @@ let make = (~service: service, ~account: option<string>) => {
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
+  let (uploadProgress, setUploadProgress) = service.react.useState(_ => 0)
+  let (isUploadBegin, setIsUploadBegin) = service.react.useState(_ => false)
+
   <>
     <Button
       onClick={_ => {
@@ -162,74 +169,76 @@ let make = (~service: service, ~account: option<string>) => {
             setVisible(_ => false)
           }}
           footer={React.null}>
-          <Form
-            labelCol={{
-              "span": 8,
-            }}
-            wrapperCol={{
-              "span": 6,
-            }}
-            initialValues={{
-              "remember": true,
-            }}
-            onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-                Method.onFinish(
+          {isUploadBegin
+            ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
+            : <Form
+                labelCol={{
+                  "span": 8,
+                }}
+                wrapperCol={{
+                  "span": 6,
+                }}
+                initialValues={{
+                  "remember": true,
+                }}
+                onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                    Method.onFinish(
+                      service,
+                      (setUploadProgress, setIsUploadBegin, setVisible),
+                      (account, selectedExtensions, selectedContributes, canvasData),
+                      event->Obj.magic,
+                    )->ignore
+                  }, 5->Some)}
+                // onFinishFailed={Method.onFinishFailed(service)}
+                autoComplete="off">
+                <Form.Item
+                  label=`应用名`
+                  name="appName"
+                  rules={[
+                    {
+                      required: true,
+                      message: `输入应用名`,
+                    },
+                  ]}>
+                  <Input />
+                </Form.Item>
+                <h1> {React.string(`Config Data`)} </h1>
+                {Method.getStartExtensionNeedConfigData(
                   service,
-                  setVisible,
-                  (account, selectedExtensions, selectedContributes, canvasData),
-                  event->Obj.magic,
-                )->ignore
-              }, 5->Some)}
-            // onFinishFailed={Method.onFinishFailed(service)}
-            autoComplete="off">
-            <Form.Item
-              label=`应用名`
-              name="appName"
-              rules={[
-                {
-                  required: true,
-                  message: `输入应用名`,
-                },
-              ]}>
-              <Input />
-            </Form.Item>
-            <h1> {React.string(`Config Data`)} </h1>
-            {Method.getStartExtensionNeedConfigData(
-              service,
-              selectedExtensions,
-            )->Meta3dCommonlib.Result.either(
-              startExtensionNeedConfigData => {
-                startExtensionNeedConfigData
-                ->Meta3dCommonlib.ArraySt.map((
-                  item: Meta3dType.StartExtensionProtocolConfigType.configData,
-                ) => {
-                  <Form.Item label={item.name} name={j`configData_${item.name}`}>
-                    {switch item.type_ {
-                    | #bool =>
-                      <Select>
-                        <Select.Option value={`true`}> {React.string(`true`)} </Select.Option>
-                        <Select.Option value={`false`}> {React.string(`false`)} </Select.Option>
-                      </Select>
-                    | #int
-                    | #string =>
-                      <Input />
-                    }}
-                  </Form.Item>
-                })
-                ->React.array
-              },
-              failMessage => {
-                React.null
-              },
-            )}
-            <Form.Item
-              wrapperCol={{
-                "offset": 8,
-                "span": 16,
-              }}>
-              <Button htmlType="submit"> {React.string(`发布`)} </Button>
-            </Form.Item>
-          </Form>
+                  selectedExtensions,
+                )->Meta3dCommonlib.Result.either(
+                  startExtensionNeedConfigData => {
+                    startExtensionNeedConfigData
+                    ->Meta3dCommonlib.ArraySt.map((
+                      item: Meta3dType.StartExtensionProtocolConfigType.configData,
+                    ) => {
+                      <Form.Item label={item.name} name={j`configData_${item.name}`}>
+                        {switch item.type_ {
+                        | #bool =>
+                          <Select>
+                            <Select.Option value={`true`}> {React.string(`true`)} </Select.Option>
+                            <Select.Option value={`false`}> {React.string(`false`)} </Select.Option>
+                          </Select>
+                        | #int
+                        | #string =>
+                          <Input />
+                        }}
+                      </Form.Item>
+                    })
+                    ->React.array
+                  },
+                  failMessage => {
+                    React.null
+                  },
+                )}
+                <Form.Item
+                  wrapperCol={{
+                    "offset": 8,
+                    "span": 16,
+                  }}>
+                  <Button htmlType="submit"> {React.string(`发布`)} </Button>
+                </Form.Item>
+              </Form>}
         </Modal>
       : React.null}
   </>

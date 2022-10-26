@@ -34,6 +34,8 @@ Feature: Publish
             And select start extension e3
             And prepare config data
             When publish app
-            Then should generat app with correct extension data and contribute data and start config data
+            Then should mark begin upload
+            And should generat app with correct extension data and contribute data and start config data
             And should publish the generated app
+            And should mark finish upload
             And should close modal

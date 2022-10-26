@@ -61,8 +61,11 @@ type publishAppInfo = {
   appName: string,
 }
 
+type onUploadProgressFunc = int => unit
+
 type publishApp = (
-  . Js.Typed_array.ArrayBuffer.t,
+  . onUploadProgressFunc,
+  Js.Typed_array.ArrayBuffer.t,
   string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
@@ -80,7 +83,8 @@ type findAllPublishApps = (
 ) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppInfo>>
 
 type publishElementContribute = (
-  . string,
+  . onUploadProgressFunc,
+  string,
   (string, string, string, string),
   Js.Typed_array.ArrayBuffer.t,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>

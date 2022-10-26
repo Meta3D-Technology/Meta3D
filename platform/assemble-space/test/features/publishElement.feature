@@ -30,12 +30,14 @@ Feature: Publish Element
 
         Scenario: publish element contribute
             When publish
-            Then should publish generated element contribute
+            Then should mark begin upload
+            And should publish generated element contribute
 
-    Scenario: publish element assemble data
-        When publish
-        Then should publish element assemble data
+        Scenario: publish element assemble data
+            When publish
+            Then should publish element assemble data
 
-    Scenario: close modal after publish successfully
-        When publish
-        Then should close modal
+        Scenario: handle after publish successfully
+            When publish
+            Then should mark finish upload
+            And should close modal

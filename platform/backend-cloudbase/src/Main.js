@@ -34,8 +34,8 @@ let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getA
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion);
 exports.getAllPublishContributes = getAllPublishContributes;
-let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
-    console.log,
+let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abtstract.publishApp([
+    onUploadProgressFunc,
     BackendService_1.uploadFile,
     BackendService_1.hasData,
     BackendService_1.addData,
@@ -53,8 +53,8 @@ exports.findAllPublishApps = findAllPublishApps;
 function _throwError(msg) {
     throw new Error(msg);
 }
-let publishElementContribute = (account, packageData, contributeBinaryFile) => Abtstract.publishElementContribute([
-    console.log,
+let publishElementContribute = (onUploadProgressFunc, account, packageData, contributeBinaryFile) => Abtstract.publishElementContribute([
+    onUploadProgressFunc,
     _throwError, BackendService_1.uploadFile, BackendService_1.getShopImplementAccountData, BackendService_1.updateShopImplementData,
     BackendService_1.getDataFromShopImplementAccountData, BackendService_1.isContain, BackendService_1.buildShopImplementAccountData, BackendService_1.addShopImplementDataToDataFromShopImplementCollectionData,
     BackendService_1.getFileID

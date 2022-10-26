@@ -222,18 +222,22 @@ defineFeature(feature, test => {
   test(."publish element contribute", ({given, \"when", \"and", then}) => {
     let publishElementContributeStub = ref(Obj.magic(1))
     let elementContributeBinaryFile = Js.Typed_array.ArrayBuffer.make(11)
+    let setIsUploadBeginStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
+      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
       publishElementContributeStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
       PublishElementTool.publish(
         ~sandbox,
         ~account=account.contents->Some,
+        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
         ~values={
           "elementName": elementName.contents,
           "elementVersion": elementVersion.contents,
@@ -253,10 +257,22 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should publish generated element contribute", () => {
+    then("should mark begin upload", () => {
+      let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
+
+      (
+        setIsUploadBeginStub.contents
+        ->getCall(0, _)
+        ->calledBefore(publishElementContributeStub.contents->getCall(0, _)),
+        func(),
+      )->expect == (true, true)
+    })
+
+    \"and"("should publish generated element contribute", () => {
       publishElementContributeStub.contents
       ->Obj.magic
-      ->SinonTool.calledWithArg3(
+      ->SinonTool.calledWithArg4(
+        matchAny,
         account.contents,
         (
           elementName.contents,
@@ -329,32 +345,47 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."close modal after publish successfully", ({given, \"when", \"and", then}) => {
+  test(."handle after publish successfully", ({given, \"when", \"and", then}) => {
+    let setIsUploadBeginStub = ref(Obj.magic(1))
     let setVisibleStub = ref(Obj.magic(1))
+    let publishElementContributeStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     _prepareData(given)
 
     CucumberAsync.execStep(\"when", "publish", () => {
+      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
       setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      publishElementContributeStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
 
       PublishElementTool.publish(
         ~sandbox,
         ~account=account.contents->Some,
+        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
         ~setVisible=setVisibleStub.contents->Obj.magic,
         ~service=ServiceTool.build(
           ~sandbox,
-          ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(Meta3dBsMost.Most.empty(), _)
-          ->Obj.magic,
+          ~publishElementContribute=publishElementContributeStub.contents->Obj.magic,
           (),
         ),
         (),
       )
     })
 
-    then("should close modal", () => {
+    then("should mark finish upload", () => {
+      let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
+
+      (
+        setIsUploadBeginStub.contents
+        ->getCall(1, _)
+        ->calledAfter(publishElementContributeStub.contents->getCall(0, _)),
+        func(),
+      )->expect == (true, false)
+    })
+
+    \"and"("should close modal", () => {
       let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
 
       func()->expect == false
