@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -153,13 +153,13 @@ let getFileDataFromShopImplementCollectionData = (data) => {
     return data.fileData;
 };
 exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
-let getFile = (app, parseShopCollectionDataBody, fileID) => {
+let downloadFile = (app, parseShopCollectionDataBody, fileID) => {
     return (0, most_1.fromPromise)(app.getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {
         return (0, most_1.fromPromise)(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()));
     });
 };
-exports.getFile = getFile;
+exports.downloadFile = downloadFile;
 exports.parseShopCollectionDataBodyForNodejs = null;
 //# sourceMappingURL=Main.js.map

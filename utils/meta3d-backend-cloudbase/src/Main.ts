@@ -203,7 +203,7 @@ export let getFileDataFromShopImplementCollectionData = (data: collectionData) =
     return data.fileData
 }
 
-export let getFile = (app: any, parseShopCollectionDataBody, fileID: string) => {
+export let downloadFile = (app: any, parseShopCollectionDataBody, fileID: string) => {
     return fromPromise(app.getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {

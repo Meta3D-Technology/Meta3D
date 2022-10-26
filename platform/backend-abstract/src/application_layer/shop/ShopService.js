@@ -21,7 +21,7 @@ let getAllPublishProtocolConfigData = ([getShopProtocolCollectionFunc, getDataFr
     });
 };
 exports.getAllPublishProtocolConfigData = getAllPublishProtocolConfigData;
-let getAllPublishData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, getFileFunc], collectionName, protocolName, protocolVersion) => {
+let getAllPublishData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, downloadFileFunc], collectionName, protocolName, protocolVersion) => {
     return (0, most_1.fromPromise)(getShopImplementCollectionFunc(collectionName)).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
             let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData);
@@ -36,7 +36,7 @@ let getAllPublishData = ([getShopImplementCollectionFunc, mapShopImplementCollec
             return (0, most_1.from)(result.map(({ fileID, version }) => {
                 return [fileID, version];
             })).flatMap(([fileID, version]) => {
-                return getFileFunc(fileID).map(arrayBuffer => {
+                return downloadFileFunc(fileID).map(arrayBuffer => {
                     return { id: fileID, file: arrayBuffer, version, account: account };
                 });
             });

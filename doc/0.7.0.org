@@ -139,7 +139,13 @@ perf: fast download
 
 **** DONE perf: showpublishedApp: not download, only show info!
 
-**** TODO enter app->show download progress
+**** DONE enter app->show download progress
+
+run test:
+local
+production
+
+**** TODO publish app/element add publish... and show progress
 
 **** TODO fix: Publish add key
 
@@ -172,7 +178,6 @@ e.g. remove UserCenterStore->username
 
 *** TODO login add isLogin...
 
-*** TODO publish app/element add publish... and show progress
 
 *** TODO publish all contributes, extensions's implement, protocol
 

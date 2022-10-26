@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, getFileFunc], collectionName, protocolName) => {
+let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, downloadFileFunc], collectionName, protocolName) => {
     return (0, most_1.fromPromise)(getShopImplementCollectionFunc(collectionName)).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
             let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData);
@@ -17,7 +17,7 @@ let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplement
             return (0, most_1.from)(result.map(({ fileID, version, protocolVersion }) => {
                 return [fileID, version, protocolVersion];
             })).flatMap(([fileID, version, protocolVersion]) => {
-                return getFileFunc(fileID).map(arrayBuffer => {
+                return downloadFileFunc(fileID).map(arrayBuffer => {
                     return {
                         id: fileID, file: arrayBuffer, version, account,
                         protocolVersion: (0, semver_1.minVersion)(protocolVersion),

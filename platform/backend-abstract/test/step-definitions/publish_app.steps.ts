@@ -11,7 +11,7 @@ const feature = loadFeature("./test/features/publish_app.feature")
 defineFeature(feature, test => {
     let sandbox = null
     let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc
-    let getDataByKeyFunc, getFileFunc
+    let getDataByKeyFunc, downloadFileFunc
     let getDataByKeyContainFunc
 
     function _createFuncsForPublish(sandbox) {
@@ -170,7 +170,7 @@ defineFeature(feature, test => {
 
     function _createFuncsForFindPublishApp(sandbox) {
         getDataByKeyFunc = sandbox.stub()
-        getFileFunc = sandbox.stub()
+        downloadFileFunc = sandbox.stub()
     }
 
     function _createFuncsForFindAllPublishApps(sandbox) {
@@ -193,7 +193,7 @@ defineFeature(feature, test => {
 
         then('should return empty', () => {
             return findPublishApp(
-                [getDataByKeyFunc, getFileFunc],
+                [getDataByKeyFunc, downloadFileFunc],
                 "", ""
             ).observe(result => {
                 expect(result).toBeNull()
@@ -217,7 +217,7 @@ defineFeature(feature, test => {
                     }
                 ])
             )
-            getFileFunc.returns(just(appBinaryFile))
+            downloadFileFunc.returns(just(appBinaryFile))
         });
 
         and('generate a app', () => {
@@ -231,10 +231,10 @@ defineFeature(feature, test => {
 
         then('should return the app file', () => {
             return findPublishApp(
-                [getDataByKeyFunc, getFileFunc],
+                [getDataByKeyFunc, downloadFileFunc],
                 "", ""
             ).observe(result => {
-                expect(getFileFunc).toCalledWith([
+                expect(downloadFileFunc).toCalledWith([
                     fileID
                 ])
                 expect(result).toEqual(appBinaryFile)
@@ -287,12 +287,12 @@ defineFeature(feature, test => {
 
             getDataByKeyContainFunc.returns(
                 just([
-                    [{
+                    {
                         account: account1, appName: appName1, fileID: fileID1
-                    }],
-                    [{
+                    },
+                    {
                         account: account1, appName: appName2, fileID: fileID2
-                    }]
+                    }
                 ])
             )
         });

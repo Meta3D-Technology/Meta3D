@@ -95,6 +95,7 @@ exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports
 //     console.log("error")
 // })
 const Abtstract = require("backend-abstract");
+const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 let init = () => Abtstract.init(BackendService_1.init);
 exports.init = init;
@@ -113,7 +114,7 @@ let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstract.getAl
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName, protocolVersion);
 exports.getAllPublishExtensions = getAllPublishExtensions;
 let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
@@ -121,7 +122,7 @@ let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getA
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion);
 exports.getAllPublishContributes = getAllPublishContributes;
 let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
@@ -133,9 +134,9 @@ let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
     BackendService_1.getFileID,
 ], appBinaryFile, appName, account);
 exports.publishApp = publishApp;
-let findPublishApp = (account, appName) => Abtstract.findPublishApp([
+let findPublishApp = (onDownloadProgressFunc, account, appName) => Abtstract.findPublishApp([
     BackendService_1.getDataByKey,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], account, appName);
 exports.findPublishApp = findPublishApp;
 let findAllPublishApps = (account) => Abtstract.findAllPublishApps(BackendService_1.getDataByKeyContain, account);
@@ -155,12 +156,13 @@ let publishElementAssembleData = (account, elementName, elementVersion, inspecto
     BackendService_1.getShopImplementAccountData, BackendService_1.updateShopImplementData, BackendService_1.getDataFromShopImplementAccountData, BackendService_1.isContain, BackendService_1.buildShopImplementAccountData, BackendService_1.addShopImplementDataToDataFromShopImplementCollectionData,
 ], account, elementName, elementVersion, inspectorData);
 exports.publishElementAssembleData = publishElementAssembleData;
+let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log;
 let getAllPublishNewestExtensions = (protocolName) => Abtstract.getAllPublishNewestData([
     BackendService_1.getShopImplementCollection,
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName);
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
 let getElementAssembleData = (account, elementName, elementVersion) => Abtstract.getElementAssembleData([BackendService_1.getShopImplementAccountData, BackendService_1.getDataFromShopImplementAccountData], account, elementName, elementVersion);

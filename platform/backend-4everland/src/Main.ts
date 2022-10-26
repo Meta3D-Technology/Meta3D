@@ -116,13 +116,14 @@
 
 
 import * as Abtstract from "backend-abstract";
+import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
 
 import {
     init as initCloud, handleLogin as handleLoginCloud, getShopProtocolCollection, getDataFromShopProtocolCollection, getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    getFile,
+    downloadFile,
     addData,
     hasData,
     getFileID,
@@ -154,7 +155,7 @@ export let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstrac
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    getFile
+    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName, protocolVersion)
 
 export let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
@@ -162,7 +163,7 @@ export let getAllPublishContributes = (protocolName, protocolVersion) => Abtstra
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    getFile
+    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion)
 
 export let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
@@ -176,16 +177,15 @@ export let publishApp = (appBinaryFile, appName, account) => Abtstract.publishAp
     appBinaryFile, appName, account
 )
 
-export let findPublishApp = (account, appName) => Abtstract.findPublishApp([
+export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abtstract.findPublishApp([
     getDataByKey,
-    getFile
+    curry2(downloadFile)(onDownloadProgressFunc)
 ],
     account, appName
 )
 
 export let findAllPublishApps = (account) => Abtstract.findAllPublishApps(
-    getDataByKeyContain
-    ,
+    getDataByKeyContain,
     account
 )
 
@@ -223,12 +223,14 @@ export let publishElementAssembleData = (
     inspectorData
 )
 
+let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
+
 export let getAllPublishNewestExtensions = (protocolName) => Abtstract.getAllPublishNewestData([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    getFile
+    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ],
     "publishedextensions",
     protocolName

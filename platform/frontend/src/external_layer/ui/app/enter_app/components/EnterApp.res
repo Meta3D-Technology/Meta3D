@@ -5,12 +5,21 @@ open FrontendUtils.Antd
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
+
   React.useEffect1(() => {
     let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
     let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
 
-    service.backend.findPublishApp(. account, appName)
+    service.backend.findPublishApp(.
+      progress => setDownloadProgress(_ => progress),
+      account,
+      appName,
+    )
     ->Meta3dBsMost.Most.observe(appBinaryFile => {
+      setIsDownloadFinish(_ => true)
+
       Js.Nullable.isNullable(appBinaryFile)
         ? {
             Message.error(. {j`account: ${account} appName: ${appName} has no published app`}, 10)
@@ -26,5 +35,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     None
   }, [])
 
-  <> </>
+  <>
+    {!isDownloadFinish
+      ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
+      : React.null}
+  </>
 }

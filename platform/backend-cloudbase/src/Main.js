@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
 const Abtstract = require("backend-abstract");
+const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
 let init = () => Abtstract.init(BackendService_1.init);
@@ -16,12 +17,13 @@ let getAllPublishExtensionProtocolConfigs = () => Abtstract.getAllPublishProtoco
 exports.getAllPublishExtensionProtocolConfigs = getAllPublishExtensionProtocolConfigs;
 let getAllPublishContributeProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs");
 exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
+let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log;
 let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
     BackendService_1.getShopImplementCollection,
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName, protocolVersion);
 exports.getAllPublishExtensions = getAllPublishExtensions;
 let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
@@ -29,7 +31,7 @@ let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getA
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion);
 exports.getAllPublishContributes = getAllPublishContributes;
 let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
@@ -41,9 +43,9 @@ let publishApp = (appBinaryFile, appName, account) => Abtstract.publishApp([
     BackendService_1.getFileID,
 ], appBinaryFile, appName, account);
 exports.publishApp = publishApp;
-let findPublishApp = (account, appName) => Abtstract.findPublishApp([
+let findPublishApp = (onDownloadProgressFunc, account, appName) => Abtstract.findPublishApp([
     BackendService_1.getDataByKey,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], account, appName);
 exports.findPublishApp = findPublishApp;
 let findAllPublishApps = (account) => Abtstract.findAllPublishApps(BackendService_1.getDataByKeyContain, account);
@@ -68,7 +70,7 @@ let getAllPublishNewestExtensions = (protocolName) => Abtstract.getAllPublishNew
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    BackendService_1.getFile
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName);
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
 let getElementAssembleData = (account, elementName, elementVersion) => Abtstract.getElementAssembleData([BackendService_1.getShopImplementAccountData, BackendService_1.getDataFromShopImplementAccountData], account, elementName, elementVersion);

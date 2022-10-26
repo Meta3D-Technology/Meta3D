@@ -9,10 +9,10 @@ const BackendService_1 = require("backend-cloudbase/src/application_layer/Backen
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_newest_extensions.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, getFileFunc;
+    let getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, downloadFileFunc;
     function _createFuncs(sandbox) {
         getShopImplementCollectionFunc = sandbox.stub();
-        getFileFunc = sandbox.stub();
+        downloadFileFunc = sandbox.stub();
         mapShopImplementCollectionFunc = BackendService_1.mapShopImplementCollection;
         getAccountFromShopImplementCollectionDataFunc = BackendService_1.getAccountFromShopImplementCollectionData;
         getFileDataFromShopImplementCollectionDataFunc = BackendService_1.getFileDataFromShopImplementCollectionData;
@@ -23,7 +23,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             mapShopImplementCollectionFunc,
             getAccountFromShopImplementCollectionDataFunc,
             getFileDataFromShopImplementCollectionDataFunc,
-            getFileFunc
+            downloadFileFunc
         ], "publishedextensions", protocolName);
     }
     function _prepare(given) {
@@ -73,7 +73,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
     //                 ]
     //             })
     //         )
-    //         getFileFunc.returns(
+    //         downloadFileFunc.returns(
     //             just(file1)
     //         )
     //     });
@@ -89,8 +89,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
     //         })
     //     });
     //     then('should return correct data', () => {
-    //         expect(getFileFunc).toCalledOnce()
-    //         expect(getFileFunc).toCalledWith([
+    //         expect(downloadFileFunc).toCalledOnce()
+    //         expect(downloadFileFunc).toCalledWith([
     //             fileID2
     //         ])
     //         expect(
@@ -171,7 +171,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     }
                 ]
             }));
-            getFileFunc.returns((0, most_1.just)(file));
+            downloadFileFunc.returns((0, most_1.just)(file));
         });
         and('user1 publish extension1 for protocol1 and low version', () => {
         });
@@ -189,7 +189,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             });
         });
         then('should return [extension3, extension4]', () => {
-            expect(getFileFunc.callCount).toEqual(3);
+            expect(downloadFileFunc.callCount).toEqual(3);
             expect(allPublishExtensions).toEqual([
                 {
                     id: fileID3,

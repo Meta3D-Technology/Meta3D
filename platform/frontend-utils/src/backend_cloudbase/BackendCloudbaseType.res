@@ -67,8 +67,11 @@ type publishApp = (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
+type onDownloadProgressFunc = int => unit
+
 type findPublishApp = (
-  . string,
+  . onDownloadProgressFunc,
+  string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 

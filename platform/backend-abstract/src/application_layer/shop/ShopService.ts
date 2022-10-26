@@ -31,7 +31,7 @@ export let getAllPublishData = (
         mapShopImplementCollectionFunc,
         getAccountFromShopImplementCollectionDataFunc,
         getFileDataFromShopImplementCollectionDataFunc,
-        getFileFunc
+        downloadFileFunc
     ]: [any, any, any, any, any],
     collectionName: string, protocolName: string, protocolVersion: string) => {
     return fromPromise(getShopImplementCollectionFunc(collectionName)).flatMap((res: any) => {
@@ -55,7 +55,7 @@ export let getAllPublishData = (
                 return from(result.map(({ fileID, version }) => {
                     return [fileID, version]
                 })).flatMap(([fileID, version]) => {
-                    return getFileFunc(fileID).map(arrayBuffer => {
+                    return downloadFileFunc(fileID).map(arrayBuffer => {
                         return { id: fileID, file: arrayBuffer, version, account: account }
                     })
                 })

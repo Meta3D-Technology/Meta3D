@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -55,7 +55,7 @@ exports.getDatabase = getDatabase;
 // 		.then(res => res.data.length === 0))
 // }
 // export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
-// export let getFile = (fileID: string) => {
+// export let downloadFile = (fileID: string) => {
 // 	return fromPromise(getBackend().getTempFileURL({
 // 		fileList: [fileID]
 // 	})).flatMap(({ fileList }) => {
@@ -88,8 +88,12 @@ exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtoc
 exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
 exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
 exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
-let getFile = (fileID) => BackendService.getFile((0, Repo_1.getBackend)(), null, fileID);
-exports.getFile = getFile;
+let downloadFile = (onDownloadProgressFunc, fileID) => {
+    // TODO support onDownloadProgressFunc
+    onDownloadProgressFunc(0);
+    return BackendService.downloadFile((0, Repo_1.getBackend)(), null, fileID);
+};
+exports.downloadFile = downloadFile;
 let _blobToFile = (theBlob, fileName) => {
     theBlob.lastModifiedDate = new Date();
     theBlob.name = fileName;

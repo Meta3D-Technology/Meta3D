@@ -280,7 +280,7 @@ export let getFileDataFromShopImplementCollectionData = (data: collectionData) =
     return data.fileData
 }
 
-export let getFile = (s3: S3, parseShopCollectionDataBody, fileID: string) => {
+export let downloadFile = (s3: S3, parseShopCollectionDataBody, fileID: string) => {
     return fromPromise(s3.getObject({
         Bucket: getFileBucketName(),
         Key: handleKeyToLowercase(fileID)

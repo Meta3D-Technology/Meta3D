@@ -63,7 +63,7 @@ export let getDatabase = () => {
 
 
 
-// export let getFile = (fileID: string) => {
+// export let downloadFile = (fileID: string) => {
 // 	return fromPromise(getBackend().getTempFileURL({
 // 		fileList: [fileID]
 // 	})).flatMap(({ fileList }) => {
@@ -107,7 +107,12 @@ export let getAccountFromShopImplementCollectionData = BackendService.getAccount
 
 export let getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData
 
-export let getFile = (fileID) => BackendService.getFile(getBackend(), null, fileID)
+export let downloadFile = (onDownloadProgressFunc, fileID) => {
+	// TODO support onDownloadProgressFunc
+	onDownloadProgressFunc(0)
+
+	return BackendService.downloadFile(getBackend(), null, fileID)
+}
 
 
 

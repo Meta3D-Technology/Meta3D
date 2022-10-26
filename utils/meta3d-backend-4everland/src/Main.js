@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.getFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToShopProtocolCollection = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToShopProtocolCollection = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
 const most_1 = require("most");
 let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
@@ -199,14 +199,14 @@ let getFileDataFromShopImplementCollectionData = (data) => {
     return data.fileData;
 };
 exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
-let getFile = (s3, parseShopCollectionDataBody, fileID) => {
+let downloadFile = (s3, parseShopCollectionDataBody, fileID) => {
     return (0, most_1.fromPromise)(s3.getObject({
         Bucket: (0, exports.getFileBucketName)(),
         Key: (0, exports.handleKeyToLowercase)(fileID)
     })
         .then(data => parseShopCollectionDataBody("arrayBuffer", data)));
 };
-exports.getFile = getFile;
+exports.downloadFile = downloadFile;
 let parseShopCollectionDataBodyForNodejs = (returnDataType, allCollectionData) => {
     let stream = allCollectionData.Body;
     return new Promise((resolve, reject) => {

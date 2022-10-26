@@ -9,13 +9,13 @@ const feature = loadFeature("./test/features/get_all_publish_extensions.feature"
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementCollectionFunc, getFileFunc, mapShopImplementCollectionFunc,
+    let getShopImplementCollectionFunc, downloadFileFunc, mapShopImplementCollectionFunc,
         getAccountFromShopImplementCollectionDataFunc,
         getFileDataFromShopImplementCollectionDataFunc
 
     function _createFuncs(sandbox) {
         getShopImplementCollectionFunc = sandbox.stub()
-        getFileFunc = sandbox.stub()
+        downloadFileFunc = sandbox.stub()
         mapShopImplementCollectionFunc = mapShopImplementCollection
         getAccountFromShopImplementCollectionDataFunc = getAccountFromShopImplementCollectionData
         getFileDataFromShopImplementCollectionDataFunc = getFileDataFromShopImplementCollectionData
@@ -28,7 +28,7 @@ defineFeature(feature, test => {
                 mapShopImplementCollectionFunc,
                 getAccountFromShopImplementCollectionDataFunc,
                 getFileDataFromShopImplementCollectionDataFunc,
-                getFileFunc
+                downloadFileFunc
             ],
             "publishedextensions",
             protocolName, protocolVersion
@@ -86,7 +86,7 @@ defineFeature(feature, test => {
                     ]
                 })
             )
-            getFileFunc.returns(
+            downloadFileFunc.returns(
                 just(file1)
             )
         });
@@ -106,8 +106,8 @@ defineFeature(feature, test => {
         });
 
         then('should return correct data', () => {
-            expect(getFileFunc).toCalledOnce()
-            expect(getFileFunc).toCalledWith([
+            expect(downloadFileFunc).toCalledOnce()
+            expect(downloadFileFunc).toCalledWith([
                 fileID2
             ])
             expect(
@@ -161,10 +161,10 @@ defineFeature(feature, test => {
                     ]
                 })
             )
-            getFileFunc.withArgs(fileID1).returns(
+            downloadFileFunc.withArgs(fileID1).returns(
                 just(file1)
             )
-            getFileFunc.withArgs(fileID2).returns(
+            downloadFileFunc.withArgs(fileID2).returns(
                 just(file2)
             )
         });
@@ -184,11 +184,11 @@ defineFeature(feature, test => {
         });
 
         then('should return correct data', () => {
-            expect(getFileFunc).toCalledTwice()
-            expect(getFileFunc.getCall(0)).toCalledWith([
+            expect(downloadFileFunc).toCalledTwice()
+            expect(downloadFileFunc.getCall(0)).toCalledWith([
                 fileID1
             ])
-            expect(getFileFunc.getCall(1)).toCalledWith([
+            expect(downloadFileFunc.getCall(1)).toCalledWith([
                 fileID2
             ])
             expect(

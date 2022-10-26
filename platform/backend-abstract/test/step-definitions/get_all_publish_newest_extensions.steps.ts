@@ -13,11 +13,11 @@ defineFeature(feature, test => {
         mapShopImplementCollectionFunc,
         getAccountFromShopImplementCollectionDataFunc,
         getFileDataFromShopImplementCollectionDataFunc,
-        getFileFunc
+        downloadFileFunc
 
     function _createFuncs(sandbox) {
         getShopImplementCollectionFunc = sandbox.stub()
-        getFileFunc = sandbox.stub()
+        downloadFileFunc = sandbox.stub()
         mapShopImplementCollectionFunc = mapShopImplementCollection
         getAccountFromShopImplementCollectionDataFunc = getAccountFromShopImplementCollectionData
         getFileDataFromShopImplementCollectionDataFunc = getFileDataFromShopImplementCollectionData
@@ -31,7 +31,7 @@ defineFeature(feature, test => {
                 mapShopImplementCollectionFunc,
                 getAccountFromShopImplementCollectionDataFunc,
                 getFileDataFromShopImplementCollectionDataFunc,
-                getFileFunc
+                downloadFileFunc
             ],
             "publishedextensions",
             protocolName
@@ -89,7 +89,7 @@ defineFeature(feature, test => {
     //                 ]
     //             })
     //         )
-    //         getFileFunc.returns(
+    //         downloadFileFunc.returns(
     //             just(file1)
     //         )
     //     });
@@ -109,8 +109,8 @@ defineFeature(feature, test => {
     //     });
 
     //     then('should return correct data', () => {
-    //         expect(getFileFunc).toCalledOnce()
-    //         expect(getFileFunc).toCalledWith([
+    //         expect(downloadFileFunc).toCalledOnce()
+    //         expect(downloadFileFunc).toCalledWith([
     //             fileID2
     //         ])
     //         expect(
@@ -198,7 +198,7 @@ defineFeature(feature, test => {
                     ]
                 })
             )
-            getFileFunc.returns(
+            downloadFileFunc.returns(
                 just(file)
             )
         });
@@ -227,7 +227,7 @@ defineFeature(feature, test => {
         });
 
         then('should return [extension3, extension4]', () => {
-            expect(getFileFunc.callCount).toEqual(3)
+            expect(downloadFileFunc.callCount).toEqual(3)
             expect(
                 allPublishExtensions
             ).toEqual([
