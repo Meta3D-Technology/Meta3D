@@ -5,7 +5,7 @@
 		"clean": "lerna clean",
 		"bootstrap": "lerna bootstrap",
 		"build": "lerna run build:ts",
-		"publish:minor": "npm config set registry https://registry.npmjs.org/ && lerna run publish:update_minor_version && lerna publish minor",
+		"publish:minor": "lerna run update_minor_version --concurrency 1 && git add -A && git commit -m \"chore: update minor version\" && lerna publish minor --registry https://registry.npmjs",
 		"meta3d:publish_dev": "lerna run meta3d:publish_dev --concurrency 1",
 		"meta3d:publish_pro": "lerna run meta3d:publish_pro --concurrency 1",
 		"ci:test": "lerna run test:ci --concurrency 1"
