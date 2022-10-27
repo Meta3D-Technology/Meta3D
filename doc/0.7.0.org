@@ -184,14 +184,16 @@ e.g. remove UserCenterStore->username
 
 
 
-*** TODO update all contributes, extensions's implement, protocol(not publish)
+# *** TODO update all contributes, extensions's implement, protocol(not publish)
 
 
-*** TODO pass frontend-> run test for local, production env
+# *** TODO pass frontend-> run test for local, production env
 
 
 
-* TODO frontend add webpack_local_and_test_env, webpack_pro_env
+* DONE frontend add webpack_local_and_test_env, webpack_pro_env
+
+        # "webpack_dev": "yarn buildAll:dev && NODE_ENV=development webpack --config webpack.config.js",
 
 local and test env use cloudbase;
 use development
@@ -200,14 +202,24 @@ use development
 pro env use 4everland;
 use production
 
+
+
+* TODO chore: Index add version
+
+
+* TODO chore: version use one file
+
+
+* TODO chore: add publish script
+
+need update version file
+
+
+
 * TODO 4everland add platform-development, platform-production deploy!
 
 
-* TODO publish(implement, protocol) add script for each env!
-
-* TODO website: use 4everland's website as default!
-
-need update platform's url
+# * TODO publish(implement, protocol) add script for each env!
 
 
 * TODO website: add "web3" feature
@@ -218,6 +230,10 @@ upload 飞书 video to B
 
 
 
+* TODO website: use 4everland's website as default!
+
+need update platform's url
+
 
 
 # * TODO update my profile to web3
@@ -227,13 +243,11 @@ upload 飞书 video to B
 # ** TODO more
 
 
+* TODO add version video
 
 
 * TODO publish 0.7.0
 
-
-
-* TODO add version video
 
 
 * TODO write web3 introduce article

@@ -51,7 +51,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         _,
       )
     }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
-      Js.log("aaa")
       setAllPublishExtensionProtocols(_ => protocols)
       setAllPublishExtensionProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)

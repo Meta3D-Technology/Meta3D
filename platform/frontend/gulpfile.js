@@ -23,4 +23,10 @@ gulp.task("changeToProductionEnv", function (done) {
     done()
 });
 
+gulp.task("restoreEnv", function (done) {
+    _changeToEnv("#local")
+
+    done()
+});
+
 
