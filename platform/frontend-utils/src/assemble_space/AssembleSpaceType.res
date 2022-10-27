@@ -8,10 +8,12 @@ type useDispatch = unit => dispatch
 
 // type useSelector = 'a. (AssembleSpaceStoreType.state => 'a) => 'a
 
-type errorFunc = Js.Exn.t => unit
+// type errorFunc = Js.Exn.t => unit
 
 // type error = (. Antd__Message.error, errorFunc, Js.Exn.t, option<int>) => unit
 type error = (. string, option<int>) => unit
+
+type errorWithExn = (. Js.Exn.t, option<int>) => unit
 
 type backendService = {
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
@@ -36,7 +38,7 @@ type reactService = {
   useEffectOnceAsync: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
 }
 
-type consoleService = {error: error}
+type consoleService = {error: error, errorWithExn: errorWithExn}
 
 type meta3dService = {
   generateContribute: (

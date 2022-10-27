@@ -50,10 +50,10 @@ module Method = {
     }, _)
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.catch(e => {
-      service.console.error(.
-        e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-        None,
-      )->Obj.magic
+                service.console.errorWithExn(.
+                  e->FrontendUtils.Error.promiseErrorToExn,
+                  None,
+                )->Obj.magic
     }, _)
   }
 

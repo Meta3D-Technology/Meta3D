@@ -52,12 +52,12 @@ defineFeature(feature, test => {
   test(."if not get app binary file from storage, error", ({given, \"when", \"and", then}) => {
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let getElementVisualAppStub = ref(Obj.magic(1))
-    let errorStub = ref(Obj.magic(1))
+    let errorWithExnStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     given("empty storage", () => {
-      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      errorWithExnStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       initForElementVisualAppStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
@@ -83,17 +83,14 @@ defineFeature(feature, test => {
           ~sandbox,
           ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
           ~getElementVisualApp=getElementVisualAppStub.contents->Obj.magic,
-          ~error=errorStub.contents->Obj.magic,
+          ~errorWithExn=errorWithExnStub.contents->Obj.magic,
           (),
         ),
       )
     })
 
     then("should error", () => {
-      errorStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2("error", None)
-      ->expect == true
+      errorWithExnStub.contents->Obj.magic->getCallCount->expect == 1
     })
   })
 

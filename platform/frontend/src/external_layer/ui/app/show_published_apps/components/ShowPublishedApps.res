@@ -34,13 +34,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)
-
-
     }, _)
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+      FrontendUtils.ErrorUtils.errorWithExn(
+        e->FrontendUtils.Error.promiseErrorToExn,
+        None,
+      )->Obj.magic
     }, _)
     ->ignore
 

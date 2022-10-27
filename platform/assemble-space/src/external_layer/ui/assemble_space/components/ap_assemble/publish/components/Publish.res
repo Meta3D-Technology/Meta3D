@@ -114,8 +114,8 @@ module Method = {
               }, _)
               ->Js.Promise.catch(e => {
                 setIsUploadBegin(_ => false)
-                service.console.error(.
-                  e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+                service.console.errorWithExn(.
+                  e->FrontendUtils.Error.promiseErrorToExn,
                   None,
                 )->Obj.magic
               }, _)

@@ -21,11 +21,20 @@ let error = (errorMessage: string, durationOpt: option<int>) => {
   )
 }
 
+let errorWithExn = (error: Js.Exn.t, durationOpt: option<int>) => {
+  Js.Console.error(error)
+
+  Antd__Message.message.error(.
+    error->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
+  )
+}
+
 let showCatchedErrorMessage = (func, durationOpt) => {
   try {
     func()
   } catch {
-  | Js.Exn.Error(obj) => error(Js.Exn.message(obj)->Meta3dCommonlib.OptionSt.getExn, durationOpt)
+  | Js.Exn.Error(obj) => errorWithExn(obj, durationOpt)
   }
 }
 

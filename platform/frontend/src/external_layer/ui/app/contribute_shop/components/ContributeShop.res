@@ -57,7 +57,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+      FrontendUtils.ErrorUtils.errorWithExn(
+        e->FrontendUtils.Error.promiseErrorToExn,
+        None,
+      )->Obj.magic
     }, _)->ignore
 
     None
@@ -154,7 +157,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                               ->Js.Promise.catch(e => {
                                 setIsDownloadBegin(_ => false)
 
-                                FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+                                FrontendUtils.ErrorUtils.errorWithExn(
+                                  e->FrontendUtils.Error.promiseErrorToExn,
+                                  None,
+                                )->Obj.magic
                               }, _)
                               ->ignore
                             }}>
@@ -175,7 +181,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               ->Js.Promise.catch(e => {
                 setIsLoaded(_ => false)
 
-                FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+                FrontendUtils.ErrorUtils.errorWithExn(
+                  e->FrontendUtils.Error.promiseErrorToExn,
+                  None,
+                )->Obj.magic
               }, _)
               ->ignore
 

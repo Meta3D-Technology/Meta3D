@@ -76,8 +76,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
-      error: (. errorMessage, durationOpt) =>
-        FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+      error: (. errorMessage, durationOpt) => FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+      errorWithExn: (. error, durationOpt) => FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
     },
     react: {
       useState: func => {

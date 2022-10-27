@@ -156,10 +156,10 @@ production
 
 
 
-**** TODO fix: Publish add key
+# **** TODO fix: Publish add key
 
 
-**** TODO fix: catch/showCatch should log stack for console.error's stack
+**** DONE fix: catch/showCatch should log stack for console.error's stack
 
 
 

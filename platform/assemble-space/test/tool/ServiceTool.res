@@ -19,6 +19,7 @@ let build = (
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=Js.Console.error,
+  ~errorWithExn=Js.Console.error,
   ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
@@ -98,13 +99,13 @@ let build = (
   },
   console: {
     error: error->Obj.magic,
+    errorWithExn: errorWithExn->Obj.magic,
   },
   backend: {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp: publishApp,
     findPublishApp: findPublishApp,

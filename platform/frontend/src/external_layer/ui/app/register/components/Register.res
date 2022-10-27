@@ -25,7 +25,11 @@ let make = () => {
             }, _)
           }
     }, _)->Meta3dBsMost.Most.drain->Js.Promise.catch(e => {
-      FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+
+      FrontendUtils.ErrorUtils.errorWithExn(
+        e->FrontendUtils.Error.promiseErrorToExn,
+        None,
+      )->Obj.magic
     }, _)->Obj.magic
   }
 

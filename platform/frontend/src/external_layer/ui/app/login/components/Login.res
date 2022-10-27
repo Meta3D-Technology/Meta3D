@@ -44,10 +44,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             ()->Js.Promise.resolve
           }, _)
           ->Js.Promise.catch(e => {
-            Message.error(.
-              e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+            FrontendUtils.ErrorUtils.errorWithExn(
+              e->FrontendUtils.Error.promiseErrorToExn,
               None,
-            )
+            )->Obj.magic
           }, _)
         }
   }

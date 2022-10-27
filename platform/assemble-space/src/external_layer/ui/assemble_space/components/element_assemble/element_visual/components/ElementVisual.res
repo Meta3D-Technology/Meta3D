@@ -71,10 +71,7 @@ module Method = {
     ->_initAndUpdateApp(service, (initData, updateData))
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.catch(e => {
-      service.console.error(.
-        e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-        None,
-      )->Obj.magic
+      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)
   }
 
@@ -101,7 +98,7 @@ module Method = {
 
   let _getElementContributeName = () => "meta3d-element-assemble-element"
 
-  let _getElementContributeVersion = () =>"0.6.0"
+  let _getElementContributeVersion = () => "0.6.0"
 
   let buildElementContributeFileStr = (
     service,
@@ -191,10 +188,7 @@ module Method = {
       }, _)
       ->Meta3dBsMost.Most.drain
       ->Js.Promise.catch(e => {
-        service.console.error(.
-          e->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-          None,
-        )->Obj.magic
+        service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
       }, _)
     }
   }
