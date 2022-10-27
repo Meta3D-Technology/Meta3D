@@ -3,14 +3,19 @@ open FrontendUtils.Antd
 
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
-  let url = RescriptReactRouter.useUrl()
+  // let url = RescriptReactRouter.useUrl()
+
+  let {account, appName} = AppStore.useSelector(({enterAppState}: AppStore.state) => enterAppState)
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
 
   React.useEffect1(() => {
-    let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
-    let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
+    // let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
+    // let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
+
+    let account = account->Meta3dCommonlib.OptionSt.getExn
+    let appName = appName->Meta3dCommonlib.OptionSt.getExn
 
     service.backend.findPublishApp(.
       progress => setDownloadProgress(_ => progress),
