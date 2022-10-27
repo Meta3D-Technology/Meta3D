@@ -10,7 +10,7 @@
 
 Meta3D is a low-code development platform for developing Web3D Editor and Engine
 
-enter [website](https://meta3d-4g18u7z10c8427f9-1302358347.tcloudbaseapp.com/website) for more info.
+enter [website](https://meta3d-website.4everland.app/) for more info.
 
 # Feedback
 
