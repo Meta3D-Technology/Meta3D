@@ -177,7 +177,7 @@ e.g. BackendCloudbase
 rename BackendCloudbase2 to BackendCloudbase
 
 
-*** TODO refactor: remove username
+*** DONE refactor: remove username
 
 e.g. remove UserCenterStore->username
 

@@ -64,7 +64,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   //           ()
   //         }
   //       : {
-  //           dispatch(AppStore.UserCenterAction(UserCenterStore.SetUserName(account)))
+  //           dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(account)))
 
   //           RescriptReactRouter.push("/")
   //         }

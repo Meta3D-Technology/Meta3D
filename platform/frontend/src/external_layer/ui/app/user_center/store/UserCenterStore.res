@@ -19,7 +19,6 @@ type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contribute
 type account = string
 
 type action =
-  | SetUserName(string)
   | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectExtension(id)
   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
@@ -34,7 +33,6 @@ type state = {
 
 let reducer = (state, action) => {
   switch action {
-  | SetUserName(account) => {...state, account: Some(account)}
   | SelectExtension(data, protocolConfigOpt) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push((
