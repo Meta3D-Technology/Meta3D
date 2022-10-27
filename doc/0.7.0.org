@@ -163,7 +163,7 @@ production
 
 
 
-**** TODO fix: shop-> switch when refresh component may cause bug
+**** DONE fix: shop-> switch when refresh component may cause bug
 
 
 

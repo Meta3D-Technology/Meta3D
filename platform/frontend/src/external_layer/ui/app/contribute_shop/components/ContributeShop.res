@@ -51,6 +51,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         _,
       )
     }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
+      Js.log("aaa")
       setAllPublishContributeProtocols(_ => protocols)
       setAllPublishContributeProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)
@@ -174,9 +175,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
               service.backend.getAllPublishContributeInfos(. item.name, item.version)
               ->Meta3dBsMost.Most.observe(data => {
-                setIsLoaded(_ => true)
-
                 setAllPublishContributes(_ => data->Some)
+                setIsLoaded(_ => true)
               }, _)
               ->Js.Promise.catch(e => {
                 setIsLoaded(_ => false)
