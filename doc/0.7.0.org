@@ -152,7 +152,7 @@ production
 
 **** DONE perf: shop not download; download when select(and show download progress)
 
-**** TODO perf: extension shop not show inner protocols:  meta3d-element-assemble-visual-protocol, meta3d-element-assemble-visual-run-protocol
+**** DONE perf: extension shop not show inner protocols:  meta3d-element-assemble-visual-protocol, meta3d-element-assemble-visual-run-protocol
 
 
 
@@ -184,7 +184,7 @@ e.g. remove UserCenterStore->username
 
 
 
-*** TODO publish update all contributes, extensions's implement, protocol
+*** TODO update all contributes, extensions's implement, protocol(not publish)
 
 
 *** TODO pass frontend-> run test for local, production env

@@ -39,7 +39,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     service.backend.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
       service.backend.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
         protocolConfigs => {
-          (protocols, protocolConfigs)
+          (
+            protocols->Meta3dCommonlib.ArraySt.filter((
+              {name}: FrontendUtils.BackendCloudbaseType.protocol,
+            ) => name->ShopUtils.isNotInnerProtocol),
+            protocolConfigs->Meta3dCommonlib.ArraySt.filter((
+              {name}: FrontendUtils.CommonType.protocolConfig,
+            ) => name->ShopUtils.isNotInnerProtocol),
+          )
         },
         _,
       )
