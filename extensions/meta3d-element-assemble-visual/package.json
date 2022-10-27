@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-protocol"
@@ -30,17 +30,17 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bind-io-event-protocol": "^0.6.0",
-        "meta3d-element-assemble-element-protocol": "^0.6.0",
-        "meta3d-element-assemble-visual-protocol": "^0.6.0",
-        "meta3d-imgui-renderer-protocol": "^0.6.0",
-        "meta3d-type": "^0.6.0",
-        "meta3d-ui-protocol": "^0.6.0"
+        "meta3d-bind-io-event-protocol": "^0.7.0",
+        "meta3d-element-assemble-element-protocol": "^0.7.0",
+        "meta3d-element-assemble-visual-protocol": "^0.7.0",
+        "meta3d-imgui-renderer-protocol": "^0.7.0",
+        "meta3d-type": "^0.7.0",
+        "meta3d-ui-protocol": "^0.7.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
-        "meta3d-tool-publish": "^0.6.0",
+        "meta3d-tool-publish": "^0.7.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

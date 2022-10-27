@@ -1,6 +1,6 @@
 {
     "name": "meta3d-type",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "authors": "Wonder",
     "main": "lib/js/src/Index.bs.js",
     "types": "src/Index.ts",
