@@ -75,7 +75,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                 }
             })).flatMap(_ => uploadFileFunc(backendInstance, filePath, generateFunc(packageData, readFileSyncFunc(distFilePath, "utf-8"))).flatMap((uploadData) => {
                 let fileID = getFileIDFunc(uploadData, filePath);
-                return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementCollectionData]) => {
+                return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
                     let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
                     let data = {
                         protocolName: packageData.protocol.name,
@@ -85,7 +85,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                         fileID
                     };
                     return addShopImplementDataToDataFromShopImplementCollectionDataFunc(resData, data).then(resData => {
-                        return updateShopImplementDataFunc(backendInstance, _getPublishedCollectionName(fileType), account, buildShopImplementAccountDataFunc(resData, account), shopImplementCollectionData);
+                        return updateShopImplementDataFunc(backendInstance, _getPublishedCollectionName(fileType), account, buildShopImplementAccountDataFunc(resData, account), shopImplementAllCollectionData);
                     });
                 }));
             }));

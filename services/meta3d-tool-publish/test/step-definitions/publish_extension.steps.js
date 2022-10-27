@@ -5,7 +5,7 @@ const Publish_1 = require("../../src/Publish");
 const sinon_1 = require("sinon");
 const most_1 = require("most");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
-const CloudbaseService_1 = require("../../../meta3d-tool-utils/src/publish/CloudbaseService");
+const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
@@ -115,7 +115,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         });
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
-                { "name": "test1", "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionNameMap": { "meta3dTest1ExtensionName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeNameMap": {} },
+                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionNameMap": { "meta3dTest1ExtensionName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeNameMap": {} },
                 distFileContent
             ]);
             expect(uploadFileFunc).toCalledWith([
