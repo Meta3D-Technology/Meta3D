@@ -37,31 +37,47 @@ type getAllPublishExtensionProtocolConfigs = unit => Meta3dBsMostProtocol.Stream
   protocolConfigs,
 >
 
-type implement = {
+type implementInfo = {
   id: string,
-  file: Js.Typed_array.ArrayBuffer.t,
+  name: string,
   version: string,
   account: account,
 }
 
-type implements = array<implement>
+type implementInfos = array<implementInfo>
 
-type getAllPublishExtensions = (
+type onUploadProgressFunc = int => unit
+
+type getAllPublishExtensionInfos = (
   . string,
   string,
-) => Meta3dBsMostProtocol.StreamType.stream<implements>
+) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
 
-type getAllPublishContributes = (
+type getAllPublishContributeInfos = (
   . string,
   string,
-) => Meta3dBsMostProtocol.StreamType.stream<implements>
+) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
+
+type onDownloadProgressFunc = int => unit
+
+type findPublishExtension = (
+  . onDownloadProgressFunc,
+  string,
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
+
+type findPublishContribute = (
+  . onDownloadProgressFunc,
+  string,
+  string,
+  string,
+) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
 type publishAppInfo = {
   account: account,
   appName: string,
 }
-
-type onUploadProgressFunc = int => unit
 
 type publishApp = (
   . onUploadProgressFunc,
@@ -69,8 +85,6 @@ type publishApp = (
   string,
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
-
-type onDownloadProgressFunc = int => unit
 
 type findPublishApp = (
   . onDownloadProgressFunc,
@@ -108,6 +122,15 @@ type publishElementAssembleData = (
   string,
   inspectorData,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
+
+type implement = {
+  id: string,
+  file: Js.Typed_array.ArrayBuffer.t,
+  version: string,
+  account: account,
+}
+
+type implements = array<implement>
 
 type getAllPublishNewestExtensions = (
   . string,

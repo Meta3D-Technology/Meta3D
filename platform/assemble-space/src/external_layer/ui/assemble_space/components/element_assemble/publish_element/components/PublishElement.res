@@ -91,6 +91,7 @@ module Method = {
         ()->Js.Promise.resolve
       }, _)
     }->Js.Promise.catch(e => {
+      setIsUploadBegin(_ => false)
       service.console.error(.
         e
         ->Obj.magic

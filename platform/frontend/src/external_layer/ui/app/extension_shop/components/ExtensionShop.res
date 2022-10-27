@@ -17,6 +17,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let (extensionProtocolItem, setExtensionProtocolItem) = React.useState(_ => None)
   let (allPublishExtensions, setAllPublishExtensions) = React.useState(_ => None)
 
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
+
   let _isSelect = (id, selectedExtensions: UserCenterStore.selectedExtensions) => {
     selectedExtensions->Meta3dCommonlib.ListSt.includesByFunc(((selectedExtension, _)) =>
       id === selectedExtension.id
@@ -63,65 +66,100 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             let (protocolName, protocolVersion) = (item.name, item.version)
 
             switch allPublishExtensions {
-            | Some(allPublishExtensions) =>
-              <List
-                itemLayout=#horizontal
-                dataSource={allPublishExtensions}
-                renderItem={(item: UserCenterStore.extension) =>
-                  <List.Item>
-                    <List.Item.Meta
-                      key={item.data.extensionPackageData.name}
-                      title={<span> {React.string(item.data.extensionPackageData.name)} </span>}
-                      description={React.string(`TODO`)}
-                    />
-                    <span> {React.string({j`版本号：${item.version}`})} </span>
-                    <span> {React.string({j`发布者：${item.account}`})} </span>
-                    {_isSelect(item.id, selectedExtensions)
-                      ? <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.NotSelectExtension(item.id),
-                              ),
-                            )
-                          }}>
-                          {React.string(`取消选择`)}
-                        </Button>
-                      : <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.SelectExtension(
-                                  item,
-                                  allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find((
-                                    {name, version}: FrontendUtils.CommonType.protocolConfig,
-                                  ) => {
-                                    name === protocolName && version === protocolVersion
-                                  }),
+            | Some(allPublishExtensions) => <>
+                {isDownloadBegin
+                  ? <p>
+                      {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
+                    </p>
+                  : React.null}
+                <List
+                  itemLayout=#horizontal
+                  dataSource={allPublishExtensions}
+                  renderItem={(item: FrontendUtils.BackendCloudbaseType.implementInfo) =>
+                    <List.Item>
+                      <List.Item.Meta
+                        key={item.name}
+                        title={<span> {React.string(item.name)} </span>}
+                        description={React.string(`TODO`)}
+                      />
+                      <span> {React.string({j`版本号：${item.version}`})} </span>
+                      <span> {React.string({j`发布者：${item.account}`})} </span>
+                      {_isSelect(item.id, selectedExtensions)
+                        ? <Button
+                            onClick={_ => {
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.NotSelectExtension(item.id),
                                 ),
-                              ),
-                            )
-                          }}>
-                          {React.string(`选择`)}
-                        </Button>}
-                  </List.Item>}
-              />
+                              )
+                            }}>
+                            {React.string(`取消选择`)}
+                          </Button>
+                        : <Button
+                            onClick={_ => {
+                              setIsDownloadBegin(_ => true)
+
+                              service.backend.findPublishExtension(.
+                                progress => setDownloadProgress(_ => progress),
+                                item.account,
+                                item.name,
+                                item.version,
+                              )
+                              ->Meta3dBsMost.Most.observe(file => {
+                                Meta3dCommonlib.NullableSt.isNullable(file)
+                                  ? {
+                                      setIsDownloadBegin(_ => false)
+
+                                      FrontendUtils.ErrorUtils.error(
+                                        {j`找不到extension file`},
+                                        None,
+                                      )->Obj.magic
+                                    }
+                                  : {
+                                      setIsDownloadBegin(_ => false)
+
+                                      dispatch(
+                                        AppStore.UserCenterAction(
+                                          UserCenterStore.SelectExtension(
+                                            {
+                                              id: item.id,
+                                              data: Meta3d.Main.loadExtension(
+                                                file->Meta3dCommonlib.NullableSt.getExn,
+                                              ),
+                                              version: item.version,
+                                              account: item.account,
+                                            },
+                                            allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                              (
+                                                {
+                                                  name,
+                                                  version,
+                                                }: FrontendUtils.CommonType.protocolConfig,
+                                              ) => {
+                                                name === protocolName && version === protocolVersion
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    }
+                              }, _)
+                              ->Js.Promise.catch(e => {
+                                setIsDownloadBegin(_ => false)
+
+                                FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+                              }, _)
+                              ->ignore
+                            }}>
+                            {React.string(`选择`)}
+                          </Button>}
+                    </List.Item>}
+                />
+              </>
             | None =>
               setIsLoaded(_ => false)
 
-              service.backend.getAllPublishExtensions(. item.name, item.version)
-              ->Meta3dBsMost.Most.map(data => {
-                data->Meta3dCommonlib.ArraySt.map((
-                  {id, file, version, account}: FrontendUtils.BackendCloudbaseType.implement,
-                ): UserCenterStore.extension => {
-                  {
-                    id: id,
-                    data: Meta3d.Main.loadExtension(file),
-                    version: version,
-                    account: account,
-                  }
-                })
-              }, _)
+              service.backend.getAllPublishExtensionInfos(. item.name, item.version)
               ->Meta3dBsMost.Most.observe(data => {
                 setIsLoaded(_ => true)
 

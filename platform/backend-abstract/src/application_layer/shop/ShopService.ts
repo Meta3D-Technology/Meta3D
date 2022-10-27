@@ -1,5 +1,7 @@
-import { empty, from, fromPromise, mergeArray } from "most"
+import { empty, from, fromPromise, just, mergeArray } from "most"
 import { satisfies } from "semver";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { getExn, isNullable } from "../../utils/NullableUtils";
 
 export let getAllPublishProtocolData = (
     [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc]: [any, any],
@@ -25,14 +27,13 @@ export let getAllPublishProtocolConfigData = (
     })
 }
 
-export let getAllPublishData = (
+export let getAllPublishImplementInfo = (
     [
         getShopImplementCollectionFunc,
         mapShopImplementCollectionFunc,
         getAccountFromShopImplementCollectionDataFunc,
         getFileDataFromShopImplementCollectionDataFunc,
-        downloadFileFunc
-    ]: [any, any, any, any, any],
+    ]: [any, any, any, any],
     collectionName: string, protocolName: string, protocolVersion: string) => {
     return fromPromise(getShopImplementCollectionFunc(collectionName)).flatMap((res: any) => {
         return fromPromise(mergeArray(
@@ -52,14 +53,9 @@ export let getAllPublishData = (
                     return empty()
                 }
 
-                return from(result.map(({ fileID, version }) => {
-                    return [fileID, version]
-                })).flatMap(([fileID, version]) => {
-                    return downloadFileFunc(fileID).map(arrayBuffer => {
-                        return { id: fileID, file: arrayBuffer, version, account: account }
-                    })
-                })
-
+                return from(result.map(({ fileID, name, version }) => {
+                    return { id: fileID, name, version, account: account }
+                }))
             })
         ).reduce(
             (result, data) => {
@@ -69,5 +65,20 @@ export let getAllPublishData = (
             }, []
         )
         )
+    })
+}
+
+export let findPublishImplement = ([getShopImplementFunc, downloadFileFunc]: [any, any],
+    collectionName: string,
+    account: string,
+    name: string,
+    version: string
+) => {
+    return fromPromise(getShopImplementFunc(collectionName, account, name, version)).flatMap((data: nullable<any>) => {
+        if (isNullable(data)) {
+            return just(null)
+        }
+
+        return downloadFileFunc(getExn(data).fileID)
     })
 }

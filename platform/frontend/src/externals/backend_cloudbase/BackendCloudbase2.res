@@ -13,7 +13,10 @@ external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = ""
 external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = ""
 
 @module("backend-cloudbase")
-external getAllPublishExtensions: getAllPublishExtensions = ""
+external getAllPublishExtensionInfos: getAllPublishExtensionInfos = ""
+
+@module("backend-cloudbase")
+external findPublishExtension: findPublishExtension = ""
 
 @module("backend-cloudbase")
 external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
@@ -22,7 +25,10 @@ external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
 external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs = ""
 
 @module("backend-cloudbase")
-external getAllPublishContributes: getAllPublishContributes = ""
+external getAllPublishContributeInfos: getAllPublishContributeInfos = ""
+
+@module("backend-cloudbase")
+external findPublishContribute: findPublishContribute = ""
 
 @module("backend-cloudbase")
 external publishApp: publishApp = ""
@@ -54,10 +60,12 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     handleLogin: handleLogin,
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
-    getAllPublishExtensions: getAllPublishExtensions,
+    getAllPublishExtensionInfos: getAllPublishExtensionInfos,
+    findPublishExtension: findPublishExtension,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
-    getAllPublishContributes: getAllPublishContributes,
+    getAllPublishContributeInfos: getAllPublishContributeInfos,
+    findPublishContribute: findPublishContribute,
     findAllPublishApps: findAllPublishApps,
     findPublishApp: findPublishApp,
   }
@@ -69,7 +77,6 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp: publishApp,
     findPublishApp: findPublishApp,

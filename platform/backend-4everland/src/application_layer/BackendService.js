@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
@@ -78,6 +78,21 @@ let getShopProtocolCollection = (collectionName) => BackendService.getShopProtoc
 exports.getShopProtocolCollection = getShopProtocolCollection;
 let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName);
 exports.getShopImplementCollection = getShopImplementCollection;
+let getShopImplement = (collectionName, account, name, version) => {
+    return _getObjectWithJsonBody(collectionName, collectionName).then((body) => {
+        account = BackendService.handleKeyToLowercase(account);
+        let result = body.find(data => data.key === account);
+        if (result === undefined) {
+            return null;
+        }
+        result = result.fileData.find(data => data.name === name && data.version === version);
+        if (result === undefined) {
+            return null;
+        }
+        return result;
+    });
+};
+exports.getShopImplement = getShopImplement;
 exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
 exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
 exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
@@ -133,7 +148,7 @@ let _getObjectWithJsonBody = (collectionName, key) => {
 let getDataByKey = (collectionName, key) => {
     return _getObjectWithJsonBody(collectionName, key)
         .then((body) => {
-        console.log("getDataByKeyFunc:", key, body);
+        console.log("getDataByKey:", key, body);
         return body;
     });
 };

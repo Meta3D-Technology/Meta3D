@@ -150,7 +150,10 @@ production
 **** DONE login add isLogin...
 
 
-**** TODO perf: shop not download; download when select(and show download progress)
+**** DONE perf: shop not download; download when select(and show download progress)
+
+**** TODO perf: extension shop not show inner protocols:  meta3d-element-assemble-visual-protocol, meta3d-element-assemble-visual-run-protocol
+
 
 
 **** TODO fix: Publish add key
@@ -158,19 +161,13 @@ production
 
 **** TODO fix: catch/showCatch should log stack for console.error's stack
 
-**** TODO perf: extension shop not show inner protocols:  meta3d-element-assemble-visual-protocol, meta3d-element-assemble-visual-run-protocol
-
-
-**** TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
-
-e.g. meta3d-ui-control-button-protocol
 
 
 **** TODO fix: shop-> switch when refresh component may cause bug
 
 
 
-**** TODO pass all single one run test for local, production env
+# **** TODO pass all single one run test for local, production env
 
 
 *** TODO refactor: remove unused code
@@ -187,7 +184,7 @@ e.g. remove UserCenterStore->username
 
 
 
-*** TODO publish all contributes, extensions's implement, protocol
+*** TODO publish update all contributes, extensions's implement, protocol
 
 
 *** TODO pass frontend-> run test for local, production env
@@ -208,7 +205,6 @@ use production
 
 * TODO publish(implement, protocol) add script for each env!
 
-
 * TODO website: use 4everland's website as default!
 
 need update platform's url
@@ -216,23 +212,31 @@ need update platform's url
 
 * TODO website: add "web3" feature
 
+* TODO website: add version video link
 
-
-* TODO collect to DappRadar
-
-
-* TODO write web3 introduce articles
+upload 飞书 video to B
 
 
 
-* TODO update my profile to web3
 
-** TODO provide Wonder DAO to public
 
-** TODO more
+# * TODO update my profile to web3
+
+# ** TODO provide Wonder DAO to public
+
+# ** TODO more
 
 
 
 
 * TODO publish 0.7.0
+
+
+
+* TODO add version video
+
+
+* TODO write web3 introduce article
+
+
 

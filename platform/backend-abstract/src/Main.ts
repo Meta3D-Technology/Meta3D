@@ -12,7 +12,9 @@ export let getAllPublishProtocolData = ShopService.getAllPublishProtocolData
 
 export let getAllPublishProtocolConfigData = ShopService.getAllPublishProtocolConfigData
 
-export let getAllPublishData = ShopService.getAllPublishData
+export let getAllPublishImplementInfo = ShopService.getAllPublishImplementInfo
+
+export let findPublishImplement = ShopService.findPublishImplement
 
 export let publishApp = PublishAppService.publish
 

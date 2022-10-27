@@ -18,7 +18,6 @@ type backendService = {
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
   getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
   getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
-  getAllPublishExtensions: getAllPublishExtensions,
   getAllPublishNewestExtensions: getAllPublishNewestExtensions,
   publishApp: publishApp,
   findPublishApp: findPublishApp,

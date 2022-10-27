@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishContributes = exports.getAllPublishExtensions = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
+exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
 const Abtstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -18,22 +18,30 @@ exports.getAllPublishExtensionProtocolConfigs = getAllPublishExtensionProtocolCo
 let getAllPublishContributeProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([BackendService_1.getShopProtocolCollection, BackendService_1.getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs");
 exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log;
-let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
     BackendService_1.getShopImplementCollection,
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName, protocolVersion);
-exports.getAllPublishExtensions = getAllPublishExtensions;
-let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+exports.getAllPublishExtensionInfos = getAllPublishExtensionInfos;
+let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
     BackendService_1.getShopImplementCollection,
     BackendService_1.mapShopImplementCollection,
     BackendService_1.getAccountFromShopImplementCollectionData,
     BackendService_1.getFileDataFromShopImplementCollectionData,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion);
-exports.getAllPublishContributes = getAllPublishContributes;
+exports.getAllPublishContributeInfos = getAllPublishContributeInfos;
+let findPublishExtension = (onDownloadProgressFunc, account, name, version) => Abtstract.findPublishImplement([
+    BackendService_1.getShopImplement,
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+], "publishedextensions", account, name, version);
+exports.findPublishExtension = findPublishExtension;
+let findPublishContribute = (onDownloadProgressFunc, account, name, version) => Abtstract.findPublishImplement([
+    BackendService_1.getShopImplement,
+    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+], "publishedcontributes", account, name, version);
+exports.findPublishContribute = findPublishContribute;
 let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abtstract.publishApp([
     onUploadProgressFunc,
     BackendService_1.uploadFile,

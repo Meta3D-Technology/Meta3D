@@ -17,6 +17,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let (contributeProtocolItem, setContributeProtocolItem) = React.useState(_ => None)
   let (allPublishContributes, setAllPublishContributes) = React.useState(_ => None)
 
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
+
   let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
     selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
       id === selectedContribute.id
@@ -63,65 +66,100 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             let (protocolName, protocolVersion) = (item.name, item.version)
 
             switch allPublishContributes {
-            | Some(allPublishContributes) =>
-              <List
-                itemLayout=#horizontal
-                dataSource={allPublishContributes}
-                renderItem={(item: UserCenterStore.contribute) =>
-                  <List.Item>
-                    <List.Item.Meta
-                      key={item.data.contributePackageData.name}
-                      title={<span> {React.string(item.data.contributePackageData.name)} </span>}
-                      description={React.string(`TODO`)}
-                    />
-                    <span> {React.string({j`版本号：${item.version}`})} </span>
-                    <span> {React.string({j`发布者：${item.account}`})} </span>
-                    {_isSelect(item.id, selectedContributes)
-                      ? <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.NotSelectContribute(item.id),
-                              ),
-                            )
-                          }}>
-                          {React.string(`取消选择`)}
-                        </Button>
-                      : <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.SelectContribute(
-                                  item,
-                                  allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                    ({name, version}: FrontendUtils.CommonType.protocolConfig) => {
-                                      name === protocolName && version === protocolVersion
-                                    },
-                                  ),
+            | Some(allPublishContributes) => <>
+                {isDownloadBegin
+                  ? <p>
+                      {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
+                    </p>
+                  : React.null}
+                <List
+                  itemLayout=#horizontal
+                  dataSource={allPublishContributes}
+                  renderItem={(item: FrontendUtils.BackendCloudbaseType.implementInfo) =>
+                    <List.Item>
+                      <List.Item.Meta
+                        key={item.name}
+                        title={<span> {React.string(item.name)} </span>}
+                        description={React.string(`TODO`)}
+                      />
+                      <span> {React.string({j`版本号：${item.version}`})} </span>
+                      <span> {React.string({j`发布者：${item.account}`})} </span>
+                      {_isSelect(item.id, selectedContributes)
+                        ? <Button
+                            onClick={_ => {
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.NotSelectContribute(item.id),
                                 ),
-                              ),
-                            )
-                          }}>
-                          {React.string(`选择`)}
-                        </Button>}
-                  </List.Item>}
-              />
+                              )
+                            }}>
+                            {React.string(`取消选择`)}
+                          </Button>
+                        : <Button
+                            onClick={_ => {
+                              setIsDownloadBegin(_ => true)
+
+                              service.backend.findPublishContribute(.
+                                progress => setDownloadProgress(_ => progress),
+                                item.account,
+                                item.name,
+                                item.version,
+                              )
+                              ->Meta3dBsMost.Most.observe(file => {
+                                Meta3dCommonlib.NullableSt.isNullable(file)
+                                  ? {
+                                      setIsDownloadBegin(_ => false)
+
+                                      FrontendUtils.ErrorUtils.error(
+                                        {j`找不到contribute file`},
+                                        None,
+                                      )->Obj.magic
+                                    }
+                                  : {
+                                      setIsDownloadBegin(_ => false)
+
+                                      dispatch(
+                                        AppStore.UserCenterAction(
+                                          UserCenterStore.SelectContribute(
+                                            {
+                                              id: item.id,
+                                              data: Meta3d.Main.loadContribute(
+                                                file->Meta3dCommonlib.NullableSt.getExn,
+                                              ),
+                                              version: item.version,
+                                              account: item.account,
+                                            },
+                                            allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                              (
+                                                {
+                                                  name,
+                                                  version,
+                                                }: FrontendUtils.CommonType.protocolConfig,
+                                              ) => {
+                                                name === protocolName && version === protocolVersion
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    }
+                              }, _)
+                              ->Js.Promise.catch(e => {
+                                setIsDownloadBegin(_ => false)
+
+                                FrontendUtils.ErrorUtils.error(e->Obj.magic, None)->Obj.magic
+                              }, _)
+                              ->ignore
+                            }}>
+                            {React.string(`选择`)}
+                          </Button>}
+                    </List.Item>}
+                />
+              </>
             | None =>
               setIsLoaded(_ => false)
 
-              service.backend.getAllPublishContributes(. item.name, item.version)
-              ->Meta3dBsMost.Most.map(data => {
-                data->Meta3dCommonlib.ArraySt.map((
-                  {id, file, version, account}: FrontendUtils.BackendCloudbaseType.implement,
-                ): UserCenterStore.contribute => {
-                  {
-                    id: id,
-                    data: Meta3d.Main.loadContribute(file),
-                    version: version,
-                    account: account,
-                  }
-                })
-              }, _)
+              service.backend.getAllPublishContributeInfos(. item.name, item.version)
               ->Meta3dBsMost.Most.observe(data => {
                 setIsLoaded(_ => true)
 

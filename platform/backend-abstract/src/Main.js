@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.getAllPublishData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = exports.handleLogin = exports.init = void 0;
+exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = exports.handleLogin = exports.init = void 0;
 const ShopService = require("./application_layer/shop/ShopService");
 const PublishAppService = require("./application_layer/publish/PublishAppService");
 const GetElementDataService = require("./application_layer/assemble_space/element_assemble/GetElementDataService");
@@ -11,7 +11,8 @@ let handleLogin = (handleLogin, account) => handleLogin(account);
 exports.handleLogin = handleLogin;
 exports.getAllPublishProtocolData = ShopService.getAllPublishProtocolData;
 exports.getAllPublishProtocolConfigData = ShopService.getAllPublishProtocolConfigData;
-exports.getAllPublishData = ShopService.getAllPublishData;
+exports.getAllPublishImplementInfo = ShopService.getAllPublishImplementInfo;
+exports.findPublishImplement = ShopService.findPublishImplement;
 exports.publishApp = PublishAppService.publish;
 exports.findPublishApp = PublishAppService.findPublishApp;
 exports.findAllPublishApps = PublishAppService.findAllPublishApps;

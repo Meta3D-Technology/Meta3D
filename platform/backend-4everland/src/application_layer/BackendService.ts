@@ -99,6 +99,32 @@ export let getShopProtocolCollection = (collectionName) => BackendService.getSho
 
 export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName)
 
+export let getShopImplement = (
+    collectionName: string,
+    account: string,
+    name: string,
+    version: string
+) => {
+    return _getObjectWithJsonBody(collectionName, collectionName).then((body: BackendService.shopImplementCollectionData) => {
+        account = BackendService.handleKeyToLowercase(account)
+
+        let result = body.find(data => data.key === account)
+
+        if (result === undefined) {
+            return null
+        }
+
+        result = result.fileData.find(data => data.name === name && data.version === version)
+
+        if (result === undefined) {
+            return null
+        }
+
+        return result
+    })
+}
+
+
 export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
 
 export let mapShopImplementCollection = BackendService.mapShopImplementCollection
@@ -178,7 +204,7 @@ let _getObjectWithJsonBody = (collectionName, key) => {
 export let getDataByKey = (collectionName: string, key: string) => {
     return _getObjectWithJsonBody(collectionName, key)
         .then((body) => {
-            console.log("getDataByKeyFunc:", key, body)
+            console.log("getDataByKey:", key, body)
 
             return body
         })

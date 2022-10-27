@@ -28,12 +28,6 @@ external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocol
 external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = ""
 
 @module("backend-cloudbase")
-external getAllPublishExtensions: getAllPublishExtensions = ""
-
-@module("backend-cloudbase")
-external getAllPublishContributes: getAllPublishContributes = ""
-
-@module("backend-cloudbase")
 external publishApp: publishApp = ""
 
 @module("backend-cloudbase")
@@ -63,7 +57,6 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishExtensions: getAllPublishExtensions->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp: publishApp,
     findPublishApp: findPublishApp,

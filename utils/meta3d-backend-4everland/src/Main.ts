@@ -20,7 +20,7 @@ type shopImplementAccountData = {
     fileData: Array<shopImplementData>
 }
 
-type shopImplementCollectionData = Array<shopImplementAccountData>
+export type shopImplementCollectionData = Array<shopImplementAccountData>
 
 export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {

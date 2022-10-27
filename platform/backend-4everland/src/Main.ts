@@ -134,7 +134,7 @@ import {
     updateShopImplementData,
     getDataFromShopImplementAccountData,
     isContain,
-    buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData, getDataByKeyContain,
+    buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData, getDataByKeyContain, getShopImplement,
 } from "./application_layer/BackendService";
 
 
@@ -150,21 +150,47 @@ export let getAllPublishExtensionProtocolConfigs = () => Abtstract.getAllPublish
 
 export let getAllPublishContributeProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs")
 
-export let getAllPublishExtensions = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+export let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", protocolName, protocolVersion)
 
-export let getAllPublishContributes = (protocolName, protocolVersion) => Abtstract.getAllPublishData([
+export let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
-    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedcontributes", protocolName, protocolVersion)
+
+export let findPublishExtension = (onDownloadProgressFunc,
+    account,
+    name,
+    version
+) => Abtstract.findPublishImplement([
+    getShopImplement,
+    curry2(downloadFile)(onDownloadProgressFunc)
+],
+    "publishedextensions",
+    account,
+    name,
+    version
+)
+
+export let findPublishContribute = (onDownloadProgressFunc,
+    account,
+    name,
+    version
+) => Abtstract.findPublishImplement([
+    getShopImplement,
+    curry2(downloadFile)(onDownloadProgressFunc)
+],
+    "publishedcontributes",
+    account,
+    name,
+    version
+)
 
 export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abtstract.publishApp([
     onUploadProgressFunc,

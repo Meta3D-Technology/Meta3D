@@ -99,6 +99,34 @@ export let getShopProtocolCollection = (collectionName) => BackendService.getSho
 
 export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), null, collectionName)
 
+export let getShopImplement = (
+	collectionName: string,
+	account: string,
+	name: string,
+	version: string
+) => {
+	return getDatabase()
+		.collection(collectionName)
+		.where({ key: BackendService.handleKeyToLowercase(account) })
+		.get()
+		.then(res => {
+			if (res.data.length === 0) {
+				return null
+			}
+
+			let { fileData } = res.data[0]
+
+			let result = fileData.find((data) => data.name === name && data.version === version)
+
+			if (result === undefined) {
+				return null
+			}
+
+			return result
+		})
+}
+
+
 export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
 
 export let mapShopImplementCollection = BackendService.mapShopImplementCollection
