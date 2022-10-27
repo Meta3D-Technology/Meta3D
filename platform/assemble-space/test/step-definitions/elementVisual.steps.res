@@ -116,7 +116,7 @@ defineFeature(feature, test => {
               name: name,
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version:"0.6.0",
+                version: FrontendUtils.VersionConfig.getPlatformVersion(),
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -134,7 +134,7 @@ defineFeature(feature, test => {
               name: name,
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version:"0.6.0",
+                version: FrontendUtils.VersionConfig.getPlatformVersion(),
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -185,7 +185,7 @@ defineFeature(feature, test => {
                 ~name,
                 ~protocol={
                   name: ElementVisualTool.getVisualExtensionProtocolName(),
-                  version:"0.6.0",
+                  version: FrontendUtils.VersionConfig.getPlatformVersion(),
                 },
                 (),
               ),
@@ -239,7 +239,7 @@ defineFeature(feature, test => {
               name: ElementVisualTool.getVisualExtensionName(),
               protocol: {
                 name: ElementVisualTool.getVisualExtensionProtocolName(),
-                version:"0.6.0",
+                version: FrontendUtils.VersionConfig.getPlatformVersion(),
               },
               dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

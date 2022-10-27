@@ -204,10 +204,10 @@ use production
 
 
 
-* TODO chore: Index add version
+* DONE chore: Index add version
 
 
-* TODO chore: version use one file
+* DONE chore: version use one file
 
 
 * TODO chore: add publish script

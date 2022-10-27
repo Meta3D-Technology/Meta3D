@@ -18,7 +18,11 @@ let make = () => {
 
   <>
     <Nav />
-    <h1> {React.string(`欢迎使用Meta3D内测版！`)} </h1>
+    <h1>
+      {React.string({
+        j`欢迎使用Meta3D内测版 v${FrontendUtils.VersionConfig.getPlatformVersion()}`
+      })}
+    </h1>
     {switch account {
     | Some(account) => <span> {React.string({j`Account：${account}`})} </span>
     | None => React.null
