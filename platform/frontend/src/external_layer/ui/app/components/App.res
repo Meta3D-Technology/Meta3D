@@ -38,7 +38,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       requestAnimationFrame: RequestAnimationFrameExtend.requestAnimationFrame,
     },
     backend: switch env {
-    | #local => BackendCloudbase2.buildAssembleSpaceService()
+    | #local => BackendCloudbase.buildAssembleSpaceService()
     | #production => Backend4everland.buildAssembleSpaceService()
     },
     meta3d: {
@@ -76,8 +76,10 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
-      error: (. errorMessage, durationOpt) => FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
-      errorWithExn: (. error, durationOpt) => FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
+      error: (. errorMessage, durationOpt) =>
+        FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+      errorWithExn: (. error, durationOpt) =>
+        FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
     },
     react: {
       useState: func => {
@@ -116,7 +118,6 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
   {
     switch url.path {
     | list{"Login"} => <Login service />
-    // | list{"Register"} => <Register />
     | list{"ExtensionShop"} => <ExtensionShop service />
     | list{"ContributeShop"} => <ContributeShop service />
     | list{"AssembleSpace"} => <>

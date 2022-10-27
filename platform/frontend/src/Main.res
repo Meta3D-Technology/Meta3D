@@ -1,4 +1,4 @@
-let _getEnv = (): FrontendUtils.EnvType.env => #local
+let _getEnv = (): FrontendUtils.EnvType.env => #production
 
 let _hiddenLoadding = %raw(`
     function(){
@@ -8,7 +8,7 @@ let _hiddenLoadding = %raw(`
 
 let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
   backend: switch env {
-  | #local => BackendCloudbase2.buildFrontendService()
+  | #local => BackendCloudbase.buildFrontendService()
   | #production => Backend4everland.buildFrontendService()
   },
 }

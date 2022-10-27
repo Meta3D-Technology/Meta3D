@@ -20,78 +20,8 @@ export let getDatabase = () => {
 	return getBackend().database()
 }
 
-// let _checkUserName = (account: string) => {
-// 	return notHasData("user", { key: account })
-// }
-
-// export let handleLogin = (account: string) => {
-// 	return _checkUserName(account).flatMap((isNotHasData: boolean) => {
-// 		if (isNotHasData) {
-// 			return fromPromise(
-// 				addData("user", account, {})
-// 			).concat(fromPromise(
-// 				addData("publishedextensions", account, {
-// 					fileData: []
-// 				})
-// 			)).concat(fromPromise(
-// 				addData("publishedcontributes", account, {
-// 					fileData: []
-// 				})
-// 			)).concat(fromPromise(
-// 				addData("publishedelementassembledata", account, {
-// 					fileData: []
-// 				})
-// 			)).concat(fromPromise(
-// 				addData("publishedskinassembledata", account, {
-// 					fileData: []
-// 				})
-// 			))
-// 		}
-
-// 		return just(account)
-// 	})
-// }
-
-// export let notHasData = (collectionName: string, data: object) => {
-// 	return fromPromise(getDatabase().collection(collectionName)
-// 		.where(data)
-// 		.get()
-// 		.then(res => res.data.length === 0))
-// }
-
-// export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
-
-
-
-// export let downloadFile = (fileID: string) => {
-// 	return fromPromise(getBackend().getTempFileURL({
-// 		fileList: [fileID]
-// 	})).flatMap(({ fileList }) => {
-// 		return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
-// 	})
-// }
-
-// export let getShopData = (collectionName: string, data: any) => {
-// 	return getDatabase().collection(collectionName)
-// 		.where(data)
-// 		.get()
-// }
-
-// export let getShopProtocolCollection = curry2(BackendService.getShopProtocolCollection)(getBackend())
-
-// export let addData = curry4_1(BackendService.addData)(getBackend())
-
-// export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
-
-// export let updateData = (collectionName: string, whereData: any, updateData: any) => {
-// 	return getDatabase().collection(collectionName)
-// 		.where(whereData)
-// 		.update(updateData)
-// }
 
 export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
-
-// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 

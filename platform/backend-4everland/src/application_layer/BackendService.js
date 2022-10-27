@@ -25,17 +25,8 @@ let init = () => {
     return (0, most_1.empty)();
 };
 exports.init = init;
-// let _buildEmptyBody = () => ""
-// export let handleLogin = (account: string) => {
-//     return fromPromise(addData("user", "meta3d_" + account, _buildEmptyBody()))
-// }
-// export let handleLogin = curry2(BackendService.handleLogin)(getBackend())
-// export let addData = curry4_1(BackendService.addData)(getBackend())
-// export let hasAccount = curry3_1(BackendService.hasAccount)(getBackend())
-// export let getShopCollection = curry2(BackendService.getShopCollection)(getBackend())
 let handleLogin = (account) => BackendService.handleLogin((0, Repo_1.getBackend)(), account);
 exports.handleLogin = handleLogin;
-// export let addData = (addDataToBody, collectionName, key, collectionData, data) => BackendService.addData(getBackend(), addDataToBody, collectionName, key, collectionData, data)
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
 let _onDownloadProgressFuncForJson = console.log;

@@ -1,22 +1,22 @@
 open FrontendUtils.BackendCloudbaseType
 
 @module("backend-cloudbase")
-external init: unit => Meta3dBsMostProtocol.StreamType.stream<unit> = ""
+external init: init = ""
 
 @module("backend-cloudbase")
-external checkUserName: string => Meta3dBsMostProtocol.StreamType.stream<bool> = ""
-
-@module("backend-cloudbase")
-external registerUser: (string, string) => Meta3dBsMostProtocol.StreamType.stream<unit> = ""
-
-@module("backend-cloudbase")
-external isLoginSuccess: (
-  string,
-  string,
-) => Meta3dBsMostProtocol.StreamType.stream<(bool, Js.Nullable.t<string>)> = ""
+external handleLogin: handleLogin = ""
 
 @module("backend-cloudbase")
 external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = ""
+
+@module("backend-cloudbase")
+external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = ""
+
+@module("backend-cloudbase")
+external getAllPublishExtensionInfos: getAllPublishExtensionInfos = ""
+
+@module("backend-cloudbase")
+external findPublishExtension: findPublishExtension = ""
 
 @module("backend-cloudbase")
 external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
@@ -25,7 +25,10 @@ external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
 external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs = ""
 
 @module("backend-cloudbase")
-external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = ""
+external getAllPublishContributeInfos: getAllPublishContributeInfos = ""
+
+@module("backend-cloudbase")
+external findPublishContribute: findPublishContribute = ""
 
 @module("backend-cloudbase")
 external publishApp: publishApp = ""
@@ -50,6 +53,23 @@ external getAllPublishNewestExtensions: getAllPublishNewestExtensions = ""
 
 @module("backend-cloudbase")
 external getElementAssembleData: getElementAssembleData = ""
+
+let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
+  {
+    init: init,
+    handleLogin: handleLogin,
+    getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
+    getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
+    getAllPublishExtensionInfos: getAllPublishExtensionInfos,
+    findPublishExtension: findPublishExtension,
+    getAllPublishContributeProtocols: getAllPublishContributeProtocols,
+    getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
+    getAllPublishContributeInfos: getAllPublishContributeInfos,
+    findPublishContribute: findPublishContribute,
+    findAllPublishApps: findAllPublishApps,
+    findPublishApp: findPublishApp,
+  }
+}
 
 let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendService => {
   {
