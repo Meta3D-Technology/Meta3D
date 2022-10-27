@@ -216,21 +216,19 @@ need update version file
 
 
 
-* TODO 4everland add platform-development, platform-production deploy!
-
-
 # * TODO publish(implement, protocol) add script for each env!
 
 
-* TODO website: add "web3" feature
-
-* TODO website: add version video link
-
-upload 飞书 video to B
 
 
 
-* TODO website: use 4everland's website as default!
+* DONE 4everland add platform-development, platform-production deploy!
+
+
+
+
+
+* DONE website: use 4everland's website as default!
 
 need update platform's url
 
@@ -243,11 +241,18 @@ need update platform's url
 # ** TODO more
 
 
-* TODO add version video
+
+
 
 
 * TODO publish 0.7.0
 
+* TODO pass ci
+
+* TODO add version video
+
+
+* DONE upload 飞书 video to B
 
 
 * TODO write web3 introduce article
