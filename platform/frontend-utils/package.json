@@ -6,7 +6,8 @@
         "watch": "rescript clean && rescript build -w",
         "webpack:dev-server": "webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js",
         "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
-        "test:update": "jest --maxWorkers=4 -u --config jest.json"
+        "test:update": "jest --maxWorkers=4 -u --config jest.json",
+        "update_minor_version": "gulp updateMinorVersion"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",
@@ -25,6 +26,7 @@
         "react-test-renderer": "^16.8.3",
         "style-loader": "^1.2.1",
         "webpack": "^5.62.1",
+        "semver": "7.3.7",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0"
     },

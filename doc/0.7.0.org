@@ -210,7 +210,7 @@ use production
 * DONE chore: version use one file
 
 
-* TODO chore: add publish script
+* DONE chore: add publish script
 
 need update version file
 
