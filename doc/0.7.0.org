@@ -245,17 +245,18 @@ need update platform's url
 
 
 
-* TODO publish 0.7.0
+* DONE publish 0.7.0
 
-* TODO pass ci
+* DONE pass ci
 
-* TODO add version video
+* DONE add version video
 
 
 * DONE upload 飞书 video to B
 
 
-* TODO write web3 introduce article
+* DONE write web3 introduce article
+
 
 
 
