@@ -6,7 +6,7 @@
     "author": "Wonder",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w",
+        "watch": "tsc -w -noEmit",
         "meta3d:publish_dev": "gulp publish_local_env",
         "meta3d:publish_pro": "gulp publish_production_env"
     },

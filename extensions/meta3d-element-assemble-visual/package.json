@@ -23,7 +23,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w",
+        "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"

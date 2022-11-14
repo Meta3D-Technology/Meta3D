@@ -3,7 +3,7 @@
     "version": "0.7.0",
     "main": "src/Main.js",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w -noEmit"
     },
     "dependencies": {
         "most": "^1.9.0"

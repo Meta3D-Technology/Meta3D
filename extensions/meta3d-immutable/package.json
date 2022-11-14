@@ -6,7 +6,7 @@
     "main": "src/Main.ts",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w"
+        "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
