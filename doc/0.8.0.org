@@ -2,18 +2,94 @@
 
 * DONE run button demo
 
-* TODO add imgui webgl backend renderer
 
-* TODO use it in a extension
+* TODO finish draft
 
-* TODO replace event, io
+** DONE add imgui webgl backend renderer2
 
-* TODO replace skin
+init
+
+beforeExec
+afterExec
+
+clear
+
+render 
 
 
-* TODO implement Button ui control
+
+Window:
+BeginWindow
+EndWindow
+
+
+
+** DONE add UIManager2
+
+# ** TODO add bind-io-event2
+
+** DONE add ui-control-window
+
+** DONE add use-editor2
+
+
+fix io
+
+fix event
+
+
+
+** DONE pass compile
+
+** DONE commit
+
+** TODO 
+        "watch": "tsc -w -noEmit",
+
+
+** TODO pass run test
+
+** TODO commit
+
+* TODO imgui webgl backend renderer: add Button
+
+Button:
+Button
+how to set position:
+    SetCursorPos
+
+
+* TODO pass run test
+
 
 * TODO rewrite skin
+
+
+* TODO pass run test
+
+
+* TODO pass bdd test
+
+
+
+* TODO refactor: remove 2, use 2 replace 1
+
+
+
+
+
+
+
+# * TODO use it in a extension
+
+# * TODO replace event, io
+
+# * TODO replace skin
+
+
+# * TODO implement Window, Button ui control
+
+# * TODO rewrite skin
 
 
 * TODO add Menu ui control

@@ -9,6 +9,6 @@
     "moduleResolution": "node",
     "types": ["Node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "mine/font_button.ts"],
   "exclude": ["node_modules"]
 }

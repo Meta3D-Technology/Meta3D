@@ -1,0 +1,3 @@
+type state = {
+    isDebug:bool
+}
