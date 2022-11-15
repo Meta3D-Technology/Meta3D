@@ -39,7 +39,12 @@ function collectResult(resultData1, resultData2, resultData3) {
               }));
 }
 
+function getLast(param) {
+  return param[2];
+}
+
 exports.map = map;
 exports.collectOption = collectOption;
 exports.collectResult = collectResult;
+exports.getLast = getLast;
 /* No side effect */

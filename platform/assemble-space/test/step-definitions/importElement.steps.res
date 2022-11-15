@@ -192,7 +192,7 @@ defineFeature(feature, test => {
     given("generate ui control u1", () => {
       let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
         name: "meta3d-ui-control-button-protocol",
-        version:"0.6.0",
+        version: "0.6.0",
       }
 
       u1 :=
@@ -242,6 +242,7 @@ defineFeature(feature, test => {
           ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
           ~skin=UIControlInspectorTool.buildSkin("skin1"),
           ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
+          ~specific=[Obj.magic(10)],
           (),
         )
 
@@ -287,7 +288,7 @@ defineFeature(feature, test => {
 
       let {protocolIconBase64, protocolConfigStr, newName, data} = uiControlContribute
 
-      let {rect, isDraw, skin, event} = uiControl1.contents
+      let {rect, isDraw, skin, event, specific} = uiControl1.contents
 
       let id1 = IdTool.generateId(id1RandomResult)
 
@@ -302,6 +303,7 @@ defineFeature(feature, test => {
               ~name="u1",
               ~protocolIconBase64,
               ~data=uiControlContribute.data,
+              ~parentId=None,
               (),
             ),
           },
@@ -312,6 +314,7 @@ defineFeature(feature, test => {
               ~isDraw,
               ~skin,
               ~event,
+              ~specific,
               (),
             ),
           },

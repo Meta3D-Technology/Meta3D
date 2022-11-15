@@ -33,6 +33,7 @@ module Method = {
     protocolConfigStr,
     name,
     data,
+    parentUIControlId,
   ) => {
     let protocolConfigStr = protocolConfigStr->Meta3dCommonlib.OptionSt.getExn
 
@@ -43,12 +44,21 @@ module Method = {
         name,
         data,
         _findSkin(service, protocolConfigStr, selectedContributes),
+        parentUIControlId,
+        service.meta3d.getUIControlSpecificDataFields(.
+          service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+        ),
       ),
     )
   }
 
-  let useSelector = ({selectedContributes}: FrontendUtils.ApAssembleStoreType.state) => {
-    selectedContributes
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
+    let {selectedContributes} = apAssembleState
+    let {parentUIControlId} = elementAssembleState
+
+    (selectedContributes, parentUIControlId)
   }
 }
 
@@ -56,10 +66,7 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let selectedContributes = ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (selectedContributes, parentUIControlId) = service.react.useSelector(Method.useSelector)
 
   // TODO duplicate with ap view
   <List
@@ -81,6 +88,7 @@ let make = (~service: service) => {
                 protocolConfigStr,
                 name,
                 data,
+                parentUIControlId,
               )
             }, 5->Some)
           }}

@@ -16,6 +16,8 @@ let includesByFunc = (arr, func) => {
 
 let sliceFrom = (arr, index) => Js.Array.sliceFrom(index, arr)
 
+let copy = Js.Array.copy
+
 let reduceOneParam = (arr, func, param) => Belt.Array.reduceU(arr, param, func)
 
 let reduceOneParami = (arr, func, param) => {

@@ -6,8 +6,11 @@ type id = string
 
 type name = string
 
+type parentId = option<id>
+
 type uiControl = {
   id: id,
+  parentId: parentId,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: protocolConfigStr,
   name: name,
@@ -44,7 +47,20 @@ type skinName = string
 
 type skin = {skinName: skinName}
 
-type uiControlInspectorData = {id: id, rect: rect, isDraw: isDraw, event: event, skin: skin}
+type specificData = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldData
+
+type specific = array<specificData>
+
+type uiControlInspectorData = {
+  id: id,
+  rect: rect,
+  specific: specific,
+  // children: children,
+  isDraw: isDraw,
+  event: event,
+  skin: skin,
+}
+// and children = array<uiControlInspectorData>
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
 
@@ -92,8 +108,11 @@ type action =
       name,
       Meta3d.ExtensionFileType.contributeFileData,
       skin,
+      parentId,
+      specific,
     )
-  | SetInspectorCurrentUIControlId(id)
+  | SelectSelectedUIControl(id)
+  | SetSpecific(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
   | SetSkin(id, skinName)
@@ -110,6 +129,7 @@ type action =
 
 type state = {
   selectedUIControls: selectedUIControls,
+  parentUIControlId: option<id>,
   inspectorCurrentUIControlId: option<id>,
   selectedUIControlInspectorData: selectedUIControlInspectorData,
   visualExtension: option<ApAssembleStoreType.extension>,

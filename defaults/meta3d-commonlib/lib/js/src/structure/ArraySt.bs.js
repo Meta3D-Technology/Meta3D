@@ -37,6 +37,10 @@ function sliceFrom(arr, index) {
   return arr.slice(index);
 }
 
+function copy(prim) {
+  return prim.slice();
+}
+
 function reduceOneParam(arr, func, param) {
   return Belt_Array.reduceU(arr, param, func);
 }
@@ -211,6 +215,7 @@ exports.find = find;
 exports.includes = includes;
 exports.includesByFunc = includesByFunc;
 exports.sliceFrom = sliceFrom;
+exports.copy = copy;
 exports.reduceOneParam = reduceOneParam;
 exports.reduceOneParami = reduceOneParami;
 exports.traverseResultM = traverseResultM;

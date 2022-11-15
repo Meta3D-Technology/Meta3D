@@ -21,6 +21,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     endWindow: meta3dState => {
       UIManager.endWindow(meta3dState, (api, meta3dImguiRendererExtensionName))
     },
+    setNextWindowRect: (meta3dState, rect) => {
+      UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionName), rect)
+    },
     // getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,
     init: UIManager.init,

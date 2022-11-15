@@ -1,5 +1,6 @@
 'use strict';
 
+var Curry = require("rescript/lib/js/curry.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 
 function serializeLib(protocolConfigStr) {
@@ -10,8 +11,12 @@ function getSkinProtocolData(configLib) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "getSkinProtocolData")();
 }
 
-function generateUIControlDataStr(configLib, rect, skin) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlDataStr")(rect, skin);
+function generateUIControlCommonDataStr(configLib, rect, skin) {
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlCommonDataStr")(rect, skin);
+}
+
+function getUIControlSpecificDataFields(configLib) {
+  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSpecificDataFields"), undefined);
 }
 
 function getUIControlSupportedEventNames(configLib) {
@@ -24,7 +29,8 @@ function generateHandleUIControlEventStr(configLib, actionNames) {
 
 exports.serializeLib = serializeLib;
 exports.getSkinProtocolData = getSkinProtocolData;
-exports.generateUIControlDataStr = generateUIControlDataStr;
+exports.generateUIControlCommonDataStr = generateUIControlCommonDataStr;
+exports.getUIControlSpecificDataFields = getUIControlSpecificDataFields;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 /* No side effect */

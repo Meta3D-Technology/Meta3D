@@ -96,6 +96,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return state
         },
+        setNextWindowRect: (rect, state) => {
+            ImGui.SetNextWindowPos(new ImGui.ImVec2(rect.x, rect.y));
+            ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height));
+
+            return state
+        },
     }
 }
 

@@ -1,6 +1,6 @@
 open FrontendUtils.ElementAssembleStoreType
 
-let _buildDefaultUIControlInspectorData = (id, skin) => {
+let _buildDefaultUIControlInspectorData = (id, skin, specific) => {
   {
     id: id,
     rect: {
@@ -12,11 +12,13 @@ let _buildDefaultUIControlInspectorData = (id, skin) => {
     isDraw: true->BoolForIsDraw,
     skin: skin,
     event: [],
+    specific: specific,
   }
 }
 
 let _createState = () => {
   selectedUIControls: list{},
+  parentUIControlId: None,
   inspectorCurrentUIControlId: None,
   selectedUIControlInspectorData: list{},
   visualExtension: None,
@@ -51,23 +53,41 @@ let reducer = (state, action) => {
       visualExtension: state.visualExtension,
     }
 
-  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data, skin) => {
+  | SelectUIControl(
+      protocolIconBase64,
+      protocolConfigStr,
+      name,
+      data,
+      skin,
+      parentId,
+      specific,
+    ) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       {
         ...state,
         selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.push({
           id: id,
+          parentId: parentId,
           protocolIconBase64: protocolIconBase64,
           protocolConfigStr: protocolConfigStr,
           name: name,
           data: data,
         }),
         selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.push(
-          _buildDefaultUIControlInspectorData(id, skin),
+          _buildDefaultUIControlInspectorData(id, skin, specific),
         ),
       }
     }
+  | SetSpecific(id, specific) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        specific: specific,
+      },
+      id,
+    )
   | SetRect(id, rect) =>
     _setUIControlInspectorData(
       state,
@@ -131,8 +151,9 @@ let reducer = (state, action) => {
       },
       id,
     )
-  | SetInspectorCurrentUIControlId(id) => {
+  | SelectSelectedUIControl(id) => {
       ...state,
+      parentUIControlId: id->Some,
       inspectorCurrentUIControlId: id->Some,
       isShowElementInspector: false,
     }

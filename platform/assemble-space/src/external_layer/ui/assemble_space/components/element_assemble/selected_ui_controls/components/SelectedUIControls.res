@@ -4,7 +4,7 @@ open FrontendUtils.AssembleSpaceType
 
 module Method = {
   let selectUIControl = (dispatch, id) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SetInspectorCurrentUIControlId(id))
+    dispatch(FrontendUtils.ElementAssembleStoreType.SelectSelectedUIControl(id))
   }
 
   let useSelector = ({selectedUIControls}: FrontendUtils.ElementAssembleStoreType.state) => {

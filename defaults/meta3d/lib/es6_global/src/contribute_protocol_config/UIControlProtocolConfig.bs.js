@@ -1,5 +1,6 @@
 
 
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 
 function serializeLib(protocolConfigStr) {
@@ -10,8 +11,12 @@ function getSkinProtocolData(configLib) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "getSkinProtocolData")();
 }
 
-function generateUIControlDataStr(configLib, rect, skin) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlDataStr")(rect, skin);
+function generateUIControlCommonDataStr(configLib, rect, skin) {
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlCommonDataStr")(rect, skin);
+}
+
+function getUIControlSpecificDataFields(configLib) {
+  return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSpecificDataFields"), undefined);
 }
 
 function getUIControlSupportedEventNames(configLib) {
@@ -25,7 +30,8 @@ function generateHandleUIControlEventStr(configLib, actionNames) {
 export {
   serializeLib ,
   getSkinProtocolData ,
-  generateUIControlDataStr ,
+  generateUIControlCommonDataStr ,
+  getUIControlSpecificDataFields ,
   getUIControlSupportedEventNames ,
   generateHandleUIControlEventStr ,
   

@@ -20,3 +20,5 @@ let collectResult = (resultData1, resultData2, resultData3) =>
       resultData3->Result.mapSuccess(data3 => (data1, data2, data3))
     )
   )
+
+let getLast = ((x, y, z)) => z

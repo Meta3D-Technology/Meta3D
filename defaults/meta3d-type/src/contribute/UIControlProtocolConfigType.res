@@ -5,6 +5,8 @@ type rect = {
   height: int,
 }
 
+type childrenFunc = (. Index.state) => Index.state
+
 type supportedEventName = [#click]
 
 type actionName = Js.Nullable.t<string>
@@ -18,7 +20,21 @@ type skinProtocolData = {
 
 type getSkinProtocolData = unit => skinProtocolData
 
-type generateUIControlDataStr = (string, string) => string
+type generateUIControlCommonDataStr = (string, string) => string
+
+type uiControlSpecicFieldType = [#string]
+
+type uiControlSpecicFieldValue
+
+type uiControlSpecicFieldData = {
+  name: string,
+  type_: uiControlSpecicFieldType,
+  defaultValue: uiControlSpecicFieldValue,
+}
+
+type uiControlSpecificDataFields = array<uiControlSpecicFieldData>
+
+type getUIControlSpecificDataFields = unit => uiControlSpecificDataFields
 
 type getUIControlSupportedEventNames = unit => array<supportedEventName>
 

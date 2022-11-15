@@ -227,6 +227,7 @@ module Method = {
             protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
             name: NewNameUtils.getName(newName, data.contributePackageData.name),
             data: data,
+            parentId: None,
           }: FrontendUtils.ElementAssembleStoreType.uiControl
         )
       }
@@ -235,12 +236,13 @@ module Method = {
   }
 
   let _generateSelectedUIControlInspectorData = (
+    service,
     uiControls,
     selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
   ) => {
     uiControls
     ->Meta3dCommonlib.ArraySt.mapi((
-      {rect, isDraw, skin, event}: FrontendUtils.BackendCloudbaseType.uiControl,
+      {rect, isDraw, skin, event, specific}: FrontendUtils.BackendCloudbaseType.uiControl,
       index,
     ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
       id: (
@@ -250,6 +252,7 @@ module Method = {
       isDraw: isDraw,
       skin: skin,
       event: event,
+      specific: specific,
     })
     ->Meta3dCommonlib.ListSt.fromArray
   }
@@ -265,7 +268,7 @@ module Method = {
       dispatch(
         FrontendUtils.ElementAssembleStoreType.Import(
           selectedUIControls,
-          _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
+          _generateSelectedUIControlInspectorData(service, uiControls, selectedUIControls),
           element,
         ),
       )

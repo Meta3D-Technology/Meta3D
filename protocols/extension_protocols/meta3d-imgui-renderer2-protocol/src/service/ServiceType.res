@@ -1,3 +1,10 @@
+type rect = {
+  x: float,
+  y: float,
+  width: float,
+  height: float,
+}
+
 type time = float
 
 type color = (float, float, float)
@@ -15,4 +22,5 @@ type service = {
   clear: (. StateType.state, clearColor) => unit,
   beginWindow: (. label, StateType.state) => StateType.state,
   endWindow: (. StateType.state) => StateType.state,
+  setNextWindowRect: (. rect, StateType.state) => StateType.state,
 }

@@ -13,10 +13,11 @@ type protocol = {
   configLib: protocolConfigLib,
 }
 
-type uiControl = {
+type rec uiControl = {
   name: string,
   protocol: protocol,
   data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
+  children: array<uiControl>,
 }
 
 type elementMR = {
@@ -34,6 +35,59 @@ let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) =>
   ->Meta3dCommonlib.OptionSt.getExn
 }
 
+let _handleChildren = uiControls => {
+  let (uiControlsAfterInsertChild, needRemovedIds) =
+    uiControls->Meta3dCommonlib.ArraySt.reduceOneParami(
+      (.
+        (uiControlsAfterInsertChild, needRemovedIds) as result,
+        (parentId, idOfChild, childUIControl),
+        i,
+      ) => {
+        switch parentId {
+        | None => result
+        | Some(parentId) =>
+          uiControlsAfterInsertChild->Meta3dCommonlib.ArraySt.reduceOneParam(
+            (.
+              (uiControlsAfterInsertChildResult, needRemovedIds),
+              (_parentId, id, {children} as parentUIControl: uiControl),
+            ) => {
+              id === parentId
+                ? (
+                    uiControlsAfterInsertChildResult->Meta3dCommonlib.ArraySt.push((
+                      _parentId,
+                      id,
+                      {
+                        ...parentUIControl,
+                        children: children
+                        ->Meta3dCommonlib.ArraySt.copy
+                        ->Meta3dCommonlib.ArraySt.push(childUIControl),
+                      },
+                    )),
+                    needRemovedIds->Meta3dCommonlib.ArraySt.push(idOfChild),
+                  )
+                : (
+                    uiControlsAfterInsertChildResult->Meta3dCommonlib.ArraySt.push((
+                      _parentId,
+                      id,
+                      parentUIControl,
+                    )),
+                    needRemovedIds,
+                  )
+            },
+            ([], needRemovedIds),
+          )
+        }
+      },
+      (uiControls, []),
+    )
+
+  uiControlsAfterInsertChild
+  ->Meta3dCommonlib.ArraySt.filter(((_, id, _)) => {
+    !(needRemovedIds->Meta3dCommonlib.ArraySt.includes(id))
+  })
+  ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple3.getLast)
+}
+
 let buildElementMR = (
   service: FrontendUtils.AssembleSpaceType.service,
   elementName,
@@ -48,27 +102,34 @@ let buildElementMR = (
       elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
       reducers: reducers,
     },
-    uiControls: selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
+    uiControls: selectedUIControls
+    ->Meta3dCommonlib.ArraySt.reduceOneParam(
       (.
         uiControls,
-        {id, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl,
+        {id, parentId, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl,
       ) => {
         let {name, version} = data.contributePackageData.protocol
 
-        uiControls->Meta3dCommonlib.ArraySt.push({
-          name: (
-            service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
-          )["uiControlName"],
-          protocol: {
-            name: name,
-            version: version,
-            configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+        uiControls->Meta3dCommonlib.ArraySt.push((
+          parentId,
+          id,
+          {
+            name: (
+              service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+            )["uiControlName"],
+            protocol: {
+              name: name,
+              version: version,
+              configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+            },
+            data: _getSelectedUIControlInspectorData(selectedUIControlInspectorData, id),
+            children: [],
           },
-          data: _getSelectedUIControlInspectorData(selectedUIControlInspectorData, id),
-        })
+        ))
       },
       [],
-    ),
+    )
+    ->_handleChildren,
   }
 }
 
@@ -131,6 +192,12 @@ let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string 
   j` getSkin(uiState, "${skin.skinName}").skin `
 }
 
+let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specific): string => {
+  specific->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, defaultValue}) => {
+    map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+  }, Meta3dCommonlib.ImmutableHashMap.createEmpty())->Obj.magic->Js.Json.stringify
+}
+
 let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
   switch isDraw {
   | BoolForIsDraw(value) => j`if(${value->BoolUtils.boolToString}){`
@@ -142,21 +209,45 @@ let _generateIsDrawIfEnd = () => {
   j`}`
 }
 
-let _generateAllDrawUIControlAndHandleEventStr = (
+let rec _generateChildren = (service, children: array<uiControl>): string => {
+  children->Meta3dCommonlib.ArraySt.length === 0
+    ? ""
+    : {
+        let str = j`childrenFunc: (meta3dState) =>{
+    `
+        let str = str ++ _generateGetUIControlsStr(service, children)
+
+        let str =
+          str ++
+          _generateAllDrawUIControlAndHandleEventStr(service, children) ++ {
+            j`
+        return meta3dState
+        `
+          }
+
+        str ++ "}"
+      }
+}
+and _generateAllDrawUIControlAndHandleEventStr = (
   service: FrontendUtils.AssembleSpaceType.service,
   uiControls,
 ) => {
   uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. str, {name, protocol, data}) => {
+    (. str, {name, protocol, data, children}) => {
       str ++
       _generateIsDrawIfBegin(data.isDraw) ++
       j`
                 data = ${name}(meta3dState,
-                    ${service.meta3d.generateUIControlDataStr(.
+                {
+                  ...${service.meta3d.generateUIControlCommonDataStr(.
           protocol.configLib,
           _generateRect(data.rect),
           _generateSkin(data.skin),
-        )})
+        )},
+        ...${_generateSpecific(data.specific)},
+      ${_generateChildren(service, children)}
+                }
+                    )
                 meta3dState = data[0]
     ` ++
       _generateHandleUIControlEventStr(service, protocol.configLib, data.event) ++

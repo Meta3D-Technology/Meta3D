@@ -43,13 +43,89 @@ fix event
 
 ** DONE commit
 
-** TODO 
+** DONE 
         "watch": "tsc -w -noEmit",
+
+** DONE fix
+
+# parentId
+
+# specific
+
+# element mr
+
+# select ui control
+
+# ui control inspector:
+# specific
+#     direct value
+#     can use element state
+
+# ElementVisual
+
+# PublishElement
+
+
+
+# pass compile
+
+** DONE assemble-space pass bdd test
+
+# element mr:
+# parentId
+
+# return
+# remove last
+
+# specific
+
+
+
+
+//select ui control
+
+# ui control inspector:
+# specific
+#     direct value
+
+# ElementVisual
+# import element
+
+# PublishElement
+
+# Store: 
+# SelectUIControl
+
+
+** DONE commit
 
 
 ** TODO pass run test
 
-** TODO commit
+** TODO pass run test: parent, child window
+
+
+** TODO feat 
+ui control inspector:
+specific add:
+    can use element state
+
+
+bdd test
+
+run test
+
+
+
+** TODO pass bdd test
+
+UIManager
+
+
+** TODO refactor
+
+
+
 
 * TODO imgui webgl backend renderer: add Button
 
@@ -60,6 +136,12 @@ how to set position:
 
 
 * TODO pass run test
+
+
+* TODO pass bdd test
+
+
+
 
 
 * TODO rewrite skin

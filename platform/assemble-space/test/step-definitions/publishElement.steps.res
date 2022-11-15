@@ -17,6 +17,7 @@ defineFeature(feature, test => {
   let event = ref(Obj.magic(1))
   let isDraw = ref(Obj.magic(1))
   let skin = ref(Obj.magic(1))
+  let specific = ref(Obj.magic(1))
 
   let sandbox = ref(Obj.magic(1))
 
@@ -129,6 +130,8 @@ defineFeature(feature, test => {
 
       skin := UIControlInspectorTool.buildSkin("skin1")
 
+      specific := [Obj.magic(11)]
+
       selectedUIControls :=
         list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}
       selectedUIControlInspectorData :=
@@ -139,6 +142,7 @@ defineFeature(feature, test => {
             ~event=event.contents,
             ~isDraw=isDraw.contents,
             ~skin=skin.contents,
+            ~specific=specific.contents,
             (),
           ),
         }
@@ -166,7 +170,7 @@ defineFeature(feature, test => {
           ~generateContribute=generateContributeStub.contents->Obj.magic,
           ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
           ~getSkinProtocolData=Meta3d.Main.getSkinProtocolData->Obj.magic,
-          ~generateUIControlDataStr=Meta3d.Main.generateUIControlDataStr->Obj.magic,
+          ~generateUIControlCommonDataStr=Meta3d.Main.generateUIControlCommonDataStr->Obj.magic,
           ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
           ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
           (),
@@ -336,6 +340,7 @@ defineFeature(feature, test => {
                 isDraw: isDraw.contents,
                 skin: skin.contents,
                 event: event.contents,
+                specific: specific.contents,
               },
             ],
           }: FrontendUtils.BackendCloudbaseType.inspectorData

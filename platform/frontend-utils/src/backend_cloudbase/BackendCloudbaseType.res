@@ -109,6 +109,7 @@ type uiControl = {
   isDraw: ElementAssembleStoreType.isDraw,
   skin: ElementAssembleStoreType.skin,
   event: ElementAssembleStoreType.event,
+  specific: ElementAssembleStoreType.specific,
 }
 
 type inspectorData = {

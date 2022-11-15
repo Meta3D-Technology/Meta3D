@@ -38,6 +38,19 @@ let buildEventData = (
   actionName: actionName,
 }
 
+let buildSpecific = (
+  ~name="s1",
+  ~type_=#string,
+  ~defaultValue="d1",
+  (),
+): FrontendUtils.ElementAssembleStoreType.specificData => {
+  {
+    name: name,
+    type_: type_,
+    defaultValue: defaultValue->Obj.magic,
+  }
+}
+
 let buildUIControlInspectorData = (
   ~id,
   ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
@@ -47,6 +60,7 @@ let buildUIControlInspectorData = (
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
   ~skin=buildSkin("empty"),
   ~event=[],
+  ~specific=[],
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
   id: id,
@@ -54,6 +68,7 @@ let buildUIControlInspectorData = (
   isDraw: isDraw,
   skin: skin,
   event: event,
+  specific: specific,
 }
 
 let setRectX = UIControlInspector.Method.setRectX
@@ -69,6 +84,8 @@ let setIsDraw = UIControlInspector.Method.setIsDraw
 let setSkin = UIControlInspector.Method.setSkin
 
 let setAction = UIControlInspector.Method.setAction
+
+let onFinishSpecific = UIControlInspector.Method._onFinishSpecific
 
 let buildEmptySelectOptionValue = SelectUtils.buildEmptySelectOptionValue
 

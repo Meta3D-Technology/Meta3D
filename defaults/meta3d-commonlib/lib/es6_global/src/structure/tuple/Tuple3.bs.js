@@ -39,10 +39,15 @@ function collectResult(resultData1, resultData2, resultData3) {
               }));
 }
 
+function getLast(param) {
+  return param[2];
+}
+
 export {
   map ,
   collectOption ,
   collectResult ,
+  getLast ,
   
 }
 /* No side effect */

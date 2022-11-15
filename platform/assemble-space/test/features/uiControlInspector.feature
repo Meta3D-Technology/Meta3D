@@ -42,6 +42,19 @@ Feature: UIControlInsepctor
             When set isDraw
             Then should dispatch SetIsDraw action
 
+
+    Rule: specific
+
+        Scenario: show specific form
+            Given select ui control window w1
+            And set inspector current selected ui control data to w1
+            When render
+            Then should show form with default value input
+
+        Scenario: set specific
+            When set specific
+            Then should dispatch SetSpecific action
+
     Rule: Skin
 
         Scenario: show skin

@@ -34,6 +34,8 @@ defineFeature(feature, test => {
             "",
             Obj.magic(1),
             UIControlInspectorTool.buildSkin("empty"),
+            None,
+            [],
           ),
         )
 

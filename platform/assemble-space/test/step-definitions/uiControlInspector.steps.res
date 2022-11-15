@@ -342,6 +342,107 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."show specific form", ({given, \"when", \"and", then}) => {
+    let id = "d1"
+    let w1 = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given("select ui control window w1", () => {
+      w1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "^0.7.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("set inspector current selected ui control data to w1", () => {
+      useSelectorStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          (
+            list{},
+            (
+              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+              id->Some,
+              list{w1.contents},
+              list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id,
+                  ~specific=[
+                    UIControlInspectorTool.buildSpecific(
+                      ~name="label",
+                      ~type_=#string,
+                      ~defaultValue="Window1",
+                      (),
+                    ),
+                  ],
+                  (),
+                ),
+              },
+            ),
+          ),
+          _,
+        )
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show form with default value input", () => {
+      UIControlInspectorTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
+  test(."set specific", ({given, \"when", \"and", then}) => {
+    let id = "1"
+    let specific = [
+      UIControlInspectorTool.buildSpecific(
+        ~name="label",
+        ~type_=#string,
+        ~defaultValue="Window1",
+        (),
+      ),
+    ]
+    let dispatchStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    \"when"("set specific", () => {
+      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+      UIControlInspectorTool.onFinishSpecific(
+        dispatchStub.contents->Obj.magic,
+        id,
+        {
+          "fields": specific,
+        },
+      )
+    })
+
+    then("should dispatch SetSpecific action", () => {
+      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+        FrontendUtils.ElementAssembleStoreType.SetSpecific(id, specific)
+    })
+  })
+
   test(."show skin", ({given, \"when", \"and", then}) => {
     let id = "d1"
     let d1 = ref(Obj.magic(1))

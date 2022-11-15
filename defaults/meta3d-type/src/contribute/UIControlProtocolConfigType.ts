@@ -1,4 +1,5 @@
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { state } from "../Index"
 
 export type rect = {
   x: number,
@@ -6,6 +7,8 @@ export type rect = {
   width: number,
   height: number,
 }
+
+export type childrenFunc = (state: state) => state
 
 export type supportedEventName = "click"
 
@@ -20,7 +23,22 @@ export type skinProtocolData = {
 
 export type getSkinProtocolData = () => skinProtocolData
 
-export type generateUIControlDataStr = (rect: string, skin: string) => string
+export type generateUIControlCommonDataStr = (rect: string, skin: string) => string
+
+
+type uiControlSpecicFieldType = "string"
+
+type uiControlSpecicFieldValue = any
+
+type uiControlSpecicFieldData = {
+  name: string,
+  type_: uiControlSpecicFieldType,
+  defaultValue: uiControlSpecicFieldValue,
+}
+
+type uiControlSpecificDataFields = Array<uiControlSpecicFieldData>
+
+export type getUIControlSpecificDataFields = () => uiControlSpecificDataFields
 
 export type getUIControlSupportedEventNames = () => Array<supportedEventName>
 

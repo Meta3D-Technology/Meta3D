@@ -21,8 +21,7 @@ Feature: UIControls
         Given select uiControl u1 in ap view
         And select skin s1 which is used by u1 in ap view
         When select u1
-        Then should find s1
-        And dispatch SelectUIControl action
+        Then dispatch SelectUIControl action
 
 
 # Scenario: set uiControls

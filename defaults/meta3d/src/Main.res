@@ -38,7 +38,9 @@ let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
 let getSkinProtocolData = UIControlProtocolConfig.getSkinProtocolData
 
-let generateUIControlDataStr = UIControlProtocolConfig.generateUIControlDataStr
+let generateUIControlCommonDataStr = UIControlProtocolConfig.generateUIControlCommonDataStr
+
+let getUIControlSpecificDataFields = UIControlProtocolConfig.getUIControlSpecificDataFields
 
 let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSupportedEventNames
 

@@ -62,8 +62,10 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeUIControlProtocolConfigLib(protocolConfigStr),
       getSkinProtocolData: (. configLib) => Meta3d.Main.getSkinProtocolData(configLib),
-      generateUIControlDataStr: (. configLib, rect, skin) =>
-        Meta3d.Main.generateUIControlDataStr(configLib, rect, skin),
+      generateUIControlCommonDataStr: (. configLib, rect, skin) =>
+        Meta3d.Main.generateUIControlCommonDataStr(configLib, rect, skin),
+      getUIControlSpecificDataFields: (. configLib) =>
+        Meta3d.Main.getUIControlSpecificDataFields(configLib),
       getUIControlSupportedEventNames: (. configLib) =>
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
       generateHandleUIControlEventStr: (. configLib, actionNames) =>

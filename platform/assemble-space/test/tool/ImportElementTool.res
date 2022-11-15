@@ -10,6 +10,7 @@ let buildUIControl = (
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
   ~skin=UIControlInspectorTool.buildSkin("skin1"),
   ~event=[],
+  ~specific=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.uiControl => {
   name: name,
@@ -17,6 +18,7 @@ let buildUIControl = (
   isDraw: isDraw,
   skin: skin,
   event: event,
+  specific: specific,
 }
 
 let buildElementAssembleData = (

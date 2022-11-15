@@ -32,21 +32,24 @@ defineFeature(feature, test => {
     \"and"("select action a1 in ap view", () => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          list{
-            UIControlsTool.buildSelectedContribute(
-              ~id="1",
-              ~newName="u1"->Some,
-              ~protocolName="meta3d-ui-control-u1",
-              ~protocolConfigStr="u1_config"->Some,
-              (),
-            ),
-            UIControlsTool.buildSelectedContribute(
-              ~id="2",
-              ~newName="a1"->Some,
-              ~protocolName="meta3d-action-a1",
-              (),
-            ),
-          },
+          (
+            list{
+              UIControlsTool.buildSelectedContribute(
+                ~id="1",
+                ~newName="u1"->Some,
+                ~protocolName="meta3d-ui-control-u1",
+                ~protocolConfigStr="u1_config"->Some,
+                (),
+              ),
+              UIControlsTool.buildSelectedContribute(
+                ~id="2",
+                ~newName="a1"->Some,
+                ~protocolName="meta3d-action-a1",
+                (),
+              ),
+            },
+            None,
+          ),
           _,
         )
     })
@@ -69,6 +72,7 @@ defineFeature(feature, test => {
   test(."select uiControl", ({given, \"when", \"and", then}) => {
     let protocolIconBase64 = ref(Obj.magic(1))
     let protocolConfigStr = ref(Obj.magic(1))
+    let sepcific = ref(Obj.magic(1))
     let name = ref(Obj.magic(1))
     let data = ref(Obj.magic(1))
     let s1Name = "s1"
@@ -84,6 +88,7 @@ defineFeature(feature, test => {
       protocolConfigStr := "c"
       name := "u1"
       data := Obj.magic(11)
+      sepcific := [Obj.magic(20)]
     })
 
     \"and"("select skin s1 which is used by u1 in ap view", () => {
@@ -143,6 +148,9 @@ defineFeature(feature, test => {
           ~sandbox,
           ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
           ~getSkinProtocolData=getSkinProtocolDataStub.contents->Obj.magic,
+          ~getUIControlSpecificDataFields=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->returns(sepcific.contents, _)
+          ->Obj.magic,
           (),
         ),
         dispatchStub.contents,
@@ -151,11 +159,8 @@ defineFeature(feature, test => {
         protocolConfigStr.contents->Some,
         name.contents,
         data.contents,
+        None,
       )
-    })
-
-    \"and"("should find s1", () => {
-      ()
     })
 
     then("dispatch SelectUIControl action", () => {
@@ -168,6 +173,8 @@ defineFeature(feature, test => {
           name.contents,
           data.contents,
           UIControlInspectorTool.buildSkin(s1Name),
+          None,
+          sepcific.contents,
         ),
       )
       ->expect == true

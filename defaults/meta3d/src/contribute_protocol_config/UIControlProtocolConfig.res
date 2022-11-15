@@ -6,9 +6,14 @@ let getSkinProtocolData = configLib => {
   (LibUtils.getFuncFromLib(configLib, "getSkinProtocolData")->Obj.magic)(.)
 }
 
-let generateUIControlDataStr = (configLib, rect, skin) => {
-  (LibUtils.getFuncFromLib(configLib, "generateUIControlDataStr")->Obj.magic)(. rect, skin)
+let generateUIControlCommonDataStr = (configLib, rect, skin) => {
+  (LibUtils.getFuncFromLib(configLib, "generateUIControlCommonDataStr")->Obj.magic)(. rect, skin)
 }
+
+let getUIControlSpecificDataFields = (configLib) => {
+  (LibUtils.getFuncFromLib(configLib, "getUIControlSpecificDataFields")->Obj.magic)()
+}
+
 
 let getUIControlSupportedEventNames = configLib => {
   (LibUtils.getFuncFromLib(configLib, "getUIControlSupportedEventNames")->Obj.magic)(.)

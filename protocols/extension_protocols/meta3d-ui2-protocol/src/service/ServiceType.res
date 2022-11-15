@@ -58,6 +58,14 @@ type service = {
     Meta3dImguiRenderer2Protocol.ServiceType.label,
   ) => Meta3dType.Index.state,
   endWindow: Meta3dType.Index.state => Meta3dType.Index.state,
+  setNextWindowRect: (
+    Meta3dType.Index.state,
+    Meta3dImguiRenderer2Protocol.ServiceType.rect,
+  ) => Meta3dType.Index.state,
+  beginWindow: (
+    Meta3dType.Index.state,
+    Meta3dImguiRenderer2Protocol.ServiceType.label,
+  ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionName),

@@ -414,6 +414,29 @@ let endWindow = (meta3dState, (api: Meta3dType.Index.api, imguiRendererExtension
   meta3dState
 }
 
+let setNextWindowRect = (
+  meta3dState,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  rect: Meta3dImguiRenderer2Protocol.ServiceType.rect,
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRenderer2Protocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  let imguiRendererState = imguiRendererService.setNextWindowRect(. rect, imguiRendererState)
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
+
+  meta3dState
+}
+
 let init = (
   meta3dState,
   (api: Meta3dType.Index.api, imguiRendererExtensionName),

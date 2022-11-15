@@ -11,12 +11,15 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
         uiControlName: "Window",
         func: (meta3dState,
             {
+                rect,
                 label,
                 childrenFunc
             }
         ) => {
-            let { beginWindow, endWindow } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
+            let { beginWindow, endWindow, setNextWindowRect } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
             // let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
+
+            meta3dState = setNextWindowRect(meta3dState, rect)
 
             meta3dState = beginWindow(meta3dState, label)
 

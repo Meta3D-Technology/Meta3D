@@ -71,12 +71,14 @@ module Method = {
                 isDraw,
                 skin,
                 event,
+                specific,
               }): FrontendUtils.BackendCloudbaseType.uiControl => {
                 name: _getSelectedUIControlName(id, selectedUIControls),
                 rect: rect,
                 isDraw: isDraw,
                 skin: skin,
                 event: event,
+                specific: specific,
               })
               ->Meta3dCommonlib.ListSt.toArray,
             }: FrontendUtils.BackendCloudbaseType.inspectorData

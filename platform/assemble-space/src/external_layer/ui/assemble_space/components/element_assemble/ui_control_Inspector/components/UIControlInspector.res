@@ -220,6 +220,58 @@ module Method = {
     </>
   }
 
+  let _handleSpecificDataFieldType = (handleStringTypeFunc, type_) => {
+    switch type_ {
+    | #string => handleStringTypeFunc()
+    }
+  }
+
+  let _convertDefaultValueToItsType = (
+    {name, type_, defaultValue} as field: FrontendUtils.ElementAssembleStoreType.specificData,
+  ) => {
+    _handleSpecificDataFieldType(() => {
+      field
+    }, type_)
+  }
+
+  let _onFinishSpecific = (dispatch, id, values) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetSpecific(
+        id,
+        (values->Obj.magic)["fields"]->Meta3dCommonlib.ArraySt.map(_convertDefaultValueToItsType),
+      ),
+    )
+  }
+
+  let _onFinishFailedSpecific = (service, errorInfo) => {
+    service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, None)
+  }
+
+  let buildSpecificForm = (service, dispatch, id, specific) => {
+    <Form
+      onFinish={_onFinishSpecific(dispatch, id)} onFinishFailed={_onFinishFailedSpecific(service)}>
+      <Form.List name="fields" initialValue={specific->Obj.magic}>
+        {(fields, _) => {
+          <>
+            {fields
+            ->Meta3dCommonlib.ArraySt.map(field => {
+              let specificData: FrontendUtils.ElementAssembleStoreType.specificData =
+                specific[field.name->IntUtils.stringToInt]
+
+              <Form.Item key={field.key}>
+                <Form.Item label={specificData.name} name={[field.name, "defaultValue"]->Obj.magic}>
+                  <Input />
+                </Form.Item>
+              </Form.Item>
+            })
+            ->React.array}
+          </>
+        }}
+      </Form.List>
+      <Form.Item> <Button htmlType="submit"> {React.string(`Submit`)} </Button> </Form.Item>
+    </Form>
+  }
+
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
@@ -264,7 +316,7 @@ let make = (~service: service) => {
     selectedUIControlInspectorData,
   ) {
   | None => React.null
-  | Some({id, rect, isDraw, skin, event}) =>
+  | Some({id, rect, isDraw, skin, event, specific}) =>
     let {x, y, width, height} = rect
 
     <>
@@ -305,6 +357,8 @@ let make = (~service: service) => {
         )
 
         <>
+          <h1> {React.string(`Specific`)} </h1>
+          {Method.buildSpecificForm(service, dispatch, id, specific)}
           <h1> {React.string(`Skin`)} </h1>
           {SelectUtils.buildSelectWithoutEmpty(
             Method.setSkin(dispatch, id),

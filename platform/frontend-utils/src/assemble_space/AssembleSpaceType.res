@@ -94,7 +94,10 @@ type meta3dService = {
   getSkinProtocolData: (
     . Meta3d.LibUtils.lib,
   ) => Meta3dType.UIControlProtocolConfigType.skinProtocolData,
-  generateUIControlDataStr: (. Meta3d.LibUtils.lib, string, string) => string,
+  generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string, string) => string,
+  getUIControlSpecificDataFields: (
+    . Meta3d.LibUtils.lib,
+  ) => Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,
   ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,

@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { state } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { label } from "meta3d-imgui-renderer2-protocol/src/service/ServiceType"
+import { label, rect } from "meta3d-imgui-renderer2-protocol/src/service/ServiceType"
 
 export type uiExtensionName = extensionName
 
@@ -80,8 +80,12 @@ export type service = {
     readonly beginWindow: (
         meta3dState: meta3dState,
         label: label
-    ) => meta3dState
+    ) => meta3dState;
     readonly endWindow: (
         meta3dState: meta3dState
-    ) => meta3dState
+    ) => meta3dState;
+    readonly setNextWindowRect: (
+        meta3dState: meta3dState,
+        rect: rect
+    ) => meta3dState;
 };
