@@ -1,5 +1,6 @@
 
 
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
@@ -161,26 +162,39 @@ function _exec(meta3dState, state) {
             ]);
 }
 
+function _invokeIMGUIRenderFunc(meta3dState, invokeFunc, param) {
+  var imguiRendererExtensionName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var imguiRendererState$1 = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
+}
+
 function render(api, meta3dState, param, time) {
   var imguiRendererExtensionName = param[1];
   var uiExtensionName = param[0];
   var state = api.getExtensionState(meta3dState, uiExtensionName);
   var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionName, state);
-  var imguiRendererState = api.getExtensionState(meta3dState$1, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState$1, imguiRendererExtensionName);
-  var imguiRendererState$1 = imguiRendererService.beforeExec(imguiRendererState, time);
-  var meta3dState$2 = api.setExtensionState(meta3dState$1, imguiRendererExtensionName, imguiRendererState$1);
+  var meta3dState$2 = _invokeIMGUIRenderFunc(meta3dState$1, (function (imguiRendererState, imguiRendererService) {
+          return imguiRendererService.beforeExec(imguiRendererState, time);
+        }), [
+        api,
+        imguiRendererExtensionName
+      ]);
   return PromiseSt$Meta3dCommonlib.map(PromiseSt$Meta3dCommonlib.map(_exec(meta3dState$2, state), (function (param) {
                     var meta3dState = param[0];
                     var state = api.getExtensionState(meta3dState, uiExtensionName);
                     var state$1 = _markAllStateNotChange(state, param[1]);
                     return api.setExtensionState(meta3dState, uiExtensionName, state$1);
                   })), (function (meta3dState) {
-                var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-                var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-                var imguiRendererState$1 = imguiRendererService.afterExec(imguiRendererState);
-                var imguiRendererState$2 = imguiRendererService.render(imguiRendererState$1);
-                return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$2);
+                return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                              var __x = imguiRendererService.afterExec(imguiRendererState);
+                              return imguiRendererService.render(__x);
+                            }), [
+                            api,
+                            imguiRendererExtensionName
+                          ]);
               }));
 }
 
@@ -258,22 +272,22 @@ function isStateChange(state, elementName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, elementName);
 }
 
-function beginWindow(meta3dState, param, label) {
-  var imguiRendererExtensionName = param[1];
-  var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  var imguiRendererState$1 = imguiRendererService.beginWindow(label, imguiRendererState);
-  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
+function beginWindow(meta3dState, data, label) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.beginWindow(label, imguiRendererState);
+              }), data);
 }
 
-function endWindow(meta3dState, param) {
-  var imguiRendererExtensionName = param[1];
-  var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  var imguiRendererState$1 = imguiRendererService.endWindow(imguiRendererState);
-  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
+function endWindow(meta3dState, data) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.endWindow(imguiRendererState);
+              }), data);
+}
+
+function setNextWindowRect(meta3dState, data, rect) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.setNextWindowRect(rect, imguiRendererState);
+              }), data);
 }
 
 function init(meta3dState, param, isDebug, canvas) {
@@ -286,13 +300,10 @@ function init(meta3dState, param, isDebug, canvas) {
               }));
 }
 
-function clear(meta3dState, param, clearColor) {
-  var imguiRendererExtensionName = param[1];
-  var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  imguiRendererService.clear(imguiRendererState, clearColor);
-  return meta3dState;
+function clear(meta3dState, data, clearColor) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.clear(imguiRendererState, clearColor);
+              }), data);
 }
 
 export {
@@ -309,6 +320,7 @@ export {
   _updateElementField ,
   dispatch ,
   _exec ,
+  _invokeIMGUIRenderFunc ,
   render ,
   _setElementFunc ,
   _addReducers ,
@@ -320,6 +332,7 @@ export {
   isStateChange ,
   beginWindow ,
   endWindow ,
+  setNextWindowRect ,
   init ,
   clear ,
   

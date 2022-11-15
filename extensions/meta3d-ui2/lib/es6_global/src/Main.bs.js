@@ -31,6 +31,12 @@ function getExtensionService(api, param) {
                           meta3dImguiRendererExtensionName
                         ]);
             }),
+          setNextWindowRect: (function (meta3dState, rect) {
+              return UIManager$Meta3dUi2.setNextWindowRect(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], rect);
+            }),
           init: UIManager$Meta3dUi2.init,
           clear: UIManager$Meta3dUi2.clear
         };

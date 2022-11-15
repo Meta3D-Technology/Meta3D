@@ -100,6 +100,13 @@ fix event
 ** DONE commit
 
 
+** DONE pass bdd test
+
+UIManager
+
+** DONE refactor
+
+
 ** TODO pass run test
 
 ** TODO pass run test: parent, child window
@@ -117,12 +124,7 @@ run test
 
 
 
-** TODO pass bdd test
 
-UIManager
-
-
-** TODO refactor
 
 
 
