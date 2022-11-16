@@ -66,6 +66,7 @@ type service = {
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionName),
     bool,
+    bool,
     Dom.htmlCanvasElement,
   ) => Js.Promise.t<Meta3dType.Index.state>,
   clear: (

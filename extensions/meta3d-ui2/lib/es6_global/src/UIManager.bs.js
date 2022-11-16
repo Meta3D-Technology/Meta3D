@@ -290,12 +290,12 @@ function setNextWindowRect(meta3dState, data, rect) {
               }), data);
 }
 
-function init(meta3dState, param, isDebug, canvas) {
+function init(meta3dState, param, isInitEvent, isDebug, canvas) {
   var imguiRendererExtensionName = param[1];
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isDebug, canvas), (function (imguiRendererState) {
+  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isInitEvent, isDebug, canvas), (function (imguiRendererState) {
                 return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState);
               }));
 }

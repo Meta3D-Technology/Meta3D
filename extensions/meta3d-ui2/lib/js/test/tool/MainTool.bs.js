@@ -10,11 +10,12 @@ function createState(param) {
   return Main$Meta3dUi2.createExtensionState(undefined);
 }
 
-function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, isDebugOpt, meta3dStateOpt, canvasOpt, param) {
+function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, isInitEventOpt, isDebugOpt, meta3dStateOpt, canvasOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var isInitEvent = isInitEventOpt !== undefined ? isInitEventOpt : true;
   var isDebug = isDebugOpt !== undefined ? isDebugOpt : false;
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   var canvas = canvasOpt !== undefined ? Caml_option.valFromOption(canvasOpt) : 10;
@@ -29,7 +30,7 @@ function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExten
                 getAllContributesByType: getAllContributesByType
               },
               imguiRendererExtensionName
-            ], isDebug, canvas);
+            ], isInitEvent, isDebug, canvas);
 }
 
 function clear(sandbox, clearColor, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {

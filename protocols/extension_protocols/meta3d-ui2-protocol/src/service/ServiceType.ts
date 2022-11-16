@@ -41,6 +41,7 @@ export type service = {
     readonly init: (
         meta3dState: meta3dState,
         [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        isInitEvent: boolean,
         isDebug: boolean,
         canvas: HTMLCanvasElement
     ) => Promise<meta3dState>;

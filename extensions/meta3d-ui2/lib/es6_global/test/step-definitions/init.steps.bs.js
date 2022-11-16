@@ -61,7 +61,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               
                             }));
                       CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "init", (function (param) {
-                              var __x = MainTool$Meta3dUi2.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, true, 22, 5, undefined);
+                              var __x = MainTool$Meta3dUi2.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, false, true, 22, 5, undefined);
                               return __x.then(function (meta3dState) {
                                           newMeta3dState.contents = meta3dState;
                                           return Promise.resolve(undefined);
@@ -71,7 +71,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               return Operators$Meta3dBsJestCucumber.$eq(expect([
                                               Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionStateStub.contents)),
                                               Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionServiceStub.contents)),
-                                              SinonTool$Meta3dUi2.calledWithArg3(Sinon.getCall(0, initStub.contents), 12, true, 5)
+                                              SinonTool$Meta3dUi2.calledWithArg4(Sinon.getCall(0, initStub.contents), 12, false, true, 5)
                                             ]), [
                                           1,
                                           1,

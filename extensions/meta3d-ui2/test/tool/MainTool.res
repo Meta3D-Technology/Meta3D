@@ -11,6 +11,7 @@ let init = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~isInitEvent=true,
   ~isDebug=false,
   ~meta3dState=Obj.magic(1),
   ~canvas=Obj.magic(10),
@@ -32,6 +33,7 @@ let init = (
       ),
       imguiRendererExtensionName,
     ),
+    isInitEvent,
     isDebug,
     canvas,
   )

@@ -17,6 +17,7 @@ defineFeature(feature, test => {
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
     let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let isInitEvent = false
     let isDebug = true
     let canvas = Obj.magic(5)
     let imguiRendererService = ref(Obj.magic(1))
@@ -69,6 +70,7 @@ defineFeature(feature, test => {
         ~getExtensionState=getExtensionStateStub.contents,
         ~setExtensionState=setExtensionStateStub.contents,
         ~meta3dState=meta3dState1,
+        ~isInitEvent,
         ~isDebug,
         ~canvas,
         (),
@@ -89,7 +91,7 @@ defineFeature(feature, test => {
         ->getCallCount,
         initStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg3(imguiRendererState1, isDebug, canvas),
+        ->SinonTool.calledWithArg4(imguiRendererState1, isInitEvent, isDebug, canvas),
       )->expect == (1, 1, true)
     })
 

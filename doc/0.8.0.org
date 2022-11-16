@@ -109,6 +109,22 @@ UIManager
 
 ** TODO pass run test
 
+add isInitEvent
+
+
+TODO fix:
+# empty childrenFunc
+
+label not change
+
+label not apply
+
+child not show
+
+run bug: version not match
+
+
+
 ** TODO pass run test: parent, child window
 
 
@@ -181,3 +197,6 @@ how to set position:
 
 * TODO add Menu Extension/Contribute
 
+
+
+* TODO publish

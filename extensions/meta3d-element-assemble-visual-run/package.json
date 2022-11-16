@@ -10,13 +10,10 @@
             "protocolName": "meta3d-event-protocol"
         },
         "meta3dUIExtensionName": {
-            "protocolName": "meta3d-ui-protocol"
+            "protocolName": "meta3d-ui2-protocol"
         },
         "meta3dImguiRendererExtensionName": {
-            "protocolName": "meta3d-imgui-renderer-protocol"
-        },
-        "meta3dBindIOEventExtensionName": {
-            "protocolName": "meta3d-bind-io-event-protocol"
+            "protocolName": "meta3d-imgui-renderer2-protocol"
         }
     },
     "dependentContributeNameMap": {
@@ -33,13 +30,12 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bind-io-event-protocol": "^0.7.0",
         "meta3d-element-assemble-element-protocol": "^0.7.0",
         "meta3d-element-assemble-visual-run-protocol": "^0.7.0",
         "meta3d-event-protocol": "^0.7.0",
-        "meta3d-imgui-renderer-protocol": "^0.7.0",
+        "meta3d-imgui-renderer2-protocol": "^0.7.0",
         "meta3d-type": "^0.7.0",
-        "meta3d-ui-protocol": "^0.7.0"
+        "meta3d-ui2-protocol": "^0.7.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

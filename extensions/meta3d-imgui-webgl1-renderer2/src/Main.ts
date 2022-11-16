@@ -27,7 +27,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
     service
 > = (api, _) => {
     return {
-        init: (state, isDebug, canvas) => {
+        init: (state, isInitEvent, isDebug , canvas) => {
             return ImGui.default().then(_ => {
                 if (isDebug) {
                     ImGui.CHECKVERSION()
@@ -54,7 +54,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 ImGui_Impl.Init(canvas)
 
                 _initCanvas(canvas)
-                _initEvent(canvas)
+
+                if (isInitEvent) {
+                    _initEvent(canvas)
+                }
 
                 return {
                     ...state,

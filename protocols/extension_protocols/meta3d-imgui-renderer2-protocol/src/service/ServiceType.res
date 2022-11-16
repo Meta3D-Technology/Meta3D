@@ -15,7 +15,7 @@ type label = string
 
 // @genType
 type service = {
-  init: (. StateType.state, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
+  init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
   render: (. StateType.state) => StateType.state,
   beforeExec: (. StateType.state, time) => StateType.state,
   afterExec: (. StateType.state) => StateType.state,

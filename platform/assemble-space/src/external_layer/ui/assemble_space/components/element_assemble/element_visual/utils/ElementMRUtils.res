@@ -211,7 +211,7 @@ let _generateIsDrawIfEnd = () => {
 
 let rec _generateChildren = (service, children: array<uiControl>): string => {
   children->Meta3dCommonlib.ArraySt.length === 0
-    ? ""
+    ? {j`childrenFunc:(meta3dState) => meta3dState`}
     : {
         let str = j`childrenFunc: (meta3dState) =>{
     `

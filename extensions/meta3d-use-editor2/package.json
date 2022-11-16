@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-editor2",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -25,9 +25,9 @@
     },
     "dependencies": {
         "meta3d-event-protocol": "^0.7.0",
-        "meta3d-imgui-renderer2-protocol": "^0.7.0",
+        "meta3d-imgui-renderer2-protocol": "^0.7.2",
         "meta3d-type": "^0.7.0",
-        "meta3d-ui2-protocol": "^0.7.0",
+        "meta3d-ui2-protocol": "^0.7.1",
         "meta3d-use-editor-protocol": "^0.7.0"
     },
     "devDependencies": {

@@ -32,6 +32,15 @@ Feature: ElementMR
         Then should build correct result
         And generate correct result
 
+    Scenario: build element middle represent with window and generate element contribute string
+        Given generate ui control window w1
+        And select w1
+        And prepare w1's inspector data
+        When build element middle represent with w1 and inspector data
+        And generate element contribute string
+        Then should build correct result
+        And generate correct result
+
     Scenario: build element middle represent with parent window and child window and generate element contribute string
         Given generate ui control window w1, w2
         And select w1

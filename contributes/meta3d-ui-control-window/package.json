@@ -7,7 +7,7 @@
     },
     "dependentExtensionNameMap": {
         "meta3dUIExtensionName": {
-            "protocolName": "meta3d-ui-protocol"
+            "protocolName": "meta3d-ui2-protocol"
         }
     },
     "dependentContributeNameMap": {},
@@ -22,7 +22,7 @@
     "dependencies": {
         "meta3d-type": "^0.7.0",
         "meta3d-ui-control-window-protocol": "^0.7.0",
-        "meta3d-ui-protocol": "^0.7.0"
+        "meta3d-ui2-protocol": "^0.7.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

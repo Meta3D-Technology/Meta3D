@@ -416,6 +416,7 @@ let setNextWindowRect = (
 let init = (
   meta3dState,
   (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  isInitEvent,
   isDebug,
   canvas,
 ) => {
@@ -428,6 +429,7 @@ let init = (
 
   imguiRendererService.init(.
     imguiRendererState,
+    isInitEvent,
     isDebug,
     canvas,
   )->Meta3dCommonlib.PromiseSt.map(imguiRendererState => {

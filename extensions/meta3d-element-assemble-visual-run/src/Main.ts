@@ -1,20 +1,19 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { contributeType } from "meta3d-type/src/contribute/ContributeType"
-import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
+import { service as uiService } from "meta3d-ui2-protocol/src/service/ServiceType"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-element-assemble-visual-run-protocol/src/service/DependentMapType"
 import { service } from "meta3d-element-assemble-visual-run-protocol/src/service/ServiceType"
 import { state } from "meta3d-element-assemble-visual-run-protocol/src/state/StateType"
-import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
+import { state as uiState } from "meta3d-ui2-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
-import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
+import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
 import { elementState } from "meta3d-element-assemble-element-protocol"
-import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
+import { elementContribute } from "meta3d-ui2-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
+import { skinContribute } from "meta3d-ui2-protocol/src/contribute/SkinContributeType"
 
-let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
+let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
 	let {
 		meta3dUIViewElementContributeName,
@@ -81,53 +80,31 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api, dependentMapData) => {
 	let [dependentExtensionNameMap, _] = dependentMapData
-	let { meta3dBindIOEventExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
 
 	return {
 		init: (meta3dState: meta3dState, { isDebug, canvas }) => {
-			let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
+			// let isDebug = true
 
-			meta3dState = _prepareButton(meta3dState, api, dependentMapData)
+			// let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
+			let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
 
+			meta3dState = _prepareUI(meta3dState, api, dependentMapData)
 
 
 			let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-			meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
-
-
-
-			let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
-
-			meta3dState = setBody(meta3dState, meta3dEventExtensionName, document.body as HTMLBodyElement)
-			meta3dState = setBrowser(meta3dState, meta3dEventExtensionName, getBrowserChromeType())
-			meta3dState = setCanvas(meta3dState, meta3dEventExtensionName, canvas)
-
-			meta3dState = initEvent(meta3dState, meta3dEventExtensionName)
-
-
-
-
-			let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
-
-			bindIOEvent(meta3dState)
-
-
-
-			return meta3dState
+			return init(meta3dState, [api, meta3dImguiRendererExtensionName], true, isDebug, canvas)
 		},
 		update: (meta3dState: meta3dState, { clearColor }) => {
-			let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
-
 			let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 			clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
-			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
-				resetIOData()
+			// TODO get time from outside
+			let time = 0.0
 
-				return meta3dState
-			})
+			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time)
 		}
 	}
 }

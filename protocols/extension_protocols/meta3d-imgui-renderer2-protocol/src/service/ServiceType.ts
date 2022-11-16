@@ -19,7 +19,7 @@ export type rect = {
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
-    readonly init: (_1: StateType_state, _2: boolean, _3: HTMLCanvasElement) => Promise<StateType_state>;
+    readonly init: (_1: StateType_state, isInitEvent: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
     readonly render: (_1: StateType_state) => StateType_state;
     readonly beforeExec: (_1: StateType_state, _2: time) => StateType_state;
     readonly afterExec: (_1: StateType_state) => StateType_state;

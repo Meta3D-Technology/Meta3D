@@ -98,7 +98,7 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 	let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 	// meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
-	return init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
+	return init(meta3dState, [api, meta3dImguiRendererExtensionName], true, isDebug, canvas)
 
 
 
