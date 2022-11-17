@@ -11,22 +11,33 @@ module Method = {
     }->Obj.magic
   }
 
-  let _getUpdateData = () => {
+  let _getUpdateData = time => {
     {
       "clearColor": (1., 1., 1., 1.),
+      "time": time,
     }->Obj.magic
   }
 
-  let _updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
-  }
+  // let _updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
+  //   service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
+  // }
 
-  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, meta3dState, update) => {
-    update(meta3dState)->Js.Promise.then_(meta3dState => {
-      service.other.requestAnimationFrame(() =>
-        _loop(service, meta3dState, update)
-      )->Js.Promise.resolve
-    }, _)->ignore
+  // let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, meta3dState, update) => {
+  //   update(meta3dState)->Js.Promise.then_(meta3dState => {
+  //     service.other.requestAnimationFrame((time) =>
+  //       _loop(service, meta3dState, update)
+  //     )->Js.Promise.resolve
+  //   }, _)->ignore
+  // }
+
+  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, time, meta3dState) => {
+    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), _getUpdateData(time))
+    ->Js.Promise.then_(meta3dState => {
+      service.other.requestAnimationFrame(time => {
+        _loop(service, time, meta3dState)
+      })->Js.Promise.resolve
+    }, _)
+    ->ignore
   }
 
   let startApp = (service: FrontendUtils.AssembleSpaceType.service) => {
@@ -37,7 +48,7 @@ module Method = {
 
       service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
       ->Js.Promise.then_(meta3dState => {
-        _loop(service, meta3dState, _updateApp(service, _getUpdateData()))->Js.Promise.resolve
+        _loop(service, 0.0, meta3dState)->Js.Promise.resolve
       }, _)
       ->Meta3dBsMost.Most.fromPromise
     }, _)
@@ -56,7 +67,9 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
     FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
 
   React.useEffect1(() => {
-    Method.startApp(service)->ignore
+    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+      Method.startApp(service)->ignore
+    }, 5->Some)
 
     None
   }, [])

@@ -42,6 +42,12 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     | #production => Backend4everland.buildAssembleSpaceService()
     },
     meta3d: {
+      getExtensionState: (. meta3dState, name) =>
+        Meta3d.Main.getExtensionState->Obj.magic(meta3dState, name),
+      setExtensionState: (. meta3dState, name, extensionState) =>
+        Meta3d.Main.setExtensionState->Obj.magic(meta3dState, name, extensionState),
+      getExtensionService: (. meta3dState, name) =>
+        Meta3d.Main.getExtensionService->Obj.magic(meta3dState, name),
       generateContribute: (. packageData, fileStr) =>
         Meta3d.Main.generateContribute(packageData, fileStr),
       loadContribute: (. contributeBinaryFile) => Meta3d.Main.loadContribute(contributeBinaryFile),
@@ -57,8 +63,17 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
-      execGetContributeFunc: (. contributeFuncData) =>
-        Meta3d.Main.execGetContributeFunc(contributeFuncData),
+      execGetContributeFunc: (.
+        contributeFuncData,
+        dependentExtensionNameMap,
+        dependentContributeNameMap,
+      ) =>
+        Meta3d.Main.execGetContributeFunc(
+          ~contributeFuncData,
+          ~dependentExtensionNameMap,
+          ~dependentContributeNameMap,
+          (),
+        ),
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>
         Meta3d.Main.serializeUIControlProtocolConfigLib(protocolConfigStr),
       getSkinProtocolData: (. configLib) => Meta3d.Main.getSkinProtocolData(configLib),
@@ -84,6 +99,9 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
     },
     react: {
+      useCallback1: (. func, param) => {
+        React.useCallback1(func->Obj.magic, param)
+      },
       useState: func => {
         React.useState(func->Obj.magic)
       },

@@ -23,7 +23,7 @@ Feature: ElementVisual
         When get and set newest visual extension
         Then should dispatch SetVisualExtension action with v2
 
-    Scenario: render app
+    Scenario: start app
         Given prepare flag
         And generate empty element contribute element1
         And get visual extension v
@@ -33,6 +33,8 @@ Feature: ElementVisual
         And select ui
         And select event
         And select c1
-        When render app with ui, c1, v, element1
+        When start app with ui, c1, v, element1
         Then build app with ui, c1, v, element1
-        And v should be inited and updated
+        And v should be inited 
+        And update element contribute
+        And v should be updated

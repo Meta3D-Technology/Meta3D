@@ -140,9 +140,10 @@ export function startApp(
 ): void
 
 export function execGetContributeFunc(
-    contributeFuncData: Uint8Array
+    contributeFuncData: Uint8Array,
+    dependentExtensionNameMap: Record<string, string>,
+    dependentContributeNameMap: Record<string, string>
 ): getContributeFuncResult
-
 
 type protocolConfigStr = string
 

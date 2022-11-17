@@ -20,7 +20,11 @@ module Method = {
 
     {
       skinName: (
-        service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+        service.meta3d.execGetContributeFunc(.
+          data.contributeFuncData,
+          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        )->Obj.magic
       )["skinName"],
     }
   }

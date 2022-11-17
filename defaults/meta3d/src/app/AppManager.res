@@ -203,13 +203,15 @@ let _getContributeFunc = (contributeFuncData, decoder) => {
   LibUtils.getFuncFromLib(lib, "getContribute")
 }
 
-let execGetContributeFunc = contributeFuncData => {
+let execGetContributeFunc = (
+  ~contributeFuncData,
+  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  (),
+) => {
   (_getContributeFunc(contributeFuncData, TextDecoder.newTextDecoder("utf-8"))->Obj.magic)(
     ExtensionManager.buildAPI(),
-    (
-      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    ),
+    (dependentExtensionNameMap, dependentContributeNameMap),
   )
 }
 

@@ -13,6 +13,7 @@ let build = (
   ~setElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~random=Js.Math.random,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~useCallback1=React.useCallback1->Obj.magic,
   ~useState=React.useState->Obj.magic,
   ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffect1=React.useEffect1,
@@ -53,6 +54,9 @@ let build = (
   ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getExtensionService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -91,6 +95,7 @@ let build = (
   (),
 ) => {
   react: {
+    useCallback1: useCallback1->Obj.magic,
     useState: useState->Obj.magic,
     useDispatch: () => dispatch,
     useSelector: useSelector->Obj.magic,
@@ -117,6 +122,9 @@ let build = (
   },
   meta3d: {
     generateContribute: generateContribute,
+    getExtensionState: getExtensionState->Obj.magic,
+    getExtensionService: getExtensionService->Obj.magic,
+    setExtensionState: setExtensionState->Obj.magic,
     loadContribute: loadContribute,
     generateExtension: generateExtension,
     loadExtension: loadExtension,

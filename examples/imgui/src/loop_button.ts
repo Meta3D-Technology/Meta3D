@@ -7,11 +7,11 @@ export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
-    // if(first)  {
+    // // if(first)  {
     ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0), ImGui.Cond.Once);
-    // ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200), ImGui.Cond.FirstUseEver);
-    // ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200));
+    // // ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200), ImGui.Cond.FirstUseEver);
+    // // ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(20,20));
     // if(ImGui.isMobile.any())
     //     ImGui.SetNextWindowSize(new ImGui.ImVec2(ImGui_Impl.canvas.scrollWidth,ImGui_Impl.canvas.scrollHeight));
     //     first=false
@@ -20,22 +20,22 @@ export let loop = (time: number) => {
 
     ImGui.Begin("Hello");
     // Buttons return true when clicked (NB: most widgets return true when edited/activated)
-    if (ImGui.Button("Button")) {
-        console.log("click Button")
-    }
-
-    ImGui.End();
-
-
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(200, 300), ImGui.Cond.Once);
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200));
-    ImGui.Begin("Hello2");
-    // Buttons return true when clicked (NB: most widgets return true when edited/activated)
     // if (ImGui.Button("Button")) {
     //     console.log("click Button")
     // }
 
     ImGui.End();
+
+
+    // ImGui.SetNextWindowPos(new ImGui.ImVec2(200, 300), ImGui.Cond.Once);
+    // ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200));
+    // ImGui.Begin("Hello2");
+    // // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+    // // if (ImGui.Button("Button")) {
+    // //     console.log("click Button")
+    // // }
+
+    // ImGui.End();
 
 
     ImGui.EndFrame();

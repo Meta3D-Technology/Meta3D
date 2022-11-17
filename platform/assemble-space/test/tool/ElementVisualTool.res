@@ -4,7 +4,7 @@ let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ())
 
 let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension
 
-let renderApp = ElementVisual.Method.renderApp
+let startApp = ElementVisual.Method.startApp
 
 let getVisualExtensionName = ElementVisual.Method._getVisualExtensionName
 

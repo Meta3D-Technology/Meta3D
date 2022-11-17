@@ -115,7 +115,11 @@ let buildElementMR = (
           id,
           {
             name: (
-              service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+              service.meta3d.execGetContributeFunc(.
+                data.contributeFuncData,
+                Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              )->Obj.magic
             )["uiControlName"],
             protocol: {
               name: name,

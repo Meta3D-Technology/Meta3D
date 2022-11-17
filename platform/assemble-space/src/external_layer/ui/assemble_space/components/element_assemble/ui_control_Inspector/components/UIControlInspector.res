@@ -376,7 +376,11 @@ let make = (~service: service) => {
               selectedContributes,
             )->Meta3dCommonlib.ArraySt.map(({data}) => {
               (
-                service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+                service.meta3d.execGetContributeFunc(.
+                  data.contributeFuncData,
+                  Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                  Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                )->Obj.magic
               )["skinName"]
             }),
           )}
@@ -399,7 +403,11 @@ let make = (~service: service) => {
                   defaultValue,
                   actions->Meta3dCommonlib.ArraySt.map(({data}) => {
                     (
-                      service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+                      service.meta3d.execGetContributeFunc(.
+                        data.contributeFuncData,
+                        Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                        Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                      )->Obj.magic
                     )["actionName"]
                   }),
                 )}

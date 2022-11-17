@@ -23,6 +23,7 @@
     "meta3d-bs-most-protocol",
     "rescript-indexeddb",
     "meta3d-commonlib",
+    "meta3d-commonlib-type",
     "meta3d",
     "meta3d-type"
   ],

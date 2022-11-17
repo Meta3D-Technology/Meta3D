@@ -12,7 +12,14 @@ function _checkNotEmpty(value: any) {
 }
 
 function _searchProtocolVersion(name: string, dependencies: any) {
-    return _checkNotEmpty(dependencies[name])
+    let value = dependencies[name]
+
+    if (value === undefined || value === null) {
+        console.log(dependencies);
+        _throwError("empty name: " + name)
+    }
+
+    return value
 }
 
 function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies }: any): any {

@@ -3,6 +3,7 @@
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Semver from "semver";
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
@@ -96,10 +97,12 @@ function _getContributeFunc(contributeFuncData, decoder) {
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
-function execGetContributeFunc(contributeFuncData) {
+function execGetContributeFunc(contributeFuncData, dependentExtensionNameMapOpt, dependentContributeNameMapOpt, param) {
+  var dependentExtensionNameMap = dependentExtensionNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+  var dependentContributeNameMap = dependentContributeNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
   return Curry._2(_getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
-              ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-              ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+              dependentExtensionNameMap,
+              dependentContributeNameMap
             ]);
 }
 
@@ -111,7 +114,7 @@ function _parse(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            219,
+            221,
             6
           ],
           Error: new Error()
@@ -127,7 +130,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            228,
+                            230,
                             34
                           ],
                           Error: new Error()
@@ -151,7 +154,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            246,
+                            248,
                             34
                           ],
                           Error: new Error()

@@ -1,2 +1,2 @@
 @val @scope("window")
-external requestAnimationFrame: (unit => unit) => int = ""
+external requestAnimationFrame: (float => unit) => int = ""

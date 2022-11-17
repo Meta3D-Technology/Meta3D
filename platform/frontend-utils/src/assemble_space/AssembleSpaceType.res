@@ -29,7 +29,10 @@ type backendService = {
   getElementAssembleData: getElementAssembleData,
 }
 
+type callback1Func<'a> = unit => 'a
+
 type reactService = {
+  useCallback1: 'a. (. callback1Func<'a>, array<'a>) => callback1Func<'a>,
   useState: 'a. ('a => 'a) => ('a, ('a => 'a) => unit),
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
@@ -41,6 +44,13 @@ type reactService = {
 type consoleService = {error: error, errorWithExn: errorWithExn}
 
 type meta3dService = {
+  getExtensionState: 'extensionState. (. Meta3dType.Index.state, string) => 'extensionState,
+  setExtensionState: 'extensionState. (
+    . Meta3dType.Index.state,
+    string,
+    'extensionState,
+  ) => Meta3dType.Index.state,
+  getExtensionService: 'extensionService. (. Meta3dType.Index.state, string) => 'extensionService,
   generateContribute: (
     . Meta3d.ExtensionFileType.contributePackageData,
     string,
@@ -89,6 +99,8 @@ type meta3dService = {
   ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,
+    Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
+    Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
   ) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getSkinProtocolData: (
@@ -115,7 +127,7 @@ type meta3dService = {
 
 type otherService = {
   random: unit => float,
-  requestAnimationFrame: (unit => unit) => int,
+  requestAnimationFrame: (float => unit) => int,
 }
 
 type url = string

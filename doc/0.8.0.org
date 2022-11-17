@@ -115,13 +115,63 @@ add isInitEvent
 TODO fix:
 # empty childrenFunc
 
+label not apply:
+# change imgui to loop;
+# only init imgui once;
+
+# imgui just invoke updated execs;
+
+
+
+# TODO add convert Meta3d.ExtensionFileType.contributeFileData to elementContribute
+
+
+pass run test
+
+
+
+
+
+
+
+why only one?
+
+
+
+specific commit shouldn't restart
+
+
+
+
+pass bdd test
+
+
+
+
+
+
+
+
+
 label not change
 
-label not apply
+
+
+
+
 
 child not show
 
+
+
+
+
+
+pass run:
 run bug: version not match
+
+
+pass publish application?
 
 
 

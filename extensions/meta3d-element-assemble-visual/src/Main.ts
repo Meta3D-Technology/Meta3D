@@ -9,20 +9,12 @@ import { state as uiState } from "meta3d-ui2-protocol/src/state/StateType"
 import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
 // import { skin } from "meta3d-skin-default-protocol"
 // import { inputData, outputData } from "meta3d-ui-control-button-protocol"
-import { elementState } from "meta3d-element-assemble-element-protocol"
-import { elementContribute } from "meta3d-ui2-protocol/src/contribute/ElementContributeType"
 import { skinContribute } from "meta3d-ui2-protocol/src/contribute/SkinContributeType"
 
 // type data = { isDebug: boolean, canvas: HTMLCanvasElement }
 
-let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
+let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dUIExtensionName } = dependentExtensionNameMap
-	let {
-		// meta3dSkinDefaultContributeName, meta3dUIControlButtonContributeName,
-		meta3dUIViewElementContributeName,
-	} = dependentContributeNameMap
-
-	let { registerElement } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
@@ -48,10 +40,6 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap
 
 
 
-	uiState = registerElement<elementState>(uiState,
-		api.getContribute<elementContribute<elementState>>(meta3dState, meta3dUIViewElementContributeName)
-	)
-
 	// uiState = combineReducers<button2ElementState, changeTextAction>(uiState, [button2ElementName, button2Reducer])
 
 
@@ -71,9 +59,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 	return {
 		init: (meta3dState: meta3dState, { isDebug, canvas }) => {
-			// let isDebug = true
-
-			// let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
 			let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
 
 			meta3dState = _prepareUI(meta3dState, api, dependentMapData)
@@ -83,13 +68,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return init(meta3dState, [api, meta3dImguiRendererExtensionName], false, isDebug, canvas)
 		},
-		update: (meta3dState: meta3dState, { clearColor }) => {
+		update: (meta3dState: meta3dState, { clearColor, time }) => {
 			let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 			clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
-
-			// TODO get time from outside
-			let time = 0.0
 
 			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time)
 		}
@@ -105,19 +87,14 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			console.log("meta3d-element-assemble-visual onRegister")
 			return meta3dState
 		},
 		onInit: (meta3dState, service, data) => {
-			console.log("meta3d-element-assemble-visual onInit")
-
 			return new Promise((resolve) => {
 				resolve(service.init(meta3dState, data))
 			})
 		},
 		onUpdate: (meta3dState, service, data) => {
-			console.log("meta3d-element-assemble-visual onUpdate")
-
 			return service.update(meta3dState, data)
 		}
 	}

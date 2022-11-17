@@ -22,70 +22,111 @@ module Method = {
     )
   }
 
-  let _initApp = (meta3dState, service, initData) => {
-    service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), initData)
-  }
-
-  let _updateApp = (meta3dState, service, updateData) => {
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
-  }
-
-  let _initAndUpdateApp = (meta3dState, service, (initData, updateData)) => {
-    Meta3dBsMost.Most.fromPromise(
-      _initApp(meta3dState, service, initData),
-    )->Meta3dBsMost.Most.flatMap(meta3dState => {
-      meta3dState->_updateApp(service, updateData)->Meta3dBsMost.Most.fromPromise
-    }, _)
-  }
-
-  let _buildApp = (
-    service,
-    (selectedExtensions, selectedContributes),
-    (visualExtension, elementContribute),
-  ) => {
-    let (meta3dState, _, _) = service.meta3d.loadApp(.
-      ElementVisualUtils.generateApp(
-        service,
-        (selectedExtensions, selectedContributes),
-        (visualExtension, elementContribute),
-      ),
-    )
-
-    meta3dState
-  }
-
-  let renderApp = (
-    service,
-    (selectedExtensions, selectedContributes),
-    (initData, updateData),
-    (visualExtension, elementContribute),
-  ) => {
-    _buildApp(
-      service,
-      (
-        selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        selectedContributes->Meta3dCommonlib.ListSt.toArray,
-      ),
-      (visualExtension, elementContribute),
-    )
-    ->_initAndUpdateApp(service, (initData, updateData))
-    ->Meta3dBsMost.Most.drain
-    ->Js.Promise.catch(e => {
-      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
-    }, _)
-  }
-
-  let getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
+  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
     {
       "isDebug": true,
       "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
   }
 
-  let getUpdateData = () => {
+  let _getUpdateData = time => {
     {
       "clearColor": (1., 1., 1., 1.),
+      "time": time,
     }->Obj.magic
+  }
+
+  let _updateElementContribute = (meta3dState, service, elementContribute) => {
+    let meta3dUIExtensionName = ElementVisualUtils.getUIExtensionName()
+
+    let uiState: Meta3dUi2Protocol.StateType.state = service.meta3d.getExtensionState(.
+      meta3dState,
+      meta3dUIExtensionName,
+    )
+
+    // let meta3dState = service.meta3d.registerContribute(meta3dState, elementContribute)
+
+    let uiState = (
+      service.meta3d.getExtensionService(.
+        meta3dState,
+        meta3dUIExtensionName,
+      ): Meta3dUi2Protocol.ServiceType.service
+    ).registerElement(
+      uiState,
+      // service.meta3d.getContribute(
+      //   meta3dState,
+      //   ElementContributeUtils.getElementContributeProtocolName(),
+      // ),
+      elementContribute,
+    )
+
+    service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionName, uiState)
+  }
+
+  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, time, meta3dState) => {
+    let meta3dState = switch ElementContributeApService.getElementContribute(
+      SpaceStateApService.getState(),
+    ) {
+    | None => meta3dState
+    | Some(elementContribute) =>
+      _updateElementContribute(
+        meta3dState,
+        service,
+        service.meta3d.execGetContributeFunc(.
+          elementContribute.data.contributeFuncData,
+          Meta3dCommonlib.ImmutableHashMap.createEmpty()
+          ->Meta3dCommonlib.ImmutableHashMap.set(
+            "meta3dUIExtensionName",
+            ElementVisualUtils.getUIExtensionName(),
+          )
+          ->Meta3dCommonlib.ImmutableHashMap.set(
+            "meta3dImguiRendererExtensionName",
+            "meta3d-imgui-renderer2",
+          ),
+          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        )->Obj.magic,
+      )
+    }
+
+    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), _getUpdateData(time))
+    ->Js.Promise.then_(meta3dState => {
+      service.other.requestAnimationFrame(time => {
+        _loop(service, time, meta3dState)
+      })->Js.Promise.resolve
+    }, _)
+    ->ignore
+  }
+
+  let _generateApp = (service, (selectedExtensions, selectedContributes), visualExtension) => {
+    AppUtils.generateApp(
+      service,
+      selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
+      selectedContributes,
+      Js.Nullable.null,
+    )
+  }
+
+  let startApp = (service, (selectedExtensions, selectedContributes), visualExtension) => {
+    let (meta3dState, _, _) = service.meta3d.loadApp(.
+      _generateApp(
+        service,
+        (
+          selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+          selectedContributes->Meta3dCommonlib.ListSt.toArray,
+        ),
+        visualExtension,
+      ),
+    )
+
+    service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
+    ->Js.Promise.then_(meta3dState => {
+      _loop(service, 0.0, meta3dState)->Js.Promise.resolve
+    }, _)
+    ->Meta3dBsMost.Most.fromPromise
+    ->Meta3dBsMost.Most.drain
+    ->Js.Promise.catch(e => {
+      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+    }, _)
   }
 
   let isLoaded = (visualExtension, elementAssembleData) => {
@@ -277,6 +318,12 @@ module Method = {
     }
   }
 
+  let setElementContributeToSpaceState = elementContribute => {
+    SpaceStateApService.getState()
+    ->ElementContributeApService.setElementContribute(elementContribute)
+    ->SpaceStateApService.setState
+  }
+
   let useSelector = (
     {isDebug, apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
@@ -378,21 +425,21 @@ let make = (~service: service, ~account: option<string>) => {
   ])
 
   service.react.useEffect1(. () => {
-    switch (visualExtension, elementContribute) {
-    | (Some(visualExtension), Some(elementContribute)) =>
-      FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-        Method.renderApp(
-          service,
-          (selectedExtensions, selectedContributes),
-          (Method.getInitData(service), Method.getUpdateData()),
-          (visualExtension, elementContribute),
-        )->ignore
+    Method.setElementContributeToSpaceState(elementContribute)
+
+    None
+  }, [elementContribute])
+
+  service.react.useEffect1(. () => {
+    switch visualExtension {
+    | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+        Method.startApp(service, (selectedExtensions, selectedContributes), visualExtension)->ignore
       }, 5->Some)
     | _ => ()
     }
 
     None
-  }, [visualExtension, elementContribute->Obj.magic])
+  }, [visualExtension])
 
   !Method.isLoaded(visualExtension, elementAssembleData)
     ? <p> {React.string(`loading...`)} </p>
