@@ -150,6 +150,7 @@ export class Font {
     async UpdateTexture() {
         if (!this.dirty)
             return;
+        this.dirty = false;
         console.log("Font UpdateTexture begin");
         this.texturePage.forEach(page => {
             if (page.Dirty) {
@@ -157,7 +158,7 @@ export class Font {
             }
         })
         console.log("Font UpdateTexture end");
-        this.dirty = false;
+        // this.dirty = false;
     }
 
     texturePage: TexturePage[] = [];

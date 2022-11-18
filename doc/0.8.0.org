@@ -142,6 +142,9 @@ TODO fix:
 
 
 
+# imgui: updateTexture bug: should only update once!
+
+
 
 why add second and the first change color? 
 select?
@@ -149,11 +152,9 @@ select?
 
 
 
+specific per control
 
 
-
-
-imgui: updateTexture bug: should only update once!
 
 
 pass bdd test
