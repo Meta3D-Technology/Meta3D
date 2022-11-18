@@ -441,19 +441,22 @@ let make = (~service: service, ~account: option<string>) => {
     None
   }, [visualExtension])
 
-  !Method.isLoaded(visualExtension, elementAssembleData)
-    ? <p> {React.string(`loading...`)} </p>
-    : <canvas
-        id="ui-visual-canvas"
-        style={ReactDOM.Style.make(
-          ~borderStyle="solid",
-          ~borderColor="red",
-          ~borderWidth="2px",
-          ~width={j`${canvasData.width->Js.Int.toString}px`},
-          ~height={j`${canvasData.height->Js.Int.toString}px`},
-          (),
-        )}
-        width={j`${canvasData.width->Js.Int.toString}px`}
-        height={j`${canvasData.height->Js.Int.toString}px`}
-      />
+  <>
+    {!Method.isLoaded(visualExtension, elementAssembleData)
+      ? <p> {React.string(`loading...`)} </p>
+      : React.null}
+    <canvas
+      id="ui-visual-canvas"
+      style={ReactDOM.Style.make(
+        ~borderStyle="solid",
+        ~borderColor="red",
+        ~borderWidth="2px",
+        ~width={j`${canvasData.width->Js.Int.toString}px`},
+        ~height={j`${canvasData.height->Js.Int.toString}px`},
+        (),
+      )}
+      width={j`${canvasData.width->Js.Int.toString}px`}
+      height={j`${canvasData.height->Js.Int.toString}px`}
+    />
+  </>
 }
