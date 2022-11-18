@@ -551,44 +551,6 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
-  >
-    <div
-      className="ant-form-item"
-    >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>,
   <h1>
     Skin
   </h1>,
@@ -820,15 +782,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -913,15 +874,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1006,15 +966,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1099,15 +1058,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1186,15 +1144,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1270,15 +1227,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1340,44 +1296,6 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
-  >
-    <div
-      className="ant-form-item"
-    >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>,
   <h1>
     Skin
   </h1>,
@@ -1398,15 +1316,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1503,15 +1420,14 @@ Array [
                   className="ant-select-selection-search"
                 >
                   <input
-                    aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+                    aria-activedescendant="undefined_list_0"
                     aria-autocomplete="list"
-                    aria-controls="rc_select_TEST_OR_SSR_list"
+                    aria-controls="undefined_list"
                     aria-haspopup="listbox"
-                    aria-owns="rc_select_TEST_OR_SSR_list"
+                    aria-owns="undefined_list"
                     autoComplete="off"
                     className="ant-select-selection-search-input"
                     disabled={false}
-                    id="rc_select_TEST_OR_SSR"
                     onChange={[Function]}
                     onCompositionEnd={[Function]}
                     onCompositionStart={[Function]}
@@ -1609,15 +1525,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1702,15 +1617,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1795,15 +1709,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1888,15 +1801,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -1975,15 +1887,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -2059,15 +1970,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -2129,44 +2039,6 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
-  >
-    <div
-      className="ant-form-item"
-    >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>,
   <h1>
     Skin
   </h1>,
@@ -2187,15 +2059,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -2875,44 +2746,6 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
-  >
-    <div
-      className="ant-form-item"
-    >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>,
   <h1>
     Skin
   </h1>,
@@ -3099,15 +2932,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3192,15 +3024,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3285,15 +3116,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3378,15 +3208,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3465,15 +3294,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3549,15 +3377,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3619,44 +3446,6 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
-  >
-    <div
-      className="ant-form-item"
-    >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>,
   <h1>
     Skin
   </h1>,
@@ -3677,15 +3466,14 @@ Array [
         className="ant-select-selection-search"
       >
         <input
-          aria-activedescendant="rc_select_TEST_OR_SSR_list_0"
+          aria-activedescendant="undefined_list_0"
           aria-autocomplete="list"
-          aria-controls="rc_select_TEST_OR_SSR_list"
+          aria-controls="undefined_list"
           aria-haspopup="listbox"
-          aria-owns="rc_select_TEST_OR_SSR_list"
+          aria-owns="undefined_list"
           autoComplete="off"
           className="ant-select-selection-search-input"
           disabled={false}
-          id="rc_select_TEST_OR_SSR"
           onChange={[Function]}
           onCompositionEnd={[Function]}
           onCompositionStart={[Function]}
@@ -3812,7 +3600,7 @@ Array [
 ]
 `;
 
-exports[`UIControlInsepctor show specific form 1`] = `
+exports[`UIControlInsepctor show specific 1`] = `
 Array [
   <h1>
     Rect
@@ -4363,110 +4151,38 @@ Array [
   <h1>
     Specific
   </h1>,
-  <form
-    className="ant-form ant-form-horizontal"
-    onReset={[Function]}
-    onSubmit={[Function]}
+  <div
+    className="ant-card ant-card-bordered"
   >
     <div
-      className="ant-form-item"
+      className="ant-card-head"
+      style={Object {}}
     >
       <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
+        className="ant-card-head-wrapper"
       >
         <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
+          className="ant-card-head-title"
         >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <div
-                className="ant-form-item"
-              >
-                <div
-                  className="ant-row ant-form-item-row"
-                  style={Object {}}
-                >
-                  <div
-                    className="ant-col ant-form-item-label"
-                    style={Object {}}
-                  >
-                    <label
-                      className=""
-                      htmlFor="fields_0_defaultValue"
-                      title="label"
-                    >
-                      label
-                    </label>
-                  </div>
-                  <div
-                    className="ant-col ant-form-item-control"
-                    style={Object {}}
-                  >
-                    <div
-                      className="ant-form-item-control-input"
-                    >
-                      <div
-                        className="ant-form-item-control-input-content"
-                      >
-                        <input
-                          className="ant-input"
-                          id="fields_0_defaultValue"
-                          onBlur={[Function]}
-                          onChange={[Function]}
-                          onFocus={[Function]}
-                          onKeyDown={[Function]}
-                          type="text"
-                          value="Window1"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          label
         </div>
       </div>
     </div>
     <div
-      className="ant-form-item"
+      className="ant-card-body"
+      style={Object {}}
     >
-      <div
-        className="ant-row ant-form-item-row"
-        style={Object {}}
-      >
-        <div
-          className="ant-col ant-form-item-control"
-          style={Object {}}
-        >
-          <div
-            className="ant-form-item-control-input"
-          >
-            <div
-              className="ant-form-item-control-input-content"
-            >
-              <button
-                className="ant-btn ant-btn-default"
-                disabled={false}
-                onClick={[Function]}
-                type="submit"
-              >
-                <span>
-                  Submit
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <input
+        className="ant-input"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        type="text"
+        value="Window1"
+      />
     </div>
-  </form>,
+  </div>,
   <h1>
     Skin
   </h1>,

@@ -45,15 +45,15 @@ Feature: UIControlInsepctor
 
     Rule: specific
 
-        Scenario: show specific form
+        Scenario: show specific
             Given select ui control window w1
             And set inspector current selected ui control data to w1
             When render
-            Then should show form with default value input
+            Then should show dom with defalut value
 
-        Scenario: set specific
-            When set specific
-            Then should dispatch SetSpecific action
+        Scenario: set specific data
+            When set specific data
+            Then should dispatch SetSpecificData action
 
     Rule: Skin
 

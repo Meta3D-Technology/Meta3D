@@ -241,6 +241,25 @@ module Method = {
     }, type_)
   }
 
+  let _setSpecificData = (dispatch, specific, id, i, e, type_) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetSpecificData(
+        id,
+        specific->Meta3dCommonlib.ArraySt.mapi((
+          specificData: FrontendUtils.ElementAssembleStoreType.specificData,
+          j,
+        ) => {
+          j === i
+            ? {
+                ...specificData,
+                value: e->EventUtils.getEventTargetValue->_convertStringToValue(type_),
+              }
+            : specificData
+        }),
+      ),
+    )
+  }
+
   let buildSpecific = (service, dispatch, id, specific) => {
     <>
       {specific
@@ -248,30 +267,15 @@ module Method = {
         {type_, value, name}: FrontendUtils.ElementAssembleStoreType.specificData,
         i,
       ) => {
-        <Input
-          key={name}
-          value={_convertValueToString(value, type_)}
-          onChange={e => {
-            dispatch(
-              FrontendUtils.ElementAssembleStoreType.SetSpecific(
-                id,
-                specific->Meta3dCommonlib.ArraySt.mapi((
-                  specificData: FrontendUtils.ElementAssembleStoreType.specificData,
-                  j,
-                ) => {
-                  j === i
-                    ? {
-                        ...specificData,
-                        value: e
-                        ->EventUtils.getEventTargetValue
-                        ->_convertStringToValue(type_),
-                      }
-                    : specificData
-                }),
-              ),
-            )
-          }}
-        />
+        <Card key={name} title={name}>
+          <Input
+            key={name}
+            value={_convertValueToString(value, type_)}
+            onChange={e => {
+              _setSpecificData(dispatch, specific, id, i, e, type_)
+            }}
+          />
+        </Card>
       })
       ->React.array}
     </>

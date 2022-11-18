@@ -79,7 +79,7 @@ let reducer = (state, action) => {
         ),
       }
     }
-  | SetSpecific(id, specific) =>
+  | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(
       state,
       data => {

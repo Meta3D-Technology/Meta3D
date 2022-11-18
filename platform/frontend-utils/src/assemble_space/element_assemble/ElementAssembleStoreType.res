@@ -112,7 +112,7 @@ type action =
       specific,
     )
   | SelectSelectedUIControl(id)
-  | SetSpecific(id, specific)
+  | SetSpecificData(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
   | SetSkin(id, skinName)
