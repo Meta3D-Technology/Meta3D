@@ -85,7 +85,7 @@ let setSkin = UIControlInspector.Method.setSkin
 
 let setAction = UIControlInspector.Method.setAction
 
-let onFinishSpecific = UIControlInspector.Method._onFinishSpecific
+// let onFinishSpecific = UIControlInspector.Method._onFinishSpecific
 
 let buildEmptySelectOptionValue = SelectUtils.buildEmptySelectOptionValue
 

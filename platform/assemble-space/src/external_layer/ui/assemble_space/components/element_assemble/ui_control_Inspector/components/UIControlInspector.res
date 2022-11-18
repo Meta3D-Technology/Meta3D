@@ -226,50 +226,55 @@ module Method = {
     }
   }
 
-  let _convertDefaultValueToItsType = (
-    {name, type_, defaultValue} as field: FrontendUtils.ElementAssembleStoreType.specificData,
-  ) => {
+  let _convertDefaultValueToString = (defaultValue, type_): string => {
     _handleSpecificDataFieldType(() => {
-      field
+      defaultValue->Obj.magic
     }, type_)
   }
 
-  let _onFinishSpecific = (dispatch, id, values) => {
-    dispatch(
-      FrontendUtils.ElementAssembleStoreType.SetSpecific(
-        id,
-        (values->Obj.magic)["fields"]->Meta3dCommonlib.ArraySt.map(_convertDefaultValueToItsType),
-      ),
-    )
+  let _convertStringToDefaultValue = (
+    defaultValueStr,
+    type_,
+  ): Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue => {
+    _handleSpecificDataFieldType(() => {
+      defaultValueStr->Obj.magic
+    }, type_)
   }
 
-  let _onFinishFailedSpecific = (service, errorInfo) => {
-    service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, None)
-  }
-
-  let buildSpecificForm = (service, dispatch, id, specific) => {
-    <Form
-      onFinish={_onFinishSpecific(dispatch, id)} onFinishFailed={_onFinishFailedSpecific(service)}>
-      <Form.List name="fields" initialValue={specific->Obj.magic}>
-        {(fields, _) => {
-          <>
-            {fields
-            ->Meta3dCommonlib.ArraySt.map(field => {
-              let specificData: FrontendUtils.ElementAssembleStoreType.specificData =
-                specific[field.name->IntUtils.stringToInt]
-
-              <Form.Item key={field.key}>
-                <Form.Item label={specificData.name} name={[field.name, "defaultValue"]->Obj.magic}>
-                  <Input />
-                </Form.Item>
-              </Form.Item>
-            })
-            ->React.array}
-          </>
-        }}
-      </Form.List>
-      <Form.Item> <Button htmlType="submit"> {React.string(`Submit`)} </Button> </Form.Item>
-    </Form>
+  let buildSpecific = (service, dispatch, id, specific) => {
+    <>
+      {specific
+      ->Meta3dCommonlib.ArraySt.mapi((
+        {type_, defaultValue, name}: FrontendUtils.ElementAssembleStoreType.specificData,
+        i,
+      ) => {
+        <Input
+          key={name}
+          value={_convertDefaultValueToString(defaultValue, type_)}
+          onChange={e => {
+            dispatch(
+              FrontendUtils.ElementAssembleStoreType.SetSpecific(
+                id,
+                specific->Meta3dCommonlib.ArraySt.mapi((
+                  specificData: FrontendUtils.ElementAssembleStoreType.specificData,
+                  j,
+                ) => {
+                  j === i
+                    ? {
+                        ...specificData,
+                        defaultValue: e
+                        ->EventUtils.getEventTargetValue
+                        ->_convertStringToDefaultValue(type_),
+                      }
+                    : specificData
+                }),
+              ),
+            )
+          }}
+        />
+      })
+      ->React.array}
+    </>
   }
 
   let useSelector = (
@@ -358,7 +363,7 @@ let make = (~service: service) => {
 
         <>
           <h1> {React.string(`Specific`)} </h1>
-          {Method.buildSpecificForm(service, dispatch, id, specific)}
+          {Method.buildSpecific(service, dispatch, id, specific)}
           <h1> {React.string(`Skin`)} </h1>
           {SelectUtils.buildSelectWithoutEmpty(
             Method.setSkin(dispatch, id),
