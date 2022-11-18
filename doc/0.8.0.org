@@ -115,7 +115,7 @@ add isInitEvent
 TODO fix:
 # empty childrenFunc
 
-label not apply:
+# label not apply:
 # change imgui to loop;
 # only init imgui once;
 
@@ -126,7 +126,7 @@ label not apply:
 # TODO add convert Meta3d.ExtensionFileType.contributeFileData to elementContribute
 
 
-pass run test
+# pass run test
 
 
 
@@ -134,13 +134,26 @@ pass run test
 
 
 
-why only one?
+# why only one?
+# need reinit?
+
+
+# specific commit shouldn't restart
 
 
 
-specific commit shouldn't restart
+
+why add second and the first change color? 
+select?
 
 
+
+
+
+
+
+
+imgui: updateTexture bug: should only update once!
 
 
 pass bdd test
@@ -153,7 +166,7 @@ pass bdd test
 
 
 
-label not change
+# label not change
 
 
 

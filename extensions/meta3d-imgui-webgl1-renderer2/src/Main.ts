@@ -5,6 +5,10 @@ import { state } from "meta3d-imgui-renderer2-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 
+let _generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000.0).toString()
+}
+
 let _initCanvas = (canvas: HTMLCanvasElement) => {
     ImGui_Impl.window_on_resize()
     canvas.style.touchAction = "none" // Disable browser handling of all panning and zooming gestures.
@@ -27,7 +31,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
     service
 > = (api, _) => {
     return {
-        init: (state, isInitEvent, isDebug , canvas) => {
+        init: (state, isInitEvent, isDebug, canvas) => {
             return ImGui.default().then(_ => {
                 if (isDebug) {
                     ImGui.CHECKVERSION()
@@ -90,7 +94,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return state
         },
         beginWindow: (label, state) => {
-            ImGui.Begin(label)
+            ImGui.Begin(label + "##" + _generateUniqueId())
 
             return state
         },
