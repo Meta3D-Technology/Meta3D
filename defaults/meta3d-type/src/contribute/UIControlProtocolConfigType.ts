@@ -33,7 +33,7 @@ type uiControlSpecicFieldValue = any
 type uiControlSpecicFieldData = {
   name: string,
   type_: uiControlSpecicFieldType,
-  defaultValue: uiControlSpecicFieldValue,
+  value: uiControlSpecicFieldValue,
 }
 
 type uiControlSpecificDataFields = Array<uiControlSpecicFieldData>

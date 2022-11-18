@@ -226,18 +226,18 @@ module Method = {
     }
   }
 
-  let _convertDefaultValueToString = (defaultValue, type_): string => {
+  let _convertValueToString = (value, type_): string => {
     _handleSpecificDataFieldType(() => {
-      defaultValue->Obj.magic
+      value->Obj.magic
     }, type_)
   }
 
-  let _convertStringToDefaultValue = (
-    defaultValueStr,
+  let _convertStringToValue = (
+    valueStr,
     type_,
   ): Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue => {
     _handleSpecificDataFieldType(() => {
-      defaultValueStr->Obj.magic
+      valueStr->Obj.magic
     }, type_)
   }
 
@@ -245,12 +245,12 @@ module Method = {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
-        {type_, defaultValue, name}: FrontendUtils.ElementAssembleStoreType.specificData,
+        {type_, value, name}: FrontendUtils.ElementAssembleStoreType.specificData,
         i,
       ) => {
         <Input
           key={name}
-          value={_convertDefaultValueToString(defaultValue, type_)}
+          value={_convertValueToString(value, type_)}
           onChange={e => {
             dispatch(
               FrontendUtils.ElementAssembleStoreType.SetSpecific(
@@ -262,9 +262,9 @@ module Method = {
                   j === i
                     ? {
                         ...specificData,
-                        defaultValue: e
+                        value: e
                         ->EventUtils.getEventTargetValue
-                        ->_convertStringToDefaultValue(type_),
+                        ->_convertStringToValue(type_),
                       }
                     : specificData
                 }),
@@ -393,7 +393,7 @@ let make = (~service: service) => {
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
             renderItem={eventName => {
-              let defaultValue =
+              let value =
                 ElementMRUtils.getActionName(
                   event,
                   eventName,
@@ -405,7 +405,7 @@ let make = (~service: service) => {
                 <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
                 {SelectUtils.buildSelect(
                   Method.setAction(dispatch, id, eventName),
-                  defaultValue,
+                  value,
                   actions->Meta3dCommonlib.ArraySt.map(({data}) => {
                     (
                       service.meta3d.execGetContributeFunc(.

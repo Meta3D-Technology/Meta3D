@@ -146,13 +146,16 @@ TODO fix:
 
 
 
-why add second and the first change color? 
+//why add second and the first change color? 
 select?
 
 
 
 
-specific per control
+# specific per control
+
+
+# refactor: rename defaultValue to value
 
 
 
@@ -174,7 +177,7 @@ pass bdd test
 
 
 
-child not show
+# child not show
 
 
 
@@ -185,11 +188,21 @@ pass run:
 run bug: version not match
 
 
+
+pass bdd test
+
+
+
+
+
+
 pass publish application?
 
 
 
-** TODO pass run test: parent, child window
+
+pass bdd test
+
 
 
 ** TODO feat 

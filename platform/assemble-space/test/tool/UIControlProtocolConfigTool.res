@@ -39,7 +39,7 @@ window.UIControlProtocolConfig = {
     {
         name: "label",
         type_: "string",
-        defaultValue: "Window"
+        value: "Window"
     }
 ],
     getUIControlSupportedEventNames: () => [],

@@ -197,8 +197,8 @@ let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string 
 }
 
 let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specific): string => {
-  specific->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, defaultValue}) => {
-    map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+  specific->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, value}) => {
+    map->Meta3dCommonlib.ImmutableHashMap.set(name, value)
   }, Meta3dCommonlib.ImmutableHashMap.createEmpty())->Obj.magic->Js.Json.stringify
 }
 

@@ -478,7 +478,7 @@ defineFeature(feature, test => {
               UIControlInspectorTool.buildSpecific(
                 ~name="label",
                 ~type_=#string,
-                ~defaultValue="Window1",
+                ~value="Window1",
                 (),
               ),
             ],
@@ -662,7 +662,7 @@ defineFeature(feature, test => {
                 UIControlInspectorTool.buildSpecific(
                   ~name="label",
                   ~type_=#string,
-                  ~defaultValue="Window1",
+                  ~value="Window1",
                   (),
                 ),
               ],
@@ -677,7 +677,7 @@ defineFeature(feature, test => {
                 UIControlInspectorTool.buildSpecific(
                   ~name="label",
                   ~type_=#string,
-                  ~defaultValue="Window2",
+                  ~value="Window2",
                   (),
                 ),
               ],

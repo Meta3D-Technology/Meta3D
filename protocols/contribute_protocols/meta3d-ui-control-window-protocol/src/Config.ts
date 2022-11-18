@@ -21,7 +21,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        defaultValue: "Window"
+        value: "Window"
     }
 ]
 

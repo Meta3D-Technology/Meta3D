@@ -41,13 +41,13 @@ let buildEventData = (
 let buildSpecific = (
   ~name="s1",
   ~type_=#string,
-  ~defaultValue="d1",
+  ~value="d1",
   (),
 ): FrontendUtils.ElementAssembleStoreType.specificData => {
   {
     name: name,
     type_: type_,
-    defaultValue: defaultValue->Obj.magic,
+    value: value->Obj.magic,
   }
 }
 
