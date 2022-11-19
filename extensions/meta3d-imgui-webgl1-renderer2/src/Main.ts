@@ -5,9 +5,9 @@ import { state } from "meta3d-imgui-renderer2-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 
-let _generateUniqueId = () => {
-    return Math.floor(Math.random() * 1000000.0).toString()
-}
+// let _generateUniqueId = () => {
+//     return Math.floor(Math.random() * 1000000.0).toString()
+// }
 
 let _initCanvas = (canvas: HTMLCanvasElement) => {
     ImGui_Impl.window_on_resize()
@@ -94,7 +94,16 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return state
         },
         beginWindow: (label, state) => {
-            ImGui.Begin(label + "##" + _generateUniqueId())
+            // ImGui.Begin(label + "##" + _generateUniqueId())
+            ImGui.Begin(label)
+
+            // console.log(
+            //     ImGui.IsWindowFocused(),
+            //     ImGui.IsWindowAppearing(),
+            //     ImGui.IsWindowCollapsed(),
+            //     ImGui.IsWindowHovered(),
+            //     ImGui.GetWindowDrawList(),
+            // )
 
             return state
         },
