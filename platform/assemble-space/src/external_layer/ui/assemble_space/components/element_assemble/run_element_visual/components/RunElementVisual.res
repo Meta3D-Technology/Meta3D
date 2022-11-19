@@ -33,7 +33,7 @@ module Method = {
   let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, time, meta3dState) => {
     service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), _getUpdateData(time))
     ->Js.Promise.then_(meta3dState => {
-      service.other.requestAnimationFrame(time => {
+      service.other.requestAnimationOtherFrame(time => {
         _loop(service, time, meta3dState)
       })->Js.Promise.resolve
     }, _)
@@ -48,7 +48,7 @@ module Method = {
 
       service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
       ->Js.Promise.then_(meta3dState => {
-        service.other.requestAnimationFrame(time => {
+        service.other.requestAnimationFirstFrame(time => {
           _loop(service, time, meta3dState)
         })->Js.Promise.resolve
       }, _)

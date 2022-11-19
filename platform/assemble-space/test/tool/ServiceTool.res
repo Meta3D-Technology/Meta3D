@@ -5,7 +5,8 @@ open Sinon
 let build = (
   ~sandbox,
   ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~requestAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~requestAnimationFirstFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~requestAnimationOtherFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~openUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~initForElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -147,7 +148,8 @@ let build = (
   },
   other: {
     random: random,
-    requestAnimationFrame: requestAnimationFrame,
+    requestAnimationFirstFrame: requestAnimationFirstFrame,
+    requestAnimationOtherFrame: requestAnimationOtherFrame,
   },
   tab: {
     openUrl: openUrl,

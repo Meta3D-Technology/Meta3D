@@ -211,7 +211,7 @@ defineFeature(feature, test => {
                 (
                   {
                     protocolName: "meta3d-event-protocol",
-                    protocolVersion: "^0.6.0",
+                    protocolVersion: "^0.7.0",
                   }: Meta3d.ExtensionFileType.dependentData
                 ),
               ),

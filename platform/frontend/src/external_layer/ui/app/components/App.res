@@ -35,7 +35,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     },
     other: {
       random: Js.Math.random,
-      requestAnimationFrame: RequestAnimationFrameExtend.requestAnimationFrame,
+      requestAnimationFirstFrame: RequestAnimationFrameExtend.requestAnimationFrame,
+      requestAnimationOtherFrame: RequestAnimationFrameExtend.requestAnimationFrame,
     },
     backend: switch env {
     | #local => BackendCloudbase.buildAssembleSpaceService()

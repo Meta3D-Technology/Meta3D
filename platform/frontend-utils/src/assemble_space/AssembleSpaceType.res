@@ -127,7 +127,8 @@ type meta3dService = {
 
 type otherService = {
   random: unit => float,
-  requestAnimationFrame: (float => unit) => int,
+  requestAnimationFirstFrame: (float => unit) => int,
+  requestAnimationOtherFrame: (float => unit) => int,
 }
 
 type url = string

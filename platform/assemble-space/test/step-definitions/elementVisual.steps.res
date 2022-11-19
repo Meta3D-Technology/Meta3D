@@ -359,7 +359,12 @@ defineFeature(feature, test => {
             Meta3d.Main.initExtension(meta3dState, extensionName, data),
           ~updateExtension=(. meta3dState, extensionName, data) =>
             Meta3d.Main.updateExtension(meta3dState, extensionName, data),
-          ~requestAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ~requestAnimationFirstFrame=func => {
+            func(0.)
+
+            0
+          },
+          ~requestAnimationOtherFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->returns((), _)
           ->Obj.magic,
           ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))

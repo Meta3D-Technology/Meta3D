@@ -185,15 +185,24 @@ select?
 
 
 pass run:
-run bug: version not match
+# run bug: version not match
 
 
-no event?
+# no event?
+
+# # remove canvas->style(width,height)
+
+# different:
+#         ImGui.IsWindowAppearing() 
+
+# dis focus not work
+
+# captureMouse work
 
 
 
 
-pass bdd test
+# pass bdd test
 
 
 

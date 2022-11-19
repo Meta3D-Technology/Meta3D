@@ -103,7 +103,7 @@ defineFeature(feature, test => {
     let loadAppStub = ref(Obj.magic(1))
     let initExtensionStub = ref(Obj.magic(1))
     let updateExtensionStub = ref(Obj.magic(1))
-    let requestAnimationFrameStub = ref(Obj.magic(1))
+    let requestAnimationOtherFrameStub = ref(Obj.magic(1))
     let querySelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -146,7 +146,7 @@ defineFeature(feature, test => {
           _,
         )
 
-      requestAnimationFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      requestAnimationOtherFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
       RunElementVisualTool.startApp(
         ServiceTool.build(
@@ -156,7 +156,12 @@ defineFeature(feature, test => {
           ~loadApp=loadAppStub.contents->Obj.magic,
           ~initExtension=initExtensionStub.contents->Obj.magic,
           ~updateExtension=updateExtensionStub.contents->Obj.magic,
-          ~requestAnimationFrame=requestAnimationFrameStub.contents->Obj.magic,
+          ~requestAnimationFirstFrame=func => {
+            func(0.)
+
+            0
+          },
+          ~requestAnimationOtherFrame=requestAnimationOtherFrameStub.contents->Obj.magic,
           ~querySelector=querySelectorStub.contents->Obj.magic,
           (),
         ),
@@ -190,7 +195,7 @@ defineFeature(feature, test => {
           RunElementVisualTool.getVisualExtensionName(),
           matchAny,
         ),
-        requestAnimationFrameStub.contents->getCallCount,
+        requestAnimationOtherFrameStub.contents->getCallCount,
       )->expect == (true, 1)
     })
   })
