@@ -207,11 +207,13 @@ pass run:
 
 
 
-pass publish element?
+# pass publish element?
 
 
 
-pass publish application?
+# pass publish application:
+# with no
+# with published element
 
 
 

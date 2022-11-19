@@ -8,7 +8,7 @@ import { state as uiState } from "meta3d-ui2-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 // import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
-// import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
+import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
 import { elementContribute } from "meta3d-ui2-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
@@ -27,9 +27,9 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap
 
 	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	// uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
-	// 	return registerSkin(uiState, contribute)
-	// }, uiState)
+	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
+		return registerSkin(uiState, contribute)
+	}, uiState)
 
 
 	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
