@@ -383,7 +383,9 @@ defineFeature(feature, test => {
                     UIControlInspectorTool.buildSpecific(
                       ~name="label",
                       ~type_=#string,
-                      ~value="Window1",
+                      ~value="Window1"
+                      ->Obj.magic
+                      ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
                       (),
                     ),
                   ],
@@ -411,17 +413,102 @@ defineFeature(feature, test => {
     })
   })
 
+  test(."show specific with element state fields", ({given, \"when", \"and", then}) => {
+    let elementStateFields = ref(Obj.magic(1))
+    let id = "d1"
+    let w1 = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given("element state add fields", () => {
+      elementStateFields :=
+        list{
+          ElementInspectorTool.buildElementStateFieldData(
+            ~name="label1",
+            ~type_=#string,
+            ~defaultValue="window1",
+            (),
+          ),
+        }
+    })
+
+    \"and"("select ui control window w1", () => {
+      w1 :=
+        SelectedUIControlsTool.buildSelectedUIControl(
+          ~id,
+          ~data=ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol={
+                name: "meta3d-ui-control-button-protocol",
+                version: "^0.7.0",
+              },
+              (),
+            ),
+            (),
+          ),
+          (),
+        )
+    })
+
+    \"and"("set inspector current selected ui control data to w1", () => {
+      useSelectorStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          (
+            list{},
+            (
+              ElementInspectorTool.buildElementInspectorData(
+                elementStateFields.contents,
+                ReducerTool.buildReducers(),
+              ),
+              id->Some,
+              list{w1.contents},
+              list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id,
+                  ~specific=[
+                    UIControlInspectorTool.buildSpecific(
+                      ~name="label",
+                      ~type_=#string,
+                      ~value="label1"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                      (),
+                    ),
+                  ],
+                  (),
+                ),
+              },
+            ),
+          ),
+          _,
+        )
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show element state string field select", () => {
+      UIControlInspectorTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
+
   test(."set specific data", ({given, \"when", \"and", then}) => {
     let id = "1"
-    let e = {
-      "target": {
-        "value": "Window2",
-      },
-    }
     let i = 0
     let type_ = #string
     let specific = [
-      UIControlInspectorTool.buildSpecific(~name="label", ~type_, ~value="Window1", ()),
+      UIControlInspectorTool.buildSpecific(
+        ~name="label",
+        ~type_,
+        ~value="Window1"->Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+        (),
+      ),
     ]
     let dispatchStub = ref(Obj.magic(1))
 
@@ -435,7 +522,9 @@ defineFeature(feature, test => {
         specific,
         id,
         i,
-        e,
+        "Window2"
+        ->SpecificUtils.convertStringToValue(type_)
+        ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
         type_,
       )
     })
@@ -444,7 +533,16 @@ defineFeature(feature, test => {
       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
         FrontendUtils.ElementAssembleStoreType.SetSpecificData(
           id,
-          [UIControlInspectorTool.buildSpecific(~name="label", ~type_, ~value="Window2", ())],
+          [
+            UIControlInspectorTool.buildSpecific(
+              ~name="label",
+              ~type_,
+              ~value="Window2"
+              ->Obj.magic
+              ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+              (),
+            ),
+          ],
         )
     })
   })

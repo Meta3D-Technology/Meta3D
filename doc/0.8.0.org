@@ -107,7 +107,7 @@ UIManager
 ** DONE refactor
 
 
-** TODO pass run test
+** DONE pass run test
 
 add isInitEvent
 
@@ -218,21 +218,24 @@ pass run:
 
 
 
-pass bdd test
+# pass bdd test
 
 
 
-** TODO feat 
-ui control inspector:
-specific add:
-    can use element state
+** DONE feat 
+# ui control inspector:
+# specific add:
+#     can use element state
 
 
-bdd test
+# bdd test
 
-run test
+# run test
 
 
+
+
+** TODO refactor: use InputNumber for rect, element state, specific
 
 
 
@@ -260,6 +263,11 @@ how to set position:
 
 
 * TODO pass run test
+
+test skin
+
+
+test trigger action
 
 
 * TODO pass bdd test

@@ -29,6 +29,22 @@ module Method = {
     }
   }
 
+  let _convertSpecificType = (
+    specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
+  ): FrontendUtils.ElementAssembleStoreType.specific => {
+    specific->Meta3dCommonlib.ArraySt.map(({
+      value,
+      name,
+      type_,
+    }): FrontendUtils.ElementAssembleStoreType.specificData => {
+      {
+        name: name,
+        type_: type_,
+        value: value->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+      }
+    })
+  }
+
   let selectUIControl = (
     service,
     dispatch,
@@ -51,7 +67,7 @@ module Method = {
         parentUIControlId,
         service.meta3d.getUIControlSpecificDataFields(.
           service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
-        ),
+        )->_convertSpecificType,
       ),
     )
   }

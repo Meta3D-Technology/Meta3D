@@ -51,6 +51,14 @@ Feature: UIControlInsepctor
             When render
             Then should show dom with defalut value
 
+        Scenario: show specific with element state fields
+            Given element state add fields
+            And select ui control window w1
+            And set inspector current selected ui control data to w1
+            When render
+            Then should show element state string field select
+
+
         Scenario: set specific data
             When set specific data
             Then should dispatch SetSpecificData action

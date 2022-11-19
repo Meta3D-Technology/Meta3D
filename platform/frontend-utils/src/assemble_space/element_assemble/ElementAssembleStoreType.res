@@ -1,3 +1,10 @@
+type elementStateFieldType = [#string | #int | #bool]
+
+type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
+
+external specificTypeToElementStateFieldType: specificDataType => elementStateFieldType =
+  "%identity"
+
 type protocolIconBase64 = string
 
 type protocolConfigStr = string
@@ -47,7 +54,15 @@ type skinName = string
 
 type skin = {skinName: skinName}
 
-type specificData = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldData
+type specificDataValue =
+  | SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
+  | ElementStateFieldForSpecificDataValue(string)
+
+type specificData = {
+  name: string,
+  type_: specificDataType,
+  value: specificDataValue,
+}
 
 type specific = array<specificData>
 
@@ -63,8 +78,6 @@ type uiControlInspectorData = {
 // and children = array<uiControlInspectorData>
 
 type selectedUIControlInspectorData = list<uiControlInspectorData>
-
-type elementStateFieldType = [#string | #int | #bool]
 
 type elementStateFieldValue
 

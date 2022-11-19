@@ -88,7 +88,9 @@ defineFeature(feature, test => {
       protocolConfigStr := "c"
       name := "u1"
       data := Obj.magic(11)
-      sepcific := [Obj.magic(20)]
+      sepcific := [
+          UIControlsTool.buildSpecific(~name="s1", ~type_=#string, ~value="d1"->Obj.magic, ()),
+        ]
     })
 
     \"and"("select skin s1 which is used by u1 in ap view", () => {
@@ -174,7 +176,14 @@ defineFeature(feature, test => {
           data.contents,
           UIControlInspectorTool.buildSkin(s1Name),
           None,
-          sepcific.contents,
+          [
+            UIControlInspectorTool.buildSpecific(
+              ~name="s1",
+              ~type_=#string,
+              ~value="d1"->Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+              (),
+            ),
+          ],
         ),
       )
       ->expect == true

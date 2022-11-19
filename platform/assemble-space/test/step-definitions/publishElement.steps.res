@@ -130,7 +130,7 @@ defineFeature(feature, test => {
 
       skin := UIControlInspectorTool.buildSkin("skin1")
 
-      specific := [Obj.magic(11)]
+      specific := [UIControlInspectorTool.buildSpecific()]
 
       selectedUIControls :=
         list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}

@@ -31,3 +31,16 @@ let buildSelectedContribute = (
 }
 
 let selectUIControl = UIControls.Method.selectUIControl
+
+let buildSpecific = (
+  ~name="s1",
+  ~type_=#string,
+  ~value="d1"->Obj.magic,
+  (),
+): Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldData => {
+  {
+    name: name,
+    type_: type_,
+    value: value,
+  }
+}

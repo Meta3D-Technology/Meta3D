@@ -196,10 +196,48 @@ let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string 
   j` getSkin(uiState, "${skin.skinName}").skin `
 }
 
+// let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specific): string => {
+//   specific
+//   ->Meta3dCommonlib.ArraySt.reduceOneParam(
+//     (. map, {name, type_, value}: FrontendUtils.ElementAssembleStoreType.specificData) => {
+//       map->Meta3dCommonlib.ImmutableHashMap.set(
+//         name,
+//         switch value {
+//         | SpecicFieldDataValue(value) => SpecificUtils.convertValueToString(value, type_)
+//         | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
+//         },
+//       )
+//     },
+//     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+//   )
+//   ->Obj.magic
+//   ->Js.Json.stringify
+// }
+
 let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specific): string => {
-  specific->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, value}) => {
-    map->Meta3dCommonlib.ImmutableHashMap.set(name, value)
-  }, Meta3dCommonlib.ImmutableHashMap.createEmpty())->Obj.magic->Js.Json.stringify
+  specific->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. result, {name, type_, value}: FrontendUtils.ElementAssembleStoreType.specificData) => {
+      result ++
+      j`${name}: ` ++
+      switch value {
+      | SpecicFieldDataValue(value) =>
+        switch type_ {
+        | #string => j`"${value->Obj.magic}"`
+        | _ => SpecificUtils.convertValueToString(value, type_)
+        }
+      | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
+      }
+
+      // map->Meta3dCommonlib.ImmutableHashMap.set(
+      //   name,
+      //   switch value {
+      //   | SpecicFieldDataValue(value) => SpecificUtils.convertValueToString(value, type_)
+      //   | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
+      //   },
+      // )
+    },
+    "{",
+  ) ++ "}"
 }
 
 let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {

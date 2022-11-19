@@ -102,14 +102,14 @@ module Method = {
     )
   }
 
-  let getRectFieldIntValue = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
+  let _getRectFieldIntValue = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
     switch rectField {
     | IntForRectField(value) => value->Some
     | _ => None
     }
   }
 
-  let getRectFieldElementFieldValue = (
+  let _getRectFieldElementFieldValue = (
     rectField: FrontendUtils.ElementAssembleStoreType.rectField,
   ) => {
     switch rectField {
@@ -118,11 +118,12 @@ module Method = {
     }
   }
 
-  let getIntElementStateFieldNames = (
+  let _getSpecificTypeElementStateFieldNames = (
     elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
+    specificType,
   ) => {
     elementStateFields
-    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == #int)
+    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == specificType)
     ->Meta3dCommonlib.ListSt.map(({name}) => name)
   }
 
@@ -131,7 +132,7 @@ module Method = {
       // TODO extract IntInput
       <Input
         value={rectField
-        ->getRectFieldIntValue
+        ->_getRectFieldIntValue
         ->Meta3dCommonlib.OptionSt.getWithDefault(0)
         ->Js.Int.toString}
         onChange={e => {
@@ -158,10 +159,12 @@ module Method = {
               )
             }
       , rectField
-      ->getRectFieldElementFieldValue
+      ->_getRectFieldElementFieldValue
       ->Meta3dCommonlib.OptionSt.getWithDefault(
         SelectUtils.buildEmptySelectOptionValue(),
-      ), elementStateFields->getIntElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
+      ), elementStateFields
+      ->_getSpecificTypeElementStateFieldNames(#int)
+      ->Meta3dCommonlib.ListSt.toArray)}
     </>
   }
 
@@ -220,28 +223,7 @@ module Method = {
     </>
   }
 
-  let _handleSpecificDataFieldType = (handleStringTypeFunc, type_) => {
-    switch type_ {
-    | #string => handleStringTypeFunc()
-    }
-  }
-
-  let _convertValueToString = (value, type_): string => {
-    _handleSpecificDataFieldType(() => {
-      value->Obj.magic
-    }, type_)
-  }
-
-  let _convertStringToValue = (
-    valueStr,
-    type_,
-  ): Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue => {
-    _handleSpecificDataFieldType(() => {
-      valueStr->Obj.magic
-    }, type_)
-  }
-
-  let _setSpecificData = (dispatch, specific, id, i, e, type_) => {
+  let _setSpecificData = (dispatch, specific, id, i, value, type_) => {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetSpecificData(
         id,
@@ -252,7 +234,7 @@ module Method = {
           j === i
             ? {
                 ...specificData,
-                value: e->EventUtils.getEventTargetValue->_convertStringToValue(type_),
+                value: value,
               }
             : specificData
         }),
@@ -260,7 +242,25 @@ module Method = {
     )
   }
 
-  let buildSpecific = (service, dispatch, id, specific) => {
+  let _getSpecificDataValue = (
+    specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
+  ) => {
+    switch specificDataValue {
+    | SpecicFieldDataValue(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let _getSpecificDataValueElementFieldValue = (
+    specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
+  ) => {
+    switch specificDataValue {
+    | ElementStateFieldForSpecificDataValue(value) => value->Some
+    | _ => None
+    }
+  }
+
+  let buildSpecific = (service, dispatch, id, specific, elementStateFields) => {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
@@ -270,11 +270,45 @@ module Method = {
         <Card key={name} title={name}>
           <Input
             key={name}
-            value={_convertValueToString(value, type_)}
+            value={_getSpecificDataValue(value)
+            ->Meta3dCommonlib.OptionSt.map(SpecificUtils.convertValueToString(_, type_))
+            ->Meta3dCommonlib.OptionSt.getWithDefault("")}
             onChange={e => {
-              _setSpecificData(dispatch, specific, id, i, e, type_)
+              _setSpecificData(
+                dispatch,
+                specific,
+                id,
+                i,
+                e
+                ->EventUtils.getEventTargetValue
+                ->SpecificUtils.convertStringToValue(type_)
+                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                type_,
+              )
             }}
           />
+          {SelectUtils.buildSelect(value =>
+            SelectUtils.isEmptySelectOptionValue(value)
+              ? ()
+              : {
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                    type_,
+                  )
+                }
+          , value
+          ->_getSpecificDataValueElementFieldValue
+          ->Meta3dCommonlib.OptionSt.getWithDefault(
+            SelectUtils.buildEmptySelectOptionValue(),
+          ), elementStateFields
+          ->_getSpecificTypeElementStateFieldNames(
+            type_->FrontendUtils.ElementAssembleStoreType.specificTypeToElementStateFieldType,
+          )
+          ->Meta3dCommonlib.ListSt.toArray)}
         </Card>
       })
       ->React.array}
@@ -367,7 +401,7 @@ let make = (~service: service) => {
 
         <>
           <h1> {React.string(`Specific`)} </h1>
-          {Method.buildSpecific(service, dispatch, id, specific)}
+          {Method.buildSpecific(service, dispatch, id, specific, elementStateFields)}
           <h1> {React.string(`Skin`)} </h1>
           {SelectUtils.buildSelectWithoutEmpty(
             Method.setSkin(dispatch, id),

@@ -478,7 +478,9 @@ defineFeature(feature, test => {
               UIControlInspectorTool.buildSpecific(
                 ~name="label",
                 ~type_=#string,
-                ~value="Window1",
+                ~value="Window1"
+                ->Obj.magic
+                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
                 (),
               ),
             ],
@@ -534,7 +536,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("generate correct result", () => {
-      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Window1 = getUIControl(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                data = Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin1\").skin },\n        ...{\"label\":\"Window1\"},\n      childrenFunc:(meta3dState) => meta3dState\n                }\n                    )\n                meta3dState = data[0]\n    }\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+      str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let Window1 = getUIControl(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                data = Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin1\").skin },\n        ...{label: \"Window1\"},\n      childrenFunc:(meta3dState) => meta3dState\n                }\n                    )\n                meta3dState = data[0]\n    }\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
     })
   })
 
@@ -647,6 +649,12 @@ defineFeature(feature, test => {
               ~defaultValue=false,
               (),
             ),
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="label",
+              ~type_=#string,
+              ~defaultValue="Window2",
+              (),
+            ),
           }
       })
 
@@ -662,7 +670,9 @@ defineFeature(feature, test => {
                 UIControlInspectorTool.buildSpecific(
                   ~name="label",
                   ~type_=#string,
-                  ~value="Window1",
+                  ~value="Window1"
+                  ->Obj.magic
+                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
                   (),
                 ),
               ],
@@ -677,7 +687,7 @@ defineFeature(feature, test => {
                 UIControlInspectorTool.buildSpecific(
                   ~name="label",
                   ~type_=#string,
-                  ~value="Window2",
+                  ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
                   (),
                 ),
               ],
@@ -746,7 +756,7 @@ defineFeature(feature, test => {
       })
 
       \"and"("generate correct result", () => {
-        str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let ParentWindow = getUIControl(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                data = ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin1\").skin },\n        ...{\"label\":\"Window1\"},\n      childrenFunc: (meta3dState) =>{\n    \n    let ChildWindow = getUIControl(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                data = ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin2\").skin },\n        ...{\"label\":\"Window2\"},\n      childrenFunc:(meta3dState) => meta3dState\n                }\n                    )\n                meta3dState = data[0]\n    }\n        return meta3dState\n        }\n                }\n                    )\n                meta3dState = data[0]\n    }\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+        str.contents->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionNameMap, _]) => {\n        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)\n\n    let ParentWindow = getUIControl(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                data = ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin1\").skin },\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n    \n    let ChildWindow = getUIControl(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                data = ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }, skin:  getSkin(uiState, \"skin2\").skin },\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => meta3dState\n                }\n                    )\n                meta3dState = data[0]\n    }\n        return meta3dState\n        }\n                }\n                    )\n                meta3dState = data[0]\n    }\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
       })
     },
   )
