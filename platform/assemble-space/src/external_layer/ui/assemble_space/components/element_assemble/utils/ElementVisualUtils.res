@@ -80,11 +80,15 @@ let getAndSetNewestVisualExtension = (
   }, _)
 }
 
-let generateApp = (service, (selectedExtensions, selectedContributes), (runVisualExtension, elementContribute)) => {
+let generateApp = (
+  service,
+  (selectedExtensions, selectedContributes),
+  (runVisualExtension, elementContribute),
+) => {
   AppUtils.generateApp(
     service,
     selectedExtensions->Meta3dCommonlib.ArraySt.push(runVisualExtension),
-    selectedContributes -> Meta3dCommonlib.ArraySt.push(elementContribute),
+    selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
     Js.Nullable.null,
   )
 }
@@ -94,6 +98,8 @@ let generateApp = (service, (selectedExtensions, selectedContributes), (runVisua
 // }
 
 let getUIExtensionName = () => "meta3d-ui2"
+
+let getUIExtensionProtocolName = () => "meta3d-ui2-protocol"
 
 let generateElementContributeBinaryFile = (
   service: FrontendUtils.AssembleSpaceType.service,
@@ -115,7 +121,7 @@ let generateElementContributeBinaryFile = (
           "meta3dUIExtensionName",
           (
             {
-              protocolName: getUIExtensionName(),
+              protocolName: getUIExtensionProtocolName(),
               protocolVersion: "^0.7.1",
             }: Meta3d.ExtensionFileType.dependentData
           ),
@@ -125,7 +131,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: "meta3d-event-protocol",
-              protocolVersion: "^0.6.0",
+              protocolVersion: "^0.7.0",
             }: Meta3d.ExtensionFileType.dependentData
           ),
         ),

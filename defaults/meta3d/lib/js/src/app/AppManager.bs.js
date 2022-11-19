@@ -14,11 +14,11 @@ var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/E
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
-function _checkVersion(protocolVersion, dependentProtocolVersion) {
+function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
   if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
     return ;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", protocolVersion + " not match dependentProtocolVersion:" + dependentProtocolVersion, "", "", "")));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion, "", "", "")));
   }
 }
 
@@ -27,7 +27,7 @@ function _convertDependentMap(dependentMap, allDataMap) {
                 var dependentData = param[1];
                 var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
                 var match = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName, "", "", "", "")));
-                _checkVersion(match[1], dependentData.protocolVersion);
+                _checkVersion(match[1], dependentData.protocolVersion, dependentData.protocolName);
                 return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], match[0]);
               }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
 }
@@ -114,7 +114,7 @@ function _parse(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            221,
+            222,
             6
           ],
           Error: new Error()
@@ -130,7 +130,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            230,
+                            231,
                             34
                           ],
                           Error: new Error()
@@ -154,7 +154,7 @@ function _parse(appBinaryFile) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "AppManager.res",
-                            248,
+                            249,
                             34
                           ],
                           Error: new Error()

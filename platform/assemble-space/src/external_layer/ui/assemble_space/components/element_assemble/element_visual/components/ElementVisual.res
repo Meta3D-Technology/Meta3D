@@ -120,7 +120,10 @@ module Method = {
 
     service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
     ->Js.Promise.then_(meta3dState => {
-      _loop(service, 0.0, meta3dState)->Js.Promise.resolve
+      // TODO test
+      service.other.requestAnimationFrame(time => {
+        _loop(service, time, meta3dState)
+      })->Js.Promise.resolve
     }, _)
     ->Meta3dBsMost.Most.fromPromise
     ->Meta3dBsMost.Most.drain

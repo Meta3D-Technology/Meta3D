@@ -160,7 +160,7 @@ select?
 
 
 
-pass bdd test
+# pass bdd test
 
 
 
@@ -188,11 +188,17 @@ pass run:
 run bug: version not match
 
 
+no event?
+
+
+
 
 pass bdd test
 
 
 
+
+pass publish element?
 
 
 

@@ -96,13 +96,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return init(meta3dState, [api, meta3dImguiRendererExtensionName], true, isDebug, canvas)
 		},
-		update: (meta3dState: meta3dState, { clearColor }) => {
+		update: (meta3dState: meta3dState, { clearColor, time }) => {
 			let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
 			clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
-
-			// TODO get time from outside
-			let time = 0.0
 
 			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time)
 		}

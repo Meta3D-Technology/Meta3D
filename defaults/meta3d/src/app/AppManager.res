@@ -2,7 +2,7 @@ open Js.Typed_array
 
 open AppFileType
 
-let _checkVersion = (protocolVersion, dependentProtocolVersion) => {
+let _checkVersion = (protocolVersion, dependentProtocolVersion, dependentProtocolName) => {
   Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
     ? ()
     : Meta3dCommonlib.Exception.throwErr(
@@ -10,7 +10,8 @@ let _checkVersion = (protocolVersion, dependentProtocolVersion) => {
           Meta3dCommonlib.Log.buildErrorMessage(
             ~title="version not match",
             ~description={
-              j`${protocolVersion} not match dependentProtocolVersion:${dependentProtocolVersion}`
+              j`${dependentProtocolName}
+              ${protocolVersion} not match dependentProtocolVersion: ${dependentProtocolVersion}`
             },
             ~reason="",
             ~solution=j``,
@@ -45,7 +46,7 @@ let _convertDependentMap = (dependentMap, allDataMap) => {
       | Some(data) => data
       }
 
-      _checkVersion(protocolVersion, dependentData.protocolVersion)
+      _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName)
 
       map->Meta3dCommonlib.ImmutableHashMap.set(dependentNameKey, newName)
     },
