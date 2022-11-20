@@ -133,7 +133,21 @@ defineFeature(feature, test => {
       specific := [UIControlInspectorTool.buildSpecific()]
 
       selectedUIControls :=
-        list{SelectedUIControlsTool.buildSelectedUIControl(~id="b1", ~name="b1", ())}
+        list{
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id="b1",
+            ~name="b1",
+            ~children=list{
+              SelectedUIControlsTool.buildSelectedUIControl(
+                ~id="b2",
+                ~name="b2",
+                ~children=list{},
+                (),
+              ),
+            },
+            (),
+          ),
+        }
       selectedUIControlInspectorData :=
         list{
           UIControlInspectorTool.buildUIControlInspectorData(
@@ -143,6 +157,18 @@ defineFeature(feature, test => {
             ~isDraw=isDraw.contents,
             ~skin=skin.contents,
             ~specific=specific.contents,
+            ~children=list{
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="b2",
+                ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                ~event=event.contents,
+                ~isDraw=isDraw.contents,
+                ~skin=skin.contents,
+                ~specific=specific.contents,
+                ~children=list{},
+                (),
+              ),
+            },
             (),
           ),
         }
@@ -202,7 +228,7 @@ defineFeature(feature, test => {
                 (
                   {
                     protocolName: "meta3d-ui2-protocol",
-                    protocolVersion: "^0.7.1",
+                    protocolVersion: "^0.7.2",
                   }: Meta3d.ExtensionFileType.dependentData
                 ),
               )
@@ -341,6 +367,20 @@ defineFeature(feature, test => {
                 skin: skin.contents,
                 event: event.contents,
                 specific: specific.contents,
+                children: [
+                  {
+                    name: "b2",
+                    rect: UIControlInspectorTool.buildRect(
+                      ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                      (),
+                    ),
+                    isDraw: isDraw.contents,
+                    skin: skin.contents,
+                    event: event.contents,
+                    specific: specific.contents,
+                    children: [],
+                  },
+                ],
               },
             ],
           }: FrontendUtils.BackendCloudbaseType.inspectorData

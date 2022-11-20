@@ -15,9 +15,10 @@ type name = string
 
 type parentId = option<id>
 
-type uiControl = {
+type rec uiControl = {
   id: id,
   parentId: parentId,
+  children: list<uiControl>,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: protocolConfigStr,
   name: name,
@@ -66,14 +67,14 @@ type specificData = {
 
 type specific = array<specificData>
 
-type uiControlInspectorData = {
+type rec uiControlInspectorData = {
   id: id,
   rect: rect,
   specific: specific,
-  // children: children,
   isDraw: isDraw,
   event: event,
   skin: skin,
+  children: list<uiControlInspectorData>,
 }
 // and children = array<uiControlInspectorData>
 

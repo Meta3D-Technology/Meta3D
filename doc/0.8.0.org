@@ -262,15 +262,48 @@ test store->SelectSelectedUIControl
 
 * TODO pass run test
 
+# children:
+# window->child1 window->button not show
+
+
+
+
+
+# uiControl:
+# add children
+
+
+# bdd test: 
+# element mr
+# store:
+# SelectUIControl
+# SelectSelectedUIControl
+
+# import element
+# publish element?
+
+
+
+
+
+run test:
+import element:
+window->child1 window->button
+
+
+
+
 trigger action
 
-children
 
 
 * TODO commit
 
 
 
+* TODO fix: use child window?
+
+position will be related to parent?
 
 
 
@@ -313,10 +346,10 @@ test trigger action
 # * TODO rewrite skin
 
 
-* TODO add Menu ui control
+# * TODO add Menu ui control
 
 
-* TODO add Menu Extension/Contribute
+# * TODO add Menu Extension/Contribute
 
 
 

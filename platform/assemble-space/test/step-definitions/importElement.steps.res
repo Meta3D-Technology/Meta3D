@@ -181,25 +181,37 @@ defineFeature(feature, test => {
     // let getElementAssembleDataStub = ref(Obj.magic(1))
     // let setElementAssembleDataStub = ref(Obj.magic(1))
     let u1 = ref(Obj.magic(1))
+    let u2 = ref(Obj.magic(1))
     // let selectedUIControls = ref(list{})
     let ei1 = ref(Obj.magic(1))
     let uiControl1 = ref(Obj.magic(1))
     let id1RandomResult = 0.3
+    let id2RandomResult = 0.4
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    given("generate ui control u1", () => {
-      let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-        name: "meta3d-ui-control-button-protocol",
-        version: "0.6.0",
+    given("generate ui control u1, u2", () => {
+      let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+        name: "meta3d-ui-control-window-protocol",
+        version: "0.7.0",
       }
 
       u1 :=
         ContributeTool.buildContributeData(
           ~contributePackageData=ContributeTool.buildContributePackageData(
             ~name="u1",
-            ~protocol=buttonProtocol,
+            ~protocol=windowProtocol,
+            (),
+          ),
+          (),
+        )
+
+      u2 :=
+        ContributeTool.buildContributeData(
+          ~contributePackageData=ContributeTool.buildContributePackageData(
+            ~name="u2",
+            ~protocol=windowProtocol,
             (),
           ),
           (),
@@ -218,43 +230,77 @@ defineFeature(feature, test => {
         }
     })
 
-    \"and"("set element assemble data to d1 which has u1 and element inspector data ei1", () => {
-      ei1 :=
-        ElementInspectorTool.buildElementInspectorData(
-          list{
-            ElementInspectorTool.buildElementStateFieldData(
-              ~name="x",
-              ~defaultValue=0,
-              ~type_=#int,
-              (),
-            ),
-          },
-          ReducerTool.buildReducers(),
-        )
+    \"and"("select selected u1", () => {
+      ()
+    })
 
-      uiControl1 :=
-        ImportElementTool.buildUIControl(
-          ~name="u1",
-          ~rect=UIControlInspectorTool.buildRect(
-            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+    \"and"("select u2", () => {
+      selectedContributes :=
+        selectedContributes.contents->Meta3dCommonlib.ListSt.push(
+          SelectedContributesTool.buildSelectedContribute(
+            ~protocolConfigStr=""->Some,
+            ~newName=None,
+            ~data=u2.contents,
             (),
           ),
-          ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-          ~skin=UIControlInspectorTool.buildSkin("skin1"),
-          ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
-          ~specific=[Obj.magic(10)],
-          (),
         )
-
-      elementAssembleData1 :=
-        ImportElementTool.buildElementAssembleData(
-          ~elementName="d1",
-          ~elementVersion="0.0.1",
-          ~element=ei1.contents,
-          ~uiControls=[uiControl1.contents],
-          (),
-        )->ImportElementTool.buildLoaded
     })
+
+    \"and"(
+      "set element assemble data to d1 which has u1, u2 and element inspector data ei1",
+      () => {
+        ei1 :=
+          ElementInspectorTool.buildElementInspectorData(
+            list{
+              ElementInspectorTool.buildElementStateFieldData(
+                ~name="x",
+                ~defaultValue=0,
+                ~type_=#int,
+                (),
+              ),
+            },
+            ReducerTool.buildReducers(),
+          )
+
+        uiControl1 :=
+          ImportElementTool.buildUIControl(
+            ~name="u1",
+            ~rect=UIControlInspectorTool.buildRect(
+              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+              (),
+            ),
+            ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+            ~skin=UIControlInspectorTool.buildSkin("skin1"),
+            ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
+            ~specific=[Obj.magic(10)],
+            ~children=[
+              ImportElementTool.buildUIControl(
+                ~name="u2",
+                ~rect=UIControlInspectorTool.buildRect(
+                  ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                  (),
+                ),
+                ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                ~skin=UIControlInspectorTool.buildSkin("skin2"),
+                ~event=[UIControlInspectorTool.buildEventData(#click, "action2")],
+                ~specific=[Obj.magic(10)],
+                ~children=[],
+                (),
+              ),
+            ],
+            (),
+          )
+
+        elementAssembleData1 :=
+          ImportElementTool.buildElementAssembleData(
+            ~elementName="d1",
+            ~elementVersion="0.0.1",
+            ~element=ei1.contents,
+            ~uiControls=[uiControl1.contents],
+            (),
+          )->ImportElementTool.buildLoaded
+      },
+    )
 
     \"when"("import d1", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -265,6 +311,8 @@ defineFeature(feature, test => {
           ~random=createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->onCall(0, _)
           ->returns(id1RandomResult, _)
+          ->onCall(1, _)
+          ->returns(id2RandomResult, _)
           ->Obj.magic,
           (),
         ),
@@ -274,23 +322,25 @@ defineFeature(feature, test => {
       )
     })
 
-    then("should generate selected u1_1", () => {
+    then("should generate selected u1_1, u2_1", () => {
       ()
     })
 
-    \"and"("generate selected ui control inspector data i1", () => {
+    \"and"("generate selected ui control inspector data i1, i2", () => {
       ()
     })
 
-    \"and"("dispatch Import action with u1_1, i1, ei1", () => {
-      let uiControlContribute =
+    \"and"("dispatch Import action with u1_1, u2_1, i1, i2, ei1", () => {
+      let uiControl1Contribute =
         selectedContributes.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
 
-      let {protocolIconBase64, protocolConfigStr, newName, data} = uiControlContribute
+      let uiControl2Contribute =
+        selectedContributes.contents->Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn
 
-      let {rect, isDraw, skin, event, specific} = uiControl1.contents
+      let {rect, isDraw, skin, event, specific, children} = uiControl1.contents
 
       let id1 = IdTool.generateId(id1RandomResult)
+      let id2 = IdTool.generateId(id2RandomResult)
 
       dispatchStub.contents
       ->Obj.magic
@@ -299,11 +349,23 @@ defineFeature(feature, test => {
           list{
             SelectedUIControlsTool.buildSelectedUIControl(
               ~id=id1,
-              ~protocolConfigStr=protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+              ~protocolConfigStr=uiControl1Contribute.protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
               ~name="u1",
-              ~protocolIconBase64,
-              ~data=uiControlContribute.data,
+              ~protocolIconBase64=uiControl1Contribute.protocolIconBase64,
+              ~data=uiControl1Contribute.data,
               ~parentId=None,
+              ~children=list{
+                SelectedUIControlsTool.buildSelectedUIControl(
+                  ~id=id2,
+                  ~protocolConfigStr=uiControl2Contribute.protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+                  ~name="u2",
+                  ~protocolIconBase64=uiControl2Contribute.protocolIconBase64,
+                  ~data=uiControl2Contribute.data,
+                  ~parentId=id1->Some,
+                  ~children=list{},
+                  (),
+                ),
+              },
               (),
             ),
           },
@@ -315,6 +377,18 @@ defineFeature(feature, test => {
               ~skin,
               ~event,
               ~specific,
+              ~children=list{
+                UIControlInspectorTool.buildUIControlInspectorData(
+                  ~id=id2,
+                  ~x=children[0].rect.x,
+                  ~isDraw=children[0].isDraw,
+                  ~skin=children[0].skin,
+                  ~event=children[0].event,
+                  ~specific=children[0].specific,
+                  ~children=list{},
+                  (),
+                ),
+              },
               (),
             ),
           },

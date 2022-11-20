@@ -25,67 +25,47 @@ type elementMR = {
   uiControls: array<uiControl>,
 }
 
-let _getSelectedUIControlInspectorData = (selectedUIControlInspectorData, id) => {
-  selectedUIControlInspectorData
-  ->Meta3dCommonlib.ArraySt.find((
-    data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
-  ) => {
-    data.id == id
-  })
-  ->Meta3dCommonlib.OptionSt.getExn
-}
+let rec _buildUIControls = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  selectedUIControls,
+  selectedUIControlInspectorData,
+) => {
+  selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (.
+      uiControls,
+      {id, children, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl,
+    ) => {
+      let {name, version} = data.contributePackageData.protocol
 
-let _handleChildren = uiControls => {
-  let (uiControlsAfterInsertChild, needRemovedIds) =
-    uiControls->Meta3dCommonlib.ArraySt.reduceOneParami(
-      (.
-        (uiControlsAfterInsertChild, needRemovedIds) as result,
-        (parentId, idOfChild, childUIControl),
-        i,
-      ) => {
-        switch parentId {
-        | None => result
-        | Some(parentId) =>
-          uiControlsAfterInsertChild->Meta3dCommonlib.ArraySt.reduceOneParam(
-            (.
-              (uiControlsAfterInsertChildResult, needRemovedIds),
-              (_parentId, id, {children} as parentUIControl: uiControl),
-            ) => {
-              id === parentId
-                ? (
-                    uiControlsAfterInsertChildResult->Meta3dCommonlib.ArraySt.push((
-                      _parentId,
-                      id,
-                      {
-                        ...parentUIControl,
-                        children: children
-                        ->Meta3dCommonlib.ArraySt.copy
-                        ->Meta3dCommonlib.ArraySt.push(childUIControl),
-                      },
-                    )),
-                    needRemovedIds->Meta3dCommonlib.ArraySt.push(idOfChild),
-                  )
-                : (
-                    uiControlsAfterInsertChildResult->Meta3dCommonlib.ArraySt.push((
-                      _parentId,
-                      id,
-                      parentUIControl,
-                    )),
-                    needRemovedIds,
-                  )
-            },
-            ([], needRemovedIds),
-          )
-        }
-      },
-      (uiControls, []),
-    )
-
-  uiControlsAfterInsertChild
-  ->Meta3dCommonlib.ArraySt.filter(((_, id, _)) => {
-    !(needRemovedIds->Meta3dCommonlib.ArraySt.includes(id))
-  })
-  ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple3.getLast)
+      uiControls->Meta3dCommonlib.ArraySt.push({
+        name: (
+          service.meta3d.execGetContributeFunc(.
+            data.contributeFuncData,
+            Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          )->Obj.magic
+        )["uiControlName"],
+        protocol: {
+          name: name,
+          version: version,
+          configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+        },
+        data: HierachyUtils.findSelectedUIControlData(
+          None,
+          (
+            (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
+          ),
+          selectedUIControlInspectorData->Meta3dCommonlib.ListSt.fromArray,
+          id,
+        )->Meta3dCommonlib.OptionSt.getExn,
+        children: children
+        ->Meta3dCommonlib.ListSt.toArray
+        ->_buildUIControls(service, _, selectedUIControlInspectorData),
+      })
+    },
+    [],
+  )
 }
 
 let buildElementMR = (
@@ -102,38 +82,7 @@ let buildElementMR = (
       elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
       reducers: reducers,
     },
-    uiControls: selectedUIControls
-    ->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (.
-        uiControls,
-        {id, parentId, protocolConfigStr, data}: FrontendUtils.ElementAssembleStoreType.uiControl,
-      ) => {
-        let {name, version} = data.contributePackageData.protocol
-
-        uiControls->Meta3dCommonlib.ArraySt.push((
-          parentId,
-          id,
-          {
-            name: (
-              service.meta3d.execGetContributeFunc(.
-                data.contributeFuncData,
-                Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              )->Obj.magic
-            )["uiControlName"],
-            protocol: {
-              name: name,
-              version: version,
-              configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
-            },
-            data: _getSelectedUIControlInspectorData(selectedUIControlInspectorData, id),
-            children: [],
-          },
-        ))
-      },
-      [],
-    )
-    ->_handleChildren,
+    uiControls: _buildUIControls(service, selectedUIControls, selectedUIControlInspectorData),
   }
 }
 

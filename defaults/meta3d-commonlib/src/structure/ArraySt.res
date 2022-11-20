@@ -98,6 +98,8 @@ let mapi = (arr, func) => Js.Array.mapi(func, arr)
 
 let filter = (arr, func) => Js.Array.filter(func, arr)
 
+let reverse = arr => arr->copy->Js.Array.reverseInPlace
+
 let deleteBySwap = (arr, isDebug, index: int, lastIndex: int) => {
   Contract.requireCheck(() => {
     open Contract

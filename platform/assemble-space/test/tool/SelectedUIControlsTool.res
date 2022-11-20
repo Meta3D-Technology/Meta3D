@@ -7,6 +7,7 @@ let buildSelectedUIControl = (
   ~protocolIconBase64="i1",
   ~protocolConfigStr="",
   ~parentId=None,
+  ~children=list{},
   ~id="e1",
   ~data=ContributeTool.buildContributeData(
     ~contributePackageData=ContributeTool.buildContributePackageData(~name, ()),
@@ -17,6 +18,7 @@ let buildSelectedUIControl = (
   {
     id: id,
     parentId: parentId,
+    children: children,
     protocolIconBase64: protocolIconBase64,
     protocolConfigStr: protocolConfigStr,
     name: name,

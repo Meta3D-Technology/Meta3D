@@ -11,6 +11,7 @@ let buildUIControl = (
   ~skin=UIControlInspectorTool.buildSkin("skin1"),
   ~event=[],
   ~specific=[],
+  ~children=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.uiControl => {
   name: name,
@@ -19,6 +20,7 @@ let buildUIControl = (
   skin: skin,
   event: event,
   specific: specific,
+  children: children,
 }
 
 let buildElementAssembleData = (

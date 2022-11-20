@@ -61,6 +61,7 @@ let buildUIControlInspectorData = (
   ~skin=buildSkin("empty"),
   ~event=[],
   ~specific=[],
+  ~children=list{},
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
   id: id,
@@ -69,6 +70,7 @@ let buildUIControlInspectorData = (
   skin: skin,
   event: event,
   specific: specific,
+  children: children,
 }
 
 let setRectX = UIControlInspector.Method.setRectX

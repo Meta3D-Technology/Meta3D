@@ -47,4 +47,45 @@ defineFeature(feature, test => {
       ->ReactTestTool.createSnapshotAndMatch
     })
   })
+
+  test(."show selected hierachy uiControls", ({given, \"when", \"and", then}) => {
+    let useSelectorStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given("select uiControl u1, u2 that u2 is child of u1", () => {
+      useSelectorStub :=
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          list{
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~name="u1",
+              ~protocolIconBase64="i1",
+              ~children=list{
+                SelectedUIControlsTool.buildSelectedUIControl(
+                  ~name="u2",
+                  ~protocolIconBase64="i2",
+                  (),
+                ),
+              },
+              (),
+            ),
+          },
+          _,
+        )
+    })
+
+    \"when"("render", () => {
+      ()
+    })
+
+    then("should show u1 and u2", () => {
+      SelectedUIControlsTool.buildUI(
+        ~sandbox,
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+        (),
+      )
+      ->ReactTestRenderer.create
+      ->ReactTestTool.createSnapshotAndMatch
+    })
+  })
 })

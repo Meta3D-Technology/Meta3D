@@ -28,8 +28,9 @@ let make = (~service: service) => {
 
   <List
     grid={{gutter: 16, column: 1}}
-    dataSource={selectedUIControls->Meta3dCommonlib.ListSt.toArray}
+    dataSource={selectedUIControls->Meta3dCommonlib.ListSt.toArray->Meta3dCommonlib.Log.printForDebug}
     renderItem={({id, protocolIconBase64, name, data} as contribute) => {
+      Js.log("a")
       <List.Item>
         <Card
           key={id}

@@ -52,3 +52,18 @@ Feature: ElementMR
         And generate element contribute string
         Then should build correct result
         And generate correct result
+
+    Scenario: build element middle represent with parent window w1 and child window w2 and button b1(child of w2) and generate element contribute string
+        Given generate ui control window w1, w2
+        And generate ui control button b1
+        And select w1
+        And select selected w1
+        And select w2
+        And select selected w2
+        And select b1
+        # And prepare element inspector data
+        And prepare w1's, w2's, b1's inspector data
+        When build element middle represent
+        And generate element contribute string
+        Then should build correct result
+        And generate correct result

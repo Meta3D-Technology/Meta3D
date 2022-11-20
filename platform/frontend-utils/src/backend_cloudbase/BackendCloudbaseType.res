@@ -103,13 +103,14 @@ type publishElementContribute = (
   Js.Typed_array.ArrayBuffer.t,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
-type uiControl = {
+type rec uiControl = {
   name: string,
   rect: ElementAssembleStoreType.rect,
   isDraw: ElementAssembleStoreType.isDraw,
   skin: ElementAssembleStoreType.skin,
   event: ElementAssembleStoreType.event,
   specific: ElementAssembleStoreType.specific,
+  children: array<uiControl>,
 }
 
 type inspectorData = {

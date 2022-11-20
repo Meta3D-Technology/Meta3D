@@ -13,6 +13,7 @@ let _buildDefaultUIControlInspectorData = (id, skin, specific) => {
     skin: skin,
     event: [],
     specific: specific,
+    children: list{},
   }
 }
 
@@ -45,19 +46,21 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
   }
 }
 
-let _findSelectedUIControl = (selectedUIControls: selectedUIControls, id) => {
-  selectedUIControls->Meta3dCommonlib.ListSt.find(data => {
-    data.id === id
-  })
-}
-
 let _findParentUIControlId = (
   (hasChildren, serializeUIControlProtocolConfigLib),
   selectedUIControls,
   id,
 ) => {
   let {protocolConfigStr, parentId} =
-    _findSelectedUIControl(selectedUIControls, id)->Meta3dCommonlib.OptionSt.getExn
+    HierachyUtils.findSelectedUIControlData(
+      None,
+      (
+        (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+        (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+      ),
+      selectedUIControls,
+      id,
+    )->Meta3dCommonlib.OptionSt.getExn
 
   hasChildren(. serializeUIControlProtocolConfigLib(. protocolConfigStr)) ? id->Some : parentId
   // ->Meta3dCommonlib.OptionSt.bind(
@@ -69,6 +72,50 @@ let _findParentUIControlId = (
   //   )
 }
 
+let _addChildUIControl = (selectedUIControls, childUIControl, parentId) => {
+  switch parentId {
+  | None => selectedUIControls->Meta3dCommonlib.ListSt.push(childUIControl)
+  | Some(parentId) =>
+    selectedUIControls->Meta3dCommonlib.ListSt.map((
+      {id, children} as selectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
+    ) => {
+      id === parentId
+        ? {
+            ...selectedUIControl,
+            children: // TODO check: not exist
+            children->Meta3dCommonlib.ListSt.push(childUIControl),
+          }
+        : selectedUIControl
+    })
+  }
+}
+
+// TODO duplicate
+let _addChildUIControlInspector = (
+  selectedUIControlInspectorData,
+  childUIControlInspector,
+  parentId,
+) => {
+  switch parentId {
+  | None => selectedUIControlInspectorData->Meta3dCommonlib.ListSt.push(childUIControlInspector)
+  | Some(parentId) =>
+    selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map((
+      {
+        id,
+        children,
+      } as selectedUIControlInspector: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
+    ) => {
+      id === parentId
+        ? {
+            ...selectedUIControlInspector,
+            children: // TODO check: not exist
+            children->Meta3dCommonlib.ListSt.push(childUIControlInspector),
+          }
+        : selectedUIControlInspector
+    })
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
@@ -76,7 +123,6 @@ let reducer = (state, action) => {
       ..._createState(),
       visualExtension: state.visualExtension,
     }
-
   | SelectUIControl(
       protocolIconBase64,
       protocolConfigStr,
@@ -88,18 +134,24 @@ let reducer = (state, action) => {
     ) => {
       let id = IdUtils.generateId(Js.Math.random)
 
+      let childUIControl = {
+        id: id,
+        parentId: parentId,
+        children: list{},
+        protocolIconBase64: protocolIconBase64,
+        protocolConfigStr: protocolConfigStr,
+        name: name,
+        data: data,
+      }
+
+      let childUIControlInspector = _buildDefaultUIControlInspectorData(id, skin, specific)
+
       {
         ...state,
-        selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.push({
-          id: id,
-          parentId: parentId,
-          protocolIconBase64: protocolIconBase64,
-          protocolConfigStr: protocolConfigStr,
-          name: name,
-          data: data,
-        }),
-        selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.push(
-          _buildDefaultUIControlInspectorData(id, skin, specific),
+        selectedUIControls: state.selectedUIControls->_addChildUIControl(childUIControl, parentId),
+        selectedUIControlInspectorData: state.selectedUIControlInspectorData->_addChildUIControlInspector(
+          childUIControlInspector,
+          parentId,
         ),
       }
     }

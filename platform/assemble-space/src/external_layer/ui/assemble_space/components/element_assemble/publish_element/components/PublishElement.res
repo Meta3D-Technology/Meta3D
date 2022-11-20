@@ -3,15 +3,50 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getSelectedUIControlName = (
+  let _getSelectedUIControl = (
     id,
     selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
   ) => {
-    (
-      selectedUIControls
-      ->Meta3dCommonlib.ListSt.find(selectedUIControl => selectedUIControl.id === id)
-      ->Meta3dCommonlib.OptionSt.getExn
-    ).name
+    selectedUIControls
+    ->Meta3dCommonlib.ListSt.find(selectedUIControl => selectedUIControl.id === id)
+    ->Meta3dCommonlib.OptionSt.getExn
+  }
+
+  let rec _convertToUIControls = (
+    selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
+    selectedUIControls,
+  ) => {
+    selectedUIControlInspectorData
+    ->Meta3dCommonlib.ListSt.map(({
+      id,
+      children,
+      rect,
+      isDraw,
+      skin,
+      event,
+      specific,
+    }): FrontendUtils.BackendCloudbaseType.uiControl => {
+      {
+        name: (
+          HierachyUtils.findSelectedUIControlData(
+            None,
+            (
+              (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+              (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+            ),
+            selectedUIControls,
+            id,
+          )->Meta3dCommonlib.OptionSt.getExn
+        ).name,
+        rect: rect,
+        isDraw: isDraw,
+        skin: skin,
+        event: event,
+        specific: specific,
+        children: _convertToUIControls(children, selectedUIControls),
+      }
+    })
+    ->Meta3dCommonlib.ListSt.toArray
   }
 
   let onFinish = (
@@ -64,23 +99,7 @@ module Method = {
           (
             {
               element: elementInspectorData,
-              uiControls: selectedUIControlInspectorData
-              ->Meta3dCommonlib.ListSt.map(({
-                id,
-                rect,
-                isDraw,
-                skin,
-                event,
-                specific,
-              }): FrontendUtils.BackendCloudbaseType.uiControl => {
-                name: _getSelectedUIControlName(id, selectedUIControls),
-                rect: rect,
-                isDraw: isDraw,
-                skin: skin,
-                event: event,
-                specific: specific,
-              })
-              ->Meta3dCommonlib.ListSt.toArray,
+              uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
         ),

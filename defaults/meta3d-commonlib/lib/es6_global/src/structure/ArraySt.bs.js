@@ -126,6 +126,10 @@ function filter(arr, func) {
   return arr.filter(Curry.__1(func));
 }
 
+function reverse(arr) {
+  return arr.slice().reverse();
+}
+
 function deleteBySwap(arr, isDebug, index, lastIndex) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
           var len = arr.length;
@@ -231,6 +235,7 @@ export {
   map ,
   mapi ,
   filter ,
+  reverse ,
   deleteBySwap ,
   range ,
   removeDuplicateItems ,

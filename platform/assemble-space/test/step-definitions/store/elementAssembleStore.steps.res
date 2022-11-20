@@ -193,8 +193,12 @@ defineFeature(feature, test => {
 
       id2 :=
         (
-          store.contents.selectedUIControls
-          ->Meta3dCommonlib.ListSt.nth(1)
+          (
+            store.contents.selectedUIControls
+            ->Meta3dCommonlib.ListSt.nth(0)
+            ->Meta3dCommonlib.OptionSt.getExn
+          ).children
+          ->Meta3dCommonlib.ListSt.head
           ->Meta3dCommonlib.OptionSt.getExn
         ).id
     })

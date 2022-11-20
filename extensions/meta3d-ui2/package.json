@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui2",
-    "version": "0.7.1",
+    "version": "0.7.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-ui2-protocol"
@@ -22,9 +22,9 @@
         "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-imgui-renderer2-protocol": "^0.7.2",
+        "meta3d-imgui-renderer2-protocol": "^0.7.3",
         "meta3d-type": "^0.7.0",
-        "meta3d-ui2-protocol": "^0.7.1",
+        "meta3d-ui2-protocol": "^0.7.2",
         "rescript": "^9.1.4"
     },
     "devDependencies": {

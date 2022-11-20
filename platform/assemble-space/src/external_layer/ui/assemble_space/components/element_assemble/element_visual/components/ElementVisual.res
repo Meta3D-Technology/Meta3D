@@ -240,64 +240,102 @@ module Method = {
     let selectedUIControls =
       selectedContributes->SelectedContributesUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
 
-    uiControls
-    ->Meta3dCommonlib.ArraySt.map(({name}: FrontendUtils.BackendCloudbaseType.uiControl) => {
-      switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
-        NewNameUtils.getName(
-          selectedUIControl.newName,
-          selectedUIControl.data.contributePackageData.name,
-        ) === name
-      ) {
-      | None =>
-        Meta3dCommonlib.Exception.throwErr(
-          Meta3dCommonlib.Exception.buildErr(
-            Meta3dCommonlib.Log.buildErrorMessage(
-              ~title={j`${name} not select`},
-              ~description={
-                ""
-              },
-              ~reason="",
-              ~solution=j``,
-              ~params=j``,
+    let rec _generate = uiControls => {
+      uiControls
+      ->Meta3dCommonlib.ArraySt.map((
+        {name, children}: FrontendUtils.BackendCloudbaseType.uiControl,
+      ) => {
+        switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
+          NewNameUtils.getName(
+            selectedUIControl.newName,
+            selectedUIControl.data.contributePackageData.name,
+          ) === name
+        ) {
+        | None =>
+          Meta3dCommonlib.Exception.throwErr(
+            Meta3dCommonlib.Exception.buildErr(
+              Meta3dCommonlib.Log.buildErrorMessage(
+                ~title={j`${name} not select`},
+                ~description={
+                  ""
+                },
+                ~reason="",
+                ~solution=j``,
+                ~params=j``,
+              ),
             ),
-          ),
-        )
-      | Some({protocolIconBase64, protocolConfigStr, newName, data}) =>
-        (
-          {
-            id: IdUtils.generateId(service.other.random),
-            protocolIconBase64: protocolIconBase64,
-            protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-            name: NewNameUtils.getName(newName, data.contributePackageData.name),
-            data: data,
-            parentId: None,
-          }: FrontendUtils.ElementAssembleStoreType.uiControl
-        )
-      }
-    })
-    ->Meta3dCommonlib.ListSt.fromArray
+          )
+        | Some({protocolIconBase64, protocolConfigStr, newName, data}) =>
+          (
+            {
+              id: IdUtils.generateId(service.other.random),
+              protocolIconBase64: protocolIconBase64,
+              protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+              name: NewNameUtils.getName(newName, data.contributePackageData.name),
+              data: data,
+              parentId: None,
+              children: _generate(children),
+            }: FrontendUtils.ElementAssembleStoreType.uiControl
+          )
+        }
+      })
+      ->Meta3dCommonlib.ListSt.fromArray
+    }
+
+    let rec _addParentId = (uiControls, parentId) => {
+      uiControls->Meta3dCommonlib.ListSt.map((
+        {id, children} as uiControl: FrontendUtils.ElementAssembleStoreType.uiControl,
+      ) => {
+        {
+          ...uiControl,
+          parentId: parentId,
+          children: _addParentId(children, id->Some),
+        }
+      })
+    }
+
+    uiControls->_generate->_addParentId(None)
   }
 
   let _generateSelectedUIControlInspectorData = (
-    service,
     uiControls,
     selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
   ) => {
-    uiControls
-    ->Meta3dCommonlib.ArraySt.mapi((
-      {rect, isDraw, skin, event, specific}: FrontendUtils.BackendCloudbaseType.uiControl,
-      index,
-    ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
-      id: (
-        selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
-      ).id,
-      rect: rect,
-      isDraw: isDraw,
-      skin: skin,
-      event: event,
-      specific: specific,
-    })
-    ->Meta3dCommonlib.ListSt.fromArray
+    let rec _generate = (
+      uiControls,
+      selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
+    ) => {
+      uiControls
+      ->Meta3dCommonlib.ArraySt.mapi((
+        {
+          rect,
+          isDraw,
+          skin,
+          event,
+          specific,
+          children,
+        }: FrontendUtils.BackendCloudbaseType.uiControl,
+        index,
+      ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
+        id: (
+          selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
+        ).id,
+        rect: rect,
+        isDraw: isDraw,
+        skin: skin,
+        event: event,
+        specific: specific,
+        children: _generate(
+          children,
+          (
+            selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
+          ).children,
+        ),
+      })
+      ->Meta3dCommonlib.ListSt.fromArray
+    }
+
+    uiControls->_generate(selectedUIControls)
   }
 
   let importElement = (service, dispatch, elementAssembleData, selectedContributes) => {
@@ -311,7 +349,10 @@ module Method = {
       dispatch(
         FrontendUtils.ElementAssembleStoreType.Import(
           selectedUIControls,
-          _generateSelectedUIControlInspectorData(service, uiControls, selectedUIControls),
+          _generateSelectedUIControlInspectorData(
+            uiControls,
+            selectedUIControls,
+          ),
           element,
         ),
       )
