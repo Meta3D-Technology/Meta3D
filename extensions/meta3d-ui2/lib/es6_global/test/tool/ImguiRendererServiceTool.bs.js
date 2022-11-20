@@ -2,7 +2,7 @@
 
 import * as Sinon from "../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, buttonOpt, setCursorPosOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -11,6 +11,8 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var beginWindow = beginWindowOpt !== undefined ? beginWindowOpt : Sinon.createEmptyStub(sandbox.contents);
   var endWindow = endWindowOpt !== undefined ? endWindowOpt : Sinon.createEmptyStub(sandbox.contents);
   var setNextWindowRect = setNextWindowRectOpt !== undefined ? setNextWindowRectOpt : Sinon.createEmptyStub(sandbox.contents);
+  var button = buttonOpt !== undefined ? buttonOpt : Sinon.createEmptyStub(sandbox.contents);
+  var setCursorPos = setCursorPosOpt !== undefined ? setCursorPosOpt : Sinon.createEmptyStub(sandbox.contents);
   return {
           init: init,
           render: render,
@@ -19,7 +21,9 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           clear: clear,
           beginWindow: beginWindow,
           endWindow: endWindow,
-          setNextWindowRect: setNextWindowRect
+          setNextWindowRect: setNextWindowRect,
+          button: button,
+          setCursorPos: setCursorPos
         };
 }
 

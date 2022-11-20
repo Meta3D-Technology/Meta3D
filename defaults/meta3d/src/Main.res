@@ -42,6 +42,8 @@ let generateUIControlCommonDataStr = UIControlProtocolConfig.generateUIControlCo
 
 let getUIControlSpecificDataFields = UIControlProtocolConfig.getUIControlSpecificDataFields
 
+let hasChildren = UIControlProtocolConfig.hasChildren
+
 let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSupportedEventNames
 
 let generateHandleUIControlEventStr = UIControlProtocolConfig.generateHandleUIControlEventStr

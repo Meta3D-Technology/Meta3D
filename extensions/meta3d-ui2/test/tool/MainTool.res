@@ -252,6 +252,39 @@ let setNextWindowRect = (
   )
 }
 
+let button = (
+  ~sandbox,
+  ~label,
+  ~size,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.button(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+    label,
+    size,
+  )
+}
+
 let registerUIControl = (~uiControlName, ~func, ~state=createState(), ()) => {
   UIManager.registerUIControl(
     state,

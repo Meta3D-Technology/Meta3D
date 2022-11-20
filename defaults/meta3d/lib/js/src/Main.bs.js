@@ -51,6 +51,8 @@ var generateUIControlCommonDataStr = UIControlProtocolConfig$Meta3d.generateUICo
 
 var getUIControlSpecificDataFields = UIControlProtocolConfig$Meta3d.getUIControlSpecificDataFields;
 
+var hasChildren = UIControlProtocolConfig$Meta3d.hasChildren;
+
 var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIControlSupportedEventNames;
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
@@ -87,6 +89,7 @@ exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLi
 exports.getSkinProtocolData = getSkinProtocolData;
 exports.generateUIControlCommonDataStr = generateUIControlCommonDataStr;
 exports.getUIControlSpecificDataFields = getUIControlSpecificDataFields;
+exports.hasChildren = hasChildren;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 exports.serializeActionProtocolConfigLib = serializeActionProtocolConfigLib;

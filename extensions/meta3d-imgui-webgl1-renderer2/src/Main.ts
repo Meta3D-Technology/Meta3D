@@ -118,6 +118,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return state
         },
+        button: (label, [width, height], state) => {
+            let isClick = ImGui.Button(label, new ImGui.ImVec2(width, height))
+
+            return [state, isClick]
+        },
+        setCursorPos: ([x, y], state) => {
+            ImGui.SetCursorPos(
+                new ImGui.ImVec2(x, y)
+            )
+
+            return state
+        },
     }
 }
 

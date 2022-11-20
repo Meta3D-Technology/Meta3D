@@ -73,6 +73,7 @@ let build = (
   ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns({"uiControlName": ""}, _)
   ->Obj.magic,
+  ~hasChildren=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeUIControlProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
@@ -135,6 +136,7 @@ let build = (
     convertAllFileData: convertAllFileData,
     loadApp: loadApp,
     execGetContributeFunc: execGetContributeFunc,
+    hasChildren: hasChildren,
     serializeUIControlProtocolConfigLib: serializeUIControlProtocolConfigLib,
     getSkinProtocolData: getSkinProtocolData,
     generateUIControlCommonDataStr: generateUIControlCommonDataStr,

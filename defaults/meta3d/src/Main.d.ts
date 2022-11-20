@@ -157,6 +157,8 @@ export type getSkinProtocolData = (configLib: protocolConfigLib) => skinProtocol
 
 export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: string, skin: string) => string
 
+export type hasChildren = (configLib: protocolConfigLib) => boolean
+
 export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<supportedEventName>
 
 export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, actionNames: Array<actionName>) => string

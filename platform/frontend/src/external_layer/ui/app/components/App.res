@@ -82,6 +82,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.generateUIControlCommonDataStr(configLib, rect, skin),
       getUIControlSpecificDataFields: (. configLib) =>
         Meta3d.Main.getUIControlSpecificDataFields(configLib),
+      hasChildren: (. configLib) => Meta3d.Main.hasChildren(configLib),
       getUIControlSupportedEventNames: (. configLib) =>
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
       generateHandleUIControlEventStr: (. configLib, actionNames) =>

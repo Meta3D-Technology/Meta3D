@@ -37,6 +37,18 @@ function getExtensionService(api, param) {
                           meta3dImguiRendererExtensionName
                         ], rect);
             }),
+          button: (function (meta3dState, label, size) {
+              return UIManager$Meta3dUi2.button(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], label, size);
+            }),
+          setCursorPos: (function (meta3dState, pos) {
+              return UIManager$Meta3dUi2.setCursorPos(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], pos);
+            }),
           init: UIManager$Meta3dUi2.init,
           clear: UIManager$Meta3dUi2.clear
         };

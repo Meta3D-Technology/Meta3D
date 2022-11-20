@@ -13,6 +13,10 @@ type clearColor = (float, float, float, float)
 
 type label = string
 
+type size = (int, int)
+
+type pos = (int, int)
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -23,4 +27,6 @@ type service = {
   beginWindow: (. label, StateType.state) => StateType.state,
   endWindow: (. StateType.state) => StateType.state,
   setNextWindowRect: (. rect, StateType.state) => StateType.state,
+  button: (. label, size, StateType.state) => (StateType.state, bool),
+  setCursorPos: (. pos, StateType.state) => StateType.state,
 }

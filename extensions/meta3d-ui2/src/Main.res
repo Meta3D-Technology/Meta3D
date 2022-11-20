@@ -24,6 +24,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     setNextWindowRect: (meta3dState, rect) => {
       UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionName), rect)
     },
+    button: (meta3dState, label, size) => {
+      UIManager.button(meta3dState, (api, meta3dImguiRendererExtensionName), label, size)
+    },
+    setCursorPos: (meta3dState, pos) => {
+      UIManager.setCursorPos(meta3dState, (api, meta3dImguiRendererExtensionName), pos)
+    },
     // getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,
     init: UIManager.init,

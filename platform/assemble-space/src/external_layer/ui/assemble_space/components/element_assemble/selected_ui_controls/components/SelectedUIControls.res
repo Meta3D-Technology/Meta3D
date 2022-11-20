@@ -3,8 +3,13 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let selectUIControl = (dispatch, id) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SelectSelectedUIControl(id))
+  let selectUIControl = (service, dispatch, id) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SelectSelectedUIControl(
+        (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
+        id,
+      ),
+    )
   }
 
   let useSelector = ({selectedUIControls}: FrontendUtils.ElementAssembleStoreType.state) => {
@@ -29,7 +34,7 @@ let make = (~service: service) => {
         <Card
           key={id}
           onClick={_ => {
-            Method.selectUIControl(dispatch, id)
+            Method.selectUIControl(service, dispatch, id)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
           cover={<img

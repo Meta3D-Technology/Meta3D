@@ -1,6 +1,7 @@
 import {
     getSkinProtocolData as getSkinProtocolDataMeta3D, generateUIControlCommonDataStr as generateUIControlCommonDataStrMeta3D,
     getUIControlSpecificDataFields as getUIControlSpecificDataFieldsMeta3D,
+    hasChildren as hasChildrenMeta3D,
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
 } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 // import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -28,6 +29,8 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         value: "Window##" + _generateUniqueId()
     }
 ]
+
+export let hasChildren: hasChildrenMeta3D = () => true
 
 export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => []
 

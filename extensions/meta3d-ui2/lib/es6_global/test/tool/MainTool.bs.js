@@ -59,7 +59,7 @@ function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, get
     getExtensionService = Caml_option.valFromOption(getExtensionServiceOpt);
   } else {
     var __x = Sinon.createEmptyStub(sandbox.contents);
-    getExtensionService = Sinon.returns(ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined), __x);
+    getExtensionService = Sinon.returns(ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined), __x);
   }
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
@@ -162,6 +162,26 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getAllContributes
             ], rect);
 }
 
+function button(sandbox, label, size, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+  var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
+  var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
+  var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
+  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
+  return UIManager$Meta3dUi2.button(meta3dState, [
+              {
+                registerExtension: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
+                getExtensionService: getExtensionService,
+                getExtensionState: getExtensionState,
+                setExtensionState: setExtensionState,
+                registerContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
+                getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
+                getAllContributesByType: getAllContributesByType
+              },
+              imguiRendererExtensionName
+            ], label, size);
+}
+
 function registerUIControl(uiControlName, func, stateOpt, param) {
   var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi2.createExtensionState(undefined);
   return UIManager$Meta3dUi2.registerUIControl(state, {
@@ -208,6 +228,7 @@ export {
   beginWindow ,
   endWindow ,
   setNextWindowRect ,
+  button ,
   registerUIControl ,
   getUIControlExn ,
   buildSkinContribute ,

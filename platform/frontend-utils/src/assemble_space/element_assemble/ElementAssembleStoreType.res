@@ -124,7 +124,13 @@ type action =
       parentId,
       specific,
     )
-  | SelectSelectedUIControl(id)
+  | SelectSelectedUIControl(
+      (
+        Meta3dServiceCommonType.hasChildren,
+        Meta3dServiceCommonType.serializeUIControlProtocolConfigLib,
+      ),
+      id,
+    )
   | SetSpecificData(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)

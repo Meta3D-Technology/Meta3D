@@ -62,6 +62,15 @@ type service = {
     Meta3dType.Index.state,
     Meta3dImguiRenderer2Protocol.ServiceType.rect,
   ) => Meta3dType.Index.state,
+  button: (
+    Meta3dType.Index.state,
+    Meta3dImguiRenderer2Protocol.ServiceType.label,
+    Meta3dImguiRenderer2Protocol.ServiceType.size,
+  ) => (Meta3dType.Index.state, bool),
+  setCursorPos: (
+    Meta3dType.Index.state,
+    Meta3dImguiRenderer2Protocol.ServiceType.pos,
+  ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionName),

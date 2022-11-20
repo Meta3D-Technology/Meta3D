@@ -40,6 +40,8 @@ type uiControlSpecificDataFields = Array<uiControlSpecicFieldData>
 
 export type getUIControlSpecificDataFields = () => uiControlSpecificDataFields
 
+export type hasChildren = () => boolean
+
 export type getUIControlSupportedEventNames = () => Array<supportedEventName>
 
 export type generateHandleUIControlEventStr = (actionNames: Array<actionName>) => string

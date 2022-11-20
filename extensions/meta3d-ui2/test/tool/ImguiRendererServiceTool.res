@@ -10,6 +10,8 @@ let buildService = (
   ~beginWindow=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~endWindow=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setNextWindowRect=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~button=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setCursorPos=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRenderer2Protocol.ServiceType.service => {
   {
@@ -21,5 +23,7 @@ let buildService = (
     beginWindow: beginWindow,
     endWindow: endWindow,
     setNextWindowRect: setNextWindowRect,
+    button:button,
+    setCursorPos:setCursorPos
   }
 }

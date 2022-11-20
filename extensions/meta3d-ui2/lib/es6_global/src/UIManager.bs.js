@@ -171,6 +171,19 @@ function _invokeIMGUIRenderFunc(meta3dState, invokeFunc, param) {
   return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
 }
 
+function _invokeIMGUIRenderFuncWithParam(meta3dState, invokeFunc, param) {
+  var imguiRendererExtensionName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var match = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+  var meta3dState$1 = api.setExtensionState(meta3dState, imguiRendererExtensionName, match[0]);
+  return [
+          meta3dState$1,
+          match[1]
+        ];
+}
+
 function render(api, meta3dState, param, time) {
   var imguiRendererExtensionName = param[1];
   var uiExtensionName = param[0];
@@ -290,6 +303,18 @@ function setNextWindowRect(meta3dState, data, rect) {
               }), data);
 }
 
+function button(meta3dState, data, label, size) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.button(label, size, imguiRendererState);
+              }), data);
+}
+
+function setCursorPos(meta3dState, data, pos) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.setCursorPos(pos, imguiRendererState);
+              }), data);
+}
+
 function init(meta3dState, param, isInitEvent, isDebug, canvas) {
   var imguiRendererExtensionName = param[1];
   var api = param[0];
@@ -321,6 +346,7 @@ export {
   dispatch ,
   _exec ,
   _invokeIMGUIRenderFunc ,
+  _invokeIMGUIRenderFuncWithParam ,
   render ,
   _setElementFunc ,
   _addReducers ,
@@ -333,6 +359,8 @@ export {
   beginWindow ,
   endWindow ,
   setNextWindowRect ,
+  button ,
+  setCursorPos ,
   init ,
   clear ,
   

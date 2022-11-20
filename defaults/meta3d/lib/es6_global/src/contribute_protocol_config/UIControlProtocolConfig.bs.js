@@ -19,6 +19,10 @@ function getUIControlSpecificDataFields(configLib) {
   return Curry._1(LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSpecificDataFields"), undefined);
 }
 
+function hasChildren(configLib) {
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "hasChildren")();
+}
+
 function getUIControlSupportedEventNames(configLib) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSupportedEventNames")();
 }
@@ -32,6 +36,7 @@ export {
   getSkinProtocolData ,
   generateUIControlCommonDataStr ,
   getUIControlSpecificDataFields ,
+  hasChildren ,
   getUIControlSupportedEventNames ,
   generateHandleUIControlEventStr ,
   

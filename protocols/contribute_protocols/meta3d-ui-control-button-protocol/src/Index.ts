@@ -1,16 +1,8 @@
-import { skin } from "meta3d-skin-button-protocol"
-
-type rect = {
-    x: number,
-    y: number,
-    width: number,
-    height: number
-}
+import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
 export type inputData = {
     rect: rect,
-    // text: string
-    skin: skin
+    label: string,
 }
 
 type isClick = boolean

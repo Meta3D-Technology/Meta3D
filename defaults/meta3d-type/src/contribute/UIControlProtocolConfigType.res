@@ -36,6 +36,8 @@ type uiControlSpecificDataFields = array<uiControlSpecicFieldData>
 
 type getUIControlSpecificDataFields = unit => uiControlSpecificDataFields
 
+type hasChildren = unit => bool
+
 type getUIControlSupportedEventNames = unit => array<supportedEventName>
 
 type generateHandleUIControlEventStr = array<actionName> => string

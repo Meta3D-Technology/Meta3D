@@ -239,6 +239,29 @@ let _invokeIMGUIRenderFunc = (
   meta3dState
 }
 
+let _invokeIMGUIRenderFuncWithParam = (
+  meta3dState,
+  invokeFunc,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRenderer2Protocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  let (imguiRendererState, param) = invokeFunc(imguiRendererState, imguiRendererService)
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
+
+  (meta3dState, param)
+}
+
 let render = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
@@ -409,6 +432,24 @@ let setNextWindowRect = (
     meta3dState,
     (imguiRendererState, imguiRendererService) =>
       imguiRendererService.setNextWindowRect(. rect, imguiRendererState),
+    data,
+  )
+}
+
+let button = (meta3dState, data, label: Meta3dImguiRenderer2Protocol.ServiceType.label, size) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.button(. label, size, imguiRendererState),
+    data,
+  )
+}
+
+let setCursorPos = (meta3dState, data, pos) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.setCursorPos(. pos, imguiRendererState),
     data,
   )
 }

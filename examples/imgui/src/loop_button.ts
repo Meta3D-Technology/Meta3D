@@ -1,4 +1,4 @@
-import * as ImGui from "./imgui"
+import imgui, * as ImGui from "./imgui"
 import * as ImGui_Impl from "./imgui_impl_button"
 
 // let first = true
@@ -11,20 +11,53 @@ export let loop = (time: number) => {
     ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0), ImGui.Cond.Once);
     // // ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200), ImGui.Cond.FirstUseEver);
     // // ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(20,20));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(200, 200));
     // if(ImGui.isMobile.any())
     //     ImGui.SetNextWindowSize(new ImGui.ImVec2(ImGui_Impl.canvas.scrollWidth,ImGui_Impl.canvas.scrollHeight));
     //     first=false
     // }
 
 
-    ImGui.Begin("Hello");
-    // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+    // ImGui.Begin("Hello");
+    // // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+    // ImGui.SetCursorPos(
+    //     new ImGui.ImVec2(0, 40)
+    // )
+    // if (ImGui.Button("Button")) {
+    //     console.log("click Button")
+    // }
+    // ImGui.SetCursorPos(
+    //     new ImGui.ImVec2(80, 40)
+    // )
     // if (ImGui.Button("Button")) {
     //     console.log("click Button")
     // }
 
+    // ImGui.End();
+
+    ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 200), ImGui.Cond.Once);
+    // // ImGui.SetNextWindowSize(new ImGui.ImVec2(100, 200), ImGui.Cond.FirstUseEver);
+    // // ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(200, 200));
+
+    ImGui.Begin("Hello2");
+    // Buttons return true when clicked (NB: most widgets return true when edited/activated)
+    ImGui.SetCursorScreenPos(
+        new ImGui.ImVec2(0, 60)
+    )
+    // SetCursorScreenPos
+    if (ImGui.Button("Button")) {
+        console.log("click Button")
+    }
+    ImGui.SetCursorPos(
+        new ImGui.ImVec2(80, 40)
+    )
+    if (ImGui.Button("Button")) {
+        console.log("click Button")
+    }
+
     ImGui.End();
+
 
 
     // ImGui.SetNextWindowPos(new ImGui.ImVec2(200, 300), ImGui.Cond.Once);

@@ -45,6 +45,30 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
   }
 }
 
+let _findSelectedUIControl = (selectedUIControls: selectedUIControls, id) => {
+  selectedUIControls->Meta3dCommonlib.ListSt.find(data => {
+    data.id === id
+  })
+}
+
+let _findParentUIControlId = (
+  (hasChildren, serializeUIControlProtocolConfigLib),
+  selectedUIControls,
+  id,
+) => {
+  let {protocolConfigStr, parentId} =
+    _findSelectedUIControl(selectedUIControls, id)->Meta3dCommonlib.OptionSt.getExn
+
+  hasChildren(. serializeUIControlProtocolConfigLib(. protocolConfigStr)) ? id->Some : parentId
+  // ->Meta3dCommonlib.OptionSt.bind(
+  //     _findParentUIControlId(
+  //       (hasChildren, serializeUIControlProtocolConfigLib),
+  //       selectedUIControls,
+  //       _,
+  //     ),
+  //   )
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
@@ -151,9 +175,9 @@ let reducer = (state, action) => {
       },
       id,
     )
-  | SelectSelectedUIControl(id) => {
+  | SelectSelectedUIControl(funcs, id) => {
       ...state,
-      parentUIControlId: id->Some,
+      parentUIControlId: _findParentUIControlId(funcs, state.selectedUIControls, id),
       inspectorCurrentUIControlId: id->Some,
       isShowElementInspector: false,
     }
