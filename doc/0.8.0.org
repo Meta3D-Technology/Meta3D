@@ -260,7 +260,7 @@ SelectedUIControl
 test store->SelectSelectedUIControl
 
 
-* TODO pass run test
+* DONE pass run test
 
 # children:
 # window->child1 window->button not show
@@ -306,11 +306,7 @@ window->child1 window->button
 
 
 
-trigger action
-
-
-
-* TODO commit
+# trigger action
 
 
 * TODO fix: window not collapse
@@ -321,6 +317,7 @@ trigger action
 position will be related to parent?
 
 
+* TODO pass publish ap run test
 
 
 

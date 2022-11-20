@@ -1,13 +1,13 @@
 {
     "name": "meta3d-action-click-button",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-action-click-button-protocol"
     },
     "dependentExtensionNameMap": {
         "meta3dUIExtensionName": {
-            "protocolName": "meta3d-ui-protocol"
+            "protocolName": "meta3d-ui2-protocol"
         }
     },
     "dependentContributeNameMap": {},
@@ -22,7 +22,7 @@
     "dependencies": {
         "meta3d-action-click-button-protocol": "^0.7.0",
         "meta3d-type": "^0.7.0",
-        "meta3d-ui-protocol": "^0.7.0"
+        "meta3d-ui2-protocol": "^0.7.2"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
