@@ -6,6 +6,16 @@ Feature: ElementAssembleStore
     Background: prepare
         Given prepare
 
+
+    Rule: set rect
+
+        Scenario: set rect of hierachy ui control
+            Given init store
+            And select ui control u2 whose parent is u1 with id2
+            And set rect with id2
+            Then should set rect
+
+
     Rule: set action
 
         Background: prepare for set action
@@ -21,6 +31,19 @@ Feature: ElementAssembleStore
             Given set action with id1, event data1
             When set action with id1, event data1 with empty action name
             Then should remove the event data of id1
+
+
+    Rule: select ui control
+
+        Background: prepare for select ui control
+            Given init store
+
+        Scenario: select hierachy ui control
+            Given select ui control u1
+            And select ui control u2 whose parent is u1
+            When select ui control u3 whose parent is u2
+            Then should has correct selected ui controls
+
 
     Rule: select selected ui control
 

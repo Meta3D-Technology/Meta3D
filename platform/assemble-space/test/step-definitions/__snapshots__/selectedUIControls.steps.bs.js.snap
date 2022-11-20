@@ -2,347 +2,141 @@
 
 exports[`Selected UIControls show selected hierachy uiControls 1`] = `
 <div
-  className="ant-list ant-list-split ant-list-grid"
+  className="ant-tree"
+  role="tree"
 >
+  <div>
+    <input
+      aria-label="for screen reader"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "border": 0,
+          "display": "flex",
+          "height": 0,
+          "margin": 0,
+          "opacity": 0,
+          "overflow": "hidden",
+          "padding": 0,
+          "width": 0,
+        }
+      }
+      tabIndex={0}
+      value=""
+    />
+  </div>
   <div
-    className="ant-spin-nested-loading"
+    aria-hidden={true}
+    className="ant-tree-treenode"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "hidden",
+        "pointerEvents": "none",
+        "position": "absolute",
+        "visibility": "hidden",
+      }
+    }
   >
     <div
-      className="ant-spin-container"
+      className="ant-tree-indent"
     >
       <div
-        className="ant-row"
-        style={
-          Object {
-            "marginLeft": -8,
-            "marginRight": -8,
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "maxWidth": "100%",
-              "width": "100%",
-            }
-          }
-        >
-          <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
-          >
-            <div
-              className="ant-list-item"
-            >
-              <div
-                className="ant-card ant-card-bordered"
-                onClick={[Function]}
-              >
-                <div
-                  className="ant-card-cover"
-                >
-                  <img
-                    src="i1"
-                    style={
-                      Object {
-                        "height": "50px",
-                        "width": "50px",
-                      }
-                    }
-                  />
-                </div>
-                <div
-                  className="ant-card-body"
-                  style={
-                    Object {
-                      "padding": "0px",
-                    }
-                  }
-                >
-                  <div
-                    className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
-                  >
-                    <div
-                      className="ant-card-meta-detail"
-                    >
-                      <div
-                        className="ant-card-meta-title"
-                      >
-                        u1
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        className="ant-tree-indent-unit"
+      />
     </div>
   </div>
-</div>
-`;
-
-exports[`Selected UIControls show selected hierchy uiControls 1`] = `
-<div
-  className="ant-list ant-list-split ant-list-grid"
->
   <div
-    className="ant-spin-nested-loading"
+    className="ant-tree-list"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <div
-      className="ant-spin-container"
+      className="ant-tree-list-holder"
+      onScroll={[Function]}
+      style={null}
     >
       <div
-        className="ant-row"
-        style={
-          Object {
-            "marginLeft": -8,
-            "marginRight": -8,
-          }
-        }
+        style={Object {}}
       >
         <div
+          className="ant-tree-list-holder-inner"
           style={
             Object {
-              "maxWidth": "100%",
-              "width": "100%",
+              "display": "flex",
+              "flexDirection": "column",
             }
           }
         >
           <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
+            aria-grabbed={false}
+            className="ant-tree-treenode ant-tree-treenode-switcher-close ant-tree-treenode-leaf-last"
+            draggable={false}
+            onMouseMove={[Function]}
           >
-            <div
-              className="ant-list-item"
+            <span
+              aria-hidden="true"
+              className="ant-tree-indent"
+            />
+            <span
+              className="ant-tree-switcher ant-tree-switcher_close"
+              onClick={[Function]}
             >
-              <div
-                className="ant-card ant-card-bordered"
-                onClick={[Function]}
+              <span
+                aria-label="caret-down"
+                className="anticon anticon-caret-down ant-tree-switcher-icon"
+                role="img"
               >
-                <div
-                  className="ant-card-cover"
+                <svg
+                  aria-hidden="true"
+                  data-icon="caret-down"
+                  fill="currentColor"
+                  focusable="false"
+                  height="1em"
+                  viewBox="0 0 1024 1024"
+                  width="1em"
                 >
-                  <img
-                    src="i1"
-                    style={
-                      Object {
-                        "height": "50px",
-                        "width": "50px",
-                      }
-                    }
+                  <path
+                    d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
                   />
-                </div>
-                <div
-                  className="ant-card-body"
+                </svg>
+              </span>
+            </span>
+            <span
+              className="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-close"
+              onClick={[Function]}
+              onContextMenu={[Function]}
+              onDoubleClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              title="u1"
+            >
+              <span
+                className="ant-tree-iconEle ant-tree-icon__customize"
+              >
+                <img
+                  src="i1"
                   style={
                     Object {
-                      "padding": "0px",
+                      "height": "20px",
+                      "width": "20px",
                     }
                   }
-                >
-                  <div
-                    className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
-                  >
-                    <div
-                      className="ant-card-meta-detail"
-                    >
-                      <div
-                        className="ant-card-meta-title"
-                      >
-                        u1
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Selected UIControls show selected uiControls 1`] = `
-<div
-  className="ant-list ant-list-split ant-list-grid"
->
-  <div
-    className="ant-spin-nested-loading"
-  >
-    <div
-      className="ant-spin-container"
-    >
-      <div
-        className="ant-row"
-        style={
-          Object {
-            "marginLeft": -8,
-            "marginRight": -8,
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "maxWidth": "100%",
-              "width": "100%",
-            }
-          }
-        >
-          <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
-          >
-            <div
-              className="ant-list-item"
-            >
-              <div
-                className="ant-card ant-card-bordered"
-                onClick={[Function]}
+                />
+              </span>
+              <span
+                className="ant-tree-title"
               >
-                <div
-                  className="ant-card-cover"
-                >
-                  <img
-                    src="i1"
-                    style={
-                      Object {
-                        "height": "50px",
-                        "width": "50px",
-                      }
-                    }
-                  />
-                </div>
-                <div
-                  className="ant-card-body"
-                  style={
-                    Object {
-                      "padding": "0px",
-                    }
-                  }
-                >
-                  <div
-                    className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
-                  >
-                    <div
-                      className="ant-card-meta-detail"
-                    >
-                      <div
-                        className="ant-card-meta-title"
-                      >
-                        u1
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "maxWidth": "100%",
-              "width": "100%",
-            }
-          }
-        >
-          <div
-            className="ant-col"
-            style={
-              Object {
-                "flex": "1 1 auto",
-                "paddingLeft": 8,
-                "paddingRight": 8,
-              }
-            }
-          >
-            <div
-              className="ant-list-item"
-            >
-              <div
-                className="ant-card ant-card-bordered"
-                onClick={[Function]}
-              >
-                <div
-                  className="ant-card-cover"
-                >
-                  <img
-                    src="i2"
-                    style={
-                      Object {
-                        "height": "50px",
-                        "width": "50px",
-                      }
-                    }
-                  />
-                </div>
-                <div
-                  className="ant-card-body"
-                  style={
-                    Object {
-                      "padding": "0px",
-                    }
-                  }
-                >
-                  <div
-                    className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
-                  >
-                    <div
-                      className="ant-card-meta-detail"
-                    >
-                      <div
-                        className="ant-card-meta-title"
-                      >
-                        u2
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                u1
+              </span>
+            </span>
           </div>
         </div>
       </div>

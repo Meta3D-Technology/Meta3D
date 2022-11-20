@@ -38,10 +38,18 @@ let _createState = () => {
 let _setUIControlInspectorData = (state, setFunc, id) => {
   {
     ...state,
-    selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map(
-      data => {
-        data.id === id ? setFunc(data) : data
-      },
+    selectedUIControlInspectorData: HierachyUtils.mapSelectedUIControlData(
+      setFunc,
+      (
+        (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
+        (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData, children) => {
+          ...data,
+          children: children,
+        },
+      ),
+      state.selectedUIControlInspectorData,
+      id,
     ),
   }
 }
@@ -70,50 +78,6 @@ let _findParentUIControlId = (
   //       _,
   //     ),
   //   )
-}
-
-let _addChildUIControl = (selectedUIControls, childUIControl, parentId) => {
-  switch parentId {
-  | None => selectedUIControls->Meta3dCommonlib.ListSt.push(childUIControl)
-  | Some(parentId) =>
-    selectedUIControls->Meta3dCommonlib.ListSt.map((
-      {id, children} as selectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
-    ) => {
-      id === parentId
-        ? {
-            ...selectedUIControl,
-            children: // TODO check: not exist
-            children->Meta3dCommonlib.ListSt.push(childUIControl),
-          }
-        : selectedUIControl
-    })
-  }
-}
-
-// TODO duplicate
-let _addChildUIControlInspector = (
-  selectedUIControlInspectorData,
-  childUIControlInspector,
-  parentId,
-) => {
-  switch parentId {
-  | None => selectedUIControlInspectorData->Meta3dCommonlib.ListSt.push(childUIControlInspector)
-  | Some(parentId) =>
-    selectedUIControlInspectorData->Meta3dCommonlib.ListSt.map((
-      {
-        id,
-        children,
-      } as selectedUIControlInspector: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
-    ) => {
-      id === parentId
-        ? {
-            ...selectedUIControlInspector,
-            children: // TODO check: not exist
-            children->Meta3dCommonlib.ListSt.push(childUIControlInspector),
-          }
-        : selectedUIControlInspector
-    })
-  }
 }
 
 let reducer = (state, action) => {
@@ -148,8 +112,29 @@ let reducer = (state, action) => {
 
       {
         ...state,
-        selectedUIControls: state.selectedUIControls->_addChildUIControl(childUIControl, parentId),
-        selectedUIControlInspectorData: state.selectedUIControlInspectorData->_addChildUIControlInspector(
+        selectedUIControls: HierachyUtils.addChildUIControlData(
+          (
+            (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControl, children) => {
+              ...data,
+              children: children,
+            },
+          ),
+          state.selectedUIControls,
+          childUIControl,
+          parentId,
+        ),
+        selectedUIControlInspectorData: HierachyUtils.addChildUIControlData(
+          (
+            (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData, children) => {
+              ...data,
+              children: children,
+            },
+          ),
+          state.selectedUIControlInspectorData,
           childUIControlInspector,
           parentId,
         ),

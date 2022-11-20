@@ -19,6 +19,101 @@ defineFeature(feature, test => {
     })
   }
 
+  test(."set rect of hierachy ui control", ({given, \"when", \"and", then}) => {
+    let id2 = ref(Obj.magic(1))
+    let rect = UIControlInspectorTool.buildRect(
+      ~x=11->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+      (),
+    )
+
+    _prepare(given)
+
+    given("init store", () => {
+      store := ElementAssembleStore.initialState
+    })
+
+    \"and"("select ui control u2 whose parent is u1 with id2", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+            None,
+            [],
+          ),
+        )
+
+      id1 :=
+        (
+          store.contents.selectedUIControls
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+            id1.contents->Some,
+            [],
+          ),
+        )
+
+      id2 :=
+        (
+          (
+            store.contents.selectedUIControls
+            ->Meta3dCommonlib.ListSt.head
+            ->Meta3dCommonlib.OptionSt.getExn
+          ).children
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+    })
+
+    \"when"("set rect with id2", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SetRect(id2.contents, rect),
+        )
+    })
+
+    then("should set rect", () => {
+      store.contents.selectedUIControlInspectorData->expect ==
+        list{
+          UIControlInspectorTool.buildUIControlInspectorData(
+            ~id=id1.contents,
+            ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~y=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~width=20->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~height=20->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~children=list{
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id=id2.contents,
+                ~x=rect.x,
+                ~y=rect.y,
+                ~width=rect.width,
+                ~height=rect.height,
+                ~children=list{},
+                (),
+              ),
+            },
+            (),
+          ),
+        }
+    })
+  })
+
   let _prepareForSetAction = (given, \"and") => {
     given("init store", () => {
       store := ElementAssembleStore.initialState
@@ -116,6 +211,100 @@ defineFeature(feature, test => {
     })
   })
 
+  let _prepareForSelectUIControl = given => {
+    given("init store", () => {
+      store := ElementAssembleStore.initialState
+    })
+  }
+
+  test(."select hierachy ui control", ({given, \"when", \"and", then}) => {
+    let id2 = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    _prepareForSelectUIControl(given)
+
+    given("select ui control u1", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+            None,
+            [],
+          ),
+        )
+
+      id1 :=
+        (
+          store.contents.selectedUIControls
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+    })
+
+    \"and"("select ui control u2 whose parent is u1", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+            id1.contents->Some,
+            [],
+          ),
+        )
+
+      id2 :=
+        (
+          (
+            store.contents.selectedUIControls
+            ->Meta3dCommonlib.ListSt.head
+            ->Meta3dCommonlib.OptionSt.getExn
+          ).children
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+    })
+
+    \"when"("select ui control u3 whose parent is u2", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            UIControlInspectorTool.buildSkin("empty"),
+            id2.contents->Some,
+            [],
+          ),
+        )
+    })
+
+    then("should has correct selected ui controls", () => {
+      (
+        (
+          store.contents.selectedUIControls
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).children
+        ->Meta3dCommonlib.ListSt.head
+        ->Meta3dCommonlib.OptionSt.getExn
+      ).children
+      ->Meta3dCommonlib.ListSt.length
+      ->expect == 1
+    })
+  })
+
   let _prepareForSelectSelectedUIControl = (given, \"and") => {
     given("init store", () => {
       store := ElementAssembleStore.initialState
@@ -195,7 +384,7 @@ defineFeature(feature, test => {
         (
           (
             store.contents.selectedUIControls
-            ->Meta3dCommonlib.ListSt.nth(0)
+            ->Meta3dCommonlib.ListSt.head
             ->Meta3dCommonlib.OptionSt.getExn
           ).children
           ->Meta3dCommonlib.ListSt.head

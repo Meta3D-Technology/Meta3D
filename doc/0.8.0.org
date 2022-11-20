@@ -287,9 +287,22 @@ test store->SelectSelectedUIControl
 
 
 run test:
-import element:
 window->child1 window->button
 
+
+# child button not show
+
+# no img
+
+
+# child button can't change inspector
+
+# w->w->w not show
+
+
+
+
+# import element
 
 
 
@@ -299,6 +312,8 @@ trigger action
 
 * TODO commit
 
+
+* TODO fix: window not collapse
 
 
 * TODO fix: use child window?

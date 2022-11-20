@@ -11,8 +11,8 @@ Feature: UIControlInsepctor
         Then should show nothing
 
     Scenario: show default data
-        Given select ui control button d1
-        And set inspector current selected ui control data to d1
+        Given select uiControl u1, u2 that u2 is child of u1
+        And set inspector current selected ui control data to u2
         When render
         Then should show default data
 

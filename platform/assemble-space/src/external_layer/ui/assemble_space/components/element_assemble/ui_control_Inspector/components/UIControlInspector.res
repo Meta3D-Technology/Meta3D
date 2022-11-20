@@ -8,8 +8,14 @@ module Method = {
     selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
   ) => {
     inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
-      selectedUIControlInspectorData->Meta3dCommonlib.ListSt.getBy(data =>
-        data.id === inspectorCurrentUIControlId
+      HierachyUtils.findSelectedUIControlData(
+        None,
+        (
+          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        ),
+        selectedUIControlInspectorData,
+        inspectorCurrentUIControlId,
       )
     )
   }
@@ -74,8 +80,14 @@ module Method = {
     selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
   ) => {
     inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
-      selectedUIControls->Meta3dCommonlib.ListSt.getBy(data =>
-        data.id === inspectorCurrentUIControlId
+      HierachyUtils.findSelectedUIControlData(
+        None,
+        (
+          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+        ),
+        selectedUIControls,
+        inspectorCurrentUIControlId,
       )
     )
   }
@@ -372,7 +384,7 @@ let make = (~service: service) => {
       {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
-        service.console.error(.
+        service.console.errorWithExn(.
           Meta3dCommonlib.Exception.buildErr(
             Meta3dCommonlib.Log.buildErrorMessage(
               ~title="currentSelectedUIControl should exist",
@@ -381,11 +393,7 @@ let make = (~service: service) => {
               ~solution=j``,
               ~params=j``,
             ),
-          )
-          ->Obj.magic
-          ->Js.Exn.message
-          ->Meta3dCommonlib.OptionSt.getExn
-          ->Obj.magic,
+          ),
           None,
         )->Obj.magic
       | Some({id, protocolConfigStr}) =>
@@ -409,10 +417,7 @@ let make = (~service: service) => {
             SkinUtils.findSkins(
               service,
               exn => {
-                service.console.error(.
-                  exn->Obj.magic->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-                  None,
-                )
+                service.console.errorWithExn(. exn, None)
                 []
               },
               protocolConfigStr,

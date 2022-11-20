@@ -6,10 +6,10 @@ Feature: Selected UIControls
     Background: prepare
         Given prepare
 
-    Scenario: show selected uiControls
-        Given select uiControl u1, u2
-        When render
-        Then should show u1 and u2
+    # Scenario: show selected uiControls
+    #     Given select uiControl u1, u2
+    #     When render
+    #     Then should show u1 and u2
 
     Scenario: show selected hierachy uiControls 
         Given select uiControl u1, u2 that u2 is child of u1

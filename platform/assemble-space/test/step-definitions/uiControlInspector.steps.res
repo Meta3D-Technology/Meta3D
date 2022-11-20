@@ -55,16 +55,17 @@ defineFeature(feature, test => {
   })
 
   test(."show default data", ({given, \"when", \"and", then}) => {
-    let id = "d1"
-    let d1 = ref(Obj.magic(1))
+    let id1 = "u1"
+    let id2 = "u2"
+    let u1 = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given)
 
-    given("select ui control button d1", () => {
-      d1 :=
+    given("select uiControl u1, u2 that u2 is child of u1", () => {
+      u1 :=
         SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
+          ~id=id1,
           ~data=ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~protocol={
@@ -75,22 +76,39 @@ defineFeature(feature, test => {
             ),
             (),
           ),
+          ~children=list{
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~id=id2,
+              ~data=ContributeTool.buildContributeData(
+                ~contributePackageData=ContributeTool.buildContributePackageData(
+                  ~protocol={
+                    name: "meta3d-ui-control-button-protocol",
+                    version: "^0.6.0",
+                  },
+                  (),
+                ),
+                (),
+              ),
+              ~children=list{},
+              (),
+            ),
+          },
           (),
         )
     })
 
-    \"and"("set inspector current selected ui control data to d1", () => {
+    \"and"("set inspector current selected ui control data to u2", () => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
             list{},
             (
               ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-              id->Some,
-              list{d1.contents},
+              id2->Some,
+              list{u1.contents},
               list{
                 UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id,
+                  ~id=id2,
                   ~y=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                   (),
                 ),

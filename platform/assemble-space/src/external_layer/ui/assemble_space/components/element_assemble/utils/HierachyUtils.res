@@ -18,3 +18,51 @@ let rec findSelectedUIControlData = (
   | _ => result
   }
 }
+
+let rec mapSelectedUIControlData = (
+  handle,
+  (getId, getChildren, setChildren),
+  allSelectedUIControlData,
+  id,
+) => {
+  allSelectedUIControlData->Meta3dCommonlib.ListSt.map(data => {
+    getId(data) === id
+      ? {
+          handle(data)
+        }
+      : setChildren(
+          data,
+          mapSelectedUIControlData(
+            handle,
+            (getId, getChildren, setChildren),
+            getChildren(data),
+            id,
+          ),
+        )
+  })
+}
+
+let rec addChildUIControlData = (
+  (getId, getChildren, setChildren),
+  allSelectedUIControlData,
+  childUIControlData,
+  parentId,
+) => {
+  switch parentId {
+  | None => allSelectedUIControlData->Meta3dCommonlib.ListSt.push(childUIControlData)
+  | Some(parentId) =>
+    allSelectedUIControlData->Meta3dCommonlib.ListSt.map(data => {
+      getId(data) === parentId
+        ? setChildren(data, getChildren(data)->Meta3dCommonlib.ListSt.push(childUIControlData))
+        : setChildren(
+            data,
+            addChildUIControlData(
+              (getId, getChildren, setChildren),
+              getChildren(data),
+              childUIControlData,
+              parentId->Some,
+            ),
+          )
+    })
+  }
+}
