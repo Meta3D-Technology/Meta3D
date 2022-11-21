@@ -212,6 +212,12 @@ let reducer = (state, action) => {
       },
       id,
     )
+  | SelectRootUIControl => {
+      ...state,
+      parentUIControlId: None,
+      inspectorCurrentUIControlId: None,
+      isShowElementInspector: false,
+    }
   | SelectSelectedUIControl(funcs, id) => {
       ...state,
       parentUIControlId: _findParentUIControlId(funcs, state.selectedUIControls, id),

@@ -309,12 +309,19 @@ window->child1 window->button
 # trigger action
 
 
-* TODO fix: window not collapse
+# * TODO fix: window not collapse
 
 
-* TODO fix: use child window?
+# * TODO fix: use child window?
 
-position will be related to parent?
+# # position will be related to parent?
+
+# refer to:
+# https://github.com/ocornut/imgui/wiki/Tips#using-beginbeginchild
+
+
+
+* DONE fix: SelectedUIControl add root node(or click other to clear)
 
 
 * TODO pass publish ap run test

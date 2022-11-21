@@ -116,25 +116,15 @@ exports[`Selected UIControls show selected hierachy uiControls 1`] = `
               onDoubleClick={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
-              title="u1"
+              title="root"
             >
               <span
-                className="ant-tree-iconEle ant-tree-icon__customize"
-              >
-                <img
-                  src="i1"
-                  style={
-                    Object {
-                      "height": "20px",
-                      "width": "20px",
-                    }
-                  }
-                />
-              </span>
+                className="ant-tree-iconEle ant-tree-icon__close"
+              />
               <span
                 className="ant-tree-title"
               >
-                u1
+                root
               </span>
             </span>
           </div>

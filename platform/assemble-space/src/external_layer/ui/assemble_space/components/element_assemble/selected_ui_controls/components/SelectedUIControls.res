@@ -3,13 +3,19 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let _getRootKey = () => "root"
+
   let _selectUIControl = (service, dispatch, id) => {
-    dispatch(
-      FrontendUtils.ElementAssembleStoreType.SelectSelectedUIControl(
-        (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
-        id,
-      ),
-    )
+    id === _getRootKey()
+      ? {
+          dispatch(FrontendUtils.ElementAssembleStoreType.SelectRootUIControl)
+        }
+      : dispatch(
+          FrontendUtils.ElementAssembleStoreType.SelectSelectedUIControl(
+            (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
+            id,
+          ),
+        )
   }
 
   let rec convertToTreeData = selectedUIControls => {
@@ -21,13 +27,25 @@ module Method = {
         title: name,
         key: id,
         icon: <img
-        style={ReactDOM.Style.make(~width="20px", ~height="20px", ())} src={protocolIconBase64}
-          // src={protocolIconBase64}
+          style={ReactDOM.Style.make(~width="20px", ~height="20px", ())} src={protocolIconBase64}
         />,
         children: convertToTreeData(children),
       }
     })
     ->Meta3dCommonlib.ListSt.toArray
+  }
+
+  let addRootTreeNode = allTreeData => {
+    [
+      (
+        {
+          title: "root",
+          key: _getRootKey(),
+          children: allTreeData,
+          icon: React.null,
+        }: Tree.treeData
+      ),
+    ]
   }
 
   let onExpand = ((setExpandedKeys, setAutoExpandParent), expandedKeysValue) => {
@@ -63,7 +81,7 @@ let make = (~service: service) => {
 
   <Tree
     showIcon=true
-    treeData={selectedUIControls->Method.convertToTreeData}
+    treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
     expandedKeys
     onExpand={expandedKeysValue =>
       Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}

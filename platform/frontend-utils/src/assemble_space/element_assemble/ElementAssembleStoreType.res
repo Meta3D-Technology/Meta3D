@@ -125,6 +125,7 @@ type action =
       parentId,
       specific,
     )
+  | SelectRootUIControl
   | SelectSelectedUIControl(
       (
         Meta3dServiceCommonType.hasChildren,
