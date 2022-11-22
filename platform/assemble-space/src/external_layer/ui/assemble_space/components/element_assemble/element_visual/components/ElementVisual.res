@@ -140,7 +140,9 @@ module Method = {
     )
     ->Js.Promise.then_(meta3dState => {
       service.other.requestAnimationFirstFrame(time => {
-        _loop(service, apInspectorData, time, meta3dState)
+        FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+          _loop(service, apInspectorData, time, meta3dState)
+        }, 5->Some)
       })->Js.Promise.resolve
     }, _)
     ->Meta3dBsMost.Most.fromPromise
@@ -326,13 +328,7 @@ module Method = {
     ) => {
       uiControls
       ->Meta3dCommonlib.ArraySt.mapi((
-        {
-          rect,
-          isDraw,
-          event,
-          specific,
-          children,
-        }: FrontendUtils.BackendCloudbaseType.uiControl,
+        {rect, isDraw, event, specific, children}: FrontendUtils.BackendCloudbaseType.uiControl,
         index,
       ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
         id: (
