@@ -378,7 +378,7 @@ window->child1 window->button
 
 * DONE root expand
 
-* TODO refactor: use InputNumber for rect, element state, specific
+* DONE refactor: use InputNumber for rect, element state, specific
 
 
 
@@ -389,7 +389,7 @@ window->child1 window->button
 
 
 # * TODO feat: start config add clearColor
-* TODO feat: start config remove isDebug
+* DONE feat: start config remove isDebug
 
 
 

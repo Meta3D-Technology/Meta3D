@@ -28,6 +28,8 @@ module Method = {
       <InputNumber
         value={clearColorField->FloatUtils.floatToString}
         step="0.001"
+        min="0"
+        max="1"
         stringMode=true
         onChange={value => {
           setClearColorField(dispatch, clearColor, value->FloatUtils.stringToFloat)

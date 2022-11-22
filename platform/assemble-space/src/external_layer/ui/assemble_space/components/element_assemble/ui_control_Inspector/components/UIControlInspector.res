@@ -135,21 +135,18 @@ module Method = {
 
   let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
     <>
-      // TODO extract IntInput
-      <Input
+      <InputNumber
         value={rectField
         ->_getRectFieldIntValue
         ->Meta3dCommonlib.OptionSt.getWithDefault(0)
         ->Js.Int.toString}
-        onChange={e => {
+        step="1"
+        onChange={value => {
           setRectField(
             dispatch,
             id,
             rect,
-            e
-            ->EventUtils.getEventTargetValue
-            ->IntUtils.stringToInt
-            ->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            value->IntUtils.stringToInt->FrontendUtils.ElementAssembleStoreType.IntForRectField,
           )
         }}
       />
