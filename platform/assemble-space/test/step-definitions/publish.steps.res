@@ -184,7 +184,9 @@ defineFeature(feature, test => {
     let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
     let canvasData = ref(Obj.magic(1))
+    let apInspectorData = ref(Obj.magic(1))
     let values = ref(Obj.magic(1))
+    let c1 = false
     let account = "u1"
     let appName = "n1"
     let appBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
@@ -220,8 +222,18 @@ defineFeature(feature, test => {
     \"and"("prepare config data", () => {
       values :=
         {
-          "configData_isDebug": "true",
+          "configData_c1": c1,
         }
+    })
+
+    \"and"("prepare ap inspector data", () => {
+      apInspectorData :=
+        ApInspectorTool.buildApInspectorData(
+          ~isDebug=true,
+          ~clearColor=(0.1, 1., 1., 1.),
+          ~skinName="s1"->Some,
+          (),
+        )
     })
 
     CucumberAsync.execStep(\"when", "publish app", () => {
@@ -245,6 +257,7 @@ defineFeature(feature, test => {
         ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
         ~setVisible=setVisibleStub.contents->Obj.magic,
         ~canvasData=canvasData.contents,
+        ~apInspectorData=apInspectorData.contents,
         ~account="u1"->Some,
         ~values=values.contents->Obj.magic,
         ~service=ServiceTool.build(
@@ -276,10 +289,23 @@ defineFeature(feature, test => {
     \"and"(
       "should generat app with correct extension data and contribute data and start config data",
       () => {
+        let {isDebug, clearColor, skinName} = apInspectorData.contents
+
         (
           generateAppStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg2(matchAny, (canvasData.contents, {"isDebug": true})),
+          ->SinonTool.calledWithArg2(
+            matchAny,
+            (
+              canvasData.contents,
+              {
+                "c1": c1,
+                "isDebug": isDebug,
+                "clearColor": clearColor,
+                "skinName": skinName->Meta3dCommonlib.OptionSt.getExn,
+              },
+            ),
+          ),
           SinonTool.getAllArgsJson(convertAllFileDataStub.contents, 0),
         )->expect ==
           (

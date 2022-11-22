@@ -69,7 +69,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     console.log("ImGui.CreateContext() VERSION=", ImGui.VERSION);
 
     ImGui.CreateContext();
-    ImGui.StyleColorsDark();
+    // ImGui.StyleColorsDark();
+    // ImGui.StyleColorsLight();
+    // ImGui.StyleColorsClassic();
+
+
+    console.log(ImGui.GetStyle())
+    console.log(JSON.stringify(ImGui.GetStyle()))
+ 
+
     // if(ImGui.isMobile.any())    {
     //     ImGui_Impl.setCanvasScale(1);
     //     ImGui_Impl.setFontScale(1.5)

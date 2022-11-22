@@ -26,10 +26,6 @@ let buildRect = (
   }
 }
 
-let buildSkin = (skinName): FrontendUtils.ElementAssembleStoreType.skin => {
-  skinName: skinName,
-}
-
 let buildEventData = (
   eventName: Meta3dType.ContributeProtocolConfigType.eventName,
   actionName,
@@ -58,7 +54,6 @@ let buildUIControlInspectorData = (
   ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-  ~skin=buildSkin("empty"),
   ~event=[],
   ~specific=[],
   ~children=list{},
@@ -67,7 +62,6 @@ let buildUIControlInspectorData = (
   id: id,
   rect: buildRect(~x, ~y, ~width, ~height, ()),
   isDraw: isDraw,
-  skin: skin,
   event: event,
   specific: specific,
   children: children,
@@ -83,16 +77,8 @@ let setRectHeight = UIControlInspector.Method.setRectHeight
 
 let setIsDraw = UIControlInspector.Method.setIsDraw
 
-let setSkin = UIControlInspector.Method.setSkin
-
 let setAction = UIControlInspector.Method.setAction
 
 let setSpecificData = UIControlInspector.Method._setSpecificData
 
 let buildEmptySelectOptionValue = SelectUtils.buildEmptySelectOptionValue
-
-let buildSkinProtocolData = (~protocolName="s1", ~protocolVersion="0.0.1", ()) =>
-  {
-    "protocolName": protocolName,
-    "protocolVersion": protocolVersion,
-  }

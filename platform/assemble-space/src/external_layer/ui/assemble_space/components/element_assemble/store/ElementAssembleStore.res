@@ -1,6 +1,6 @@
 open FrontendUtils.ElementAssembleStoreType
 
-let _buildDefaultUIControlInspectorData = (id, skin, specific) => {
+let _buildDefaultUIControlInspectorData = (id, specific) => {
   {
     id: id,
     rect: {
@@ -10,7 +10,6 @@ let _buildDefaultUIControlInspectorData = (id, skin, specific) => {
       height: 20->IntForRectField,
     },
     isDraw: true->BoolForIsDraw,
-    skin: skin,
     event: [],
     specific: specific,
     children: list{},
@@ -87,15 +86,7 @@ let reducer = (state, action) => {
       ..._createState(),
       visualExtension: state.visualExtension,
     }
-  | SelectUIControl(
-      protocolIconBase64,
-      protocolConfigStr,
-      name,
-      data,
-      skin,
-      parentId,
-      specific,
-    ) => {
+  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data, parentId, specific) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       let childUIControl = {
@@ -108,7 +99,7 @@ let reducer = (state, action) => {
         data: data,
       }
 
-      let childUIControlInspector = _buildDefaultUIControlInspectorData(id, skin, specific)
+      let childUIControlInspector = _buildDefaultUIControlInspectorData(id, specific)
 
       {
         ...state,
@@ -200,15 +191,6 @@ let reducer = (state, action) => {
               : eventData
           })
         },
-      },
-      id,
-    )
-  | SetSkin(id, skinName) =>
-    _setUIControlInspectorData(
-      state,
-      data => {
-        ...data,
-        skin: {skinName: skinName},
       },
       id,
     )

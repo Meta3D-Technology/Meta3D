@@ -10,6 +10,19 @@ let _createState = () => {
       width: 0,
       height: 0,
     },
+    isShowApInspector: false,
+    apInspectorData: {
+      isDebug: true,
+      clearColor: (1., 1., 1., 1.),
+      skinName: None,
+    },
+  }
+}
+
+let _setApIControlInspectorData = (state, setFunc) => {
+  {
+    ...state,
+    apInspectorData: setFunc(state.apInspectorData),
   }
 }
 
@@ -27,11 +40,13 @@ let reducer = (state, action) => {
         version: extension.version,
         data: extension.data,
       }),
+      isShowApInspector: false,
     }
   | SetInspectorCurrentExtensionId(id) => {
       ...state,
       inspectorCurrentExtensionId: id->Some,
       inspectorCurrentContributeId: None,
+      isShowApInspector: false,
     }
   | StartExtension(id) => {
       ...state,
@@ -76,11 +91,13 @@ let reducer = (state, action) => {
         version: contribute.version,
         data: contribute.data,
       }),
+      isShowApInspector: false,
     }
   | SetInspectorCurrentContributeId(id) => {
       ...state,
       inspectorCurrentExtensionId: None,
       inspectorCurrentContributeId: id->Some,
+      isShowApInspector: false,
     }
   | SetContributeNewName(id, newName) => {
       ...state,
@@ -97,6 +114,25 @@ let reducer = (state, action) => {
       ...state,
       canvasData: canvasData,
     }
+  | ShowApInspector => {
+      ...state,
+      isShowApInspector: true,
+    }
+  | SetIsDebug(isDebug) =>
+    _setApIControlInspectorData(state, apInspectorData => {
+      ...apInspectorData,
+      isDebug: isDebug,
+    })
+  | SetClearColor(clearColor) =>
+    _setApIControlInspectorData(state, apInspectorData => {
+      ...apInspectorData,
+      clearColor: clearColor,
+    })
+  | SetSkinName(skinName) =>
+    _setApIControlInspectorData(state, apInspectorData => {
+      ...apInspectorData,
+      skinName: skinName,
+    })
   }
 }
 

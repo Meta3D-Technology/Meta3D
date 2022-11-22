@@ -4,16 +4,17 @@ open FrontendUtils.Antd
 module Method = {
   let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
 
-  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
+  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service, isDebug) => {
     {
-      "isDebug": true,
+      "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-run-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
   }
 
-  let _getUpdateData = time => {
+  let _getUpdateData = (clearColor, skinName, time) => {
     {
-      "clearColor": (1., 1., 1., 1.),
+      "clearColor": clearColor,
+      "skinName": skinName,
       "time": time,
     }->Obj.magic
   }
@@ -30,26 +31,42 @@ module Method = {
   //   }, _)->ignore
   // }
 
-  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, time, meta3dState) => {
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), _getUpdateData(time))
+  let rec _loop = (
+    service: FrontendUtils.AssembleSpaceType.service,
+    {clearColor, skinName} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
+    time,
+    meta3dState,
+  ) => {
+    service.meta3d.updateExtension(.
+      meta3dState,
+      _getVisualExtensionName(),
+      _getUpdateData(clearColor, skinName, time),
+    )
     ->Js.Promise.then_(meta3dState => {
       service.other.requestAnimationOtherFrame(time => {
-        _loop(service, time, meta3dState)
+        _loop(service, apInspectorData, time, meta3dState)
       })->Js.Promise.resolve
     }, _)
     ->ignore
   }
 
-  let startApp = (service: FrontendUtils.AssembleSpaceType.service) => {
+  let startApp = (
+    service: FrontendUtils.AssembleSpaceType.service,
+    {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
+  ) => {
     service.storage.initForElementVisualApp()
     ->service.storage.getElementVisualApp(. _)
     ->Meta3dBsMost.Most.flatMap(appBinaryFile => {
       let (meta3dState, _, _) = service.meta3d.loadApp(. appBinaryFile)
 
-      service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
+      service.meta3d.initExtension(.
+        meta3dState,
+        _getVisualExtensionName(),
+        _getInitData(service, isDebug),
+      )
       ->Js.Promise.then_(meta3dState => {
         service.other.requestAnimationFirstFrame(time => {
-          _loop(service, time, meta3dState)
+          _loop(service, apInspectorData, time, meta3dState)
         })->Js.Promise.resolve
       }, _)
       ->Meta3dBsMost.Most.fromPromise
@@ -67,10 +84,12 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
 
   let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
     FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
+  let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
+    FrontendUtils.UrlSearchUtils.get(url.search, "apInspectorData")->Js.Json.parseExn->Obj.magic
 
   React.useEffect1(() => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      Method.startApp(service)->ignore
+      Method.startApp(service, apInspectorData)->ignore
     }, 5->Some)
 
     None

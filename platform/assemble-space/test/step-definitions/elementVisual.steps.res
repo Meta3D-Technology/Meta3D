@@ -9,7 +9,6 @@ let feature = loadFeature("./test/features/elementVisual.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
-  let isDebug = true
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -31,8 +30,12 @@ defineFeature(feature, test => {
     then("should show loading and canvas", () => {
       let useSelectorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
         (
-          isDebug,
-          (CanvasControllerTool.buildCanvasData(), list{}, list{}),
+          (
+            CanvasControllerTool.buildCanvasData(),
+            list{},
+            list{},
+            ApInspectorTool.buildApInspectorData(),
+          ),
           (
             list{},
             list{},
@@ -69,8 +72,12 @@ defineFeature(feature, test => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
-            isDebug,
-            (CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()), list{}, list{}),
+            (
+              CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
+              list{},
+              list{},
+              ApInspectorTool.buildApInspectorData(),
+            ),
             (
               list{},
               list{},
@@ -102,6 +109,7 @@ defineFeature(feature, test => {
     let name = ElementVisualTool.getVisualExtensionName()
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
+    let isDebug = true
     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
@@ -374,6 +382,7 @@ defineFeature(feature, test => {
         ),
         (selectedExtensions.contents, selectedContributes.contents),
         v.contents,
+        ApInspectorTool.buildApInspectorData(),
       )
     })
 

@@ -2,12 +2,8 @@ let serializeLib = protocolConfigStr => {
   LibUtils.serializeLib(protocolConfigStr, "UIControlProtocolConfig")
 }
 
-let getSkinProtocolData = configLib => {
-  (LibUtils.getFuncFromLib(configLib, "getSkinProtocolData")->Obj.magic)(.)
-}
-
-let generateUIControlCommonDataStr = (configLib, rect, skin) => {
-  (LibUtils.getFuncFromLib(configLib, "generateUIControlCommonDataStr")->Obj.magic)(. rect, skin)
+let generateUIControlCommonDataStr = (configLib, rect) => {
+  (LibUtils.getFuncFromLib(configLib, "generateUIControlCommonDataStr")->Obj.magic)(. rect)
 }
 
 let getUIControlSpecificDataFields = configLib => {

@@ -4,7 +4,7 @@ window.StartExtensionProtocolConfig = {
     getNeedConfigData: () => {
         return [
         {
-            name: "isDebug",
+            name: "c1",
             type_: "bool"
         }
     ]

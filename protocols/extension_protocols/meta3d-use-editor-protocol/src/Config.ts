@@ -2,9 +2,5 @@ import { getNeedConfigData as getNeedConfigDataMeta3D } from "meta3d-type/src/ex
 
 export let getNeedConfigData: getNeedConfigDataMeta3D = () => {
     return [
-        {
-            name: "isDebug",
-            type_: "bool"
-        }
     ]
 }

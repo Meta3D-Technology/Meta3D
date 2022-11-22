@@ -36,8 +36,6 @@ let execGetContributeFunc = AppManager.execGetContributeFunc
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
-let getSkinProtocolData = UIControlProtocolConfig.getSkinProtocolData
-
 let generateUIControlCommonDataStr = UIControlProtocolConfig.generateUIControlCommonDataStr
 
 let getUIControlSpecificDataFields = UIControlProtocolConfig.getUIControlSpecificDataFields

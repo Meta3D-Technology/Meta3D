@@ -22,16 +22,17 @@ module Method = {
     )
   }
 
-  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service) => {
+  let _getInitData = (service: FrontendUtils.AssembleSpaceType.service, isDebug) => {
     {
-      "isDebug": true,
+      "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
   }
 
-  let _getUpdateData = time => {
+  let _getUpdateData = (clearColor, skinName, time) => {
     {
-      "clearColor": (1., 1., 1., 1.),
+      "clearColor": clearColor,
+      "skinName": skinName,
       "time": time,
     }->Obj.magic
   }
@@ -63,7 +64,12 @@ module Method = {
     service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionName, uiState)
   }
 
-  let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, time, meta3dState) => {
+  let rec _loop = (
+    service: FrontendUtils.AssembleSpaceType.service,
+    {clearColor, skinName} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
+    time,
+    meta3dState,
+  ) => {
     let meta3dState = switch ElementContributeApService.getElementContribute(
       SpaceStateApService.getState(),
     ) {
@@ -88,10 +94,14 @@ module Method = {
       )
     }
 
-    service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), _getUpdateData(time))
+    service.meta3d.updateExtension(.
+      meta3dState,
+      _getVisualExtensionName(),
+      _getUpdateData(clearColor, skinName, time),
+    )
     ->Js.Promise.then_(meta3dState => {
       service.other.requestAnimationOtherFrame(time => {
-        _loop(service, time, meta3dState)
+        _loop(service, apInspectorData, time, meta3dState)
       })->Js.Promise.resolve
     }, _)
     ->ignore
@@ -106,7 +116,12 @@ module Method = {
     )
   }
 
-  let startApp = (service, (selectedExtensions, selectedContributes), visualExtension) => {
+  let startApp = (
+    service,
+    (selectedExtensions, selectedContributes),
+    visualExtension,
+    {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
+  ) => {
     let (meta3dState, _, _) = service.meta3d.loadApp(.
       _generateApp(
         service,
@@ -118,10 +133,14 @@ module Method = {
       ),
     )
 
-    service.meta3d.initExtension(. meta3dState, _getVisualExtensionName(), _getInitData(service))
+    service.meta3d.initExtension(.
+      meta3dState,
+      _getVisualExtensionName(),
+      _getInitData(service, isDebug),
+    )
     ->Js.Promise.then_(meta3dState => {
       service.other.requestAnimationFirstFrame(time => {
-        _loop(service, time, meta3dState)
+        _loop(service, apInspectorData, time, meta3dState)
       })->Js.Promise.resolve
     }, _)
     ->Meta3dBsMost.Most.fromPromise
@@ -310,7 +329,6 @@ module Method = {
         {
           rect,
           isDraw,
-          skin,
           event,
           specific,
           children,
@@ -322,7 +340,6 @@ module Method = {
         ).id,
         rect: rect,
         isDraw: isDraw,
-        skin: skin,
         event: event,
         specific: specific,
         children: _generate(
@@ -349,10 +366,7 @@ module Method = {
       dispatch(
         FrontendUtils.ElementAssembleStoreType.Import(
           selectedUIControls,
-          _generateSelectedUIControlInspectorData(
-            uiControls,
-            selectedUIControls,
-          ),
+          _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
           element,
         ),
       )
@@ -368,9 +382,9 @@ module Method = {
   }
 
   let useSelector = (
-    {isDebug, apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {canvasData, selectedExtensions, selectedContributes} = apAssembleState
+    let {canvasData, selectedExtensions, selectedContributes, apInspectorData} = apAssembleState
     let {
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -382,8 +396,7 @@ module Method = {
     // let (_, elementContribute) = elementContribute
 
     (
-      isDebug,
-      (canvasData, selectedExtensions, selectedContributes),
+      (canvasData, selectedExtensions, selectedContributes, apInspectorData),
       (
         selectedUIControls,
         selectedUIControlInspectorData,
@@ -401,8 +414,7 @@ let make = (~service: service, ~account: option<string>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    isDebug,
-    (canvasData, selectedExtensions, selectedContributes),
+    (canvasData, selectedExtensions, selectedContributes, apInspectorData),
     (
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -420,7 +432,8 @@ let make = (~service: service, ~account: option<string>) => {
   service.react.useEffectOnce(() => {
     switch visualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetNewestVisualExtension(service, dispatch, isDebug)->ignore
+    | None =>
+      Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
     }
 
     ((), None)
@@ -476,7 +489,12 @@ let make = (~service: service, ~account: option<string>) => {
   service.react.useEffect1(. () => {
     switch visualExtension {
     | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-        Method.startApp(service, (selectedExtensions, selectedContributes), visualExtension)->ignore
+        Method.startApp(
+          service,
+          (selectedExtensions, selectedContributes),
+          visualExtension,
+          apInspectorData,
+        )->ignore
       }, 5->Some)
     | _ => ()
     }

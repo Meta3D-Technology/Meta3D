@@ -405,6 +405,15 @@ let isStateChange = (
   state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 
+let setStyle = (meta3dState, data, style) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.setStyle(. style, imguiRendererState),
+    data,
+  )
+}
+
 let beginWindow = (meta3dState, data, label: Meta3dImguiRenderer2Protocol.ServiceType.label) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

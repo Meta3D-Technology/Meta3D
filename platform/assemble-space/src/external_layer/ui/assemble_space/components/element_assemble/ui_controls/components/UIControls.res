@@ -5,30 +5,6 @@ open FrontendUtils.AssembleSpaceType
 module Method = {
   let getUIControls = SelectedContributesUtils.getUIControls
 
-  let _findSkin = (
-    service,
-    protocolConfigStr,
-    selectedContributes,
-  ): FrontendUtils.ElementAssembleStoreType.skin => {
-    let {data} =
-      SkinUtils.findSkins(
-        service,
-        Meta3dCommonlib.Exception.throwErr,
-        protocolConfigStr,
-        selectedContributes,
-      )[0]
-
-    {
-      skinName: (
-        service.meta3d.execGetContributeFunc(.
-          data.contributeFuncData,
-          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        )->Obj.magic
-      )["skinName"],
-    }
-  }
-
   let _convertSpecificType = (
     specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
   ): FrontendUtils.ElementAssembleStoreType.specific => {
@@ -63,7 +39,6 @@ module Method = {
         protocolConfigStr,
         name,
         data,
-        _findSkin(service, protocolConfigStr, selectedContributes),
         parentUIControlId,
         service.meta3d.getUIControlSpecificDataFields(.
           service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),

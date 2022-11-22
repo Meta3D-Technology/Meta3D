@@ -13,14 +13,7 @@ type actionName = Js.Nullable.t<string>
 
 type versionRange = string
 
-type skinProtocolData = {
-  protocolName: string,
-  protocolVersion: versionRange,
-}
-
-type getSkinProtocolData = unit => skinProtocolData
-
-type generateUIControlCommonDataStr = (string, string) => string
+type generateUIControlCommonDataStr = (string) => string
 
 type uiControlSpecicFieldType = [#string]
 

@@ -16,7 +16,6 @@ defineFeature(feature, test => {
   let selectedUIControlInspectorData = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
   let isDraw = ref(Obj.magic(1))
-  let skin = ref(Obj.magic(1))
   let specific = ref(Obj.magic(1))
 
   let sandbox = ref(Obj.magic(1))
@@ -128,8 +127,6 @@ defineFeature(feature, test => {
 
       isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
 
-      skin := UIControlInspectorTool.buildSkin("skin1")
-
       specific := [UIControlInspectorTool.buildSpecific()]
 
       selectedUIControls :=
@@ -155,7 +152,6 @@ defineFeature(feature, test => {
             ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
             ~event=event.contents,
             ~isDraw=isDraw.contents,
-            ~skin=skin.contents,
             ~specific=specific.contents,
             ~children=list{
               UIControlInspectorTool.buildUIControlInspectorData(
@@ -163,7 +159,6 @@ defineFeature(feature, test => {
                 ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                 ~event=event.contents,
                 ~isDraw=isDraw.contents,
-                ~skin=skin.contents,
                 ~specific=specific.contents,
                 ~children=list{},
                 (),
@@ -195,7 +190,6 @@ defineFeature(feature, test => {
           ~sandbox,
           ~generateContribute=generateContributeStub.contents->Obj.magic,
           ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
-          ~getSkinProtocolData=Meta3d.Main.getSkinProtocolData->Obj.magic,
           ~generateUIControlCommonDataStr=Meta3d.Main.generateUIControlCommonDataStr->Obj.magic,
           ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
           ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
@@ -364,7 +358,6 @@ defineFeature(feature, test => {
                   (),
                 ),
                 isDraw: isDraw.contents,
-                skin: skin.contents,
                 event: event.contents,
                 specific: specific.contents,
                 children: [
@@ -375,7 +368,6 @@ defineFeature(feature, test => {
                       (),
                     ),
                     isDraw: isDraw.contents,
-                    skin: skin.contents,
                     event: event.contents,
                     specific: specific.contents,
                     children: [],

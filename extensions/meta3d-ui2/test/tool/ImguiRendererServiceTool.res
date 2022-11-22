@@ -7,6 +7,7 @@ let buildService = (
   ~render=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~beforeExec=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~afterExec=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setStyle=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~beginWindow=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~endWindow=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setNextWindowRect=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -20,10 +21,11 @@ let buildService = (
     render: render,
     beforeExec: beforeExec,
     afterExec: afterExec,
+    setStyle: setStyle,
     beginWindow: beginWindow,
     endWindow: endWindow,
     setNextWindowRect: setNextWindowRect,
-    button:button,
-    setCursorPos:setCursorPos
+    button: button,
+    setCursorPos: setCursorPos,
   }
 }

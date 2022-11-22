@@ -26,6 +26,7 @@ Feature: RunElementVisualController
         Given generate empty element contribute element1
         And get run visual extension v
         And prepare canvas data
+        And prepare ap inspector data
         And prepare local storage
         And prepare open
         # And generate extension ui
@@ -37,6 +38,6 @@ Feature: RunElementVisualController
         When run
         Then generate app
         And save app to local storage
-        And open link with canvas data to run
+        And open link with canvas data and ap inspector data to run
 
 

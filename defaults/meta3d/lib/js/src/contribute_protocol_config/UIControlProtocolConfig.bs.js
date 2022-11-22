@@ -7,12 +7,8 @@ function serializeLib(protocolConfigStr) {
   return LibUtils$Meta3d.serializeLib(protocolConfigStr, "UIControlProtocolConfig");
 }
 
-function getSkinProtocolData(configLib) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "getSkinProtocolData")();
-}
-
-function generateUIControlCommonDataStr(configLib, rect, skin) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlCommonDataStr")(rect, skin);
+function generateUIControlCommonDataStr(configLib, rect) {
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateUIControlCommonDataStr")(rect);
 }
 
 function getUIControlSpecificDataFields(configLib) {
@@ -32,7 +28,6 @@ function generateHandleUIControlEventStr(configLib, actionNames) {
 }
 
 exports.serializeLib = serializeLib;
-exports.getSkinProtocolData = getSkinProtocolData;
 exports.generateUIControlCommonDataStr = generateUIControlCommonDataStr;
 exports.getUIControlSpecificDataFields = getUIControlSpecificDataFields;
 exports.hasChildren = hasChildren;

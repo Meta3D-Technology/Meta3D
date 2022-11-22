@@ -12,6 +12,7 @@ import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContribute
 import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
 import { elementContribute } from "meta3d-ui2-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
+import { skin } from "meta3d-skin-protocol"
 
 let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
@@ -125,16 +126,18 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 let _loop = (
 	api: api, meta3dState: meta3dState,
 	time: number,
-	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string]
+	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string],
+	configData: configData
 ) => {
-	// TODO move to configData?
-	let clearColor: [number, number, number, number] = [1.0, 1.0, 1.0, 1.0]
+	let [_, { skinName, clearColor }] = configData
 
-	// let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-	clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
+	meta3dState = setStyle(meta3dState, getSkin<skin>(uiState, skinName).skin.style)
+
+	meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
 	// render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
 	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time).then((meta3dState: meta3dState) => {
@@ -144,7 +147,7 @@ let _loop = (
 			(time) => {
 				_loop(api, meta3dState,
 					time,
-					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
+					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName], configData)
 			}
 		)
 	})
@@ -160,11 +163,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 	return {
 		run: (meta3dState: meta3dState, configData) => {
-
 			_init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData).then((meta3dState: meta3dState) => {
 				_loop(api, meta3dState,
 					0,
-					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
+					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName], configData)
 			})
 
 

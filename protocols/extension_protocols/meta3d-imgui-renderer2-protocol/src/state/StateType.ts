@@ -1,3 +1,4 @@
 export type state = {
-    isDebug: boolean
+    isDebug: boolean,
+    style: string
 }

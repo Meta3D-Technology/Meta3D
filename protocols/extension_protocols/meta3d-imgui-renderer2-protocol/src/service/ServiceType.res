@@ -17,10 +17,13 @@ type size = (int, int)
 
 type pos = (int, int)
 
+type style = string
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
   render: (. StateType.state) => StateType.state,
+  setStyle: (. style, StateType.state) => StateType.state,
   beforeExec: (. StateType.state, time) => StateType.state,
   afterExec: (. StateType.state) => StateType.state,
   clear: (. StateType.state, clearColor) => unit,

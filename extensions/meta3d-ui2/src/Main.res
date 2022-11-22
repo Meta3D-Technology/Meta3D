@@ -15,6 +15,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     show: UIManager.show,
     isStateChange: UIManager.isStateChange,
     getElementState: UIManager.getElementState->Obj.magic,
+    setStyle: (meta3dState, style) => {
+      UIManager.setStyle(meta3dState, (api, meta3dImguiRendererExtensionName), style)
+    },
     beginWindow: (meta3dState, label) => {
       UIManager.beginWindow(meta3dState, (api, meta3dImguiRendererExtensionName), label)
     },

@@ -9,7 +9,6 @@ let feature = loadFeature("./test/features/runElementVisualController.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
-  let isDebug = true
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -31,7 +30,15 @@ defineFeature(feature, test => {
     then("should show waiting", () => {
       let useSelectorStub =
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (isDebug, (CanvasControllerTool.buildCanvasData(), list{}, list{}), (None, None)),
+          (
+            (
+              CanvasControllerTool.buildCanvasData(),
+              list{},
+              list{},
+              ApInspectorTool.buildApInspectorData(),
+            ),
+            (None, None),
+          ),
           _,
         )
 
@@ -54,8 +61,12 @@ defineFeature(feature, test => {
       useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
-            isDebug,
-            (CanvasControllerTool.buildCanvasData(), list{}, list{}),
+            (
+              CanvasControllerTool.buildCanvasData(),
+              list{},
+              list{},
+              ApInspectorTool.buildApInspectorData(),
+            ),
             (Some(Obj.magic(1)), Some(Obj.magic(1))),
           ),
           _,
@@ -81,6 +92,7 @@ defineFeature(feature, test => {
     let name = RunElementVisualControllerTool.getVisualExtensionName()
     let v1 = ref(Obj.magic(1))
     let v2 = ref(Obj.magic(1))
+    let isDebug = true
     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
@@ -187,6 +199,7 @@ defineFeature(feature, test => {
     let selectedExtensions = ref(list{})
     let selectedContributes = ref(list{})
     let canvasData = ref(Obj.magic(1))
+    let apInspectorData = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let setElementVisualAppStub = ref(Obj.magic(1))
@@ -234,6 +247,16 @@ defineFeature(feature, test => {
       canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
     })
 
+    \"and"("prepare ap inspector data", () => {
+      apInspectorData :=
+        ApInspectorTool.buildApInspectorData(
+          ~isDebug=false,
+          ~clearColor=(0.1, 1., 1., 1.),
+          ~skinName="s1"->Some,
+          (),
+        )
+    })
+
     \"and"("prepare local storage", () => {
       initForElementVisualAppStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.just(db), _)
@@ -259,7 +282,12 @@ defineFeature(feature, test => {
           (),
         ),
         (
-          (canvasData.contents, selectedExtensions.contents, selectedContributes.contents),
+          (
+            canvasData.contents,
+            selectedExtensions.contents,
+            selectedContributes.contents,
+            apInspectorData.contents,
+          ),
           (v.contents, element1.contents),
         ),
       )
@@ -276,10 +304,14 @@ defineFeature(feature, test => {
       ->expect == true
     })
 
-    \"and"("open link with canvas data to run", () => {
+    \"and"("open link with canvas data and ap inspector data to run", () => {
       openUrlStub.contents
       ->SinonTool.calledWith(
-        j`RunElementVisual?canvasData=${canvasData.contents->Obj.magic->Js.Json.stringify}`,
+        j`RunElementVisual?canvasData=${canvasData.contents
+          ->Obj.magic
+          ->Js.Json.stringify}&&apInspectorData=${apInspectorData.contents
+          ->Obj.magic
+          ->Js.Json.stringify}`,
       )
       ->expect == true
     })

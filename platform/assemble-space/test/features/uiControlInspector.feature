@@ -29,7 +29,7 @@ Feature: UIControlInsepctor
             When set rect x
             Then should dispatch SetRect action with x
 
-    Rule: isDraw
+    Rule: IsDraw
 
         Scenario: show isDraw with element state fields
             Given element state add fields
@@ -43,7 +43,7 @@ Feature: UIControlInsepctor
             Then should dispatch SetIsDraw action
 
 
-    Rule: specific
+    Rule: Specific
 
         Scenario: show specific
             Given select ui control window w1
@@ -62,19 +62,6 @@ Feature: UIControlInsepctor
         Scenario: set specific data
             When set specific data
             Then should dispatch SetSpecificData action
-
-    Rule: Skin
-
-        Scenario: show skin
-            Given select ui control button d1
-            And select skin s1 and s2
-            And set inspector current selected ui control data to d1 whose skin is s1
-            When render
-            Then should show s1 as default skin and select with s1, s2
-
-        Scenario: set skin
-            When set skin
-            Then should dispatch SetSkin action
 
 
     Rule: Event

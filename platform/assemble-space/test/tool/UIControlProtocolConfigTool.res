@@ -1,14 +1,8 @@
 let buildButtonContributeProtocolConfigStr = () => {
   `
 window.UIControlProtocolConfig = {
-    getSkinProtocolData: () => {
-        return {
-            protocolName: "meta3d-skin-button-protocol",
-            protocolVersion: "^0.6.0",
-        }
-    },
-    generateUIControlCommonDataStr: (rect, skin) => {
-        return "{rect: " + rect + ", skin: " + skin + "}"
+    generateUIControlCommonDataStr: (rect) => {
+        return "{rect: " + rect + "}"
     },
     getUIControlSpecificDataFields: () => [],
     getUIControlSupportedEventNames: () => ["click"],
@@ -26,14 +20,8 @@ window.UIControlProtocolConfig = {
 let buildWindowContributeProtocolConfigStr = () => {
   `
 window.UIControlProtocolConfig = {
-    getSkinProtocolData: () => {
-        return {
-            protocolName: "meta3d-skin-button-protocol",
-            protocolVersion: "^0.6.0",
-        }
-    },
-    generateUIControlCommonDataStr: (rect, skin) => {
-        return "{rect: " + rect + ", skin: " + skin + "}"
+    generateUIControlCommonDataStr: (rect) => {
+        return "{rect: " + rect + "}"
     },
     getUIControlSpecificDataFields: () => [
     {

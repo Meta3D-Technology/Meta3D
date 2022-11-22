@@ -19,7 +19,6 @@ Feature: UIControls
 
     Scenario: select uiControl
         Given select uiControl u1 in ap view
-        And select skin s1 which is used by u1 in ap view
         When select u1
         Then dispatch SelectUIControl action
 

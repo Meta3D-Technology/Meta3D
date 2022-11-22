@@ -53,6 +53,10 @@ type service = {
     StateType.state,
     UIControlContributeType.uiControlName,
   ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
+  setStyle: (
+    Meta3dType.Index.state,
+    Meta3dImguiRenderer2Protocol.ServiceType.style,
+  ) => Meta3dType.Index.state,
   beginWindow: (
     Meta3dType.Index.state,
     Meta3dImguiRenderer2Protocol.ServiceType.label,

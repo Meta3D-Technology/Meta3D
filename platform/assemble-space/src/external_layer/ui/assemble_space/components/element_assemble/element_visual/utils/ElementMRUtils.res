@@ -141,10 +141,6 @@ let _generateRect = (rect: FrontendUtils.ElementAssembleStoreType.rect): string 
     }`
 }
 
-let _generateSkin = (skin: FrontendUtils.ElementAssembleStoreType.skin): string => {
-  j` getSkin(uiState, "${skin.skinName}").skin `
-}
-
 // let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specific): string => {
 //   specific
 //   ->Meta3dCommonlib.ArraySt.reduceOneParam(
@@ -233,7 +229,6 @@ and _generateAllDrawUIControlAndHandleEventStr = (
                   ...${service.meta3d.generateUIControlCommonDataStr(.
           protocol.configLib,
           _generateRect(data.rect),
-          _generateSkin(data.skin),
         )},
         ...${_generateSpecific(data.specific)},
       ${_generateChildren(service, children)}
@@ -305,7 +300,7 @@ window.Contribute = {
             elementState: ${_generateElementState(elementStateFields)},
             reducers: ${_generateReducers(reducers)},
             elementFunc: (meta3dState, elementState) => {
-                let { getSkin, getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 
                 let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
 `

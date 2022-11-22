@@ -45,8 +45,6 @@ var execGetContributeFunc = AppManager$Meta3d.execGetContributeFunc;
 
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
 
-var getSkinProtocolData = UIControlProtocolConfig$Meta3d.getSkinProtocolData;
-
 var generateUIControlCommonDataStr = UIControlProtocolConfig$Meta3d.generateUIControlCommonDataStr;
 
 var getUIControlSpecificDataFields = UIControlProtocolConfig$Meta3d.getUIControlSpecificDataFields;
@@ -87,7 +85,6 @@ export {
   startApp ,
   execGetContributeFunc ,
   serializeUIControlProtocolConfigLib ,
-  getSkinProtocolData ,
   generateUIControlCommonDataStr ,
   getUIControlSpecificDataFields ,
   hasChildren ,

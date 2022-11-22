@@ -1,7 +1,7 @@
 // TODO unify .d.ts, .ts!
 
 import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
-import { supportedEventName, actionName, skinProtocolData, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
@@ -153,9 +153,7 @@ type versionRange = string
 
 export type serializeUIControlProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
 
-export type getSkinProtocolData = (configLib: protocolConfigLib) => skinProtocolData
-
-export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: string, skin: string) => string
+export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: string) => string
 
 export type hasChildren = (configLib: protocolConfigLib) => boolean
 

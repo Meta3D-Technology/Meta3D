@@ -270,7 +270,6 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-            ~skin=UIControlInspectorTool.buildSkin("skin1"),
             ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
             ~specific=[Obj.magic(10)],
             ~children=[
@@ -281,7 +280,6 @@ defineFeature(feature, test => {
                   (),
                 ),
                 ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-                ~skin=UIControlInspectorTool.buildSkin("skin2"),
                 ~event=[UIControlInspectorTool.buildEventData(#click, "action2")],
                 ~specific=[Obj.magic(10)],
                 ~children=[],
@@ -337,7 +335,7 @@ defineFeature(feature, test => {
       let uiControl2Contribute =
         selectedContributes.contents->Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn
 
-      let {rect, isDraw, skin, event, specific, children} = uiControl1.contents
+      let {rect, isDraw, event, specific, children} = uiControl1.contents
 
       let id1 = IdTool.generateId(id1RandomResult)
       let id2 = IdTool.generateId(id2RandomResult)
@@ -374,7 +372,6 @@ defineFeature(feature, test => {
               ~id=id1,
               ~x=rect.x,
               ~isDraw,
-              ~skin,
               ~event,
               ~specific,
               ~children=list{
@@ -382,7 +379,6 @@ defineFeature(feature, test => {
                   ~id=id2,
                   ~x=children[0].rect.x,
                   ~isDraw=children[0].isDraw,
-                  ~skin=children[0].skin,
                   ~event=children[0].event,
                   ~specific=children[0].specific,
                   ~children=list{},

@@ -86,6 +86,7 @@ defineFeature(feature, test => {
           ~errorWithExn=errorWithExnStub.contents->Obj.magic,
           (),
         ),
+        ApInspectorTool.buildApInspectorData(),
       )
     })
 
@@ -97,6 +98,7 @@ defineFeature(feature, test => {
   test(."else, start app", ({given, \"when", \"and", then}) => {
     let appBinaryFile = Obj.magic(10)
     let canvas = Obj.magic(22)
+    let isDebug = false
     let meta3dState = ref(Obj.magic(100))
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let getElementVisualAppStub = ref(Obj.magic(1))
@@ -165,6 +167,7 @@ defineFeature(feature, test => {
           ~querySelector=querySelectorStub.contents->Obj.magic,
           (),
         ),
+        ApInspectorTool.buildApInspectorData(~isDebug, ()),
       )
     })
 
@@ -179,7 +182,7 @@ defineFeature(feature, test => {
         Obj.magic(101),
         RunElementVisualTool.getVisualExtensionName(),
         {
-          "isDebug": true,
+          "isDebug": isDebug,
           "canvas": canvas,
         },
       )

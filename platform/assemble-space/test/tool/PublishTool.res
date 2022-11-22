@@ -14,6 +14,7 @@ let publish = (
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~canvasData=CanvasControllerTool.buildCanvasData(),
+  ~apInspectorData=ApInspectorTool.buildApInspectorData(),
   ~values={
     "appName": "n1",
   },
@@ -22,7 +23,7 @@ let publish = (
   Publish.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedExtensions, selectedContributes, canvasData),
+    (account, selectedExtensions, selectedContributes, canvasData, apInspectorData),
     values,
   )
 }

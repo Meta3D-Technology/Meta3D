@@ -57,7 +57,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                     13,
                                     true
                                   ], __x);
-                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, buttonStub.contents, undefined, undefined);
+                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, buttonStub.contents, undefined, undefined);
                               
                             }));
                       Curry._2(and, "prepare api", (function (param) {

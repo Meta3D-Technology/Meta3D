@@ -43,6 +43,18 @@ type canvasData = {
   // zIndex: int,
 }
 
+type isDebug = bool
+
+type clearColor = (float, float, float, float)
+
+type skinName = string
+
+type apInspectorData = {
+  isDebug: isDebug,
+  clearColor: clearColor,
+  skinName: option<skinName>,
+}
+
 type action =
   | Reset
   | SelectExtension(
@@ -62,6 +74,10 @@ type action =
   | SetInspectorCurrentContributeId(id)
   | SetContributeNewName(id, newName)
   | SetCanvasData(canvasData)
+  | ShowApInspector
+  | SetIsDebug(isDebug)
+  | SetClearColor(clearColor)
+  | SetSkinName(option<skinName>)
 
 type state = {
   selectedExtensions: selectedExtensions,
@@ -69,4 +85,6 @@ type state = {
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
   canvasData: canvasData,
+  isShowApInspector: bool,
+  apInspectorData: apInspectorData,
 }

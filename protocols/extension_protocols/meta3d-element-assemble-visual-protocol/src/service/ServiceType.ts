@@ -5,7 +5,7 @@ type initData = {
 	canvas: HTMLCanvasElement,
 }
 
-type updateData = { clearColor: [number, number, number, number], time: number }
+type updateData = { clearColor: [number, number, number, number], time: number, skinName: string }
 
 export type service = {
 	init: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,

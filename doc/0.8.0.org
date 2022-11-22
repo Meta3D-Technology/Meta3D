@@ -324,24 +324,66 @@ window->child1 window->button
 * DONE fix: SelectedUIControl add root node(or click other to clear)
 
 
-* TODO pass publish ap run test
+* DONE pass publish ap run test
 
 
 
 
 
-* TODO rewrite skin
+* DONE rewrite skin
+
+# Ap: set isDebug, clearColor, skin(skin name) to ap inspector
+
+# get them from ap inspector for visual, run
+# (get skin from skinName)
+
+# use editor get them and combined to configData
+
+# get style from first skin contribute
+# get style from selected skin contribute
+
+
+
+* DONE pass bdd test
+
+# current test
+
+
+
+
+# publish
+
+# ap inspector
+
+//ap inspector controller
+
+
+# element visual, run
+
+
+# meta3d-ui2
+
 
 
 * TODO pass run test
 
-test skin
+** TODO refactor: use InputNumber for rect, element state, specific
 
 
-test trigger action
 
 
-* TODO pass bdd test
+* TODO commit
+
+
+
+# * TODO feat: assemble space add config:isDebug
+
+
+# * TODO feat: element assemble inspector add clearColor
+
+
+# * TODO feat: start config add clearColor
+* TODO feat: start config remove isDebug
 
 
 
@@ -374,9 +416,11 @@ test trigger action
 
 
 
-* TODO refactor: use InputNumber for rect, element state, specific
 
 
+* TODO switch backend to cloudbase
+
+# buy another account?
 
 
 * TODO publish

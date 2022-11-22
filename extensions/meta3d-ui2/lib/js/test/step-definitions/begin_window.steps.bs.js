@@ -47,7 +47,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                             }));
                       Curry._2(and, "prepare imgui renderer service", (function (param) {
                               beginWindowStub.contents = Sinon.returns(13, Sinon.createEmptyStub(sandbox.contents));
-                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, beginWindowStub.contents, undefined, undefined, undefined, undefined, undefined);
+                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi2.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, beginWindowStub.contents, undefined, undefined, undefined, undefined, undefined);
                               
                             }));
                       Curry._2(and, "prepare api", (function (param) {

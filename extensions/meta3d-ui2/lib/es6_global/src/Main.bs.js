@@ -19,6 +19,12 @@ function getExtensionService(api, param) {
           dispatch: UIManager$Meta3dUi2.dispatch,
           getSkin: UIManager$Meta3dUi2.getSkinExn,
           getUIControl: UIManager$Meta3dUi2.getUIControlExn,
+          setStyle: (function (meta3dState, style) {
+              return UIManager$Meta3dUi2.setStyle(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], style);
+            }),
           beginWindow: (function (meta3dState, label) {
               return UIManager$Meta3dUi2.beginWindow(meta3dState, [
                           api,

@@ -24,7 +24,7 @@ let make = (
   })
 
   <Layout>
-    <Layout.Header> <Publish service account /> </Layout.Header>
+    <Layout.Header> <Publish service account /> <ApController service /> </Layout.Header>
     <Layout>
       // TODO extract Sider component
       <Layout.Sider>
@@ -44,7 +44,9 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content> <CanvasController service /> <Visual service /> </Layout.Content>
-      <Layout.Sider> <ExtensionInspector service /> <ContributeInspector service /> </Layout.Sider>
+      <Layout.Sider>
+        <ExtensionInspector service /> <ContributeInspector service /> <ApInspector service />
+      </Layout.Sider>
     </Layout>
   </Layout>
 }

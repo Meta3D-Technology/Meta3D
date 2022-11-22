@@ -103,10 +103,7 @@ type meta3dService = {
     Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
   ) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: Meta3dServiceCommonType. serializeUIControlProtocolConfigLib,
-  getSkinProtocolData: (
-    . Meta3d.LibUtils.lib,
-  ) => Meta3dType.UIControlProtocolConfigType.skinProtocolData,
-  generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string, string) => string,
+  generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string) => string,
   getUIControlSpecificDataFields: (
     . Meta3d.LibUtils.lib,
   ) => Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,

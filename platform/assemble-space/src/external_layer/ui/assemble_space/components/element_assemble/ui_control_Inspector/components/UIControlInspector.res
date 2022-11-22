@@ -94,12 +94,6 @@ module Method = {
 
   let getActions = SelectedContributesUtils.getActions
 
-  let getSkins = SelectedContributesUtils.getSkins
-
-  let setSkin = (dispatch, id, skinName: string) => {
-    dispatch(FrontendUtils.ElementAssembleStoreType.SetSkin(id, skinName))
-  }
-
   let setAction = (
     dispatch,
     id,
@@ -371,7 +365,7 @@ let make = (~service: service) => {
     selectedUIControlInspectorData,
   ) {
   | None => React.null
-  | Some({id, rect, isDraw, skin, event, specific}) =>
+  | Some({id, rect, isDraw, event, specific}) =>
     let {x, y, width, height} = rect
 
     <>
@@ -401,8 +395,6 @@ let make = (~service: service) => {
 
         let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
 
-        let skins = selectedContributes->Method.getSkins->Meta3dCommonlib.ListSt.toArray
-
         let uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(.
           protocolConfigStr,
         )
@@ -410,28 +402,6 @@ let make = (~service: service) => {
         <>
           <h1> {React.string(`Specific`)} </h1>
           {Method.buildSpecific(service, dispatch, id, specific, elementStateFields)}
-          <h1> {React.string(`Skin`)} </h1>
-          {SelectUtils.buildSelectWithoutEmpty(
-            Method.setSkin(dispatch, id),
-            skin.skinName,
-            SkinUtils.findSkins(
-              service,
-              exn => {
-                service.console.errorWithExn(. exn, None)
-                []
-              },
-              protocolConfigStr,
-              selectedContributes,
-            )->Meta3dCommonlib.ArraySt.map(({data}) => {
-              (
-                service.meta3d.execGetContributeFunc(.
-                  data.contributeFuncData,
-                  Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                  Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                )->Obj.magic
-              )["skinName"]
-            }),
-          )}
           <h1> {React.string(`Event`)} </h1>
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}

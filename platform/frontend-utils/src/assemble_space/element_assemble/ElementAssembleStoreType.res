@@ -51,10 +51,6 @@ type isDraw =
   | BoolForIsDraw(bool)
   | ElementStateFieldForIsDraw(string)
 
-type skinName = string
-
-type skin = {skinName: skinName}
-
 type specificDataValue =
   | SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
   | ElementStateFieldForSpecificDataValue(string)
@@ -73,7 +69,6 @@ type rec uiControlInspectorData = {
   specific: specific,
   isDraw: isDraw,
   event: event,
-  skin: skin,
   children: list<uiControlInspectorData>,
 }
 // and children = array<uiControlInspectorData>
@@ -121,7 +116,6 @@ type action =
       protocolConfigStr,
       name,
       Meta3d.ExtensionFileType.contributeFileData,
-      skin,
       parentId,
       specific,
     )
@@ -136,7 +130,6 @@ type action =
   | SetSpecificData(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
-  | SetSkin(id, skinName)
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)

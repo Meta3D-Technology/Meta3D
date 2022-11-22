@@ -19,7 +19,6 @@ let reducer = (state, action) => {
 }
 
 let initialState = {
-  isDebug: true,
   apAssembleState: ApAssembleStore.initialState,
   elementAssembleState: ElementAssembleStore.initialState,
 }

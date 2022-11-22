@@ -285,6 +285,12 @@ function isStateChange(state, elementName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.isStateChangeMap, elementName);
 }
 
+function setStyle(meta3dState, data, style) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.setStyle(style, imguiRendererState);
+              }), data);
+}
+
 function beginWindow(meta3dState, data, label) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return imguiRendererService.beginWindow(label, imguiRendererState);
@@ -356,6 +362,7 @@ export {
   getSkinExn ,
   getUIControlExn ,
   isStateChange ,
+  setStyle ,
   beginWindow ,
   endWindow ,
   setNextWindowRect ,

@@ -1,3 +1,4 @@
 type state = {
-    isDebug:bool
+  isDebug: bool,
+  style: string,
 }

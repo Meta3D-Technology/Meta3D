@@ -33,6 +33,7 @@ Feature: Publish
             Given prepare canvas data
             And select start extension e3
             And prepare config data
+            And prepare ap inspector data
             When publish app
             Then should mark begin upload
             And should generat app with correct extension data and contribute data and start config data

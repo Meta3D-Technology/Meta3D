@@ -22,7 +22,6 @@ module Method = {
       children,
       rect,
       isDraw,
-      skin,
       event,
       specific,
     }): FrontendUtils.BackendCloudbaseType.uiControl => {
@@ -40,7 +39,6 @@ module Method = {
         ).name,
         rect: rect,
         isDraw: isDraw,
-        skin: skin,
         event: event,
         specific: specific,
         children: _convertToUIControls(children, selectedUIControls),

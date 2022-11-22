@@ -7,7 +7,7 @@ import { state } from "meta3d-element-assemble-visual-protocol/src/state/StateTy
 import { state as uiState } from "meta3d-ui2-protocol/src/state/StateType"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
-// import { skin } from "meta3d-skin-default-protocol"
+import { skin } from "meta3d-skin-protocol"
 // import { inputData, outputData } from "meta3d-ui-control-button-protocol"
 import { skinContribute } from "meta3d-ui2-protocol/src/contribute/SkinContributeType"
 
@@ -68,10 +68,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return init(meta3dState, [api, meta3dImguiRendererExtensionName], false, isDebug, canvas)
 		},
-		update: (meta3dState: meta3dState, { clearColor, time }) => {
-			let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+		update: (meta3dState: meta3dState, { clearColor, time, skinName }) => {
+			let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-			clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
+			let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
+
+			meta3dState = setStyle(meta3dState, getSkin<skin>(uiState, skinName).skin.style)
+
+			meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
 			return render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time)
 		}

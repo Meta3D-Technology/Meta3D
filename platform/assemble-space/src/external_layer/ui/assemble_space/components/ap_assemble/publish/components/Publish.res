@@ -37,6 +37,7 @@ module Method = {
   let _buildConfigData = (
     values,
     startExtensionNeedConfigData: Meta3dType.StartExtensionProtocolConfigType.needConfigData,
+    apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
     startExtensionNeedConfigData->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, type_}) => {
       let value = (values->Obj.magic)[j`configData_${name}`->Obj.magic]
@@ -49,9 +50,13 @@ module Method = {
         | #string => value->Obj.magic
         },
       )
-    }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
-
-    // ->Obj.magic->Js.Json.stringify
+    }, Meta3dCommonlib.ImmutableHashMap.createEmpty()
+    ->Meta3dCommonlib.ImmutableHashMap.set("isDebug", apInspectorData.isDebug->Obj.magic)
+    ->Meta3dCommonlib.ImmutableHashMap.set("clearColor", apInspectorData.clearColor->Obj.magic)
+    ->Meta3dCommonlib.ImmutableHashMap.set(
+      "skinName",
+      apInspectorData.skinName->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+    ))
   }
 
   let onFinish = (
@@ -62,6 +67,7 @@ module Method = {
       selectedExtensions,
       selectedContributes,
       canvasData: FrontendUtils.ApAssembleStoreType.canvasData,
+      apInspectorData,
     ),
     values,
   ): Js.Promise.t<unit> => {
@@ -93,7 +99,11 @@ module Method = {
                       height: canvasData.height,
                     }: Meta3dType.Index.canvasData
                   ),
-                  _buildConfigData(values, startExtensionNeedConfigData)->Obj.magic,
+                  _buildConfigData(
+                    values,
+                    startExtensionNeedConfigData,
+                    apInspectorData,
+                  )->Obj.magic,
                 )->Meta3dCommonlib.NullableSt.return,
               )
 
@@ -134,18 +144,25 @@ module Method = {
   // }
 
   let useSelector = (
-    {selectedExtensions, selectedContributes, canvasData}: FrontendUtils.ApAssembleStoreType.state,
+    {
+      selectedExtensions,
+      selectedContributes,
+      canvasData,
+      apInspectorData,
+    }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (selectedExtensions, selectedContributes, canvasData)
+    (selectedExtensions, selectedContributes, canvasData, apInspectorData)
   }
 }
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
-  let (selectedExtensions, selectedContributes, canvasData) = ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    selectedExtensions,
+    selectedContributes,
+    canvasData,
+    apInspectorData,
+  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -186,7 +203,13 @@ let make = (~service: service, ~account: option<string>) => {
                     Method.onFinish(
                       service,
                       (setUploadProgress, setIsUploadBegin, setVisible),
-                      (account, selectedExtensions, selectedContributes, canvasData),
+                      (
+                        account,
+                        selectedExtensions,
+                        selectedContributes,
+                        canvasData,
+                        apInspectorData,
+                      ),
                       event->Obj.magic,
                     )->ignore
                   }, 5->Some)}

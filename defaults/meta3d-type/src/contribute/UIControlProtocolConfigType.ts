@@ -16,14 +16,7 @@ export type actionName = nullable<string>
 
 export type versionRange = string
 
-export type skinProtocolData = {
-  protocolName: string,
-  protocolVersion: versionRange,
-}
-
-export type getSkinProtocolData = () => skinProtocolData
-
-export type generateUIControlCommonDataStr = (rect: string, skin: string) => string
+export type generateUIControlCommonDataStr = (rect: string) => string
 
 
 type uiControlSpecicFieldType = "string"

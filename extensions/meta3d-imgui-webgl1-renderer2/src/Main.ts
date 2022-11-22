@@ -39,7 +39,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }
 
                 ImGui.CreateContext()
-                ImGui.StyleColorsDark()
+
                 // if(ImGui.isMobile.any())    {
                 //     ImGui_Impl.setCanvasScale(1)
                 //     ImGui_Impl.setFontScale(1.5)
@@ -73,6 +73,20 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui_Impl.NewFrame(time)
             ImGui.NewFrame()
 
+            switch (state.style) {
+                case "dark":
+                    ImGui.StyleColorsDark();
+                    break;
+                case "light":
+                    ImGui.StyleColorsLight();
+                    break;
+                case "classic":
+                    ImGui.StyleColorsClassic();
+                    break;
+                default:
+                    throw new Error("unknown style: " + state.style)
+            }
+
             return state
         },
         afterExec: (state) => {
@@ -92,6 +106,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
 
             return state
+        },
+        setStyle: (style, state) => {
+            return {
+                ...state,
+                style: style
+            }
         },
         beginWindow: (label, state) => {
             // ImGui.Begin(label + "##" + _generateUniqueId())
@@ -137,7 +157,8 @@ export let createExtensionState: createExtensionStateMeta3D<
     state
 > = () => {
     return {
-        isDebug: false
+        isDebug: false,
+        style: "classic"
     }
 }
 

@@ -23,7 +23,8 @@ module Method = {
     )
   }
 
-  let _buildURL = canvasData => j`RunElementVisual?canvasData=${canvasData}`
+  let _buildURL = (canvasData, apInspectorData) =>
+    j`RunElementVisual?canvasData=${canvasData}&&apInspectorData=${apInspectorData}`
 
   let _openLink = (service, url) => {
     service.tab.openUrl(. url)
@@ -32,7 +33,7 @@ module Method = {
   let run = (
     service,
     (
-      (canvasData, selectedExtensions, selectedContributes),
+      (canvasData, selectedExtensions, selectedContributes, apInspectorData),
       (runVisualExtension, elementContribute),
     ),
   ) => {
@@ -46,28 +47,30 @@ module Method = {
     )
     ->_saveToLocalStorage(service, _)
     ->Meta3dBsMost.Most.tap(_ => {
-      _openLink(service, _buildURL(canvasData->Obj.magic->Js.Json.stringify))
+      _openLink(
+        service,
+        _buildURL(
+          canvasData->Obj.magic->Js.Json.stringify,
+          apInspectorData->Obj.magic->Js.Json.stringify,
+        ),
+      )
     }, _)
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.catch(e => {
-                service.console.errorWithExn(.
-                  e->FrontendUtils.Error.promiseErrorToExn,
-                  None,
-                )->Obj.magic
+      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)
   }
 
   let useSelector = (
-    {isDebug, apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {canvasData, selectedExtensions, selectedContributes} = apAssembleState
+    let {canvasData, selectedExtensions, selectedContributes, apInspectorData} = apAssembleState
     let {runVisualExtension, elementContribute} = elementAssembleState
 
     // let (_, elementContribute) = elementContribute
 
     (
-      isDebug,
-      (canvasData, selectedExtensions, selectedContributes),
+      (canvasData, selectedExtensions, selectedContributes, apInspectorData),
       (runVisualExtension, elementContribute),
     )
   }
@@ -78,15 +81,15 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    isDebug,
-    (canvasData, selectedExtensions, selectedContributes),
+    (canvasData, selectedExtensions, selectedContributes, apInspectorData),
     (runVisualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
   service.react.useEffect1(. () => {
     switch runVisualExtension {
     | Some(_) => ()
-    | None => Method.getAndSetNewestVisualExtension(service, dispatch, isDebug)->ignore
+    | None =>
+      Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
     }
 
     None
@@ -100,7 +103,7 @@ let make = (~service: service) => {
           Method.run(
             service,
             (
-              (canvasData, selectedExtensions, selectedContributes),
+              (canvasData, selectedExtensions, selectedContributes, apInspectorData),
               (runVisualExtension, elementContribute),
             ),
           )->ignore
