@@ -398,7 +398,7 @@ window->child1 window->button
 remove unused
 
 
-* TODO fix: publish not found skin name
+* DONE fix: publish not found skin name
 
 
 

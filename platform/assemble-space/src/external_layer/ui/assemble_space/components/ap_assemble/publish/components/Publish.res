@@ -55,7 +55,7 @@ module Method = {
     ->Meta3dCommonlib.ImmutableHashMap.set("clearColor", apInspectorData.clearColor->Obj.magic)
     ->Meta3dCommonlib.ImmutableHashMap.set(
       "skinName",
-      apInspectorData.skinName->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+      apInspectorData.skinName->Meta3dCommonlib.OptionSt.toNullable->Obj.magic,
     ))
   }
 

@@ -136,9 +136,11 @@ let _loop = (
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-	let skin = getSkin<skin>(uiState, skinName)
-	if (!isNullable(skin)) {
-		meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+	if (!isNullable(skinName)) {
+		let skin = getSkin<skin>(uiState, skinName)
+		if (!isNullable(skin)) {
+			meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+		}
 	}
 
 

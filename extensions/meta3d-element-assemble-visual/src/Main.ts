@@ -75,10 +75,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
 
-			let skin = getSkin<skin>(uiState, skinName)
-			if (!isNullable(skin)) {
-				meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+			if (!isNullable(skinName)) {
+				let skin = getSkin<skin>(uiState, skinName)
+				if (!isNullable(skin)) {
+					meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+				}
 			}
+
 
 			meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
