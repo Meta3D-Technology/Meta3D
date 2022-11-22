@@ -10,6 +10,7 @@ import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIContro
 import { skin } from "meta3d-skin-protocol"
 // import { inputData, outputData } from "meta3d-ui-control-button-protocol"
 import { skinContribute } from "meta3d-ui2-protocol/src/contribute/SkinContributeType"
+import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 // type data = { isDebug: boolean, canvas: HTMLCanvasElement }
 
@@ -73,7 +74,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-			meta3dState = setStyle(meta3dState, getSkin<skin>(uiState, skinName).skin.style)
+
+			let skin = getSkin<skin>(uiState, skinName)
+			if (!isNullable(skin)) {
+				meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+			}
 
 			meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 

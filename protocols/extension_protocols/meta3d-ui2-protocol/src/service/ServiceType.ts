@@ -4,6 +4,7 @@ import { state } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
 import { style, label, pos, size, rect } from "meta3d-imgui-renderer2-protocol/src/service/ServiceType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type uiExtensionName = extensionName
 
@@ -33,7 +34,7 @@ export type service = {
     readonly getSkin: <skin> (
         state: state,
         skinName: skinName
-    ) => skinContribute<skin>;
+    ) => nullable<skinContribute<skin>>;
     readonly getUIControl: < inputData, outputData> (
         state: state,
         uiControlName: uiControlName

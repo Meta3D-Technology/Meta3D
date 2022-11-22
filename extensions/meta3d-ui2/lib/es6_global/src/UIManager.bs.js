@@ -273,8 +273,8 @@ function registerUIControl(state, uiControlContribute) {
         };
 }
 
-function getSkinExn(state, skinName) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.skinContributeMap, skinName);
+function getSkin(state, skinName) {
+  return ImmutableHashMap$Meta3dCommonlib.getNullable(state.skinContributeMap, skinName);
 }
 
 function getUIControlExn(state, uiControlName) {
@@ -359,7 +359,7 @@ export {
   registerElement ,
   registerSkin ,
   registerUIControl ,
-  getSkinExn ,
+  getSkin ,
   getUIControlExn ,
   isStateChange ,
   setStyle ,

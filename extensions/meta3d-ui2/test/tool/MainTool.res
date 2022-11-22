@@ -315,7 +315,7 @@ let registerSkin = (~skinName, ~skin, ~state=createState(), ()) => {
   UIManager.registerSkin(state, buildSkinContribute(skinName, skin))
 }
 
-let getSkinExn = UIManager.getSkinExn
+let getSkin= UIManager.getSkin
 
 let dispatch = UIManager.dispatch
 

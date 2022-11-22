@@ -48,7 +48,7 @@ type service = {
   getSkin: 'skin. (
     StateType.state,
     SkinContributeType.skinName,
-  ) => SkinContributeType.skinContribute<'skin>,
+  ) => Js.Nullable.t<SkinContributeType.skinContribute<'skin>>,
   getUIControl: 'inputData 'outputData. (
     StateType.state,
     UIControlContributeType.uiControlName,

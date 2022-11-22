@@ -17,7 +17,7 @@ function getExtensionService(api, param) {
           isStateChange: UIManager$Meta3dUi2.isStateChange,
           getElementState: UIManager$Meta3dUi2.getElementState,
           dispatch: UIManager$Meta3dUi2.dispatch,
-          getSkin: UIManager$Meta3dUi2.getSkinExn,
+          getSkin: UIManager$Meta3dUi2.getSkin,
           getUIControl: UIManager$Meta3dUi2.getUIControlExn,
           setStyle: (function (meta3dState, style) {
               return UIManager$Meta3dUi2.setStyle(meta3dState, [

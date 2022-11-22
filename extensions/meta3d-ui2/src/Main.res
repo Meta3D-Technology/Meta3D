@@ -9,7 +9,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     registerElement: UIManager.registerElement->Obj.magic,
     registerSkin: UIManager.registerSkin,
     registerUIControl: UIManager.registerUIControl,
-    getSkin: UIManager.getSkinExn->Obj.magic,
+    getSkin: UIManager.getSkin->Obj.magic,
     getUIControl: UIManager.getUIControlExn->Obj.magic,
     hide: UIManager.hide,
     show: UIManager.show,

@@ -209,7 +209,7 @@ var isStateChange = UIManager$Meta3dUi2.isStateChange;
 
 var getUIControlExn = UIManager$Meta3dUi2.getUIControlExn;
 
-var getSkinExn = UIManager$Meta3dUi2.getSkinExn;
+var getSkin = UIManager$Meta3dUi2.getSkin;
 
 var dispatch = UIManager$Meta3dUi2.dispatch;
 
@@ -232,7 +232,7 @@ exports.registerUIControl = registerUIControl;
 exports.getUIControlExn = getUIControlExn;
 exports.buildSkinContribute = buildSkinContribute;
 exports.registerSkin = registerSkin;
-exports.getSkinExn = getSkinExn;
+exports.getSkin = getSkin;
 exports.dispatch = dispatch;
 exports.getElementState = getElementState;
 /* Sinon Not a pure module */

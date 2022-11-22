@@ -209,7 +209,7 @@ var isStateChange = UIManager$Meta3dUi2.isStateChange;
 
 var getUIControlExn = UIManager$Meta3dUi2.getUIControlExn;
 
-var getSkinExn = UIManager$Meta3dUi2.getSkinExn;
+var getSkin = UIManager$Meta3dUi2.getSkin;
 
 var dispatch = UIManager$Meta3dUi2.dispatch;
 
@@ -233,7 +233,7 @@ export {
   getUIControlExn ,
   buildSkinContribute ,
   registerSkin ,
-  getSkinExn ,
+  getSkin ,
   dispatch ,
   getElementState ,
   

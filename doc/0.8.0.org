@@ -365,14 +365,20 @@ window->child1 window->button
 
 
 
-* TODO pass run test
+* DONE pass run test
 
-** TODO refactor: use InputNumber for rect, element state, specific
-
-
+** DONE fix bug
 
 
-* TODO commit
+
+
+
+
+* DONE commit
+
+* TODO root expand
+
+* TODO refactor: use InputNumber for rect, element state, specific
 
 
 

@@ -381,11 +381,8 @@ let registerUIControl = (
   }
 }
 
-let getSkinExn = (
-  state: Meta3dUi2Protocol.StateType.state,
-  skinName,
-): Meta3dUi2Protocol.SkinContributeType.skinContribute<Meta3dUi2Protocol.StateType.skin> => {
-  state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
+let getSkin = (state: Meta3dUi2Protocol.StateType.state, skinName) => {
+  state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getNullable(skinName)
 }
 
 let getUIControlExn = (state: Meta3dUi2Protocol.StateType.state, uiControlName) => {

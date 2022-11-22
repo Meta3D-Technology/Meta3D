@@ -13,6 +13,7 @@ import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIContro
 import { elementContribute } from "meta3d-ui2-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skin } from "meta3d-skin-protocol"
+import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
@@ -135,7 +136,11 @@ let _loop = (
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-	meta3dState = setStyle(meta3dState, getSkin<skin>(uiState, skinName).skin.style)
+	let skin = getSkin<skin>(uiState, skinName)
+	if (!isNullable(skin)) {
+		meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+	}
+
 
 	meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
 
