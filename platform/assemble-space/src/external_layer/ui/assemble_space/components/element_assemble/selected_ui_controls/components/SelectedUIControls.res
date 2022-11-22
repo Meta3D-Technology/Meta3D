@@ -3,10 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getRootKey = () => "root"
+  let getRootKey = () => "root"
 
   let _selectUIControl = (service, dispatch, id) => {
-    id === _getRootKey()
+    id === getRootKey()
       ? {
           dispatch(FrontendUtils.ElementAssembleStoreType.SelectRootUIControl)
         }
@@ -40,7 +40,7 @@ module Method = {
       (
         {
           title: "root",
-          key: _getRootKey(),
+          key: getRootKey(),
           children: allTreeData,
           icon: React.null,
         }: Tree.treeData
@@ -70,7 +70,7 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (expandedKeys, setExpandedKeys) = service.react.useState(_ => [])
+  let (expandedKeys, setExpandedKeys) = service.react.useState(_ => [Method.getRootKey()])
   let (selectedKeys, setSelectedKeys) = service.react.useState(_ => [])
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
 

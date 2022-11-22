@@ -376,7 +376,7 @@ window->child1 window->button
 
 * DONE commit
 
-* TODO root expand
+* DONE root expand
 
 * TODO refactor: use InputNumber for rect, element state, specific
 
