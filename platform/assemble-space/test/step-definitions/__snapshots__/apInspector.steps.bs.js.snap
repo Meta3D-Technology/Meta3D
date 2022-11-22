@@ -169,6 +169,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="0.1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -193,9 +195,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -257,6 +259,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -281,9 +285,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -345,6 +349,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -369,9 +375,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -433,6 +439,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -638,9 +646,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -702,6 +710,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -726,9 +736,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -790,6 +800,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -814,9 +826,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -878,6 +890,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -902,9 +916,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -966,6 +980,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -1172,9 +1188,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -1236,6 +1252,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -1260,9 +1278,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -1324,6 +1342,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -1348,9 +1368,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -1412,6 +1432,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"
@@ -1436,9 +1458,9 @@ Array [
       className="ant-input-number-handler-wrap"
     >
       <span
-        aria-disabled={false}
+        aria-disabled={true}
         aria-label="Increase Value"
-        className="ant-input-number-handler ant-input-number-handler-up"
+        className="ant-input-number-handler ant-input-number-handler-up ant-input-number-handler-up-disabled"
         onMouseDown={[Function]}
         onMouseLeave={[Function]}
         onMouseUp={[Function]}
@@ -1500,6 +1522,8 @@ Array [
       className="ant-input-number-input-wrap"
     >
       <input
+        aria-valuemax="1"
+        aria-valuemin="0"
         aria-valuenow="1"
         autoComplete="off"
         className="ant-input-number-input"

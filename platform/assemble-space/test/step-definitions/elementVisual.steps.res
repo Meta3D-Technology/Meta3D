@@ -272,8 +272,8 @@ defineFeature(feature, test => {
     \"and"("generate extension ui", () => {
       ui :=
         ExtensionTool.generateExtension(
-          ~name="meta3d-ui2",
-          ~protocolName="meta3d-ui2-protocol",
+          ~name="meta3d-ui",
+          ~protocolName="meta3d-ui-protocol",
           ~protocolVersion="^0.6.0",
           (),
         )->Meta3d.Main.loadExtension
@@ -294,7 +294,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select ui", () => {
-      let name = "meta3d-ui2"
+      let name = "meta3d-ui"
 
       selectedExtensions :=
         list{

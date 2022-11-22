@@ -221,7 +221,7 @@ defineFeature(feature, test => {
                 "meta3dUIExtensionName",
                 (
                   {
-                    protocolName: "meta3d-ui2-protocol",
+                    protocolName: "meta3d-ui-protocol",
                     protocolVersion: "^0.7.2",
                   }: Meta3d.ExtensionFileType.dependentData
                 ),

@@ -17,14 +17,43 @@ function getExtensionService(api, param) {
           isStateChange: UIManager$Meta3dUi.isStateChange,
           getElementState: UIManager$Meta3dUi.getElementState,
           dispatch: UIManager$Meta3dUi.dispatch,
-          getIOData: UIManager$Meta3dUi.getIOData,
-          getSkin: UIManager$Meta3dUi.getSkinExn,
+          getSkin: UIManager$Meta3dUi.getSkin,
           getUIControl: UIManager$Meta3dUi.getUIControlExn,
-          drawBox: (function (meta3dState, rect, backgroundColor) {
-              return UIManager$Meta3dUi.drawBox(meta3dState, [
+          setStyle: (function (meta3dState, style) {
+              return UIManager$Meta3dUi.setStyle(meta3dState, [
                           api,
                           meta3dImguiRendererExtensionName
-                        ], rect, backgroundColor);
+                        ], style);
+            }),
+          beginWindow: (function (meta3dState, label) {
+              return UIManager$Meta3dUi.beginWindow(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], label);
+            }),
+          endWindow: (function (meta3dState) {
+              return UIManager$Meta3dUi.endWindow(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ]);
+            }),
+          setNextWindowRect: (function (meta3dState, rect) {
+              return UIManager$Meta3dUi.setNextWindowRect(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], rect);
+            }),
+          button: (function (meta3dState, label, size) {
+              return UIManager$Meta3dUi.button(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], label, size);
+            }),
+          setCursorPos: (function (meta3dState, pos) {
+              return UIManager$Meta3dUi.setCursorPos(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], pos);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear
@@ -40,20 +69,7 @@ function createExtensionState(param) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          reducers: [],
-          ioData: {
-            pointUp: false,
-            pointDown: false,
-            pointTap: false,
-            pointPosition: [
-              0,
-              0
-            ],
-            pointMovementDelta: [
-              0,
-              0
-            ]
-          }
+          reducers: []
         };
 }
 

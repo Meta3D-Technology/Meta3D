@@ -71,7 +71,7 @@ defineFeature(feature, test => {
         ->getCallCount,
         clearStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg3(imguiRendererState1, meta3dState1, clearColor),
+        ->SinonTool.calledWithArg2(imguiRendererState1, clearColor),
       )->expect == (1, 1, true)
     })
   })

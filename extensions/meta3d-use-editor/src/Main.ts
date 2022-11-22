@@ -6,14 +6,16 @@ import { configData, service } from "meta3d-use-editor-protocol/src/service/Serv
 import { state } from "meta3d-use-editor-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
+// import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
+import { skin } from "meta3d-skin-protocol"
+import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-let _prepareButton = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
+let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
 
 
@@ -87,58 +89,70 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 
 let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap], [canvasData, { isDebug }]: configData) => {
 	let [dependentExtensionNameMap, _] = dependentMapData
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
+	// let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEventExtensionName, meta3dBindIOEventExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName } = dependentExtensionNameMap
 
-	meta3dState = _prepareButton(meta3dState, api, dependentMapData)
+	meta3dState = _prepareUI(meta3dState, api, dependentMapData)
 
 
 	let canvas = _createAndInsertCanvas(canvasData)
 
 	let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
+	// meta3dState = init(meta3dState, [api, meta3dImguiRendererExtensionName], isDebug, canvas)
+	return init(meta3dState, [api, meta3dImguiRendererExtensionName], true, isDebug, canvas)
 
 
 
-	let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+	// let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
 
-	meta3dState = setBody(meta3dState, meta3dEventExtensionName, document.body as HTMLBodyElement)
-	meta3dState = setBrowser(meta3dState, meta3dEventExtensionName, getBrowserChromeType())
-	meta3dState = setCanvas(meta3dState, meta3dEventExtensionName, canvas)
+	// meta3dState = setBody(meta3dState, meta3dEventExtensionName, document.body as HTMLBodyElement)
+	// meta3dState = setBrowser(meta3dState, meta3dEventExtensionName, getBrowserChromeType())
+	// meta3dState = setCanvas(meta3dState, meta3dEventExtensionName, canvas)
 
-	meta3dState = initEvent(meta3dState, meta3dEventExtensionName)
-
-
-
-
-	let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
-
-	bindIOEvent(meta3dState)
+	// meta3dState = initEvent(meta3dState, meta3dEventExtensionName)
 
 
 
-	return meta3dState
+
+	// let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+
+	// bindIOEvent(meta3dState)
+
+
+
+	// return meta3dState
 }
 
 let _loop = (
 	api: api, meta3dState: meta3dState,
-	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string]
+	time: number,
+	[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName]: [string, string, string],
+	configData: configData
 ) => {
-	// TODO move to configData?
-	let clearColor: [number, number, number, number] = [1.0, 1.0, 1.0, 1.0]
+	let [_, { skinName, clearColor }] = configData
 
-	let { getIOData, resetIOData } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
 
-	let { render, clear } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
 
-	clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
+	let skin = getSkin<skin>(uiState, skinName)
+	if (!isNullable(skin)) {
+		meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+	}
 
-	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
-		resetIOData()
+
+	meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
+
+	// render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
+	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time).then((meta3dState: meta3dState) => {
+		// resetIOData()
 
 		requestAnimationFrame(
-			() => {
-				_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
+			(time) => {
+				_loop(api, meta3dState,
+					time,
+					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName], configData)
 			}
 		)
 	})
@@ -154,9 +168,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 	return {
 		run: (meta3dState: meta3dState, configData) => {
-			meta3dState = _init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData)
+			_init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData).then((meta3dState: meta3dState) => {
+				_loop(api, meta3dState,
+					0,
+					[meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName], configData)
+			})
 
-			_loop(api, meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dBindIOEventExtensionName])
+
 		}
 	}
 }
@@ -170,11 +188,11 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			console.log("meta3d-use-editor onRegister")
+			// console.log("meta3d-use-editor onRegister")
 			return meta3dState
 		},
 		onStart: (meta3dState, service, configData) => {
-			console.log("meta3d-use-editor onStart")
+			// console.log("meta3d-use-editor onStart")
 
 			service.run(meta3dState, configData)
 		}

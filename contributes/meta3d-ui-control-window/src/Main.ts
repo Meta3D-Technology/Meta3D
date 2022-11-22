@@ -1,8 +1,8 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputData, outputData } from "meta3d-ui-control-window-protocol"
 import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-window-protocol/src/DependentMapType"
-import { service } from "meta3d-ui2-protocol/src/service/ServiceType"
-import { uiControlContribute } from "meta3d-ui2-protocol/src/contribute/UIControlContributeType"
+import { service } from "meta3d-ui-protocol/src/service/ServiceType"
+import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
     let { meta3dUIExtensionName } = dependentExtensionNameMap

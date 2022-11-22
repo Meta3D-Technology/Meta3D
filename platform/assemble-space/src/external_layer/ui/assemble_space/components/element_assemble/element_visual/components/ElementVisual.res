@@ -40,7 +40,7 @@ module Method = {
   let _updateElementContribute = (meta3dState, service, elementContribute) => {
     let meta3dUIExtensionName = ElementVisualUtils.getUIExtensionName()
 
-    let uiState: Meta3dUi2Protocol.StateType.state = service.meta3d.getExtensionState(.
+    let uiState: Meta3dUiProtocol.StateType.state = service.meta3d.getExtensionState(.
       meta3dState,
       meta3dUIExtensionName,
     )
@@ -51,7 +51,7 @@ module Method = {
       service.meta3d.getExtensionService(.
         meta3dState,
         meta3dUIExtensionName,
-      ): Meta3dUi2Protocol.ServiceType.service
+      ): Meta3dUiProtocol.ServiceType.service
     ).registerElement(
       uiState,
       // service.meta3d.getContribute(

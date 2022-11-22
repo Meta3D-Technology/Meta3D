@@ -361,7 +361,7 @@ window->child1 window->button
 # element visual, run
 
 
-# meta3d-ui2
+# meta3d-ui
 
 
 
@@ -393,11 +393,12 @@ window->child1 window->button
 
 
 
-* TODO refactor: remove 2, use 2 replace 1
+* DONE refactor: remove 2, use 2 replace 1
 
 remove unused
 
 
+* TODO fix: publish not found skin name
 
 
 

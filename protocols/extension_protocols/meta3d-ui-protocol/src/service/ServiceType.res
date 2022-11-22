@@ -4,6 +4,8 @@ type imguiRendererExtensionName = Meta3dType.Index.extensionName
 
 // type text = string
 
+type time = float
+
 type elementStateField
 
 type updateElementStateFieldFunc = elementStateField => elementStateField
@@ -26,7 +28,8 @@ type service = {
   render: (
     Meta3dType.Index.state,
     (uiExtensionName, imguiRendererExtensionName),
-    StateType.ioData,
+    // StateType.ioData,
+    time,
   ) => Js.Promise.t<Meta3dType.Index.state>,
   show: (StateType.state, ElementContributeType.elementName) => StateType.state,
   hide: (StateType.state, ElementContributeType.elementName) => StateType.state,
@@ -41,32 +44,44 @@ type service = {
     string,
     updateElementStateFieldFunc,
   ) => StateType.state,
-  getIOData: StateType.state => StateType.ioData,
+  // getIOData: StateType.state => StateType.ioData,
   getSkin: 'skin. (
     StateType.state,
     SkinContributeType.skinName,
-  ) => SkinContributeType.skinContribute<'skin>,
+  ) => Js.Nullable.t<SkinContributeType.skinContribute<'skin>>,
   getUIControl: 'inputData 'outputData. (
     StateType.state,
     UIControlContributeType.uiControlName,
   ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
-  drawBox: (
+  setStyle: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.style,
+  ) => Meta3dType.Index.state,
+  beginWindow: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => Meta3dType.Index.state,
+  endWindow: Meta3dType.Index.state => Meta3dType.Index.state,
+  setNextWindowRect: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.rect,
-    Meta3dImguiRendererProtocol.ServiceType.color,
   ) => Meta3dType.Index.state,
-  // drawText: (
-  //   Meta3dType.Index.state,
-  //   (Meta3dType.Index.api, Meta3dType.Index.extensionName),
-  //   rect,
-  //   text,
-  // ) => Meta3dType.Index.state,
+  button: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+    Meta3dImguiRendererProtocol.ServiceType.size,
+  ) => (Meta3dType.Index.state, bool),
+  setCursorPos: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.pos,
+  ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionName),
     bool,
+    bool,
     Dom.htmlCanvasElement,
-  ) => Meta3dType.Index.state,
+  ) => Js.Promise.t<Meta3dType.Index.state>,
   clear: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionName),

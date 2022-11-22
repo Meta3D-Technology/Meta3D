@@ -11,6 +11,7 @@ let init = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~isInitEvent=true,
   ~isDebug=false,
   ~meta3dState=Obj.magic(1),
   ~canvas=Obj.magic(10),
@@ -32,6 +33,7 @@ let init = (
       ),
       imguiRendererExtensionName,
     ),
+    isInitEvent,
     isDebug,
     canvas,
   )
@@ -68,22 +70,22 @@ let clear = (
   )
 }
 
-let buildIOData = (
-  ~pointUp=false,
-  ~pointDown=false,
-  ~pointTap=false,
-  ~pointPosition=(0, 0),
-  ~pointMovementDelta=(0, 0),
-  (),
-): Meta3dUiProtocol.StateType.ioData => {
-  {
-    pointUp: pointUp,
-    pointDown: pointDown,
-    pointTap: pointTap,
-    pointPosition: pointPosition,
-    pointMovementDelta: pointMovementDelta,
-  }
-}
+// let buildIOData = (
+//   ~pointUp=false,
+//   ~pointDown=false,
+//   ~pointTap=false,
+//   ~pointPosition=(0, 0),
+//   ~pointMovementDelta=(0, 0),
+//   (),
+// ): Meta3dUiProtocol.StateType.ioData => {
+//   {
+//     pointUp: pointUp,
+//     pointDown: pointDown,
+//     pointTap: pointTap,
+//     pointPosition: pointPosition,
+//     pointMovementDelta: pointMovementDelta,
+//   }
+// }
 
 let render = (
   ~sandbox,
@@ -97,7 +99,8 @@ let render = (
   ~uiExtensionName="uiExtensionName",
   ~imguiRendererExtensionName="imguiRendererExtensionName",
   ~meta3dState=Obj.magic(1),
-  ~ioData=buildIOData(),
+  ~time=0.,
+  // ~ioData=buildIOData(),
   (),
 ) => {
   UIManager.render(
@@ -114,7 +117,7 @@ let render = (
     ),
     meta3dState,
     (uiExtensionName, imguiRendererExtensionName),
-    ioData,
+    time,
   )
 }
 
@@ -148,9 +151,7 @@ let markStateChange = (~state, ~elementName) => {
   UIManager._markStateChange(state, elementName)
 }
 
-let isStateChange = (state: Meta3dUiProtocol.StateType.state, elementName) => {
-  state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName) == true
-}
+let isStateChange = UIManager.isStateChange
 
 let show = (~state, ~elementName) => {
   UIManager.show(state, elementName)
@@ -160,10 +161,9 @@ let hide = (~state, ~elementName) => {
   UIManager.hide(state, elementName)
 }
 
-let drawBox = (
+let beginWindow = (
   ~sandbox,
-  ~rect,
-  ~backgroundColor,
+  ~label,
   ~getExtensionService,
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -172,7 +172,67 @@ let drawBox = (
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
-  UIManager.drawBox(
+  UIManager.beginWindow(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+    label,
+  )
+}
+
+let endWindow = (
+  ~sandbox,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.endWindow(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+  )
+}
+
+let setNextWindowRect = (
+  ~sandbox,
+  ~rect,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.setNextWindowRect(
     meta3dState,
     (
       (
@@ -189,7 +249,39 @@ let drawBox = (
       imguiRendererExtensionName,
     ),
     rect,
-    backgroundColor,
+  )
+}
+
+let button = (
+  ~sandbox,
+  ~label,
+  ~size,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.button(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionName,
+    ),
+    label,
+    size,
   )
 }
 
@@ -223,7 +315,7 @@ let registerSkin = (~skinName, ~skin, ~state=createState(), ()) => {
   UIManager.registerSkin(state, buildSkinContribute(skinName, skin))
 }
 
-let getSkinExn = UIManager.getSkinExn
+let getSkin= UIManager.getSkin
 
 let dispatch = UIManager.dispatch
 

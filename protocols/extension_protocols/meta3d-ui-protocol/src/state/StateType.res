@@ -2,39 +2,11 @@ type elementState
 
 type dependentExtensionNameMap
 
-// type action
-
 type inputData
 
 type outputData
 
 type skin
-
-// type ioData = {
-//   isPointDown: bool,
-//   pointPosition: (int, int),
-// }
-
-// type imguiData = IMGUIDataType.imguiData
-
-type point<'a> = ('a, 'a)
-
-type ioData = {
-  pointUp: bool,
-  pointDown: bool,
-  pointTap: bool,
-  pointPosition: point<int>,
-  pointMovementDelta: point<int>,
-}
-
-// type drawData = {
-//   noTextureDrawData: DrawDataType.noTextureDrawData,
-// //   customTextureDrawData: DrawDataType.customTextureDrawData,
-// //   fontTextureDrawData: DrawDataType.fontTextureDrawData,
-// //   customTextureDrawDataMap: WonderCommonlib.MutableHashMapService.t<
-// //     DrawDataType.customTextureDrawData,
-// //   >,
-// }
 
 type state = {
   elementFuncMap: Meta3dCommonlibType.ImmutableHashMapType.t<
@@ -62,9 +34,5 @@ type state = {
     UIControlContributeType.uiControlName,
     UIControlContributeType.uiControlContribute<inputData, outputData>,
   >,
-  // reducers: array<ElementContributeType.reducerData<elementState, action>>,
-  // reducers: array<ElementContributeType.reducerData<elementState, action>>,
   reducers: array<ElementContributeType.reducerData>,
-  // drawData: drawData,
-  ioData: ioData,
 }

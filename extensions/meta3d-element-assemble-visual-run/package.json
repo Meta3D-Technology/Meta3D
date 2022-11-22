@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual-run",
-    "version": "0.7.3",
+    "version": "0.7.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
@@ -10,10 +10,10 @@
             "protocolName": "meta3d-event-protocol"
         },
         "meta3dUIExtensionName": {
-            "protocolName": "meta3d-ui2-protocol"
+            "protocolName": "meta3d-ui-protocol"
         },
         "meta3dImguiRendererExtensionName": {
-            "protocolName": "meta3d-imgui-renderer2-protocol"
+            "protocolName": "meta3d-imgui-renderer-protocol"
         }
     },
     "dependentContributeNameMap": {
@@ -33,9 +33,9 @@
         "meta3d-element-assemble-element-protocol": "^0.7.0",
         "meta3d-element-assemble-visual-run-protocol": "^0.7.2",
         "meta3d-event-protocol": "^0.7.0",
-        "meta3d-imgui-renderer2-protocol": "^0.7.4",
+        "meta3d-imgui-renderer-protocol": "^0.7.4",
         "meta3d-type": "^0.7.0",
-        "meta3d-ui2-protocol": "^0.7.3"
+        "meta3d-ui-protocol": "^0.7.3"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

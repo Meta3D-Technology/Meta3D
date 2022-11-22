@@ -1,1 +1,4 @@
-type state
+type state = {
+  isDebug: bool,
+  style: string,
+}

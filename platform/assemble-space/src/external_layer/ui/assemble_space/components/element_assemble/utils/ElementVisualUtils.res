@@ -97,9 +97,9 @@ let generateApp = (
 //   "meta3d_run_element_visual"
 // }
 
-let getUIExtensionName = () => "meta3d-ui2"
+let getUIExtensionName = () => "meta3d-ui"
 
-let getUIExtensionProtocolName = () => "meta3d-ui2-protocol"
+let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
 
 let generateElementContributeBinaryFile = (
   service: FrontendUtils.AssembleSpaceType.service,

@@ -46,7 +46,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                             }));
                       Curry._2(and, "prepare imgui renderer service", (function (param) {
                               clearStub.contents = Sinon.returns(13, Sinon.createEmptyStub(sandbox.contents));
-                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, clearStub.contents, undefined, undefined, undefined);
+                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, clearStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
                               
                             }));
                       Curry._2(and, "prepare api", (function (param) {
@@ -63,7 +63,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                     return Operators$Meta3dBsJestCucumber.$eq(expect([
                                                     Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionStateStub.contents)),
                                                     Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionServiceStub.contents)),
-                                                    SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, clearStub.contents), 12, 22, clearColor)
+                                                    SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, clearStub.contents), 12, clearColor)
                                                   ]), [
                                                 1,
                                                 1,

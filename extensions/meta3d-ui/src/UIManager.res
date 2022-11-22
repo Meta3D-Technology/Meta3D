@@ -160,9 +160,9 @@ let dispatch = (
   }, state)
 }
 
-let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
-  ioData
-}
+// let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
+//   ioData
+// }
 
 // let _setIOData = (state: Meta3dUiProtocol.StateType.state, ioData) => {
 //   {
@@ -172,13 +172,13 @@ let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
 //   }
 // }
 
-let _prepare = (state: Meta3dUiProtocol.StateType.state, ioData) => {
-  {
-    ...state,
-    ioData: ioData,
-    // drawData: createEmptyDrawData(),
-  }
-}
+// let _prepare = (state: Meta3dUiProtocol.StateType.state, ioData) => {
+//   {
+//     ...state,
+//     ioData: ioData,
+//     // drawData: createEmptyDrawData(),
+//   }
+// }
 
 let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
   let {isShowMap, isStateChangeMap, elementFuncMap, elementStateMap} = state
@@ -216,16 +216,71 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
   )
 }
 
+let _invokeIMGUIRenderFunc = (
+  meta3dState,
+  invokeFunc,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  let imguiRendererState = invokeFunc(imguiRendererState, imguiRendererService)
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
+
+  meta3dState
+}
+
+let _invokeIMGUIRenderFuncWithParam = (
+  meta3dState,
+  invokeFunc,
+  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionName,
+  )
+
+  let (imguiRendererState, param) = invokeFunc(imguiRendererState, imguiRendererService)
+
+  let meta3dState = api.setExtensionState(.
+    meta3dState,
+    imguiRendererExtensionName,
+    imguiRendererState,
+  )
+
+  (meta3dState, param)
+}
+
 let render = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
   (uiExtensionName, imguiRendererExtensionName),
-  ioData,
+  time,
 ) => {
-  let state: Meta3dUiProtocol.StateType.state =
-    api.getExtensionState(. meta3dState, uiExtensionName)->_prepare(ioData)
+  let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    uiExtensionName,
+  )
 
   let meta3dState = api.setExtensionState(. meta3dState, uiExtensionName, state)
+
+  let meta3dState = _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.beforeExec(. imguiRendererState, time),
+    (api, imguiRendererExtensionName),
+  )
 
   _exec(meta3dState, state)
   ->Meta3dCommonlib.PromiseSt.map(((meta3dState, needMarkStateNotChangeIds)) => {
@@ -239,16 +294,13 @@ let render = (
     api.setExtensionState(. meta3dState, uiExtensionName, state)
   })
   ->Meta3dCommonlib.PromiseSt.map(meta3dState => {
-    let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
-
-    let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    _invokeIMGUIRenderFunc(
       meta3dState,
-      imguiRendererExtensionName,
+      (imguiRendererState, imguiRendererService) => {
+        imguiRendererService.afterExec(. imguiRendererState)->imguiRendererService.render(. _)
+      },
+      (api, imguiRendererExtensionName),
     )
-
-    let imguiRendererState = imguiRendererService.render(. imguiRendererState, meta3dState)
-
-    api.setExtensionState(. meta3dState, imguiRendererExtensionName, imguiRendererState)
   })
 }
 
@@ -329,11 +381,8 @@ let registerUIControl = (
   }
 }
 
-let getSkinExn = (
-  state: Meta3dUiProtocol.StateType.state,
-  skinName,
-): Meta3dUiProtocol.SkinContributeType.skinContribute<Meta3dUiProtocol.StateType.skin> => {
-  state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(skinName)
+let getSkin = (state: Meta3dUiProtocol.StateType.state, skinName) => {
+  state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getNullable(skinName)
 }
 
 let getUIControlExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
@@ -353,146 +402,68 @@ let isStateChange = (
   state.isStateChangeMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 }
 
-// let _clearButton = %raw(`
-// function({x,y,width,height,text}) {
-//   let elementName = "_" + ( x+y ).toString()
-
-//   if(document.querySelector("#" + elementName) !== null){
-// document.querySelector("#" + elementName).remove()
-//   }
-// }
-// `)
-
-// let _renderButton = %raw(`
-// function( {x,y,width,height,text}) {
-//   let button = document.createElement("button")
-
-//   let elementName = "_" + ( x+y ).toString()
-
-//   button.elementName = elementName
-
-//   button.style.position = "absolute"
-//   button.style.left = x + "px"
-//   button.style.top = y + "px"
-//   button.style.width = width + "px"
-//   button.style.height = height + "px"
-//   button.innerHTML =text
-
-//   document.body.appendChild(
-//     button
-//   )
-// }
-// `)
-
-// let drawButton = (
-//   meta3dState,
-//   (api: Meta3dType.Index.api, uiExtensionName),
-//   data: Meta3dUiProtocol.ServiceType.drawButtonData,
-// ) => {
-//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
-//     meta3dState,
-//     uiExtensionName,
-//   )
-
-//   _clearButton(data)
-//   _renderButton(data)
-
-//   let {isPointDown, pointPosition} = _getIODataExn(state)
-//   let (pointPositionX, pointPositionY) = pointPosition
-
-//   let {x, y, width, height, text} = data
-
-//   let isClick =
-//     isPointDown &&
-//     pointPositionX >= x &&
-//     pointPositionX <= x + width &&
-//     pointPositionY >= y &&
-//     pointPositionY <= y + height
-//       ? {
-//           true
-//         }
-//       : {
-//           false
-//         }
-
-//   (meta3dState, isClick)
-// }
-
-let drawBox = (
-  meta3dState,
-  (api: Meta3dType.Index.api, imguiRendererExtensionName),
-  rect: Meta3dImguiRendererProtocol.ServiceType.rect,
-  backgroundColor: Meta3dImguiRendererProtocol.ServiceType.color,
-) => {
-  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
-
-  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+let setStyle = (meta3dState, data, style) => {
+  _invokeIMGUIRenderFunc(
     meta3dState,
-    imguiRendererExtensionName,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.setStyle(. style, imguiRendererState),
+    data,
   )
-
-  let imguiRendererState = imguiRendererService.drawBox(. rect, backgroundColor, imguiRendererState)
-
-  let meta3dState = api.setExtensionState(.
-    meta3dState,
-    imguiRendererExtensionName,
-    imguiRendererState,
-  )
-
-  meta3dState
 }
 
-// let _clearText = %raw(`
-// function({x,y}) {
-//   let elementName = "_text" + ( x+y ).toString()
+let beginWindow = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.beginWindow(. label, imguiRendererState),
+    data,
+  )
+}
 
-//   if(document.querySelector("#" + elementName) !== null){
-// document.querySelector("#" + elementName).remove()
-//   }
-// }
-// `)
+let endWindow = (meta3dState, data) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.endWindow(. imguiRendererState),
+    data,
+  )
+}
 
-// let _renderText = %raw(`
-// function(text, {x,y,width,height}) {
-//   let dom = document.createElement("span")
+let setNextWindowRect = (
+  meta3dState,
+  data,
+  rect: Meta3dImguiRendererProtocol.ServiceType.rect,
+) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.setNextWindowRect(. rect, imguiRendererState),
+    data,
+  )
+}
 
-//   let elementName = "_text" + ( x+y ).toString()
+let button = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label, size) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.button(. label, size, imguiRendererState),
+    data,
+  )
+}
 
-//   dom.elementName = elementName
-
-//   dom.style.position = "absolute"
-//   dom.style.left = x + "px"
-//   dom.style.top = y + "px"
-//   dom.style.width = width + "px"
-//   dom.style.height = height + "px"
-//   dom.innerHTML = text
-
-//   document.body.appendChild(
-//     dom
-//   )
-// }
-// `)
-
-// let drawText = (
-//   meta3dState,
-//   (api: Meta3dType.Index.api, uiExtensionName),
-//   rect: Meta3dUiProtocol.ServiceType.rect,
-//   text: Meta3dUiProtocol.ServiceType.text,
-// ) => {
-//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
-//     meta3dState,
-//     uiExtensionName,
-//   )
-
-//   _clearText(rect)
-//   _renderText(text, rect)
-
-//   meta3dState
-// }
+let setCursorPos = (meta3dState, data, pos) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.setCursorPos(. pos, imguiRendererState),
+    data,
+  )
+}
 
 let init = (
   meta3dState,
   (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  isInitEvent,
   isDebug,
   canvas,
 ) => {
@@ -503,31 +474,21 @@ let init = (
     imguiRendererExtensionName,
   )
 
-  let imguiRendererState = imguiRendererService.init(.
+  imguiRendererService.init(.
     imguiRendererState,
-    meta3dState,
+    isInitEvent,
     isDebug,
     canvas,
-  )
-
-  let meta3dState = api.setExtensionState(.
-    meta3dState,
-    imguiRendererExtensionName,
-    imguiRendererState,
-  )
-
-  meta3dState
+  )->Meta3dCommonlib.PromiseSt.map(imguiRendererState => {
+    api.setExtensionState(. meta3dState, imguiRendererExtensionName, imguiRendererState)
+  })
 }
 
-let clear = (meta3dState, (api: Meta3dType.Index.api, imguiRendererExtensionName), clearColor) => {
-  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
-
-  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+let clear = (meta3dState, data, clearColor) => {
+  _invokeIMGUIRenderFunc(
     meta3dState,
-    imguiRendererExtensionName,
+    (imguiRendererState, imguiRendererService) =>
+      imguiRendererService.clear(. imguiRendererState, clearColor),
+    data,
   )
-
-  imguiRendererService.clear(. imguiRendererState, meta3dState, clearColor)
-
-  meta3dState
 }

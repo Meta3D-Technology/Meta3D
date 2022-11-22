@@ -1,38 +1,30 @@
 {
     "name": "meta3d-imgui-webgl1-renderer",
-    "version": "0.7.0",
+    "version": "0.7.10",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-imgui-renderer-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dWebGL1ExtensionName": {
-            "protocolName": "meta3d-webgl1-protocol"
-        }
-    },
+    "dependentExtensionNameMap": {},
     "dependentContributeNameMap": {},
     "scripts": {
-        "watch": "rescript clean && rescript build -w",
-        "buildAll:ci": "rescript clean && rescript build",
-        "test:watch": "jest --watch --config jest.json",
+        "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish_local_env",
-        "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
+        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-imgui-renderer-protocol": "^0.7.0",
-        "meta3d-type": "^0.7.0",
-        "meta3d-webgl1-protocol": "^0.7.0",
-        "rescript": "^9.1.4"
+        "meta3d-imgui-renderer-protocol": "^0.7.4",
+        "meta3d-type": "^0.7.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.10.4",
-        "@babel/preset-env": "^7.10.4",
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
-        "gentype": "^3.48.0",
         "gulp": "^4.0.2",
         "meta3d-tool-publish": "^0.7.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1"
     }

@@ -16,8 +16,8 @@ defineFeature(feature, test => {
     })
 
     then("get skin should return it", () => {
-      MainTool.getSkinExn(state.contents, skinName)->expect ==
-        MainTool.buildSkinContribute(skinName, skin)
+      MainTool.getSkin(state.contents, skinName)->expect ==
+        MainTool.buildSkinContribute(skinName, skin)->Meta3dCommonlib.NullableSt.return
     })
   })
 })

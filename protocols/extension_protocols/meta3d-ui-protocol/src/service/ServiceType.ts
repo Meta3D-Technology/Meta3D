@@ -1,26 +1,16 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName } from "../contribute/ElementContributeType"
-import { state, ioData } from "../state/StateType"
+import { state } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { color, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type uiExtensionName = extensionName
 
 export type imguiRendererExtensionName = extensionName
 
-
-// type rect = {
-//     x: number,
-//     y: number,
-//     width: number,
-//     height: number,
-// }
-
-// type text = string
-
-// type color = string
-
+type time = number
 
 type elementStateField = any
 
@@ -44,7 +34,7 @@ export type service = {
     readonly getSkin: <skin> (
         state: state,
         skinName: skinName
-    ) => skinContribute<skin>;
+    ) => nullable<skinContribute<skin>>;
     readonly getUIControl: < inputData, outputData> (
         state: state,
         uiControlName: uiControlName
@@ -52,9 +42,10 @@ export type service = {
     readonly init: (
         meta3dState: meta3dState,
         [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        isInitEvent: boolean,
         isDebug: boolean,
         canvas: HTMLCanvasElement
-    ) => meta3dState;
+    ) => Promise<meta3dState>;
     readonly clear: (
         meta3dState: meta3dState,
         [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
@@ -63,7 +54,7 @@ export type service = {
     readonly render: (
         meta3dState: meta3dState,
         [uiExtensionName, imguiRendererExtensionName]: [uiExtensionName, imguiRendererExtensionName],
-        ioData: ioData
+        time: time
     ) => Promise<meta3dState>;
     readonly show: (
         state: state,
@@ -88,18 +79,28 @@ export type service = {
         role: string,
         updateElementStateFieldFunc: updateElementStateFieldFunc
     ) => state;
-    readonly getIOData: (
-        state: state,
-    ) => ioData;
-    readonly drawBox: (
+    readonly setStyle: (
         meta3dState: meta3dState,
-        rect: rect,
-        backgroundColor: color
-    ) => meta3dState
-    // readonly drawText: (
-    //     meta3dState: meta3dState,
-    //     [api, uiExtensionName]: [api, extensionName],
-    //     rect: rect,
-    //     text: text
-    // ) => meta3dState
+        style: style
+    ) => meta3dState;
+    readonly beginWindow: (
+        meta3dState: meta3dState,
+        label: label
+    ) => meta3dState;
+    readonly endWindow: (
+        meta3dState: meta3dState
+    ) => meta3dState;
+    readonly setNextWindowRect: (
+        meta3dState: meta3dState,
+        rect: rect
+    ) => meta3dState;
+    readonly button: (
+        meta3dState: meta3dState,
+        label: label,
+        size: size
+    ) => [meta3dState, boolean];
+    readonly setCursorPos: (
+        meta3dState: meta3dState,
+        pos: pos
+    ) => meta3dState;
 };

@@ -1,5 +1,3 @@
-type dependentExtensionNameMap = {meta3dWebGL1ExtensionName: string}
+type dependentExtensionNameMap = {.}
 
 type dependentContributeNameMap = {.}
-
-

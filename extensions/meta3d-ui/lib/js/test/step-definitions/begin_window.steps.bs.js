@@ -9,24 +9,27 @@ var MainTool$Meta3dUi = require("../tool/MainTool.bs.js");
 var SinonTool$Meta3dUi = require("../tool/SinonTool.bs.js");
 var Operators$Meta3dBsJestCucumber = require("meta3d-bs-jest-cucumber/lib/js/src/Operators.bs.js");
 var ImguiRendererServiceTool$Meta3dUi = require("../tool/ImguiRendererServiceTool.bs.js");
-var CucumberAsync$Meta3dBsJestCucumber = require("meta3d-bs-jest-cucumber/lib/js/src/CucumberAsync.bs.js");
 
-var feature = JestCucumber.loadFeature("./test/features/init.feature");
+var feature = JestCucumber.loadFeature("./test/features/begin_window.feature");
 
 JestCucumber.defineFeature(feature, (function (test) {
         var sandbox = {
           contents: 1
         };
-        return test("init imgui renderer", (function (param) {
+        return test("invoke imgui renderer's beginWindow", (function (param) {
                       var and = param.and;
+                      var given = param.given;
                       var newMeta3dState = {
                         contents: 12
                       };
                       var imguiRendererExtensionName = "imguiRendererExtensionName";
+                      var label = {
+                        contents: 1
+                      };
                       var imguiRendererService = {
                         contents: 1
                       };
-                      var initStub = {
+                      var beginWindowStub = {
                         contents: 1
                       };
                       var getExtensionServiceStub = {
@@ -38,16 +41,13 @@ JestCucumber.defineFeature(feature, (function (test) {
                       var setExtensionStateStub = {
                         contents: 1
                       };
-                      Curry._2(param.given, "prepare sandbox", (function (param) {
+                      Curry._2(given, "prepare sandbox", (function (param) {
                               sandbox.contents = Sinon$1.sandbox.create();
                               
                             }));
                       Curry._2(and, "prepare imgui renderer service", (function (param) {
-                              var __x = Sinon.createEmptyStub(sandbox.contents);
-                              initStub.contents = Sinon.returns(new Promise((function (resolve, reject) {
-                                          return resolve(13);
-                                        })), __x);
-                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, initStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+                              beginWindowStub.contents = Sinon.returns(13, Sinon.createEmptyStub(sandbox.contents));
+                              imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, beginWindowStub.contents, undefined, undefined, undefined, undefined, undefined);
                               
                             }));
                       Curry._2(and, "prepare api", (function (param) {
@@ -57,21 +57,19 @@ JestCucumber.defineFeature(feature, (function (test) {
                               setExtensionStateStub.contents = Sinon.returns(23, Sinon.createEmptyStub(sandbox.contents));
                               
                             }));
-                      Curry._2(and, "prepare canvas", (function (param) {
+                      Curry._2(given, "prepare data", (function (param) {
+                              label.contents = "Window";
                               
                             }));
-                      CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "init", (function (param) {
-                              var __x = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, false, true, 22, 5, undefined);
-                              return __x.then(function (meta3dState) {
-                                          newMeta3dState.contents = meta3dState;
-                                          return Promise.resolve(undefined);
-                                        });
+                      Curry._2(param.when, "beginWindow", (function (param) {
+                              newMeta3dState.contents = MainTool$Meta3dUi.beginWindow(sandbox, label.contents, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, 22, undefined);
+                              
                             }));
-                      Curry._2(param.then, "init imgui renderer", (function (param) {
+                      Curry._2(param.then, "invoke imgui renderer's beginWindow", (function (param) {
                               return Operators$Meta3dBsJestCucumber.$eq(expect([
                                               Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionStateStub.contents)),
                                               Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionServiceStub.contents)),
-                                              SinonTool$Meta3dUi.calledWithArg4(Sinon.getCall(0, initStub.contents), 12, false, true, 5)
+                                              SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, beginWindowStub.contents), label.contents, 12)
                                             ]), [
                                           1,
                                           1,

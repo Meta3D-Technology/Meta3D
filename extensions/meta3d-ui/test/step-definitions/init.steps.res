@@ -17,6 +17,7 @@ defineFeature(feature, test => {
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
     let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let isInitEvent = false
     let isDebug = true
     let canvas = Obj.magic(5)
     let imguiRendererService = ref(Obj.magic(1))
@@ -33,7 +34,12 @@ defineFeature(feature, test => {
 
     \"and"("prepare imgui renderer service", () => {
       initStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState2, _)
+        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+          Js.Promise.make((~resolve, ~reject) => {
+            resolve(. imguiRendererState2)
+          }),
+          _,
+        )
 
       imguiRendererService :=
         ImguiRendererServiceTool.buildService(~sandbox, ~init=initStub.contents->Obj.magic, ())
@@ -56,19 +62,23 @@ defineFeature(feature, test => {
       ()
     })
 
-    \"when"("init", () => {
-      newMeta3dState :=
-        MainTool.init(
-          ~sandbox,
-          ~imguiRendererExtensionName,
-          ~getExtensionService=getExtensionServiceStub.contents,
-          ~getExtensionState=getExtensionStateStub.contents,
-          ~setExtensionState=setExtensionStateStub.contents,
-          ~meta3dState=meta3dState1,
-          ~isDebug,
-          ~canvas,
-          (),
-        )
+    CucumberAsync.execStep(\"when", "init", () => {
+      MainTool.init(
+        ~sandbox,
+        ~imguiRendererExtensionName,
+        ~getExtensionService=getExtensionServiceStub.contents,
+        ~getExtensionState=getExtensionStateStub.contents,
+        ~setExtensionState=setExtensionStateStub.contents,
+        ~meta3dState=meta3dState1,
+        ~isInitEvent,
+        ~isDebug,
+        ~canvas,
+        (),
+      )->Js.Promise.then_(meta3dState => {
+        newMeta3dState := meta3dState
+
+        Js.Promise.resolve()
+      }, _)
     })
 
     then("init imgui renderer", () => {
@@ -81,7 +91,7 @@ defineFeature(feature, test => {
         ->getCallCount,
         initStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg4(imguiRendererState1, meta3dState1, isDebug, canvas),
+        ->SinonTool.calledWithArg4(imguiRendererState1, isInitEvent, isDebug, canvas),
       )->expect == (1, 1, true)
     })
 
