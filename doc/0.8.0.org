@@ -395,6 +395,8 @@ window->child1 window->button
 
 * TODO refactor: remove 2, use 2 replace 1
 
+remove unused
+
 
 
 
@@ -430,3 +432,10 @@ window->child1 window->button
 
 
 * TODO publish
+
+
+* TODO publish version video
+
+
+
+* TODO update website, platform
