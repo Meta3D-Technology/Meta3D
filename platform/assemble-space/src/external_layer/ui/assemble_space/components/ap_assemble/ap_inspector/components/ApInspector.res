@@ -25,15 +25,12 @@ module Method = {
 
   let buildClearColorField = (dispatch, setClearColorField, clearColor, clearColorField) => {
     <>
-      // TODO extract IntInput
-      <Input
+      <InputNumber
         value={clearColorField->FloatUtils.floatToString}
-        onChange={e => {
-          setClearColorField(
-            dispatch,
-            clearColor,
-            e->EventUtils.getEventTargetValue->FloatUtils.stringToFloat,
-          )
+        step="0.001"
+        stringMode=true
+        onChange={value => {
+          setClearColorField(dispatch, clearColor, value->FloatUtils.stringToFloat)
         }}
       />
     </>

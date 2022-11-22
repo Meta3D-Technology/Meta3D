@@ -6,6 +6,6 @@ let floatToString: float => string = %raw(`
 
 let stringToFloat: string => float = %raw(`
     function(str) {
-        return parseInt(str, 10)
+        return parseFloat(str)
 }
     `)

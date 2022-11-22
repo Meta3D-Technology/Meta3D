@@ -18,3 +18,4 @@ module Card = Antd__Card
 
 module Select = Antd__Select
 module Tree = Antd__Tree
+module InputNumber = Antd__InputNumber
