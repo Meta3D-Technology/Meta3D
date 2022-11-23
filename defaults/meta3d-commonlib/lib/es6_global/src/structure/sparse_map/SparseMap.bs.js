@@ -1,7 +1,6 @@
 
 
-import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/caml_option.js";
 import * as ArraySt$Meta3dCommonlib from "../ArraySt.bs.js";
 import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 
@@ -35,13 +34,13 @@ function has(map, key) {
 }
 
 function map(map$1, func) {
-  return Js_array.map((function (value) {
-                if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
-                  return ;
-                } else {
-                  return func(value);
-                }
-              }), map$1);
+  return map$1.map(function (value) {
+              if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
+                return ;
+              } else {
+                return func(value);
+              }
+            });
 }
 
 function reducei(map, func, initValue) {
@@ -55,7 +54,7 @@ function reducei(map, func, initValue) {
 }
 
 function getValues(map) {
-  return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, map);
+  return map.filter(NullUtils$Meta3dCommonlib.isInMap);
 }
 
 function getKeys(map) {
@@ -63,7 +62,7 @@ function getKeys(map) {
                 if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
                   return arr;
                 } else {
-                  Js_array.push(key, arr);
+                  arr.push(key);
                   return arr;
                 }
               }), []);
@@ -80,5 +79,6 @@ export {
   reducei ,
   getValues ,
   getKeys ,
+  
 }
 /* No side effect */

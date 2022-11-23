@@ -19,6 +19,5 @@ function remove(state) {
 export {
   _removeComponent ,
   remove ,
-  
 }
 /* No side effect */

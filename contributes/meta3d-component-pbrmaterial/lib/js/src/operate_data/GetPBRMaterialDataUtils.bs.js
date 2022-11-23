@@ -13,7 +13,7 @@ function getData(param, param$1, param$2) {
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.specular) {
     return OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecular(param$1, speculars);
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$2, "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$2 + "", "", "", ""));
   }
 }
 

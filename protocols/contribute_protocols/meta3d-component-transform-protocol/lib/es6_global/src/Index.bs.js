@@ -23,5 +23,6 @@ var dataName = {
 export {
   componentName ,
   dataName ,
+  
 }
 /* No side effect */

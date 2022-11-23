@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Sinon from "../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Sinon$1 from "sinon";
 import * as Meta3d_jest from "../../../../../../../node_modules/meta3d-bs-jest/lib/es6_global/src/meta3d_jest.bs.js";

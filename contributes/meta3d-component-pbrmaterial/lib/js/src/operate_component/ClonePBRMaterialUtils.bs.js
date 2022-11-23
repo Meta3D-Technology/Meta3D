@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var CloneUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CloneUtils.bs.js");
 var CreatePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./CreatePBRMaterialUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial = require("../utils/OperateTypeArrayPBRMaterialUtils.bs.js");
@@ -29,9 +30,9 @@ function _getData(state) {
 function _handleShareMaterial(state, sourceMaterial, countRange) {
   return [
           state,
-          countRange.map(function (param) {
-                return sourceMaterial;
-              })
+          Js_array.map((function (param) {
+                  return sourceMaterial;
+                }), countRange)
         ];
 }
 

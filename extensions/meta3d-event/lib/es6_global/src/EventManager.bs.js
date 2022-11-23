@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../node_modules/rescript/lib/es6/curry.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "./event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "./event_manager/service/dom/CanvasDoService.bs.js";

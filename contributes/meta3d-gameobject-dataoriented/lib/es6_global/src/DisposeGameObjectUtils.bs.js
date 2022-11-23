@@ -1,5 +1,6 @@
 
 
+import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
@@ -116,7 +117,7 @@ function _getSharableComponentDataMap(state, getComponentFunc, gameObjects) {
 }
 
 function _isNotNeedDispose(component, needDisposedIndexArray) {
-  return !needDisposedIndexArray.includes(component);
+  return !Js_array.includes(component, needDisposedIndexArray);
 }
 
 function disposeGameObjects(param) {
@@ -166,6 +167,5 @@ export {
   _getSharableComponentDataMap ,
   _isNotNeedDispose ,
   disposeGameObjects ,
-  
 }
 /* No side effect */

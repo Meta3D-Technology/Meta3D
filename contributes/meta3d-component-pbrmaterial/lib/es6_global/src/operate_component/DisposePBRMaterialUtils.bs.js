@@ -1,6 +1,7 @@
 
 
 import * as Caml_obj from "../../../../../../node_modules/rescript/lib/es6/caml_obj.js";
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as ArrayMapUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayMapUtils.bs.js";
@@ -16,7 +17,7 @@ function deferDisposeComponent(state) {
   var needDisposedPBRMaterials = state.needDisposedPBRMaterials;
   return function (param) {
     var gameObject = param[1];
-    var newrecord = Caml_obj.caml_obj_dup(state);
+    var newrecord = Caml_obj.obj_dup(state);
     newrecord.needDisposedPBRMaterials = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedPBRMaterials, param[0], gameObject);
     newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectPBRMaterialMap, gameObject);
     return newrecord;
@@ -59,7 +60,7 @@ function disposeComponents(state, materialDataMap) {
       ]);
   var disposedComponents = match[1];
   var state$1 = match[0];
-  state$1.disposedPBRMaterials = state$1.disposedPBRMaterials.concat(disposedComponents);
+  state$1.disposedPBRMaterials = Js_array.concat(disposedComponents, state$1.disposedPBRMaterials);
   state$1.needDisposedPBRMaterials = DisposeSharedComponentUtils$Meta3dCommonlib.removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
   return state$1;
 }
@@ -68,6 +69,5 @@ export {
   deferDisposeComponent ,
   _disposeData ,
   disposeComponents ,
-  
 }
 /* No side effect */

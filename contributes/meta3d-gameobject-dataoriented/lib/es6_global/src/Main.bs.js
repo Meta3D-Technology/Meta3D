@@ -33,6 +33,5 @@ function getContribute(api, param) {
 
 export {
   getContribute ,
-  
 }
 /* No side effect */

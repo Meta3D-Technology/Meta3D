@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
@@ -116,7 +117,7 @@ function _getSharableComponentDataMap(state, getComponentFunc, gameObjects) {
 }
 
 function _isNotNeedDispose(component, needDisposedIndexArray) {
-  return !needDisposedIndexArray.includes(component);
+  return !Js_array.includes(component, needDisposedIndexArray);
 }
 
 function disposeGameObjects(param) {

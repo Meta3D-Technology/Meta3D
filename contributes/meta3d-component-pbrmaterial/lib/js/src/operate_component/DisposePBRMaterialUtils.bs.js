@@ -1,6 +1,7 @@
 'use strict';
 
 var Caml_obj = require("rescript/lib/js/caml_obj.js");
+var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var ArrayMapUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/ArrayMapUtils.bs.js");
@@ -16,7 +17,7 @@ function deferDisposeComponent(state) {
   var needDisposedPBRMaterials = state.needDisposedPBRMaterials;
   return function (param) {
     var gameObject = param[1];
-    var newrecord = Caml_obj.caml_obj_dup(state);
+    var newrecord = Caml_obj.obj_dup(state);
     newrecord.needDisposedPBRMaterials = ArrayMapUtils$Meta3dCommonlib.addValue(needDisposedPBRMaterials, param[0], gameObject);
     newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectPBRMaterialMap, gameObject);
     return newrecord;
@@ -59,7 +60,7 @@ function disposeComponents(state, materialDataMap) {
       ]);
   var disposedComponents = match[1];
   var state$1 = match[0];
-  state$1.disposedPBRMaterials = state$1.disposedPBRMaterials.concat(disposedComponents);
+  state$1.disposedPBRMaterials = Js_array.concat(disposedComponents, state$1.disposedPBRMaterials);
   state$1.needDisposedPBRMaterials = DisposeSharedComponentUtils$Meta3dCommonlib.removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
   return state$1;
 }

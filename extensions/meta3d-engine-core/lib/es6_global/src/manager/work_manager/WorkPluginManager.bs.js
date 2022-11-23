@@ -1,8 +1,7 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Caml_array from "../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_array from "../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Log$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ListSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
 import * as Result$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
@@ -67,7 +66,7 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
   while(true) {
     var getExecFuncs = _getExecFuncs;
     if (ListSt$Meta3dCommonlib.length(getExecFuncs) === 0) {
-      return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("_getExecFunc", "can't get execFunc with pipelineName:" + pipelineName + ", jobName:" + jobName + "", "", "", "")));
+      return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("_getExecFunc", "can't get execFunc with pipelineName:" + pipelineName + ", jobName:" + jobName, "", "", "")));
     }
     if (getExecFuncs) {
       var result = Curry._2(getExecFuncs.hd, pipelineName, jobName);
@@ -489,7 +488,9 @@ function _insertElement(groups, insertAction, insertElementName, insertElement) 
               }));
 }
 
-var _mergeGroups = Js_array.concat;
+function _mergeGroups(groups, insertGroups) {
+  return insertGroups.concat(groups);
+}
 
 var _mergeGetElementFuncs = ListSt$Meta3dCommonlib.concat;
 
@@ -511,7 +512,7 @@ function _mergeToRootNode(tree) {
                                                   var init = parentNodeData.pipelineData;
                                                   parentNodeData.pipelineData = {
                                                     name: init.name,
-                                                    groups: Js_array.concat(_insertElement(parentNodeData.pipelineData.groups, insertAction, insertElementName, insertElement), pipelineData.groups),
+                                                    groups: pipelineData.groups.concat(_insertElement(parentNodeData.pipelineData.groups, insertAction, insertElementName, insertElement)),
                                                     first_group: init.first_group
                                                   };
                                                   parentNodeData.getExecFuncs = ListSt$Meta3dCommonlib.concat(parentNodeData.getExecFuncs, getExecFuncs);
@@ -566,5 +567,6 @@ export {
   init ,
   MergePipelineData ,
   runPipeline ,
+  
 }
 /* No side effect */

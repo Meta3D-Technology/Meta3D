@@ -1,9 +1,9 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Belt_Option from "../../../../../../node_modules/rescript/lib/es6/belt_Option.js";
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Js_null_undefined from "../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Curry from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/curry.js";
+import * as Belt_Option from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/belt_Option.js";
+import * as Caml_option from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/caml_option.js";
+import * as Js_null_undefined from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/js_null_undefined.js";
 import * as Result$Meta3dCommonlib from "./Result.bs.js";
 
 function unsafeGet(prim) {
@@ -90,5 +90,6 @@ export {
   forEachResult ,
   sequenceResultM ,
   open_ ,
+  
 }
 /* No side effect */

@@ -11,6 +11,5 @@ function has(param) {
 
 export {
   has ,
-  
 }
 /* No side effect */

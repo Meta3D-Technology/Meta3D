@@ -106,7 +106,7 @@ external fromEvent: (
   string,
   Dom.eventTarget,
   bool,
-) => Meta3dBsMostProtocol.StreamType.stream<Dom.event> = "iteratePromise"
+) => Meta3dBsMostProtocol.StreamType.stream<Dom.event> = "fromEvent"
 
 /* Concatenates two streams together */
 @bs.send.pipe(: Meta3dBsMostProtocol.StreamType.stream<'a>)

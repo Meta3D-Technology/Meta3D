@@ -14,6 +14,7 @@ var poContainer = {
 
 function setState(state) {
   poContainer.state = state;
+  
 }
 
 function unsafeGetState(param) {

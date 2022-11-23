@@ -11,9 +11,9 @@ import * as PluginDataManager$Meta3dEngineCore from "../../work_manager/plugin_d
 function registerComponent(state, componentContribute) {
   var componentContributeData = state.componentContributeData;
   return Result$Meta3dCommonlib.mapSuccess(ContractResult$Meta3dCommonlib.requireCheck((function (param) {
-                    ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
-                            return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
-                          }));
+                    return ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
+                                  return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
+                                }));
                   }), PluginDataManager$Meta3dEngineCore.getIsDebug(state)), (function (param) {
                 return {
                         allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
@@ -178,5 +178,6 @@ export {
   getComponentData ,
   getComponentGameObjects ,
   getComponentState ,
+  
 }
 /* No side effect */

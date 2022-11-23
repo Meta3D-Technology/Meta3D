@@ -8,6 +8,5 @@ function getAll(param) {
 
 export {
   getAll ,
-  
 }
 /* No side effect */

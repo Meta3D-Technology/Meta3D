@@ -8,6 +8,5 @@ function getAll(state) {
 
 export {
   getAll ,
-  
 }
 /* No side effect */

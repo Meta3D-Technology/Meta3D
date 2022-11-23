@@ -12,6 +12,5 @@ function getPBRMaterialCount(state) {
 export {
   getIsDebug ,
   getPBRMaterialCount ,
-  
 }
 /* No side effect */

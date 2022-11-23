@@ -28,7 +28,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setRoughness(index, defaultRoughness, roughnesses);
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setMetalness(index, defaultMetalness, metalnesses);
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setTransmission(index, defaultTransmission, transmissions);
-          return OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setIOR(index, defaultIOR, iors);
+          OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setIOR(index, defaultIOR, iors);
         }));
   return [
           diffuseColors,
@@ -142,6 +142,5 @@ export {
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,
-  
 }
 /* No side effect */

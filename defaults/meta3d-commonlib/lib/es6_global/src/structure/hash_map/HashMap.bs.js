@@ -1,10 +1,9 @@
 
 
-import * as Js_dict from "../../../../../../../node_modules/rescript/lib/es6/js_dict.js";
-import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Belt_Array from "../../../../../../../node_modules/rescript/lib/es6/belt_Array.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Js_dict from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/js_dict.js";
+import * as Belt_Array from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/belt_Array.js";
+import * as Caml_option from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/caml_option.js";
+import * as Js_null_undefined from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/js_null_undefined.js";
 import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 
 function createEmpty(hintSizeOpt, param) {
@@ -67,7 +66,7 @@ function copy(map) {
 
 function getValidValues(map) {
   var __x = Js_dict.values(map);
-  return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, __x);
+  return __x.filter(NullUtils$Meta3dCommonlib.isInMap);
 }
 
 export {
@@ -84,5 +83,6 @@ export {
   _reduceArray ,
   copy ,
   getValidValues ,
+  
 }
 /* No side effect */

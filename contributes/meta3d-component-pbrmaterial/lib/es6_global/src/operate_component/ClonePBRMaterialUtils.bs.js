@@ -1,5 +1,6 @@
 
 
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as CloneUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
 import * as CreatePBRMaterialUtils$Meta3dComponentPbrmaterial from "./CreatePBRMaterialUtils.bs.js";
 import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial from "../utils/OperateTypeArrayPBRMaterialUtils.bs.js";
@@ -29,9 +30,9 @@ function _getData(state) {
 function _handleShareMaterial(state, sourceMaterial, countRange) {
   return [
           state,
-          countRange.map(function (param) {
-                return sourceMaterial;
-              })
+          Js_array.map((function (param) {
+                  return sourceMaterial;
+                }), countRange)
         ];
 }
 
@@ -57,6 +58,5 @@ export {
   _handleShareMaterial ,
   _handleNotShareMaterial ,
   clone ,
-  
 }
 /* No side effect */
