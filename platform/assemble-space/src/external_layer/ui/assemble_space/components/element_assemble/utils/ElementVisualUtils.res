@@ -103,9 +103,9 @@ let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
 
 let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
 
-let _getUIProtocolVersion = () => "^0.7.5"
+let _getUIProtocolVersion = () => "^0.8.0"
 
-let _getEventProtocolVersion = () => "^0.7.0"
+let _getEventProtocolVersion = () => "^0.8.0"
 
 let generateElementContributeBinaryFile = (
   service: FrontendUtils.AssembleSpaceType.service,

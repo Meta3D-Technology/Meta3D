@@ -449,7 +449,7 @@ commit
 * TODO pass ci
 
 
-* TODO publish
+* DONE publish
 
 
 * TODO update website, platform

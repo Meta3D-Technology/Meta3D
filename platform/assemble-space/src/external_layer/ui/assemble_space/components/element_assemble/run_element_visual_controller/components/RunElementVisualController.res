@@ -100,13 +100,15 @@ let make = (~service: service) => {
     | (Some(runVisualExtension), Some(elementContribute)) =>
       <Button
         onClick={_ => {
-          Method.run(
-            service,
-            (
-              (canvasData, selectedExtensions, selectedContributes, apInspectorData),
-              (runVisualExtension, elementContribute),
-            ),
-          )->ignore
+          FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+            Method.run(
+              service,
+              (
+                (canvasData, selectedExtensions, selectedContributes, apInspectorData),
+                (runVisualExtension, elementContribute),
+              ),
+            )->ignore
+          }, 5->Some)
         }}>
         {React.string(`运行`)}
       </Button>
