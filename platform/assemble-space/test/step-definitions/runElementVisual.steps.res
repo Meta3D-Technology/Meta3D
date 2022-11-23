@@ -18,18 +18,17 @@ defineFeature(feature, test => {
   }
 
   test(."show the canvas", ({given, \"when", \"and", then}) => {
-    let useUrlStub = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    given("prepare canvas data in the url", () => {
-      useUrlStub :=
+    given("prepare canvas data", () => {
+      useSelectorStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          {
-            "search": j`canvasData=${CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
-              ->Obj.magic
-              ->Js.Json.stringify}`,
-          },
+          (
+            CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
+            ApInspectorTool.buildApInspectorData(),
+          ),
           _,
         )
     })
@@ -41,7 +40,7 @@ defineFeature(feature, test => {
     then("should show the canvas", () => {
       RunElementVisualTool.buildUI(
         ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useUrl=useUrlStub.contents->Obj.magic, ()),
+        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
         (),
       )
       ->ReactTestRenderer.create

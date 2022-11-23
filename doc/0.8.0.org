@@ -452,9 +452,9 @@ commit
 * DONE publish
 
 
-* TODO update website, platform
+* DONE update website, platform
 
 
-* TODO publish version video
+* DONE publish version video
 
 

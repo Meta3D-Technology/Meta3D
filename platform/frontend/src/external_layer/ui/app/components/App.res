@@ -19,7 +19,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     },
     tab: {
       openUrl: (. url) => {
-        FrontendUtils.Window.\"open"(url, "_blank").focus()
+        FrontendUtils.Window.\"open"(url, "_self").focus()
       },
     },
     storage: {

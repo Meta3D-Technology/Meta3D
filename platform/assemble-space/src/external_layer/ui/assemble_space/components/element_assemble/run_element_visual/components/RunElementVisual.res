@@ -78,16 +78,26 @@ module Method = {
       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)
   }
+
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
+    let {canvasData, apInspectorData} = apAssembleState
+
+    (canvasData, apInspectorData)
+  }
 }
 
 @react.component
 let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
   let url = service.url.useUrl()
 
-  let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
-    FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
-  let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
-    FrontendUtils.UrlSearchUtils.get(url.search, "apInspectorData")->Js.Json.parseExn->Obj.magic
+  let (canvasData, apInspectorData) = service.react.useSelector(Method.useSelector)
+
+  // let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
+  //   FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
+  // let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
+  //   FrontendUtils.UrlSearchUtils.get(url.search, "apInspectorData")->Js.Json.parseExn->Obj.magic
 
   React.useEffect1(() => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {

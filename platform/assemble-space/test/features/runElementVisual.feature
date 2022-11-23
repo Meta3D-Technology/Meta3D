@@ -7,7 +7,7 @@ Feature: RunElementVisual
         Given prepare
 
     Scenario: show the canvas
-        Given prepare canvas data in the url
+        Given prepare canvas data
         When render
         Then should show the canvas
 
