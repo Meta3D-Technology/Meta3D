@@ -198,9 +198,10 @@ let _generateIsDrawIfEnd = () => {
 
 let rec _generateChildren = (service, children: array<uiControl>): string => {
   children->Meta3dCommonlib.ArraySt.length === 0
-    ? {j`childrenFunc:(meta3dState) => meta3dState`}
+    ? {j`childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))`}
     : {
         let str = j`childrenFunc: (meta3dState) =>{
+                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
     `
         let str = str ++ _generateGetUIControlsStr(service, children)
 
@@ -208,7 +209,7 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
           str ++
           _generateAllDrawUIControlAndHandleEventStr(service, children) ++ {
             j`
-        return meta3dState
+        return new Promise((resolve, reject) => resolve(meta3dState))
         `
           }
 
@@ -219,29 +220,48 @@ and _generateAllDrawUIControlAndHandleEventStr = (
   service: FrontendUtils.AssembleSpaceType.service,
   uiControls,
 ) => {
-  uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. str, {name, protocol, data, children}) => {
-      str ++
-      _generateIsDrawIfBegin(data.isDraw) ++
-      j`
-                data = ${name}(meta3dState,
+  let (str, endCount) = uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. (str, endCount), {name, protocol, data, children}) => {
+      (
+        str ++
+        _generateIsDrawIfBegin(data.isDraw) ++
+        j`
+                 return ${name}(meta3dState,
                 {
                   ...${service.meta3d.generateUIControlCommonDataStr(.
-          protocol.configLib,
-          _generateRect(data.rect),
-        )},
+            protocol.configLib,
+            _generateRect(data.rect),
+          )},
         ...${_generateSpecific(data.specific)},
       ${_generateChildren(service, children)}
                 }
-                    )
+                    ).then(data =>{
                 meta3dState = data[0]
-    ` ++
-      _generateHandleUIControlEventStr(service, protocol.configLib, data.event) ++
-      _generateIsDrawIfEnd()
+` ++
+        _generateHandleUIControlEventStr(service, protocol.configLib, data.event),
+        endCount->succ,
+      )
     },
-    `
+    (
+      `
                 let data = null
   `,
+      0,
+    ),
+  )
+
+  let str =
+    str ++ `
+  return new Promise((resolve) => {
+                    resolve(meta3dState)
+                })
+                `
+
+  Meta3dCommonlib.ArraySt.range(0, endCount - 1)->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. str, _) => {
+      str ++ `})` ++ _generateIsDrawIfEnd()
+    },
+    str,
   )
 }
 
@@ -325,5 +345,6 @@ window.Contribute = {
 }
   `
 
+  Js.log(str)
   str
 }

@@ -19,7 +19,9 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
             meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
 
-            return button(meta3dState, label, [rect.width, rect.height])
+            return new Promise((resolve, reject) => {
+                resolve(button(meta3dState, label, [rect.width, rect.height]))
+            })
         }
     }
 }

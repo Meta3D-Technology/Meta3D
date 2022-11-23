@@ -122,7 +122,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: getUIExtensionProtocolName(),
-              protocolVersion: "^0.7.2",
+              protocolVersion: "^0.7.5",
             }: Meta3d.ExtensionFileType.dependentData
           ),
         )

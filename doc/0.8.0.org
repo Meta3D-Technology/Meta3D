@@ -432,16 +432,26 @@ remove unused
 # buy another account?
 
 
-* TODO fix bug: root->win->button, trigger bug
+* DONE fix bug: root->win->button, trigger bug
+
+# childrenFunc return promise
+# ->
+# ui control func return promise
 
 
+# run test
+
+# bdd test
+
+commit
 
 
 * TODO publish
 
 
+* TODO update website, platform
+
+
 * TODO publish version video
 
 
-
-* TODO update website, platform

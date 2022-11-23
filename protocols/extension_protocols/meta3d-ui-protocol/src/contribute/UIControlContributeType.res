@@ -1,10 +1,9 @@
 type uiControlName = string
 
 type uiControlFunc<'inputData, 'outputData> = (
-  .
-  Meta3dType.Index.state,
+  . Meta3dType.Index.state,
   'inputData,
-) => (Meta3dType.Index.state, 'outputData)
+) => Js.Promise.t<(Meta3dType.Index.state, 'outputData)>
 
 type uiControlContribute<'inputData, 'outputData> = {
   uiControlName: uiControlName,

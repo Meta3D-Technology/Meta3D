@@ -6,7 +6,7 @@ import type { state as Meta3dType_Index_state } from 'meta3d-type/src/Index';
 export type uiControlName = string;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type uiControlFunc<inputData, outputData> = (_1: Meta3dType_Index_state, _2: inputData) => [Meta3dType_Index_state, outputData];
+export type uiControlFunc<inputData, outputData> = (_1: Meta3dType_Index_state, _2: inputData) => Promise<[Meta3dType_Index_state, outputData]>;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type uiControlContribute<inputData, outputData> = { readonly uiControlName: uiControlName; readonly func: uiControlFunc<inputData, outputData> };

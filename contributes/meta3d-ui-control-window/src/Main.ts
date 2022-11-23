@@ -23,11 +23,11 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
             meta3dState = beginWindow(meta3dState, label)
 
-            meta3dState = childrenFunc(meta3dState)
+            return childrenFunc(meta3dState).then(meta3dState => {
+                meta3dState = endWindow(meta3dState)
 
-            meta3dState = endWindow(meta3dState)
-
-            return [meta3dState, null]
+                return [meta3dState, null]
+            })
         }
     }
 }
