@@ -1,6 +1,6 @@
 {
   "name": "@zhobo63/imgui-ts",
-  "version": "0.1.25",
+  "version": "0.8.0",
   "description": "JavaScript bindings for Dear ImGui using Emscripten and TypeScript, modulized with webpack from imgui-js",
   "main": "./src/index",
   "scripts": {

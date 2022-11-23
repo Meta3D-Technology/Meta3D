@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-pbrmaterial",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-component-pbrmaterial-protocol"
@@ -20,9 +20,9 @@
   },
   "keywords": [],
   "dependencies": {
-    "meta3d-component-pbrmaterial-common-protocol": "^0.7.0",
-    "meta3d-component-pbrmaterial-protocol": "^0.7.0",
-    "meta3d-type": "^0.7.0",
+    "meta3d-component-pbrmaterial-common-protocol": "^0.8.0",
+    "meta3d-component-pbrmaterial-protocol": "^0.8.0",
+    "meta3d-type": "^0.8.0",
     "rescript": "^9.1.4"
   },
   "devDependencies": {
@@ -35,7 +35,7 @@
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
     "jest": "^25.2.3",
-    "meta3d-tool-publish": "^0.7.0",
+    "meta3d-tool-publish": "^0.8.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }

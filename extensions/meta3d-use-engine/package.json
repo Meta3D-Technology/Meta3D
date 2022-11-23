@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-engine",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-use-engine-protocol"
@@ -46,24 +46,24 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.7.0",
-        "meta3d-component-basiccameraview-protocol": "^0.7.0",
-        "meta3d-component-geometry-protocol": "^0.7.0",
-        "meta3d-component-pbrmaterial-protocol": "^0.7.0",
-        "meta3d-component-perspectivecameraprojection-protocol": "^0.7.0",
-        "meta3d-component-transform-protocol": "^0.7.0",
-        "meta3d-engine-core-protocol": "^0.7.0",
-        "meta3d-gameobject-protocol": "^0.7.0",
-        "meta3d-type": "^0.7.0",
-        "meta3d-use-engine-protocol": "^0.7.0",
-        "meta3d-work-plugin-root-protocol": "^0.7.0",
-        "meta3d-work-plugin-webgpu-triangle-protocol": "^0.7.0"
+        "meta3d-bs-most-protocol": "^0.8.0",
+        "meta3d-component-basiccameraview-protocol": "^0.8.0",
+        "meta3d-component-geometry-protocol": "^0.8.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.8.0",
+        "meta3d-component-perspectivecameraprojection-protocol": "^0.8.0",
+        "meta3d-component-transform-protocol": "^0.8.0",
+        "meta3d-engine-core-protocol": "^0.8.0",
+        "meta3d-gameobject-protocol": "^0.8.0",
+        "meta3d-type": "^0.8.0",
+        "meta3d-use-engine-protocol": "^0.8.0",
+        "meta3d-work-plugin-root-protocol": "^0.8.0",
+        "meta3d-work-plugin-webgpu-triangle-protocol": "^0.8.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.7.0",
+        "meta3d-tool-publish": "^0.8.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
