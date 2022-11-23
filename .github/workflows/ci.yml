@@ -14,7 +14,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install
-      run: yarn install --force && yarn bootstrap
+      run: yarn install --force && yarn clean && yarn bootstrap
 
     - name: Unit Test
       run: yarn ci:test
