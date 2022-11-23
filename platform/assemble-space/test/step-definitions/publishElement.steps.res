@@ -222,7 +222,7 @@ defineFeature(feature, test => {
                 (
                   {
                     protocolName: "meta3d-ui-protocol",
-                    protocolVersion: "^0.7.2",
+                    protocolVersion: ElementVisualTool.getUIProtocolVersion(),
                   }: Meta3d.ExtensionFileType.dependentData
                 ),
               )
@@ -231,7 +231,7 @@ defineFeature(feature, test => {
                 (
                   {
                     protocolName: "meta3d-event-protocol",
-                    protocolVersion: "^0.7.0",
+                    protocolVersion: ElementVisualTool.getEventProtocolVersion(),
                   }: Meta3d.ExtensionFileType.dependentData
                 ),
               ),

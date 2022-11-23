@@ -345,6 +345,5 @@ window.Contribute = {
 }
   `
 
-  Js.log(str)
   str
 }

@@ -101,6 +101,12 @@ let getUIExtensionName = () => "meta3d-ui"
 
 let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
 
+let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
+
+let _getUIProtocolVersion = () => "^0.7.5"
+
+let _getEventProtocolVersion = () => "^0.7.0"
+
 let generateElementContributeBinaryFile = (
   service: FrontendUtils.AssembleSpaceType.service,
   name,
@@ -122,7 +128,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: getUIExtensionProtocolName(),
-              protocolVersion: "^0.7.5",
+              protocolVersion: _getUIProtocolVersion(),
             }: Meta3d.ExtensionFileType.dependentData
           ),
         )
@@ -131,7 +137,7 @@ let generateElementContributeBinaryFile = (
           (
             {
               protocolName: "meta3d-event-protocol",
-              protocolVersion: "^0.7.0",
+              protocolVersion: _getEventProtocolVersion(),
             }: Meta3d.ExtensionFileType.dependentData
           ),
         ),

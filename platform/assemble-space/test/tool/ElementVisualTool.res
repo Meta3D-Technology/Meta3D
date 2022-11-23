@@ -72,3 +72,7 @@ let buildEmptyContributeFileStr = () => {
 let buildElementMR = ElementMRUtils.buildElementMR
 
 let generateElementContributeFileStr = ElementMRUtils.generateElementContributeFileStr
+
+let getUIProtocolVersion = ElementVisualUtils._getUIProtocolVersion
+
+let getEventProtocolVersion = ElementVisualUtils._getEventProtocolVersion
