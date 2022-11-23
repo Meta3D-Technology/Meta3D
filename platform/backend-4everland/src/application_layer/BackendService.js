@@ -7,7 +7,7 @@ const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
 const BackendService = require("meta3d-backend-4everland");
 const Curry_1 = require("meta3d-fp/src/Curry");
-let init = () => {
+let init = (_env) => {
     let s3 = new client_s3_1.S3({
         endpoint: "https://endpoint.4everland.co",
         signatureVersion: "v4",

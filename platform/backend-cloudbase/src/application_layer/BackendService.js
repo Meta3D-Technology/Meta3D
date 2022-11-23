@@ -5,9 +5,9 @@ const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
 const BackendService = require("meta3d-backend-cloudbase");
-let init = () => {
+let init = (env) => {
     let app = js_sdk_1.default.init({
-        env: "meta3d-4g18u7z10c8427f9" // 此处填入您的环境ID
+        env: env // 此处填入您的环境ID
     });
     (0, Repo_1.setBackend)(app);
     return (0, most_1.fromPromise)(app.auth()

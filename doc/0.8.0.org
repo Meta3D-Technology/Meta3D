@@ -427,9 +427,14 @@ remove unused
 
 
 
-* TODO switch backend to cloudbase
+* DONE switch backend to cloudbase->pro account
 
 # buy another account?
+
+
+* TODO fix bug: root->win->button, trigger bug
+
+
 
 
 * TODO publish

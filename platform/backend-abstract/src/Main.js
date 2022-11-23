@@ -5,7 +5,7 @@ const ShopService = require("./application_layer/shop/ShopService");
 const PublishAppService = require("./application_layer/publish/PublishAppService");
 const GetElementDataService = require("./application_layer/assemble_space/element_assemble/GetElementDataService");
 const PublishElementContributeService = require("./application_layer/assemble_space/element_assemble/PublishElementContributeService");
-let init = (init) => init();
+let init = (init, env) => init(env);
 exports.init = init;
 let handleLogin = (handleLogin, account) => handleLogin(account);
 exports.handleLogin = handleLogin;

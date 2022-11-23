@@ -30,7 +30,6 @@ exports.publishContribute = exports.publishExtension = void 0;
 const fs_1 = __importDefault(require("fs"));
 const meta3d_1 = require("meta3d");
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
-const _4everlandService = __importStar(require("meta3d-tool-utils/src/publish/4everlandService"));
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 const Publish_1 = require("./Publish");
 // let _getFuncArrForExtension = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any, any] => {
@@ -73,7 +72,7 @@ function publishExtension(env, packageFilePath, distFilePath) {
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 meta3d_1.generateExtension,
-                CloudbaseService.init,
+                CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
                 CloudbaseService.getShopImplementAccountData,
@@ -87,23 +86,41 @@ function publishExtension(env, packageFilePath, distFilePath) {
             ];
             break;
         case "production":
+            // funcArr = [
+            // 	fs.readFileSync,
+            // 	console.log,
+            // 	console.error,
+            // 	buildReadJsonFunc(packageFilePath),
+            // 	generateExtension,
+            // 	_4everlandService.init,
+            // 	_4everlandService.hasAccount,
+            // 	_4everlandService.uploadFile,
+            // 	_4everlandService.getShopImplementAccountData,
+            // 	_4everlandService.updateShopImplementData,
+            // 	_4everlandService.getDataFromShopImplementAccountData,
+            // 	_4everlandService.isContain,
+            // 	_4everlandService.buildShopImplementAccountData,
+            // 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+            // 	_4everlandService.getFileID,
+            // 	_4everlandService.parseShopCollectionDataBodyForNodejs,
+            // ]
             funcArr = [
                 fs_1.default.readFileSync,
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 meta3d_1.generateExtension,
-                _4everlandService.init,
-                _4everlandService.hasAccount,
-                _4everlandService.uploadFile,
-                _4everlandService.getShopImplementAccountData,
-                _4everlandService.updateShopImplementData,
-                _4everlandService.getDataFromShopImplementAccountData,
-                _4everlandService.isContain,
-                _4everlandService.buildShopImplementAccountData,
-                _4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
-                _4everlandService.getFileID,
-                _4everlandService.parseShopCollectionDataBodyForNodejs,
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getShopImplementAccountData,
+                CloudbaseService.updateShopImplementData,
+                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.isContain,
+                CloudbaseService.buildShopImplementAccountData,
+                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseShopCollectionDataBodyForNodejs,
             ];
             break;
         default:
@@ -122,7 +139,7 @@ function publishContribute(env, packageFilePath, distFilePath) {
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 meta3d_1.generateContribute,
-                CloudbaseService.init,
+                CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
                 CloudbaseService.getShopImplementAccountData,
@@ -136,23 +153,41 @@ function publishContribute(env, packageFilePath, distFilePath) {
             ];
             break;
         case "production":
+            // funcArr = [
+            // 	fs.readFileSync,
+            // 	console.log,
+            // 	console.error,
+            // 	buildReadJsonFunc(packageFilePath),
+            // 	generateContribute,
+            // 	_4everlandService.init,
+            // 	_4everlandService.hasAccount,
+            // 	_4everlandService.uploadFile,
+            // 	_4everlandService.getShopImplementAccountData,
+            // 	_4everlandService.updateShopImplementData,
+            // 	_4everlandService.getDataFromShopImplementAccountData,
+            // 	_4everlandService.isContain,
+            // 	_4everlandService.buildShopImplementAccountData,
+            // 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+            // 	_4everlandService.getFileID,
+            // 	_4everlandService.parseShopCollectionDataBodyForNodejs
+            // ]
             funcArr = [
                 fs_1.default.readFileSync,
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 meta3d_1.generateContribute,
-                _4everlandService.init,
-                _4everlandService.hasAccount,
-                _4everlandService.uploadFile,
-                _4everlandService.getShopImplementAccountData,
-                _4everlandService.updateShopImplementData,
-                _4everlandService.getDataFromShopImplementAccountData,
-                _4everlandService.isContain,
-                _4everlandService.buildShopImplementAccountData,
-                _4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
-                _4everlandService.getFileID,
-                _4everlandService.parseShopCollectionDataBodyForNodejs
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getShopImplementAccountData,
+                CloudbaseService.updateShopImplementData,
+                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.isContain,
+                CloudbaseService.buildShopImplementAccountData,
+                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseShopCollectionDataBodyForNodejs,
             ];
             break;
         default:

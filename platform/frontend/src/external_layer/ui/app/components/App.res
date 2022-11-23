@@ -40,7 +40,11 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     },
     backend: switch env {
     | #local => BackendCloudbase.buildAssembleSpaceService()
-    | #production => Backend4everland.buildAssembleSpaceService()
+    | #production =>
+      // TODO restore 4everland
+      // Backend4everland.buildAssembleSpaceService()
+
+      BackendCloudbase.buildAssembleSpaceService()
     },
     meta3d: {
       getExtensionState: (. meta3dState, name) =>

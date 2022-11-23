@@ -73,10 +73,6 @@ export let handleLogin = (app: any, account: account) => {
                 addDataToShopImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
                     fileData: []
                 })
-            )).concat(fromPromise(
-                addDataToShopImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedskinassembledata", account, _buildEmptyCollectionData(), {
-                    fileData: []
-                })
             ))
         }
 

@@ -4,9 +4,9 @@ import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 import * as BackendService from "meta3d-backend-cloudbase";
 import { curry2, curry3_1, curry4, curry4_1 } from "meta3d-fp/src/Curry";
 
-export let init = () => {
+export let init = (env) => {
 	let app: any = tcb.init({
-		env: "meta3d-4g18u7z10c8427f9" // 此处填入您的环境ID
+		env: env// 此处填入您的环境ID
 	})
 
 	setBackend(app)

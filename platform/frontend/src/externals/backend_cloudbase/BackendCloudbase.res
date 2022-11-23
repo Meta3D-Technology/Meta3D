@@ -56,7 +56,7 @@ external getElementAssembleData: getElementAssembleData = ""
 
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
-    init: init,
+    init:  init,
     handleLogin: handleLogin,
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,

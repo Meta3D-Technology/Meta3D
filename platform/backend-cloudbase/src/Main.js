@@ -5,7 +5,7 @@ const Abtstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
-let init = () => Abtstract.init(BackendService_1.init);
+let init = (env) => Abtstract.init(BackendService_1.init, env);
 exports.init = init;
 let handleLogin = (account) => Abtstract.handleLogin(BackendService_1.handleLogin, account);
 exports.handleLogin = handleLogin;

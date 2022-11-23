@@ -22,7 +22,7 @@ import {
 
 // export let error = ErrorService.error
 
-export let init = () => Abtstract.init(initCloud)
+export let init = (env) => Abtstract.init(initCloud, env)
 
 export let handleLogin = (account) => Abtstract.handleLogin(handleLoginCloud, account)
 

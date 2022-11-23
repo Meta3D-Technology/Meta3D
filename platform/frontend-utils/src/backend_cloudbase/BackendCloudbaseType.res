@@ -10,7 +10,7 @@ type protocol = {
 
 type protocols = array<protocol>
 
-type init = unit => Meta3dBsMostProtocol.StreamType.stream<unit>
+type init = string => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type handleLogin = account => Meta3dBsMostProtocol.StreamType.stream<unit>
 

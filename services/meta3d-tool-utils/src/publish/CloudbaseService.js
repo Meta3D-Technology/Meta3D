@@ -26,11 +26,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.init = void 0;
+exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
-let init = () => {
+let initLocal = () => {
     let app = node_sdk_1.default.init({
         secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
         secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
@@ -38,7 +38,16 @@ let init = () => {
     });
     return (0, most_1.just)(app);
 };
-exports.init = init;
+exports.initLocal = initLocal;
+let initProduction = () => {
+    let app = node_sdk_1.default.init({
+        secretId: "AKIDdL16e8c2KOWccglputqiU8cO5fMYlhcM",
+        secretKey: "a1GJHNZntyxojls2Galt8FHSp5A1g8Ul",
+        env: "meta3d-production-6eaj4630a6b9e7" // 此处填入您的环境ID
+    });
+    return (0, most_1.just)(app);
+};
+exports.initProduction = initProduction;
 // let _getDatabase = (app: any) => {
 // 	return app.database()
 // }

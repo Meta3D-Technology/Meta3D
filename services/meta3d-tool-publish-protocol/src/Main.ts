@@ -14,7 +14,7 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
-				CloudbaseService.init,
+				CloudbaseService.initLocal,
 				CloudbaseService.hasAccount,
 				CloudbaseService.getShopProtocolCollection,
 				CloudbaseService.isContain,
@@ -24,19 +24,34 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 				CloudbaseService.parseShopCollectionDataBodyForNodejs
 			]
 		case "production":
+			// return [
+			// 	fs.readFileSync,
+			// 	console.log,
+			// 	console.error,
+			// 	buildReadJsonFunc(packageFilePath),
+			// 	_4everlandService.init,
+			// 	_4everlandService.hasAccount,
+			// 	_4everlandService.getShopProtocolCollection,
+			// 	_4everlandService.isContain,
+			// 	_4everlandService.addDataToShopProtocolCollection,
+			// 	_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+			// 	_4everlandService.getDataFromShopProtocolCollection,
+			// 	_4everlandService.parseShopCollectionDataBodyForNodejs
+			// ]
+
 			return [
 				fs.readFileSync,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
-				_4everlandService.init,
-				_4everlandService.hasAccount,
-				_4everlandService.getShopProtocolCollection,
-				_4everlandService.isContain,
-				_4everlandService.addDataToShopProtocolCollection,
-				_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-				_4everlandService.getDataFromShopProtocolCollection,
-				_4everlandService.parseShopCollectionDataBodyForNodejs
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.getShopProtocolCollection,
+				CloudbaseService.isContain,
+				CloudbaseService.addDataToShopProtocolCollection,
+				CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+				CloudbaseService.getDataFromShopProtocolCollection,
+				CloudbaseService.parseShopCollectionDataBodyForNodejs
 			]
 		default:
 			throw new Error("unknown env")

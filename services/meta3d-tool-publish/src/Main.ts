@@ -48,7 +48,7 @@ export function publishExtension(env: env, packageFilePath: string, distFilePath
 				console.error,
 				buildReadJsonFunc(packageFilePath),
 				generateExtension,
-				CloudbaseService.init,
+				CloudbaseService.initLocal,
 				CloudbaseService.hasAccount,
 				CloudbaseService.uploadFile,
 				CloudbaseService.getShopImplementAccountData,
@@ -62,23 +62,41 @@ export function publishExtension(env: env, packageFilePath: string, distFilePath
 			]
 			break;
 		case "production":
+			// funcArr = [
+			// 	fs.readFileSync,
+			// 	console.log,
+			// 	console.error,
+			// 	buildReadJsonFunc(packageFilePath),
+			// 	generateExtension,
+			// 	_4everlandService.init,
+			// 	_4everlandService.hasAccount,
+			// 	_4everlandService.uploadFile,
+			// 	_4everlandService.getShopImplementAccountData,
+			// 	_4everlandService.updateShopImplementData,
+			// 	_4everlandService.getDataFromShopImplementAccountData,
+			// 	_4everlandService.isContain,
+			// 	_4everlandService.buildShopImplementAccountData,
+			// 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+			// 	_4everlandService.getFileID,
+			// 	_4everlandService.parseShopCollectionDataBodyForNodejs,
+			// ]
 			funcArr = [
 				fs.readFileSync,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
 				generateExtension,
-				_4everlandService.init,
-				_4everlandService.hasAccount,
-				_4everlandService.uploadFile,
-				_4everlandService.getShopImplementAccountData,
-				_4everlandService.updateShopImplementData,
-				_4everlandService.getDataFromShopImplementAccountData,
-				_4everlandService.isContain,
-				_4everlandService.buildShopImplementAccountData,
-				_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
-				_4everlandService.getFileID,
-				_4everlandService.parseShopCollectionDataBodyForNodejs,
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getShopImplementAccountData,
+				CloudbaseService.updateShopImplementData,
+				CloudbaseService.getDataFromShopImplementAccountData,
+				CloudbaseService.isContain,
+				CloudbaseService.buildShopImplementAccountData,
+				CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseShopCollectionDataBodyForNodejs,
 			]
 			break;
 		default:
@@ -99,7 +117,7 @@ export function publishContribute(env: env, packageFilePath: string, distFilePat
 				console.error,
 				buildReadJsonFunc(packageFilePath),
 				generateContribute,
-				CloudbaseService.init,
+				CloudbaseService.initLocal,
 				CloudbaseService.hasAccount,
 				CloudbaseService.uploadFile,
 				CloudbaseService.getShopImplementAccountData,
@@ -113,23 +131,41 @@ export function publishContribute(env: env, packageFilePath: string, distFilePat
 			]
 			break;
 		case "production":
+			// funcArr = [
+			// 	fs.readFileSync,
+			// 	console.log,
+			// 	console.error,
+			// 	buildReadJsonFunc(packageFilePath),
+			// 	generateContribute,
+			// 	_4everlandService.init,
+			// 	_4everlandService.hasAccount,
+			// 	_4everlandService.uploadFile,
+			// 	_4everlandService.getShopImplementAccountData,
+			// 	_4everlandService.updateShopImplementData,
+			// 	_4everlandService.getDataFromShopImplementAccountData,
+			// 	_4everlandService.isContain,
+			// 	_4everlandService.buildShopImplementAccountData,
+			// 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+			// 	_4everlandService.getFileID,
+			// 	_4everlandService.parseShopCollectionDataBodyForNodejs
+			// ]
 			funcArr = [
 				fs.readFileSync,
 				console.log,
 				console.error,
 				buildReadJsonFunc(packageFilePath),
 				generateContribute,
-				_4everlandService.init,
-				_4everlandService.hasAccount,
-				_4everlandService.uploadFile,
-				_4everlandService.getShopImplementAccountData,
-				_4everlandService.updateShopImplementData,
-				_4everlandService.getDataFromShopImplementAccountData,
-				_4everlandService.isContain,
-				_4everlandService.buildShopImplementAccountData,
-				_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
-				_4everlandService.getFileID,
-				_4everlandService.parseShopCollectionDataBodyForNodejs
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getShopImplementAccountData,
+				CloudbaseService.updateShopImplementData,
+				CloudbaseService.getDataFromShopImplementAccountData,
+				CloudbaseService.isContain,
+				CloudbaseService.buildShopImplementAccountData,
+				CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseShopCollectionDataBodyForNodejs,
 			]
 			break;
 		default:

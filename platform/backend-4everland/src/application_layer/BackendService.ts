@@ -5,7 +5,7 @@ import { getBackend, setBackend } from "../domain_layer/repo/Repo";
 import * as BackendService from "meta3d-backend-4everland";
 import { curry2, curry3_1, curry4_1 } from "meta3d-fp/src/Curry";
 
-export let init = () => {
+export let init = (_env) => {
     let s3 = new S3({
         endpoint: "https://endpoint.4everland.co",
         signatureVersion: "v4",

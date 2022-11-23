@@ -30,7 +30,6 @@ exports.publishExtensionProtocolConfig = exports.publishContributeProtocolConfig
 const fs_1 = __importDefault(require("fs"));
 // import path from "path"
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
-const _4everlandService = __importStar(require("meta3d-tool-utils/src/publish/4everlandService"));
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 const Publish_1 = require("./Publish");
 let _getFuncArr = (env, packageFilePath) => {
@@ -41,7 +40,7 @@ let _getFuncArr = (env, packageFilePath) => {
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                CloudbaseService.init,
+                CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.getShopProtocolCollection,
                 CloudbaseService.isContain,
@@ -51,19 +50,33 @@ let _getFuncArr = (env, packageFilePath) => {
                 CloudbaseService.parseShopCollectionDataBodyForNodejs
             ];
         case "production":
+            // return [
+            // 	fs.readFileSync,
+            // 	console.log,
+            // 	console.error,
+            // 	buildReadJsonFunc(packageFilePath),
+            // 	_4everlandService.init,
+            // 	_4everlandService.hasAccount,
+            // 	_4everlandService.getShopProtocolCollection,
+            // 	_4everlandService.isContain,
+            // 	_4everlandService.addDataToShopProtocolCollection,
+            // 	_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+            // 	_4everlandService.getDataFromShopProtocolCollection,
+            // 	_4everlandService.parseShopCollectionDataBodyForNodejs
+            // ]
             return [
                 fs_1.default.readFileSync,
                 console.log,
                 console.error,
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                _4everlandService.init,
-                _4everlandService.hasAccount,
-                _4everlandService.getShopProtocolCollection,
-                _4everlandService.isContain,
-                _4everlandService.addDataToShopProtocolCollection,
-                _4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-                _4everlandService.getDataFromShopProtocolCollection,
-                _4everlandService.parseShopCollectionDataBodyForNodejs
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.getShopProtocolCollection,
+                CloudbaseService.isContain,
+                CloudbaseService.addDataToShopProtocolCollection,
+                CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+                CloudbaseService.getDataFromShopProtocolCollection,
+                CloudbaseService.parseShopCollectionDataBodyForNodejs
             ];
         default:
             throw new Error("unknown env");

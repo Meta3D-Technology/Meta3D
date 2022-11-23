@@ -21,7 +21,7 @@ import {
 } from "./application_layer/BackendService";
 
 
-export let init = () => Abtstract.init(initCloud)
+export let init = (_env) => Abtstract.init(initCloud, null)
 
 export let handleLogin = (account) => Abtstract.handleLogin(handleLoginCloud, account)
 

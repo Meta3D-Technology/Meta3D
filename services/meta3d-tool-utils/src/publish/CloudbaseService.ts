@@ -2,11 +2,21 @@ import tcb from "@cloudbase/node-sdk"
 import { fromPromise, just } from "most";
 import * as BackendService from "meta3d-backend-cloudbase";
 
-export let init = () => {
+export let initLocal = () => {
 	let app: any = tcb.init({
 		secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
 		secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
 		env: "meta3d-4g18u7z10c8427f9" // 此处填入您的环境ID
+	})
+
+	return just(app)
+}
+
+export let initProduction = () => {
+	let app: any = tcb.init({
+		secretId: "AKIDdL16e8c2KOWccglputqiU8cO5fMYlhcM",
+		secretKey: "a1GJHNZntyxojls2Galt8FHSp5A1g8Ul",
+		env: "meta3d-production-6eaj4630a6b9e7" // 此处填入您的环境ID
 	})
 
 	return just(app)

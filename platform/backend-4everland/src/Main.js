@@ -4,7 +4,7 @@ exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports
 const Abtstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
-let init = () => Abtstract.init(BackendService_1.init);
+let init = (_env) => Abtstract.init(BackendService_1.init, null);
 exports.init = init;
 let handleLogin = (account) => Abtstract.handleLogin(BackendService_1.handleLogin, account);
 exports.handleLogin = handleLogin;
