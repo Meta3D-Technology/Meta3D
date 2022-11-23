@@ -2,7 +2,7 @@
 
 
 function truncateFloatValue(value, digit) {
-  return Number(value.toFixed(digit));
+  return Number(value[""](digit));
 }
 
 exports.truncateFloatValue = truncateFloatValue;

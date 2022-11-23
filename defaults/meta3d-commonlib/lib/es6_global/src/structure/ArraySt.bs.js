@@ -1,6 +1,7 @@
 
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Belt_Array from "../../../../../../node_modules/rescript/lib/es6/belt_Array.js";
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
@@ -22,19 +23,19 @@ function length(prim) {
 }
 
 function find(arr, func) {
-  return Caml_option.undefined_to_opt(arr.find(Curry.__1(func)));
+  return Js_array.find(func, arr);
 }
 
 function includes(arr, value) {
-  return arr.includes(value);
+  return Js_array.includes(value, arr);
 }
 
 function includesByFunc(arr, func) {
-  return OptionSt$Meta3dCommonlib.isSome(find(arr, func));
+  return OptionSt$Meta3dCommonlib.isSome(Js_array.find(func, arr));
 }
 
 function sliceFrom(arr, index) {
-  return arr.slice(index);
+  return Js_array.sliceFrom(index, arr);
 }
 
 function copy(prim) {
@@ -58,8 +59,8 @@ function traverseResultM(arr, func) {
     return Result$Meta3dCommonlib.succeed([]);
   } else {
     return Result$Meta3dCommonlib.bind(Curry._1(func, _getExn(arr[0])), (function (h) {
-                  return Result$Meta3dCommonlib.bind(traverseResultM(arr.slice(1), func), (function (t) {
-                                return Result$Meta3dCommonlib.succeed([h].concat(t));
+                  return Result$Meta3dCommonlib.bind(traverseResultM(Js_array.sliceFrom(1, arr), func), (function (t) {
+                                return Result$Meta3dCommonlib.succeed(Js_array.concat(t, [h]));
                               }));
                 }));
   }
@@ -78,7 +79,7 @@ function traverseReducePromiseM(arr, func, param) {
     return Promise.resolve(param);
   } else {
     return PromiseSt$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
-                  return traverseReducePromiseM(arr.slice(1), func, h);
+                  return traverseReducePromiseM(Js_array.sliceFrom(1, arr), func, h);
                 }));
   }
 }
@@ -88,7 +89,7 @@ function traverseReduceResultM(arr, func, param) {
     return Result$Meta3dCommonlib.succeed(param);
   } else {
     return Result$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
-                  return traverseReduceResultM(arr.slice(1), func, h);
+                  return traverseReduceResultM(Js_array.sliceFrom(1, arr), func, h);
                 }));
   }
 }
@@ -105,25 +106,24 @@ function getFirst(arr) {
 }
 
 function push(arr, value) {
-  arr.push(value);
+  Js_array.push(value, arr);
   return arr;
 }
 
 function forEach(arr, func) {
-  arr.forEach(Curry.__1(func));
-  
+  Js_array.forEach(func, arr);
 }
 
 function map(arr, func) {
-  return arr.map(Curry.__1(func));
+  return Js_array.map(func, arr);
 }
 
 function mapi(arr, func) {
-  return arr.map(Curry.__2(func));
+  return Js_array.mapi(func, arr);
 }
 
 function filter(arr, func) {
-  return arr.filter(Curry.__1(func));
+  return Js_array.filter(func, arr);
 }
 
 function reverse(arr) {
@@ -133,19 +133,18 @@ function reverse(arr) {
 function deleteBySwap(arr, isDebug, index, lastIndex) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
           var len = arr.length;
-          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("lastIndex:" + lastIndex + " === arr.length:" + len, "not"), (function (param) {
-                        return Contract$Meta3dCommonlib.assertEqual(/* Int */0, arr.length - 1 | 0, lastIndex);
-                      }));
+          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("lastIndex:" + lastIndex + " === arr.length:" + len, "not"), (function (param) {
+                  return Contract$Meta3dCommonlib.assertEqual(/* Int */0, arr.length - 1 | 0, lastIndex);
+                }));
         }), isDebug);
   arr[index] = arr[lastIndex];
   arr.pop();
-  
 }
 
 function range(a, b) {
   var result = [];
   for(var i = a; i <= b; ++i){
-    result.push(i);
+    Js_array.push(i, result);
   }
   return result;
 }
@@ -160,7 +159,7 @@ function removeDuplicateItems(arr) {
     if (match !== undefined) {
       
     } else {
-      resultArr.push(item);
+      Js_array.push(item, resultArr);
       MutableHashMap$Meta3dCommonlib.set(map, key, item);
     }
   }
@@ -177,7 +176,7 @@ function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
     if (match !== undefined) {
       
     } else {
-      resultArr.push(item);
+      Js_array.push(item, resultArr);
       MutableHashMap$Meta3dCommonlib.set(map, key, item);
     }
   }
@@ -241,6 +240,5 @@ export {
   removeDuplicateItems ,
   removeDuplicateItemsWithBuildKeyFunc ,
   chunk ,
-  
 }
 /* No side effect */

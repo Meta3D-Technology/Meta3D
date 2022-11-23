@@ -12,6 +12,5 @@ function buildReducers(roleOpt, handlersOpt, param) {
 
 export {
   buildReducers ,
-  
 }
 /* No side effect */

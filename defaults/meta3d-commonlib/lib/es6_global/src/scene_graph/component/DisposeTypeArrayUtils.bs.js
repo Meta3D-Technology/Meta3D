@@ -17,6 +17,5 @@ function deleteAndResetFloat32(typeArr, sourceIndex, defaultValue) {
 export {
   deleteAndResetFloat32TypeArr ,
   deleteAndResetFloat32 ,
-  
 }
 /* No side effect */

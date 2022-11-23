@@ -283,6 +283,5 @@ export {
   setMoveSpeedY ,
   getRotateSpeed ,
   setRotateSpeed ,
-  
 }
 /* No side effect */

@@ -13,6 +13,5 @@ function getActions(configLib) {
 export {
   serializeLib ,
   getActions ,
-  
 }
 /* No side effect */

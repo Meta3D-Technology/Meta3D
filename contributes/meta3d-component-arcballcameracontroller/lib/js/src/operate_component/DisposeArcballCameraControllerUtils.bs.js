@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
@@ -73,7 +74,7 @@ function disposeComponents(state, cameraControllers) {
   var state_wheelSpeedMap = state.wheelSpeedMap;
   var state_gameObjectArcballCameraControllerMap = state.gameObjectArcballCameraControllerMap;
   var state_needDisposedArcballCameraControllers = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraControllers);
-  var state_disposedArcballCameraControllers = state.disposedArcballCameraControllers.concat(cameraControllers);
+  var state_disposedArcballCameraControllers = Js_array.concat(cameraControllers, state.disposedArcballCameraControllers);
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,

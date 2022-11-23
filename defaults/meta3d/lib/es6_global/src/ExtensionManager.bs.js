@@ -52,12 +52,12 @@ function _invokeAsyncLifeOtherHander(state, extensionName, data, handlerNullable
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
                     return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName), data);
                   })), new Promise((function (resolve, reject) {
-                    return resolve(state);
+                    resolve(state);
                   })));
 }
 
 function startExtension(state, extensionName, configData) {
-  return _invokeLifeOnStartHander(state, extensionName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
+  _invokeLifeOnStartHander(state, extensionName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
 }
 
 function updateExtension(state, extensionName, data) {
@@ -160,6 +160,5 @@ export {
   registerExtension ,
   registerContribute ,
   buildAPI ,
-  
 }
 /* No side effect */

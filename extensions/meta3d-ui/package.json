@@ -25,7 +25,7 @@
         "meta3d-imgui-renderer-protocol": "^0.8.0",
         "meta3d-type": "^0.8.0",
         "meta3d-ui-protocol": "^0.8.0",
-        "rescript": "^9.1.4"
+        "rescript": "^10.0.1"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",

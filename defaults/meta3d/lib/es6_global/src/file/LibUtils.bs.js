@@ -14,6 +14,5 @@ var getFuncFromLib = (function(lib, funcName){
 export {
   serializeLib ,
   getFuncFromLib ,
-  
 }
 /* No side effect */

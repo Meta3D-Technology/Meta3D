@@ -186,10 +186,10 @@ function buildPerspective(resultFloat32Arr, isDebug, param) {
   var near = param[2];
   var fovy = param[0];
   Contract$Meta3dCommonlib.requireCheck((function (param) {
-          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("frustum not be null", "be"), (function (param) {
-                        var fovy$1 = Math.PI * fovy / 180 / 2;
-                        return Contract$Meta3dCommonlib.Operators.$less$great$eq$dot(Math.sin(fovy$1), 0);
-                      }));
+          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("frustum not be null", "be"), (function (param) {
+                  var fovy$1 = Math.PI * fovy / 180 / 2;
+                  return Contract$Meta3dCommonlib.Operators.$less$great$eq$dot(Math.sin(fovy$1), 0);
+                }));
         }), isDebug);
   var fovy$1 = Math.PI * fovy / 180 / 2;
   var s = Math.sin(fovy$1);
@@ -376,6 +376,5 @@ export {
   invertTo3x3 ,
   getEulerAngles ,
   setLookAt ,
-  
 }
 /* No side effect */

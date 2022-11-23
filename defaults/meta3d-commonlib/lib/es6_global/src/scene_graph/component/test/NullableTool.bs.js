@@ -16,6 +16,5 @@ function map(val, func) {
 export {
   getExn ,
   map ,
-  
 }
 /* No side effect */

@@ -76,6 +76,5 @@ export {
   getFirstArg ,
   getArg ,
   getAllArgsJson ,
-  
 }
 /* Sinon Not a pure module */

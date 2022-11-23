@@ -3,10 +3,10 @@ type version = string
 type versionRange = string
 
 @module("semver")
-external satisfies: (version, versionRange) => bool = ""
+external satisfies: (version, versionRange) => bool = "satisfies"
 
 @module("semver")
-external minVersion: versionRange => version = ""
+external minVersion: versionRange => version = "minVersion"
 
 @module("semver")
-external gt: (version, version) => bool = ""
+external gt: (version, version) => bool = "gt"

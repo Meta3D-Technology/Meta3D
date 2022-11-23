@@ -132,6 +132,5 @@ export {
   dot ,
   normalize ,
   transformQuat ,
-  
 }
 /* No side effect */

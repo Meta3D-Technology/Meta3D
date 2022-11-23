@@ -41,7 +41,7 @@ function setData(state, cameraController, dataName, dataValue) {
     } else if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.dirty) {
       return DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.mark(state, cameraController, dataValue);
     } else {
-      return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName, "", "", ""));
+      return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", ""));
     }
   }
   var state$1 = OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.setThetaMargin(state, cameraController, dataValue);

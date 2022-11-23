@@ -47,6 +47,5 @@ export {
   collectResult ,
   getFirst ,
   getLast ,
-  
 }
 /* No side effect */

@@ -13,6 +13,5 @@ function getNeedConfigData(configLib) {
 export {
   serializeLib ,
   getNeedConfigData ,
-  
 }
 /* No side effect */

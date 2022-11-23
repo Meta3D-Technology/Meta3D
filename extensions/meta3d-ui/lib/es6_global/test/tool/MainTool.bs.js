@@ -236,6 +236,5 @@ export {
   getSkin ,
   dispatch ,
   getElementState ,
-  
 }
 /* Sinon Not a pure module */

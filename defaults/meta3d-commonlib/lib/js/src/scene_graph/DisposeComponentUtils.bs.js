@@ -1,9 +1,10 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("../structure/ArraySt.bs.js");
 
 function removeFromArray(arr, isDebug, target) {
-  var index = arr.indexOf(target);
+  var index = Js_array.indexOf(target, arr);
   if (index === -1) {
     return arr;
   }
@@ -13,9 +14,9 @@ function removeFromArray(arr, isDebug, target) {
 }
 
 function batchRemoveFromArray(arr, targets) {
-  return arr.filter(function (value) {
-              return !targets.includes(value);
-            });
+  return Js_array.filter((function (value) {
+                return !Js_array.includes(value, targets);
+              }), arr);
 }
 
 exports.removeFromArray = removeFromArray;

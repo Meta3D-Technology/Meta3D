@@ -30,9 +30,9 @@ function mark(state, cameraController, isDirty) {
 
 function isDirty(state, cameraController) {
   return MutableSparseMap$Meta3dCommonlib.unsafeGet(state.dirtyMap, cameraController) === Contract$Meta3dCommonlib.ensureCheck(true, (function (isDirty) {
-                return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("return bool", "not"), (function (param) {
-                              return Contract$Meta3dCommonlib.assertIsBool(isDirty);
-                            }));
+                Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("return bool", "not"), (function (param) {
+                        return Contract$Meta3dCommonlib.assertIsBool(isDirty);
+                      }));
               }), ConfigUtils$Meta3dComponentArcballcameracontroller.getIsDebug(state));
 }
 

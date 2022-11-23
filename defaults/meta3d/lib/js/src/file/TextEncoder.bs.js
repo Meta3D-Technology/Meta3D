@@ -1,1 +1,9 @@
-/* This output is empty. Its source's type definitions, externals and/or unused code got optimized away. */
+'use strict';
+
+
+function encodeUint8Array(arg1, obj) {
+  return obj.encode(arg1);
+}
+
+exports.encodeUint8Array = encodeUint8Array;
+/* No side effect */

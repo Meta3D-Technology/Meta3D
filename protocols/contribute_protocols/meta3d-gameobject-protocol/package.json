@@ -18,6 +18,6 @@
     "gentype": "^3.48.0"
   },
   "dependencies": {
-    "rescript": "^9.1.4"
+    "rescript": "^10.0.1"
   }
 }

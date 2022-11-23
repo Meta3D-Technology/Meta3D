@@ -34,6 +34,5 @@ export {
   hasChildren ,
   getUIControlSupportedEventNames ,
   generateHandleUIControlEventStr ,
-  
 }
 /* No side effect */

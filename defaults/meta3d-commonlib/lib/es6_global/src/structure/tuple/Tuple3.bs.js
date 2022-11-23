@@ -48,6 +48,5 @@ export {
   collectOption ,
   collectResult ,
   getLast ,
-  
 }
 /* No side effect */

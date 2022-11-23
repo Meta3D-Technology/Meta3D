@@ -25,7 +25,7 @@
         "meta3d-engine-core-protocol": "^0.8.0",
         "meta3d-type": "^0.8.0",
         "meta3d-work-plugin-root-protocol": "^0.8.0",
-        "rescript": "^9.1.4"
+        "rescript": "^10.0.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

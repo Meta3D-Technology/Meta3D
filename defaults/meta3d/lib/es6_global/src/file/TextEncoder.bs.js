@@ -1,1 +1,11 @@
-/* This output is empty. Its source's type definitions, externals and/or unused code got optimized away. */
+
+
+
+function encodeUint8Array(arg1, obj) {
+  return obj.encode(arg1);
+}
+
+export {
+  encodeUint8Array ,
+}
+/* No side effect */

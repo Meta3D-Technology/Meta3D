@@ -6,6 +6,8 @@ import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/cam
 import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
+import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
+import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
@@ -18,7 +20,7 @@ function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProto
   if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
     return ;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion, "", "", "")));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
   }
 }
 
@@ -26,7 +28,7 @@ function _convertDependentMap(dependentMap, allDataMap) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (map, param) {
                 var dependentData = param[1];
                 var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
-                var match = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName, "", "", "", "")));
+                var match = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
                 _checkVersion(match[1], dependentData.protocolVersion, dependentData.protocolName);
                 return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], match[0]);
               }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
@@ -83,17 +85,17 @@ function generate(param, configData) {
   var encoder = new TextEncoder();
   return BinaryFileOperator$Meta3d.generate([
               new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
-                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
+                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
                             }), []))),
               new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
-                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
+                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
                             }), []))),
-              encoder.encode(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])))
+              TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)
             ]);
 }
 
 function _getContributeFunc(contributeFuncData, decoder) {
-  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(contributeFuncData), "Contribute");
+  var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder), "Contribute");
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
@@ -138,9 +140,9 @@ function _parse(appBinaryFile) {
                   }
                   var extensionPackageData = param[0];
                   var extensionFuncData = param[1];
-                  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(extensionFuncData), "Extension");
+                  var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(extensionFuncData, decoder), "Extension");
                   return {
-                          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(extensionPackageData))),
+                          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(extensionPackageData, decoder))),
                           extensionFuncData: {
                             getExtensionServiceFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionService"),
                             createExtensionStateFunc: LibUtils$Meta3d.getFuncFromLib(lib, "createExtensionState"),
@@ -163,13 +165,13 @@ function _parse(appBinaryFile) {
                   var contributePackageData = param[0];
                   var contributeFuncData = param[1];
                   return {
-                          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(contributePackageData))),
+                          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(contributePackageData, decoder))),
                           contributeFuncData: {
                             getContributeFunc: _getContributeFunc(contributeFuncData, decoder)
                           }
                         };
                 })),
-          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(configData)))
+          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)))
         ];
 }
 
@@ -222,7 +224,7 @@ function load(appBinaryFile) {
 }
 
 function start(param) {
-  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]), param[2]);
+  ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]), param[2]);
 }
 
 function _getExtensionNames(allExtensionDataArr) {
@@ -245,6 +247,5 @@ export {
   load ,
   start ,
   _getExtensionNames ,
-  
 }
 /* semver Not a pure module */

@@ -23,6 +23,5 @@ function clone(state, param, countRange, sourceComponent) {
 
 export {
   clone ,
-  
 }
 /* No side effect */

@@ -31,6 +31,5 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
 
 export {
   buildService ,
-  
 }
 /* Sinon Not a pure module */

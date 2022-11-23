@@ -1,6 +1,7 @@
 
 
 import * as Js_dict from "../../../../../../../node_modules/rescript/lib/es6/js_dict.js";
+import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Belt_Array from "../../../../../../../node_modules/rescript/lib/es6/belt_Array.js";
 import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
@@ -66,7 +67,7 @@ function copy(map) {
 
 function getValidValues(map) {
   var __x = Js_dict.values(map);
-  return __x.filter(NullUtils$Meta3dCommonlib.isInMap);
+  return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, __x);
 }
 
 export {
@@ -83,6 +84,5 @@ export {
   _reduceArray ,
   copy ,
   getValidValues ,
-  
 }
 /* No side effect */

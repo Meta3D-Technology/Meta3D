@@ -1,58 +1,58 @@
 open FrontendUtils.BackendCloudbaseType
 
 @module("backend-4everland")
-external init: init = ""
+external init: init = "init"
 
 @module("backend-4everland")
-external handleLogin: handleLogin = ""
+external handleLogin: handleLogin = "handleLogin"
 
 @module("backend-4everland")
-external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = ""
+external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = "getAllPublishExtensionProtocols"
 
 @module("backend-4everland")
-external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = ""
+external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = "getAllPublishExtensionProtocolConfigs"
 
 @module("backend-4everland")
-external getAllPublishExtensionInfos: getAllPublishExtensionInfos = ""
+external getAllPublishExtensionInfos: getAllPublishExtensionInfos = "getAllPublishExtensionInfos"
 
 @module("backend-4everland")
-external findPublishExtension: findPublishExtension = ""
+external findPublishExtension: findPublishExtension = "findPublishExtension"
 
 @module("backend-4everland")
-external getAllPublishContributeProtocols: getAllPublishContributeProtocols = ""
+external getAllPublishContributeProtocols: getAllPublishContributeProtocols = "getAllPublishContributeProtocols"
 
 @module("backend-4everland")
-external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs = ""
+external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs = "getAllPublishContributeProtocolConfigs"
 
 @module("backend-4everland")
-external getAllPublishContributeInfos: getAllPublishContributeInfos = ""
+external getAllPublishContributeInfos: getAllPublishContributeInfos = "getAllPublishContributeInfos"
 
 @module("backend-4everland")
-external findPublishContribute: findPublishContribute = ""
+external findPublishContribute: findPublishContribute = "findPublishContribute"
 
 @module("backend-4everland")
-external publishApp: publishApp = ""
+external publishApp: publishApp = "publishApp"
 
 @module("backend-4everland")
-external findPublishApp: findPublishApp = ""
+external findPublishApp: findPublishApp = "findPublishApp"
 
 @module("backend-4everland")
-external findAllPublishApps: findAllPublishApps = ""
+external findAllPublishApps: findAllPublishApps = "findAllPublishApps"
 
 @module("backend-4everland")
-external publishElementContribute: publishElementContribute = ""
+external publishElementContribute: publishElementContribute = "publishElementContribute"
 
 @module("backend-4everland")
-external publishElementAssembleData: publishElementAssembleData = ""
+external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
 
 @module("backend-4everland")
-external publishApp: publishApp = ""
+external publishApp: publishApp = "publishApp"
 
 @module("backend-4everland")
-external getAllPublishNewestExtensions: getAllPublishNewestExtensions = ""
+external getAllPublishNewestExtensions: getAllPublishNewestExtensions = "getAllPublishNewestExtensions"
 
 @module("backend-4everland")
-external getElementAssembleData: getElementAssembleData = ""
+external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {

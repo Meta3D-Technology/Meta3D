@@ -16,6 +16,5 @@ export {
   _removeComponent ,
   _removeGameObject ,
   remove ,
-  
 }
 /* No side effect */

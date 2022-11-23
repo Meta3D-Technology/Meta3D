@@ -10,6 +10,5 @@ function buildDeferDisposeData(component) {
 
 export {
   buildDeferDisposeData ,
-  
 }
 /* No side effect */

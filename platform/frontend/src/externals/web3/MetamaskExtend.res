@@ -5,4 +5,4 @@ type account = string
 type ethereum = {request: requestParam => Js.Promise.t<array<account>>}
 
 @val @scope("window")
-external ethereum: Js.Nullable.t<ethereum> = ""
+external ethereum: Js.Nullable.t<ethereum> = "ethereum"

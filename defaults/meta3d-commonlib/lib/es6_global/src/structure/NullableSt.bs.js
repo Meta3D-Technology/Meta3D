@@ -35,6 +35,5 @@ export {
   map ,
   bind ,
   isNullable ,
-  
 }
 /* No side effect */

@@ -26,6 +26,6 @@
     "dependencies": {
         "antd": "^4.21.0",
         "remporium": "^0.0.1",
-        "rescript": "^9.1.4"
+        "rescript": "^10.0.1"
     }
 }

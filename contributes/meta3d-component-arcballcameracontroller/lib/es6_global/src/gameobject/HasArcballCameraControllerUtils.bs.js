@@ -8,6 +8,5 @@ function has(param, gameObject) {
 
 export {
   has ,
-  
 }
 /* No side effect */

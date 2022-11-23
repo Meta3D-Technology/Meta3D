@@ -1,11 +1,11 @@
 
 
-import * as Caml_obj from "../../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 
-var isEqual = Caml_obj.caml_equal;
+function isEqual(obj1, obj2) {
+  return obj1 === obj2;
+}
 
 export {
   isEqual ,
-  
 }
 /* No side effect */

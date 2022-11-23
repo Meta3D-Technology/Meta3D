@@ -26,6 +26,5 @@ function add(state, gameObject, cameraController) {
 
 export {
   add ,
-  
 }
 /* No side effect */

@@ -49,6 +49,5 @@ function collectResult(resultData1, resultData2, resultData3, resultData4, resul
 export {
   collectOption ,
   collectResult ,
-  
 }
 /* No side effect */

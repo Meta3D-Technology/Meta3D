@@ -31,6 +31,5 @@ function generateIndex(disposedComponentArray, index) {
 export {
   _getDisposedIndex ,
   generateIndex ,
-  
 }
 /* No side effect */

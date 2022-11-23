@@ -2,6 +2,7 @@
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
+import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
@@ -126,7 +127,7 @@ function dispatch(state, actionName, role, updateElementStateFieldFunc) {
                           })), (function (elementState, param) {
                         return _updateElementField(elementState, param.updatedElementStateFieldName, updateElementStateFieldFunc);
                       }), oldElementState);
-                if (Caml_obj.caml_notequal(oldElementState, newElementState)) {
+                if (Caml_obj.notequal(oldElementState, newElementState)) {
                   return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
                 } else {
                   return _markStateNotChange(state, elementName);
@@ -137,9 +138,9 @@ function dispatch(state, actionName, role, updateElementStateFieldFunc) {
 function _exec(meta3dState, state) {
   var elementFuncMap = state.elementFuncMap;
   var __x = ImmutableHashMap$Meta3dCommonlib.entries(state.isShowMap);
-  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(__x.sort(function (param, param$1) {
-                  return ImmutableHashMap$Meta3dCommonlib.getExn(state.elementExecOrderMap, param[0]) - ImmutableHashMap$Meta3dCommonlib.getExn(state.elementExecOrderMap, param$1[0]) | 0;
-                }), (function (param, param$1) {
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(Js_array.sortInPlaceWith((function (param, param$1) {
+                    return ImmutableHashMap$Meta3dCommonlib.getExn(state.elementExecOrderMap, param[0]) - ImmutableHashMap$Meta3dCommonlib.getExn(state.elementExecOrderMap, param$1[0]) | 0;
+                  }), __x), (function (param, param$1) {
                 var needMarkStateNotChangeIds = param[1];
                 var meta3dState = param[0];
                 if (!param$1[1]) {
@@ -333,7 +334,7 @@ function init(meta3dState, param, isInitEvent, isDebug, canvas) {
 
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.clear(imguiRendererState, clearColor);
+                imguiRendererService.clear(imguiRendererState, clearColor);
               }), data);
 }
 
@@ -370,6 +371,5 @@ export {
   setCursorPos ,
   init ,
   clear ,
-  
 }
 /* No side effect */

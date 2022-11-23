@@ -1,8 +1,9 @@
 'use strict';
 
-var Caml_obj = require("rescript/lib/js/caml_obj.js");
 
-var isEqual = Caml_obj.caml_equal;
+function isEqual(obj1, obj2) {
+  return obj1 === obj2;
+}
 
 exports.isEqual = isEqual;
 /* No side effect */

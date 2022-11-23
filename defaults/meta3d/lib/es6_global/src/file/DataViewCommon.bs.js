@@ -57,6 +57,5 @@ export {
   writeUint8_1 ,
   writeUint16_1 ,
   writeUint32_1 ,
-  
 }
 /* No side effect */

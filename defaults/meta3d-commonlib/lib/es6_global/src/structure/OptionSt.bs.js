@@ -90,6 +90,5 @@ export {
   forEachResult ,
   sequenceResultM ,
   open_ ,
-  
 }
 /* No side effect */

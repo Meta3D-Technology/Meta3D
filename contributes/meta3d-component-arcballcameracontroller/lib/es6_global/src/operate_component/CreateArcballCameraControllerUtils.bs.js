@@ -44,6 +44,5 @@ function create(state) {
 export {
   _setDefaultValue ,
   create ,
-  
 }
 /* No side effect */
