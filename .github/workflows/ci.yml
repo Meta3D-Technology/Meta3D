@@ -8,13 +8,13 @@ on:
       - master
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: macos-11
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
     - name: Install
-      run: yarn install --force && yarn clean && yarn bootstrap
+      run: yarn install --force && yarn bootstrap
 
     - name: Unit Test
       run: yarn ci:test
