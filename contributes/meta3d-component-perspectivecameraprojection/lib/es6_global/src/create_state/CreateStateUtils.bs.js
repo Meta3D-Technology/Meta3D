@@ -23,6 +23,5 @@ function createState(isDebug) {
 
 export {
   createState ,
-  
 }
 /* No side effect */

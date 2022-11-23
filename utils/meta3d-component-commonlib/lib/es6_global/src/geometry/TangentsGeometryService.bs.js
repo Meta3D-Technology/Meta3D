@@ -130,6 +130,5 @@ function computeTangents(vertices, texCoords, normals, indices) {
 
 export {
   computeTangents ,
-  
 }
 /* No side effect */

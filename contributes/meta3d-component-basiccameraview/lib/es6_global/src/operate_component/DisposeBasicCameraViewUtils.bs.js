@@ -1,5 +1,6 @@
 
 
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
@@ -42,7 +43,7 @@ function disposeComponents(state, cameraViews) {
   var state_gameObjectMap = state.gameObjectMap;
   var state_gameObjectBasicCameraViewMap = state.gameObjectBasicCameraViewMap;
   var state_needDisposedBasicCameraViews = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraViews);
-  var state_disposedBasicCameraViews = state.disposedBasicCameraViews.concat(cameraViews);
+  var state_disposedBasicCameraViews = Js_array.concat(cameraViews, state.disposedBasicCameraViews);
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,
@@ -60,6 +61,5 @@ export {
   _disposeSparseMapData ,
   _disposeData ,
   disposeComponents ,
-  
 }
 /* No side effect */

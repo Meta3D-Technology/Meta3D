@@ -115,6 +115,5 @@ export {
   updateAndSetScale ,
   updateAndGetEulerAngles ,
   updateAndSetEulerAngles ,
-  
 }
 /* No side effect */

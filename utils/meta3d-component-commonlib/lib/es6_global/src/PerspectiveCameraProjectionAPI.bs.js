@@ -52,6 +52,5 @@ export {
   _getFovy ,
   _setPMatrix ,
   updatePerspectiveCameraProjection ,
-  
 }
 /* No side effect */

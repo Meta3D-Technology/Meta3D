@@ -15,6 +15,5 @@ function getIndicesCount(indicesInfos, isDebug, geometry) {
 export {
   getIndices ,
   getIndicesCount ,
-  
 }
 /* No side effect */

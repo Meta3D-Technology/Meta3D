@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
@@ -63,7 +64,7 @@ function disposeComponents(state) {
     var isDebug = ConfigUtils$Meta3dComponentDirectionlight.getIsDebug(state);
     var needDisposedComponents = GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight.get(state);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "directionLight", lights, needDisposedComponents);
-    state.disposedDirectionLights = disposedDirectionLights.concat(lights);
+    state.disposedDirectionLights = Js_array.concat(lights, disposedDirectionLights);
     state.needDisposedDirectionLights = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, lights);
     return ArraySt$Meta3dCommonlib.reduceOneParam(lights, (function (state, light) {
                   return _disposeData(state)(isDebug, light);

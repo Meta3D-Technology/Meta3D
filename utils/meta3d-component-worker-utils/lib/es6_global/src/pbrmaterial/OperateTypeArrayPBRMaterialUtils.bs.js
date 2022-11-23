@@ -39,6 +39,5 @@ export {
   getMetalness ,
   getTransmission ,
   getIOR ,
-  
 }
 /* No side effect */

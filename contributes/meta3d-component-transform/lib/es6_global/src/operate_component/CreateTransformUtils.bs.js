@@ -35,6 +35,5 @@ export {
   _isNotNeedInitData ,
   _initDataWhenCreate ,
   create ,
-  
 }
 /* No side effect */

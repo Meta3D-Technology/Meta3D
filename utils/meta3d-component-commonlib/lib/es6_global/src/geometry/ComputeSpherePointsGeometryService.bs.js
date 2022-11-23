@@ -43,6 +43,5 @@ function compute(radius, bands) {
 
 export {
   compute ,
-  
 }
 /* No side effect */

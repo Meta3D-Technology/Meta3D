@@ -13,7 +13,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
   var colors = param[0];
   ListSt$Meta3dCommonlib.forEach(ListSt$Meta3dCommonlib.range(0, count - 1 | 0), (function (index) {
           OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setColor(index, defaultColor, colors);
-          return OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setIntensity(index, defaultIntensity, intensities);
+          OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setIntensity(index, defaultIntensity, intensities);
         }));
   return [
           colors,
@@ -75,6 +75,5 @@ export {
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,
-  
 }
 /* No side effect */

@@ -18,6 +18,5 @@ export {
   createSphereGeometry ,
   createPlaneGeometry ,
   computeTangents ,
-  
 }
 /* No side effect */

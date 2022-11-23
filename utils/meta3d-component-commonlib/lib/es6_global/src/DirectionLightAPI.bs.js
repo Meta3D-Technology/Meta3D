@@ -23,6 +23,5 @@ function getDirection(usedDirectionLightContribute, param, usedTransformContribu
 
 export {
   getDirection ,
-  
 }
 /* No side effect */

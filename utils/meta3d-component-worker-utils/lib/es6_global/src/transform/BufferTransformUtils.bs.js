@@ -93,6 +93,5 @@ export {
   getLocalScaleIndex ,
   getTotalByteLength ,
   createBuffer ,
-  
 }
 /* No side effect */

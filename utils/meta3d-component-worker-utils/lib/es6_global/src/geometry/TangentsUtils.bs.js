@@ -9,6 +9,5 @@ function getTangents(tangents, tangentsInfos, isDebug, geometry) {
 
 export {
   getTangents ,
-  
 }
 /* No side effect */

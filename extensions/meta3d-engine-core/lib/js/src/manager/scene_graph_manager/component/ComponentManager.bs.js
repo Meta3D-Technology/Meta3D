@@ -11,9 +11,9 @@ var PluginDataManager$Meta3dEngineCore = require("../../work_manager/plugin_data
 function registerComponent(state, componentContribute) {
   var componentContributeData = state.componentContributeData;
   return Result$Meta3dCommonlib.mapSuccess(ContractResult$Meta3dCommonlib.requireCheck((function (param) {
-                    return ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
-                                  return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
-                                }));
+                    ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
+                            return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
+                          }));
                   }), PluginDataManager$Meta3dEngineCore.getIsDebug(state)), (function (param) {
                 return {
                         allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,

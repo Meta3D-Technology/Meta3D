@@ -17,7 +17,6 @@ function setNormals(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillFloat32ArrayWithOffset(normals, data, param);
         }));
-  
 }
 
 exports.setNormals = setNormals;

@@ -148,6 +148,5 @@ function create(usedComponentContribute, engineCoreService, width, height, width
 export {
   _generate ,
   create ,
-  
 }
 /* No side effect */

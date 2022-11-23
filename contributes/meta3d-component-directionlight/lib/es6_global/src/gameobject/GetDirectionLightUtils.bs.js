@@ -8,6 +8,5 @@ function get(param, gameObject) {
 
 export {
   get ,
-  
 }
 /* No side effect */

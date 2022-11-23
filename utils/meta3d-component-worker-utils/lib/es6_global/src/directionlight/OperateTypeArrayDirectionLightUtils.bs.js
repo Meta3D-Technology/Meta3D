@@ -14,6 +14,5 @@ function getIntensity(index, typeArr) {
 export {
   getColor ,
   getIntensity ,
-  
 }
 /* No side effect */

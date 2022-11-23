@@ -68,6 +68,5 @@ export {
   getLocalEulerAngles ,
   setLocalEulerAngles ,
   getNormalMatrix ,
-  
 }
 /* No side effect */

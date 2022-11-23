@@ -118,6 +118,5 @@ export {
   setFar ,
   getNear ,
   setNear ,
-  
 }
 /* No side effect */

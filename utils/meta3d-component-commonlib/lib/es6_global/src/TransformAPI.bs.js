@@ -17,6 +17,5 @@ function lookAt(data, engineCoreService, transform, target, upOpt, param) {
 
 export {
   lookAt ,
-  
 }
 /* No side effect */

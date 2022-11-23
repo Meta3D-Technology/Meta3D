@@ -16,6 +16,5 @@ function create(usedComponentContribute, param, param$1) {
 
 export {
   create ,
-  
 }
 /* No side effect */

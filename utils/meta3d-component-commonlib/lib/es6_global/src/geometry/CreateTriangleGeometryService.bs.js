@@ -45,6 +45,5 @@ function create(usedComponentContribute, engineCoreService) {
 
 export {
   create ,
-  
 }
 /* No side effect */

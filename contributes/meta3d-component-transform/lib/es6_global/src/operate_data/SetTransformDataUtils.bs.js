@@ -29,7 +29,7 @@ function setData(state, transform, dataName, dataValue) {
     } else if (dataName === Index$Meta3dComponentTransformProtocol.dataName.update) {
       return UpdateTransformUtils$Meta3dComponentTransform.mutableUpdate(state, transform);
     } else {
-      return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName, "", "", ""));
+      return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", ""));
     }
   }
   var parent = OptionSt$Meta3dCommonlib.fromNullable(dataValue);
@@ -42,6 +42,5 @@ function setData(state, transform, dataName, dataValue) {
 
 export {
   setData ,
-  
 }
 /* No side effect */

@@ -20,9 +20,9 @@ function getInfo(infoIndex, isDebug, infos) {
                                     }
                                   });
                       }));
-                return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("endIndex >= startIndex", "is " + endIndex), (function (param) {
-                              return Contract$Meta3dCommonlib.Operators.$great$eq(endIndex, startIndex);
-                            }));
+                Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("endIndex >= startIndex", "is " + endIndex), (function (param) {
+                        return Contract$Meta3dCommonlib.Operators.$great$eq(endIndex, startIndex);
+                      }));
               }), isDebug);
 }
 
@@ -40,6 +40,5 @@ export {
   getInfo ,
   getFloat32PointData ,
   getUint32PointData ,
-  
 }
 /* No side effect */

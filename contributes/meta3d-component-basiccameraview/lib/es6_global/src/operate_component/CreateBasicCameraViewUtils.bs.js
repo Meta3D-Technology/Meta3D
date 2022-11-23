@@ -21,6 +21,5 @@ function create(state) {
 
 export {
   create ,
-  
 }
 /* No side effect */

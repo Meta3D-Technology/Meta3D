@@ -8,6 +8,5 @@ function computeAspect(param) {
 
 export {
   computeAspect ,
-  
 }
 /* No side effect */

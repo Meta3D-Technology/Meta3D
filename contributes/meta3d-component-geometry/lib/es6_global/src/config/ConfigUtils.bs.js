@@ -17,6 +17,5 @@ export {
   getIsDebug ,
   getGeometryCount ,
   getGeometryPointCount ,
-  
 }
 /* No side effect */

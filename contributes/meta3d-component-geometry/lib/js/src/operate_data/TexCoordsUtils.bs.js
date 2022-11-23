@@ -9,15 +9,15 @@ var ReallocatedPointsGeometryUtils$Meta3dComponentGeometry = require("./Realloca
 
 function setTexCoords(state, geometry, data) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
-          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("texCoords in [0.0, 1.0]", "not"), (function (param) {
-                        return TypeArrayUtils$Meta3dCommonlib.reduceFloat32Array(data, true, (function (result, value) {
-                                      if (result && Contract$Meta3dCommonlib.Operators.$great$eq$dot(value, 0.0)) {
-                                        return Contract$Meta3dCommonlib.Operators.$less$eq$dot(value, 1.0);
-                                      } else {
-                                        return false;
-                                      }
-                                    }));
-                      }));
+          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("texCoords in [0.0, 1.0]", "not"), (function (param) {
+                  return TypeArrayUtils$Meta3dCommonlib.reduceFloat32Array(data, true, (function (result, value) {
+                                if (result && Contract$Meta3dCommonlib.Operators.$great$eq$dot(value, 0.0)) {
+                                  return Contract$Meta3dCommonlib.Operators.$less$eq$dot(value, 1.0);
+                                } else {
+                                  return false;
+                                }
+                              }));
+                }));
         }), ConfigUtils$Meta3dComponentGeometry.getIsDebug(state));
   var texCoords = state.texCoords;
   var texCoordsInfos = state.texCoordsInfos;
@@ -30,7 +30,6 @@ function setTexCoords(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillFloat32ArrayWithOffset(texCoords, data, param);
         }));
-  
 }
 
 exports.setTexCoords = setTexCoords;

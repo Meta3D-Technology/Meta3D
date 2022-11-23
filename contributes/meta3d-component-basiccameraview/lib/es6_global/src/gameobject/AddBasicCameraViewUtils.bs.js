@@ -16,6 +16,5 @@ function add(state, gameObject, cameraView) {
 
 export {
   add ,
-  
 }
 /* No side effect */

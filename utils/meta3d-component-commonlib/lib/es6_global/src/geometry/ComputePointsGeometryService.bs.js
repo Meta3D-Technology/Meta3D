@@ -18,6 +18,5 @@ function addTangents(param) {
 
 export {
   addTangents ,
-  
 }
 /* No side effect */

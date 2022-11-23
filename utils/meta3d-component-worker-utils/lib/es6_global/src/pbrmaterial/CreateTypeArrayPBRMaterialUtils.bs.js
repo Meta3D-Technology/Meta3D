@@ -16,6 +16,5 @@ function createTypeArrays(buffer, count) {
 
 export {
   createTypeArrays ,
-  
 }
 /* No side effect */

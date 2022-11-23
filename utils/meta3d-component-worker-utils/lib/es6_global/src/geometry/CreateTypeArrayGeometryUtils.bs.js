@@ -19,6 +19,5 @@ function createTypeArrays(buffer, geometryPointCount, geometryCount) {
 
 export {
   createTypeArrays ,
-  
 }
 /* No side effect */

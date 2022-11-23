@@ -9,7 +9,7 @@ function setData(state, cameraView, dataName, dataValue) {
   if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.isActive) {
     return OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview.setIsActive(state, cameraView, dataValue);
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName, "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", ""));
   }
 }
 

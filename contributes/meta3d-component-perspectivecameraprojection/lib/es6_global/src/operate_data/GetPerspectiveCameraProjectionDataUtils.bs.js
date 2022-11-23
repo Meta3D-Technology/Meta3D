@@ -21,12 +21,11 @@ function getData(state, cameraProjection, dataName) {
   } else if (dataName === Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.dirty) {
     return OptionSt$Meta3dCommonlib.toNullable(DirtyPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.isDirty(state, cameraProjection));
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + dataName, "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + dataName + "", "", "", ""));
   }
 }
 
 export {
   getData ,
-  
 }
 /* No side effect */

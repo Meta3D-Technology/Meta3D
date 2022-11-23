@@ -55,6 +55,5 @@ function getContribute(param, param$1) {
 
 export {
   getContribute ,
-  
 }
 /* No side effect */

@@ -25,6 +25,5 @@ function insertNode(tree, targetPluginName, node) {
 
 export {
   insertNode ,
-  
 }
 /* No side effect */

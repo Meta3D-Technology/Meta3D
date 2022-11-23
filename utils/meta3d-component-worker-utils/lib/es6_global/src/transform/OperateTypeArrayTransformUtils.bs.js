@@ -9,6 +9,5 @@ function getLocalToWorldMatrixTypeArray(index, typeArr) {
 
 export {
   getLocalToWorldMatrixTypeArray ,
-  
 }
 /* No side effect */

@@ -8,6 +8,5 @@ function get(param) {
 
 export {
   get ,
-  
 }
 /* No side effect */

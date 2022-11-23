@@ -8,6 +8,5 @@ function getLocalToWorldMatrix(localToWorldMatrices, transform) {
 
 export {
   getLocalToWorldMatrix ,
-  
 }
 /* No side effect */

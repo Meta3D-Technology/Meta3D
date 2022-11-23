@@ -9,6 +9,5 @@ function getNormals(normals, normalsInfos, isDebug, geometry) {
 
 export {
   getNormals ,
-  
 }
 /* No side effect */

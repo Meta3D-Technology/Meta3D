@@ -9,6 +9,5 @@ function getVertices(vertices, verticesInfos, isDebug, geometry) {
 
 export {
   getVertices ,
-  
 }
 /* No side effect */

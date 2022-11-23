@@ -17,11 +17,9 @@ function setVertices(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillFloat32ArrayWithOffset(vertices, data, param);
         }));
-  
 }
 
 export {
   setVertices ,
-  
 }
 /* No side effect */

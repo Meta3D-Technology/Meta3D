@@ -38,6 +38,5 @@ export {
   _setAllNotActive ,
   getIsActive ,
   setIsActive ,
-  
 }
 /* No side effect */

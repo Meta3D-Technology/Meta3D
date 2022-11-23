@@ -34,6 +34,5 @@ export {
   getViewWorldToCameraMatrix ,
   getActiveCameraView ,
   getDirection ,
-  
 }
 /* No side effect */

@@ -42,6 +42,5 @@ export {
   getNodeData ,
   _getPluginName ,
   isEqual ,
-  
 }
 /* No side effect */

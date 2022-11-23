@@ -19,7 +19,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
           OperateTypeArrayTransformUtils$Meta3dComponentTransform.setLocalToWorldMatrix(index, defaultLocalToWorldMatrix, localToWorldMatrices);
           OperateTypeArrayTransformUtils$Meta3dComponentTransform.setLocalPosition(index, defaultLocalPosition, localPositions);
           OperateTypeArrayTransformUtils$Meta3dComponentTransform.setLocalRotation(index, defaultLocalRotation, localRotations);
-          return OperateTypeArrayTransformUtils$Meta3dComponentTransform.setLocalScale(index, defaultLocalScale, localScales);
+          OperateTypeArrayTransformUtils$Meta3dComponentTransform.setLocalScale(index, defaultLocalScale, localScales);
         }));
   return [
           localToWorldMatrices,
@@ -137,6 +137,5 @@ export {
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,
-  
 }
 /* No side effect */

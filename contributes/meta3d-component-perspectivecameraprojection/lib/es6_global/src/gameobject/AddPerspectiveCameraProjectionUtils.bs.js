@@ -21,6 +21,5 @@ function add(state, gameObject, cameraProjection) {
 
 export {
   add ,
-  
 }
 /* No side effect */

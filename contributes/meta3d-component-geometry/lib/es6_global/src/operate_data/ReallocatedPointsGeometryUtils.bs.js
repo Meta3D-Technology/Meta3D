@@ -11,12 +11,12 @@ function setInfo(infos, infoIndex, startIndex, endIndex, isDebug) {
           Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("startIndex >= 0", "is " + startIndex), (function (param) {
                   return Contract$Meta3dCommonlib.Operators.$great$eq(startIndex, 0);
                 }));
-          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("endIndex >= startIndex", "is " + endIndex), (function (param) {
-                        return Contract$Meta3dCommonlib.Operators.$great$eq(endIndex, startIndex);
-                      }));
+          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("endIndex >= startIndex", "is " + endIndex), (function (param) {
+                  return Contract$Meta3dCommonlib.Operators.$great$eq(endIndex, startIndex);
+                }));
         }), isDebug);
   TypeArrayUtils$Meta3dCommonlib.setUint32_1(infoIndex, startIndex, infos);
-  return TypeArrayUtils$Meta3dCommonlib.setUint32_1(infoIndex + 1 | 0, endIndex, infos);
+  TypeArrayUtils$Meta3dCommonlib.setUint32_1(infoIndex + 1 | 0, endIndex, infos);
 }
 
 function hasPointData(infoIndex, isDebug, infos) {
@@ -42,6 +42,5 @@ export {
   _setPointData ,
   setFloat32PointData ,
   setUint32PointData ,
-  
 }
 /* No side effect */

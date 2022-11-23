@@ -21,6 +21,5 @@ function createState(param) {
 
 export {
   createState ,
-  
 }
 /* No side effect */

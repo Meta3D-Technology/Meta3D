@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var Contract$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/contract/Contract.bs.js");
@@ -27,14 +28,14 @@ function _addToParent(state, parent, child) {
           Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("child not has parent", "has"), (function (param) {
                   return Contract$Meta3dCommonlib.assertNotExist(MutableSparseMap$Meta3dCommonlib.get(parentMap, child));
                 }));
-          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("parent not already has the child", "has"), (function (param) {
-                        var children = OptionSt$Meta3dCommonlib.fromNullable(MutableSparseMap$Meta3dCommonlib.getNullable(childrenMap, parent));
-                        if (children !== undefined) {
-                          return Contract$Meta3dCommonlib.assertFalse(ArraySt$Meta3dCommonlib.includes(children, child));
-                        } else {
-                          return Contract$Meta3dCommonlib.assertPass(undefined);
-                        }
-                      }));
+          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("parent not already has the child", "has"), (function (param) {
+                  var children = OptionSt$Meta3dCommonlib.fromNullable(MutableSparseMap$Meta3dCommonlib.getNullable(childrenMap, parent));
+                  if (children !== undefined) {
+                    return Contract$Meta3dCommonlib.assertFalse(ArraySt$Meta3dCommonlib.includes(children, child));
+                  } else {
+                    return Contract$Meta3dCommonlib.assertPass(undefined);
+                  }
+                }));
         }), ConfigUtils$Meta3dComponentTransform.getIsDebug(state));
   var parentMap = state.parentMap;
   var childrenMap = state.childrenMap;
@@ -46,11 +47,11 @@ function _addToParent(state, parent, child) {
 var removeParentMap = MutableSparseMap$Meta3dCommonlib.remove;
 
 function _removeChild(children, isDebug, child) {
-  return ArraySt$Meta3dCommonlib.deleteBySwap(children, isDebug, children.indexOf(child), children.length - 1 | 0);
+  ArraySt$Meta3dCommonlib.deleteBySwap(children, isDebug, Js_array.indexOf(child, children), children.length - 1 | 0);
 }
 
 function removeFromChildMap(childrenMap, isDebug, parent, child) {
-  return _removeChild(MutableSparseMap$Meta3dCommonlib.unsafeGet(childrenMap, parent), isDebug, child);
+  _removeChild(MutableSparseMap$Meta3dCommonlib.unsafeGet(childrenMap, parent), isDebug, child);
 }
 
 function _removeFromParent(state, currentParent, child) {

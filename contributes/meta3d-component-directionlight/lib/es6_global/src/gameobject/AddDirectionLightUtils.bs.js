@@ -14,6 +14,5 @@ function add(state) {
 
 export {
   add ,
-  
 }
 /* No side effect */

@@ -22,6 +22,5 @@ export {
   getTransformCount ,
   getFloat9Array1 ,
   getFloat32Array1 ,
-  
 }
 /* No side effect */

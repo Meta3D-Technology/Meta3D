@@ -21,6 +21,5 @@ function setIsDebug(state, isDebug) {
 export {
   getIsDebug ,
   setIsDebug ,
-  
 }
 /* No side effect */

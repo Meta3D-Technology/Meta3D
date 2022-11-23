@@ -37,7 +37,7 @@ function getData(state, param, param$1) {
   } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.indicesCount) {
     return IndicesUtils$Meta3dComponentWorkerUtils.getIndicesCount(indicesInfos, isDebug, param);
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$1, "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$1 + "", "", "", ""));
   }
 }
 

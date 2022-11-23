@@ -153,6 +153,5 @@ export {
   getIORIndex ,
   getTotalByteLength ,
   createBuffer ,
-  
 }
 /* No side effect */

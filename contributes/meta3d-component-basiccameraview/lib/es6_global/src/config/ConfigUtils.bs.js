@@ -7,6 +7,5 @@ function getIsDebug(state) {
 
 export {
   getIsDebug ,
-  
 }
 /* No side effect */

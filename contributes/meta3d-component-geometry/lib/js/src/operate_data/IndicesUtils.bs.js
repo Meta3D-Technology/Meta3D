@@ -17,7 +17,6 @@ function setIndices(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillUint32ArrayWithOffset(indices, data, param);
         }));
-  
 }
 
 exports.setIndices = setIndices;

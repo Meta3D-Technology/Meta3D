@@ -1,5 +1,6 @@
 
 
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
@@ -83,7 +84,7 @@ function disposeComponents(state) {
     var isDebug = ConfigUtils$Meta3dComponentTransform.getIsDebug(state);
     var needDisposedComponents = GetNeedDisposedTransformsUtils$Meta3dComponentTransform.get(state);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "transform", transforms, needDisposedComponents);
-    state.disposedTransforms = disposedTransforms.concat(transforms);
+    state.disposedTransforms = Js_array.concat(transforms, disposedTransforms);
     state.needDisposedTransforms = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, transforms);
     return ArraySt$Meta3dCommonlib.reduceOneParam(transforms, (function (state, transform) {
                   return _disposeData(state)(isDebug, transform);
@@ -97,6 +98,5 @@ export {
   _disposeSparseMapData ,
   _disposeData ,
   disposeComponents ,
-  
 }
 /* No side effect */

@@ -9,6 +9,5 @@ function getTexCoords(texCoords, texCoordsInfos, isDebug, geometry) {
 
 export {
   getTexCoords ,
-  
 }
 /* No side effect */

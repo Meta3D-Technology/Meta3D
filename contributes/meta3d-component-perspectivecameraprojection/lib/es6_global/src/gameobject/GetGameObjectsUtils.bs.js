@@ -13,6 +13,5 @@ function get(param, cameraProjection) {
 
 export {
   get ,
-  
 }
 /* No side effect */

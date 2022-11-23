@@ -28,9 +28,9 @@ function _isActive(usedComponentContribute, param, cameraView) {
 
 function _checkAtMostTwo(activeCameraViews, isDebug) {
   return Contract$Meta3dCommonlib.ensureCheck(activeCameraViews, (function (r) {
-                return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("only has one active cameraView at most", "not"), (function (param) {
-                              return Contract$Meta3dCommonlib.Operators.$less$eq(ArraySt$Meta3dCommonlib.length(r), 1);
-                            }));
+                Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("only has one active cameraView at most", "not"), (function (param) {
+                        return Contract$Meta3dCommonlib.Operators.$less$eq(ArraySt$Meta3dCommonlib.length(r), 1);
+                      }));
               }), isDebug);
 }
 
@@ -47,6 +47,5 @@ export {
   _isActive ,
   _checkAtMostTwo ,
   getActiveCameraView ,
-  
 }
 /* No side effect */

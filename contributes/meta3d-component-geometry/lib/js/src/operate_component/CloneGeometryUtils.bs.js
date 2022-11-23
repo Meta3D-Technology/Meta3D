@@ -1,12 +1,13 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 
 function clone(state, countRange, sourceGeometry) {
   return [
           state,
-          countRange.map(function (param) {
-                return sourceGeometry;
-              })
+          Js_array.map((function (param) {
+                  return sourceGeometry;
+                }), countRange)
         ];
 }
 

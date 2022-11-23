@@ -13,15 +13,14 @@ function mark(state, transform, isDirty) {
 function isDirty(state, transform) {
   var dirtyMap = state.dirtyMap;
   return MutableSparseMap$Meta3dCommonlib.unsafeGet(dirtyMap, transform) === Contract$Meta3dCommonlib.ensureCheck(true, (function (isDirty) {
-                return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("return bool", "not"), (function (param) {
-                              return Contract$Meta3dCommonlib.assertIsBool(isDirty);
-                            }));
+                Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("return bool", "not"), (function (param) {
+                        return Contract$Meta3dCommonlib.assertIsBool(isDirty);
+                      }));
               }), ConfigUtils$Meta3dComponentTransform.getIsDebug(state));
 }
 
 export {
   mark ,
   isDirty ,
-  
 }
 /* No side effect */

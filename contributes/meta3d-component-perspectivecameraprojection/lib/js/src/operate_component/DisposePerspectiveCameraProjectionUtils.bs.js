@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
@@ -57,7 +58,7 @@ function disposeComponents(state, cameraProjections) {
   var state_gameObjectMap = state.gameObjectMap;
   var state_gameObjectPerspectiveCameraProjectionMap = state.gameObjectPerspectiveCameraProjectionMap;
   var state_needDisposedPerspectiveCameraProjections = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraProjections);
-  var state_disposedPerspectiveCameraProjections = state.disposedPerspectiveCameraProjections.concat(cameraProjections);
+  var state_disposedPerspectiveCameraProjections = Js_array.concat(cameraProjections, state.disposedPerspectiveCameraProjections);
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,

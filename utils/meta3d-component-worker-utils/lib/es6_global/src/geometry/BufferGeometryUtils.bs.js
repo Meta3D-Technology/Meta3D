@@ -143,6 +143,5 @@ export {
   getInfoIndex ,
   getTotalByteLength ,
   createBuffer ,
-  
 }
 /* No side effect */

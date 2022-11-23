@@ -53,6 +53,5 @@ export {
   getIntensitiesLength ,
   getTotalByteLength ,
   createBuffer ,
-  
 }
 /* No side effect */

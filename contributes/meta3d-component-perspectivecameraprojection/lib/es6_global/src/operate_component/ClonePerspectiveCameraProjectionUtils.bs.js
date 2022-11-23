@@ -27,6 +27,5 @@ function clone(state, countRange, sourcePerspectiveCameraProjection) {
 
 export {
   clone ,
-  
 }
 /* No side effect */

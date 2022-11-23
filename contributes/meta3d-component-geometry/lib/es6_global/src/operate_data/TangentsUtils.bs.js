@@ -17,11 +17,9 @@ function setTangents(state, geometry, data) {
       ], ConfigUtils$Meta3dComponentGeometry.getIsDebug(state), (function (param) {
           return TypeArrayUtils$Meta3dCommonlib.fillFloat32ArrayWithOffset(tangents, data, param);
         }));
-  
 }
 
 export {
   setTangents ,
-  
 }
 /* No side effect */

@@ -38,6 +38,5 @@ export {
   _setData ,
   _getData ,
   clone ,
-  
 }
 /* No side effect */

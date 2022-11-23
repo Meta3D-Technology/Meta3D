@@ -1,4 +1,4 @@
-@bs.send external toFixed: (float, int) => string = ""
+@bs.send external toFixed: (float, int) => string = "toFixed"
 
 @bs.val external convertStringToInt: string => int = "Number"
 

@@ -21,6 +21,5 @@ function clone(state, countRange, sourceBasicCameraView) {
 
 export {
   clone ,
-  
 }
 /* No side effect */

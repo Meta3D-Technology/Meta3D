@@ -80,6 +80,5 @@ export {
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,
-  
 }
 /* No side effect */

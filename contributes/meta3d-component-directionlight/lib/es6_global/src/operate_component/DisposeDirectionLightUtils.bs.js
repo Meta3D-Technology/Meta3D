@@ -1,5 +1,6 @@
 
 
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
@@ -63,7 +64,7 @@ function disposeComponents(state) {
     var isDebug = ConfigUtils$Meta3dComponentDirectionlight.getIsDebug(state);
     var needDisposedComponents = GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight.get(state);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "directionLight", lights, needDisposedComponents);
-    state.disposedDirectionLights = disposedDirectionLights.concat(lights);
+    state.disposedDirectionLights = Js_array.concat(lights, disposedDirectionLights);
     state.needDisposedDirectionLights = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, lights);
     return ArraySt$Meta3dCommonlib.reduceOneParam(lights, (function (state, light) {
                   return _disposeData(state)(isDebug, light);
@@ -78,6 +79,5 @@ export {
   _disposeSparseMapData ,
   _disposeData ,
   disposeComponents ,
-  
 }
 /* No side effect */

@@ -13,7 +13,7 @@ function setData(state, param, param$1, param$2) {
   } else if (param$1 === Index$Meta3dComponentDirectionlightProtocol.dataName.intensity) {
     OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setIntensity(param, param$2, intensities);
   } else {
-    Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + param$1, "", "", ""));
+    Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + param$1 + "", "", "", ""));
   }
   return state;
 }

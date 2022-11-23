@@ -13,6 +13,5 @@ function get(param, cameraView) {
 
 export {
   get ,
-  
 }
 /* No side effect */

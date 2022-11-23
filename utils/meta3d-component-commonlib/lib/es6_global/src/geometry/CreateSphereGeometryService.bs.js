@@ -9,6 +9,5 @@ function create(usedComponentContribute, engineCoreService, radius, bands) {
 
 export {
   create ,
-  
 }
 /* No side effect */

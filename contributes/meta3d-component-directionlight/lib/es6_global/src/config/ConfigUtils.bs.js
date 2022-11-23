@@ -12,6 +12,5 @@ function getDirectionLightCount(state) {
 export {
   getIsDebug ,
   getDirectionLightCount ,
-  
 }
 /* No side effect */
