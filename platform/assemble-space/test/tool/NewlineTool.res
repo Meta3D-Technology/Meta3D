@@ -34,5 +34,5 @@ let buildNewlineChar = () => {
 }
 
 let handleNewlineChar = (str) => {
-    str -> Js.String.replace("\n", buildNewlineChar(),_)
+    str -> Js.String.replaceByRe(%re("/\n/g"), buildNewlineChar(),_)
 }
