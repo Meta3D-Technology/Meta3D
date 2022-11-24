@@ -36,3 +36,7 @@ let buildNewlineChar = () => {
 let handleNewlineChar = (str) => {
     str -> Js.String.replaceByRe(%re("/\n/g"), buildNewlineChar(),_)
 }
+
+let unifyNewlineChar = (str) => {
+    str -> Js.String.replaceByRe(%re("/\r\n|\r|\n/g"), "\n",_)
+}
