@@ -21,6 +21,5 @@ export {
   isEmpty ,
   isNotInMap ,
   isInMap ,
-  
 }
 /* No side effect */

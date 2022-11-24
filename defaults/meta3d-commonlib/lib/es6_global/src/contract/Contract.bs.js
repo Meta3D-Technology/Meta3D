@@ -1,10 +1,10 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/curry.js";
-import * as Js_exn from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/js_exn.js";
-import * as Caml_obj from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/caml_obj.js";
-import * as Belt_List from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/belt_List.js";
-import * as Js_option from "../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/js_option.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_exn from "../../../../../../node_modules/rescript/lib/es6/js_exn.js";
+import * as Caml_obj from "../../../../../../node_modules/rescript/lib/es6/caml_obj.js";
+import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
+import * as Js_option from "../../../../../../node_modules/rescript/lib/es6/js_option.js";
 
 function _assert(result, message) {
   return result;
@@ -86,7 +86,7 @@ function _getEqualMessage(source, target) {
 
 function assertEqual(kind, source, target) {
   _getEqualMessage(source, target);
-  return Caml_obj.caml_equal(source, target);
+  return Caml_obj.equal(source, target);
 }
 
 function _getNotEqualMessage(source, target) {
@@ -95,23 +95,23 @@ function _getNotEqualMessage(source, target) {
 
 function assertNotEqual(kind, source, target) {
   _getNotEqualMessage(source, target);
-  return Caml_obj.caml_notequal(source, target);
+  return Caml_obj.notequal(source, target);
 }
 
 function assertGt(kind, source, target) {
-  return Caml_obj.caml_greaterthan(source, target);
+  return Caml_obj.greaterthan(source, target);
 }
 
 function assertGte(kind, source, target) {
-  return Caml_obj.caml_greaterequal(source, target);
+  return Caml_obj.greaterequal(source, target);
 }
 
 function assertLt(kind, source, target) {
-  return Caml_obj.caml_lessthan(source, target);
+  return Caml_obj.lessthan(source, target);
 }
 
 function assertLte(kind, source, target) {
-  return Caml_obj.caml_lessequal(source, target);
+  return Caml_obj.lessequal(source, target);
 }
 
 function $eq(a, b) {
@@ -134,21 +134,21 @@ function $less$great$eq$dot(a, b) {
   return assertNotEqual(/* Float */1, a, b);
 }
 
-var $great = Caml_obj.caml_greaterthan;
+var $great = Caml_obj.greaterthan;
 
-var $great$dot = Caml_obj.caml_greaterthan;
+var $great$dot = Caml_obj.greaterthan;
 
-var $great$eq = Caml_obj.caml_greaterequal;
+var $great$eq = Caml_obj.greaterequal;
 
-var $great$eq$dot = Caml_obj.caml_greaterequal;
+var $great$eq$dot = Caml_obj.greaterequal;
 
-var $less = Caml_obj.caml_lessthan;
+var $less = Caml_obj.lessthan;
 
-var $less$dot = Caml_obj.caml_lessthan;
+var $less$dot = Caml_obj.lessthan;
 
-var $less$eq = Caml_obj.caml_lessequal;
+var $less$eq = Caml_obj.lessequal;
 
-var $less$eq$dot = Caml_obj.caml_lessequal;
+var $less$eq$dot = Caml_obj.lessequal;
 
 var Operators = {
   $eq: $eq,
@@ -192,6 +192,5 @@ export {
   assertLt ,
   assertLte ,
   Operators ,
-  
 }
 /* No side effect */

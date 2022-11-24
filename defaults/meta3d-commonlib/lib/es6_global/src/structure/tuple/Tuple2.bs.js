@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../../extensions/meta3d-event/node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as Result$Meta3dCommonlib from "../Result.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../OptionSt.bs.js";
 
@@ -47,6 +47,5 @@ export {
   collectResult ,
   getFirst ,
   getLast ,
-  
 }
 /* No side effect */

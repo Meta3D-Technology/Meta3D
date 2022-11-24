@@ -1,5 +1,6 @@
 'use strict';
 
+var Js_array = require("rescript/lib/js/js_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var ArraySt$Meta3dCommonlib = require("../ArraySt.bs.js");
 var NullUtils$Meta3dCommonlib = require("../utils/NullUtils.bs.js");
@@ -34,13 +35,13 @@ function has(map, key) {
 }
 
 function map(map$1, func) {
-  return map$1.map(function (value) {
-              if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
-                return ;
-              } else {
-                return func(value);
-              }
-            });
+  return Js_array.map((function (value) {
+                if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
+                  return ;
+                } else {
+                  return func(value);
+                }
+              }), map$1);
 }
 
 function reducei(map, func, initValue) {
@@ -54,7 +55,7 @@ function reducei(map, func, initValue) {
 }
 
 function getValues(map) {
-  return map.filter(NullUtils$Meta3dCommonlib.isInMap);
+  return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, map);
 }
 
 function getKeys(map) {
@@ -62,7 +63,7 @@ function getKeys(map) {
                 if (NullUtils$Meta3dCommonlib.isNotInMap(value)) {
                   return arr;
                 } else {
-                  arr.push(key);
+                  Js_array.push(key, arr);
                   return arr;
                 }
               }), []);

@@ -1,15 +1,16 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
+var Js_promise = require("rescript/lib/js/js_promise.js");
 
 function bind(p, func) {
-  return p.then(Curry.__1(func));
+  return Js_promise.then_(func, p);
 }
 
 function map(p, func) {
-  return p.then(function (v) {
-              return Promise.resolve(Curry._1(func, v));
-            });
+  return Js_promise.then_((function (v) {
+                return Promise.resolve(Curry._1(func, v));
+              }), p);
 }
 
 exports.bind = bind;
