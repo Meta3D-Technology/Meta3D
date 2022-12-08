@@ -1,6 +1,86 @@
-* TODO upgrade rescript
+* DONE upgrade rescript
 
 
-* TODO pass ci
+* DONE pass ci
 
 
+* TODO add package assemble
+
+
+** TODO build like ap assemble
+no start extension, canvas
+
+entry extension
+
+分为内部依赖和外部依赖？
+
+如果入口扩展依赖的扩展和共享在该file中，则使用它们，并对外隐藏这些依赖；否则还是依赖于外部的扩展和共享！
+
+
+
+
+
+** TODO publish
+
+need protocol?
+    use entry extension protocol?
+
+
+show in extension shop
+
+
+
+** TODO download
+
+use in local
+
+
+# ** TODO use one package by another package
+
+
+** TODO use in ap
+
+use like a extension
+
+
+
+
+** TODO run test
+
+
+*** TODO build engine package, use in ap to draw a triangle by webgpu
+
+
+
+
+* TODO add ap marketplace
+
+** TODO rename 商城 to 市场
+
+** TODO 增加查看所有发布的应用
+
+** TODO 能够在一个url中jump to 发布的应用
+
+url: 
+https://meta3d-platform-production.4everland.app?jump_to_published_application=true&&uid=xxx
+
+
+
+
+* TODO version management
+
+** TODO fix bug
+
+** TODO use select to show all versions of one extension/contribute protocol's implements
+
+
+
+
+
+* TODO refactor
+** TODO Index show Meta3d version and info without login
+
+
+
+
+* TODO publish
