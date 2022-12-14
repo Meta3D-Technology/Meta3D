@@ -8,13 +8,114 @@
 
 
 ** TODO build like ap assemble
+
+package is a collection, encapuslate by entry extension:
+package = one entry extension + other extensions + contributes
+
+
+
+
+
 no start extension, canvas
 
-entry extension
 
-分为内部依赖和外部依赖？
+分为内部依赖和外部依赖
+
+entry extension:
+provide api, e.g. 
+type service = 
+    director: {
+        getState: get engine state from meta3dState,
+        setState,
+        init,
+        ...
+    },
+    gameObject:{
+        create,
+        ...
+    }
+
+# set outer dependency, e.g.
+#     set meta3dWorkPluginWebGPUTriangleContributeName
+
+
+
 
 如果入口扩展依赖的扩展和共享在该file中，则使用它们，并对外隐藏这些依赖；否则还是依赖于外部的扩展和共享！
+
+
+
+shop:
+选择到应用装配
+选择到包装配
+
+
+Extensions
+Contributes
+
+
+Selected Extensions
+    mark Entry Extension
+Selected Contributes
+
+
+
+
+meta3d:
+# generateExtensionPackage
+generatePackage
+    like generateApp
+        use entry extension instead of start extension
+
+downloadPackage
+
+    loadPackage
+       register extensions, contributes
+    #    return entry extension name, so can get its service by getExtensionService
+    #    return entry extension name, so can get its service and set outer dependency by getPackageService(entry extension name, outer dependency data)
+    #         set outer dependency, e.g.
+    #             set meta3dWorkPluginWebGPUTriangleContributeName
+       return entry extension name, so can get its service by getExtensionService(entry extension name)
+            package outer dependency use registered extensions, contributes
+
+       set entry extension name to dependency extension name map
+
+
+
+so load multiple packages, then get their service and handle!
+load packages contain same protocols will overwrite ones before!
+
+
+
+
+use in ap assemble:
+
+add Packages;
+
+# loadPackage
+#     set entry extension name to dependency extension name map
+
+# extension can use package service by getExtensionService(entry extension name)
+
+# package outer dependency use registered extensions, contributes
+
+generateApp: add package to arrayBuffer
+
+loadApp: load package to register all extensions(include entry extension), contributes
+
+
+
+
+
+
+
+service:
+# publishExtensionPackage
+publishPackage
+    no config, only publish
+
+
+
 
 
 
@@ -26,13 +127,15 @@ need protocol?
     use entry extension protocol?
 
 
-show in extension shop
+*** TODO add extension package shop
+
+show in extension package shop
 
 
 
 ** TODO download
 
-use in local
+use in local as webpack file
 
 
 # ** TODO use one package by another package
