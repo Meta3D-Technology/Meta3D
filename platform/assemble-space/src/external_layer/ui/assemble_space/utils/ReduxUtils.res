@@ -33,3 +33,21 @@ module ElementAssemble = {
     })
   }
 }
+
+module PackageAssemble = {
+  let useDispatch = useDispatchForAssembleSpaceAction => {
+    let dispatch = useDispatchForAssembleSpaceAction()
+
+    packageAssembleAction => {
+      dispatch(FrontendUtils.AssembleSpaceStoreType.PackageAssembleAction(packageAssembleAction))
+    }
+  }
+
+  let useSelector = (useSelectorForAssembleSpaceStore, func) => {
+    useSelectorForAssembleSpaceStore((
+      {packageAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+    ) => {
+      func(packageAssembleState)
+    })
+  }
+}

@@ -7,6 +7,48 @@
 * TODO add package assemble
 
 
+** DONE add package assemble
+
+# pass compile
+
+# pass bdd test
+
+
+** DONE commit
+
+
+** TODO implement generatePackage
+
+
+** TODO implement publishPackage
+
+
+** TODO pass run test
+
+
+** TODO refactor: remove duplicate between package assemble and ap assemble
+
+
+** TODO implement downloadPackage, loadPackage
+
+
+bdd test
+
+run test
+
+
+** TODO edit ap assemble, support package
+
+
+bdd test
+
+
+** TODO run test
+
+
+
+
+
 ** TODO build like ap assemble
 
 package is a collection, encapuslate by entry extension:
@@ -152,6 +194,8 @@ use like a extension
 
 
 *** TODO build engine package, use in ap to draw a triangle by webgpu
+
+
 
 
 

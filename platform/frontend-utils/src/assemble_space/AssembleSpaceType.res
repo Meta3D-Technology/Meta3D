@@ -22,6 +22,7 @@ type backendService = {
   getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
   getAllPublishNewestExtensions: getAllPublishNewestExtensions,
   publishApp: publishApp,
+  publishPackage: publishPackage,
   findPublishApp: findPublishApp,
   findAllPublishApps: findAllPublishApps,
   publishElementContribute: publishElementContribute,
@@ -71,6 +72,12 @@ type meta3dService = {
     string,
     Meta3dType.Index.extensionLifeHandlerData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
+  generatePackage: (
+    . (
+      array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
+      array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
+    ),
+  ) => Js.Typed_array.ArrayBuffer.t,
   generateApp: (
     . (
       array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
@@ -102,7 +109,7 @@ type meta3dService = {
     Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
     Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
   ) => Meta3dType.Index.getContributeFuncResult,
-  serializeUIControlProtocolConfigLib: Meta3dServiceCommonType. serializeUIControlProtocolConfigLib,
+  serializeUIControlProtocolConfigLib: Meta3dServiceCommonType.serializeUIControlProtocolConfigLib,
   generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string) => string,
   getUIControlSpecificDataFields: (
     . Meta3d.LibUtils.lib,

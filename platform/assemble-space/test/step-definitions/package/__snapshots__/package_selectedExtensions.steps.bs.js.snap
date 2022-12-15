@@ -1,0 +1,327 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Package Selected Extensions set new name 1`] = `
+<div
+  className="ant-list ant-list-split ant-list-grid"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <div
+        className="ant-row"
+        style={
+          Object {
+            "marginLeft": -8,
+            "marginRight": -8,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "maxWidth": "100%",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="ant-col"
+            style={
+              Object {
+                "flex": "1 1 auto",
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <div
+              className="ant-list-item"
+            >
+              <div
+                className="ant-card ant-card-bordered"
+                onClick={[Function]}
+              >
+                <div
+                  className="ant-card-cover"
+                >
+                  <img
+                    src="i1"
+                    style={
+                      Object {
+                        "height": "50px",
+                        "width": "50px",
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={
+                    Object {
+                      "padding": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="ant-card-meta"
+                    style={
+                      Object {
+                        "width": "100px",
+                      }
+                    }
+                  >
+                    <div
+                      className="ant-card-meta-detail"
+                    >
+                      <div
+                        className="ant-card-meta-title"
+                      >
+                        e1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "maxWidth": "100%",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="ant-col"
+            style={
+              Object {
+                "flex": "1 1 auto",
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <div
+              className="ant-list-item"
+            >
+              <div
+                className="ant-card ant-card-bordered"
+                onClick={[Function]}
+              >
+                <div
+                  className="ant-card-cover"
+                >
+                  <img
+                    src="i2"
+                    style={
+                      Object {
+                        "height": "50px",
+                        "width": "50px",
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={
+                    Object {
+                      "padding": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="ant-card-meta"
+                    style={
+                      Object {
+                        "width": "100px",
+                      }
+                    }
+                  >
+                    <div
+                      className="ant-card-meta-detail"
+                    >
+                      <div
+                        className="ant-card-meta-title"
+                      >
+                        e_NewName2
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Package Selected Extensions show selected extensions 1`] = `
+<div
+  className="ant-list ant-list-split ant-list-grid"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <div
+        className="ant-row"
+        style={
+          Object {
+            "marginLeft": -8,
+            "marginRight": -8,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "maxWidth": "100%",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="ant-col"
+            style={
+              Object {
+                "flex": "1 1 auto",
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <div
+              className="ant-list-item"
+            >
+              <div
+                className="ant-card ant-card-bordered"
+                onClick={[Function]}
+              >
+                <div
+                  className="ant-card-cover"
+                >
+                  <img
+                    src="i1"
+                    style={
+                      Object {
+                        "height": "50px",
+                        "width": "50px",
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={
+                    Object {
+                      "padding": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="ant-card-meta"
+                    style={
+                      Object {
+                        "width": "100px",
+                      }
+                    }
+                  >
+                    <div
+                      className="ant-card-meta-detail"
+                    >
+                      <div
+                        className="ant-card-meta-title"
+                      >
+                        e1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style={
+            Object {
+              "maxWidth": "100%",
+              "width": "100%",
+            }
+          }
+        >
+          <div
+            className="ant-col"
+            style={
+              Object {
+                "flex": "1 1 auto",
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <div
+              className="ant-list-item"
+            >
+              <div
+                className="ant-card ant-card-bordered"
+                onClick={[Function]}
+              >
+                <div
+                  className="ant-card-cover"
+                >
+                  <img
+                    src="i2"
+                    style={
+                      Object {
+                        "height": "50px",
+                        "width": "50px",
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={
+                    Object {
+                      "padding": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="ant-card-meta"
+                    style={
+                      Object {
+                        "width": "100px",
+                      }
+                    }
+                  >
+                    <div
+                      className="ant-card-meta-detail"
+                    >
+                      <div
+                        className="ant-card-meta-title"
+                      >
+                        e2
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

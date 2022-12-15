@@ -86,6 +86,8 @@ type publishApp = (
   string,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
+type publishPackage = publishApp
+
 type findPublishApp = (
   . onDownloadProgressFunc,
   string,
