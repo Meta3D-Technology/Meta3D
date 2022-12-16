@@ -5,7 +5,7 @@ import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UICo
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
-import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app/AppFileType"
+import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
@@ -116,6 +116,32 @@ export function convertAllFileDataForApp<
         Array<[contributePackageDataApp, contributeFuncData]>
     ]
 
+export function convertAllFileDataForPackage<
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
+    extensionService,
+    extensionState,
+    contributeService,
+    >(
+        allExtensionFileData: Array<extensionFileData>,
+        allContributeFileData: Array<contributeFileData<
+            dependentExtensionNameMap,
+            dependentContributeNameMap,
+            contributeService
+        >>,
+        [
+            allExtensionNewNames, entryExtensions, allContributeNewNames
+        ]: [
+                Array<extensionName>,
+                Array<extensionName>,
+                Array<contributeName>,
+            ]
+    ): [
+        Array<[extensionPackageDataApp, extensionFuncData]>,
+        Array<[contributePackageDataApp, contributeFuncData]>
+    ]
+
+
 export function generateApp(
     [
         allExtensionFileData,
@@ -127,9 +153,26 @@ export function generateApp(
     configData: nullable<startConfigData>
 ): ArrayBuffer
 
+export function generatePackage(
+    [
+        allExtensionFileData,
+        allContributeFileData
+    ]: [
+            Array<[extensionPackageDataApp, extensionFuncData]>,
+            Array<[contributePackageDataApp, contributeFuncData]>
+        ]
+): ArrayBuffer
+
+
 export function loadApp(
     appBinaryFile: ArrayBuffer
 ): [state, Array<extensionFileData>]
+
+
+export function loadPackage(
+    packageBinaryFile: ArrayBuffer
+): [state, Array<extensionFileData>, extensionName]
+
 
 
 export function startApp(

@@ -17,7 +17,22 @@
 ** DONE commit
 
 
-** TODO implement generatePackage
+** DONE implement generatePackage
+
+change isStart to extension type:
+
+fix convertAllFileData
+
+** DONE implement loadPackage
+
+** DONE commit
+
+** TODO generateApp, loadApp support packages
+
+** TODO commit
+
+
+
 
 
 ** TODO implement publishPackage
@@ -29,7 +44,7 @@
 ** TODO refactor: remove duplicate between package assemble and ap assemble
 
 
-** TODO implement downloadPackage, loadPackage
+** TODO implement downloadPackage
 
 
 bdd test
@@ -145,6 +160,9 @@ generateApp: add package to arrayBuffer
 
 loadApp: load package to register all extensions(include entry extension), contributes
 
+
+publishApp:
+check dependency for package
 
 
 

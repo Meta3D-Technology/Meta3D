@@ -1,20 +1,18 @@
+'use strict';
 
-
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Semver from "semver";
-import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
-import * as FileUtils$Meta3d from "../FileUtils.bs.js";
-import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
-import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
-import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+var Curry = require("rescript/lib/js/curry.js");
+var Semver = require("semver");
+var Caml_array = require("rescript/lib/js/caml_array.js");
+var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
+var FileUtils$Meta3d = require("../FileUtils.bs.js");
+var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
+var TextEncoder$Meta3d = require("../file/TextEncoder.bs.js");
+var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
+var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var ExtensionManager$Meta3d = require("../ExtensionManager.bs.js");
+var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
+var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
   if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
@@ -36,7 +34,9 @@ function _convertDependentMap(dependentMap, allDataMap) {
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, param) {
   var allContributeNewNames = param[2];
-  var isStartedExtensions = param[1];
+  var match = param[1];
+  var isEntryExtensions = match[1];
+  var isStartExtensions = match[0];
   var allExtensionNewNames = param[0];
   var allExtensionDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allExtensionFileData, (function (result, param, i) {
           var extensionPackageData = param.extensionPackageData;
@@ -59,7 +59,9 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: newName,
-                                isStart: ArraySt$Meta3dCommonlib.includes(isStartedExtensions, newName),
+                                type_: ArraySt$Meta3dCommonlib.includes(isStartExtensions, newName) ? /* Start */1 : (
+                                    ArraySt$Meta3dCommonlib.includes(isEntryExtensions, newName) ? /* Entry */2 : /* Default */0
+                                  ),
                                 dependentExtensionNameMap: _convertDependentMap(extensionPackageData.dependentExtensionNameMap, allExtensionDataMap),
                                 dependentContributeNameMap: _convertDependentMap(extensionPackageData.dependentContributeNameMap, allContributeDataMap)
                               },
@@ -81,58 +83,46 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
         ];
 }
 
-function generate(param, configData) {
+function generate(param) {
   var encoder = new TextEncoder();
-  return BinaryFileOperator$Meta3d.generate([
-              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
-                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
-                            }), []))),
-              new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
-                              return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
-                            }), []))),
-              TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)
-            ]);
+  return [
+          new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
+                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
+                        }), []))),
+          new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
+                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
+                        }), [])))
+        ];
 }
 
-function _getContributeFunc(contributeFuncData, decoder) {
+function getContributeFunc(contributeFuncData, decoder) {
   var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder), "Contribute");
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
-function execGetContributeFunc(contributeFuncData, dependentExtensionNameMapOpt, dependentContributeNameMapOpt, param) {
-  var dependentExtensionNameMap = dependentExtensionNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  var dependentContributeNameMap = dependentContributeNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  return Curry._2(_getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
-              dependentExtensionNameMap,
-              dependentContributeNameMap
-            ]);
-}
-
-function _parse(appBinaryFile) {
-  var decoder = new TextDecoder("utf-8");
-  var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 3) {
+function _parse(param) {
+  if (param.length !== 2) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
-            "AppManager.res",
-            222,
-            6
+            "ManagerUtils.res",
+            203,
+            13
           ],
           Error: new Error()
         };
   }
-  var allExtensionBinaryUint8File = match[0];
-  var allContributeBinaryUint8File = match[1];
-  var configData = match[2];
+  var allExtensionBinaryUint8File = param[0];
+  var allContributeBinaryUint8File = param[1];
+  var decoder = new TextDecoder("utf-8");
   return [
           ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
                           _1: [
-                            "AppManager.res",
-                            231,
+                            "ManagerUtils.res",
+                            215,
                             34
                           ],
                           Error: new Error()
@@ -155,8 +145,8 @@ function _parse(appBinaryFile) {
                     throw {
                           RE_EXN_ID: "Match_failure",
                           _1: [
-                            "AppManager.res",
-                            249,
+                            "ManagerUtils.res",
+                            233,
                             34
                           ],
                           Error: new Error()
@@ -167,11 +157,10 @@ function _parse(appBinaryFile) {
                   return {
                           contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(contributePackageData, decoder))),
                           contributeFuncData: {
-                            getContributeFunc: _getContributeFunc(contributeFuncData, decoder)
+                            getContributeFunc: getContributeFunc(contributeFuncData, decoder)
                           }
                         };
-                })),
-          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)))
+                }))
         ];
 }
 
@@ -182,17 +171,6 @@ function _prepare(param) {
           extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           contributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
-}
-
-function _getStartExtensionName(allExtensionDataArr) {
-  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
-          return param.extensionPackageData.isStart;
-        }));
-  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one start extension", "", "", "", "")));
-  } else {
-    return Caml_array.get(startExtensions, 0).extensionPackageData.name;
-  }
 }
 
 function _run(param) {
@@ -214,38 +192,33 @@ function _run(param) {
         }), state);
   return [
           state$1,
-          allExtensionDataArr,
-          param[2]
+          allExtensionDataArr
         ];
 }
 
-function load(appBinaryFile) {
-  return _run(_parse(appBinaryFile));
+function load(data) {
+  return _run(_parse(data));
 }
 
-function start(param) {
-  ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionName(param[1]), param[2]);
+function getSpecificExtensionName(allExtensionDataArr, extensionType) {
+  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
+          return param.extensionPackageData.type_ === extensionType;
+        }));
+  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one type extension", "", "", "", "")));
+  } else {
+    return Caml_array.get(startExtensions, 0).extensionPackageData.name;
+  }
 }
 
-function _getExtensionNames(allExtensionDataArr) {
-  return ArraySt$Meta3dCommonlib.map(allExtensionDataArr, (function (param) {
-                return param.extensionPackageData.name;
-              }));
-}
-
-export {
-  _checkVersion ,
-  _convertDependentMap ,
-  convertAllFileData ,
-  generate ,
-  _getContributeFunc ,
-  execGetContributeFunc ,
-  _parse ,
-  _prepare ,
-  _getStartExtensionName ,
-  _run ,
-  load ,
-  start ,
-  _getExtensionNames ,
-}
+exports._checkVersion = _checkVersion;
+exports._convertDependentMap = _convertDependentMap;
+exports.convertAllFileData = convertAllFileData;
+exports.generate = generate;
+exports.getContributeFunc = getContributeFunc;
+exports._parse = _parse;
+exports._prepare = _prepare;
+exports._run = _run;
+exports.load = load;
+exports.getSpecificExtensionName = getSpecificExtensionName;
 /* semver Not a pure module */

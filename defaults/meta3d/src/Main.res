@@ -26,9 +26,15 @@ let loadContribute = ExtensionFileManager.loadContribute
 
 let convertAllFileDataForApp = AppManager.convertAllFileData
 
+let convertAllFileDataForPackage = PackageManager.convertAllFileData
+
 let generateApp = AppManager.generate
 
+let generatePackage = PackageManager.generate
+
 let loadApp = AppManager.load
+
+let loadPackage = PackageManager.load
 
 let startApp = AppManager.start
 

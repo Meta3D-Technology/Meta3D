@@ -14,9 +14,14 @@ type dependentContributeData = {
   protocolVersion: versionRange,
 }
 
+type extensionType =
+  | Default
+  | Start
+  | Entry
+
 type extensionPackageData = {
   name: extensionName,
-  isStart: bool,
+  type_: extensionType,
   dependentExtensionNameMap: dependentExtensionNameMap,
   dependentContributeNameMap: dependentContributeNameMap,
 }

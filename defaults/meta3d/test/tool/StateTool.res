@@ -1,3 +1,3 @@
 let create = () => {
-  AppManager._prepare()
+  ManagerUtils._prepare()
 }

@@ -1,6 +1,6 @@
 open Js.Typed_array
 
-open AppFileType
+open AppAndPackageFileType
 
 let _checkVersion = (protocolVersion, dependentProtocolVersion, dependentProtocolName) => {
   Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
@@ -59,7 +59,10 @@ let convertAllFileData = (
   allContributeFileData: array<ExtensionFileType.contributeFileData>,
   (
     allExtensionNewNames: array<Meta3dType.Index.extensionName>,
-    isStartedExtensions: array<Meta3dType.Index.extensionName>,
+    (
+      isStartExtensions: array<Meta3dType.Index.extensionName>,
+      isEntryExtensions: array<Meta3dType.Index.extensionName>,
+    ),
     allContributeNewNames: array<Meta3dType.Index.contributeName>,
   ),
 ): (
@@ -105,7 +108,11 @@ let convertAllFileData = (
           (
             {
               name: newName,
-              isStart: isStartedExtensions->Meta3dCommonlib.ArraySt.includes(newName),
+              type_: isStartExtensions->Meta3dCommonlib.ArraySt.includes(newName)
+                ? Start
+                : isEntryExtensions->Meta3dCommonlib.ArraySt.includes(newName)
+                ? Entry
+                : Default,
               dependentExtensionNameMap: _convertDependentMap(
                 extensionPackageData.dependentExtensionNameMap,
                 allExtensionDataMap,
@@ -147,13 +154,10 @@ let convertAllFileData = (
   )
 }
 
-let generate = (
-  (
-    allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
-    allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
-  ),
-  configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
-): ArrayBuffer.t => {
+let generate = ((
+  allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+  allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+)): array<Uint8Array.t> => {
   let encoder = TextEncoder.newTextEncoder()
 
   [
@@ -186,44 +190,24 @@ let generate = (
     )
     ->BinaryFileOperator.generate
     ->Uint8Array.fromBuffer,
-    TextEncoder.encodeUint8Array(
-      configData
-      ->Obj.magic
-      ->Meta3dCommonlib.NullableSt.getWithDefault([])
-      ->Obj.magic
-      ->Js.Json.stringify,
-      encoder,
-    ),
-  ]->BinaryFileOperator.generate
+  ]
 }
 
-let _getContributeFunc = (contributeFuncData, decoder) => {
+let getContributeFunc = (contributeFuncData, decoder) => {
   let lib =
     TextDecoder.decodeUint8Array(contributeFuncData, decoder)->LibUtils.serializeLib("Contribute")
 
   LibUtils.getFuncFromLib(lib, "getContribute")
 }
 
-let execGetContributeFunc = (
-  ~contributeFuncData,
-  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  (),
-) => {
-  (_getContributeFunc(contributeFuncData, TextDecoder.newTextDecoder("utf-8"))->Obj.magic)(
-    ExtensionManager.buildAPI(),
-    (dependentExtensionNameMap, dependentContributeNameMap),
-  )
-}
-
-let _parse = (appBinaryFile: ArrayBuffer.t) => {
+let _parse = ([allExtensionBinaryUint8File, allContributeBinaryUint8File]) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
-  let [
-    allExtensionBinaryUint8File,
-    allContributeBinaryUint8File,
-    configData,
-  ] = BinaryFileOperator.load(appBinaryFile)
+  //   let [
+  //     allExtensionBinaryUint8File,
+  //     allContributeBinaryUint8File,
+  //     configData,
+  //   ] = BinaryFileOperator.load(appBinaryFile)
 
   (
     BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
@@ -253,14 +237,14 @@ let _parse = (appBinaryFile: ArrayBuffer.t) => {
         ->Js.Json.parseExn
         ->Obj.magic,
         contributeFuncData: {
-          getContributeFunc: _getContributeFunc(contributeFuncData, decoder)->Obj.magic,
+          getContributeFunc: getContributeFunc(contributeFuncData, decoder)->Obj.magic,
         },
       }
     }),
-    TextDecoder.decodeUint8Array(configData, decoder)
-    ->FileUtils.removeAlignedEmptyChars
-    ->Js.Json.parseExn
-    ->Obj.magic,
+    // TextDecoder.decodeUint8Array(configData, decoder)
+    // ->FileUtils.removeAlignedEmptyChars
+    // ->Js.Json.parseExn
+    // ->Obj.magic,
   )
 }
 
@@ -273,29 +257,8 @@ let _prepare = (): Meta3dType.Index.state => {
   }
 }
 
-let _getStartExtensionName = allExtensionDataArr => {
-  switch allExtensionDataArr->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
-    extensionPackageData.isStart
-  }) {
-  | startExtensions if startExtensions->Meta3dCommonlib.ArraySt.length !== 1 =>
-    Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Exception.buildErr(
-        Meta3dCommonlib.Log.buildErrorMessage(
-          ~title="should only has one start extension",
-          ~description={
-            j``
-          },
-          ~reason="",
-          ~solution=j``,
-          ~params=j``,
-        ),
-      ),
-    )
-  | startExtensions => startExtensions[0].extensionPackageData.name
-  }
-}
-
-let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
+// let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
+let _run = ((allExtensionDataArr, allContributeDataArr)) => {
   let state =
     allExtensionDataArr->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. state, {extensionPackageData, extensionFuncData}: extensionFileData) => {
@@ -328,23 +291,34 @@ let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
       state,
     )
 
-  (state, allExtensionDataArr, configData)
+  (state, allExtensionDataArr)
 }
 
-let load = (appBinaryFile: ArrayBuffer.t): (
+let load = (data: array<Uint8Array.t>): (
   Meta3dType.Index.state,
-  array<AppFileType.extensionFileData>,
-  Meta3dType.Index.startConfigData,
+  array<extensionFileData>,
 ) => {
-  appBinaryFile->_parse->_run
+  data->_parse->_run
 }
 
-let start = ((state, allExtensionDataArr, configData)): unit => {
-  state->ExtensionManager.startExtension(_getStartExtensionName(allExtensionDataArr), configData)
-}
-
-let _getExtensionNames = allExtensionDataArr => {
-  allExtensionDataArr->Meta3dCommonlib.ArraySt.map(({extensionPackageData}) => {
-    extensionPackageData.name
-  })
+let getSpecificExtensionName = (allExtensionDataArr, extensionType) => {
+  switch allExtensionDataArr->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
+    extensionPackageData.type_ === extensionType
+  }) {
+  | startExtensions if startExtensions->Meta3dCommonlib.ArraySt.length !== 1 =>
+    Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
+        Meta3dCommonlib.Log.buildErrorMessage(
+          ~title="should only has one type extension",
+          ~description={
+            j``
+          },
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
+      ),
+    )
+  | startExtensions => startExtensions[0].extensionPackageData.name
+  }
 }

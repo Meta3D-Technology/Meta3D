@@ -1,6 +1,7 @@
 'use strict';
 
-var AppManager$Meta3d = require("./app/AppManager.bs.js");
+var AppManager$Meta3d = require("./app_and_package/AppManager.bs.js");
+var PackageManager$Meta3d = require("./app_and_package/PackageManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
 var ActionProtocolConfig$Meta3d = require("./contribute_protocol_config/ActionProtocolConfig.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
@@ -35,9 +36,15 @@ var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
 
 var convertAllFileDataForApp = AppManager$Meta3d.convertAllFileData;
 
+var convertAllFileDataForPackage = PackageManager$Meta3d.convertAllFileData;
+
 var generateApp = AppManager$Meta3d.generate;
 
+var generatePackage = PackageManager$Meta3d.generate;
+
 var loadApp = AppManager$Meta3d.load;
+
+var loadPackage = PackageManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
@@ -79,8 +86,11 @@ exports.loadExtension = loadExtension;
 exports.generateContribute = generateContribute;
 exports.loadContribute = loadContribute;
 exports.convertAllFileDataForApp = convertAllFileDataForApp;
+exports.convertAllFileDataForPackage = convertAllFileDataForPackage;
 exports.generateApp = generateApp;
+exports.generatePackage = generatePackage;
 exports.loadApp = loadApp;
+exports.loadPackage = loadPackage;
 exports.startApp = startApp;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLib;

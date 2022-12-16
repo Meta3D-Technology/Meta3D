@@ -1,6 +1,7 @@
 
 
-import * as AppManager$Meta3d from "./app/AppManager.bs.js";
+import * as AppManager$Meta3d from "./app_and_package/AppManager.bs.js";
+import * as PackageManager$Meta3d from "./app_and_package/PackageManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
 import * as ActionProtocolConfig$Meta3d from "./contribute_protocol_config/ActionProtocolConfig.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
@@ -35,9 +36,15 @@ var loadContribute = ExtensionFileManager$Meta3d.loadContribute;
 
 var convertAllFileDataForApp = AppManager$Meta3d.convertAllFileData;
 
+var convertAllFileDataForPackage = PackageManager$Meta3d.convertAllFileData;
+
 var generateApp = AppManager$Meta3d.generate;
 
+var generatePackage = PackageManager$Meta3d.generate;
+
 var loadApp = AppManager$Meta3d.load;
+
+var loadPackage = PackageManager$Meta3d.load;
 
 var startApp = AppManager$Meta3d.start;
 
@@ -80,8 +87,11 @@ export {
   generateContribute ,
   loadContribute ,
   convertAllFileDataForApp ,
+  convertAllFileDataForPackage ,
   generateApp ,
+  generatePackage ,
   loadApp ,
+  loadPackage ,
   startApp ,
   execGetContributeFunc ,
   serializeUIControlProtocolConfigLib ,
