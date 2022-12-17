@@ -5,22 +5,26 @@ open AppAndPackageFileType
 let convertAllFileData = (
   allExtensionFileData,
   allContributeFileData,
-  (allExtensionNewNames, isStartExtensions, allContributeNewNames),
+  allPackageEntryExtensionProtocolData,
+  (allExtensionNewNames, startExtensionNames, allContributeNewNames),
 ) => {
   ManagerUtils.convertAllFileData(
     allExtensionFileData,
     allContributeFileData,
-    (allExtensionNewNames, (isStartExtensions, []), allContributeNewNames),
+    allPackageEntryExtensionProtocolData,
+    (allExtensionNewNames, (startExtensionNames, []), allContributeNewNames),
   )
 }
 
 let generate = (
   (allExtensionFileData, allContributeFileData),
+  allPackageBinaryFiles,
   configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
 ) => {
   let encoder = TextEncoder.newTextEncoder()
 
   ManagerUtils.generate((allExtensionFileData, allContributeFileData))
+  ->ManagerUtils.mergeAllPackageBinaryFiles(allPackageBinaryFiles)
   ->Meta3dCommonlib.ArraySt.push(
     TextEncoder.encodeUint8Array(
       configData

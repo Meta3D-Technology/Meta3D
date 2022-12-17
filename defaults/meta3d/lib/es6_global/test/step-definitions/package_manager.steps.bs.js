@@ -35,7 +35,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         return FileTool$Meta3d.buildFakeTextEncoder();
                       }));
         };
-        test("convert allExtensionFileData and allContributeFileData", (function (param) {
+        test("convert allExtensionFileData and allContributeFileData and empty allPackageEntryExtensionProtocolData", (function (param) {
                 var and = param.and;
                 var given = param.given;
                 var firstExtension = {
@@ -126,7 +126,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         var match = Main$Meta3d.convertAllFileDataForPackage([
                               firstExtensionFileData.contents,
                               secondExtensionFileData.contents
-                            ], [firstContributeFileData.contents], [
+                            ], [firstContributeFileData.contents], [], [
                               allExtensionNewNames.contents,
                               [entryExtensionName.contents],
                               allContributeNewNames.contents
@@ -246,14 +246,14 @@ JestCucumber.defineFeature(feature, (function (test) {
                         c1.contents = Main$Meta3d.convertAllFileDataForPackage([
                               firstExtensionFileData,
                               secondExtensionFileData
-                            ], [firstContributeFileData], [
+                            ], [firstContributeFileData], [], [
                               allExtensionNewNames.contents,
                               entryExtensions.contents,
                               allContributeNewNames.contents
                             ]);
                       }));
                 Curry._2(param.when, "generate package with c1 and load it", (function (param) {
-                        var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents));
+                        var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents, []));
                         entryExtensionName.contents = match[2];
                         state.contents = match[0];
                       }));
@@ -315,7 +315,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                   c1.contents = Main$Meta3d.convertAllFileDataForPackage([
                         firstExtensionFileData,
                         secondExtensionFileData
-                      ], [], [
+                      ], [], [], [
                         allExtensionNewNames.contents,
                         [entryExtensionName.contents],
                         []
@@ -333,7 +333,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       PackageManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit
                     ]);
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate package with c1 and load it and init the entry extension", (function (param) {
-                        var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents));
+                        var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents, []));
                         var s = match[0];
                         state.contents = s;
                         var __x = Main$Meta3d.initExtension(s, match[2], 10);

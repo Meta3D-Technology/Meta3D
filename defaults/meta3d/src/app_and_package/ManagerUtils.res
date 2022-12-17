@@ -57,11 +57,15 @@ let _convertDependentMap = (dependentMap, allDataMap) => {
 let convertAllFileData = (
   allExtensionFileData: array<ExtensionFileType.extensionFileData>,
   allContributeFileData: array<ExtensionFileType.contributeFileData>,
+  allPackageEntryExtensionProtocolData: array<(
+    ExtensionFileType.extensionProtocolData,
+    Meta3dType.Index.extensionName,
+  )>,
   (
     allExtensionNewNames: array<Meta3dType.Index.extensionName>,
     (
-      isStartExtensions: array<Meta3dType.Index.extensionName>,
-      isEntryExtensions: array<Meta3dType.Index.extensionName>,
+      startExtensionNames: array<Meta3dType.Index.extensionName>,
+      entryExtensionNames: array<Meta3dType.Index.extensionName>,
     ),
     allContributeNewNames: array<Meta3dType.Index.contributeName>,
   ),
@@ -71,6 +75,12 @@ let convertAllFileData = (
 ) => {
   // TODO check:allExtensionNewNames.length == allExtensionFileData.length
   // TODO check:allContributeNewNames.length == allContributeFileData.length
+
+  // let [
+  //   allExtensionBinaryUint8File,
+  //   allContributeBinaryUint8File,
+  //   configData,
+  // ] = BinaryFileOperator.load()
 
   let allExtensionDataMap =
     allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
@@ -85,6 +95,17 @@ let convertAllFileData = (
       },
       Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     )
+  let allExtensionDataMap =
+    allPackageEntryExtensionProtocolData->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. allExtensionDataMap, ({name, version}, entryExtensionName)) => {
+        allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.set(
+          name,
+          (entryExtensionName, version),
+        )
+      },
+      allExtensionDataMap,
+    )
+
   let allContributeDataMap =
     allContributeFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {contributePackageData}, i) => {
@@ -108,9 +129,9 @@ let convertAllFileData = (
           (
             {
               name: newName,
-              type_: isStartExtensions->Meta3dCommonlib.ArraySt.includes(newName)
+              type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
                 ? Start
-                : isEntryExtensions->Meta3dCommonlib.ArraySt.includes(newName)
+                : entryExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
                 ? Entry
                 : Default,
               dependentExtensionNameMap: _convertDependentMap(
@@ -191,6 +212,69 @@ let generate = ((
     ->BinaryFileOperator.generate
     ->Uint8Array.fromBuffer,
   ]
+}
+
+let mergeAllPackageBinaryFiles = (
+  // (
+  //   allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+  //   allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+  // ),
+  [allExtensionBinaryUint8File, allContributeBinaryUint8File]: array<Uint8Array.t>,
+  // (
+  //   allExtensionFileData: array<ExtensionFileType.extensionFileData>,
+  //   allContributeFileData: array<ExtensionFileType.contributeFileData>,
+  // ),
+  allPackageBinaryFiles: array<ArrayBuffer.t>,
+): // allPackageBinaryUint8Files: array<Uint8Array.t>,
+// allPackageBinaryUint8Files: array<Uint8Array.t>,
+// : (
+//   array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+//   array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+// )
+// : (array<ExtensionFileType.extensionFileData>, array<ExtensionFileType.contributeFileData>)
+array<Uint8Array.t> => {
+  // allPackageBinaryUint8Files->Meta3dCommonlib.ArraySt.reduceOneParam(
+  allPackageBinaryFiles->Meta3dCommonlib.ArraySt.reduceOneParam(
+    // (. [allExtensionBinaryUint8File, allContributeBinaryUint8File], packageBinaryUint8File) => {
+    (. [allExtensionBinaryUint8File, allContributeBinaryUint8File], packageBinaryFile) => {
+      let [
+        allExtensionBinaryUint8FileInPackage,
+        allContributeBinaryUint8FileInPackage,
+        // ] = BinaryFileOperator.load(packageBinaryUint8File->Uint8Array.buffer)
+      ] = BinaryFileOperator.load(packageBinaryFile)
+
+      [
+        Js.Array.concat(
+          BinaryFileOperator.load(allExtensionBinaryUint8FileInPackage->Uint8Array.buffer),
+          BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer),
+        )
+        ->BinaryFileOperator.generate
+        ->Uint8Array.fromBuffer,
+        Js.Array.concat(
+          BinaryFileOperator.load(allContributeBinaryUint8FileInPackage->Uint8Array.buffer),
+          BinaryFileOperator.load(allContributeBinaryUint8File->Uint8Array.buffer),
+        )
+        ->BinaryFileOperator.generate
+        ->Uint8Array.fromBuffer,
+      ]
+
+      // [
+      //       BinaryFileOperator.merge(allExtensionBinaryUint8File, allExtensionBinaryUint8FileInPackage),
+
+      //       BinaryFileOperator.merge(allContributeBinaryUint8File, allContributeBinaryUint8FileInPackage)
+      //  ]
+
+      // (
+      //   BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
+      //   ->Meta3dCommonlib.ArraySt.chunk(2)
+      //   ->Js.Array.concat(allExtensionFileData),
+      //   BinaryFileOperator.load(allContributeBinaryUint8File->Uint8Array.buffer)
+      //   ->Meta3dCommonlib.ArraySt.chunk(2)
+      //   ->Js.Array.concat(allContributeFileData),
+      // )
+    },
+    [allExtensionBinaryUint8File, allContributeBinaryUint8File],
+  )
 }
 
 let getContributeFunc = (contributeFuncData, decoder) => {
@@ -294,10 +378,7 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
   (state, allExtensionDataArr)
 }
 
-let load = (data: array<Uint8Array.t>): (
-  Meta3dType.Index.state,
-  array<extensionFileData>,
-) => {
+let load = (data: array<Uint8Array.t>): (Meta3dType.Index.state, array<extensionFileData>) => {
   data->_parse->_run
 }
 

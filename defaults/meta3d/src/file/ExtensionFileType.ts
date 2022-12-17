@@ -44,6 +44,11 @@ export type extensionFileData = {
   extensionFuncData: extensionFuncData
 };
 
+export type extensionProtocolData = {
+  name: string,
+  version: versionRange,
+}
+
 
 
 export type contributePackageData = {

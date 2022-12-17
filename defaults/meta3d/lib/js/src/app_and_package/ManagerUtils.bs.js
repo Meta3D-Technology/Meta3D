@@ -2,6 +2,7 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var Semver = require("semver");
+var Js_array = require("rescript/lib/js/js_array.js");
 var Caml_array = require("rescript/lib/js/caml_array.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
@@ -32,11 +33,11 @@ function _convertDependentMap(dependentMap, allDataMap) {
               }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
 }
 
-function convertAllFileData(allExtensionFileData, allContributeFileData, param) {
+function convertAllFileData(allExtensionFileData, allContributeFileData, allPackageEntryExtensionProtocolData, param) {
   var allContributeNewNames = param[2];
   var match = param[1];
-  var isEntryExtensions = match[1];
-  var isStartExtensions = match[0];
+  var entryExtensionNames = match[1];
+  var startExtensionNames = match[0];
   var allExtensionNewNames = param[0];
   var allExtensionDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allExtensionFileData, (function (result, param, i) {
           var extensionPackageData = param.extensionPackageData;
@@ -45,6 +46,13 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
                       extensionPackageData.protocol.version
                     ]);
         }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
+  var allExtensionDataMap$1 = ArraySt$Meta3dCommonlib.reduceOneParam(allPackageEntryExtensionProtocolData, (function (allExtensionDataMap, param) {
+          var match = param[0];
+          return ImmutableHashMap$Meta3dCommonlib.set(allExtensionDataMap, match.name, [
+                      param[1],
+                      match.version
+                    ]);
+        }), allExtensionDataMap);
   var allContributeDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allContributeFileData, (function (result, param, i) {
           var contributePackageData = param.contributePackageData;
           return ImmutableHashMap$Meta3dCommonlib.set(result, contributePackageData.protocol.name, [
@@ -59,10 +67,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: newName,
-                                type_: ArraySt$Meta3dCommonlib.includes(isStartExtensions, newName) ? /* Start */1 : (
-                                    ArraySt$Meta3dCommonlib.includes(isEntryExtensions, newName) ? /* Entry */2 : /* Default */0
+                                type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, newName) ? /* Start */1 : (
+                                    ArraySt$Meta3dCommonlib.includes(entryExtensionNames, newName) ? /* Entry */2 : /* Default */0
                                   ),
-                                dependentExtensionNameMap: _convertDependentMap(extensionPackageData.dependentExtensionNameMap, allExtensionDataMap),
+                                dependentExtensionNameMap: _convertDependentMap(extensionPackageData.dependentExtensionNameMap, allExtensionDataMap$1),
                                 dependentContributeNameMap: _convertDependentMap(extensionPackageData.dependentContributeNameMap, allContributeDataMap)
                               },
                               param.extensionFuncData
@@ -74,7 +82,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: newName,
-                                dependentExtensionNameMap: _convertDependentMap(contributePackageData.dependentExtensionNameMap, allExtensionDataMap),
+                                dependentExtensionNameMap: _convertDependentMap(contributePackageData.dependentExtensionNameMap, allExtensionDataMap$1),
                                 dependentContributeNameMap: _convertDependentMap(contributePackageData.dependentContributeNameMap, allContributeDataMap)
                               },
                               param.contributeFuncData
@@ -95,6 +103,60 @@ function generate(param) {
         ];
 }
 
+function mergeAllPackageBinaryFiles(param) {
+  if (param.length !== 2) {
+    throw {
+          RE_EXN_ID: "Match_failure",
+          _1: [
+            "ManagerUtils.res",
+            217,
+            33
+          ],
+          Error: new Error()
+        };
+  }
+  var allExtensionBinaryUint8File = param[0];
+  var allContributeBinaryUint8File = param[1];
+  return function (allPackageBinaryFiles) {
+    return ArraySt$Meta3dCommonlib.reduceOneParam(allPackageBinaryFiles, (function (param, param$1) {
+                  if (param.length !== 2) {
+                    throw {
+                          RE_EXN_ID: "Match_failure",
+                          _1: [
+                            "ManagerUtils.res",
+                            239,
+                            4
+                          ],
+                          Error: new Error()
+                        };
+                  }
+                  var allExtensionBinaryUint8File = param[0];
+                  var allContributeBinaryUint8File = param[1];
+                  var match = BinaryFileOperator$Meta3d.load(param$1);
+                  if (match.length !== 2) {
+                    throw {
+                          RE_EXN_ID: "Match_failure",
+                          _1: [
+                            "ManagerUtils.res",
+                            240,
+                            10
+                          ],
+                          Error: new Error()
+                        };
+                  }
+                  var allExtensionBinaryUint8FileInPackage = match[0];
+                  var allContributeBinaryUint8FileInPackage = match[1];
+                  return [
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer)))),
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer))))
+                        ];
+                }), [
+                allExtensionBinaryUint8File,
+                allContributeBinaryUint8File
+              ]);
+  };
+}
+
 function getContributeFunc(contributeFuncData, decoder) {
   var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder), "Contribute");
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
@@ -106,7 +168,7 @@ function _parse(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            203,
+            287,
             13
           ],
           Error: new Error()
@@ -122,7 +184,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            215,
+                            299,
                             34
                           ],
                           Error: new Error()
@@ -146,7 +208,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            233,
+                            317,
                             34
                           ],
                           Error: new Error()
@@ -215,6 +277,7 @@ exports._checkVersion = _checkVersion;
 exports._convertDependentMap = _convertDependentMap;
 exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
+exports.mergeAllPackageBinaryFiles = mergeAllPackageBinaryFiles;
 exports.getContributeFunc = getContributeFunc;
 exports._parse = _parse;
 exports._prepare = _prepare;

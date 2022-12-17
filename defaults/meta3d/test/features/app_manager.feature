@@ -23,17 +23,27 @@ Feature: App Manager
             When convert l1
             Then error
 
+        Scenario: version not match case3
+            Given generate one extension
+            And generate one package entry extension protocol data that version not match
+            And prepare new names
+            And load them as l1
+            When convert l1
+            Then error
+
         Scenario: version match case1
             Given generate one extension
             And generate one contribute that version match
+            And generate one package entry extension protocol data that version match
             And prepare new names
             And load them as l1
             When convert l1
             Then not error
 
-        Scenario: convert allExtensionFileData and allContributeFileData
+        Scenario: convert allExtensionFileData and allContributeFileData and allPackageEntryExtensionProtocolData
             Given generate two extensions that the seond is started
             And generate one contribute
+            And generate one package entry extension protocol data
             And prepare new names
             And load them as l1
             When convert l1
@@ -47,13 +57,15 @@ Feature: App Manager
         Scenario: load and start generated app
             Given generate two extensions
             And generate one contribute
+            And generate one package as p1 with one extension and one contribute
+            And generate one package entry extension protocol data
             And prepare new names and start the second extension
             And load them and convert as c1
             And prepare config data
-            When generate app with c1, config data and load it and start it
-            Then the two extensions should be registered
-            And the one contribute should be registered
-            And load result should has correct config data 
+            When generate app with c1, p1, config data and load it and start it
+            Then the three extensions should be registered
+            And the two contributes should be registered
+            And load result should has correct config data
             And the second extension should be started
 
         Scenario: if two extension need start, error

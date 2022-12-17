@@ -4,7 +4,7 @@ import { extensionName, getExtensionService, getExtensionLife, state, api, contr
 import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
-import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
+import { extensionFileData, extensionProtocolData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
@@ -91,6 +91,9 @@ export function loadContribute<
         contributeService
     >
 
+type allPackageEntryExtensionProtocolData = Array<[extensionProtocolData, extensionName]>
+type allPackageBinaryFiles = Array<ArrayBuffer>
+
 export function convertAllFileDataForApp<
     dependentExtensionNameMap,
     dependentContributeNameMap,
@@ -104,6 +107,7 @@ export function convertAllFileDataForApp<
             dependentContributeNameMap,
             contributeService
         >>,
+        allPackageEntryExtensionProtocolData: allPackageEntryExtensionProtocolData,
         [
             allExtensionNewNames, isStartedExtensions, allContributeNewNames
         ]: [
@@ -129,6 +133,7 @@ export function convertAllFileDataForPackage<
             dependentContributeNameMap,
             contributeService
         >>,
+        allPackageEntryExtensionProtocolData: allPackageEntryExtensionProtocolData,
         [
             allExtensionNewNames, entryExtensions, allContributeNewNames
         ]: [
@@ -150,6 +155,7 @@ export function generateApp(
             Array<[extensionPackageDataApp, extensionFuncData]>,
             Array<[contributePackageDataApp, contributeFuncData]>
         ],
+    allPackageBinaryFiles: allPackageBinaryFiles,
     configData: nullable<startConfigData>
 ): ArrayBuffer
 
@@ -160,7 +166,8 @@ export function generatePackage(
     ]: [
             Array<[extensionPackageDataApp, extensionFuncData]>,
             Array<[contributePackageDataApp, contributeFuncData]>
-        ]
+        ],
+    allPackageBinaryFiles: allPackageBinaryFiles
 ): ArrayBuffer
 
 

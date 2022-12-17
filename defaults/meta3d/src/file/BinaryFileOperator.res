@@ -75,7 +75,7 @@ let generate = (dataArr: array<Uint8Array.t>): ArrayBuffer.t => {
   binaryFile
 }
 
-let load = (binaryFile: ArrayBuffer.t) => {
+let load = (binaryFile: ArrayBuffer.t): array<Uint8Array.t> => {
   let dataView = DataViewCommon.create(binaryFile)
 
   let (dataLength, _) = DataViewCommon.getUint32_1(. 0, dataView)

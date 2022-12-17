@@ -27,12 +27,14 @@ fix convertAllFileData
 
 ** DONE commit
 
-** TODO generateApp, loadApp support packages
+** DONE convertAllFileData support packages
+** DONE generate support packages
 
-** TODO commit
+** DONE commit
 
 
 
+** TODO package assemble: add Packages, Selected Packages
 
 
 ** TODO implement publishPackage
@@ -103,17 +105,21 @@ type service =
 
 
 shop:
-选择到应用装配
-选择到包装配
+# 选择到应用装配
+# 选择到包装配
+remain 选择
 
 
 Extensions
 Contributes
+Packages
 
 
 Selected Extensions
     mark Entry Extension
 Selected Contributes
+
+Selected Packages
 
 
 

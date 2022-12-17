@@ -12,8 +12,8 @@ var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
-function convertAllFileData(allExtensionFileData, allContributeFileData, param) {
-  return ManagerUtils$Meta3d.convertAllFileData(allExtensionFileData, allContributeFileData, [
+function convertAllFileData(allExtensionFileData, allContributeFileData, allPackageEntryExtensionProtocolData, param) {
+  return ManagerUtils$Meta3d.convertAllFileData(allExtensionFileData, allContributeFileData, allPackageEntryExtensionProtocolData, [
               param[0],
               [
                 param[1],
@@ -23,12 +23,12 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, param) 
             ]);
 }
 
-function generate(param, configData) {
+function generate(param, allPackageBinaryFiles, configData) {
   var encoder = new TextEncoder();
-  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.generate([
-                      param[0],
-                      param[1]
-                    ]), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
+  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
+                            param[0],
+                            param[1]
+                          ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
 function execGetContributeFunc(contributeFuncData, dependentExtensionNameMapOpt, dependentContributeNameMapOpt, param) {
@@ -47,7 +47,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            56,
+            60,
             6
           ],
           Error: new Error()

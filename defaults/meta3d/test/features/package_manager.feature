@@ -31,7 +31,7 @@ Feature: Package Manager
         #     When convert l1
         #     Then not error
 
-        Scenario: convert allExtensionFileData and allContributeFileData
+        Scenario: convert allExtensionFileData and allContributeFileData and empty allPackageEntryExtensionProtocolData
             Given generate two extensions that the seond is entry
             And generate one contribute
             And prepare new names
