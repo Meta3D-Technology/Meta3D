@@ -17,6 +17,8 @@ let generateApp = (service, selectedExtensions, selectedContributes, configData)
       selectedContributes->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.ApAssembleStoreType.contribute,
       ) => data),
+      // TODO finish
+      [],
       (
         selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
           _getExtensionNewName(newName, data)

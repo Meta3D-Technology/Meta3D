@@ -3,31 +3,34 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _isSelectedNothing = (selectedExtensions, selectedContributes) => {
+  let _isSelectedNothing = (selectedPackages, selectedExtensions, selectedContributes) => {
+    selectedPackages->Meta3dCommonlib.ArraySt.length == 0 &&
     selectedExtensions->Meta3dCommonlib.ArraySt.length == 0 &&
-      selectedContributes->Meta3dCommonlib.ArraySt.length == 0
+    selectedContributes->Meta3dCommonlib.ArraySt.length == 0
   }
 
   let onFinish = (
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedExtensions, selectedContributes),
+    (account, selectedPackages, selectedExtensions, selectedContributes),
     values,
   ): Js.Promise.t<unit> => {
     let packageName = values["packageName"]
 
+    let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
 
-    _isSelectedNothing(selectedExtensions, selectedContributes)
+    _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
       ? {
-          service.console.error(. {j`请至少选择一个扩展或者贡献`}, None)
+          service.console.error(. {j`请至少选择一个包或者扩展或者贡献`}, None)
 
           ()->Js.Promise.resolve
         }
       : {
           let packageBinaryFile = PackageUtils.generatePackage(
             service,
+            selectedPackages,
             selectedExtensions,
             selectedContributes,
           )
@@ -62,18 +65,23 @@ module Method = {
   // }
 
   let useSelector = (
-    {selectedExtensions, selectedContributes}: FrontendUtils.PackageAssembleStoreType.state,
+    {
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    }: FrontendUtils.PackageAssembleStoreType.state,
   ) => {
-    (selectedExtensions, selectedContributes)
+    (selectedPackages, selectedExtensions, selectedContributes)
   }
 }
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
-  let (selectedExtensions, selectedContributes) = ReduxUtils.PackageAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    selectedPackages,
+    selectedExtensions,
+    selectedContributes,
+  ) = ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -116,6 +124,7 @@ let make = (~service: service, ~account: option<string>) => {
                       (setUploadProgress, setIsUploadBegin, setVisible),
                       (
                         account,
+                        selectedPackages,
                         selectedExtensions,
                         selectedContributes,
                         // canvasData,

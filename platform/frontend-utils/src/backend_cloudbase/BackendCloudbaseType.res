@@ -1,9 +1,13 @@
 type account = string
 
+type versionRange = string
+
+type version = string
+
 // TODO refactor: move type out
 type protocol = {
   name: string,
-  version: string,
+  version: versionRange,
   account: account,
   iconBase64: string,
 }
@@ -40,7 +44,7 @@ type getAllPublishExtensionProtocolConfigs = unit => Meta3dBsMostProtocol.Stream
 type implementInfo = {
   id: string,
   name: string,
-  version: string,
+  version: version,
   account: account,
 }
 
@@ -129,7 +133,7 @@ type publishElementAssembleData = (
 type implement = {
   id: string,
   file: Js.Typed_array.ArrayBuffer.t,
-  version: string,
+  version: version,
   account: account,
 }
 
@@ -141,7 +145,7 @@ type getAllPublishNewestExtensions = (
 
 type elementName = string
 
-type elementVersion = string
+type elementVersion = version
 
 type elementAssembleData = {
   elementName: elementName,

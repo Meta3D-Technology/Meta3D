@@ -8,7 +8,7 @@ let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeF
   newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
 }
 
-let generatePackage = (service, selectedExtensions, selectedContributes) => {
+let generatePackage = (service, selectPackages, selectedExtensions, selectedContributes) => {
   service.meta3d.generatePackage(.
     service.meta3d.convertAllFileData(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
@@ -17,6 +17,17 @@ let generatePackage = (service, selectedExtensions, selectedContributes) => {
       selectedContributes->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.PackageAssembleStoreType.contribute,
       ) => data),
+      selectPackages->Meta3dCommonlib.ArraySt.map((
+        {protocol, entryExtensionName}: FrontendUtils.PackageAssembleStoreType.package,
+      ) => (
+        (
+          {
+            name: protocol.name,
+            version: protocol.version,
+          }: Meta3d.ExtensionFileType.extensionProtocolData
+        ),
+        entryExtensionName,
+      )),
       (
         selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
           _getExtensionNewName(newName, data)
@@ -29,5 +40,8 @@ let generatePackage = (service, selectedExtensions, selectedContributes) => {
         ),
       ),
     ),
+    selectPackages->Meta3dCommonlib.ArraySt.map((
+      {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,
+    ) => binaryFile),
   )
 }

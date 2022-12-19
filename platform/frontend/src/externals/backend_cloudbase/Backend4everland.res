@@ -49,6 +49,9 @@ external publishElementAssembleData: publishElementAssembleData = "publishElemen
 external publishApp: publishApp = "publishApp"
 
 @module("backend-4everland")
+external publishPackage: publishPackage = "publishPackage"
+
+@module("backend-4everland")
 external getAllPublishNewestExtensions: getAllPublishNewestExtensions = "getAllPublishNewestExtensions"
 
 @module("backend-4everland")
@@ -78,6 +81,7 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
+    publishPackage: publishPackage,
     publishApp: publishApp,
     findPublishApp: findPublishApp,
     findAllPublishApps: findAllPublishApps,

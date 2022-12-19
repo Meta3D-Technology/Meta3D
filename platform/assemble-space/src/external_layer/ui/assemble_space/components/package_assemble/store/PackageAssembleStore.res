@@ -2,6 +2,7 @@ open FrontendUtils.PackageAssembleStoreType
 
 let _createState = () => {
   {
+    selectedPackages: list{},
     selectedExtensions: list{},
     selectedContributes: list{},
     inspectorCurrentExtensionId: None,
@@ -29,6 +30,25 @@ let _createState = () => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
+  // | SelectPackage(package) => {
+  //     ...state,
+  //     selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
+  //       id: IdUtils.generateId(Js.Math.random),
+  //       protocol: {
+  //         name: package.protocol.name,
+  //         version: package.protocol.version,
+  //       },
+  //       entryExtensionName: package.entryExtensionName,
+  //       binaryFile: package.binaryFile,
+  //     }),
+  //   }
+  | SelectPackage(package) => {
+      ...state,
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
+        ...package,
+        id: IdUtils.generateId(Js.Math.random),
+      }),
+    }
   | SelectExtension(protocolIconBase64, protocolConfigStr, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({

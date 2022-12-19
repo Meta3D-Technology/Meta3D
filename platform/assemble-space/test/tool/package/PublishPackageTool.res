@@ -11,6 +11,7 @@ let publish = (
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account=None,
+  ~selectedPackages=list{},
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~values={
@@ -21,7 +22,7 @@ let publish = (
   PublishPackage.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedExtensions, selectedContributes),
+    (account, selectedPackages, selectedExtensions, selectedContributes),
     values,
   )
 }

@@ -1,6 +1,6 @@
 open BackendCloudbaseType
 
-open Meta3d.AppFileType
+open Meta3d.AppAndPackageFileType
 
 type dispatch = AssembleSpaceStoreType.action => unit
 
@@ -77,6 +77,7 @@ type meta3dService = {
       array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
+    array<Js.Typed_array.ArrayBuffer.t>,
   ) => Js.Typed_array.ArrayBuffer.t,
   generateApp: (
     . (
@@ -88,6 +89,7 @@ type meta3dService = {
   convertAllFileData: (
     . array<Meta3d.ExtensionFileType.extensionFileData>,
     array<Meta3d.ExtensionFileType.contributeFileData>,
+    array<(Meta3d.ExtensionFileType.extensionProtocolData, Meta3dType.Index.extensionName)>,
     (
       array<Meta3dType.Index.extensionName>,
       array<Meta3dType.Index.extensionName>,
@@ -101,7 +103,7 @@ type meta3dService = {
     . Js.Typed_array.ArrayBuffer.t,
   ) => (
     Meta3dType.Index.state,
-    array<Meta3d.AppFileType.extensionFileData>,
+    array<Meta3d.AppAndPackageFileType.extensionFileData>,
     Meta3dType.Index.startConfigData,
   ),
   execGetContributeFunc: (
@@ -167,6 +169,8 @@ type service = {
   other: otherService,
   dom: domService,
 }
+
+type selectedPackagesFromShop = list<AssembleSpaceCommonType.packageData>
 
 type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extensionData>
 

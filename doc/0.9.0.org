@@ -34,11 +34,29 @@ fix convertAllFileData
 
 
 
-** TODO package assemble: add Packages, Selected Packages
+** DONE package assemble: add Packages, Selected Packages
+
+pass compile
+
+** TODO pass bdd test
+
+
 
 
 ** TODO implement publishPackage
 
+** TODO pass bdd test
+
+** TODO pass run test
+
+
+
+** TODO ap assemble: add Packages, Selected Packages
+
+
+** TODO ap assemble: update publish app
+
+** TODO pass bdd test
 
 ** TODO pass run test
 
@@ -222,6 +240,21 @@ use like a extension
 
 
 
+* TODO version management
+
+** TODO fix bug
+
+** TODO use select to show all versions of one extension/contribute protocol's implements
+
+
+
+
+* TODO refactor
+** TODO Index show Meta3d version and info without login
+
+
+** TODO remove newName?
+
 
 
 * TODO add ap marketplace
@@ -236,20 +269,6 @@ url:
 https://meta3d-platform-production.4everland.app?jump_to_published_application=true&&uid=xxx
 
 
-
-
-* TODO version management
-
-** TODO fix bug
-
-** TODO use select to show all versions of one extension/contribute protocol's implements
-
-
-
-
-
-* TODO refactor
-** TODO Index show Meta3d version and info without login
 
 
 

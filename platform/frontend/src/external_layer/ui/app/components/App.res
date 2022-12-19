@@ -63,10 +63,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.initExtension(state, extensionName, data),
       updateExtension: (. state, extensionName, data) =>
         Meta3d.Main.updateExtension(state, extensionName, data),
+      generatePackage: (. (allExtensionFileData, allContributeFileData)) =>
+        // Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
+        Meta3d.Main.generatePackage((allExtensionFileData, allContributeFileData), []),
       generateApp: (. (allExtensionFileData, allContributeFileData), startConfigData) =>
-        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
+        // Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
+        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), [], startConfigData),
       convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
-        Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
+        Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, [], data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
       execGetContributeFunc: (.
         contributeFuncData,
@@ -145,7 +149,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     | list{"Login"} => <Login service />
     | list{"ExtensionShop"} => <ExtensionShop service />
     | list{"ContributeShop"} => <ContributeShop service />
-    | list{"AssembleSpace"} => <>
+    | list{"AssembleSpace"} =>
+      <>
         <Nav />
         <AssembleSpace.AssembleSpace
           service={_buildAssembleSpaceService()}
