@@ -31,20 +31,6 @@ type contribute = {
 
 type selectedContributes = list<contribute>
 
-// type packageProtocol = {
-//   version: versionRange,
-//   name: string,
-// }
-
-// type package = {
-//   id: id,
-//   protocol: packageProtocol,
-//   entryExtensionName: string,
-//   binaryFile: Js.Typed_array.ArrayBuffer.t,
-// }
-
-// type selectedPackages = list<package>
-
 type package = AssembleSpaceCommonType.packageData
 
 type selectedPackages = list<package>

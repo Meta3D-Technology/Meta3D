@@ -290,7 +290,7 @@ defineFeature(feature, test => {
       dispatchStub.contents
       ->Obj.magic
       ->SinonTool.calledWith(
-        FrontendUtils.ApAssembleStoreType.SelectContribute(
+        FrontendUtils.PackageAssembleStoreType.SelectContribute(
           a.iconBase64,
           protocolConfig->PackageContributesTool.getProtocolConfigStr,
           contribute,

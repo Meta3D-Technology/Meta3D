@@ -16,8 +16,9 @@ Feature: Publish Package
 
     Rule: Publish
 
-        Background: prepare selected extensions and contributes
-            Given select extension e1, e2 without newName
+        Background: prepare selected packages and selected extensions and contributes
+            Given select package p1
+            And select extension e1, e2 without newName
             And select contribute c1, c2 with newName
 
         Scenario: generate correct package

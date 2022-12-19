@@ -353,7 +353,7 @@ defineFeature(feature, test => {
         dispatchStub.contents
         ->Obj.magic
         ->SinonTool.calledWith(
-          FrontendUtils.ApAssembleStoreType.SelectExtension(
+          FrontendUtils.PackageAssembleStoreType.SelectExtension(
             a.iconBase64,
             protocolConfig->PackageExtensionsTool.getProtocolConfigStr,
             extension,
