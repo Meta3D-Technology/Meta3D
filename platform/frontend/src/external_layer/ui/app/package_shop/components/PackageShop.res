@@ -158,9 +158,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                               id: item.id,
                                               protocol: {
                                                 name: item.entryExtensionProtocolName,
-                                                version: item.entryExtensionProtocolVersion,
+                                                version: item.entryExtensionProtocolVersionRange,
                                                 iconBase64: item.entryExtensionProtocolIconBase64,
                                               },
+                                              entryExtensionName: item.entryExtensionName,
                                               version: item.version,
                                               name: item.name,
                                               binaryFile: file->Meta3dCommonlib.NullableSt.getExn,

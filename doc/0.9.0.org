@@ -87,19 +87,21 @@ getAllPublishPackageEntryExtensionProtocols:
 
 pass draft
 
-** TODO fix PublishPackage
+** DONE fix PublishPackage
 
-pass draft
-
-
-** TODO pass compile
-
-** TODO pass bdd test
+*** DONE pass draft
 
 
+*** DONE pass compile
 
 
-** TODO pass run test
+** TODO frontend: pass compile
+
+
+** TODO assemble-space: pass bdd test
+
+
+** TODO frontend: pass run test
 
 test cloudbase
 

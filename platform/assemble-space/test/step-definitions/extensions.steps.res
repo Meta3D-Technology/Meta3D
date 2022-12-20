@@ -105,7 +105,7 @@ defineFeature(feature, test => {
           ExtensionTool.buildSelectedExtension(
             ~name=a1Name,
             ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
+            ~protocolVersionRange=">= 1.0.0",
             ~protocolConfig=protocolConfig->Some,
             (),
           ),
@@ -182,14 +182,14 @@ defineFeature(feature, test => {
           ExtensionTool.buildSelectedExtension(
             ~name=a1Name,
             ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
+            ~protocolVersionRange=">= 1.0.0",
             ~protocolConfig=protocolConfig->Some,
             (),
           ),
           ExtensionTool.buildSelectedExtension(
             ~name=a2Name,
             ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
+            ~protocolVersionRange=">= 1.0.0",
             ~protocolConfig=protocolConfig->Some,
             (),
           ),
@@ -260,7 +260,7 @@ defineFeature(feature, test => {
         list{
           ExtensionTool.buildSelectedExtension(
             ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
+            ~protocolVersionRange=">= 1.0.0",
             (),
           ),
         }
@@ -315,7 +315,7 @@ defineFeature(feature, test => {
 
     \"and"("select extension b1 for protocol b", () => {
       selectedExtensionsFromShop :=
-        list{ExtensionTool.buildSelectedExtension(~protocolName="b", ~protocolVersion="0.0.1", ())}
+        list{ExtensionTool.buildSelectedExtension(~protocolName="b", ~protocolVersionRange="0.0.1", ())}
     })
 
     \"when"("render after useEffectOnceAsync", () => {
@@ -347,13 +347,13 @@ defineFeature(feature, test => {
   //         ExtensionTool.buildSelectedExtension(
   //           ~id="a1",
   //           ~protocolName=a.name,
-  //           ~protocolVersion=a.version,
+  //           ~protocolVersionRange=a.version,
   //           (),
   //         ),
   //         ExtensionTool.buildSelectedExtension(
   //           ~id="a2",
   //           ~protocolName=a.name,
-  //           ~protocolVersion=a.version,
+  //           ~protocolVersionRange=a.version,
   //           (),
   //         ),
   //       }
@@ -387,7 +387,7 @@ defineFeature(feature, test => {
         list{
           ExtensionTool.buildSelectedExtension(
             ~protocolName=a.name,
-            ~protocolVersion=">= 1.0.0",
+            ~protocolVersionRange=">= 1.0.0",
             (),
           ),
         }

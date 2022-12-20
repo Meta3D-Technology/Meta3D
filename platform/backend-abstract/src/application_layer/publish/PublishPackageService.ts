@@ -23,13 +23,15 @@ export let buildPartialKeyByPackageData = _buildFileName
 
 export let publish = (
     [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any],
-    entryProtocolName: string,
-    entryProtocolVersion: string,
-    entryProtocolIconBase64: string,
-    entryExtensionName: string,
     packageBinaryFile: ArrayBuffer,
-    packageName: string,
-    packageVersion: string,
+    [
+        entryProtocolName,
+        entryProtocolVersion,
+        entryProtocolVersionRange,
+        entryProtocolIconBase64,
+        entryExtensionName
+    ]: [string, string, string, string, string],
+    [packageName, packageVersion]: [string, string],
     account: string
 ) => {
     let key = _buildKey(
@@ -56,6 +58,7 @@ export let publish = (
                         account,
                         entryProtocolName,
                         entryProtocolVersion,
+                        entryProtocolVersionRange,
                         entryProtocolIconBase64,
                         entryExtensionName,
                         packageName,
@@ -71,6 +74,7 @@ export let publish = (
                     account,
                     entryProtocolName,
                     entryProtocolVersion,
+                    entryProtocolVersionRange,
                     entryProtocolIconBase64,
                     entryExtensionName,
                     packageName,

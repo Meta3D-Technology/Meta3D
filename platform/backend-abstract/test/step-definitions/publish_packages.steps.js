@@ -27,7 +27,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
         });
     }
     test('if not exist, publish should add package', ({ given, and, when, then }) => {
-        let packageBinaryFile, packageName, packageVersion, entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, entryExtensionName, account;
+        let packageBinaryFile, packageName, packageVersion, entryProtocolName, entryProtocolVersion, entryProtocolVersionRange, entryProtocolIconBase64, entryExtensionName, account;
         let fileID = "1";
         _prepare(given);
         given('prepare funcs', () => {
@@ -41,12 +41,22 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             packageVersion = "0.0.1";
             entryProtocolName = "ep1";
             entryProtocolVersion = "0.0.2";
+            entryProtocolVersionRange = "^0.0.2";
             entryProtocolIconBase64 = "epi1";
             entryExtensionName = "e1";
             account = "account1";
         });
         when('publish the package', () => {
-            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, entryExtensionName, packageBinaryFile, packageName, packageVersion, account).drain();
+            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [
+                entryProtocolName,
+                entryProtocolVersion,
+                entryProtocolVersionRange,
+                entryProtocolIconBase64,
+                entryExtensionName,
+            ], [
+                packageName,
+                packageVersion,
+            ], account).drain();
         });
         then('should upload package', () => {
             expect(uploadFileFunc).toCalledWith([
@@ -64,6 +74,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                     account,
                     entryProtocolName,
                     entryProtocolVersion,
+                    entryProtocolVersionRange,
                     entryProtocolIconBase64,
                     entryExtensionName,
                     packageName,
@@ -76,8 +87,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
     test('if exist, publish should overwrite package', ({ given, and, when, then }) => {
         let fileID1 = "1";
         let fileID2 = "2";
-        let packageBinaryFile1, packageName1, packageVersion1, entryProtocolName1, entryProtocolVersion1, entryProtocolIconBase641, entryExtensionName1, account1;
-        let packageBinaryFile2, packageName2, packageVersion2, entryProtocolName2, entryProtocolVersion2, entryProtocolIconBase642, entryExtensionName2, account2;
+        let packageBinaryFile1, packageName1, packageVersion1, entryProtocolName1, entryProtocolVersion1, entryProtocolVersionRange1, entryProtocolIconBase641, entryExtensionName1, account1;
+        let packageBinaryFile2, packageName2, packageVersion2, entryProtocolName2, entryProtocolVersion2, entryProtocolVersionRange2, entryProtocolIconBase642, entryExtensionName2, account2;
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox);
@@ -92,6 +103,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             packageVersion1 = "0.0.1";
             entryProtocolName1 = "ep1";
             entryProtocolVersion1 = "0.0.2";
+            entryProtocolVersionRange1 = "^0.0.2";
             entryProtocolIconBase641 = "epi1";
             entryExtensionName1 = "e1";
             account1 = "account1";
@@ -100,15 +112,34 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             packageVersion2 = packageVersion1;
             entryProtocolName2 = entryProtocolName1;
             entryProtocolVersion2 = entryProtocolVersion1;
+            entryProtocolVersionRange2 = entryProtocolVersionRange1;
             entryProtocolIconBase642 = entryProtocolIconBase641;
             entryExtensionName2 = entryExtensionName1;
             account2 = account1;
         });
         and('publish the first package', () => {
-            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], entryProtocolName1, entryProtocolVersion1, entryProtocolIconBase641, entryExtensionName1, packageBinaryFile1, packageName1, packageVersion1, account1).drain();
+            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile1, [
+                entryProtocolName1,
+                entryProtocolVersion1,
+                entryProtocolVersionRange1,
+                entryProtocolIconBase641,
+                entryExtensionName1,
+            ], [
+                packageName1,
+                packageVersion1,
+            ], account1).drain();
         });
         when('publish the second package', () => {
-            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], entryProtocolName2, entryProtocolVersion2, entryProtocolIconBase642, entryExtensionName2, packageBinaryFile2, packageName2, packageVersion2, account2).drain();
+            return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile2, [
+                entryProtocolName2,
+                entryProtocolVersion2,
+                entryProtocolVersionRange2,
+                entryProtocolIconBase642,
+                entryExtensionName2,
+            ], [
+                packageName2,
+                packageVersion2,
+            ], account2).drain();
         });
         then(/^should upload package(\d+)'s binary file$/, () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
@@ -128,6 +159,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                     account: account1,
                     entryProtocolName: entryProtocolName2,
                     entryProtocolVersion: entryProtocolVersion2,
+                    entryProtocolVersionRange: entryProtocolVersionRange2,
                     entryProtocolIconBase64: entryProtocolIconBase642,
                     entryExtensionName: entryExtensionName1,
                     packageName: packageName2,

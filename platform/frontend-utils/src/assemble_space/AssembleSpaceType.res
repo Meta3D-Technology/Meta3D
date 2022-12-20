@@ -16,6 +16,7 @@ type error = (. string, option<int>) => unit
 type errorWithExn = (. Js.Exn.t, option<int>) => unit
 
 type backendService = {
+  // getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols,
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishContributeProtocols: getAllPublishContributeProtocols,
   getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
@@ -23,15 +24,11 @@ type backendService = {
   getAllPublishNewestExtensions: getAllPublishNewestExtensions,
   publishApp: publishApp,
   publishPackage: publishPackage,
-  getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols,
-  getAllPublishPackageInfos: getAllPublishPackageInfos,
   findPublishApp: findPublishApp,
   findAllPublishApps: findAllPublishApps,
   publishElementContribute: publishElementContribute,
   publishElementAssembleData: publishElementAssembleData,
   getElementAssembleData: getElementAssembleData,
-  loadExtension: loadExtension,
-  loadContribute: loadContribute,
 }
 
 type callback1Func<'a> = unit => 'a

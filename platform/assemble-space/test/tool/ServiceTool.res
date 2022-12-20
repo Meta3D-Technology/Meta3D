@@ -22,6 +22,9 @@ let build = (
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=Js.Console.error,
   ~errorWithExn=Js.Console.error,
+  // ~getAllPublishPackageEntryExtensionProtocols=createEmptyStub(
+  //   refJsObjToSandbox(sandbox.contents),
+  // )->Obj.magic,
   ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
@@ -43,6 +46,9 @@ let build = (
   ~findPublishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
   ->Obj.magic,
+  // ~findPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
+  // ->Obj.magic,
   ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
@@ -111,6 +117,7 @@ let build = (
     errorWithExn: errorWithExn->Obj.magic,
   },
   backend: {
+    // getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols->Obj.magic,
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
@@ -119,6 +126,7 @@ let build = (
     publishPackage,
     publishApp,
     findPublishApp,
+    // findPublishPackage,
     findAllPublishApps,
     publishElementContribute,
     publishElementAssembleData,

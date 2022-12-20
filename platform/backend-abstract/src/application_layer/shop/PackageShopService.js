@@ -43,12 +43,13 @@ exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryE
 // }
 let getAllPublishPackageInfos = (getDataByKeyContainFunc, entryProtocolName, entryProtocolVersion) => {
     return (0, most_1.fromPromise)(getDataByKeyContainFunc("publishedpackages", (0, PublishPackageService_1.buildPartialKeyByEntryProcoltolData)(entryProtocolName, entryProtocolVersion))).map((data) => {
-        return data.map(({ account, entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, entryExtensionName, packageName, packageVersion, fileID }) => {
+        return data.map(({ account, entryProtocolName, entryProtocolVersion, entryProtocolVersionRange, entryProtocolIconBase64, entryExtensionName, packageName, packageVersion, fileID }) => {
             return {
                 id: fileID,
                 account,
                 entryProtocolName,
                 entryProtocolVersion,
+                entryProtocolVersionRange,
                 entryProtocolIconBase64,
                 entryExtensionName,
                 name: packageName,

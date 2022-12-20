@@ -88,21 +88,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 <List
                   itemLayout=#horizontal
                   dataSource={allPublishContributes}
-                  renderItem={(item: FrontendUtils.BackendCloudbaseType.implementInfo) =>
+                  renderItem={(item: FrontendUtils.FrontendType.publishContribute) =>
                     <List.Item>
                       <List.Item.Meta
-                        key={item.name}
-                        title={<span> {React.string(item.name)} </span>}
+                        key={item.info.name}
+                        title={<span> {React.string(item.info.name)} </span>}
                         description={React.string(`TODO`)}
                       />
-                      <span> {React.string({j`版本号：${item.version}`})} </span>
-                      <span> {React.string({j`发布者：${item.account}`})} </span>
-                      {_isSelect(item.id, selectedContributes)
+                      <span> {React.string({j`版本号：${item.info.version}`})} </span>
+                      <span> {React.string({j`发布者：${item.info.account}`})} </span>
+                      {_isSelect(item.info.id, selectedContributes)
                         ? <Button
                             onClick={_ => {
                               dispatch(
                                 AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectContribute(item.id),
+                                  UserCenterStore.NotSelectContribute(item.info.id),
                                 ),
                               )
                             }}>
@@ -114,9 +114,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                               service.backend.findPublishContribute(.
                                 progress => setDownloadProgress(_ => progress),
-                                item.account,
-                                item.name,
-                                item.version,
+                                item.info.account,
+                                item.info.name,
+                                item.info.version,
                               )
                               ->Meta3dBsMost.Most.observe(file => {
                                 Meta3dCommonlib.NullableSt.isNullable(file)
@@ -135,12 +135,15 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                         AppStore.UserCenterAction(
                                           UserCenterStore.SelectContribute(
                                             {
-                                              id: item.id,
+                                              id: item.info.id,
                                               data: service.backend.loadContribute(.
                                                 file->Meta3dCommonlib.NullableSt.getExn,
                                               ),
-                                              version: item.version,
-                                              account: item.account,
+                                              protocolName: item.protocolName,
+                                              protocolVersion: item.protocolVersion,
+                                              protocolIconBase64: item.protocolIconBase64,
+                                              version: item.info.version,
+                                              account: item.info.account,
                                             },
                                             allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
                                               (
@@ -177,7 +180,18 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
               service.backend.getAllPublishContributeInfos(. item.name, item.version)
               ->Meta3dBsMost.Most.observe(data => {
-                setAllPublishContributes(_ => data->Some)
+                setAllPublishContributes(_ =>
+                  data
+                  ->Meta3dCommonlib.ArraySt.map(
+                    (info): FrontendUtils.FrontendType.publishContribute => {
+                      protocolName: item.name,
+                      protocolVersion: item.version,
+                      protocolIconBase64: item.iconBase64,
+                      info,
+                    },
+                  )
+                  ->Some
+                )
                 setIsLoaded(_ => true)
               }, _)
               ->Js.Promise.catch(e => {

@@ -160,12 +160,9 @@ export let getElementAssembleData = (
 
 
 export let publishPackage = (onUploadProgressFunc,
-    entryProtocolName,
-    entryProtocolVersion,
-    entryProtocolIconBase64,
     packageBinaryFile,
-    packageName,
-    packageVersion,
+    entryExtensionData,
+    packageData,
     account
 ) => Abstract.publishPackage([
     onUploadProgressFunc,
@@ -175,12 +172,9 @@ export let publishPackage = (onUploadProgressFunc,
     updateData,
     getFileID,
 ],
-    entryProtocolName,
-    entryProtocolVersion,
-    entryProtocolIconBase64,
     packageBinaryFile,
-    packageName,
-    packageVersion,
+    entryExtensionData,
+    packageData,
     account
 )
 

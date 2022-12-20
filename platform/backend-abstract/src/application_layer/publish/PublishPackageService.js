@@ -12,7 +12,7 @@ let _buildFileName = (packageName, packageVersion, account) => account + "_" +
 let buildPartialKeyByEntryProcoltolData = (entryProtocolName, entryProtocolVersion) => entryProtocolName + "_" + entryProtocolVersion;
 exports.buildPartialKeyByEntryProcoltolData = buildPartialKeyByEntryProcoltolData;
 exports.buildPartialKeyByPackageData = _buildFileName;
-let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, entryExtensionName, packageBinaryFile, packageName, packageVersion, account) => {
+let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [entryProtocolName, entryProtocolVersion, entryProtocolVersionRange, entryProtocolIconBase64, entryExtensionName], [packageName, packageVersion], account) => {
     let key = (0, exports._buildKey)(entryProtocolName, entryProtocolVersion, packageName, packageVersion, account);
     return hasDataFunc("publishedpackages", key).concatMap((isExist) => {
         let fileName = _buildFileName(packageName, packageVersion, account);
@@ -24,6 +24,7 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                     account,
                     entryProtocolName,
                     entryProtocolVersion,
+                    entryProtocolVersionRange,
                     entryProtocolIconBase64,
                     entryExtensionName,
                     packageName,
@@ -35,6 +36,7 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                 account,
                 entryProtocolName,
                 entryProtocolVersion,
+                entryProtocolVersionRange,
                 entryProtocolIconBase64,
                 entryExtensionName,
                 packageName,

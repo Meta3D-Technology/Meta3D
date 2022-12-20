@@ -38,6 +38,7 @@ defineFeature(feature, test => {
             packageVersion,
             entryProtocolName,
             entryProtocolVersion,
+            entryProtocolVersionRange,
             entryProtocolIconBase64,
             entryExtensionName,
             account
@@ -63,6 +64,7 @@ defineFeature(feature, test => {
             packageVersion = "0.0.1"
             entryProtocolName = "ep1"
             entryProtocolVersion = "0.0.2"
+            entryProtocolVersionRange = "^0.0.2"
             entryProtocolIconBase64 = "epi1"
             entryExtensionName = "e1"
             account = "account1"
@@ -71,13 +73,20 @@ defineFeature(feature, test => {
         when('publish the package', () => {
             return publish(
                 [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc],
-                entryProtocolName,
-                entryProtocolVersion,
-                entryProtocolIconBase64,
-                entryExtensionName,
                 packageBinaryFile,
-                packageName,
-                packageVersion,
+                [
+
+                    entryProtocolName,
+                    entryProtocolVersion,
+                    entryProtocolVersionRange,
+                    entryProtocolIconBase64,
+                    entryExtensionName,
+                ],
+                [
+
+                    packageName,
+                    packageVersion,
+                ],
                 account
             ).drain()
         });
@@ -102,6 +111,7 @@ defineFeature(feature, test => {
                     account,
                     entryProtocolName,
                     entryProtocolVersion,
+                    entryProtocolVersionRange,
                     entryProtocolIconBase64,
                     entryExtensionName,
                     packageName,
@@ -119,6 +129,7 @@ defineFeature(feature, test => {
             packageVersion1,
             entryProtocolName1,
             entryProtocolVersion1,
+            entryProtocolVersionRange1,
             entryProtocolIconBase641,
             entryExtensionName1,
             account1
@@ -126,6 +137,7 @@ defineFeature(feature, test => {
             packageVersion2,
             entryProtocolName2,
             entryProtocolVersion2,
+            entryProtocolVersionRange2,
             entryProtocolIconBase642,
             entryExtensionName2,
             account2
@@ -156,6 +168,7 @@ defineFeature(feature, test => {
             packageVersion1 = "0.0.1"
             entryProtocolName1 = "ep1"
             entryProtocolVersion1 = "0.0.2"
+            entryProtocolVersionRange1 = "^0.0.2"
             entryProtocolIconBase641 = "epi1"
             entryExtensionName1 = "e1"
             account1 = "account1"
@@ -165,6 +178,7 @@ defineFeature(feature, test => {
             packageVersion2 = packageVersion1
             entryProtocolName2 = entryProtocolName1
             entryProtocolVersion2 = entryProtocolVersion1
+            entryProtocolVersionRange2 = entryProtocolVersionRange1
             entryProtocolIconBase642 = entryProtocolIconBase641
             entryExtensionName2 = entryExtensionName1
             account2 = account1
@@ -173,13 +187,20 @@ defineFeature(feature, test => {
         and('publish the first package', () => {
             return publish(
                 [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc],
-                entryProtocolName1,
-                entryProtocolVersion1,
-                entryProtocolIconBase641,
-                entryExtensionName1,
                 packageBinaryFile1,
-                packageName1,
-                packageVersion1,
+                [
+
+                    entryProtocolName1,
+                    entryProtocolVersion1,
+                    entryProtocolVersionRange1,
+                    entryProtocolIconBase641,
+                    entryExtensionName1,
+                ],
+                [
+
+                    packageName1,
+                    packageVersion1,
+                ],
                 account1
             ).drain()
         });
@@ -187,13 +208,20 @@ defineFeature(feature, test => {
         when('publish the second package', () => {
             return publish(
                 [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc],
-                entryProtocolName2,
-                entryProtocolVersion2,
-                entryProtocolIconBase642,
-                entryExtensionName2,
                 packageBinaryFile2,
-                packageName2,
-                packageVersion2,
+                [
+
+                    entryProtocolName2,
+                    entryProtocolVersion2,
+                    entryProtocolVersionRange2,
+                    entryProtocolIconBase642,
+                    entryExtensionName2,
+                ],
+                [
+
+                    packageName2,
+                    packageVersion2,
+                ],
                 account2
             ).drain()
 
@@ -222,6 +250,7 @@ defineFeature(feature, test => {
                     account: account1,
                     entryProtocolName: entryProtocolName2,
                     entryProtocolVersion: entryProtocolVersion2,
+                    entryProtocolVersionRange: entryProtocolVersionRange2,
                     entryProtocolIconBase64: entryProtocolIconBase642,
                     entryExtensionName: entryExtensionName1,
                     packageName: packageName2,

@@ -9,10 +9,10 @@ let buildExtensionPackageData = (
   (),
 ): Meta3d.ExtensionFileType.extensionPackageData => {
   {
-    name: name,
-    protocol: protocol,
-    dependentExtensionNameMap: dependentExtensionNameMap,
-    dependentContributeNameMap: dependentContributeNameMap,
+    name,
+    protocol,
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
   }
 }
 
@@ -22,15 +22,17 @@ let buildExtensionData = (
   (),
 ): Meta3d.ExtensionFileType.extensionFileData => {
   {
-    extensionPackageData: extensionPackageData,
-    extensionFuncData: extensionFuncData,
+    extensionPackageData,
+    extensionFuncData,
   }
 }
 
 let buildSelectedExtension = (
   ~protocolName,
-  ~protocolVersion,
+  ~protocolVersionRange,
+  ~protocolVersion="0.0.1",
   ~protocolConfig=None,
+  ~protocolIconBase64="pi1",
   ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
   ~name="e1",
   ~id="e1",
@@ -40,7 +42,7 @@ let buildSelectedExtension = (
 ): FrontendUtils.AssembleSpaceCommonType.extensionData => {
   (
     {
-      id: id,
+      id,
       data: buildExtensionData(
         ~extensionPackageData=buildExtensionPackageData(
           ~name,
@@ -53,8 +55,11 @@ let buildSelectedExtension = (
         ~extensionFuncData,
         (),
       ),
-      version: version,
-      account: account,
+      protocolName,
+      protocolVersion,
+      protocolIconBase64,
+      version,
+      account,
     },
     protocolConfig,
   )
@@ -67,10 +72,10 @@ let buildExtensionImplement = (
   ~account="u1",
   (),
 ): FrontendUtils.BackendCloudbaseType.implement => {
-  id: id,
-  file: file,
-  version: version,
-  account: account,
+  id,
+  file,
+  version,
+  account,
 }
 
 let generateExtension = (
@@ -85,13 +90,13 @@ let generateExtension = (
   Meta3d.Main.generateExtension(
     (
       {
-        name: name,
+        name,
         protocol: {
           name: protocolName,
           version: protocolVersion,
         },
-        dependentExtensionNameMap: dependentExtensionNameMap,
-        dependentContributeNameMap: dependentContributeNameMap,
+        dependentExtensionNameMap,
+        dependentContributeNameMap,
       }: Meta3d.ExtensionFileType.extensionPackageData
     ),
     fileStr,

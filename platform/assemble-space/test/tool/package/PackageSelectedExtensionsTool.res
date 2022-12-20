@@ -4,6 +4,8 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 
 let buildSelectedExtension = (
   ~name="e1",
+  ~protocolName="ep1",
+  ~protocolVersion="0.0.1",
   ~protocolIconBase64="i1",
   ~protocolConfigStr=None,
   ~newName=None,
@@ -18,6 +20,8 @@ let buildSelectedExtension = (
 ): FrontendUtils.PackageAssembleStoreType.extension => {
   {
     id,
+    protocolName,
+    protocolVersion,
     protocolIconBase64,
     protocolConfigStr,
     version,

@@ -82,14 +82,14 @@ let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewe
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
 let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData([BackendService_1.getShopImplementAccountData, BackendService_1.getDataFromShopImplementAccountData], account, elementName, elementVersion);
 exports.getElementAssembleData = getElementAssembleData;
-let publishPackage = (onUploadProgressFunc, entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, packageBinaryFile, packageName, packageVersion, account) => Abstract.publishPackage([
+let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionData, packageData, account) => Abstract.publishPackage([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
     BackendService_1.hasData,
     BackendService_1.addData,
     BackendService_1.updateData,
     BackendService_1.getFileID,
-], entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, packageBinaryFile, packageName, packageVersion, account);
+], packageBinaryFile, entryExtensionData, packageData, account);
 exports.publishPackage = publishPackage;
 let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(BackendService_1.getData);
 exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryExtensionProtocols;

@@ -16,13 +16,16 @@ Feature: Publish Package
 
     Rule: Publish
 
-        Background: prepare selected packages and selected extensions and contributes
-            Given select package p1
-            And select extension e1, e2 without newName
-            And select contribute c1, c2 with newName
+        # Background: prepare selected packages and selected extensions and contributes
+        #     Given select package p1
+        #     And select extension e1, e2 without newName
+        #     And select contribute c1, c2 with newName
 
         Scenario: generate correct package
-            Given select entry extension e3
+            Given select extension e1, e2 without newName
+            And select contribute c1, c2 with newName
+            And select entry extension e3
+            And select package p1
             When publish package
             Then should mark begin upload
             And should generat package with correct extension data and contribute data

@@ -16,6 +16,7 @@ let publish = (
   ~selectedContributes=list{},
   ~values={
     "packageName": "n1",
+    "packageVersion": "0.0.1",
   },
   (),
 ) => {

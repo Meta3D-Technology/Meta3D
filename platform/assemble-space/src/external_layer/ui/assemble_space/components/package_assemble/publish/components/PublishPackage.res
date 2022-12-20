@@ -16,6 +16,7 @@ module Method = {
     values,
   ): Js.Promise.t<unit> => {
     let packageName = values["packageName"]
+    let packageVersion = values["packageVersion"]
 
     let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
@@ -35,12 +36,26 @@ module Method = {
             selectedContributes,
           )
 
+          let (
+            entryExtensionProtocolName,
+            entryExtensionProtocolVersion,
+            entryExtensionProtocolVersionRange,
+            entryExtensionProtocolIconBase64,
+          ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
+
           setIsUploadBegin(_ => true)
 
           service.backend.publishPackage(.
             progress => setUploadProgress(_ => progress),
             packageBinaryFile,
-            packageName,
+            (
+              entryExtensionProtocolName,
+              entryExtensionProtocolVersion,
+              entryExtensionProtocolVersionRange,
+              entryExtensionProtocolIconBase64,
+              PackageUtils.getEntryExtensionName(selectedExtensions),
+            ),
+            (packageName, packageVersion),
             account->Meta3dCommonlib.OptionSt.getExn,
           )
           ->Meta3dBsMost.Most.drain
@@ -142,6 +157,17 @@ let make = (~service: service, ~account: option<string>) => {
                     {
                       required: true,
                       message: `输入包名`,
+                    },
+                  ]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label={`包版本号`}
+                  name="packageVersion"
+                  rules={[
+                    {
+                      required: true,
+                      message: `输入包版本号`,
                     },
                   ]}>
                   <Input />

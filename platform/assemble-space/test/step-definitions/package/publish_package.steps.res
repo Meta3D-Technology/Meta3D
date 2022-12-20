@@ -83,62 +83,15 @@ defineFeature(feature, test => {
     )
   })
 
-  let _prepareSelectedExtensionsAndContributes = (
-    given,
-    \"and",
-    selectedPackageBinaryFile1,
-    selectedPackages,
-    selectedExtensions,
-    selectedContributes,
-  ) => {
-    given("select package p1", () => {
-      selectedPackages :=
-        list{
-          PackageSelectedPackagesTool.buildSelectedPackage(
-            ~name="p1",
-            ~protocolIconBase64="pi1",
-            ~binaryFile=selectedPackageBinaryFile1,
-            (),
-          ),
-        }
-    })
-
-    \"and"("select extension e1, e2 without newName", () => {
-      selectedExtensions :=
-        list{
-          PackageSelectedExtensionsTool.buildSelectedExtension(
-            ~name="e1",
-            ~newName=None,
-            ~protocolIconBase64="i1",
-            (),
-          ),
-          PackageSelectedExtensionsTool.buildSelectedExtension(
-            ~name="e2",
-            ~newName=None,
-            ~protocolIconBase64="i2",
-            (),
-          ),
-        }
-    })
-
-    \"and"("select contribute c1, c2 with newName", () => {
-      selectedContributes :=
-        list{
-          PackageSelectedContributesTool.buildSelectedContribute(
-            ~name="c1",
-            ~newName="c1"->Some,
-            ~protocolIconBase64="i3",
-            (),
-          ),
-          PackageSelectedContributesTool.buildSelectedContribute(
-            ~name="c2",
-            ~newName="c2"->Some,
-            ~protocolIconBase64="i4",
-            (),
-          ),
-        }
-    })
-  }
+  // let _prepareSelectedExtensionsAndContributes = (
+  //   given,
+  //   \"and",
+  //   selectedPackageBinaryFile1,
+  //   selectedPackages,
+  //   selectedExtensions,
+  //   selectedContributes,
+  // ) => {
+  // }
 
   test(."generate correct package", ({given, \"when", \"and", then}) => {
     let selectedPackages = ref(Obj.magic(1))
@@ -148,6 +101,12 @@ defineFeature(feature, test => {
     let c1 = false
     let account = "u1"
     let packageName = "n1"
+    let packageVersion = "0.1.0"
+    let entryExtensionName = "e3"
+    let entryExtensionProtocolName = "ep3"
+    let entryExtensionProtocolVersion = "0.0.3"
+    let entryExtensionProtocolVersionRange = "^0.0.3"
+    let entryExtensionProtocolIconBase64 = "ei3"
     let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
     let packageBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generatePackageStub = ref(Obj.magic(1))
@@ -159,29 +118,104 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareSelectedExtensionsAndContributes(
-      given,
-      \"and",
-      selectedPackageBinaryFile1,
-      selectedPackages,
-      selectedExtensions,
-      selectedContributes,
-    )
+    // _prepareSelectedExtensionsAndContributes(
+    //   given,
+    //   \"and",
+    //   selectedPackageBinaryFile1,
+    //   selectedPackages,
+    //   selectedExtensions,
+    //   selectedContributes,
+    // )
 
     given(
+      "select extension e1, e2 without newName",
+      () => {
+        selectedExtensions :=
+          list{
+            PackageSelectedExtensionsTool.buildSelectedExtension(
+              ~name="e1",
+              ~newName=None,
+              ~protocolIconBase64="i1",
+              (),
+            ),
+            PackageSelectedExtensionsTool.buildSelectedExtension(
+              ~name="e2",
+              ~newName=None,
+              ~protocolIconBase64="i2",
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
+      "select contribute c1, c2 with newName",
+      () => {
+        selectedContributes :=
+          list{
+            PackageSelectedContributesTool.buildSelectedContribute(
+              ~name="c1",
+              ~newName="c1"->Some,
+              ~protocolIconBase64="i3",
+              (),
+            ),
+            PackageSelectedContributesTool.buildSelectedContribute(
+              ~name="c2",
+              ~newName="c2"->Some,
+              ~protocolIconBase64="i4",
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
       "select entry extension e3",
       () => {
         selectedExtensions :=
           selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
             PackageSelectedExtensionsTool.buildSelectedExtension(
-              ~name="e3",
+              ~name=entryExtensionName,
               ~newName=None,
               ~id="e3",
               ~isEntry=true,
-              ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
+              ~protocolName=entryExtensionProtocolName,
+              ~protocolVersion=entryExtensionProtocolVersion,
+              ~protocolIconBase64=entryExtensionProtocolIconBase64,
+              ~data=ExtensionTool.buildExtensionData(
+                ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                  ~name=entryExtensionName,
+                  ~protocol=(
+                    {
+                      name: entryExtensionProtocolName,
+                      version: entryExtensionProtocolVersionRange,
+                    }: Meta3d.ExtensionFileType.extensionProtocolData
+                  ),
+                  (),
+                ),
+                (),
+              ),
               (),
             ),
           )
+      },
+    )
+
+    \"and"(
+      "select package p1",
+      () => {
+        selectedPackages :=
+          list{
+            PackageSelectedPackagesTool.buildSelectedPackage(
+              ~name="p1",
+              ~protocolName=entryExtensionProtocolName,
+              ~protocolVersion=entryExtensionProtocolVersionRange,
+              ~protocolIconBase64=entryExtensionProtocolIconBase64,
+              ~entryExtensionName,
+              ~binaryFile=selectedPackageBinaryFile1,
+              (),
+            ),
+          }
       },
     )
 
@@ -192,6 +226,7 @@ defineFeature(feature, test => {
         values :=
           {
             "packageName": packageName,
+            "packageVersion": packageVersion,
           }
 
         generatePackageStub :=
@@ -251,15 +286,12 @@ defineFeature(feature, test => {
       () => {
         (
           generatePackageStub.contents->Obj.magic->getCallCount,
-          SinonTool.getAllArgsJson(
-            convertAllFileDataStub.contents,
-            0,
-          ),
+          SinonTool.getAllArgsJson(convertAllFileDataStub.contents, 0),
           generatePackageStub.contents->SinonTool.getArg(~callIndex=0, ~argIndex=1, ~stub=_, ()),
         )->expect ==
           (
             1,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[{\"name\":\"p_protocol\",\"version\":\"^0.0.1\"},\"pet1\"]],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"e3\"]],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
             [selectedPackageBinaryFile1],
           )
       },
@@ -270,7 +302,19 @@ defineFeature(feature, test => {
       () => {
         publishPackageStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg4(matchAny, packageBinaryFile, packageName, account)
+        ->SinonTool.calledWithArg5(
+          matchAny,
+          packageBinaryFile,
+          [
+            entryExtensionProtocolName,
+            entryExtensionProtocolVersion,
+            entryExtensionProtocolVersionRange,
+            entryExtensionProtocolIconBase64,
+            entryExtensionName,
+          ],
+          [packageName, packageVersion],
+          account,
+        )
         ->expect == true
       },
     )

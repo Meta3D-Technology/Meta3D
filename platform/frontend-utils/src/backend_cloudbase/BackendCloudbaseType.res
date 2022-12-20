@@ -1,6 +1,6 @@
 type account = string
 
-// type versionRange = string
+type versionRange = string
 
 type version = string
 
@@ -79,9 +79,11 @@ type findPublishExtension = (
 
 type findPublishContribute = findPublishExtension
 
-type loadExtension = (. ArrayBuffer.t) => ExtensionFileType.extensionFileData
+type loadExtension = (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.extensionFileData
 
-type loadContribute = (. ArrayBuffer.t) => ExtensionFileType.contributeFileData
+type loadContribute = (
+  . Js.Typed_array.ArrayBuffer.t,
+) => Meta3d.ExtensionFileType.contributeFileData
 
 type appName = string
 
@@ -168,6 +170,8 @@ type entryExtensionProtocolName = protocolName
 
 type entryExtensionProtocolVersion = protocolVersion
 
+type entryExtensionProtocolVersionRange = versionRange
+
 type entryExtensionProtocolIconBase64 = protocolIconBase64
 
 type entryExtensionName = string
@@ -175,27 +179,30 @@ type entryExtensionName = string
 type publishPackage = (
   . onUploadProgressFunc,
   Js.Typed_array.ArrayBuffer.t,
-  entryExtensionProtocolName,
-  entryExtensionProtocolVersion,
-  entryExtensionProtocolIconBase64,
-  entryExtensionName,
-  implementName,
-  implementVersion,
+  (
+    entryExtensionProtocolName,
+    entryExtensionProtocolVersion,
+    entryExtensionProtocolVersionRange,
+    entryExtensionProtocolIconBase64,
+    entryExtensionName,
+  ),
+  (implementName, implementVersion),
   account,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type getAllPublishPackageEntryExtensionProtocols = getAllPublishExtensionProtocols
 
-type packageProtocol = {
-  version: Meta3d.ExtensionFileType.versionRange,
-  name: string,
-  iconBase64: string,
-}
+// type packageProtocol = {
+//   version: Meta3d.ExtensionFileType.versionRange,
+//   name: string,
+//   iconBase64: string,
+// }
 
 type packageImplementInfo = {
   id: string,
   entryExtensionProtocolName: entryExtensionProtocolName,
   entryExtensionProtocolVersion: entryExtensionProtocolVersion,
+  entryExtensionProtocolVersionRange: entryExtensionProtocolVersionRange,
   entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase64,
   entryExtensionName: entryExtensionName,
   name: implementName,

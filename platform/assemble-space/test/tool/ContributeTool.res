@@ -9,10 +9,10 @@ let buildContributePackageData = (
   (),
 ): Meta3d.ExtensionFileType.contributePackageData => {
   {
-    name: name,
-    protocol: protocol,
-    dependentExtensionNameMap: dependentExtensionNameMap,
-    dependentContributeNameMap: dependentContributeNameMap,
+    name,
+    protocol,
+    dependentExtensionNameMap,
+    dependentContributeNameMap,
   }
 }
 
@@ -22,15 +22,17 @@ let buildContributeData = (
   (),
 ): Meta3d.ExtensionFileType.contributeFileData => {
   {
-    contributePackageData: contributePackageData,
-    contributeFuncData: contributeFuncData,
+    contributePackageData,
+    contributeFuncData,
   }
 }
 
 let buildSelectedContribute = (
   ~protocolName,
-  ~protocolVersion,
+  ~protocolVersionRange,
+  ~protocolVersion="0.0.1",
   ~protocolConfig=None,
+  ~protocolIconBase64="pi1",
   ~contributeFuncData=Js.Typed_array.Uint8Array.make([]),
   ~id="e1",
   ~name="e1",
@@ -40,21 +42,24 @@ let buildSelectedContribute = (
 ): FrontendUtils.AssembleSpaceCommonType.contributeData => {
   (
     {
-      id: id,
+      id,
       data: buildContributeData(
         ~contributePackageData=buildContributePackageData(
           ~name,
           ~protocol={
             name: protocolName,
-            version: protocolVersion,
+            version: protocolVersionRange,
           },
           (),
         ),
         ~contributeFuncData,
         (),
       ),
-      version: version,
-      account: account,
+      protocolName,
+      protocolVersion,
+      protocolIconBase64,
+      version,
+      account,
     },
     protocolConfig,
   )
@@ -72,13 +77,13 @@ let generateContribute = (
   Meta3d.Main.generateContribute(
     (
       {
-        name: name,
+        name,
         protocol: {
           name: protocolName,
           version: protocolVersion,
         },
-        dependentExtensionNameMap: dependentExtensionNameMap,
-        dependentContributeNameMap: dependentContributeNameMap,
+        dependentExtensionNameMap,
+        dependentContributeNameMap,
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,

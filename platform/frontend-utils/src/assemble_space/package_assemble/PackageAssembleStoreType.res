@@ -10,6 +10,8 @@ type version = string
 
 type extension = {
   id: id,
+  protocolName: string,
+  protocolVersion: version,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
   newName: option<newName>,
