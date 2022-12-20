@@ -79,8 +79,23 @@ getAllPublishPackageEntryExtensionProtocols:
 ** DONE commit
 
 
+** DONE fix publishPackage, getAllPublishPackageInfos
 
-** TODO finish PackageShop
+** DONE pass bdd test
+
+** DONE finish PackageShop
+
+pass draft
+
+** TODO fix PublishPackage
+
+pass draft
+
+
+** TODO pass compile
+
+** TODO pass bdd test
+
 
 
 

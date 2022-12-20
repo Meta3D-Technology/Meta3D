@@ -1,16 +1,16 @@
-type account = string
+export type account = string
 
 type version = string
 
-type protocolName = string
+export type protocolName = string
 
-type protocolVersion = version
+export type protocolVersion = version
 
-type protocolIconBase64 = string
+export type protocolIconBase64 = string
 
-type implementName = string
+export type implementName = string
 
-type implementVersion = version
+export type implementVersion = version
 
 
 type protocol = {

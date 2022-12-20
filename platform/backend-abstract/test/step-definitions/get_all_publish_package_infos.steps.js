@@ -4,7 +4,6 @@ const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
 const PackageShopService_1 = require("../../src/application_layer/shop/PackageShopService");
-// import { buildPartialKeyByEntryProcoltolData } from "../../src/application_layer/publish/PublishPackageService";
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_package_infos.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
@@ -18,8 +17,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         });
     }
     test('get all publish pacakge infos', ({ given, when, then, and }) => {
-        let fileID1, packageName1, packageVersion1, entryProtocolName1, entryProtocolVersion1, entryProtocolIconBase641, account1;
-        let fileID2, packageName2, packageVersion2, entryProtocolName2, entryProtocolVersion2, entryProtocolIconBase642, account2;
+        let fileID1, packageName1, packageVersion1, entryProtocolName1, entryProtocolVersion1, entryProtocolIconBase641, entryExtensionName1, account1;
+        let fileID2, packageName2, packageVersion2, entryProtocolName2, entryProtocolVersion2, entryProtocolIconBase642, entryExtensionName2, account2;
         _prepare(given);
         given('publish pacakge1 with entry extension protocol1', () => {
             packageName1 = "p1";
@@ -28,6 +27,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryProtocolName1 = "ep1";
             entryProtocolVersion1 = "0.0.1";
             entryProtocolIconBase641 = "epi1";
+            entryExtensionName1 = "e1";
             account1 = "account1";
         });
         and('publish pacakge2 with entry extension protocol2', () => {
@@ -37,6 +37,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryProtocolName2 = "ep2";
             entryProtocolVersion2 = "0.0.2";
             entryProtocolIconBase642 = "epi2";
+            entryExtensionName2 = "e2";
             account2 = "account2";
         });
         and('prepare funcs', () => {
@@ -50,6 +51,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     entryProtocolName: entryProtocolName1,
                     entryProtocolVersion: entryProtocolVersion1,
                     entryProtocolIconBase64: entryProtocolIconBase641,
+                    entryExtensionName: entryExtensionName1
                 }
             ]));
             getDataByKeyContainFunc.withArgs("publishedpackages", entryProtocolName2 + "_" + entryProtocolVersion2).returns((0, PromiseTool_1.resolve)([
@@ -61,6 +63,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     entryProtocolName: entryProtocolName2,
                     entryProtocolVersion: entryProtocolVersion2,
                     entryProtocolIconBase64: entryProtocolIconBase642,
+                    entryExtensionName: entryExtensionName2
                 }
             ]));
         });
@@ -73,6 +76,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                         account: account2,
                         name: packageName2,
                         version: packageVersion2,
+                        entryProtocolName: entryProtocolName2,
+                        entryProtocolVersion: entryProtocolVersion2,
+                        entryProtocolIconBase64: entryProtocolIconBase642,
+                        entryExtensionName: entryExtensionName2,
                         id: fileID2
                     }
                 ]);

@@ -1,8 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { getAllPublishPackageEntryExtensionProtocols, getAllPublishPackageInfos } from "../../src/application_layer/shop/PackageShopService";
-// import { buildPartialKeyByEntryProcoltolData } from "../../src/application_layer/publish/PublishPackageService";
+import { getAllPublishPackageInfos } from "../../src/application_layer/shop/PackageShopService";
 
 const feature = loadFeature("./test/features/get_all_publish_package_infos.feature")
 
@@ -27,6 +26,7 @@ defineFeature(feature, test => {
             entryProtocolName1,
             entryProtocolVersion1,
             entryProtocolIconBase641,
+            entryExtensionName1,
             account1
         let fileID2,
             packageName2,
@@ -34,6 +34,7 @@ defineFeature(feature, test => {
             entryProtocolName2,
             entryProtocolVersion2,
             entryProtocolIconBase642,
+            entryExtensionName2,
             account2
 
         _prepare(given)
@@ -45,6 +46,7 @@ defineFeature(feature, test => {
             entryProtocolName1 = "ep1"
             entryProtocolVersion1 = "0.0.1"
             entryProtocolIconBase641 = "epi1"
+            entryExtensionName1 = "e1"
             account1 = "account1"
         });
 
@@ -55,6 +57,7 @@ defineFeature(feature, test => {
             entryProtocolName2 = "ep2"
             entryProtocolVersion2 = "0.0.2"
             entryProtocolIconBase642 = "epi2"
+            entryExtensionName2 = "e2"
             account2 = "account2"
         });
 
@@ -73,6 +76,7 @@ defineFeature(feature, test => {
                         entryProtocolName: entryProtocolName1,
                         entryProtocolVersion: entryProtocolVersion1,
                         entryProtocolIconBase64: entryProtocolIconBase641,
+                        entryExtensionName: entryExtensionName1
                     }
                 ])
             )
@@ -88,6 +92,7 @@ defineFeature(feature, test => {
                         entryProtocolName: entryProtocolName2,
                         entryProtocolVersion: entryProtocolVersion2,
                         entryProtocolIconBase64: entryProtocolIconBase642,
+                        entryExtensionName: entryExtensionName2
                     }
                 ])
             )
@@ -107,6 +112,10 @@ defineFeature(feature, test => {
                         account: account2,
                         name: packageName2,
                         version: packageVersion2,
+                        entryProtocolName: entryProtocolName2,
+                        entryProtocolVersion: entryProtocolVersion2,
+                        entryProtocolIconBase64: entryProtocolIconBase642,
+                        entryExtensionName: entryExtensionName2,
                         id: fileID2
                     }
                 ])

@@ -12,6 +12,10 @@ type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
 
 type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
 
+type packageData = FrontendUtils.AssembleSpaceCommonType.packageData
+
+type selectedPackages = list<packageData>
+
 // type selectedContributeProtocolConfigs = list<
 //   option<FrontendUtils.CommonType.protocolConfig>,
 // >
@@ -23,12 +27,15 @@ type action =
   | NotSelectExtension(id)
   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectContribute(id)
+  | SelectPackage(packageData)
+  | NotSelectPackage(id)
   | SetAccount(account)
 
 type state = {
   account: option<string>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
+  selectedPackages: selectedPackages,
 }
 
 let reducer = (state, action) => {
@@ -64,6 +71,16 @@ let reducer = (state, action) => {
         _,
       )) => selectedContribute.id !== id),
     }
+  | SelectPackage(data) => {
+      ...state,
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push(data),
+    }
+  | NotSelectPackage(id) => {
+      ...state,
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
+        selectedPackage.id !== id
+      ),
+    }
   | SetAccount(account) => {...state, account: Some(account)}
   }
 }
@@ -72,5 +89,6 @@ let initialState = {
   account: None,
   selectedExtensions: list{},
   selectedContributes: list{},
+  selectedPackages: list{},
   // selectedContributeProtocolConfigs: list{},
 }

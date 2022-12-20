@@ -26,6 +26,7 @@ export let publish = (
     entryProtocolName: string,
     entryProtocolVersion: string,
     entryProtocolIconBase64: string,
+    entryExtensionName: string,
     packageBinaryFile: ArrayBuffer,
     packageName: string,
     packageVersion: string,
@@ -56,6 +57,7 @@ export let publish = (
                         entryProtocolName,
                         entryProtocolVersion,
                         entryProtocolIconBase64,
+                        entryExtensionName,
                         packageName,
                         packageVersion,
                         fileID
@@ -70,6 +72,7 @@ export let publish = (
                     entryProtocolName,
                     entryProtocolVersion,
                     entryProtocolIconBase64,
+                    entryExtensionName,
                     packageName,
                     packageVersion,
                     fileID

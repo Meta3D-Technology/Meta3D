@@ -79,6 +79,10 @@ type findPublishExtension = (
 
 type findPublishContribute = findPublishExtension
 
+type loadExtension = (. ArrayBuffer.t) => ExtensionFileType.extensionFileData
+
+type loadContribute = (. ArrayBuffer.t) => ExtensionFileType.contributeFileData
+
 type appName = string
 
 type publishAppInfo = {
@@ -160,12 +164,21 @@ type getElementAssembleData = (
   elementVersion,
 ) => Meta3dBsMostProtocol.StreamType.stream<elementAssembleData>
 
+type entryExtensionProtocolName = protocolName
+
+type entryExtensionProtocolVersion = protocolVersion
+
+type entryExtensionProtocolIconBase64 = protocolIconBase64
+
+type entryExtensionName = string
+
 type publishPackage = (
   . onUploadProgressFunc,
   Js.Typed_array.ArrayBuffer.t,
-  protocolName,
-  protocolVersion,
-  protocolIconBase64,
+  entryExtensionProtocolName,
+  entryExtensionProtocolVersion,
+  entryExtensionProtocolIconBase64,
+  entryExtensionName,
   implementName,
   implementVersion,
   account,
@@ -173,6 +186,28 @@ type publishPackage = (
 
 type getAllPublishPackageEntryExtensionProtocols = getAllPublishExtensionProtocols
 
-type getAllPublishPackageInfos = getAllPublishExtensionInfos
+type packageProtocol = {
+  version: Meta3d.ExtensionFileType.versionRange,
+  name: string,
+  iconBase64: string,
+}
+
+type packageImplementInfo = {
+  id: string,
+  entryExtensionProtocolName: entryExtensionProtocolName,
+  entryExtensionProtocolVersion: entryExtensionProtocolVersion,
+  entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase64,
+  entryExtensionName: entryExtensionName,
+  name: implementName,
+  version: implementVersion,
+  account: account,
+}
+
+type packageImplementInfos = array<packageImplementInfo>
+
+type getAllPublishPackageInfos = (
+  . protocolName,
+  protocolVersion,
+) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
 
 type findPublishPackage = findPublishExtension

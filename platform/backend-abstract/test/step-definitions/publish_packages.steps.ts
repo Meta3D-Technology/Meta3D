@@ -39,6 +39,7 @@ defineFeature(feature, test => {
             entryProtocolName,
             entryProtocolVersion,
             entryProtocolIconBase64,
+            entryExtensionName,
             account
         let fileID = "1"
 
@@ -63,6 +64,7 @@ defineFeature(feature, test => {
             entryProtocolName = "ep1"
             entryProtocolVersion = "0.0.2"
             entryProtocolIconBase64 = "epi1"
+            entryExtensionName = "e1"
             account = "account1"
         });
 
@@ -72,6 +74,7 @@ defineFeature(feature, test => {
                 entryProtocolName,
                 entryProtocolVersion,
                 entryProtocolIconBase64,
+                entryExtensionName,
                 packageBinaryFile,
                 packageName,
                 packageVersion,
@@ -100,6 +103,7 @@ defineFeature(feature, test => {
                     entryProtocolName,
                     entryProtocolVersion,
                     entryProtocolIconBase64,
+                    entryExtensionName,
                     packageName,
                     packageVersion,
                     fileID
@@ -116,12 +120,14 @@ defineFeature(feature, test => {
             entryProtocolName1,
             entryProtocolVersion1,
             entryProtocolIconBase641,
+            entryExtensionName1,
             account1
         let packageBinaryFile2, packageName2,
             packageVersion2,
             entryProtocolName2,
             entryProtocolVersion2,
             entryProtocolIconBase642,
+            entryExtensionName2,
             account2
 
         _prepare(given)
@@ -151,6 +157,7 @@ defineFeature(feature, test => {
             entryProtocolName1 = "ep1"
             entryProtocolVersion1 = "0.0.2"
             entryProtocolIconBase641 = "epi1"
+            entryExtensionName1 = "e1"
             account1 = "account1"
 
             packageBinaryFile2 = new ArrayBuffer(11)
@@ -159,6 +166,7 @@ defineFeature(feature, test => {
             entryProtocolName2 = entryProtocolName1
             entryProtocolVersion2 = entryProtocolVersion1
             entryProtocolIconBase642 = entryProtocolIconBase641
+            entryExtensionName2 = entryExtensionName1
             account2 = account1
         });
 
@@ -168,6 +176,7 @@ defineFeature(feature, test => {
                 entryProtocolName1,
                 entryProtocolVersion1,
                 entryProtocolIconBase641,
+                entryExtensionName1,
                 packageBinaryFile1,
                 packageName1,
                 packageVersion1,
@@ -181,6 +190,7 @@ defineFeature(feature, test => {
                 entryProtocolName2,
                 entryProtocolVersion2,
                 entryProtocolIconBase642,
+                entryExtensionName2,
                 packageBinaryFile2,
                 packageName2,
                 packageVersion2,
@@ -213,163 +223,12 @@ defineFeature(feature, test => {
                     entryProtocolName: entryProtocolName2,
                     entryProtocolVersion: entryProtocolVersion2,
                     entryProtocolIconBase64: entryProtocolIconBase642,
+                    entryExtensionName: entryExtensionName1,
                     packageName: packageName2,
                     packageVersion: packageVersion2,
                     fileID: fileID2
-
                 }
             ])
         });
     });
-
-
-    // function _createFuncsForFindPublishPackage(sandbox) {
-    //     getDataByKeyFunc = sandbox.stub()
-    //     downloadFileFunc = sandbox.stub()
-    // }
-
-    // function _createFuncsForFindAllPublishPackages(sandbox) {
-    //     getDataByKeyContainFunc = sandbox.stub()
-    // }
-
-    // test('if not find, findPublishPackage return empty', ({ given, and, when, then }) => {
-    //     _prepare(given)
-
-    //     given('prepare funcs', () => {
-    //         _createFuncsForFindPublishPackage(sandbox)
-
-    //         getDataByKeyFunc.returns(
-    //             resolve([])
-    //         )
-    //     });
-
-    //     when('find the published package', () => {
-    //     });
-
-    //     then('should return empty', () => {
-    //         return findPublishPackage(
-    //             [getDataByKeyFunc, downloadFileFunc],
-    //             "", ""
-    //         ).observe(result => {
-    //             expect(result).toBeNull()
-    //         })
-    //     });
-    // });
-
-    // test('if find, findPublishPackage return published package file', ({ given, and, when, then }) => {
-    //     let packageBinaryFile = new ArrayBuffer(10)
-    //     let fileID = "id1"
-
-    //     _prepare(given)
-
-    //     given('prepare funcs', () => {
-    //         _createFuncsForFindPublishPackage(sandbox)
-
-    //         getDataByKeyFunc.returns(
-    //             resolve([
-    //                 {
-    //                     fileID: fileID
-    //                 }
-    //             ])
-    //         )
-    //         downloadFileFunc.returns(just(packageBinaryFile))
-    //     });
-
-    //     and('generate a package', () => {
-    //     });
-
-    //     and('publish the package', () => {
-    //     });
-
-    //     when('find the published package', () => {
-    //     });
-
-    //     then('should return the package file', () => {
-    //         return findPublishPackage(
-    //             [getDataByKeyFunc, downloadFileFunc],
-    //             "", ""
-    //         ).observe(result => {
-    //             expect(downloadFileFunc).toCalledWith([
-    //                 fileID
-    //             ])
-    //             expect(result).toEqual(packageBinaryFile)
-    //         })
-    //     });
-    // });
-
-    // test('if not find, findAllPublishPackages return empty array', ({ given, and, when, then }) => {
-    //     _prepare(given)
-
-    //     given('prepare funcs', () => {
-    //         _createFuncsForFindAllPublishPackages(sandbox)
-
-    //         getDataByKeyContainFunc.returns(
-    //             just([])
-    //         )
-    //     });
-
-    //     when('find all published packages', () => {
-    //     });
-
-    //     then('should return empty array', () => {
-    //         return findAllPublishPackages(
-    //             getDataByKeyContainFunc,
-    //             ""
-    //         ).observe(result => {
-    //             expect(result).toEqual([])
-    //         })
-    //     });
-    // });
-
-    // test('if find, findAllPublishPackages return all publish package data', ({ given, and, when, then }) => {
-    //     let fileID1 = "1"
-    //     let fileID2 = "2"
-    //     let account1
-    //     let packageName1
-    //     let packageName2
-
-
-    //     _prepare(given)
-
-    //     and('generate two packages by the same user', () => {
-    //         account1 = "account1"
-
-    //         packageName2 = "package2"
-    //     });
-
-    //     given('prepare funcs', () => {
-    //         _createFuncsForFindAllPublishPackages(sandbox)
-
-    //         getDataByKeyContainFunc.returns(
-    //             just([
-    //                 {
-    //                     account: account1, packageName: packageName1, fileID: fileID1
-    //                 },
-    //                 {
-    //                     account: account1, packageName: packageName2, fileID: fileID2
-    //                 }
-    //             ])
-    //         )
-    //     });
-
-    //     and('publish the packages', () => {
-    //     });
-
-    //     when('find all published packages', () => {
-    //     });
-
-    //     then('should return the packages\' data', () => {
-    //         return findAllPublishPackages(
-    //             getDataByKeyContainFunc,
-    //             account1
-    //         ).observe(result => {
-    //             expect(result).toEqual([{
-    //                 account: account1, packageName: packageName1
-    //             },
-    //             {
-    //                 account: account1, packageName: packageName2
-    //             }])
-    //         })
-    //     });
-    // });
 })

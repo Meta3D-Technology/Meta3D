@@ -40,12 +40,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       service.backend.getAllPublishContributeProtocolConfigs()->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (
-            protocols->Meta3dCommonlib.ArraySt.filter((
-              {name}: FrontendUtils.BackendCloudbaseType.protocol,
-            ) => name->ShopUtils.isNotInnerProtocol),
-            protocolConfigs->Meta3dCommonlib.ArraySt.filter((
-              {name}: FrontendUtils.CommonType.protocolConfig,
-            ) => name->ShopUtils.isNotInnerProtocol),
+            protocols->Meta3dCommonlib.ArraySt.filter(
+              ({name}: FrontendUtils.BackendCloudbaseType.protocol) =>
+                name->ShopUtils.isNotInnerProtocol,
+            ),
+            protocolConfigs->Meta3dCommonlib.ArraySt.filter(
+              ({name}: FrontendUtils.CommonType.protocolConfig) =>
+                name->ShopUtils.isNotInnerProtocol,
+            ),
           )
         },
         _,
@@ -76,7 +78,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             let (protocolName, protocolVersion) = (item.name, item.version)
 
             switch allPublishContributes {
-            | Some(allPublishContributes) => <>
+            | Some(allPublishContributes) =>
+              <>
                 {isDownloadBegin
                   ? <p>
                       {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
@@ -133,7 +136,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                           UserCenterStore.SelectContribute(
                                             {
                                               id: item.id,
-                                              data: Meta3d.Main.loadContribute(
+                                              data: service.backend.loadContribute(.
                                                 file->Meta3dCommonlib.NullableSt.getExn,
                                               ),
                                               version: item.version,
