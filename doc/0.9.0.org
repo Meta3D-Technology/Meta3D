@@ -43,11 +43,54 @@ pass compile
 
 
 
-** TODO implement publishPackage
+** DONE implement publishPackage, getAllPublishPackageInfos, getAllPublishPackageEntryExtensionProtocols, findPackage
 
-** TODO pass bdd test
+publishPackage:
+entry extension protocol data:name, version
+name,
+version,
+account
+
+
+getAllPublishPackageInfos:
+entryProtocolName,
+entryProtocolVersion
+
+
+
+findPackage:
+
+return binaryFile
+
+
+
+
+getAllPublishPackageEntryExtensionProtocols:
+
+
+
+
+
+
+** DONE pass compile
+
+** DONE pass bdd test
+
+** DONE commit
+
+
+
+** TODO finish PackageShop
+
+
 
 ** TODO pass run test
+
+test cloudbase
+
+
+test 4everland
+
 
 
 
@@ -72,13 +115,7 @@ bdd test
 run test
 
 
-** TODO edit ap assemble, support package
 
-
-bdd test
-
-
-** TODO run test
 
 
 

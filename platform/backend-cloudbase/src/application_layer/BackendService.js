@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -103,3 +103,12 @@ let getDataByKeyContain = (collectionName, value) => {
         .then(res => res.data.filter(({ key }) => key.includes(value))));
 };
 exports.getDataByKeyContain = getDataByKeyContain;
+let getData = (collectionName) => {
+    return (0, exports.getDatabase)().collection(collectionName)
+        .get()
+        .then(res => res.data);
+};
+exports.getData = getData;
+// export let getPackageShopEntryExtensionProtocolCollection = () => getShopProtocolCollection("publishedpackages")
+// export let getPackageShopEntryExtensionProtocolCollection = () => getData("publishedpackages")
+// export let getDataFromPackageShopEntryExtensionProtocolCollection = getDataFromShopProtocolCollection

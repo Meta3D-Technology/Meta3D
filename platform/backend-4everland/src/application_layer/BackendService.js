@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.getData = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
@@ -175,3 +175,24 @@ exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImpl
 exports.isContain = BackendService.isContain;
 exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
 exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+let getData = (collectionName) => {
+    return (0, most_1.fromPromise)((0, Repo_1.getBackend)().listObjects({
+        Bucket: collectionName
+    }).then(data => {
+        if (data.Contents === undefined) {
+            return [];
+        }
+        // return data.Contents.filter(({ Key }) => {
+        //     return Key.includes(value)
+        // })
+        return data.Contents;
+    })).flatMap(data => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(data.map(({ Key }) => {
+            return (0, most_1.fromPromise)(_getObjectWithJsonBody(collectionName, Key)).map(d => d[0]);
+        })).reduce((result, data) => {
+            result.push(data);
+            return result;
+        }, []));
+    });
+};
+exports.getData = getData;

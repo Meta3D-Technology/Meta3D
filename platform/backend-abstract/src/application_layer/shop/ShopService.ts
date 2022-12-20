@@ -1,11 +1,12 @@
-import { empty, from, fromPromise, just, mergeArray } from "most"
+import { empty, from, fromPromise, just, mergeArray, Stream } from "most"
 import { satisfies } from "semver";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn, isNullable } from "../../utils/NullableUtils";
+import { implementInfos, protocols } from "./ShopType";
 
 export let getAllPublishProtocolData = (
     [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc]: [any, any],
-    collectionName: string) => {
+    collectionName: string): Stream<protocols> => {
     return fromPromise(getShopProtocolCollectionFunc(collectionName)).map((res: any) => {
         let resData = getDataFromShopProtocolCollectionFunc(res)
 
@@ -34,7 +35,7 @@ export let getAllPublishImplementInfo = (
         getAccountFromShopImplementCollectionDataFunc,
         getFileDataFromShopImplementCollectionDataFunc,
     ]: [any, any, any, any],
-    collectionName: string, protocolName: string, protocolVersion: string) => {
+    collectionName: string, protocolName: string, protocolVersion: string): Stream<implementInfos> => {
     return fromPromise(getShopImplementCollectionFunc(collectionName)).flatMap((res: any) => {
         return fromPromise(mergeArray(
             mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {

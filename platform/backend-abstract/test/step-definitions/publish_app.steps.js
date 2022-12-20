@@ -76,13 +76,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             hasAccountFunc.onCall(0).returns((0, most_1.just)(false));
             hasAccountFunc.onCall(1).returns((0, most_1.just)(true));
         });
-        and('generate two apps with the same appName, account', () => {
+        and('generate two apps with the same key', () => {
             appBinaryFile1 = new ArrayBuffer(10);
             appName1 = "app1";
             account1 = "account1";
             appBinaryFile2 = new ArrayBuffer(11);
-            appName2 = "app2";
-            account2 = "account2";
+            appName2 = appName1;
+            account2 = account1;
         });
         and('publish the first app', () => {
             return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1).drain();
@@ -90,23 +90,23 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('publish the second app', () => {
             return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2).drain();
         });
-        then('should upload app', () => {
+        then(/^should upload app(\d+)'s binary file$/, () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
                 onUploadProgressFunc,
-                "apps/account2_app2.arrayBuffer",
+                "apps/account1_app1.arrayBuffer",
                 appBinaryFile2,
-                "account2_app2"
+                "account1_app1"
             ]);
         });
-        and('update it in collection', () => {
+        and('update collection', () => {
             expect(addDataFunc).toCalledOnce();
             expect(updateDataFunc).toCalledOnce();
             expect(updateDataFunc).toCalledWith([
                 "publishedapps",
-                (0, PublishAppTool_1.buildKey)(appName2, account2),
+                (0, PublishAppTool_1.buildKey)(appName1, account1),
                 {
-                    account: account2,
-                    appName: appName2,
+                    account: account1,
+                    appName: appName1,
                     fileID: fileID2
                 }
             ]);

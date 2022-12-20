@@ -236,3 +236,30 @@ export let isContain = BackendService.isContain
 export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
 
 export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+
+export let getData = (collectionName: string) => {
+    return fromPromise(getBackend().listObjects({
+        Bucket: collectionName
+    }).then(data => {
+        if (data.Contents === undefined) {
+            return []
+        }
+
+        // return data.Contents.filter(({ Key }) => {
+        //     return Key.includes(value)
+        // })
+        return data.Contents
+    })).flatMap(data => {
+        return fromPromise(mergeArray(
+            data.map(({ Key }) => {
+                return fromPromise(_getObjectWithJsonBody(collectionName, Key)).map(d => d[0])
+            })
+        ).reduce(
+            (result, data) => {
+                result.push(data)
+
+                return result
+            }, []
+        ))
+    })
+}

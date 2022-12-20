@@ -1,4 +1,4 @@
-import * as Abtstract from "backend-abstract";
+import * as Abstract from "backend-abstract";
 import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
 
 import {
@@ -18,29 +18,30 @@ import {
     getDataFromShopImplementAccountData,
     isContain,
     buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData, getDataByKeyContain, getShopImplement,
+    getData,
 } from "./application_layer/BackendService";
 
 
-export let init = (_env) => Abtstract.init(initCloud, null)
+export let init = (_env) => Abstract.init(initCloud, null)
 
-export let handleLogin = (account) => Abtstract.handleLogin(handleLoginCloud, account)
+export let handleLogin = (account) => Abstract.handleLogin(handleLoginCloud, account)
 
-export let getAllPublishExtensionProtocols = () => Abtstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocols")
+export let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocols")
 
-export let getAllPublishContributeProtocols = () => Abtstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocols")
+export let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocols")
 
-export let getAllPublishExtensionProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocolconfigs")
+export let getAllPublishExtensionProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocolconfigs")
 
-export let getAllPublishContributeProtocolConfigs = () => Abtstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs")
+export let getAllPublishContributeProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs")
 
-export let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
+export let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
     getFileDataFromShopImplementCollectionData,
 ], "publishedextensions", protocolName, protocolVersion)
 
-export let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abtstract.getAllPublishImplementInfo([
+export let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
@@ -51,7 +52,7 @@ export let findPublishExtension = (onDownloadProgressFunc,
     account,
     name,
     version
-) => Abtstract.findPublishImplement([
+) => Abstract.findPublishImplement([
     getShopImplement,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
@@ -65,7 +66,7 @@ export let findPublishContribute = (onDownloadProgressFunc,
     account,
     name,
     version
-) => Abtstract.findPublishImplement([
+) => Abstract.findPublishImplement([
     getShopImplement,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
@@ -75,7 +76,7 @@ export let findPublishContribute = (onDownloadProgressFunc,
     version
 )
 
-export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abtstract.publishApp([
+export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abstract.publishApp([
     onUploadProgressFunc,
     uploadFile,
     hasData,
@@ -86,14 +87,14 @@ export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) 
     appBinaryFile, appName, account
 )
 
-export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abtstract.findPublishApp([
+export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
     getDataByKey,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     account, appName
 )
 
-export let findAllPublishApps = (account) => Abtstract.findAllPublishApps(
+export let findAllPublishApps = (account) => Abstract.findAllPublishApps(
     getDataByKeyContain,
     account
 )
@@ -107,7 +108,7 @@ export let publishElementContribute = (
     account,
     packageData,
     contributeBinaryFile,
-) => Abtstract.publishElementContribute([
+) => Abstract.publishElementContribute([
     onUploadProgressFunc,
     _throwError, uploadFile, getShopImplementAccountData, updateShopImplementData,
     getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
@@ -123,7 +124,7 @@ export let publishElementAssembleData = (
     elementName,
     elementVersion,
     inspectorData
-) => Abtstract.publishElementAssembleData([
+) => Abstract.publishElementAssembleData([
     _throwError,
     getShopImplementAccountData, updateShopImplementData, getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
 ],
@@ -135,7 +136,7 @@ export let publishElementAssembleData = (
 
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 
-export let getAllPublishNewestExtensions = (protocolName) => Abtstract.getAllPublishNewestData([
+export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
     getShopImplementCollection,
     mapShopImplementCollection,
     getAccountFromShopImplementCollectionData,
@@ -150,9 +151,55 @@ export let getElementAssembleData = (
     account,
     elementName,
     elementVersion,
-) => Abtstract.getElementAssembleData(
+) => Abstract.getElementAssembleData(
     [getShopImplementAccountData, getDataFromShopImplementAccountData],
     account,
     elementName,
     elementVersion,
+)
+
+
+export let publishPackage = (onUploadProgressFunc,
+    entryProtocolName,
+    entryProtocolVersion,
+    entryProtocolIconBase64,
+    packageBinaryFile,
+    packageName,
+    packageVersion,
+    account
+) => Abstract.publishPackage([
+    onUploadProgressFunc,
+    uploadFile,
+    hasData,
+    addData,
+    updateData,
+    getFileID,
+],
+    entryProtocolName,
+    entryProtocolVersion,
+    entryProtocolIconBase64,
+    packageBinaryFile,
+    packageName,
+    packageVersion,
+    account
+)
+
+export let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(
+    getData
+)
+
+export let getAllPublishPackageInfos = (
+    entryProtocolName,
+    entryProtocolVersion,
+) => Abstract.getAllPublishPackageInfos(
+    getDataByKeyContain,
+    entryProtocolName,
+    entryProtocolVersion,
+)
+
+export let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
+    getDataByKeyContain,
+    curry2(downloadFile)(onDownloadProgressFunc)
+],
+    account, packageName, packageVersion
 )

@@ -17,11 +17,11 @@ Feature: Publish App
 
         Scenario: if exist, publish should overwrite app
             Given prepare funcs
-            And generate two apps with the same appName, account
+            And generate two apps with the same key
             And publish the first app
             When publish the second app
-            Then should upload app
-            And update it in collection
+            Then should upload app2's binary file
+            And update collection
 
     Rule: findPublishApp
 

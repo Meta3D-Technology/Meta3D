@@ -134,3 +134,16 @@ export let getDataByKeyContain = (collectionName: string, value: string) => {
 		.get()
 		.then(res => res.data.filter(({ key }: { key: string }) => key.includes(value))))
 }
+
+
+
+export let getData = (collectionName: string) => {
+	return getDatabase().collection(collectionName)
+		.get()
+		.then(res => res.data)
+}
+
+// export let getPackageShopEntryExtensionProtocolCollection = () => getShopProtocolCollection("publishedpackages")
+// export let getPackageShopEntryExtensionProtocolCollection = () => getData("publishedpackages")
+
+// export let getDataFromPackageShopEntryExtensionProtocolCollection = getDataFromShopProtocolCollection

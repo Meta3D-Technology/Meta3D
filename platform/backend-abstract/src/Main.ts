@@ -3,6 +3,8 @@ import * as ShopService from "./application_layer/shop/ShopService"
 import * as PublishAppService from "./application_layer/publish/PublishAppService"
 import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
+import * as PublishPackageService from "./application_layer/publish/PublishPackageService"
+import * as PackageShopService from "./application_layer/shop/PackageShopService"
 
 export let init = (init: (string) => Stream<unknown>, env) => init(env)
 
@@ -29,3 +31,11 @@ export let getElementAssembleData = GetElementDataService.getElementAssembleData
 export let publishElementAssembleData = PublishElementContributeService.publishElementAssembleData
 
 export let publishElementContribute = PublishElementContributeService.publishElementContribute
+
+export let publishPackage = PublishPackageService.publish
+
+export let getAllPublishPackageEntryExtensionProtocols = PackageShopService.getAllPublishPackageEntryExtensionProtocols
+
+export let getAllPublishPackageInfos = PackageShopService.getAllPublishPackageInfos
+
+export let findPublishPackage = PackageShopService.findPublishPackage
