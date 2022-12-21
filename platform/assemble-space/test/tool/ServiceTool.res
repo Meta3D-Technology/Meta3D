@@ -76,7 +76,10 @@ let build = (
   ~generateApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Js.Typed_array.ArrayBuffer.make(0), _)
   ->Obj.magic,
-  ~convertAllFileData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ~convertAllFileDataForApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(([], []), _)
+  ->Obj.magic,
+  ~convertAllFileDataForPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -144,7 +147,8 @@ let build = (
     updateExtension,
     generatePackage,
     generateApp,
-    convertAllFileData,
+    convertAllFileDataForPackage,
+    convertAllFileDataForApp,
     loadApp,
     execGetContributeFunc,
     hasChildren,

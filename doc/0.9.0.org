@@ -95,7 +95,7 @@ pass draft
 *** DONE pass compile
 
 
-** TODO frontend: pass compile
+** DONE frontend: pass compile
 
 
 ** TODO assemble-space: pass bdd test

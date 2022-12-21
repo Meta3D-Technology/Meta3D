@@ -451,7 +451,7 @@ defineFeature(feature, test => {
             ~getExtensionService=getExtensionServiceStub.contents->Obj.magic,
             ~setExtensionState=setExtensionStateFake.contents->Obj.magic,
             ~generateApp=Meta3d.Main.generateApp->Obj.magic,
-            ~convertAllFileData=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
+            ~convertAllFileDataForApp=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
             ~loadApp=Meta3d.Main.loadApp->Obj.magic,
             ~initExtension=(. meta3dState, extensionName, data) =>
               Meta3d.Main.initExtension(meta3dState, extensionName, data),

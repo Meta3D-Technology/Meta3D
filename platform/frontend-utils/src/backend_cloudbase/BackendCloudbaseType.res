@@ -79,11 +79,11 @@ type findPublishExtension = (
 
 type findPublishContribute = findPublishExtension
 
-type loadExtension = (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.extensionFileData
+// type loadExtension = (. Js.Typed_array.ArrayBuffer.t) => Meta3d.ExtensionFileType.extensionFileData
 
-type loadContribute = (
-  . Js.Typed_array.ArrayBuffer.t,
-) => Meta3d.ExtensionFileType.contributeFileData
+// type loadContribute = (
+//   . Js.Typed_array.ArrayBuffer.t,
+// ) => Meta3d.ExtensionFileType.contributeFileData
 
 type appName = string
 
@@ -215,6 +215,6 @@ type packageImplementInfos = array<packageImplementInfo>
 type getAllPublishPackageInfos = (
   . protocolName,
   protocolVersion,
-) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
+) => Meta3dBsMostProtocol.StreamType.stream<packageImplementInfos>
 
 type findPublishPackage = findPublishExtension

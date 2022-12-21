@@ -63,14 +63,45 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.initExtension(state, extensionName, data),
       updateExtension: (. state, extensionName, data) =>
         Meta3d.Main.updateExtension(state, extensionName, data),
-      generatePackage: (. (allExtensionFileData, allContributeFileData)) =>
-        // Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
-        Meta3d.Main.generatePackage((allExtensionFileData, allContributeFileData), []),
-      generateApp: (. (allExtensionFileData, allContributeFileData), startConfigData) =>
-        // Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), startConfigData),
-        Meta3d.Main.generateApp((allExtensionFileData, allContributeFileData), [], startConfigData),
-      convertAllFileData: (. allExtensionFileData, allContributeFileData, data) =>
-        Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, [], data),
+      generatePackage: (. (allExtensionFileData, allContributeFileData), allPackageBinaryFiles) =>
+        Meta3d.Main.generatePackage(
+          (allExtensionFileData, allContributeFileData),
+          allPackageBinaryFiles,
+        ),
+      generateApp: (.
+        (allExtensionFileData, allContributeFileData),
+        allPackageBinaryFiles,
+        startConfigData,
+      ) =>
+        Meta3d.Main.generateApp(
+          (allExtensionFileData, allContributeFileData),
+          allPackageBinaryFiles,
+          startConfigData,
+        ),
+      convertAllFileDataForPackage: (.
+        allExtensionFileData,
+        allContributeFileData,
+        allPackageEntryExtensionProtocolData,
+        data,
+      ) =>
+        Meta3d.Main.convertAllFileDataForPackage(
+          allExtensionFileData,
+          allContributeFileData,
+          allPackageEntryExtensionProtocolData,
+          data,
+        ),
+      convertAllFileDataForApp: (.
+        allExtensionFileData,
+        allContributeFileData,
+        allPackageEntryExtensionProtocolData,
+        data,
+      ) =>
+        Meta3d.Main.convertAllFileDataForApp(
+          allExtensionFileData,
+          allContributeFileData,
+          allPackageEntryExtensionProtocolData,
+          data,
+        ),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
       execGetContributeFunc: (.
         contributeFuncData,
@@ -149,6 +180,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     | list{"Login"} => <Login service />
     | list{"ExtensionShop"} => <ExtensionShop service />
     | list{"ContributeShop"} => <ContributeShop service />
+    | list{"PackageShop"} => <PackageShop service />
     | list{"AssembleSpace"} =>
       <>
         <Nav />

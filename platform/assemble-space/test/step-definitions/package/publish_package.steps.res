@@ -256,7 +256,7 @@ defineFeature(feature, test => {
             ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
             ~publishPackage=publishPackageStub.contents->Obj.magic,
             ~generatePackage=generatePackageStub.contents->Obj.magic,
-            ~convertAllFileData=convertAllFileDataStub.contents->Obj.magic,
+            ~convertAllFileDataForPackage=convertAllFileDataStub.contents->Obj.magic,
             (),
           ),
           ~selectedPackages=selectedPackages.contents,

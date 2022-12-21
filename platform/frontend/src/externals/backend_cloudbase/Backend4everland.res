@@ -7,10 +7,12 @@ external init: init = "init"
 external handleLogin: handleLogin = "handleLogin"
 
 @module("backend-4everland")
-external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols = "getAllPublishExtensionProtocols"
+external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols =
+  "getAllPublishExtensionProtocols"
 
 @module("backend-4everland")
-external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs = "getAllPublishExtensionProtocolConfigs"
+external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs =
+  "getAllPublishExtensionProtocolConfigs"
 
 @module("backend-4everland")
 external getAllPublishExtensionInfos: getAllPublishExtensionInfos = "getAllPublishExtensionInfos"
@@ -19,10 +21,12 @@ external getAllPublishExtensionInfos: getAllPublishExtensionInfos = "getAllPubli
 external findPublishExtension: findPublishExtension = "findPublishExtension"
 
 @module("backend-4everland")
-external getAllPublishContributeProtocols: getAllPublishContributeProtocols = "getAllPublishContributeProtocols"
+external getAllPublishContributeProtocols: getAllPublishContributeProtocols =
+  "getAllPublishContributeProtocols"
 
 @module("backend-4everland")
-external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs = "getAllPublishContributeProtocolConfigs"
+external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs =
+  "getAllPublishContributeProtocolConfigs"
 
 @module("backend-4everland")
 external getAllPublishContributeInfos: getAllPublishContributeInfos = "getAllPublishContributeInfos"
@@ -49,28 +53,42 @@ external publishElementAssembleData: publishElementAssembleData = "publishElemen
 external publishApp: publishApp = "publishApp"
 
 @module("backend-4everland")
-external publishPackage: publishPackage = "publishPackage"
-
-@module("backend-4everland")
-external getAllPublishNewestExtensions: getAllPublishNewestExtensions = "getAllPublishNewestExtensions"
+external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
+  "getAllPublishNewestExtensions"
 
 @module("backend-4everland")
 external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
+@module("backend-4everland")
+external publishPackage: publishPackage = "publishPackage"
+
+@module("backend-4everland")
+external getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols =
+  "getAllPublishPackageEntryExtensionProtocols"
+
+@module("backend-4everland")
+external getAllPublishPackageInfos: getAllPublishPackageInfos = "getAllPublishPackageInfos"
+
+@module("backend-4everland")
+external findPublishPackage: findPublishPackage = "findPublishPackage"
+
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
-    init: init,
-    handleLogin: handleLogin,
-    getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
-    getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
-    getAllPublishExtensionInfos: getAllPublishExtensionInfos,
-    findPublishExtension: findPublishExtension,
-    getAllPublishContributeProtocols: getAllPublishContributeProtocols,
-    getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs,
-    getAllPublishContributeInfos: getAllPublishContributeInfos,
-    findPublishContribute: findPublishContribute,
-    findAllPublishApps: findAllPublishApps,
-    findPublishApp: findPublishApp,
+    init,
+    handleLogin,
+    getAllPublishExtensionProtocols,
+    getAllPublishExtensionProtocolConfigs,
+    getAllPublishExtensionInfos,
+    findPublishExtension,
+    getAllPublishContributeProtocols,
+    getAllPublishContributeProtocolConfigs,
+    getAllPublishContributeInfos,
+    findPublishContribute,
+    findAllPublishApps,
+    findPublishApp,
+    getAllPublishPackageEntryExtensionProtocols,
+    getAllPublishPackageInfos,
+    findPublishPackage,
   }
 }
 
@@ -81,12 +99,12 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
     getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
-    publishPackage: publishPackage,
-    publishApp: publishApp,
-    findPublishApp: findPublishApp,
-    findAllPublishApps: findAllPublishApps,
-    publishElementContribute: publishElementContribute,
-    publishElementAssembleData: publishElementAssembleData,
-    getElementAssembleData: getElementAssembleData,
+    publishApp,
+    publishPackage,
+    findPublishApp,
+    findAllPublishApps,
+    publishElementContribute,
+    publishElementAssembleData,
+    getElementAssembleData,
   }
 }

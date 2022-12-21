@@ -45,6 +45,20 @@ type reactService = {
 
 type consoleService = {error: error, errorWithExn: errorWithExn}
 
+type convertAllFileDataForApp = (
+  . array<Meta3d.ExtensionFileType.extensionFileData>,
+  array<Meta3d.ExtensionFileType.contributeFileData>,
+  array<(Meta3d.ExtensionFileType.extensionProtocolData, Meta3dType.Index.extensionName)>,
+  (
+    array<Meta3dType.Index.extensionName>,
+    array<Meta3dType.Index.extensionName>,
+    array<Meta3dType.Index.contributeName>,
+  ),
+) => (
+  array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
+  array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
+)
+
 type meta3dService = {
   getExtensionState: 'extensionState. (. Meta3dType.Index.state, string) => 'extensionState,
   setExtensionState: 'extensionState. (
@@ -85,21 +99,11 @@ type meta3dService = {
       array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
+    array<Js.Typed_array.ArrayBuffer.t>,
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
   ) => Js.Typed_array.ArrayBuffer.t,
-  convertAllFileData: (
-    . array<Meta3d.ExtensionFileType.extensionFileData>,
-    array<Meta3d.ExtensionFileType.contributeFileData>,
-    array<(Meta3d.ExtensionFileType.extensionProtocolData, Meta3dType.Index.extensionName)>,
-    (
-      array<Meta3dType.Index.extensionName>,
-      array<Meta3dType.Index.extensionName>,
-      array<Meta3dType.Index.contributeName>,
-    ),
-  ) => (
-    array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
-    array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
-  ),
+  convertAllFileDataForApp: convertAllFileDataForApp,
+  convertAllFileDataForPackage: convertAllFileDataForApp,
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (

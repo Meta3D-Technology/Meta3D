@@ -130,13 +130,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                               service.backend.findPublishPackage(.
                                 progress => setDownloadProgress(_ => progress),
-                                item.entryExtensionProtocolName,
-                                item.entryExtensionProtocolVersion,
-                                item.entryExtensionProtocolIconBase64,
-                                item.entryExtensionName,
+                                // item.entryExtensionProtocolName,
+                                // item.entryExtensionProtocolVersion,
+                                // item.entryExtensionProtocolIconBase64,
+                                item.account,
+                                // item.entryExtensionName,
                                 item.name,
                                 item.version,
-                                item.account,
                               )
                               ->Meta3dBsMost.Most.observe(
                                 file => {

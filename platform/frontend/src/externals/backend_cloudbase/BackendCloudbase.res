@@ -53,14 +53,24 @@ external publishElementAssembleData: publishElementAssembleData = "publishElemen
 external publishApp: publishApp = "publishApp"
 
 @module("backend-cloudbase")
-external publishPackage: publishPackage = "publishPackage"
-
-@module("backend-cloudbase")
 external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
   "getAllPublishNewestExtensions"
 
 @module("backend-cloudbase")
 external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
+
+@module("backend-cloudbase")
+external publishPackage: publishPackage = "publishPackage"
+
+@module("backend-cloudbase")
+external getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols =
+  "getAllPublishPackageEntryExtensionProtocols"
+
+@module("backend-cloudbase")
+external getAllPublishPackageInfos: getAllPublishPackageInfos = "getAllPublishPackageInfos"
+
+@module("backend-cloudbase")
+external findPublishPackage: findPublishPackage = "findPublishPackage"
 
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
@@ -76,6 +86,9 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     findPublishContribute,
     findAllPublishApps,
     findPublishApp,
+    getAllPublishPackageEntryExtensionProtocols,
+    getAllPublishPackageInfos,
+    findPublishPackage,
   }
 }
 

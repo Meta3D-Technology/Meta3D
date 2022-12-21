@@ -10,7 +10,7 @@ let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeF
 
 let generateApp = (service, selectedExtensions, selectedContributes, configData) => {
   service.meta3d.generateApp(.
-    service.meta3d.convertAllFileData(.
+    service.meta3d.convertAllFileDataForApp(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.ApAssembleStoreType.extension,
       ) => data),
@@ -31,6 +31,8 @@ let generateApp = (service, selectedExtensions, selectedContributes, configData)
         ),
       ),
     ),
+    // TODO finish
+    [],
     configData,
   )
 }

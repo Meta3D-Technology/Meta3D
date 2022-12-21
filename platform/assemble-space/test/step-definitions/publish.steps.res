@@ -20,26 +20,32 @@ defineFeature(feature, test => {
   test(."show publish button", ({given, \"when", \"and", then}) => {
     _prepare(given, \"and")
 
-    \"when"("render Publish", () => {
-      ()
-    })
+    \"when"(
+      "render Publish",
+      () => {
+        ()
+      },
+    )
 
-    then("should show publish button", () => {
-      PublishTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show publish button",
+      () => {
+        PublishTool.buildUI(
           ~sandbox,
-          ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (list{}, list{}, CanvasControllerTool.buildCanvasData()),
-            _,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+              (list{}, list{}, CanvasControllerTool.buildCanvasData()),
+              _,
+            ),
+            (),
           ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   // test(."show modal after click publish button", ({given, \"when", \"and", then}) => {
@@ -83,24 +89,31 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    CucumberAsync.execStep(\"when", "publish app", () => {
-      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(
+      \"when",
+      "publish app",
+      () => {
+        errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      PublishTool.publish(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
-        ~selectedExtensions=list{},
-        ~selectedContributes=list{},
-        (),
-      )
-    })
+        PublishTool.publish(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+          ~selectedExtensions=list{},
+          ~selectedContributes=list{},
+          (),
+        )
+      },
+    )
 
-    then("should error", () => {
-      errorStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2({j`请至少选择一个扩展或者贡献`}, None)
-      ->expect == true
-    })
+    then(
+      "should error",
+      () => {
+        errorStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2({j`请至少选择一个扩展或者贡献`}, None)
+        ->expect == true
+      },
+    )
   })
 
   let _prepareSelectedExtensionsAndContributes = (
@@ -155,29 +168,36 @@ defineFeature(feature, test => {
 
     _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
 
-    CucumberAsync.execStep(\"when", "publish app", () => {
-      errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(
+      \"when",
+      "publish app",
+      () => {
+        errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      PublishTool.publish(
-        ~sandbox,
-        ~account="u1"->Some,
-        ~service=ServiceTool.build(
+        PublishTool.publish(
           ~sandbox,
-          ~error=errorStub.contents->Obj.magic,
-          ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(Meta3dBsMost.Most.empty(), _)
-          ->Obj.magic,
+          ~account="u1"->Some,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~error=errorStub.contents->Obj.magic,
+            ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(Meta3dBsMost.Most.empty(), _)
+            ->Obj.magic,
+            (),
+          ),
+          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedContributes=selectedContributes.contents,
           (),
-        ),
-        ~selectedExtensions=selectedExtensions.contents,
-        ~selectedContributes=selectedContributes.contents,
-        (),
-      )
-    })
+        )
+      },
+    )
 
-    then("error for get config data", () => {
-      errorStub.contents->SinonTool.calledWith({j`can't find start extension`})->expect == true
-    })
+    then(
+      "error for get config data",
+      () => {
+        errorStub.contents->SinonTool.calledWith({j`can't find start extension`})->expect == true
+      },
+    )
   })
 
   test(."generate correct app with config data", ({given, \"when", \"and", then}) => {
@@ -201,90 +221,112 @@ defineFeature(feature, test => {
 
     _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
 
-    given("prepare canvas data", () => {
-      canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
-    })
+    given(
+      "prepare canvas data",
+      () => {
+        canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
+      },
+    )
 
-    \"and"("select start extension e3", () => {
-      selectedExtensions :=
-        selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
-          SelectedExtensionsTool.buildSelectedExtension(
-            ~name="e3",
-            ~newName=None,
-            ~id="e3",
-            ~isStart=true,
-            ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
+    \"and"(
+      "select start extension e3",
+      () => {
+        selectedExtensions :=
+          selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
+            SelectedExtensionsTool.buildSelectedExtension(
+              ~name="e3",
+              ~newName=None,
+              ~id="e3",
+              ~isStart=true,
+              ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
+              (),
+            ),
+          )
+      },
+    )
+
+    \"and"(
+      "prepare config data",
+      () => {
+        values :=
+          {
+            "configData_c1": c1,
+          }
+      },
+    )
+
+    \"and"(
+      "prepare ap inspector data",
+      () => {
+        apInspectorData :=
+          ApInspectorTool.buildApInspectorData(
+            ~isDebug=true,
+            ~clearColor=(0.1, 1., 1., 1.),
+            ~skinName="s1"->Some,
+            (),
+          )
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "publish app",
+      () => {
+        (values.contents->Obj.magic)["appName"] = "n1"
+
+        generateAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(appBinaryFile, _)
+
+        convertAllFileDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        publishAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.empty(),
+            _,
+          )
+
+        setUploadProgressStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        PublishTool.publish(
+          ~sandbox,
+          ~setUploadProgress=setUploadProgressStub.contents->Obj.magic,
+          ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
+          ~setVisible=setVisibleStub.contents->Obj.magic,
+          ~canvasData=canvasData.contents,
+          ~apInspectorData=apInspectorData.contents,
+          ~account="u1"->Some,
+          ~values=values.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
+            ~getNeedConfigData=Meta3d.Main.getNeedConfigData->Obj.magic,
+            ~publishApp=publishAppStub.contents->Obj.magic,
+            ~generateApp=generateAppStub.contents->Obj.magic,
+            ~convertAllFileDataForApp=convertAllFileDataStub.contents->Obj.magic,
             (),
           ),
-        )
-    })
-
-    \"and"("prepare config data", () => {
-      values :=
-        {
-          "configData_c1": c1,
-        }
-    })
-
-    \"and"("prepare ap inspector data", () => {
-      apInspectorData :=
-        ApInspectorTool.buildApInspectorData(
-          ~isDebug=true,
-          ~clearColor=(0.1, 1., 1., 1.),
-          ~skinName="s1"->Some,
+          ~selectedExtensions=selectedExtensions.contents,
+          ~selectedContributes=selectedContributes.contents,
           (),
         )
-    })
+      },
+    )
 
-    CucumberAsync.execStep(\"when", "publish app", () => {
-      (values.contents->Obj.magic)["appName"] = "n1"
+    then(
+      "should mark begin upload",
+      () => {
+        let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
 
-      generateAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(appBinaryFile, _)
-
-      convertAllFileDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      publishAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
-
-      setUploadProgressStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      PublishTool.publish(
-        ~sandbox,
-        ~setUploadProgress=setUploadProgressStub.contents->Obj.magic,
-        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
-        ~setVisible=setVisibleStub.contents->Obj.magic,
-        ~canvasData=canvasData.contents,
-        ~apInspectorData=apInspectorData.contents,
-        ~account="u1"->Some,
-        ~values=values.contents->Obj.magic,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
-          ~getNeedConfigData=Meta3d.Main.getNeedConfigData->Obj.magic,
-          ~publishApp=publishAppStub.contents->Obj.magic,
-          ~generateApp=generateAppStub.contents->Obj.magic,
-          ~convertAllFileData=convertAllFileDataStub.contents->Obj.magic,
-          (),
-        ),
-        ~selectedExtensions=selectedExtensions.contents,
-        ~selectedContributes=selectedContributes.contents,
-        (),
-      )
-    })
-
-    then("should mark begin upload", () => {
-      let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
-
-      (
-        setIsUploadBeginStub.contents
-        ->getCall(0, _)
-        ->calledBefore(publishAppStub.contents->getCall(0, _)),
-        func(),
-      )->expect == (true, true)
-    })
+        (
+          setIsUploadBeginStub.contents
+          ->getCall(0, _)
+          ->calledBefore(publishAppStub.contents->getCall(0, _)),
+          func(),
+        )->expect == (true, true)
+      },
+    )
 
     \"and"(
       "should generat app with correct extension data and contribute data and start config data",
@@ -315,28 +357,37 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"("should publish the generated app", () => {
-      publishAppStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg4(matchAny, appBinaryFile, appName, account)
-      ->expect == true
-    })
+    \"and"(
+      "should publish the generated app",
+      () => {
+        publishAppStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg4(matchAny, appBinaryFile, appName, account)
+        ->expect == true
+      },
+    )
 
-    then("should mark finish upload", () => {
-      let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
+    then(
+      "should mark finish upload",
+      () => {
+        let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
 
-      (
-        setIsUploadBeginStub.contents
-        ->getCall(1, _)
-        ->calledAfter(publishAppStub.contents->getCall(0, _)),
-        func(),
-      )->expect == (true, false)
-    })
+        (
+          setIsUploadBeginStub.contents
+          ->getCall(1, _)
+          ->calledAfter(publishAppStub.contents->getCall(0, _)),
+          func(),
+        )->expect == (true, false)
+      },
+    )
 
-    \"and"("should close modal", () => {
-      let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
+    \"and"(
+      "should close modal",
+      () => {
+        let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
 
-      func()->expect == false
-    })
+        func()->expect == false
+      },
+    )
   })
 })

@@ -16,8 +16,6 @@ type backendService = {
   findAllPublishApps: findAllPublishApps,
   findPublishApp: findPublishApp,
   findPublishPackage: findPublishPackage,
-  loadExtension: loadExtension,
-  loadContribute: loadContribute,
 }
 
 type service = {backend: backendService}

@@ -33,7 +33,7 @@ let getEntryExtensionProtocolData = selectedExtensions => {
 
 let generatePackage = (service, selectPackages, selectedExtensions, selectedContributes) => {
   service.meta3d.generatePackage(.
-    service.meta3d.convertAllFileData(.
+    service.meta3d.convertAllFileDataForPackage(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.PackageAssembleStoreType.extension,
       ) => data),

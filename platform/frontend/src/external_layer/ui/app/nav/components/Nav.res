@@ -25,6 +25,13 @@ let make = () => {
       {React.string("| ")}
       <span
         onClick={_ => {
+          RescriptReactRouter.push("/PacakgeShop")
+        }}>
+        {React.string(`包商城`)}
+      </span>
+      {React.string("| ")}
+      <span
+        onClick={_ => {
           RescriptReactRouter.push("/ShowPublishedApps")
         }}>
         {React.string(`发布的应用`)}

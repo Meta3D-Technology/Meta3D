@@ -136,7 +136,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                           UserCenterStore.SelectExtension(
                                             {
                                               id: item.info.id,
-                                              data: service.backend.loadExtension(.
+                                              data: Meta3d.Main.loadExtension(
                                                 file->Meta3dCommonlib.NullableSt.getExn,
                                               ),
                                               protocolName: item.protocolName,
