@@ -32,6 +32,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     )
   }
 
+  let _buildPackageFileName = (packageName, packageVersion) => {
+    j`${packageName}_${packageVersion}`
+  }
+
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"PackageShop"} =>
@@ -201,6 +205,48 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                             }}>
                             {React.string(`选择`)}
                           </Button>}
+                      <Button
+                        onClick={_ => {
+                          setIsDownloadBegin(_ => true)
+
+                          service.backend.findPublishPackage(.
+                            progress => setDownloadProgress(_ => progress),
+                            item.account,
+                            item.name,
+                            item.version,
+                          )
+                          ->Meta3dBsMost.Most.observe(file => {
+                            Meta3dCommonlib.NullableSt.isNullable(file)
+                              ? {
+                                  setIsDownloadBegin(_ => false)
+
+                                  FrontendUtils.ErrorUtils.error(
+                                    {j`找不到package file`},
+                                    None,
+                                  )->Obj.magic
+                                }
+                              : {
+                                  setIsDownloadBegin(_ => false)
+
+                                  DownloadUtils.createAndDownloadBlobFile(
+                                    file->Meta3dCommonlib.NullableSt.getExn,
+                                    _buildPackageFileName(item.name, item.version),
+                                    "package",
+                                  )
+                                }
+                          }, _)
+                          ->Js.Promise.catch(e => {
+                            setIsDownloadBegin(_ => false)
+
+                            FrontendUtils.ErrorUtils.errorWithExn(
+                              e->FrontendUtils.Error.promiseErrorToExn,
+                              None,
+                            )->Obj.magic
+                          }, _)
+                          ->ignore
+                        }}>
+                        {React.string(`下载`)}
+                      </Button>
                     </List.Item>}
                 />
               </>

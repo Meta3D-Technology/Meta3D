@@ -103,8 +103,16 @@ pass draft
 
 ** TODO implement downloadPackage
 
+# draft
 
-bdd test
+# compile
+
+# bdd test
+# pacakge_manager.steps add case one
+
+
+
+provide meta3d sdk repo
 
 # run test
 
@@ -122,6 +130,7 @@ test 4everland
 
 
 *** TODO download package
+
 
 
 

@@ -1,6 +1,8 @@
-let prepareStartFlag = %raw(` function(){window.startFlag = 0} `)
+// let prepareStartFlag = %raw(` function(){window.startFlag = 0} `)
 
 let prepareInitFlag = %raw(` function(){window.initFlag = 0} `)
+
+let prepareFlagForSevice = %raw(` function(){window.serviceFlag = 0} `)
 
 // let prepareUpdateFlag = %raw(` function(){window.updateFlag = 0} `)
 
@@ -24,6 +26,20 @@ resolve(meta3dState)
 //   }) ; } } } }`
 // }
 
+let buildEmptyExtensionFileStrWithService = () => {
+  `
+window.Extension = {
+    getExtensionService: (api, dependentData) => {
+        return {
+            func1: (flag) => {
+                window.serviceFlag += flag
+            }
+        }
+    }, createExtensionState: () => { }, getExtensionLife: (api, extensionName) => { return {} }
+}
+  `
+}
+
 let buildEmptyContributeFileStr = () => {
   `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
 }
@@ -32,4 +48,4 @@ let buildEmptyContributeFileStr = () => {
 
 let getInitFlag = %raw(` function(){return window.initFlag} `)
 
-// let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
+let getServiceFlag = %raw(` function(){return window.serviceFlag} `)

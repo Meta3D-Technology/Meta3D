@@ -41,8 +41,8 @@ Feature: Package Manager
 
     Rule: load generated package
 
-        Background: prepare flag
-            Given prepare flag
+        # Background: prepare flag
+        #     Given prepare flag
 
         Scenario: load generated package
             Given generate two extensions
@@ -74,6 +74,11 @@ Feature: Package Manager
         Scenario: load and init generated package
             When generate package with c1 and load it and init the entry extension
             Then the second extension should be inited
+
+        Scenario: load and invoke generated package's entry extension's service
+            When generate package with c1 and load it and invoke the entry extension's service
+            Then the second extension's service should be invoked
+
 
     #     Scenario: load and update generated package
     #         When generate package with c1 and load it and update the second extension

@@ -203,11 +203,12 @@ defineFeature(feature, test => {
     },
   )
 
-  let _prepareFlag = given => {
-    given("prepare flag", () => {
-      PackageManagerTool.prepareStartFlag()
-    })
-  }
+  // let _prepareFlag = given => {
+  //   given("prepare flag", () => {
+  //     // PackageManagerTool.prepareStartFlag()
+  //     ()
+  //   })
+  // }
 
   test(."load generated package", ({given, \"when", \"and", then}) => {
     let firstExtension = ref(Obj.magic(1))
@@ -224,7 +225,7 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    _prepareFlag(given)
+    // _prepareFlag(given)
 
     given(
       "generate two extensions",
@@ -383,7 +384,11 @@ defineFeature(feature, test => {
   let _prepareForLoadAndHandleGeneratedPackage = (
     given,
     \"and",
-    (prepareFlag, buildEmptyExtensionFileStrWithLifeHandle),
+    (
+      prepareFlag,
+      buildEmptyExtensionFileStrWithLifeHandleForExtension1,
+      buildEmptyExtensionFileStrWithLifeHandleForExtension2,
+    ),
   ) => {
     let entryExtensionName = ref(Obj.magic(1))
 
@@ -405,7 +410,7 @@ defineFeature(feature, test => {
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             }: ExtensionFileType.extensionPackageData
           ),
-          buildEmptyExtensionFileStrWithLifeHandle(1),
+          buildEmptyExtensionFileStrWithLifeHandleForExtension1(),
         )
       secondExtension :=
         Main.generateExtension(
@@ -420,7 +425,7 @@ defineFeature(feature, test => {
               dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             }: ExtensionFileType.extensionPackageData
           ),
-          buildEmptyExtensionFileStrWithLifeHandle(2),
+          buildEmptyExtensionFileStrWithLifeHandleForExtension2(),
         )
     })
 
@@ -451,7 +456,11 @@ defineFeature(feature, test => {
     _prepareForLoadAndHandleGeneratedPackage(
       given,
       \"and",
-      (PackageManagerTool.prepareInitFlag, PackageManagerTool.buildEmptyExtensionFileStrWithOnInit),
+      (
+        PackageManagerTool.prepareInitFlag,
+        () => PackageManagerTool.buildEmptyExtensionFileStrWithOnInit(1),
+        () => PackageManagerTool.buildEmptyExtensionFileStrWithOnInit(2),
+      ),
     )
 
     CucumberAsync.execStep(
@@ -478,6 +487,46 @@ defineFeature(feature, test => {
       "the second extension should be inited",
       () => {
         PackageManagerTool.getInitFlag()->expect == 12
+      },
+    )
+  })
+
+  test(."load and invoke generated package's entry extension's service", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let state = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    _prepareForLoadAndHandleGeneratedPackage(
+      given,
+      \"and",
+      (
+        PackageManagerTool.prepareFlagForSevice,
+        () => PackageManagerTool.buildEmptyExtensionFileStr(),
+        () => PackageManagerTool.buildEmptyExtensionFileStrWithService(),
+      ),
+    )
+
+    \"when"(
+      "generate package with c1 and load it and invoke the entry extension's service",
+      () => {
+        let (s, allExtensionDataArr, entryExtensionName) =
+          Main.generatePackage(c1.contents, [])->Main.loadPackage
+
+        state := s
+
+        (Main.getExtensionService(s, entryExtensionName)->Obj.magic)["func1"](9)
+      },
+    )
+
+    then(
+      "the second extension's service should be invoked",
+      () => {
+        PackageManagerTool.getServiceFlag()->expect == 9
       },
     )
   })
