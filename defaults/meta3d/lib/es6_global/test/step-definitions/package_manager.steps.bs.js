@@ -188,9 +188,6 @@ JestCucumber.defineFeature(feature, (function (test) {
                   contents: 1
                 };
                 _prepare(given);
-                Curry._2(given, "prepare flag", (function (param) {
-                        return PackageManagerTool$Meta3d.prepareStartFlag(undefined);
-                      }));
                 Curry._2(given, "generate two extensions", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
                               name: "first-extension",
@@ -274,7 +271,8 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
               }));
         var _prepareForLoadAndHandleGeneratedPackage = function (given, and, param) {
-          var buildEmptyExtensionFileStrWithLifeHandle = param[1];
+          var buildEmptyExtensionFileStrWithLifeHandleForExtension2 = param[2];
+          var buildEmptyExtensionFileStrWithLifeHandleForExtension1 = param[1];
           var prepareFlag = param[0];
           var entryExtensionName = {
             contents: 1
@@ -291,7 +289,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         },
                         dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
                         dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
-                      }, Curry._1(buildEmptyExtensionFileStrWithLifeHandle, 1));
+                      }, Curry._1(buildEmptyExtensionFileStrWithLifeHandleForExtension1, undefined));
                   secondExtension.contents = Main$Meta3d.generateExtension({
                         name: "second-extension",
                         protocol: {
@@ -300,7 +298,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         },
                         dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
                         dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
-                      }, Curry._1(buildEmptyExtensionFileStrWithLifeHandle, 2));
+                      }, Curry._1(buildEmptyExtensionFileStrWithLifeHandleForExtension2, undefined));
                 }));
           Curry._2(and, "prepare new names and mark the second extension as entry", (function (param) {
                   allExtensionNewNames.contents = [
@@ -330,7 +328,12 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 _prepareForLoadAndHandleGeneratedPackage(given, param.and, [
                       PackageManagerTool$Meta3d.prepareInitFlag,
-                      PackageManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit
+                      (function (param) {
+                          return PackageManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit(1);
+                        }),
+                      (function (param) {
+                          return PackageManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnInit(2);
+                        })
                     ]);
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "generate package with c1 and load it and init the entry extension", (function (param) {
                         var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents, []));
@@ -344,6 +347,31 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.then, "the second extension should be inited", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect(PackageManagerTool$Meta3d.getInitFlag(undefined)), 12);
+                      }));
+              }));
+        test("load and invoke generated package's entry extension's service", (function (param) {
+                var given = param.given;
+                var state = {
+                  contents: 1
+                };
+                _prepare(given);
+                _prepareForLoadAndHandleGeneratedPackage(given, param.and, [
+                      PackageManagerTool$Meta3d.prepareFlagForSevice,
+                      (function (param) {
+                          return PackageManagerTool$Meta3d.buildEmptyExtensionFileStr(undefined);
+                        }),
+                      (function (param) {
+                          return PackageManagerTool$Meta3d.buildEmptyExtensionFileStrWithService(undefined);
+                        })
+                    ]);
+                Curry._2(param.when, "generate package with c1 and load it and invoke the entry extension's service", (function (param) {
+                        var match = Main$Meta3d.loadPackage(Main$Meta3d.generatePackage(c1.contents, []));
+                        var s = match[0];
+                        state.contents = s;
+                        Curry._1(Main$Meta3d.getExtensionService(s, match[2]).func1, 9);
+                      }));
+                Curry._2(param.then, "the second extension's service should be invoked", (function (param) {
+                        Operators$Meta3dBsJestCucumber.$eq(expect(PackageManagerTool$Meta3d.getServiceFlag(undefined)), 9);
                       }));
               }));
       }));

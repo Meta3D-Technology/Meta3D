@@ -101,7 +101,7 @@ pass draft
 ** DONE assemble-space: pass bdd test
 
 
-** TODO implement downloadPackage
+** DONE implement downloadPackage
 
 # draft
 
@@ -112,7 +112,7 @@ pass draft
 
 
 
-provide meta3d sdk repo
+# provide meta3d sdk repo
 
 # run test
 
