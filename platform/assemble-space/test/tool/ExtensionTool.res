@@ -48,7 +48,7 @@ let buildSelectedExtension = (
           ~name,
           ~protocol={
             name: protocolName,
-            version: protocolVersion,
+            version: protocolVersionRange,
           },
           (),
         ),

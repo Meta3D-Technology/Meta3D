@@ -98,7 +98,16 @@ pass draft
 ** DONE frontend: pass compile
 
 
-** TODO assemble-space: pass bdd test
+** DONE assemble-space: pass bdd test
+
+
+** TODO implement downloadPackage
+
+
+bdd test
+
+# run test
+
 
 
 ** TODO frontend: pass run test
@@ -107,6 +116,13 @@ test cloudbase
 
 
 test 4everland
+
+
+*** TODO publish package
+
+
+*** TODO download package
+
 
 
 
@@ -123,13 +139,6 @@ test 4everland
 
 ** TODO refactor: remove duplicate between package assemble and ap assemble
 
-
-** TODO implement downloadPackage
-
-
-bdd test
-
-run test
 
 
 
