@@ -58,7 +58,14 @@ let make = (
     </Layout.Header>
     <Layout.Content>
       {switch currentAssemble {
-      | Ap => <ApAssemble service account selectedExtensionsFromShop selectedContributesFromShop />
+      | Ap =>
+        <ApAssemble
+          service
+          account
+          selectedExtensionsFromShop
+          selectedContributesFromShop
+          selectedPackagesFromShop
+        />
       | Element => <ElementAssemble service account />
       | Package =>
         <PackageAssemble

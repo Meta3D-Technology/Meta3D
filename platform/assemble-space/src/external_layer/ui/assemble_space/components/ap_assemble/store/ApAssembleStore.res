@@ -2,6 +2,7 @@ open FrontendUtils.ApAssembleStoreType
 
 let _createState = () => {
   {
+    selectedPackages: list{},
     selectedExtensions: list{},
     selectedContributes: list{},
     inspectorCurrentExtensionId: None,
@@ -29,12 +30,19 @@ let _setApIControlInspectorData = (state, setFunc) => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
+  | SelectPackage(package) => {
+      ...state,
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
+        ...package,
+        id: IdUtils.generateId(Js.Math.random),
+      }),
+    }
   | SelectExtension(protocolIconBase64, protocolConfigStr, extension) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
-        protocolIconBase64: protocolIconBase64,
-        protocolConfigStr: protocolConfigStr,
+        protocolIconBase64,
+        protocolConfigStr,
         newName: None,
         isStart: false,
         version: extension.version,
@@ -85,8 +93,8 @@ let reducer = (state, action) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
-        protocolIconBase64: protocolIconBase64,
-        protocolConfigStr: protocolConfigStr,
+        protocolIconBase64,
+        protocolConfigStr,
         newName: None,
         version: contribute.version,
         data: contribute.data,
@@ -112,7 +120,7 @@ let reducer = (state, action) => {
     }
   | SetCanvasData(canvasData) => {
       ...state,
-      canvasData: canvasData,
+      canvasData,
     }
   | ShowApInspector => {
       ...state,
@@ -121,17 +129,17 @@ let reducer = (state, action) => {
   | SetIsDebug(isDebug) =>
     _setApIControlInspectorData(state, apInspectorData => {
       ...apInspectorData,
-      isDebug: isDebug,
+      isDebug,
     })
   | SetClearColor(clearColor) =>
     _setApIControlInspectorData(state, apInspectorData => {
       ...apInspectorData,
-      clearColor: clearColor,
+      clearColor,
     })
   | SetSkinName(skinName) =>
     _setApIControlInspectorData(state, apInspectorData => {
       ...apInspectorData,
-      skinName: skinName,
+      skinName,
     })
   }
 }

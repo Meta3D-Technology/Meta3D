@@ -118,7 +118,7 @@ pass draft
 
 
 
-** TODO frontend: pass run test
+** DONE frontend: pass run test
 
 test cloudbase
 
@@ -136,18 +136,21 @@ download bug?
 
 
 
-test 4everland
+# test 4everland
 
 
-*** TODO publish package
+# *** TODO publish package
 
 
-*** TODO download package
+# *** TODO download package
 
 
 
-** TODO ap assemble: add Packages, Selected Packages
+** DONE ap assemble: add Packages, Selected Packages
 
+** DONE pass bdd test
+
+** DONE pass run test
 
 ** TODO ap assemble: update publish app
 
@@ -166,6 +169,10 @@ PacakgeAssemble remove newName,
 
 
 
+** TODO run test: build engine package(two packages), used in ap to draw a triangle
+
+
+** TODO run test: download engine package(two packages), used to draw a triangle
 
 
 
@@ -360,3 +367,5 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 * TODO publish
+
+** TODO fix website: remove "用户数据归用户所有"

@@ -36,6 +36,10 @@ type contribute = {
 
 type selectedContributes = list<contribute>
 
+type package = AssembleSpaceCommonType.packageData
+
+type selectedPackages = list<package>
+
 type canvasData = {
   // id: string,
   width: int,
@@ -57,6 +61,7 @@ type apInspectorData = {
 
 type action =
   | Reset
+  | SelectPackage(package)
   | SelectExtension(
       protocolIconBase64,
       option<protocolConfigStr>,
@@ -80,6 +85,7 @@ type action =
   | SetSkinName(option<skinName>)
 
 type state = {
+  selectedPackages: selectedPackages,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
   inspectorCurrentExtensionId: option<id>,
