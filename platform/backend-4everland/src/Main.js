@@ -93,7 +93,7 @@ let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionDat
 exports.publishPackage = publishPackage;
 let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(BackendService_1.getData);
 exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryExtensionProtocols;
-let getAllPublishPackageInfos = (entryProtocolName, entryProtocolVersion) => Abstract.getAllPublishPackageInfos(BackendService_1.getDataByKeyContain, entryProtocolName, entryProtocolVersion);
+let getAllPublishPackageInfos = (entryExtensionProtocolName, entryExtensionProtocolVersion) => Abstract.getAllPublishPackageInfos(BackendService_1.getDataByKeyContain, entryExtensionProtocolName, entryExtensionProtocolVersion);
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
 let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
     BackendService_1.getDataByKeyContain,

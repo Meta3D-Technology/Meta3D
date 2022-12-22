@@ -7,6 +7,7 @@ open FrontendUtils.AssembleSpaceType
 type view =
   | Ap
   | Element
+  | Package
 
 module Method = {
   let reset = dispatch => {
@@ -26,6 +27,7 @@ let make = (
   ~account,
   ~selectedExtensionsFromShop: selectedExtensionsFromShop,
   ~selectedContributesFromShop: selectedContributesFromShop,
+  ~selectedPackagesFromShop: selectedPackagesFromShop,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -47,11 +49,25 @@ let make = (
         }}>
         {React.string(`Element装配`)}
       </Button>
+      <Button
+        onClick={_ => {
+          setCurrentAssemble(_ => Package)
+        }}>
+        {React.string(`包装配`)}
+      </Button>
     </Layout.Header>
     <Layout.Content>
       {switch currentAssemble {
       | Ap => <ApAssemble service account selectedExtensionsFromShop selectedContributesFromShop />
       | Element => <ElementAssemble service account />
+      | Package =>
+        <PackageAssemble
+          service
+          account
+          selectedExtensionsFromShop
+          selectedContributesFromShop
+          selectedPackagesFromShop
+        />
       }}
     </Layout.Content>
   </Layout>

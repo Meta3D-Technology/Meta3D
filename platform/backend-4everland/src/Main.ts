@@ -183,12 +183,12 @@ export let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPu
 )
 
 export let getAllPublishPackageInfos = (
-    entryProtocolName,
-    entryProtocolVersion,
+    entryExtensionProtocolName,
+    entryExtensionProtocolVersion,
 ) => Abstract.getAllPublishPackageInfos(
     getDataByKeyContain,
-    entryProtocolName,
-    entryProtocolVersion,
+    entryExtensionProtocolName,
+    entryExtensionProtocolVersion,
 )
 
 export let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([

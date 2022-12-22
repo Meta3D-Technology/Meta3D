@@ -3,8 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const most_1 = require("most");
 const sinon_1 = require("sinon");
-const PromiseTool_1 = require("../../../../services/meta3d-tool-utils/src/publish/PromiseTool");
-const PublishPackageService_1 = require("../../src/application_layer/publish/PublishPackageService");
 // import { getFileID } from "meta3d-backend-cloudbase";
 const PackageShopService_1 = require("../../src/application_layer/shop/PackageShopService");
 // import { buildKey } from "../tool/PublishPackageTool"
@@ -26,7 +24,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForFindPublishPackage(sandbox);
-            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([]));
+            getDataByKeyContainFunc.returns((0, most_1.just)([]));
         });
         when('find the published package', () => {
         });
@@ -48,7 +46,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         });
         and('prepare funcs', () => {
             _createFuncsForFindPublishPackage(sandbox);
-            getDataByKeyContainFunc.returns((0, PromiseTool_1.resolve)([
+            getDataByKeyContainFunc.returns((0, most_1.just)([
                 {
                     fileID: fileID
                 }
@@ -63,7 +61,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
             return (0, PackageShopService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedpackages",
-                    (0, PublishPackageService_1.buildPartialKeyByPackageData)(packageName, packageVersion, account)
+                    [packageName,
+                        packageVersion,
+                        account]
                 ]);
                 expect(downloadFileFunc).toCalledWith([
                     fileID

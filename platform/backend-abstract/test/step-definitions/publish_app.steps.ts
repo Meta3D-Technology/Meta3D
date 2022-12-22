@@ -308,6 +308,11 @@ defineFeature(feature, test => {
                 getDataByKeyContainFunc,
                 account1
             ).observe(result => {
+                expect(getDataByKeyContainFunc).toCalledWith([
+                    "publishedapps",
+                    [account1]
+                ])
+
                 expect(result).toEqual([{
                     account: account1, appName: appName1
                 },

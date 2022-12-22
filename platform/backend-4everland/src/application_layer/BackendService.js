@@ -144,7 +144,7 @@ let getDataByKey = (collectionName, key) => {
     });
 };
 exports.getDataByKey = getDataByKey;
-let getDataByKeyContain = (collectionName, value) => {
+let getDataByKeyContain = (collectionName, values) => {
     return (0, most_1.fromPromise)((0, Repo_1.getBackend)().listObjects({
         Bucket: collectionName
     }).then(data => {
@@ -152,7 +152,12 @@ let getDataByKeyContain = (collectionName, value) => {
             return [];
         }
         return data.Contents.filter(({ Key }) => {
-            return Key.includes(value);
+            return values.reduce((result, value) => {
+                if (!result) {
+                    return result;
+                }
+                return Key.includes(value);
+            }, true);
         });
     })).flatMap(data => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(data.map(({ Key }) => {

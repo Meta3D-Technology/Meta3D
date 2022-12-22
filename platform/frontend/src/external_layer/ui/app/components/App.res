@@ -2,7 +2,7 @@
 let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {account, selectedExtensions, selectedContributes} = AppStore.useSelector((
+  let {account, selectedExtensions, selectedContributes, selectedPackages} = AppStore.useSelector((
     {userCenterState}: AppStore.state,
   ) => userCenterState)
 
@@ -189,6 +189,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           account
           selectedExtensionsFromShop=selectedExtensions
           selectedContributesFromShop=selectedContributes
+          selectedPackagesFromShop=selectedPackages
         />
       </>
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />

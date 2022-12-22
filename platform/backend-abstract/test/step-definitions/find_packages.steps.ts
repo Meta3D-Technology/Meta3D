@@ -33,7 +33,7 @@ defineFeature(feature, test => {
             _createFuncsForFindPublishPackage(sandbox)
 
             getDataByKeyContainFunc.returns(
-                resolve([])
+                just([])
             )
         });
 
@@ -70,7 +70,7 @@ defineFeature(feature, test => {
             _createFuncsForFindPublishPackage(sandbox)
 
             getDataByKeyContainFunc.returns(
-                resolve([
+                just([
                     {
                         fileID: fileID
                     }
@@ -93,11 +93,9 @@ defineFeature(feature, test => {
             ).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedpackages",
-                    buildPartialKeyByPackageData(
-                        packageName,
+                    [packageName,
                         packageVersion,
-                        account
-                    )
+                        account]
                 ])
 
                 expect(downloadFileFunc).toCalledWith([

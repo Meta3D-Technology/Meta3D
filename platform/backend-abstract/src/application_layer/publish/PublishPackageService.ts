@@ -1,11 +1,11 @@
 import { fromPromise } from "most"
 
 export let _buildKey = (
-    entryProtocolName: string,
-    entryProtocolVersion: string,
+    entryExtensionProtocolName: string,
+    entryExtensionProtocolVersion: string,
     packageName: string, packageVersion: string, account: string) => account + "_" +
-    entryProtocolName + "_" +
-    entryProtocolVersion + "_" +
+    entryExtensionProtocolName + "_" +
+    entryExtensionProtocolVersion + "_" +
     packageName + "_" + packageVersion
 
 
@@ -15,9 +15,9 @@ let _buildFileName = (
 
 
 export let buildPartialKeyByEntryProcoltolData = (
-    entryProtocolName: string,
-    entryProtocolVersion: string,
-) => entryProtocolName + "_" + entryProtocolVersion
+    entryExtensionProtocolName: string,
+    entryExtensionProtocolVersion: string,
+) => entryExtensionProtocolName + "_" + entryExtensionProtocolVersion
 
 export let buildPartialKeyByPackageData = _buildFileName
 
@@ -25,18 +25,18 @@ export let publish = (
     [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any],
     packageBinaryFile: ArrayBuffer,
     [
-        entryProtocolName,
-        entryProtocolVersion,
-        entryProtocolVersionRange,
-        entryProtocolIconBase64,
+        entryExtensionProtocolName,
+        entryExtensionProtocolVersion,
+        entryExtensionProtocolVersionRange,
+        entryExtensionProtocolIconBase64,
         entryExtensionName
     ]: [string, string, string, string, string],
     [packageName, packageVersion]: [string, string],
     account: string
 ) => {
     let key = _buildKey(
-        entryProtocolName,
-        entryProtocolVersion,
+        entryExtensionProtocolName,
+        entryExtensionProtocolVersion,
         packageName, packageVersion, account
     )
 
@@ -56,10 +56,10 @@ export let publish = (
                     key,
                     {
                         account,
-                        entryProtocolName,
-                        entryProtocolVersion,
-                        entryProtocolVersionRange,
-                        entryProtocolIconBase64,
+                        entryExtensionProtocolName,
+                        entryExtensionProtocolVersion,
+                        entryExtensionProtocolVersionRange,
+                        entryExtensionProtocolIconBase64,
                         entryExtensionName,
                         packageName,
                         packageVersion,
@@ -72,10 +72,10 @@ export let publish = (
                 key,
                 {
                     account,
-                    entryProtocolName,
-                    entryProtocolVersion,
-                    entryProtocolVersionRange,
-                    entryProtocolIconBase64,
+                    entryExtensionProtocolName,
+                    entryExtensionProtocolVersion,
+                    entryExtensionProtocolVersionRange,
+                    entryExtensionProtocolIconBase64,
                     entryExtensionName,
                     packageName,
                     packageVersion,

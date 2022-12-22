@@ -194,7 +194,7 @@ export let getDataByKey = (collectionName: string, key: string) => {
         })
 }
 
-export let getDataByKeyContain = (collectionName: string, value: string) => {
+export let getDataByKeyContain = (collectionName: string, values: Array<string>) => {
     return fromPromise(getBackend().listObjects({
         Bucket: collectionName
     }).then(data => {
@@ -203,7 +203,13 @@ export let getDataByKeyContain = (collectionName: string, value: string) => {
         }
 
         return data.Contents.filter(({ Key }) => {
-            return Key.includes(value)
+            return values.reduce((result, value) => {
+                if (!result) {
+                    return result
+                }
+
+                return Key.includes(value)
+            }, true)
         })
     })).flatMap(data => {
         return fromPromise(mergeArray(

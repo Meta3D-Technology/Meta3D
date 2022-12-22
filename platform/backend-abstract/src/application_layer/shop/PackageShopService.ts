@@ -1,7 +1,7 @@
 import { fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { removeDuplicateItemsWithBuildKeyFunc } from "../../utils/ArrayUtils"
-import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
+// import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
 import { protocols } from "./ShopType"
 import { packageImplementInfos } from "./PackageShopType"
 
@@ -14,11 +14,11 @@ export let getAllPublishPackageEntryExtensionProtocols = (
 
     //     return resData.map(({
     //         account,
-    //         entryProtocolName,
-    //         entryProtocolVersion,
-    //         entryProtocolIconBase64,
+    //         entryExtensionProtocolName,
+    //         entryExtensionProtocolVersion,
+    //         entryExtensionProtocolIconBase64,
     //     }) => {
-    //         return { name: entryProtocolName, version: entryProtocolVersion, account, iconBase64: entryProtocolIconBase64 }
+    //         return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 }
     //     })
     // })
 
@@ -27,11 +27,11 @@ export let getAllPublishPackageEntryExtensionProtocols = (
 
         return removeDuplicateItemsWithBuildKeyFunc(data.map(({
             account,
-            entryProtocolName,
-            entryProtocolVersion,
-            entryProtocolIconBase64,
+            entryExtensionProtocolName,
+            entryExtensionProtocolVersion,
+            entryExtensionProtocolIconBase64,
         }) => {
-            return { name: entryProtocolName, version: entryProtocolVersion, account, iconBase64: entryProtocolIconBase64 }
+            return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 }
         }),
             // (({
             //     name, version, account
@@ -58,19 +58,22 @@ export let getAllPublishPackageEntryExtensionProtocols = (
 
 export let getAllPublishPackageInfos = (
     getDataByKeyContainFunc: any,
-    entryProtocolName: string,
-    entryProtocolVersion: string,
+    entryExtensionProtocolName: string,
+    entryExtensionProtocolVersion: string,
 ): Stream<packageImplementInfos> => {
-    return fromPromise(getDataByKeyContainFunc(
+    return getDataByKeyContainFunc(
         "publishedpackages",
-        buildPartialKeyByEntryProcoltolData(entryProtocolName, entryProtocolVersion)
-    )).map((data: any) => {
+        // buildPartialKeyByEntryProcoltolData(entryExtensionProtocolName, entryExtensionProtocolVersion)
+        [
+            entryExtensionProtocolName, entryExtensionProtocolVersion
+        ]
+    ).map((data: any) => {
         return data.map(({
             account,
-            entryProtocolName,
-            entryProtocolVersion,
-            entryProtocolVersionRange,
-            entryProtocolIconBase64,
+            entryExtensionProtocolName,
+            entryExtensionProtocolVersion,
+            entryExtensionProtocolVersionRange,
+            entryExtensionProtocolIconBase64,
             entryExtensionName,
             packageName,
             packageVersion,
@@ -80,10 +83,10 @@ export let getAllPublishPackageInfos = (
             return {
                 id: fileID,
                 account,
-                entryProtocolName,
-                entryProtocolVersion,
-                entryProtocolVersionRange,
-                entryProtocolIconBase64,
+                entryExtensionProtocolName,
+                entryExtensionProtocolVersion,
+                entryExtensionProtocolVersionRange,
+                entryExtensionProtocolIconBase64,
                 entryExtensionName,
                 name: packageName,
                 version: packageVersion,
@@ -97,19 +100,24 @@ export let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc]: [a
     packageName: string,
     packageVersion: string
 ): Stream<nullable<ArrayBuffer>> => {
-    return fromPromise(
-        getDataByKeyContainFunc(
-            "publishedpackages",
-            buildPartialKeyByPackageData(
-                packageName,
-                packageVersion,
-                account
-            )
-        )).flatMap((data: any) => {
-            if (data.length === 0) {
-                return just(null)
-            }
+    return getDataByKeyContainFunc(
+        "publishedpackages",
+        // buildPartialKeyByPackageData(
+        //     packageName,
+        //     packageVersion,
+        //     account
+        // )
+        [
 
-            return downloadFileFunc(data[0].fileID)
-        })
+            packageName,
+            packageVersion,
+            account
+        ]
+    ).flatMap((data: any) => {
+        if (data.length === 0) {
+            return just(null)
+        }
+
+        return downloadFileFunc(data[0].fileID)
+    })
 }

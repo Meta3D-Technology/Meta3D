@@ -203,6 +203,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
         then('should return the apps\' data', () => {
             return (0, PublishAppService_1.findAllPublishApps)(getDataByKeyContainFunc, account1).observe(result => {
+                expect(getDataByKeyContainFunc).toCalledWith([
+                    "publishedapps",
+                    [account1]
+                ]);
                 expect(result).toEqual([{
                         account: account1, appName: appName1
                     },

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = void 0;
 const most_1 = require("most");
 const ArrayUtils_1 = require("../../utils/ArrayUtils");
-const PublishPackageService_1 = require("../publish/PublishPackageService");
 let getAllPublishPackageEntryExtensionProtocols = (
 // [getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection]: [any, any]
 getDataFunc) => {
@@ -11,17 +10,17 @@ getDataFunc) => {
     //     let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
     //     return resData.map(({
     //         account,
-    //         entryProtocolName,
-    //         entryProtocolVersion,
-    //         entryProtocolIconBase64,
+    //         entryExtensionProtocolName,
+    //         entryExtensionProtocolVersion,
+    //         entryExtensionProtocolIconBase64,
     //     }) => {
-    //         return { name: entryProtocolName, version: entryProtocolVersion, account, iconBase64: entryProtocolIconBase64 }
+    //         return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 }
     //     })
     // })
     return (0, most_1.fromPromise)(getDataFunc("publishedpackages")).map((data) => {
         // let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
-        return (0, ArrayUtils_1.removeDuplicateItemsWithBuildKeyFunc)(data.map(({ account, entryProtocolName, entryProtocolVersion, entryProtocolIconBase64, }) => {
-            return { name: entryProtocolName, version: entryProtocolVersion, account, iconBase64: entryProtocolIconBase64 };
+        return (0, ArrayUtils_1.removeDuplicateItemsWithBuildKeyFunc)(data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolIconBase64, }) => {
+            return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 };
         }), 
         // (({
         //     name, version, account
@@ -41,16 +40,20 @@ exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryE
 //         "publishedpackages"
 //     )
 // }
-let getAllPublishPackageInfos = (getDataByKeyContainFunc, entryProtocolName, entryProtocolVersion) => {
-    return (0, most_1.fromPromise)(getDataByKeyContainFunc("publishedpackages", (0, PublishPackageService_1.buildPartialKeyByEntryProcoltolData)(entryProtocolName, entryProtocolVersion))).map((data) => {
-        return data.map(({ account, entryProtocolName, entryProtocolVersion, entryProtocolVersionRange, entryProtocolIconBase64, entryExtensionName, packageName, packageVersion, fileID }) => {
+let getAllPublishPackageInfos = (getDataByKeyContainFunc, entryExtensionProtocolName, entryExtensionProtocolVersion) => {
+    return getDataByKeyContainFunc("publishedpackages", 
+    // buildPartialKeyByEntryProcoltolData(entryExtensionProtocolName, entryExtensionProtocolVersion)
+    [
+        entryExtensionProtocolName, entryExtensionProtocolVersion
+    ]).map((data) => {
+        return data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionName, packageName, packageVersion, fileID }) => {
             return {
                 id: fileID,
                 account,
-                entryProtocolName,
-                entryProtocolVersion,
-                entryProtocolVersionRange,
-                entryProtocolIconBase64,
+                entryExtensionProtocolName,
+                entryExtensionProtocolVersion,
+                entryExtensionProtocolVersionRange,
+                entryExtensionProtocolIconBase64,
                 entryExtensionName,
                 name: packageName,
                 version: packageVersion,
@@ -60,7 +63,17 @@ let getAllPublishPackageInfos = (getDataByKeyContainFunc, entryProtocolName, ent
 };
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
 let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion) => {
-    return (0, most_1.fromPromise)(getDataByKeyContainFunc("publishedpackages", (0, PublishPackageService_1.buildPartialKeyByPackageData)(packageName, packageVersion, account))).flatMap((data) => {
+    return getDataByKeyContainFunc("publishedpackages", 
+    // buildPartialKeyByPackageData(
+    //     packageName,
+    //     packageVersion,
+    //     account
+    // )
+    [
+        packageName,
+        packageVersion,
+        account
+    ]).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)(null);
         }

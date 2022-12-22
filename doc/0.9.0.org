@@ -53,8 +53,8 @@ account
 
 
 getAllPublishPackageInfos:
-entryProtocolName,
-entryProtocolVersion
+entryExtensionProtocolName,
+entryExtensionProtocolVersion
 
 
 
@@ -123,6 +123,15 @@ pass draft
 test cloudbase
 
 
+*** DONE publish package
+
+
+*** TODO download package
+
+
+
+
+
 test 4everland
 
 
@@ -130,9 +139,6 @@ test 4everland
 
 
 *** TODO download package
-
-
-
 
 
 
@@ -149,6 +155,10 @@ test 4everland
 ** TODO refactor: remove duplicate between package assemble and ap assemble
 
 
+** TODO remove newName
+
+PacakgeAssemble remove newName,
+...
 
 
 

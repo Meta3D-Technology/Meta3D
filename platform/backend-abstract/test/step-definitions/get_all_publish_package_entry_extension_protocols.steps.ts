@@ -27,13 +27,13 @@ defineFeature(feature, test => {
     }
 
     test('get all publish pacakge entry extension protocols', ({ given, when, then, and }) => {
-        let entryProtocolName1,
-            entryProtocolVersion1,
-            entryProtocolIconBase641,
+        let entryExtensionProtocolName1,
+            entryExtensionProtocolVersion1,
+            entryExtensionProtocolIconBase641,
             account1
-        let entryProtocolName2,
-            entryProtocolVersion2,
-            entryProtocolIconBase642,
+        let entryExtensionProtocolName2,
+            entryExtensionProtocolVersion2,
+            entryExtensionProtocolIconBase642,
             account2
 
         // let allPublishExtensionProtocols = [
@@ -54,9 +54,9 @@ defineFeature(feature, test => {
         _prepare(given)
 
         given('publish pacakge1 with entry extension protocol1 and account1', () => {
-            entryProtocolName1 = "ep1"
-            entryProtocolVersion1 = "0.0.1"
-            entryProtocolIconBase641 = "epi1"
+            entryExtensionProtocolName1 = "ep1"
+            entryExtensionProtocolVersion1 = "0.0.1"
+            entryExtensionProtocolIconBase641 = "epi1"
             account1 = "account1"
         });
 
@@ -64,9 +64,9 @@ defineFeature(feature, test => {
         });
 
         and('publish pacakge3 with entry extension protocol2 and account2', () => {
-            entryProtocolName2 = "ep2"
-            entryProtocolVersion2 = "0.0.2"
-            entryProtocolIconBase642 = "epi2"
+            entryExtensionProtocolName2 = "ep2"
+            entryExtensionProtocolVersion2 = "0.0.2"
+            entryExtensionProtocolIconBase642 = "epi2"
             account2 = "account2"
         });
 
@@ -77,21 +77,21 @@ defineFeature(feature, test => {
                 resolve([
                     {
                         account: account1,
-                        entryProtocolName: entryProtocolName1,
-                        entryProtocolVersion: entryProtocolVersion1,
-                        entryProtocolIconBase64: entryProtocolIconBase641,
+                        entryExtensionProtocolName: entryExtensionProtocolName1,
+                        entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
+                        entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
                     },
                     {
                         account: account1,
-                        entryProtocolName: entryProtocolName1,
-                        entryProtocolVersion: entryProtocolVersion1,
-                        entryProtocolIconBase64: entryProtocolIconBase641,
+                        entryExtensionProtocolName: entryExtensionProtocolName1,
+                        entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
+                        entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
                     },
                     {
                         account: account2,
-                        entryProtocolName: entryProtocolName2,
-                        entryProtocolVersion: entryProtocolVersion2,
-                        entryProtocolIconBase64: entryProtocolIconBase642,
+                        entryExtensionProtocolName: entryExtensionProtocolName2,
+                        entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
+                        entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
                     }
                 ])
             )
@@ -107,15 +107,15 @@ defineFeature(feature, test => {
                 expect(result).toEqual([
                     {
                         account: account1,
-                        name: entryProtocolName1,
-                        version: entryProtocolVersion1,
-                        iconBase64: entryProtocolIconBase641,
+                        name: entryExtensionProtocolName1,
+                        version: entryExtensionProtocolVersion1,
+                        iconBase64: entryExtensionProtocolIconBase641,
                     },
                     {
                         account: account2,
-                        name: entryProtocolName2,
-                        version: entryProtocolVersion2,
-                        iconBase64: entryProtocolIconBase642,
+                        name: entryExtensionProtocolName2,
+                        version: entryExtensionProtocolVersion2,
+                        iconBase64: entryExtensionProtocolIconBase642,
                     }
                 ])
             })

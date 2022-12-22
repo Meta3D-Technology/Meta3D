@@ -36,10 +36,10 @@ defineFeature(feature, test => {
     test('if not exist, publish should add package', ({ given, and, when, then }) => {
         let packageBinaryFile, packageName,
             packageVersion,
-            entryProtocolName,
-            entryProtocolVersion,
-            entryProtocolVersionRange,
-            entryProtocolIconBase64,
+            entryExtensionProtocolName,
+            entryExtensionProtocolVersion,
+            entryExtensionProtocolVersionRange,
+            entryExtensionProtocolIconBase64,
             entryExtensionName,
             account
         let fileID = "1"
@@ -62,10 +62,10 @@ defineFeature(feature, test => {
             packageBinaryFile = new ArrayBuffer(10)
             packageName = "package1"
             packageVersion = "0.0.1"
-            entryProtocolName = "ep1"
-            entryProtocolVersion = "0.0.2"
-            entryProtocolVersionRange = "^0.0.2"
-            entryProtocolIconBase64 = "epi1"
+            entryExtensionProtocolName = "ep1"
+            entryExtensionProtocolVersion = "0.0.2"
+            entryExtensionProtocolVersionRange = "^0.0.2"
+            entryExtensionProtocolIconBase64 = "epi1"
             entryExtensionName = "e1"
             account = "account1"
         });
@@ -76,10 +76,10 @@ defineFeature(feature, test => {
                 packageBinaryFile,
                 [
 
-                    entryProtocolName,
-                    entryProtocolVersion,
-                    entryProtocolVersionRange,
-                    entryProtocolIconBase64,
+                    entryExtensionProtocolName,
+                    entryExtensionProtocolVersion,
+                    entryExtensionProtocolVersionRange,
+                    entryExtensionProtocolIconBase64,
                     entryExtensionName,
                 ],
                 [
@@ -103,16 +103,16 @@ defineFeature(feature, test => {
         and('add to collection', () => {
             expect(addDataFunc).toCalledWith([
                 "publishedpackages",
-                buildKey(entryProtocolName,
-                    entryProtocolVersion,
+                buildKey(entryExtensionProtocolName,
+                    entryExtensionProtocolVersion,
                     packageName, packageVersion, account
                 ),
                 {
                     account,
-                    entryProtocolName,
-                    entryProtocolVersion,
-                    entryProtocolVersionRange,
-                    entryProtocolIconBase64,
+                    entryExtensionProtocolName,
+                    entryExtensionProtocolVersion,
+                    entryExtensionProtocolVersionRange,
+                    entryExtensionProtocolIconBase64,
                     entryExtensionName,
                     packageName,
                     packageVersion,
@@ -127,18 +127,18 @@ defineFeature(feature, test => {
         let fileID2 = "2"
         let packageBinaryFile1, packageName1,
             packageVersion1,
-            entryProtocolName1,
-            entryProtocolVersion1,
-            entryProtocolVersionRange1,
-            entryProtocolIconBase641,
+            entryExtensionProtocolName1,
+            entryExtensionProtocolVersion1,
+            entryExtensionProtocolVersionRange1,
+            entryExtensionProtocolIconBase641,
             entryExtensionName1,
             account1
         let packageBinaryFile2, packageName2,
             packageVersion2,
-            entryProtocolName2,
-            entryProtocolVersion2,
-            entryProtocolVersionRange2,
-            entryProtocolIconBase642,
+            entryExtensionProtocolName2,
+            entryExtensionProtocolVersion2,
+            entryExtensionProtocolVersionRange2,
+            entryExtensionProtocolIconBase642,
             entryExtensionName2,
             account2
 
@@ -166,20 +166,20 @@ defineFeature(feature, test => {
             packageBinaryFile1 = new ArrayBuffer(10)
             packageName1 = "package1"
             packageVersion1 = "0.0.1"
-            entryProtocolName1 = "ep1"
-            entryProtocolVersion1 = "0.0.2"
-            entryProtocolVersionRange1 = "^0.0.2"
-            entryProtocolIconBase641 = "epi1"
+            entryExtensionProtocolName1 = "ep1"
+            entryExtensionProtocolVersion1 = "0.0.2"
+            entryExtensionProtocolVersionRange1 = "^0.0.2"
+            entryExtensionProtocolIconBase641 = "epi1"
             entryExtensionName1 = "e1"
             account1 = "account1"
 
             packageBinaryFile2 = new ArrayBuffer(11)
             packageName2 = packageName1
             packageVersion2 = packageVersion1
-            entryProtocolName2 = entryProtocolName1
-            entryProtocolVersion2 = entryProtocolVersion1
-            entryProtocolVersionRange2 = entryProtocolVersionRange1
-            entryProtocolIconBase642 = entryProtocolIconBase641
+            entryExtensionProtocolName2 = entryExtensionProtocolName1
+            entryExtensionProtocolVersion2 = entryExtensionProtocolVersion1
+            entryExtensionProtocolVersionRange2 = entryExtensionProtocolVersionRange1
+            entryExtensionProtocolIconBase642 = entryExtensionProtocolIconBase641
             entryExtensionName2 = entryExtensionName1
             account2 = account1
         });
@@ -190,10 +190,10 @@ defineFeature(feature, test => {
                 packageBinaryFile1,
                 [
 
-                    entryProtocolName1,
-                    entryProtocolVersion1,
-                    entryProtocolVersionRange1,
-                    entryProtocolIconBase641,
+                    entryExtensionProtocolName1,
+                    entryExtensionProtocolVersion1,
+                    entryExtensionProtocolVersionRange1,
+                    entryExtensionProtocolIconBase641,
                     entryExtensionName1,
                 ],
                 [
@@ -211,10 +211,10 @@ defineFeature(feature, test => {
                 packageBinaryFile2,
                 [
 
-                    entryProtocolName2,
-                    entryProtocolVersion2,
-                    entryProtocolVersionRange2,
-                    entryProtocolIconBase642,
+                    entryExtensionProtocolName2,
+                    entryExtensionProtocolVersion2,
+                    entryExtensionProtocolVersionRange2,
+                    entryExtensionProtocolIconBase642,
                     entryExtensionName2,
                 ],
                 [
@@ -242,16 +242,16 @@ defineFeature(feature, test => {
             expect(updateDataFunc).toCalledOnce()
             expect(updateDataFunc).toCalledWith([
                 "publishedpackages",
-                buildKey(entryProtocolName1,
-                    entryProtocolVersion1,
+                buildKey(entryExtensionProtocolName1,
+                    entryExtensionProtocolVersion1,
                     packageName1, packageVersion1, account1
                 ),
                 {
                     account: account1,
-                    entryProtocolName: entryProtocolName2,
-                    entryProtocolVersion: entryProtocolVersion2,
-                    entryProtocolVersionRange: entryProtocolVersionRange2,
-                    entryProtocolIconBase64: entryProtocolIconBase642,
+                    entryExtensionProtocolName: entryExtensionProtocolName2,
+                    entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
+                    entryExtensionProtocolVersionRange: entryExtensionProtocolVersionRange2,
+                    entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
                     entryExtensionName: entryExtensionName1,
                     packageName: packageName2,
                     packageVersion: packageVersion2,

@@ -42,7 +42,7 @@ let findPublishApp = ([getDataByKeyFunc, downloadFileFunc], account, appName) =>
 };
 exports.findPublishApp = findPublishApp;
 let findAllPublishApps = (getDataByKeyContainFunc, account) => {
-    return getDataByKeyContainFunc("publishedapps", account).flatMap((data) => {
+    return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }

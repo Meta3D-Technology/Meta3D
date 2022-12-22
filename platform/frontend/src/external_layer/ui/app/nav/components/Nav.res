@@ -25,7 +25,7 @@ let make = () => {
       {React.string("| ")}
       <span
         onClick={_ => {
-          RescriptReactRouter.push("/PacakgeShop")
+          RescriptReactRouter.push("/PackageShop")
         }}>
         {React.string(`包商城`)}
       </span>
