@@ -32,11 +32,15 @@ module Method = {
 
   let run = (
     service,
-    ((selectedExtensions, selectedContributes), (runVisualExtension, elementContribute)),
+    (
+      (selectedPackages, selectedExtensions, selectedContributes),
+      (runVisualExtension, elementContribute),
+    ),
   ) => {
     ElementVisualUtils.generateApp(
       service,
       (
+        selectedPackages->Meta3dCommonlib.ListSt.toArray,
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
@@ -66,11 +70,11 @@ module Method = {
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {apInspectorData, selectedExtensions, selectedContributes} = apAssembleState
+    let {apInspectorData, selectedPackages, selectedExtensions, selectedContributes} = apAssembleState
     let {runVisualExtension, elementContribute} = elementAssembleState
 
     (
-      (apInspectorData, selectedExtensions, selectedContributes),
+      (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
       (runVisualExtension, elementContribute),
     )
   }
@@ -81,7 +85,7 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (apInspectorData, selectedExtensions, selectedContributes),
+    (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
     (runVisualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
@@ -103,7 +107,10 @@ let make = (~service: service) => {
           FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
             Method.run(
               service,
-              ((selectedExtensions, selectedContributes), (runVisualExtension, elementContribute)),
+              (
+                (selectedPackages, selectedExtensions, selectedContributes),
+                (runVisualExtension, elementContribute),
+              ),
             )->ignore
           }, 5->Some)
         }}>

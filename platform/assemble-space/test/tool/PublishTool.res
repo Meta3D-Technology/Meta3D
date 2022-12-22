@@ -11,6 +11,7 @@ let publish = (
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account=None,
+  ~selectedPackages=list{},
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~canvasData=CanvasControllerTool.buildCanvasData(),
@@ -23,7 +24,14 @@ let publish = (
   Publish.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedExtensions, selectedContributes, canvasData, apInspectorData),
+    (
+      account,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      canvasData,
+      apInspectorData,
+    ),
     values,
   )
 }

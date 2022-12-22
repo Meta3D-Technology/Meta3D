@@ -37,5 +37,5 @@ Feature: ElementVisual
         When start app with ui, c1, v
         Then build app with ui, c1, v
         And v should be inited 
-        And get element1 from spece state and update it
+        And get element1 from space state and update it
         And v should be updated

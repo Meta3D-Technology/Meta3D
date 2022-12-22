@@ -116,9 +116,10 @@ defineFeature(feature, test => {
     )
   })
 
-  let _prepareSelectedExtensionsAndContributes = (
+  let _prepareSelectedPackagesSelectedExtensionsAndContributes = (
     given,
     \"and",
+    (selectedPackages, selectedPackageBinaryFile1),
     selectedExtensions,
     selectedContributes,
   ) => {
@@ -157,16 +158,39 @@ defineFeature(feature, test => {
           ),
         }
     })
+
+    \"and"("select package p1", () => {
+      selectedPackages :=
+        list{
+          SelectedPackagesTool.buildSelectedPackage(
+            ~name="p1",
+            // ~protocolName=entryExtensionProtocolName,
+            // ~protocolVersion=entryExtensionProtocolVersionRange,
+            // ~protocolIconBase64=entryExtensionProtocolIconBase64,
+            // ~entryExtensionName,
+            ~binaryFile=selectedPackageBinaryFile1,
+            (),
+          ),
+        }
+    })
   }
 
   test(."generate correct app without config data", ({given, \"when", \"and", then}) => {
     let errorStub = ref(Obj.magic(1))
+    let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
+    let selectedPackages = ref(Obj.magic(1))
     let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
-    _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
+    _prepareSelectedPackagesSelectedExtensionsAndContributes(
+      given,
+      \"and",
+      (selectedPackages, selectedPackageBinaryFile1),
+      selectedExtensions,
+      selectedContributes,
+    )
 
     CucumberAsync.execStep(
       \"when",
@@ -185,6 +209,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
+          ~selectedPackages=selectedPackages.contents,
           ~selectedExtensions=selectedExtensions.contents,
           ~selectedContributes=selectedContributes.contents,
           (),
@@ -201,6 +226,8 @@ defineFeature(feature, test => {
   })
 
   test(."generate correct app with config data", ({given, \"when", \"and", then}) => {
+    let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
+    let selectedPackages = ref(Obj.magic(1))
     let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
     let canvasData = ref(Obj.magic(1))
@@ -219,7 +246,13 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    _prepareSelectedExtensionsAndContributes(given, \"and", selectedExtensions, selectedContributes)
+    _prepareSelectedPackagesSelectedExtensionsAndContributes(
+      given,
+      \"and",
+      (selectedPackages, selectedPackageBinaryFile1),
+      selectedExtensions,
+      selectedContributes,
+    )
 
     given(
       "prepare canvas data",
@@ -307,6 +340,7 @@ defineFeature(feature, test => {
             ~convertAllFileDataForApp=convertAllFileDataStub.contents->Obj.magic,
             (),
           ),
+          ~selectedPackages=selectedPackages.contents,
           ~selectedExtensions=selectedExtensions.contents,
           ~selectedContributes=selectedContributes.contents,
           (),
@@ -338,7 +372,7 @@ defineFeature(feature, test => {
           ->Obj.magic
           ->SinonTool.calledWithArg3(
             matchAny,
-            [],
+            [selectedPackageBinaryFile1],
             (
               canvasData.contents,
               {
@@ -353,7 +387,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[{\"name\":\"p_protocol\",\"version\":\"^0.0.1\"},\"pet1\"]],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
           )
       },
     )

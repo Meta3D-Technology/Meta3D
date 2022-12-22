@@ -39,6 +39,7 @@ defineFeature(feature, test => {
               CanvasControllerTool.buildCanvasData(),
               list{},
               list{},
+              list{},
               ApInspectorTool.buildApInspectorData(),
             ),
             (
@@ -67,6 +68,7 @@ defineFeature(feature, test => {
 
   test(."if loaded, only show canvas", ({given, \"when", \"and", then}) => {
     let useSelectorStub = ref(Obj.magic(1))
+    let useStateStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
@@ -87,6 +89,7 @@ defineFeature(feature, test => {
                 CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
                 list{},
                 list{},
+                list{},
                 ApInspectorTool.buildApInspectorData(),
               ),
               (
@@ -105,7 +108,12 @@ defineFeature(feature, test => {
     \"when"(
       "loaded and render",
       () => {
-        ()
+        useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        useStateStub.contents
+        ->onCall(0, _)
+        ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
+        ->ignore
       },
     )
 
@@ -117,6 +125,7 @@ defineFeature(feature, test => {
           ~service=ServiceTool.build(
             ~sandbox,
             ~useSelector=useSelectorStub.contents->Obj.magic,
+            ~useState=useStateStub.contents->Obj.magic,
             (),
           ),
           (),
@@ -470,7 +479,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          (selectedExtensions.contents, selectedContributes.contents),
+          (list{}, selectedExtensions.contents, selectedContributes.contents),
           v.contents,
           ApInspectorTool.buildApInspectorData(),
         )
@@ -492,7 +501,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "get element1 from spece state and update it",
+      "get element1 from space state and update it",
       () => {
         (
           execGetContributeFuncStub.contents

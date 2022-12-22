@@ -5,7 +5,7 @@ let _buildExtension = (name, data): FrontendUtils.ApAssembleStoreType.extension 
   protocolConfigStr: None,
   newName: name->Some,
   isStart: false,
-  data: data,
+  data,
 }
 
 let _loadAndBuildVisualExtension = (
@@ -35,11 +35,13 @@ let _getNewestImplement = (
       ),
       () => {
         dataArr
-        ->Meta3dCommonlib.ArraySt.filter(({file}: FrontendUtils.BackendCloudbaseType.implement) => {
-          let {extensionPackageData} = service.meta3d.loadExtension(. file)
+        ->Meta3dCommonlib.ArraySt.filter(
+          ({file}: FrontendUtils.BackendCloudbaseType.implement) => {
+            let {extensionPackageData} = service.meta3d.loadExtension(. file)
 
-          extensionPackageData.name !== visualExtensionName
-        })
+            extensionPackageData.name !== visualExtensionName
+          },
+        )
         ->Meta3dCommonlib.ArraySt.length == 0
       },
     )
@@ -82,11 +84,12 @@ let getAndSetNewestVisualExtension = (
 
 let generateApp = (
   service,
-  (selectedExtensions, selectedContributes),
+  (selectedPackages, selectedExtensions, selectedContributes),
   (runVisualExtension, elementContribute),
 ) => {
   AppUtils.generateApp(
     service,
+    selectedPackages,
     selectedExtensions->Meta3dCommonlib.ArraySt.push(runVisualExtension),
     selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
     Js.Nullable.null,
@@ -117,7 +120,7 @@ let generateElementContributeBinaryFile = (
   service.meta3d.generateContribute(.
     (
       {
-        name: name,
+        name,
         protocol: {
           name: protocolName,
           version: protocolVersion,

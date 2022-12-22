@@ -152,11 +152,19 @@ download bug?
 
 ** DONE pass run test
 
-** TODO ap assemble: update publish app
+** DONE ap assemble: update publish app
 
-** TODO pass bdd test
+*** DONE pass bdd test
 
-** TODO pass run test
+# publish app
+
+////element visual
+
+////run element
+
+** TODO pass run test: editor demo use two packages(package2 use package1)
+
+** TODO pass run test: element use two packages(package2 use package1)
 
 
 ** TODO refactor: remove duplicate between package assemble and ap assemble
@@ -169,10 +177,6 @@ PacakgeAssemble remove newName,
 
 
 
-** TODO run test: build engine package(two packages), used in ap to draw a triangle
-
-
-** TODO run test: download engine package(two packages), used to draw a triangle
 
 
 

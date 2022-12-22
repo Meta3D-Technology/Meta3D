@@ -3,9 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _isSelectedNothing = (selectedExtensions, selectedContributes) => {
+  let _isSelectedNothing = (selectedPackages, selectedExtensions, selectedContributes) => {
+    selectedPackages->Meta3dCommonlib.ArraySt.length == 0 &&
     selectedExtensions->Meta3dCommonlib.ArraySt.length == 0 &&
-      selectedContributes->Meta3dCommonlib.ArraySt.length == 0
+    selectedContributes->Meta3dCommonlib.ArraySt.length == 0
   }
 
   let getStartExtensionNeedConfigData = (
@@ -64,6 +65,7 @@ module Method = {
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
+      selectedPackages,
       selectedExtensions,
       selectedContributes,
       canvasData: FrontendUtils.ApAssembleStoreType.canvasData,
@@ -73,10 +75,11 @@ module Method = {
   ): Js.Promise.t<unit> => {
     let appName = values["appName"]
 
+    let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
 
-    _isSelectedNothing(selectedExtensions, selectedContributes)
+    _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
       ? {
           service.console.error(. {j`请至少选择一个扩展或者贡献`}, None)
 
@@ -90,6 +93,7 @@ module Method = {
             startExtensionNeedConfigData => {
               let appBinaryFile = AppUtils.generateApp(
                 service,
+                selectedPackages,
                 selectedExtensions,
                 selectedContributes,
                 (
@@ -145,19 +149,21 @@ module Method = {
 
   let useSelector = (
     {
+      selectedPackages,
       selectedExtensions,
       selectedContributes,
       canvasData,
       apInspectorData,
     }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (selectedExtensions, selectedContributes, canvasData, apInspectorData)
+    (selectedPackages, selectedExtensions, selectedContributes, canvasData, apInspectorData)
   }
 }
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
   let (
+    selectedPackages,
     selectedExtensions,
     selectedContributes,
     canvasData,
@@ -178,7 +184,7 @@ let make = (~service: service, ~account: option<string>) => {
     </Button>
     {visible
       ? <Modal
-          title=`发布应用`
+          title={`发布应用`}
           visible={visible}
           onOk={() => {
             setVisible(_ => false)
@@ -205,6 +211,7 @@ let make = (~service: service, ~account: option<string>) => {
                       (setUploadProgress, setIsUploadBegin, setVisible),
                       (
                         account,
+                        selectedPackages,
                         selectedExtensions,
                         selectedContributes,
                         canvasData,
@@ -216,7 +223,7 @@ let make = (~service: service, ~account: option<string>) => {
                 // onFinishFailed={Method.onFinishFailed(service)}
                 autoComplete="off">
                 <Form.Item
-                  label=`应用名`
+                  label={`应用名`}
                   name="appName"
                   rules={[
                     {

@@ -107,9 +107,14 @@ module Method = {
     ->ignore
   }
 
-  let _generateApp = (service, (selectedExtensions, selectedContributes), visualExtension) => {
+  let _generateApp = (
+    service,
+    (selectedPackages, selectedExtensions, selectedContributes),
+    visualExtension,
+  ) => {
     AppUtils.generateApp(
       service,
+      selectedPackages,
       selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
       selectedContributes,
       Js.Nullable.null,
@@ -118,7 +123,7 @@ module Method = {
 
   let startApp = (
     service,
-    (selectedExtensions, selectedContributes),
+    (selectedPackages, selectedExtensions, selectedContributes),
     visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
@@ -126,6 +131,7 @@ module Method = {
       _generateApp(
         service,
         (
+          selectedPackages->Meta3dCommonlib.ListSt.toArray,
           selectedExtensions->Meta3dCommonlib.ListSt.toArray,
           selectedContributes->Meta3dCommonlib.ListSt.toArray,
         ),
@@ -140,9 +146,12 @@ module Method = {
     )
     ->Js.Promise.then_(meta3dState => {
       service.other.requestAnimationFirstFrame(time => {
-        FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-          _loop(service, apInspectorData, time, meta3dState)
-        }, 5->Some)
+        FrontendUtils.ErrorUtils.showCatchedErrorMessage(
+          () => {
+            _loop(service, apInspectorData, time, meta3dState)
+          },
+          5->Some,
+        )
       })->Js.Promise.resolve
     }, _)
     ->Meta3dBsMost.Most.fromPromise
@@ -180,11 +189,11 @@ module Method = {
 
   let _buildContribute = (name, version, data): FrontendUtils.ApAssembleStoreType.contribute => {
     id: "",
-    version: version,
+    version,
     protocolIconBase64: "",
     protocolConfigStr: None,
     newName: name->Some,
-    data: data,
+    data,
   }
 
   let _generateElementContribute = (
@@ -290,10 +299,10 @@ module Method = {
           (
             {
               id: IdUtils.generateId(service.other.random),
-              protocolIconBase64: protocolIconBase64,
+              protocolIconBase64,
               protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
               name: NewNameUtils.getName(newName, data.contributePackageData.name),
-              data: data,
+              data,
               parentId: None,
               children: _generate(children),
             }: FrontendUtils.ElementAssembleStoreType.uiControl
@@ -309,7 +318,7 @@ module Method = {
       ) => {
         {
           ...uiControl,
-          parentId: parentId,
+          parentId,
           children: _addParentId(children, id->Some),
         }
       })
@@ -334,10 +343,10 @@ module Method = {
         id: (
           selectedUIControls->Meta3dCommonlib.ListSt.nth(index)->Meta3dCommonlib.OptionSt.getExn
         ).id,
-        rect: rect,
-        isDraw: isDraw,
-        event: event,
-        specific: specific,
+        rect,
+        isDraw,
+        event,
+        specific,
         children: _generate(
           children,
           (
@@ -380,7 +389,13 @@ module Method = {
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {canvasData, selectedExtensions, selectedContributes, apInspectorData} = apAssembleState
+    let {
+      canvasData,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      apInspectorData,
+    } = apAssembleState
     let {
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -392,7 +407,7 @@ module Method = {
     // let (_, elementContribute) = elementContribute
 
     (
-      (canvasData, selectedExtensions, selectedContributes, apInspectorData),
+      (canvasData, selectedPackages, selectedExtensions, selectedContributes, apInspectorData),
       (
         selectedUIControls,
         selectedUIControlInspectorData,
@@ -410,7 +425,7 @@ let make = (~service: service, ~account: option<string>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (canvasData, selectedExtensions, selectedContributes, apInspectorData),
+    (canvasData, selectedPackages, selectedExtensions, selectedContributes, apInspectorData),
     (
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -487,7 +502,7 @@ let make = (~service: service, ~account: option<string>) => {
     | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
         Method.startApp(
           service,
-          (selectedExtensions, selectedContributes),
+          (selectedPackages, selectedExtensions, selectedContributes),
           visualExtension,
           apInspectorData,
         )->ignore

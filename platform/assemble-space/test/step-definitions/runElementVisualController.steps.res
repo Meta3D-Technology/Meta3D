@@ -23,33 +23,39 @@ defineFeature(feature, test => {
   test(."if data not ready, show waiting", ({given, \"when", \"and", then}) => {
     _prepare(given, \"and")
 
-    \"when"("data not ready and render", () => {
-      ()
-    })
+    \"when"(
+      "data not ready and render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show waiting", () => {
-      let useSelectorStub =
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
+    then(
+      "should show waiting",
+      () => {
+        let useSelectorStub =
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
-              CanvasControllerTool.buildCanvasData(),
-              list{},
-              list{},
-              ApInspectorTool.buildApInspectorData(),
+              (
+                CanvasControllerTool.buildCanvasData(),
+                list{},
+                list{},
+                ApInspectorTool.buildApInspectorData(),
+              ),
+              (None, None),
             ),
-            (None, None),
-          ),
-          _,
-        )
+            _,
+          )
 
-      RunElementVisualControllerTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        RunElementVisualControllerTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub, ()),
+          (),
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."if data ready, show run button", ({given, \"when", \"and", then}) => {
@@ -57,35 +63,48 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("prepare runVisualExtension, elementContribute", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
+    given(
+      "prepare runVisualExtension, elementContribute",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
-              CanvasControllerTool.buildCanvasData(),
-              list{},
-              list{},
-              ApInspectorTool.buildApInspectorData(),
+              (
+                CanvasControllerTool.buildCanvasData(),
+                list{},
+                list{},
+                ApInspectorTool.buildApInspectorData(),
+              ),
+              (Some(Obj.magic(1)), Some(Obj.magic(1))),
             ),
-            (Some(Obj.magic(1)), Some(Obj.magic(1))),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show run button",
+      () => {
+        RunElementVisualControllerTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=useSelectorStub.contents->Obj.magic,
+            (),
           ),
-          _,
+          (),
         )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show run button", () => {
-      RunElementVisualControllerTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents->Obj.magic, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."get and set newest run visual extension", ({given, \"when", \"and", then}) => {
@@ -99,97 +118,113 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("generate run visual extension v1 with old version", () => {
-      v1 :=
-        Meta3d.Main.generateExtension(
-          (
-            {
-              name: name,
-              protocol: {
-                name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                version: "0.4.0",
-              },
-              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: Meta3d.ExtensionFileType.extensionPackageData
-          ),
-          "",
-        )
-    })
+    given(
+      "generate run visual extension v1 with old version",
+      () => {
+        v1 :=
+          Meta3d.Main.generateExtension(
+            (
+              {
+                name,
+                protocol: {
+                  name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+                  version: "0.4.0",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: Meta3d.ExtensionFileType.extensionPackageData
+            ),
+            "",
+          )
+      },
+    )
 
-    given("generate run visual extension v2 with newest version", () => {
-      v2 :=
-        Meta3d.Main.generateExtension(
-          (
-            {
-              name: name,
-              protocol: {
-                name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                version: "0.4.1",
-              },
-              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: Meta3d.ExtensionFileType.extensionPackageData
-          ),
-          "",
-        )
-    })
-
-    \"and"("publish v1, v2", () => {
-      getAllPublishNewestExtensionsStub.contents =
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.just([
-            ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.4.0", ()),
-            ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.4.1", ()),
-          ]),
-          _,
-        )
-    })
-
-    CucumberAsync.execStep(\"when", "get and set newest run visual extension", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      let initData = Obj.magic(1)
-
-      RunElementVisualControllerTool.getAndSetNewestVisualExtension(
-        ServiceTool.build(
-          ~sandbox,
-          ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
-          ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
-          (),
-        ),
-        dispatchStub.contents,
-        isDebug,
-      )
-    })
-
-    then("should dispatch SetRunVisualExtension action with v2", () => {
-      dispatchStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWith(
-        FrontendUtils.ElementAssembleStoreType.SetRunVisualExtension(
-          SelectedExtensionsTool.buildSelectedExtension(
-            ~name,
-            ~protocolIconBase64="",
-            ~id="",
-            ~newName=RunElementVisualControllerTool.getVisualExtensionName()->Some,
-            ~data={
-              extensionPackageData: ExtensionTool.buildExtensionPackageData(
-                ~name,
-                ~protocol={
+    given(
+      "generate run visual extension v2 with newest version",
+      () => {
+        v2 :=
+          Meta3d.Main.generateExtension(
+            (
+              {
+                name,
+                protocol: {
                   name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
                   version: "0.4.1",
                 },
-                (),
-              ),
-              extensionFuncData: matchAny,
-            },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: Meta3d.ExtensionFileType.extensionPackageData
+            ),
+            "",
+          )
+      },
+    )
+
+    \"and"(
+      "publish v1, v2",
+      () => {
+        getAllPublishNewestExtensionsStub.contents =
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.just([
+              ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.4.0", ()),
+              ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.4.1", ()),
+            ]),
+            _,
+          )
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "get and set newest run visual extension",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        let initData = Obj.magic(1)
+
+        RunElementVisualControllerTool.getAndSetNewestVisualExtension(
+          ServiceTool.build(
+            ~sandbox,
+            ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
+            ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
             (),
           ),
-        ),
-      )
-      ->expect == true
-    })
+          dispatchStub.contents,
+          isDebug,
+        )
+      },
+    )
+
+    then(
+      "should dispatch SetRunVisualExtension action with v2",
+      () => {
+        dispatchStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(
+          FrontendUtils.ElementAssembleStoreType.SetRunVisualExtension(
+            SelectedExtensionsTool.buildSelectedExtension(
+              ~name,
+              ~protocolIconBase64="",
+              ~id="",
+              ~newName=RunElementVisualControllerTool.getVisualExtensionName()->Some,
+              ~data={
+                extensionPackageData: ExtensionTool.buildExtensionPackageData(
+                  ~name,
+                  ~protocol={
+                    name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+                    version: "0.4.1",
+                  },
+                  (),
+                ),
+                extensionFuncData: matchAny,
+              },
+              (),
+            ),
+          ),
+        )
+        ->expect == true
+      },
+    )
   })
 
   test(."run", ({given, \"when", \"and", then}) => {
@@ -207,41 +242,47 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("generate empty element contribute element1", () => {
-      element1 :=
-        ElementVisualTool.generateElementContribute(
-          ~sandbox,
-          ~service=ServiceTool.build(
+    given(
+      "generate empty element contribute element1",
+      () => {
+        element1 :=
+          ElementVisualTool.generateElementContribute(
             ~sandbox,
-            ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
-            ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+            ~service=ServiceTool.build(
+              ~sandbox,
+              ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+              ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+              (),
+            ),
+            ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
             (),
-          ),
-          ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
-          (),
-        )
-    })
+          )
+      },
+    )
 
-    \"and"("get run visual extension v", () => {
-      v :=
-        Meta3d.Main.generateExtension(
-          (
-            {
-              name: RunElementVisualControllerTool.getVisualExtensionName(),
-              protocol: {
-                name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                version: "0.4.1",
-              },
-              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: Meta3d.ExtensionFileType.extensionPackageData
-          ),
-          ElementVisualTool.buildEmptyExtensionFileStr(),
-        )->RunElementVisualControllerTool.loadAndBuildVisualExtension(
-          ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
-          _,
-        )
-    })
+    \"and"(
+      "get run visual extension v",
+      () => {
+        v :=
+          Meta3d.Main.generateExtension(
+            (
+              {
+                name: RunElementVisualControllerTool.getVisualExtensionName(),
+                protocol: {
+                  name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+                  version: "0.4.1",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: Meta3d.ExtensionFileType.extensionPackageData
+            ),
+            ElementVisualTool.buildEmptyExtensionFileStr(),
+          )->RunElementVisualControllerTool.loadAndBuildVisualExtension(
+            ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
+            _,
+          )
+      },
+    )
 
     // \"and"("prepare canvas data", () => {
     //   canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
@@ -257,52 +298,72 @@ defineFeature(feature, test => {
     //     )
     // })
 
-    \"and"("prepare local storage", () => {
-      initForElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.just(db), _)
+    \"and"(
+      "prepare local storage",
+      () => {
+        initForElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.just(db),
+            _,
+          )
 
-      setElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.just(db), _)
-    })
+        setElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.just(db),
+            _,
+          )
+      },
+    )
 
     // \"and"("prepare open", () => {
-      // openUrlStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    // openUrlStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
     // })
 
-    CucumberAsync.execStep(\"when", "run", () => {
-      let initData = Obj.magic(1)
+    CucumberAsync.execStep(
+      \"when",
+      "run",
+      () => {
+        let initData = Obj.magic(1)
 
-      RunElementVisualControllerTool.run(
-        ServiceTool.build(
-          ~sandbox,
-          // ~openUrl=openUrlStub.contents->Obj.magic,
-          ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
-          ~setElementVisualApp=setElementVisualAppStub.contents->Obj.magic,
-          ~generateApp=Meta3d.Main.generateApp->Obj.magic,
-          (),
-        ),
-        (
-          (
-            // canvasData.contents,
-            selectedExtensions.contents,
-            selectedContributes.contents,
-            // apInspectorData.contents,
+        RunElementVisualControllerTool.run(
+          ServiceTool.build(
+            ~sandbox,
+            // ~openUrl=openUrlStub.contents->Obj.magic,
+            ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
+            ~setElementVisualApp=setElementVisualAppStub.contents->Obj.magic,
+            ~generateApp=Meta3d.Main.generateApp->Obj.magic,
+            (),
           ),
-          (v.contents, element1.contents),
-        ),
-      )
-    })
+          (
+            (
+              // canvasData.contents,
+              list{},
+              selectedExtensions.contents,
+              selectedContributes.contents,
+              // apInspectorData.contents,
+            ),
+            (v.contents, element1.contents),
+          ),
+        )
+      },
+    )
 
-    \"and"("generate app", () => {
-      ()
-    })
+    \"and"(
+      "generate app",
+      () => {
+        ()
+      },
+    )
 
-    \"and"("save app to local storage", () => {
-      setElementVisualAppStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg2(db->Meta3dBsMost.Most.just, matchAny)
-      ->expect == true
-    })
+    \"and"(
+      "save app to local storage",
+      () => {
+        setElementVisualAppStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(db->Meta3dBsMost.Most.just, matchAny)
+        ->expect == true
+      },
+    )
 
     // \"and"("open link with canvas data and ap inspector data to run", () => {
     //   openUrlStub.contents
@@ -316,8 +377,11 @@ defineFeature(feature, test => {
     //   ->expect == true
     // })
 
-    \"and"("jump to run router", () => {
-      RescriptReactRouter.dangerouslyGetInitialUrl().path->expect == list{"RunElementVisual"}
-    })
+    \"and"(
+      "jump to run router",
+      () => {
+        RescriptReactRouter.dangerouslyGetInitialUrl().path->expect == list{"RunElementVisual"}
+      },
+    )
   })
 })
