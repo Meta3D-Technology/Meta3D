@@ -1,0 +1,23 @@
+{
+  "name": "use-package",
+  "version": "0.8.0",
+  "scripts": {
+    "watch": "tsc -w -noEmit",
+    "webpack_dev": "NODE_ENV=development webpack --config webpack.config.js",
+    "webpack:dev-server": "NODE_ENV=development webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^4.0.0",
+    "source-map-loader": "^3.0.0",
+    "ts-loader": "^9.2.6",
+    "arraybuffer-loader":"^1.0.8",
+    "html-webpack-plugin": "^5.5.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  },
+  "dependencies": {
+    "meta3d-package": "^0.8.0"
+  }
+}

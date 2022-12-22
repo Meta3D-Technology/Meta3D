@@ -126,7 +126,11 @@ test cloudbase
 *** DONE publish package
 
 
-*** TODO download package
+*** DONE download package
+
+load bug?
+
+download bug?
 
 
 

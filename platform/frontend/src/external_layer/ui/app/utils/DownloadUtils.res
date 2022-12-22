@@ -1,6 +1,6 @@
 let createAndDownloadBlobFile: (Js.Typed_array.ArrayBuffer.t, string, string) => unit = %raw(`
 function (body, filename, extension){
-  const blob = new Blob([body]);
+  const blob = new Blob([body], {type: "arraybuffer"});
   const fileName = filename + "." + extension;
 
     const link = document.createElement('a');
