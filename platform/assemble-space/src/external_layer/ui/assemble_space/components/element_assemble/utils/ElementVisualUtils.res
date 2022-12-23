@@ -1,19 +1,15 @@
-let _buildExtension = (name, data): FrontendUtils.ApAssembleStoreType.extension => {
+let _buildExtension = (data): FrontendUtils.ApAssembleStoreType.extension => {
   id: "",
   version: "",
   protocolIconBase64: "",
   protocolConfigStr: None,
-  newName: name->Some,
+  // newName: name->Some,
   isStart: false,
   data,
 }
 
-let _loadAndBuildVisualExtension = (
-  service: FrontendUtils.AssembleSpaceType.service,
-  file,
-  visualExtensionName,
-) => {
-  service.meta3d.loadExtension(. file)->_buildExtension(visualExtensionName, _)
+let _loadAndBuildVisualExtension = (service: FrontendUtils.AssembleSpaceType.service, file) => {
+  service.meta3d.loadExtension(. file)->_buildExtension
 }
 
 let _getNewestImplement = (
@@ -72,7 +68,7 @@ let getAndSetNewestVisualExtension = (
   service.backend.getAllPublishNewestExtensions(. visualExtensionProtocolName)
   ->Meta3dBsMost.Most.map(_getNewestImplement(_, service, visualExtensionName, isDebug), _)
   ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
-    _loadAndBuildVisualExtension(service, data.file, visualExtensionName)
+    _loadAndBuildVisualExtension(service, data.file)
   }, _)
   ->Meta3dBsMost.Most.observe(extension => {
     dispatch(buildAction(extension))

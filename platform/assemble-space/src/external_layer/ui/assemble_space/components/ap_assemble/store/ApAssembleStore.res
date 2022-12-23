@@ -43,7 +43,7 @@ let reducer = (state, action) => {
         id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64,
         protocolConfigStr,
-        newName: None,
+        // newName: None,
         isStart: false,
         version: extension.version,
         data: extension.data,
@@ -78,24 +78,24 @@ let reducer = (state, action) => {
           : extension
       }),
     }
-  | SetExtensionNewName(id, newName) => {
-      ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
-        extension.id === id
-          ? {
-              ...extension,
-              newName: newName->Some,
-            }
-          : extension
-      }),
-    }
+  // | SetExtensionNewName(id, newName) => {
+  //     ...state,
+  //     selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+  //       extension.id === id
+  //         ? {
+  //             ...extension,
+  //             newName: newName->Some,
+  //           }
+  //         : extension
+  //     }),
+  //   }
   | SelectContribute(protocolIconBase64, protocolConfigStr, contribute) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
         protocolIconBase64,
         protocolConfigStr,
-        newName: None,
+        // newName: None,
         version: contribute.version,
         data: contribute.data,
       }),
@@ -107,17 +107,17 @@ let reducer = (state, action) => {
       inspectorCurrentContributeId: id->Some,
       isShowApInspector: false,
     }
-  | SetContributeNewName(id, newName) => {
-      ...state,
-      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.map(contribute => {
-        contribute.id === id
-          ? {
-              ...contribute,
-              newName: newName->Some,
-            }
-          : contribute
-      }),
-    }
+  // | SetContributeNewName(id, newName) => {
+  //     ...state,
+  //     selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.map(contribute => {
+  //       contribute.id === id
+  //         ? {
+  //             ...contribute,
+  //             newName: newName->Some,
+  //           }
+  //         : contribute
+  //     }),
+  //   }
   | SetCanvasData(canvasData) => {
       ...state,
       canvasData,

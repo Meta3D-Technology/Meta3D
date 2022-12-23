@@ -28,7 +28,7 @@ let make = (~service: service) => {
   <List
     grid={{gutter: 16, column: 1}}
     dataSource={selectedExtensions->Meta3dCommonlib.ListSt.toArray}
-    renderItem={({id, protocolIconBase64, newName, data} as extension) => {
+    renderItem={({id, protocolIconBase64, data} as extension) => {
       <List.Item>
         <Card
           key={id}
@@ -41,7 +41,7 @@ let make = (~service: service) => {
           />}>
           <Card.Meta
             style={ReactDOM.Style.make(~width="100px", ())}
-            title={React.string(NewNameUtils.getName(newName, data.extensionPackageData.name))}
+            title={React.string(data.extensionPackageData.name)}
           />
         </Card>
       </List.Item>

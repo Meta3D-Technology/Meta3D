@@ -12,8 +12,8 @@ Feature: Fix Extension Bug
         And select extension a1 for protocol a in Extensions
         And select the first extension in SelectedExtensions
         And start it
-        And set new name
+        # And set new name
         When select the second extension in SelectedExtensions
         And render ExtensionInspector
         Then should show start button
-        And set new name input's default name should be old name
+        # And set new name input's default name should be old name

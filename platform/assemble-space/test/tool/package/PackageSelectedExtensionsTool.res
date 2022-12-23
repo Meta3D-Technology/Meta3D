@@ -8,7 +8,7 @@ let buildSelectedExtension = (
   ~protocolVersion="0.0.1",
   ~protocolIconBase64="i1",
   ~protocolConfigStr=None,
-  ~newName=None,
+  // ~newName=None,
   ~isEntry=false,
   ~id="e1",
   ~version="",
@@ -25,7 +25,7 @@ let buildSelectedExtension = (
     protocolIconBase64,
     protocolConfigStr,
     version,
-    newName,
+    // newName,
     isEntry,
     data,
   }

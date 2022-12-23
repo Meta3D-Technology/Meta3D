@@ -32,18 +32,18 @@ module Method = {
     )
   }
 
-  let setExtensionNewName = (
-    dispatch,
-    inspectorCurrentExtension: FrontendUtils.PackageAssembleStoreType.extension,
-    newName: string,
-  ) => {
-    dispatch(
-      FrontendUtils.PackageAssembleStoreType.SetExtensionNewName(
-        inspectorCurrentExtension.id,
-        newName,
-      ),
-    )
-  }
+  // let setExtensionNewName = (
+  //   dispatch,
+  //   inspectorCurrentExtension: FrontendUtils.PackageAssembleStoreType.extension,
+  //   newName: string,
+  // ) => {
+  //   dispatch(
+  //     FrontendUtils.PackageAssembleStoreType.SetExtensionNewName(
+  //       inspectorCurrentExtension.id,
+  //       newName,
+  //     ),
+  //   )
+  // }
 
   let useSelector = (
     {inspectorCurrentExtensionId, selectedExtensions}: FrontendUtils.PackageAssembleStoreType.state,
@@ -81,19 +81,19 @@ let make = (~service: service) => {
             }}>
             {React.string(`设为入口`)}
           </Button>}
-      <Input
-        value={NewNameUtils.getName(
-          inspectorCurrentExtension.newName,
-          inspectorCurrentExtension.data.extensionPackageData.name,
-        )}
-        onChange={e => {
-          Method.setExtensionNewName(
-            dispatch,
-            inspectorCurrentExtension,
-            e->EventUtils.getEventTargetValue,
-          )
-        }}
-      />
+      // <Input
+      //   value={NewNameUtils.getName(
+      //     inspectorCurrentExtension.newName,
+      //     inspectorCurrentExtension.data.extensionPackageData.name,
+      //   )}
+      //   onChange={e => {
+      //     Method.setExtensionNewName(
+      //       dispatch,
+      //       inspectorCurrentExtension,
+      //       e->EventUtils.getEventTargetValue,
+      //     )
+      //   }}
+      // />
     </>
   }
 }

@@ -180,12 +180,12 @@ module Method = {
       (elementStateFields, reducers),
     )
 
-  let _buildContribute = (name, version, data): FrontendUtils.ApAssembleStoreType.contribute => {
+  let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
     id: "",
     version,
     protocolIconBase64: "",
     protocolConfigStr: None,
-    newName: name->Some,
+    // newName: name->Some,
     data,
   }
 
@@ -205,7 +205,7 @@ module Method = {
       fileStr,
     )
     ->service.meta3d.loadContribute(. _)
-    ->_buildContribute(elementName, elementVersion, _)
+    ->_buildContribute(elementVersion, _)
   }
 
   let generateElementContributeData = (service, fileStr) => {
@@ -242,11 +242,11 @@ module Method = {
 
       Js.Promise.resolve()
     | list{element} =>
-      let {version, newName, data} = element
+      let {version, data} = element
 
       service.backend.getElementAssembleData(.
         account->Meta3dCommonlib.OptionSt.getExn,
-        NewNameUtils.getName(newName, data.contributePackageData.name),
+        data.contributePackageData.name,
         version,
       )
       ->Meta3dBsMost.Most.tap(elementAssembleData => {
@@ -269,10 +269,7 @@ module Method = {
         {name, children}: FrontendUtils.BackendCloudbaseType.uiControl,
       ) => {
         switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
-          NewNameUtils.getName(
-            selectedUIControl.newName,
-            selectedUIControl.data.contributePackageData.name,
-          ) === name
+          selectedUIControl.data.contributePackageData.name === name
         ) {
         | None =>
           Meta3dCommonlib.Exception.throwErr(
@@ -288,13 +285,13 @@ module Method = {
               ),
             ),
           )
-        | Some({protocolIconBase64, protocolConfigStr, newName, data}) =>
+        | Some({protocolIconBase64, protocolConfigStr,  data}) =>
           (
             {
               id: IdUtils.generateId(service.other.random),
               protocolIconBase64,
               protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-              name: NewNameUtils.getName(newName, data.contributePackageData.name),
+              name: data.contributePackageData.name,
               data,
               parentId: None,
               children: _generate(children),

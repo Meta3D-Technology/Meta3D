@@ -6,7 +6,7 @@ let buildSelectedContribute = (
   ~name="e1",
   ~protocolIconBase64="i1",
   ~protocolConfigStr=None,
-  ~newName=None,
+  // ~newName=None,
   ~id="e1",
   ~version="0.0.1",
   ~data=ContributeTool.buildContributeData(
@@ -20,7 +20,7 @@ let buildSelectedContribute = (
     version: version,
     protocolIconBase64: protocolIconBase64,
     protocolConfigStr: protocolConfigStr,
-    newName: newName,
+    // newName: newName,
     data: data,
   }
 }

@@ -48,43 +48,43 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."set new name", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+  // test(."set new name", ({given, \"when", \"and", then}) => {
+  //   let useSelectorStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    given("select contribute a1, a2", () => {
-      ()
-    })
+  //   given("select contribute a1, a2", () => {
+  //     ()
+  //   })
 
-    \"and"("set a2's new name", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          list{
-            PackageSelectedContributesTool.buildSelectedContribute(~name="e1", ~protocolIconBase64="i1", ()),
-            PackageSelectedContributesTool.buildSelectedContribute(
-              ~name="e2",
-              ~newName="e_NewName2"->Some,
-              ~protocolIconBase64="i2",
-              (),
-            ),
-          },
-          _,
-        )
-    })
+  //   \"and"("set a2's new name", () => {
+  //     useSelectorStub :=
+  //       createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //         list{
+  //           PackageSelectedContributesTool.buildSelectedContribute(~name="e1", ~protocolIconBase64="i1", ()),
+  //           PackageSelectedContributesTool.buildSelectedContribute(
+  //             ~name="e2",
+  //             ~newName="e_NewName2"->Some,
+  //             ~protocolIconBase64="i2",
+  //             (),
+  //           ),
+  //         },
+  //         _,
+  //       )
+  //   })
 
-    \"when"("render", () => {
-      ()
-    })
+  //   \"when"("render", () => {
+  //     ()
+  //   })
 
-    then("should show a1 with its origin name and a2 with its new name", () => {
-      PackageSelectedContributesTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
-  })
+  //   then("should show a1 with its origin name and a2 with its new name", () => {
+  //     PackageSelectedContributesTool.buildUI(
+  //       ~sandbox,
+  //       ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+  //       (),
+  //     )
+  //     ->ReactTestRenderer.create
+  //     ->ReactTestTool.createSnapshotAndMatch
+  //   })
+  // })
 })

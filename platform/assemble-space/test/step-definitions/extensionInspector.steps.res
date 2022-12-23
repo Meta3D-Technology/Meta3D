@@ -104,39 +104,39 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."set new name input show default name", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
-    let id = "e1"
+  // test(."set new name input show default name", ({given, \"when", \"and", then}) => {
+  //   let useSelectorStub = ref(Obj.magic(1))
+  //   let id = "e1"
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    given("set inspector current extension to a1", () => {
-      ()
-    })
+  //   given("set inspector current extension to a1", () => {
+  //     ()
+  //   })
 
-    \"and"("set a1's new name to new1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            id->Some,
-            list{SelectedExtensionsTool.buildSelectedExtension(~id, ~newName="new1"->Some, ())},
-          ),
-          _,
-        )
-    })
+  //   \"and"("set a1's new name to new1", () => {
+  //     useSelectorStub :=
+  //       createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //         (
+  //           id->Some,
+  //           list{SelectedExtensionsTool.buildSelectedExtension(~id, ~newName="new1"->Some, ())},
+  //         ),
+  //         _,
+  //       )
+  //   })
 
-    \"when"("render", () => {
-      ()
-    })
+  //   \"when"("render", () => {
+  //     ()
+  //   })
 
-    then("set new name input's default name should be new1", () => {
-      ExtensionInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
-  })
+  //   then("set new name input's default name should be new1", () => {
+  //     ExtensionInspectorTool.buildUI(
+  //       ~sandbox,
+  //       ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+  //       (),
+  //     )
+  //     ->ReactTestRenderer.create
+  //     ->ReactTestTool.createSnapshotAndMatch
+  //   })
+  // })
 })

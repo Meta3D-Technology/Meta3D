@@ -49,11 +49,7 @@ type convertAllFileDataForApp = (
   . array<Meta3d.ExtensionFileType.extensionFileData>,
   array<Meta3d.ExtensionFileType.contributeFileData>,
   array<(Meta3d.ExtensionFileType.extensionProtocolData, Meta3dType.Index.extensionName)>,
-  (
-    array<Meta3dType.Index.extensionName>,
-    array<Meta3dType.Index.extensionName>,
-    array<Meta3dType.Index.contributeName>,
-  ),
+  array<Meta3dType.Index.extensionName>,
 ) => (
   array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
   array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
@@ -62,11 +58,7 @@ type convertAllFileDataForApp = (
 type convertAllFileDataForPackage = (
   . array<Meta3d.ExtensionFileType.extensionFileData>,
   array<Meta3d.ExtensionFileType.contributeFileData>,
-  (
-    array<Meta3dType.Index.extensionName>,
-    array<Meta3dType.Index.extensionName>,
-    array<Meta3dType.Index.contributeName>,
-  ),
+  array<Meta3dType.Index.extensionName>,
 ) => (
   array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
   array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,

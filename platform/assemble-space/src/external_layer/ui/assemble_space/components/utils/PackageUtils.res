@@ -1,19 +1,19 @@
 open FrontendUtils.AssembleSpaceType
 
-let _getExtensionNewName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
-  newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
-}
+// let _getExtensionNewName = (newName, data: Meta3d.ExtensionFileType.extensionFileData) => {
+//   newName->Meta3dCommonlib.OptionSt.getWithDefault(data.extensionPackageData.name)
+// }
 
-let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeFileData) => {
-  newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
-}
+// let _getContributeNewName = (newName, data: Meta3d.ExtensionFileType.contributeFileData) => {
+//   newName->Meta3dCommonlib.OptionSt.getWithDefault(data.contributePackageData.name)
+// }
 
 let getEntryExtensionName = selectedExtensions => {
   selectedExtensions
   ->Meta3dCommonlib.ArraySt.filter(({isEntry}: FrontendUtils.PackageAssembleStoreType.extension) =>
     isEntry
   )
-  ->Meta3dCommonlib.ArraySt.map(({newName, data}) => _getExtensionNewName(newName, data))
+  ->Meta3dCommonlib.ArraySt.map(({data}) => data.extensionPackageData.name)
   ->Meta3dCommonlib.ArraySt.getExn(0)
 }
 
@@ -51,18 +51,8 @@ let generatePackage = (service, selectPackages, selectedExtensions, selectedCont
       //   ),
       //   entryExtensionName,
       // )),
-      (
-        selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-          _getExtensionNewName(newName, data)
-        ),
-        // selectedExtensions
-        // ->Meta3dCommonlib.ArraySt.filter(({isEntry}) => isEntry)
-        // ->Meta3dCommonlib.ArraySt.map(({newName, data}) => _getExtensionNewName(newName, data)),
-        [getEntryExtensionName(selectedExtensions)],
-        selectedContributes->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
-          _getContributeNewName(newName, data)
-        ),
-      ),
+
+      [getEntryExtensionName(selectedExtensions)],
     ),
     selectPackages->Meta3dCommonlib.ArraySt.map((
       {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,

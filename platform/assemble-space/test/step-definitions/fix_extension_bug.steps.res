@@ -83,16 +83,16 @@ defineFeature(feature, test => {
         )
     })
 
-    \"and"("set new name", () => {
-      store :=
-        ExtensionInspectorTool.setExtensionNewName(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
-          ->ExtensionInspectorTool.getInspectorCurrentExtension
-          ->Meta3dCommonlib.OptionSt.getExn,
-          ~newName="new1",
-        )
-    })
+    // \"and"("set new name", () => {
+    //   store :=
+    //     ExtensionInspectorTool.setExtensionNewName(
+    //       ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
+    //       ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
+    //       ->ExtensionInspectorTool.getInspectorCurrentExtension
+    //       ->Meta3dCommonlib.OptionSt.getExn,
+    //       ~newName="new1",
+    //     )
+    // })
 
     \"when"("select the second extension in SelectedExtensions", () => {
       store :=
@@ -110,18 +110,18 @@ defineFeature(feature, test => {
       ()
     })
 
-    \"and"("set new name input's default name should be old name", () => {
-      ExtensionInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~useSelector=ReduxTool.ApAssemble.useSelector(store.contents),
-          (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+    // \"and"("set new name input's default name should be old name", () => {
+    //   ExtensionInspectorTool.buildUI(
+    //     ~sandbox,
+    //     ~service=ServiceTool.build(
+    //       ~sandbox,
+    //       ~useSelector=ReduxTool.ApAssemble.useSelector(store.contents),
+    //       (),
+    //     ),
+    //     (),
+    //   )
+    //   ->ReactTestRenderer.create
+    //   ->ReactTestTool.createSnapshotAndMatch
+    // })
   })
 })

@@ -4,7 +4,7 @@ type protocolConfigStr = string
 
 type id = string
 
-type newName = string
+// type newName = string
 
 type version = string
 
@@ -14,7 +14,7 @@ type extension = {
   protocolVersion: version,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
-  newName: option<newName>,
+  // newName: option<newName>,
   isEntry: bool,
   version: version,
   data: Meta3d.ExtensionFileType.extensionFileData,
@@ -26,7 +26,7 @@ type contribute = {
   id: id,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
-  newName: option<newName>,
+  // newName: option<newName>,
   version: version,
   data: Meta3d.ExtensionFileType.contributeFileData,
 }
@@ -48,14 +48,14 @@ type action =
   | SetInspectorCurrentExtensionId(id)
   | MarkEntryExtension(id)
   | UnMarkEntryExtension(id)
-  | SetExtensionNewName(id, newName)
+  // | SetExtensionNewName(id, newName)
   | SelectContribute(
       protocolIconBase64,
       option<protocolConfigStr>,
       AssembleSpaceCommonType.contribute,
     )
   | SetInspectorCurrentContributeId(id)
-  | SetContributeNewName(id, newName)
+  // | SetContributeNewName(id, newName)
 
 type state = {
   selectedPackages: selectedPackages,

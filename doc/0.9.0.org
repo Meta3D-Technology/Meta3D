@@ -193,7 +193,7 @@ fix backend, services -> service.meta3d->extension/contribute name to protocol n
 ** DONE pass run test: element use two packages(package2 use package1)
 
 
-** TODO remove newName
+** DONE remove newName
 
 PacakgeAssemble remove newName,
 ...
@@ -201,16 +201,19 @@ PacakgeAssemble remove newName,
 # pass meta3d
 
 
-pass assemble
+# pass assemble
 
 
-pass front
+# pass front
 
 
-pass backend
+# pass backend
 
 
-pass service
+# pass service
+
+
+# pass run test
 
 
 ** TODO refactor: remove entryExtensionName

@@ -28,15 +28,15 @@ module Method = {
     dispatch(FrontendUtils.ApAssembleStoreType.UnStartExtension(inspectorCurrentExtension.id))
   }
 
-  let setExtensionNewName = (
-    dispatch,
-    inspectorCurrentExtension: FrontendUtils.ApAssembleStoreType.extension,
-    newName: string,
-  ) => {
-    dispatch(
-      FrontendUtils.ApAssembleStoreType.SetExtensionNewName(inspectorCurrentExtension.id, newName),
-    )
-  }
+  // let setExtensionNewName = (
+  //   dispatch,
+  //   inspectorCurrentExtension: FrontendUtils.ApAssembleStoreType.extension,
+  //   newName: string,
+  // ) => {
+  //   dispatch(
+  //     FrontendUtils.ApAssembleStoreType.SetExtensionNewName(inspectorCurrentExtension.id, newName),
+  //   )
+  // }
 
   let useSelector = (
     {inspectorCurrentExtensionId, selectedExtensions}: FrontendUtils.ApAssembleStoreType.state,
@@ -74,20 +74,20 @@ let make = (~service: service) => {
             }}>
             {React.string(`启动`)}
           </Button>}
-      <Input
-      // TODO remove newName
-        value={NewNameUtils.getName(
-          inspectorCurrentExtension.newName,
-          inspectorCurrentExtension.data.extensionPackageData.name,
-        )}
-        onChange={e => {
-          Method.setExtensionNewName(
-            dispatch,
-            inspectorCurrentExtension,
-            e->EventUtils.getEventTargetValue,
-          )
-        }}
-      />
+      // <Input
+      // // TODO remove newName
+      //   value={NewNameUtils.getName(
+      //     inspectorCurrentExtension.newName,
+      //     inspectorCurrentExtension.data.extensionPackageData.name,
+      //   )}
+      //   onChange={e => {
+      //     Method.setExtensionNewName(
+      //       dispatch,
+      //       inspectorCurrentExtension,
+      //       e->EventUtils.getEventTargetValue,
+      //     )
+      //   }}
+      // />
     </>
   }
 }

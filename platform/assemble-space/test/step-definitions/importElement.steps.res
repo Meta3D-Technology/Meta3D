@@ -223,7 +223,7 @@ defineFeature(feature, test => {
         list{
           SelectedContributesTool.buildSelectedContribute(
             ~protocolConfigStr=""->Some,
-            ~newName=None,
+            // ~newName=None,
             ~data=u1.contents,
             (),
           ),
@@ -239,7 +239,7 @@ defineFeature(feature, test => {
         selectedContributes.contents->Meta3dCommonlib.ListSt.push(
           SelectedContributesTool.buildSelectedContribute(
             ~protocolConfigStr=""->Some,
-            ~newName=None,
+            // ~newName=None,
             ~data=u2.contents,
             (),
           ),

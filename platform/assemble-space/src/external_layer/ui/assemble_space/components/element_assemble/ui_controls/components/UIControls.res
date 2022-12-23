@@ -14,8 +14,8 @@ module Method = {
       type_,
     }): FrontendUtils.ElementAssembleStoreType.specificData => {
       {
-        name: name,
-        type_: type_,
+        name,
+        type_,
         value: value->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
       }
     })
@@ -67,8 +67,8 @@ let make = (~service: service) => {
   <List
   // grid={{gutter: 16, column: 3}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
-    renderItem={({id, newName, protocolIconBase64, protocolConfigStr, data}) => {
-      let name = NewNameUtils.getName(newName, data.contributePackageData.name)
+    renderItem={({id, protocolIconBase64, protocolConfigStr, data}) => {
+      let name = data.contributePackageData.name
 
       <List.Item>
         <Card

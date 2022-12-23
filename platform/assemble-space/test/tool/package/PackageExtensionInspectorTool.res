@@ -10,9 +10,9 @@ let unmarkEntryExtension = (~dispatch, ~inspectorCurrentExtension) => {
   PackageExtensionInspector.Method.unmarkEntryExtension(dispatch, inspectorCurrentExtension)
 }
 
-let setExtensionNewName = (~dispatch, ~inspectorCurrentExtension, ~newName) => {
-  PackageExtensionInspector.Method.setExtensionNewName(dispatch, inspectorCurrentExtension, newName)
-}
+// let setExtensionNewName = (~dispatch, ~inspectorCurrentExtension, ~newName) => {
+//   PackageExtensionInspector.Method.setExtensionNewName(dispatch, inspectorCurrentExtension, newName)
+// }
 
 let getInspectorCurrentExtension = PackageExtensionInspector.Method.getInspectorCurrentExtension
 

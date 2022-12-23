@@ -11,7 +11,7 @@ let setElementContributeToSpaceState = ElementVisual.Method.setElementContribute
 let getVisualExtensionName = ElementVisual.Method._getVisualExtensionName
 
 let loadAndBuildVisualExtension = (service, file) =>
-  ElementVisualUtils._loadAndBuildVisualExtension(service, file, getVisualExtensionName())
+  ElementVisualUtils._loadAndBuildVisualExtension(service, file)
 
 let getVisualExtensionProtocolName = ElementVisual.Method._getVisualExtensionProtocolName
 

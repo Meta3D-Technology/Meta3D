@@ -26,7 +26,7 @@ let make = (~service: service) => {
   <List
     grid={{gutter: 16, column: 1}}
     dataSource={selectedContributes->Meta3dCommonlib.ListSt.toArray}
-    renderItem={({id, protocolIconBase64, newName, data} as contribute) => {
+    renderItem={({id, protocolIconBase64,  data} as contribute) => {
       <List.Item>
         <Card
           key={id}
@@ -39,7 +39,7 @@ let make = (~service: service) => {
           />}>
           <Card.Meta
             style={ReactDOM.Style.make(~width="100px", ())}
-            title={React.string(NewNameUtils.getName(newName, data.contributePackageData.name))}
+            title={React.string(data.contributePackageData.name)}
           />
         </Card>
       </List.Item>

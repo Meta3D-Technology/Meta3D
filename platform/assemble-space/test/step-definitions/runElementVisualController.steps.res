@@ -206,7 +206,7 @@ defineFeature(feature, test => {
               ~name,
               ~protocolIconBase64="",
               ~id="",
-              ~newName=RunElementVisualControllerTool.getVisualExtensionName()->Some,
+              // ~newName=RunElementVisualControllerTool.getVisualExtensionName()->Some,
               ~data={
                 extensionPackageData: ExtensionTool.buildExtensionPackageData(
                   ~name,

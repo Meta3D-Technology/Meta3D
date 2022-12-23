@@ -128,19 +128,19 @@ defineFeature(feature, test => {
     // )
 
     given(
-      "select extension e1, e2 without newName",
+      "select extension e1, e2",
       () => {
         selectedExtensions :=
           list{
             PackageSelectedExtensionsTool.buildSelectedExtension(
               ~name="e1",
-              ~newName=None,
+              // ~newName=None,
               ~protocolIconBase64="i1",
               (),
             ),
             PackageSelectedExtensionsTool.buildSelectedExtension(
               ~name="e2",
-              ~newName=None,
+              // ~newName=None,
               ~protocolIconBase64="i2",
               (),
             ),
@@ -149,19 +149,19 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select contribute c1, c2 with newName",
+      "select contribute c1, c2",
       () => {
         selectedContributes :=
           list{
             PackageSelectedContributesTool.buildSelectedContribute(
               ~name="c1",
-              ~newName="c1"->Some,
+              // ~newName="c1"->Some,
               ~protocolIconBase64="i3",
               (),
             ),
             PackageSelectedContributesTool.buildSelectedContribute(
               ~name="c2",
-              ~newName="c2"->Some,
+              // ~newName="c2"->Some,
               ~protocolIconBase64="i4",
               (),
             ),
@@ -176,7 +176,7 @@ defineFeature(feature, test => {
           selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
             PackageSelectedExtensionsTool.buildSelectedExtension(
               ~name=entryExtensionName,
-              ~newName=None,
+              // ~newName=None,
               ~id="e3",
               ~isEntry=true,
               ~protocolName=entryExtensionProtocolName,
@@ -291,7 +291,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             1,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
             [selectedPackageBinaryFile1],
           )
       },

@@ -6,19 +6,21 @@ let buildSelectedContribute = (
   ~protocolName="e1",
   ~protocolIconBase64="i1",
   ~protocolConfigStr=None,
-  ~newName=None,
+  // ~newName=None,
+  ~name="e1",
   ~id="e1",
   ~version="0.0.1",
   (),
 ): FrontendUtils.ApAssembleStoreType.contribute => {
   {
-    id: id,
-    version: version,
-    protocolIconBase64: protocolIconBase64,
-    protocolConfigStr: protocolConfigStr,
-    newName: newName,
+    id,
+    version,
+    protocolIconBase64,
+    protocolConfigStr,
+    // newName: newName,
     data: {
       contributePackageData: ContributeTool.buildContributePackageData(
+        ~name,
         ~protocol={
           name: protocolName,
           version: "0.0.1",
@@ -39,8 +41,8 @@ let buildSpecific = (
   (),
 ): Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldData => {
   {
-    name: name,
-    type_: type_,
-    value: value,
+    name,
+    type_,
+    value,
   }
 }

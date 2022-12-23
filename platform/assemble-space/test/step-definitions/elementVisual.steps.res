@@ -242,7 +242,7 @@ defineFeature(feature, test => {
               ~name,
               ~protocolIconBase64="",
               ~id="",
-              ~newName=ElementVisualTool.getVisualExtensionName()->Some,
+              // ~newName=ElementVisualTool.getVisualExtensionName()->Some,
               ~data={
                 extensionPackageData: ExtensionTool.buildExtensionPackageData(
                   ~name,
@@ -389,7 +389,7 @@ defineFeature(feature, test => {
           list{
             SelectedExtensionsTool.buildSelectedExtension(
               ~name,
-              ~newName=None,
+              // ~newName=None,
               ~id=name,
               ~data=ui.contents,
               (),
@@ -407,7 +407,7 @@ defineFeature(feature, test => {
           selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
             SelectedExtensionsTool.buildSelectedExtension(
               ~name,
-              ~newName=None,
+              // ~newName=None,
               ~id=name,
               ~data=event.contents,
               (),
@@ -425,7 +425,7 @@ defineFeature(feature, test => {
           list{
             SelectedContributesTool.buildSelectedContribute(
               ~name,
-              ~newName=None,
+              // ~newName=None,
               ~id=name,
               ~data=c1.contents,
               (),

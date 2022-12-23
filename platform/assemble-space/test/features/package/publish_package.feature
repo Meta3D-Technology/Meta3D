@@ -22,8 +22,10 @@ Feature: Publish Package
         #     And select contribute c1, c2 with newName
 
         Scenario: generate correct package
-            Given select extension e1, e2 without newName
-            And select contribute c1, c2 with newName
+            # Given select extension e1, e2 without newName
+            # And select contribute c1, c2 with newName
+            Given select extension e1, e2
+            And select contribute c1, c2
             And select entry extension e3
             And select package p1
             When publish package

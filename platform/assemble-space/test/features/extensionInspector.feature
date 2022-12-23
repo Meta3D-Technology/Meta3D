@@ -22,8 +22,8 @@ Feature: ExtensionInspector
         When render
         Then should show unstart button
 
-    Scenario: set new name input show default name
-        Given set inspector current extension to a1
-        And set a1's new name to new1
-        When render
-        Then set new name input's default name should be new1
+    # Scenario: set new name input show default name
+    #     Given set inspector current extension to a1
+    #     And set a1's new name to new1
+    #     When render
+    #     Then set new name input's default name should be new1

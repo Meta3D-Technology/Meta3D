@@ -22,8 +22,8 @@ Feature: Publish
     Rule: Publish
 
         Background: prepare selected packages and selected extensions and contributes
-            Given select extension e1, e2 without newName
-            And select contribute c1, c2 with newName
+            Given select extension e1, e2
+            And select contribute c1, c2
             And select package p1
 
         Scenario: generate correct app without config data

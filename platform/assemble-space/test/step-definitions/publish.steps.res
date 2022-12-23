@@ -123,36 +123,36 @@ defineFeature(feature, test => {
     selectedExtensions,
     selectedContributes,
   ) => {
-    given("select extension e1, e2 without newName", () => {
+    given("select extension e1, e2", () => {
       selectedExtensions :=
         list{
           SelectedExtensionsTool.buildSelectedExtension(
             ~name="e1",
-            ~newName=None,
+            // ~newName=None,
             ~protocolIconBase64="i1",
             (),
           ),
           SelectedExtensionsTool.buildSelectedExtension(
             ~name="e2",
-            ~newName=None,
+            // ~newName=None,
             ~protocolIconBase64="i2",
             (),
           ),
         }
     })
 
-    \"and"("select contribute c1, c2 with newName", () => {
+    \"and"("select contribute c1, c2", () => {
       selectedContributes :=
         list{
           SelectedContributesTool.buildSelectedContribute(
             ~name="c1",
-            ~newName="c1"->Some,
+            // ~newName="c1"->Some,
             ~protocolIconBase64="i3",
             (),
           ),
           SelectedContributesTool.buildSelectedContribute(
             ~name="c2",
-            ~newName="c2"->Some,
+            // ~newName="c2"->Some,
             ~protocolIconBase64="i4",
             (),
           ),
@@ -268,7 +268,7 @@ defineFeature(feature, test => {
           selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
             SelectedExtensionsTool.buildSelectedExtension(
               ~name="e3",
-              ~newName=None,
+              // ~newName=None,
               ~id="e3",
               ~isStart=true,
               ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
@@ -387,7 +387,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[{\"name\":\"p_protocol\",\"version\":\"^0.0.1\"},\"pet1\"]],[[\"e1\",\"e2\",\"e3\"],[\"e3\"],[\"c1\",\"c2\"]]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionNameMap\":{},\"dependentContributeNameMap\":{}},\"contributeFuncData\":{}}],[[{\"name\":\"p_protocol\",\"version\":\"^0.0.1\"},\"pet1\"]],[\"e3\"]]",
           )
       },
     )

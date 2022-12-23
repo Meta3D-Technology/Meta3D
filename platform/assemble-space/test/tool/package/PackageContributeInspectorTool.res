@@ -2,15 +2,15 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
   <PackageContributeInspector service />
 }
 
-let setContributeNewName = (~dispatch, ~inspectorCurrentContribute, ~newName) => {
-  PackageContributeInspector.Method.setContributeNewName(
-    dispatch,
-    inspectorCurrentContribute,
-    newName,
-  )
-}
+// let setContributeNewName = (~dispatch, ~inspectorCurrentContribute, ~newName) => {
+//   PackageContributeInspector.Method.setContributeNewName(
+//     dispatch,
+//     inspectorCurrentContribute,
+//     newName,
+//   )
+// }
 
-let getInspectorCurrentContribute = PackageContributeInspector.Method.getInspectorCurrentContribute
+// let getInspectorCurrentContribute = PackageContributeInspector.Method.getInspectorCurrentContribute
 
-let useSelector = ({packageAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
-  PackageContributeInspector.Method.useSelector
+// let useSelector = ({packageAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+//   PackageContributeInspector.Method.useSelector
