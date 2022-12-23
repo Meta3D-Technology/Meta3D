@@ -170,10 +170,14 @@ ExtensionManager: use extension/contribute protocol name instead of name
     register extension/contribute protocol name
 
 
-fix meta3d:
+# fix meta3d:
 # pass bdd test
 
-fix platform, assemble-space -> service.meta3d->extension/contribute name to protocol name
+# fix platform, assemble-space -> service.meta3d->extension/contribute name to protocol name
+
+# loadPackage
+
+generateExtension
 
 fix backend, services -> service.meta3d->extension/contribute name to protocol name
 

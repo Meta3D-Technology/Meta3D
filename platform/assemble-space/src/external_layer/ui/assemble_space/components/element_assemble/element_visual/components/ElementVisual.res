@@ -38,11 +38,11 @@ module Method = {
   }
 
   let _updateElementContribute = (meta3dState, service, elementContribute) => {
-    let meta3dUIExtensionName = ElementVisualUtils.getUIExtensionName()
+    let meta3dUIExtensionProtocolName = ElementVisualUtils.getUIExtensionProtocolName()
 
     let uiState: Meta3dUiProtocol.StateType.state = service.meta3d.getExtensionState(.
       meta3dState,
-      meta3dUIExtensionName,
+      meta3dUIExtensionProtocolName,
     )
 
     // let meta3dState = service.meta3d.registerContribute(meta3dState, elementContribute)
@@ -50,18 +50,11 @@ module Method = {
     let uiState = (
       service.meta3d.getExtensionService(.
         meta3dState,
-        meta3dUIExtensionName,
+        meta3dUIExtensionProtocolName,
       ): Meta3dUiProtocol.ServiceType.service
-    ).registerElement(
-      uiState,
-      // service.meta3d.getContribute(
-      //   meta3dState,
-      //   ElementContributeUtils.getElementContributeProtocolName(),
-      // ),
-      elementContribute,
-    )
+    ).registerElement(uiState, elementContribute)
 
-    service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionName, uiState)
+    service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionProtocolName, uiState)
   }
 
   let rec _loop = (
@@ -83,11 +76,11 @@ module Method = {
           Meta3dCommonlib.ImmutableHashMap.createEmpty()
           ->Meta3dCommonlib.ImmutableHashMap.set(
             "meta3dUIExtensionName",
-            ElementVisualUtils.getUIExtensionName(),
+            ElementVisualUtils.getUIExtensionProtocolName(),
           )
           ->Meta3dCommonlib.ImmutableHashMap.set(
             "meta3dImguiRendererExtensionName",
-            "meta3d-imgui-renderer2",
+            "meta3d-imgui-renderer2-protocol",
           ),
           Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         )->Obj.magic,
@@ -96,7 +89,7 @@ module Method = {
 
     service.meta3d.updateExtension(.
       meta3dState,
-      _getVisualExtensionName(),
+      _getVisualExtensionProtocolName(),
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
@@ -141,7 +134,7 @@ module Method = {
 
     service.meta3d.initExtension(.
       meta3dState,
-      _getVisualExtensionName(),
+      _getVisualExtensionProtocolName(),
       _getInitData(service, isDebug),
     )
     ->Js.Promise.then_(meta3dState => {

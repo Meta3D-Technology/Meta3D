@@ -4,4 +4,4 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 
 let startApp = RunElementVisual.Method.startApp
 
-let getVisualExtensionName = RunElementVisual.Method._getVisualExtensionName
+let getVisualExtensionProtocolName = RunElementVisual.Method._getVisualExtensionProtocolName

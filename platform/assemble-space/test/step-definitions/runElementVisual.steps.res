@@ -22,30 +22,39 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("prepare canvas data", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
-            ApInspectorTool.buildApInspectorData(),
-          ),
-          _,
+    given(
+      "prepare canvas data",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
+              ApInspectorTool.buildApInspectorData(),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show the canvas",
+      () => {
+        RunElementVisualTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          (),
         )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show the canvas", () => {
-      RunElementVisualTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."if not get app binary file from storage, error", ({given, \"when", \"and", then}) => {
@@ -55,43 +64,58 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("empty storage", () => {
-      errorWithExnStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    given(
+      "empty storage",
+      () => {
+        errorWithExnStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      initForElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+        initForElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.empty(),
+            _,
+          )
 
-      getElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.fromPromise(
-            Js.Promise.make((~resolve, ~reject) => {
-              reject(.
-                Js.Exn.raiseError({
-                  "error"
-                }),
-              )
-            }),
+        getElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.fromPromise(
+              Js.Promise.make(
+                (~resolve, ~reject) => {
+                  reject(.
+                    Js.Exn.raiseError({
+                      "error"
+                    }),
+                  )
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "start app",
+      () => {
+        RunElementVisualTool.startApp(
+          ServiceTool.build(
+            ~sandbox,
+            ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
+            ~getElementVisualApp=getElementVisualAppStub.contents->Obj.magic,
+            ~errorWithExn=errorWithExnStub.contents->Obj.magic,
+            (),
           ),
-          _,
+          ApInspectorTool.buildApInspectorData(),
         )
-    })
+      },
+    )
 
-    CucumberAsync.execStep(\"when", "start app", () => {
-      RunElementVisualTool.startApp(
-        ServiceTool.build(
-          ~sandbox,
-          ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
-          ~getElementVisualApp=getElementVisualAppStub.contents->Obj.magic,
-          ~errorWithExn=errorWithExnStub.contents->Obj.magic,
-          (),
-        ),
-        ApInspectorTool.buildApInspectorData(),
-      )
-    })
-
-    then("should error", () => {
-      errorWithExnStub.contents->Obj.magic->getCallCount->expect == 1
-    })
+    then(
+      "should error",
+      () => {
+        errorWithExnStub.contents->Obj.magic->getCallCount->expect == 1
+      },
+    )
   })
 
   test(."else, start app", ({given, \"when", \"and", then}) => {
@@ -109,96 +133,115 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("storage has app binary file", () => {
-      initForElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.just(Obj.magic(1)),
-          _,
+    given(
+      "storage has app binary file",
+      () => {
+        initForElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.just(Obj.magic(1)),
+            _,
+          )
+
+        getElementVisualAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.just(appBinaryFile),
+            _,
+          )
+      },
+    )
+
+    \"and"(
+      "prepare canvas",
+      () => {
+        querySelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(canvas->Some, _)
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "start app",
+      () => {
+        loadAppStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (Obj.magic(101), Obj.magic(1)),
+            _,
+          )
+
+        initExtensionStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Obj.magic(102)->Js.Promise.resolve,
+            _,
+          )
+
+        updateExtensionStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Obj.magic(103)->Js.Promise.resolve,
+            _,
+          )
+
+        requestAnimationOtherFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        RunElementVisualTool.startApp(
+          ServiceTool.build(
+            ~sandbox,
+            ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
+            ~getElementVisualApp=getElementVisualAppStub.contents->Obj.magic,
+            ~loadApp=loadAppStub.contents->Obj.magic,
+            ~initExtension=initExtensionStub.contents->Obj.magic,
+            ~updateExtension=updateExtensionStub.contents->Obj.magic,
+            ~requestAnimationFirstFrame=func => {
+              func(0.)
+
+              0
+            },
+            ~requestAnimationOtherFrame=requestAnimationOtherFrameStub.contents->Obj.magic,
+            ~querySelector=querySelectorStub.contents->Obj.magic,
+            (),
+          ),
+          ApInspectorTool.buildApInspectorData(~isDebug, ()),
         )
+      },
+    )
 
-      getElementVisualAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Meta3dBsMost.Most.just(appBinaryFile),
-          _,
-        )
-    })
+    then(
+      "load app",
+      () => {
+        loadAppStub.contents->Obj.magic->SinonTool.calledWith(appBinaryFile)->expect == true
+      },
+    )
 
-    \"and"("prepare canvas", () => {
-      querySelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(canvas->Some, _)
-    })
-
-    CucumberAsync.execStep(\"when", "start app", () => {
-      loadAppStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (Obj.magic(101), Obj.magic(1)),
-          _,
-        )
-
-      initExtensionStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Obj.magic(102)->Js.Promise.resolve,
-          _,
-        )
-
-      updateExtensionStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          Obj.magic(103)->Js.Promise.resolve,
-          _,
-        )
-
-      requestAnimationOtherFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      RunElementVisualTool.startApp(
-        ServiceTool.build(
-          ~sandbox,
-          ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
-          ~getElementVisualApp=getElementVisualAppStub.contents->Obj.magic,
-          ~loadApp=loadAppStub.contents->Obj.magic,
-          ~initExtension=initExtensionStub.contents->Obj.magic,
-          ~updateExtension=updateExtensionStub.contents->Obj.magic,
-          ~requestAnimationFirstFrame=func => {
-            func(0.)
-
-            0
-          },
-          ~requestAnimationOtherFrame=requestAnimationOtherFrameStub.contents->Obj.magic,
-          ~querySelector=querySelectorStub.contents->Obj.magic,
-          (),
-        ),
-        ApInspectorTool.buildApInspectorData(~isDebug, ()),
-      )
-    })
-
-    then("load app", () => {
-      loadAppStub.contents->Obj.magic->SinonTool.calledWith(appBinaryFile)->expect == true
-    })
-
-    \"and"("init app", () => {
-      initExtensionStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg3(
-        Obj.magic(101),
-        RunElementVisualTool.getVisualExtensionName(),
-        {
-          "isDebug": isDebug,
-          "canvas": canvas,
-        },
-      )
-      ->expect == true
-    })
-
-    \"and"("loop app", () => {
-      (
-        updateExtensionStub.contents
+    \"and"(
+      "init app",
+      () => {
+        initExtensionStub.contents
         ->Obj.magic
         ->SinonTool.calledWithArg3(
-          Obj.magic(102),
-          RunElementVisualTool.getVisualExtensionName(),
-          matchAny,
-        ),
-        requestAnimationOtherFrameStub.contents->getCallCount,
-      )->expect == (true, 1)
-    })
+          Obj.magic(101),
+          RunElementVisualTool.getVisualExtensionProtocolName(),
+          {
+            "isDebug": isDebug,
+            "canvas": canvas,
+          },
+        )
+        ->expect == true
+      },
+    )
+
+    \"and"(
+      "loop app",
+      () => {
+        (
+          updateExtensionStub.contents
+          ->Obj.magic
+          ->SinonTool.calledWithArg3(
+            Obj.magic(102),
+            RunElementVisualTool.getVisualExtensionProtocolName(),
+            matchAny,
+          ),
+          requestAnimationOtherFrameStub.contents->getCallCount,
+        )->expect == (true, 1)
+      },
+    )
   })
 })

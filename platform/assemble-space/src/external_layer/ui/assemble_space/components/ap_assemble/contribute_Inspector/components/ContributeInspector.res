@@ -45,11 +45,13 @@ let make = (~service: service) => {
     Method.useSelector,
   )->Method.getInspectorCurrentContribute {
   | None => React.null
-  | Some(inspectorCurrentContribute) => <>
+  | Some(inspectorCurrentContribute) =>
+    <>
       <Input
         value={NewNameUtils.getName(
           inspectorCurrentContribute.newName,
           inspectorCurrentContribute.data.contributePackageData.name,
+          // inspectorCurrentContribute.data.contributePackageData.protocol.name,
         )}
         onChange={e => {
           Method.setContributeNewName(

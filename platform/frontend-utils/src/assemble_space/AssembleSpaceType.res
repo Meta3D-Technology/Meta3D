@@ -59,6 +59,19 @@ type convertAllFileDataForApp = (
   array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
 )
 
+type convertAllFileDataForPackage = (
+  . array<Meta3d.ExtensionFileType.extensionFileData>,
+  array<Meta3d.ExtensionFileType.contributeFileData>,
+  (
+    array<Meta3dType.Index.extensionName>,
+    array<Meta3dType.Index.extensionName>,
+    array<Meta3dType.Index.contributeName>,
+  ),
+) => (
+  array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
+  array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
+)
+
 type meta3dService = {
   getExtensionState: 'extensionState. (. Meta3dType.Index.state, string) => 'extensionState,
   setExtensionState: 'extensionState. (
@@ -103,7 +116,7 @@ type meta3dService = {
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
   ) => Js.Typed_array.ArrayBuffer.t,
   convertAllFileDataForApp: convertAllFileDataForApp,
-  convertAllFileDataForPackage: convertAllFileDataForApp,
+  convertAllFileDataForPackage: convertAllFileDataForPackage,
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (

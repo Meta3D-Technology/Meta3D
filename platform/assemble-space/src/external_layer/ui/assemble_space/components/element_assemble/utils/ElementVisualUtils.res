@@ -100,9 +100,7 @@ let generateApp = (
 //   "meta3d_run_element_visual"
 // }
 
-let getUIExtensionName = () => "meta3d-ui"
-
-let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
+// let getUIExtensionName = () => "meta3d-ui"
 
 let getUIExtensionProtocolName = () => "meta3d-ui-protocol"
 

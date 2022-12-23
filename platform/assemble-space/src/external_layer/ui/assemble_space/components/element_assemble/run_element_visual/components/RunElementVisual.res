@@ -2,7 +2,7 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 module Method = {
-  let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
+  let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
 
   let _getInitData = (service: FrontendUtils.AssembleSpaceType.service, isDebug) => {
     {
@@ -18,10 +18,6 @@ module Method = {
       "time": time,
     }->Obj.magic
   }
-
-  // let _updateApp = (service: FrontendUtils.AssembleSpaceType.service, updateData, meta3dState) => {
-  //   service.meta3d.updateExtension(. meta3dState, _getVisualExtensionName(), updateData)
-  // }
 
   // let rec _loop = (service: FrontendUtils.AssembleSpaceType.service, meta3dState, update) => {
   //   update(meta3dState)->Js.Promise.then_(meta3dState => {
@@ -39,7 +35,7 @@ module Method = {
   ) => {
     service.meta3d.updateExtension(.
       meta3dState,
-      _getVisualExtensionName(),
+      _getVisualExtensionProtocolName(),
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
@@ -61,15 +57,20 @@ module Method = {
 
       service.meta3d.initExtension(.
         meta3dState,
-        _getVisualExtensionName(),
+        _getVisualExtensionProtocolName(),
         _getInitData(service, isDebug),
       )
       ->Js.Promise.then_(meta3dState => {
-        service.other.requestAnimationFirstFrame(time => {
-          FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-            _loop(service, apInspectorData, time, meta3dState)
-          }, 5->Some)
-        })->Js.Promise.resolve
+        service.other.requestAnimationFirstFrame(
+          time => {
+            FrontendUtils.ErrorUtils.showCatchedErrorMessage(
+              () => {
+                _loop(service, apInspectorData, time, meta3dState)
+              },
+              5->Some,
+            )
+          },
+        )->Js.Promise.resolve
       }, _)
       ->Meta3dBsMost.Most.fromPromise
     }, _)

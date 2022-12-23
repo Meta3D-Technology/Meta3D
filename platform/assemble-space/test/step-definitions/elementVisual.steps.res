@@ -511,23 +511,23 @@ defineFeature(feature, test => {
             Meta3dCommonlib.ImmutableHashMap.createEmpty()
             ->Meta3dCommonlib.ImmutableHashMap.set(
               "meta3dUIExtensionName",
-              ElementVisualUtils.getUIExtensionName(),
+              ElementVisualUtils.getUIExtensionProtocolName(),
             )
             ->Meta3dCommonlib.ImmutableHashMap.set(
               "meta3dImguiRendererExtensionName",
-              "meta3d-imgui-renderer2",
+              "meta3d-imgui-renderer2-protocol",
             ),
             Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           ),
           getExtensionStateStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionName()),
+          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
           getExtensionStateStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionName()),
+          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
           getExtensionServiceStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionName()),
+          ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
         )->expect == (true, true, true, true)
       },
     )

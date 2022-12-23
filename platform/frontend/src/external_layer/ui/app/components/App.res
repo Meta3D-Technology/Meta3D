@@ -78,18 +78,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           allPackageBinaryFiles,
           startConfigData,
         ),
-      convertAllFileDataForPackage: (.
-        allExtensionFileData,
-        allContributeFileData,
-        allPackageEntryExtensionProtocolData,
-        data,
-      ) =>
-        Meta3d.Main.convertAllFileDataForPackage(
-          allExtensionFileData,
-          allContributeFileData,
-          allPackageEntryExtensionProtocolData,
-          data,
-        ),
+      convertAllFileDataForPackage: (. allExtensionFileData, allContributeFileData, data) =>
+        Meta3d.Main.convertAllFileDataForPackage(allExtensionFileData, allContributeFileData, data),
       convertAllFileDataForApp: (.
         allExtensionFileData,
         allContributeFileData,

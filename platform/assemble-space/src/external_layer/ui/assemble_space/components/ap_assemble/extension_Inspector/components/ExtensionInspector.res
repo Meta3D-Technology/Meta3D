@@ -34,10 +34,7 @@ module Method = {
     newName: string,
   ) => {
     dispatch(
-      FrontendUtils.ApAssembleStoreType.SetExtensionNewName(
-        inspectorCurrentExtension.id,
-        newName,
-      ),
+      FrontendUtils.ApAssembleStoreType.SetExtensionNewName(inspectorCurrentExtension.id, newName),
     )
   }
 
@@ -57,7 +54,8 @@ let make = (~service: service) => {
     Method.useSelector,
   )->Method.getInspectorCurrentExtension {
   | None => React.null
-  | Some(inspectorCurrentExtension) => // <Collapse defaultActiveKey={["1"]}>
+  | Some(inspectorCurrentExtension) =>
+    // <Collapse defaultActiveKey={["1"]}>
     //   <Collapse.Panel header="Basic" key="1" />
     //   {}
     // </Collapse>
@@ -77,6 +75,7 @@ let make = (~service: service) => {
             {React.string(`启动`)}
           </Button>}
       <Input
+      // TODO remove newName
         value={NewNameUtils.getName(
           inspectorCurrentExtension.newName,
           inspectorCurrentExtension.data.extensionPackageData.name,

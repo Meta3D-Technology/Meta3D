@@ -40,17 +40,17 @@ let generatePackage = (service, selectPackages, selectedExtensions, selectedCont
       selectedContributes->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.PackageAssembleStoreType.contribute,
       ) => data),
-      selectPackages->Meta3dCommonlib.ArraySt.map((
-        {protocol, entryExtensionName}: FrontendUtils.PackageAssembleStoreType.package,
-      ) => (
-        (
-          {
-            name: protocol.name,
-            version: protocol.version,
-          }: Meta3d.ExtensionFileType.extensionProtocolData
-        ),
-        entryExtensionName,
-      )),
+      // selectPackages->Meta3dCommonlib.ArraySt.map((
+      //   {protocol, entryExtensionName}: FrontendUtils.PackageAssembleStoreType.package,
+      // ) => (
+      //   (
+      //     {
+      //       name: protocol.name,
+      //       version: protocol.version,
+      //     }: Meta3d.ExtensionFileType.extensionProtocolData
+      //   ),
+      //   entryExtensionName,
+      // )),
       (
         selectedExtensions->Meta3dCommonlib.ArraySt.map(({newName, data}) =>
           _getExtensionNewName(newName, data)
