@@ -3,7 +3,8 @@ import { loadPackage, getExtensionService, getExtensionState, setExtensionState 
 import { service } from "meta3d-extension-test1-protocol/src/service/ServiceType"
 import { state } from "meta3d-extension-test1-protocol/src/state/StateType"
 
-import * as packageBinaryFile from "arraybuffer-loader!./packages/p1_0.0.2.package"
+// import * as packageBinaryFile from "arraybuffer-loader!./packages/p1_0.0.2.package"
+import * as packageBinaryFile from "arraybuffer-loader!./packages/package-test1_0.0.3.package"
 
 
 

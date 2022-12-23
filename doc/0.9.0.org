@@ -162,9 +162,18 @@ download bug?
 
 ////run element
 
-** TODO pass run test: editor demo use two packages(package2 use package1)
+** DONE pass run test: ap use two packages(package2 use package1)
 
-*** TODO fix: not check dependency for generate package
+
+# test run package
+
+# TODO fix
+
+
+TODO rename 
+export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
+
+*** DONE fix: not check dependency for generate package
 
 ExtensionManager: use extension/contribute protocol name instead of name
     register extension/contribute protocol name
@@ -365,13 +374,17 @@ use like a extension
 ** TODO use select to show all versions of one extension/contribute protocol's implements
 
 
+* TODO fix EnterApp, RunElementVisual: use jump url with param instead of store
+
+so can refresh and not error!
+
 
 
 * TODO refactor
 ** TODO Index show Meta3d version and info without login
 
 
-** TODO remove newName?
+# ** TODO remove newName?
 
 
 

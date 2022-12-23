@@ -79,6 +79,11 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
 
                 let packageData = _convertToExtensionOrContributePackageData(packageJson)
 
+                console.log(
+                    packageData,
+                    readFileSyncFunc(distFilePath, "utf-8")
+                )
+
                 let filePath =
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer"
 

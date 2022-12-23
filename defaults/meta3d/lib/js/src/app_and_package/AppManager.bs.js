@@ -29,7 +29,7 @@ function _convertDependentMap(dependentMap, allDataMap) {
                 var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
                 var match = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
                 _checkVersion(match[1], dependentData.protocolVersion, dependentData.protocolName);
-                return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], match[0]);
+                return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], dependentData.protocolName);
               }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
 }
 

@@ -48,7 +48,7 @@ let _convertDependentMap = (dependentMap, allDataMap) => {
 
       _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName)
 
-      map->Meta3dCommonlib.ImmutableHashMap.set(dependentNameKey, newName)
+      map->Meta3dCommonlib.ImmutableHashMap.set(dependentNameKey, dependentData.protocolName)
     },
     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   )

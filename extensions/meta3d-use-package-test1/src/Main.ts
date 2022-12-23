@@ -24,7 +24,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 	return null
 }
 
-export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
+export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
 	return {
 		onRegister: (meta3dState, service) => {
 			// console.log("meta3d-use-package-test1 onRegister")

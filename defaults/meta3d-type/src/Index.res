@@ -6,7 +6,6 @@ type contribute
 
 type dependentExtensionNameKey = string
 
-// TODO remove
 type extensionName = string
 type contributeName = string
 

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-contribute-test1",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-contribute-test1-protocol"

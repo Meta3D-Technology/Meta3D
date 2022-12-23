@@ -601,30 +601,30 @@ defineFeature(feature, test => {
                 (
                   {
                     name: "first-new-extension",
-                    protocolName:"first-extension-protocol",
+                    protocolName: "first-extension-protocol",
                     type_: Default,
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                       "second-extension",
-                      "second-extension",
+                      "second-extension-protocol",
                     ),
                     dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                       "first-contribute",
-                      "first-new-contribute",
+                      "first-contribute-protocol",
                     ),
                   }: AppAndPackageFileType.extensionPackageData
                 ),
                 (
                   {
                     name: "second-extension",
-                    protocolName:"second-extension-protocol",
+                    protocolName: "second-extension-protocol",
                     type_: Start,
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                       "first-package-entry-extension",
-                      "first-package-entry-extension",
+                      "first-package-entry-extension-protocol",
                     ),
                     dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
                       "first-contribute",
-                      "first-new-contribute",
+                      "first-contribute-protocol",
                     ),
                   }: AppAndPackageFileType.extensionPackageData
                 ),
@@ -633,7 +633,7 @@ defineFeature(feature, test => {
                 (
                   {
                     name: "first-new-contribute",
-                    protocolName:"first-contribute-protocol",
+                    protocolName: "first-contribute-protocol",
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                     dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                   }: AppAndPackageFileType.contributePackageData

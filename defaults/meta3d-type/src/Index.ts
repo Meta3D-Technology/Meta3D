@@ -1,5 +1,9 @@
 import { contributeType } from "./contribute/ContributeType"
 
+export type extensionName = string
+
+export type contributeName = string
+
 export type extensionProtocolName = string
 
 export type contributeProtocolName = string
