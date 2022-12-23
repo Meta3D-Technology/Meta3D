@@ -21,6 +21,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.when, "generate extension and load it", (function (param) {
                         var file = Main$Meta3d.generateExtension({
+                              name: "meta3d-app",
                               protocol: {
                                 name: "meta3d-app-protocol",
                                 version: "0.4.1"
@@ -32,6 +33,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.then, "get package data", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect(fileData.contents.extensionPackageData), {
+                              name: "meta3d-app",
                               protocol: {
                                 name: "meta3d-app-protocol",
                                 version: "0.4.1"
@@ -54,6 +56,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.when, "generate contribute and load it", (function (param) {
                         var file = Main$Meta3d.generateContribute({
+                              name: "meta3d-contribute-test1",
                               protocol: {
                                 name: "meta3d-contribute-test1-protocol",
                                 version: "0.4.1"
@@ -65,6 +68,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.then, "get package data", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect(fileData.contents.contributePackageData), {
+                              name: "meta3d-contribute-test1",
                               protocol: {
                                 name: "meta3d-contribute-test1-protocol",
                                 version: "0.4.1"

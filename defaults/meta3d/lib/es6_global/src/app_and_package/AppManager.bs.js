@@ -64,6 +64,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
                   var newName = ArraySt$Meta3dCommonlib.getExn(allExtensionNewNames, i);
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
+                                name: newName,
                                 protocolName: extensionPackageData.protocol.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, newName) ? /* Start */1 : /* Default */0,
                                 dependentExtensionNameMap: _convertDependentMap(extensionPackageData.dependentExtensionNameMap, allExtensionDataMap$1),
@@ -74,9 +75,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
                 }), []),
           ArraySt$Meta3dCommonlib.reduceOneParami(allContributeFileData, (function (result, param, i) {
                   var contributePackageData = param.contributePackageData;
-                  ArraySt$Meta3dCommonlib.getExn(allContributeNewNames, i);
+                  var newName = ArraySt$Meta3dCommonlib.getExn(allContributeNewNames, i);
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
+                                name: newName,
                                 protocolName: contributePackageData.protocol.name,
                                 dependentExtensionNameMap: _convertDependentMap(contributePackageData.dependentExtensionNameMap, allExtensionDataMap$1),
                                 dependentContributeNameMap: _convertDependentMap(contributePackageData.dependentContributeNameMap, allContributeDataMap)

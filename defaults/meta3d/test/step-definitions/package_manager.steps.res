@@ -36,7 +36,7 @@ defineFeature(feature, test => {
           Main.generateExtension(
             (
               {
-                // name: "first-extension",
+                name: "first-extension",
                 protocol: {
                   name: "first-extension-protocol",
                   version: "0.4.1",
@@ -60,7 +60,7 @@ defineFeature(feature, test => {
           Main.generateExtension(
             (
               {
-                // name: "second-extension",
+                name: "second-extension",
                 protocol: {
                   name: "second-extension-protocol",
                   version: "1.0.2",
@@ -134,7 +134,7 @@ defineFeature(feature, test => {
             Main.generateExtension(
               (
                 {
-                  // name: "first-extension",
+                  name: "first-extension",
                   protocol: {
                     name: "first-extension-protocol",
                     version: "0.4.1",
@@ -165,7 +165,7 @@ defineFeature(feature, test => {
             Main.generateExtension(
               (
                 {
-                  // name: "second-extension",
+                  name: "second-extension",
                   protocol: {
                     name: "second-extension-protocol",
                     version: "0.5.2",
@@ -196,7 +196,7 @@ defineFeature(feature, test => {
             Main.generateContribute(
               (
                 {
-                  // name: "first-contribute",
+                  name: "first-contribute",
                   protocol: {
                     name: "first-contribute-protocol",
                     version: "0.5.3",
@@ -255,7 +255,7 @@ defineFeature(feature, test => {
               [
                 (
                   {
-                    // name: "first-new-extension",
+                    name: "first-new-extension",
                     protocolName: "first-extension-protocol",
                     type_: Default,
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -270,7 +270,7 @@ defineFeature(feature, test => {
                 ),
                 (
                   {
-                    // name: "second-extension",
+                    name: "second-extension",
                     protocolName: "second-extension-protocol",
                     type_: Entry,
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -284,7 +284,7 @@ defineFeature(feature, test => {
               [
                 (
                   {
-                    // name: "first-new-contribute",
+                    name: "first-new-contribute",
                     protocolName: "first-contribute-protocol",
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                     dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -328,7 +328,7 @@ defineFeature(feature, test => {
           Main.generateExtension(
             (
               {
-                // name: "first-extension",
+                name: "first-extension",
                 protocol: {
                   name: "first-extension-protocol",
                   version: "0.4.1",
@@ -360,7 +360,7 @@ defineFeature(feature, test => {
           Main.generateExtension(
             (
               {
-                // name: "second-extension",
+                name: "second-extension",
                 protocol: {
                   name: "second-extension-protocol",
                   version: "0.5.2",
@@ -389,7 +389,7 @@ defineFeature(feature, test => {
           Main.generateContribute(
             (
               {
-                // name: "first-contribute",
+                name: "first-contribute",
                 protocol: {
                   name: "first-contribute-protocol",
                   version: "0.5.3",
@@ -496,7 +496,7 @@ defineFeature(feature, test => {
         Main.generateExtension(
           (
             {
-              // name: "first-extension",
+              name: "first-extension",
               protocol: {
                 name: "first-extension-protocol",
                 version: "0.4.1",
@@ -511,7 +511,7 @@ defineFeature(feature, test => {
         Main.generateExtension(
           (
             {
-              // name: "second-extension",
+              name: "second-extension",
               protocol: {
                 name: "second-extension-protocol",
                 version: "0.5.2",

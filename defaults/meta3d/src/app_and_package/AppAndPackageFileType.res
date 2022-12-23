@@ -20,6 +20,7 @@ type extensionType =
   | Entry
 
 type extensionPackageData = {
+  name: extensionName,
   protocolName: extensionProtocolName,
   type_: extensionType,
   dependentExtensionNameMap: dependentExtensionNameMap,
@@ -45,6 +46,7 @@ type extensionFileData = {
 }
 
 type contributePackageData = {
+  name: contributeName,
   protocolName: contributeProtocolName,
   dependentExtensionNameMap: dependentExtensionNameMap,
   dependentContributeNameMap: dependentContributeNameMap,

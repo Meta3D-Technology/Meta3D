@@ -57,6 +57,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 Curry._2(given, "generate two extensions that version not match", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -68,6 +69,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
                             }, AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnStart(1));
                         secondExtension.contents = Main$Meta3d.generateExtension({
+                              name: "second-extension",
                               protocol: {
                                 name: "second-extension-protocol",
                                 version: "1.0.2"
@@ -126,6 +128,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 Curry._2(given, "generate one extension", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -139,6 +142,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate one contribute that version not match", (function (param) {
                         firstContribute.contents = Main$Meta3d.generateContribute({
+                              name: "first-contribute",
                               protocol: {
                                 name: "first-contribute-protocol",
                                 version: ">=0.1.0 < 0.5.0"
@@ -186,6 +190,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 Curry._2(given, "generate one extension", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -252,6 +257,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 Curry._2(given, "generate one extension", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -268,6 +274,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate one contribute that version match", (function (param) {
                         firstContribute.contents = Main$Meta3d.generateContribute({
+                              name: "first-contribute",
                               protocol: {
                                 name: "first-contribute-protocol",
                                 version: "^0.3.0"
@@ -342,6 +349,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(given);
                 Curry._2(given, "generate two extensions that the seond is started", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -356,6 +364,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                   })
                             }, AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnStart(1));
                         secondExtension.contents = Main$Meta3d.generateExtension({
+                              name: "second-extension",
                               protocol: {
                                 name: "second-extension-protocol",
                                 version: "0.5.2"
@@ -373,6 +382,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate one contribute", (function (param) {
                         firstContribute.contents = Main$Meta3d.generateContribute({
+                              name: "first-contribute",
                               protocol: {
                                 name: "first-contribute-protocol",
                                 version: "0.5.3"
@@ -420,12 +430,14 @@ JestCucumber.defineFeature(feature, (function (test) {
                                 ]), [
                               [
                                 {
+                                  name: "first-new-extension",
                                   protocolName: "first-extension-protocol",
                                   type_: /* Default */0,
                                   dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.set(ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), "second-extension", "second-extension"),
                                   dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.set(ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), "first-contribute", "first-new-contribute")
                                 },
                                 {
+                                  name: "second-extension",
                                   protocolName: "second-extension-protocol",
                                   type_: /* Start */1,
                                   dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.set(ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), "first-package-entry-extension", "first-package-entry-extension"),
@@ -433,6 +445,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                 }
                               ],
                               [{
+                                  name: "first-new-contribute",
                                   protocolName: "first-contribute-protocol",
                                   dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
                                   dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
@@ -485,6 +498,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(given, "generate two extensions", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -502,6 +516,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                                   })
                             }, AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnStart(1));
                         secondExtension.contents = Main$Meta3d.generateExtension({
+                              name: "second-extension",
                               protocol: {
                                 name: "second-extension-protocol",
                                 version: "0.5.2"
@@ -515,6 +530,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate one contribute", (function (param) {
                         firstContribute.contents = Main$Meta3d.generateContribute({
+                              name: "first-contribute",
                               protocol: {
                                 name: "first-contribute-protocol",
                                 version: "0.5.3"
@@ -525,6 +541,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate one package as p1 with one extension and one contribute", (function (param) {
                         var extension = Main$Meta3d.generateExtension({
+                              name: "package-first-extension",
                               protocol: {
                                 name: "package-first-extension-protocol",
                                 version: "0.4.1"
@@ -533,6 +550,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
                             }, AppManagerTool$Meta3d.buildEmptyExtensionFileStr(undefined));
                         var contribute = Main$Meta3d.generateContribute({
+                              name: "package-first-contribute",
                               protocol: {
                                 name: "package-first-contribute-protocol",
                                 version: "0.5.3"
@@ -660,6 +678,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "generate two extensions", (function (param) {
                         firstExtension.contents = Main$Meta3d.generateExtension({
+                              name: "first-extension",
                               protocol: {
                                 name: "first-extension-protocol",
                                 version: "0.4.1"
@@ -668,6 +687,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                               dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
                             }, AppManagerTool$Meta3d.buildEmptyExtensionFileStrWithOnStart(1));
                         secondExtension.contents = Main$Meta3d.generateExtension({
+                              name: "second-extension",
                               protocol: {
                                 name: "second-extension-protocol",
                                 version: "0.5.2"
@@ -715,6 +735,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 }));
           Curry._2(given, "generate two extensions", (function (param) {
                   firstExtension.contents = Main$Meta3d.generateExtension({
+                        name: "first-extension",
                         protocol: {
                           name: "first-extension-protocol",
                           version: "0.4.1"
@@ -723,6 +744,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
                       }, Curry._1(buildEmptyExtensionFileStrWithLifeHandle, 1));
                   secondExtension.contents = Main$Meta3d.generateExtension({
+                        name: "second-extension",
                         protocol: {
                           name: "second-extension-protocol",
                           version: "0.5.2"

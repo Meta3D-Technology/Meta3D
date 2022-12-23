@@ -125,7 +125,7 @@ let convertAllFileData = (
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              // name: newName,
+              name: newName,
               protocolName: extensionPackageData.protocol.name,
               type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
                 ? Start
@@ -152,7 +152,7 @@ let convertAllFileData = (
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              // name: newName,
+              name: newName,
               protocolName: contributePackageData.protocol.name,
               dependentExtensionNameMap: _convertDependentMap(
                 contributePackageData.dependentExtensionNameMap,
