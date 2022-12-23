@@ -16,7 +16,7 @@ defineFeature(feature, test => {
     let newMeta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(12))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let label = ref(Obj.magic(1))
     let imguiRendererService = ref(Obj.magic(1))
     let imguiRendererState1 = Obj.magic(12)
@@ -63,7 +63,7 @@ defineFeature(feature, test => {
       newMeta3dState :=
         MainTool.beginWindow(
           ~sandbox,
-          ~imguiRendererExtensionName,
+          ~imguiRendererExtensionProtocolName,
           ~getExtensionService=getExtensionServiceStub.contents,
           ~getExtensionState=getExtensionStateStub.contents,
           ~setExtensionState=setExtensionStateStub.contents,
@@ -76,10 +76,10 @@ defineFeature(feature, test => {
     then("invoke imgui renderer's beginWindow", () => {
       (
         getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         beginWindowStub.contents
         ->getCall(0, _)
@@ -91,7 +91,7 @@ defineFeature(feature, test => {
       (
         setExtensionStateStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionName, imguiRendererState2),
+        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionProtocolName, imguiRendererState2),
         newMeta3dState.contents,
       )->expect == (true, meta3dState2)
     })

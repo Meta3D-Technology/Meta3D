@@ -10,7 +10,7 @@ let init = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~isInitEvent=true,
   ~isDebug=false,
   ~meta3dState=Obj.magic(1),
@@ -31,7 +31,7 @@ let init = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
     isInitEvent,
     isDebug,
@@ -46,7 +46,7 @@ let clear = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
@@ -64,7 +64,7 @@ let clear = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
     clearColor,
   )
@@ -96,8 +96,8 @@ let render = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~uiExtensionName="uiExtensionName",
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~uiExtensionProtocolName="uiExtensionProtocolName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   ~time=0.,
   // ~ioData=buildIOData(),
@@ -116,7 +116,7 @@ let render = (
       }: Meta3dType.Index.api
     ),
     meta3dState,
-    (uiExtensionName, imguiRendererExtensionName),
+    (uiExtensionProtocolName, imguiRendererExtensionProtocolName),
     time,
   )
 }
@@ -135,11 +135,11 @@ let registerElement = (
     state,
     (
       {
-        elementName: elementName,
-        execOrder: execOrder,
-        elementFunc: elementFunc,
-        elementState: elementState,
-        reducers: reducers,
+        elementName,
+        execOrder,
+        elementFunc,
+        elementState,
+        reducers,
       }: Meta3dUiProtocol.ElementContributeType.elementContribute<
         Meta3dUiProtocol.StateType.elementState,
       >
@@ -168,7 +168,7 @@ let beginWindow = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
@@ -186,7 +186,7 @@ let beginWindow = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
     label,
   )
@@ -198,7 +198,7 @@ let endWindow = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
@@ -216,7 +216,7 @@ let endWindow = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
   )
 }
@@ -228,7 +228,7 @@ let setNextWindowRect = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
@@ -246,7 +246,7 @@ let setNextWindowRect = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
     rect,
   )
@@ -260,7 +260,7 @@ let button = (
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~imguiRendererExtensionName="imguiRendererExtensionName",
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
 ) => {
@@ -278,7 +278,7 @@ let button = (
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         }: Meta3dType.Index.api
       ),
-      imguiRendererExtensionName,
+      imguiRendererExtensionProtocolName,
     ),
     label,
     size,
@@ -290,8 +290,8 @@ let registerUIControl = (~uiControlName, ~func, ~state=createState(), ()) => {
     state,
     (
       {
-        uiControlName: uiControlName,
-        func: func,
+        uiControlName,
+        func,
       }: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
         Meta3dUiProtocol.StateType.inputData,
         Meta3dUiProtocol.StateType.outputData,
@@ -306,8 +306,8 @@ let buildSkinContribute = (skinName, skin): Meta3dUiProtocol.SkinContributeType.
   Meta3dUiProtocol.StateType.skin,
 > => {
   {
-    skinName: skinName,
-    skin: skin,
+    skinName,
+    skin,
   }
 }
 
@@ -315,7 +315,7 @@ let registerSkin = (~skinName, ~skin, ~state=createState(), ()) => {
   UIManager.registerSkin(state, buildSkinContribute(skinName, skin))
 }
 
-let getSkin= UIManager.getSkin
+let getSkin = UIManager.getSkin
 
 let dispatch = UIManager.dispatch
 

@@ -21,7 +21,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 var newMeta3dState = {
                   contents: 12
                 };
-                var imguiRendererExtensionName = "imguiRendererExtensionName";
+                var imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName";
                 var clearColor = [
                   1,
                   0.1,
@@ -53,12 +53,12 @@ JestCucumber.defineFeature(feature, (function (test) {
                         getExtensionStateStub.contents = Sinon.returns(12, Sinon.createEmptyStub(sandbox.contents));
                       }));
                 Curry._2(param.when, "clear", (function (param) {
-                        newMeta3dState.contents = MainTool$Meta3dUi.clear(sandbox, clearColor, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, imguiRendererExtensionName, 22, undefined);
+                        newMeta3dState.contents = MainTool$Meta3dUi.clear(sandbox, clearColor, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "clear imgui renderer", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
-                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionStateStub.contents)),
-                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionServiceStub.contents)),
+                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionStateStub.contents)),
+                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionServiceStub.contents)),
                                   SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, clearStub.contents), 12, clearColor)
                                 ]), [
                               1,

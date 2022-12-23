@@ -219,20 +219,20 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
 let _invokeIMGUIRenderFunc = (
   meta3dState,
   invokeFunc,
-  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  (api: Meta3dType.Index.api, imguiRendererExtensionProtocolName),
 ) => {
-  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionProtocolName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    imguiRendererExtensionName,
+    imguiRendererExtensionProtocolName,
   )
 
   let imguiRendererState = invokeFunc(imguiRendererState, imguiRendererService)
 
   let meta3dState = api.setExtensionState(.
     meta3dState,
-    imguiRendererExtensionName,
+    imguiRendererExtensionProtocolName,
     imguiRendererState,
   )
 
@@ -242,20 +242,20 @@ let _invokeIMGUIRenderFunc = (
 let _invokeIMGUIRenderFuncWithParam = (
   meta3dState,
   invokeFunc,
-  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  (api: Meta3dType.Index.api, imguiRendererExtensionProtocolName),
 ) => {
-  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionProtocolName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    imguiRendererExtensionName,
+    imguiRendererExtensionProtocolName,
   )
 
   let (imguiRendererState, param) = invokeFunc(imguiRendererState, imguiRendererService)
 
   let meta3dState = api.setExtensionState(.
     meta3dState,
-    imguiRendererExtensionName,
+    imguiRendererExtensionProtocolName,
     imguiRendererState,
   )
 
@@ -265,33 +265,33 @@ let _invokeIMGUIRenderFuncWithParam = (
 let render = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  (uiExtensionName, imguiRendererExtensionName),
+  (uiExtensionProtocolName, imguiRendererExtensionProtocolName),
   time,
 ) => {
   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
     meta3dState,
-    uiExtensionName,
+    uiExtensionProtocolName,
   )
 
-  let meta3dState = api.setExtensionState(. meta3dState, uiExtensionName, state)
+  let meta3dState = api.setExtensionState(. meta3dState, uiExtensionProtocolName, state)
 
   let meta3dState = _invokeIMGUIRenderFunc(
     meta3dState,
     (imguiRendererState, imguiRendererService) =>
       imguiRendererService.beforeExec(. imguiRendererState, time),
-    (api, imguiRendererExtensionName),
+    (api, imguiRendererExtensionProtocolName),
   )
 
   _exec(meta3dState, state)
   ->Meta3dCommonlib.PromiseSt.map(((meta3dState, needMarkStateNotChangeIds)) => {
     let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
       meta3dState,
-      uiExtensionName,
+      uiExtensionProtocolName,
     )
 
     let state = state->_markAllStateNotChange(needMarkStateNotChangeIds)
 
-    api.setExtensionState(. meta3dState, uiExtensionName, state)
+    api.setExtensionState(. meta3dState, uiExtensionProtocolName, state)
   })
   ->Meta3dCommonlib.PromiseSt.map(meta3dState => {
     _invokeIMGUIRenderFunc(
@@ -299,7 +299,7 @@ let render = (
       (imguiRendererState, imguiRendererService) => {
         imguiRendererService.afterExec(. imguiRendererState)->imguiRendererService.render(. _)
       },
-      (api, imguiRendererExtensionName),
+      (api, imguiRendererExtensionProtocolName),
     )
   })
 }
@@ -429,11 +429,7 @@ let endWindow = (meta3dState, data) => {
   )
 }
 
-let setNextWindowRect = (
-  meta3dState,
-  data,
-  rect: Meta3dImguiRendererProtocol.ServiceType.rect,
-) => {
+let setNextWindowRect = (meta3dState, data, rect: Meta3dImguiRendererProtocol.ServiceType.rect) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
     (imguiRendererState, imguiRendererService) =>
@@ -460,18 +456,28 @@ let setCursorPos = (meta3dState, data, pos) => {
   )
 }
 
+let clear = (meta3dState, data, clearColor) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.clear(. imguiRendererState, clearColor)->Obj.magic
+    },
+    data,
+  )
+}
+
 let init = (
   meta3dState,
-  (api: Meta3dType.Index.api, imguiRendererExtensionName),
+  (api: Meta3dType.Index.api, imguiRendererExtensionProtocolName),
   isInitEvent,
   isDebug,
   canvas,
 ) => {
-  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionName)
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionProtocolName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    imguiRendererExtensionName,
+    imguiRendererExtensionProtocolName,
   )
 
   imguiRendererService.init(.
@@ -480,15 +486,6 @@ let init = (
     isDebug,
     canvas,
   )->Meta3dCommonlib.PromiseSt.map(imguiRendererState => {
-    api.setExtensionState(. meta3dState, imguiRendererExtensionName, imguiRendererState)
+    api.setExtensionState(. meta3dState, imguiRendererExtensionProtocolName, imguiRendererState)
   })
-}
-
-let clear = (meta3dState, data, clearColor) => {
-  _invokeIMGUIRenderFunc(
-    meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.clear(. imguiRendererState, clearColor),
-    data,
-  )
 }

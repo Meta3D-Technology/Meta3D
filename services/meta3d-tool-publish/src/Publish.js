@@ -65,7 +65,6 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
             }
             _defineWindow();
             let packageData = _convertToExtensionOrContributePackageData(packageJson);
-            console.log(packageData, readFileSyncFunc(distFilePath, "utf-8"));
             let filePath = _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer";
             // TODO perf: only invoke getShopImplementAccountDataFunc once
             return (0, most_1.fromPromise)(getShopImplementAccountDataFunc(backendInstance, parseShopCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([shopImplementAccountData, _]) => {

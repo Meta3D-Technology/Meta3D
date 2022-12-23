@@ -190,7 +190,7 @@ generateExtension
 
 fix backend, services -> service.meta3d->extension/contribute name to protocol name
 
-** TODO pass run test: element use two packages(package2 use package1)
+** DONE pass run test: element use two packages(package2 use package1)
 
 
 ** TODO remove newName

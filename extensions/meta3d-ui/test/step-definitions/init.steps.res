@@ -16,7 +16,7 @@ defineFeature(feature, test => {
     let newMeta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(12))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let isInitEvent = false
     let isDebug = true
     let canvas = Obj.magic(5)
@@ -65,7 +65,7 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(\"when", "init", () => {
       MainTool.init(
         ~sandbox,
-        ~imguiRendererExtensionName,
+        ~imguiRendererExtensionProtocolName,
         ~getExtensionService=getExtensionServiceStub.contents,
         ~getExtensionState=getExtensionStateStub.contents,
         ~setExtensionState=setExtensionStateStub.contents,
@@ -84,10 +84,10 @@ defineFeature(feature, test => {
     then("init imgui renderer", () => {
       (
         getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         initStub.contents
         ->getCall(0, _)
@@ -99,7 +99,7 @@ defineFeature(feature, test => {
       (
         setExtensionStateStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionName, imguiRendererState2),
+        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionProtocolName, imguiRendererState2),
         newMeta3dState.contents,
       )->expect == (true, meta3dState2)
     })

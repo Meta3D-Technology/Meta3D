@@ -164,21 +164,21 @@ function _exec(meta3dState, state) {
 }
 
 function _invokeIMGUIRenderFunc(meta3dState, invokeFunc, param) {
-  var imguiRendererExtensionName = param[1];
+  var imguiRendererExtensionProtocolName = param[1];
   var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
   var imguiRendererState$1 = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
-  return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState$1);
+  return api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, imguiRendererState$1);
 }
 
 function _invokeIMGUIRenderFuncWithParam(meta3dState, invokeFunc, param) {
-  var imguiRendererExtensionName = param[1];
+  var imguiRendererExtensionProtocolName = param[1];
   var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
   var match = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
-  var meta3dState$1 = api.setExtensionState(meta3dState, imguiRendererExtensionName, match[0]);
+  var meta3dState$1 = api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, match[0]);
   return [
           meta3dState$1,
           match[1]
@@ -186,28 +186,28 @@ function _invokeIMGUIRenderFuncWithParam(meta3dState, invokeFunc, param) {
 }
 
 function render(api, meta3dState, param, time) {
-  var imguiRendererExtensionName = param[1];
-  var uiExtensionName = param[0];
-  var state = api.getExtensionState(meta3dState, uiExtensionName);
-  var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionName, state);
+  var imguiRendererExtensionProtocolName = param[1];
+  var uiExtensionProtocolName = param[0];
+  var state = api.getExtensionState(meta3dState, uiExtensionProtocolName);
+  var meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionProtocolName, state);
   var meta3dState$2 = _invokeIMGUIRenderFunc(meta3dState$1, (function (imguiRendererState, imguiRendererService) {
           return imguiRendererService.beforeExec(imguiRendererState, time);
         }), [
         api,
-        imguiRendererExtensionName
+        imguiRendererExtensionProtocolName
       ]);
   return PromiseSt$Meta3dCommonlib.map(PromiseSt$Meta3dCommonlib.map(_exec(meta3dState$2, state), (function (param) {
                     var meta3dState = param[0];
-                    var state = api.getExtensionState(meta3dState, uiExtensionName);
+                    var state = api.getExtensionState(meta3dState, uiExtensionProtocolName);
                     var state$1 = _markAllStateNotChange(state, param[1]);
-                    return api.setExtensionState(meta3dState, uiExtensionName, state$1);
+                    return api.setExtensionState(meta3dState, uiExtensionProtocolName, state$1);
                   })), (function (meta3dState) {
                 return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                               var __x = imguiRendererService.afterExec(imguiRendererState);
                               return imguiRendererService.render(__x);
                             }), [
                             api,
-                            imguiRendererExtensionName
+                            imguiRendererExtensionProtocolName
                           ]);
               }));
 }
@@ -322,20 +322,20 @@ function setCursorPos(meta3dState, data, pos) {
               }), data);
 }
 
-function init(meta3dState, param, isInitEvent, isDebug, canvas) {
-  var imguiRendererExtensionName = param[1];
-  var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionName);
-  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isInitEvent, isDebug, canvas), (function (imguiRendererState) {
-                return api.setExtensionState(meta3dState, imguiRendererExtensionName, imguiRendererState);
-              }));
-}
-
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                imguiRendererService.clear(imguiRendererState, clearColor);
+                return imguiRendererService.clear(imguiRendererState, clearColor);
               }), data);
+}
+
+function init(meta3dState, param, isInitEvent, isDebug, canvas) {
+  var imguiRendererExtensionProtocolName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
+  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isInitEvent, isDebug, canvas), (function (imguiRendererState) {
+                return api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, imguiRendererState);
+              }));
 }
 
 export {
@@ -369,7 +369,7 @@ export {
   setNextWindowRect ,
   button ,
   setCursorPos ,
-  init ,
   clear ,
+  init ,
 }
 /* No side effect */

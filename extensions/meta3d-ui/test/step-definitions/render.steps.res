@@ -23,7 +23,7 @@ defineFeature(feature, test => {
   //   let state: ref<Meta3dUiProtocol.StateType.state> = ref(Obj.magic(1))
   //   let meta3dstate: Meta3dType.Index.state = Obj.magic(22)
   //   let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-  //   let uiExtensionName = "uiExtensionName"
+  //   let uiExtensionProtocolName = "uiExtensionProtocolName"
   //   // let isDebug = true
   //   // let canvas = Obj.magic(5)
   //   // let imguiRendererService = ref(Obj.magic(1))
@@ -55,7 +55,7 @@ defineFeature(feature, test => {
   //   CucumberAsync.execStep(\"when", "render", () => {
   //     MainTool.render(
   //       ~sandbox,
-  //       ~uiExtensionName,
+  //       ~uiExtensionProtocolName,
   //       ~getExtensionState=getExtensionStateStub.contents,
   //       ~setExtensionState=setExtensionStateStub.contents,
   //       ~meta3dState=meta3dstate,
@@ -68,7 +68,7 @@ defineFeature(feature, test => {
   //     setExtensionStateStub.contents->getCall(0, _)->getArgs->expect ==
   //       list{
   //         meta3dstate,
-  //         uiExtensionName->Obj.magic,
+  //         uiExtensionProtocolName->Obj.magic,
   //         (
   //           {
   //             ...state.contents,
@@ -85,7 +85,7 @@ defineFeature(feature, test => {
     let elementName1 = "e1"
     // let meta3dstate: Meta3dType.Index.state = Obj.magic(22)
     // let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    // let uiExtensionName = "uiExtensionName"
+    // let uiExtensionProtocolName = "uiExtensionProtocolName"
     // let isDebug = true
     // let canvas = Obj.magic(5)
     // let imguiRendererService = ref(Obj.magic(1))
@@ -128,7 +128,7 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(\"when", "render", () => {
       MainTool.render(
         ~sandbox,
-        // ~uiExtensionName,
+        // ~uiExtensionProtocolName,
         ~getExtensionState=getExtensionStateStub.contents,
         // ~setExtensionState=setExtensionStateStub.contents,
         // ~meta3dState=meta3dstate,
@@ -148,7 +148,7 @@ defineFeature(feature, test => {
       let elementName1 = "e1"
       let elementName2 = "e2"
       let time = 10.0
-      // let uiExtensionName = "uiExtensionName"
+      // let uiExtensionProtocolName = "uiExtensionProtocolName"
       // let isDebug = true
       // let canvas = Obj.magic(5)
       let imguiRendererService = ref(Obj.magic(1))
@@ -253,7 +253,7 @@ defineFeature(feature, test => {
       CucumberAsync.execStep(\"when", "render", () => {
         MainTool.render(
           ~sandbox,
-          // ~uiExtensionName,
+          // ~uiExtensionProtocolName,
           ~getExtensionService=getExtensionServiceStub.contents,
           ~getExtensionState=getExtensionStateStub.contents,
           ~setExtensionState=setExtensionStateStub.contents,
@@ -310,7 +310,7 @@ defineFeature(feature, test => {
     let state: ref<Meta3dUiProtocol.StateType.state> = ref(Obj.magic(1))
     // let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     // let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let imguiRendererService = ref(Obj.magic(1))
     // let imguiRendererState1 = Obj.magic(12)
     // let imguiRendererState2 = Obj.magic(13)
@@ -348,7 +348,7 @@ defineFeature(feature, test => {
     CucumberAsync.execStep(\"when", "render", () => {
       MainTool.render(
         ~sandbox,
-        ~imguiRendererExtensionName,
+        ~imguiRendererExtensionProtocolName,
         ~getExtensionService=getExtensionServiceStub.contents,
         ~getExtensionState=getExtensionStateStub.contents,
         ~setExtensionState=setExtensionStateStub.contents,
@@ -364,10 +364,10 @@ defineFeature(feature, test => {
     then("render imgui renderer", () => {
       (
         getExtensionStateStub.contents
-        ->withTwoArgs(matchAny, imguiRendererExtensionName, _)
+        ->withTwoArgs(matchAny, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         getExtensionServiceStub.contents
-        ->withTwoArgs(matchAny, imguiRendererExtensionName, _)
+        ->withTwoArgs(matchAny, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         renderStub.contents->getCallCount,
       )->expect == (2, 2, 1)
@@ -376,7 +376,7 @@ defineFeature(feature, test => {
     \"and"("update imgui renderer state", () => {
       setExtensionStateStub.contents
       ->getCall(3, _)
-      ->SinonTool.calledWithArg3(matchAny, imguiRendererExtensionName, matchAny)
+      ->SinonTool.calledWithArg3(matchAny, imguiRendererExtensionProtocolName, matchAny)
       ->expect == true
     })
   })

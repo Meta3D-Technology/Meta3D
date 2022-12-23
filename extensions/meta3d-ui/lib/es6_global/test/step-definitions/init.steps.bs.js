@@ -23,7 +23,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 var newMeta3dState = {
                   contents: 12
                 };
-                var imguiRendererExtensionName = "imguiRendererExtensionName";
+                var imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName";
                 var imguiRendererService = {
                   contents: 1
                 };
@@ -59,7 +59,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         
                       }));
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "init", (function (param) {
-                        var __x = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionName, false, true, 22, 5, undefined);
+                        var __x = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionProtocolName, false, true, 22, 5, undefined);
                         return Js_promise.then_((function (meta3dState) {
                                       newMeta3dState.contents = meta3dState;
                                       return Promise.resolve(undefined);
@@ -67,8 +67,8 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(param.then, "init imgui renderer", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
-                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionStateStub.contents)),
-                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionName, getExtensionServiceStub.contents)),
+                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionStateStub.contents)),
+                                  Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionServiceStub.contents)),
                                   SinonTool$Meta3dUi.calledWithArg4(Sinon.getCall(0, initStub.contents), 12, false, true, 5)
                                 ]), [
                               1,
@@ -78,7 +78,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "update imgui renderer state", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
-                                  SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, setExtensionStateStub.contents), 22, imguiRendererExtensionName, 13),
+                                  SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, setExtensionStateStub.contents), 22, imguiRendererExtensionProtocolName, 13),
                                   newMeta3dState.contents
                                 ]), [
                               true,

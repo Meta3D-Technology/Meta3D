@@ -17,7 +17,7 @@ defineFeature(feature, test => {
     let isClick = ref(Obj.magic(1))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let label = ref(Obj.magic(1))
     let size = ref(Obj.magic(1))
     let imguiRendererService = ref(Obj.magic(1))
@@ -64,7 +64,7 @@ defineFeature(feature, test => {
     \"when"("button", () => {
       let (meta3dState, isClick_) = MainTool.button(
         ~sandbox,
-        ~imguiRendererExtensionName,
+        ~imguiRendererExtensionProtocolName,
         ~getExtensionService=getExtensionServiceStub.contents,
         ~getExtensionState=getExtensionStateStub.contents,
         ~setExtensionState=setExtensionStateStub.contents,
@@ -81,10 +81,10 @@ defineFeature(feature, test => {
     then("invoke imgui renderer's button", () => {
       (
         getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         buttonStub.contents
         ->getCall(0, _)
@@ -96,7 +96,7 @@ defineFeature(feature, test => {
       (
         setExtensionStateStub.contents
         ->getCall(0, _)
-        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionName, imguiRendererState2),
+        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionProtocolName, imguiRendererState2),
         newMeta3dState.contents,
       )->expect == (true, meta3dState2)
     })

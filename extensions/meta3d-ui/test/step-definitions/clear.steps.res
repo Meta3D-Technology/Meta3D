@@ -16,7 +16,7 @@ defineFeature(feature, test => {
     let newMeta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(12))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
-    let imguiRendererExtensionName = "imguiRendererExtensionName"
+    let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let clearColor = (1., 0.1, 0.2, 0.3)
     let imguiRendererService = ref(Obj.magic(1))
     let imguiRendererState1 = Obj.magic(12)
@@ -52,7 +52,7 @@ defineFeature(feature, test => {
       newMeta3dState :=
         MainTool.clear(
           ~sandbox,
-          ~imguiRendererExtensionName,
+          ~imguiRendererExtensionProtocolName,
           ~getExtensionService=getExtensionServiceStub.contents,
           ~getExtensionState=getExtensionStateStub.contents,
           ~meta3dState=meta3dState1,
@@ -64,10 +64,10 @@ defineFeature(feature, test => {
     then("clear imgui renderer", () => {
       (
         getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionName, _)
+        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
         ->getCallCount,
         clearStub.contents
         ->getCall(0, _)

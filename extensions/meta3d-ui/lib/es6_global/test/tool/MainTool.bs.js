@@ -10,11 +10,11 @@ function createState(param) {
   return Main$Meta3dUi.createExtensionState(undefined);
 }
 
-function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, isInitEventOpt, isDebugOpt, meta3dStateOpt, canvasOpt, param) {
+function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, isInitEventOpt, isDebugOpt, meta3dStateOpt, canvasOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var isInitEvent = isInitEventOpt !== undefined ? isInitEventOpt : true;
   var isDebug = isDebugOpt !== undefined ? isDebugOpt : false;
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
@@ -29,15 +29,15 @@ function init(sandbox, getExtensionService, getAllContributesByTypeOpt, getExten
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ], isInitEvent, isDebug, canvas);
 }
 
-function clear(sandbox, clearColor, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+function clear(sandbox, clearColor, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   return UIManager$Meta3dUi.clear(meta3dState, [
               {
@@ -49,11 +49,11 @@ function clear(sandbox, clearColor, getExtensionService, getAllContributesByType
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ], clearColor);
 }
 
-function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, uiExtensionNameOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, timeOpt, param) {
+function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, uiExtensionProtocolNameOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, timeOpt, param) {
   var getExtensionService;
   if (getExtensionServiceOpt !== undefined) {
     getExtensionService = Caml_option.valFromOption(getExtensionServiceOpt);
@@ -64,8 +64,8 @@ function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, get
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var uiExtensionName = uiExtensionNameOpt !== undefined ? uiExtensionNameOpt : "uiExtensionName";
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var uiExtensionProtocolName = uiExtensionProtocolNameOpt !== undefined ? uiExtensionProtocolNameOpt : "uiExtensionProtocolName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   var time = timeOpt !== undefined ? timeOpt : 0;
   return UIManager$Meta3dUi.render({
@@ -77,8 +77,8 @@ function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, get
               getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
               getAllContributesByType: getAllContributesByType
             }, meta3dState, [
-              uiExtensionName,
-              imguiRendererExtensionName
+              uiExtensionProtocolName,
+              imguiRendererExtensionProtocolName
             ], time);
 }
 
@@ -102,11 +102,11 @@ var show = UIManager$Meta3dUi.show;
 
 var hide = UIManager$Meta3dUi.hide;
 
-function beginWindow(sandbox, label, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+function beginWindow(sandbox, label, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   return UIManager$Meta3dUi.beginWindow(meta3dState, [
               {
@@ -118,15 +118,15 @@ function beginWindow(sandbox, label, getExtensionService, getAllContributesByTyp
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ], label);
 }
 
-function endWindow(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+function endWindow(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   return UIManager$Meta3dUi.endWindow(meta3dState, [
               {
@@ -138,15 +138,15 @@ function endWindow(sandbox, getExtensionService, getAllContributesByTypeOpt, get
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ]);
 }
 
-function setNextWindowRect(sandbox, rect, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+function setNextWindowRect(sandbox, rect, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   return UIManager$Meta3dUi.setNextWindowRect(meta3dState, [
               {
@@ -158,15 +158,15 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getAllContributes
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ], rect);
 }
 
-function button(sandbox, label, size, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionNameOpt, meta3dStateOpt, param) {
+function button(sandbox, label, size, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
-  var imguiRendererExtensionName = imguiRendererExtensionNameOpt !== undefined ? imguiRendererExtensionNameOpt : "imguiRendererExtensionName";
+  var imguiRendererExtensionProtocolName = imguiRendererExtensionProtocolNameOpt !== undefined ? imguiRendererExtensionProtocolNameOpt : "imguiRendererExtensionProtocolName";
   var meta3dState = meta3dStateOpt !== undefined ? meta3dStateOpt : 1;
   return UIManager$Meta3dUi.button(meta3dState, [
               {
@@ -178,7 +178,7 @@ function button(sandbox, label, size, getExtensionService, getAllContributesByTy
                 getContribute: Sinon.createEmptyStubWithJsObjSandbox(sandbox),
                 getAllContributesByType: getAllContributesByType
               },
-              imguiRendererExtensionName
+              imguiRendererExtensionProtocolName
             ], label, size);
 }
 
