@@ -198,6 +198,20 @@ fix backend, services -> service.meta3d->extension/contribute name to protocol n
 PacakgeAssemble remove newName,
 ...
 
+# pass meta3d
+
+
+pass assemble
+
+
+pass front
+
+
+pass backend
+
+
+pass service
+
 
 ** TODO refactor: remove entryExtensionName
 

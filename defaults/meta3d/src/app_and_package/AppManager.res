@@ -26,7 +26,8 @@ let _convertDependentMap = (dependentMap, allDataMap) => {
   ->Meta3dCommonlib.ImmutableHashMap.entries
   ->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. map, (dependentNameKey, dependentData: ExtensionFileType.dependentData)) => {
-      let (newName, protocolVersion) = switch allDataMap->Meta3dCommonlib.ImmutableHashMap.get(
+      // let (newName, protocolVersion) = switch allDataMap->Meta3dCommonlib.ImmutableHashMap.get(
+      let protocolVersion = switch allDataMap->Meta3dCommonlib.ImmutableHashMap.get(
         dependentData.protocolName,
       ) {
       | None =>
@@ -62,13 +63,8 @@ let convertAllFileData = (
     // TODO refactor: remove entryExtensionName
     Meta3dType.Index.extensionName,
   )>,
-  (
-    // TODO remove
-    allExtensionNewNames: array<Meta3dType.Index.extensionName>,
-    // TODO change to startExtensionProtocolNames
-    startExtensionNames: array<Meta3dType.Index.extensionName>,
-    allContributeNewNames: array<Meta3dType.Index.contributeName>,
-  ),
+  // TODO change to startExtensionProtocolNames
+  startExtensionNames: array<Meta3dType.Index.extensionName>,
 ) => {
   // ManagerUtils.convertAllFileData(
   //   allExtensionFileData,
@@ -84,10 +80,8 @@ let convertAllFileData = (
       (. result, {extensionPackageData}: ExtensionFileType.extensionFileData, i) => {
         result->Meta3dCommonlib.ImmutableHashMap.set(
           extensionPackageData.protocol.name,
-          (
-            allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i),
-            extensionPackageData.protocol.version,
-          ),
+          // allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i),
+          extensionPackageData.protocol.version,
         )
       },
       Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -95,10 +89,7 @@ let convertAllFileData = (
   let allExtensionDataMap =
     allPackageEntryExtensionProtocolData->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. allExtensionDataMap, ({name, version}, entryExtensionName)) => {
-        allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.set(
-          name,
-          (entryExtensionName, version),
-        )
+        allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.set(name, version)
       },
       allExtensionDataMap,
     )
@@ -108,10 +99,7 @@ let convertAllFileData = (
       (. result, {contributePackageData}: ExtensionFileType.contributeFileData, i) => {
         result->Meta3dCommonlib.ImmutableHashMap.set(
           contributePackageData.protocol.name,
-          (
-            allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i),
-            contributePackageData.protocol.version,
-          ),
+          contributePackageData.protocol.version,
         )
       },
       Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -120,14 +108,16 @@ let convertAllFileData = (
   (
     allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {extensionPackageData, extensionFuncData}, i) => {
-        let newName = allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i)
+        // let newName = allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i)
 
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              name: newName,
+              name: extensionPackageData.name,
               protocolName: extensionPackageData.protocol.name,
-              type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
+              type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(
+                extensionPackageData.name,
+              )
                 ? Start
                 : Default,
               dependentExtensionNameMap: _convertDependentMap(
@@ -147,12 +137,12 @@ let convertAllFileData = (
     ),
     allContributeFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {contributePackageData, contributeFuncData}, i) => {
-        let newName = allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i)
+        // let newName = allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i)
 
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              name: newName,
+              name: contributePackageData.name,
               protocolName: contributePackageData.protocol.name,
               dependentExtensionNameMap: _convertDependentMap(
                 contributePackageData.dependentExtensionNameMap,

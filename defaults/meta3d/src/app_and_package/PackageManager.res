@@ -15,12 +15,8 @@ let convertAllFileData = (
   //   ExtensionFileType.extensionProtocolData,
   //   Meta3dType.Index.extensionName,
   // )>,
-  (
-    allExtensionNewNames: array<Meta3dType.Index.extensionName>,
-    // TODO change to entryExtensionProtocolNames
-    entryExtensionNames: array<Meta3dType.Index.extensionName>,
-    allContributeNewNames: array<Meta3dType.Index.contributeName>,
-  ),
+  // TODO change to entryExtensionProtocolNames
+  entryExtensionNames: array<Meta3dType.Index.extensionName>,
 ) => {
   // ManagerUtils.convertAllFileData(
   //   allExtensionFileData,
@@ -73,17 +69,19 @@ let convertAllFileData = (
   (
     allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {extensionPackageData, extensionFuncData}, i) => {
-        let newName = allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i)
+        // let newName = allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i)
 
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              name: newName,
+              name: extensionPackageData.name,
               protocolName: extensionPackageData.protocol.name,
               // type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
               //   ? Start
               // :
-              type_: entryExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
+              type_: entryExtensionNames->Meta3dCommonlib.ArraySt.includes(
+                extensionPackageData.name,
+              )
                 ? Entry
                 : Default,
               dependentExtensionNameMap: _convertDependentMap(
@@ -103,12 +101,12 @@ let convertAllFileData = (
     ),
     allContributeFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {contributePackageData, contributeFuncData}, i) => {
-        let newName = allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i)
+        // let newName = allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i)
 
         result->Meta3dCommonlib.ArraySt.push((
           (
             {
-              name: newName,
+              name: contributePackageData.name,
               protocolName: contributePackageData.protocol.name,
               dependentExtensionNameMap: _convertDependentMap(
                 contributePackageData.dependentExtensionNameMap,
@@ -145,5 +143,9 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
 ) => {
   let (state, allExtensionDataArr) = packageBinaryFile->BinaryFileOperator.load->ManagerUtils.load
 
-  (state, allExtensionDataArr, ManagerUtils.getSpecificExtensionProtocolName(allExtensionDataArr, Entry))
+  (
+    state,
+    allExtensionDataArr,
+    ManagerUtils.getSpecificExtensionProtocolName(allExtensionDataArr, Entry),
+  )
 }

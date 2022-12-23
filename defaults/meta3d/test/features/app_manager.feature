@@ -10,7 +10,7 @@ Feature: App Manager
 
         Scenario: version not match case1
             Given generate two extensions that version not match
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then error
@@ -18,7 +18,7 @@ Feature: App Manager
         Scenario: version not match case2
             Given generate one extension
             And generate one contribute that version not match
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then error
@@ -26,7 +26,7 @@ Feature: App Manager
         Scenario: version not match case3
             Given generate one extension
             And generate one package entry extension protocol data that version not match
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then error
@@ -35,7 +35,7 @@ Feature: App Manager
             Given generate one extension
             And generate one contribute that version match
             And generate one package entry extension protocol data that version match
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then not error
@@ -44,7 +44,7 @@ Feature: App Manager
             Given generate two extensions that the seond is started
             And generate one contribute
             And generate one package entry extension protocol data
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then converted package data is correct
@@ -59,7 +59,8 @@ Feature: App Manager
             And generate one contribute
             And generate one package as p1 with one extension and one contribute
             And generate one package entry extension protocol data
-            And prepare new names and start the second extension
+            # And prepare new names and start the second extension
+            And start the second extension
             And load them and convert as c1
             And prepare config data
             When generate app with c1, p1, config data and load it and start it
@@ -80,7 +81,7 @@ Feature: App Manager
         Background: prepare for load and handle generated app
             Given prepare flag
             And generate two extensions
-            And prepare new names
+            # And prepare new names
             And load them and convert as c1
 
         Scenario: load and init generated app

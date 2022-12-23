@@ -11,7 +11,7 @@ defineFeature(feature, test => {
   let firstExtension = ref(Obj.magic(1))
   let secondExtension = ref(Obj.magic(1))
   let c1 = ref(Obj.magic(1))
-  let allExtensionNewNames = ref(Obj.magic(1))
+  // let allExtensionNewNames = ref(Obj.magic(1))
 
   let _prepare = given => {
     given("prepare", () => {
@@ -25,7 +25,7 @@ defineFeature(feature, test => {
     let secondExtension = ref(Obj.magic(1))
     let firstExtensionFileData = ref(Obj.magic(1))
     let secondExtensionFileData = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -74,12 +74,12 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare new names",
-      () => {
-        allExtensionNewNames := ["first-extension", "second-extension"]
-      },
-    )
+    // \"and"(
+    //   "prepare new names",
+    //   () => {
+    //     allExtensionNewNames := ["first-extension", "second-extension"]
+    //   },
+    // )
 
     \"and"(
       "load them as l1",
@@ -105,7 +105,7 @@ defineFeature(feature, test => {
               [firstExtensionFileData.contents, secondExtensionFileData.contents],
               [],
               [],
-              (allExtensionNewNames.contents, [], []),
+              [],
             )
           },
         )->toThrowMessage("version not match")
@@ -118,8 +118,8 @@ defineFeature(feature, test => {
     let firstContribute = ref(Obj.magic(1))
     let firstExtensionFileData = ref(Obj.magic(1))
     let firstContributeFileData = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
-    let allContributeNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
+    // let allContributeNewNames = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -173,13 +173,13 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare new names",
-      () => {
-        allExtensionNewNames := ["first-extension"]
-        allContributeNewNames := ["first-contribute"]
-      },
-    )
+    // \"and"(
+    //   "prepare new names",
+    //   () => {
+    //     allExtensionNewNames := ["first-extension"]
+    //     allContributeNewNames := ["first-contribute"]
+    //   },
+    // )
 
     \"and"(
       "load them as l1",
@@ -205,7 +205,7 @@ defineFeature(feature, test => {
               [firstExtensionFileData.contents],
               [firstContributeFileData.contents],
               [],
-              (allExtensionNewNames.contents, [], allContributeNewNames.contents),
+              [],
             )
           },
         )->toThrowMessage("version not match")
@@ -217,7 +217,7 @@ defineFeature(feature, test => {
     let firstExtension = ref(Obj.magic(1))
     let firstExtensionFileData = ref(Obj.magic(1))
     let firstPackageEntryExtensionProtocolData = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -266,13 +266,13 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare new names",
-      () => {
-        allExtensionNewNames := ["first-extension"]
-        // allContributeNewNames := ["first-contribute"]
-      },
-    )
+    // \"and"(
+    //   "prepare new names",
+    //   () => {
+    //     allExtensionNewNames := ["first-extension"]
+    //     // allContributeNewNames := ["first-contribute"]
+    //   },
+    // )
 
     \"and"(
       "load them as l1",
@@ -298,7 +298,7 @@ defineFeature(feature, test => {
               [firstExtensionFileData.contents],
               [],
               [firstPackageEntryExtensionProtocolData.contents],
-              (allExtensionNewNames.contents, [], []),
+              [],
             )
           },
         )->toThrowMessage("version not match")
@@ -312,8 +312,8 @@ defineFeature(feature, test => {
     let firstExtensionFileData = ref(Obj.magic(1))
     let firstContributeFileData = ref(Obj.magic(1))
     let firstPackageEntryExtensionProtocolData = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
-    let allContributeNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
+    // let allContributeNewNames = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -391,13 +391,13 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare new names",
-      () => {
-        allExtensionNewNames := ["first-extension"]
-        allContributeNewNames := ["first-contribute"]
-      },
-    )
+    // \"and"(
+    //   "prepare new names",
+    //   () => {
+    //     allExtensionNewNames := ["first-extension"]
+    //     allContributeNewNames := ["first-contribute"]
+    //   },
+    // )
 
     \"and"(
       "load them as l1",
@@ -423,7 +423,7 @@ defineFeature(feature, test => {
               [firstExtensionFileData.contents],
               [firstContributeFileData.contents],
               [firstPackageEntryExtensionProtocolData.contents],
-              (allExtensionNewNames.contents, [], allContributeNewNames.contents),
+              [],
             )
           },
         )->toNotThrow
@@ -441,8 +441,8 @@ defineFeature(feature, test => {
       let secondExtensionFileData = ref(Obj.magic(1))
       let firstContributeFileData = ref(Obj.magic(1))
       let firstPackageEntryExtensionProtocolData = ref(Obj.magic(1))
-      let allExtensionNewNames = ref(Obj.magic(1))
-      let allContributeNewNames = ref(Obj.magic(1))
+      // let allExtensionNewNames = ref(Obj.magic(1))
+      // let allContributeNewNames = ref(Obj.magic(1))
       let startExtensionNames = ref(Obj.magic(1))
 
       _prepare(given)
@@ -554,13 +554,13 @@ defineFeature(feature, test => {
         },
       )
 
-      \"and"(
-        "prepare new names",
-        () => {
-          allExtensionNewNames := ["first-new-extension", "second-extension"]
-          allContributeNewNames := ["first-new-contribute"]
-        },
-      )
+      // \"and"(
+      //   "prepare new names",
+      //   () => {
+      //     allExtensionNewNames := ["first-new-extension", "second-extension"]
+      //     allContributeNewNames := ["first-new-contribute"]
+      //   },
+      // )
 
       \"and"(
         "load them as l1",
@@ -585,11 +585,7 @@ defineFeature(feature, test => {
             [firstExtensionFileData.contents, secondExtensionFileData.contents],
             [firstContributeFileData.contents],
             [firstPackageEntryExtensionProtocolData.contents],
-            (
-              allExtensionNewNames.contents,
-              startExtensionNames.contents,
-              allContributeNewNames.contents,
-            ),
+            startExtensionNames.contents,
           )
 
           (
@@ -600,7 +596,7 @@ defineFeature(feature, test => {
               [
                 (
                   {
-                    name: "first-new-extension",
+                    name: "first-extension",
                     protocolName: "first-extension-protocol",
                     type_: Default,
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
@@ -632,7 +628,7 @@ defineFeature(feature, test => {
               [
                 (
                   {
-                    name: "first-new-contribute",
+                    name: "first-contribute",
                     protocolName: "first-contribute-protocol",
                     dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                     dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -659,8 +655,8 @@ defineFeature(feature, test => {
     let firstPackageEntryExtensionProtocolData = ref(Obj.magic(1))
     let p1 = ref(Obj.magic(1))
     let c1 = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
-    let allContributeNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
+    // let allContributeNewNames = ref(Obj.magic(1))
     let startExtensionName = ref(Obj.magic(1))
     let configData = ref(Obj.magic(1))
     let configDataResult = ref(Obj.magic(1))
@@ -797,21 +793,17 @@ defineFeature(feature, test => {
         let extensionFileData = Main.loadExtension(extension)
         let contributeFileData = Main.loadContribute(contribute)
 
-        allExtensionNewNames := ["first-extension", "second-new-extension"]
-        allContributeNewNames := ["first-new-contribute"]
+        // allExtensionNewNames := ["first-extension", "second-new-extension"]
+        // allContributeNewNames := ["first-new-contribute"]
 
-        startExtensionName := "second-new-extension"
+        startExtensionName := "second-extension"
 
         p1 :=
           Main.generatePackage(
             Main.convertAllFileDataForPackage(
               [extensionFileData],
               [contributeFileData],
-              (
-                ["package-first-extension"],
-                ["package-first-extension"],
-                ["package-first-contribute"],
-              ),
+              ["package-first-extension"],
             ),
             [],
           )
@@ -835,12 +827,12 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "prepare new names and start the second extension",
+      "start the second extension",
       () => {
-        allExtensionNewNames := ["first-extension", "second-new-extension"]
-        allContributeNewNames := ["first-new-contribute"]
+        // allExtensionNewNames := ["first-extension", "second-new-extension"]
+        // allContributeNewNames := ["first-new-contribute"]
 
-        startExtensionName := "second-new-extension"
+        startExtensionName := "second-extension"
       },
     )
 
@@ -856,11 +848,7 @@ defineFeature(feature, test => {
             [firstExtensionFileData, secondExtensionFileData],
             [firstContributeFileData],
             [firstPackageEntryExtensionProtocolData.contents],
-            (
-              allExtensionNewNames.contents,
-              [startExtensionName.contents],
-              allContributeNewNames.contents,
-            ),
+            [startExtensionName.contents],
           )
       },
     )
@@ -940,7 +928,7 @@ defineFeature(feature, test => {
     let secondExtension = ref(Obj.magic(1))
     // let firstContribute = ref(Obj.magic(1))
     let c1 = ref(Obj.magic(1))
-    let allExtensionNewNames = ref(Obj.magic(1))
+    // let allExtensionNewNames = ref(Obj.magic(1))
     // let allContributeNewNames = ref(Obj.magic(1))
     let startExtensionNames = ref(Obj.magic(1))
     let loadData = ref(Obj.magic(1))
@@ -988,7 +976,7 @@ defineFeature(feature, test => {
     \"and"(
       "start them",
       () => {
-        allExtensionNewNames := ["first-extension", "second-extension"]
+        // allExtensionNewNames := ["first-extension", "second-extension"]
         startExtensionNames := ["first-extension", "second-extension"]
       },
     )
@@ -1004,7 +992,7 @@ defineFeature(feature, test => {
             [firstExtensionFileData, secondExtensionFileData],
             [],
             [],
-            (allExtensionNewNames.contents, startExtensionNames.contents, []),
+            startExtensionNames.contents,
           )
       },
     )
@@ -1070,21 +1058,16 @@ defineFeature(feature, test => {
         )
     })
 
-    \"and"("prepare new names", () => {
-      allExtensionNewNames := ["first-extension", "second-new-extension"]
-    })
+    // \"and"("prepare new names", () => {
+    //   allExtensionNewNames := ["first-extension", "second-new-extension"]
+    // })
 
     \"and"("load them and convert as c1", () => {
       let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
       let secondExtensionFileData = Main.loadExtension(secondExtension.contents)
 
       c1 :=
-        Main.convertAllFileDataForApp(
-          [firstExtensionFileData, secondExtensionFileData],
-          [],
-          [],
-          (allExtensionNewNames.contents, [], []),
-        )
+        Main.convertAllFileDataForApp([firstExtensionFileData, secondExtensionFileData], [], [], [])
     })
   }
 

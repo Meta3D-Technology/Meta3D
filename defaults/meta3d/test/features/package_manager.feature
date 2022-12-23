@@ -10,7 +10,7 @@ Feature: Package Manager
 
         Scenario: not check dependent data
             Given generate two extensions that version not match
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then not error
@@ -18,7 +18,7 @@ Feature: Package Manager
         Scenario: convert allExtensionFileData and allContributeFileData and empty allPackageEntryExtensionProtocolData
             Given generate two extensions that the seond is entry
             And generate one contribute
-            And prepare new names
+            # And prepare new names
             And load them as l1
             When convert l1
             Then converted package data is correct
@@ -31,7 +31,8 @@ Feature: Package Manager
         Scenario: load generated package
             Given generate two extensions
             And generate one contribute
-            And prepare new names and mark the second extension as entry
+            # And prepare new names and mark the second extension as entry
+            And mark the second extension as entry
             And load them and convert as c1
             # And prepare config data
             When generate package with c1 and load it
@@ -52,7 +53,8 @@ Feature: Package Manager
         Background: prepare for load and handle generated package
             Given prepare flag
             And generate two extensions
-            And prepare new names and mark the second extension as entry
+            # And prepare new names and mark the second extension as entry
+            And mark the second extension as entry
             And load them and convert as c1
 
         Scenario: load and init generated package
