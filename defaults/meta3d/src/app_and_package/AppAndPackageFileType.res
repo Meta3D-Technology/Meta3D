@@ -7,7 +7,7 @@ type dependentExtensionData = {
   protocolVersion: versionRange,
 }
 
-type dependentContributeName = contributeName
+// type dependentContributeName = contributeProtocolName
 
 type dependentContributeData = {
   protocolName: string,
@@ -20,7 +20,7 @@ type extensionType =
   | Entry
 
 type extensionPackageData = {
-  name: extensionName,
+  protocolName: extensionProtocolName,
   type_: extensionType,
   dependentExtensionNameMap: dependentExtensionNameMap,
   dependentContributeNameMap: dependentContributeNameMap,
@@ -45,7 +45,7 @@ type extensionFileData = {
 }
 
 type contributePackageData = {
-  name: contributeName,
+  protocolName: contributeProtocolName,
   dependentExtensionNameMap: dependentExtensionNameMap,
   dependentContributeNameMap: dependentContributeNameMap,
 }

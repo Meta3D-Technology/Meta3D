@@ -1,25 +1,31 @@
 open Meta3dType.Index
 
-let getExtensionServiceExn = (state, name: extensionName) => {
-  state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+let getExtensionServiceExn = (state, protocolName: extensionProtocolName) => {
+  state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
 }
 
-let setExtensionState = (state, name: extensionName, extensionState: extensionState) => {
+let setExtensionState = (
+  state,
+  protocolName: extensionProtocolName,
+  extensionState: extensionState,
+) => {
   {
     ...state,
     extensionStateMap: state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.set(
-      name,
+      protocolName,
       extensionState,
     ),
   }
 }
 
-let getExtensionStateExn = (state, name: extensionName) => {
-  state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+let getExtensionStateExn = (state, protocolName: extensionProtocolName) => {
+  state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
 }
 
-let getContributeExn = (state, name: contributeName) => {
-  state.contributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)->Meta3dCommonlib.Tuple2.getLast
+let getContributeExn = (state, protocolName: contributeProtocolName) => {
+  state.contributeMap
+  ->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
+  ->Meta3dCommonlib.Tuple2.getLast
 }
 
 let getAllContributesByType = (state, contributeType) => {
@@ -31,56 +37,56 @@ let getAllContributesByType = (state, contributeType) => {
   ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple2.getLast)
 }
 
-let _getExtensionLifeExn = (state, name: extensionName) => {
-  state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(name)
+let _getExtensionLifeExn = (state, protocolName: extensionProtocolName) => {
+  state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
 }
 
-let _invokeLifeOnStartHander = (state, extensionName, configData, handlerNullable) => {
+let _invokeLifeOnStartHander = (state, extensionProtocolName, configData, handlerNullable) => {
   let handler = handlerNullable->Meta3dCommonlib.NullableSt.getExn
 
-  handler(state, getExtensionServiceExn(state, extensionName), configData)
+  handler(state, getExtensionServiceExn(state, extensionProtocolName), configData)
 }
 
-let _invokeSyncLifeOtherHander = (state, extensionName, handlerNullable) => {
+let _invokeSyncLifeOtherHander = (state, extensionProtocolName, handlerNullable) => {
   handlerNullable
   ->Meta3dCommonlib.NullableSt.map((. handler) => {
-    handler(state, getExtensionServiceExn(state, extensionName))
+    handler(state, getExtensionServiceExn(state, extensionProtocolName))
   })
   ->Meta3dCommonlib.NullableSt.getWithDefault(state)
 }
 
-let _invokeAsyncLifeOtherHander = (state, extensionName, data, handlerNullable) => {
+let _invokeAsyncLifeOtherHander = (state, extensionProtocolName, data, handlerNullable) => {
   handlerNullable
   ->Meta3dCommonlib.NullableSt.map((. handler) => {
-    handler(state, getExtensionServiceExn(state, extensionName), data)
+    handler(state, getExtensionServiceExn(state, extensionProtocolName), data)
   })
   ->Meta3dCommonlib.NullableSt.getWithDefault(
     Js.Promise.make((~resolve, ~reject) => resolve(. state)),
   )
 }
 
-let startExtension = (state, extensionName, configData) => {
-  _getExtensionLifeExn(state, extensionName).onStart->_invokeLifeOnStartHander(
+let startExtension = (state, extensionProtocolName, configData) => {
+  _getExtensionLifeExn(state, extensionProtocolName).onStart->_invokeLifeOnStartHander(
     state,
-    extensionName,
+    extensionProtocolName,
     configData,
     _,
   )
 }
 
-let updateExtension = (state, extensionName, data) => {
-  _getExtensionLifeExn(state, extensionName).onUpdate->_invokeAsyncLifeOtherHander(
+let updateExtension = (state, extensionProtocolName, data) => {
+  _getExtensionLifeExn(state, extensionProtocolName).onUpdate->_invokeAsyncLifeOtherHander(
     state,
-    extensionName,
+    extensionProtocolName,
     data,
     _,
   )
 }
 
-let initExtension = (state, extensionName, data) => {
-  _getExtensionLifeExn(state, extensionName).onInit->_invokeAsyncLifeOtherHander(
+let initExtension = (state, extensionProtocolName, data) => {
+  _getExtensionLifeExn(state, extensionProtocolName).onInit->_invokeAsyncLifeOtherHander(
     state,
-    extensionName,
+    extensionProtocolName,
     data,
     _,
   )
@@ -119,7 +125,7 @@ let _decideContributeType = (contribute: contribute) => {
 
 let rec registerExtension = (
   state,
-  name: extensionName,
+  protocolName: extensionProtocolName,
   getServiceFunc: getExtensionService<
     dependentExtensionNameMap,
     dependentContributeNameMap,
@@ -132,20 +138,24 @@ let rec registerExtension = (
   let state = {
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
-      name,
+      protocolName,
       getServiceFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
     ),
     extensionLifeMap: state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.set(
-      name,
-      getLifeFunc(buildAPI(), name),
+      protocolName,
+      getLifeFunc(buildAPI(), protocolName),
     ),
-  }->setExtensionState(name, extensionState)
+  }->setExtensionState(protocolName, extensionState)
 
-  _getExtensionLifeExn(state, name).onRegister->_invokeSyncLifeOtherHander(state, name, _)
+  _getExtensionLifeExn(state, protocolName).onRegister->_invokeSyncLifeOtherHander(
+    state,
+    protocolName,
+    _,
+  )
 }
 and registerContribute = (
   state,
-  name: contributeName,
+  protocolName: contributeProtocolName,
   getContributeFunc: getContribute<
     dependentExtensionNameMap,
     dependentContributeNameMap,
@@ -161,7 +171,7 @@ and registerContribute = (
   {
     ...state,
     contributeMap: state.contributeMap->Meta3dCommonlib.ImmutableHashMap.set(
-      name,
+      protocolName,
       (_decideContributeType(contribute), contribute),
     ),
   }
@@ -170,7 +180,7 @@ and buildAPI = (): api => {
   registerExtension: (
     (.
       state,
-      extensionName,
+      extensionProtocolName,
       getExtensionService,
       getExtensionLife,
       (dependentExtensionNameMap, dependentContributeNameMap),
@@ -178,36 +188,38 @@ and buildAPI = (): api => {
     ) =>
       registerExtension(
         state,
-        extensionName,
+        extensionProtocolName,
         getExtensionService,
         getExtensionLife,
         (dependentExtensionNameMap, dependentContributeNameMap),
         extensionState,
       )
   )->Obj.magic,
-  getExtensionService: (. state, name: extensionName) =>
-    getExtensionServiceExn(state, (name: extensionName))->Obj.magic,
-  getExtensionState: (. state, name) => getExtensionStateExn(state, name)->Obj.magic,
+  getExtensionService: (. state, protocolName: extensionProtocolName) =>
+    getExtensionServiceExn(state, (protocolName: extensionProtocolName))->Obj.magic,
+  getExtensionState: (. state, protocolName) =>
+    getExtensionStateExn(state, protocolName)->Obj.magic,
   // TODO remove magic
   setExtensionState: (
-    (. state, name, extensionState) => setExtensionState(state, name, extensionState)
+    (. state, protocolName, extensionState) =>
+      setExtensionState(state, protocolName, extensionState)
   )->Obj.magic,
   registerContribute: (
     (.
       state,
-      contributeName,
+      contributeProtocolName,
       getContribute,
       (dependentExtensionNameMap, dependentContributeNameMap),
     ) =>
       registerContribute(
         state,
-        contributeName,
+        contributeProtocolName,
         getContribute,
         (dependentExtensionNameMap, dependentContributeNameMap),
       )
   )->Obj.magic,
-  getContribute: (. state, name: contributeName) =>
-    getContributeExn(state, (name: contributeName))->Obj.magic,
+  getContribute: (. state, protocolName: contributeProtocolName) =>
+    getContributeExn(state, (protocolName: contributeProtocolName))->Obj.magic,
   getAllContributesByType: (. state, contributeType: Meta3dType.ContributeType.contributeType) =>
     getAllContributesByType(state, contributeType)->Obj.magic,
 }

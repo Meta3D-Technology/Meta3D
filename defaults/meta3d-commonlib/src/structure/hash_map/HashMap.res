@@ -60,3 +60,10 @@ let getValidValues = map =>
   ->Js.Dict.values
   ->Js.Array.filter(value => value->NullUtils.isInMap, _)
   ->Meta3dCommonlibType.SparseMapType.arrayNullableToArrayNotNullable
+
+// let map = (map: Js.Dict.t<'a>, func: (. 'a) => 'b) => map->Js.Dict.map(func, _)
+let map = (map: Meta3dCommonlibType.HashMapType.t2<'a>, func: (. 'a) => 'b) =>
+  map
+  ->Meta3dCommonlibType.HashMapType.dictNullableToDictNotNullable
+  ->Js.Dict.map(func, _)
+  ->Meta3dCommonlibType.HashMapType.dictNotNullableToDictNullable

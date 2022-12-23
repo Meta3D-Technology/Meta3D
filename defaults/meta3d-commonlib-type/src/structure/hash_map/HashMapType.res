@@ -17,3 +17,5 @@ external entriesNotNullableToEntriesNullable: array<(Js.Dict.key, 'a)> => array<
 )> = "%identity"
 
 external dictNotNullableToDictNullable: Js.Dict.t<'a> => Js.Dict.t<Js.Nullable.t<'a>> = "%identity"
+
+external dictNullableToDictNotNullable:Js.Dict.t<Js.Nullable.t<'a>> => Js.Dict.t<'a> = "%identity"

@@ -35,3 +35,5 @@ let getValidValues = HashMap.getValidValues
 let copy = HashMap.copy
 
 let entries = HashMap.entries
+
+let map = HashMap.map

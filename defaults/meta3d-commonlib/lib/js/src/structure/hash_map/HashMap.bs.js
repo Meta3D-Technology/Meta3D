@@ -70,6 +70,10 @@ function getValidValues(map) {
   return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, __x);
 }
 
+function map(map$1, func) {
+  return Js_dict.map(func, map$1);
+}
+
 exports.createEmpty = createEmpty;
 exports.unsafeGet = unsafeGet;
 exports.get = get;
@@ -83,4 +87,5 @@ exports._createEmpty = _createEmpty;
 exports._reduceArray = _reduceArray;
 exports.copy = copy;
 exports.getValidValues = getValidValues;
+exports.map = map;
 /* No side effect */

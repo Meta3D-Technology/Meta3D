@@ -6,25 +6,25 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
-function getExtensionServiceExn(state, name) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
+function getExtensionServiceExn(state, protocolName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, protocolName);
 }
 
-function setExtensionState(state, name, extensionState) {
+function setExtensionState(state, protocolName, extensionState) {
   return {
           extensionServiceMap: state.extensionServiceMap,
-          extensionStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionStateMap, name, extensionState),
+          extensionStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionStateMap, protocolName, extensionState),
           extensionLifeMap: state.extensionLifeMap,
           contributeMap: state.contributeMap
         };
 }
 
-function getExtensionStateExn(state, name) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
+function getExtensionStateExn(state, protocolName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, protocolName);
 }
 
-function getContributeExn(state, name) {
-  return Tuple2$Meta3dCommonlib.getLast(ImmutableHashMap$Meta3dCommonlib.getExn(state.contributeMap, name));
+function getContributeExn(state, protocolName) {
+  return Tuple2$Meta3dCommonlib.getLast(ImmutableHashMap$Meta3dCommonlib.getExn(state.contributeMap, protocolName));
 }
 
 function getAllContributesByType(state, contributeType) {
@@ -33,39 +33,39 @@ function getAllContributesByType(state, contributeType) {
                   })), Tuple2$Meta3dCommonlib.getLast);
 }
 
-function _getExtensionLifeExn(state, name) {
-  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, name);
+function _getExtensionLifeExn(state, protocolName) {
+  return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, protocolName);
 }
 
-function _invokeLifeOnStartHander(state, extensionName, configData, handlerNullable) {
+function _invokeLifeOnStartHander(state, extensionProtocolName, configData, handlerNullable) {
   var handler = NullableSt$Meta3dCommonlib.getExn(handlerNullable);
-  return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName), configData);
+  return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionProtocolName), configData);
 }
 
-function _invokeSyncLifeOtherHander(state, extensionName, handlerNullable) {
+function _invokeSyncLifeOtherHander(state, extensionProtocolName, handlerNullable) {
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
-                    return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName));
+                    return Curry._2(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionProtocolName));
                   })), state);
 }
 
-function _invokeAsyncLifeOtherHander(state, extensionName, data, handlerNullable) {
+function _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, handlerNullable) {
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
-                    return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionName), data);
+                    return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionProtocolName), data);
                   })), new Promise((function (resolve, reject) {
                     resolve(state);
                   })));
 }
 
-function startExtension(state, extensionName, configData) {
-  _invokeLifeOnStartHander(state, extensionName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onStart);
+function startExtension(state, extensionProtocolName, configData) {
+  _invokeLifeOnStartHander(state, extensionProtocolName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onStart);
 }
 
-function updateExtension(state, extensionName, data) {
-  return _invokeAsyncLifeOtherHander(state, extensionName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onUpdate);
+function updateExtension(state, extensionProtocolName, data) {
+  return _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onUpdate);
 }
 
-function initExtension(state, extensionName, data) {
-  return _invokeAsyncLifeOtherHander(state, extensionName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionName).onInit);
+function initExtension(state, extensionProtocolName, data) {
+  return _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onInit);
 }
 
 function _decideContributeType(contribute) {
@@ -88,20 +88,20 @@ function _decideContributeType(contribute) {
   }
 }
 
-function registerExtension(state, name, getServiceFunc, getLifeFunc, param, extensionState) {
+function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, param, extensionState) {
   var state$1 = setExtensionState({
-        extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, name, Curry._2(getServiceFunc, buildAPI(undefined), [
+        extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, protocolName, Curry._2(getServiceFunc, buildAPI(undefined), [
                   param[0],
                   param[1]
                 ])),
         extensionStateMap: state.extensionStateMap,
-        extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionLifeMap, name, Curry._2(getLifeFunc, buildAPI(undefined), name)),
+        extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionLifeMap, protocolName, Curry._2(getLifeFunc, buildAPI(undefined), protocolName)),
         contributeMap: state.contributeMap
-      }, name, extensionState);
-  return _invokeSyncLifeOtherHander(state$1, name, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, name).onRegister);
+      }, protocolName, extensionState);
+  return _invokeSyncLifeOtherHander(state$1, protocolName, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, protocolName).onRegister);
 }
 
-function registerContribute(state, name, getContributeFunc, param) {
+function registerContribute(state, protocolName, getContributeFunc, param) {
   var contribute = Curry._2(getContributeFunc, buildAPI(undefined), [
         param[0],
         param[1]
@@ -110,7 +110,7 @@ function registerContribute(state, name, getContributeFunc, param) {
           extensionServiceMap: state.extensionServiceMap,
           extensionStateMap: state.extensionStateMap,
           extensionLifeMap: state.extensionLifeMap,
-          contributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.contributeMap, name, [
+          contributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.contributeMap, protocolName, [
                 _decideContributeType(contribute),
                 contribute
               ])
@@ -119,21 +119,21 @@ function registerContribute(state, name, getContributeFunc, param) {
 
 function buildAPI(param) {
   return {
-          registerExtension: (function (state, extensionName, getExtensionService, getExtensionLife, param, extensionState) {
-              return registerExtension(state, extensionName, getExtensionService, getExtensionLife, [
+          registerExtension: (function (state, extensionProtocolName, getExtensionService, getExtensionLife, param, extensionState) {
+              return registerExtension(state, extensionProtocolName, getExtensionService, getExtensionLife, [
                           param[0],
                           param[1]
                         ], extensionState);
             }),
-          getExtensionService: (function (state, name) {
-              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, name);
+          getExtensionService: (function (state, protocolName) {
+              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, protocolName);
             }),
-          getExtensionState: (function (state, name) {
-              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, name);
+          getExtensionState: (function (state, protocolName) {
+              return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, protocolName);
             }),
           setExtensionState: setExtensionState,
-          registerContribute: (function (state, contributeName, getContribute, param) {
-              return registerContribute(state, contributeName, getContribute, [
+          registerContribute: (function (state, contributeProtocolName, getContribute, param) {
+              return registerContribute(state, contributeProtocolName, getContribute, [
                           param[0],
                           param[1]
                         ]);

@@ -164,10 +164,20 @@ download bug?
 
 ** TODO pass run test: editor demo use two packages(package2 use package1)
 
+*** TODO fix: not check dependency for generate package
+
+ExtensionManager: use extension/contribute protocol name instead of name
+    register extension/contribute protocol name
+
+
+fix meta3d:
+# pass bdd test
+
+fix platform, assemble-space -> service.meta3d->extension/contribute name to protocol name
+
+fix backend, services -> service.meta3d->extension/contribute name to protocol name
+
 ** TODO pass run test: element use two packages(package2 use package1)
-
-
-** TODO refactor: remove duplicate between package assemble and ap assemble
 
 
 ** TODO remove newName
@@ -175,6 +185,13 @@ download bug?
 PacakgeAssemble remove newName,
 ...
 
+
+** TODO refactor: remove entryExtensionName
+
+** TODO change to startExtensionProtocolNames
+** TODO change to entryExtensionProtocolNames
+
+** TODO refactor: remove duplicate between package assemble and ap assemble
 
 
 
@@ -354,16 +371,6 @@ use like a extension
 
 
 
-* TODO add ap marketplace
-
-** TODO rename 商城 to 市场
-
-** TODO 增加查看所有发布的应用
-
-** TODO 能够在一个url中jump to 发布的应用
-
-url: 
-https://meta3d-platform-production.4everland.app?jump_to_published_application=true&&uid=xxx
 
 
 
@@ -371,5 +378,8 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 * TODO publish
+
+
+** TODO test in pro
 
 ** TODO fix website: remove "用户数据归用户所有"

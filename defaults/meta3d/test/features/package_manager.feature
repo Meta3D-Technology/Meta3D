@@ -8,28 +8,12 @@ Feature: Package Manager
 
     Rule: convertAllFileData
 
-        # Scenario: version not match case1
-        #     Given generate two extensions that version not match
-        #     And prepare new names
-        #     And load them as l1
-        #     When convert l1
-        #     Then error
-
-        # Scenario: version not match case2
-        #     Given generate one extension
-        #     And generate one contribute that version not match
-        #     And prepare new names
-        #     And load them as l1
-        #     When convert l1
-        #     Then error
-
-        # Scenario: version match case1
-        #     Given generate one extension
-        #     And generate one contribute that version match
-        #     And prepare new names
-        #     And load them as l1
-        #     When convert l1
-        #     Then not error
+        Scenario: not check dependent data
+            Given generate two extensions that version not match
+            And prepare new names
+            And load them as l1
+            When convert l1
+            Then not error
 
         Scenario: convert allExtensionFileData and allContributeFileData and empty allPackageEntryExtensionProtocolData
             Given generate two extensions that the seond is entry
@@ -54,14 +38,14 @@ Feature: Package Manager
             Then the two extensions should be registered
             And the one contribute should be registered
             And load result should has entry extension name
-            # And the second extension should be started
+        # And the second extension should be started
 
-    #     Scenario: if two extension need start, error
-    #         Given generate two extensions
-    #         And start them
-    #         And load them and convert as c1
-    #         When generate package with c1 and load it
-    #         Then start it should error
+        #     Scenario: if two extension need start, error
+        #         Given generate two extensions
+        #         And start them
+        #         And load them and convert as c1
+        #         When generate package with c1 and load it
+        #         Then start it should error
 
     Rule: load and handle generated package
 

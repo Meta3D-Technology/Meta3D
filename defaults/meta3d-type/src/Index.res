@@ -4,26 +4,31 @@ type extensionState
 
 type contribute
 
-type extensionName = string
-
-type contributeName = string
-
 type dependentExtensionNameKey = string
 
-type dependentExtensionNameValue = extensionName
+// TODO remove
+type extensionName = string
+type contributeName = string
+
+type extensionProtocolName = string
+
+type contributeProtocolName = string
+
+// type dependentExtensionNameValue = extensionProtocolName
+type dependentExtensionNameProtocolValue = extensionProtocolName
 
 type dependentContributeNameKey = string
 
-type dependentContributeNameValue = contributeName
+type dependentContributeProtocolNameValue = contributeProtocolName
 
 type dependentExtensionNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
   dependentExtensionNameKey,
-  dependentExtensionNameValue,
+  dependentExtensionNameProtocolValue,
 >
 
 type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
   dependentContributeNameKey,
-  dependentContributeNameValue,
+  dependentContributeProtocolNameValue,
 >
 
 type getContributeFuncResult
@@ -38,7 +43,6 @@ type canvasData = {
 }
 
 type configData
-
 
 type startConfigData = (canvasData, configData)
 
@@ -55,14 +59,20 @@ and extensionLife<'extensionService> = {
   onUpdate: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
 }
 and state = {
-  extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionService>,
-  extensionStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<extensionName, extensionState>,
+  extensionServiceMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    extensionProtocolName,
+    extensionService,
+  >,
+  extensionStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    extensionProtocolName,
+    extensionState,
+  >,
   extensionLifeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    extensionName,
+    extensionProtocolName,
     extensionLife<extensionService>,
   >,
   contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    contributeName,
+    contributeProtocolName,
     (ContributeType.contributeType, contribute),
   >,
 }
@@ -71,22 +81,22 @@ type api = {
   /* ! rank2 polymorphism */
   registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'dependentExtensionNameMap 'extensionState. (
     . state,
-    extensionName,
+    extensionProtocolName,
     'getExtensionServiceFunc,
     'getLifeFunc,
     'dependentExtensionNameMap,
     'extensionState,
   ) => state,
-  getExtensionService: 'extensionService. (. state, extensionName) => 'extensionService,
-  getExtensionState: 'extensionState. (. state, extensionName) => 'extensionState,
-  setExtensionState: 'extensionState. (. state, extensionName, 'extensionState) => state,
+  getExtensionService: 'extensionService. (. state, extensionProtocolName) => 'extensionService,
+  getExtensionState: 'extensionState. (. state, extensionProtocolName) => 'extensionState,
+  setExtensionState: 'extensionState. (. state, extensionProtocolName, 'extensionState) => state,
   registerContribute: 'getContributeFunc 'dependentExtensionNameMap 'dependentContributeNameMap. (
     . state,
-    contributeName,
+    contributeProtocolName,
     'getContributeFunc,
     ('dependentExtensionNameMap, 'dependentContributeNameMap),
   ) => state,
-  getContribute: 'contribute. (. state, contributeName) => 'contribute,
+  getContribute: 'contribute. (. state, contributeProtocolName) => 'contribute,
   getAllContributesByType: 'contribute. (
     . state,
     ContributeType.contributeType,
@@ -109,4 +119,7 @@ type getContribute<
 > = // > = (api, ('dependentExtensionNameMap, 'dependentContributeNameMap), 'config) => 'contribute
 (api, ('dependentExtensionNameMap, 'dependentContributeNameMap)) => 'contribute
 
-type getExtensionLife<'extensionService> = (api, extensionName) => extensionLife<'extensionService>
+type getExtensionLife<'extensionService> = (
+  api,
+  extensionProtocolName,
+) => extensionLife<'extensionService>

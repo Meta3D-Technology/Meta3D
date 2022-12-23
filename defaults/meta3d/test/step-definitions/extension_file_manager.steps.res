@@ -20,7 +20,7 @@ defineFeature(feature, test => {
       let file = Main.generateExtension(
         (
           {
-            name: "meta3d-app",
+            // name: "meta3d-app",
             protocol: {
               name: "meta3d-app-protocol",
               version:"0.4.1",
@@ -39,7 +39,7 @@ defineFeature(feature, test => {
       fileData.contents.extensionPackageData->expect ==
         (
           {
-            name: "meta3d-app",
+            // name: "meta3d-app",
             protocol: {
               name: "meta3d-app-protocol",
               version:"0.4.1",
@@ -67,7 +67,7 @@ defineFeature(feature, test => {
       let file = Main.generateContribute(
         (
           {
-            name: "meta3d-contribute-test1",
+            // name: "meta3d-contribute-test1",
             protocol: {
               name: "meta3d-contribute-test1-protocol",
               version:"0.4.1",
@@ -86,7 +86,7 @@ defineFeature(feature, test => {
       fileData.contents.contributePackageData->expect ==
         (
           {
-            name: "meta3d-contribute-test1",
+            // name: "meta3d-contribute-test1",
             protocol: {
               name: "meta3d-contribute-test1-protocol",
               version:"0.4.1",
