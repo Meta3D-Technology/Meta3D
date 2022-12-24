@@ -216,7 +216,7 @@ PacakgeAssemble remove newName,
 # pass run test
 
 
-** TODO refactor: remove entryExtensionName
+** DONE refactor: remove entryExtensionName
 
 ** TODO change to startExtensionProtocolNames
 ** TODO change to entryExtensionProtocolNames

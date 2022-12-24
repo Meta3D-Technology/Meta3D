@@ -39,8 +39,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
           return ImmutableHashMap$Meta3dCommonlib.set(result, extensionPackageData.protocol.name, extensionPackageData.protocol.version);
         }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
   var allExtensionDataMap$1 = ArraySt$Meta3dCommonlib.reduceOneParam(allPackageEntryExtensionProtocolData, (function (allExtensionDataMap, param) {
-          var match = param[0];
-          return ImmutableHashMap$Meta3dCommonlib.set(allExtensionDataMap, match.name, match.version);
+          return ImmutableHashMap$Meta3dCommonlib.set(allExtensionDataMap, param.name, param.version);
         }), allExtensionDataMap);
   var allContributeDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allContributeFileData, (function (result, param, i) {
           var contributePackageData = param.contributePackageData;
@@ -99,7 +98,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            206,
+            202,
             6
           ],
           Error: new Error()

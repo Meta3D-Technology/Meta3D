@@ -255,13 +255,10 @@ defineFeature(feature, test => {
       () => {
         firstPackageEntryExtensionProtocolData :=
           (
-            (
-              {
-                name: "first-package-entry-extension-protocol",
-                version: ">1.0.0",
-              }: ExtensionFileType.extensionProtocolData
-            ),
-            "first-package-entry-extension",
+            {
+              name: "first-package-entry-extension-protocol",
+              version: ">1.0.0",
+            }: ExtensionFileType.extensionProtocolData
           )
       },
     )
@@ -380,13 +377,10 @@ defineFeature(feature, test => {
       () => {
         firstPackageEntryExtensionProtocolData :=
           (
-            (
-              {
-                name: "first-package-entry-extension-protocol",
-                version: ">=0.4.1 < 1.0.0",
-              }: ExtensionFileType.extensionProtocolData
-            ),
-            "first-package-entry-extension",
+            {
+              name: "first-package-entry-extension-protocol",
+              version: ">=0.4.1 < 1.0.0",
+            }: ExtensionFileType.extensionProtocolData
           )
       },
     )
@@ -543,13 +537,10 @@ defineFeature(feature, test => {
         () => {
           firstPackageEntryExtensionProtocolData :=
             (
-              (
-                {
-                  name: "first-package-entry-extension-protocol",
-                  version: ">=0.4.1 < 1.0.0",
-                }: ExtensionFileType.extensionProtocolData
-              ),
-              "first-package-entry-extension",
+              {
+                name: "first-package-entry-extension-protocol",
+                version: ">=0.4.1 < 1.0.0",
+              }: ExtensionFileType.extensionProtocolData
             )
         },
       )
@@ -815,13 +806,10 @@ defineFeature(feature, test => {
       () => {
         firstPackageEntryExtensionProtocolData :=
           (
-            (
-              {
-                name: "package-first-extension-protocol",
-                version: ">=0.4.1 < 1.0.0",
-              }: ExtensionFileType.extensionProtocolData
-            ),
-            "package-first-extension",
+            {
+              name: "package-first-extension-protocol",
+              version: ">=0.4.1 < 1.0.0",
+            }: ExtensionFileType.extensionProtocolData
           )
       },
     )

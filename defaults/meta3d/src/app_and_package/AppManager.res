@@ -58,11 +58,7 @@ let _convertDependentMap = (dependentMap, allDataMap) => {
 let convertAllFileData = (
   allExtensionFileData: array<ExtensionFileType.extensionFileData>,
   allContributeFileData: array<ExtensionFileType.contributeFileData>,
-  allPackageEntryExtensionProtocolData: array<(
-    ExtensionFileType.extensionProtocolData,
-    // TODO refactor: remove entryExtensionName
-    Meta3dType.Index.extensionName,
-  )>,
+  allPackageEntryExtensionProtocolData: array<ExtensionFileType.extensionProtocolData>,
   // TODO change to startExtensionProtocolNames
   startExtensionNames: array<Meta3dType.Index.extensionName>,
 ) => {
@@ -88,7 +84,7 @@ let convertAllFileData = (
     )
   let allExtensionDataMap =
     allPackageEntryExtensionProtocolData->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. allExtensionDataMap, ({name, version}, entryExtensionName)) => {
+      (. allExtensionDataMap, {name, version}) => {
         allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.set(name, version)
       },
       allExtensionDataMap,
