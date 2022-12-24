@@ -394,11 +394,11 @@ use like a extension
 
 
 
-* TODO publish
+* DONE publish
 
 
-** TODO test in pro
+** DONE test in pro
 
-** TODO clear local env data
+# ** TODO clear local env data
 
-** TODO fix website: remove "用户数据归用户所有"
+** DONE fix website: remove "用户数据归用户所有"
