@@ -92,7 +92,7 @@ module Method = {
     )
   }
 
-  let getActions = SelectedContributesUtils.getActions
+  let getActions = SelectedContributesForElementUtils.getActions
 
   let setAction = (
     dispatch,

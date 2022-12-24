@@ -18,7 +18,7 @@ let useEffectOnceAsync = (
   ~selectedExtensionsFromShop=list{},
   (),
 ) => {
-  PackageExtensions.Method.useEffectOnceAsync(
+  ExtensionsUtils.Method.useEffectOnceAsync(
     (setIsLoaded, setExtensions),
     service,
     selectedExtensionsFromShop,
@@ -36,4 +36,4 @@ let selectExtension = (
   PackageExtensions.Method.selectExtension(dispatch, iconBase64, protocolConfigStr, extension)
 }
 
-let getProtocolConfigStr = PackageExtensions.Method._getProtocolConfigStr
+let getProtocolConfigStr = ExtensionsUtils.Method._getProtocolConfigStr

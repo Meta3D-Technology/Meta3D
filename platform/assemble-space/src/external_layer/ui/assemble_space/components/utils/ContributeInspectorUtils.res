@@ -4,5 +4,5 @@ open FrontendUtils.AssembleSpaceType
 
 @react.component
 let make = () => {
-  <ContributeInspectorUtils/>
+  React.null
 }

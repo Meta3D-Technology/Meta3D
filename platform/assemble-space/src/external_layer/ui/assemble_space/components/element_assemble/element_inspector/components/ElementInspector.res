@@ -3,7 +3,7 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getActions = SelectedContributesUtils.getActions
+  let _getActions = SelectedContributesForElementUtils.getActions
 
   let getProtocolConfigActions = (
     service,

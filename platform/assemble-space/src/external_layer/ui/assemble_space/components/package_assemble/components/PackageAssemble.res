@@ -45,7 +45,7 @@ let make = (
       <Layout.Content />
       <Layout.Sider>
         <PackageExtensionInspector service />
-        <PackageContributeInspector service />
+        <PackageContributeInspector />
       </Layout.Sider>
     </Layout>
   </Layout>

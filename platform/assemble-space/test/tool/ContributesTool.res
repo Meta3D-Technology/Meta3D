@@ -17,7 +17,7 @@ let useEffectOnceAsync = (
   ~selectedContributesFromShop=list{},
   (),
 ) => {
-  Contributes.Method.useEffectOnceAsync(
+  ContributesUtils.Method.useEffectOnceAsync(
     (setIsLoaded, setContributes),
     service,
     selectedContributesFromShop,
@@ -25,7 +25,7 @@ let useEffectOnceAsync = (
 }
 
 let selectContribute = (~iconBase64, ~protocolConfigStr, ~contribute, ~dispatch) => {
-  Contributes.Method.selectContribute(dispatch, iconBase64,protocolConfigStr, contribute)
+  Contributes.Method.selectContribute(dispatch, iconBase64, protocolConfigStr, contribute)
 }
 
-let getProtocolConfigStr = Contributes.Method._getProtocolConfigStr
+let getProtocolConfigStr = ContributesUtils.Method._getProtocolConfigStr

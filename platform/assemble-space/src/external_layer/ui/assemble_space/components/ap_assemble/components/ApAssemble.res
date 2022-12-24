@@ -59,7 +59,7 @@ let make = (
       </Layout.Content>
       <Layout.Sider>
         <ExtensionInspector service />
-        <ContributeInspector service />
+        <ContributeInspector />
         <ApInspector service />
       </Layout.Sider>
     </Layout>

@@ -218,10 +218,10 @@ PacakgeAssemble remove newName,
 
 ** DONE refactor: remove entryExtensionName
 
-** TODO change to startExtensionProtocolNames
-** TODO change to entryExtensionProtocolNames
+# ** TODO change to startExtensionProtocolNames
+# ** TODO change to entryExtensionProtocolNames
 
-** TODO refactor: remove duplicate between package assemble and ap assemble
+** DONE refactor: remove duplicate between package assemble and ap assemble
 
 
 
@@ -376,34 +376,17 @@ use like a extension
 
 
 
-** TODO run test
+# ** TODO run test
 
 
-*** TODO build engine package, use in ap to draw a triangle by webgpu
-
-
-
-
-* TODO version management
-
-** TODO fix bug
-
-** TODO use select to show all versions of one extension/contribute protocol's implements
-
-
-* TODO fix EnterApp, RunElementVisual: use jump url with param instead of store
-
-so can refresh and not error!
+# *** TODO build engine package, use in ap to draw a triangle by webgpu
 
 
 
-* TODO refactor
-** TODO Index show Meta3d version and info without login
 
 
-# ** TODO remove newName?
-
-
+# * TODO refactor
+# ** TODO Index show Meta3d version and info without login
 
 
 
@@ -415,5 +398,7 @@ so can refresh and not error!
 
 
 ** TODO test in pro
+
+** TODO clear local env data
 
 ** TODO fix website: remove "用户数据归用户所有"

@@ -1,5 +1,5 @@
 let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <PackageContributeInspector service />
+  <PackageContributeInspector />
 }
 
 // let setContributeNewName = (~dispatch, ~inspectorCurrentContribute, ~newName) => {

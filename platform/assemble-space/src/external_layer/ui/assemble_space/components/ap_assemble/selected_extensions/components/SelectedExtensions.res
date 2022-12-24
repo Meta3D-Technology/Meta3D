@@ -8,43 +8,23 @@ module Method = {
   }
 
   let useSelector = ({selectedExtensions}: FrontendUtils.ApAssembleStoreType.state) => {
-    // service.react.useSelector(store => store.selectedExtensions)
     selectedExtensions
   }
 }
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
-  // let selectedExtensions = service.react.useSelector((
-  //   {selectedExtensions}: FrontendUtils.ApAssembleStoreType.state,
-  // ) => selectedExtensions)
-
-  let selectedExtensions = ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
-
-  <List
-    grid={{gutter: 16, column: 1}}
-    dataSource={selectedExtensions->Meta3dCommonlib.ListSt.toArray}
-    renderItem={({id, protocolIconBase64,  data} as extension) => {
-      <List.Item>
-        <Card
-          key={id}
-          onClick={_ => {
-            Method.selectExtension(dispatch, id)
-          }}
-          bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-          cover={<img
-            style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={protocolIconBase64}
-          />}>
-          <Card.Meta
-            style={ReactDOM.Style.make(~width="100px", ())}
-            title={React.string(data.extensionPackageData.name)}
-          />
-        </Card>
-      </List.Item>
-    }}
+  <SelectedExtensionsUtils
+    service
+    useDispatch=ReduxUtils.ApAssemble.useDispatch
+    useSelectorResult={ReduxUtils.ApAssemble.useSelector(
+      service.react.useSelector,
+      Method.useSelector,
+    )->Meta3dCommonlib.ListSt.map(({id, protocolIconBase64, data}) => (
+      id,
+      protocolIconBase64,
+      data,
+    ))}
+    selectExtension=Method.selectExtension
   />
 }

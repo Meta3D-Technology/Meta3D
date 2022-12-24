@@ -3,7 +3,7 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let getUIControls = SelectedContributesUtils.getUIControls
+  let getUIControls = SelectedContributesForElementUtils.getUIControls
 
   let _convertSpecificType = (
     specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,

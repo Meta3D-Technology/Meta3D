@@ -232,7 +232,7 @@ module Method = {
     selectedContributes,
     account,
   ) => {
-    switch selectedContributes->SelectedContributesUtils.getElements {
+    switch selectedContributes->SelectedContributesForElementUtils.getElements {
     | elements if elements->Meta3dCommonlib.ListSt.length > 1 =>
       service.console.error(. {j`should only select 1 element at most`}, None)
 
@@ -261,7 +261,7 @@ module Method = {
 
   let _generateSelectedUIControls = (service, selectedContributes, uiControls) => {
     let selectedUIControls =
-      selectedContributes->SelectedContributesUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
+      selectedContributes->SelectedContributesForElementUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
 
     let rec _generate = uiControls => {
       uiControls

@@ -90,7 +90,7 @@ let make = (~service: service) => {
             SelectUtils.buildEmptySelectOptionValue(),
           ),
           selectedContributes
-          ->SelectedContributesUtils.getSkins
+          ->SelectedContributesForElementUtils.getSkins
           ->Meta3dCommonlib.ListSt.toArray
           ->Meta3dCommonlib.ArraySt.map(({data}) => {
             (
