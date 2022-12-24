@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-core",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-core-protocol"
@@ -22,9 +22,9 @@
         "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.8.0",
-        "meta3d-engine-core-protocol": "^0.8.0",
-        "meta3d-type": "^0.8.0",
+        "meta3d-bs-most-protocol": "^0.9.0",
+        "meta3d-engine-core-protocol": "^0.9.0",
+        "meta3d-type": "^0.9.0",
         "most": "1.7.0",
         "most-subject": "^5.3.0",
         "rescript": "^9.1.4"
@@ -36,7 +36,7 @@
         "cz-customizable": "^6.3.0",
         "gentype": "^3.48.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.8.0",
+        "meta3d-tool-publish": "^0.9.0",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1"
     }

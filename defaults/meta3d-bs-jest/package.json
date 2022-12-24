@@ -1,6 +1,6 @@
 {
   "name": "meta3d-bs-jest",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "BuckleScript bindings to the Jest testing framework for meta3d",
   "scripts": {
     "build": "bsb -make-world",

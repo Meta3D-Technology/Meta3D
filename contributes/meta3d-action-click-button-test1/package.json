@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-click-button-test1",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-action-click-button-test1-protocol"
@@ -20,15 +20,15 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-click-button-test1-protocol": "^0.8.0",
-        "meta3d-type": "^0.8.0",
-        "meta3d-extension-test2-protocol": "^0.8.0"
+        "meta3d-action-click-button-test1-protocol": "^0.9.0",
+        "meta3d-extension-test2-protocol": "^0.9.0",
+        "meta3d-type": "^0.9.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.8.0",
+        "meta3d-tool-publish": "^0.9.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
