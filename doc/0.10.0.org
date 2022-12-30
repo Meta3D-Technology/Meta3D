@@ -1,0 +1,58 @@
+* TODO build engine packages: engine basic + create scene package + render scene package + whole engine package(use first twos)
+
+
+scene package:
+api
+init, update jobs
+
+
+
+engine basic package:
+register work plugin root
+register engine basic, engine core, most, immutable? extension
+engineCoreState = setIsDebug(engineCoreState, isDebug)
+
+
+
+
+
+render package:
+api
+init(material, geometry), update jobs
+
+accept canvas
+
+
+
+
+
+
+use webgl, no worker
+# use webgpu
+
+
+whole engine package has create scene, render api:
+api:
+    init,update,render
+...
+
+
+
+* TODO download whole engine package to use as a engine to draw a cube
+
+* TODO add 3D View custom control(low level) implment by FBO
+
+provide init life handle
+
+can use to build edit view, scene view high level custom controls
+
+* TODO run test: add edit view based on 3D view to show a cube + arcball camera + grid
+
+
+* TODO add two buttons, to add a cube gameObject and add a arcball camera controller gameObject
+
+
+* TODO add scene view(high level), add run button to run
+
+
+* TODO publish
