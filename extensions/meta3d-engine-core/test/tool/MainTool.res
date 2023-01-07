@@ -1,10 +1,11 @@
 let registerWorkPlugin = (
   ~contribute,
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
   (),
 ) => {
   StateContainer.unsafeGetState()
-  ->DirectorForJs.registerWorkPlugin(~state=_, ~contribute, ~jobOrders, ())
+  ->DirectorForJs.registerWorkPlugin(~state=_, ~contribute, ~config, ~jobOrders, ())
   ->StateContainer.setState
 }
 

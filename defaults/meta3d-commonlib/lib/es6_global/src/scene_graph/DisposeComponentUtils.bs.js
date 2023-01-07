@@ -1,10 +1,9 @@
 
 
-import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../structure/ArraySt.bs.js";
 
 function removeFromArray(arr, isDebug, target) {
-  var index = Js_array.indexOf(target, arr);
+  var index = arr.indexOf(target);
   if (index === -1) {
     return arr;
   }
@@ -14,13 +13,14 @@ function removeFromArray(arr, isDebug, target) {
 }
 
 function batchRemoveFromArray(arr, targets) {
-  return Js_array.filter((function (value) {
-                return !Js_array.includes(value, targets);
-              }), arr);
+  return arr.filter(function (value) {
+              return !targets.includes(value);
+            });
 }
 
 export {
   removeFromArray ,
   batchRemoveFromArray ,
+  
 }
 /* No side effect */

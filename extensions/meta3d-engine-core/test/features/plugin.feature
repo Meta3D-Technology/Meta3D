@@ -40,10 +40,10 @@ Feature: Plugin
 
         Scenario: init plugins
             Given prepare sandbox
-            And register plugin1 contribute
-            And register plugin2 contribute
+            And register plugin1 contribute with config1
+            And register plugin2 contribute with config2
             When init
-            Then invoke plugin1's and plugin2's createStateFunc and store result
+            Then invoke plugin1's createStateFunc with config1 and plugin2's createStateFunc with config2 and store result
             And invoke plugin1's and plugin2's initFunc
 
     Rule: run pipeline

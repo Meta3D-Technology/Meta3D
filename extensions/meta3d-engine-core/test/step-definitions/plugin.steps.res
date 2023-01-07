@@ -30,7 +30,7 @@ defineFeature(feature, test => {
 
   let _buildWorkPluginContribute = (
     ~workPluginName="pluginA",
-    ~createStateFunc=_ => Obj.magic(1),
+    ~createStateFunc=(_, _) => Obj.magic(1),
     ~initFunc=state => (),
     ~getExecFunc=(_, _) => Js.Nullable.null,
     ~allPipelineData=[],
@@ -59,6 +59,7 @@ defineFeature(feature, test => {
   ) => {
     allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.map(((
       workPluginContribute,
+      _,
       jobOrders,
     )) => {
       (workPluginContribute, jobOrders->VOTool.convertJobOrdersDOToVO)
@@ -187,59 +188,84 @@ defineFeature(feature, test => {
     let state2 = ref(Obj.magic(1))
     let stub1 = ref(Obj.magic(1))
     let stub2 = ref(Obj.magic(1))
+    let config1 = ref(Obj.magic(1))
+    let config2 = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
     _prepareSandbox(given)
 
-    \"when"("register plugin1 contribute", () => {
+    \"when"("register plugin1 contribute with config1", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
       state1 := _createState1()
+      config1 :=
+        {
+          "a": 1,
+        }->Obj.magic
       contribute1 :=
         _buildWorkPluginContribute(
           ~workPluginName="a1",
-          ~createStateFunc=_ => state1.contents,
+          ~createStateFunc=(_, config1) =>
+            (state1.contents["d1"] + (config1->Meta3dCommonlib.NullableSt.getExn->Obj.magic)["a"])
+              ->Obj.magic,
           ~initFunc=state1 => {
             stub1.contents(state1)
           },
           (),
         )
 
-      MainTool.registerWorkPlugin(~contribute=contribute1.contents, ())
+      MainTool.registerWorkPlugin(
+        ~contribute=contribute1.contents,
+        ~config=config1.contents->Js.Nullable.return,
+        (),
+      )
     })
 
-    \"and"("register plugin2 contribute", () => {
+    \"and"("register plugin2 contribute with config2", () => {
       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
       state2 := _createState2()
+      config2 :=
+        {
+          "a": 2,
+        }->Obj.magic
       contribute2 :=
         _buildWorkPluginContribute(
           ~workPluginName="a2",
-          ~createStateFunc=_ => state2.contents,
+          ~createStateFunc=(_, config2) =>
+            (state2.contents["dd2"] + (config2->Meta3dCommonlib.NullableSt.getExn->Obj.magic)["a"])
+              ->Obj.magic,
           ~initFunc=state2 => {
             stub2.contents()
           },
           (),
         )
 
-      MainTool.registerWorkPlugin(~contribute=contribute2.contents, ())
+      MainTool.registerWorkPlugin(
+        ~contribute=contribute2.contents,
+        ~config=config2.contents->Js.Nullable.return,
+        (),
+      )
     })
 
     \"when"("init", () => {
       MainTool.init(meta3dState.contents)
     })
 
-    then("invoke plugin1's and plugin2's createStateFunc and store result", () => {
-      let states = _getStates()
-      (
-        states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
-        states->Meta3dCommonlib.ImmutableHashMap.get("a2"),
-      )->expect == (Some(state1.contents), Some(state2.contents))
-    })
+    then(
+      "invoke plugin1's createStateFunc with config1 and plugin2's createStateFunc with config2 and store result",
+      () => {
+        let states = _getStates()
+        (
+          states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
+          states->Meta3dCommonlib.ImmutableHashMap.get("a2"),
+        )->expect == (Some(1), Some(3))
+      },
+    )
 
     \"and"("invoke plugin1's and plugin2's initFunc", () => {
       (
         stub1.contents->Obj.magic->getCallCount,
-        stub1.contents->Obj.magic->SinonTool.calledWith(state1.contents),
+        stub1.contents->Obj.magic->SinonTool.calledWith(1),
         stub2.contents->Obj.magic->getCallCount,
       )->expect == (1, true, 1)
     })
@@ -267,7 +293,7 @@ defineFeature(feature, test => {
       rootJobName,
       _buildWorkPluginContribute(
         ~workPluginName="a1",
-        ~createStateFunc=_ => state1,
+        ~createStateFunc=(_, _) => state1,
         ~initFunc,
         ~allPipelineData=[
           {
@@ -369,7 +395,7 @@ defineFeature(feature, test => {
     }
     let contribute2 = _buildWorkPluginContribute(
       ~workPluginName="a2",
-      ~createStateFunc=_ => state2,
+      ~createStateFunc=(_, _) => state2,
       ~allPipelineData=[
         {
           name: "init",
@@ -440,7 +466,7 @@ defineFeature(feature, test => {
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
-        ~createStateFunc=_ => s2,
+        ~createStateFunc=(_, _) => s2,
         ~allPipelineData=[
           {
             name: "init",
@@ -585,7 +611,7 @@ defineFeature(feature, test => {
     }
     let contribute3 = _buildWorkPluginContribute(
       ~workPluginName="a3",
-      ~createStateFunc=_ => state3,
+      ~createStateFunc=(_, _) => state3,
       ~allPipelineData=[
         {
           name: "init",
@@ -802,7 +828,7 @@ defineFeature(feature, test => {
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",
-        ~createStateFunc=_ => _createState3(),
+        ~createStateFunc=(_, _) => _createState3(),
         ~allPipelineData=[
           {
             name: "init",
@@ -852,7 +878,7 @@ defineFeature(feature, test => {
       }
       let data4 = _buildWorkPluginContribute(
         ~workPluginName="a4",
-        ~createStateFunc=_ => _createState4(),
+        ~createStateFunc=(_, _) => _createState4(),
         ~allPipelineData=[
           {
             name: "init",
@@ -1004,7 +1030,7 @@ defineFeature(feature, test => {
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
-        ~createStateFunc=_ => _createState2(),
+        ~createStateFunc=(_, _) => _createState2(),
         ~allPipelineData=[
           {
             name: "init",

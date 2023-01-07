@@ -160,12 +160,14 @@ module ParsePipelineData = {
 let registerPlugin = (
   {allRegisteredWorkPluginContribute} as state: Meta3dEngineCoreProtocol.StateType.state,
   contribute: Meta3dEngineCoreProtocol.WorkPluginManagerType.workPluginContributeForRegister,
+  config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>,
   jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrders,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   {
     ...state,
     allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.push((
       contribute,
+      config,
       jobOrders,
     )),
   }
@@ -177,7 +179,7 @@ let unregisterPlugin = (
 ): Meta3dEngineCoreProtocol.StateType.state => {
   ...state,
   allRegisteredWorkPluginContribute: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.filter(
-    (({workPluginName}, _)) => {
+    (({workPluginName}, _, _)) => {
       workPluginName !== targetPluginName
     },
   ),
@@ -192,12 +194,15 @@ let init = (
       ...state,
       states: allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.reduce(
         Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        (states, ({workPluginName, initFunc, createStateFunc}, _)) => {
-          states->Meta3dCommonlib.ImmutableHashMap.set(workPluginName, createStateFunc(meta3dState))
+        (states, ({workPluginName, initFunc, createStateFunc}, config, _)) => {
+          states->Meta3dCommonlib.ImmutableHashMap.set(
+            workPluginName,
+            createStateFunc(meta3dState, config),
+          )
         },
       ),
     },
-    ({states} as state, ({workPluginName, initFunc}, _)) => {
+    ({states} as state, ({workPluginName, initFunc}, _, _)) => {
       state->StateContainer.setState
 
       initFunc(
@@ -219,7 +224,7 @@ module MergePipelineData = {
     Meta3dEngineCoreProtocol.WorkPluginContributeType.workPluginName,
   > => {
     allRegisteredWorkPluginContribute
-    ->Meta3dCommonlib.ListSt.find((({workPluginName, allPipelineData}, _)) => {
+    ->Meta3dCommonlib.ListSt.find((({workPluginName, allPipelineData}, _, _)) => {
       let {groups} = allPipelineData[0]
 
       groups->Meta3dCommonlib.ArraySt.includesByFunc(({elements}) => {
@@ -228,13 +233,14 @@ module MergePipelineData = {
         })
       })
     })
-    ->Meta3dCommonlib.OptionSt.map((({workPluginName}, _)) => workPluginName)
+    ->Meta3dCommonlib.OptionSt.map((({workPluginName}, _, _)) => workPluginName)
     ->Meta3dCommonlib.OptionSt.get
   }
 
   let _check = (
     (
       {allPipelineData},
+      _,
       jobOrders,
     ) as registeredWorkPluginContribute: Meta3dEngineCoreProtocol.StateType.registeredWorkPluginContribute,
   ) => {
@@ -261,6 +267,7 @@ module MergePipelineData = {
     allRegisteredWorkPluginContribute
     ->Meta3dCommonlib.ListSt.traverseResultM(((
       {allPipelineData} as workPluginContribute,
+      config,
       jobOrders,
     )) => {
       (
@@ -270,6 +277,7 @@ module MergePipelineData = {
             name === targetPipelineName
           }),
         },
+        config,
         jobOrders->Meta3dCommonlib.ArraySt.filter(({pipelineName}) => {
           pipelineName === targetPipelineName
         }),
@@ -279,6 +287,7 @@ module MergePipelineData = {
       allRegisteredWorkPluginContribute->Meta3dCommonlib.ListSt.filter(((
         {allPipelineData} as registeredWorkPluginContribute,
         _,
+        _,
       )) => {
         allPipelineData->Meta3dCommonlib.ArraySt.length === 1
       })
@@ -287,6 +296,7 @@ module MergePipelineData = {
       allRegisteredWorkPluginContribute
       ->Meta3dCommonlib.ListSt.map(((
         {workPluginName, getExecFunc, allPipelineData} as registeredWorkPluginContribute,
+        _,
         jobOrders,
       )) => {
         (

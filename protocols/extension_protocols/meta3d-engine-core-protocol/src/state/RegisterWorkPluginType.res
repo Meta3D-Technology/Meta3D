@@ -1,8 +1,9 @@
 type state
 
-type states = Meta3dCommonlibType.ImmutableHashMapType.t<WorkPluginContributeType.workPluginName, state>
-
-type config
+type states = Meta3dCommonlibType.ImmutableHashMapType.t<
+  WorkPluginContributeType.workPluginName,
+  state,
+>
 
 type insertAction =
   | Before
@@ -15,3 +16,5 @@ type jobOrder = {
 }
 
 type jobOrders = array<jobOrder>
+
+type config

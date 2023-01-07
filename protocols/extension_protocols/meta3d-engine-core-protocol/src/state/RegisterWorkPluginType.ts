@@ -8,3 +8,5 @@ export abstract class state { protected opaque!: any }; /* simulate opaque types
 
 // tslint:disable-next-line:interface-over-type-literal
 export type states = Meta3dCommonlibType_ImmutableHashMapType_t<WorkPluginContributeType_pluginName, state>;
+
+export type config = any

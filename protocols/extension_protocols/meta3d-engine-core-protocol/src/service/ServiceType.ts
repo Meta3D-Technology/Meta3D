@@ -11,6 +11,8 @@ import type { dataName as ComponentContributeType_dataName } from '../../src/con
 
 import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
+import type { config as workPluginConfig } from '../state/RegisterWorkPluginType';
+
 // import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
 import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute/scene_graph/GameObjectContributeType';
@@ -24,6 +26,7 @@ import type { state as StateType_state } from '../../src/state/StateType';
 import type { usedComponentContribute as RegisterComponentType_usedComponentContribute } from '../../src/state/RegisterComponentType';
 import { workPluginContribute, workPluginName } from '../contribute/work/WorkPluginContributeType';
 import { cloneConfig } from 'meta3d-gameobject-protocol/src/Index';
+import { nullable } from 'meta3d-commonlib-ts/src/nullable';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
@@ -34,6 +37,7 @@ export type service = {
     readonly registerWorkPlugin: <state, states>(
         state: StateType_state,
         contribute: workPluginContribute<state, states>,
+        config?: nullable<workPluginConfig>,
         jobOrders?: RegisterWorkPluginVOType_jobOrders
     ) => StateType_state;
     readonly unregisterWorkPlugin: (_1: StateType_state, _2: workPluginName) => StateType_state;

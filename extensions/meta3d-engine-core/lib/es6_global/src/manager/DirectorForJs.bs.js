@@ -1,5 +1,6 @@
 
 
+import * as Caml_option from "../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as Result$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
@@ -19,9 +20,10 @@ function _convertJobOrders(jobOrders) {
               }));
 }
 
-function registerWorkPlugin(state, contribute, jobOrdersOpt, param) {
+function registerWorkPlugin(state, contribute, configOpt, jobOrdersOpt, param) {
+  var config = configOpt !== undefined ? Caml_option.valFromOption(configOpt) : null;
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, _convertJobOrders(jobOrders));
+  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, config, _convertJobOrders(jobOrders));
 }
 
 function prepare(param) {

@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_option.js";
 import * as Result$Meta3dCommonlib from "../Result.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../OptionSt.bs.js";
 
@@ -41,5 +41,6 @@ function collectResult(resultData1, resultData2, resultData3, resultData4, resul
 export {
   collectOption ,
   collectResult ,
+  
 }
 /* No side effect */

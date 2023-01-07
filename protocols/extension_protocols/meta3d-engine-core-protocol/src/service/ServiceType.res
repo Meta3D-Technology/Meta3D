@@ -6,6 +6,7 @@ type service = {
   registerWorkPlugin: (
     ~state: StateType.state,
     ~contribute: WorkPluginManagerType.workPluginContributeForRegister,
+    ~config: Js.Nullable.t<RegisterWorkPluginType.config>=?,
     ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
     unit,
   ) => StateType.state,

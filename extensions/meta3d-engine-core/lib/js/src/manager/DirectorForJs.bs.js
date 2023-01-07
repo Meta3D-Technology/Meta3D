@@ -1,5 +1,6 @@
 'use strict';
 
+var Caml_option = require("rescript/lib/js/caml_option.js");
 var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Result.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
@@ -19,9 +20,10 @@ function _convertJobOrders(jobOrders) {
               }));
 }
 
-function registerWorkPlugin(state, contribute, jobOrdersOpt, param) {
+function registerWorkPlugin(state, contribute, configOpt, jobOrdersOpt, param) {
+  var config = configOpt !== undefined ? Caml_option.valFromOption(configOpt) : null;
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, _convertJobOrders(jobOrders));
+  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, config, _convertJobOrders(jobOrders));
 }
 
 function prepare(param) {

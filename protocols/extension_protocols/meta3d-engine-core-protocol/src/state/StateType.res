@@ -4,7 +4,7 @@ type stream<'a> = Meta3dBsMostProtocol.StreamType.stream<'a>
 
 type pipelineData = PipelineType.pipelineData
 
-type createStateFunc<'state> = Meta3dType.Index.state => 'state
+type createStateFunc<'config, 'state> = (Meta3dType.Index.state, Js.Nullable.t<'config>) => 'state
 
 type initFunc<'state> = 'state => unit
 
@@ -24,9 +24,9 @@ type rec state = {
 }
 and execFunc = (state, operateStatesFuncs) => stream<state>
 and getExecFunc = (PipelineType.pipelineName, jobName) => Js.Nullable.t<execFunc>
-and workPluginContribute<'state, 'states> = {
+and workPluginContribute<'config, 'state, 'states> = {
   workPluginName: workPluginName,
-  createStateFunc: createStateFunc<'state>,
+  createStateFunc: createStateFunc<'config, 'state>,
   initFunc: initFunc<'state>,
   getExecFunc: getExecFunc,
   allPipelineData: allPipelineData,
@@ -36,7 +36,12 @@ and workPluginContribute<'state, 'states> = {
 //   'states,
 // >
 and registeredWorkPluginContribute = (
-  workPluginContribute<RegisterWorkPluginType.state, RegisterWorkPluginType.states>,
+  workPluginContribute<
+    RegisterWorkPluginType.config,
+    RegisterWorkPluginType.state,
+    RegisterWorkPluginType.states,
+  >,
+  Js.Nullable.t<RegisterWorkPluginType.config>,
   RegisterWorkPluginType.jobOrders,
 )
 and operateStatesFuncs = {

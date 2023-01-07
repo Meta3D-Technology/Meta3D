@@ -1,7 +1,6 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
-var Js_array = require("rescript/lib/js/js_array.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Caml_array = require("rescript/lib/js/caml_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
@@ -23,19 +22,19 @@ function length(prim) {
 }
 
 function find(arr, func) {
-  return Js_array.find(func, arr);
+  return Caml_option.undefined_to_opt(arr.find(Curry.__1(func)));
 }
 
 function includes(arr, value) {
-  return Js_array.includes(value, arr);
+  return arr.includes(value);
 }
 
 function includesByFunc(arr, func) {
-  return OptionSt$Meta3dCommonlib.isSome(Js_array.find(func, arr));
+  return OptionSt$Meta3dCommonlib.isSome(find(arr, func));
 }
 
 function sliceFrom(arr, index) {
-  return Js_array.sliceFrom(index, arr);
+  return arr.slice(index);
 }
 
 function copy(prim) {
@@ -59,8 +58,8 @@ function traverseResultM(arr, func) {
     return Result$Meta3dCommonlib.succeed([]);
   } else {
     return Result$Meta3dCommonlib.bind(Curry._1(func, _getExn(arr[0])), (function (h) {
-                  return Result$Meta3dCommonlib.bind(traverseResultM(Js_array.sliceFrom(1, arr), func), (function (t) {
-                                return Result$Meta3dCommonlib.succeed(Js_array.concat(t, [h]));
+                  return Result$Meta3dCommonlib.bind(traverseResultM(arr.slice(1), func), (function (t) {
+                                return Result$Meta3dCommonlib.succeed([h].concat(t));
                               }));
                 }));
   }
@@ -79,7 +78,7 @@ function traverseReducePromiseM(arr, func, param) {
     return Promise.resolve(param);
   } else {
     return PromiseSt$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
-                  return traverseReducePromiseM(Js_array.sliceFrom(1, arr), func, h);
+                  return traverseReducePromiseM(arr.slice(1), func, h);
                 }));
   }
 }
@@ -89,7 +88,7 @@ function traverseReduceResultM(arr, func, param) {
     return Result$Meta3dCommonlib.succeed(param);
   } else {
     return Result$Meta3dCommonlib.bind(func(param, Caml_array.get(arr, 0)), (function (h) {
-                  return traverseReduceResultM(Js_array.sliceFrom(1, arr), func, h);
+                  return traverseReduceResultM(arr.slice(1), func, h);
                 }));
   }
 }
@@ -106,24 +105,25 @@ function getFirst(arr) {
 }
 
 function push(arr, value) {
-  Js_array.push(value, arr);
+  arr.push(value);
   return arr;
 }
 
 function forEach(arr, func) {
-  Js_array.forEach(func, arr);
+  arr.forEach(Curry.__1(func));
+  
 }
 
 function map(arr, func) {
-  return Js_array.map(func, arr);
+  return arr.map(Curry.__1(func));
 }
 
 function mapi(arr, func) {
-  return Js_array.mapi(func, arr);
+  return arr.map(Curry.__2(func));
 }
 
 function filter(arr, func) {
-  return Js_array.filter(func, arr);
+  return arr.filter(Curry.__1(func));
 }
 
 function reverse(arr) {
@@ -133,18 +133,19 @@ function reverse(arr) {
 function deleteBySwap(arr, isDebug, index, lastIndex) {
   Contract$Meta3dCommonlib.requireCheck((function (param) {
           var len = arr.length;
-          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("lastIndex:" + lastIndex + " === arr.length:" + len, "not"), (function (param) {
-                  return Contract$Meta3dCommonlib.assertEqual(/* Int */0, arr.length - 1 | 0, lastIndex);
-                }));
+          return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("lastIndex:" + lastIndex + " === arr.length:" + len, "not"), (function (param) {
+                        return Contract$Meta3dCommonlib.assertEqual(/* Int */0, arr.length - 1 | 0, lastIndex);
+                      }));
         }), isDebug);
   arr[index] = arr[lastIndex];
   arr.pop();
+  
 }
 
 function range(a, b) {
   var result = [];
   for(var i = a; i <= b; ++i){
-    Js_array.push(i, result);
+    result.push(i);
   }
   return result;
 }
@@ -159,7 +160,7 @@ function removeDuplicateItems(arr) {
     if (match !== undefined) {
       
     } else {
-      Js_array.push(item, resultArr);
+      resultArr.push(item);
       MutableHashMap$Meta3dCommonlib.set(map, key, item);
     }
   }
@@ -176,7 +177,7 @@ function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
     if (match !== undefined) {
       
     } else {
-      Js_array.push(item, resultArr);
+      resultArr.push(item);
       MutableHashMap$Meta3dCommonlib.set(map, key, item);
     }
   }

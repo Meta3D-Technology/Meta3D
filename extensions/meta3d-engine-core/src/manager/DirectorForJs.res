@@ -16,10 +16,11 @@ let _convertJobOrders = (
 let registerWorkPlugin = (
   ~state,
   ~contribute,
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
   (),
 ) => {
-  state->WorkPluginManager.registerPlugin(contribute, jobOrders->_convertJobOrders)
+  state->WorkPluginManager.registerPlugin(contribute, config, jobOrders->_convertJobOrders)
 }
 
 let unregisterWorkPlugin = WorkPluginManager.unregisterPlugin

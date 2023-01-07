@@ -136,10 +136,11 @@ var ParsePipelineData = {
   parse: parse
 };
 
-function registerPlugin(state, contribute, jobOrders) {
+function registerPlugin(state, contribute, config, jobOrders) {
   return {
           allRegisteredWorkPluginContribute: ListSt$Meta3dCommonlib.push(state.allRegisteredWorkPluginContribute, [
                 contribute,
+                config,
                 jobOrders
               ]),
           states: state.states,
@@ -169,7 +170,7 @@ function init(state, meta3dState) {
               allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
               states: ListSt$Meta3dCommonlib.reduce(allRegisteredWorkPluginContribute, ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined), (function (states, param) {
                       var match = param[0];
-                      return ImmutableHashMap$Meta3dCommonlib.set(states, match.workPluginName, Curry._1(match.createStateFunc, meta3dState));
+                      return ImmutableHashMap$Meta3dCommonlib.set(states, match.workPluginName, Curry._2(match.createStateFunc, meta3dState, param[1]));
                     })),
               pluginData: state.pluginData,
               componentContributeData: state.componentContributeData,
@@ -197,7 +198,7 @@ function _findInsertPluginName(insertElementName, allRegisteredWorkPluginContrib
 }
 
 function _check(registeredWorkPluginContribute) {
-  if (ArraySt$Meta3dCommonlib.length(registeredWorkPluginContribute[0].allPipelineData) <= 1 && ArraySt$Meta3dCommonlib.length(registeredWorkPluginContribute[1]) <= 1) {
+  if (ArraySt$Meta3dCommonlib.length(registeredWorkPluginContribute[0].allPipelineData) <= 1 && ArraySt$Meta3dCommonlib.length(registeredWorkPluginContribute[2]) <= 1) {
     return Result$Meta3dCommonlib.succeed(registeredWorkPluginContribute);
   } else {
     return Result$Meta3dCommonlib.failWith(Log$Meta3dCommonlib.buildErrorMessage("allPipelineData or jobOrders should has the same pipeline <= 1", "", "", "", ""));
@@ -217,7 +218,8 @@ function _findAllSpecificPipelineRelatedData(allRegisteredWorkPluginContribute, 
                                               return param.name === targetPipelineName;
                                             }))
                                     },
-                                    ArraySt$Meta3dCommonlib.filter(param[1], (function (param) {
+                                    param[1],
+                                    ArraySt$Meta3dCommonlib.filter(param[2], (function (param) {
                                             return param.pipelineName === targetPipelineName;
                                           }))
                                   ]);
@@ -232,7 +234,7 @@ function _findAllSpecificPipelineRelatedData(allRegisteredWorkPluginContribute, 
                                           registeredWorkPluginContribute.workPluginName,
                                           registeredWorkPluginContribute.getExecFunc,
                                           Caml_array.get(registeredWorkPluginContribute.allPipelineData, 0),
-                                          ArraySt$Meta3dCommonlib.getFirst(param[1])
+                                          ArraySt$Meta3dCommonlib.getFirst(param[2])
                                         ];
                                 })), (function (param) {
                               var pipelineData = param[2];

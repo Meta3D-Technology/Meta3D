@@ -6,6 +6,7 @@ import type { pipelineData as PipelineType_pipelineData } from '../../state/Pipe
 import type { pipelineName as PipelineType_pipelineName } from '../../state/PipelineType';
 
 import { state, operateStatesFuncs } from "../../state/StateType"
+import { config } from "../../state/RegisterWorkPluginType"
 
 // tslint:disable-next-line:interface-over-type-literal
 export type jobName = string;
@@ -24,7 +25,7 @@ export type pipelineData = PipelineType_pipelineData;
 
 // tslint:disable-next-line:interface-over-type-literal
 // export type createStateFunc<state> = () => state;
-export type createStateFunc<state> = (meta3dState: meta3dState) => state
+export type createStateFunc<state> = (meta3dState: meta3dState, config: config) => state
 
 // tslint:disable-next-line:interface-over-type-literal
 export type initFunc<state> = (_1: state) => void;
