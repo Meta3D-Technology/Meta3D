@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
+import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
 import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
@@ -10,7 +10,7 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
 
-export function registerExtension<extensionService, dependentExtensionNameMap, dependentContributeNameMap, extensionState>(state: state, extensionName: extensionName, getExtensionService: getExtensionService<dependentExtensionNameMap, dependentContributeNameMap, extensionService>,
+export function registerExtension<extensionService, dependentExtensionNameMap, dependentContributeNameMap, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionService: getExtensionService<dependentExtensionNameMap, dependentContributeNameMap, extensionService>,
     getExtensionLife: getExtensionLife<extensionService>,
     [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
     extensionState: extensionState
@@ -20,44 +20,44 @@ type extensionLifeHandlerData = any
 
 export function initExtension(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
     extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
 export function updateExtension(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
     extensionLifeHandlerData: extensionLifeHandlerData
 ): Promise<state>
 
 export function getExtensionService<extensionService>(
     state: state,
-    extensionName: extensionName
+    extensionProtocolName: extensionProtocolName
 ): extensionService
 
 export function setExtensionState<extensionState>(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
     extensionState: extensionState
 ): state
 
 export function getExtensionState<extensionState>(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
 ): extensionState
 
-export function registerContribute<contribute, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeName: contributeName, getContributeFunc: getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute>,
+export function registerContribute<contribute, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute>,
     [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
 ): state
 
 export function getContribute<contribute>(
     state: state,
-    contributeName: contributeName
+    contributeProtocolName: contributeProtocolName
 ): contribute
 
 export function startExtension(
     state: state,
-    extensionName: extensionName
+    extensionProtocolName: extensionProtocolName
 ): void
 
 export function generateExtension(
@@ -91,60 +91,7 @@ export function loadContribute<
         contributeService
     >
 
-type allPackageEntryExtensionProtocolData = Array<[extensionProtocolData, extensionName]>
 type allPackageBinaryFiles = Array<ArrayBuffer>
-
-export function convertAllFileDataForApp<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    extensionService,
-    extensionState,
-    contributeService,
-    >(
-        allExtensionFileData: Array<extensionFileData>,
-        allContributeFileData: Array<contributeFileData<
-            dependentExtensionNameMap,
-            dependentContributeNameMap,
-            contributeService
-        >>,
-        allPackageEntryExtensionProtocolData: allPackageEntryExtensionProtocolData,
-        [
-            allExtensionNewNames, isStartedExtensions, allContributeNewNames
-        ]: [
-                Array<extensionName>,
-                Array<extensionName>,
-                Array<contributeName>,
-            ]
-    ): [
-        Array<[extensionPackageDataApp, extensionFuncData]>,
-        Array<[contributePackageDataApp, contributeFuncData]>
-    ]
-
-export function convertAllFileDataForPackage<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    extensionService,
-    extensionState,
-    contributeService,
-    >(
-        allExtensionFileData: Array<extensionFileData>,
-        allContributeFileData: Array<contributeFileData<
-            dependentExtensionNameMap,
-            dependentContributeNameMap,
-            contributeService
-        >>,
-        allPackageEntryExtensionProtocolData: allPackageEntryExtensionProtocolData,
-        [
-            allExtensionNewNames, entryExtensions, allContributeNewNames
-        ]: [
-                Array<extensionName>,
-                Array<extensionName>,
-                Array<contributeName>,
-            ]
-    ): [
-        Array<[extensionPackageDataApp, extensionFuncData]>,
-        Array<[contributePackageDataApp, contributeFuncData]>
-    ]
 
 
 export function generateApp(
@@ -178,7 +125,7 @@ export function loadApp(
 
 export function loadPackage(
     packageBinaryFile: ArrayBuffer
-): [state, Array<extensionFileData>, extensionName]
+): [state, Array<extensionFileData>, extensionProtocolName]
 
 
 

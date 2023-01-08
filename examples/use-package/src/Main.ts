@@ -14,45 +14,45 @@ import * as packageBinaryFile from "arraybuffer-loader!./packages/package-test1_
 // fetch("src/packages/p1_0.0.2.package").then(response => response.arrayBuffer())
 // fetch("./packages/p1_0.0.2.package").then(response => response.arrayBuffer())
 //     .then(packageBinaryFile => {
-//         let [meta3dState, _, entryExtensionName] = loadPackage(packageBinaryFile)
+//         let [meta3dState, _, entryExtensionProtocolName] = loadPackage(packageBinaryFile)
 
-//         let { log, registerInfo } = getExtensionService<service>(meta3dState, entryExtensionName)
+//         let { log, registerInfo } = getExtensionService<service>(meta3dState, entryExtensionProtocolName)
 
-//         let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionName)
+//         let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionProtocolName)
 
 
 //         // meta3dState = setExtensionState(
 //         //     meta3dState
-//         //     , entryExtensionName,
+//         //     , entryExtensionProtocolName,
 //         //     registerInfo(entryExtensionState, meta3dState)
 //         // )
 //         entryExtensionState = registerInfo(entryExtensionState, meta3dState)
 
-//         // let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionName)
+//         // let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionProtocolName)
 
 //         log(entryExtensionState)
 //     })
 
 
 // debugger
-let [meta3dState, _, entryExtensionName] = loadPackage(packageBinaryFile)
+let [meta3dState, _, entryExtensionProtocolName] = loadPackage(packageBinaryFile)
 //  loadPackage(packageBinaryFile)
 
-let { log, registerInfo } = getExtensionService<service>(meta3dState, entryExtensionName)
+let { log, registerInfo } = getExtensionService<service>(meta3dState, entryExtensionProtocolName)
 
 // console.log(getExtensionState)
 
 
-let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionName)
+let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionProtocolName)
 
 
 // meta3dState = setExtensionState(
 //     meta3dState
-//     , entryExtensionName,
+//     , entryExtensionProtocolName,
 //     registerInfo(entryExtensionState, meta3dState)
 // )
 entryExtensionState = registerInfo(entryExtensionState, meta3dState)
 
-// let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionName)
+// let entryExtensionState = getExtensionState<state>(meta3dState, entryExtensionProtocolName)
 
 log(entryExtensionState)

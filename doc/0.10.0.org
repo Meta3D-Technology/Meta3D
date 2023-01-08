@@ -13,7 +13,7 @@ add other apis
 pass compile
 
 
-** TODO refactor: rename extensionName to extensionProtocolName
+** DONE refactor: rename extensionName to extensionProtocolName
 
 meta3d-package
 meta3d

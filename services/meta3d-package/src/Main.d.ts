@@ -1,4 +1,4 @@
-import { extensionName, getExtensionService, getExtensionLife, state, api, contributeName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
+import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
 import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
@@ -10,29 +10,20 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function loadPackage(
     packageBinaryFile: ArrayBuffer
-): [state, Array<extensionFileData>, extensionName]
+): [state, Array<extensionFileData>, extensionProtocolName]
 
 export function getExtensionService<extensionService>(
     state: state,
-    extensionName: extensionName
+    extensionProtocolName: extensionProtocolName
 ): extensionService
 
 export function setExtensionState<extensionState>(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
     extensionState: extensionState
 ): state
 
 export function getExtensionState<extensionState>(
     state: state,
-    extensionName: extensionName,
+    extensionProtocolName: extensionProtocolName,
 ): extensionState
-
-
-// // loadPack
-
-// export type loadPackage = loadPackageMeta3d
-
-// export type loadPackage = loadPackageMeta3d
-
-// export { loadPackage, getExtensionService }
