@@ -17,4 +17,4 @@ type jobOrder = {
 
 type jobOrders = array<jobOrder>
 
-type config
+type config 

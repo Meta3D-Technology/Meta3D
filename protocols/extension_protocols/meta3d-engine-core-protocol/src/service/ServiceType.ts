@@ -34,9 +34,9 @@ export type service = {
     readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
     readonly prepare: () => void;
     readonly init: (_1: StateType_state, _2: Meta3dType_Index_state) => StateType_state;
-    readonly registerWorkPlugin: <state, states>(
+    readonly registerWorkPlugin: <config, state, states>(
         state: StateType_state,
-        contribute: workPluginContribute<state, states>,
+        contribute: workPluginContribute<config, state, states>,
         config?: nullable<workPluginConfig>,
         jobOrders?: RegisterWorkPluginVOType_jobOrders
     ) => StateType_state;
@@ -56,9 +56,9 @@ export type service = {
     readonly deferDisposeComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: [component, GameObjectContributeType_gameObject]) => RegisterComponentType_usedComponentContribute;
     readonly disposeComponents: <component, batchDisposeData> (_1: RegisterComponentType_usedComponentContribute, _2: batchDisposeData) => RegisterComponentType_usedComponentContribute;
     readonly getAllComponents: <component> (_1: RegisterComponentType_usedComponentContribute) => component[];
-    readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => (null | undefined | dataValue);
+    readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => nullable<dataValue>;
     readonly getComponentGameObjects: <component> (_1: RegisterComponentType_usedComponentContribute, _2: component) => GameObjectContributeType_gameObject[];
-    readonly getComponentState: <componentState> (_1: StateType_state, _2: ComponentContributeType_componentName) => (null | undefined | componentState);
+    readonly getComponentState: <componentState> (_1: StateType_state, _2: ComponentContributeType_componentName) => nullable<componentState>;
     readonly setGameObjectContribute: (_1: StateType_state, _2: GameObjectType_gameObjectContribute) => StateType_state;
     readonly createAndSetGameObjectState: (_1: StateType_state, _config: gameObjectConfig) => StateType_state;
     readonly createGameObject: (_1: StateType_state) => [StateType_state, gameObject];

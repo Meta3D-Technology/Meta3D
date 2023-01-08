@@ -4,7 +4,7 @@ type stream<'a> = Meta3dBsMostProtocol.StreamType.stream<'a>
 
 type pipelineData = PipelineType.pipelineData
 
-type createStateFunc<'config, 'state> = (Meta3dType.Index.state, Js.Nullable.t<'config>) => 'state
+type createStateFunc<'config, 'state> = (Meta3dType.Index.state, 'config) => 'state
 
 type initFunc<'state> = 'state => unit
 
@@ -37,7 +37,7 @@ and workPluginContribute<'config, 'state, 'states> = {
 // >
 and registeredWorkPluginContribute = (
   workPluginContribute<
-    RegisterWorkPluginType.config,
+    Js.Nullable.t<RegisterWorkPluginType.config>,
     RegisterWorkPluginType.state,
     RegisterWorkPluginType.states,
   >,
