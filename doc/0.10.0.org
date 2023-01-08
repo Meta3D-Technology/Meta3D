@@ -1,13 +1,26 @@
 * TODO build engine packages: engine basic + create scene package + render scene package + whole engine package(use first twos)
 
 
-scene package:
+** DONE scene package:
 api
 init, update jobs
 
+transform, camera, gameObject
+
+add other apis
 
 
-engine basic package:
+pass compile
+
+
+** TODO refactor: rename extensionName to extensionProtocolName
+
+meta3d-package
+meta3d
+
+
+
+** TODO engine basic package:
 register work plugin root
 register engine basic, engine core, most, immutable? extension
 engineCoreState = setIsDebug(engineCoreState, isDebug)
@@ -16,7 +29,7 @@ engineCoreState = setIsDebug(engineCoreState, isDebug)
 
 
 
-render package:
+** TODO render package:
 api
 init(material, geometry), update jobs
 
@@ -31,9 +44,16 @@ use webgl, no worker
 # use webgpu
 
 
-whole engine package has create scene, render api:
+** TODO whole engine package has create scene, render api:
 api:
     init,update,render
+    scene api:
+        encapsulate to engine core state, service to meta3d state;
+
+init:
+invoke three packages' init;
+engineCoreState = engineCoreService.init(engineCoreState, meta3dState)
+
 ...
 
 
