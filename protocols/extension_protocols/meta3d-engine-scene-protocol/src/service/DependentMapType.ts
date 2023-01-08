@@ -3,7 +3,6 @@ export type dependentExtensionNameMap = {
 }
 
 export type dependentContributeNameMap = {
-    meta3dTest1ContributeName: string,
     meta3dWorkPluginCameraContributeName: string,
     meta3dWorkPluginTransformContributeName: string,
     meta3dComponentTransformContributeName: string,

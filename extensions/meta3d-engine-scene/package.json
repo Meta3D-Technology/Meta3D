@@ -11,6 +11,12 @@
         }
     },
     "dependentContributeNameMap": {
+        "meta3dWorkPluginCameraContributeName": {
+            "protocolName": "meta3d-work-plugin-camera-protocol"
+        },
+        "meta3dWorkPluginTransformContributeName": {
+            "protocolName": "meta3d-work-plugin-transform-protocol"
+        },
         "meta3dComponentTransformContributeName": {
             "protocolName": "meta3d-component-transform-protocol"
         },
@@ -37,6 +43,8 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
+        "meta3d-work-plugin-camera-protocol": "^0.9.0",
+        "meta3d-work-plugin-transform-protocol": "^0.9.0",
         "meta3d-component-basiccameraview-protocol": "^0.9.0",
         "meta3d-component-geometry-protocol": "^0.9.0",
         "meta3d-component-pbrmaterial-protocol": "^0.9.0",

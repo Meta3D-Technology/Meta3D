@@ -20,9 +20,11 @@ meta3d
 
 
 
-** TODO engine basic package:
+** DONE engine basic package:
 register work plugin root
-register engine basic, engine core, most, immutable? extension
+register extensions:
+engine basic, engine core, most, immutable? extension
+
 engineCoreState = setIsDebug(engineCoreState, isDebug)
 
 
