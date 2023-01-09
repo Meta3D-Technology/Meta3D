@@ -22,9 +22,12 @@ type contextConfigJsObj = {
   "alpha": bool,
   "depth": bool,
   "stencil": bool,
+  "failIfMajorPerformanceCaveat": bool,
+  "powerPreference": string,
   "antialias": bool,
   "premultipliedAlpha": bool,
   "preserveDrawingBuffer": bool,
+  "desynchronized": bool,
 }
 
 type canvas = Dom.htmlCanvasElement
