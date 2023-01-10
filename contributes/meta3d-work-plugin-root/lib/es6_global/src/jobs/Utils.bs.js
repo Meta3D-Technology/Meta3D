@@ -9,6 +9,5 @@ function getState(states) {
 
 export {
   getState ,
-  
 }
 /* No side effect */

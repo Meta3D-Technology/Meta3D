@@ -1,6 +1,6 @@
 
 
-import * as Caml_obj from "../../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_obj.js";
+import * as Caml_obj from "../../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/caml_obj.js";
 import * as Log$Meta3dCommonlib from "../../log/Log.bs.js";
 import * as Contract$Meta3dCommonlib from "../../contract/Contract.bs.js";
 

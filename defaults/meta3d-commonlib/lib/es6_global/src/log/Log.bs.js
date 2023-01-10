@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Belt_List from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/belt_List.js";
+import * as Curry from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
+import * as Belt_List from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/belt_List.js";
 
 function printForDebug(value) {
   console.log(JSON.stringify(value));

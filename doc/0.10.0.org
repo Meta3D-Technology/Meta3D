@@ -1,4 +1,4 @@
-* TODO build engine packages: engine basic + create scene package + render scene package + whole engine package(use first twos)
+* DONE build engine packages: engine basic + create scene package + render scene package + whole engine package(use first twos)
 
 
 ** DONE scene package:
@@ -70,16 +70,43 @@ run render pipeline
 
 * TODO download whole engine package to use as a engine to draw a cube
 
+engine whole package:
+engine core, immutable, most
+packages
+
+
+
 
 engine basic package:
 register extensions:
-engine basic, engine core, most, immutable? extension
+# engine basic, engine core, most, immutable? extension
+engine basic
+
+root
+
+
 
 
 
 engine render package:
 register extensions:
-webgl1, meta3d-renderdatabuffer, ...
+webgl1, ...
+
+
+** TODO feat(default): meta3d: if not has entry extension, error with info
+
+** TODO fix(default): meta3d: loadPackage should get current package's entry extensionProtocolName
+
+should store package's entry extensionProtocolName when build package!
+
+
+** TODO pass empty gameObject run test
+
+init
+
+loop
+
+** TODO pass cube run test
 
 
 * TODO refactor: rename getGL to getGl??

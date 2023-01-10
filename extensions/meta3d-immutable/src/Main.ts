@@ -13,10 +13,10 @@ export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionName
 }
 
 export let createExtensionState: createExtensionStateMeta3D<state> = () => {
-    return {}
+    return null
 }
 
-export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
+export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
     return {
     }
 }

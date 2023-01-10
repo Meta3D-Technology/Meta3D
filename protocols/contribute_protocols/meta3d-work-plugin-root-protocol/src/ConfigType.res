@@ -1,1 +1,1 @@
-type config = Js.Nullable.null
+type config = Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>

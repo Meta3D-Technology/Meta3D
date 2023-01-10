@@ -1,8 +1,8 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Js_exn from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/js_exn.js";
-import * as Caml_js_exceptions from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_js_exceptions.js";
+import * as Curry from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
+import * as Js_exn from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/js_exn.js";
+import * as Caml_js_exceptions from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/caml_js_exceptions.js";
 import * as Exception$Meta3dCommonlib from "./Exception.bs.js";
 
 function succeed(x) {

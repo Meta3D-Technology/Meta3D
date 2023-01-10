@@ -1,8 +1,8 @@
 
 
 import * as Most from "most";
-import * as Curry from "../../../../meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Caml_array from "../../../../meta3d-engine-core/node_modules/rescript/lib/es6/caml_array.js";
+import * as Curry from "../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_array from "../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 
 var _isFromEventStream = (function(stream){ var source = stream.source; return !!source.event && !!source.source; });

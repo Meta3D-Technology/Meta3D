@@ -13,6 +13,5 @@ function execFunc(engineCoreState, param) {
 
 export {
   execFunc ,
-  
 }
 /* No side effect */

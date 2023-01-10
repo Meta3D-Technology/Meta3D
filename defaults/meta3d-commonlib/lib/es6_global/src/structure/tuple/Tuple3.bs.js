@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_option.js";
+import * as Curry from "../../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "../../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/caml_option.js";
 import * as Result$Meta3dCommonlib from "../Result.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../OptionSt.bs.js";
 

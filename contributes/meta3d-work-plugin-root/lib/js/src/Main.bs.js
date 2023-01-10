@@ -26,7 +26,7 @@ function getContribute(api, param) {
   var meta3dBsMostExtensionName = param[0].meta3dBsMostExtensionName;
   return {
           workPluginName: StateType$Meta3dWorkPluginRootProtocol.workPluginName,
-          createStateFunc: (function (meta3dState) {
+          createStateFunc: (function (meta3dState, param) {
               var mostService = api.getExtensionService(meta3dState, meta3dBsMostExtensionName);
               return {
                       mostService: mostService

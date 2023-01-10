@@ -11,22 +11,22 @@ function getExtensionService(api, param) {
               return gl.createProgram();
             }),
           linkProgram: (function (program, gl) {
-              return gl.linkProgram(program);
+              gl.linkProgram(program);
             }),
           useProgram: (function (program, gl) {
-              return gl.useProgram(program);
+              gl.useProgram(program);
             }),
           uniformMatrix4fv: (function ($$location, value, gl) {
-              return gl.uniformMatrix4fv($$location, false, value);
+              gl.uniformMatrix4fv($$location, false, value);
             }),
           uniform1i: (function ($$location, value, gl) {
-              return gl.uniform1i($$location, value);
+              gl.uniform1i($$location, value);
             }),
           uniform1f: (function ($$location, value, gl) {
-              return gl.uniform1f($$location, value);
+              gl.uniform1f($$location, value);
             }),
           uniform3f: (function ($$location, value1, value2, value3, gl) {
-              return gl.uniform3f($$location, value1, value2, value3);
+              gl.uniform3f($$location, value1, value2, value3);
             }),
           getAttribLocation: (function (program, name, gl) {
               return gl.getAttribLocation(program, name);
@@ -35,10 +35,10 @@ function getExtensionService(api, param) {
               return gl.getUniformLocation(program, name);
             }),
           shaderSource: (function (shader, shaderSource, gl) {
-              return gl.shaderSource(shader, shaderSource);
+              gl.shaderSource(shader, shaderSource);
             }),
           compileShader: (function (shader, gl) {
-              return gl.compileShader(shader);
+              gl.compileShader(shader);
             }),
           createShader: (function (shaderType, gl) {
               return gl.createShader(shaderType);
@@ -62,13 +62,13 @@ function getExtensionService(api, param) {
               return NullableSt$Meta3dCommonlib.getWithDefault(gl.getProgramInfoLog(program), "");
             }),
           attachShader: (function (program, shader, gl) {
-              return gl.attachShader(program, shader);
+              gl.attachShader(program, shader);
             }),
           deleteShader: (function (shader, gl) {
-              return gl.deleteShader(shader);
+              gl.deleteShader(shader);
             }),
           bindAttribLocation: (function (program, index, name, gl) {
-              return gl.bindAttribLocation(program, index, name);
+              gl.bindAttribLocation(program, index, name);
             }),
           getCompileStatus: (function (gl) {
               return gl.COMPILE_STATUS;
@@ -83,16 +83,16 @@ function getExtensionService(api, param) {
               return gl.createBuffer();
             }),
           bindBuffer: (function (arrayBufferType, buffer, gl) {
-              return gl.bindBuffer(arrayBufferType, buffer);
+              gl.bindBuffer(arrayBufferType, buffer);
             }),
           bufferFloat32Data: (function (arrayBufferType, bufferData, arrayBufferUpdateType, gl) {
-              return gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
+              gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
             }),
           bufferUint16Data: (function (arrayBufferType, bufferData, arrayBufferUpdateType, gl) {
-              return gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
+              gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
             }),
           bufferUint32Data: (function (arrayBufferType, bufferData, arrayBufferUpdateType, gl) {
-              return gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
+              gl.bufferData(arrayBufferType, bufferData, arrayBufferUpdateType);
             }),
           getArrayBuffer: (function (gl) {
               return gl.ARRAY_BUFFER;
@@ -107,25 +107,25 @@ function getExtensionService(api, param) {
               return gl.DYNAMIC_DRAW;
             }),
           disableVertexAttribArray: (function (index, gl) {
-              return gl.disableVertexAttribArray(index);
+              gl.disableVertexAttribArray(index);
             }),
           vertexAttribPointer: (function (attributeLocation, size, _type, normalized, stride, offset, gl) {
-              return gl.vertexAttribPointer(attributeLocation, size, _type, normalized, stride, offset);
+              gl.vertexAttribPointer(attributeLocation, size, _type, normalized, stride, offset);
             }),
           enableVertexAttribArray: (function (attributeLocation, gl) {
-              return gl.enableVertexAttribArray(attributeLocation);
+              gl.enableVertexAttribArray(attributeLocation);
             }),
           getExtension: (function (name, gl) {
               return gl.getExtension(name);
             }),
           drawElements: (function (mode, count, _type, offset, gl) {
-              return gl.drawElements(mode, count, _type, offset);
+              gl.drawElements(mode, count, _type, offset);
             }),
           clearColor: (function (red, green, blue, alpha, gl) {
-              return gl.clearColor(red, green, blue, alpha);
+              gl.clearColor(red, green, blue, alpha);
             }),
           clear: (function (mask, gl) {
-              return gl.clear(mask);
+              gl.clear(mask);
             }),
           getColorBufferBit: (function (gl) {
               return gl.COLOR_BUFFER_BIT;
@@ -137,10 +137,10 @@ function getExtensionService(api, param) {
               return gl.STENCIL_BUFFER_BIT;
             }),
           enable: (function (capability, gl) {
-              return gl.enable(capability);
+              gl.enable(capability);
             }),
           disable: (function (capability, gl) {
-              return gl.disable(capability);
+              gl.disable(capability);
             }),
           getFloat: (function (gl) {
               return gl.FLOAT;
@@ -185,10 +185,10 @@ function getExtensionService(api, param) {
               return gl.isEnabled(capability);
             }),
           bindVertexArrayOES: (function (arrayObject, gl) {
-              return gl.bindVertexArrayOES(arrayObject);
+              gl.bindVertexArrayOES(arrayObject);
             }),
           blendFunc: (function (sfactor, dfactor, gl) {
-              return gl.blendFunc(sfactor, dfactor);
+              gl.blendFunc(sfactor, dfactor);
             }),
           getTriangles: (function (gl) {
               return gl.TRIANGLES;
@@ -222,6 +222,5 @@ export {
   getExtensionService ,
   createExtensionState ,
   getExtensionLife ,
-  
 }
 /* No side effect */

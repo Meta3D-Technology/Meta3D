@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Js_null_undefined from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Curry from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
+import * as Js_null_undefined from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/js_null_undefined.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
 
 function getExn(data) {

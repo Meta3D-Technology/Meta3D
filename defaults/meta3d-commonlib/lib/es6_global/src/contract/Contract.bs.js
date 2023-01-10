@@ -1,10 +1,10 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
-import * as Js_exn from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/js_exn.js";
-import * as Caml_obj from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_obj.js";
-import * as Belt_List from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/belt_List.js";
-import * as Js_option from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/js_option.js";
+import * as Curry from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
+import * as Js_exn from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/js_exn.js";
+import * as Caml_obj from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/caml_obj.js";
+import * as Belt_List from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/belt_List.js";
+import * as Js_option from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/js_option.js";
 
 function _assert(result, message) {
   return result;
