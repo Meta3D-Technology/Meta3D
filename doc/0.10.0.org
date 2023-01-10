@@ -31,7 +31,7 @@ engineCoreState = setIsDebug(engineCoreState, isDebug)
 
 
 
-** TODO render package:
+** DONE render package:
 api
 init(material, geometry), update jobs
 
@@ -47,8 +47,6 @@ use webgl, no worker
 
 
 
-TODO refactor: rename getGL to getGl
-
 
 ** TODO whole engine package has create scene, render api:
 api:
@@ -59,8 +57,14 @@ api:
 init:
 invoke three packages' init;
 engineCoreState = engineCoreService.init(engineCoreState, meta3dState)
+run init pipeline
 
-...
+update:
+run update pipeline
+
+render:
+run render pipeline
+
 
 
 
@@ -77,6 +81,8 @@ engine render package:
 register extensions:
 webgl1, meta3d-renderdatabuffer, ...
 
+
+* TODO refactor: rename getGL to getGl??
 
 
 * TODO add 3D View custom control(low level) implment by FBO
