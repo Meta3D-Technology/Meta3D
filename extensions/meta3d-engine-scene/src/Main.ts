@@ -13,7 +13,6 @@ import { config as transformWorkPluginConfig } from "meta3d-work-plugin-transfor
 // import { state as rootState, states as rootStates } from "meta3d-work-plugin-root-protocol/src/StateType";
 import { addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject } from "./GameObjectAPI"
 // import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI"
-// import { init, render, update } from "./DirectorAPI"
 import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
@@ -163,7 +162,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				return meta3dState
 			},
 			gameObject: {
-				addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject
+				// addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject
+				createGameObject
 			},
 			// TODO more apis
 		}

@@ -20,5 +20,5 @@
 	},
 	"include": [
 		"./src"
-, "../meta3d-engine-whole/src/DirectorAPI.ts"	]
+	]
 }

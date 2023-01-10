@@ -3,7 +3,9 @@ import {
 	addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject
 } from "./ecs/GameObject"
 
-type ecsConfig = {
+export type canvasSize = [number, number]
+
+export type ecsConfig = {
 	float9Array1: Float32Array,
 	float32Array1: Float32Array,
 	transformCount: number,
@@ -13,8 +15,9 @@ type ecsConfig = {
 }
 
 export type service = {
-	init: (meta3dState: meta3dState, isDebug: boolean, canvasSize: [number, number], ecsConfig: ecsConfig) => meta3dState,
+	init: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig) => meta3dState,
 	gameObject: {
-		addBasicCameraView: addBasicCameraView, addPerspectiveCameraProjection: addPerspectiveCameraProjection, addTransform: addTransform, createGameObject: createGameObject
+		// addBasicCameraView: addBasicCameraView, addPerspectiveCameraProjection: addPerspectiveCameraProjection, addTransform: addTransform, 
+		createGameObject: createGameObject
 	}
 };
