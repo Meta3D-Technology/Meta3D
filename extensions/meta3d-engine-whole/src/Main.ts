@@ -25,7 +25,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 }, {
 }]) => {
 		return {
-			init: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig, canvas) => {
+			prepare: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig, canvas) => {
 				// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionName)
 
 				let engineBasicService = api.getExtensionService<engineBasicService>(
@@ -33,7 +33,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineBasicExtensionName
 				)
 
-				meta3dState = engineBasicService.init(meta3dState, isDebug)
+				meta3dState = engineBasicService.prepare(meta3dState, isDebug)
 
 				// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, meta3dEngineSceneExtensionName)
 
@@ -42,7 +42,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineSceneExtensionName
 				)
 
-				meta3dState = engineSceneService.init(meta3dState, isDebug, canvasSize, ecsConfig)
+				meta3dState = engineSceneService.prepare(meta3dState, isDebug, canvasSize, ecsConfig)
 
 
 				// let engineRenderState = api.getExtensionState<engineRenderState>(meta3dState, meta3dEngineRenderExtensionName)
@@ -52,14 +52,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineRenderExtensionName
 				)
 
-				meta3dState = engineRenderService.init(meta3dState, isDebug, canvas)
+				meta3dState = engineRenderService.prepare(meta3dState, isDebug, canvas)
 
 
 
-
-
-
-
+				return meta3dState
+			},
+			init: (meta3dState: meta3dState) => {
 				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
@@ -67,13 +66,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineCoreExtensionName
 				)
 
-
 				engineCoreState = engineCoreService.init(engineCoreState, meta3dState)
-
-
-
-
-
 
 
 
@@ -83,6 +76,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 						meta3dEngineCoreExtensionName,
 						engineCoreState
 					)
+
 
 
 				return init(api, meta3dState, meta3dBsMostExtensionName, meta3dEngineCoreExtensionName)

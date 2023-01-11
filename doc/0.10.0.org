@@ -102,7 +102,7 @@ webgl1, ...
 
 ** TODO pass empty gameObject run test
 
-init
+# init
 
 loop
 

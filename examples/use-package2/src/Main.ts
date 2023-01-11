@@ -3,7 +3,7 @@ import { loadPackage, getExtensionService, getExtensionState, setExtensionState 
 import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
 
-import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.2.package"
+import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
 
 
 
@@ -30,16 +30,11 @@ let canvasSize: [number, number] = [canvas.width, canvas.height]
 
 let [meta3dState, _, entryExtensionProtocolName] = loadPackage(packageBinaryFile)
 
-let { init, update, render, scene } = getExtensionService<service>(meta3dState, entryExtensionProtocolName)
+let { prepare, init, update, render, scene } = getExtensionService<service>(meta3dState, entryExtensionProtocolName)
 
+// debugger
 
-let data = scene.gameObject.createGameObject(meta3dState)
-meta3dState = data[0]
-let gameObject = data[1]
-
-console.log(gameObject)
-
-init(
+meta3dState = prepare(
     meta3dState,
     isDebug,
     canvasSize,
@@ -52,6 +47,15 @@ init(
         pbrMaterialCount
     },
     canvas
-).then(meta3dState => {
+)
+
+
+let data = scene.gameObject.createGameObject(meta3dState)
+meta3dState = data[0]
+let gameObject = data[1]
+
+console.log(gameObject)
+
+init(meta3dState,).then(meta3dState => {
     console.log("init success", meta3dState)
 })

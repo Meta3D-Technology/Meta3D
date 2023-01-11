@@ -18,7 +18,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dWorkPluginRootContributeName
 }]) => {
 		return {
-			init: (meta3dState: meta3dState, isDebug) => {
+			prepare: (meta3dState: meta3dState, isDebug) => {
 				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(

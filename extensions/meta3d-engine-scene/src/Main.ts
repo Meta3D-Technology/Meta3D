@@ -42,7 +42,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dGameObjectContributeName
 }]) => {
 		return {
-			init: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig) => {
+			prepare: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig) => {
 				let {
 					float9Array1,
 					float32Array1,

@@ -15,7 +15,7 @@ export type ecsConfig = {
 }
 
 export type service = {
-	init: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig) => meta3dState,
+	prepare: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig) => meta3dState,
 	gameObject: {
 		// addBasicCameraView: addBasicCameraView, addPerspectiveCameraProjection: addPerspectiveCameraProjection, addTransform: addTransform, 
 		createGameObject: createGameObject

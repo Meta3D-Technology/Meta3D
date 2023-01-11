@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-render",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-render-protocol"
@@ -49,7 +49,7 @@
         "meta3d-work-plugin-webgl1-data-protocol": "^0.9.0",
         "meta3d-work-plugin-webgl1-render-protocol": "^0.9.0",
         "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol": "^0.9.0",
-        "meta3d-engine-render-protocol": "^0.9.0"
+        "meta3d-engine-render-protocol": "^0.9.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

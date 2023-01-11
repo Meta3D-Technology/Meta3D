@@ -3,7 +3,8 @@ import { canvasSize, ecsConfig } from "meta3d-engine-scene-protocol/src/service/
 import { createGameObject } from "./GameObject";
 
 export type service = {
-	init: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig, canvas: HTMLCanvasElement) => Promise<meta3dState>,
+	prepare: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig, canvas: HTMLCanvasElement) => meta3dState,
+	init: (meta3dState: meta3dState) => Promise<meta3dState>,
 	update: (meta3dState: meta3dState) => Promise<meta3dState>,
 	render: (meta3dState: meta3dState) => Promise<meta3dState>,
 	scene: {

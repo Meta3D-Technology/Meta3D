@@ -1,11 +1,18 @@
 {
     "name": "meta3d-work-plugin-camera",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-work-plugin-camera-protocol"
     },
-    "dependentExtensionNameMap": {},
+    "dependentExtensionNameMap": {
+        "meta3dBsMostExtensionName": {
+            "protocolName": "meta3d-bs-most-protocol"
+        },
+        "meta3dEngineCoreExtensionName": {
+            "protocolName": "meta3d-engine-core-protocol"
+        }
+    },
     "dependentContributeNameMap": {},
     "license": "MIT",
     "scripts": {
@@ -17,6 +24,8 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.9.0",
+        "meta3d-bs-most-protocol": "^0.9.0",
+        "meta3d-engine-core-protocol": "^0.9.0",
         "meta3d-work-plugin-camera-protocol": "^0.9.0"
     },
     "devDependencies": {
