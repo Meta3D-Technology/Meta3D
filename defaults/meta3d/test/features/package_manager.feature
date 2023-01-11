@@ -41,12 +41,19 @@ Feature: Package Manager
             And load result should has entry extension name
         # And the second extension should be started
 
-        #     Scenario: if two extension need start, error
-        #         Given generate two extensions
-        #         And start them
-        #         And load them and convert as c1
-        #         When generate package with c1 and load it
-        #         Then start it should error
+        Scenario: load generated package which contains other packages
+            Given generate one extension as e1
+            And mark e1 as entry
+            And load e1 and convert as c1
+            And generate package p1 with c1
+            And generate two extensions
+            And generate one contribute
+            And mark the second extension(e3) as entry
+            And load them and convert as c2
+            When generate package p2 with c2, p1 and load it
+            Then the three extensions should be registered
+            And the one contribute should be registered
+            And load result should has entry extension name of e3
 
     Rule: load and handle generated package
 

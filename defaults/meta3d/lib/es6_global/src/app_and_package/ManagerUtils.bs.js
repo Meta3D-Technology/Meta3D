@@ -2,16 +2,13 @@
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
 import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function generate(param) {
@@ -185,17 +182,6 @@ function load(data) {
   return _run(_parse(data));
 }
 
-function getSpecificExtensionProtocolName(allExtensionDataArr, extensionType) {
-  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
-          return param.extensionPackageData.type_ === extensionType;
-        }));
-  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one type extension", "", "", "", "")));
-  } else {
-    return Caml_array.get(startExtensions, 0).extensionPackageData.protocolName;
-  }
-}
-
 export {
   generate ,
   mergeAllPackageBinaryFiles ,
@@ -204,6 +190,5 @@ export {
   _prepare ,
   _run ,
   load ,
-  getSpecificExtensionProtocolName ,
 }
 /* No side effect */

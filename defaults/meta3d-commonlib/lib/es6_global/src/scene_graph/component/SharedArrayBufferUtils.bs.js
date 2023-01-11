@@ -12,6 +12,5 @@ function newSharedArrayBuffer(totalByteLength) {
 export {
   _isSupportSharedArrayBuffer ,
   newSharedArrayBuffer ,
-  
 }
 /* No side effect */

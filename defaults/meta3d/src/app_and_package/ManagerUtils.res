@@ -208,28 +208,3 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
 let load = (data: array<Uint8Array.t>): (Meta3dType.Index.state, array<extensionFileData>) => {
   data->_parse->_run
 }
-
-let getSpecificExtensionProtocolName = (
-  allExtensionDataArr,
-  extensionType,
-): Meta3dType.Index.extensionProtocolName => {
-  switch allExtensionDataArr->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
-    extensionPackageData.type_ === extensionType
-  }) {
-  | startExtensions if startExtensions->Meta3dCommonlib.ArraySt.length !== 1 =>
-    Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Exception.buildErr(
-        Meta3dCommonlib.Log.buildErrorMessage(
-          ~title="should only has one type extension",
-          ~description={
-            j``
-          },
-          ~reason="",
-          ~solution=j``,
-          ~params=j``,
-        ),
-      ),
-    )
-  | startExtensions => startExtensions[0].extensionPackageData.protocolName
-  }
-}

@@ -468,6 +468,212 @@ defineFeature(feature, test => {
     )
   })
 
+  test(."load generated package which contains other packages", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let e1 = ref(Obj.magic(1))
+    let e2 = ref(Obj.magic(1))
+    let e3 = ref(Obj.magic(1))
+    let firstContribute = ref(Obj.magic(1))
+    let c1 = ref(Obj.magic(1))
+    let c2 = ref(Obj.magic(1))
+    let entryExtensions = ref(Obj.magic(1))
+    let entryExtensionProtocolName = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
+    let state = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "generate one extension as e1",
+      () => {
+        e1 :=
+          Main.generateExtension(
+            (
+              {
+                name: "e1",
+                protocol: {
+                  name: "e1-protocol",
+                  version: "0.4.1",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: ExtensionFileType.extensionPackageData
+            ),
+            PackageManagerTool.buildEmptyExtensionFileStr(),
+          )
+      },
+    )
+
+    \"and"(
+      "mark e1 as entry",
+      () => {
+        entryExtensions := ["e1"]
+      },
+    )
+
+    \"and"(
+      "load e1 and convert as c1",
+      () => {
+        let e1FileData = Main.loadExtension(e1.contents)
+
+        c1 := Main.convertAllFileDataForPackage([e1FileData], [], entryExtensions.contents)
+      },
+    )
+
+    \"and"(
+      "generate package p1 with c1",
+      () => {
+        p1 := Main.generatePackage(c1.contents, [])
+      },
+    )
+
+    \"and"(
+      "generate two extensions",
+      () => {
+        e2 :=
+          Main.generateExtension(
+            (
+              {
+                name: "e2",
+                protocol: {
+                  name: "e2-protocol",
+                  version: "0.4.1",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "e3",
+                  (
+                    {
+                      protocolName: "e3-protocol",
+                      protocolVersion: ">=0.4.1 < 1.0.0",
+                    }: ExtensionFileType.dependentData
+                  ),
+                ),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "first-contribute",
+                  (
+                    {
+                      protocolName: "first-contribute-protocol",
+                      protocolVersion: "^0.5.2",
+                    }: ExtensionFileType.dependentData
+                  ),
+                ),
+              }: ExtensionFileType.extensionPackageData
+            ),
+            PackageManagerTool.buildEmptyExtensionFileStr(),
+          )
+        e3 :=
+          Main.generateExtension(
+            (
+              {
+                name: "e3",
+                protocol: {
+                  name: "e3-protocol",
+                  version: "0.5.2",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "first-contribute",
+                  (
+                    {
+                      protocolName: "first-contribute-protocol",
+                      protocolVersion: "^0.5.2",
+                    }: ExtensionFileType.dependentData
+                  ),
+                ),
+              }: ExtensionFileType.extensionPackageData
+            ),
+            PackageManagerTool.buildEmptyExtensionFileStr(),
+          )
+      },
+    )
+
+    \"and"(
+      "generate one contribute",
+      () => {
+        firstContribute :=
+          Main.generateContribute(
+            (
+              {
+                name: "first-contribute",
+                protocol: {
+                  name: "first-contribute-protocol",
+                  version: "0.5.3",
+                },
+                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: ExtensionFileType.contributePackageData
+            ),
+            PackageManagerTool.buildEmptyContributeFileStr(),
+          )
+      },
+    )
+
+    \"and"(
+      "mark the second extension(e3) as entry",
+      () => {
+        entryExtensions := ["e3"]
+      },
+    )
+
+    \"and"(
+      "load them and convert as c2",
+      () => {
+        let e2FileData = Main.loadExtension(e2.contents)
+        let e3FileData = Main.loadExtension(e3.contents)
+        let firstContributeFileData = Main.loadContribute(firstContribute.contents)
+
+        c2 :=
+          Main.convertAllFileDataForPackage(
+            [e2FileData, e3FileData],
+            [firstContributeFileData],
+            entryExtensions.contents,
+          )
+      },
+    )
+
+    \"when"(
+      "generate package p2 with c2, p1 and load it",
+      () => {
+        let (s, allExtensionDataArr, entryExtensionProtocolName_) =
+          Main.generatePackage(c2.contents, [p1.contents])->Main.loadPackage
+
+        entryExtensionProtocolName := entryExtensionProtocolName_
+
+        state := s
+      },
+    )
+
+    then(
+      "the three extensions should be registered",
+      () => {
+        (
+          ExtensionManagerTool.hasExtension(state.contents, "e1-protocol"),
+          ExtensionManagerTool.hasExtension(state.contents, "e2-protocol"),
+          ExtensionManagerTool.hasExtension(state.contents, "e3-protocol"),
+        )->expect == (true, true, true)
+      },
+    )
+
+    \"and"(
+      "the one contribute should be registered",
+      () => {
+        ExtensionManagerTool.hasContribute(state.contents, "first-contribute-protocol")->expect ==
+          true
+      },
+    )
+
+    \"and"(
+      "load result should has entry extension name of e3",
+      () => {
+        entryExtensionProtocolName.contents->expect == "e3-protocol"
+      },
+    )
+  })
+
   let _prepareForLoadAndHandleGeneratedPackage = (
     given,
     \"and",

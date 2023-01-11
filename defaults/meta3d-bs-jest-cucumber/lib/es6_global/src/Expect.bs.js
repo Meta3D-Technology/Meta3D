@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 
 var _invokeNotMethod = (function(jsObj, methodName, paramsArr) {
     return jsObj.not[methodName].apply(null, paramsArr)
@@ -11,7 +11,7 @@ var _invokeMethod = (function(jsObj, methodName, paramsArr) {
 });
 
 function toEqualFunc(param, target) {
-  return Curry._1(param.toEqual, target);
+  Curry._1(param.toEqual, target);
 }
 
 function toMatchSnapshotFunc(expectReturnData) {
@@ -19,7 +19,7 @@ function toMatchSnapshotFunc(expectReturnData) {
 }
 
 function toThrowMessage(param, message) {
-  return Curry._1(param.toThrow, message);
+  Curry._1(param.toThrow, message);
 }
 
 function toThrow(expectReturnData) {
@@ -43,6 +43,5 @@ export {
   toThrow ,
   toNotThrow ,
   toNotEqual ,
-  
 }
 /* No side effect */

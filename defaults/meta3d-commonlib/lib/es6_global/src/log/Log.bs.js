@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/curry.js";
-import * as Belt_List from "../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/belt_List.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
 
 function printForDebug(value) {
   console.log(JSON.stringify(value));
@@ -16,12 +16,10 @@ function printListForDebug(list) {
 function logForDebug(value) {
   console.log(value);
   console.trace();
-  
 }
 
 function log(value) {
   console.log(JSON.stringify(value));
-  
 }
 
 function debugWithFunc(func, isTest) {
@@ -33,7 +31,6 @@ function debugWithFunc(func, isTest) {
 
 function _debug(msg) {
   console.debug(msg);
-  
 }
 
 function debug(buildMessageFunc, isTest) {
@@ -43,7 +40,6 @@ function debug(buildMessageFunc, isTest) {
   var msg = Curry._1(buildMessageFunc, undefined);
   console.debug(msg);
   console.trace();
-  
 }
 
 function getJsonStr(json) {
@@ -85,6 +81,5 @@ export {
   buildFatalMessage ,
   buildErrorMessage ,
   buildAssertMessage ,
-  
 }
 /* No side effect */

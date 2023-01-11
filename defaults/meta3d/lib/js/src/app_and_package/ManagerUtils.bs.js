@@ -2,16 +2,13 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var Js_array = require("rescript/lib/js/js_array.js");
-var Caml_array = require("rescript/lib/js/caml_array.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
 var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
 var TextEncoder$Meta3d = require("../file/TextEncoder.bs.js");
-var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var ExtensionManager$Meta3d = require("../ExtensionManager.bs.js");
 var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
-var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function generate(param) {
@@ -185,17 +182,6 @@ function load(data) {
   return _run(_parse(data));
 }
 
-function getSpecificExtensionProtocolName(allExtensionDataArr, extensionType) {
-  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
-          return param.extensionPackageData.type_ === extensionType;
-        }));
-  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one type extension", "", "", "", "")));
-  } else {
-    return Caml_array.get(startExtensions, 0).extensionPackageData.protocolName;
-  }
-}
-
 exports.generate = generate;
 exports.mergeAllPackageBinaryFiles = mergeAllPackageBinaryFiles;
 exports.getContributeFunc = getContributeFunc;
@@ -203,5 +189,4 @@ exports._parse = _parse;
 exports._prepare = _prepare;
 exports._run = _run;
 exports.load = load;
-exports.getSpecificExtensionProtocolName = getSpecificExtensionProtocolName;
 /* No side effect */

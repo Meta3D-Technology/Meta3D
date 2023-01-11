@@ -136,6 +136,30 @@ let generate = ((allExtensionFileData, allContributeFileData), allPackageBinaryF
   ->BinaryFileOperator.generate
 }
 
+let _getEntryExtensionProtocolName = (
+  allExtensionDataArr
+): Meta3dType.Index.extensionProtocolName => {
+  switch allExtensionDataArr->Meta3dCommonlib.ArraySt.filter(({extensionPackageData}) => {
+    extensionPackageData.type_ === Entry
+  }) {
+  | entryExtensions if entryExtensions->Meta3dCommonlib.ArraySt.length === 0 =>
+    Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
+        Meta3dCommonlib.Log.buildErrorMessage(
+          ~title="should has one type extension at least",
+          ~description={
+            j``
+          },
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
+      ),
+    )
+  | entryExtensions => entryExtensions[0].extensionPackageData.protocolName
+  }
+}
+
 let load = (packageBinaryFile: ArrayBuffer.t): (
   Meta3dType.Index.state,
   array<extensionFileData>,
@@ -143,9 +167,5 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
 ) => {
   let (state, allExtensionDataArr) = packageBinaryFile->BinaryFileOperator.load->ManagerUtils.load
 
-  (
-    state,
-    allExtensionDataArr,
-    ManagerUtils.getSpecificExtensionProtocolName(allExtensionDataArr, Entry),
-  )
+  (state, allExtensionDataArr, _getEntryExtensionProtocolName(allExtensionDataArr))
 }

@@ -8,6 +8,5 @@ function buildCountRange(count) {
 
 export {
   buildCountRange ,
-  
 }
 /* No side effect */

@@ -2,6 +2,7 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var Semver = require("semver");
+var Caml_array = require("rescript/lib/js/caml_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
 var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
@@ -119,8 +120,19 @@ function load(appBinaryFile) {
         ];
 }
 
+function _getStartExtensionProtocolName(allExtensionDataArr) {
+  var startExtensions = ArraySt$Meta3dCommonlib.filter(allExtensionDataArr, (function (param) {
+          return param.extensionPackageData.type_ === /* Start */1;
+        }));
+  if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one type extension", "", "", "", "")));
+  } else {
+    return Caml_array.get(startExtensions, 0).extensionPackageData.protocolName;
+  }
+}
+
 function start(param) {
-  ExtensionManager$Meta3d.startExtension(param[0], ManagerUtils$Meta3d.getSpecificExtensionProtocolName(param[1], /* Start */1), param[2]);
+  ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionProtocolName(param[1]), param[2]);
 }
 
 exports._checkVersion = _checkVersion;
@@ -129,5 +141,6 @@ exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.load = load;
+exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;
 exports.start = start;
 /* semver Not a pure module */
