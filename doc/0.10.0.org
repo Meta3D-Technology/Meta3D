@@ -100,14 +100,27 @@ webgl1, ...
 ////should store package's entry extensionProtocolName when build package!
 
 
-** TODO pass empty gameObject run test
+** DONE pass empty gameObject run test
 
 # init
 
-loop
+# loop
+
+
+
+
+
+
+
 
 ** TODO pass cube run test
 
+# add prepare job:
+# clearColor
+# clear
+# diable depth
+
+TODO repack all packages except basic
 
 * TODO refactor: rename getGL to getGl??
 

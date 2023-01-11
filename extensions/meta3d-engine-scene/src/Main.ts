@@ -11,8 +11,13 @@ import { state as transformWorkPluginState, states as transformWorkPluginStates 
 import { config as transformWorkPluginConfig } from "meta3d-work-plugin-transform-protocol/src/ConfigType";
 // import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-work-plugin-webgpu-triangle-protocol/src/StateType";
 // import { state as rootState, states as rootStates } from "meta3d-work-plugin-root-protocol/src/StateType";
-import { addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject } from "./GameObjectAPI"
-// import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI"
+import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, cloneGameObject, createGameObject, disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects, getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform, hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform } from "./GameObjectAPI"
+import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI";
+import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
+import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./PBRMaterialAPI";
+import { createGeometry, setIndices, setVertices } from "./GeometryAPI";
+import { createBasicCameraView, active } from "./BasicCameraViewAPI";
+
 import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
@@ -162,10 +167,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				return meta3dState
 			},
 			gameObject: {
-				// addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject
-				createGameObject
+				addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, cloneGameObject, createGameObject, disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects, getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform, hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
 			},
-			// TODO more apis
+			transform: {
+				createTransform, getLocalPosition, lookAt, setLocalPosition
+			},
+			geometry: {
+				createGeometry, setIndices, setVertices
+			},
+			pbrMaterial: {
+				createPBRMaterial, getAllPBRMaterials, setDiffuseColor
+			},
+			perspectiveCameraProjection: {
+				createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear
+			},
+			basicCameraView: {
+				createBasicCameraView, active
+			}
 		}
 	}
 

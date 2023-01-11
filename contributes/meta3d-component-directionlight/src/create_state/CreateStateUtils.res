@@ -33,19 +33,17 @@ let createStateWithSharedArrayBufferData = (
 ): StateType.state => {
   {
     config: {
-      isDebug: isDebug,
+      isDebug,
       directionLightCount: lightCount,
     },
     maxIndex: 0,
-    buffer: buffer,
-    colors: colors,
-    intensities: intensities,
+    buffer,
+    colors,
+    intensities,
     gameObjectMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(lightCount),
-    gameObjectDirectionLightMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
-      lightCount,
-    ),
-needDisposedDirectionLights:[],
-disposedDirectionLights:[]
+    gameObjectDirectionLightMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(lightCount),
+    needDisposedDirectionLights: [],
+    disposedDirectionLights: [],
   }
 }
 
@@ -61,9 +59,9 @@ let createState = (isDebug, lightCount) => {
   createStateWithSharedArrayBufferData(
     (isDebug, lightCount),
     {
-      buffer: buffer,
-      colors: colors,
-      intensities: intensities,
+      buffer,
+      colors,
+      intensities,
     },
   )
 }

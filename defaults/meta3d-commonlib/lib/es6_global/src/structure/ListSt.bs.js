@@ -65,7 +65,7 @@ function ignoreTraverseResultValue(traverseResult) {
 }
 
 function range(start, end_) {
-  return Belt_List.makeBy(end_ - start | 0, (function (i) {
+  return Belt_List.makeBy((end_ + 1 | 0) - start | 0, (function (i) {
                 return i + start | 0;
               }));
 }

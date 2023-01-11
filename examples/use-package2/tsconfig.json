@@ -10,13 +10,14 @@
     // "noEmit": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
+    "noImplicitAny":false,
     "noImplicitReturns": true,
     "lib": [
       "DOM",
       "ESNext",
     ],
-    "types": [],
-    "strict": true
+    "types": []
+    // "strict": true
   },
   "include": [
     "./src",

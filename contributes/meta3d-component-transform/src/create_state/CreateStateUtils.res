@@ -42,21 +42,21 @@ let createStateWithSharedArrayBufferData = (
 ): StateType.state => {
   {
     config: {
-      isDebug: isDebug,
-      transformCount: transformCount,
-      float9Array1: float9Array1,
-      float32Array1: float32Array1,
+      isDebug,
+      transformCount,
+      float9Array1,
+      float32Array1,
     },
     maxIndex: 0,
-    buffer: buffer,
-    localToWorldMatrices: localToWorldMatrices,
-    localPositions: localPositions,
-    localRotations: localRotations,
-    localScales: localScales,
-    defaultLocalToWorldMatrix: defaultLocalToWorldMatrix,
-    defaultLocalPosition: defaultLocalPosition,
-    defaultLocalRotation: defaultLocalRotation,
-    defaultLocalScale: defaultLocalScale,
+    buffer,
+    localToWorldMatrices,
+    localPositions,
+    localRotations,
+    localScales,
+    defaultLocalToWorldMatrix,
+    defaultLocalPosition,
+    defaultLocalRotation,
+    defaultLocalScale,
     parentMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     childrenMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     gameObjectMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
@@ -68,10 +68,10 @@ let createStateWithSharedArrayBufferData = (
 }
 
 let createState = (isDebug, transformCount, float9Array1, float32Array1) => {
-  let defaultLocalToWorldMatrix = ( 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1. )
-  let defaultLocalPosition = ( 0., 0., 0. )
-  let defaultLocalRotation = ( 0., 0., 0., 1. )
-  let defaultLocalScale = ( 1., 1., 1. )
+  let defaultLocalToWorldMatrix = (1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.)
+  let defaultLocalPosition = (0., 0., 0.)
+  let defaultLocalRotation = (0., 0., 0., 1.)
+  let defaultLocalScale = (1., 1., 1.)
 
   let (
     buffer,
@@ -85,11 +85,11 @@ let createState = (isDebug, transformCount, float9Array1, float32Array1) => {
     (isDebug, transformCount, float9Array1, float32Array1),
     (defaultLocalToWorldMatrix, defaultLocalPosition, defaultLocalRotation, defaultLocalScale),
     {
-      buffer: buffer,
-      localToWorldMatrices: localToWorldMatrices,
-      localPositions: localPositions,
-      localRotations: localRotations,
-      localScales: localScales,
+      buffer,
+      localToWorldMatrices,
+      localPositions,
+      localRotations,
+      localScales,
     },
   )
 }

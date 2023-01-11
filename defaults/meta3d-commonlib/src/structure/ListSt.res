@@ -72,7 +72,7 @@ let rec sequenceResultM = list => traverseResultM(list, _id)
 
 let ignoreTraverseResultValue = traverseResult => traverseResult->Result.mapSuccess(_ => ())
 
-let range = (start, end_) => Belt.List.makeBy(end_ - start, i => i + start)
+let range = (start, end_) => Belt.List.makeBy(end_ + 1 - start, i => i + start)
 
 let map = (list, func) => Belt.List.map(list, func)
 

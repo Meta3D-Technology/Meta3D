@@ -21,7 +21,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
   var specularColors = param[2];
   var speculars = param[1];
   var diffuseColors = param[0];
-  ListSt$Meta3dCommonlib.forEach(ListSt$Meta3dCommonlib.range(0, count - 1 | 0), (function (index) {
+  ListSt$Meta3dCommonlib.forEach(ListSt$Meta3dCommonlib.range(0, count), (function (index) {
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setDiffuseColor(index, defaultDiffuseColor, diffuseColors);
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setSpecular(index, defaultSpecular, speculars);
           OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setSpecularColor(index, defaultSpecularColor, specularColors);

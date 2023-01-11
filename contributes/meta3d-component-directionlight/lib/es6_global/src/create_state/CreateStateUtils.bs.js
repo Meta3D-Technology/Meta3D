@@ -11,7 +11,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultColor = param$1[0];
   var intensities = param[1];
   var colors = param[0];
-  ListSt$Meta3dCommonlib.forEach(ListSt$Meta3dCommonlib.range(0, count - 1 | 0), (function (index) {
+  ListSt$Meta3dCommonlib.forEach(ListSt$Meta3dCommonlib.range(0, count), (function (index) {
           OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setColor(index, defaultColor, colors);
           OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight.setIntensity(index, defaultIntensity, intensities);
         }));
