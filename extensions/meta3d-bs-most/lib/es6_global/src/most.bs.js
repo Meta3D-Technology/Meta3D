@@ -1,7 +1,11 @@
 
 
 import * as Most from "most";
-import * as Curry from "../../../../meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+
+function subscribe(arg1, obj) {
+  return obj.subscribe(arg1);
+}
 
 function unfold(f) {
   return function (param) {
@@ -33,12 +37,17 @@ function fromList(list) {
               })(list);
 }
 
+function concat(arg1, obj) {
+  return obj.concat(arg1);
+}
+
 var Subject = {};
 
 export {
+  subscribe ,
   unfold ,
   fromList ,
+  concat ,
   Subject ,
-  
 }
 /* most Not a pure module */

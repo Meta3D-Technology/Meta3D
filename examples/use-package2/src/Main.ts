@@ -3,7 +3,8 @@ import { loadPackage, getExtensionService, getExtensionState, setExtensionState 
 import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
 
-import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
+// import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
+import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.0.6.package"
 
 
 let _loop = (
@@ -136,14 +137,10 @@ let isDebug = true
 
 let float9Array1 = new Float32Array()
 let float32Array1 = new Float32Array()
-// let transformCount = 1
-// let geometryCount = 1
-// let geometryPointCount = 10
-// let pbrMaterialCount = 1
 let transformCount = 2
-let geometryCount = 2
+let geometryCount = 1
 let geometryPointCount = 100
-let pbrMaterialCount = 2
+let pbrMaterialCount = 1
 
 let canvas: HTMLCanvasElement = document.querySelector("#canvas") as HTMLCanvasElement
 let canvasSize: [number, number] = [canvas.width, canvas.height]

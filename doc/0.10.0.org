@@ -68,7 +68,7 @@ run render pipeline
 
 
 
-* TODO download whole engine package to use as a engine to draw a cube
+* DONE download whole engine package to use as a engine to draw a cube
 
 engine whole package:
 engine core, immutable, most
@@ -113,19 +113,18 @@ webgl1, ...
 
 
 
-** TODO pass cube run test
+** DONE pass cube run test
 
-# add prepare job:
-# clearColor
-# clear
-# diable depth
+add to RenderJob:
+clearColor
+clear
+////diable depth
 
-TODO repack all packages except basic
-
-* TODO refactor: rename getGL to getGl??
+TODO repack scene,render,whole packages
 
 
-* TODO add 3D View custom control(low level) implment by FBO
+
+* TODO add 3D View custom control(low level) implement by FBO
 
 provide init life handle
 
@@ -139,5 +138,6 @@ can use to build edit view, scene view high level custom controls
 
 * TODO add scene view(high level), add run button to run
 
+* TODO refactor: rename getGL to getGl??
 
 * TODO publish

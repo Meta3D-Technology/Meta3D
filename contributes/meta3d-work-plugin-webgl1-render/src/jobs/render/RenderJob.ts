@@ -58,6 +58,11 @@ function _getRenderData([engineCoreService, immutableService]: [engineCoreServic
 	return [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix]
 }
 
+function _clear(webgl1Service: webgl1Service, gl: webgl1Context) {
+	webgl1Service.clearColor(0.0, 0.0, 0.0, 1.0, gl)
+	webgl1Service.clear(webgl1Service.getColorBufferBit(gl) | webgl1Service.getDepthBufferBit(gl), gl);
+}
+
 export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(engineCoreState)
 	let { mostService, immutableService, engineCoreService, webgl1Service, workPluginWhichHasAllRenderComponentsName } = getState(states)
@@ -67,6 +72,8 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		let { verticesVBOMap, indicesVBOMap } = getVBO(states)
 		let programMap = getProgramMap(states)
+
+		_clear(webgl1Service, getGL(states))
 
 		getAllRenderComponents(states, workPluginWhichHasAllRenderComponentsName).forEach(({ transform, geometry, material }) => {
 			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix] = _getRenderData([engineCoreService, immutableService], engineCoreState, [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
