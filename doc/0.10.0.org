@@ -125,7 +125,7 @@ TODO repack scene,render,whole packages
 
 
 # * TODO add edit view control implement by FBO
-* TODO add view control implement(low level) for scene view
+* TODO add view control implement(low level) for scene view by FBO
 
 # provide init life handle
 
@@ -133,7 +133,7 @@ TODO repack scene,render,whole packages
 
 
 
-one canvas-one view-one gl
+# one canvas-one view-one gl
 
 
 
@@ -152,6 +152,105 @@ share textures
 #   |> DeviceManagerEngineService.setViewport(viewRect)
 #   |> DeviceManagerEngineService.setScissorTest(true)
 #   |> DeviceManagerEngineService.setScissor(viewRect)
+
+
+
+
+
+# add extension:
+# engineForEditor
+#     has engine state
+
+# invoke engine api by engine whole package
+
+
+directly use engine-whole package?
+engine state is engineCoreState in meta3dState
+
+
+
+
+
+
+
+
+add work-plugin for editor
+
+init jobs
+create and init each fbo's texture
+set texture to textureId in ui state. map
+
+# update jobs
+
+render jobs:
+job1: 
+viewport
+setScissor test
+bindFramebuffer
+clear
+render scene view, game view to each fbo's texture
+unbindFramebuffer
+
+
+register in use-editor extension
+
+
+use-editor extension:
+_loop:
+invoke work plugin's update, render before uiService.render(so can generate view texture before)
+
+
+
+
+
+
+
+
+
+canvas?
+
+
+            # {
+            #     rect,
+            #     canvasId,
+            #     # no children
+            # }
+
+
+# specific data:
+# {
+#         name: "canvasId",
+#         type_: "string",
+#         value: _generateUniqueId()
+#     }
+
+
+# ui component
+as ui control:
+window(bar:Scene View)
+children:
+Image: 
+get texture by uiService.getViewTexture(meta3dState, textureId) from meta3dState
+(if texture not exist(when in element assemble space), get default texture)
+
+
+            {
+                rect,
+                textureId,
+                # no children
+            }
+
+
+specific data:
+{
+        name: "textureId",
+        type_: "string",
+        # value: _generateUniqueId()
+
+        # TODO need user give
+        value: ""
+    }
+
 
 
 
