@@ -256,7 +256,7 @@ specific data:
         value: "View"
     }
 {
-        name: "textureId",
+        name: "textureID",
         type_: "string",
         # value: _generateUniqueId()
 
@@ -276,7 +276,7 @@ specific data:
 add test cases
 
 
-** TODO finish view control
+** DONE finish view control
 
 
 ** TODO finish work plugins

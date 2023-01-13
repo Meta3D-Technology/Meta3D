@@ -12,6 +12,8 @@ type updateElementStateFieldFunc = elementStateField => elementStateField
 
 type clearColor = (float, float, float, float)
 
+type texture = Meta3dImguiRendererProtocol.ServiceType.texture
+
 type service = {
   registerElement: 'elementState. (
     StateType.state,
@@ -68,18 +70,11 @@ type service = {
   ) => Meta3dType.Index.state,
   addFBOTexture: (
     Meta3dType.Index.state,
-    Js.Null.t<Meta3dImguiRendererProtocol.ServiceType.texture>,
+    Js.Null.t<texture>,
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => Meta3dType.Index.state,
-  getFBOTexture: (
-    StateType.state,
-    StateType.textureID,
-  ) => Js.Nullable.t<Meta3dImguiRendererProtocol.ServiceType.texture>,
-  setFBOTexture: (
-    StateType.state,
-    StateType.textureID,
-    Meta3dImguiRendererProtocol.ServiceType.texture,
-  ) => StateType.state,
+  getFBOTexture: (StateType.state, StateType.textureID) => Js.Nullable.t<texture>,
+  setFBOTexture: (StateType.state, StateType.textureID, texture) => StateType.state,
   getContext: Meta3dType.Index.state => Meta3dImguiRendererProtocol.ServiceType.context,
   button: (
     Meta3dType.Index.state,
