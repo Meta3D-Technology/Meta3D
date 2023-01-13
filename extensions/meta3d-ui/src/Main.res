@@ -27,6 +27,14 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     setNextWindowRect: (meta3dState, rect) => {
       UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionName), rect)
     },
+    getFBOTexture: UIManager.getFBOTexture,
+    setFBOTexture: UIManager.setFBOTexture,
+    addFBOTexture: (meta3dState, texture, size) => {
+      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionName), texture, size)
+    },
+    getContext: meta3dState => {
+      UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionName))
+    },
     button: (meta3dState, label, size) => {
       UIManager.button(meta3dState, (api, meta3dImguiRendererExtensionName), label, size)
     },
@@ -49,6 +57,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     elementStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     elementExecOrderMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isShowMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    fboTextureMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     uiControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

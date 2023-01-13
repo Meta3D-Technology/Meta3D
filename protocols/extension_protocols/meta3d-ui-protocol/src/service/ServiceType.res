@@ -1,6 +1,6 @@
-type uiExtensionName = Meta3dType.Index.extensionName
+type uiExtensionProtocolName = Meta3dType.Index.extensionProtocolName
 
-type imguiRendererExtensionName = Meta3dType.Index.extensionName
+type imguiRendererExtensionProtocolName = Meta3dType.Index.extensionProtocolName
 
 // type text = string
 
@@ -27,7 +27,7 @@ type service = {
   ) => StateType.state,
   render: (
     Meta3dType.Index.state,
-    (uiExtensionName, imguiRendererExtensionName),
+    (uiExtensionProtocolName, imguiRendererExtensionProtocolName),
     // StateType.ioData,
     time,
   ) => Js.Promise.t<Meta3dType.Index.state>,
@@ -66,6 +66,21 @@ type service = {
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => Meta3dType.Index.state,
+  addFBOTexture: (
+    Meta3dType.Index.state,
+    Js.Null.t<Meta3dImguiRendererProtocol.ServiceType.texture>,
+    Meta3dImguiRendererProtocol.ServiceType.size,
+  ) => Meta3dType.Index.state,
+  getFBOTexture: (
+    StateType.state,
+    StateType.textureID,
+  ) => Js.Nullable.t<Meta3dImguiRendererProtocol.ServiceType.texture>,
+  setFBOTexture: (
+    StateType.state,
+    StateType.textureID,
+    Meta3dImguiRendererProtocol.ServiceType.texture,
+  ) => StateType.state,
+  getContext: Meta3dType.Index.state => Meta3dImguiRendererProtocol.ServiceType.context,
   button: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
@@ -77,14 +92,14 @@ type service = {
   ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
-    (Meta3dType.Index.api, imguiRendererExtensionName),
+    (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
     bool,
     bool,
     Dom.htmlCanvasElement,
   ) => Js.Promise.t<Meta3dType.Index.state>,
   clear: (
     Meta3dType.Index.state,
-    (Meta3dType.Index.api, imguiRendererExtensionName),
+    (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
     clearColor,
   ) => Meta3dType.Index.state,
 }

@@ -180,6 +180,9 @@ init jobs
 create and init each fbo's texture
 set texture to textureId in ui state. map
 
+(uiService add getIMGUICurrentContext)
+
+
 # update jobs
 
 render jobs:
@@ -227,15 +230,19 @@ canvas?
 
 # ui component
 as ui control:
-window(bar:Scene View)
+View
+
+window    ////(bar:Scene View)
 children:
 Image: 
 get texture by uiService.getViewTexture(meta3dState, textureId) from meta3dState
-(if texture not exist(when in element assemble space), get default texture)
+# (if texture not exist(when in element assemble space), get default texture)
+(if texture not exist(when in element assemble space), get null)
 
 
             {
                 rect,
+                label,
                 textureId,
                 # no children
             }
@@ -243,13 +250,43 @@ get texture by uiService.getViewTexture(meta3dState, textureId) from meta3dState
 
 specific data:
 {
+        name: "label",
+        type_: "string",
+        # user change to Scene View
+        value: "View"
+    }
+{
         name: "textureId",
         type_: "string",
         # value: _generateUniqueId()
 
-        # TODO need user give
+        # TODO need user give:sceneView
         value: ""
     }
+
+
+
+
+
+** DONE finish UIManager
+
+# TODO pass compile
+# TODO pass test
+
+add test cases
+
+
+** TODO finish view control
+
+
+** TODO finish work plugins
+
+
+** TODO update use-editor extension
+
+
+
+* TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
 
 
 

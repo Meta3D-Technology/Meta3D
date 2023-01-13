@@ -17,7 +17,8 @@ function hide(state, elementName) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -30,7 +31,8 @@ function show(state, elementName) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -43,7 +45,8 @@ function _markStateChange(state, elementName) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, true),
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -56,7 +59,8 @@ function _markStateNotChange(state, elementName) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.set(state.isStateChangeMap, elementName, false),
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -81,7 +85,8 @@ function _setElementState(state, elementName, elementState) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -98,7 +103,8 @@ function _setElementExecOrder(state, elementName, execOrder) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -185,6 +191,14 @@ function _invokeIMGUIRenderFuncWithParam(meta3dState, invokeFunc, param) {
         ];
 }
 
+function _invokeIMGUIRenderFuncReturnData(meta3dState, invokeFunc, param) {
+  var imguiRendererExtensionProtocolName = param[1];
+  var api = param[0];
+  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
+  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
+  return Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+}
+
 function render(api, meta3dState, param, time) {
   var imguiRendererExtensionProtocolName = param[1];
   var uiExtensionProtocolName = param[0];
@@ -203,8 +217,9 @@ function render(api, meta3dState, param, time) {
                     return api.setExtensionState(meta3dState, uiExtensionProtocolName, state$1);
                   })), (function (meta3dState) {
                 return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                              var __x = imguiRendererService.afterExec(imguiRendererState);
-                              return imguiRendererService.render(__x);
+                              Curry._1(imguiRendererService.afterExec, undefined);
+                              Curry._1(imguiRendererService.render, undefined);
+                              return imguiRendererState;
                             }), [
                             api,
                             imguiRendererExtensionProtocolName
@@ -221,7 +236,8 @@ function _setElementFunc(state, elementName, elementFunc) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -238,7 +254,8 @@ function _addReducers(state, elementName, reducers) {
                             reducers: ArraySt$Meta3dCommonlib.push(state.reducers, [
                                   elementName,
                                   reducers
-                                ])
+                                ]),
+                            fboTextureMap: state.fboTextureMap
                           };
                   })), state);
 }
@@ -257,7 +274,8 @@ function registerSkin(state, skinContribute) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
           uiControlContributeMap: state.uiControlContributeMap,
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -270,7 +288,8 @@ function registerUIControl(state, uiControlContribute) {
           isStateChangeMap: state.isStateChangeMap,
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.uiControlContributeMap, uiControlContribute.uiControlName, uiControlContribute),
-          reducers: state.reducers
+          reducers: state.reducers,
+          fboTextureMap: state.fboTextureMap
         };
 }
 
@@ -288,43 +307,82 @@ function isStateChange(state, elementName) {
 
 function setStyle(meta3dState, data, style) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.setStyle(style, imguiRendererState);
+                return imguiRendererService.setStyle(imguiRendererState, style);
               }), data);
 }
 
 function beginWindow(meta3dState, data, label) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.beginWindow(label, imguiRendererState);
+                imguiRendererService.beginWindow(label);
+                return imguiRendererState;
               }), data);
 }
 
 function endWindow(meta3dState, data) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.endWindow(imguiRendererState);
+                Curry._1(imguiRendererService.endWindow, undefined);
+                return imguiRendererState;
               }), data);
 }
 
 function setNextWindowRect(meta3dState, data, rect) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.setNextWindowRect(rect, imguiRendererState);
+                imguiRendererService.setNextWindowRect(rect);
+                return imguiRendererState;
+              }), data);
+}
+
+function getFBOTexture(state, textureID) {
+  return ImmutableHashMap$Meta3dCommonlib.getNullable(state.fboTextureMap, textureID);
+}
+
+function setFBOTexture(state, textureID, texture) {
+  return {
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
+          elementExecOrderMap: state.elementExecOrderMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
+          reducers: state.reducers,
+          fboTextureMap: ImmutableHashMap$Meta3dCommonlib.set(state.fboTextureMap, textureID, texture)
+        };
+}
+
+function addFBOTexture(meta3dState, data, texture, size) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                imguiRendererService.addFBOTexture(texture, size);
+                return imguiRendererState;
+              }), data);
+}
+
+function getContext(meta3dState, data) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getContext, undefined);
               }), data);
 }
 
 function button(meta3dState, data, label, size) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.button(label, size, imguiRendererState);
+                return [
+                        imguiRendererState,
+                        imguiRendererService.button(label, size)
+                      ];
               }), data);
 }
 
 function setCursorPos(meta3dState, data, pos) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.setCursorPos(pos, imguiRendererState);
+                imguiRendererService.setCursorPos(pos);
+                return imguiRendererState;
               }), data);
 }
 
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.clear(imguiRendererState, clearColor);
+                imguiRendererService.clear(clearColor);
+                return imguiRendererState;
               }), data);
 }
 
@@ -354,6 +412,7 @@ export {
   _exec ,
   _invokeIMGUIRenderFunc ,
   _invokeIMGUIRenderFuncWithParam ,
+  _invokeIMGUIRenderFuncReturnData ,
   render ,
   _setElementFunc ,
   _addReducers ,
@@ -367,6 +426,10 @@ export {
   beginWindow ,
   endWindow ,
   setNextWindowRect ,
+  getFBOTexture ,
+  setFBOTexture ,
+  addFBOTexture ,
+  getContext ,
   button ,
   setCursorPos ,
   clear ,

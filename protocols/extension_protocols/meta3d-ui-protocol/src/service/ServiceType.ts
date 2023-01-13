@@ -1,10 +1,10 @@
 import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName } from "../contribute/ElementContributeType"
-import { state } from "../state/StateType"
+import { state, textureID } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
-import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { style, label, pos, size, rect, texture, context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type uiExtensionName = extensionName
 
@@ -71,8 +71,7 @@ export type service = {
     readonly getElementState: <elementState> (
         state: state,
         elementName: elementName
-    ) => // TODO use nullable.d
-        elementState | null | undefined;
+    ) => nullable<elementState>;
     readonly dispatch: <action> (
         state: state,
         actionName: string,
@@ -94,6 +93,24 @@ export type service = {
         meta3dState: meta3dState,
         rect: rect
     ) => meta3dState;
+    readonly addFBOTexture: (
+        meta3dState: meta3dState,
+        texture: strictNullable<texture>,
+        size: size
+    ) => meta3dState;
+    readonly getFBOTexture: (
+        state: state,
+        textureID: textureID,
+    ) => nullable<texture>;
+    readonly setFBOTexture: (
+        meta3dState: meta3dState,
+        uiExtensionName: uiExtensionName,
+        textureID: textureID,
+        texture: texture
+    ) => meta3dState;
+    readonly getContext: (
+        meta3dState: meta3dState
+    ) => context;
     readonly button: (
         meta3dState: meta3dState,
         label: label,

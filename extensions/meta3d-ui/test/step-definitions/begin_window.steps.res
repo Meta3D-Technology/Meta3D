@@ -20,80 +20,101 @@ defineFeature(feature, test => {
     let label = ref(Obj.magic(1))
     let imguiRendererService = ref(Obj.magic(1))
     let imguiRendererState1 = Obj.magic(12)
-    let imguiRendererState2 = Obj.magic(13)
     let beginWindowStub = ref(Obj.magic(1))
     let getExtensionServiceStub = ref(Obj.magic(1))
     let getExtensionStateStub = ref(Obj.magic(1))
     let setExtensionStateStub = ref(Obj.magic(1))
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    given(
+      "prepare sandbox",
+      () => {
+        sandbox := createSandbox()
+      },
+    )
 
-    \"and"("prepare imgui renderer service", () => {
-      beginWindowStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState2, _)
+    \"and"(
+      "prepare imgui renderer service",
+      () => {
+        beginWindowStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      imguiRendererService :=
-        ImguiRendererServiceTool.buildService(
-          ~sandbox,
-          ~beginWindow=beginWindowStub.contents->Obj.magic,
-          (),
-        )
-    })
+        imguiRendererService :=
+          ImguiRendererServiceTool.buildService(
+            ~sandbox,
+            ~beginWindow=beginWindowStub.contents->Obj.magic,
+            (),
+          )
+      },
+    )
 
-    \"and"("prepare api", () => {
-      getExtensionServiceStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          imguiRendererService.contents,
-          _,
-        )
+    \"and"(
+      "prepare api",
+      () => {
+        getExtensionServiceStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            imguiRendererService.contents,
+            _,
+          )
 
-      getExtensionStateStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState1, _)
-      setExtensionStateStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(meta3dState2, _)
-    })
+        getExtensionStateStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState1, _)
+        setExtensionStateStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(meta3dState2, _)
+      },
+    )
 
-    given("prepare data", () => {
-      label := "Window"
-    })
+    given(
+      "prepare data",
+      () => {
+        label := "Window"
+      },
+    )
 
-    \"when"("beginWindow", () => {
-      newMeta3dState :=
-        MainTool.beginWindow(
-          ~sandbox,
-          ~imguiRendererExtensionProtocolName,
-          ~getExtensionService=getExtensionServiceStub.contents,
-          ~getExtensionState=getExtensionStateStub.contents,
-          ~setExtensionState=setExtensionStateStub.contents,
-          ~meta3dState=meta3dState1,
-          ~label=label.contents,
-          (),
-        )
-    })
+    \"when"(
+      "beginWindow",
+      () => {
+        newMeta3dState :=
+          MainTool.beginWindow(
+            ~sandbox,
+            ~imguiRendererExtensionProtocolName,
+            ~getExtensionService=getExtensionServiceStub.contents,
+            ~getExtensionState=getExtensionStateStub.contents,
+            ~setExtensionState=setExtensionStateStub.contents,
+            ~meta3dState=meta3dState1,
+            ~label=label.contents,
+            (),
+          )
+      },
+    )
 
-    then("invoke imgui renderer's beginWindow", () => {
-      (
-        getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
-        ->getCallCount,
-        getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
-        ->getCallCount,
-        beginWindowStub.contents
-        ->getCall(0, _)
-        ->SinonTool.calledWithArg2(label.contents, imguiRendererState1),
-      )->expect == (1, 1, true)
-    })
+    then(
+      "invoke imgui renderer's beginWindow",
+      () => {
+        (
+          getExtensionStateStub.contents
+          ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
+          ->getCallCount,
+          getExtensionServiceStub.contents
+          ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
+          ->getCallCount,
+          beginWindowStub.contents->getCall(0, _)->SinonTool.calledWith(label.contents),
+        )->expect == (1, 1, true)
+      },
+    )
 
-    \"and"("update imgui renderer state", () => {
-      (
-        setExtensionStateStub.contents
-        ->getCall(0, _)
-        ->SinonTool.calledWithArg3(meta3dState1, imguiRendererExtensionProtocolName, imguiRendererState2),
-        newMeta3dState.contents,
-      )->expect == (true, meta3dState2)
-    })
+    \"and"(
+      "update imgui renderer state",
+      () => {
+        (
+          setExtensionStateStub.contents
+          ->getCall(0, _)
+          ->SinonTool.calledWithArg3(
+            meta3dState1,
+            imguiRendererExtensionProtocolName,
+            imguiRendererState1,
+          ),
+          newMeta3dState.contents,
+        )->expect == (true, meta3dState2)
+      },
+    )
   })
 })

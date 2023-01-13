@@ -12,7 +12,8 @@
     ],
     "bs-dev-dependencies": [],
     "bs-dependencies": [
-        "meta3d-type"
+        "meta3d-type",
+        "meta3d-webgl1-protocol"
     ],
     "package-specs": [
         "commonjs",

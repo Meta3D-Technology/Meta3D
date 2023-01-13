@@ -43,6 +43,20 @@ function getExtensionService(api, param) {
                           meta3dImguiRendererExtensionName
                         ], rect);
             }),
+          addFBOTexture: (function (meta3dState, texture, size) {
+              return UIManager$Meta3dUi.addFBOTexture(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ], texture, size);
+            }),
+          getFBOTexture: UIManager$Meta3dUi.getFBOTexture,
+          setFBOTexture: UIManager$Meta3dUi.setFBOTexture,
+          getContext: (function (meta3dState) {
+              return UIManager$Meta3dUi.getContext(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionName
+                        ]);
+            }),
           button: (function (meta3dState, label, size) {
               return UIManager$Meta3dUi.button(meta3dState, [
                           api,
@@ -69,7 +83,8 @@ function createExtensionState(param) {
           isStateChangeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          reducers: []
+          reducers: [],
+          fboTextureMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

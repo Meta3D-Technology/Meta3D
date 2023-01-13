@@ -262,6 +262,21 @@ let _invokeIMGUIRenderFuncWithParam = (
   (meta3dState, param)
 }
 
+let _invokeIMGUIRenderFuncReturnData = (
+  meta3dState,
+  invokeFunc,
+  (api: Meta3dType.Index.api, imguiRendererExtensionProtocolName),
+) => {
+  let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionProtocolName)
+
+  let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    imguiRendererExtensionProtocolName,
+  )
+
+  invokeFunc(imguiRendererState, imguiRendererService)
+}
+
 let render = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
@@ -297,7 +312,10 @@ let render = (
     _invokeIMGUIRenderFunc(
       meta3dState,
       (imguiRendererState, imguiRendererService) => {
-        imguiRendererService.afterExec(. imguiRendererState)->imguiRendererService.render(. _)
+        imguiRendererService.afterExec()
+        imguiRendererService.render()
+
+        imguiRendererState
       },
       (api, imguiRendererExtensionProtocolName),
     )
@@ -406,7 +424,7 @@ let setStyle = (meta3dState, data, style) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
     (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.setStyle(. style, imguiRendererState),
+      imguiRendererService.setStyle(. imguiRendererState, style),
     data,
   )
 }
@@ -414,8 +432,11 @@ let setStyle = (meta3dState, data, style) => {
 let beginWindow = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.beginWindow(. label, imguiRendererState),
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.beginWindow(. label)
+
+      imguiRendererState
+    },
     data,
   )
 }
@@ -423,8 +444,11 @@ let beginWindow = (meta3dState, data, label: Meta3dImguiRendererProtocol.Service
 let endWindow = (meta3dState, data) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.endWindow(. imguiRendererState),
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.endWindow()
+
+      imguiRendererState
+    },
     data,
   )
 }
@@ -432,8 +456,44 @@ let endWindow = (meta3dState, data) => {
 let setNextWindowRect = (meta3dState, data, rect: Meta3dImguiRendererProtocol.ServiceType.rect) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.setNextWindowRect(. rect, imguiRendererState),
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.setNextWindowRect(. rect)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let getFBOTexture = (state: Meta3dUiProtocol.StateType.state, textureID) => {
+  state.fboTextureMap->Meta3dCommonlib.ImmutableHashMap.getNullable(textureID)
+}
+
+let setFBOTexture = (state: Meta3dUiProtocol.StateType.state, textureID, texture) => {
+  {
+    ...state,
+    fboTextureMap: state.fboTextureMap->Meta3dCommonlib.ImmutableHashMap.set(textureID, texture),
+  }
+}
+
+let addFBOTexture = (meta3dState, data, texture, size) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.addFBOTexture(. texture, size)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let getContext = (meta3dState, data) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getContext()
+    },
     data,
   )
 }
@@ -441,8 +501,9 @@ let setNextWindowRect = (meta3dState, data, rect: Meta3dImguiRendererProtocol.Se
 let button = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label, size) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.button(. label, size, imguiRendererState),
+    (imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.button(. label, size))
+    },
     data,
   )
 }
@@ -450,8 +511,11 @@ let button = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.
 let setCursorPos = (meta3dState, data, pos) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
-    (imguiRendererState, imguiRendererService) =>
-      imguiRendererService.setCursorPos(. pos, imguiRendererState),
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.setCursorPos(. pos)
+
+      imguiRendererState
+    },
     data,
   )
 }
@@ -460,7 +524,9 @@ let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
     (imguiRendererState, imguiRendererService) => {
-      imguiRendererService.clear(. imguiRendererState, clearColor)->Obj.magic
+      imguiRendererService.clear(. clearColor)
+
+      imguiRendererState
     },
     data,
   )

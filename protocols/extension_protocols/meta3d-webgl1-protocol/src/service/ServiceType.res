@@ -12,6 +12,8 @@ type uniformLocation
 
 type shader
 
+type texture
+
 type extension
 
 type vaoExtension

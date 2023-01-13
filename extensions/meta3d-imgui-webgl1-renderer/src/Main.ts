@@ -89,31 +89,25 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return state
         },
-        afterExec: (state) => {
+        afterExec: () => {
             ImGui.EndFrame()
             ImGui.Render()
-
-            return state
         },
-        clear: (state, clearColor) => {
+        clear: (clearColor) => {
             let [r, g, b, a] = clearColor
 
             ImGui_Impl.ClearBuffer(new ImGui.ImVec4(r, g, b, a))
-
-            return state
         },
-        render: (state) => {
+        render: () => {
             ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
-
-            return state
         },
-        setStyle: (style, state) => {
+        setStyle: (state, style) => {
             return {
                 ...state,
                 style: style
             }
         },
-        beginWindow: (label, state) => {
+        beginWindow: (label) => {
             // ImGui.Begin(label + "##" + _generateUniqueId())
             ImGui.Begin(label)
 
@@ -124,31 +118,38 @@ export let getExtensionService: getExtensionServiceMeta3D<
             //     ImGui.IsWindowHovered(),
             //     ImGui.GetWindowDrawList(),
             // )
-
-            return state
         },
-        endWindow: (state) => {
+        endWindow: () => {
             ImGui.End()
-
-            return state
         },
-        setNextWindowRect: (rect, state) => {
+        setNextWindowRect: (rect) => {
             ImGui.SetNextWindowPos(new ImGui.ImVec2(rect.x, rect.y));
             ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height));
-
-            return state
         },
-        button: (label, [width, height], state) => {
+        addFBOTexture: (texture, [width, height]) => {
+            let pos = ImGui.GetCursorScreenPos();
+            let rectMin = ImGui.GetItemRectMin()
+
+            ImGui.GetWindowDrawList().AddImage(
+                texture,
+                new ImGui.ImVec2(rectMin.x + pos.x, rectMin.y + pos.y),
+                new ImGui.ImVec2(pos.x + width / 2, pos.y + height / 2),
+                new ImGui.ImVec2(0, 1),
+                new ImGui.ImVec2(1, 0),
+            )
+        },
+        button: (label, [width, height]) => {
             let isClick = ImGui.Button(label, new ImGui.ImVec2(width, height))
 
-            return [state, isClick]
+            return isClick
         },
-        setCursorPos: ([x, y], state) => {
+        setCursorPos: ([x, y]) => {
             ImGui.SetCursorPos(
                 new ImGui.ImVec2(x, y)
             )
-
-            return state
+        },
+        getContext: () => {
+            return ImGui_Impl.gl
         },
     }
 }

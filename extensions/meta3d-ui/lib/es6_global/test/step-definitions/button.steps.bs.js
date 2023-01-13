@@ -51,12 +51,8 @@ JestCucumber.defineFeature(feature, (function (test) {
                         sandbox.contents = Sinon$1.sandbox.create();
                       }));
                 Curry._2(and, "prepare imgui renderer service", (function (param) {
-                        var __x = Sinon.createEmptyStub(sandbox.contents);
-                        buttonStub.contents = Sinon.returns([
-                              13,
-                              true
-                            ], __x);
-                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, buttonStub.contents, undefined, undefined);
+                        buttonStub.contents = Sinon.returns(true, Sinon.createEmptyStub(sandbox.contents));
+                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, buttonStub.contents, undefined, undefined);
                       }));
                 Curry._2(and, "prepare api", (function (param) {
                         var __x = Sinon.createEmptyStub(sandbox.contents);
@@ -80,7 +76,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
                                   Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionStateStub.contents)),
                                   Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionServiceStub.contents)),
-                                  SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, buttonStub.contents), label.contents, size.contents, 12)
+                                  SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, buttonStub.contents), label.contents, size.contents)
                                 ]), [
                               1,
                               1,
@@ -89,7 +85,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "update imgui renderer state", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
-                                  SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, setExtensionStateStub.contents), 22, imguiRendererExtensionProtocolName, 13),
+                                  SinonTool$Meta3dUi.calledWithArg3(Sinon.getCall(0, setExtensionStateStub.contents), 22, imguiRendererExtensionProtocolName, 12),
                                   newMeta3dState.contents
                                 ]), [
                               true,

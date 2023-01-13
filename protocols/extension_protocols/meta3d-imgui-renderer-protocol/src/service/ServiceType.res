@@ -19,17 +19,23 @@ type pos = (int, int)
 
 type style = string
 
+type texture = Meta3dWebgl1Protocol.ServiceType.texture
+
+type context = Meta3dWebgl1Protocol.ServiceType.webgl1Context
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
-  render: (. StateType.state) => StateType.state,
-  setStyle: (. style, StateType.state) => StateType.state,
+  render: unit => unit,
+  setStyle: (. StateType.state, style) => StateType.state,
   beforeExec: (. StateType.state, time) => StateType.state,
-  afterExec: (. StateType.state) => StateType.state,
-  clear: (. StateType.state, clearColor) => unit,
-  beginWindow: (. label, StateType.state) => StateType.state,
-  endWindow: (. StateType.state) => StateType.state,
-  setNextWindowRect: (. rect, StateType.state) => StateType.state,
-  button: (. label, size, StateType.state) => (StateType.state, bool),
-  setCursorPos: (. pos, StateType.state) => StateType.state,
+  afterExec: unit => unit,
+  clear: (. clearColor) => unit,
+  beginWindow: (. label) => unit,
+  endWindow: unit => unit,
+  setNextWindowRect: (. rect) => unit,
+  addFBOTexture: (. Js.Null.t<texture>, size) => unit,
+  button: (. label, size) => bool,
+  setCursorPos: (. pos) => unit,
+  getContext: unit => context,
 }

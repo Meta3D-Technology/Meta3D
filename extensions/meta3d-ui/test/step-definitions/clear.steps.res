@@ -13,44 +13,51 @@ defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
   test(."clear imgui renderer", ({given, \"when", \"and", then}) => {
-    let newMeta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(12))
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
-    let meta3dState2: Meta3dType.Index.state = Obj.magic(23)
     let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let clearColor = (1., 0.1, 0.2, 0.3)
     let imguiRendererService = ref(Obj.magic(1))
     let imguiRendererState1 = Obj.magic(12)
-    let imguiRendererState2 = Obj.magic(13)
     let clearStub = ref(Obj.magic(1))
     let getExtensionServiceStub = ref(Obj.magic(1))
     let getExtensionStateStub = ref(Obj.magic(1))
 
-    given("prepare sandbox", () => {
-      sandbox := createSandbox()
-    })
+    given(
+      "prepare sandbox",
+      () => {
+        sandbox := createSandbox()
+      },
+    )
 
-    \"and"("prepare imgui renderer service", () => {
-      clearStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState2, _)
+    \"and"(
+      "prepare imgui renderer service",
+      () => {
+        clearStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      imguiRendererService :=
-        ImguiRendererServiceTool.buildService(~sandbox, ~clear=clearStub.contents->Obj.magic, ())
-    })
+        imguiRendererService :=
+          ImguiRendererServiceTool.buildService(~sandbox, ~clear=clearStub.contents->Obj.magic, ())
+      },
+    )
 
-    \"and"("prepare api", () => {
-      getExtensionServiceStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          imguiRendererService.contents,
-          _,
-        )
+    \"and"(
+      "prepare api",
+      () => {
+        getExtensionServiceStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            imguiRendererService.contents,
+            _,
+          )
 
-      getExtensionStateStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState1, _)
-    })
+        getExtensionStateStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(imguiRendererState1, _)
+      },
+    )
 
-    \"when"("clear", () => {
-      newMeta3dState :=
-        MainTool.clear(
+    \"when"(
+      "clear",
+      () => {
+        // newMeta3dState :=
+        let _ = MainTool.clear(
           ~sandbox,
           ~imguiRendererExtensionProtocolName,
           ~getExtensionService=getExtensionServiceStub.contents,
@@ -59,20 +66,22 @@ defineFeature(feature, test => {
           ~clearColor,
           (),
         )
-    })
+      },
+    )
 
-    then("clear imgui renderer", () => {
-      (
-        getExtensionStateStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
-        ->getCallCount,
-        getExtensionServiceStub.contents
-        ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
-        ->getCallCount,
-        clearStub.contents
-        ->getCall(0, _)
-        ->SinonTool.calledWithArg2(imguiRendererState1, clearColor),
-      )->expect == (1, 1, true)
-    })
+    then(
+      "clear imgui renderer",
+      () => {
+        (
+          getExtensionStateStub.contents
+          ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
+          ->getCallCount,
+          getExtensionServiceStub.contents
+          ->withTwoArgs(meta3dState1, imguiRendererExtensionProtocolName, _)
+          ->getCallCount,
+          clearStub.contents->getCall(0, _)->SinonTool.calledWith(clearColor),
+        )->expect == (1, 1, true)
+      },
+    )
   })
 })

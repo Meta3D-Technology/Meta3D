@@ -252,6 +252,76 @@ let setNextWindowRect = (
   )
 }
 
+let getFBOTexture = (~textureID, ~state=createState(), ()) => {
+  UIManager.getFBOTexture(state, textureID)
+}
+
+let setFBOTexture = (~textureID, ~texture, ~state=createState(), ()) => {
+  UIManager.setFBOTexture(state, textureID, texture)
+}
+
+let addFBOTexture = (
+  ~sandbox,
+  ~getExtensionService,
+  ~texture,
+  ~size,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.addFBOTexture(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionProtocolName,
+    ),
+    texture,
+    size,
+  )
+}
+
+let getContext = (
+  ~sandbox,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
+  ~meta3dState=Obj.magic(1),
+  (),
+) => {
+  UIManager.getContext(
+    meta3dState,
+    (
+      (
+        {
+          registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+          getAllContributesByType: getAllContributesByType->Obj.magic,
+          getExtensionService: getExtensionService->Obj.magic,
+          getExtensionState: getExtensionState->Obj.magic,
+          setExtensionState: setExtensionState->Obj.magic,
+          registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+          getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        }: Meta3dType.Index.api
+      ),
+      imguiRendererExtensionProtocolName,
+    ),
+  )
+}
+
 let button = (
   ~sandbox,
   ~label,
