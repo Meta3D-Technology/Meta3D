@@ -3,8 +3,8 @@ import { getState } from "../Utils"
 import { states } from "meta3d-work-plugin-webgpu-triangle-protocol/src/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
-    let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc }) => {
+    let states = getStatesFunc<states>(meta3dState)
     let { mostService, webgpuService, device, context, renderPipeline } = getState(states)
 
     device = getExn(device)
@@ -29,6 +29,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
 
         webgpuService.submit(webgpuService.getQueue(device), [webgpuService.finish(commandEncoder)])
 
-        return engineCoreState
+        return meta3dState
     })
 }

@@ -36,8 +36,8 @@ let _createAndInsertCanvas = () => {
 	return canvas
 }
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let state = getState(states)
 	let { mostService, webgpuService } = state
 
@@ -79,7 +79,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 				})
 
 				return setStatesFunc<states>(
-					engineCoreState,
+					meta3dState,
 					setState(states, {
 						...getState(states),
 						device,

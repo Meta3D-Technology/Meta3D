@@ -2,8 +2,8 @@ import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contri
 import { getGL, getState } from "../Utils";
 import { states } from "meta3d-work-plugin-webgl1-detectgl-protocol/src/StateType";
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, webgl1Service } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -11,6 +11,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc }) => {
 
 		webgl1Service.getExtension("OES_element_index_uint", getGL(states),)
 
-		return engineCoreState
+		return meta3dState
 	})
 }

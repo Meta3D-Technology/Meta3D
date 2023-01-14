@@ -46,12 +46,14 @@ function _getAllRenderComponents(engineCoreService: engineCoreService, engineCor
 	})
 }
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, engineCoreService, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("prepare render data job");
+
+		let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
 		let usedBasicCameraViewContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
@@ -70,7 +72,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		let pMatrix = getExn(engineCoreService.getComponentData<perspectiveCameraProjection, pMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), cameraProjection, dataName.pMatrix))
 
 		return setStatesFunc<states>(
-			engineCoreState,
+			meta3dState,
 			setState(states, {
 				...getState(states),
 				viewMatrix,

@@ -4,8 +4,8 @@ import { getAllMaterialIndices, getGL, getState, setState } from "../Utils"
 import { states } from "meta3d-work-plugin-webgl1-material-protocol/src/StateType"
 import { initMaterial } from "../InitMaterialUtils"
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, webgl1Service, immutableService, material, workPluginWhichHasAllMaterialIndicesName } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -17,7 +17,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 
 		return setStatesFunc<states>(
-			engineCoreState,
+			meta3dState,
 			setState(states, {
 				...getState(states),
 				material: {

@@ -3,11 +3,11 @@
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Utils$Meta3dWorkPluginRoot from "./Utils.bs.js";
 
-function execFunc(engineCoreState, param) {
-  var match = Utils$Meta3dWorkPluginRoot.getState(Curry._1(param.getStatesFunc, engineCoreState));
+function execFunc(meta3dState, param) {
+  var match = Utils$Meta3dWorkPluginRoot.getState(Curry._1(param.getStatesFunc, meta3dState));
   return Curry._1(match.mostService.callFunc, (function (param) {
                 console.log("init root job exec");
-                return engineCoreState;
+                return meta3dState;
               }));
 }
 

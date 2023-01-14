@@ -63,8 +63,8 @@ function _clear(webgl1Service: webgl1Service, gl: webgl1Context) {
 	webgl1Service.clear(webgl1Service.getColorBufferBit(gl) | webgl1Service.getDepthBufferBit(gl), gl);
 }
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, immutableService, engineCoreService, webgl1Service, workPluginWhichHasAllRenderComponentsName } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -76,11 +76,11 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		_clear(webgl1Service, getGL(states))
 
 		getAllRenderComponents(states, workPluginWhichHasAllRenderComponentsName).forEach(({ transform, geometry, material }) => {
-			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix] = _getRenderData([engineCoreService, immutableService], engineCoreState, [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
+			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix] = _getRenderData([engineCoreService, immutableService], api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
 
 			_render(webgl1Service, getGL(states), verticesBuffer, indicesBuffer, program, modelMatrix, indicesCount)
 		})
 
-		return engineCoreState
+		return meta3dState
 	})
 }

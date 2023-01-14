@@ -16,8 +16,8 @@ function _sendCameraData(webgl1Service: webgl1Service, gl: webgl1Context, progra
 	})
 }
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, webgl1Service, workPluginWhichHasUniformShaderDataName } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -25,6 +25,6 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 
 		_sendCameraData(webgl1Service, getGL(states), getProgramMap(states), getViewMatrix(states, workPluginWhichHasUniformShaderDataName), getPMatrix(states, workPluginWhichHasUniformShaderDataName))
 
-		return engineCoreState
+		return meta3dState
 	})
 }

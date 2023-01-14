@@ -289,7 +289,12 @@ add test cases
 
 ** DONE finish view control
 
-** TODO work plugin->execFunc should get meta3dState and return stream<meta3dState>
+** DONE work plugin->execFunc should get meta3dState and return stream<meta3dState>
+
+# TODO pass work plugin compile:
+creategl
+render,
+...
 
 
 ** TODO finish work plugins

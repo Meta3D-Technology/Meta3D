@@ -3,13 +3,13 @@ import { getState } from "../Utils"
 import { states } from "meta3d-work-plugin-transform-protocol/src/StateType"
 import { updateTransform } from "../UpdateTransformUtils"
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, engineCoreService } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("update transform job")
 
-		return updateTransform(engineCoreState, engineCoreService)
+		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateTransform(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService))
 	})
 }

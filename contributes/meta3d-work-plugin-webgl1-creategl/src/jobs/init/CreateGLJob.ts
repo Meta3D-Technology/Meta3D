@@ -17,8 +17,8 @@ function _createGL({ getContext }: webgl1Service, canvas: HTMLCanvasElement) {
 	})
 }
 
-export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStatesFunc }) => {
-	let states = getStatesFunc<states>(engineCoreState)
+export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+	let states = getStatesFunc<states>(meta3dState)
 	let { mostService, webgl1Service, canvas } = getState(states)
 
 	return mostService.callFunc(() => {
@@ -27,7 +27,7 @@ export let execFunc: execFuncType = (engineCoreState, { getStatesFunc, setStates
 		console.log("create gl job->gl:", gl);
 
 		return setStatesFunc<states>(
-			engineCoreState,
+			meta3dState,
 			setState(states,
 				{
 					...getState(states),
