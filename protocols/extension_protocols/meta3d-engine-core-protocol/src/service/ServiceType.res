@@ -107,9 +107,9 @@ type service = {
   ) => (StateType.state, GameObjectContributeType.clonedGameObjects),
   getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
   runPipeline: (
-    StateType.state,
     Meta3dType.Index.state,
+    Meta3dType.Index.extensionProtocolName,
     PipelineType.pipelineName,
   ) => // TODO change to Promist.t, hidden Stream!
-  Meta3dBsMostProtocol.StreamType.stream<StateType.state>,
+  Meta3dBsMostProtocol.StreamType.stream<Meta3dType.Index.state>,
 }

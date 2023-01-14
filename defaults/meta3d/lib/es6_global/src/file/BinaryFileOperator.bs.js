@@ -1,8 +1,6 @@
 
 
-import * as Js_typed_array from "../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
 import * as BufferUtils$Meta3d from "./BufferUtils.bs.js";
-import * as TextEncoder$Meta3d from "./TextEncoder.bs.js";
 import * as DataViewCommon$Meta3d from "./DataViewCommon.bs.js";
 import * as TypeArrayUtils$Meta3d from "./TypeArrayUtils.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
@@ -10,7 +8,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 
 function _buildEmptyEncodedUint8Data(param) {
   var encoder = new TextEncoder();
-  var emptyUint8DataArr = TextEncoder$Meta3d.encodeUint8Array(" ", encoder);
+  var emptyUint8DataArr = encoder.encode(" ");
   return TypeArrayUtils$Meta3d.getUint8_1(0, emptyUint8DataArr);
 }
 
@@ -74,7 +72,7 @@ function load(binaryFile) {
                     var byteLength = match[0];
                     return [
                             byteOffset + BufferUtils$Meta3d.alignedLength(byteLength) | 0,
-                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(Js_typed_array.$$ArrayBuffer.slice(_getHeaderByteLength(dataLength) + byteOffset | 0, (_getHeaderByteLength(dataLength) + byteOffset | 0) + byteLength | 0, binaryFile)))
+                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile.slice(_getHeaderByteLength(dataLength) + byteOffset | 0, (_getHeaderByteLength(dataLength) + byteOffset | 0) + byteLength | 0)))
                           ];
                   }), [
                   0,
@@ -91,5 +89,6 @@ export {
   _getHeaderByteLength ,
   generate ,
   load ,
+  
 }
 /* No side effect */

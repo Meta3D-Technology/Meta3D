@@ -31,32 +31,43 @@ function _findGroup(groupName, groups) {
   }
 }
 
-function _getStates(param) {
-  return param.states;
+function _getStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState) {
+  return api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName).states;
 }
 
-function _setStates(state, states) {
-  return {
-          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
-          states: states,
-          pluginData: state.pluginData,
-          componentContributeData: state.componentContributeData,
-          gameObjectContribute: state.gameObjectContribute,
-          usedGameObjectContribute: state.usedGameObjectContribute
-        };
+function _setStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState, states) {
+  var init = api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName);
+  return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, {
+              allRegisteredWorkPluginContribute: init.allRegisteredWorkPluginContribute,
+              states: states,
+              pluginData: init.pluginData,
+              componentContributeData: init.componentContributeData,
+              gameObjectContribute: init.gameObjectContribute,
+              usedGameObjectContribute: init.usedGameObjectContribute
+            });
 }
 
-function _buildJobStream(param, is_set_state, execFunc) {
+function _buildJobStream(param, param$1, is_set_state, execFunc) {
+  var meta3dEngineCoreExtensionProtocolName = param$1[3];
+  var setMeta3dState = param$1[2];
+  var unsafeGetMeta3dState = param$1[1];
+  var api = param$1[0];
   var __x = Curry._1(param.just, execFunc);
   var __x$1 = Curry._2(param.flatMap, (function (func) {
-          return Curry._2(func, StateContainer$Meta3dEngineCore.unsafeGetState(undefined), {
-                      getStatesFunc: _getStates,
-                      setStatesFunc: _setStates
+          return Curry._2(func, Curry._1(unsafeGetMeta3dState, undefined), {
+                      api: api,
+                      getStatesFunc: (function (param) {
+                          return _getStates(api, meta3dEngineCoreExtensionProtocolName, param);
+                        }),
+                      setStatesFunc: (function (param, param$1) {
+                          return _setStates(api, meta3dEngineCoreExtensionProtocolName, param, param$1);
+                        }),
+                      meta3dEngineCoreExtensionProtocolName: meta3dEngineCoreExtensionProtocolName
                     });
         }), __x);
-  return Curry._2(param.map, (function (state) {
+  return Curry._2(param.map, (function (meta3dState) {
                 if (NullableSt$Meta3dCommonlib.getWithDefault(is_set_state, true)) {
-                  return StateContainer$Meta3dEngineCore.setState(state);
+                  return Curry._1(setMeta3dState, meta3dState);
                 }
                 
               }), __x$1);
@@ -80,7 +91,7 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "WorkPluginManager.res",
-            90,
+            131,
             14
           ],
           Error: new Error()
@@ -88,24 +99,35 @@ function _getExecFunc(_getExecFuncs, pipelineName, jobName) {
   };
 }
 
-function _buildJobStreams(mostService, param, param$1, groups) {
+function _buildJobStreams(data, param, param$1, groups) {
   var pipelineName = param$1[0];
   var getExecFuncs = param[1];
   var buildPipelineStreamFunc = param[0];
+  var meta3dEngineCoreExtensionProtocolName = data[4];
+  var setMeta3dState = data[3];
+  var unsafeGetMeta3dState = data[2];
+  var mostService = data[1];
+  var api = data[0];
   return ListSt$Meta3dCommonlib.reduce(ListSt$Meta3dCommonlib.fromArray(param$1[1]), /* [] */0, (function (streams, param) {
                 var name = param.name;
                 if (param.type_ === "group") {
                   var group = _findGroup(name, groups);
-                  var stream = Curry._5(buildPipelineStreamFunc, mostService, getExecFuncs, pipelineName, group, groups);
+                  var stream = Curry._5(buildPipelineStreamFunc, data, getExecFuncs, pipelineName, group, groups);
                   return ListSt$Meta3dCommonlib.push(streams, stream);
                 }
                 var execFunc = _getExecFunc(getExecFuncs, pipelineName, name);
-                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, param.is_set_state, execFunc));
+                return ListSt$Meta3dCommonlib.push(streams, _buildJobStream(mostService, [
+                                api,
+                                unsafeGetMeta3dState,
+                                setMeta3dState,
+                                meta3dEngineCoreExtensionProtocolName
+                              ], param.is_set_state, execFunc));
               }));
 }
 
-function _buildPipelineStream(mostService, getExecFuncs, pipelineName, param, groups) {
-  var streams = _buildJobStreams(mostService, [
+function _buildPipelineStream(data, getExecFuncs, pipelineName, param, groups) {
+  var mostService = data[1];
+  var streams = _buildJobStreams(data, [
         _buildPipelineStream,
         getExecFuncs
       ], [
@@ -115,13 +137,14 @@ function _buildPipelineStream(mostService, getExecFuncs, pipelineName, param, gr
   return Curry._1(param.link === "merge" ? mostService.mergeArray : mostService.concatArray, ListSt$Meta3dCommonlib.toArray(streams));
 }
 
-function parse(state, mostService, getExecFuncs, param) {
+function parse(meta3dState, data, getExecFuncs, param) {
   var groups = param.groups;
+  var unsafeGetMeta3dState = data[2];
   var group = _findGroup(param.first_group, groups);
-  StateContainer$Meta3dEngineCore.setState(state);
-  var __x = _buildPipelineStream(mostService, getExecFuncs, param.name, group, groups);
-  return Curry._2(mostService.map, (function (param) {
-                return StateContainer$Meta3dEngineCore.unsafeGetState(undefined);
+  Curry._1(data[3], meta3dState);
+  var __x = _buildPipelineStream(data, getExecFuncs, param.name, group, groups);
+  return Curry._2(data[1].map, (function (param) {
+                return Curry._1(unsafeGetMeta3dState, undefined);
               }), __x);
 }
 
@@ -556,9 +579,10 @@ var MergePipelineData = {
   merge: merge
 };
 
-function runPipeline(state, mostService, pipelineName) {
-  return Result$Meta3dCommonlib.mapSuccess(merge(state.allRegisteredWorkPluginContribute, pipelineName), (function (param) {
-                return parse(state, mostService, param[0], param[1]);
+function runPipeline(meta3dState, data, pipelineName) {
+  var match = data[0].getExtensionState(meta3dState, data[4]);
+  return Result$Meta3dCommonlib.mapSuccess(merge(match.allRegisteredWorkPluginContribute, pipelineName), (function (param) {
+                return parse(meta3dState, data, param[0], param[1]);
               }));
 }
 

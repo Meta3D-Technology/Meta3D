@@ -32,9 +32,16 @@ function prepare(param) {
 
 var init = WorkPluginManager$Meta3dEngineCore.init;
 
-function runPipeline(param, state, meta3dState, pipelineName) {
-  var mostService = param[0].getExtensionService(meta3dState, param[1].meta3dBsMostExtensionName);
-  return Result$Meta3dCommonlib.handleFail(WorkPluginManager$Meta3dEngineCore.runPipeline(state, mostService, pipelineName), Exception$Meta3dCommonlib.throwErr);
+function runPipeline(param, param$1, meta3dState, meta3dEngineCoreExtensionProtocolName, pipelineName) {
+  var api = param[0];
+  var mostService = api.getExtensionService(meta3dState, param[1].meta3dBsMostExtensionName);
+  return Result$Meta3dCommonlib.handleFail(WorkPluginManager$Meta3dEngineCore.runPipeline(meta3dState, [
+                  api,
+                  mostService,
+                  param$1[0],
+                  param$1[1],
+                  meta3dEngineCoreExtensionProtocolName
+                ], pipelineName), Exception$Meta3dCommonlib.throwErr);
 }
 
 function registerComponent(state, componentContribute) {

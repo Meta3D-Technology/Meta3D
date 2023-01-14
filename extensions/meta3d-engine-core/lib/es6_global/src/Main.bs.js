@@ -2,10 +2,15 @@
 
 import * as CreateState$Meta3dEngineCore from "./state/CreateState.bs.js";
 import * as DirectorForJs$Meta3dEngineCore from "./manager/DirectorForJs.bs.js";
+import * as StateContainer$Meta3dEngineCore from "./state/StateContainer.bs.js";
 
 function getExtensionService(api, param) {
-  var partial_arg_1 = param[0];
   var partial_arg = [
+    StateContainer$Meta3dEngineCore.unsafeGetMeta3dState,
+    StateContainer$Meta3dEngineCore.setMeta3dState
+  ];
+  var partial_arg_1 = param[0];
+  var partial_arg$1 = [
     api,
     partial_arg_1
   ];
@@ -43,7 +48,7 @@ function getExtensionService(api, param) {
           cloneGameObject: DirectorForJs$Meta3dEngineCore.cloneGameObject,
           getAllGameObjects: DirectorForJs$Meta3dEngineCore.getAllGameObjects,
           runPipeline: (function (param, param$1, param$2) {
-              return DirectorForJs$Meta3dEngineCore.runPipeline(partial_arg, param, param$1, param$2);
+              return DirectorForJs$Meta3dEngineCore.runPipeline(partial_arg$1, partial_arg, param, param$1, param$2);
             })
         };
 }

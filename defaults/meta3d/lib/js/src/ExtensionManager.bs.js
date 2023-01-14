@@ -52,12 +52,12 @@ function _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, handler
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
                     return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionProtocolName), data);
                   })), new Promise((function (resolve, reject) {
-                    resolve(state);
+                    return resolve(state);
                   })));
 }
 
 function startExtension(state, extensionProtocolName, configData) {
-  _invokeLifeOnStartHander(state, extensionProtocolName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onStart);
+  return _invokeLifeOnStartHander(state, extensionProtocolName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onStart);
 }
 
 function updateExtension(state, extensionProtocolName, data) {

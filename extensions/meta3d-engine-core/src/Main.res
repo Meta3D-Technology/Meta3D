@@ -2,7 +2,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionNameMap,
   Meta3dEngineCoreProtocol.DependentMapType.dependentContributeNameMap,
   Meta3dEngineCoreProtocol.ServiceType.service,
-> = (api, ( dependentExtensionNameMap, _ )) => {
+> = (api, (dependentExtensionNameMap, _)) => {
   getIsDebug: DirectorForJs.getIsDebug,
   setIsDebug: DirectorForJs.setIsDebug,
   prepare: DirectorForJs.prepare,
@@ -35,7 +35,10 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   disposeGameObjects: DirectorForJs.disposeGameObjects,
   cloneGameObject: DirectorForJs.cloneGameObject,
   getAllGameObjects: DirectorForJs.getAllGameObjects,
-  runPipeline: DirectorForJs.runPipeline((api, dependentExtensionNameMap)),
+  runPipeline: DirectorForJs.runPipeline(
+    (api, dependentExtensionNameMap),
+    (StateContainer.unsafeGetMeta3dState, StateContainer.setMeta3dState),
+  ),
   // getStates: DirectorForJs.getStates,
   // setStates: DirectorForJs.setStates,
 }

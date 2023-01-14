@@ -5,7 +5,7 @@ import type { pipelineData as PipelineType_pipelineData } from '../../state/Pipe
 
 import type { pipelineName as PipelineType_pipelineName } from '../../state/PipelineType';
 
-import { state, operateStatesFuncs } from "../../state/StateType"
+import { operateStatesFuncs } from "../../state/StateType"
 
 // tslint:disable-next-line:interface-over-type-literal
 export type jobName = string;
@@ -14,7 +14,7 @@ export type jobName = string;
 export type stream<a> = Meta3dBsMostProtocol_StreamType_stream<a>;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type execFunc = (_1: state, _2: operateStatesFuncs) => stream<state>;
+export type execFunc = (_1: meta3dState, _2: operateStatesFuncs) => stream<meta3dState>;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type getExecFunc = (_1: PipelineType_pipelineName, _2: jobName) => (null | undefined | execFunc);

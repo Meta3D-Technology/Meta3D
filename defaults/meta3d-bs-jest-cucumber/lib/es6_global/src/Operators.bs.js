@@ -6,5 +6,6 @@ var $eq = Expect$Meta3dBsJestCucumber.toEqualFunc;
 
 export {
   $eq ,
+  
 }
 /* No side effect */

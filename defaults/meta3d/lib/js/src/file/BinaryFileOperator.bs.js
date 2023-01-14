@@ -1,8 +1,6 @@
 'use strict';
 
-var Js_typed_array = require("rescript/lib/js/js_typed_array.js");
 var BufferUtils$Meta3d = require("./BufferUtils.bs.js");
-var TextEncoder$Meta3d = require("./TextEncoder.bs.js");
 var DataViewCommon$Meta3d = require("./DataViewCommon.bs.js");
 var TypeArrayUtils$Meta3d = require("./TypeArrayUtils.bs.js");
 var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
@@ -10,7 +8,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 
 function _buildEmptyEncodedUint8Data(param) {
   var encoder = new TextEncoder();
-  var emptyUint8DataArr = TextEncoder$Meta3d.encodeUint8Array(" ", encoder);
+  var emptyUint8DataArr = encoder.encode(" ");
   return TypeArrayUtils$Meta3d.getUint8_1(0, emptyUint8DataArr);
 }
 
@@ -74,7 +72,7 @@ function load(binaryFile) {
                     var byteLength = match[0];
                     return [
                             byteOffset + BufferUtils$Meta3d.alignedLength(byteLength) | 0,
-                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(Js_typed_array.$$ArrayBuffer.slice(_getHeaderByteLength(dataLength) + byteOffset | 0, (_getHeaderByteLength(dataLength) + byteOffset | 0) + byteLength | 0, binaryFile)))
+                            ArraySt$Meta3dCommonlib.push(param[1], new Uint8Array(binaryFile.slice(_getHeaderByteLength(dataLength) + byteOffset | 0, (_getHeaderByteLength(dataLength) + byteOffset | 0) + byteLength | 0)))
                           ];
                   }), [
                   0,

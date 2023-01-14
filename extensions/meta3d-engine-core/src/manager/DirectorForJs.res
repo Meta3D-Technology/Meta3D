@@ -40,8 +40,9 @@ let runPipeline = (
       meta3dBsMostExtensionName,
     }: Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionNameMap,
   ),
-  state,
+  (unsafeGetMeta3dState, setMeta3dState),
   meta3dState,
+  meta3dEngineCoreExtensionProtocolName,
   pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
 ) => {
   let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
@@ -49,8 +50,11 @@ let runPipeline = (
     meta3dBsMostExtensionName,
   )
 
-  state
-  ->WorkPluginManager.runPipeline(mostService, pipelineName)
+  meta3dState
+  ->WorkPluginManager.runPipeline(
+    (api, mostService, unsafeGetMeta3dState, setMeta3dState, meta3dEngineCoreExtensionProtocolName),
+    pipelineName,
+  )
   // ->Meta3dCommonlib.Result.mapSuccess(mostService.map(StateContainer.setState, _))
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }

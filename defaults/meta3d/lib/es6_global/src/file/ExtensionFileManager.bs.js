@@ -1,16 +1,14 @@
 
 
-import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Caml_array from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_array.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
-import * as TextDecoder$Meta3d from "./TextDecoder.bs.js";
-import * as TextEncoder$Meta3d from "./TextEncoder.bs.js";
 import * as BinaryFileOperator$Meta3d from "./BinaryFileOperator.bs.js";
 
 function _generate(packageData, fileStr) {
   var encoder = new TextEncoder();
   return BinaryFileOperator$Meta3d.generate([
-              TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(packageData), encoder),
-              TextEncoder$Meta3d.encodeUint8Array(fileStr, encoder)
+              encoder.encode(JSON.stringify(packageData)),
+              encoder.encode(fileStr)
             ]);
 }
 
@@ -18,7 +16,7 @@ function loadExtension(extensionBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var dataArr = BinaryFileOperator$Meta3d.load(extensionBinaryFile);
   return {
-          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(Caml_array.get(dataArr, 0), decoder))),
+          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(Caml_array.get(dataArr, 0)))),
           extensionFuncData: Caml_array.get(dataArr, 1)
         };
 }
@@ -27,7 +25,7 @@ function loadContribute(contributeBinaryFile) {
   var decoder = new TextDecoder("utf-8");
   var dataArr = BinaryFileOperator$Meta3d.load(contributeBinaryFile);
   return {
-          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(Caml_array.get(dataArr, 0), decoder))),
+          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(Caml_array.get(dataArr, 0)))),
           contributeFuncData: Caml_array.get(dataArr, 1)
         };
 }
@@ -42,5 +40,6 @@ export {
   loadExtension ,
   generateContribute ,
   loadContribute ,
+  
 }
 /* No side effect */

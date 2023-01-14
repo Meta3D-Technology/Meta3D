@@ -15,6 +15,7 @@ export type state = {
     webgl1Service: webgl1Service,
     engineCoreService: engineCoreService,
     immutableService: immutableService,
+    // TODO remove
     workPluginWhichHasAllRenderComponentsName: string,
 }
 

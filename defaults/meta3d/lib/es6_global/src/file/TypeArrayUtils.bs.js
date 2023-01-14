@@ -7,5 +7,6 @@ function getUint8_1(index, typeArray) {
 
 export {
   getUint8_1 ,
+  
 }
 /* No side effect */

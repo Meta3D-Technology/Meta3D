@@ -22,7 +22,7 @@ type rec state = {
   gameObjectContribute: option<GameObjectType.gameObjectContribute>,
   mutable usedGameObjectContribute: option<GameObjectType.usedGameObjectContribute>,
 }
-and execFunc = (state, operateStatesFuncs) => stream<state>
+and execFunc = (Meta3dType.Index.state, operateStatesFuncs) => stream<Meta3dType.Index.state>
 and getExecFunc = (PipelineType.pipelineName, jobName) => Js.Nullable.t<execFunc>
 and workPluginContribute<'config, 'state, 'states> = {
   workPluginName: workPluginName,
@@ -45,6 +45,8 @@ and registeredWorkPluginContribute = (
   RegisterWorkPluginType.jobOrders,
 )
 and operateStatesFuncs = {
-  getStatesFunc: state => RegisterWorkPluginType.states,
-  setStatesFunc: (state, RegisterWorkPluginType.states) => state,
+  api: Meta3dType.Index.api,
+  getStatesFunc: Meta3dType.Index.state => RegisterWorkPluginType.states,
+  setStatesFunc: (Meta3dType.Index.state, RegisterWorkPluginType.states) => Meta3dType.Index.state,
+  meta3dEngineCoreExtensionProtocolName: Meta3dType.Index.extensionProtocolName,
 }

@@ -143,5 +143,5 @@ Feature: Plugin
             Given register plugin contribute with init jobs use merge and not set the second merge job's state
             And init
             When run init pipeline
-            Then get states should only return the first merge job's one
+            Then should only set the first merge job's state
 

@@ -1,4 +1,4 @@
-import type { state as Meta3dType_Index_state } from 'meta3d-type/src/Index';
+import type { state as Meta3dType_Index_state, extensionProtocolName } from 'meta3d-type/src/Index';
 
 import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType.gen';
 
@@ -67,5 +67,5 @@ export type service = {
     readonly disposeGameObjects: (_1: StateType_state, _2: gameObject[]) => StateType_state;
     readonly cloneGameObject: (_1: StateType_state, _2: number, _3: cloneConfig, _4: gameObject) => [StateType_state, clonedGameObjects];
     readonly getAllGameObjects: (_1: StateType_state) => gameObject[];
-    readonly runPipeline: (_1: StateType_state, _2: Meta3dType_Index_state, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<StateType_state>
+    readonly runPipeline: (_1: Meta3dType_Index_state, _2: extensionProtocolName, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<Meta3dType_Index_state>
 };

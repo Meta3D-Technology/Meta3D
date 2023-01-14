@@ -1,3 +1,5 @@
+open Sinon
+
 let registerWorkPlugin = (
   ~contribute,
   ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>=Js.Nullable.null,
@@ -23,24 +25,56 @@ let init = meta3dState => {
   StateContainer.unsafeGetState()->DirectorForJs.init(meta3dState)->StateContainer.setState
 }
 
+let _buildMeta3dEngineCoreExtensionProtocolName = () => "meta3dEngineCoreExtensionProtocolName"
+
+let getStates = () => {
+  // let api = Meta3d.ExtensionManager.buildAPI()
+
+  // (
+  // api.getExtensionState(.
+  //   StateContainer.unsafeGetMeta3dState(),
+  //   _buildMeta3dEngineCoreExtensionProtocolName(),
+  // ): Meta3dEngineCoreProtocol.StateType.state
+
+  // )
+
+  StateContainer.unsafeGetState().states
+}
+
 let runPipeline = (
-  (
+  ~sandbox,
+  ~data,
+  ~meta3dState,
+  ~pipelineName,
+  ~unsafeGetMeta3dState=createEmptyStubWithJsObjSandbox(sandbox),
+  ~setMeta3dState=createEmptyStubWithJsObjSandbox(sandbox),
+  (),
+) => {
+  let (
     api: Meta3dType.Index.api,
     {
       meta3dBsMostExtensionName,
     }: Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionNameMap,
-  ) as data,
-  meta3dState,
-  pipelineName,
-) => {
-  let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
-    meta3dState,
-    meta3dBsMostExtensionName,
+  ) = data
+
+  let mostService: Meta3dBsMostProtocol.ServiceType.service = Meta3dBsMost.Main.getExtensionService(
+    Obj.magic(1),
+    Obj.magic(1),
   )
 
-  StateContainer.unsafeGetState()
-  ->DirectorForJs.runPipeline(data, _, meta3dState, pipelineName)
-  ->mostService.map(StateContainer.setState, _)
+  let meta3dEngineCoreExtensionProtocolName = _buildMeta3dEngineCoreExtensionProtocolName()
+
+  api.getExtensionService->Obj.magic->returns(mostService, _)->Obj.magic
+
+  StateContainer.unsafeGetMeta3dState()
+  ->DirectorForJs.runPipeline(
+    data,
+    (unsafeGetMeta3dState, setMeta3dState),
+    _,
+    meta3dEngineCoreExtensionProtocolName,
+    pipelineName,
+  )
+  ->mostService.map(StateContainer.setMeta3dState, _)
 }
 
 // let getStates = DirectorForJs.getStates

@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
@@ -52,12 +52,12 @@ function _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, handler
   return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(handlerNullable, (function (handler) {
                     return Curry._3(handler, state, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, extensionProtocolName), data);
                   })), new Promise((function (resolve, reject) {
-                    resolve(state);
+                    return resolve(state);
                   })));
 }
 
 function startExtension(state, extensionProtocolName, configData) {
-  _invokeLifeOnStartHander(state, extensionProtocolName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onStart);
+  return _invokeLifeOnStartHander(state, extensionProtocolName, configData, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onStart);
 }
 
 function updateExtension(state, extensionProtocolName, data) {
@@ -160,5 +160,6 @@ export {
   registerExtension ,
   registerContribute ,
   buildAPI ,
+  
 }
 /* No side effect */

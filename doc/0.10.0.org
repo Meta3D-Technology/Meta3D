@@ -175,12 +175,21 @@ engine state is engineCoreState in meta3dState
 
 
 add work-plugin for editor
+scene-view
 
 init jobs
+
+job1:
 create and init each fbo's texture
 set texture to textureId in ui state. map
 
 (uiService add getIMGUICurrentContext)
+
+
+job2:
+add default gameObjects(one cube gameObject, one camera gameObject) to engine state and editorState->sceneView
+
+
 
 
 # update jobs
@@ -202,6 +211,8 @@ use-editor extension:
 _loop:
 invoke work plugin's update, render before uiService.render(so can generate view texture before)
 
+init:
+invoke work plugin's init after uiService.init(so can get imgui context after)
 
 
 
@@ -278,16 +289,42 @@ add test cases
 
 ** DONE finish view control
 
+** TODO work plugin->execFunc should get meta3dState and return stream<meta3dState>
+
 
 ** TODO finish work plugins
+
+TODO finis meta3d-work-plugin-editor-webgl1-scene-view
 
 
 ** TODO update use-editor extension
 
 
 
+
+** TODO run test
+
+
+*** TODO rebuild engine whole package
+
+
+*** TODO pass engine whole package run test
+
+*** TODO pass view run test
+
+
 * TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
 
+* TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+e.g.  let {
+		meta3dWebgl1ExtensionName,
+		meta3dBsMostExtensionName,
+		meta3dUIExtensionName,
+	} = dependentMapData[0]
+
+
+
+* TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
 
 
 

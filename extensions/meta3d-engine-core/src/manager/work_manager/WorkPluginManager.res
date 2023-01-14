@@ -38,32 +38,73 @@ module ParsePipelineData = {
     }
   }
 
-  let _getStates = ({states}: Meta3dEngineCoreProtocol.StateType.state) => states
+  // let _getStates = (meta3dState:Meta3dType.Index.state, meta3dEngineCoreExtensionProtocolName, {states}: Meta3dEngineCoreProtocol.StateType.state) => states
+  let _getStates = (
+    api: Meta3dType.Index.api,
+    meta3dEngineCoreExtensionProtocolName,
+    meta3dState: Meta3dType.Index.state,
+  ) => {
+    let {states}: Meta3dEngineCoreProtocol.StateType.state = api.getExtensionState(.
+      meta3dState,
+      meta3dEngineCoreExtensionProtocolName,
+    )
 
-  let _setStates = (state, states): Meta3dEngineCoreProtocol.StateType.state => {
-    ...state,
-    states: states,
+    states
+  }
+
+  // let _setStates = (state, states): Meta3dEngineCoreProtocol.StateType.state => {
+  //   ...state,
+  //   states: states,
+  // }
+
+  let _setStates = (
+    api: Meta3dType.Index.api,
+    meta3dEngineCoreExtensionProtocolName,
+    meta3dState: Meta3dType.Index.state,
+    states,
+  ): Meta3dType.Index.state => {
+    api.setExtensionState(.
+      meta3dState,
+      meta3dEngineCoreExtensionProtocolName,
+      {
+        ...(
+          api.getExtensionState(.
+            meta3dState,
+            meta3dEngineCoreExtensionProtocolName,
+          ): Meta3dEngineCoreProtocol.StateType.state
+        ),
+        states: states,
+      },
+    )
   }
 
   let _buildJobStream = (
     {just, flatMap, map}: Meta3dBsMostProtocol.ServiceType.service,
+    (
+      api: Meta3dType.Index.api,
+      unsafeGetMeta3dState,
+      setMeta3dState,
+      meta3dEngineCoreExtensionProtocolName,
+    ),
     is_set_state,
     execFunc,
   ): Meta3dBsMostProtocol.StreamType.stream<unit> => {
     execFunc->just->flatMap(func =>
       func(
-        StateContainer.unsafeGetState(),
+        unsafeGetMeta3dState(),
         (
           {
-            getStatesFunc: _getStates,
-            setStatesFunc: _setStates,
+            api: api,
+            getStatesFunc: _getStates(api, meta3dEngineCoreExtensionProtocolName),
+            setStatesFunc: _setStates(api, meta3dEngineCoreExtensionProtocolName),
+            meta3dEngineCoreExtensionProtocolName: meta3dEngineCoreExtensionProtocolName,
           }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs
         ),
       )
     , _)->map(
-      state =>
+      meta3dState =>
         is_set_state->Meta3dCommonlib.NullableSt.getWithDefault(true)
-          ? StateContainer.setState(state)
+          ? setMeta3dState(meta3dState)
           : (),
       _,
     )
@@ -98,7 +139,13 @@ module ParsePipelineData = {
   }
 
   let _buildJobStreams = (
-    mostService: Meta3dBsMostProtocol.ServiceType.service,
+    (
+      api: Meta3dType.Index.api,
+      mostService: Meta3dBsMostProtocol.ServiceType.service,
+      unsafeGetMeta3dState,
+      setMeta3dState,
+      meta3dEngineCoreExtensionProtocolName,
+    ) as data,
     (buildPipelineStreamFunc, getExecFuncs),
     (pipelineName, elements),
     groups,
@@ -110,23 +157,30 @@ module ParsePipelineData = {
       | #job =>
         let execFunc = _getExecFunc(getExecFuncs, pipelineName, name)
 
-        streams->Meta3dCommonlib.ListSt.push(_buildJobStream(mostService, is_set_state, execFunc))
+        streams->Meta3dCommonlib.ListSt.push(
+          _buildJobStream(
+            mostService,
+            (api, unsafeGetMeta3dState, setMeta3dState, meta3dEngineCoreExtensionProtocolName),
+            is_set_state,
+            execFunc,
+          ),
+        )
       | #group =>
         let group = _findGroup(name, groups)
-        let stream = buildPipelineStreamFunc(mostService, getExecFuncs, pipelineName, group, groups)
+        let stream = buildPipelineStreamFunc(data, getExecFuncs, pipelineName, group, groups)
         streams->Meta3dCommonlib.ListSt.push(stream)
       }
     )
 
   let rec _buildPipelineStream = (
-    mostService: Meta3dBsMostProtocol.ServiceType.service,
+    (_, mostService: Meta3dBsMostProtocol.ServiceType.service, _, _, _) as data,
     getExecFuncs,
     pipelineName,
     {name, link, elements},
     groups,
   ) => {
     let streams = _buildJobStreams(
-      mostService,
+      data,
       (_buildPipelineStream, getExecFuncs),
       (pipelineName, elements),
       groups,
@@ -141,17 +195,23 @@ module ParsePipelineData = {
   }
 
   let parse = (
-    state,
-    mostService: Meta3dBsMostProtocol.ServiceType.service,
+    meta3dState: Meta3dType.Index.state,
+    (
+      _,
+      mostService: Meta3dBsMostProtocol.ServiceType.service,
+      unsafeGetMeta3dState,
+      setMeta3dState,
+      _,
+    ) as data,
     getExecFuncs,
     {name, groups, first_group},
-  ): Meta3dBsMostProtocol.StreamType.stream<Meta3dEngineCoreProtocol.StateType.state> => {
+  ): Meta3dBsMostProtocol.StreamType.stream<Meta3dType.Index.state> => {
     let group = _findGroup(first_group, groups)
 
-    state->StateContainer.setState
+    meta3dState->setMeta3dState
 
-    _buildPipelineStream(mostService, getExecFuncs, name, group, groups)->mostService.map(
-      () => StateContainer.unsafeGetState(),
+    _buildPipelineStream(data, getExecFuncs, name, group, groups)->mostService.map(
+      () => unsafeGetMeta3dState(),
       _,
     )
   }
@@ -676,17 +736,28 @@ module MergePipelineData = {
 }
 
 let runPipeline = (
-  {allRegisteredWorkPluginContribute, states} as state: Meta3dEngineCoreProtocol.StateType.state,
-  mostService: Meta3dBsMostProtocol.ServiceType.service,
+  meta3dState: Meta3dType.Index.state,
+  (
+    api: Meta3dType.Index.api,
+    mostService: Meta3dBsMostProtocol.ServiceType.service,
+    unsafeGetMeta3dState,
+    setMeta3dState,
+    meta3dEngineCoreExtensionProtocolName,
+  ) as data,
   pipelineName: Meta3dEngineCoreProtocol.PipelineType.pipelineName,
-): Meta3dCommonlib.Result.t2<
-  Meta3dBsMostProtocol.StreamType.stream<Meta3dEngineCoreProtocol.StateType.state>,
-> => {
+): Meta3dCommonlib.Result.t2<Meta3dBsMostProtocol.StreamType.stream<Meta3dType.Index.state>> => {
   // TODO check is allRegisteredWorkPluginContribute duplicate
+
+  let {
+    allRegisteredWorkPluginContribute,
+  }: Meta3dEngineCoreProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    meta3dEngineCoreExtensionProtocolName,
+  )
 
   allRegisteredWorkPluginContribute
   ->MergePipelineData.merge(pipelineName)
   ->Meta3dCommonlib.Result.mapSuccess(((getExecFuncs, pipelineData)) => {
-    ParsePipelineData.parse(state, mostService, getExecFuncs, pipelineData)
+    ParsePipelineData.parse(meta3dState, data, getExecFuncs, pipelineData)
   })
 }

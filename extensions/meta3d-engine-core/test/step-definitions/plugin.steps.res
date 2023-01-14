@@ -70,9 +70,9 @@ defineFeature(feature, test => {
     StateContainer.unsafeGetState().allRegisteredWorkPluginContribute->_convertAllRegisteredWorkPluginData
   }
 
-  let _getStates = () => {
-    StateContainer.unsafeGetState().states
-  }
+  // let MainTool.getStates = () => {
+  //   StateContainer.unsafeGetState().states
+  // }
 
   let _createState1 = (~d1=0, ()) => {
     {
@@ -254,7 +254,7 @@ defineFeature(feature, test => {
     then(
       "invoke plugin1's createStateFunc with config1 and plugin2's createStateFunc with config2 and store result",
       () => {
-        let states = _getStates()
+        let states = MainTool.getStates()
         (
           states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
           states->Meta3dCommonlib.ImmutableHashMap.get("a2"),
@@ -274,13 +274,13 @@ defineFeature(feature, test => {
   let _prepareData1 = (
     ~changedState1=_createState1(~d1=10, ()),
     ~rootJob=(
-      state,
+      meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
-      state
+      meta3dState
       ->getStatesFunc
       ->Meta3dCommonlib.ImmutableHashMap.set("a1", changedState1)
-      ->setStatesFunc(state, _)
+      ->setStatesFunc(meta3dState, _)
       ->Meta3dBsMost.Most.just
     },
     ~state1=_createState1(),
@@ -329,6 +329,7 @@ defineFeature(feature, test => {
 
   test(."test register one plugin", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
+    let api = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
@@ -349,11 +350,12 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      (_getStates()->Meta3dCommonlib.ImmutableHashMap.get("a1")->expect == Some(state1.contents))
+      (MainTool.getStates()->Meta3dCommonlib.ImmutableHashMap.get("a1")->expect ==
+        Some(state1.contents))
       ->resolve
       ->Obj.magic
     })
@@ -363,20 +365,20 @@ defineFeature(feature, test => {
     let job1Name_a2 = "job1_a2"
     let state2 = _createState2()
     let job1 = (
-      state,
+      meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
-      state
+      meta3dState
       ->getStatesFunc
       ->Meta3dCommonlib.ImmutableHashMap.set("a2", _createState2(~d2="c", ~dd2=100, ()))
-      ->setStatesFunc(state, _)
+      ->setStatesFunc(meta3dState, _)
       ->Meta3dBsMost.Most.just
     }
     let job2 = (
-      state,
+      meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
-      let states = state->getStatesFunc
+      let states = meta3dState->getStatesFunc
 
       states
       ->Meta3dCommonlib.ImmutableHashMap.set(
@@ -390,7 +392,7 @@ defineFeature(feature, test => {
           (),
         ),
       )
-      ->setStatesFunc(state, _)
+      ->setStatesFunc(meta3dState, _)
       ->Meta3dBsMost.Most.just
     }
     let contribute2 = _buildWorkPluginContribute(
@@ -455,13 +457,13 @@ defineFeature(feature, test => {
       let changedState2 = _createState2(~d2="c", ())
       state2 := changedState2
       let job1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
-        state
+        meta3dState
         ->getStatesFunc
         ->Meta3dCommonlib.ImmutableHashMap.set("a2", changedState2)
-        ->setStatesFunc(state, _)
+        ->setStatesFunc(meta3dState, _)
         ->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
@@ -516,11 +518,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -573,11 +575,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -600,13 +602,13 @@ defineFeature(feature, test => {
     let state3 = _createState3()
     let changedState3 = _createState3(~d3=2, ())
     let job1 = (
-      state,
+      meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
-      state
+      meta3dState
       ->getStatesFunc
       ->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)
-      ->setStatesFunc(state, _)
+      ->setStatesFunc(meta3dState, _)
       ->Meta3dBsMost.Most.just
     }
     let contribute3 = _buildWorkPluginContribute(
@@ -700,11 +702,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -769,11 +771,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -815,15 +817,15 @@ defineFeature(feature, test => {
       stubJob1_3 := createEmptyStubWithJsObjSandbox(sandbox)
       let s3 = _createState3(~d3=2, ())
       let job1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stubJob1_3.contents()
 
-        state
+        meta3dState
         ->getStatesFunc
         ->Meta3dCommonlib.ImmutableHashMap.set("a3", s3)
-        ->setStatesFunc(state, _)
+        ->setStatesFunc(meta3dState, _)
         ->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
@@ -859,22 +861,22 @@ defineFeature(feature, test => {
       stubJob2_4 := createEmptyStubWithJsObjSandbox(sandbox)
       let s4 = _createState4(~d4=5, ())
       let job1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
-        state
+        meta3dState
         ->getStatesFunc
         ->Meta3dCommonlib.ImmutableHashMap.set("a4", s4)
-        ->setStatesFunc(state, _)
+        ->setStatesFunc(meta3dState, _)
         ->Meta3dBsMost.Most.just
       }
       let job2 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stubJob2_4.contents()
 
-        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
+        meta3dState->getStatesFunc->setStatesFunc(meta3dState, _)->Meta3dBsMost.Most.just
       }
       let data4 = _buildWorkPluginContribute(
         ~workPluginName="a4",
@@ -975,11 +977,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -1019,13 +1021,13 @@ defineFeature(feature, test => {
     \"and"("register plugin2 contribute in plugin1 contribute's initFunc", () => {
       let s2 = _createState2(~d2="c", ())
       let job1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
-        state
+        meta3dState
         ->getStatesFunc
         ->Meta3dCommonlib.ImmutableHashMap.set("a2", s2)
-        ->setStatesFunc(state, _)
+        ->setStatesFunc(meta3dState, _)
         ->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
@@ -1090,11 +1092,11 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {
-      let states = _getStates()
+      let states = MainTool.getStates()
 
       ((
         states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
@@ -1123,20 +1125,20 @@ defineFeature(feature, test => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
       let rootJob1_init = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub1.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let rootJob1_update = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub2.contents()
 
-        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
+        meta3dState->getStatesFunc->setStatesFunc(meta3dState, _)->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
         ~workPluginName="a1",
@@ -1196,7 +1198,7 @@ defineFeature(feature, test => {
     \"when"("run update pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "update")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="update", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run update pipeline's all jobs", () => {
@@ -1224,12 +1226,12 @@ defineFeature(feature, test => {
     given("register plugin1 contribute with one init pipeline job", () => {
       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
       let rootJob1_init = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub1.contents()
 
-        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
+        meta3dState->getStatesFunc->setStatesFunc(meta3dState, _)->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
         ~workPluginName="a1",
@@ -1267,12 +1269,12 @@ defineFeature(feature, test => {
     given("register plugin2 contribute with one update pipeline job", () => {
       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
       let job1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub2.contents()
 
-        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
+        meta3dState->getStatesFunc->setStatesFunc(meta3dState, _)->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
@@ -1310,12 +1312,12 @@ defineFeature(feature, test => {
     given("register plugin3 contribute with one init pipeline job", () => {
       stub3 := createEmptyStubWithJsObjSandbox(sandbox)
       let job2 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub3.contents()
 
-        state->getStatesFunc->setStatesFunc(state, _)->Meta3dBsMost.Most.just
+        meta3dState->getStatesFunc->setStatesFunc(meta3dState, _)->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",
@@ -1368,7 +1370,7 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's two jobs", () => {
@@ -1430,7 +1432,7 @@ defineFeature(feature, test => {
       expect(() => {
         let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-        MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+        MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
       })->toThrowMessage(arg0->Obj.magic)
     })
   })
@@ -1494,7 +1496,7 @@ defineFeature(feature, test => {
       expect(() => {
         let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-        MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+        MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
       })->toThrowMessage(arg0->Obj.magic)
     })
   })
@@ -1502,6 +1504,7 @@ defineFeature(feature, test => {
   test(."test not set job's state", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
     let state2 = ref(Obj.magic(1))
+    let setMeta3dStateStub = ref(Obj.magic(1))
 
     _prepareRegister(given)
 
@@ -1513,23 +1516,23 @@ defineFeature(feature, test => {
         let s1 = _createState1(~d1=1, ())
         let s2 = _createState1(~d1=2, ())
         let rootJob1_init = (
-          state,
+          meta3dState,
           {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
-          state
+          meta3dState
           ->getStatesFunc
           ->Meta3dCommonlib.ImmutableHashMap.set("a", s1)
-          ->setStatesFunc(state, _)
+          ->setStatesFunc(meta3dState, _)
           ->Meta3dBsMost.Most.just
         }
         let rootJob2_init = (
-          state,
+          meta3dState,
           {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
-          state
+          meta3dState
           ->getStatesFunc
           ->Meta3dCommonlib.ImmutableHashMap.set("a", s2)
-          ->setStatesFunc(state, _)
+          ->setStatesFunc(meta3dState, _)
           ->Meta3dBsMost.Most.just
         }
         let contribute1 = _buildWorkPluginContribute(
@@ -1579,17 +1582,24 @@ defineFeature(feature, test => {
     })
 
     \"when"("run init pipeline", () => {
+      setMeta3dStateStub := createEmptyStubWithJsObjSandbox(sandbox)
+
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(
+        ~sandbox,
+        ~data,
+        ~meta3dState,
+        ~pipelineName="init",
+        ~setMeta3dState=setMeta3dStateStub.contents,
+        (),
+      )
+      ->Meta3dBsMost.Most.drain
+      ->Obj.magic
     })
 
-    then("get states should only return the first merge job's one", () => {
-      let states = _getStates()
-
-      (states->Meta3dCommonlib.ImmutableHashMap.get("a")->expect == Some(state1.contents))
-      ->resolve
-      ->Obj.magic
+    then("should only set the first merge job's state", () => {
+      setMeta3dStateStub.contents->Obj.magic->getCallCount->expect == 2
     })
   })
 
@@ -1612,12 +1622,12 @@ defineFeature(feature, test => {
       stub5 := createEmptyStubWithJsObjSandbox(sandbox)
 
       let rootJob_init = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub1.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let contribute1 = _buildWorkPluginContribute(
         ~workPluginName="a1",
@@ -1650,12 +1660,12 @@ defineFeature(feature, test => {
       )
 
       let createGLJob = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub2.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let contribute2 = _buildWorkPluginContribute(
         ~workPluginName="a2",
@@ -1688,12 +1698,12 @@ defineFeature(feature, test => {
       )
 
       let detectGLJob = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub3.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let contribute3 = _buildWorkPluginContribute(
         ~workPluginName="a3",
@@ -1726,20 +1736,20 @@ defineFeature(feature, test => {
       )
 
       let webglWorkerJob1 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub4.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let webglWorkerJob2 = (
-        state,
+        meta3dState,
         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
       ) => {
         stub5.contents()
 
-        state->Meta3dBsMost.Most.just
+        meta3dState->Meta3dBsMost.Most.just
       }
       let contribute4 = _buildWorkPluginContribute(
         ~workPluginName="a4",
@@ -1823,7 +1833,7 @@ defineFeature(feature, test => {
     \"when"("run init pipeline", () => {
       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
 
-      MainTool.runPipeline(data, meta3dState, "init")->Meta3dBsMost.Most.drain->Obj.magic
+      MainTool.runPipeline(~sandbox, ~data, ~meta3dState,~pipelineName="init", ())->Meta3dBsMost.Most.drain->Obj.magic
     })
 
     then("run init pipeline's all jobs", () => {

@@ -7,5 +7,6 @@ function removeAlignedEmptyChars(decodedStr) {
 
 export {
   removeAlignedEmptyChars ,
+  
 }
 /* No side effect */
