@@ -1,6 +1,7 @@
 'use strict';
 
 var Js_dict = require("rescript/lib/js/js_dict.js");
+var Js_array = require("rescript/lib/js/js_array.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
@@ -66,7 +67,7 @@ function copy(map) {
 
 function getValidValues(map) {
   var __x = Js_dict.values(map);
-  return __x.filter(NullUtils$Meta3dCommonlib.isInMap);
+  return Js_array.filter(NullUtils$Meta3dCommonlib.isInMap, __x);
 }
 
 function map(map$1, func) {

@@ -142,6 +142,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getStencilBufferBit: (. gl) => {
     (gl->Obj.magic)["STENCIL_BUFFER_BIT"]
   },
+  viewport: (. x, y, width, height, gl) => {
+    (gl->Obj.magic)["viewport"](. x, y, width, height)
+  },
+  scissor: (. x, y, width, height, gl) => {
+    (gl->Obj.magic)["scissor"](. x, y, width, height)
+  },
   enable: (. capability, gl) => {
     (gl->Obj.magic)["enable"](. capability)
   },
@@ -156,6 +162,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   },
   getStencilTest: (. gl) => {
     (gl->Obj.magic)["STENCIL_TEST"]
+  },
+  getScissorTest: (. gl) => {
+    (gl->Obj.magic)["SCISSOR_TEST"]
   },
   getBlend: (. gl) => {
     (gl->Obj.magic)["BLEND"]
@@ -202,11 +211,89 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getTriangleFan: (. gl) => {
     (gl->Obj.magic)["TRIANGLE_FAN"]
   },
+  getUnsignedByte: (. gl) => {
+    (gl->Obj.magic)["UNSIGNED_BYTE"]
+  },
   getUnsignedInt: (. gl) => {
     (gl->Obj.magic)["UNSIGNED_INT"]
   },
   getUnsignedShort: (. gl) => {
     (gl->Obj.magic)["UNSIGNED_SHORT"]
+  },
+  bindTexture: (. mode, texture, gl) => {
+    (gl->Obj.magic)["bindTexture"](. mode, texture)
+  },
+  createTexture: (. gl) => {
+    (gl->Obj.magic)["createTexture"]()
+  },
+  texImage2D: (.
+    target,
+    level,
+    internalformat,
+    width,
+    height,
+    border,
+    format,
+    type_,
+    pixels,
+    gl,
+  ) => {
+    (gl->Obj.magic)["texImage2D"](.
+      target,
+      level,
+      internalformat,
+      width,
+      height,
+      border,
+      format,
+      type_,
+      pixels,
+    )
+  },
+  texParameteri: (. target, pname, param, gl) => {
+    (gl->Obj.magic)["texParameteri"](. target, pname, param)
+  },
+  getTexture2DType: (. gl) => {
+    (gl->Obj.magic)["TEXTURE_2D"]
+  },
+  getRGBAType: (. gl) => {
+    (gl->Obj.magic)["RGBA"]
+  },
+  getDrawingBufferWidth: (. gl) => {
+    (gl->Obj.magic)["drawingBufferWidth"]
+  },
+  getDrawingBufferHeight: (. gl) => {
+    (gl->Obj.magic)["drawingBufferHeight"]
+  },
+  getTextureMinFilterType: (. gl) => {
+    (gl->Obj.magic)["TEXTURE_MIN_FILTER"]
+  },
+  getLinearType: (. gl) => {
+    (gl->Obj.magic)["LINEAR"]
+  },
+  getTextureWrapSType: (. gl) => {
+    (gl->Obj.magic)["TEXTURE_WRAP_S"]
+  },
+  getTextureWrapTType: (. gl) => {
+    (gl->Obj.magic)["TEXTURE_WRAP_T"]
+  },
+  getClampToEdgeType: (. gl) => {
+    (gl->Obj.magic)["CLAMP_TO_EDGE"]
+  },
+  getFrameBufferType: (. gl) => {
+    (gl->Obj.magic)["FRAMEBUFFER"]
+  },
+  getColorAttachment0: (. gl) => {
+    (gl->Obj.magic)["COLOR_ATTACHMENT0"]
+  },
+  createFramebuffer: (. gl) => {
+    (gl->Obj.magic)["createFramebuffer"]()
+  },
+  bindFramebuffer: (. target, framebuffer, gl) => {
+    (gl->Obj.magic)["bindFramebuffer"](. target, framebuffer)
+  },
+  framebufferTexture2D: (. target, attachment, textarget, texture, level, gl) => {
+    (gl->Obj.magic)["framebufferTexture2D"](. target, attachment, textarget, texture, level)
   },
 }
 

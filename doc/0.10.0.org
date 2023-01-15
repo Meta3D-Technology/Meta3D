@@ -183,7 +183,7 @@ job1:
 create and init each fbo's texture
 set texture to textureId in ui state. map
 
-(uiService add getIMGUICurrentContext)
+(uiService add getContext)
 
 
 job2:
@@ -297,9 +297,46 @@ render,
 ...
 
 
-** TODO finish work plugins
+** DONE finish work plugins
 
 TODO finis meta3d-work-plugin-editor-webgl1-scene-view
+
+
+add work-plugin for editor
+scene-view
+
+init jobs
+
+job1:
+create and init each fbo's texture
+set texture to textureId in ui state. map
+
+
+# job2:
+add default gameObjects(one cube gameObject, one camera gameObject) to engine state and editorState->sceneView
+
+
+
+
+update jobs:
+job1:
+update engine
+
+
+  |> DeviceManagerEngineService.setViewport(viewRect)
+  |> DeviceManagerEngineService.setScissorTest(true)
+  |> DeviceManagerEngineService.setScissor(viewRect)
+
+render jobs:
+job1: 
+viewport
+setScissor test
+bindFramebuffer
+clear
+render scene view, game view to each fbo's texture
+unbindFramebuffer
+
+
 
 
 ** TODO update use-editor extension
@@ -426,6 +463,8 @@ dependent on scene view event, game view event(has independent state)?
 
 
 * TODO refactor: remove unused extensions, contributes, related protocols
+
+* TODO rename work plugin to pipeline,pipeline-engine,pipeline-editor
 
 * TODO refactor: rename getGL to getGl??
 

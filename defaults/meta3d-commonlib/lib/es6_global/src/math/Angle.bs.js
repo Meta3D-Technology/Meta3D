@@ -12,6 +12,5 @@ function getRadToDeg(param) {
 export {
   getDegToRad ,
   getRadToDeg ,
-  
 }
 /* No side effect */

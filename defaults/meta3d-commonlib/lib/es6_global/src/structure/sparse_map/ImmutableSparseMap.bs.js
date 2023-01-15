@@ -54,6 +54,5 @@ export {
   getValues ,
   getKeys ,
   deleteVal ,
-  
 }
 /* No side effect */

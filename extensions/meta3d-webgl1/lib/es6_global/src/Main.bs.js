@@ -1,5 +1,6 @@
 
 
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 
 function getExtensionService(api, param) {
@@ -116,7 +117,7 @@ function getExtensionService(api, param) {
               gl.enableVertexAttribArray(attributeLocation);
             }),
           getExtension: (function (name, gl) {
-              return gl.getExtension(name);
+              gl.getExtension(name);
             }),
           drawElements: (function (mode, count, _type, offset, gl) {
               gl.drawElements(mode, count, _type, offset);
@@ -136,6 +137,12 @@ function getExtensionService(api, param) {
           getStencilBufferBit: (function (gl) {
               return gl.STENCIL_BUFFER_BIT;
             }),
+          viewport: (function (x, y, width, height, gl) {
+              gl.viewport(x, y, width, height);
+            }),
+          scissor: (function (x, y, width, height, gl) {
+              gl.scissor(x, y, width, height);
+            }),
           enable: (function (capability, gl) {
               gl.enable(capability);
             }),
@@ -150,6 +157,9 @@ function getExtensionService(api, param) {
             }),
           getStencilTest: (function (gl) {
               return gl.STENCIL_TEST;
+            }),
+          getScissorTest: (function (gl) {
+              return gl.SCISSOR_TEST;
             }),
           getBlend: (function (gl) {
               return gl.BLEND;
@@ -196,11 +206,68 @@ function getExtensionService(api, param) {
           getTriangleFan: (function (gl) {
               return gl.TRIANGLE_FAN;
             }),
+          getUnsignedByte: (function (gl) {
+              return gl.UNSIGNED_BYTE;
+            }),
           getUnsignedInt: (function (gl) {
               return gl.UNSIGNED_INT;
             }),
           getUnsignedShort: (function (gl) {
               return gl.UNSIGNED_SHORT;
+            }),
+          bindTexture: (function (mode, texture, gl) {
+              gl.bindTexture(mode, texture);
+            }),
+          createTexture: (function (gl) {
+              return Curry._1(gl.createTexture, undefined);
+            }),
+          texImage2D: (function (target, level, internalformat, width, height, border, format, type_, pixels, gl) {
+              gl.texImage2D(target, level, internalformat, width, height, border, format, type_, pixels);
+            }),
+          texParameteri: (function (target, pname, param, gl) {
+              gl.texParameteri(target, pname, param);
+            }),
+          getTexture2DType: (function (gl) {
+              return gl.TEXTURE_2D;
+            }),
+          getRGBAType: (function (gl) {
+              return gl.RGBA;
+            }),
+          getDrawingBufferWidth: (function (gl) {
+              return gl.drawingBufferWidth;
+            }),
+          getDrawingBufferHeight: (function (gl) {
+              return gl.drawingBufferHeight;
+            }),
+          getTextureMinFilterType: (function (gl) {
+              return gl.TEXTURE_MIN_FILTER;
+            }),
+          getLinearType: (function (gl) {
+              return gl.LINEAR;
+            }),
+          getTextureWrapSType: (function (gl) {
+              return gl.TEXTURE_WRAP_S;
+            }),
+          getTextureWrapTType: (function (gl) {
+              return gl.TEXTURE_WRAP_T;
+            }),
+          getClampToEdgeType: (function (gl) {
+              return gl.CLAMP_TO_EDGE;
+            }),
+          getFrameBufferType: (function (gl) {
+              return gl.FRAMEBUFFER;
+            }),
+          getColorAttachment0: (function (gl) {
+              return gl.COLOR_ATTACHMENT0;
+            }),
+          createFramebuffer: (function (gl) {
+              return Curry._1(gl.createFramebuffer, undefined);
+            }),
+          bindFramebuffer: (function (target, framebuffer, gl) {
+              gl.bindFramebuffer(target, framebuffer);
+            }),
+          framebufferTexture2D: (function (target, attachment, textarget, texture, level, gl) {
+              gl.framebufferTexture2D(target, attachment, textarget, texture, level);
             })
         };
 }

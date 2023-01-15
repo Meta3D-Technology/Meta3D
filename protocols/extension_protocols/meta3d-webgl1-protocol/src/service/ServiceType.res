@@ -10,15 +10,29 @@ type attributeLocation = int
 
 type uniformLocation
 
+type glenum = int
+
+type glint = int
+
+type glsizei = int
+
 type shader
 
 type texture
+
+type fbo
 
 type extension
 
 type vaoExtension
 
 type hex
+
+type arrayBufferView = {
+  buffer: Js.Typed_array.ArrayBuffer.t,
+  byteLength: int,
+  byteOffset: int,
+}
 
 type contextConfigJsObj = {
   "alpha": bool,
@@ -72,18 +86,21 @@ type service = {
   disableVertexAttribArray: (. int, webgl1Context) => unit,
   vertexAttribPointer: (. attributeLocation, int, int, bool, int, int, webgl1Context) => unit,
   enableVertexAttribArray: (. attributeLocation, webgl1Context) => unit,
-  getExtension: (. string, webgl1Context) => Js.Nullable.t<extension>,
+  getExtension: (. string, webgl1Context) => unit,
   drawElements: (. int, int, int, int, webgl1Context) => unit,
   clearColor: (. float, float, float, float, webgl1Context) => unit,
   clear: (. int, webgl1Context) => unit,
   getColorBufferBit: (. webgl1Context) => int,
   getDepthBufferBit: (. webgl1Context) => int,
   getStencilBufferBit: (. webgl1Context) => int,
+  viewport: (. int, int, int, int, webgl1Context) => unit,
+  scissor: (. int, int, int, int, webgl1Context) => unit,
   enable: (. int, webgl1Context) => unit,
   disable: (. int, webgl1Context) => unit,
   getFloat: (. webgl1Context) => int,
   getDepthTest: (. webgl1Context) => int,
   getStencilTest: (. webgl1Context) => int,
+  getScissorTest: (. webgl1Context) => int,
   getBlend: (. webgl1Context) => int,
   getCullFace: (. webgl1Context) => int,
   getFrontAndBack: (. webgl1Context) => int,
@@ -95,19 +112,56 @@ type service = {
   getSrcAlpha: (. webgl1Context) => int,
   getOneMinusSrcAlpha: (. webgl1Context) => int,
   isEnabled: (. int, webgl1Context) => bool,
-  bindVertexArrayOES: (. Js.Nullable.t<buffer>, webgl1Context) => unit,
+  bindVertexArrayOES: (. Js.Null.t<buffer>, webgl1Context) => unit,
   blendFunc: (. int, int, webgl1Context) => unit,
   getTriangles: (. webgl1Context) => int,
   getTriangleFan: (. webgl1Context) => int,
-  getUnsignedInt: (. webgl1Context) => int,
-  getUnsignedShort: (. webgl1Context) => int,
+  getUnsignedByte: (. webgl1Context) => glenum,
+  getUnsignedInt: (. webgl1Context) => glenum,
+  getUnsignedShort: (. webgl1Context) => glenum,
+  bindTexture: (. glenum, Js.Null.t<texture>, webgl1Context) => unit,
+  createTexture: (. webgl1Context) => Js.Null.t<texture>,
+  texImage2D: (
+    . glenum,
+    glint,
+    glint,
+    glsizei,
+    glsizei,
+    glint,
+    glenum,
+    glenum,
+    Js.Null.t<arrayBufferView>,
+    webgl1Context,
+  ) => unit,
+  texParameteri: (. glenum, glenum, glint, webgl1Context) => unit,
+  getTexture2DType: (. webgl1Context) => int,
+  getRGBAType: (. webgl1Context) => int,
+  getDrawingBufferWidth: (. webgl1Context) => int,
+  getDrawingBufferHeight: (. webgl1Context) => int,
+  getTextureMinFilterType: (. webgl1Context) => int,
+  getLinearType: (. webgl1Context) => int,
+  getTextureWrapSType: (. webgl1Context) => int,
+  getTextureWrapTType: (. webgl1Context) => int,
+  getClampToEdgeType: (. webgl1Context) => int,
+  getFrameBufferType: (. webgl1Context) => int,
+  getColorAttachment0: (. webgl1Context) => int,
+  createFramebuffer: (. webgl1Context) => Js.Null.t<fbo>,
+  bindFramebuffer: (. glenum, Js.Null.t<fbo>, webgl1Context) => unit,
+  framebufferTexture2D: (
+    . glenum,
+    glenum,
+    glenum,
+    Js.Null.t<texture>,
+    glint,
+    webgl1Context,
+  ) => unit,
 }
 
 external parameterIntToNullableProgram: int => Js.Nullable.t<program> = "%identity"
 
 external parameterIntToBuffer: int => buffer = "%identity"
 
-// external parameterIntToNullableTexture : int => Js.Nullable.t<texture> =
+// external parameterIntToNullableTexture : int => Js.Null.t<texture> =
 //   "%identity"
 
 // external intToHex : int => hex = "%identity"

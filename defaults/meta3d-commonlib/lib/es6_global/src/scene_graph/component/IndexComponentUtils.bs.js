@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
 function _getDisposedIndex(disposedComponentArray) {
   return [
@@ -31,6 +31,5 @@ function generateIndex(disposedComponentArray, index) {
 export {
   _getDisposedIndex ,
   generateIndex ,
-  
 }
 /* No side effect */

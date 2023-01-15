@@ -12,6 +12,5 @@ function getExnAndConvertArgumentsToNumber($$arguments) {
 
 export {
   getExnAndConvertArgumentsToNumber ,
-  
 }
 /* No side effect */
