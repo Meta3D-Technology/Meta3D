@@ -37,14 +37,14 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 	return {
 		workPluginName: workPluginName,
-		createStateFunc: (meta3dState, { viewRect }) => {
+		createStateFunc: (meta3dState, _) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionName),
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionName),
 				uiService: api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName),
 				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, meta3dEngineWholeExtensionName),
 				meta3dUIExtensionProtocolName: meta3dUIExtensionName,
-				viewRect: viewRect,
+				cameraGameObject: null,
 				fbo: null
 			}
 		},

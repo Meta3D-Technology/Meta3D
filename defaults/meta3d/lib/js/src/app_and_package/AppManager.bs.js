@@ -5,6 +5,8 @@ var Semver = require("semver");
 var Caml_array = require("rescript/lib/js/caml_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
+var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
+var TextEncoder$Meta3d = require("../file/TextEncoder.bs.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var ManagerUtils$Meta3d = require("./ManagerUtils.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
@@ -18,7 +20,7 @@ function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProto
   if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
     return ;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion, "", "", "")));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
   }
 }
 
@@ -26,7 +28,7 @@ function _convertDependentMap(dependentMap, allDataMap) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (map, param) {
                 var dependentData = param[1];
                 var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
-                var protocolVersion = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName, "", "", "", "")));
+                var protocolVersion = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
                 _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName);
                 return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], dependentData.protocolName);
               }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
@@ -78,7 +80,7 @@ function generate(param, allPackageBinaryFiles, configData) {
   return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
                             param[0],
                             param[1]
-                          ]))(allPackageBinaryFiles), encoder.encode(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])))));
+                          ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
 function execGetContributeFunc(contributeFuncData, dependentExtensionNameMapOpt, dependentContributeNameMapOpt, param) {
@@ -114,7 +116,7 @@ function load(appBinaryFile) {
   return [
           match$1[0],
           match$1[1],
-          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(configData)))
+          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)))
         ];
 }
 
@@ -130,7 +132,7 @@ function _getStartExtensionProtocolName(allExtensionDataArr) {
 }
 
 function start(param) {
-  return ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionProtocolName(param[1]), param[2]);
+  ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionProtocolName(param[1]), param[2]);
 }
 
 exports._checkVersion = _checkVersion;

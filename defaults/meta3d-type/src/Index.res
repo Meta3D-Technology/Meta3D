@@ -13,6 +13,8 @@ type extensionProtocolName = string
 
 type contributeProtocolName = string
 
+type uiControlName = string
+
 // type dependentExtensionNameValue = extensionProtocolName
 type dependentExtensionNameProtocolValue = extensionProtocolName
 
@@ -95,6 +97,7 @@ type api = {
     'getContributeFunc,
     ('dependentExtensionNameMap, 'dependentContributeNameMap),
   ) => state,
+  // removeUIControlContribute: (. state, uiControlName) => state,
   getContribute: 'contribute. (. state, contributeProtocolName) => 'contribute,
   getAllContributesByType: 'contribute. (
     . state,

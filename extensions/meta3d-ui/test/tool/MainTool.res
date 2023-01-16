@@ -122,7 +122,6 @@ let render = (
 }
 
 let registerElement = (
-  ~sandbox,
   ~state,
   ~elementFunc,
   ~elementName="e1",
@@ -370,7 +369,11 @@ let registerUIControl = (~uiControlName, ~func, ~state=createState(), ()) => {
   )
 }
 
-let getUIControlExn = UIManager.getUIControlExn
+let getUIControlState = UIManager.getUIControlState
+
+let setUIControlState = UIManager.setUIControlState
+
+let getUIControlFuncExn = UIManager.getUIControlFuncExn
 
 let buildSkinContribute = (skinName, skin): Meta3dUiProtocol.SkinContributeType.skinContribute<
   Meta3dUiProtocol.StateType.skin,

@@ -105,6 +105,5 @@ export {
   serializeStartExtensionProtocolConfigLib ,
   getNeedConfigData ,
   buildAPI ,
-  
 }
 /* AppManager-Meta3d Not a pure module */

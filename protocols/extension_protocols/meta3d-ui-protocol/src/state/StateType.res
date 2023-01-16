@@ -6,6 +6,8 @@ type inputData
 
 type outputData
 
+type uiControlState
+
 type skin
 
 type textureID = string
@@ -23,6 +25,10 @@ type state = {
     ElementContributeType.elementName,
     ElementContributeType.execOrder,
   >,
+  // elementUIControlStatesMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  //   ElementContributeType.elementName,
+  //   ElementContributeType.uiControlStates,
+  // >,
   isShowMap: Meta3dCommonlibType.ImmutableHashMapType.t<ElementContributeType.elementName, bool>,
   isStateChangeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ElementContributeType.elementName,
@@ -35,6 +41,10 @@ type state = {
   uiControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     UIControlContributeType.uiControlName,
     UIControlContributeType.uiControlContribute<inputData, outputData>,
+  >,
+  uiControlStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    UIControlContributeType.uiControlName,
+    uiControlState,
   >,
   reducers: array<ElementContributeType.reducerData>,
   fboTextureMap: Meta3dCommonlibType.ImmutableHashMapType.t<

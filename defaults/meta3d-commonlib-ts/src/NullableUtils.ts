@@ -17,3 +17,11 @@ export function getExnFromStrictNullable<T>(nullableValue: T | null): T {
 export function isNullable<T>(nullableValue: T | null | undefined): boolean {
     return nullableValue === null || nullableValue === undefined
 }
+
+export function map<T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null | undefined): Y | null | undefined {
+    if (isNullable(nullableValue)) {
+        return nullableValue as null | undefined
+    }
+
+    return func(nullableValue as T)
+}

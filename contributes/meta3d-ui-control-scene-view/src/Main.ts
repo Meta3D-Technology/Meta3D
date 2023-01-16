@@ -1,13 +1,13 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { textureID, inputData, outputData } from "meta3d-ui-control-view-protocol"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-view-protocol/src/DependentMapType"
+import { uiControlName, textureID, state as uiControlState, inputData, outputData } from "meta3d-ui-control-scene-view-protocol"
+import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-scene-view-protocol/src/DependentMapType"
 import { texture, service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
-let _getFBOTexture = (getFBOTexture: (state: state, textureID: textureID) => nullable<texture>, state: state, textureID: textureID): strictNullable<texture> => {
+let _getFBOTexture = (getFBOTexture: (state: state, textureID: string) => nullable<texture>, state: state, textureID: string): strictNullable<texture> => {
     let texture = getFBOTexture(state, textureID)
     if (isNullable(texture)) {
         return null
@@ -16,20 +16,27 @@ let _getFBOTexture = (getFBOTexture: (state: state, textureID: textureID) => nul
     return getExn(texture)
 }
 
+// TODO refactor: move to utils/
+let _generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000.0).toString()
+}
+
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
     let { meta3dUIExtensionName } = dependentExtensionNameMap
 
     return {
-        uiControlName: "View",
+        uiControlName: uiControlName,
         func: (meta3dState,
             {
                 rect,
                 label,
-                textureID
+                // textureID
             }
         ) => {
-            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
+            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture, setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
             let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
+
+
 
             meta3dState = setNextWindowRect(meta3dState, rect)
 
@@ -37,6 +44,18 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 
             meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), [rect.width, rect.height])
+
+
+
+
+
+
+            state = setUIControlState<uiControlState>(state, uiControlName, {
+                rect: rect
+            })
+
+            meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionName, state)
+
 
 
             return new Promise((resolve, reject) => {

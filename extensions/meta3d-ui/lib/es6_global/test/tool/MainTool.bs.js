@@ -82,7 +82,7 @@ function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, get
             ], time);
 }
 
-function registerElement(sandbox, state, elementFunc, elementNameOpt, execOrderOpt, elementStateOpt, reducersOpt, param) {
+function registerElement(state, elementFunc, elementNameOpt, execOrderOpt, elementStateOpt, reducersOpt, param) {
   var elementName = elementNameOpt !== undefined ? elementNameOpt : "e1";
   var execOrder = execOrderOpt !== undefined ? execOrderOpt : 0;
   var elementState = elementStateOpt !== undefined ? Caml_option.valFromOption(elementStateOpt) : 1;
@@ -257,7 +257,11 @@ function registerSkin(skinName, skin, stateOpt, param) {
 
 var isStateChange = UIManager$Meta3dUi.isStateChange;
 
-var getUIControlExn = UIManager$Meta3dUi.getUIControlExn;
+var getUIControlState = UIManager$Meta3dUi.getUIControlState;
+
+var setUIControlState = UIManager$Meta3dUi.setUIControlState;
+
+var getUIControlFuncExn = UIManager$Meta3dUi.getUIControlFuncExn;
 
 var getSkin = UIManager$Meta3dUi.getSkin;
 
@@ -284,7 +288,9 @@ export {
   getContext ,
   button ,
   registerUIControl ,
-  getUIControlExn ,
+  getUIControlState ,
+  setUIControlState ,
+  getUIControlFuncExn ,
   buildSkinContribute ,
   registerSkin ,
   getSkin ,

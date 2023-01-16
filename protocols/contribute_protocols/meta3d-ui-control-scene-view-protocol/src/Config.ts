@@ -1,5 +1,6 @@
 import {
     generateUIControlCommonDataStr as generateUIControlCommonDataStrMeta3D,
+    // buildUIControlState as buildUIControlStateMeta3D,
     getUIControlSpecificDataFields as getUIControlSpecificDataFieldsMeta3D,
     hasChildren as hasChildrenMeta3D,
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
@@ -18,13 +19,19 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         name: "label",
         type_: "string",
         value: "View##" + _generateUniqueId()
-    },
-    {
-        name: "textureID",
-        type_: "string",
-        value: ""
     }
+    // {
+    //     name: "textureID",
+    //     type_: "string",
+    //     value: ""
+    // }
 ]
+
+// export let buildUIControlState: buildUIControlStateMeta3D = (rect, specific) => {
+//   return {
+//     rect: rect
+//   }
+// }
 
 export let hasChildren: hasChildrenMeta3D = () => false
 

@@ -10,7 +10,20 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     registerSkin: UIManager.registerSkin,
     registerUIControl: UIManager.registerUIControl,
     getSkin: UIManager.getSkin->Obj.magic,
-    getUIControl: UIManager.getUIControlExn->Obj.magic,
+    getUIControlFunc: UIManager.getUIControlFuncExn->Obj.magic,
+    getUIControlState: UIManager.getUIControlState->Obj.magic,
+    setUIControlState: UIManager.setUIControlState->Obj.magic,
+    // updateUIControlName: (
+    //   meta3dState,
+    //   uiExtensionProtocolName,
+    //   (oldUIControlName, newUIControlName),
+    // ) => {
+    //   UIManager.updateUIControlName(
+    //     meta3dState,
+    //     (api, uiExtensionProtocolName),
+    //     (oldUIControlName, newUIControlName),
+    //   )
+    // },
     hide: UIManager.hide,
     show: UIManager.show,
     isStateChange: UIManager.isStateChange,
@@ -43,6 +56,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     },
     // getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,
+    // prepare: UIManager.prepare,
     init: UIManager.init,
     clear: UIManager.clear,
     render: UIManager.render(api),
@@ -61,6 +75,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     isStateChangeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     uiControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    uiControlStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     // ioData: None,
     reducers: [],
     // imguiData: ManageIMGUIService.createData()

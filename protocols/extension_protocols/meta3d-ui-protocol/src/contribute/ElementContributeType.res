@@ -19,11 +19,18 @@ type reducers = {
   handlers: array<handler>,
 }
 
+// type uiControlState
+
+// type uiControlName = string
+
+// type uiControlStates = Meta3dCommonlibType.ImmutableHashMapType.t<uiControlName, uiControlState>
+
 type elementContribute<'elementState> = {
   elementName: elementName,
   execOrder: execOrder,
   elementFunc: elementFunc<'elementState>,
   elementState: 'elementState,
+  // uiControlStates: uiControlStates,
   reducers: Js.Nullable.t<reducers>,
 }
 

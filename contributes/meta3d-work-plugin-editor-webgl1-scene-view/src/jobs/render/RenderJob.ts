@@ -1,17 +1,19 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { getState } from "../Utils";
+import { getState, getViewRect } from "../Utils";
 import { states } from "meta3d-work-plugin-editor-webgl1-scene-view-protocol/src/StateType";
-import { getExnFromStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils";
+import { getExn, getExnFromStrictNullable, isNullable } from "meta3d-commonlib-ts/src/NullableUtils";
 import { state as meta3dState } from "meta3d-type"
+import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 
-export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
     let {
         mostService,
         webgl1Service,
         uiService,
         engineWholeService,
-        viewRect,
+        meta3dUIExtensionProtocolName,
+        // viewRect,
         fbo
     } = getState(states)
 
@@ -19,11 +21,22 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc
 
     console.log("render job");
 
+
+    let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+    let viewRect = getViewRect(uiService, uiState)
+
+    if (isNullable(viewRect)) {
+        return mostService.callFunc(() => {
+            return meta3dState
+        })
+    }
+
+    let { x, y, width, height } = getExn(viewRect)
+
     let { getContext } = uiService
 
     let gl = getContext(meta3dState)
 
-    let { x, y, width, height } = viewRect
 
     webgl1Service.enable(
         webgl1Service.getScissorTest(gl),

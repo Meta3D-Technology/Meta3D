@@ -35,7 +35,6 @@ defineFeature(feature, test => {
 
       state :=
         MainTool.registerElement(
-          ~sandbox,
           ~state=state.contents,
           ~elementName=elementName1,
           ~elementFunc=Obj.magic(1),
@@ -98,7 +97,6 @@ defineFeature(feature, test => {
 
       state :=
         MainTool.registerElement(
-          ~sandbox,
           ~state=state.contents,
           ~elementName=elementName1,
           ~elementFunc=Obj.magic(1),

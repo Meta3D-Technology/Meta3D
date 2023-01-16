@@ -338,8 +338,191 @@ unbindFramebuffer
 
 
 
+** TODO edit ui control
+
+
+# # *** TODO getContribute return add data
+
+# # equal to rect + specific data
+
+# # data should be build the same as build rect and specific data
+
+
+
+
+# # # so can get viewRect by getUIControlFunc()(null, [{}, {}]).data.rect!
+# # so can get viewRect by getUIControlData(meta3dState, "SceneView").rect!
+
+
+# # TODO update ElementMRUtils
+
+# # TODO update ui controls
+
+
+
+# # # *** TODO remove scene-view ->inputData->textureID, move it to contributeData
+
+# # *** DONE uiControlContribute add controlData type
+
+
+
+
+# *** TODO update ui
+
+
+# add prepare for invoke ui control's createState
+
+
+
+# remove old data, set new data
+
+
+# add getUIControlState
+
+# update meta3d type
+
+
+# add test cases
+
+
+
+
+# *** TODO can edit uiControlName in UIControlInspector
+
+
+# TODO update rect, specific
+
+
+# TODO update ElementMRUtils
+
+# invoke getUIControlState
+
+
+
+# TODO update UIControlInspector
+
+
+
+# *** TODO update ui controls and protocol->Config and meta3d
+
+# meta3d:
+# add removeUIControlContribute
+# remove config ->...
+
+
+
+
+
+
+
+
+*** DONE 
+
+
+# TODO ui remove updateUIConname,prepare,uiControlStateMap
+
+# TODO ui update by get from elementFuncMap[0]
+# (check elementFuncMap.length === 1)
+
+
+
+# TODO move uiControlName to ui control protocol->Index
+# not has unique id
+
+
+# TODO not edit uiControlName, use SceneView ui control instead
+# remove textureID from specific
+
+
+# TODO elementContribute add uiControlStates data
+
+////TODO update element protocol 
+
+
+
+
+
+/*
+TODO Config add :
+export let getUIControlState: getUIControlStateMeta3D = (rect, specific) => {
+  return {
+    rect: rect
+  }
+}
+
+  TODO should define specific type in Index
+
+    TODO type inputData = {
+      rect:rect,
+      ...specific
+    }
+  */
+
+
+
+
+
+////TODO ElementMRUtils generate  uiControlStates
+
+////if uiControlName exist, not set again
+
+
+////TODO update meta3d, add getUIControlState
+
+
+
+
+
+# TODO update ui
+
+# add setUIControlState
+
+# update getUIControlState from ui state
+
+
+
+# TODO update view
+
+# setUIControlState in func 
+
+
+
+# TODO update meta3d-work-plugin-editor-webgl1-scene-view
+
+# add UpdateJob
+
+# update other
+
+
+
+# TODO update all ui controls
+
+
 
 ** TODO update use-editor extension
+
+
+
+
+
+use-editor extension:
+_loop:
+invoke work plugin's update, render before uiService.render(so can generate view texture before)
+
+init:
+register editor work plugin
+how to get viewRect?
+
+  get viewRect
+
+
+
+
+prepare
+should invoke ui.prepare
+
+
+invoke work plugin's init after uiService.init(so can get imgui context after)
 
 
 
@@ -354,19 +537,10 @@ unbindFramebuffer
 
 *** TODO pass view run test
 
-
-* TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
-
-* TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
-e.g.  let {
-		meta3dWebgl1ExtensionName,
-		meta3dBsMostExtensionName,
-		meta3dUIExtensionName,
-	} = dependentMapData[0]
+TODO element->run
 
 
-
-* TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
+TODO published app
 
 
 
@@ -428,6 +602,10 @@ scene view has default scene gameObjects
 
 
 
+* TODO refactor: extract work-plugin-editor-view-utils
+
+
+
 
 * TODO handle event
 
@@ -463,6 +641,21 @@ dependent on scene view event, game view event(has independent state)?
 
 
 * TODO refactor: remove unused extensions, contributes, related protocols
+
+
+* TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+
+* TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+e.g.  let {
+		meta3dWebgl1ExtensionName,
+		meta3dBsMostExtensionName,
+		meta3dUIExtensionName,
+	} = dependentMapData[0]
+
+
+
+* TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
+
 
 * TODO rename work plugin to pipeline,pipeline-engine,pipeline-editor
 

@@ -347,6 +347,20 @@ let _addReducers = (state: Meta3dUiProtocol.StateType.state, elementName, reduce
   ->Meta3dCommonlib.NullableSt.getWithDefault(state)
 }
 
+// let _setElementUIControlStates = (
+//   state: Meta3dUiProtocol.StateType.state,
+//   elementName: Meta3dUiProtocol.ElementContributeType.elementName,
+//   uiControlStates: Meta3dUiProtocol.ElementContributeType.uiControlStates,
+// ) => {
+//   {
+//     ...state,
+//     elementUIControlStatesMap: state.elementUIControlStatesMap->Meta3dCommonlib.ImmutableHashMap.set(
+//       elementName,
+//       uiControlStates,
+//     ),
+//   }
+// }
+
 let registerElement = (
   state: Meta3dUiProtocol.StateType.state,
   {
@@ -354,6 +368,7 @@ let registerElement = (
     execOrder,
     elementFunc,
     elementState,
+    // uiControlStates,
     reducers,
   }: Meta3dUiProtocol.ElementContributeType.elementContribute<
     Meta3dUiProtocol.StateType.elementState,
@@ -362,6 +377,7 @@ let registerElement = (
   state
   ->_setElementFunc(elementName, elementFunc)
   ->_setElementState(elementName, elementState)
+  // ->_setElementUIControlStates(elementName, uiControlStates)
   ->_setElementExecOrder(elementName, execOrder)
   ->_addReducers(elementName, reducers)
   ->show(elementName)
@@ -403,15 +419,130 @@ let getSkin = (state: Meta3dUiProtocol.StateType.state, skinName) => {
   state.skinContributeMap->Meta3dCommonlib.ImmutableHashMap.getNullable(skinName)
 }
 
-let getUIControlExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
-  let {func}: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
-    Meta3dUiProtocol.StateType.inputData,
-    Meta3dUiProtocol.StateType.outputData,
-  > =
-    state.uiControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(uiControlName)
-
-  func
+let _getUIControlExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
+  state.uiControlContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(uiControlName)
 }
+
+// let getUIControlDataExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
+//   _getUIControlExn(state, uiControlName).data
+// }
+
+let getUIControlFuncExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
+  _getUIControlExn(state, uiControlName).func
+}
+
+// let updateUIControlName = (
+//   meta3dState,
+//   (api: Meta3dType.Index.api, uiExtensionProtocolName),
+//   (oldUIControlName, newUIControlName),
+// ) => {
+//   let meta3dState = api.removeUIControlContribute(. meta3dState, oldUIControlName)
+
+//   let state: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+//     meta3dState,
+//     uiExtensionProtocolName,
+//   )
+
+//   let uiControlContribute = _getUIControlExn(state, oldUIControlName)
+
+//   api.setExtensionState(.
+//     meta3dState,
+//     uiExtensionProtocolName,
+//     {
+//       ...state,
+//       uiControlContributeMap: state.uiControlContributeMap
+//       ->Meta3dCommonlib.ImmutableHashMap.deleteVal(oldUIControlName)
+//       ->Meta3dCommonlib.ImmutableHashMap.set(newUIControlName, uiControlContribute),
+//     },
+//   )
+// }
+
+// let _setUIControlState = (
+//   state: Meta3dUiProtocol.StateType.state,
+//   uiControlName,
+//   uiControlState,
+// ) => {
+//   {
+//     ...state,
+//     uiControlStateMap: state.uiControlStateMap->Meta3dCommonlib.ImmutableHashMap.set(
+//       uiControlName,
+//       uiControlState,
+//     ),
+//   }
+// }
+
+// let _getCurrentElementUIControlStatesExn = (
+//   {elementUIControlStatesMap}: Meta3dUiProtocol.StateType.state,
+//   isDebug,
+// ) => {
+//   Meta3dCommonlib.Contract.requireCheck(() => {
+//     open Meta3dCommonlib.Contract
+//     open Operators
+
+//     test(
+//       Meta3dCommonlib.Log.buildAssertMessage(~expect=j`only has one element`, ~actual=j`not`),
+//       () =>
+//         elementUIControlStatesMap
+//         ->Meta3dCommonlib.ImmutableHashMap.entries
+//         ->Meta3dCommonlib.ArraySt.length
+//         ->assertEqual(Int, _, 1),
+//     )
+//   }, isDebug)
+
+//   elementUIControlStatesMap
+//   ->Meta3dCommonlib.ImmutableHashMap.entries
+//   ->Meta3dCommonlib.ArraySt.getExn(0)
+//   ->Meta3dCommonlib.Tuple2.getLast
+// }
+
+// let getUIControlStateExn = (state: Meta3dUiProtocol.StateType.state, uiControlName, isDebug) => {
+//   _getCurrentElementUIControlStatesExn(state, isDebug)->Meta3dCommonlib.ImmutableHashMap.getExn(
+//     uiControlName,
+//   )
+// }
+
+let getUIControlState = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
+  state.uiControlStateMap->Meta3dCommonlib.ImmutableHashMap.getNullable(uiControlName)
+}
+
+let setUIControlState = (
+  state: Meta3dUiProtocol.StateType.state,
+  uiControlName,
+  uiControlState,
+) => {
+  {
+    ...state,
+    uiControlStateMap: state.uiControlStateMap->Meta3dCommonlib.ImmutableHashMap.set(
+      uiControlName,
+      uiControlState,
+    ),
+  }
+}
+
+// let prepare = (state: Meta3dUiProtocol.StateType.state, meta3dState, api: Meta3dType.Index.api) => {
+// let prepare = (state: Meta3dUiProtocol.StateType.state, allUIControlContributes) => {
+//   // api.getAllContributesByType(
+//   //   meta3dState,
+//   //   Meta3dType.ContributeType.UIControl,
+//   // )
+//   allUIControlContributes->Meta3dCommonlib.ArraySt.reduceOneParam(
+//     (.
+//       state,
+//       uiControlContribute: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
+//         Meta3dUiProtocol.StateType.uiControlState,
+//         Meta3dUiProtocol.StateType.inputData,
+//         Meta3dUiProtocol.StateType.outputData,
+//       >,
+//     ) => {
+//       _setUIControlState(
+//         state,
+//         uiControlContribute.uiControlName,
+//         uiControlContribute.createStateFunc(),
+//       )
+//     },
+//     state,
+//   )
+// }
 
 let isStateChange = (
   state: Meta3dUiProtocol.StateType.state,

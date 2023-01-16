@@ -1,8 +1,11 @@
 
 
-import * as Curry from "../../../../../../extensions/meta3d-engine-core/node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
+import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
+import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
@@ -12,10 +15,10 @@ function generate(param) {
   var encoder = new TextEncoder();
   return [
           new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[0], (function (result, param) {
-                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
+                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
                         }), []))),
           new Uint8Array(BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (result, param) {
-                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, encoder.encode(JSON.stringify(param[0]))), param[1]);
+                          return ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(result, TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder)), param[1]);
                         }), [])))
         ];
 }
@@ -64,8 +67,8 @@ function mergeAllPackageBinaryFiles(param) {
                   var allExtensionBinaryUint8FileInPackage = match[0];
                   var allContributeBinaryUint8FileInPackage = match[1];
                   return [
-                          new Uint8Array(BinaryFileOperator$Meta3d.generate(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer).concat(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8FileInPackage.buffer)))),
-                          new Uint8Array(BinaryFileOperator$Meta3d.generate(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer).concat(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8FileInPackage.buffer))))
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer)))),
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer))))
                         ];
                 }), [
                 allExtensionBinaryUint8File,
@@ -75,7 +78,7 @@ function mergeAllPackageBinaryFiles(param) {
 }
 
 function getContributeFunc(contributeFuncData, decoder) {
-  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(contributeFuncData), "Contribute");
+  var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder), "Contribute");
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
@@ -109,9 +112,9 @@ function _parse(param) {
                   }
                   var extensionPackageData = param[0];
                   var extensionFuncData = param[1];
-                  var lib = LibUtils$Meta3d.serializeLib(decoder.decode(extensionFuncData), "Extension");
+                  var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(extensionFuncData, decoder), "Extension");
                   return {
-                          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(extensionPackageData))),
+                          extensionPackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(extensionPackageData, decoder))),
                           extensionFuncData: {
                             getExtensionServiceFunc: LibUtils$Meta3d.getFuncFromLib(lib, "getExtensionService"),
                             createExtensionStateFunc: LibUtils$Meta3d.getFuncFromLib(lib, "createExtensionState"),
@@ -134,7 +137,7 @@ function _parse(param) {
                   var contributePackageData = param[0];
                   var contributeFuncData = param[1];
                   return {
-                          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(decoder.decode(contributePackageData))),
+                          contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(contributePackageData, decoder))),
                           contributeFuncData: {
                             getContributeFunc: getContributeFunc(contributeFuncData, decoder)
                           }
@@ -187,6 +190,5 @@ export {
   _prepare ,
   _run ,
   load ,
-  
 }
 /* No side effect */

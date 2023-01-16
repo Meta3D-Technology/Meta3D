@@ -14,6 +14,8 @@ type clearColor = (float, float, float, float)
 
 type texture = Meta3dImguiRendererProtocol.ServiceType.texture
 
+type isDebug = bool
+
 type service = {
   registerElement: 'elementState. (
     StateType.state,
@@ -51,10 +53,24 @@ type service = {
     StateType.state,
     SkinContributeType.skinName,
   ) => Js.Nullable.t<SkinContributeType.skinContribute<'skin>>,
-  getUIControl: 'inputData 'outputData. (
+  getUIControlFunc: 'inputData 'outputData. (
     StateType.state,
     UIControlContributeType.uiControlName,
   ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
+  // updateUIControlName: (
+  //   Meta3dType.Index.state,
+  //   uiExtensionProtocolName,
+  //   (UIControlContributeType.uiControlName, UIControlContributeType.uiControlName),
+  // ) => Meta3dType.Index.state,
+  getUIControlState: 'uiControlState. (
+    StateType.state,
+    UIControlContributeType.uiControlName,
+  ) => Js.Nullable.t<'uiControlState>,
+  setUIControlState: 'uiControlState. (
+    StateType.state,
+    UIControlContributeType.uiControlName,
+    'uiControlState,
+  ) => StateType.state,
   setStyle: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.style,
@@ -85,6 +101,16 @@ type service = {
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.pos,
   ) => Meta3dType.Index.state,
+  // prepare: (
+  //   StateType.state,
+  //   array<
+  //     UIControlContributeType.uiControlContribute<
+  //       StateType.uiControlState,
+  //       StateType.inputData,
+  //       StateType.outputData,
+  //     >,
+  //   >,
+  // ) => StateType.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),

@@ -1,5 +1,6 @@
 import { state as meta3dState, api } from "meta3d-type/src/Index"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
+// import type { Map } from "immutable";
 
 export type elementName = string
 
@@ -16,11 +17,16 @@ type reducers = {
     handlers: Array<handler>,
 }
 
+// type uiControlName = string
+
+// type uiControlState = any
+
 export type elementContribute<elementState> = {
     elementName: elementName,
     execOrder: number,
     elementFunc: elementFunc<elementState>,
-    elementState: elementState
+    elementState: elementState,
+    // uiControlStates: Map<uiControlName, uiControlState>,
     reducers: nullable<reducers>
 }
 

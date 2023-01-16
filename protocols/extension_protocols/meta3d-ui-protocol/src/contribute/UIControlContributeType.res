@@ -5,6 +5,12 @@ type uiControlFunc<'inputData, 'outputData> = (
   'inputData,
 ) => Js.Promise.t<(Meta3dType.Index.state, 'outputData)>
 
+// type uiControlContribute<'uiControlState, 'inputData, 'outputData> = {
+//   uiControlName: uiControlName,
+//   createStateFunc: unit => 'uiControlState,
+//   func: uiControlFunc<'inputData, 'outputData>,
+// }
+
 type uiControlContribute<'inputData, 'outputData> = {
   uiControlName: uiControlName,
   func: uiControlFunc<'inputData, 'outputData>,

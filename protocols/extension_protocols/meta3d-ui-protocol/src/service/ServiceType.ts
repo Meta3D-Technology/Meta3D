@@ -1,4 +1,4 @@
-import { api, extensionName, state as meta3dState } from "meta3d-type/src/Index"
+import { api, extensionProtocolName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName } from "../contribute/ElementContributeType"
 import { state, textureID } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
@@ -6,9 +6,9 @@ import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute
 import { style, label, pos, size, rect, texture as imguiTexture, context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
-export type uiExtensionName = extensionName
+export type uiExtensionProtocolName = extensionProtocolName
 
-export type imguiRendererExtensionName = extensionName
+export type imguiRendererExtensionProtocolName = extensionProtocolName
 
 type time = number
 
@@ -20,6 +20,8 @@ type clearColor = [number, number, number, number]
 
 export type texture = imguiTexture
 
+export type isDebug = boolean
+
 export type service = {
     readonly registerElement: < elementState> (
         state: state,
@@ -29,7 +31,7 @@ export type service = {
         state: state,
         skinContribute: skinContribute<skin>
     ) => state;
-    readonly registerUIControl: < inputData, outputData> (
+    readonly registerUIControl: <inputData, outputData> (
         state: state,
         uiControlContribute: uiControlContribute<inputData, outputData>
     ) => state;
@@ -37,25 +39,43 @@ export type service = {
         state: state,
         skinName: skinName
     ) => nullable<skinContribute<skin>>;
-    readonly getUIControl: < inputData, outputData> (
+    readonly getUIControlFunc: < inputData, outputData> (
         state: state,
         uiControlName: uiControlName
     ) => uiControlFunc<inputData, outputData>;
+    // readonly updateUIControlName: (
+    //     meta3dState: meta3dState,
+    //     [api, uiExtensionProtocolName]: [api, uiExtensionProtocolName],
+    //     [oldUIControlName, newUIControlName]: [uiControlName, uiControlName]
+    // ) => meta3dState;
+    readonly getUIControlState: <uiControlState> (
+        state: state,
+        uiControlName: uiControlName,
+    ) => nullable<uiControlState>;
+    readonly setUIControlState: <uiControlState> (
+        state: state,
+        uiControlName: uiControlName,
+        uiControlState: uiControlState
+    ) => state;
+    // readonly prepare: (
+    //     meta3dState: meta3dState,
+    //     allUIControlContributes: Array<uiControlContribute<uiControlState, inputData, outputData>>
+    // ) => Promise<meta3dState>;
     readonly init: (
         meta3dState: meta3dState,
-        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        [api, imguiRendererExtensionProtocolName]: [api, imguiRendererExtensionProtocolName],
         isInitEvent: boolean,
         isDebug: boolean,
         canvas: HTMLCanvasElement
     ) => Promise<meta3dState>;
     readonly clear: (
         meta3dState: meta3dState,
-        [api, imguiRendererExtensionName]: [api, imguiRendererExtensionName],
+        [api, imguiRendererExtensionProtocolName]: [api, imguiRendererExtensionProtocolName],
         clearColor: clearColor
     ) => meta3dState;
     readonly render: (
         meta3dState: meta3dState,
-        [uiExtensionName, imguiRendererExtensionName]: [uiExtensionName, imguiRendererExtensionName],
+        [uiExtensionProtocolName, imguiRendererExtensionProtocolName]: [uiExtensionProtocolName, imguiRendererExtensionProtocolName],
         time: time
     ) => Promise<meta3dState>;
     readonly show: (
@@ -106,7 +126,7 @@ export type service = {
     ) => nullable<texture>;
     readonly setFBOTexture: (
         meta3dState: meta3dState,
-        uiExtensionName: uiExtensionName,
+        uiExtensionProtocolName: uiExtensionProtocolName,
         textureID: textureID,
         texture: texture
     ) => meta3dState;

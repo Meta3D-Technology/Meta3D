@@ -32,6 +32,5 @@ function copyUint8ArrayToArrayBuffer(byteOffset, param, dataView) {
 export {
   alignedLength ,
   copyUint8ArrayToArrayBuffer ,
-  
 }
 /* No side effect */

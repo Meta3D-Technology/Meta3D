@@ -40,7 +40,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         elementState1.contents = {
                           data1: 1
                         };
-                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, 1, elementName1, undefined, Caml_option.some(elementState1.contents), Caml_option.some(NullableSt$Meta3dCommonlib.$$return(ReducerTool$Meta3dUi.buildReducers("role1", [{
+                        state.contents = MainTool$Meta3dUi.registerElement(state.contents, 1, elementName1, undefined, Caml_option.some(elementState1.contents), Caml_option.some(NullableSt$Meta3dCommonlib.$$return(ReducerTool$Meta3dUi.buildReducers("role1", [{
                                             actionName: "action1",
                                             updatedElementStateFieldName: "data1"
                                           }], undefined))), undefined);
@@ -71,7 +71,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         elementState1.contents = {
                           data1: 10
                         };
-                        state.contents = MainTool$Meta3dUi.registerElement(sandbox, state.contents, 1, elementName1, undefined, Caml_option.some(elementState1.contents), Caml_option.some(NullableSt$Meta3dCommonlib.$$return(ReducerTool$Meta3dUi.buildReducers("role1", [{
+                        state.contents = MainTool$Meta3dUi.registerElement(state.contents, 1, elementName1, undefined, Caml_option.some(elementState1.contents), Caml_option.some(NullableSt$Meta3dCommonlib.$$return(ReducerTool$Meta3dUi.buildReducers("role1", [{
                                             actionName: "action1",
                                             updatedElementStateFieldName: "data1"
                                           }], undefined))), undefined);

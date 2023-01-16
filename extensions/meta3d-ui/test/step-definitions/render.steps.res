@@ -108,7 +108,6 @@ defineFeature(feature, test => {
 
         state :=
           MainTool.registerElement(
-            ~sandbox,
             ~state=state.contents,
             ~elementName=elementName1,
             ~elementFunc=execFunc1Stub.contents->Obj.magic,
@@ -210,7 +209,6 @@ defineFeature(feature, test => {
 
           state :=
             MainTool.registerElement(
-              ~sandbox,
               ~state=state.contents,
               ~elementName=elementName1,
               ~execOrder=1,
@@ -231,7 +229,6 @@ defineFeature(feature, test => {
 
           state :=
             MainTool.registerElement(
-              ~sandbox,
               ~state=state.contents,
               ~elementName=elementName2,
               ~execOrder=0,
@@ -416,10 +413,14 @@ defineFeature(feature, test => {
           (),
         )->// newMeta3dState := meta3dState
 
+        // newMeta3dState := meta3dState
+
         Js.Promise.then_(
           meta3dState => {
             meta3dState->Js.Promise.resolve
           },
+          // newMeta3dState := meta3dState
+
           // newMeta3dState := meta3dState
 
           _,

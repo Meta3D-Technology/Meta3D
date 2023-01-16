@@ -46,8 +46,8 @@ let rec _buildUIControls = (
           )->Obj.magic
         )["uiControlName"],
         protocol: {
-          name: name,
-          version: version,
+          name,
+          version,
           configLib: service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
         },
         data: HierachyUtils.findSelectedUIControlData(
@@ -77,10 +77,10 @@ let buildElementMR = (
 ): elementMR => {
   {
     element: {
-      elementName: elementName,
+      elementName,
       execOrder: 0,
       elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
-      reducers: reducers,
+      reducers,
     },
     uiControls: _buildUIControls(service, selectedUIControls, selectedUIControlInspectorData),
   }
@@ -94,7 +94,7 @@ let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.servic
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {name, protocol}) => {
     str ++
     j`
-    let ${name} = getUIControl(uiState,"${name}")
+    let ${name} = getUIControlFunc(uiState,"${name}")
     `
   }, "")
 }
@@ -320,7 +320,7 @@ window.Contribute = {
             elementState: ${_generateElementState(elementStateFields)},
             reducers: ${_generateReducers(reducers)},
             elementFunc: (meta3dState, elementState) => {
-                let { getUIControl } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
 
                 let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
 `

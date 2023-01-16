@@ -177,7 +177,7 @@ meta3dState = _createScene(meta3dState, scene, canvasSize)
 
 
 
-init(meta3dState,).then(meta3dState => {
+init(meta3dState).then(meta3dState => {
     console.log("init success", meta3dState)
 
     _loop([update, render], meta3dState)
