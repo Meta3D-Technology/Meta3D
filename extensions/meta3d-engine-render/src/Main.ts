@@ -36,7 +36,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dWorkPluginWebgl1SenduniformshaderdataContributeName,
 }]) => {
 		return {
-			prepare: (meta3dState: meta3dState, isDebug, canvas) => {
+			prepare: (meta3dState: meta3dState, isDebug, [canvas, gl]) => {
 				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
@@ -50,7 +50,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<createGLConfig, createGLState, createGLStates>>(meta3dState, meta3dWorkPluginWebgl1CreateGLContributeName),
 					{
-						canvas: canvas
+						canvas: canvas,
+						gl: gl
 					},
 					[
 						{

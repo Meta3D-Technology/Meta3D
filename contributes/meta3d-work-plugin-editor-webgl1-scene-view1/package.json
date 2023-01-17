@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-work-plugin-editor-webgl1-scene-view",
+    "name": "meta3d-work-plugin-editor-webgl1-scene-view1",
     "version": "0.9.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
-        "name": "meta3d-work-plugin-editor-webgl1-scene-view-protocol"
+        "name": "meta3d-work-plugin-editor-webgl1-scene-view1-protocol"
     },
     "dependentExtensionNameMap": {
         "meta3dBsMostExtensionName": {
@@ -34,7 +34,7 @@
         "meta3d-webgl1-protocol": "^0.9.0",
         "meta3d-ui-protocol": "^0.9.0",
         "meta3d-engine-whole-protocol": "^0.9.0",
-        "meta3d-work-plugin-editor-webgl1-scene-view-protocol": "^0.9.0"
+        "meta3d-work-plugin-editor-webgl1-scene-view1-protocol": "^0.9.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

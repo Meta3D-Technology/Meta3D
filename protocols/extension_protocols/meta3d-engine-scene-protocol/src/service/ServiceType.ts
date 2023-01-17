@@ -8,8 +8,6 @@ import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./ecs/PB
 import { createGeometry, setIndices, setVertices } from "./ecs/Geometry";
 import { createBasicCameraView, active } from "./ecs/BasicCameraView";
 
-export type canvasSize = [number, number]
-
 export type ecsConfig = {
 	float9Array1: Float32Array,
 	float32Array1: Float32Array,
@@ -20,7 +18,7 @@ export type ecsConfig = {
 }
 
 export type service = {
-	prepare: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig) => meta3dState,
+	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig) => meta3dState,
 	gameObject: {
 		createGameObject: createGameObject,
 		getAllGameObjects: getAllGameObjects,

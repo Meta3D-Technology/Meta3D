@@ -22,16 +22,17 @@ let _init = (_state: state) => {
 export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, workPluginContribute<config, state, states>> = (api, dependentMapData) => {
 	let {
 		meta3dBsMostExtensionName,
-		meta3dEngineCoreExtensionName
+		meta3dEngineCoreExtensionName,
+		meta3dUIExtensionName
 	} = dependentMapData[0]
 
 	return {
 		workPluginName: workPluginName,
-		createStateFunc: (meta3dState, { canvasSize, isDebug }) => {
+		createStateFunc: (meta3dState, { isDebug }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionName),
 				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionName),
-				canvasSize,
+				meta3dUIExtensionProtocolName: meta3dUIExtensionName,
 				isDebug
 			}
 		},

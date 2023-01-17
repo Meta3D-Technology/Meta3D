@@ -1,13 +1,12 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { getState, getTextureID, getViewRect, setState } from "../Utils";
-import { states } from "meta3d-work-plugin-editor-webgl1-scene-view-protocol/src/StateType";
-// import { service as webgl1Service, webgl1Context, fbo, texture } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { getState, setState } from "../Utils";
+import { states } from "meta3d-work-plugin-editor-webgl1-scene-view1-protocol/src/StateType";
 import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
-// import { pipe } from "meta3d-fp/src/Pipe";
 import { state as meta3dState } from "meta3d-type"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils";
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
+import { getViewRect } from "meta3d-view-utils/src/ViewRect";
 
 type canvasSize = [number, number]
 
@@ -131,26 +130,26 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         if (isNullable(cameraGameObject)) {
             let viewRect = getViewRect(uiService, uiState)
 
-            if (!isNullable(viewRect)) {
-                viewRect = getExn(viewRect)
+            // if (!isNullable(viewRect)) {
+            viewRect = getExn(viewRect)
 
-                let canvasSize: canvasSize = [viewRect.width, viewRect.height]
+            let canvasSize: canvasSize = [viewRect.width, viewRect.height]
 
-                let data = _addDefaultGameObjects(meta3dState, engineWholeService, canvasSize)
-                meta3dState = data[0]
-                let cameraGameObject = data[1]
+            let data = _addDefaultGameObjects(meta3dState, engineWholeService, canvasSize)
+            meta3dState = data[0]
+            let cameraGameObject = data[1]
 
 
-                return setStatesFunc<states>(
-                    meta3dState,
-                    setState(states,
-                        {
-                            ...getState(states),
-                            cameraGameObject: cameraGameObject
-                        }
-                    )
+            return setStatesFunc<states>(
+                meta3dState,
+                setState(states,
+                    {
+                        ...getState(states),
+                        cameraGameObject: cameraGameObject
+                    }
                 )
-            }
+            )
+            // }
         }
 
         return meta3dState

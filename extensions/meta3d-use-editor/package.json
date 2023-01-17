@@ -14,9 +14,22 @@
         },
         "meta3dImguiRendererExtensionName": {
             "protocolName": "meta3d-imgui-renderer-protocol"
+        },
+        "meta3dEngineCoreExtensionName": {
+            "protocolName": "meta3d-engine-core-protocol"
+        },
+        "meta3dEngineWholeExtensionName": {
+            "protocolName": "meta3d-engine-whole-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeNameMap": {
+        "meta3dWorkPluginEditorWebgl1SceneView1ContributeName": {
+            "protocolName": "meta3d-work-plugin-editor-webgl1-scene-view1-protocol"
+        },
+        "meta3dWorkPluginEditorWebgl1SceneView2ContributeName": {
+            "protocolName": "meta3d-work-plugin-editor-webgl1-scene-view2-protocol"
+        }
+    },
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
@@ -28,6 +41,10 @@
         "meta3d-imgui-renderer-protocol": "^0.9.0",
         "meta3d-type": "^0.9.0",
         "meta3d-ui-protocol": "^0.9.0",
+        "meta3d-engine-core-protocol": "^0.9.0",
+        "meta3d-engine-whole-protocol": "^0.9.0",
+        "meta3d-work-plugin-editor-webgl1-scene-view1-protocol": "^0.9.0",
+        "meta3d-work-plugin-editor-webgl1-scene-view2-protocol": "^0.9.0",
         "meta3d-use-editor-protocol": "^0.9.0"
     },
     "devDependencies": {

@@ -1,14 +1,18 @@
 import { state as meta3dState } from "meta3d-type"
-import { canvasSize, ecsConfig } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { ecsConfig } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, cloneGameObject, createGameObject, disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects, getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform, hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform } from "./GameObject";
 import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./Transform";
 import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjection";
 import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./PBRMaterial";
 import { createGeometry, setIndices, setVertices } from "./Geometry";
 import { createBasicCameraView, active } from "./BasicCameraView";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType";
+
+type glData = [nullable<HTMLCanvasElement>, nullable<webgl1Context>]
 
 export type service = {
-	prepare: (meta3dState: meta3dState, isDebug: boolean, canvasSize: canvasSize, ecsConfig: ecsConfig, canvas: HTMLCanvasElement) => meta3dState,
+	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig, glData: glData) => meta3dState,
 	init: (meta3dState: meta3dState) => Promise<meta3dState>,
 	update: (meta3dState: meta3dState) => Promise<meta3dState>,
 	render: (meta3dState: meta3dState) => Promise<meta3dState>,

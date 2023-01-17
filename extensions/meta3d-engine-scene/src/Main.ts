@@ -47,7 +47,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dGameObjectContributeName
 }]) => {
 		return {
-			prepare: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig) => {
+			prepare: (meta3dState: meta3dState, isDebug, ecsConfig) => {
 				let {
 					float9Array1,
 					float32Array1,
@@ -68,8 +68,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<cameraWorkPluginConfig, cameraWorkPluginState, cameraWorkPluginStates>>(meta3dState, meta3dWorkPluginCameraContributeName),
 					{
-						isDebug,
-						canvasSize
+						isDebug
 					},
 					[
 						{

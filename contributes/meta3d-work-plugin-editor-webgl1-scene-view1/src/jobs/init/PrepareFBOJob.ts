@@ -1,13 +1,8 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
 import { getState, getTextureID, setState } from "../Utils";
-import { states } from "meta3d-work-plugin-editor-webgl1-scene-view-protocol/src/StateType";
+import { states } from "meta3d-work-plugin-editor-webgl1-scene-view1-protocol/src/StateType";
 import { service as webgl1Service, webgl1Context, fbo, texture } from "meta3d-webgl1-protocol/src/service/ServiceType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
-// import { pipe } from "meta3d-fp/src/Pipe";
 import { getExnFromStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils"
-import { state as meta3dState } from "meta3d-type"
-
-type canvasSize = [number, number]
 
 let _getLevel = () => 0
 
@@ -54,7 +49,7 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc
         getState(states)
 
     return mostService.callFunc(() => {
-        console.log("prepare job");
+        console.log("prepare fbo job");
 
         let { getContext, setFBOTexture } = uiService
 

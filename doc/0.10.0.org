@@ -498,8 +498,11 @@ export let getUIControlState: getUIControlStateMeta3D = (rect, specific) => {
 # TODO update all ui controls
 
 
+** DONE fix engine-render: remove creategl?
 
-** TODO update use-editor extension
+
+
+** DONE update use-editor extension
 
 
 
@@ -507,7 +510,9 @@ export let getUIControlState: getUIControlStateMeta3D = (rect, specific) => {
 
 use-editor extension:
 _loop:
-invoke work plugin's update, render before uiService.render(so can generate view texture before)
+invoke work plugin's update, render after uiService.render
+# (so can generate view texture before)
+(so can get view rect)
 
 init:
 register editor work plugin
@@ -516,13 +521,23 @@ how to get viewRect?
   get viewRect
 
 
+# prepare
+# should invoke ui.prepare
 
 
-prepare
-should invoke ui.prepare
+
+invoke engineWhole.prepare, work plugin's init after uiService.init(so can get imgui context after)
 
 
-invoke work plugin's init after uiService.init(so can get imgui context after)
+
+
+TODO refactor
+
+
+** TODO update use-package2
+
+work-plugin-camera not dependent on meta3d-ui?
+
 
 
 
@@ -534,6 +549,8 @@ invoke work plugin's init after uiService.init(so can get imgui context after)
 
 
 *** TODO pass engine whole package run test
+
+
 
 *** TODO pass view run test
 
@@ -657,7 +674,7 @@ e.g.  let {
 * TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
 
 
-* TODO rename work plugin to pipeline,pipeline-engine,pipeline-editor
+* TODO rename work plugin to meta3d-engine-pipeline,meta3d-engine-pipeline-engine,meta3d-engine-pipeline-editor
 
 * TODO refactor: rename getGL to getGl??
 

@@ -7,7 +7,7 @@ export const workPluginName = "WebGL1_CreateGL"
 export type state = {
     mostService: mostService,
     webgl1Service: webgl1Service,
-    canvas: HTMLCanvasElement,
+    canvas: nullable<HTMLCanvasElement>,
     gl: nullable<webgl1Context>,
 }
 

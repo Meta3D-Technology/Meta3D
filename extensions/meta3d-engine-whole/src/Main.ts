@@ -74,7 +74,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 }, {
 }]) => {
 		return {
-			prepare: (meta3dState: meta3dState, isDebug, canvasSize, ecsConfig, canvas) => {
+			prepare: (meta3dState: meta3dState, isDebug, ecsConfig, glData) => {
 				// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionName)
 
 				let engineBasicService = api.getExtensionService<engineBasicService>(
@@ -91,7 +91,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineSceneExtensionName
 				)
 
-				meta3dState = engineSceneService.prepare(meta3dState, isDebug, canvasSize, ecsConfig)
+				meta3dState = engineSceneService.prepare(meta3dState, isDebug, ecsConfig)
 
 
 				// let engineRenderState = api.getExtensionState<engineRenderState>(meta3dState, meta3dEngineRenderExtensionName)
@@ -101,7 +101,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineRenderExtensionName
 				)
 
-				meta3dState = engineRenderService.prepare(meta3dState, isDebug, canvas)
+				meta3dState = engineRenderService.prepare(meta3dState, isDebug, glData)
 
 
 
