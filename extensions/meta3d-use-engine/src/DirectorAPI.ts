@@ -6,26 +6,26 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 let _runPipeline = (api: api, meta3dState: meta3dState, engineCoreState: engineCoreState,
-    meta3dBsMostExtensionName: string,
-    meta3dEngineCoreExtensionName: string,
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string,
     pipelineName: string): Promise<meta3dState> => {
     let tempMeta3DState: nullable<meta3dState> = null
 
     let { map } = api.getExtensionService<mostService>(
         meta3dState,
-        meta3dBsMostExtensionName
+        meta3dBsMostExtensionProtocolName
     )
 
     let { runPipeline } = api.getExtensionService<engineCoreService>(
         meta3dState,
-        meta3dEngineCoreExtensionName
+        meta3dEngineCoreExtensionProtocolName
     )
 
     return map(
         (engineCoreState: engineCoreState) => {
             tempMeta3DState = api.setExtensionState(
                 meta3dState,
-                meta3dEngineCoreExtensionName,
+                meta3dEngineCoreExtensionProtocolName,
                 engineCoreState
             )
 
@@ -38,22 +38,22 @@ let _runPipeline = (api: api, meta3dState: meta3dState, engineCoreState: engineC
 }
 
 export let init = (api: api, meta3dState: meta3dState,
-    meta3dBsMostExtensionName: string,
-    meta3dEngineCoreExtensionName: string
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string
 ) => {
-    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "init")
+    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName), meta3dBsMostExtensionProtocolName, meta3dEngineCoreExtensionProtocolName, "init")
 }
 
 export let update = (api: api, meta3dState: meta3dState,
-    meta3dBsMostExtensionName: string,
-    meta3dEngineCoreExtensionName: string
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string
 ) => {
-    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "update")
+    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName), meta3dBsMostExtensionProtocolName, meta3dEngineCoreExtensionProtocolName, "update")
 }
 
 export let render = (api: api, meta3dState: meta3dState,
-    meta3dBsMostExtensionName: string,
-    meta3dEngineCoreExtensionName: string
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string
 ) => {
-    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName), meta3dBsMostExtensionName, meta3dEngineCoreExtensionName, "render")
+    return _runPipeline(api, meta3dState, api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName), meta3dBsMostExtensionProtocolName, meta3dEngineCoreExtensionProtocolName, "render")
 }

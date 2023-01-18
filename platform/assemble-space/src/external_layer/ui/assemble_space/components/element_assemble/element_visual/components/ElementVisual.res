@@ -75,11 +75,11 @@ module Method = {
           elementContribute.data.contributeFuncData,
           Meta3dCommonlib.ImmutableHashMap.createEmpty()
           ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dUIExtensionName",
+            "meta3dUIExtensionProtocolName",
             ElementVisualUtils.getUIExtensionProtocolName(),
           )
           ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dImguiRendererExtensionName",
+            "meta3dImguiRendererExtensionProtocolName",
             "meta3d-imgui-renderer2-protocol",
           ),
           Meta3dCommonlib.ImmutableHashMap.createEmpty(),

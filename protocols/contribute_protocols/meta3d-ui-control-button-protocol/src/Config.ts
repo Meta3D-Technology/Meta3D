@@ -24,7 +24,7 @@ export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3
 
 export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([clickActionName]) => {
     if (!isNullable(clickActionName)) {
-        return "\n            if (data[1]) {\n                let { trigger } = api.getExtensionService(meta3dState, meta3dEventExtensionName)\n\n                return trigger(meta3dState, meta3dEventExtensionName, \"" + clickActionName + "\", null)\n            }\n";
+        return "\n            if (data[1]) {\n                let { trigger } = api.getExtensionService(meta3dState, meta3dEventExtensionProtocolName)\n\n                return trigger(meta3dState, meta3dEventExtensionProtocolName, \"" + clickActionName + "\", null)\n            }\n";
     }
 
     return ""

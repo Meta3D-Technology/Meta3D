@@ -1,10 +1,10 @@
-export type dependentExtensionNameMap = {
-    meta3dBsMostExtensionName: string,
-    meta3dEngineCoreExtensionName: string,
-    meta3dEngineBasicExtensionName: string,
-    meta3dEngineSceneExtensionName: string,
-    meta3dEngineRenderExtensionName: string,
+export type dependentExtensionProtocolNameMap = {
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string,
+    meta3dEngineBasicExtensionProtocolName: string,
+    meta3dEngineSceneExtensionProtocolName: string,
+    meta3dEngineRenderExtensionProtocolName: string,
 }
 
-export type dependentContributeNameMap = {
+export type dependentContributeProtocolNameMap = {
 }

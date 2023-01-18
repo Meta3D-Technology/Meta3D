@@ -12,20 +12,20 @@ let _init = _state => {
 }
 
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dWorkPluginRootProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dWorkPluginRootProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dWorkPluginRootProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dWorkPluginRootProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.StateType.workPluginContribute<
     Meta3dWorkPluginRootProtocol.ConfigType.config,
     Meta3dWorkPluginRootProtocol.StateType.state,
     Meta3dWorkPluginRootProtocol.StateType.states,
   >,
-> = (api, ({meta3dBsMostExtensionName}, _)) => {
+> = (api, ({meta3dBsMostExtensionProtocolName}, _)) => {
   {
     workPluginName: Meta3dWorkPluginRootProtocol.StateType.workPluginName,
     createStateFunc: (meta3dState, _): Meta3dWorkPluginRootProtocol.StateType.state => {
       let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
         meta3dState,
-        meta3dBsMostExtensionName,
+        meta3dBsMostExtensionProtocolName,
       )
 
       {mostService: mostService}

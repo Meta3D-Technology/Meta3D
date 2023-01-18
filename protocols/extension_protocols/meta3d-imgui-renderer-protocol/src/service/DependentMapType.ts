@@ -1,3 +1,3 @@
-export type dependentExtensionNameMap = {}
+export type dependentExtensionProtocolNameMap = {}
 
-export type dependentContributeNameMap = {}
+export type dependentContributeProtocolNameMap = {}

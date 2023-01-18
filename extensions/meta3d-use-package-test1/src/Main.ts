@@ -1,17 +1,17 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-use-package-test1-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-use-package-test1-protocol/src/service/DependentMapType"
 import { state } from "meta3d-use-package-test1-protocol/src/state/StateType"
 import { service } from "meta3d-use-package-test1-protocol/src/service/ServiceType"
 import { service as test2Service } from "meta3d-extension-test2-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
-> = (api, [{ meta3dTest2ExtensionName }, _]) => {
+> = (api, [{ meta3dTest2ExtensionProtocolName }, _]) => {
 	return {
 		run: (meta3dState: meta3dState) => {
-			let { invokeExtensionTest1 } = api.getExtensionService<test2Service>(meta3dState, meta3dTest2ExtensionName)
+			let { invokeExtensionTest1 } = api.getExtensionService<test2Service>(meta3dState, meta3dTest2ExtensionProtocolName)
 
 			invokeExtensionTest1(meta3dState)
 		}

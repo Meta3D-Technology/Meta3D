@@ -1,3 +1,3 @@
-type dependentExtensionNameMap = {meta3dBsMostExtensionName: string}
+type dependentExtensionProtocolNameMap = {meta3dBsMostExtensionProtocolName: string}
 
-type dependentContributeNameMap = {.}
+type dependentContributeProtocolNameMap = {.}

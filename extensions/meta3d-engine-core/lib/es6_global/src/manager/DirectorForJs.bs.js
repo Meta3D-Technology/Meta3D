@@ -34,7 +34,7 @@ var init = WorkPluginManager$Meta3dEngineCore.init;
 
 function runPipeline(param, param$1, meta3dState, meta3dEngineCoreExtensionProtocolName, pipelineName) {
   var api = param[0];
-  var mostService = api.getExtensionService(meta3dState, param[1].meta3dBsMostExtensionName);
+  var mostService = api.getExtensionService(meta3dState, param[1].meta3dBsMostExtensionProtocolName);
   return Result$Meta3dCommonlib.handleFail(WorkPluginManager$Meta3dEngineCore.runPipeline(meta3dState, [
                   api,
                   mostService,

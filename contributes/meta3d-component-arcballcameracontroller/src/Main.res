@@ -1,6 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dComponentArcballcameracontrollerProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dComponentArcballcameracontrollerProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dComponentArcballcameracontrollerProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dComponentArcballcameracontrollerProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentArcballcameracontrollerProtocol.Index.config,

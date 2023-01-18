@@ -4,15 +4,15 @@ let buildExtensionPackageData = (
     name: "p1",
     version: "^0.0.1",
   }: Meta3d.ExtensionFileType.extensionProtocolData,
-  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ): Meta3d.ExtensionFileType.extensionPackageData => {
   {
     name,
     protocol,
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
   }
 }
 
@@ -82,8 +82,8 @@ let generateExtension = (
   ~name,
   ~protocolName="",
   ~protocolVersion="",
-  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
   (),
 ) => {
@@ -95,8 +95,8 @@ let generateExtension = (
           name: protocolName,
           version: protocolVersion,
         },
-        dependentExtensionNameMap,
-        dependentContributeNameMap,
+        dependentExtensionProtocolNameMap,
+        dependentContributeProtocolNameMap,
       }: Meta3d.ExtensionFileType.extensionPackageData
     ),
     fileStr,

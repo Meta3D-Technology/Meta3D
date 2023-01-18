@@ -5,18 +5,18 @@
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dEventExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dEventExtensionProtocolName": {
             "protocolName": "meta3d-event-protocol"
         },
-        "meta3dUIExtensionName": {
+        "meta3dUIExtensionProtocolName": {
             "protocolName": "meta3d-ui-protocol"
         },
-        "meta3dImguiRendererExtensionName": {
+        "meta3dImguiRendererExtensionProtocolName": {
             "protocolName": "meta3d-imgui-renderer-protocol"
         }
     },
-    "dependentContributeNameMap": {
+    "dependentContributeProtocolNameMap": {
         "meta3dUIViewElementContributeName": {
             "protocolName": "meta3d-element-assemble-element-protocol"
         }

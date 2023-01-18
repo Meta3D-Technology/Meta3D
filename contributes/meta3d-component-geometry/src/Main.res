@@ -1,6 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dComponentGeometryProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dComponentGeometryProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dComponentGeometryProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dComponentGeometryProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentGeometryProtocol.Index.config,

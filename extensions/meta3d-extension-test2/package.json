@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-extension-test2-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dTest1ExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dTest1ExtensionProtocolName": {
             "protocolName": "meta3d-extension-test1-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

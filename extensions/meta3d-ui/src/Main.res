@@ -1,9 +1,9 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  Meta3dUiProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dUiProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dUiProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dUiProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dUiProtocol.ServiceType.service,
-> = (api, (dependentExtensionNameMap, _)) => {
-  let {meta3dImguiRendererExtensionName} = dependentExtensionNameMap
+> = (api, (dependentExtensionProtocolNameMap, _)) => {
+  let {meta3dImguiRendererExtensionProtocolName} = dependentExtensionProtocolNameMap
 
   {
     registerElement: UIManager.registerElement->Obj.magic,
@@ -29,30 +29,30 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     isStateChange: UIManager.isStateChange,
     getElementState: UIManager.getElementState->Obj.magic,
     setStyle: (meta3dState, style) => {
-      UIManager.setStyle(meta3dState, (api, meta3dImguiRendererExtensionName), style)
+      UIManager.setStyle(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), style)
     },
     beginWindow: (meta3dState, label) => {
-      UIManager.beginWindow(meta3dState, (api, meta3dImguiRendererExtensionName), label)
+      UIManager.beginWindow(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), label)
     },
     endWindow: meta3dState => {
-      UIManager.endWindow(meta3dState, (api, meta3dImguiRendererExtensionName))
+      UIManager.endWindow(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
     },
     setNextWindowRect: (meta3dState, rect) => {
-      UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionName), rect)
+      UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), rect)
     },
     getFBOTexture: UIManager.getFBOTexture,
     setFBOTexture: UIManager.setFBOTexture,
     addFBOTexture: (meta3dState, texture, size) => {
-      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionName), texture, size)
+      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), texture, size)
     },
     getContext: meta3dState => {
-      UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionName))
+      UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
     },
     button: (meta3dState, label, size) => {
-      UIManager.button(meta3dState, (api, meta3dImguiRendererExtensionName), label, size)
+      UIManager.button(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), label, size)
     },
     setCursorPos: (meta3dState, pos) => {
-      UIManager.setCursorPos(meta3dState, (api, meta3dImguiRendererExtensionName), pos)
+      UIManager.setCursorPos(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), pos)
     },
     // getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,

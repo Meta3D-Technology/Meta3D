@@ -53,8 +53,8 @@ let runPipeline = (
   let (
     api: Meta3dType.Index.api,
     {
-      meta3dBsMostExtensionName,
-    }: Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionNameMap,
+      meta3dBsMostExtensionProtocolName,
+    }: Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionProtocolNameMap,
   ) = data
 
   let mostService: Meta3dBsMostProtocol.ServiceType.service = Meta3dBsMost.Main.getExtensionService(

@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-use-package-test1-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dTest2ExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dTest2ExtensionProtocolName": {
             "protocolName": "meta3d-extension-test2-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

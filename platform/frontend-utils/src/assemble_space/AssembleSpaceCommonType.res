@@ -37,7 +37,7 @@ type packageProtocol = {
 type packageData = {
   id: id,
   protocol: packageProtocol,
-  entryExtensionName: string,
+  entryExtensionProtocolName: string,
   version: version,
   name: string,
   binaryFile: Js.Typed_array.ArrayBuffer.t,

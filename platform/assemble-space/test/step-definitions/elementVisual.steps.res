@@ -159,8 +159,8 @@ defineFeature(feature, test => {
                   name: ElementVisualTool.getVisualExtensionProtocolName(),
                   version: FrontendUtils.VersionConfig.getPlatformVersion(),
                 },
-                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               }: Meta3d.ExtensionFileType.extensionPackageData
             ),
             "",
@@ -176,8 +176,8 @@ defineFeature(feature, test => {
             ~name,
             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-            ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr="",
             (),
           )
@@ -189,8 +189,8 @@ defineFeature(feature, test => {
         //         name: ElementVisualTool.getVisualExtensionProtocolName(),
         //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
         //       },
-        //       dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        //       dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        //       dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         //     }: Meta3d.ExtensionFileType.extensionPackageData
         //   ),
         //   "",
@@ -325,8 +325,8 @@ defineFeature(feature, test => {
           //         name: ElementVisualTool.getVisualExtensionProtocolName(),
           //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
           //       },
-          //       dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          //       dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          //       dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           //     }: Meta3d.ExtensionFileType.extensionPackageData
           //   ),
           //   ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
@@ -336,8 +336,8 @@ defineFeature(feature, test => {
             ~name=ElementVisualTool.getVisualExtensionName(),
             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-            ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr=ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
             (),
           )->ElementVisualTool.loadAndBuildVisualExtension(
@@ -450,7 +450,7 @@ defineFeature(feature, test => {
 
         execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        setExtensionStateFake := ((. meta3dState, meta3dUIExtensionName, uiState) => meta3dState)
+        setExtensionStateFake := ((. meta3dState, meta3dUIExtensionProtocolName, uiState) => meta3dState)
 
         ElementVisualTool.startApp(
           ServiceTool.build(
@@ -510,11 +510,11 @@ defineFeature(feature, test => {
             matchAny,
             Meta3dCommonlib.ImmutableHashMap.createEmpty()
             ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dUIExtensionName",
+              "meta3dUIExtensionProtocolName",
               ElementVisualUtils.getUIExtensionProtocolName(),
             )
             ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dImguiRendererExtensionName",
+              "meta3dImguiRendererExtensionProtocolName",
               "meta3d-imgui-renderer2-protocol",
             ),
             Meta3dCommonlib.ImmutableHashMap.createEmpty(),

@@ -1,6 +1,6 @@
 type elementState
 
-type dependentExtensionNameMap
+type dependentExtensionProtocolNameMap
 
 type inputData
 

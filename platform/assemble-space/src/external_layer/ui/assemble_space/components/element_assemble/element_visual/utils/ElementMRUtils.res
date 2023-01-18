@@ -201,7 +201,7 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
     ? {j`childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))`}
     : {
         let str = j`childrenFunc: (meta3dState) =>{
-                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
+                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)
     `
         let str = str ++ _generateGetUIControlsStr(service, children)
 
@@ -311,8 +311,8 @@ let generateElementContributeFileStr = (service, mr: elementMR): string => {
   let str = {
     j`
 window.Contribute = {
-    getContribute: (api, [dependentExtensionNameMap, _]) => {
-        let { meta3dUIExtensionName, meta3dEventExtensionName } = dependentExtensionNameMap
+    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {
+        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap
 
         return {
             elementName:"${elementName}",
@@ -320,9 +320,9 @@ window.Contribute = {
             elementState: ${_generateElementState(elementStateFields)},
             reducers: ${_generateReducers(reducers)},
             elementFunc: (meta3dState, elementState) => {
-                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionName)
+                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)
 
-                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionName)
+                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)
 `
   }
 

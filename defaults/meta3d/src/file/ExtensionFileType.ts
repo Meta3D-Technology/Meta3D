@@ -1,8 +1,8 @@
 import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
 
-type dependentExtensionName = string
+type dependentExtensionProtocolName = string
 
-type dependentContributeName = string
+type dependentContributeProtocolName = string
 
 type versionRange = string
 
@@ -12,25 +12,25 @@ export type extensionPackageData = {
     name: string,
     version: versionRange
   },
-  dependentExtensionNameMap: Record<dependentExtensionName, {
+  dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,
   }>,
-  dependentContributeNameMap: Record<dependentContributeName, {
+  dependentContributeProtocolNameMap: Record<dependentContributeProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,
   }>,
 }
 
 // export type extensionFuncData<
-//   dependentExtensionNameMap,
-//   dependentContributeNameMap,
+//   dependentExtensionProtocolNameMap,
+//   dependentContributeProtocolNameMap,
 //   extensionService,
 //   extensionState
 //   > = {
 //     readonly getExtensionServiceFunc: getExtensionService<
-//       dependentExtensionNameMap,
-//       dependentContributeNameMap,
+//       dependentExtensionProtocolNameMap,
+//       dependentContributeProtocolNameMap,
 //       extensionService
 //     >,
 //     readonly createExtensionStateFunc: createExtensionState<extensionState>,
@@ -57,24 +57,24 @@ export type contributePackageData = {
     name: string,
     version: versionRange
   },
-  dependentExtensionNameMap: Record<dependentExtensionName, {
+  dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,
   }>,
-  dependentContributeNameMap: Record<dependentContributeName, {
+  dependentContributeProtocolNameMap: Record<dependentContributeProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,
   }>,
 }
 
 // export type contributeFuncData<
-//   dependentExtensionNameMap,
-//   dependentContributeNameMap,
+//   dependentExtensionProtocolNameMap,
+//   dependentContributeProtocolNameMap,
 //   contributeService
 //   > = {
 //     readonly getContributeFunc: getContribute<
-//       dependentExtensionNameMap,
-//       dependentContributeNameMap,
+//       dependentExtensionProtocolNameMap,
+//       dependentContributeProtocolNameMap,
 //       contributeService
 //     >,
 //   };
@@ -82,8 +82,8 @@ export type contributePackageData = {
 export type contributeFuncData = Uint8Array
 
 export type contributeFileData<
-  dependentExtensionNameMap,
-  dependentContributeNameMap,
+  dependentExtensionProtocolNameMap,
+  dependentContributeProtocolNameMap,
   contribubteService
   > = {
     contributePackageData: contributePackageData,

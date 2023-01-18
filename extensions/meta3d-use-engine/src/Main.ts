@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { state } from "meta3d-use-engine-protocol/src/state/StateType"
 import { service } from "meta3d-use-engine-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-use-engine-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-use-engine-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
@@ -26,22 +26,22 @@ import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear 
 
 let _loop = (
 	api: api, meta3dState: meta3dState,
-	meta3dBsMostExtensionName: string,
-	meta3dEngineCoreExtensionName: string
+	meta3dBsMostExtensionProtocolName: string,
+	meta3dEngineCoreExtensionProtocolName: string
 ): Promise<void> => {
 	return update(api, meta3dState,
-		meta3dBsMostExtensionName,
-		meta3dEngineCoreExtensionName
+		meta3dBsMostExtensionProtocolName,
+		meta3dEngineCoreExtensionProtocolName
 	).then((meta3dState) => {
 		render(api, meta3dState,
-			meta3dBsMostExtensionName,
-			meta3dEngineCoreExtensionName
+			meta3dBsMostExtensionProtocolName,
+			meta3dEngineCoreExtensionProtocolName
 		).then((meta3dState) => {
 			requestAnimationFrame(() => {
 				_loop(
 					api, meta3dState,
-					meta3dBsMostExtensionName,
-					meta3dEngineCoreExtensionName
+					meta3dBsMostExtensionProtocolName,
+					meta3dEngineCoreExtensionProtocolName
 				)
 			})
 		})
@@ -88,11 +88,11 @@ let _createCameraGameObject = (engineCoreState: engineCoreState, engineCoreServi
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
-> = (api, [{ meta3dBsMostExtensionName,
-	meta3dEngineCoreExtensionName,
+> = (api, [{ meta3dBsMostExtensionProtocolName,
+	meta3dEngineCoreExtensionProtocolName,
 }, {
 	meta3dWorkPluginRootContributeName,
 	meta3dWorkPluginWebGPUTriangleContributeName,
@@ -113,11 +113,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				let geometryPointCount = 10
 				let pbrMaterialCount = 1
 
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
+				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
 					meta3dState,
-					meta3dEngineCoreExtensionName
+					meta3dEngineCoreExtensionProtocolName
 				)
 
 				let { setIsDebug, registerWorkPlugin, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
@@ -192,19 +192,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				meta3dState =
 					api.setExtensionState(
 						meta3dState,
-						meta3dEngineCoreExtensionName,
+						meta3dEngineCoreExtensionProtocolName,
 						engineCoreState
 					)
 
 				init(api, meta3dState,
-					meta3dBsMostExtensionName,
-					meta3dEngineCoreExtensionName
+					meta3dBsMostExtensionProtocolName,
+					meta3dEngineCoreExtensionProtocolName
 				).then((meta3dState) => {
 					{
 						_loop(
 							api, meta3dState,
-							meta3dBsMostExtensionName,
-							meta3dEngineCoreExtensionName
+							meta3dBsMostExtensionProtocolName,
+							meta3dEngineCoreExtensionProtocolName
 						)
 					}
 				})

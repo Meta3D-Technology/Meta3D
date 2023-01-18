@@ -1,6 +1,6 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { uiControlName, textureID, state as uiControlState, inputData, outputData } from "meta3d-ui-control-scene-view-protocol"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-scene-view-protocol/src/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-ui-control-scene-view-protocol/src/DependentMapType"
 import { texture, service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
@@ -21,8 +21,8 @@ let _generateUniqueId = () => {
     return Math.floor(Math.random() * 1000000.0).toString()
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
-    let { meta3dUIExtensionName } = dependentExtensionNameMap
+export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
+    let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
 
     return {
         uiControlName: uiControlName,
@@ -33,8 +33,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                 // textureID
             }
         ) => {
-            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture, setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
-            let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
+            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture, setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionProtocolName)
+            let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName)
 
 
 
@@ -54,7 +54,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                 rect: rect
             })
 
-            meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionName, state)
+            meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName, state)
 
 
 

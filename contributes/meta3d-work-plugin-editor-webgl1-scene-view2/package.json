@@ -5,18 +5,18 @@
     "protocol": {
         "name": "meta3d-work-plugin-editor-webgl1-scene-view2-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dBsMostExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dBsMostExtensionProtocolName": {
             "protocolName": "meta3d-bs-most-protocol"
         },
-        "meta3dWebgl1ExtensionName": {
+        "meta3dWebgl1ExtensionProtocolName": {
             "protocolName": "meta3d-webgl1-protocol"
         },
-        "meta3dUIExtensionName": {
+        "meta3dUIExtensionProtocolName": {
             "protocolName": "meta3d-ui-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

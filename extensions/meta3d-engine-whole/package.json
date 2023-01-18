@@ -5,24 +5,24 @@
     "protocol": {
         "name": "meta3d-engine-whole-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dBsMostExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dBsMostExtensionProtocolName": {
             "protocolName": "meta3d-bs-most-protocol"
         },
-        "meta3dEngineCoreExtensionName": {
+        "meta3dEngineCoreExtensionProtocolName": {
             "protocolName": "meta3d-engine-core-protocol"
         },
-        "meta3dEngineBasicExtensionName": {
+        "meta3dEngineBasicExtensionProtocolName": {
             "protocolName": "meta3d-engine-basic-protocol"
         },
-        "meta3dEngineSceneExtensionName": {
+        "meta3dEngineSceneExtensionProtocolName": {
             "protocolName": "meta3d-engine-scene-protocol"
         },
-        "meta3dEngineRenderExtensionName": {
+        "meta3dEngineRenderExtensionProtocolName": {
             "protocolName": "meta3d-engine-render-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

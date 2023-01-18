@@ -22,7 +22,7 @@ function _searchProtocolVersion(name: string, dependencies: any) {
     return value
 }
 
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies }: any): any {
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }: any): any {
     return {
         name,
         publisher,
@@ -30,12 +30,12 @@ function _convertToExtensionOrContributePackageData({ name, protocol, publisher,
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
-        dependentExtensionNameMap: Object.fromEntries(Object
-            .entries(dependentExtensionNameMap)
+        dependentExtensionProtocolNameMap: Object.fromEntries(Object
+            .entries(dependentExtensionProtocolNameMap)
             .map(([key, { protocolName }]: [string, any]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])
         ),
-        dependentContributeNameMap: Object.fromEntries(Object
-            .entries(dependentContributeNameMap)
+        dependentContributeProtocolNameMap: Object.fromEntries(Object
+            .entries(dependentContributeProtocolNameMap)
             .map(([key, { protocolName }]: [string, any]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])
         )
     }

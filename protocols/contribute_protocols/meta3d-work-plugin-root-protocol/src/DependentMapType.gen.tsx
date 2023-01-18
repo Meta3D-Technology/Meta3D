@@ -3,7 +3,7 @@
 
 
 // tslint:disable-next-line:interface-over-type-literal
-export type dependentExtensionNameMap = { readonly meta3dBsMostExtensionName: string };
+export type dependentExtensionProtocolNameMap = { readonly meta3dBsMostExtensionProtocolName: string };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type dependentContributeNameMap = {};
+export type dependentContributeProtocolNameMap = {};

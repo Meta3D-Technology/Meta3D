@@ -12,5 +12,6 @@ function truncate(param) {
 
 export {
   truncate ,
+  
 }
 /* No side effect */

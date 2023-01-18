@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-work-plugin-root-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dBsMostExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dBsMostExtensionProtocolName": {
             "protocolName": "meta3d-bs-most-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

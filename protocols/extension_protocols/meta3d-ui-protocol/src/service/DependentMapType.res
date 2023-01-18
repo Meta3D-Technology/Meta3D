@@ -1,7 +1,7 @@
-type dependentExtensionNameMap = {
-meta3dImguiRendererExtensionName: string
+type dependentExtensionProtocolNameMap = {
+meta3dImguiRendererExtensionProtocolName: string
 }
 
-type dependentContributeNameMap = {.}
+type dependentContributeProtocolNameMap = {.}
 
 

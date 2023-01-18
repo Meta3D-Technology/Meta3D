@@ -1,9 +1,9 @@
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-webgpu-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-webgpu-protocol/src/service/DependentMapType"
 import { service } from "meta3d-webgpu-protocol/src/service/ServiceType"
 import { state } from "meta3d-webgpu-protocol/src/state/StateType"
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 
-export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionNameMap, dependentContributeNameMap, service> = (_api, _) => {
+export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, service> = (_api, _) => {
     return {
         getContext: (canvas) => {
             return canvas.getContext("webgpu")

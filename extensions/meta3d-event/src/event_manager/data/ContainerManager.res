@@ -1,22 +1,22 @@
-// let _getStateKey = (eventExtensionName) => {
-//     {j`${eventExtensionName}_eventManagerState`}
+// let _getStateKey = (eventExtensionProtocolName) => {
+//     {j`${eventExtensionProtocolName}_eventManagerState`}
 // }
 
 let createState = %raw(`
-  function(createStateFunc, eventExtensionName){
-window[eventExtensionName + "_eventManagerState"] = createStateFunc()
+  function(createStateFunc, eventExtensionProtocolName){
+window[eventExtensionProtocolName + "_eventManagerState"] = createStateFunc()
             }
 `)
 
 let getState: string => EventManagerStateType.state = %raw(`
-  function(eventExtensionName){
-return window[eventExtensionName + "_eventManagerState"]
+  function(eventExtensionProtocolName){
+return window[eventExtensionProtocolName + "_eventManagerState"]
             }
 `)
 
 let setState: (EventManagerStateType.state, string) => unit = %raw(`
-  function(state, eventExtensionName){
-window[eventExtensionName + "_eventManagerState"] = state
+  function(state, eventExtensionProtocolName){
+window[eventExtensionProtocolName + "_eventManagerState"] = state
             }
 `)
 

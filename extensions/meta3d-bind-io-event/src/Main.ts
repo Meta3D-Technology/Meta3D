@@ -1,7 +1,7 @@
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { state } from "meta3d-bind-io-event-protocol/src/state/StateType"
 import { service } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-bind-io-event-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-bind-io-event-protocol/src/service/DependentMapType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { customEvent, mouseEvent } from "meta3d-event-protocol/src/service/EventType.gen"
 
@@ -16,17 +16,17 @@ let _initIOData = () => {
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
-> = (api, [{ meta3dEventExtensionName }, _]) => {
+> = (api, [{ meta3dEventExtensionProtocolName }, _]) => {
 	return {
 		bindIOEvent: (meta3dState: meta3dState) => {
-			let { onPointEvent, getPointDownEventName, getPointUpEventName, getPointTapEventName } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+			let { onPointEvent, getPointDownEventName, getPointUpEventName, getPointTapEventName } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionProtocolName)
 
 			_initIOData()
 
-			onPointEvent(meta3dEventExtensionName, [
+			onPointEvent(meta3dEventExtensionProtocolName, [
 				getPointDownEventName(),
 				0,
 				(customEventData: customEvent) => {
@@ -41,7 +41,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					}
 				}
 			])
-			onPointEvent(meta3dEventExtensionName, [
+			onPointEvent(meta3dEventExtensionProtocolName, [
 				getPointUpEventName(),
 				0,
 				(customEventData: customEvent) => {
@@ -56,7 +56,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					}
 				}
 			])
-			onPointEvent(meta3dEventExtensionName, [
+			onPointEvent(meta3dEventExtensionProtocolName, [
 				getPointTapEventName(),
 				0,
 				(customEventData: customEvent) => {

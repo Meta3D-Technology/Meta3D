@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
 import { state } from "meta3d-editor-engine-render-protocol/src/state/StateType"
 import { service } from "meta3d-editor-engine-render-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-editor-engine-render-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-editor-engine-render-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
@@ -23,11 +23,11 @@ import { state as senduniformshaderdataState, states as senduniformshaderdataSta
 import { config as senduniformshaderdataConfig } from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol/src/ConfigType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
 > = (api, [{
-	meta3dEngineCoreExtensionName,
+	meta3dEngineCoreExtensionProtocolName,
 }, {
 	meta3dWorkPluginEditorViewRectContributeName,
 	meta3dWorkPluginEditorWebgl1GetGLContributeName,
@@ -40,11 +40,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 }]) => {
 		return {
 			prepare: (meta3dState: meta3dState, isDebug, gl) => {
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
+				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
 					meta3dState,
-					meta3dEngineCoreExtensionName
+					meta3dEngineCoreExtensionProtocolName
 				)
 
 
@@ -150,7 +150,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				meta3dState =
 					api.setExtensionState(
 						meta3dState,
-						meta3dEngineCoreExtensionName,
+						meta3dEngineCoreExtensionProtocolName,
 						engineCoreState
 					)
 

@@ -116,12 +116,12 @@ let convertAllFileData = (
               )
                 ? Start
                 : Default,
-              dependentExtensionNameMap: _convertDependentMap(
-                extensionPackageData.dependentExtensionNameMap,
+              dependentExtensionProtocolNameMap: _convertDependentMap(
+                extensionPackageData.dependentExtensionProtocolNameMap,
                 allExtensionDataMap,
               ),
-              dependentContributeNameMap: _convertDependentMap(
-                extensionPackageData.dependentContributeNameMap,
+              dependentContributeProtocolNameMap: _convertDependentMap(
+                extensionPackageData.dependentContributeProtocolNameMap,
                 allContributeDataMap,
               ),
             }: extensionPackageData
@@ -140,12 +140,12 @@ let convertAllFileData = (
             {
               name: contributePackageData.name,
               protocolName: contributePackageData.protocol.name,
-              dependentExtensionNameMap: _convertDependentMap(
-                contributePackageData.dependentExtensionNameMap,
+              dependentExtensionProtocolNameMap: _convertDependentMap(
+                contributePackageData.dependentExtensionProtocolNameMap,
                 allExtensionDataMap,
               ),
-              dependentContributeNameMap: _convertDependentMap(
-                contributePackageData.dependentContributeNameMap,
+              dependentContributeProtocolNameMap: _convertDependentMap(
+                contributePackageData.dependentContributeProtocolNameMap,
                 allContributeDataMap,
               ),
             }: contributePackageData
@@ -182,8 +182,8 @@ let generate = (
 
 let execGetContributeFunc = (
   ~contributeFuncData,
-  ~dependentExtensionNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ) => {
   (
@@ -191,7 +191,7 @@ let execGetContributeFunc = (
       contributeFuncData,
       TextDecoder.newTextDecoder("utf-8"),
     )->Obj.magic
-  )(ExtensionManager.buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap))
+  )(ExtensionManager.buildAPI(), (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap))
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): (

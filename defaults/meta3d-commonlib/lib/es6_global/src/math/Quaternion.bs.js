@@ -226,5 +226,6 @@ export {
   _getEulerAngles ,
   getEulerAngles ,
   setFromAxisAngle ,
+  
 }
 /* No side effect */

@@ -34,9 +34,9 @@ type elementContribute<'elementState> = {
   reducers: Js.Nullable.t<reducers>,
 }
 
-// type getElementContribute<'dependentExtensionNameMap, 'elementState> = (
+// type getElementContribute<'dependentExtensionProtocolNameMap, 'elementState> = (
 //   Meta3dType.Index.api,
-//   'dependentExtensionNameMap,
+//   'dependentExtensionProtocolNameMap,
 // ) => elementContribute<'elementState>
 
 // type reducerFunc<'elementState, 'action> = ('elementState, 'action) => 'elementState

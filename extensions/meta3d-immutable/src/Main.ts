@@ -1,10 +1,10 @@
 import { service } from "meta3d-immutable-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-immutable-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-immutable-protocol/src/service/DependentMapType"
 import { state } from "meta3d-immutable-protocol/src/state/StateType"
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { Map } from "immutable"
 
-export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionNameMap, dependentContributeNameMap, service> = (_api, [_dependentExtensionNameMap, _dependentContributeNameMap]) => {
+export let getExtensionService: getExtensionServiceMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, service> = (_api, [_dependentExtensionProtocolNameMap, _dependentContributeProtocolNameMap]) => {
     return {
         createMap: () => Map(),
         mapSet: (map, key, value) => map.set(key, value),

@@ -130,8 +130,8 @@ defineFeature(feature, test => {
                   name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
                   version: "0.4.0",
                 },
-                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               }: Meta3d.ExtensionFileType.extensionPackageData
             ),
             "",
@@ -151,8 +151,8 @@ defineFeature(feature, test => {
                   name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
                   version: "0.4.1",
                 },
-                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               }: Meta3d.ExtensionFileType.extensionPackageData
             ),
             "",
@@ -272,8 +272,8 @@ defineFeature(feature, test => {
                   name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
                   version: "0.4.1",
                 },
-                dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               }: Meta3d.ExtensionFileType.extensionPackageData
             ),
             ElementVisualTool.buildEmptyExtensionFileStr(),

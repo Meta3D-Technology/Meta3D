@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
 import { service } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-engine-scene-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-engine-scene-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
@@ -30,12 +30,12 @@ import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
 > = (api, [{
-	//  meta3dBsMostExtensionName,
-	meta3dEngineCoreExtensionName,
+	//  meta3dBsMostExtensionProtocolName,
+	meta3dEngineCoreExtensionProtocolName,
 }, {
 	meta3dWorkPluginCameraContributeName,
 	meta3dWorkPluginTransformContributeName,
@@ -57,11 +57,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					pbrMaterialCount
 				} = ecsConfig
 
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
+				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
 					meta3dState,
-					meta3dEngineCoreExtensionName
+					meta3dEngineCoreExtensionProtocolName
 				)
 
 				let { registerWorkPlugin, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
@@ -157,7 +157,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				meta3dState =
 					api.setExtensionState(
 						meta3dState,
-						meta3dEngineCoreExtensionName,
+						meta3dEngineCoreExtensionProtocolName,
 						engineCoreState
 					)
 

@@ -4,7 +4,7 @@ import { state } from "../state/StateType"
 import { customEvent } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
 
-type eventExtensionName = extensionName
+type eventExtensionProtocolName = extensionName
 
 type pointEventName =
     "meta3d_pointdown"
@@ -23,7 +23,7 @@ type handleFunc = (customEvent: customEvent) => void
 export type service = {
     trigger: <actionData> (
         meta3dState: meta3dState,
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
         actionName: actionName,
         actionData: actionData
     ) => Promise<meta3dState>;
@@ -32,26 +32,26 @@ export type service = {
         actionContribute: actionContribute<actionData>
     ) => state;
     onPointEvent(
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
         [pointEventName, priority, handleFunc]: [pointEventName, priority, handleFunc]
     ): void;
     initEvent(
         meta3dState: meta3dState,
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
     ): meta3dState;
     setBrowser(
         meta3dState: meta3dState,
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
         browser: browser
     ): meta3dState;
     setCanvas(
         meta3dState: meta3dState,
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
         canvas: HTMLCanvasElement
     ): meta3dState;
     setBody(
         meta3dState: meta3dState,
-        eventExtensionName: eventExtensionName,
+        eventExtensionProtocolName: eventExtensionProtocolName,
         body: HTMLBodyElement
     ): meta3dState;
     getBrowserChromeType(): browser;

@@ -95,13 +95,13 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
       execGetContributeFunc: (.
         contributeFuncData,
-        dependentExtensionNameMap,
-        dependentContributeNameMap,
+        dependentExtensionProtocolNameMap,
+        dependentContributeProtocolNameMap,
       ) =>
         Meta3d.Main.execGetContributeFunc(
           ~contributeFuncData,
-          ~dependentExtensionNameMap,
-          ~dependentContributeNameMap,
+          ~dependentExtensionProtocolNameMap,
+          ~dependentContributeProtocolNameMap,
           (),
         ),
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>

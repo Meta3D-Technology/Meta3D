@@ -575,13 +575,13 @@ TODO update use-editor
 
 
 
-** TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+** DONE refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
 
-** TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+** DONE refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
 e.g.  let {
-		meta3dWebgl1ExtensionName,
-		meta3dBsMostExtensionName,
-		meta3dUIExtensionName,
+		meta3dWebgl1ExtensionProtocolName,
+		meta3dBsMostExtensionProtocolName,
+		meta3dUIExtensionProtocolName,
 	} = dependentMapData[0]
 
 

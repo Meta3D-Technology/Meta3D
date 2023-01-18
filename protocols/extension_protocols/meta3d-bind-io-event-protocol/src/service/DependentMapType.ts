@@ -1,5 +1,5 @@
-export type dependentExtensionNameMap = {
-    meta3dEventExtensionName: string,
+export type dependentExtensionProtocolNameMap = {
+    meta3dEventExtensionProtocolName: string,
 }
 
-export type dependentContributeNameMap = {}
+export type dependentContributeProtocolNameMap = {}

@@ -129,7 +129,7 @@ not add customData
 
 *** DONE feat: custom control ->func remove [api, uiExtensionName] 
 
-dependentExtensionNameMap add meta3DUIExtensionName
+dependentExtensionProtocolNameMap add meta3DUIExtensionName
 
 
 

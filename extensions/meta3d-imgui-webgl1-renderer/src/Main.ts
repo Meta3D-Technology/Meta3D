@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-imgui-renderer-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-imgui-renderer-protocol/src/service/DependentMapType"
 import { service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
@@ -26,8 +26,8 @@ let _initEvent = (canvas: HTMLCanvasElement) => {
 
 
 export let getExtensionService: getExtensionServiceMeta3D<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
     service
 > = (api, _) => {
     return {

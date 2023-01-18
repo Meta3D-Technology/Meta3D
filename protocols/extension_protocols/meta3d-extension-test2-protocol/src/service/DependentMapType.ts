@@ -1,5 +1,5 @@
-export type dependentExtensionNameMap = {
-    meta3dTest1ExtensionName: string,
+export type dependentExtensionProtocolNameMap = {
+    meta3dTest1ExtensionProtocolName: string,
 }
 
-export type dependentContributeNameMap = {}
+export type dependentContributeProtocolNameMap = {}

@@ -1,6 +1,6 @@
 import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType";
 import { execFunc as execRenderJob } from "./jobs/render/RenderJob";
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-work-plugin-webgl1-render-protocol/src/DependentMapType";
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-work-plugin-webgl1-render-protocol/src/DependentMapType";
 import { config } from "meta3d-work-plugin-webgl1-render-protocol/src/ConfigType";
 import { state, states, workPluginName } from "meta3d-work-plugin-webgl1-render-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
@@ -21,12 +21,12 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, workPluginContribute<config, state>> = (api, dependentMapData) => {
+export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, workPluginContribute<config, state>> = (api, dependentMapData) => {
 	let {
-		meta3dWebgl1ExtensionName,
-		meta3dBsMostExtensionName,
-		meta3dEngineCoreExtensionName,
-		meta3dImmutableExtensionName
+		meta3dWebgl1ExtensionProtocolName,
+		meta3dBsMostExtensionProtocolName,
+		meta3dEngineCoreExtensionProtocolName,
+		meta3dImmutableExtensionProtocolName
 
 	} = dependentMapData[0]
 
@@ -34,10 +34,10 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 		workPluginName: workPluginName,
 		createStateFunc: (meta3dState, _) => {
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionName),
-				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionName),
-				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionName),
-				immutableService: api.getExtensionService<immutableService>(meta3dState, meta3dImmutableExtensionName)
+				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
+				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionProtocolName),
+				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionProtocolName),
+				immutableService: api.getExtensionService<immutableService>(meta3dState, meta3dImmutableExtensionProtocolName)
 				,
 
 			}

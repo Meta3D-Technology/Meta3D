@@ -1,4 +1,4 @@
-type eventExtensionName = Meta3dType.Index.extensionName
+type eventExtensionProtocolName = Meta3dType.Index.extensionName
 
 type pointEventName = [
   | #meta3d_pointdown
@@ -18,7 +18,7 @@ type handleFunc = (. EventType.customEvent) => unit
 type service = {
   trigger: 'actionData. (
     Meta3dType.Index.state,
-    eventExtensionName,
+    eventExtensionProtocolName,
     ActionContributeType.actionName,
     'actionData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
@@ -26,21 +26,21 @@ type service = {
     StateType.state,
     ActionContributeType.actionContribute<'actionData>,
   ) => StateType.state,
-  onPointEvent: (eventExtensionName, (pointEventName, priority, handleFunc)) => unit,
-  initEvent: (Meta3dType.Index.state, eventExtensionName) => Meta3dType.Index.state,
+  onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
+  initEvent: (Meta3dType.Index.state, eventExtensionProtocolName) => Meta3dType.Index.state,
   setBrowser: (
     Meta3dType.Index.state,
-    eventExtensionName,
+    eventExtensionProtocolName,
     BrowserType.browser,
   ) => Meta3dType.Index.state,
   setCanvas: (
     Meta3dType.Index.state,
-    eventExtensionName,
+    eventExtensionProtocolName,
     Dom.htmlCanvasElement,
   ) => Meta3dType.Index.state,
   setBody: (
     Meta3dType.Index.state,
-    eventExtensionName,
+    eventExtensionProtocolName,
     Dom.htmlBodyElement,
   ) => Meta3dType.Index.state,
   getBrowserChromeType: unit => BrowserType.browser,

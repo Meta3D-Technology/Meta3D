@@ -7,7 +7,7 @@ type dependentExtensionData = {
   protocolVersion: versionRange,
 }
 
-// type dependentContributeName = contributeProtocolName
+// type dependentContributeProtocolName = contributeProtocolName
 
 type dependentContributeData = {
   protocolName: string,
@@ -23,8 +23,8 @@ type extensionPackageData = {
   name: extensionName,
   protocolName: extensionProtocolName,
   type_: extensionType,
-  dependentExtensionNameMap: dependentExtensionNameMap,
-  dependentContributeNameMap: dependentContributeNameMap,
+  dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+  dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
 }
 
 // type extensionFuncData = ExtensionFileType.extensionFuncData
@@ -32,8 +32,8 @@ type extensionPackageData = {
 
 type extensionFuncData = {
   getExtensionServiceFunc: getExtensionService<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
     extensionService,
   >,
   createExtensionStateFunc: createExtensionState<extensionState>,
@@ -48,16 +48,16 @@ type extensionFileData = {
 type contributePackageData = {
   name: contributeName,
   protocolName: contributeProtocolName,
-  dependentExtensionNameMap: dependentExtensionNameMap,
-  dependentContributeNameMap: dependentContributeNameMap,
+  dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+  dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
 }
 
 // type contributeFuncData = ExtensionFileType.contributeFuncData
 // type contributeFuncData = Js.Typed_array.Uint8Array.t
 type contributeFuncData = {
   getContributeFunc: getContribute<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
     contribute,
   >,
 }

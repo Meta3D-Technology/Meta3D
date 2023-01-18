@@ -19,20 +19,20 @@ type dependentContributeData = dependentData
 type extensionPackageData = {
   name: extensionName,
   protocol: extensionProtocolData,
-  dependentExtensionNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionNameKey,
+  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentExtensionProtocolNameKey,
     dependentExtensionData,
   >,
-  dependentContributeNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeNameKey,
+  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentContributeProtocolNameKey,
     dependentContributeData,
   >,
 }
 
 // type extensionFuncData = {
 //   getExtensionServiceFunc: getExtensionService<
-//     dependentExtensionNameMap,
-//     dependentContributeNameMap,
+//     dependentExtensionProtocolNameMap,
+//     dependentContributeProtocolNameMap,
 //     extensionService,
 //   >,
 //   createExtensionStateFunc: createExtensionState<extensionState>,
@@ -54,20 +54,20 @@ type contributeProtocolData = {
 type contributePackageData = {
   name: contributeName,
   protocol: contributeProtocolData,
-  dependentExtensionNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionNameKey,
+  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentExtensionProtocolNameKey,
     dependentExtensionData,
   >,
-  dependentContributeNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeNameKey,
+  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentContributeProtocolNameKey,
     dependentContributeData,
   >,
 }
 
 // type contributeFuncData = {
 //   getContributeFunc: getContribute<
-//     dependentExtensionNameMap,
-//     dependentContributeNameMap,
+//     dependentExtensionProtocolNameMap,
+//     dependentContributeProtocolNameMap,
 //     contribute,
 //   >,
 // }

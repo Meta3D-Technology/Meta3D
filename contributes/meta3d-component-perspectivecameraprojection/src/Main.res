@@ -1,6 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dComponentPerspectivecameraprojectionProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dComponentPerspectivecameraprojectionProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dComponentPerspectivecameraprojectionProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dComponentPerspectivecameraprojectionProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,

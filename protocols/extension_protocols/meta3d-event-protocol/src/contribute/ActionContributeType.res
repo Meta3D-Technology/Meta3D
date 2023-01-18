@@ -10,7 +10,7 @@ type actionContribute<'actionData> = {
   handler: eventHandler<'actionData>,
 }
 
-// type getActionContribute<'dependentExtensionNameMap, 'actionData> = (
+// type getActionContribute<'dependentExtensionProtocolNameMap, 'actionData> = (
 //   Meta3dType.Index.api,
-//   'dependentExtensionNameMap,
+//   'dependentExtensionProtocolNameMap,
 // ) => actionContribute<'actionData>

@@ -32,13 +32,13 @@ defineFeature(feature, test => {
 
     function _buildPackageJson(name = "test1",
         version = "0.0.1",
-        protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionNameMap = {
-        }, dependentContributeNameMap = {},
+        protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionProtocolNameMap = {
+        }, dependentContributeProtocolNameMap = {},
         dependencies: any = {
             "test1-protocol": "^0.0.1"
         },
     ) {
-        return { name, version, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies }
+        return { name, version, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }
     }
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
@@ -153,7 +153,7 @@ defineFeature(feature, test => {
                     "0.0.2",
                     { name: "test1-protocol" }, "meta3d",
                     {
-                        meta3dTest1ExtensionName: {
+                        meta3dTest1ExtensionProtocolName: {
                             "protocolName": "meta3d-extension-test1-protocol"
                         }
                     }, {},
@@ -187,7 +187,7 @@ defineFeature(feature, test => {
 
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
-                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionNameMap": { "meta3dTest1ExtensionName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeNameMap": {} },
+                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {} },
                 distFileContent
             ])
             expect(uploadFileFunc).toCalledWith([

@@ -1,6 +1,6 @@
-export type dependentExtensionNameMap = {
-    meta3dBsMostExtensionName: string,
-    meta3dUIExtensionName: string
+export type dependentExtensionProtocolNameMap = {
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dUIExtensionProtocolName: string
 }
 
-export type dependentContributeNameMap = {}
+export type dependentContributeProtocolNameMap = {}

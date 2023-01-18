@@ -178,8 +178,8 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
           extensionFuncData.getExtensionServiceFunc,
           extensionFuncData.getExtensionLifeFunc,
           (
-            extensionPackageData.dependentExtensionNameMap,
-            extensionPackageData.dependentContributeNameMap,
+            extensionPackageData.dependentExtensionProtocolNameMap,
+            extensionPackageData.dependentContributeProtocolNameMap,
           ),
           extensionFuncData.createExtensionStateFunc(),
         )
@@ -194,8 +194,8 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
           contributePackageData.protocolName,
           contributeFuncData.getContributeFunc,
           (
-            contributePackageData.dependentExtensionNameMap,
-            contributePackageData.dependentContributeNameMap,
+            contributePackageData.dependentExtensionProtocolNameMap,
+            contributePackageData.dependentContributeProtocolNameMap,
           ),
         )
       },

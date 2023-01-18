@@ -1,8 +1,8 @@
-export type dependentExtensionNameMap = {
-    meta3dBsMostExtensionName: string,
-    meta3dWebgl1ExtensionName: string,
-    meta3dEngineCoreExtensionName: string,
-    meta3dImmutableExtensionName: string
+export type dependentExtensionProtocolNameMap = {
+    meta3dBsMostExtensionProtocolName: string,
+    meta3dWebgl1ExtensionProtocolName: string,
+    meta3dEngineCoreExtensionProtocolName: string,
+    meta3dImmutableExtensionProtocolName: string
 }
 
-export type dependentContributeNameMap = {}
+export type dependentContributeProtocolNameMap = {}

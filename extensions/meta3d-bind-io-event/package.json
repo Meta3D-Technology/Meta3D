@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-bind-io-event-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dEventExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dEventExtensionProtocolName": {
             "protocolName": "meta3d-event-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

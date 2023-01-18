@@ -84,14 +84,14 @@ let convertAllFileData = (
               )
                 ? Entry
                 : Default,
-              dependentExtensionNameMap: _convertDependentMap(
-                extensionPackageData.dependentExtensionNameMap,
+              dependentExtensionProtocolNameMap: _convertDependentMap(
+                extensionPackageData.dependentExtensionProtocolNameMap,
               ),
-              dependentContributeNameMap: _convertDependentMap(
-                extensionPackageData.dependentContributeNameMap,
+              dependentContributeProtocolNameMap: _convertDependentMap(
+                extensionPackageData.dependentContributeProtocolNameMap,
               ),
-              // dependentExtensionNameMap: extensionPackageData.dependentExtensionNameMap,
-              // dependentContributeNameMap: extensionPackageData.dependentContributeNameMap,
+              // dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
+              // dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap,
             }: extensionPackageData
           ),
           extensionFuncData,
@@ -108,14 +108,14 @@ let convertAllFileData = (
             {
               name: contributePackageData.name,
               protocolName: contributePackageData.protocol.name,
-              dependentExtensionNameMap: _convertDependentMap(
-                contributePackageData.dependentExtensionNameMap,
+              dependentExtensionProtocolNameMap: _convertDependentMap(
+                contributePackageData.dependentExtensionProtocolNameMap,
               ),
-              dependentContributeNameMap: _convertDependentMap(
-                contributePackageData.dependentContributeNameMap,
+              dependentContributeProtocolNameMap: _convertDependentMap(
+                contributePackageData.dependentContributeProtocolNameMap,
               ),
-              // dependentExtensionNameMap: contributePackageData.dependentExtensionNameMap,
-              // dependentContributeNameMap: contributePackageData.dependentContributeNameMap,
+              // dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
+              // dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap,
             }: contributePackageData
           ),
           contributeFuncData,

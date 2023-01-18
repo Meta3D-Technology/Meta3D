@@ -216,9 +216,9 @@ defineFeature(feature, test => {
                 name: ElementContributeUtils.getElementContributeProtocolName(),
                 version: ElementContributeUtils.getElementContributeProtocolVersion(),
               },
-              dependentExtensionNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+              dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
               ->Meta3dCommonlib.ImmutableHashMap.set(
-                "meta3dUIExtensionName",
+                "meta3dUIExtensionProtocolName",
                 (
                   {
                     protocolName: "meta3d-ui-protocol",
@@ -227,7 +227,7 @@ defineFeature(feature, test => {
                 ),
               )
               ->Meta3dCommonlib.ImmutableHashMap.set(
-                "meta3dEventExtensionName",
+                "meta3dEventExtensionProtocolName",
                 (
                   {
                     protocolName: "meta3d-event-protocol",
@@ -235,7 +235,7 @@ defineFeature(feature, test => {
                   }: Meta3d.ExtensionFileType.dependentData
                 ),
               ),
-              dependentContributeNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             }: Meta3d.ExtensionFileType.contributePackageData
           ),
         ),

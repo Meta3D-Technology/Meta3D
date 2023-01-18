@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api, canvasData } from "meta3d-type"
 import { contributeType } from "meta3d-type/src/contribute/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-use-editor-protocol/src/service/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-use-editor-protocol/src/service/DependentMapType"
 import { configData, service } from "meta3d-use-editor-protocol/src/service/ServiceType"
 import { state } from "meta3d-use-editor-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
@@ -23,19 +23,19 @@ import { config as sceneView2Config } from "meta3d-work-plugin-editor-webgl1-sce
 import { state as sceneView2State, states as sceneView2States } from "meta3d-work-plugin-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as engineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
 
-let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
+let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtocolNameMap, _]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
+	let { meta3dEventExtensionProtocolName, meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
 
 
-	let { registerElement } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let { registerElement } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
 
-	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
-
-
+	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
 
 
 
-	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+
+
+	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
 
 	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
 		return registerSkin(uiState, contribute)
@@ -59,16 +59,16 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap
 
 
 
-	meta3dState = api.setExtensionState(meta3dState, meta3dUIExtensionName, uiState)
+	meta3dState = api.setExtensionState(meta3dState, meta3dUIExtensionProtocolName, uiState)
 
 
 
 
 
 
-	let { registerAction } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+	let { registerAction } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionProtocolName)
 
-	let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionName)
+	let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionProtocolName)
 
 
 	eventState = api.getAllContributesByType<actionContribute<any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
@@ -76,7 +76,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap
 	}, eventState)
 
 
-	meta3dState = api.setExtensionState(meta3dState, meta3dEventExtensionName, eventState)
+	meta3dState = api.setExtensionState(meta3dState, meta3dEventExtensionProtocolName, eventState)
 
 	return meta3dState
 }
@@ -97,14 +97,14 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 
 let _registerEditorWorkPlugins = (
 	meta3dState: meta3dState, api: api,
-	meta3dEngineCoreExtensionName: string,
+	meta3dEngineCoreExtensionProtocolName: string,
 	[meta3dWorkPluginEditorWebgl1SceneView1ContributeName, meta3dWorkPluginEditorWebgl1SceneView2ContributeName]: [string, string]
 ) => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
+	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
 	let engineCoreService = api.getExtensionService<engineCoreService>(
 		meta3dState,
-		meta3dEngineCoreExtensionName
+		meta3dEngineCoreExtensionProtocolName
 	)
 
 
@@ -142,18 +142,18 @@ let _registerEditorWorkPlugins = (
 		]
 	)
 
-	return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionName, engineCoreState)
+	return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, engineCoreState)
 }
 
 let _prepareAndInitEngine = (
 	meta3dState: meta3dState, api: api,
 	uiService: uiService,
-	meta3dEditorEngineWholeExtensionName: string,
+	meta3dEditorEngineWholeExtensionProtocolName: string,
 	isDebug: boolean
 ) => {
 	let engineWholeService = api.getExtensionService<engineWholeService>(
 		meta3dState,
-		meta3dEditorEngineWholeExtensionName
+		meta3dEditorEngineWholeExtensionProtocolName
 	)
 
 	meta3dState = engineWholeService.prepare(meta3dState, isDebug,
@@ -174,20 +174,20 @@ let _prepareAndInitEngine = (
 
 }
 
-let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap], [canvasData, { isDebug }]: configData) => {
-	let [dependentExtensionNameMap, dependentContributeNameMap] = dependentMapData
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEngineCoreExtensionName, meta3dEditorEngineWholeExtensionName } = dependentExtensionNameMap
+let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap], [canvasData, { isDebug }]: configData) => {
+	let [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap] = dependentMapData
+	let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEngineCoreExtensionProtocolName, meta3dEditorEngineWholeExtensionProtocolName } = dependentExtensionProtocolNameMap
 	let {
 		meta3dWorkPluginEditorWebgl1SceneView1ContributeName,
 		meta3dWorkPluginEditorWebgl1SceneView2ContributeName
-	} = dependentContributeNameMap
+	} = dependentContributeProtocolNameMap
 
 	meta3dState = _prepareUI(meta3dState, api, dependentMapData)
 
 
 	meta3dState = _registerEditorWorkPlugins(
 		meta3dState, api,
-		meta3dEngineCoreExtensionName,
+		meta3dEngineCoreExtensionProtocolName,
 		[meta3dWorkPluginEditorWebgl1SceneView1ContributeName, meta3dWorkPluginEditorWebgl1SceneView2ContributeName]
 	)
 
@@ -196,31 +196,31 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 
 	let canvas = _createAndInsertCanvas(canvasData)
 
-	let uiService = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let uiService = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
 
-	return uiService.init(meta3dState, [api, meta3dImguiRendererExtensionName], true, isDebug, canvas).then(meta3dState => {
+	return uiService.init(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], true, isDebug, canvas).then(meta3dState => {
 		return _prepareAndInitEngine(
 			meta3dState, api,
 			uiService,
-			meta3dEditorEngineWholeExtensionName,
+			meta3dEditorEngineWholeExtensionProtocolName,
 			isDebug
 		)
 	})
 
 
 
-	// let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionName)
+	// let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionProtocolName)
 
-	// meta3dState = setBody(meta3dState, meta3dEventExtensionName, document.body as HTMLBodyElement)
-	// meta3dState = setBrowser(meta3dState, meta3dEventExtensionName, getBrowserChromeType())
-	// meta3dState = setCanvas(meta3dState, meta3dEventExtensionName, canvas)
+	// meta3dState = setBody(meta3dState, meta3dEventExtensionProtocolName, document.body as HTMLBodyElement)
+	// meta3dState = setBrowser(meta3dState, meta3dEventExtensionProtocolName, getBrowserChromeType())
+	// meta3dState = setCanvas(meta3dState, meta3dEventExtensionProtocolName, canvas)
 
-	// meta3dState = initEvent(meta3dState, meta3dEventExtensionName)
-
-
+	// meta3dState = initEvent(meta3dState, meta3dEventExtensionProtocolName)
 
 
-	// let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionName)
+
+
+	// let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionProtocolName)
 
 	// bindIOEvent(meta3dState)
 
@@ -232,11 +232,11 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 let _loopEngine = (
 	meta3dState: meta3dState,
 	api: api,
-	meta3dEditorEngineWholeExtensionName: string
+	meta3dEditorEngineWholeExtensionProtocolName: string
 ) => {
 	let engineWholeService = api.getExtensionService<engineWholeService>(
 		meta3dState,
-		meta3dEditorEngineWholeExtensionName
+		meta3dEditorEngineWholeExtensionProtocolName
 	)
 
 	return engineWholeService.update(meta3dState).then(meta3dState => engineWholeService.render(meta3dState))
@@ -245,14 +245,14 @@ let _loopEngine = (
 let _loop = (
 	api: api, meta3dState: meta3dState,
 	time: number,
-	[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName]: [string, string, string],
+	[meta3dEditorEngineWholeExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName]: [string, string, string],
 	configData: configData
 ) => {
 	let [_, { skinName, clearColor }] = configData
 
-	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionName)
+	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
 
-	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionName)
+	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
 
 	if (!isNullable(skinName)) {
 		let skin = getSkin<skin>(uiState, skinName)
@@ -262,18 +262,18 @@ let _loop = (
 	}
 
 
-	meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionName], clearColor)
+	meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], clearColor)
 
-	// render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], getIOData()).then((meta3dState: meta3dState) => {
-	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time).then((meta3dState: meta3dState) => {
+	// render(meta3dState, [meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], getIOData()).then((meta3dState: meta3dState) => {
+	render(meta3dState, [meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], time).then((meta3dState: meta3dState) => {
 		// resetIOData()
 
-		_loopEngine(meta3dState, api, meta3dEditorEngineWholeExtensionName).then(meta3dState => {
+		_loopEngine(meta3dState, api, meta3dEditorEngineWholeExtensionProtocolName).then(meta3dState => {
 			requestAnimationFrame(
 				(time) => {
 					_loop(api, meta3dState,
 						time,
-						[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
+						[meta3dEditorEngineWholeExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], configData)
 				}
 			)
 		})
@@ -281,18 +281,18 @@ let _loop = (
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionNameMap,
-	dependentContributeNameMap,
+	dependentExtensionProtocolNameMap,
+	dependentContributeProtocolNameMap,
 	service
-> = (api, [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEditorEngineWholeExtensionName } = dependentExtensionNameMap
+> = (api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
+	let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEditorEngineWholeExtensionProtocolName } = dependentExtensionProtocolNameMap
 
 	return {
 		run: (meta3dState: meta3dState, configData) => {
-			_init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData).then((meta3dState: meta3dState) => {
+			_init(meta3dState, api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap], configData).then((meta3dState: meta3dState) => {
 				_loop(api, meta3dState,
 					0,
-					[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
+					[meta3dEditorEngineWholeExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], configData)
 			})
 		}
 	}

@@ -1,11 +1,11 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputData, outputData, uiControlName } from "meta3d-ui-control-window-protocol"
-import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-ui-control-window-protocol/src/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-ui-control-window-protocol/src/DependentMapType"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionNameMap, dependentContributeNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionNameMap, _]) => {
-    let { meta3dUIExtensionName } = dependentExtensionNameMap
+export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
+    let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
 
     return {
         uiControlName: uiControlName,
@@ -16,8 +16,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
                 childrenFunc
             }
         ) => {
-            let { beginWindow, endWindow, setNextWindowRect } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionName)
-            // let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionName)
+            let { beginWindow, endWindow, setNextWindowRect } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionProtocolName)
+            // let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName)
 
             meta3dState = setNextWindowRect(meta3dState, rect)
 

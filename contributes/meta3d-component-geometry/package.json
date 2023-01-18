@@ -5,8 +5,8 @@
   "protocol": {
     "name": "meta3d-component-geometry-protocol"
   },
-  "dependentExtensionNameMap": {},
-  "dependentContributeNameMap": {},
+  "dependentExtensionProtocolNameMap": {},
+  "dependentContributeProtocolNameMap": {},
   "license": "MIT",
   "scripts": {
     "watch": "rescript clean && rescript build -w",

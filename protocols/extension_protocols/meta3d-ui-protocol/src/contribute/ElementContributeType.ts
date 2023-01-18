@@ -30,7 +30,7 @@ export type elementContribute<elementState> = {
     reducers: nullable<reducers>
 }
 
-// export type getElementContribute<dependentExtensionNameMap, elementState> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => elementContribute<elementState>;
+// export type getElementContribute<dependentExtensionProtocolNameMap, elementState> = (api: api, dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap) => elementContribute<elementState>;
 
 // export type reducerFunc<elementState, action> = (elementState: elementState, action: action) => elementState
 

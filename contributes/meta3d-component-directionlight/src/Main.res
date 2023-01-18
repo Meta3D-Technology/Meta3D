@@ -1,6 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dComponentDirectionlightProtocol.DependentMapType.dependentExtensionNameMap,
-  Meta3dComponentDirectionlightProtocol.DependentMapType.dependentContributeNameMap,
+  Meta3dComponentDirectionlightProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+  Meta3dComponentDirectionlightProtocol.DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentDirectionlightProtocol.Index.config,

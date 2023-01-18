@@ -20,12 +20,12 @@ let registerAction = (
 let trigger = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   actionName,
   actionData: Meta3dEventProtocol.StateType.actionData,
 ) => {
   let state: StateType.state =
-    api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
   let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
     Meta3dEventProtocol.StateType.actionData,
@@ -38,13 +38,13 @@ let trigger = (
 let onPointEvent = (
   api: Meta3dType.Index.api,
   // meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   (pointEventName, priority, handleFunc),
 ) => {
   // let state: StateType.state =
-  //   api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
+  //   api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
-  let eventManagerState = ContainerManager.getState(eventExtensionName)
+  let eventManagerState = ContainerManager.getState(eventExtensionProtocolName)
 
   let eventManagerState = ManageEventDoService.onCustomGlobalEvent(
     ~eventName=pointEventName->Obj.magic,
@@ -60,45 +60,45 @@ let onPointEvent = (
 
   // api.setExtensionState(.
   //   meta3dState,
-  //   eventExtensionName,
+  //   eventExtensionProtocolName,
   //   {
   //     ...state,
   //     eventManagerState: eventManagerState,
   //   }->StateType.stateToProtocolState,
   // )
 
-  ContainerManager.setState(eventManagerState, eventExtensionName)
+  ContainerManager.setState(eventManagerState, eventExtensionProtocolName)
 }
 
-let _setDomToStateForEventHandler = (eventManagerState, eventExtensionName) => {
+let _setDomToStateForEventHandler = (eventManagerState, eventExtensionProtocolName) => {
   let browser = BrowserDoService.getBrowser(eventManagerState)
   let canvas = CanvasDoService.getCanvas(eventManagerState)->Meta3dCommonlib.OptionSt.getExn
   let body = BodyDoService.getBodyExn(eventManagerState)
 
-  ContainerManager.getState(eventExtensionName)
+  ContainerManager.getState(eventExtensionProtocolName)
   ->BrowserDoService.setBrowser(browser)
   ->CanvasDoService.setCanvas(canvas)
   ->BodyDoService.setBody(body)
-  ->ContainerManager.setState(eventExtensionName)
+  ->ContainerManager.setState(eventExtensionProtocolName)
 }
 
 let initEvent = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
 ) => {
   let state: StateType.state =
-    api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
-  ContainerManager.createState(CreateEventManagerState.create, eventExtensionName)
+  ContainerManager.createState(CreateEventManagerState.create, eventExtensionProtocolName)
 
-  let eventManagerState = state.eventManagerState->InitEventDoService.initEvent(eventExtensionName)
+  let eventManagerState = state.eventManagerState->InitEventDoService.initEvent(eventExtensionProtocolName)
 
-  _setDomToStateForEventHandler(eventManagerState, eventExtensionName)
+  _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName)
 
   api.setExtensionState(.
     meta3dState,
-    eventExtensionName,
+    eventExtensionProtocolName,
     {
       ...state,
       eventManagerState: eventManagerState,
@@ -109,18 +109,18 @@ let initEvent = (
 let _invokeEventManagerSetDomDataFuncWithOneArg = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   setDomDataFunc,
   domData,
 ) => {
   let state: StateType.state =
-    api.getExtensionState(. meta3dState, eventExtensionName)->StateType.protocolStateToState
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
   let eventManagerState = state.eventManagerState->setDomDataFunc(domData)
 
   api.setExtensionState(.
     meta3dState,
-    eventExtensionName,
+    eventExtensionProtocolName,
     {
       ...state,
       eventManagerState: eventManagerState,
@@ -131,13 +131,13 @@ let _invokeEventManagerSetDomDataFuncWithOneArg = (
 let setBrowser = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   browser,
 ) => {
   _invokeEventManagerSetDomDataFuncWithOneArg(
     api,
     meta3dState,
-    eventExtensionName,
+    eventExtensionProtocolName,
     BrowserDoService.setBrowser,
     browser,
   )
@@ -146,13 +146,13 @@ let setBrowser = (
 let setCanvas = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   canvas,
 ) => {
   _invokeEventManagerSetDomDataFuncWithOneArg(
     api,
     meta3dState,
-    eventExtensionName,
+    eventExtensionProtocolName,
     CanvasDoService.setCanvas,
     canvas,
   )
@@ -161,13 +161,13 @@ let setCanvas = (
 let setBody = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,
-  eventExtensionName,
+  eventExtensionProtocolName,
   body,
 ) => {
   _invokeEventManagerSetDomDataFuncWithOneArg(
     api,
     meta3dState,
-    eventExtensionName,
+    eventExtensionProtocolName,
     BodyDoService.setBody,
     body,
   )

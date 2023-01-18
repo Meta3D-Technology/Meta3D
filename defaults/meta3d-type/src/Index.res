@@ -4,7 +4,7 @@ type extensionState
 
 type contribute
 
-type dependentExtensionNameKey = string
+type dependentExtensionProtocolNameKey = string
 
 type extensionName = string
 type contributeName = string
@@ -15,20 +15,20 @@ type contributeProtocolName = string
 
 type uiControlName = string
 
-// type dependentExtensionNameValue = extensionProtocolName
-type dependentExtensionNameProtocolValue = extensionProtocolName
+// type dependentExtensionProtocolNameValue = extensionProtocolName
+type dependentExtensionProtocolNameProtocolValue = extensionProtocolName
 
-type dependentContributeNameKey = string
+type dependentContributeProtocolNameKey = string
 
 type dependentContributeProtocolNameValue = contributeProtocolName
 
-type dependentExtensionNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
-  dependentExtensionNameKey,
-  dependentExtensionNameProtocolValue,
+type dependentExtensionProtocolNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
+  dependentExtensionProtocolNameKey,
+  dependentExtensionProtocolNameProtocolValue,
 >
 
-type dependentContributeNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
-  dependentContributeNameKey,
+type dependentContributeProtocolNameMap = Meta3dCommonlibType.ImmutableHashMapType.t<
+  dependentContributeProtocolNameKey,
   dependentContributeProtocolNameValue,
 >
 
@@ -80,22 +80,22 @@ and state = {
 
 type api = {
   /* ! rank2 polymorphism */
-  registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'dependentExtensionNameMap 'extensionState. (
+  registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'dependentExtensionProtocolNameMap 'extensionState. (
     . state,
     extensionProtocolName,
     'getExtensionServiceFunc,
     'getLifeFunc,
-    'dependentExtensionNameMap,
+    'dependentExtensionProtocolNameMap,
     'extensionState,
   ) => state,
   getExtensionService: 'extensionService. (. state, extensionProtocolName) => 'extensionService,
   getExtensionState: 'extensionState. (. state, extensionProtocolName) => 'extensionState,
   setExtensionState: 'extensionState. (. state, extensionProtocolName, 'extensionState) => state,
-  registerContribute: 'getContributeFunc 'dependentExtensionNameMap 'dependentContributeNameMap. (
+  registerContribute: 'getContributeFunc 'dependentExtensionProtocolNameMap 'dependentContributeProtocolNameMap. (
     . state,
     contributeProtocolName,
     'getContributeFunc,
-    ('dependentExtensionNameMap, 'dependentContributeNameMap),
+    ('dependentExtensionProtocolNameMap, 'dependentContributeProtocolNameMap),
   ) => state,
   // removeUIControlContribute: (. state, uiControlName) => state,
   getContribute: 'contribute. (. state, contributeProtocolName) => 'contribute,
@@ -106,20 +106,20 @@ type api = {
 }
 
 type getExtensionService<
-  'dependentExtensionNameMap,
-  'dependentContributeNameMap,
+  'dependentExtensionProtocolNameMap,
+  'dependentContributeProtocolNameMap,
   'extensionService,
-> = (api, ('dependentExtensionNameMap, 'dependentContributeNameMap)) => 'extensionService
+> = (api, ('dependentExtensionProtocolNameMap, 'dependentContributeProtocolNameMap)) => 'extensionService
 
 type createExtensionState<'extensionState> = unit => 'extensionState
 
 type getContribute<
-  'dependentExtensionNameMap,
-  'dependentContributeNameMap,
+  'dependentExtensionProtocolNameMap,
+  'dependentContributeProtocolNameMap,
   // 'config,
   'contribute,
-> = // > = (api, ('dependentExtensionNameMap, 'dependentContributeNameMap), 'config) => 'contribute
-(api, ('dependentExtensionNameMap, 'dependentContributeNameMap)) => 'contribute
+> = // > = (api, ('dependentExtensionProtocolNameMap, 'dependentContributeProtocolNameMap), 'config) => 'contribute
+(api, ('dependentExtensionProtocolNameMap, 'dependentContributeProtocolNameMap)) => 'contribute
 
 type getExtensionLife<'extensionService> = (
   api,

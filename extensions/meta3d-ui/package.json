@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-ui-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dImguiRendererExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dImguiRendererExtensionProtocolName": {
             "protocolName": "meta3d-imgui-renderer-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",

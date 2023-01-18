@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-ui-control-scene-view-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dUIExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dUIExtensionProtocolName": {
             "protocolName": "meta3d-ui-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

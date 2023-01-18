@@ -10,10 +10,10 @@
 // }
 
 @genType
-type dependentExtensionNameMap = {meta3dBsMostExtensionName: string}
+type dependentExtensionProtocolNameMap = {meta3dBsMostExtensionProtocolName: string}
 
 
 @genType
-type dependentContributeNameMap = {.}
+type dependentContributeProtocolNameMap = {.}
 
 

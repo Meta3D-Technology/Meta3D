@@ -12,4 +12,4 @@ export type actionContribute<actionData> = {
     handler: eventHandler<actionData>
 }
 
-// export type getActionContribute<dependentExtensionNameMap, actionData> = (api: api, dependentExtensionNameMap: dependentExtensionNameMap) => actionContribute<actionData>;
+// export type getActionContribute<dependentExtensionProtocolNameMap, actionData> = (api: api, dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap) => actionContribute<actionData>;

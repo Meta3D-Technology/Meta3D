@@ -5,12 +5,12 @@
     "protocol": {
         "name": "meta3d-action-click-button-test1-protocol"
     },
-    "dependentExtensionNameMap": {
-        "meta3dTest2ExtensionName": {
+    "dependentExtensionProtocolNameMap": {
+        "meta3dTest2ExtensionProtocolName": {
             "protocolName": "meta3d-extension-test2-protocol"
         }
     },
-    "dependentContributeNameMap": {},
+    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

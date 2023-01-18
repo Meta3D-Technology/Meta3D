@@ -127,19 +127,19 @@ let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
   getServiceFunc: getExtensionService<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
     extensionService,
   >,
   getLifeFunc: getExtensionLife<extensionService>,
-  (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
+  (dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
   extensionState: extensionState,
 ) => {
   let state = {
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
-      getServiceFunc(buildAPI(), (dependentExtensionNameMap, dependentContributeNameMap)),
+      getServiceFunc(buildAPI(), (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap)),
     ),
     extensionLifeMap: state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
@@ -157,15 +157,15 @@ and registerContribute = (
   state,
   protocolName: contributeProtocolName,
   getContributeFunc: getContribute<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
+    dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
     contribute,
   >,
-  (dependentExtensionNameMap: dependentExtensionNameMap, dependentContributeNameMap),
+  (dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
 ) => {
   let contribute = getContributeFunc(
     buildAPI(),
-    (dependentExtensionNameMap, dependentContributeNameMap),
+    (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
   )
 
   {
@@ -183,7 +183,7 @@ and buildAPI = (): api => {
       extensionProtocolName,
       getExtensionService,
       getExtensionLife,
-      (dependentExtensionNameMap, dependentContributeNameMap),
+      (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
       extensionState,
     ) =>
       registerExtension(
@@ -191,7 +191,7 @@ and buildAPI = (): api => {
         extensionProtocolName,
         getExtensionService,
         getExtensionLife,
-        (dependentExtensionNameMap, dependentContributeNameMap),
+        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
         extensionState,
       )
   )->Obj.magic,
@@ -209,13 +209,13 @@ and buildAPI = (): api => {
       state,
       contributeProtocolName,
       getContribute,
-      (dependentExtensionNameMap, dependentContributeNameMap),
+      (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
     ) =>
       registerContribute(
         state,
         contributeProtocolName,
         getContribute,
-        (dependentExtensionNameMap, dependentContributeNameMap),
+        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
       )
   )->Obj.magic,
   getContribute: (. state, protocolName: contributeProtocolName) =>
