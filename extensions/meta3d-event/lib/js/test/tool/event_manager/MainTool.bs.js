@@ -11,7 +11,7 @@ var NameEventDoService$Meta3dEvent = require("../../../src/event_manager/service
 var CreateEventManagerState$Meta3dEvent = require("../../../src/event_manager/data/CreateEventManagerState.bs.js");
 
 function prepareState(param) {
-  return ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function getBrowserChromeType(param) {

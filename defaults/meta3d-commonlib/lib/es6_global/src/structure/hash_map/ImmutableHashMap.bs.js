@@ -47,6 +47,5 @@ export {
   copy ,
   entries ,
   map ,
-  
 }
 /* No side effect */

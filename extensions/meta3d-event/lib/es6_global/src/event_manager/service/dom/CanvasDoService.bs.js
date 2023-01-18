@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
 function getCanvas(state) {
   return state.canvas;
@@ -31,6 +31,5 @@ export {
   getCanvas ,
   setCanvas ,
   getOffset ,
-  
 }
 /* No side effect */

@@ -13,6 +13,5 @@ var preventDefault = (function(event){
 
 export {
   preventDefault ,
-  
 }
 /* No side effect */

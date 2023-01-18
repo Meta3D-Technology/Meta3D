@@ -124,6 +124,5 @@ export {
   getIsDrag ,
   setIsDrag ,
   setLastXYWhenTouchMove ,
-  
 }
 /* No side effect */

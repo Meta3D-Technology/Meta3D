@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as BodyTool$Meta3dEvent from "./BodyTool.bs.js";
 import * as EventTool$Meta3dEvent from "./EventTool.bs.js";
 import * as BodyDoService$Meta3dEvent from "../../../src/event_manager/service/dom/BodyDoService.bs.js";
@@ -32,12 +32,11 @@ function prepare(sandbox, setBrowserFuncOpt, param) {
         0,
         null
       ]);
-  return ContainerManager$Meta3dEvent.setState(InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), BodyTool$Meta3dEvent.getBody(undefined)), canvasDom)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), BodyTool$Meta3dEvent.getBody(undefined)), canvasDom)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 export {
   buildKeyboardEvent ,
   prepare ,
-  
 }
 /* InitEventDoService-Meta3dEvent Not a pure module */

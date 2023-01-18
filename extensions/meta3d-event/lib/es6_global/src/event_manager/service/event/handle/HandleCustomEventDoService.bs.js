@@ -51,6 +51,5 @@ export {
   stopPropagation ,
   triggerGlobalEvent ,
   getCustomEventUserData ,
-  
 }
 /* No side effect */

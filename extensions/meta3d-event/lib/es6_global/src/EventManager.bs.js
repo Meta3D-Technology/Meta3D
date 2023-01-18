@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "./event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "./event_manager/service/dom/CanvasDoService.bs.js";
@@ -35,14 +35,14 @@ function onPointEvent(api, eventExtensionProtocolName, param) {
                   customEvent
                 ];
         }), eventManagerState, param[1], undefined);
-  return ContainerManager$Meta3dEvent.setState(eventManagerState$1, eventExtensionProtocolName);
+  ContainerManager$Meta3dEvent.setState(eventManagerState$1, eventExtensionProtocolName);
 }
 
 function _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName) {
   var browser = BrowserDoService$Meta3dEvent.getBrowser(eventManagerState);
   var canvas = OptionSt$Meta3dCommonlib.getExn(CanvasDoService$Meta3dEvent.getCanvas(eventManagerState));
   var body = BodyDoService$Meta3dEvent.getBodyExn(eventManagerState);
-  return ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(CanvasDoService$Meta3dEvent.setCanvas(BrowserDoService$Meta3dEvent.setBrowser(ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), browser), canvas), body), eventExtensionProtocolName);
+  ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(CanvasDoService$Meta3dEvent.setCanvas(BrowserDoService$Meta3dEvent.setBrowser(ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), browser), canvas), body), eventExtensionProtocolName);
 }
 
 function initEvent(api, meta3dState, eventExtensionProtocolName) {
@@ -144,6 +144,5 @@ export {
   getPointDragOverEventName ,
   getPointDragDropEventName ,
   createExtensionState ,
-  
 }
 /* InitEventDoService-Meta3dEvent Not a pure module */

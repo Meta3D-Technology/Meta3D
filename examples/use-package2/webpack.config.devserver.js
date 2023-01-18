@@ -12,6 +12,7 @@ module.exports = {
         filename: 'static/js/[name].js',
     },
 
+
     devServer: {
         compress: true,
         historyApiFallback: true,

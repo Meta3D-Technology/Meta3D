@@ -42,6 +42,5 @@ export {
   getPointDragStartEventName ,
   getPointDragOverEventName ,
   getPointDragDropEventName ,
-  
 }
 /* No side effect */

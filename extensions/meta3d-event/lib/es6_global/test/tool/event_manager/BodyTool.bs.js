@@ -7,6 +7,5 @@ function getBody(state) {
 
 export {
   getBody ,
-  
 }
 /* No side effect */

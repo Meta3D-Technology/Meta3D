@@ -42,6 +42,5 @@ export {
   getNodeData ,
   _getPipelineName ,
   isEqual ,
-  
 }
 /* No side effect */

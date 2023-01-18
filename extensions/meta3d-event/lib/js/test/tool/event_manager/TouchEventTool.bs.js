@@ -13,7 +13,7 @@ var InitEventDoService$Meta3dEvent = require("../../../src/event_manager/service
 var HandleTouchEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/handle/HandleTouchEventDoService.bs.js");
 
 function setLastXY(lastX, lastY) {
-  return ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setLastXY(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), lastX, lastY), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setLastXY(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), lastX, lastY), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function getIsDrag(param) {
@@ -21,7 +21,7 @@ function getIsDrag(param) {
 }
 
 function setIsDrag(isDrag) {
-  return ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), isDrag), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(HandleTouchEventDoService$Meta3dEvent.setIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), isDrag), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function buildTouchData(pageXOpt, pageYOpt, param) {
@@ -79,7 +79,7 @@ function prepare(sandbox, offsetLeftOpt, offsetTopOpt, offsetParentOpt, setBrows
   var offsetTop = offsetTopOpt !== undefined ? offsetTopOpt : 2;
   var offsetParent = offsetParentOpt !== undefined ? Caml_option.valFromOption(offsetParentOpt) : undefined;
   var setBrowserFunc = setBrowserFuncOpt !== undefined ? setBrowserFuncOpt : BrowserDetectTool$Meta3dEvent.setAndroid;
-  return ContainerManager$Meta3dEvent.setState(prepareWithState(sandbox, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), offsetLeft, offsetTop, Caml_option.some(offsetParent), setBrowserFunc, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(prepareWithState(sandbox, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), offsetLeft, offsetTop, Caml_option.some(offsetParent), setBrowserFunc, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 exports.setLastXY = setLastXY;

@@ -91,9 +91,9 @@ var _createSpecialKeyMap = (function() {
             189: "-",
             190: ".",
             191: "/",
-            192: "`",
+            192: "\`",
             219: "[",
-            220: "\\",
+            220: "\\\\",
             221: "]",
             222: "'"
         };
@@ -159,7 +159,8 @@ var _createShiftKeyByKeyCodeMap = (function(){
             219: "{",
             220: "|",
             221: "}",
-            222: "\""
+            // TODO should restore after upgrade rescrip!
+            // 222: "\\""
         };
 
         for(let key in map){
@@ -173,7 +174,7 @@ resultMap[key] = map[key];
 
 var _createShiftKeyByCharCodeMap = (function(){
   return {
-            "`": "~",
+            "\`": "~",
             "1": "!",
             "2": "@",
             "3": "#",
@@ -187,11 +188,12 @@ var _createShiftKeyByCharCodeMap = (function(){
             "-": "_",
             "=": "+",
             ";": ":",
-            "'": "\"",
+            // TODO should restore after upgrade rescrip!
+            // "'": "\\"",
             ",": "<",
             ".": ">",
             "/": "?",
-            "\\": "|"
+            "\\\\": "|"
         }
         });
 
@@ -230,6 +232,5 @@ export {
   _createShiftKeyByKeyCodeMap ,
   _createShiftKeyByCharCodeMap ,
   create ,
-  
 }
 /* No side effect */

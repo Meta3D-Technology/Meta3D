@@ -52,6 +52,5 @@ export {
   setAndroid ,
   setIOS ,
   setUnknown ,
-  
 }
 /* No side effect */

@@ -16,7 +16,6 @@ var poContainer = {
 
 function setState(state) {
   poContainer.state = state;
-  
 }
 
 function unsafeGetState(param) {
@@ -25,7 +24,6 @@ function unsafeGetState(param) {
 
 function setMeta3dState(meta3dState) {
   poContainer.meta3dState = meta3dState;
-  
 }
 
 function unsafeGetMeta3dState(param) {
@@ -39,6 +37,5 @@ export {
   unsafeGetState ,
   setMeta3dState ,
   unsafeGetMeta3dState ,
-  
 }
 /* No side effect */

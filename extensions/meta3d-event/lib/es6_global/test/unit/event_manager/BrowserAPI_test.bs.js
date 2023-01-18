@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Sinon from "../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Sinon$1 from "sinon";
 import * as Meta3d_jest from "../../../../../../../node_modules/meta3d-bs-jest/lib/es6_global/src/meta3d_jest.bs.js";
@@ -19,12 +19,12 @@ Meta3d_jest.describe("BrowserAPI", (function (param) {
         afterEach(function () {
               return Sinon.restoreSandbox(sandbox.contents);
             });
-        return Meta3d_jest.describe("setBrowser", (function (param) {
-                      return Meta3d_jest.test("set browser", (function (param) {
-                                    MainTool$Meta3dEvent.setBrowser(/* IOS */3);
-                                    return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(BrowserDoService$Meta3dEvent.getBrowser(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), /* IOS */3);
-                                  }));
-                    }));
+        Meta3d_jest.describe("setBrowser", (function (param) {
+                Meta3d_jest.test("set browser", (function (param) {
+                        MainTool$Meta3dEvent.setBrowser(/* IOS */3);
+                        return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(BrowserDoService$Meta3dEvent.getBrowser(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), /* IOS */3);
+                      }));
+              }));
       }));
 
 export {

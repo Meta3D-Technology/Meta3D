@@ -29,6 +29,5 @@ function setLastXY(lastX, lastY, eventData) {
 export {
   getLastXY ,
   setLastXY ,
-  
 }
 /* No side effect */

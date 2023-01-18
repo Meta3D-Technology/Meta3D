@@ -5,7 +5,7 @@ var ContainerManager$Meta3dEvent = require("../../../src/event_manager/data/Cont
 var EventExtensionTool$Meta3dEvent = require("./EventExtensionTool.bs.js");
 
 function setCanvas(canvas) {
-  return ContainerManager$Meta3dEvent.setState(CanvasDoService$Meta3dEvent.setCanvas(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), canvas), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(CanvasDoService$Meta3dEvent.setCanvas(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), canvas), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 exports.setCanvas = setCanvas;

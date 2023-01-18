@@ -338,6 +338,5 @@ export {
   disposeGameObjects ,
   cloneGameObject ,
   getAllGameObjects ,
-  
 }
 /* No side effect */

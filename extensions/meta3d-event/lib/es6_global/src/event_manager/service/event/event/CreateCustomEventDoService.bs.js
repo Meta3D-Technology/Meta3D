@@ -12,6 +12,5 @@ function create(eventName, userData) {
 
 export {
   create ,
-  
 }
 /* No side effect */

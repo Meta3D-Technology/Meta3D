@@ -31,6 +31,5 @@ function transposeSelf(mat) {
 export {
   createIdentityMatrix3 ,
   transposeSelf ,
-  
 }
 /* No side effect */

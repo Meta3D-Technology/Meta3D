@@ -157,7 +157,8 @@ function(){
             219: "{",
             220: "|",
             221: "}",
-            222: "\\""
+            // TODO should restore after upgrade rescrip!
+            // 222: "\\""
         };
 
         for(let key in map){
@@ -187,7 +188,8 @@ function(){
             "-": "_",
             "=": "+",
             ";": ":",
-            "'": "\\"",
+            // TODO should restore after upgrade rescrip!
+            // "'": "\\"",
             ",": "<",
             ".": ">",
             "/": "?",

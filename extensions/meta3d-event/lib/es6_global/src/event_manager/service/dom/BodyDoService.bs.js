@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 
 function getBodyExn(state) {
@@ -19,6 +19,5 @@ function setBody(state, body) {
 export {
   getBodyExn ,
   setBody ,
-  
 }
 /* No side effect */

@@ -13,6 +13,5 @@ function mergeResults(resultList) {
 
 export {
   mergeResults ,
-  
 }
 /* No side effect */

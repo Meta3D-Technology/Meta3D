@@ -70,6 +70,5 @@ export {
   getExtensionService ,
   createExtensionState ,
   getExtensionLife ,
-  
 }
 /* No side effect */

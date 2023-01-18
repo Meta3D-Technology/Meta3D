@@ -608,9 +608,14 @@ all should update version!
 publish all
 
 
-*** TODO pass engine whole package run test
+*** DONE pass engine whole package run test
+
+caml_notequal?
+cache?
+  not about cache!
 
 
+# *** TODO .gitignore add lib/
 
 
 
@@ -738,4 +743,20 @@ and register the newest protocol version?
 
 * TODO refactor: rename getGL to getGl??
 
+
+* TODO run test for 0.11.0 in dev
+
+clear all old ones
+
+publish 0.11.0
+
+rebuild all engine packages
+
+run test with isDebug:true
+
+
+
+
 * TODO publish
+
+

@@ -7,6 +7,5 @@ function buildEventExtentsionName(param) {
 
 export {
   buildEventExtentsionName ,
-  
 }
 /* No side effect */

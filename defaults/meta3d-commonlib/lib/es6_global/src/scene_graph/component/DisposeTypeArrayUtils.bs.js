@@ -1,6 +1,6 @@
 
 
-import * as Caml_array from "../../../../../../../extensions/meta3d-bs-most/node_modules/rescript/lib/es6/caml_array.js";
+import * as Caml_array from "../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 
 function deleteAndResetFloat32TypeArr(typeArr, sourceIndex, length, defaultValueArr) {
   for(var i = 0; i < length; ++i){
@@ -17,6 +17,5 @@ function deleteAndResetFloat32(typeArr, sourceIndex, defaultValue) {
 export {
   deleteAndResetFloat32TypeArr ,
   deleteAndResetFloat32 ,
-  
 }
 /* No side effect */

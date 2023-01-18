@@ -55,6 +55,5 @@ export {
   getExtensionService ,
   createExtensionState ,
   getExtensionLife ,
-  
 }
 /* EventManager-Meta3dEvent Not a pure module */

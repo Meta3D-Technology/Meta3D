@@ -196,6 +196,5 @@ export {
   getIsDrag ,
   setIsDrag ,
   setLastXYWhenMouseMove ,
-  
 }
 /* No side effect */

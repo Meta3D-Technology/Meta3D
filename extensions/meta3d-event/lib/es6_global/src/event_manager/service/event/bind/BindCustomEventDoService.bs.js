@@ -1,13 +1,14 @@
 
 
+import * as Js_array from "../../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as MutableHashMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
 
 function _addEventDataByPriority(eventData, arr) {
   var __x = ArraySt$Meta3dCommonlib.push(arr, eventData);
-  return __x.sort(function (eventDataA, eventDataB) {
-              return eventDataB.priority - eventDataA.priority | 0;
-            });
+  return Js_array.sortInPlaceWith((function (eventDataA, eventDataB) {
+                return eventDataB.priority - eventDataA.priority | 0;
+              }), __x);
 }
 
 function _addToEventArr(eventName, eventData, eventArrMap) {
@@ -42,9 +43,9 @@ function bindGlobalEvent(eventName, priority, handleFunc, state) {
 }
 
 function _removeFromEventArrByHandleFunc(arr, targetHandleFunc) {
-  return arr.filter(function (param) {
-              return param.handleFunc !== targetHandleFunc;
-            });
+  return Js_array.filter((function (param) {
+                return param.handleFunc !== targetHandleFunc;
+              }), arr);
 }
 
 function _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventArrMap) {
@@ -107,6 +108,5 @@ export {
   unbindGlobalEventByHandleFunc ,
   _removeFromEventListMapByEventName ,
   unbindGlobalEventByEventName ,
-  
 }
 /* No side effect */

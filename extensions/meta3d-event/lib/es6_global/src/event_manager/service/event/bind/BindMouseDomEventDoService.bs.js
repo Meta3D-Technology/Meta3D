@@ -63,6 +63,5 @@ export {
   _removeFromEventArrMapByHandleFunc ,
   bind ,
   unbindByHandleFunc ,
-  
 }
 /* No side effect */

@@ -9,7 +9,7 @@ function getBodyExn(param) {
 }
 
 function setBody(body) {
-  return ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), body), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), body), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 exports.getBodyExn = getBodyExn;

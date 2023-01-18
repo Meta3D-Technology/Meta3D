@@ -8,43 +8,43 @@ var ManageEventDoService$Meta3dEvent = require("../../../src/event_manager/servi
 var CreateCustomEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/event/CreateCustomEventDoService.bs.js");
 
 function onMouseEvent(eventName, priority, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onMouseEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onMouseEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function onKeyboardEvent(eventName, priority, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onKeyboardEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onKeyboardEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function onTouchEvent(eventName, priority, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onTouchEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onTouchEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function offMouseEventByHandleFunc(eventName, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offMouseEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offMouseEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function offKeyboardEventByHandleFunc(eventName, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offKeyboardEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offKeyboardEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function offTouchEventByHandleFunc(eventName, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offTouchEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offTouchEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function onCustomGlobalEvent(eventName, priority, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function offCustomGlobalEventByEventName(eventName) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByEventName(eventName, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByEventName(eventName, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function offCustomGlobalEventByHandleFunc(eventName, handleFunc) {
-  return ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function triggerCustomGlobalEvent(customEvent) {
-  return ContainerManager$Meta3dEvent.setState(Tuple2$Meta3dCommonlib.getFirst(ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent(customEvent, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(Tuple2$Meta3dCommonlib.getFirst(ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent(customEvent, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
 }
 
 function createCustomEvent(eventName, userData) {

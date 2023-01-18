@@ -17,6 +17,5 @@ function setBrowser(state, browser) {
 export {
   getBrowser ,
   setBrowser ,
-  
 }
 /* No side effect */

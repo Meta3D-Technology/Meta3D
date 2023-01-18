@@ -17,6 +17,5 @@ export {
   createState ,
   getState ,
   setState ,
-  
 }
 /* No side effect */

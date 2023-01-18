@@ -25,6 +25,5 @@ function insertNode(tree, targetPipelineName, node) {
 
 export {
   insertNode ,
-  
 }
 /* No side effect */
