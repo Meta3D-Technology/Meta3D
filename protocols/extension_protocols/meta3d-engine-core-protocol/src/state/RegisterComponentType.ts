@@ -1,6 +1,6 @@
-import type { t as Meta3dCommonlibType_ImmutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/ImmutableHashMapType.gen';
+import type { t as Meta3dCommonlibType_ImmutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/ImmutableHashMapType';
 
-import type { t as Meta3dCommonlibType_MutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/MutableHashMapType.gen';
+import type { t as Meta3dCommonlibType_MutableHashMapType_t } from 'meta3d-commonlib-type/src/structure/hash_map/MutableHashMapType';
 
 import type { addComponentFunc as IComponentForJs_addComponentFunc } from '../../src/contribute/scene_graph/ComponentContributeType';
 

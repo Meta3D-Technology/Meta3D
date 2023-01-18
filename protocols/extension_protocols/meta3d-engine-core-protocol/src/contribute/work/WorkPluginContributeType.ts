@@ -37,7 +37,7 @@ export type workPluginName = string;
 export type allPipelineData = pipelineData[];
 
 // tslint:disable-next-line:interface-over-type-literal
-export type workPluginContribute<config, state, states> = {
+export type workPluginContribute<config, state> = {
     readonly workPluginName: workPluginName;
     readonly createStateFunc: createStateFunc<config, state>;
     readonly initFunc: initFunc<state>;

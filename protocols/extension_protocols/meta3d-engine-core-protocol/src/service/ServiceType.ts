@@ -11,8 +11,6 @@ import type { dataName as ComponentContributeType_dataName } from '../../src/con
 
 import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
-import type { config as workPluginConfig } from '../state/RegisterWorkPluginType';
-
 // import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
 import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute/scene_graph/GameObjectContributeType';
@@ -34,10 +32,10 @@ export type service = {
     readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
     readonly prepare: () => void;
     readonly init: (_1: StateType_state, _2: Meta3dType_Index_state) => StateType_state;
-    readonly registerWorkPlugin: <config, state, states>(
+    readonly registerWorkPlugin: <config, state>(
         state: StateType_state,
-        contribute: workPluginContribute<config, state, states>,
-        config?: nullable<workPluginConfig>,
+        contribute: workPluginContribute<config, state>,
+        config?: nullable<config>,
         jobOrders?: RegisterWorkPluginVOType_jobOrders
     ) => StateType_state;
     readonly unregisterWorkPlugin: (_1: StateType_state, _2: workPluginName) => StateType_state;
@@ -54,7 +52,7 @@ export type service = {
     readonly getComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject) => (null | undefined | component);
     readonly getNeedDisposedComponents: <needDisposedComponents> (_1: RegisterComponentType_usedComponentContribute) => needDisposedComponents;
     readonly deferDisposeComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: [component, GameObjectContributeType_gameObject]) => RegisterComponentType_usedComponentContribute;
-    readonly disposeComponents: <component, batchDisposeData> (_1: RegisterComponentType_usedComponentContribute, _2: batchDisposeData) => RegisterComponentType_usedComponentContribute;
+    readonly disposeComponents: <batchDisposeData> (_1: RegisterComponentType_usedComponentContribute, _2: batchDisposeData) => RegisterComponentType_usedComponentContribute;
     readonly getAllComponents: <component> (_1: RegisterComponentType_usedComponentContribute) => component[];
     readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => nullable<dataValue>;
     readonly getComponentGameObjects: <component> (_1: RegisterComponentType_usedComponentContribute, _2: component) => GameObjectContributeType_gameObject[];

@@ -5,6 +5,8 @@ import { dependentExtensionNameMap, dependentContributeNameMap } from "meta3d-en
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
+import { state as viewRectState, states as viewRectStates } from "meta3d-work-plugin-viewrect-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-work-plugin-viewrect-protocol/src/ConfigType";
 import { state as createGLState, states as createGLStates } from "meta3d-work-plugin-webgl1-creategl-protocol/src/StateType";
 import { config as createGLConfig } from "meta3d-work-plugin-webgl1-creategl-protocol/src/ConfigType";
 import { state as detectGLState, states as detectGLStates } from "meta3d-work-plugin-webgl1-detectgl-protocol/src/StateType";
@@ -27,6 +29,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api, [{
 	meta3dEngineCoreExtensionName,
 }, {
+	meta3dWorkPluginViewRectContributeName,
 	meta3dWorkPluginWebgl1CreateGLContributeName,
 	meta3dWorkPluginWebgl1DetectGLContributeName,
 	meta3dWorkPluginWebgl1GeometryContributeName,
@@ -36,7 +39,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dWorkPluginWebgl1SenduniformshaderdataContributeName,
 }]) => {
 		return {
-			prepare: (meta3dState: meta3dState, isDebug, [canvas, gl]) => {
+			prepare: (meta3dState: meta3dState, isDebug, canvas) => {
 				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionName)
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
@@ -47,11 +50,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				let { registerWorkPlugin } = engineCoreService
 
-
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<createGLConfig, createGLState, createGLStates>>(meta3dState, meta3dWorkPluginWebgl1CreateGLContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<viewRectConfig, viewRectState>>(meta3dState, meta3dWorkPluginViewRectContributeName),
 					{
-						canvas: canvas,
-						gl: gl
+						canvas: canvas
 					},
 					[
 						{
@@ -62,7 +63,22 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<detectGLConfig, detectGLState, detectGLStates>>(meta3dState, meta3dWorkPluginWebgl1DetectGLContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<createGLConfig, createGLState>>(meta3dState, meta3dWorkPluginWebgl1CreateGLContributeName),
+					{
+						canvas: canvas
+					},
+					[
+						{
+							pipelineName: "init",
+							insertElementName: "init_root_meta3d",
+							insertAction: "after"
+						}
+					]
+				)
+
+
+
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<detectGLConfig, detectGLState>>(meta3dState, meta3dWorkPluginWebgl1DetectGLContributeName),
 					null,
 					[
 						{
@@ -73,7 +89,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<geometryConfig, geometryState, geometryStates>>(meta3dState, meta3dWorkPluginWebgl1GeometryContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<geometryConfig, geometryState>>(meta3dState, meta3dWorkPluginWebgl1GeometryContributeName),
 					{
 						workPluginWhichHasAllGeometryIndicesName: dataWorkPluginName
 					},
@@ -86,7 +102,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<materialConfig, materialState, materialStates>>(meta3dState, meta3dWorkPluginWebgl1MaterialContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<materialConfig, materialState>>(meta3dState, meta3dWorkPluginWebgl1MaterialContributeName),
 					{
 						workPluginWhichHasAllMaterialIndicesName: dataWorkPluginName
 					},
@@ -99,7 +115,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<senduniformshaderdataConfig, senduniformshaderdataState, senduniformshaderdataStates>>(meta3dState, meta3dWorkPluginWebgl1SenduniformshaderdataContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, meta3dWorkPluginWebgl1SenduniformshaderdataContributeName),
 					{
 						workPluginWhichHasUniformShaderDataName: dataWorkPluginName
 					},
@@ -112,7 +128,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<renderConfig, renderState, renderStates>>(meta3dState, meta3dWorkPluginWebgl1RenderContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<renderConfig, renderState>>(meta3dState, meta3dWorkPluginWebgl1RenderContributeName),
 					{
 						workPluginWhichHasAllRenderComponentsName: dataWorkPluginName
 					},
@@ -125,7 +141,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<dataConfig, dataState, dataStates>>(meta3dState, meta3dWorkPluginWebgl1DataContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<dataConfig, dataState>>(meta3dState, meta3dWorkPluginWebgl1DataContributeName),
 					{
 						isDebug: isDebug
 					},

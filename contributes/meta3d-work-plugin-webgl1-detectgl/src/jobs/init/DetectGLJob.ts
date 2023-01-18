@@ -9,7 +9,7 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc }) => {
 	return mostService.callFunc(() => {
 		console.log("detect gl job");
 
-		webgl1Service.getExtension("OES_element_index_uint", getGL(states),)
+		webgl1Service.getExtension("OES_element_index_uint", getGL(states))
 
 		return meta3dState
 	})

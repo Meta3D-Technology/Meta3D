@@ -19,7 +19,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 			setState(states, {
 				...getState(states),
 				allGeometryIndices: engineCoreService.getAllComponents<geometry>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geoemtryComponentName)),
-				allMaterialIndices: engineCoreService.getAllComponents<pbrMaterial>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName))
+				allMaterialIndices: engineCoreService.getAllComponents<pbrMaterial>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)),
 			})
 		)
 	})

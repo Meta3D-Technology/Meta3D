@@ -1,7 +1,6 @@
 type workPluginContributeForRegister = StateType.workPluginContribute<
   Js.Nullable.t<RegisterWorkPluginType.config>,
   RegisterWorkPluginType.state,
-  RegisterWorkPluginType.states,
 >
 
 type allRegisteredWorkPluginContribute = list<StateType.registeredWorkPluginContribute>

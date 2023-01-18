@@ -34,7 +34,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<rootConfig, rootState, rootStates>>(meta3dState, meta3dWorkPluginRootContributeName)
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<rootConfig, rootState>>(meta3dState, meta3dWorkPluginRootContributeName)
 				)
 
 

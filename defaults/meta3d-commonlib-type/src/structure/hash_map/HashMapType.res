@@ -1,4 +1,3 @@
-@genType
 type t<'key, 'value> = Js.Dict.t<Js.Nullable.t<'value>>
 type t2<'value> = t<string, 'value>
 

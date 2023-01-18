@@ -24,7 +24,7 @@ type rec state = {
 }
 and execFunc = (Meta3dType.Index.state, operateStatesFuncs) => stream<Meta3dType.Index.state>
 and getExecFunc = (PipelineType.pipelineName, jobName) => Js.Nullable.t<execFunc>
-and workPluginContribute<'config, 'state, 'states> = {
+and workPluginContribute<'config, 'state> = {
   workPluginName: workPluginName,
   createStateFunc: createStateFunc<'config, 'state>,
   initFunc: initFunc<'state>,
@@ -39,7 +39,6 @@ and registeredWorkPluginContribute = (
   workPluginContribute<
     Js.Nullable.t<RegisterWorkPluginType.config>,
     RegisterWorkPluginType.state,
-    RegisterWorkPluginType.states,
   >,
   Js.Nullable.t<RegisterWorkPluginType.config>,
   RegisterWorkPluginType.jobOrders,

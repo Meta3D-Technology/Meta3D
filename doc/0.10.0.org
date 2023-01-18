@@ -533,10 +533,61 @@ invoke engineWhole.prepare, work plugin's init after uiService.init(so can get i
 
 TODO refactor
 
-
-** TODO update use-package2
+** DONE separate engine whole package between editor and engine
 
 work-plugin-camera not dependent on meta3d-ui?
+
+on -data
+
+
+-data:
+add GetViewRectJob in update pipeline
+
+
+
+
+update data, camera
+
+editor -> engine use own creategl, data 
+
+
+
+
+refactor: add gl to data; get gl from data
+
+
+
+
+TODO different engine-render, engine-whole package
+  # engine-render, engine-whole extension not change
+  engine-whole extension not change
+  engine-render extension change
+
+
+
+
+TODO update use-editor
+
+
+
+
+** TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
+
+
+
+** TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+
+** TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
+e.g.  let {
+		meta3dWebgl1ExtensionName,
+		meta3dBsMostExtensionName,
+		meta3dUIExtensionName,
+	} = dependentMapData[0]
+
+
+
+** TODO rename work plugin to meta3d-engine-pipeline,meta3d-engine-pipeline-engine,meta3d-engine-pipeline-editor
+
 
 
 
@@ -544,12 +595,23 @@ work-plugin-camera not dependent on meta3d-ui?
 
 ** TODO run test
 
+*** TODO update use-package2
 
-*** TODO rebuild engine whole package
+
+*** TODO rebuild engine whole package for engine
+
+publish
 
 
 *** TODO pass engine whole package run test
 
+
+
+
+
+*** TODO rebuild engine whole package for editor
+
+not has meta3d-ui extension!
 
 
 *** TODO pass view run test
@@ -659,22 +721,6 @@ dependent on scene view event, game view event(has independent state)?
 
 * TODO refactor: remove unused extensions, contributes, related protocols
 
-
-* TODO refactor: rename DepenentMapType -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
-
-* TODO refactor: rename work plugin -> ExtensionName, ContributeName to ExtensionProtolName, ContributeProtocolName
-e.g.  let {
-		meta3dWebgl1ExtensionName,
-		meta3dBsMostExtensionName,
-		meta3dUIExtensionName,
-	} = dependentMapData[0]
-
-
-
-* TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
-
-
-* TODO rename work plugin to meta3d-engine-pipeline,meta3d-engine-pipeline-engine,meta3d-engine-pipeline-editor
 
 * TODO refactor: rename getGL to getGl??
 

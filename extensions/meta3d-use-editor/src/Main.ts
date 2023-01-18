@@ -21,7 +21,7 @@ import { config as sceneView1Config } from "meta3d-work-plugin-editor-webgl1-sce
 import { state as sceneView1State, states as sceneView1States } from "meta3d-work-plugin-editor-webgl1-scene-view1-protocol/src/StateType";
 import { config as sceneView2Config } from "meta3d-work-plugin-editor-webgl1-scene-view2-protocol/src/ConfigType";
 import { state as sceneView2State, states as sceneView2States } from "meta3d-work-plugin-editor-webgl1-scene-view2-protocol/src/StateType";
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionNameMap, _]: [dependentExtensionNameMap, dependentContributeNameMap]) => {
 	let { meta3dEventExtensionName, meta3dUIExtensionName } = dependentExtensionNameMap
@@ -111,7 +111,7 @@ let _registerEditorWorkPlugins = (
 
 	let { registerWorkPlugin } = engineCoreService
 
-	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView1Config, sceneView1State, sceneView1States>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView1ContributeName),
+	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView1Config, sceneView1State>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView1ContributeName),
 		null,
 		[
 			{
@@ -131,7 +131,7 @@ let _registerEditorWorkPlugins = (
 			},
 		]
 	)
-	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView2Config, sceneView2State, sceneView2States>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView2ContributeName),
+	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView2Config, sceneView2State>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView2ContributeName),
 		null,
 		[
 			{
@@ -148,12 +148,12 @@ let _registerEditorWorkPlugins = (
 let _prepareAndInitEngine = (
 	meta3dState: meta3dState, api: api,
 	uiService: uiService,
-	meta3dEngineWholeExtensionName: string,
+	meta3dEditorEngineWholeExtensionName: string,
 	isDebug: boolean
 ) => {
 	let engineWholeService = api.getExtensionService<engineWholeService>(
 		meta3dState,
-		meta3dEngineWholeExtensionName
+		meta3dEditorEngineWholeExtensionName
 	)
 
 	meta3dState = engineWholeService.prepare(meta3dState, isDebug,
@@ -165,7 +165,7 @@ let _prepareAndInitEngine = (
 			geometryPointCount: 1000,
 			pbrMaterialCount: 100
 		},
-		[null, uiService.getContext(meta3dState)]
+		uiService.getContext(meta3dState)
 	)
 
 
@@ -176,7 +176,7 @@ let _prepareAndInitEngine = (
 
 let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExtensionNameMap, dependentContributeNameMap], [canvasData, { isDebug }]: configData) => {
 	let [dependentExtensionNameMap, dependentContributeNameMap] = dependentMapData
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEngineCoreExtensionName, meta3dEngineWholeExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEngineCoreExtensionName, meta3dEditorEngineWholeExtensionName } = dependentExtensionNameMap
 	let {
 		meta3dWorkPluginEditorWebgl1SceneView1ContributeName,
 		meta3dWorkPluginEditorWebgl1SceneView2ContributeName
@@ -202,7 +202,7 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 		return _prepareAndInitEngine(
 			meta3dState, api,
 			uiService,
-			meta3dEngineWholeExtensionName,
+			meta3dEditorEngineWholeExtensionName,
 			isDebug
 		)
 	})
@@ -232,11 +232,11 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 let _loopEngine = (
 	meta3dState: meta3dState,
 	api: api,
-	meta3dEngineWholeExtensionName: string
+	meta3dEditorEngineWholeExtensionName: string
 ) => {
 	let engineWholeService = api.getExtensionService<engineWholeService>(
 		meta3dState,
-		meta3dEngineWholeExtensionName
+		meta3dEditorEngineWholeExtensionName
 	)
 
 	return engineWholeService.update(meta3dState).then(meta3dState => engineWholeService.render(meta3dState))
@@ -245,7 +245,7 @@ let _loopEngine = (
 let _loop = (
 	api: api, meta3dState: meta3dState,
 	time: number,
-	[meta3dEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName]: [string, string, string],
+	[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName]: [string, string, string],
 	configData: configData
 ) => {
 	let [_, { skinName, clearColor }] = configData
@@ -268,12 +268,12 @@ let _loop = (
 	render(meta3dState, [meta3dUIExtensionName, meta3dImguiRendererExtensionName], time).then((meta3dState: meta3dState) => {
 		// resetIOData()
 
-		_loopEngine(meta3dState, api, meta3dEngineWholeExtensionName).then(meta3dState => {
+		_loopEngine(meta3dState, api, meta3dEditorEngineWholeExtensionName).then(meta3dState => {
 			requestAnimationFrame(
 				(time) => {
 					_loop(api, meta3dState,
 						time,
-						[meta3dEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
+						[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
 				}
 			)
 		})
@@ -285,14 +285,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	dependentContributeNameMap,
 	service
 > = (api, [dependentExtensionNameMap, dependentContributeNameMap]) => {
-	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEngineWholeExtensionName } = dependentExtensionNameMap
+	let { meta3dUIExtensionName, meta3dImguiRendererExtensionName, meta3dEditorEngineWholeExtensionName } = dependentExtensionNameMap
 
 	return {
 		run: (meta3dState: meta3dState, configData) => {
 			_init(meta3dState, api, [dependentExtensionNameMap, dependentContributeNameMap], configData).then((meta3dState: meta3dState) => {
 				_loop(api, meta3dState,
 					0,
-					[meta3dEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
+					[meta3dEditorEngineWholeExtensionName, meta3dUIExtensionName, meta3dImguiRendererExtensionName], configData)
 			})
 		}
 	}

@@ -3,6 +3,7 @@ export type dependentExtensionNameMap = {
 }
 
 export type dependentContributeNameMap = {
+    meta3dWorkPluginViewRectContributeName: string,
     meta3dWorkPluginWebgl1CreateGLContributeName: string,
     meta3dWorkPluginWebgl1DetectGLContributeName: string,
     meta3dWorkPluginWebgl1GeometryContributeName: string,

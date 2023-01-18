@@ -14,10 +14,6 @@ export function setState(states: states, state: state): states {
     });
 }
 
-export function getGL(states: states) {
-    return getExn(states[createGLWorkPluginName].gl)
-}
-
 export function getVBO(states: states) {
     return getExn(states[geometryWorkPluginName].vbo)
 }

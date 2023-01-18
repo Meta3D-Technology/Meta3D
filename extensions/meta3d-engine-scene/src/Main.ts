@@ -66,7 +66,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				let { registerWorkPlugin, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<cameraWorkPluginConfig, cameraWorkPluginState, cameraWorkPluginStates>>(meta3dState, meta3dWorkPluginCameraContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<cameraWorkPluginConfig, cameraWorkPluginState>>(meta3dState, meta3dWorkPluginCameraContributeName),
 					{
 						isDebug
 					},
@@ -79,7 +79,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<transformWorkPluginConfig, transformWorkPluginState, transformWorkPluginStates>>(meta3dState, meta3dWorkPluginTransformContributeName),
+				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<transformWorkPluginConfig, transformWorkPluginState>>(meta3dState, meta3dWorkPluginTransformContributeName),
 					null,
 					[
 						{

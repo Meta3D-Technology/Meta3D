@@ -1,5 +1,5 @@
 import { state, states, workPluginName } from "meta3d-work-plugin-webgl1-detectgl-protocol/src/StateType"
-import { workPluginName as createGLWorkPluginName } from "meta3d-work-plugin-webgl1-creategl-protocol/src/StateType"
+import { workPluginName as dataWorkPluginName } from "meta3d-work-plugin-webgl1-data-protocol/src/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export function getState(states: states): state {
@@ -13,5 +13,5 @@ export function setState(states: states, state: state): states {
 }
 
 export function getGL(states: states) {
-    return getExn(states[createGLWorkPluginName].gl)
+    return getExn(states[dataWorkPluginName].gl)
 }

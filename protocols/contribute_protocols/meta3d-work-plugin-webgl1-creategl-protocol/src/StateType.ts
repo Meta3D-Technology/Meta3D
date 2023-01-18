@@ -1,16 +1,16 @@
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
-import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
-import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { workPluginName as dataWorkPluginName, state as dataState } from "meta3d-work-plugin-webgl1-data-protocol/src/StateType"
 
 export const workPluginName = "WebGL1_CreateGL"
 
 export type state = {
     mostService: mostService,
     webgl1Service: webgl1Service,
-    canvas: nullable<HTMLCanvasElement>,
-    gl: nullable<webgl1Context>,
+    canvas: HTMLCanvasElement
 }
 
 export type states = {
-    [workPluginName]: state
+    [dataWorkPluginName]: dataState,
+    [workPluginName]: state,
 }

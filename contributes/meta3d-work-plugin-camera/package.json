@@ -11,9 +11,6 @@
         },
         "meta3dEngineCoreExtensionName": {
             "protocolName": "meta3d-engine-core-protocol"
-        },
-        "meta3dUIExtensionName": {
-            "protocolName": "meta3d-ui-protocol"
         }
     },
     "dependentContributeNameMap": {},
@@ -29,7 +26,6 @@
         "meta3d-type": "^0.9.0",
         "meta3d-bs-most-protocol": "^0.9.0",
         "meta3d-engine-core-protocol": "^0.9.0",
-        "meta3d-ui-protocol": "^0.9.0",
         "meta3d-work-plugin-camera-protocol": "^0.9.0"
     },
     "devDependencies": {
