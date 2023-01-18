@@ -595,7 +595,7 @@ e.g.  let {
 
 ** TODO run test
 
-*** TODO update use-package2
+*** DONE update use-package2
 
 
 *** TODO rebuild engine whole package for engine
