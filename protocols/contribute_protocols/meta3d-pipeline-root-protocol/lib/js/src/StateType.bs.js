@@ -1,7 +1,7 @@
 'use strict';
 
 
-var workPluginName = "Root";
+var pipelineName = "Root";
 
-exports.workPluginName = workPluginName;
+exports.pipelineName = pipelineName;
 /* No side effect */

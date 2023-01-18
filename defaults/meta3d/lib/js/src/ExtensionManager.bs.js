@@ -81,8 +81,8 @@ function _decideContributeType(contribute) {
     return /* UIControl */0;
   } else if (!(contribute.skinName == null) && !(contribute.skin == null)) {
     return /* Skin */1;
-  } else if (!(contribute.workPluginName == null) && !(contribute.allPipelineData == null)) {
-    return /* WorkPlugin */6;
+  } else if (!(contribute.pipelineName == null) && !(contribute.allPipelineData == null)) {
+    return /* Pipeline */6;
   } else {
     return /* Unknown */7;
   }

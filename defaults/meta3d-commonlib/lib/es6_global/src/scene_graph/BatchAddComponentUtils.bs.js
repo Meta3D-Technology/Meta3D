@@ -5,13 +5,13 @@ import * as ArraySt$Meta3dCommonlib from "../structure/ArraySt.bs.js";
 import * as Contract$Meta3dCommonlib from "../contract/Contract.bs.js";
 
 function _checkBatchAdd(isDebug, gameObjects, components) {
-  Contract$Meta3dCommonlib.requireCheck((function (param) {
-          var gameObjectCount = gameObjects.length;
-          var componentCount = components.length;
-          Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("one gameObject should add one component", "" + gameObjectCount + " gameObject add " + componentCount + " components"), (function (param) {
-                  return Contract$Meta3dCommonlib.Operators.$eq(gameObjectCount, componentCount);
-                }));
-        }), isDebug);
+  return Contract$Meta3dCommonlib.requireCheck((function (param) {
+                var gameObjectCount = gameObjects.length;
+                var componentCount = components.length;
+                return Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("one gameObject should add one component", "" + gameObjectCount + " gameObject add " + componentCount + " components"), (function (param) {
+                              return Contract$Meta3dCommonlib.Operators.$eq(gameObjectCount, componentCount);
+                            }));
+              }), isDebug);
 }
 
 function batchAdd(componentState, addComponentFunc, isDebug, gameObjects, components) {
@@ -24,5 +24,6 @@ function batchAdd(componentState, addComponentFunc, isDebug, gameObjects, compon
 export {
   _checkBatchAdd ,
   batchAdd ,
+  
 }
 /* No side effect */

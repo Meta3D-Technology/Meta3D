@@ -1,9 +1,9 @@
 
 
 
-var workPluginName = "Root";
+var pipelineName = "Root";
 
 export {
-  workPluginName ,
+  pipelineName ,
 }
 /* No side effect */

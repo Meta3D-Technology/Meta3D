@@ -597,10 +597,13 @@ e.g.  let {
 
 *** DONE update use-package2
 
+*** DONE refactor: remove unused extensions, contributes, related protocols
 
-*** TODO rebuild engine whole package for engine
 
-update related version
+*** DONE rebuild engine package for engine
+
+# update related version
+all should update version!
 
 publish all
 
@@ -719,9 +722,18 @@ dependent on scene view event, game view event(has independent state)?
 
 
 
+* TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
+
+# should warn(protocol name, protocol version, name, version) and register the newest protocol version
+should warn:
+# protocol name, protocol version, name, version already exist, but wish to be set to protocol name, protocol version, name, version
+protocol name, protocol version already exist, but wish to be set to protocol version! 
+use protocol version finally!
 
 
-* TODO refactor: remove unused extensions, contributes, related protocols
+# and register the newest protocol version and newest version?
+and register the newest protocol version?
+
 
 
 * TODO refactor: rename getGL to getGl??

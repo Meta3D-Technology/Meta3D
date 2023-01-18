@@ -17,7 +17,6 @@ let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.StateType.pipelineContribute<
     Meta3dPipelineRootProtocol.ConfigType.config,
     Meta3dPipelineRootProtocol.StateType.state,
-    Meta3dPipelineRootProtocol.StateType.states,
   >,
 > = (api, ({meta3dBsMostExtensionProtocolName}, _)) => {
   {

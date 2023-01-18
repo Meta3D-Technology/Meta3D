@@ -24,7 +24,7 @@ let generateApp = (
         {data}: FrontendUtils.ApAssembleStoreType.contribute,
       ) => data),
       selectPackages->Meta3dCommonlib.ArraySt.map((
-        {protocol, entryExtensionName}: FrontendUtils.PackageAssembleStoreType.package,
+        {protocol}: FrontendUtils.PackageAssembleStoreType.package,
       ): Meta3d.ExtensionFileType.extensionProtocolData => {
         name: protocol.name,
         version: protocol.version,

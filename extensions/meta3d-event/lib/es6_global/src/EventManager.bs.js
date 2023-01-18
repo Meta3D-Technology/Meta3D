@@ -19,15 +19,15 @@ function registerAction(state, actionContribute) {
         };
 }
 
-function trigger(api, meta3dState, eventExtensionName, actionName, actionData) {
-  var state = api.getExtensionState(meta3dState, eventExtensionName);
+function trigger(api, meta3dState, eventExtensionProtocolName, actionName, actionData) {
+  var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
   var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, actionName);
   return Curry._2(actionContribute.handler, meta3dState, actionData);
 }
 
-function onPointEvent(api, eventExtensionName, param) {
+function onPointEvent(api, eventExtensionProtocolName, param) {
   var handleFunc = param[2];
-  var eventManagerState = ContainerManager$Meta3dEvent.getState(eventExtensionName);
+  var eventManagerState = ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName);
   var eventManagerState$1 = ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(param[0], (function (customEvent, state) {
           handleFunc(customEvent);
           return [
@@ -35,46 +35,46 @@ function onPointEvent(api, eventExtensionName, param) {
                   customEvent
                 ];
         }), eventManagerState, param[1], undefined);
-  return ContainerManager$Meta3dEvent.setState(eventManagerState$1, eventExtensionName);
+  return ContainerManager$Meta3dEvent.setState(eventManagerState$1, eventExtensionProtocolName);
 }
 
-function _setDomToStateForEventHandler(eventManagerState, eventExtensionName) {
+function _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName) {
   var browser = BrowserDoService$Meta3dEvent.getBrowser(eventManagerState);
   var canvas = OptionSt$Meta3dCommonlib.getExn(CanvasDoService$Meta3dEvent.getCanvas(eventManagerState));
   var body = BodyDoService$Meta3dEvent.getBodyExn(eventManagerState);
-  return ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(CanvasDoService$Meta3dEvent.setCanvas(BrowserDoService$Meta3dEvent.setBrowser(ContainerManager$Meta3dEvent.getState(eventExtensionName), browser), canvas), body), eventExtensionName);
+  return ContainerManager$Meta3dEvent.setState(BodyDoService$Meta3dEvent.setBody(CanvasDoService$Meta3dEvent.setCanvas(BrowserDoService$Meta3dEvent.setBrowser(ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), browser), canvas), body), eventExtensionProtocolName);
 }
 
-function initEvent(api, meta3dState, eventExtensionName) {
-  var state = api.getExtensionState(meta3dState, eventExtensionName);
-  ContainerManager$Meta3dEvent.createState(CreateEventManagerState$Meta3dEvent.create, eventExtensionName);
-  var eventManagerState = InitEventDoService$Meta3dEvent.initEvent(state.eventManagerState, eventExtensionName);
-  _setDomToStateForEventHandler(eventManagerState, eventExtensionName);
-  return api.setExtensionState(meta3dState, eventExtensionName, {
+function initEvent(api, meta3dState, eventExtensionProtocolName) {
+  var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+  ContainerManager$Meta3dEvent.createState(CreateEventManagerState$Meta3dEvent.create, eventExtensionProtocolName);
+  var eventManagerState = InitEventDoService$Meta3dEvent.initEvent(state.eventManagerState, eventExtensionProtocolName);
+  _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName);
+  return api.setExtensionState(meta3dState, eventExtensionProtocolName, {
               actionContributeMap: state.actionContributeMap,
               eventManagerState: eventManagerState
             });
 }
 
-function _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionName, setDomDataFunc, domData) {
-  var state = api.getExtensionState(meta3dState, eventExtensionName);
+function _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionProtocolName, setDomDataFunc, domData) {
+  var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
   var eventManagerState = Curry._2(setDomDataFunc, state.eventManagerState, domData);
-  return api.setExtensionState(meta3dState, eventExtensionName, {
+  return api.setExtensionState(meta3dState, eventExtensionProtocolName, {
               actionContributeMap: state.actionContributeMap,
               eventManagerState: eventManagerState
             });
 }
 
-function setBrowser(api, meta3dState, eventExtensionName, browser) {
-  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionName, BrowserDoService$Meta3dEvent.setBrowser, browser);
+function setBrowser(api, meta3dState, eventExtensionProtocolName, browser) {
+  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionProtocolName, BrowserDoService$Meta3dEvent.setBrowser, browser);
 }
 
-function setCanvas(api, meta3dState, eventExtensionName, canvas) {
-  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionName, CanvasDoService$Meta3dEvent.setCanvas, canvas);
+function setCanvas(api, meta3dState, eventExtensionProtocolName, canvas) {
+  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionProtocolName, CanvasDoService$Meta3dEvent.setCanvas, canvas);
 }
 
-function setBody(api, meta3dState, eventExtensionName, body) {
-  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionName, BodyDoService$Meta3dEvent.setBody, body);
+function setBody(api, meta3dState, eventExtensionProtocolName, body) {
+  return _invokeEventManagerSetDomDataFuncWithOneArg(api, meta3dState, eventExtensionProtocolName, BodyDoService$Meta3dEvent.setBody, body);
 }
 
 function getBrowserChromeType(param) {

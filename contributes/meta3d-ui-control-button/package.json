@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-button",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-ui-control-button-protocol"
@@ -21,8 +21,8 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.9.0",
-        "meta3d-ui-control-button-protocol": "^0.9.0",
-        "meta3d-ui-protocol": "^0.9.0"
+        "meta3d-ui-control-button-protocol": "^0.9.1",
+        "meta3d-ui-protocol": "^0.9.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

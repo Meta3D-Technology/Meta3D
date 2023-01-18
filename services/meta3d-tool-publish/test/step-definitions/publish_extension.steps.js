@@ -28,10 +28,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         getFileIDFunc = CloudbaseService_1.getFileID;
         parseShopCollectionDataBodyFunc = CloudbaseService_1.parseShopCollectionDataBodyForNodejs;
     }
-    function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionNameMap = {}, dependentContributeNameMap = {}, dependencies = {
+    function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionProtocolNameMap = {}, dependentContributeProtocolNameMap = {}, dependencies = {
         "test1-protocol": "^0.0.1"
     }) {
-        return { name, version, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies };
+        return { name, version, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies };
     }
     function _publishExtension(packageFilePath = "", distFilePath = "") {
         return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], packageFilePath, distFilePath, "extension");
@@ -94,7 +94,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         given('prepare funcs', () => {
             _createFuncs(sandbox);
             readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1", "0.0.2", { name: "test1-protocol" }, "meta3d", {
-                meta3dTest1ExtensionName: {
+                meta3dTest1ExtensionProtocolName: {
                     "protocolName": "meta3d-extension-test1-protocol"
                 }
             }, {}, {
@@ -115,7 +115,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         });
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
-                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionNameMap": { "meta3dTest1ExtensionName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeNameMap": {} },
+                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {} },
                 distFileContent
             ]);
             expect(uploadFileFunc).toCalledWith([

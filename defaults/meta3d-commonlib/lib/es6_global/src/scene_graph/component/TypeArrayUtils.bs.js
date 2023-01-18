@@ -1,19 +1,20 @@
 
 
-import * as Js_typed_array from "../../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
 
 function getFloat16TypeArray(index, typeArray) {
-  return Js_typed_array.$$Float32Array.subarray(index, index + 16 | 0, typeArray);
+  return typeArray.subarray(index, index + 16 | 0);
 }
 
 function setFloat1(index, value, typeArray) {
   typeArray[index] = value;
+  
 }
 
 function setFloat3(index, param, typeArray) {
   typeArray[index] = param[0];
   typeArray[index + 1 | 0] = param[1];
   typeArray[index + 2 | 0] = param[2];
+  
 }
 
 function setFloat4(index, param, typeArray) {
@@ -21,6 +22,7 @@ function setFloat4(index, param, typeArray) {
   typeArray[index + 1 | 0] = param[1];
   typeArray[index + 2 | 0] = param[2];
   typeArray[index + 3 | 0] = param[3];
+  
 }
 
 function setFloat16(index, param, typeArray) {
@@ -40,10 +42,12 @@ function setFloat16(index, param, typeArray) {
   typeArray[index + 13 | 0] = param[13];
   typeArray[index + 14 | 0] = param[14];
   typeArray[index + 15 | 0] = param[15];
+  
 }
 
 function setUint32_1(index, value, typeArray) {
   typeArray[index] = value;
+  
 }
 
 function getFloat3Tuple(index, typeArray) {
@@ -72,23 +76,25 @@ function getFloat1(index, typeArray) {
 }
 
 function getFloat32Array(typeArray, startIndex, endIndex) {
-  return Js_typed_array.$$Float32Array.slice(startIndex, endIndex, typeArray);
+  return typeArray.slice(startIndex, endIndex);
 }
 
 function getUint32Array(typeArray, startIndex, endIndex) {
-  return Js_typed_array.$$Uint32Array.slice(startIndex, endIndex, typeArray);
+  return typeArray.slice(startIndex, endIndex);
 }
 
 function fillFloat32ArrayWithOffset(targetTypeArr, sourceTypeArr, offset) {
-  Js_typed_array.$$Float32Array.setArrayOffset(sourceTypeArr, offset, targetTypeArr);
+  targetTypeArr.set(sourceTypeArr, offset);
+  
 }
 
 function fillUint32ArrayWithOffset(targetTypeArr, sourceTypeArr, offset) {
-  Js_typed_array.$$Uint32Array.setArrayOffset(sourceTypeArr, offset, targetTypeArr);
+  targetTypeArr.set(sourceTypeArr, offset);
+  
 }
 
 function reduceFloat32Array(typeArr, acc, f) {
-  return Js_typed_array.$$Float32Array.reduce(f, acc, typeArr);
+  return typeArr.reduce(f, acc);
 }
 
 export {
@@ -107,5 +113,6 @@ export {
   fillFloat32ArrayWithOffset ,
   fillUint32ArrayWithOffset ,
   reduceFloat32Array ,
+  
 }
 /* No side effect */

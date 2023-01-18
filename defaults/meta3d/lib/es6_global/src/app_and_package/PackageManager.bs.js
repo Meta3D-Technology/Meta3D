@@ -23,10 +23,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                                 name: extensionPackageData.name,
                                 protocolName: extensionPackageData.protocol.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(entryExtensionNames, extensionPackageData.name) ? /* Entry */2 : /* Default */0,
-                                dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentExtensionNameMap, (function (dependentData) {
+                                dependentExtensionProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
                                         return dependentData.protocolName;
                                       })),
-                                dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentContributeNameMap, (function (dependentData) {
+                                dependentContributeProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentContributeProtocolNameMap, (function (dependentData) {
                                         return dependentData.protocolName;
                                       }))
                               },
@@ -39,10 +39,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                               {
                                 name: contributePackageData.name,
                                 protocolName: contributePackageData.protocol.name,
-                                dependentExtensionNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentExtensionNameMap, (function (dependentData) {
+                                dependentExtensionProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
                                         return dependentData.protocolName;
                                       })),
-                                dependentContributeNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentContributeNameMap, (function (dependentData) {
+                                dependentContributeProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentContributeProtocolNameMap, (function (dependentData) {
                                         return dependentData.protocolName;
                                       }))
                               },

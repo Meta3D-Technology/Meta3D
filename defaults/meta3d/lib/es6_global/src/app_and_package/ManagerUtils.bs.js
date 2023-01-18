@@ -161,15 +161,15 @@ function _run(param) {
           var extensionFuncData = param.extensionFuncData;
           var extensionPackageData = param.extensionPackageData;
           return ExtensionManager$Meta3d.registerExtension(state, extensionPackageData.protocolName, extensionFuncData.getExtensionServiceFunc, extensionFuncData.getExtensionLifeFunc, [
-                      extensionPackageData.dependentExtensionNameMap,
-                      extensionPackageData.dependentContributeNameMap
+                      extensionPackageData.dependentExtensionProtocolNameMap,
+                      extensionPackageData.dependentContributeProtocolNameMap
                     ], Curry._1(extensionFuncData.createExtensionStateFunc, undefined));
         }), _prepare(undefined));
   var state$1 = ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (state, param) {
           var contributePackageData = param.contributePackageData;
           return ExtensionManager$Meta3d.registerContribute(state, contributePackageData.protocolName, param.contributeFuncData.getContributeFunc, [
-                      contributePackageData.dependentExtensionNameMap,
-                      contributePackageData.dependentContributeNameMap
+                      contributePackageData.dependentExtensionProtocolNameMap,
+                      contributePackageData.dependentContributeProtocolNameMap
                     ]);
         }), state);
   return [

@@ -1,18 +1,18 @@
 
 
-import * as InitJob$Meta3dWorkPluginRoot from "./jobs/InitJob.bs.js";
-import * as RenderJob$Meta3dWorkPluginRoot from "./jobs/RenderJob.bs.js";
-import * as UpdateJob$Meta3dWorkPluginRoot from "./jobs/UpdateJob.bs.js";
-import * as StateType$Meta3dWorkPluginRootProtocol from "../../../../../node_modules/meta3d-work-plugin-root-protocol/lib/es6_global/src/StateType.bs.js";
+import * as InitJob$Meta3dPipelineRoot from "./jobs/InitJob.bs.js";
+import * as RenderJob$Meta3dPipelineRoot from "./jobs/RenderJob.bs.js";
+import * as UpdateJob$Meta3dPipelineRoot from "./jobs/UpdateJob.bs.js";
+import * as StateType$Meta3dPipelineRootProtocol from "../../../../../node_modules/meta3d-pipeline-root-protocol/lib/es6_global/src/StateType.bs.js";
 
 function _getExecFunc(_pipelineName, jobName) {
   switch (jobName) {
     case "init_root_meta3d" :
-        return InitJob$Meta3dWorkPluginRoot.execFunc;
+        return InitJob$Meta3dPipelineRoot.execFunc;
     case "render_root_meta3d" :
-        return RenderJob$Meta3dWorkPluginRoot.execFunc;
+        return RenderJob$Meta3dPipelineRoot.execFunc;
     case "update_root_meta3d" :
-        return UpdateJob$Meta3dWorkPluginRoot.execFunc;
+        return UpdateJob$Meta3dPipelineRoot.execFunc;
     default:
       return null;
   }
@@ -23,11 +23,11 @@ function _init(_state) {
 }
 
 function getContribute(api, param) {
-  var meta3dBsMostExtensionName = param[0].meta3dBsMostExtensionName;
+  var meta3dBsMostExtensionProtocolName = param[0].meta3dBsMostExtensionProtocolName;
   return {
-          workPluginName: StateType$Meta3dWorkPluginRootProtocol.workPluginName,
+          pipelineName: StateType$Meta3dPipelineRootProtocol.pipelineName,
           createStateFunc: (function (meta3dState, param) {
-              var mostService = api.getExtensionService(meta3dState, meta3dBsMostExtensionName);
+              var mostService = api.getExtensionService(meta3dState, meta3dBsMostExtensionProtocolName);
               return {
                       mostService: mostService
                     };

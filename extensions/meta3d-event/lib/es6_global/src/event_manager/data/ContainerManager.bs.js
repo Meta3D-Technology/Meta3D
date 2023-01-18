@@ -1,16 +1,16 @@
 
 
 
-var createState = (function(createStateFunc, eventExtensionName){
-window[eventExtensionName + "_eventManagerState"] = createStateFunc()
+var createState = (function(createStateFunc, eventExtensionProtocolName){
+window[eventExtensionProtocolName + "_eventManagerState"] = createStateFunc()
             });
 
-var getState = (function(eventExtensionName){
-return window[eventExtensionName + "_eventManagerState"]
+var getState = (function(eventExtensionProtocolName){
+return window[eventExtensionProtocolName + "_eventManagerState"]
             });
 
-var setState = (function(state, eventExtensionName){
-window[eventExtensionName + "_eventManagerState"] = state
+var setState = (function(state, eventExtensionProtocolName){
+window[eventExtensionProtocolName + "_eventManagerState"] = state
             });
 
 export {

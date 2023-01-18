@@ -54,8 +54,8 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
                                 name: extensionPackageData.name,
                                 protocolName: extensionPackageData.protocol.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
-                                dependentExtensionNameMap: _convertDependentMap(extensionPackageData.dependentExtensionNameMap, allExtensionDataMap$1),
-                                dependentContributeNameMap: _convertDependentMap(extensionPackageData.dependentContributeNameMap, allContributeDataMap)
+                                dependentExtensionProtocolNameMap: _convertDependentMap(extensionPackageData.dependentExtensionProtocolNameMap, allExtensionDataMap$1),
+                                dependentContributeProtocolNameMap: _convertDependentMap(extensionPackageData.dependentContributeProtocolNameMap, allContributeDataMap)
                               },
                               param.extensionFuncData
                             ]);
@@ -66,8 +66,8 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
                               {
                                 name: contributePackageData.name,
                                 protocolName: contributePackageData.protocol.name,
-                                dependentExtensionNameMap: _convertDependentMap(contributePackageData.dependentExtensionNameMap, allExtensionDataMap$1),
-                                dependentContributeNameMap: _convertDependentMap(contributePackageData.dependentContributeNameMap, allContributeDataMap)
+                                dependentExtensionProtocolNameMap: _convertDependentMap(contributePackageData.dependentExtensionProtocolNameMap, allExtensionDataMap$1),
+                                dependentContributeProtocolNameMap: _convertDependentMap(contributePackageData.dependentContributeProtocolNameMap, allContributeDataMap)
                               },
                               param.contributeFuncData
                             ]);
@@ -83,12 +83,12 @@ function generate(param, allPackageBinaryFiles, configData) {
                           ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
-function execGetContributeFunc(contributeFuncData, dependentExtensionNameMapOpt, dependentContributeNameMapOpt, param) {
-  var dependentExtensionNameMap = dependentExtensionNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  var dependentContributeNameMap = dependentContributeNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+function execGetContributeFunc(contributeFuncData, dependentExtensionProtocolNameMapOpt, dependentContributeProtocolNameMapOpt, param) {
+  var dependentExtensionProtocolNameMap = dependentExtensionProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+  var dependentContributeProtocolNameMap = dependentContributeProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
   return Curry._2(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
-              dependentExtensionNameMap,
-              dependentContributeNameMap
+              dependentExtensionProtocolNameMap,
+              dependentContributeProtocolNameMap
             ]);
 }
 

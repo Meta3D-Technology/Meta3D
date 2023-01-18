@@ -18,7 +18,7 @@ function _searchProtocolVersion(name, dependencies) {
     }
     return value;
 }
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionNameMap, dependentContributeNameMap, dependencies }) {
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }) {
     return {
         name,
         publisher,
@@ -26,11 +26,11 @@ function _convertToExtensionOrContributePackageData({ name, protocol, publisher,
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
-        dependentExtensionNameMap: Object.fromEntries(Object
-            .entries(dependentExtensionNameMap)
+        dependentExtensionProtocolNameMap: Object.fromEntries(Object
+            .entries(dependentExtensionProtocolNameMap)
             .map(([key, { protocolName }]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])),
-        dependentContributeNameMap: Object.fromEntries(Object
-            .entries(dependentContributeNameMap)
+        dependentContributeProtocolNameMap: Object.fromEntries(Object
+            .entries(dependentContributeProtocolNameMap)
             .map(([key, { protocolName }]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }]))
     };
 }
