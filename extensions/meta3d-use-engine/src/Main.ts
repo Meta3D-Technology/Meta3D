@@ -4,11 +4,11 @@ import { service } from "meta3d-use-engine-protocol/src/service/ServiceType"
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-use-engine-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-work-plugin-webgpu-triangle-protocol/src/StateType";
-import { config as webgpuTriangleConfig } from "meta3d-work-plugin-webgpu-triangle-protocol/src/Config";
-import { state as rootState, states as rootStates } from "meta3d-work-plugin-root-protocol/src/StateType";
-import { config as rootConfig } from "meta3d-work-plugin-root-protocol/src/ConfigType";
+import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-webgpu-triangle-protocol/src/StateType";
+import { config as webgpuTriangleConfig } from "meta3d-pipeline-webgpu-triangle-protocol/src/Config";
+import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
+import { config as rootConfig } from "meta3d-pipeline-root-protocol/src/ConfigType";
 import { addBasicCameraView, addPerspectiveCameraProjection, addTransform, createGameObject } from "./GameObjectAPI"
 import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI"
 import { init, render, update } from "./DirectorAPI"
@@ -94,8 +94,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api, [{ meta3dBsMostExtensionProtocolName,
 	meta3dEngineCoreExtensionProtocolName,
 }, {
-	meta3dWorkPluginRootContributeName,
-	meta3dWorkPluginWebGPUTriangleContributeName,
+	meta3dPipelineRootContributeName,
+	meta3dPipelineWebGPUTriangleContributeName,
 	meta3dComponentTransformContributeName,
 	meta3dComponentGeometryContributeName,
 	meta3dComponentPBRMaterialContributeName,
@@ -120,13 +120,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					meta3dEngineCoreExtensionProtocolName
 				)
 
-				let { setIsDebug, registerWorkPlugin, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
+				let { setIsDebug, registerPipeline, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
 
 				engineCoreState = setIsDebug(engineCoreState, isDebug)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<rootConfig, rootState>>(meta3dState, meta3dWorkPluginRootContributeName)
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<rootConfig, rootState>>(meta3dState, meta3dPipelineRootContributeName)
 				)
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<webgpuTriangleConfig, webgpuTriangleState>>(meta3dState, meta3dWorkPluginWebGPUTriangleContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<webgpuTriangleConfig, webgpuTriangleState>>(meta3dState, meta3dPipelineWebGPUTriangleContributeName),
 					null,
 					[
 						{

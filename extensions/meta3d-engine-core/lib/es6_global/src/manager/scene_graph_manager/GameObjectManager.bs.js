@@ -16,9 +16,9 @@ function unsafeGetGameObjectData(state) {
 
 function setGameObjectContribute(state, gameObjectContribute) {
   return {
-          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
           states: state.states,
-          pluginData: state.pluginData,
+          contributeData: state.contributeData,
           componentContributeData: state.componentContributeData,
           gameObjectContribute: gameObjectContribute,
           usedGameObjectContribute: state.usedGameObjectContribute
@@ -28,9 +28,9 @@ function setGameObjectContribute(state, gameObjectContribute) {
 function createAndSetState(state, config) {
   var match = OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
   return {
-          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
           states: state.states,
-          pluginData: state.pluginData,
+          contributeData: state.contributeData,
           componentContributeData: state.componentContributeData,
           gameObjectContribute: state.gameObjectContribute,
           usedGameObjectContribute: {

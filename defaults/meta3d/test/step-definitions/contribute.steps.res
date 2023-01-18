@@ -14,7 +14,7 @@ defineFeature(feature, test => {
     let state = ref(Obj.magic(1))
 
     given(
-      "register action, component, element, ui control, skin, gameObject, workPlugin contributes",
+      "register action, component, element, ui control, skin, gameObject, pipeline contributes",
       () => {
         state := StateTool.create()
 
@@ -83,7 +83,7 @@ defineFeature(feature, test => {
             state.contents,
             "w1",
             ContributeTool.buildGetContributeFunc({
-              "workPluginName": "w1",
+              "pipelineName": "w1",
               "allPipelineData": Obj.magic(1),
             })->Obj.magic,
             _buildEmptyMapData(),
@@ -132,7 +132,7 @@ defineFeature(feature, test => {
         ->Js.Json.stringify,
         APITool.buildAPI().getAllContributesByType(.
           state.contents,
-          Meta3dType.ContributeType.WorkPlugin,
+          Meta3dType.ContributeType.Pipeline,
         )
         ->Obj.magic
         ->Js.Json.stringify,
@@ -144,7 +144,7 @@ defineFeature(feature, test => {
           "[{\"createGameObjectFunc\":1,\"getAllGameObjectsFunc\":1}]",
           "[{\"uiControlName\":\"u1\",\"func\":1}]",
           "[{\"skinName\":\"s1\",\"skin\":1}]",
-          "[{\"workPluginName\":\"w1\",\"allPipelineData\":1}]",
+          "[{\"pipelineName\":\"w1\",\"allPipelineData\":1}]",
         )
     })
   })

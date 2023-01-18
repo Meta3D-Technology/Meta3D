@@ -6,7 +6,7 @@ var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Op
 var ContractResult$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/contract/ContractResult.bs.js");
 var MutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/MutableHashMap.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
-var PluginDataManager$Meta3dEngineCore = require("../../work_manager/plugin_data/PluginDataManager.bs.js");
+var ContributeDataManager$Meta3dEngineCore = require("../../ContributeDataManager.bs.js");
 
 function registerComponent(state, componentContribute) {
   var componentContributeData = state.componentContributeData;
@@ -14,11 +14,11 @@ function registerComponent(state, componentContribute) {
                     return ContractResult$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("not register before", "not"), (function (param) {
                                   return ContractResult$Meta3dCommonlib.assertFalse(ImmutableHashMap$Meta3dCommonlib.has(componentContributeData.allComponentContributes, componentContribute.componentName));
                                 }));
-                  }), PluginDataManager$Meta3dEngineCore.getIsDebug(state)), (function (param) {
+                  }), ContributeDataManager$Meta3dEngineCore.getIsDebug(state)), (function (param) {
                 return {
-                        allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+                        allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
                         states: state.states,
-                        pluginData: state.pluginData,
+                        contributeData: state.contributeData,
                         componentContributeData: {
                           allComponentContributes: ImmutableHashMap$Meta3dCommonlib.set(componentContributeData.allComponentContributes, componentContribute.componentName, componentContribute),
                           allUsedComponentContributes: componentContributeData.allUsedComponentContributes
@@ -32,9 +32,9 @@ function registerComponent(state, componentContribute) {
 function unregisterComponent(state, componentName) {
   var componentContributeData = state.componentContributeData;
   return {
-          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
           states: state.states,
-          pluginData: state.pluginData,
+          contributeData: state.contributeData,
           componentContributeData: {
             allComponentContributes: ImmutableHashMap$Meta3dCommonlib.deleteVal(componentContributeData.allComponentContributes, componentName),
             allUsedComponentContributes: componentContributeData.allUsedComponentContributes
@@ -57,9 +57,9 @@ function createAndSetComponentState(state, componentName, config) {
   var match = ImmutableHashMap$Meta3dCommonlib.unsafeGet(state.componentContributeData.allComponentContributes, componentName);
   var init = state.componentContributeData;
   return {
-          allRegisteredWorkPluginContribute: state.allRegisteredWorkPluginContribute,
+          allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
           states: state.states,
-          pluginData: state.pluginData,
+          contributeData: state.contributeData,
           componentContributeData: {
             allComponentContributes: init.allComponentContributes,
             allUsedComponentContributes: ImmutableHashMap$Meta3dCommonlib.set(state.componentContributeData.allUsedComponentContributes, componentName, {

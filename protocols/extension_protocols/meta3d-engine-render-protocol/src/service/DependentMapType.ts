@@ -3,12 +3,12 @@ export type dependentExtensionProtocolNameMap = {
 }
 
 export type dependentContributeProtocolNameMap = {
-    meta3dWorkPluginViewRectContributeName: string,
-    meta3dWorkPluginWebgl1CreateGLContributeName: string,
-    meta3dWorkPluginWebgl1DetectGLContributeName: string,
-    meta3dWorkPluginWebgl1GeometryContributeName: string,
-    meta3dWorkPluginWebgl1MaterialContributeName: string,
-    meta3dWorkPluginWebgl1DataContributeName: string,
-    meta3dWorkPluginWebgl1RenderContributeName: string,
-    meta3dWorkPluginWebgl1SenduniformshaderdataContributeName: string,
+    meta3dPipelineViewRectContributeName: string,
+    meta3dPipelineWebgl1CreateGLContributeName: string,
+    meta3dPipelineWebgl1DetectGLContributeName: string,
+    meta3dPipelineWebgl1GeometryContributeName: string,
+    meta3dPipelineWebgl1MaterialContributeName: string,
+    meta3dPipelineWebgl1DataContributeName: string,
+    meta3dPipelineWebgl1RenderContributeName: string,
+    meta3dPipelineWebgl1SenduniformshaderdataContributeName: string,
 }

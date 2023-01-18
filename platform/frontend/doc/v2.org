@@ -194,7 +194,7 @@ modal
 # so engine is split to these abstract extensions(with contribute):
 # scene
 # # job-pipeline
-# work-plugin
+# pipeline
 
 
 # ** TODO extract work(rename work plugin to work) extension from engine-core
@@ -208,7 +208,7 @@ modal
 * DONE render a triangle by webgpu
 
 
-# ** TODO add meta3d-register-default-work-plugins work extension
+# ** TODO add meta3d-register-default-pipelines work extension
 
 ** DONE add root work contribute
 

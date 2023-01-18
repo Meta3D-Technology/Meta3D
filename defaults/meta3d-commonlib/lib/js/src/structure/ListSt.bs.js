@@ -1,6 +1,7 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
+var Js_array = require("rescript/lib/js/js_array.js");
 var Belt_List = require("rescript/lib/js/belt_List.js");
 var Result$Meta3dCommonlib = require("./Result.bs.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
@@ -105,7 +106,7 @@ function removeDuplicateItemsU(list, buildKeyFunc) {
     if (match !== undefined) {
       
     } else {
-      resultArr.push(item);
+      Js_array.push(item, resultArr);
       MutableHashMap$Meta3dCommonlib.set(map, key, item);
     }
   }

@@ -16,11 +16,11 @@ import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementCont
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { config as sceneView1Config } from "meta3d-work-plugin-editor-webgl1-scene-view1-protocol/src/ConfigType";
-import { state as sceneView1State, states as sceneView1States } from "meta3d-work-plugin-editor-webgl1-scene-view1-protocol/src/StateType";
-import { config as sceneView2Config } from "meta3d-work-plugin-editor-webgl1-scene-view2-protocol/src/ConfigType";
-import { state as sceneView2State, states as sceneView2States } from "meta3d-work-plugin-editor-webgl1-scene-view2-protocol/src/StateType";
+import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
+import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
+import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
+import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as engineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtocolNameMap, _]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
@@ -95,10 +95,10 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 	return canvas
 }
 
-let _registerEditorWorkPlugins = (
+let _registerEditorPipelines = (
 	meta3dState: meta3dState, api: api,
 	meta3dEngineCoreExtensionProtocolName: string,
-	[meta3dWorkPluginEditorWebgl1SceneView1ContributeName, meta3dWorkPluginEditorWebgl1SceneView2ContributeName]: [string, string]
+	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName]: [string, string]
 ) => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
@@ -109,9 +109,9 @@ let _registerEditorWorkPlugins = (
 
 
 
-	let { registerWorkPlugin } = engineCoreService
+	let { registerPipeline } = engineCoreService
 
-	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView1Config, sceneView1State>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView1ContributeName),
+	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, meta3dPipelineEditorWebgl1SceneView1ContributeName),
 		null,
 		[
 			{
@@ -131,7 +131,7 @@ let _registerEditorWorkPlugins = (
 			},
 		]
 	)
-	engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<sceneView2Config, sceneView2State>>(meta3dState, meta3dWorkPluginEditorWebgl1SceneView2ContributeName),
+	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView2Config, sceneView2State>>(meta3dState, meta3dPipelineEditorWebgl1SceneView2ContributeName),
 		null,
 		[
 			{
@@ -178,17 +178,17 @@ let _init = (meta3dState: meta3dState, api: api, dependentMapData: [dependentExt
 	let [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap] = dependentMapData
 	let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEngineCoreExtensionProtocolName, meta3dEditorEngineWholeExtensionProtocolName } = dependentExtensionProtocolNameMap
 	let {
-		meta3dWorkPluginEditorWebgl1SceneView1ContributeName,
-		meta3dWorkPluginEditorWebgl1SceneView2ContributeName
+		meta3dPipelineEditorWebgl1SceneView1ContributeName,
+		meta3dPipelineEditorWebgl1SceneView2ContributeName
 	} = dependentContributeProtocolNameMap
 
 	meta3dState = _prepareUI(meta3dState, api, dependentMapData)
 
 
-	meta3dState = _registerEditorWorkPlugins(
+	meta3dState = _registerEditorPipelines(
 		meta3dState, api,
 		meta3dEngineCoreExtensionProtocolName,
-		[meta3dWorkPluginEditorWebgl1SceneView1ContributeName, meta3dWorkPluginEditorWebgl1SceneView2ContributeName]
+		[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName]
 	)
 
 

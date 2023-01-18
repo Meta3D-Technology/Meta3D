@@ -3,8 +3,8 @@ export type dependentExtensionProtocolNameMap = {
 }
 
 export type dependentContributeProtocolNameMap = {
-    meta3dWorkPluginCameraContributeName: string,
-    meta3dWorkPluginTransformContributeName: string,
+    meta3dPipelineCameraContributeName: string,
+    meta3dPipelineTransformContributeName: string,
     meta3dComponentTransformContributeName: string,
     meta3dComponentGeometryContributeName: string,
     meta3dComponentPBRMaterialContributeName: string,

@@ -3,14 +3,14 @@ type service = {
   setIsDebug: (StateType.state, bool) => StateType.state,
   prepare: unit => unit,
   init: (StateType.state, Meta3dType.Index.state) => StateType.state,
-  registerWorkPlugin: (
+  registerPipeline: (
     ~state: StateType.state,
-    ~contribute: WorkPluginManagerType.workPluginContributeForRegister,
-    ~config: Js.Nullable.t<RegisterWorkPluginType.config>=?,
-    ~jobOrders: RegisterWorkPluginVOType.jobOrders=?,
+    ~contribute: PipelineManagerType.pipelineContributeForRegister,
+    ~config: Js.Nullable.t<RegisterPipelineType.config>=?,
+    ~jobOrders: RegisterPipelineVOType.jobOrders=?,
     unit,
   ) => StateType.state,
-  unregisterWorkPlugin: (StateType.state, StateType.workPluginName) => StateType.state,
+  unregisterPipeline: (StateType.state, StateType.pipelineName) => StateType.state,
   registerComponent: (
     StateType.state,
     RegisterComponentType.componentContribute,

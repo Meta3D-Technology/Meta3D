@@ -7,6 +7,5 @@ function truncateFloatValue(value, digit) {
 
 export {
   truncateFloatValue ,
-  
 }
 /* No side effect */

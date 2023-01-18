@@ -1,36 +1,36 @@
 let _convertJobOrders = (
-  jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders,
-): Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrders => {
+  jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders,
+): Meta3dEngineCoreProtocol.RegisterPipelineType.jobOrders => {
   jobOrders->Meta3dCommonlib.ArraySt.map((
     {pipelineName, insertElementName, insertAction} as jobOrder,
-  ): Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrder => {
+  ): Meta3dEngineCoreProtocol.RegisterPipelineType.jobOrder => {
     pipelineName: pipelineName,
     insertElementName: insertElementName,
     insertAction: switch insertAction {
-    | #before => Meta3dEngineCoreProtocol.RegisterWorkPluginType.Before
-    | #after => Meta3dEngineCoreProtocol.RegisterWorkPluginType.After
+    | #before => Meta3dEngineCoreProtocol.RegisterPipelineType.Before
+    | #after => Meta3dEngineCoreProtocol.RegisterPipelineType.After
     },
   })
 }
 
-let registerWorkPlugin = (
+let registerPipeline = (
   ~state,
   ~contribute,
-  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>=Js.Nullable.null,
-  ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
+  ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
-  state->WorkPluginManager.registerPlugin(contribute, config, jobOrders->_convertJobOrders)
+  state->PipelineManager.registerPipeline(contribute, config, jobOrders->_convertJobOrders)
 }
 
-let unregisterWorkPlugin = WorkPluginManager.unregisterPlugin
+let unregisterPipeline = PipelineManager.unregisterPipeline
 
 let prepare = () => {
   ()
 }
 
 let init = (state, meta3dState) => {
-  WorkPluginManager.init(state, meta3dState)
+  PipelineManager.init(state, meta3dState)
 }
 
 let runPipeline = (
@@ -51,7 +51,7 @@ let runPipeline = (
   )
 
   meta3dState
-  ->WorkPluginManager.runPipeline(
+  ->PipelineManager.runPipeline(
     (api, mostService, unsafeGetMeta3dState, setMeta3dState, meta3dEngineCoreExtensionProtocolName),
     pipelineName,
   )
@@ -59,13 +59,13 @@ let runPipeline = (
   ->Meta3dCommonlib.Result.handleFail(Meta3dCommonlib.Exception.throwErr)
 }
 
-// let getStates = WorkPluginManager.getStates
+// let getStates = PipelineManager.getStates
 
-// let setStates = WorkPluginManager.setStates
+// let setStates = PipelineManager.setStates
 
-let getIsDebug = PluginDataManager.getIsDebug
+let getIsDebug = ContributeDataManager.getIsDebug
 
-let setIsDebug = PluginDataManager.setIsDebug
+let setIsDebug = ContributeDataManager.setIsDebug
 
 let registerComponent = (state, componentContribute) => {
   state

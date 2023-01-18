@@ -5,9 +5,9 @@ var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/stru
 
 function createState(param) {
   return {
-          allRegisteredWorkPluginContribute: /* [] */0,
+          allRegisteredPipelineContribute: /* [] */0,
           states: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          pluginData: {
+          contributeData: {
             isDebug: false
           },
           componentContributeData: {

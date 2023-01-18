@@ -5,9 +5,9 @@ import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_module
 
 function createState(param) {
   return {
-          allRegisteredWorkPluginContribute: /* [] */0,
+          allRegisteredPipelineContribute: /* [] */0,
           states: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          pluginData: {
+          contributeData: {
             isDebug: false
           },
           componentContributeData: {

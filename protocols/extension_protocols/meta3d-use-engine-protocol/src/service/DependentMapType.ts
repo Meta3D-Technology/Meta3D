@@ -4,8 +4,8 @@ export type dependentExtensionProtocolNameMap = {
 }
 
 export type dependentContributeProtocolNameMap = {
-    meta3dWorkPluginRootContributeName: string,
-    meta3dWorkPluginWebGPUTriangleContributeName: string,
+    meta3dPipelineRootContributeName: string,
+    meta3dPipelineWebGPUTriangleContributeName: string,
     meta3dComponentTransformContributeName: string,
     meta3dComponentGeometryContributeName: string,
     meta3dComponentPBRMaterialContributeName: string,

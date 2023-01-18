@@ -257,7 +257,7 @@ type service =
     }
 
 # set outer dependency, e.g.
-#     set meta3dWorkPluginWebGPUTriangleContributeName
+#     set meta3dPipelineWebGPUTriangleContributeName
 
 
 
@@ -299,7 +299,7 @@ downloadPackage
     #    return entry extension name, so can get its service by getExtensionService
     #    return entry extension name, so can get its service and set outer dependency by getPackageService(entry extension name, outer dependency data)
     #         set outer dependency, e.g.
-    #             set meta3dWorkPluginWebGPUTriangleContributeName
+    #             set meta3dPipelineWebGPUTriangleContributeName
        return entry extension name, so can get its service by getExtensionService(entry extension name)
             package outer dependency use registered extensions, contributes
 

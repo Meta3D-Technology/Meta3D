@@ -22,6 +22,5 @@ export {
   _getGameObjects ,
   isComponentHasGameObject ,
   removeDisposedComponentsFromNeedDisposedComponents ,
-  
 }
 /* No side effect */

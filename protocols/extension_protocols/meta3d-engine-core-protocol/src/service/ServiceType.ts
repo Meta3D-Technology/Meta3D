@@ -15,14 +15,14 @@ import type { gameObjectContribute as GameObjectType_gameObjectContribute } from
 
 import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute/scene_graph/GameObjectContributeType';
 
-import type { jobOrders as RegisterWorkPluginVOType_jobOrders } from '../../src/state/vo/RegisterWorkPluginVOType';
+import type { jobOrders as RegisterPipelineVOType_jobOrders } from '../../src/state/vo/RegisterPipelineVOType';
 
 import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType';
 
 import type { state as StateType_state } from '../../src/state/StateType';
 
 import type { usedComponentContribute as RegisterComponentType_usedComponentContribute } from '../../src/state/RegisterComponentType';
-import { workPluginContribute, workPluginName } from '../contribute/work/WorkPluginContributeType';
+import { pipelineContribute, pipelineName } from '../contribute/work/PipelineContributeType';
 import { cloneConfig } from 'meta3d-gameobject-protocol/src/Index';
 import { nullable } from 'meta3d-commonlib-ts/src/nullable';
 
@@ -32,13 +32,13 @@ export type service = {
     readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
     readonly prepare: () => void;
     readonly init: (_1: StateType_state, _2: Meta3dType_Index_state) => StateType_state;
-    readonly registerWorkPlugin: <config, state>(
+    readonly registerPipeline: <config, state>(
         state: StateType_state,
-        contribute: workPluginContribute<config, state>,
+        contribute: pipelineContribute<config, state>,
         config?: nullable<config>,
-        jobOrders?: RegisterWorkPluginVOType_jobOrders
+        jobOrders?: RegisterPipelineVOType_jobOrders
     ) => StateType_state;
-    readonly unregisterWorkPlugin: (_1: StateType_state, _2: workPluginName) => StateType_state;
+    readonly unregisterPipeline: (_1: StateType_state, _2: pipelineName) => StateType_state;
     readonly registerComponent: <config>(_1: StateType_state, _2: config) => StateType_state;
     readonly unregisterComponent: (_1: StateType_state, _2: ComponentContributeType_componentName) => StateType_state;
     createAndSetComponentState: <config>(_1: StateType_state, _2: ComponentContributeType_componentName, _3: config) => StateType_state;

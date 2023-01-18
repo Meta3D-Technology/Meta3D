@@ -4,23 +4,23 @@ import { service } from "meta3d-engine-render-protocol/src/service/ServiceType"
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-engine-render-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { state as viewRectState, states as viewRectStates } from "meta3d-work-plugin-viewrect-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-work-plugin-viewrect-protocol/src/ConfigType";
-import { state as createGLState, states as createGLStates } from "meta3d-work-plugin-webgl1-creategl-protocol/src/StateType";
-import { config as createGLConfig } from "meta3d-work-plugin-webgl1-creategl-protocol/src/ConfigType";
-import { state as detectGLState, states as detectGLStates } from "meta3d-work-plugin-webgl1-detectgl-protocol/src/StateType";
-import { config as detectGLConfig } from "meta3d-work-plugin-webgl1-detectgl-protocol/src/ConfigType";
-import { state as geometryState, states as geometryStates } from "meta3d-work-plugin-webgl1-geometry-protocol/src/StateType";
-import { config as geometryConfig } from "meta3d-work-plugin-webgl1-geometry-protocol/src/ConfigType";
-import { state as materialState, states as materialStates } from "meta3d-work-plugin-webgl1-material-protocol/src/StateType";
-import { config as materialConfig } from "meta3d-work-plugin-webgl1-material-protocol/src/ConfigType";
-import { state as dataState, states as dataStates, workPluginName as dataWorkPluginName } from "meta3d-work-plugin-webgl1-data-protocol/src/StateType";
-import { config as dataConfig } from "meta3d-work-plugin-webgl1-data-protocol/src/ConfigType";
-import { state as renderState, states as renderStates } from "meta3d-work-plugin-webgl1-render-protocol/src/StateType";
-import { config as renderConfig } from "meta3d-work-plugin-webgl1-render-protocol/src/ConfigType";
-import { state as senduniformshaderdataState, states as senduniformshaderdataStates } from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol/src/StateType";
-import { config as senduniformshaderdataConfig } from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol/src/ConfigType";
+import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
+import { state as createGLState, states as createGLStates } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType";
+import { config as createGLConfig } from "meta3d-pipeline-webgl1-creategl-protocol/src/ConfigType";
+import { state as detectGLState, states as detectGLStates } from "meta3d-pipeline-webgl1-detectgl-protocol/src/StateType";
+import { config as detectGLConfig } from "meta3d-pipeline-webgl1-detectgl-protocol/src/ConfigType";
+import { state as geometryState, states as geometryStates } from "meta3d-pipeline-webgl1-geometry-protocol/src/StateType";
+import { config as geometryConfig } from "meta3d-pipeline-webgl1-geometry-protocol/src/ConfigType";
+import { state as materialState, states as materialStates } from "meta3d-pipeline-webgl1-material-protocol/src/StateType";
+import { config as materialConfig } from "meta3d-pipeline-webgl1-material-protocol/src/ConfigType";
+import { state as dataState, states as dataStates, pipelineName as dataPipelineName } from "meta3d-pipeline-webgl1-data-protocol/src/StateType";
+import { config as dataConfig } from "meta3d-pipeline-webgl1-data-protocol/src/ConfigType";
+import { state as renderState, states as renderStates } from "meta3d-pipeline-webgl1-render-protocol/src/StateType";
+import { config as renderConfig } from "meta3d-pipeline-webgl1-render-protocol/src/ConfigType";
+import { state as senduniformshaderdataState, states as senduniformshaderdataStates } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType";
+import { config as senduniformshaderdataConfig } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/ConfigType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionProtocolNameMap,
@@ -29,14 +29,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api, [{
 	meta3dEngineCoreExtensionProtocolName,
 }, {
-	meta3dWorkPluginViewRectContributeName,
-	meta3dWorkPluginWebgl1CreateGLContributeName,
-	meta3dWorkPluginWebgl1DetectGLContributeName,
-	meta3dWorkPluginWebgl1GeometryContributeName,
-	meta3dWorkPluginWebgl1MaterialContributeName,
-	meta3dWorkPluginWebgl1DataContributeName,
-	meta3dWorkPluginWebgl1RenderContributeName,
-	meta3dWorkPluginWebgl1SenduniformshaderdataContributeName,
+	meta3dPipelineViewRectContributeName,
+	meta3dPipelineWebgl1CreateGLContributeName,
+	meta3dPipelineWebgl1DetectGLContributeName,
+	meta3dPipelineWebgl1GeometryContributeName,
+	meta3dPipelineWebgl1MaterialContributeName,
+	meta3dPipelineWebgl1DataContributeName,
+	meta3dPipelineWebgl1RenderContributeName,
+	meta3dPipelineWebgl1SenduniformshaderdataContributeName,
 }]) => {
 		return {
 			prepare: (meta3dState: meta3dState, isDebug, canvas) => {
@@ -48,9 +48,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 
-				let { registerWorkPlugin } = engineCoreService
+				let { registerPipeline } = engineCoreService
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<viewRectConfig, viewRectState>>(meta3dState, meta3dWorkPluginViewRectContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, meta3dPipelineViewRectContributeName),
 					{
 						canvas: canvas
 					},
@@ -63,7 +63,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<createGLConfig, createGLState>>(meta3dState, meta3dWorkPluginWebgl1CreateGLContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<createGLConfig, createGLState>>(meta3dState, meta3dPipelineWebgl1CreateGLContributeName),
 					{
 						canvas: canvas
 					},
@@ -78,7 +78,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<detectGLConfig, detectGLState>>(meta3dState, meta3dWorkPluginWebgl1DetectGLContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<detectGLConfig, detectGLState>>(meta3dState, meta3dPipelineWebgl1DetectGLContributeName),
 					null,
 					[
 						{
@@ -89,7 +89,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<geometryConfig, geometryState>>(meta3dState, meta3dWorkPluginWebgl1GeometryContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<geometryConfig, geometryState>>(meta3dState, meta3dPipelineWebgl1GeometryContributeName),
 					null,
 					[
 						{
@@ -100,7 +100,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<materialConfig, materialState>>(meta3dState, meta3dWorkPluginWebgl1MaterialContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<materialConfig, materialState>>(meta3dState, meta3dPipelineWebgl1MaterialContributeName),
 					null,
 					[
 						{
@@ -111,7 +111,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, meta3dWorkPluginWebgl1SenduniformshaderdataContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, meta3dPipelineWebgl1SenduniformshaderdataContributeName),
 					null,
 					[
 						{
@@ -122,7 +122,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<renderConfig, renderState>>(meta3dState, meta3dWorkPluginWebgl1RenderContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<renderConfig, renderState>>(meta3dState, meta3dPipelineWebgl1RenderContributeName),
 					null,
 					[
 						{
@@ -133,7 +133,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<dataConfig, dataState>>(meta3dState, meta3dWorkPluginWebgl1DataContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<dataConfig, dataState>>(meta3dState, meta3dPipelineWebgl1DataContributeName),
 					{
 						isDebug: isDebug
 					},

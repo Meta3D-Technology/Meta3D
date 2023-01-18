@@ -1,7 +1,7 @@
 let createState = (): Meta3dEngineCoreProtocol.StateType.state => {
-  allRegisteredWorkPluginContribute: list{},
+  allRegisteredPipelineContribute: list{},
   states: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  pluginData: {
+  contributeData: {
     isDebug: false,
   },
   componentContributeData: {

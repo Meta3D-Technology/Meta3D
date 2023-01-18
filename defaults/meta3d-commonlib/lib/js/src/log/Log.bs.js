@@ -16,12 +16,10 @@ function printListForDebug(list) {
 function logForDebug(value) {
   console.log(value);
   console.trace();
-  
 }
 
 function log(value) {
   console.log(JSON.stringify(value));
-  
 }
 
 function debugWithFunc(func, isTest) {
@@ -33,7 +31,6 @@ function debugWithFunc(func, isTest) {
 
 function _debug(msg) {
   console.debug(msg);
-  
 }
 
 function debug(buildMessageFunc, isTest) {
@@ -43,7 +40,6 @@ function debug(buildMessageFunc, isTest) {
   var msg = Curry._1(buildMessageFunc, undefined);
   console.debug(msg);
   console.trace();
-  
 }
 
 function getJsonStr(json) {

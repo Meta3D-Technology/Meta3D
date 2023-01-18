@@ -4,13 +4,13 @@ let convertJobOrdersDOToVO = jobOrders => {
       pipelineName,
       insertElementName,
       insertAction,
-    } as jobOrder: Meta3dEngineCoreProtocol.RegisterWorkPluginType.jobOrder,
-  ): Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrder => {
+    } as jobOrder: Meta3dEngineCoreProtocol.RegisterPipelineType.jobOrder,
+  ): Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrder => {
     pipelineName: pipelineName,
     insertElementName: insertElementName,
     insertAction: switch insertAction {
-    | Meta3dEngineCoreProtocol.RegisterWorkPluginType.Before => #before
-    | Meta3dEngineCoreProtocol.RegisterWorkPluginType.After => #after
+    | Meta3dEngineCoreProtocol.RegisterPipelineType.Before => #before
+    | Meta3dEngineCoreProtocol.RegisterPipelineType.After => #after
     },
   })
 }

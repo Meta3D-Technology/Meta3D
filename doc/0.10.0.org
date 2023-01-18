@@ -174,7 +174,7 @@ engine state is engineCoreState in meta3dState
 
 
 
-add work-plugin for editor
+add pipeline for editor
 scene-view
 
 init jobs
@@ -299,10 +299,10 @@ render,
 
 ** DONE finish work plugins
 
-TODO finis meta3d-work-plugin-editor-webgl1-scene-view
+TODO finis meta3d-pipeline-editor-webgl1-scene-view
 
 
-add work-plugin for editor
+add pipeline for editor
 scene-view
 
 init jobs
@@ -487,7 +487,7 @@ export let getUIControlState: getUIControlStateMeta3D = (rect, specific) => {
 
 
 
-# TODO update meta3d-work-plugin-editor-webgl1-scene-view
+# TODO update meta3d-pipeline-editor-webgl1-scene-view
 
 # add UpdateJob
 
@@ -535,7 +535,7 @@ TODO refactor
 
 ** DONE separate engine whole package between editor and engine
 
-work-plugin-camera not dependent on meta3d-ui?
+pipeline-camera not dependent on meta3d-ui?
 
 on -data
 
@@ -571,7 +571,7 @@ TODO update use-editor
 
 
 
-** DONE refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
+** DONE refactor: work plugin webgl1 state: remove   pipelineWhichHasAllRenderComponentsName, ..., use protocol name instead
 
 
 
@@ -586,7 +586,7 @@ e.g.  let {
 
 
 
-** TODO rename work plugin to meta3d-engine-pipeline,meta3d-engine-pipeline-engine,meta3d-engine-pipeline-editor
+** DONE rename work plugin to meta3d-pipeline
 
 
 
@@ -600,7 +600,9 @@ e.g.  let {
 
 *** TODO rebuild engine whole package for engine
 
-publish
+update related version
+
+publish all
 
 
 *** TODO pass engine whole package run test
@@ -681,7 +683,7 @@ scene view has default scene gameObjects
 
 
 
-* TODO refactor: extract work-plugin-editor-view-utils
+* TODO refactor: extract pipeline-editor-view-utils
 
 
 

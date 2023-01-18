@@ -11,29 +11,29 @@
         }
     },
     "dependentContributeProtocolNameMap": {
-        "meta3dWorkPluginViewRectContributeName": {
-            "protocolName": "meta3d-work-plugin-viewrect-protocol"
+        "meta3dPipelineViewRectContributeName": {
+            "protocolName": "meta3d-pipeline-viewrect-protocol"
         },
-        "meta3dWorkPluginWebgl1CreateGLContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-creategl-protocol"
+        "meta3dPipelineWebgl1CreateGLContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-creategl-protocol"
         },
-        "meta3dWorkPluginWebgl1DetectGLContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-detectgl-protocol"
+        "meta3dPipelineWebgl1DetectGLContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-detectgl-protocol"
         },
-        "meta3dWorkPluginWebgl1GeometryContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-geometry-protocol"
+        "meta3dPipelineWebgl1GeometryContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-geometry-protocol"
         },
-        "meta3dWorkPluginWebgl1MaterialContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-material-protocol"
+        "meta3dPipelineWebgl1MaterialContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-material-protocol"
         },
-        "meta3dWorkPluginWebgl1DataContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-data-protocol"
+        "meta3dPipelineWebgl1DataContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-data-protocol"
         },
-        "meta3dWorkPluginWebgl1RenderContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-render-protocol"
+        "meta3dPipelineWebgl1RenderContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-render-protocol"
         },
-        "meta3dWorkPluginWebgl1SenduniformshaderdataContributeName": {
-            "protocolName": "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol"
+        "meta3dPipelineWebgl1SenduniformshaderdataContributeName": {
+            "protocolName": "meta3d-pipeline-webgl1-senduniformshaderdata-protocol"
         }
     },
     "scripts": {
@@ -45,14 +45,14 @@
     "dependencies": {
         "meta3d-type": "^0.9.0",
         "meta3d-engine-core-protocol": "^0.9.0",
-        "meta3d-work-plugin-viewrect-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-creategl-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-detectgl-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-geometry-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-material-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-data-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-render-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol": "^0.9.0",
+        "meta3d-pipeline-viewrect-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-creategl-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-detectgl-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-geometry-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-material-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-data-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-render-protocol": "^0.9.0",
+        "meta3d-pipeline-webgl1-senduniformshaderdata-protocol": "^0.9.0",
         "meta3d-engine-render-protocol": "^0.9.1"
     },
     "devDependencies": {

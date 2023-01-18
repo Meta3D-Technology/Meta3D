@@ -14,11 +14,11 @@
         }
     },
     "dependentContributeProtocolNameMap": {
-        "meta3dWorkPluginRootContributeName": {
-            "protocolName": "meta3d-work-plugin-root-protocol"
+        "meta3dPipelineRootContributeName": {
+            "protocolName": "meta3d-pipeline-root-protocol"
         },
-        "meta3dWorkPluginWebGPUTriangleContributeName": {
-            "protocolName": "meta3d-work-plugin-webgpu-triangle-protocol"
+        "meta3dPipelineWebGPUTriangleContributeName": {
+            "protocolName": "meta3d-pipeline-webgpu-triangle-protocol"
         },
         "meta3dComponentTransformContributeName": {
             "protocolName": "meta3d-component-transform-protocol"
@@ -56,8 +56,8 @@
         "meta3d-gameobject-protocol": "^0.9.0",
         "meta3d-type": "^0.9.0",
         "meta3d-use-engine-protocol": "^0.9.0",
-        "meta3d-work-plugin-root-protocol": "^0.9.0",
-        "meta3d-work-plugin-webgpu-triangle-protocol": "^0.9.0"
+        "meta3d-pipeline-root-protocol": "^0.9.0",
+        "meta3d-pipeline-webgpu-triangle-protocol": "^0.9.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

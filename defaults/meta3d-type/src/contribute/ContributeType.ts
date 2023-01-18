@@ -5,5 +5,5 @@ export enum contributeType {
   Action,
   Component,
   GameObject,
-  WorkPlugin
+  Pipeline
 }

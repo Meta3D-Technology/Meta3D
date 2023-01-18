@@ -5,5 +5,5 @@ type contributeType =
   | Action
   | Component
   | GameObject
-  | WorkPlugin
+  | Pipeline
   | Unknown

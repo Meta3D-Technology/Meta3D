@@ -1,6 +1,6 @@
 type jobOrder = {
   insertElementName: PipelineType.elementName,
-  insertAction: RegisterWorkPluginType.insertAction,
+  insertAction: RegisterPipelineType.insertAction,
 }
 
 type nodeData = {
@@ -9,4 +9,4 @@ type nodeData = {
   jobOrder: option<jobOrder>,
 }
 
-type rec tree = Node(StateType.workPluginName, nodeData, list<tree>)
+type rec tree = Node(StateType.pipelineName, nodeData, list<tree>)

@@ -117,9 +117,9 @@ let _decideContributeType = (contribute: contribute) => {
     : !(contribute["skinName"]->Js.Nullable.isNullable) &&
     !(contribute["skin"]->Js.Nullable.isNullable)
     ? Skin
-    : !(contribute["workPluginName"]->Js.Nullable.isNullable) &&
+    : !(contribute["pipelineName"]->Js.Nullable.isNullable) &&
     !(contribute["allPipelineData"]->Js.Nullable.isNullable)
-    ? WorkPlugin
+    ? Pipeline
     : Unknown
 }
 

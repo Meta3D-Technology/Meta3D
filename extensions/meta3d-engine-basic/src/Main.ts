@@ -4,9 +4,9 @@ import { service } from "meta3d-engine-basic-protocol/src/service/ServiceType"
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-engine-basic-protocol/src/service/DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { workPluginContribute } from "meta3d-engine-core-protocol/src/contribute/work/WorkPluginContributeType"
-import { state as rootState, states as rootStates } from "meta3d-work-plugin-root-protocol/src/StateType";
-import { config as rootConfig } from "meta3d-work-plugin-root-protocol/src/ConfigType";
+import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
+import { config as rootConfig } from "meta3d-pipeline-root-protocol/src/ConfigType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionProtocolNameMap,
@@ -15,7 +15,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api, [{
 	meta3dEngineCoreExtensionProtocolName,
 }, {
-	meta3dWorkPluginRootContributeName
+	meta3dPipelineRootContributeName
 }]) => {
 		return {
 			prepare: (meta3dState: meta3dState, isDebug) => {
@@ -27,14 +27,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 
-				let { setIsDebug, registerWorkPlugin } = engineCoreService
+				let { setIsDebug, registerPipeline } = engineCoreService
 
 				engineCoreState = setIsDebug(engineCoreState, isDebug)
 
 
 
 
-				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<rootConfig, rootState>>(meta3dState, meta3dWorkPluginRootContributeName)
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<rootConfig, rootState>>(meta3dState, meta3dPipelineRootContributeName)
 				)
 
 

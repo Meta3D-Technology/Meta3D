@@ -5,10 +5,10 @@ var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Resu
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var PipelineManager$Meta3dEngineCore = require("./pipeline_manager/PipelineManager.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
-var PluginDataManager$Meta3dEngineCore = require("./work_manager/plugin_data/PluginDataManager.bs.js");
-var WorkPluginManager$Meta3dEngineCore = require("./work_manager/WorkPluginManager.bs.js");
+var ContributeDataManager$Meta3dEngineCore = require("./ContributeDataManager.bs.js");
 
 function _convertJobOrders(jobOrders) {
   return ArraySt$Meta3dCommonlib.map(jobOrders, (function (jobOrder) {
@@ -20,22 +20,22 @@ function _convertJobOrders(jobOrders) {
               }));
 }
 
-function registerWorkPlugin(state, contribute, configOpt, jobOrdersOpt, param) {
+function registerPipeline(state, contribute, configOpt, jobOrdersOpt, param) {
   var config = configOpt !== undefined ? Caml_option.valFromOption(configOpt) : null;
   var jobOrders = jobOrdersOpt !== undefined ? jobOrdersOpt : [];
-  return WorkPluginManager$Meta3dEngineCore.registerPlugin(state, contribute, config, _convertJobOrders(jobOrders));
+  return PipelineManager$Meta3dEngineCore.registerPipeline(state, contribute, config, _convertJobOrders(jobOrders));
 }
 
 function prepare(param) {
   
 }
 
-var init = WorkPluginManager$Meta3dEngineCore.init;
+var init = PipelineManager$Meta3dEngineCore.init;
 
 function runPipeline(param, param$1, meta3dState, meta3dEngineCoreExtensionProtocolName, pipelineName) {
   var api = param[0];
   var mostService = api.getExtensionService(meta3dState, param[1].meta3dBsMostExtensionProtocolName);
-  return Result$Meta3dCommonlib.handleFail(WorkPluginManager$Meta3dEngineCore.runPipeline(meta3dState, [
+  return Result$Meta3dCommonlib.handleFail(PipelineManager$Meta3dEngineCore.runPipeline(meta3dState, [
                   api,
                   mostService,
                   param$1[0],
@@ -52,11 +52,11 @@ function getComponentState(state, componentName) {
   return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getComponentState(state, componentName));
 }
 
-var unregisterWorkPlugin = WorkPluginManager$Meta3dEngineCore.unregisterPlugin;
+var unregisterPipeline = PipelineManager$Meta3dEngineCore.unregisterPipeline;
 
-var getIsDebug = PluginDataManager$Meta3dEngineCore.getIsDebug;
+var getIsDebug = ContributeDataManager$Meta3dEngineCore.getIsDebug;
 
-var setIsDebug = PluginDataManager$Meta3dEngineCore.setIsDebug;
+var setIsDebug = ContributeDataManager$Meta3dEngineCore.setIsDebug;
 
 var unregisterComponent = ComponentManager$Meta3dEngineCore.unregisterComponent;
 
@@ -107,8 +107,8 @@ var cloneGameObject = GameObjectManager$Meta3dEngineCore.cloneGameObject;
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
 exports._convertJobOrders = _convertJobOrders;
-exports.registerWorkPlugin = registerWorkPlugin;
-exports.unregisterWorkPlugin = unregisterWorkPlugin;
+exports.registerPipeline = registerPipeline;
+exports.unregisterPipeline = unregisterPipeline;
 exports.prepare = prepare;
 exports.init = init;
 exports.runPipeline = runPipeline;

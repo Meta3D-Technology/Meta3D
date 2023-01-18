@@ -8,6 +8,5 @@ function createEmptyMap(componentCount) {
 
 export {
   createEmptyMap ,
-  
 }
 /* No side effect */

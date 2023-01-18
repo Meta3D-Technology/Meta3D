@@ -39,7 +39,7 @@ e.g. meta3d-imgui can invoke vertex-buffer-manage!
 
 
 
-# registerEnginePlugin
+# registerEnginePipeline
 # (need refresh page!)
 
 # TODO run
@@ -119,7 +119,7 @@ need! because custom control is commonlib control as lib, while register ui is u
 
 * TODO improve
 
-** DONE refactor: change packages(e.g. editor/, engine/, ...) to default/, middleware/, component/, work-plugin/, event-handler/, ui/
+** DONE refactor: change packages(e.g. editor/, engine/, ...) to default/, middleware/, component/, pipeline/, event-handler/, ui/
 
 
 
@@ -176,7 +176,7 @@ how to inject to component, work plugin???
 
 packages should be defaults/; extensions/(can has xxx-type package); 
 
-components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/, 
+components/, pipelines/, exec-funcs/(rename?); # skins/, custom-controls/, 
 (these folders is to put one which will be used by multi extensions!)
 
 
@@ -203,7 +203,7 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 # TODO rename po to state
 # TODO add engine-core state 
 # TODO refactor meta3d-commonlib, extract type
-# TODO add prepare, init, runPipeline, registerWorkPlugin, unregisterWorkPlugin
+# TODO add prepare, init, runPipeline, registerPipeline, unregisterPipeline
 # TODO refactor: change ExtensionManagerType.state to meta3d state(Meta3dType add index.res to define type); api, ... to index;
 
 ** DONE root work plugin
@@ -217,10 +217,10 @@ components/, work-plugins/, exec-funcs/(rename?); # skins/, custom-controls/,
 how to use protocol???
 
 
-registerWorkPlugin
+registerPipeline
 
 name XxxContribute, move to contribute/ folder
-e.g. workPluginContribute, getWorkPluginContribute
+e.g. pipelineContribute, getPipelineContribute
 
 change -type to -protocol;
 
@@ -249,9 +249,9 @@ give dependent extension name, extension protocol name, version when registerExt
 
 ////TODO remove StateContainer
 
-# TODO rename getData to getWorkPluginContribute, getGameObjectContribute, getComponentData
+# TODO rename getData to getPipelineContribute, getGameObjectContribute, getComponentData
 
-# TODO rename registerWorkPlugin->data to workPluginContribute
+# TODO rename registerPipeline->data to pipelineContribute
 
 
 
@@ -271,7 +271,7 @@ add webgl
 
 
 
-** DONE refactor: add work-plugins, components packages
+** DONE refactor: add pipelines, components packages
 
 
 
@@ -434,7 +434,7 @@ publish
 
 
 
-* DONE add work-plugin-protocols
+* DONE add pipeline-protocols
 
 # * TODO refactor: change protocol->name to "Meta3DXxx"
 
@@ -681,7 +681,7 @@ totalClonedGameObjectArr: [first cloned, second level cloned, third level cloned
 refer to ComponentMapService
 
 
-** DONE refactor: rename WorkPluginManagerType->workPluginContribute to workPluginContributeType
+** DONE refactor: rename PipelineManagerType->pipelineContribute to pipelineContributeType
 
 
 
@@ -835,11 +835,11 @@ TODO finish plugin.feature
 
 ** DONE refactor(work_plugins): Utils add setState
 
-** DONE refactor(work_plugin_protocols): type states use workPluginName as key
-export type states = { [workPluginName]: state, }
+** DONE refactor(work_plugin_protocols): type states use pipelineName as key
+export type states = { [pipelineName]: state, }
 
 ** DONE refactor(work_plugins): webgl1 worker->main, render: job should add postfix;
-export type states = { [workPluginName]: state, }
+export type states = { [pipelineName]: state, }
 
 ** DONE refactor: remove GameContributeType->'transformState, 'xxxState ???
 
@@ -1105,7 +1105,7 @@ refer to ReallocateCPUMemoryJobUtils
 
 ** TODO for meta3d(only test engine code except editor code)
 
-for work plugins(e.g. meta3d-work-plugin-webgl1-creategl)
+for work plugins(e.g. meta3d-pipeline-webgl1-creategl)
 
 
 # *** TODO for sxengine

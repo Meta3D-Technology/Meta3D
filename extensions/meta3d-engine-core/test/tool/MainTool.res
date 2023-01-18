@@ -1,19 +1,19 @@
 open Sinon
 
-let registerWorkPlugin = (
+let registerPipeline = (
   ~contribute,
-  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterWorkPluginType.config>=Js.Nullable.null,
-  ~jobOrders: Meta3dEngineCoreProtocol.RegisterWorkPluginVOType.jobOrders=[],
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
+  ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
   StateContainer.unsafeGetState()
-  ->DirectorForJs.registerWorkPlugin(~state=_, ~contribute, ~config, ~jobOrders, ())
+  ->DirectorForJs.registerPipeline(~state=_, ~contribute, ~config, ~jobOrders, ())
   ->StateContainer.setState
 }
 
-let unregisterWorkPlugin = targetPluginName => {
+let unregisterPipeline = targetPipelineName => {
   StateContainer.unsafeGetState()
-  ->DirectorForJs.unregisterWorkPlugin(targetPluginName)
+  ->DirectorForJs.unregisterPipeline(targetPipelineName)
   ->StateContainer.setState
 }
 
@@ -82,11 +82,11 @@ let runPipeline = (
 // let setStates = DirectorForJs.setStates
 
 let getIsDebug = () => {
-  StateContainer.unsafeGetState()->PluginDataManager.getIsDebug
+  StateContainer.unsafeGetState()->ContributeDataManager.getIsDebug
 }
 
 let setIsDebug = isDebug => {
-  StateContainer.unsafeGetState()->PluginDataManager.setIsDebug(isDebug)->StateContainer.setState
+  StateContainer.unsafeGetState()->ContributeDataManager.setIsDebug(isDebug)->StateContainer.setState
 }
 
 let registerComponent = contribute => {
