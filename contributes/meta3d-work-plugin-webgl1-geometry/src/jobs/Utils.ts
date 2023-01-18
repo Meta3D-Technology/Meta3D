@@ -1,5 +1,5 @@
-import { state, states, workPluginName, workPluginWhichHasAllGeometryIndicesState } from "meta3d-work-plugin-webgl1-geometry-protocol/src/StateType"
-import { workPluginName as dataWorkPluginName } from "meta3d-work-plugin-webgl1-data-protocol/src/StateType"
+import { state, states, workPluginName } from "meta3d-work-plugin-webgl1-geometry-protocol/src/StateType"
+import { workPluginName as dataWorkPluginName, state as dataState } from "meta3d-work-plugin-webgl1-data-protocol/src/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export function getState(states: states): state {
@@ -16,6 +16,6 @@ export function getGL(states: states) {
     return getExn(states[dataWorkPluginName].gl)
 }
 
-export function getAllGeometryIndices(states: states, workPluginWhichHasAllGeometryIndicesName: string) {
-    return (states[workPluginWhichHasAllGeometryIndicesName] as any as workPluginWhichHasAllGeometryIndicesState).allGeometryIndices
+export function getAllGeometryIndices(states: states) {
+    return (states[dataWorkPluginName] as any as dataState).allGeometryIndices
 }

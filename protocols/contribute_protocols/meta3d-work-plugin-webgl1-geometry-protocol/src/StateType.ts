@@ -20,16 +20,14 @@ export type state = {
         verticesVBOMap: verticesVBOMap,
         indicesVBOMap: indicesVBOMap
     },
-    // TODO remove
-    workPluginWhichHasAllGeometryIndicesName: string,
 }
 
-export type workPluginWhichHasAllGeometryIndicesState = {
-    allGeometryIndices: number[]
-}
+// export type workPluginWhichHasAllGeometryIndicesState = {
+//     allGeometryIndices: number[]
+// }
 
 export type states = {
-    [workPluginWhichHasAllGeometryIndicesName: string]: workPluginWhichHasAllGeometryIndicesState | dataState | state,
+    // [workPluginWhichHasAllGeometryIndicesName: string]: workPluginWhichHasAllGeometryIndicesState | dataState | state,
     [dataWorkPluginName]: dataState,
     [workPluginName]: state
 }

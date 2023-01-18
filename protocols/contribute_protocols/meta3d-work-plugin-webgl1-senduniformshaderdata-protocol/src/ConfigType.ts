@@ -1,3 +1,1 @@
-export type config = {
-    workPluginWhichHasUniformShaderDataName: string,
-}
+export type config = null

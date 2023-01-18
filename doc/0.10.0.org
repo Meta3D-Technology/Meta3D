@@ -571,7 +571,7 @@ TODO update use-editor
 
 
 
-** TODO refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
+** DONE refactor: work plugin webgl1 state: remove   workPluginWhichHasAllRenderComponentsName, ..., use protocol name instead
 
 
 

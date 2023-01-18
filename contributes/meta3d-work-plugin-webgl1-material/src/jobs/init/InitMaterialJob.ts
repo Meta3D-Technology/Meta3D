@@ -6,14 +6,14 @@ import { initMaterial } from "../InitMaterialUtils"
 
 export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, webgl1Service, immutableService, material, workPluginWhichHasAllMaterialIndicesName } = getState(states)
+	let { mostService, webgl1Service, immutableService, material } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("init material job");
 
 		let programMap = getExn(material.programMap)
 
-		let newProgramMap = initMaterial([webgl1Service, immutableService], getGL(states), programMap, getAllMaterialIndices(states, workPluginWhichHasAllMaterialIndicesName))
+		let newProgramMap = initMaterial([webgl1Service, immutableService], getGL(states), programMap, getAllMaterialIndices(states))
 
 
 		return setStatesFunc<states>(

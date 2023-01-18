@@ -7,13 +7,10 @@ import { workPluginName as dataWorkPluginName } from "meta3d-work-plugin-webgl1-
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	// let { mostService, engineCoreService, isDebug, workPluginWhichHasCanvasName } = getState(states)
 	let { mostService, engineCoreService, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("update camera job")
-
-		// let canvas = getCanvas(states, workPluginWhichHasCanvasName)
 
 		let { width, height } = getExn(states[dataWorkPluginName].viewRect)
 

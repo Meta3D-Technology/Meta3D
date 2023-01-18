@@ -32,9 +32,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 	return {
 		workPluginName: workPluginName,
-		createStateFunc: (meta3dState, {
-			workPluginWhichHasAllRenderComponentsName
-		}) => {
+		createStateFunc: (meta3dState, _) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionName),
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionName),
@@ -42,7 +40,6 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 				immutableService: api.getExtensionService<immutableService>(meta3dState, meta3dImmutableExtensionName)
 				,
 
-				workPluginWhichHasAllRenderComponentsName,
 			}
 		},
 		initFunc: _init,

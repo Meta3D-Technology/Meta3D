@@ -3,9 +3,12 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { workPluginName as geometryWorkPluginName, state as geometryState } from "meta3d-work-plugin-webgl1-geometry-protocol/src/StateType"
 import { workPluginName as materialWorkPluginName, state as materialState } from "meta3d-work-plugin-webgl1-material-protocol/src/StateType"
 import { viewMatrix, pMatrix } from "meta3d-work-plugin-webgl1-senduniformshaderdata-protocol/src/StateType"
-import { allRenderComponents } from "meta3d-work-plugin-webgl1-render-protocol/src/StateType"
+// import { allRenderComponents } from "meta3d-work-plugin-webgl1-render-protocol/src/StateType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { transform } from "meta3d-component-transform-common-protocol"
+import { geometry } from "meta3d-component-geometry-common-protocol"
+import { pbrMaterial } from "meta3d-component-pbrmaterial-common-protocol"
 
 export const workPluginName = "WebGL1_Data"
 
@@ -15,6 +18,8 @@ type viewRect = {
     width: number,
     height: number
 }
+
+export type allRenderComponents = Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
 
 export type state = {
     isDebug: boolean,

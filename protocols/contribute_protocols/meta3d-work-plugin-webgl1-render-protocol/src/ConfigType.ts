@@ -1,3 +1,1 @@
-export type config = {
-    workPluginWhichHasAllRenderComponentsName: string,
-}
+export type config = null

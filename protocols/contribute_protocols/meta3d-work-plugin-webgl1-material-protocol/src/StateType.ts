@@ -17,15 +17,15 @@ export type state = {
     material: {
         programMap: programMap
     },
-    workPluginWhichHasAllMaterialIndicesName: string,
+    // workPluginWhichHasAllMaterialIndicesName: string,
 }
 
-export type workPluginWhichHasAllMaterialIndicesState = {
-    allMaterialIndices: number[]
-}
+// export type workPluginWhichHasAllMaterialIndicesState = {
+//     allMaterialIndices: number[]
+// }
 
 export type states = {
-    [workPluginWhichHasAllMaterialIndicesName: string]: workPluginWhichHasAllMaterialIndicesState | dataState | state,
+    // [workPluginWhichHasAllMaterialIndicesName: string]: workPluginWhichHasAllMaterialIndicesState | dataState | state,
     [dataWorkPluginName]: dataState,
     [workPluginName]: state
 }

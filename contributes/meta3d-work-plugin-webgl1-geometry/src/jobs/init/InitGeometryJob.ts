@@ -6,7 +6,7 @@ import { initGeometry } from "../InitGeometryUtils"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, webgl1Service, engineCoreService, immutableService, vbo, workPluginWhichHasAllGeometryIndicesName } = getState(states)
+	let { mostService, webgl1Service, engineCoreService, immutableService, vbo } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("init geometry job");
@@ -16,7 +16,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
 		let [newVerticesVBOMap, newIndicesVBOMap] = initGeometry([webgl1Service, engineCoreService, immutableService],
 			api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName),
-			getGL(states), verticesVBOMap, indicesVBOMap, getAllGeometryIndices(states, workPluginWhichHasAllGeometryIndicesName))
+			getGL(states), verticesVBOMap, indicesVBOMap, getAllGeometryIndices(states))
 
 		return setStatesFunc<states>(
 			meta3dState,

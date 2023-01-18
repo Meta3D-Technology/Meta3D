@@ -18,12 +18,12 @@ function _sendCameraData(webgl1Service: webgl1Service, gl: webgl1Context, progra
 
 export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, webgl1Service, workPluginWhichHasUniformShaderDataName } = getState(states)
+	let { mostService, webgl1Service } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("send uniform shader data job")
 
-		_sendCameraData(webgl1Service, getGL(states), getProgramMap(states), getViewMatrix(states, workPluginWhichHasUniformShaderDataName), getPMatrix(states, workPluginWhichHasUniformShaderDataName))
+		_sendCameraData(webgl1Service, getGL(states), getProgramMap(states), getViewMatrix(states), getPMatrix(states))
 
 		return meta3dState
 	})

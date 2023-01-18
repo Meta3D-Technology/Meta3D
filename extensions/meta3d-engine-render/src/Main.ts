@@ -90,9 +90,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<geometryConfig, geometryState>>(meta3dState, meta3dWorkPluginWebgl1GeometryContributeName),
-					{
-						workPluginWhichHasAllGeometryIndicesName: dataWorkPluginName
-					},
+					null,
 					[
 						{
 							pipelineName: "init",
@@ -103,9 +101,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<materialConfig, materialState>>(meta3dState, meta3dWorkPluginWebgl1MaterialContributeName),
-					{
-						workPluginWhichHasAllMaterialIndicesName: dataWorkPluginName
-					},
+					null,
 					[
 						{
 							pipelineName: "init",
@@ -116,9 +112,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, meta3dWorkPluginWebgl1SenduniformshaderdataContributeName),
-					{
-						workPluginWhichHasUniformShaderDataName: dataWorkPluginName
-					},
+					null,
 					[
 						{
 							pipelineName: "render",
@@ -129,9 +123,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 				engineCoreState = registerWorkPlugin(engineCoreState, api.getContribute<workPluginContribute<renderConfig, renderState>>(meta3dState, meta3dWorkPluginWebgl1RenderContributeName),
-					{
-						workPluginWhichHasAllRenderComponentsName: dataWorkPluginName
-					},
+					null,
 					[
 						{
 							pipelineName: "render",

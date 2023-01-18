@@ -65,7 +65,7 @@ function _clear(webgl1Service: webgl1Service, gl: webgl1Context) {
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, immutableService, engineCoreService, webgl1Service, workPluginWhichHasAllRenderComponentsName } = getState(states)
+	let { mostService, immutableService, engineCoreService, webgl1Service } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("render job")
@@ -75,7 +75,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
 		_clear(webgl1Service, getGL(states))
 
-		getAllRenderComponents(states, workPluginWhichHasAllRenderComponentsName).forEach(({ transform, geometry, material }) => {
+		getAllRenderComponents(states).forEach(({ transform, geometry, material }) => {
 			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix] = _getRenderData([engineCoreService, immutableService], api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
 
 			_render(webgl1Service, getGL(states), verticesBuffer, indicesBuffer, program, modelMatrix, indicesCount)

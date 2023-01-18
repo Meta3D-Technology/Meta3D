@@ -1,3 +1,1 @@
-export type config = {
-    workPluginWhichHasAllGeometryIndicesName: string,
-}
+export type config = null

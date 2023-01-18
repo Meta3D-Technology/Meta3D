@@ -1,3 +1,1 @@
-export type config = {
-    workPluginWhichHasAllMaterialIndicesName: string,
-}
+export type config = null

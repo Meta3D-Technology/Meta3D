@@ -31,9 +31,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 
 	return {
 		workPluginName: workPluginName,
-		createStateFunc: (meta3dState, {
-			workPluginWhichHasAllMaterialIndicesName,
-		}) => {
+		createStateFunc: (meta3dState, _) => {
 			let immutableService = api.getExtensionService<immutableService>(meta3dState, meta3dImmutableExtensionName)
 
 			return {
@@ -42,7 +40,6 @@ export let getContribute: getContributeMeta3D<dependentExtensionNameMap, depende
 				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionName),
 				immutableService: immutableService,
 
-				workPluginWhichHasAllMaterialIndicesName,
 				material: {
 					programMap: immutableService.createMap(),
 				},
