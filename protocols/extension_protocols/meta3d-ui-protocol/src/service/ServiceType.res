@@ -87,7 +87,7 @@ type service = {
   addFBOTexture: (
     Meta3dType.Index.state,
     Js.Null.t<texture>,
-    Meta3dImguiRendererProtocol.ServiceType.size,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => Meta3dType.Index.state,
   getFBOTexture: (StateType.state, StateType.textureID) => Js.Nullable.t<texture>,
   setFBOTexture: (StateType.state, StateType.textureID, texture) => StateType.state,

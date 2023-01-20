@@ -1,6 +1,6 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execPrepareFBO } from "./jobs/init/PrepareFBOJob";
-import { execFunc as execUpdate } from "./jobs/update/UpdateJob";
+import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execUpdateFBO } from "./jobs/render/UseFBOJob";
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
@@ -15,8 +15,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case "scene_view1_gl_webgl1_prepare_fbo_meta3d":
 			return execPrepareFBO;
-		case "scene_view1_gl_webgl1_update_meta3d":
-			return execUpdate;
+		case "scene_view1_gl_webgl1_craete_default_scene_meta3d":
+			return execCreateDefaultSceneJob;
 		case "scene_view1_gl_webgl1_update_fbo_meta3d":
 			return execUpdateFBO;
 		default:
@@ -32,7 +32,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 		meta3dWebgl1ExtensionProtocolName,
 		meta3dBsMostExtensionProtocolName,
 		meta3dUIExtensionProtocolName,
-		meta3dEngineWholeExtensionProtocolName
+		meta3dEditorEngineWholeExtensionProtocolName
 	} = dependentMapData[0]
 
 	return {
@@ -42,9 +42,9 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionProtocolName),
 				uiService: api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName),
-				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, meta3dEngineWholeExtensionProtocolName),
+				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, meta3dEditorEngineWholeExtensionProtocolName),
 				meta3dUIExtensionProtocolName: meta3dUIExtensionProtocolName,
-				cameraGameObject: null,
+				// cameraGameObject: null,
 				fbo: null
 			}
 		},
@@ -62,20 +62,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 								"name": "scene_view1_gl_webgl1_prepare_fbo_meta3d",
 								"type_": "job"
 							},
-						]
-					}
-				],
-				first_group: "first_webgl1_scene_view1_meta3d"
-			},
-			{
-				name: "update",
-				groups: [
-					{
-						name: "first_webgl1_scene_view1_meta3d",
-						link: "concat",
-						elements: [
 							{
-								"name": "scene_view1_gl_webgl1_update_meta3d",
+								"name": "scene_view1_gl_webgl1_craete_default_scene_meta3d",
 								"type_": "job"
 							},
 						]

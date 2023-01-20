@@ -263,7 +263,7 @@ let addFBOTexture = (
   ~sandbox,
   ~getExtensionService,
   ~texture,
-  ~size,
+  ~rect,
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -288,7 +288,7 @@ let addFBOTexture = (
       imguiRendererExtensionProtocolName,
     ),
     texture,
-    size,
+    rect,
   )
 }
 

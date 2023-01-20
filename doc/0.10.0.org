@@ -71,7 +71,7 @@ run render pipeline
 * DONE download whole engine package to use as a engine to draw a cube
 
 engine whole package:
-engine core, immutable, most
+engine whole, engine core, immutable, most
 packages
 
 
@@ -619,115 +619,66 @@ cache?
 
 
 
-*** TODO rebuild engine whole package for editor
+*** DONE rebuild engine whole package for editor
 
 not has meta3d-ui extension!
 
 
 *** TODO pass view run test
 
-TODO element->run
 
+TODO prepare editor app assemble
 
-TODO published app
 
 
 
-* TODO handle event
+**** DONE empty fbo: element->run
 
-** TODO camera gameObject add arcball component
+why button follow parent?
 
 
-** TODO handle event
+fix:
+fbo texture rect error
+event not match
 
 
 
+**** DONE has fbo: element->run
 
-* TODO run test: add scene view based to show a cube + arcball camera
 
+meta3d-element-assemble-visual not change
+(not know engine, only know ui)
 
-# * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
-* TODO run test: add grid
 
+TODO meta3d-element-assemble-visual-run:
+known engine
+encapsulate register editor pipelines to editor engine whole->prepare!
 
 
-* TODO use view control implement(low level) for scene view and game view
 
-one canvas-one view-one gl
 
-one engine state(meta3dState?)(encapsulate)
+**** TODO published app
 
+update use-editor version and publish
 
-contain scene view and game view
 
+*** TODO feat: check: only has one scene view ui control
 
+in visual, visual-run, use-editor:
+check when register ui control?
 
-** TODO add meshrenderer component
 
-has isRender
 
-** TODO update PrepareRenderDataJob
+*** TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
 
 
-** TODO render scene view and game view
+usage:
+debug by register the new version one and use it!!!
 
-share gl, engine state
 
 
-encapsulate viewport logic
 
 
-config:
-viewRect
-
-  |> DeviceManagerEngineService.setViewport(viewRect)
-  |> DeviceManagerEngineService.setScissorTest(true)
-  |> DeviceManagerEngineService.setScissor(viewRect)
-
-
-
-
-scene view has default scene gameObjects
-
-
-
-* TODO refactor: extract pipeline-editor-view-utils
-
-
-
-
-* TODO handle event
-
-** TODO handle scene view, game view event
-
-refer to wonder-editor code
-
-add event target
-
-
-dependent on scene view event, game view event(has independent state)?
-
-
-
-* TODO run test: add scene view, game view based to show a cube + arcball camera + grid
-
-
-
-
-
-* TODO add two buttons, to add a cube gameObject and add a arcball camera controller gameObject
-
-
-* TODO add run button to run game view
-
-
-# * TODO refactor: extract 3D View custom control(low level)
-
-
-
-
-
-* TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
 
 # should warn(protocol name, protocol version, name, version) and register the newest protocol version
 should warn:
@@ -737,22 +688,84 @@ use protocol version finally!
 
 
 # and register the newest protocol version and newest version?
-and register the newest protocol version?
+# and register the newest protocol version?
+and register the newest protocol version or  newest version with the same protocol version?
 
 
 
-* TODO refactor: rename getGL to getGl??
+
+*** TODO why publish new ui control version and reselect, dev server not update?
 
 
-* TODO run test for 0.11.0 in dev
+
+
+
+
+*** TODO fix imgui
+
+test in imgui example first!
+
+
+**** TODO fix: run-scene view control : fix rect
+
+
+
+**** TODO fix: scene view control : fix pos with not 0
+
+**** TODO fix: scene view control should consider bar height
+
+
+**** TODO fix: child window should move along parent window
+
+
+**** TODO pass element assemble run test
+
+
+
+
+* TODO feat: run element support scene view or no scene view
+
+
+
+
+
+# * TODO run test for 0.11.0 in dev
+* TODO run test for Contract in dev
 
 clear all old ones
 
-publish 0.11.0
+publish 0.9.0
 
 rebuild all engine packages
 
 run test with isDebug:true
+
+
+
+
+
+
+
+* TODO run test: add scene view based to show a cube + arcball camera
+
+
+# * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
+# * TODO run test: add grid
+
+
+
+
+
+
+
+* TODO feat: run element support only scene view(no game view) or scene view + game view
+
+
+* TODO feat: element assemble: Pacakges should show loading...
+
+
+* TODO refactor: rename getGL to getGl??
+
 
 
 

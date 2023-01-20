@@ -42,8 +42,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     },
     getFBOTexture: UIManager.getFBOTexture,
     setFBOTexture: UIManager.setFBOTexture,
-    addFBOTexture: (meta3dState, texture, size) => {
-      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), texture, size)
+    addFBOTexture: (meta3dState, texture, rect) => {
+      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), texture, rect)
     },
     getContext: meta3dState => {
       UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))

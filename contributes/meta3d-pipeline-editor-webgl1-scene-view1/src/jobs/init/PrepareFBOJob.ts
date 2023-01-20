@@ -3,6 +3,7 @@ import { getState, getTextureID, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { service as webgl1Service, webgl1Context, fbo, texture } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { getExnFromStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 
 let _getLevel = () => 0
 
@@ -38,7 +39,7 @@ let _createAndInitFBOData = (webgl1Service: webgl1Service, gl: webgl1Context): [
     return [fbo, texture]
 }
 
-export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc }) => {
+export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
     let {
         mostService,
@@ -55,7 +56,11 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc, setStatesFunc
 
         let [fbo, texture] = _createAndInitFBOData(webgl1Service, getContext(meta3dState))
 
-        meta3dState = setFBOTexture(meta3dState, meta3dUIExtensionProtocolName, getTextureID(), texture)
+        let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+
+        uiState = setFBOTexture(uiState, getTextureID(), texture)
+
+        meta3dState = api.setExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName, uiState)
 
 
         return setStatesFunc<states>(

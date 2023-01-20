@@ -238,7 +238,7 @@ defineFeature(feature, test => {
     let cameraView1 = ref(Obj.magic(-1))
     let cameraView2 = ref(Obj.magic(-1))
     let activeBasicCameraView = ref(Obj.magic(1))
-    let isDebug = false
+    let isDebug = true
 
     _prepareData(given, \"and", basicCameraViewComponentName)
 

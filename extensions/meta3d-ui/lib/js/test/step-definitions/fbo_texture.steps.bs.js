@@ -39,10 +39,12 @@ JestCucumber.defineFeature(feature, (function (test) {
                 var texture = {
                   contents: 1
                 };
-                var size = [
-                  10,
-                  20
-                ];
+                var rect = {
+                  x: 1,
+                  y: 2,
+                  width: 10,
+                  height: 20
+                };
                 var result = {
                   contents: 1
                 };
@@ -73,12 +75,12 @@ JestCucumber.defineFeature(feature, (function (test) {
                         };
                       }));
                 Curry._2(param.when, "add fbo texture", (function (param) {
-                        result.contents = MainTool$Meta3dUi.addFBOTexture(sandbox, getExtensionServiceStub.contents, texture.contents, size, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        result.contents = MainTool$Meta3dUi.addFBOTexture(sandbox, getExtensionServiceStub.contents, texture.contents, rect, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "invoke imgui renderer's addFBOTexture", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([
                                   Sinon.getCallCount(Sinon.withTwoArgs(22, imguiRendererExtensionProtocolName, getExtensionServiceStub.contents)),
-                                  SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, addFBOTextureStub.contents), texture.contents, size)
+                                  SinonTool$Meta3dUi.calledWithArg2(Sinon.getCall(0, addFBOTextureStub.contents), texture.contents, rect)
                                 ]), [
                               1,
                               true

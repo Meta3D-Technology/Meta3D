@@ -13,7 +13,9 @@ let _createState = () => {
     },
     isShowApInspector: false,
     apInspectorData: {
-      isDebug: true,
+      // isDebug: true,
+      // TODO restore to true
+      isDebug: false,
       clearColor: (1., 1., 1., 1.),
       skinName: None,
     },

@@ -224,7 +224,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     (gl->Obj.magic)["bindTexture"](. mode, texture)
   },
   createTexture: (. gl) => {
-    (gl->Obj.magic)["createTexture"]()
+    (gl->Obj.magic)["createTexture"](.)
   },
   texImage2D: (.
     target,
@@ -287,7 +287,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     (gl->Obj.magic)["COLOR_ATTACHMENT0"]
   },
   createFramebuffer: (. gl) => {
-    (gl->Obj.magic)["createFramebuffer"]()
+    (gl->Obj.magic)["createFramebuffer"](.)
   },
   bindFramebuffer: (. target, framebuffer, gl) => {
     (gl->Obj.magic)["bindFramebuffer"](. target, framebuffer)

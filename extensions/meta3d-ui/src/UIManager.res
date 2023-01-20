@@ -607,11 +607,11 @@ let setFBOTexture = (state: Meta3dUiProtocol.StateType.state, textureID, texture
   }
 }
 
-let addFBOTexture = (meta3dState, data, texture, size) => {
+let addFBOTexture = (meta3dState, data, texture, rect) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
     (imguiRendererState, imguiRendererService) => {
-      imguiRendererService.addFBOTexture(. texture, size)
+      imguiRendererService.addFBOTexture(. texture, rect)
 
       imguiRendererState
     },

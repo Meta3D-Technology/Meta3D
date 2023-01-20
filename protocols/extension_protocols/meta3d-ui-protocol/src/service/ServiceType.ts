@@ -118,18 +118,17 @@ export type service = {
     readonly addFBOTexture: (
         meta3dState: meta3dState,
         texture: strictNullable<texture>,
-        size: size
+        rect: rect
     ) => meta3dState;
     readonly getFBOTexture: (
         state: state,
         textureID: textureID,
     ) => nullable<texture>;
     readonly setFBOTexture: (
-        meta3dState: meta3dState,
-        uiExtensionProtocolName: uiExtensionProtocolName,
+        state: state,
         textureID: textureID,
         texture: texture
-    ) => meta3dState;
+    ) => state;
     readonly getContext: (
         meta3dState: meta3dState
     ) => context;

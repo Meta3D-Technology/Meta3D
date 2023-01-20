@@ -55,8 +55,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					[
 						{
 							pipelineName: "update",
-							insertElementName: "update_root_meta3d",
-							insertAction: "after"
+							// insertElementName: "update_root_meta3d",
+							// insertAction: "after"
+							insertElementName: "update_camera_camera_meta3d",
+							insertAction: "before"
 						}
 					]
 				)
@@ -77,7 +79,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					[
 						{
 							pipelineName: "init",
-							insertElementName: "create_gl_webgl1_creategl_meta3d",
+							insertElementName: "get_gl_webgl1_getgl_meta3d",
 							insertAction: "after"
 						}
 					]

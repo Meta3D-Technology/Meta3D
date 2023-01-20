@@ -16,11 +16,6 @@ let _getFBOTexture = (getFBOTexture: (state: state, textureID: string) => nullab
     return getExn(texture)
 }
 
-// TODO refactor: move to utils/
-let _generateUniqueId = () => {
-    return Math.floor(Math.random() * 1000000.0).toString()
-}
-
 export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
     let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
 
@@ -43,13 +38,22 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
             meta3dState = beginWindow(meta3dState, label)
 
 
-            meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), [rect.width, rect.height])
+            // meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), [rect.width, rect.height])
+            meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), rect)
+            // meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), {
+            //     x: 0,
+            //     y: 0,
+            //     // TODO fix: consider bar height?
+            //     width: rect.width,
+            //     height: rect.height
+            // })
 
 
 
 
 
 
+            // TODO fix: add bar height?
             state = setUIControlState<uiControlState>(state, uiControlName, {
                 rect: rect
             })

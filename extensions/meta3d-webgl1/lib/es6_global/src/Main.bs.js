@@ -1,6 +1,5 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 
 function getExtensionService(api, param) {
@@ -219,7 +218,7 @@ function getExtensionService(api, param) {
               gl.bindTexture(mode, texture);
             }),
           createTexture: (function (gl) {
-              return Curry._1(gl.createTexture, undefined);
+              return gl.createTexture();
             }),
           texImage2D: (function (target, level, internalformat, width, height, border, format, type_, pixels, gl) {
               gl.texImage2D(target, level, internalformat, width, height, border, format, type_, pixels);
@@ -261,7 +260,7 @@ function getExtensionService(api, param) {
               return gl.COLOR_ATTACHMENT0;
             }),
           createFramebuffer: (function (gl) {
-              return Curry._1(gl.createFramebuffer, undefined);
+              return gl.createFramebuffer();
             }),
           bindFramebuffer: (function (target, framebuffer, gl) {
               gl.bindFramebuffer(target, framebuffer);

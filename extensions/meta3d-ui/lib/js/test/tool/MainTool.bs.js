@@ -172,7 +172,7 @@ function setFBOTexture(textureID, texture, stateOpt, param) {
   return UIManager$Meta3dUi.setFBOTexture(state, textureID, texture);
 }
 
-function addFBOTexture(sandbox, getExtensionService, texture, size, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
+function addFBOTexture(sandbox, getExtensionService, texture, rect, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getExtensionState = getExtensionStateOpt !== undefined ? Caml_option.valFromOption(getExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
   var setExtensionState = setExtensionStateOpt !== undefined ? Caml_option.valFromOption(setExtensionStateOpt) : Sinon.createEmptyStub(sandbox.contents);
@@ -189,7 +189,7 @@ function addFBOTexture(sandbox, getExtensionService, texture, size, getAllContri
                 getAllContributesByType: getAllContributesByType
               },
               imguiRendererExtensionProtocolName
-            ], texture, size);
+            ], texture, rect);
 }
 
 function getContext(sandbox, getExtensionService, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, imguiRendererExtensionProtocolNameOpt, meta3dStateOpt, param) {

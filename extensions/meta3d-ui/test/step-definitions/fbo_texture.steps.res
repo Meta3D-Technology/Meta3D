@@ -64,7 +64,12 @@ defineFeature(feature, test => {
   test(."add fbo texture", ({given, \"when", \"and", then}) => {
     let meta3dState1: Meta3dType.Index.state = Obj.magic(22)
     let texture: ref<Meta3dImguiRendererProtocol.ServiceType.texture> = ref(Obj.magic(1))
-    let size = (10, 20)
+    let rect: Meta3dImguiRendererProtocol.ServiceType.rect = {
+      x: 1.,
+      y: 2.,
+      width: 10.,
+      height: 20.,
+    }
     let result = ref(Obj.magic(1))
     let imguiRendererExtensionProtocolName = "imguiRendererExtensionProtocolName"
     let imguiRendererService = ref(Obj.magic(1))
@@ -124,7 +129,7 @@ defineFeature(feature, test => {
           MainTool.addFBOTexture(
             ~sandbox,
             ~texture=texture.contents->Js.Null.return,
-            ~size,
+            ~rect,
             ~imguiRendererExtensionProtocolName,
             ~getExtensionService=getExtensionServiceStub.contents,
             ~meta3dState=meta3dState1,
@@ -142,7 +147,7 @@ defineFeature(feature, test => {
           ->getCallCount,
           addFBOTextureStub.contents
           ->getCall(0, _)
-          ->SinonTool.calledWithArg2(texture.contents, size),
+          ->SinonTool.calledWithArg2(texture.contents, rect),
         )->expect == (1, true)
       },
     )

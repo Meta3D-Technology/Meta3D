@@ -3,14 +3,12 @@ import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils";
-import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
-import { getViewRect } from "meta3d-view-utils/src/ViewRect";
 
-type canvasSize = [number, number]
+// type canvasSize = [number, number]
 
-let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
+// let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
+let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService): [meta3dState, gameObject] => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
     let gameObject = data[1]
@@ -34,7 +32,7 @@ let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeS
     let cameraProjection = data[1]
 
     meta3dState = scene.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
-    meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
+    // meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
     meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
     meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
@@ -101,8 +99,10 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     return meta3dState
 }
 
-let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
-    let data = _createCameraGameObject(meta3dState, engineWholeService, canvasSize)
+// let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
+let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService): [meta3dState, gameObject] => {
+    // let data = _createCameraGameObject(meta3dState, engineWholeService, canvasSize)
+    let data = _createCameraGameObject(meta3dState, engineWholeService)
     meta3dState = data[0]
     let cameraGameObject = data[1]
 
@@ -115,42 +115,27 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     let states = getStatesFunc<states>(meta3dState)
     let {
         mostService,
-        uiService,
         engineWholeService,
-        meta3dUIExtensionProtocolName,
-        cameraGameObject,
     } = getState(states)
 
     return mostService.callFunc(() => {
         console.log("update job");
 
-        let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+
+        let data = _addDefaultGameObjects(meta3dState, engineWholeService)
+        meta3dState = data[0]
+        // let cameraGameObject = data[1]
 
 
-        if (isNullable(cameraGameObject)) {
-            let viewRect = getViewRect(uiService, uiState)
-
-            // if (!isNullable(viewRect)) {
-            viewRect = getExn(viewRect)
-
-            let canvasSize: canvasSize = [viewRect.width, viewRect.height]
-
-            let data = _addDefaultGameObjects(meta3dState, engineWholeService, canvasSize)
-            meta3dState = data[0]
-            let cameraGameObject = data[1]
-
-
-            return setStatesFunc<states>(
-                meta3dState,
-                setState(states,
-                    {
-                        ...getState(states),
-                        cameraGameObject: cameraGameObject
-                    }
-                )
-            )
-            // }
-        }
+        // return setStatesFunc<states>(
+        //     meta3dState,
+        //     setState(states,
+        //         {
+        //             ...getState(states),
+        //             // cameraGameObject: cameraGameObject
+        //         }
+        //     )
+        // )
 
         return meta3dState
     })

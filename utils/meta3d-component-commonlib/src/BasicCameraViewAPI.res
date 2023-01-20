@@ -6,7 +6,10 @@ let getViewWorldToCameraMatrix = (
   usedTransformContribute,
   cameraView: Meta3dComponentBasiccameraviewProtocol.Index.basicCameraView,
 ) => {
-  getComponentGameObjects(usedBasicCameraViewContribute, cameraView->VOTypeConvert.basicCameraViewToComponent)
+  getComponentGameObjects(
+    usedBasicCameraViewContribute,
+    cameraView->VOTypeConvert.basicCameraViewToComponent,
+  )
   ->Meta3dCommonlib.ArraySt.getFirst
   ->Meta3dCommonlib.OptionSt.bind(gameObject =>
     getComponent(usedTransformContribute, gameObject)->Meta3dCommonlib.OptionSt.fromNullable
