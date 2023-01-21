@@ -46,3 +46,5 @@ let buildSpecific = (
     value,
   }
 }
+
+let getScenViewUIControlProtocolName = UIControls.Method._getScenViewUIControlProtocolName

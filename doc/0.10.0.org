@@ -662,11 +662,17 @@ encapsulate register editor pipelines to editor engine whole->prepare!
 update use-editor version and publish
 
 
-*** TODO feat: check: only has one scene view ui control
+*** DONE feat: check: only has one scene view ui control
 
-in visual, visual-run, use-editor:
-check when register ui control?
+# in visual, visual-run, use-editor:
+# check when register ui control?
 
+
+
+
+*** TODO why publish new ui control version and reselect, dev server not update?
+
+why extension not has this problem???
 
 
 *** TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
@@ -694,9 +700,6 @@ and register the newest protocol version or  newest version with the same protoc
 
 
 
-*** TODO why publish new ui control version and reselect, dev server not update?
-
-
 
 
 
@@ -721,9 +724,35 @@ test in imgui example first!
 **** TODO pass element assemble run test
 
 
+* TODO handle event
+
+
+** TODO camera gameObject add arcball component
+
+
+
+** TODO handle event
+
+
+
+
+
+
 
 
 * TODO feat: run element support scene view or no scene view
+
+
+
+
+
+* TODO run test: add scene view based to show a cube + arcball camera
+
+
+# * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
+# * TODO run test: add grid
+
+
 
 
 
@@ -743,14 +772,6 @@ run test with isDebug:true
 
 
 
-
-
-
-* TODO run test: add scene view based to show a cube + arcball camera
-
-
-# * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
-# * TODO run test: add grid
 
 
 

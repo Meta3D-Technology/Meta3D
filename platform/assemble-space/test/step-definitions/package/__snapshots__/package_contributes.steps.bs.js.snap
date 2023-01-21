@@ -56,7 +56,7 @@ exports[`PackageContributes if loaded, show contributes list 1`] = `
           <div
             className="ant-empty-description"
           >
-            No Data
+            No data
           </div>
         </div>
       </div>

@@ -56,7 +56,7 @@ exports[`Fix AssembleSpace Bug fix "enter AssembleSpace should reset" bug 1`] = 
           <div
             className="ant-empty-description"
           >
-            No Data
+            No data
           </div>
         </div>
       </div>

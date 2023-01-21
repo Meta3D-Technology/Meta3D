@@ -34,8 +34,10 @@ exports[`Selected UIControls show selected hierachy uiControls 1`] = `
     className="ant-tree-treenode"
     style={
       Object {
+        "border": 0,
         "height": 0,
         "overflow": "hidden",
+        "padding": 0,
         "pointerEvents": "none",
         "position": "absolute",
         "visibility": "hidden",

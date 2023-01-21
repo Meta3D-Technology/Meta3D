@@ -21,39 +21,66 @@ module Method = {
     })
   }
 
+  let _getScenViewUIControlProtocolName = () => "meta3d-ui-control-scene-view-protocol"
+
+  let _checkShouldOnlyHasOneSceneViewUIControlAtMost = (
+    protocolName,
+    selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
+  ) => {
+    protocolName === _getScenViewUIControlProtocolName()
+      ? {
+          selectedUIControls
+          ->Meta3dCommonlib.ListSt.filter(uiControl => {
+            uiControl.data.contributePackageData.protocol.name === protocolName
+          })
+          ->Meta3dCommonlib.ListSt.length !== 0
+            ? Some({j`只能有1个Scene View UI Control`})
+            : None
+        }
+      : None
+  }
+
   let selectUIControl = (
     service,
     dispatch,
+    selectedUIControls,
     selectedContributes,
     protocolIconBase64,
     protocolConfigStr,
     name,
-    data,
+    data: Meta3d.ExtensionFileType.contributeFileData,
     parentUIControlId,
   ) => {
     let protocolConfigStr = protocolConfigStr->Meta3dCommonlib.OptionSt.getExn
 
-    dispatch(
-      FrontendUtils.ElementAssembleStoreType.SelectUIControl(
-        protocolIconBase64,
-        protocolConfigStr,
-        name,
-        data,
-        parentUIControlId,
-        service.meta3d.getUIControlSpecificDataFields(.
-          service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
-        )->_convertSpecificType,
-      ),
-    )
+    switch _checkShouldOnlyHasOneSceneViewUIControlAtMost(
+      data.contributePackageData.protocol.name,
+      selectedUIControls,
+    ) {
+    | Some(errorMessage) => service.console.error(. errorMessage, None)
+    | None =>
+      dispatch(
+        FrontendUtils.ElementAssembleStoreType.SelectUIControl(
+          protocolIconBase64,
+          protocolConfigStr,
+          name,
+          data,
+          parentUIControlId,
+          service.meta3d.getUIControlSpecificDataFields(.
+            service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+          )->_convertSpecificType,
+        ),
+      )
+    }
   }
 
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {selectedContributes} = apAssembleState
-    let {parentUIControlId} = elementAssembleState
+    let {selectedUIControls, parentUIControlId} = elementAssembleState
 
-    (selectedContributes, parentUIControlId)
+    (selectedContributes, selectedUIControls, parentUIControlId)
   }
 }
 
@@ -61,7 +88,9 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (selectedContributes, parentUIControlId) = service.react.useSelector(Method.useSelector)
+  let (selectedContributes, selectedUIControls, parentUIControlId) = service.react.useSelector(
+    Method.useSelector,
+  )
 
   // TODO duplicate with ap view
   <List
@@ -78,6 +107,7 @@ let make = (~service: service) => {
               Method.selectUIControl(
                 service,
                 dispatch,
+                selectedUIControls,
                 selectedContributes,
                 protocolIconBase64,
                 protocolConfigStr,

@@ -94,6 +94,7 @@ Array [
   </h1>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -184,6 +185,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -274,6 +276,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -364,6 +367,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -635,6 +639,7 @@ Array [
   </h1>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -725,6 +730,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -815,6 +821,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -905,6 +912,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -1177,6 +1185,7 @@ Array [
   </h1>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -1267,6 +1276,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -1357,6 +1367,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}
@@ -1447,6 +1458,7 @@ Array [
   </div>,
   <div
     className="ant-input-number"
+    onBeforeInput={[Function]}
     onBlur={[Function]}
     onCompositionEnd={[Function]}
     onCompositionStart={[Function]}

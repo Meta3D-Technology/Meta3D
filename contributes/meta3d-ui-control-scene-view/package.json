@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-scene-view",
-    "version": "0.9.4",
+    "version": "0.9.5",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-ui-control-scene-view-protocol"
@@ -21,7 +21,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.9.0",
-        "meta3d-ui-control-scene-view-protocol": "^0.9.0",
+        "meta3d-ui-control-scene-view-protocol": "^0.9.1",
         "meta3d-ui-protocol": "^0.9.0"
     },
     "devDependencies": {

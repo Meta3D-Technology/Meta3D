@@ -104,7 +104,12 @@ defineFeature(feature, test => {
         protocolIconBase64 := "1"
         protocolConfigStr := "c"
         name := "u1"
-        data := Obj.magic(11)
+        data :=
+          ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(),
+            (),
+          )
+
         sepcific := [
             UIControlsTool.buildSpecific(~name="s1", ~type_=#string, ~value="d1"->Obj.magic, ()),
           ]
@@ -126,6 +131,7 @@ defineFeature(feature, test => {
             (),
           ),
           dispatchStub.contents,
+          list{},
           selectedContributes.contents,
           protocolIconBase64.contents,
           protocolConfigStr.contents->Some,
@@ -162,4 +168,70 @@ defineFeature(feature, test => {
       },
     )
   })
+
+  test(.
+    "if already select ui control Scene View before, select ui control Scene View again should error",
+    ({given, \"when", \"and", then}) => {
+      // let name = UIControlsTool.getScenViewUIControlName()
+      let errorStub = ref(Obj.magic(1))
+      let data = ref(Obj.magic(1))
+
+      _prepare(given)
+
+      given(
+        "select uiControl Scene View in ap view",
+        () => {
+          data :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=(
+                  {
+                    name: UIControlsTool.getScenViewUIControlProtocolName(),
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                (),
+              ),
+              (),
+            )
+        },
+      )
+
+      \"and"(
+        "select Scene View",
+        () => {
+          ()
+        },
+      )
+
+      \"when"(
+        "select Scene View",
+        () => {
+          errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+          UIControlsTool.selectUIControl(
+            ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+            Obj.magic(1),
+            list{SelectedUIControlsTool.buildSelectedUIControl(~data=data.contents, ())},
+            Obj.magic(1),
+            Obj.magic(1),
+            ""->Some,
+            "",
+            data.contents,
+            None,
+          )
+        },
+      )
+
+      then(
+        "error",
+        () => {
+          errorStub.contents
+          ->Obj.magic
+          ->SinonTool.calledWith({j`只能有1个Scene View UI Control`})
+          ->expect == true
+        },
+      )
+    },
+  )
 })

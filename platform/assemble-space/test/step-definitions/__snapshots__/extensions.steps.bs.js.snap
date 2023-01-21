@@ -56,7 +56,7 @@ exports[`Extensions if loaded, show extensions list 1`] = `
           <div
             className="ant-empty-description"
           >
-            No Data
+            No data
           </div>
         </div>
       </div>
