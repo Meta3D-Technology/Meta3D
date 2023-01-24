@@ -105,6 +105,7 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
       Method.startApp(service, apInspectorData)->ignore
     }, 5->Some)
 
+    // TODO cancel loop if necessary
     None
   }, [])
 

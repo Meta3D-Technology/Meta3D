@@ -7,6 +7,7 @@ let build = (
   ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~requestAnimationFirstFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~requestAnimationOtherFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~cancelAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~openUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~initForElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -16,6 +17,7 @@ let build = (
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useCallback1=React.useCallback1->Obj.magic,
   ~useState=React.useState->Obj.magic,
+  ~useRef=React.useRef->Obj.magic,
   ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffect1=React.useEffect1,
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -109,6 +111,7 @@ let build = (
   react: {
     useCallback1: useCallback1->Obj.magic,
     useState: useState->Obj.magic,
+    useRef: useRef->Obj.magic,
     useDispatch: () => dispatch,
     useSelector: useSelector->Obj.magic,
     useEffect1: useEffect1->Obj.magic,
@@ -166,6 +169,7 @@ let build = (
     random,
     requestAnimationFirstFrame,
     requestAnimationOtherFrame,
+    cancelAnimationFrame,
   },
   tab: {
     openUrl: openUrl,

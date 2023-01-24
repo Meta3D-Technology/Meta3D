@@ -36,6 +36,7 @@ type callback1Func<'a> = unit => 'a
 type reactService = {
   useCallback1: 'a. (. callback1Func<'a>, array<'a>) => callback1Func<'a>,
   useState: 'a. ('a => 'a) => ('a, ('a => 'a) => unit),
+  useRef: 'a. 'a => React.ref<'a>,
   useDispatch: useDispatch,
   useSelector: 'a. (AssembleSpaceStoreType.state => 'a) => 'a,
   useEffect1: 'a. (. unit => option<unit => unit>, array<'a>) => unit,
@@ -146,6 +147,7 @@ type otherService = {
   random: unit => float,
   requestAnimationFirstFrame: (float => unit) => int,
   requestAnimationOtherFrame: (float => unit) => int,
+  cancelAnimationFrame: int => unit,
 }
 
 type url = string

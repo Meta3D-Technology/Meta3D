@@ -670,9 +670,17 @@ update use-editor version and publish
 
 
 
-*** TODO why publish new ui control version and reselect, dev server not update?
+*** DONE why publish new ui control version and reselect, dev server not update?
 
 why extension not has this problem???
+
+
+solution
+should cancel loop when exit!
+
+fix ElementVisual 
+
+////fix RunElementVisual
 
 
 *** TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
@@ -695,7 +703,7 @@ use protocol version finally!
 
 # and register the newest protocol version and newest version?
 # and register the newest protocol version?
-and register the newest protocol version or  newest version with the same protocol version?
+and register the newest protocol version or newest version with the same protocol version?
 
 
 
@@ -724,16 +732,6 @@ test in imgui example first!
 **** TODO pass element assemble run test
 
 
-* TODO handle event
-
-
-** TODO camera gameObject add arcball component
-
-
-
-** TODO handle event
-
-
 
 
 
@@ -744,14 +742,27 @@ test in imgui example first!
 
 
 
+* TODO feat: add a button to add a cube to scene view when run
 
 
-* TODO run test: add scene view based to show a cube + arcball camera
+
+# * TODO run test: add scene view based to show a cube + arcball camera
+
 
 
 # * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
 # * TODO run test: add grid
 
+
+
+* TODO handle event
+
+
+** TODO camera gameObject add arcball component
+
+
+
+** TODO handle event
 
 
 

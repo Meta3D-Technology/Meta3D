@@ -59,6 +59,7 @@ module Method = {
 
   let rec _loop = (
     service: FrontendUtils.AssembleSpaceType.service,
+    loopFrameID: React.ref<option<int>>,
     {clearColor, skinName} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
     time,
     meta3dState,
@@ -93,9 +94,12 @@ module Method = {
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
-      service.other.requestAnimationOtherFrame(time => {
-        _loop(service, apInspectorData, time, meta3dState)
-      })->Js.Promise.resolve
+      loopFrameID.current =
+        service.other.requestAnimationOtherFrame(time => {
+          _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+        })->Some
+
+      ()->Js.Promise.resolve
     }, _)
     ->ignore
   }
@@ -116,6 +120,7 @@ module Method = {
 
   let startApp = (
     service,
+    loopFrameID: React.ref<option<int>>,
     (selectedPackages, selectedExtensions, selectedContributes),
     visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
@@ -138,20 +143,30 @@ module Method = {
       _getInitData(service, isDebug),
     )
     ->Js.Promise.then_(meta3dState => {
-      service.other.requestAnimationFirstFrame(time => {
-        FrontendUtils.ErrorUtils.showCatchedErrorMessage(
-          () => {
-            _loop(service, apInspectorData, time, meta3dState)
-          },
-          5->Some,
-        )
-      })->Js.Promise.resolve
+      loopFrameID.current =
+        service.other.requestAnimationFirstFrame(time => {
+          FrontendUtils.ErrorUtils.showCatchedErrorMessage(
+            () => {
+              _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+            },
+            5->Some,
+          )
+        })->Some
+
+      ()->Js.Promise.resolve
     }, _)
     ->Meta3dBsMost.Most.fromPromise
     ->Meta3dBsMost.Most.drain
     ->Js.Promise.catch(e => {
       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)
+  }
+
+  let cancelAppLoop = (service, loopFrameID: React.ref<option<int>>) => {
+    switch loopFrameID.current {
+    | Some(id) => service.other.cancelAnimationFrame(id)
+    | None => ()
+    }
   }
 
   let isLoaded = (visualExtension, elementAssembleData) => {
@@ -261,7 +276,9 @@ module Method = {
 
   let _generateSelectedUIControls = (service, selectedContributes, uiControls) => {
     let selectedUIControls =
-      selectedContributes->SelectedContributesForElementUtils.getUIControls->Meta3dCommonlib.ListSt.toArray
+      selectedContributes
+      ->SelectedContributesForElementUtils.getUIControls
+      ->Meta3dCommonlib.ListSt.toArray
 
     let rec _generate = uiControls => {
       uiControls
@@ -285,7 +302,7 @@ module Method = {
               ),
             ),
           )
-        | Some({protocolIconBase64, protocolConfigStr,  data}) =>
+        | Some({protocolIconBase64, protocolConfigStr, data}) =>
           (
             {
               id: IdUtils.generateId(service.other.random),
@@ -427,6 +444,7 @@ let make = (~service: service, ~account: option<string>) => {
   ) = service.react.useSelector(Method.useSelector)
 
   let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
+  let loopFrameID = service.react.useRef(None)
 
   let {elementStateFields, reducers} = elementInspectorData
 
@@ -492,6 +510,7 @@ let make = (~service: service, ~account: option<string>) => {
     | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
         Method.startApp(
           service,
+          loopFrameID,
           (selectedPackages, selectedExtensions, selectedContributes),
           visualExtension,
           apInspectorData,
@@ -500,7 +519,15 @@ let make = (~service: service, ~account: option<string>) => {
     | _ => ()
     }
 
-    None
+    (
+      () => {
+        Method.cancelAppLoop(service, loopFrameID)
+        // switch loopFrameID.current {
+        // | Some(id) => service.other.cancelAnimationFrame(id)
+        // | None => ()
+        // }
+      }
+    )->Some
   }, [visualExtension])
 
   <>

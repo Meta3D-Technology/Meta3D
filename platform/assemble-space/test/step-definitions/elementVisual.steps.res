@@ -263,6 +263,11 @@ defineFeature(feature, test => {
     )
   })
 
+  let _prepareStartApp = () => {
+    //TODO implement
+    Obj.magic(1)
+  }
+
   test(."start app", ({given, \"when", \"and", then}) => {
     let element1 = ref(Obj.magic(1))
     let v = ref(Obj.magic(1))
@@ -277,6 +282,12 @@ defineFeature(feature, test => {
     let getExtensionServiceStub = ref(Obj.magic(1))
     let setExtensionStateFake = ref(Obj.magic(1))
     let execGetContributeFuncStub = ref(Obj.magic(1))
+
+    let loopFirstFrameID = 2
+    let loopOtherFrameID = 3
+    // let loopFrameIDRef = ref(ElementVisualTool.buildReactRef(1->Some))
+    let loopFrameIDRef = ReactHookTool.buildReactRef(1->Some)
+    // let useRefStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
@@ -450,7 +461,8 @@ defineFeature(feature, test => {
 
         execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        setExtensionStateFake := ((. meta3dState, meta3dUIExtensionProtocolName, uiState) => meta3dState)
+        setExtensionStateFake :=
+          ((. meta3dState, meta3dUIExtensionProtocolName, uiState) => meta3dState)
 
         ElementVisualTool.startApp(
           ServiceTool.build(
@@ -469,16 +481,17 @@ defineFeature(feature, test => {
             ~requestAnimationFirstFrame=func => {
               func(0.)
 
-              0
+              loopFirstFrameID
             },
-            ~requestAnimationOtherFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns((), _)
-            ->Obj.magic,
+            ~requestAnimationOtherFrame=_ => {
+              loopOtherFrameID
+            },
             ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))
             ->returns(Obj.magic(1), _)
             ->Obj.magic,
             (),
           ),
+          loopFrameIDRef,
           (list{}, selectedExtensions.contents, selectedContributes.contents),
           v.contents,
           ApInspectorTool.buildApInspectorData(),
@@ -486,7 +499,7 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
+    then(
       "build app with ui, c1, v",
       () => {
         ()
@@ -536,6 +549,49 @@ defineFeature(feature, test => {
       "v should be updated",
       () => {
         ElementVisualTool.getUpdateFlag()->expect == 11
+      },
+    )
+
+    \"and"(
+      "store frame id",
+      () => {
+        loopFrameIDRef->ReactHookTool.getReactRefValue->expect == Some(loopOtherFrameID)
+      },
+    )
+  })
+
+  test(."cancel app loop when unmount", ({given, \"and", \"when", then}) => {
+    let loopFrameIDRef = ref(Obj.magic(1))
+    let cancelAnimationFrameStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "set loop frame id to i1",
+      () => {
+        loopFrameIDRef := ReactHookTool.buildReactRef(2->Some)
+      },
+    )
+
+    \"when"(
+      "cancel loop when unmount",
+      () => {
+        cancelAnimationFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        ElementVisualTool.cancelAppLoop(
+          ServiceTool.build(~sandbox, ~cancelAnimationFrame=cancelAnimationFrameStub.contents, ()),
+          loopFrameIDRef.contents,
+        )
+      },
+    )
+
+    then(
+      "cancel animation frame by i1",
+      () => {
+        cancelAnimationFrameStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(loopFrameIDRef.contents->ReactHookTool.getReactRefValue)
+        ->expect == true
       },
     )
   })

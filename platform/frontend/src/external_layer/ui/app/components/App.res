@@ -37,6 +37,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       random: Js.Math.random,
       requestAnimationFirstFrame: RequestAnimationFrameExtend.requestAnimationFrame,
       requestAnimationOtherFrame: RequestAnimationFrameExtend.requestAnimationFrame,
+      cancelAnimationFrame: RequestAnimationFrameExtend.cancelAnimationFrame,
     },
     backend: switch env {
     | #local => BackendCloudbase.buildAssembleSpaceService()
@@ -134,6 +135,9 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       },
       useState: func => {
         React.useState(func->Obj.magic)
+      },
+      useRef: value => {
+        React.useRef(value->Obj.magic)
       },
       useSelector: func => {
         AppStore.useSelector(({assembleSpaceState}: AppStore.state) => {

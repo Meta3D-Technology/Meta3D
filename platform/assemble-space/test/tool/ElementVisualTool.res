@@ -6,6 +6,8 @@ let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualE
 
 let startApp = ElementVisual.Method.startApp
 
+let cancelAppLoop = ElementVisual.Method.cancelAppLoop
+
 let setElementContributeToSpaceState = ElementVisual.Method.setElementContributeToSpaceState
 
 let getVisualExtensionName = ElementVisual.Method._getVisualExtensionName

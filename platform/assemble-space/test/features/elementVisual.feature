@@ -23,6 +23,21 @@ Feature: ElementVisual
         When get and set newest visual extension
         Then should dispatch SetVisualExtension action with v2
 
+
+    # Rule: start app
+
+    # Background: prepare start app
+    #     Given prepare flag
+    #     And generate empty element contribute element1
+    #     And set element1 to space state
+    #     And get visual extension v
+    #     And generate extension ui
+    #     And generate extension event
+    #     And generate contribute c1
+    #     And select ui
+    #     And select event
+    #     And select c1
+
     Scenario: start app
         Given prepare flag
         And generate empty element contribute element1
@@ -36,6 +51,12 @@ Feature: ElementVisual
         And select c1
         When start app with ui, c1, v
         Then build app with ui, c1, v
-        And v should be inited 
+        And v should be inited
         And get element1 from space state and update it
         And v should be updated
+        And store frame id
+
+    Scenario: cancel app loop when unmount
+        Given set loop frame id to i1
+        When cancel loop when unmount
+        Then cancel animation frame by i1

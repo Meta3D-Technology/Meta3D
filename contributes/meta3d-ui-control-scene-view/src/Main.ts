@@ -60,6 +60,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 
             meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName, state)
 
+            console.log("tttt")
+
 
 
             return new Promise((resolve, reject) => {
