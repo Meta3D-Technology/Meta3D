@@ -1,8 +1,10 @@
 
 
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Exception$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
@@ -88,7 +90,15 @@ function _decideContributeType(contribute) {
   }
 }
 
+function _checkIsRegister(protocolName, isRegister) {
+  if (isRegister) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("already register extension or contribute of protocol: " + protocolName + "", "", "", "", "")));
+  }
+  
+}
+
 function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, param, extensionState) {
+  _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
         extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, protocolName, Curry._2(getServiceFunc, buildAPI(undefined), [
                   param[0],
@@ -102,6 +112,7 @@ function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, par
 }
 
 function registerContribute(state, protocolName, getContributeFunc, param) {
+  _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.contributeMap, protocolName));
   var contribute = Curry._2(getContributeFunc, buildAPI(undefined), [
         param[0],
         param[1]
@@ -157,6 +168,7 @@ export {
   updateExtension ,
   initExtension ,
   _decideContributeType ,
+  _checkIsRegister ,
   registerExtension ,
   registerContribute ,
   buildAPI ,

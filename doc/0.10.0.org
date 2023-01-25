@@ -683,31 +683,66 @@ fix ElementVisual
 ////fix RunElementVisual
 
 
-*** TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
+# *** TODO feat: handle package's extension/contribute are the same as the ones registerd by editor app
 
 
-usage:
-debug by register the new version one and use it!!!
-
-
-
-
-
-
-# should warn(protocol name, protocol version, name, version) and register the newest protocol version
-should warn:
-# protocol name, protocol version, name, version already exist, but wish to be set to protocol name, protocol version, name, version
-protocol name, protocol version already exist, but wish to be set to protocol version! 
-use protocol version finally!
-
-
-# and register the newest protocol version and newest version?
-# and register the newest protocol version?
-and register the newest protocol version or newest version with the same protocol version?
+# usage:
+# debug by register the new version one and use it!!!
 
 
 
 
+
+
+# # should warn(protocol name, protocol version, name, version) and register the newest protocol version
+# should warn:
+# # protocol name, protocol version, name, version already exist, but wish to be set to protocol name, protocol version, name, version
+# protocol name, protocol version already exist, but wish to be set to protocol version! 
+# use protocol version finally!
+
+
+# # and register the newest protocol version and newest version?
+# # and register the newest protocol version?
+# and register the newest protocol version or newest version with the same protocol version?
+
+
+# if implement name not the same, error
+# else, warn
+
+
+
+# handle register extension:
+# implement
+
+
+
+# bdd test:
+# test meta3d
+
+# test assemble space
+
+
+
+
+
+
+# run test
+
+
+
+
+
+# TODO handle register contribute
+
+
+
+
+*** DONE feat: check is register
+
+
+
+
+////*** TODO fix: Extensions/Contributes should show only one!
 
 
 

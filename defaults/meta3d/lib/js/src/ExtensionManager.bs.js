@@ -1,8 +1,10 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
+var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
@@ -88,7 +90,15 @@ function _decideContributeType(contribute) {
   }
 }
 
+function _checkIsRegister(protocolName, isRegister) {
+  if (isRegister) {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("already register extension or contribute of protocol: " + protocolName + "", "", "", "", "")));
+  }
+  
+}
+
 function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, param, extensionState) {
+  _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
         extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, protocolName, Curry._2(getServiceFunc, buildAPI(undefined), [
                   param[0],
@@ -102,6 +112,7 @@ function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, par
 }
 
 function registerContribute(state, protocolName, getContributeFunc, param) {
+  _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.contributeMap, protocolName));
   var contribute = Curry._2(getContributeFunc, buildAPI(undefined), [
         param[0],
         param[1]
@@ -156,6 +167,7 @@ exports.startExtension = startExtension;
 exports.updateExtension = updateExtension;
 exports.initExtension = initExtension;
 exports._decideContributeType = _decideContributeType;
+exports._checkIsRegister = _checkIsRegister;
 exports.registerExtension = registerExtension;
 exports.registerContribute = registerContribute;
 exports.buildAPI = buildAPI;

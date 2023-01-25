@@ -12,3 +12,12 @@ Feature: Contribute
         When register unknown type contribute
         And get all contributes by action type by api
         Then get empty
+
+
+
+    Rule: error case
+
+        Scenario: register contribute which already registered before
+            Given register contribute of protocol name p1
+            When register contribute of protocol name p1
+            Then error

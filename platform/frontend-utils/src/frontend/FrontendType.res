@@ -18,7 +18,13 @@ type backendService = {
   findPublishPackage: findPublishPackage,
 }
 
-type service = {backend: backendService}
+type error = (. string, option<int>) => unit
+
+type errorWithExn = (. Js.Exn.t, option<int>) => unit
+
+type consoleService = {error: error, errorWithExn: errorWithExn}
+
+type service = {backend: backendService, console: consoleService}
 
 type version = string
 

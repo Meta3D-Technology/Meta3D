@@ -15,13 +15,18 @@ let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
 
     BackendCloudbase.buildFrontendService()
   },
+  console: {
+    error: (. errorMessage, durationOpt) =>
+      FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+    errorWithExn: (. error, durationOpt) =>
+      FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
+  },
 }
 
 let _getBackendEnv = (env: FrontendUtils.EnvType.env) => {
   switch env {
-  | #local =>
-   "meta3d-4g18u7z10c8427f9"
-    // "meta3d-production-6eaj4630a6b9e7"
+  | #local => "meta3d-4g18u7z10c8427f9"
+  // "meta3d-production-6eaj4630a6b9e7"
   | #production => "meta3d-production-6eaj4630a6b9e7"
   }
 }

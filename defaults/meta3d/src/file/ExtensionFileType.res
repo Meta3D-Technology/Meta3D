@@ -1,5 +1,7 @@
 open Meta3dType.Index
 
+type version = string
+
 type versionRange = string
 
 type extensionProtocolData = {

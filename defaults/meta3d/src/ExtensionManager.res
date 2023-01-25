@@ -123,6 +123,24 @@ let _decideContributeType = (contribute: contribute) => {
     : Unknown
 }
 
+let _checkIsRegister = (protocolName: string, isRegister) => {
+  isRegister
+    ? Meta3dCommonlib.Exception.throwErr(
+        Meta3dCommonlib.Exception.buildErr(
+          Meta3dCommonlib.Log.buildErrorMessage(
+            ~title={j`already register extension or contribute of protocol: ${protocolName}`},
+            ~description={
+              j``
+            },
+            ~reason="",
+            ~solution=j``,
+            ~params=j``,
+          ),
+        ),
+      )
+    : ()
+}
+
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
@@ -132,14 +150,25 @@ let rec registerExtension = (
     extensionService,
   >,
   getLifeFunc: getExtensionLife<extensionService>,
-  (dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
+  (
+    dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
+  ),
   extensionState: extensionState,
 ) => {
+  _checkIsRegister(
+    protocolName,
+    state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
+  )
+
   let state = {
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
-      getServiceFunc(buildAPI(), (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap)),
+      getServiceFunc(
+        buildAPI(),
+        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
+      ),
     ),
     extensionLifeMap: state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
@@ -161,8 +190,16 @@ and registerContribute = (
     dependentContributeProtocolNameMap,
     contribute,
   >,
-  (dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
+  (
+    dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+    dependentContributeProtocolNameMap,
+  ),
 ) => {
+  _checkIsRegister(
+    protocolName,
+    state.contributeMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
+  )
+
   let contribute = getContributeFunc(
     buildAPI(),
     (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
