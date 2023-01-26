@@ -25,3 +25,4 @@ Feature: RunElementVisual
             Then load app
             And init app
             And loop app
+            And store frame id

@@ -58,6 +58,7 @@ defineFeature(feature, test => {
   })
 
   test(."if not get app binary file from storage, error", ({given, \"when", \"and", then}) => {
+    let loopFrameIDRef = ReactHookTool.buildReactRef(1->Some)
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let getElementVisualAppStub = ref(Obj.magic(1))
     let errorWithExnStub = ref(Obj.magic(1))
@@ -105,6 +106,7 @@ defineFeature(feature, test => {
             ~errorWithExn=errorWithExnStub.contents->Obj.magic,
             (),
           ),
+          loopFrameIDRef,
           ApInspectorTool.buildApInspectorData(),
         )
       },
@@ -123,6 +125,9 @@ defineFeature(feature, test => {
     let canvas = Obj.magic(22)
     let isDebug = false
     let meta3dState = ref(Obj.magic(100))
+    let loopFirstFrameID = 2
+    let loopOtherFrameID = 3
+    let loopFrameIDRef = ReactHookTool.buildReactRef(1->Some)
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let getElementVisualAppStub = ref(Obj.magic(1))
     let loadAppStub = ref(Obj.magic(1))
@@ -193,12 +198,15 @@ defineFeature(feature, test => {
             ~requestAnimationFirstFrame=func => {
               func(0.)
 
-              0
+              loopFirstFrameID
             },
-            ~requestAnimationOtherFrame=requestAnimationOtherFrameStub.contents->Obj.magic,
+            ~requestAnimationOtherFrame=_ => {
+              loopOtherFrameID
+            },
             ~querySelector=querySelectorStub.contents->Obj.magic,
             (),
           ),
+          loopFrameIDRef,
           ApInspectorTool.buildApInspectorData(~isDebug, ()),
         )
       },
@@ -231,16 +239,23 @@ defineFeature(feature, test => {
     \"and"(
       "loop app",
       () => {
-        (
-          updateExtensionStub.contents
-          ->Obj.magic
-          ->SinonTool.calledWithArg3(
-            Obj.magic(102),
-            RunElementVisualTool.getVisualExtensionProtocolName(),
-            matchAny,
-          ),
-          requestAnimationOtherFrameStub.contents->getCallCount,
-        )->expect == (true, 1)
+        updateExtensionStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg3(
+          Obj.magic(102),
+          RunElementVisualTool.getVisualExtensionProtocolName(),
+          matchAny,
+        )
+        // requestAnimationOtherFrameStub.contents->getCallCount,
+        // )->expect == (true, 1)
+        ->expect == true
+      },
+    )
+
+    \"and"(
+      "store frame id",
+      () => {
+        loopFrameIDRef->ReactHookTool.getReactRefValue->expect == Some(loopOtherFrameID)
       },
     )
   })

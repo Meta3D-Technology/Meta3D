@@ -144,3 +144,13 @@ let generateElementContributeBinaryFile = (
     fileStr,
   )
 }
+
+let cancelAppLoop = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  loopFrameID: React.ref<option<int>>,
+) => {
+  switch loopFrameID.current {
+  | Some(id) => service.other.cancelAnimationFrame(id)
+  | None => ()
+  }
+}

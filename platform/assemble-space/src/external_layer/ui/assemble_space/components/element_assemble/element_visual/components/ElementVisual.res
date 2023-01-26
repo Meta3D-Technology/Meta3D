@@ -162,13 +162,6 @@ module Method = {
     }, _)
   }
 
-  let cancelAppLoop = (service, loopFrameID: React.ref<option<int>>) => {
-    switch loopFrameID.current {
-    | Some(id) => service.other.cancelAnimationFrame(id)
-    | None => ()
-    }
-  }
-
   let isLoaded = (visualExtension, elementAssembleData) => {
     visualExtension->Meta3dCommonlib.OptionSt.isSome &&
       switch elementAssembleData {
@@ -521,11 +514,7 @@ let make = (~service: service, ~account: option<string>) => {
 
     (
       () => {
-        Method.cancelAppLoop(service, loopFrameID)
-        // switch loopFrameID.current {
-        // | Some(id) => service.other.cancelAnimationFrame(id)
-        // | None => ()
-        // }
+        ElementVisualUtils.cancelAppLoop(service, loopFrameID)
       }
     )->Some
   }, [visualExtension])

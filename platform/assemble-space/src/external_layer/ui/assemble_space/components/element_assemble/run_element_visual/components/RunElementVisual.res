@@ -29,6 +29,7 @@ module Method = {
 
   let rec _loop = (
     service: FrontendUtils.AssembleSpaceType.service,
+    loopFrameID: React.ref<option<int>>,
     {clearColor, skinName} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
     time,
     meta3dState,
@@ -39,15 +40,19 @@ module Method = {
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
-      service.other.requestAnimationOtherFrame(time => {
-        _loop(service, apInspectorData, time, meta3dState)
-      })->Js.Promise.resolve
+      loopFrameID.current =
+        service.other.requestAnimationOtherFrame(time => {
+          _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+        })->Some
+
+      ()->Js.Promise.resolve
     }, _)
     ->ignore
   }
 
   let startApp = (
     service: FrontendUtils.AssembleSpaceType.service,
+    loopFrameID: React.ref<option<int>>,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
     service.storage.initForElementVisualApp()
@@ -61,16 +66,19 @@ module Method = {
         _getInitData(service, isDebug),
       )
       ->Js.Promise.then_(meta3dState => {
-        service.other.requestAnimationFirstFrame(
-          time => {
-            FrontendUtils.ErrorUtils.showCatchedErrorMessage(
-              () => {
-                _loop(service, apInspectorData, time, meta3dState)
-              },
-              5->Some,
-            )
-          },
-        )->Js.Promise.resolve
+        loopFrameID.current =
+          service.other.requestAnimationFirstFrame(
+            time => {
+              FrontendUtils.ErrorUtils.showCatchedErrorMessage(
+                () => {
+                  _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+                },
+                5->Some,
+              )
+            },
+          )->Some
+
+        ()->Js.Promise.resolve
       }, _)
       ->Meta3dBsMost.Most.fromPromise
     }, _)
@@ -95,6 +103,7 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
 
   let (canvasData, apInspectorData) = service.react.useSelector(Method.useSelector)
 
+  let loopFrameID = service.react.useRef(None)
   // let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
   //   FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
   // let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
@@ -102,11 +111,14 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
 
   React.useEffect1(() => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      Method.startApp(service, apInspectorData)->ignore
+      Method.startApp(service, loopFrameID, apInspectorData)->ignore
     }, 5->Some)
 
-    // TODO cancel loop if necessary
-    None
+    (
+      () => {
+        ElementVisualUtils.cancelAppLoop(service, loopFrameID)
+      }
+    )->Some
   }, [])
 
   // TODO duplicate with ElementVisual
