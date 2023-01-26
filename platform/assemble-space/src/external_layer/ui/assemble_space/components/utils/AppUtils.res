@@ -23,12 +23,12 @@ let generateApp = (
       selectedContributes->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.ApAssembleStoreType.contribute,
       ) => data),
-      selectPackages->Meta3dCommonlib.ArraySt.map((
-        {protocol}: FrontendUtils.PackageAssembleStoreType.package,
-      ): Meta3d.ExtensionFileType.extensionProtocolData => {
-        name: protocol.name,
-        version: protocol.version,
-      }),
+      // selectPackages->Meta3dCommonlib.ArraySt.map((
+      //   {protocol}: FrontendUtils.PackageAssembleStoreType.package,
+      // ): Meta3d.ExtensionFileType.extensionProtocolData => {
+      //   name: protocol.name,
+      //   version: protocol.version,
+      // }),
       selectedExtensions
       ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
       ->Meta3dCommonlib.ArraySt.map(({data}) => data.extensionPackageData.name),

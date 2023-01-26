@@ -8,14 +8,14 @@ Feature: Package Manager
 
     Rule: convertAllFileData
 
-        Scenario: not check dependent data
-            Given generate two extensions that version not match
-            # And prepare new names
-            And load them as l1
-            When convert l1
-            Then not error
+        # Scenario: not check dependent data
+        #     Given generate two extensions that version not match
+        #     # And prepare new names
+        #     And load them as l1
+        #     When convert l1
+        #     Then not error
 
-        Scenario: convert allExtensionFileData and allContributeFileData and empty allPackageEntryExtensionProtocolData
+        Scenario: convert allExtensionFileData and allContributeFileData
             Given generate two extensions that the seond is entry
             And generate one contribute
             # And prepare new names

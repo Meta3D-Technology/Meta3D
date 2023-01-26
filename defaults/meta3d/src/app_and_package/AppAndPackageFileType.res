@@ -2,17 +2,17 @@ open Meta3dType.Index
 
 type versionRange = string
 
-type dependentExtensionData = {
-  protocolName: string,
-  protocolVersion: versionRange,
-}
+// type dependentExtensionData = {
+//   protocolName: string,
+//   protocolVersion: versionRange,
+// }
 
 // type dependentContributeProtocolName = contributeProtocolName
 
-type dependentContributeData = {
-  protocolName: string,
-  protocolVersion: versionRange,
-}
+// type dependentContributeData = {
+//   protocolName: string,
+//   protocolVersion: versionRange,
+// }
 
 type extensionType =
   | Default
@@ -21,10 +21,19 @@ type extensionType =
 
 type extensionPackageData = {
   name: extensionName,
-  protocolName: extensionProtocolName,
+  // protocolName: extensionProtocolName,
   type_: extensionType,
-  dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-  dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+  // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+  // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+  protocol: ExtensionFileType.extensionProtocolData,
+  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentExtensionProtocolNameKey,
+    ExtensionFileType.dependentExtensionData,
+  >,
+  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentContributeProtocolNameKey,
+    ExtensionFileType.dependentContributeData,
+  >,
 }
 
 // type extensionFuncData = ExtensionFileType.extensionFuncData
@@ -47,9 +56,18 @@ type extensionFileData = {
 
 type contributePackageData = {
   name: contributeName,
-  protocolName: contributeProtocolName,
-  dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-  dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+  // protocolName: contributeProtocolName,
+  // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+  // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+  protocol: ExtensionFileType.contributeProtocolData,
+  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentExtensionProtocolNameKey,
+    ExtensionFileType.dependentExtensionData,
+  >,
+  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    dependentContributeProtocolNameKey,
+    ExtensionFileType.dependentContributeData,
+  >,
 }
 
 // type contributeFuncData = ExtensionFileType.contributeFuncData

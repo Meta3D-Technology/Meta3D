@@ -6,13 +6,6 @@ import * as ManagerUtils$Meta3d from "./ManagerUtils.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
-
-function _convertDependentMap(dependentMap) {
-  return ImmutableHashMap$Meta3dCommonlib.map(dependentMap, (function (dependentData) {
-                return dependentData.protocolName;
-              }));
-}
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, entryExtensionNames) {
   return [
@@ -21,14 +14,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: extensionPackageData.name,
-                                protocolName: extensionPackageData.protocol.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(entryExtensionNames, extensionPackageData.name) ? /* Entry */2 : /* Default */0,
-                                dependentExtensionProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
-                                        return dependentData.protocolName;
-                                      })),
-                                dependentContributeProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentContributeProtocolNameMap, (function (dependentData) {
-                                        return dependentData.protocolName;
-                                      }))
+                                protocol: extensionPackageData.protocol,
+                                dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
+                                dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap
                               },
                               param.extensionFuncData
                             ]);
@@ -38,13 +27,9 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: contributePackageData.name,
-                                protocolName: contributePackageData.protocol.name,
-                                dependentExtensionProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
-                                        return dependentData.protocolName;
-                                      })),
-                                dependentContributeProtocolNameMap: ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentContributeProtocolNameMap, (function (dependentData) {
-                                        return dependentData.protocolName;
-                                      }))
+                                protocol: contributePackageData.protocol,
+                                dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
+                                dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap
                               },
                               param.contributeFuncData
                             ]);
@@ -66,7 +51,7 @@ function _getEntryExtensionProtocolName(allExtensionDataArr) {
   if (ArraySt$Meta3dCommonlib.length(entryExtensions) === 0) {
     return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should has one type extension at least", "", "", "", "")));
   } else {
-    return Caml_array.get(entryExtensions, 0).extensionPackageData.protocolName;
+    return Caml_array.get(entryExtensions, 0).extensionPackageData.protocol.name;
   }
 }
 
@@ -81,10 +66,9 @@ function load(packageBinaryFile) {
 }
 
 export {
-  _convertDependentMap ,
   convertAllFileData ,
   generate ,
   _getEntryExtensionProtocolName ,
   load ,
 }
-/* No side effect */
+/* ManagerUtils-Meta3d Not a pure module */

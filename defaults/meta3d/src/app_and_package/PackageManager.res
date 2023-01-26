@@ -2,12 +2,6 @@ open Js.Typed_array
 
 open AppAndPackageFileType
 
-let _convertDependentMap = dependentMap => {
-  dependentMap->Meta3dCommonlib.ImmutableHashMap.map((.
-    dependentData: ExtensionFileType.dependentData,
-  ) => dependentData.protocolName)
-}
-
 let convertAllFileData = (
   allExtensionFileData: array<ExtensionFileType.extensionFileData>,
   allContributeFileData: array<ExtensionFileType.contributeFileData>,
@@ -75,7 +69,7 @@ let convertAllFileData = (
           (
             {
               name: extensionPackageData.name,
-              protocolName: extensionPackageData.protocol.name,
+              protocol: extensionPackageData.protocol,
               // type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(newName)
               //   ? Start
               // :
@@ -84,14 +78,8 @@ let convertAllFileData = (
               )
                 ? Entry
                 : Default,
-              dependentExtensionProtocolNameMap: _convertDependentMap(
-                extensionPackageData.dependentExtensionProtocolNameMap,
-              ),
-              dependentContributeProtocolNameMap: _convertDependentMap(
-                extensionPackageData.dependentContributeProtocolNameMap,
-              ),
-              // dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
-              // dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap,
+              dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
+              dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap,
             }: extensionPackageData
           ),
           extensionFuncData,
@@ -107,15 +95,9 @@ let convertAllFileData = (
           (
             {
               name: contributePackageData.name,
-              protocolName: contributePackageData.protocol.name,
-              dependentExtensionProtocolNameMap: _convertDependentMap(
-                contributePackageData.dependentExtensionProtocolNameMap,
-              ),
-              dependentContributeProtocolNameMap: _convertDependentMap(
-                contributePackageData.dependentContributeProtocolNameMap,
-              ),
-              // dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
-              // dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap,
+              protocol: contributePackageData.protocol,
+              dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
+              dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap,
             }: contributePackageData
           ),
           contributeFuncData,
@@ -156,7 +138,7 @@ let _getEntryExtensionProtocolName = (
         ),
       ),
     )
-  | entryExtensions => entryExtensions[0].extensionPackageData.protocolName
+  | entryExtensions => entryExtensions[0].extensionPackageData.protocol.name
   }
 }
 

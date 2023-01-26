@@ -1,7 +1,6 @@
 
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Semver from "semver";
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
@@ -16,46 +15,17 @@ import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3
 import * as NullableSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
-function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
-  if (Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)) {
-    return ;
-  } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
-  }
-}
-
-function _convertDependentMap(dependentMap, allDataMap) {
-  return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (map, param) {
-                var dependentData = param[1];
-                var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
-                var protocolVersion = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
-                _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName);
-                return ImmutableHashMap$Meta3dCommonlib.set(map, param[0], dependentData.protocolName);
-              }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
-}
-
-function convertAllFileData(allExtensionFileData, allContributeFileData, allPackageEntryExtensionProtocolData, startExtensionNames) {
-  var allExtensionDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allExtensionFileData, (function (result, param, i) {
-          var extensionPackageData = param.extensionPackageData;
-          return ImmutableHashMap$Meta3dCommonlib.set(result, extensionPackageData.protocol.name, extensionPackageData.protocol.version);
-        }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
-  var allExtensionDataMap$1 = ArraySt$Meta3dCommonlib.reduceOneParam(allPackageEntryExtensionProtocolData, (function (allExtensionDataMap, param) {
-          return ImmutableHashMap$Meta3dCommonlib.set(allExtensionDataMap, param.name, param.version);
-        }), allExtensionDataMap);
-  var allContributeDataMap = ArraySt$Meta3dCommonlib.reduceOneParami(allContributeFileData, (function (result, param, i) {
-          var contributePackageData = param.contributePackageData;
-          return ImmutableHashMap$Meta3dCommonlib.set(result, contributePackageData.protocol.name, contributePackageData.protocol.version);
-        }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
+function convertAllFileData(allExtensionFileData, allContributeFileData, startExtensionNames) {
   return [
           ArraySt$Meta3dCommonlib.reduceOneParami(allExtensionFileData, (function (result, param, i) {
                   var extensionPackageData = param.extensionPackageData;
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: extensionPackageData.name,
-                                protocolName: extensionPackageData.protocol.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
-                                dependentExtensionProtocolNameMap: _convertDependentMap(extensionPackageData.dependentExtensionProtocolNameMap, allExtensionDataMap$1),
-                                dependentContributeProtocolNameMap: _convertDependentMap(extensionPackageData.dependentContributeProtocolNameMap, allContributeDataMap)
+                                protocol: extensionPackageData.protocol,
+                                dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
+                                dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap
                               },
                               param.extensionFuncData
                             ]);
@@ -65,9 +35,9 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, allPack
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: contributePackageData.name,
-                                protocolName: contributePackageData.protocol.name,
-                                dependentExtensionProtocolNameMap: _convertDependentMap(contributePackageData.dependentExtensionProtocolNameMap, allExtensionDataMap$1),
-                                dependentContributeProtocolNameMap: _convertDependentMap(contributePackageData.dependentContributeProtocolNameMap, allContributeDataMap)
+                                protocol: contributePackageData.protocol,
+                                dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
+                                dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap
                               },
                               param.contributeFuncData
                             ]);
@@ -99,7 +69,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            202,
+            110,
             6
           ],
           Error: new Error()
@@ -127,7 +97,7 @@ function _getStartExtensionProtocolName(allExtensionDataArr) {
   if (ArraySt$Meta3dCommonlib.length(startExtensions) !== 1) {
     return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("should only has one type extension", "", "", "", "")));
   } else {
-    return Caml_array.get(startExtensions, 0).extensionPackageData.protocolName;
+    return Caml_array.get(startExtensions, 0).extensionPackageData.protocol.name;
   }
 }
 
@@ -136,8 +106,6 @@ function start(param) {
 }
 
 export {
-  _checkVersion ,
-  _convertDependentMap ,
   convertAllFileData ,
   generate ,
   execGetContributeFunc ,
@@ -145,4 +113,4 @@ export {
   _getStartExtensionProtocolName ,
   start ,
 }
-/* semver Not a pure module */
+/* ManagerUtils-Meta3d Not a pure module */

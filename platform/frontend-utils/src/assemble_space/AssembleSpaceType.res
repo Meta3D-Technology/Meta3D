@@ -49,7 +49,6 @@ type consoleService = {error: error, errorWithExn: errorWithExn}
 type convertAllFileDataForApp = (
   . array<Meta3d.ExtensionFileType.extensionFileData>,
   array<Meta3d.ExtensionFileType.contributeFileData>,
-  array<Meta3d.ExtensionFileType.extensionProtocolData>,
   array<Meta3dType.Index.extensionName>,
 ) => (
   array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
