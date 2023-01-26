@@ -23,8 +23,15 @@ let make = (~service: service, ~useDispatch, ~useSelectorResult, ~selectExtensio
             style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={protocolIconBase64}
           />}>
           <Card.Meta
-            style={ReactDOM.Style.make(~width="100px", ())}
-            title={React.string(data.extensionPackageData.name)}
+            title={<span
+              style={ReactDOM.Style.make(
+                ~whiteSpace="normal",
+                ~wordWrap="break-word",
+                ~wordBreak="break-all",
+                (),
+              )}>
+              {React.string(data.extensionPackageData.name)}
+            </span>}
           />
         </Card>
       </List.Item>

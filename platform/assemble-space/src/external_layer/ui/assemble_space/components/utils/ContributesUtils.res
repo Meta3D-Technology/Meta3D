@@ -48,15 +48,15 @@ module Method = {
     )
   }
 
-//   let selectContribute = (
-//     dispatch,
-//     selectContribute,
-//     protocolIconBase64,
-//     protocolConfigStr,
-//     contribute,
-//   ) => {
-//     dispatch(selectContribute(protocolIconBase64, protocolConfigStr, contribute))
-//   }
+  //   let selectContribute = (
+  //     dispatch,
+  //     selectContribute,
+  //     protocolIconBase64,
+  //     protocolConfigStr,
+  //     contribute,
+  //   ) => {
+  //     dispatch(selectContribute(protocolIconBase64, protocolConfigStr, contribute))
+  //   }
 
   let useEffectOnceAsync = (
     (setIsLoaded, setContributes),
@@ -109,7 +109,15 @@ let make = (
                 style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}
               />}>
               <Card.Meta
-                style={ReactDOM.Style.make(~width="100px", ())} title={React.string(name)}
+                title={<span
+                  style={ReactDOM.Style.make(
+                    ~whiteSpace="normal",
+                    ~wordWrap="break-word",
+                    ~wordBreak="break-all",
+                    (),
+                  )}>
+                  {React.string(name)}
+                </span>}
               />
             </Card>
           </List.Item>

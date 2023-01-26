@@ -46,11 +46,7 @@ module Method = {
     )
   }
 
-  let useEffectOnceAsync = (
-    (setIsLoaded, setExtensions),
-    service,
-    selectedExtensionsFromShop,
-  ) => {
+  let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
     (
       _getExtensions(
         service.backend,
@@ -97,7 +93,15 @@ let make = (
                 style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}
               />}>
               <Card.Meta
-                style={ReactDOM.Style.make(~width="100px", ())} title={React.string(name)}
+                title={<span
+                  style={ReactDOM.Style.make(
+                    ~whiteSpace="normal",
+                    ~wordWrap="break-word",
+                    ~wordBreak="break-all",
+                    (),
+                  )}>
+                  {React.string(name)}
+                </span>}
               />
             </Card>
           </List.Item>

@@ -66,11 +66,6 @@ exports[`Package Selected Packages show selected packages 1`] = `
                 >
                   <div
                     className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
                   >
                     <div
                       className="ant-card-meta-detail"
@@ -78,7 +73,17 @@ exports[`Package Selected Packages show selected packages 1`] = `
                       <div
                         className="ant-card-meta-title"
                       >
-                        p1
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          p1
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -134,11 +139,6 @@ exports[`Package Selected Packages show selected packages 1`] = `
                 >
                   <div
                     className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
                   >
                     <div
                       className="ant-card-meta-detail"
@@ -146,7 +146,17 @@ exports[`Package Selected Packages show selected packages 1`] = `
                       <div
                         className="ant-card-meta-title"
                       >
-                        p2
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          p2
+                        </span>
                       </div>
                     </div>
                   </div>

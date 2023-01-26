@@ -25,7 +25,17 @@ let make = (
           cover={<img
             style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={protocol.iconBase64}
           />}>
-          <Card.Meta style={ReactDOM.Style.make(~width="100px", ())} title={React.string(name)} />
+          <Card.Meta
+            title={<span
+              style={ReactDOM.Style.make(
+                ~whiteSpace="normal",
+                ~wordWrap="break-word",
+                ~wordBreak="break-all",
+                (),
+              )}>
+              {React.string(name)}
+            </span>}
+          />
         </Card>
       </List.Item>
     }}

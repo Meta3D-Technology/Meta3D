@@ -67,11 +67,6 @@ exports[`PackagePackages show packages list 1`] = `
                 >
                   <div
                     className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
                   >
                     <div
                       className="ant-card-meta-detail"
@@ -79,7 +74,17 @@ exports[`PackagePackages show packages list 1`] = `
                       <div
                         className="ant-card-meta-title"
                       >
-                        p1
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          p1
+                        </span>
                       </div>
                     </div>
                   </div>

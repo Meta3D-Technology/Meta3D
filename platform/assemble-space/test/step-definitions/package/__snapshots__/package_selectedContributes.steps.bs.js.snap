@@ -67,11 +67,6 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                 >
                   <div
                     className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
                   >
                     <div
                       className="ant-card-meta-detail"
@@ -79,7 +74,17 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                       <div
                         className="ant-card-meta-title"
                       >
-                        e1
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          e1
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -136,11 +141,6 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                 >
                   <div
                     className="ant-card-meta"
-                    style={
-                      Object {
-                        "width": "100px",
-                      }
-                    }
                   >
                     <div
                       className="ant-card-meta-detail"
@@ -148,7 +148,17 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                       <div
                         className="ant-card-meta-title"
                       >
-                        e2
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          e2
+                        </span>
                       </div>
                     </div>
                   </div>
