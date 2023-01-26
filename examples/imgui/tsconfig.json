@@ -7,8 +7,14 @@
     "allowJs": true,
     "sourceMap": true,
     "moduleResolution": "node",
-    "types": ["Node"]
+    "types": [
+      "Node"
+    ]
   },
-  "include": ["src/**/*.ts", "mine/font_button.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

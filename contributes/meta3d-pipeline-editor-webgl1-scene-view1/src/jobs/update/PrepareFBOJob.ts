@@ -2,17 +2,21 @@ import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contri
 import { getState, getTextureID, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { service as webgl1Service, webgl1Context, fbo, texture } from "meta3d-webgl1-protocol/src/service/ServiceType"
-import { getExnFromStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, getExnFromStrictNullable, isStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
+import { getViewRect } from "meta3d-view-utils/src/ViewRect";
 
 let _getLevel = () => 0
 
 let _getBorder = () => 0
 
-let _createTexture = (webgl1Service: webgl1Service, gl: webgl1Context) => {
+let _createTexture = (webgl1Service: webgl1Service, [width, height]: [number, number], gl: webgl1Context) => {
     let texture = webgl1Service.createTexture(gl);
     webgl1Service.bindTexture(webgl1Service.getTexture2DType(gl), texture, gl);
-    webgl1Service.texImage2D(webgl1Service.getTexture2DType(gl), _getLevel(), webgl1Service.getRGBAType(gl), webgl1Service.getDrawingBufferWidth(gl), webgl1Service.getDrawingBufferHeight(gl), _getBorder(), webgl1Service.getRGBAType(gl), webgl1Service.getUnsignedByte(gl), null, gl);
+    // webgl1Service.texImage2D(webgl1Service.getTexture2DType(gl), _getLevel(), webgl1Service.getRGBAType(gl), webgl1Service.getDrawingBufferWidth(gl), webgl1Service.getDrawingBufferHeight(gl), _getBorder(), webgl1Service.getRGBAType(gl), webgl1Service.getUnsignedByte(gl), null, gl);
+
+    webgl1Service.texImage2D(webgl1Service.getTexture2DType(gl), _getLevel(), webgl1Service.getRGBAType(gl), width, height, _getBorder(), webgl1Service.getRGBAType(gl), webgl1Service.getUnsignedByte(gl), null, gl);
+
 
     webgl1Service.texParameteri(webgl1Service.getTexture2DType(gl), webgl1Service.getTextureMinFilterType(gl), webgl1Service.getLinearType(gl), gl);
     webgl1Service.texParameteri(webgl1Service.getTexture2DType(gl), webgl1Service.getTextureWrapSType(gl), webgl1Service.getClampToEdgeType(gl), gl);
@@ -23,10 +27,10 @@ let _createTexture = (webgl1Service: webgl1Service, gl: webgl1Context) => {
     return getExnFromStrictNullable(texture);
 }
 
-let _createAndInitFBOData = (webgl1Service: webgl1Service, gl: webgl1Context): [fbo, texture] => {
+let _createAndInitFBOData = (webgl1Service: webgl1Service, gl: webgl1Context, viewSize: [number, number]): [fbo, texture] => {
     let fbo = getExnFromStrictNullable(webgl1Service.createFramebuffer(gl));
 
-    let texture = _createTexture(webgl1Service, gl);
+    let texture = _createTexture(webgl1Service, viewSize, gl);
 
 
     webgl1Service.bindFramebuffer(webgl1Service.getFrameBufferType(gl), fbo, gl);
@@ -45,6 +49,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         mostService,
         webgl1Service,
         uiService,
+        fbo,
         meta3dUIExtensionProtocolName,
     } =
         getState(states)
@@ -54,9 +59,17 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
         let { getContext, setFBOTexture } = uiService
 
-        let [fbo, texture] = _createAndInitFBOData(webgl1Service, getContext(meta3dState))
+        if (!isStrictNullable(fbo)) {
+            return meta3dState
+        }
 
         let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+
+        let viewRect = getExn(getViewRect(uiService, uiState))
+
+        let [fbo_, texture] = _createAndInitFBOData(webgl1Service, getContext(meta3dState), [viewRect.width, viewRect.height])
+
+        // let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
 
         uiState = setFBOTexture(uiState, getTextureID(), texture)
 
@@ -68,7 +81,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
             setState(states,
                 {
                     ...getState(states),
-                    fbo: fbo
+                    fbo: fbo_
                 }
             )
         )

@@ -745,6 +745,12 @@ fix ElementVisual
 ////*** TODO fix: Extensions/Contributes should show only one!
 
 
+*** DONE style: 
+
+*** DONE fix: why not has webgl1 extension?
+
+should check dependent when load!
+
 
 
 *** TODO fix imgui
@@ -752,13 +758,36 @@ fix ElementVisual
 test in imgui example first!
 
 
-**** TODO fix: run-scene view control : fix rect
+**** DONE fix: run-scene view control : fix rect
+
+create texture's size error?
 
 
 
-**** TODO fix: scene view control : fix pos with not 0
+
+
+# view rect error?
+
+
+
+TODO fix: scene view control : fix pos with not 0
+
+
+
+TODO change cube's transform to left-up side and run test
+
+
+
+
+
+
+# **** TODO fix: scene view control : fix pos with not 0
 
 **** TODO fix: scene view control should consider bar height
+
+
+
+
 
 
 **** TODO fix: child window should move along parent window

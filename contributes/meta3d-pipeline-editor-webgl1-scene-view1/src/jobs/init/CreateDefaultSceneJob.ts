@@ -96,6 +96,10 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     meta3dState = scene.gameObject.addPBRMaterial(meta3dState, gameObject, material)
 
 
+    
+    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [-2, 2, 0])
+
+
     return meta3dState
 }
 

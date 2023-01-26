@@ -127,15 +127,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height));
         },
         addFBOTexture: (texture, { x, y, width, height }) => {
-            // let pos = ImGui.GetCursorScreenPos();
-            // let rectMin = ImGui.GetItemRectMin()
+            let pos = ImGui.GetCursorScreenPos();
+            let rectMin = ImGui.GetItemRectMin()
+
+            console.log(x, y, width, height)
+            console.log(pos, rectMin)
 
             ImGui.GetWindowDrawList().AddImage(
                 texture,
                 // new ImGui.ImVec2(rectMin.x + pos.x, rectMin.y + pos.y),
                 // new ImGui.ImVec2(pos.x + width / 2, pos.y + height / 2),
                 new ImGui.ImVec2(x, y),
-                new ImGui.ImVec2(width, height),
+                // new ImGui.ImVec2(width, height),
+                new ImGui.ImVec2(x + width, y + height),
                 new ImGui.ImVec2(0, 1),
                 new ImGui.ImVec2(1, 0),
             )

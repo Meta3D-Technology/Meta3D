@@ -18,6 +18,11 @@ export function isNullable<T>(nullableValue: T | null | undefined): boolean {
     return nullableValue === null || nullableValue === undefined
 }
 
+export function isStrictNullable<T>(nullableValue: T | null): boolean {
+    return nullableValue === null
+}
+
+
 export function map<T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null | undefined): Y | null | undefined {
     if (isNullable(nullableValue)) {
         return nullableValue as null | undefined

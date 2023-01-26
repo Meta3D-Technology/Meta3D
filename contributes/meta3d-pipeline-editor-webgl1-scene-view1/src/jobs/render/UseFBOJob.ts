@@ -39,8 +39,10 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
             webgl1Service.getScissorTest(gl),
             gl
         )
-        webgl1Service.viewport(x, y, width, height, gl)
-        webgl1Service.scissor(x, y, width, height, gl)
+        // webgl1Service.viewport(x, y, width, height, gl)
+        // webgl1Service.scissor(x, y, width, height, gl)
+        webgl1Service.viewport(0, 0, width, height, gl)
+        webgl1Service.scissor(0, 0, width, height, gl)
 
         webgl1Service.bindFramebuffer(webgl1Service.getFrameBufferType(gl), getExnFromStrictNullable(fbo), gl);
 

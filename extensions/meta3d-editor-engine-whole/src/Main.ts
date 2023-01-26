@@ -44,11 +44,11 @@ let _registerEditorPipelines = (
 				// insertAction: "after"
 				insertAction: "before"
 			},
-			// {
-			// 	pipelineName: "update",
-			// 	insertElementName: "update_root_meta3d",
-			// 	insertAction: "after"
-			// },
+			{
+				pipelineName: "update",
+				insertElementName: "update_root_meta3d",
+				insertAction: "after"
+			},
 			{
 				pipelineName: "render",
 				insertElementName: "render_webgl1_render_meta3d",

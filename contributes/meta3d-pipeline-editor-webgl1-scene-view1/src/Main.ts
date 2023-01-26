@@ -1,7 +1,7 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
-import { execFunc as execPrepareFBO } from "./jobs/init/PrepareFBOJob";
+import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
-import { execFunc as execUpdateFBO } from "./jobs/render/UseFBOJob";
+import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
@@ -13,12 +13,12 @@ import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
+		case "scene_view1_gl_webgl1_create_default_scene_meta3d":
+			return execCreateDefaultSceneJob;
 		case "scene_view1_gl_webgl1_prepare_fbo_meta3d":
 			return execPrepareFBO;
-		case "scene_view1_gl_webgl1_craete_default_scene_meta3d":
-			return execCreateDefaultSceneJob;
-		case "scene_view1_gl_webgl1_update_fbo_meta3d":
-			return execUpdateFBO;
+		case "scene_view1_gl_webgl1_use_fbo_meta3d":
+			return execUseFBO;
 		default:
 			return null
 	}
@@ -59,11 +59,23 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 						link: "concat",
 						elements: [
 							{
-								"name": "scene_view1_gl_webgl1_prepare_fbo_meta3d",
+								"name": "scene_view1_gl_webgl1_create_default_scene_meta3d",
 								"type_": "job"
 							},
+						]
+					}
+				],
+				first_group: "first_webgl1_scene_view1_meta3d"
+			},
+			{
+				name: "update",
+				groups: [
+					{
+						name: "first_webgl1_scene_view1_meta3d",
+						link: "concat",
+						elements: [
 							{
-								"name": "scene_view1_gl_webgl1_craete_default_scene_meta3d",
+								"name": "scene_view1_gl_webgl1_prepare_fbo_meta3d",
 								"type_": "job"
 							},
 						]
@@ -79,7 +91,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 						link: "concat",
 						elements: [
 							{
-								"name": "scene_view1_gl_webgl1_update_fbo_meta3d",
+								"name": "scene_view1_gl_webgl1_use_fbo_meta3d",
 								"type_": "job"
 							},
 						]
