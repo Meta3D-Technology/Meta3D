@@ -6,6 +6,7 @@ import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControl
 import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
+import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
 let _getFBOTexture = (getFBOTexture: (state: state, textureID: string) => nullable<texture>, state: state, textureID: string): strictNullable<texture> => {
     let texture = getFBOTexture(state, textureID)
@@ -14,6 +15,15 @@ let _getFBOTexture = (getFBOTexture: (state: state, textureID: string) => nullab
     }
 
     return getExn(texture)
+}
+
+let _getFBORect = (rect: rect, windowBarHeight: number) => {
+    return {
+        x: rect.x,
+        y: rect.y + windowBarHeight,
+        width: rect.width,
+        height: rect.height - windowBarHeight
+    }
 }
 
 export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
@@ -28,7 +38,9 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
                 // textureID
             }
         ) => {
-            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture, setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionProtocolName)
+            let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture,
+                getWindowBarHeight,
+                setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionProtocolName)
             let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName)
 
 
@@ -37,25 +49,17 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 
             meta3dState = beginWindow(meta3dState, label)
 
+            let fboRect = _getFBORect(rect, getWindowBarHeight(meta3dState))
 
-            // meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), [rect.width, rect.height])
-            meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), rect)
-            // meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), {
-            //     x: 0,
-            //     y: 0,
-            //     // TODO fix: consider bar height?
-            //     width: rect.width,
-            //     height: rect.height
-            // })
+
+            meta3dState = addFBOTexture(meta3dState, _getFBOTexture(getFBOTexture, state, textureID), fboRect)
 
 
 
 
 
-
-            // TODO fix: add bar height?
             state = setUIControlState<uiControlState>(state, uiControlName, {
-                rect: rect
+                rect: fboRect
             })
 
             meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName, state)

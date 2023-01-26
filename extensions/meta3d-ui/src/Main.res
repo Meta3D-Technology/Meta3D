@@ -38,12 +38,24 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       UIManager.endWindow(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
     },
     setNextWindowRect: (meta3dState, rect) => {
-      UIManager.setNextWindowRect(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), rect)
+      UIManager.setNextWindowRect(
+        meta3dState,
+        (api, meta3dImguiRendererExtensionProtocolName),
+        rect,
+      )
     },
     getFBOTexture: UIManager.getFBOTexture,
     setFBOTexture: UIManager.setFBOTexture,
     addFBOTexture: (meta3dState, texture, rect) => {
-      UIManager.addFBOTexture(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), texture, rect)
+      UIManager.addFBOTexture(
+        meta3dState,
+        (api, meta3dImguiRendererExtensionProtocolName),
+        texture,
+        rect,
+      )
+    },
+    getWindowBarHeight: meta3dState => {
+      UIManager.getWindowBarHeight(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
     },
     getContext: meta3dState => {
       UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))

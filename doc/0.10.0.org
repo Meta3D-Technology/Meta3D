@@ -753,7 +753,7 @@ should check dependent when load!
 
 
 
-*** TODO fix imgui
+*** DONE fix imgui
 
 test in imgui example first!
 
@@ -783,17 +783,17 @@ TODO change cube's transform to left-up side and run test
 
 # **** TODO fix: scene view control : fix pos with not 0
 
-**** TODO fix: scene view control should consider bar height
+**** DONE fix: scene view control should consider bar height
 
 
 
 
 
 
-**** TODO fix: child window should move along parent window
+# **** TODO fix: child window should move along parent window
 
 
-**** TODO pass element assemble run test
+**** DONE pass element assemble run test
 
 
 

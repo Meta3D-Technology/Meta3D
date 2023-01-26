@@ -144,6 +144,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 new ImGui.ImVec2(1, 0),
             )
         },
+        getWindowBarHeight: () => {
+            return ImGui.GetFrameHeight()
+        },
         button: (label, [width, height]) => {
             let isClick = ImGui.Button(label, new ImGui.ImVec2(width, height))
 

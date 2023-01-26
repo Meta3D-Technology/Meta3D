@@ -129,6 +129,9 @@ export type service = {
         textureID: textureID,
         texture: texture
     ) => state;
+    readonly getWindowBarHeight: (
+        meta3dState: meta3dState
+    ) => number;
     readonly getContext: (
         meta3dState: meta3dState
     ) => context;

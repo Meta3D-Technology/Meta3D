@@ -619,6 +619,16 @@ let addFBOTexture = (meta3dState, data, texture, rect) => {
   )
 }
 
+let getWindowBarHeight = (meta3dState, data) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getWindowBarHeight()
+    },
+    data,
+  )
+}
+
 let getContext = (meta3dState, data) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,

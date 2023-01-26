@@ -2,7 +2,7 @@
 
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, addFBOTextureOpt, getContextOpt, buttonOpt, setCursorPosOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -13,6 +13,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var endWindow = endWindowOpt !== undefined ? endWindowOpt : Sinon.createEmptyStub(sandbox.contents);
   var setNextWindowRect = setNextWindowRectOpt !== undefined ? setNextWindowRectOpt : Sinon.createEmptyStub(sandbox.contents);
   var addFBOTexture = addFBOTextureOpt !== undefined ? addFBOTextureOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getWindowBarHeight = getWindowBarHeightOpt !== undefined ? getWindowBarHeightOpt : Sinon.createEmptyStub(sandbox.contents);
   var getContext = getContextOpt !== undefined ? getContextOpt : Sinon.createEmptyStub(sandbox.contents);
   var button = buttonOpt !== undefined ? buttonOpt : Sinon.createEmptyStub(sandbox.contents);
   var setCursorPos = setCursorPosOpt !== undefined ? setCursorPosOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -27,6 +28,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           endWindow: endWindow,
           setNextWindowRect: setNextWindowRect,
           addFBOTexture: addFBOTexture,
+          getWindowBarHeight: getWindowBarHeight,
           button: button,
           setCursorPos: setCursorPos,
           getContext: getContext

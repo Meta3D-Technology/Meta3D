@@ -1,4 +1,4 @@
-import * as ImGui from "./imgui"
+import imgui, * as ImGui from "./imgui"
 import * as ImGui_Impl from "./imgui_impl_button"
 
 // let first = true
@@ -160,22 +160,31 @@ export let loop = (time: number) => {
 
         // ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
         ImGui.SetNextWindowPos(new ImGui.ImVec2(200, 40));
+        // ImGui.SetNextWindowSize(new ImGui.ImVec2(400, 400 + ImGui.GetFrameHeight()));
         ImGui.SetNextWindowSize(new ImGui.ImVec2(400, 400));
 
         ImGui.Begin("Hello");
 
-        console.log(ImGui.GetItemRectMin())
+        // console.log(ImGui.GetItemRectMin())
+
+        let barSize = ImGui.GetWindowSize()
+        console.log(ImGui.GetItemRectMin(), barSize)
 
         var drawList: ImGui.ImDrawList = ImGui.GetWindowDrawList();
         drawList.AddImage(image._texture,
-        // drawList.AddImage(null,
+            // drawList.AddImage(null,
             //  new ImGui.Vec2(0, 0),
-             new ImGui.Vec2(200, 40),
-        
-        
-        // new ImGui.Vec2(100, 100),
-        // new ImGui.Vec2(400, 400),
-        new ImGui.Vec2(200 + 400, 40+ 400),
+            //  new ImGui.Vec2(200, 40),
+            // new ImGui.Vec2(200 + barSize.x, 40 + barSize.y),
+            new ImGui.Vec2(200, 40 + ImGui.GetFrameHeight()),
+
+
+
+            // new ImGui.Vec2(100, 100),
+            // new ImGui.Vec2(400, 400),
+            // new ImGui.Vec2(200 + 400, 40+ 400),
+            // new ImGui.Vec2(200 + 400, 40 + 400 + ImGui.GetFrameHeight()),
+            new ImGui.Vec2(200 + 400, 40 + 400),
 
 
 

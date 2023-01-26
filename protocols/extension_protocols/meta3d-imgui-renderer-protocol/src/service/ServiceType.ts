@@ -44,6 +44,7 @@ export type service = {
   readonly endWindow: () => void;
   readonly setNextWindowRect: (_1: rect) => void;
   readonly addFBOTexture: (_1: strictNullable<texture>, _2: rect) => void;
+  readonly getWindowBarHeight: () => number;
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
   readonly getContext: () => context

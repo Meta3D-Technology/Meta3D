@@ -45,14 +45,20 @@ function getExtensionService(api, param) {
                           meta3dImguiRendererExtensionProtocolName
                         ], rect);
             }),
-          addFBOTexture: (function (meta3dState, texture, size) {
+          addFBOTexture: (function (meta3dState, texture, rect) {
               return UIManager$Meta3dUi.addFBOTexture(meta3dState, [
                           api,
                           meta3dImguiRendererExtensionProtocolName
-                        ], texture, size);
+                        ], texture, rect);
             }),
           getFBOTexture: UIManager$Meta3dUi.getFBOTexture,
           setFBOTexture: UIManager$Meta3dUi.setFBOTexture,
+          getWindowBarHeight: (function (meta3dState) {
+              return UIManager$Meta3dUi.getWindowBarHeight(meta3dState, [
+                          api,
+                          meta3dImguiRendererExtensionProtocolName
+                        ]);
+            }),
           getContext: (function (meta3dState) {
               return UIManager$Meta3dUi.getContext(meta3dState, [
                           api,

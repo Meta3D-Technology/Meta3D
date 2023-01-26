@@ -384,10 +384,16 @@ function setFBOTexture(state, textureID, texture) {
         };
 }
 
-function addFBOTexture(meta3dState, data, texture, size) {
+function addFBOTexture(meta3dState, data, texture, rect) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                imguiRendererService.addFBOTexture(texture, size);
+                imguiRendererService.addFBOTexture(texture, rect);
                 return imguiRendererState;
+              }), data);
+}
+
+function getWindowBarHeight(meta3dState, data) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getWindowBarHeight, undefined);
               }), data);
 }
 
@@ -466,6 +472,7 @@ export {
   getFBOTexture ,
   setFBOTexture ,
   addFBOTexture ,
+  getWindowBarHeight ,
   getContext ,
   button ,
   setCursorPos ,

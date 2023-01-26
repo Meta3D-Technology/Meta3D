@@ -91,6 +91,7 @@ type service = {
   ) => Meta3dType.Index.state,
   getFBOTexture: (StateType.state, StateType.textureID) => Js.Nullable.t<texture>,
   setFBOTexture: (StateType.state, StateType.textureID, texture) => StateType.state,
+  getWindowBarHeight: Meta3dType.Index.state => float,
   getContext: Meta3dType.Index.state => Meta3dImguiRendererProtocol.ServiceType.context,
   button: (
     Meta3dType.Index.state,

@@ -35,6 +35,7 @@ type service = {
   endWindow: unit => unit,
   setNextWindowRect: (. rect) => unit,
   addFBOTexture: (. Js.Null.t<texture>, rect) => unit,
+  getWindowBarHeight: unit => float,
   button: (. label, size) => bool,
   setCursorPos: (. pos) => unit,
   getContext: unit => context,
