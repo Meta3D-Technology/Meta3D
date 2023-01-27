@@ -11,7 +11,7 @@ import * as NameEventDoService$Meta3dEvent from "../../../src/event_manager/serv
 import * as CreateEventManagerState$Meta3dEvent from "../../../src/event_manager/data/CreateEventManagerState.bs.js";
 
 function prepareState(param) {
-  ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(CreateEventManagerState$Meta3dEvent.create(undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function getBrowserChromeType(param) {

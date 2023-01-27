@@ -22,7 +22,7 @@ Meta3d_jest.describe("CanvasAPI", (function (param) {
         Meta3d_jest.describe("setCanvas", (function (param) {
                 Meta3d_jest.test("set canvas", (function (param) {
                         CanvasAPI$Meta3dEvent.setCanvas(2);
-                        return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(CanvasDoService$Meta3dEvent.getCanvas(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), 2);
+                        return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(CanvasDoService$Meta3dEvent.getCanvas(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)))), 2);
                       }));
               }));
       }));

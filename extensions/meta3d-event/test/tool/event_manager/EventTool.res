@@ -21,9 +21,9 @@ let _extend = %raw(`
 
 let getBody = state => BodyDoService.getBodyExn(state)
 
-let getPointEventBindedDom = () => ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->getBody
+let getPointEventBindedDom = () => ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->getBody
 
-let getKeyboardEventBindedDom = () => ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->getBody
+let getKeyboardEventBindedDom = () => ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->getBody
 
 let triggerDomEvent = %raw(`
   function(eventName, oTarget, event){
@@ -178,7 +178,7 @@ function(){
 let restore = () => {
   _clearEventQueueMap(.)
 
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->ManageEventDoService.unsubscribeDomEventStream->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->ManageEventDoService.unsubscribeDomEventStream->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }
 
 let triggerFirstMouseDragOverEvent = mouseEvent => {

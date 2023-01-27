@@ -1,6 +1,7 @@
 
 
 import * as EventManager$Meta3dEvent from "./EventManager.bs.js";
+import * as ManageEventAPIForSrc$Meta3dEvent from "./event_manager/api/ManageEventAPIForSrc.bs.js";
 
 function getExtensionService(api, param) {
   return {
@@ -11,6 +12,7 @@ function getExtensionService(api, param) {
           onPointEvent: (function (param, param$1) {
               return EventManager$Meta3dEvent.onPointEvent(api, param, param$1);
             }),
+          onCustomGlobalEvent: ManageEventAPIForSrc$Meta3dEvent.onCustomGlobalEvent,
           initEvent: (function (param, param$1) {
               return EventManager$Meta3dEvent.initEvent(api, param, param$1);
             }),

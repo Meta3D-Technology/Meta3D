@@ -21,7 +21,7 @@ let _ = describe("CanvasAPI", () => {
 
       CanvasAPI.setCanvas(canvas)
 
-      ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->CanvasDoService.getCanvas->expect == canvas
+      ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->CanvasDoService.getCanvas->expect == canvas
     })
   })
 })

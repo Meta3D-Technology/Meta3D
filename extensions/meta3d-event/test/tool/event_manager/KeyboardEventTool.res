@@ -19,10 +19,10 @@ let buildKeyboardEvent = (
 let prepare = (~sandbox, ~setBrowserFunc=BrowserDetectTool.setChrome, ()) => {
   let canvasDom = EventTool.buildFakeCanvas((0, 0, Js.Nullable.null))
 
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())
   ->BodyDoService.setBody(BodyTool.getBody())
   ->CanvasDoService.setCanvas(canvasDom->Obj.magic)
   ->setBrowserFunc
-  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionName())
-  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionProtocolName())
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }

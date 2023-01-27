@@ -1,5 +1,5 @@
 let initEvent = () => {
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())
-  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionName())
-  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())
+  ->InitEventDoService.initEvent(EventExtensionTool.buildEventExtentsionProtocolName())
+  ->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }

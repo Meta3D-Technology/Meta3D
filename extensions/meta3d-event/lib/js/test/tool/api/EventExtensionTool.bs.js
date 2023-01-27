@@ -1,9 +1,9 @@
 'use strict';
 
 
-function buildEventExtentsionName(param) {
-  return "eventExtentsionName";
+function buildEventExtentsionProtocolName(param) {
+  return "eventExtentsionProtocolName";
 }
 
-exports.buildEventExtentsionName = buildEventExtentsionName;
+exports.buildEventExtentsionProtocolName = buildEventExtentsionProtocolName;
 /* No side effect */

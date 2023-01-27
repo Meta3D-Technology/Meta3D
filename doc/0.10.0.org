@@ -832,30 +832,44 @@ only new gameObject, transform
 * TODO handle event
 
 
-** TODO camera gameObject add arcball component
+** DONE camera gameObject add arcball component
+
+# add arcball api
+
+# add arcball component
+
+# bind event:
+#   judge target in handle
+#     provide by uiService
+
+
+# TODO scene-view1 before update camera
+
+** DONE handle event
+
+
+# add InitEventJob
+#   bind event on body
+
+
+# add UpdateArcballCameraControllerJob
+
+# handle region by target?
 
 
 
-** TODO handle event
+
+** TODO run test
+
+# build render package
+
+# build editor-engine-event package
 
 
+# publish
 
 
-
-
-# * TODO run test for 0.11.0 in dev
-* TODO run test for Contract in dev
-
-clear all old ones
-
-publish 0.9.0
-
-rebuild all engine packages
-
-run test with isDebug:true
-
-
-
+test
 
 
 
@@ -877,6 +891,34 @@ run test with isDebug:true
 
 * TODO feat: run element support scene view or no scene view?
 
+
+
+
 * TODO publish
 
 
+# ** TODO clean and publish 0.10.0
+** TODO clean and publish 0.9.10
+
+
+# * TODO run test for 0.11.0 in dev
+** TODO run test for Contract in dev
+
+clear all old ones
+
+# after publish 0.10.0
+after publish 0.9.10
+
+rebuild all engine packages
+
+run test with isDebug:true
+
+
+
+
+rebuild all editor engine packages
+
+
+** TODO run test: download engine and use
+
+** TODO run test: run, app

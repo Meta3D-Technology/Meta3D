@@ -1,11 +1,11 @@
 
 
 
-function buildEventExtentsionName(param) {
-  return "eventExtentsionName";
+function buildEventExtentsionProtocolName(param) {
+  return "eventExtentsionProtocolName";
 }
 
 export {
-  buildEventExtentsionName ,
+  buildEventExtentsionProtocolName ,
 }
 /* No side effect */

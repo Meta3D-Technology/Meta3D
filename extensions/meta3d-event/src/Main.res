@@ -6,6 +6,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   trigger: EventManager.trigger(api)->Obj.magic,
   registerAction: EventManager.registerAction->Obj.magic,
   onPointEvent: EventManager.onPointEvent(api),
+  onCustomGlobalEvent: ManageEventAPIForSrc.onCustomGlobalEvent,
   initEvent: EventManager.initEvent(api),
   setBrowser: EventManager.setBrowser(api),
   setCanvas: EventManager.setCanvas(api),

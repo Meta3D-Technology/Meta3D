@@ -11,6 +11,8 @@ type pointEventName = [
   | #meta3d_pointdragdrop
 ]
 
+type customEventName = string
+
 type priority = int
 
 type handleFunc = (. EventType.customEvent) => unit
@@ -27,6 +29,7 @@ type service = {
     ActionContributeType.actionContribute<'actionData>,
   ) => StateType.state,
   onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
+  onCustomGlobalEvent: (eventExtensionProtocolName, (customEventName, priority, handleFunc)) => unit,
   initEvent: (Meta3dType.Index.state, eventExtensionProtocolName) => Meta3dType.Index.state,
   setBrowser: (
     Meta3dType.Index.state,

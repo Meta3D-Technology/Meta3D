@@ -1,3 +1,3 @@
-let buildEventExtentsionName = () => {
-  "eventExtentsionName"
+let buildEventExtentsionProtocolName = () => {
+  "eventExtentsionProtocolName"
 }

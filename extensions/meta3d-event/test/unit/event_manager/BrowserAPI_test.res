@@ -19,7 +19,7 @@ let _ = describe("BrowserAPI", () => {
     test("set browser", () => {
       MainTool.setBrowser(Meta3dEventProtocol.BrowserType.IOS)
 
-      ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->BrowserDoService.getBrowser->expect == Meta3dEventProtocol.BrowserType.IOS
+      ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->BrowserDoService.getBrowser->expect == Meta3dEventProtocol.BrowserType.IOS
     })
   })
 })

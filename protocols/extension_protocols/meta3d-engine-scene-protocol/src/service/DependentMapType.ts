@@ -10,5 +10,6 @@ export type dependentContributeProtocolNameMap = {
     meta3dComponentPBRMaterialContributeName: string,
     meta3dComponentBasicCameraViewContributeName: string,
     meta3dComponentPerspectiveCameraProjectionContributeName: string,
+    meta3dComponentArcballCameraControllerContributeName: string,
     meta3dGameObjectContributeName: string
 }

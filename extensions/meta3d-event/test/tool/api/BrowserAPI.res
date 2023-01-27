@@ -1,3 +1,3 @@
 let setBrowser = browser => {
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->BrowserDoService.setBrowser(browser)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->BrowserDoService.setBrowser(browser)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }

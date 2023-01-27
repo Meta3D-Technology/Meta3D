@@ -1,3 +1,3 @@
 let setCanvas = canvas => {
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->CanvasDoService.setCanvas(canvas)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->CanvasDoService.setCanvas(canvas)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }

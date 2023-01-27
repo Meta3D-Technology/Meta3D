@@ -9,6 +9,7 @@ import { basicCameraView, componentName as basicCameraViewComponentName } from "
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { clonedGameObjects } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index"
 
 
 export type createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService) => [engineCoreState, gameObject]
@@ -46,11 +47,11 @@ export type addPerspectiveCameraProjection = (engineCoreState: engineCoreState, 
 
 export type hasPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => boolean
 
-// export type getArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject => gameObject) 
+export type getArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => arcballCameraController
 
-// export type addArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController => arcballCameraController) 
+export type addArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) => engineCoreState
 
-// export type hasArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject => gameObject) 
+export type hasArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => boolean
 
 export type cloneGameObject = (engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) => [engineCoreState, clonedGameObjects]
 
@@ -67,3 +68,5 @@ export type disposeGameObjectGeometryComponent = (engineCoreState: engineCoreSta
 export type disposeGameObjectBasicCameraViewComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) => engineCoreState
 
 export type disposeGameObjectPerspectiveCameraProjectionComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) => engineCoreState
+
+export type disposeGameObjectArcballCameraControllerComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) => engineCoreState

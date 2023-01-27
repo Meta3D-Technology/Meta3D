@@ -8,6 +8,7 @@ import { basicCameraView, componentName as basicCameraViewComponentName } from "
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { clonedGameObjects } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index"
 
 
 export type createGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
@@ -44,6 +45,13 @@ export type addPerspectiveCameraProjection = (meta3dState: meta3dState, gameObje
 
 export type hasPerspectiveCameraProjection = (meta3dState: meta3dState, gameObject: gameObject) => boolean
 
+export type getArcballCameraController = (meta3dState: meta3dState, gameObject: gameObject) => arcballCameraController
+
+export type addArcballCameraController = (meta3dState: meta3dState, gameObject: gameObject, arcballCameraController: arcballCameraController) => meta3dState
+
+export type hasArcballCameraController = (meta3dState: meta3dState, gameObject: gameObject) => boolean
+
+
 // export type getArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject => gameObject) 
 
 // export type addArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController => arcballCameraController) 
@@ -65,3 +73,5 @@ export type disposeGameObjectGeometryComponent = (meta3dState: meta3dState, game
 export type disposeGameObjectBasicCameraViewComponent = (meta3dState: meta3dState, gameObject: gameObject, component: basicCameraView) => meta3dState
 
 export type disposeGameObjectPerspectiveCameraProjectionComponent = (meta3dState: meta3dState, gameObject: gameObject, component: perspectiveCameraProjection) => meta3dState
+
+export type disposeGameObjectArcballCameraControllerComponent = (meta3dState: meta3dState, gameObject: gameObject, component: arcballCameraController) => meta3dState

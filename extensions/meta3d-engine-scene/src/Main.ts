@@ -11,16 +11,28 @@ import { state as transformPipelineState, states as transformPipelineStates } fr
 import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
 // import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-webgpu-triangle-protocol/src/StateType";
 // import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
-import { addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, cloneGameObject, createGameObject, disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects, getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform, hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform } from "./GameObjectAPI"
+import {
+	addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,
+	disposeGameObjectArcballCameraControllerComponent,
+	disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects,
+	getArcballCameraController,
+	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
+	hasArcballCameraController,
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
+} from "./GameObjectAPI"
 import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI";
 import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
 import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./PBRMaterialAPI";
 import { createGeometry, setIndices, setVertices } from "./GeometryAPI";
 import { createBasicCameraView, active } from "./BasicCameraViewAPI";
-
+import {
+	createArcballCameraController,
+	getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+} from "./ArcballCameraControllerAPI"
 import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
+import { state as arcballCameraControllerState, componentName as arcballCameraControllerComponentName, config as arcballCameraControllerConfig, arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol"
 import { state as perspecticeCameraProjectionState, componentName as perspecticeCameraProjectionComponentName, config as perspecticeCameraProjectionConfig, perspectiveCameraProjection } from "meta3d-component-perspectivecameraprojection-protocol"
 import { state as basicCameraViewState, componentName as basicCameraViewComponentName, config as basicCameraViewConfig, basicCameraView } from "meta3d-component-basiccameraview-protocol"
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName, config as pbrMaterialConfig, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
@@ -44,6 +56,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	meta3dComponentPBRMaterialContributeName,
 	meta3dComponentBasicCameraViewContributeName,
 	meta3dComponentPerspectiveCameraProjectionContributeName,
+	meta3dComponentArcballCameraControllerContributeName,
 	meta3dGameObjectContributeName
 }]) => {
 		return {
@@ -91,11 +104,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				)
 
 
-
-
-
-
-
 				engineCoreState =
 					registerComponent(engineCoreState, api.getContribute<componentContribute<transformState, transformConfig, transform>>(meta3dState, meta3dComponentTransformContributeName))
 
@@ -110,6 +118,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				engineCoreState =
 					registerComponent(engineCoreState, api.getContribute<componentContribute<perspecticeCameraProjectionState, perspecticeCameraProjectionConfig, perspectiveCameraProjection>>(meta3dState, meta3dComponentPerspectiveCameraProjectionContributeName))
+
+				engineCoreState =
+					registerComponent(engineCoreState, api.getContribute<componentContribute<arcballCameraControllerState, arcballCameraControllerConfig, arcballCameraController>>(meta3dState, meta3dComponentArcballCameraControllerContributeName))
+
 
 
 				engineCoreState = createAndSetComponentState<transformConfig>(engineCoreState, transformComponentName, {
@@ -133,6 +145,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				engineCoreState = createAndSetComponentState<perspecticeCameraProjectionConfig>(engineCoreState, perspecticeCameraProjectionComponentName, {
 					isDebug
 				})
+				engineCoreState = createAndSetComponentState<arcballCameraControllerConfig>(engineCoreState, arcballCameraControllerComponentName, {
+					isDebug
+				})
+
 
 
 				engineCoreState =
@@ -166,7 +182,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				return meta3dState
 			},
 			gameObject: {
-				addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, cloneGameObject, createGameObject, disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects, getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform, hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
+				addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,
+				disposeGameObjectArcballCameraControllerComponent,
+				disposeGameObjectBasicCameraViewComponent, disposeGameObjectGeometryComponent, disposeGameObjectPBRMaterialComponent, disposeGameObjectPerspectiveCameraProjectionComponent, disposeGameObjects, disposeGameObjectTransformComponent, getAllGameObjects,
+				getArcballCameraController,
+				getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
+				hasArcballCameraController,
+				hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
 			},
 			transform: {
 				createTransform, getLocalPosition, lookAt, setLocalPosition
@@ -176,6 +198,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			},
 			pbrMaterial: {
 				createPBRMaterial, getAllPBRMaterials, setDiffuseColor
+			},
+			arcballCameraController: {
+				createArcballCameraController,
+				getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
 			},
 			perspectiveCameraProjection: {
 				createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear

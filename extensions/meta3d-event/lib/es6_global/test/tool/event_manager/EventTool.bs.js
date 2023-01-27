@@ -25,11 +25,11 @@ var _extend = (function(destination, source){
 var getBody = BodyDoService$Meta3dEvent.getBodyExn;
 
 function getPointEventBindedDom(param) {
-  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)));
+  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)));
 }
 
 function getKeyboardEventBindedDom(param) {
-  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)));
+  return BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)));
 }
 
 var triggerDomEvent = (function(eventName, oTarget, event){
@@ -178,13 +178,13 @@ var _clearEventQueueMap = (function(){
 
 function restore(param) {
   _clearEventQueueMap();
-  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.unsubscribeDomEventStream(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.unsubscribeDomEventStream(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function triggerFirstMouseDragOverEvent(mouseEvent) {
-  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
-  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
-  return triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined))), mouseEvent);
+  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), mouseEvent);
+  triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), mouseEvent);
+  return triggerDomEvent("mousemove", BodyDoService$Meta3dEvent.getBodyExn(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), mouseEvent);
 }
 
 export {

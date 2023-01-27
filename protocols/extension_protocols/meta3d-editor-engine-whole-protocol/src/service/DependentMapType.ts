@@ -8,5 +8,6 @@ export type dependentExtensionProtocolNameMap = {
 
 export type dependentContributeProtocolNameMap = {
     meta3dPipelineEditorWebgl1SceneView1ContributeName: string,
-    meta3dPipelineEditorWebgl1SceneView2ContributeName: string
+    meta3dPipelineEditorWebgl1SceneView2ContributeName: string,
+    meta3dPipelineEditorEventContributeName: string
 }

@@ -22,7 +22,7 @@ Meta3d_jest.describe("BrowserAPI", (function (param) {
         Meta3d_jest.describe("setBrowser", (function (param) {
                 Meta3d_jest.test("set browser", (function (param) {
                         MainTool$Meta3dEvent.setBrowser(/* IOS */3);
-                        return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(BrowserDoService$Meta3dEvent.getBrowser(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)))), /* IOS */3);
+                        return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(BrowserDoService$Meta3dEvent.getBrowser(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)))), /* IOS */3);
                       }));
               }));
       }));

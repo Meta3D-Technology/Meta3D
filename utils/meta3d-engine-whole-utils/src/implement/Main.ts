@@ -192,6 +192,24 @@ export let getExtensionService = (api: api, [
 						meta3dEngineSceneExtensionProtocolName
 					).gameObject.hasPerspectiveCameraProjection(engineCoreState, engineCoreService, gameObject), api, meta3dEngineCoreExtensionProtocolName)
 				},
+				getArcballCameraController: (meta3dState, gameObject) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).gameObject.getArcballCameraController(engineCoreState, engineCoreService, gameObject), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				addArcballCameraController: (meta3dState, gameObject, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).gameObject.addArcballCameraController(engineCoreState, engineCoreService, gameObject, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				hasArcballCameraController: (meta3dState, gameObject) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).gameObject.hasArcballCameraController(engineCoreState, engineCoreService, gameObject), api, meta3dEngineCoreExtensionProtocolName)
+				},
 				cloneGameObject: (meta3dState, count, cloneConfig, sourceGameObject) => {
 					return _encapsulateSceneAPIReturnStateAndData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
 						meta3dState,
@@ -239,6 +257,12 @@ export let getExtensionService = (api: api, [
 						meta3dState,
 						meta3dEngineSceneExtensionProtocolName
 					).gameObject.disposeGameObjectPerspectiveCameraProjectionComponent(engineCoreState, engineCoreService, gameObject, component), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				disposeGameObjectArcballCameraControllerComponent: (meta3dState, gameObject, component) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).gameObject.disposeGameObjectArcballCameraControllerComponent(engineCoreState, engineCoreService, gameObject, component), api, meta3dEngineCoreExtensionProtocolName)
 				},
 			},
 			transform: {
@@ -352,7 +376,81 @@ export let getExtensionService = (api: api, [
 						meta3dEngineSceneExtensionProtocolName
 					).perspectiveCameraProjection.setAspect(engineCoreState, engineCoreService, perspectiveCameraProjection, aspect), api, meta3dEngineCoreExtensionProtocolName)
 				},
-			}
+			},
+			arcballCameraController: {
+				createArcballCameraController: (meta3dState) => {
+					return _encapsulateSceneAPIReturnStateAndData(meta3dState, api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.createArcballCameraController, api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getAllDirtyArcballCameraControllers: (meta3dState) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getAllDirtyArcballCameraControllers(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				clearDirtyList: (meta3dState) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.clearDirtyList(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getDistance: (meta3dState, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getDistance(engineCoreState, engineCoreService, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				setDistance: (meta3dState, arcballCameraController, value) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.setDistance(engineCoreState, engineCoreService, arcballCameraController, value), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getTarget: (meta3dState, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getTarget(engineCoreState, engineCoreService, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				setTarget: (meta3dState, arcballCameraController, value) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.setTarget(engineCoreState, engineCoreService, arcballCameraController, value), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getPhi: (meta3dState, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getPhi(engineCoreState, engineCoreService, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				setPhi: (meta3dState, arcballCameraController, value) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.setPhi(engineCoreState, engineCoreService, arcballCameraController, value), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getTheta: (meta3dState, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getTheta(engineCoreState, engineCoreService, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				setTheta: (meta3dState, arcballCameraController, value) => {
+					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.setTheta(engineCoreState, engineCoreService, arcballCameraController, value), api, meta3dEngineCoreExtensionProtocolName)
+				},
+				getGameObjects: (meta3dState, arcballCameraController) => {
+					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+						meta3dState,
+						meta3dEngineSceneExtensionProtocolName
+					).arcballCameraController.getGameObjects(engineCoreState, engineCoreService, arcballCameraController), api, meta3dEngineCoreExtensionProtocolName)
+				},
+			},
 		}
 	}
 }

@@ -16,6 +16,8 @@ type pointEventName =
     | "meta3d_pointdragover"
     | "meta3d_pointdragdrop"
 
+type customEventName = string
+
 type priority = number
 
 type handleFunc = (customEvent: customEvent) => void
@@ -34,6 +36,10 @@ export type service = {
     onPointEvent(
         eventExtensionProtocolName: eventExtensionProtocolName,
         [pointEventName, priority, handleFunc]: [pointEventName, priority, handleFunc]
+    ): void;
+    onCustomGlobalEvent(
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc]
     ): void;
     initEvent(
         meta3dState: meta3dState,

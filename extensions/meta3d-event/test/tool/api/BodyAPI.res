@@ -1,7 +1,7 @@
 let getBodyExn = () => {
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->BodyDoService.getBodyExn
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->BodyDoService.getBodyExn
 }
 
 let setBody = body => {
-  ContainerManager.getState(EventExtensionTool.buildEventExtentsionName())->BodyDoService.setBody(body)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionName())
+  ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName())->BodyDoService.setBody(body)->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 }

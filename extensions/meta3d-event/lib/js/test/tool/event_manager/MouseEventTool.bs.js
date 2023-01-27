@@ -15,15 +15,15 @@ var InitEventDoService$Meta3dEvent = require("../../../src/event_manager/service
 var HandleMouseEventDoService$Meta3dEvent = require("../../../src/event_manager/service/event/handle/HandleMouseEventDoService.bs.js");
 
 function setLastXY(lastX, lastY) {
-  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setLastXY(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), lastX, lastY), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setLastXY(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)), lastX, lastY), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function getIsDrag(param) {
-  return HandleMouseEventDoService$Meta3dEvent.getIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)));
+  return HandleMouseEventDoService$Meta3dEvent.getIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)));
 }
 
 function setIsDrag(isDrag) {
-  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), isDrag), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(HandleMouseEventDoService$Meta3dEvent.setIsDrag(ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)), isDrag), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function buildMouseEvent(pageXOpt, pageYOpt, whichOpt, movementXOpt, movementYOpt, detailOpt, wheelDeltaOpt, preventDefaultFuncOpt, stopPropagationFuncOpt, param) {
@@ -71,7 +71,7 @@ function prepareWithState(sandbox, state, offsetLeftOpt, offsetTopOpt, offsetPar
         offsetTop,
         offsetParent
       ]);
-  return InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(state, BodyTool$Meta3dEvent.getBody(undefined)), canvasDom)), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  return InitEventDoService$Meta3dEvent.initEvent(Curry._1(setBrowserFunc, CanvasDoService$Meta3dEvent.setCanvas(BodyDoService$Meta3dEvent.setBody(state, BodyTool$Meta3dEvent.getBody(undefined)), canvasDom)), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function prepare(sandbox, offsetLeftOpt, offsetTopOpt, offsetParentOpt, setBrowserFuncOpt, param) {
@@ -79,7 +79,7 @@ function prepare(sandbox, offsetLeftOpt, offsetTopOpt, offsetParentOpt, setBrows
   var offsetTop = offsetTopOpt !== undefined ? offsetTopOpt : 2;
   var offsetParent = offsetParentOpt !== undefined ? Caml_option.valFromOption(offsetParentOpt) : undefined;
   var setBrowserFunc = setBrowserFuncOpt !== undefined ? setBrowserFuncOpt : BrowserDetectTool$Meta3dEvent.setChrome;
-  ContainerManager$Meta3dEvent.setState(prepareWithState(sandbox, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined)), offsetLeft, offsetTop, Caml_option.some(offsetParent), setBrowserFunc, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionName(undefined));
+  ContainerManager$Meta3dEvent.setState(prepareWithState(sandbox, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)), offsetLeft, offsetTop, Caml_option.some(offsetParent), setBrowserFunc, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
 function prepareForPointerLock(sandbox, state) {
