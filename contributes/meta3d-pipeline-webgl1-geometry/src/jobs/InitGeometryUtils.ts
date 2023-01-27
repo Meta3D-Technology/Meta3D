@@ -4,7 +4,7 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { geometry, vertices, indices } from "meta3d-component-geometry-common-protocol"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { componentName, dataName } from "meta3d-component-geometry-protocol"
 
 function _createVBOs(webgl1Service: webgl1Service, gl: webgl1Context, vertices: vertices, indices: indices) {
@@ -29,6 +29,10 @@ export function initGeometry([webgl1Service, engineCoreService, immutableService
 	let usedGeometryContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return allGeometryIndices.reduce(([verticesVBOMap, indicesVBOMap], geometry) => {
+		if (!isNullable(immutableService.mapGet(verticesVBOMap, geometry))) {
+			return [verticesVBOMap, indicesVBOMap]
+		}
+
 		let vertices = getExn(engineCoreService.getComponentData<geometry, vertices>(usedGeometryContribute, geometry, dataName.vertices))
 		let indices = getExn(engineCoreService.getComponentData<geometry, indices>(usedGeometryContribute, geometry, dataName.indices))
 

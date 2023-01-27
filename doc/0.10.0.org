@@ -802,11 +802,20 @@ TODO change cube's transform to left-up side and run test
 
 
 
-* TODO feat: run element support scene view or no scene view
+# * TODO feat: run element support scene view or no scene view
+
+
+* DONE fix EnterApp, RunElementVisual: use jump url with param instead of store
+so can refresh and not error!
+
+
+* DONE feat: add a button to add a cube to scene view when run
+
+no new geometry, material component;
+only new gameObject, transform
 
 
 
-* TODO feat: add a button to add a cube to scene view when run
 
 
 
@@ -817,6 +826,7 @@ TODO change cube's transform to left-up side and run test
 # * TODO run test: add scene view based on 3D view to show a cube + arcball camera + grid
 # * TODO run test: add grid
 
+# * TODO fix run loop not cancel bug
 
 
 * TODO handle event
@@ -854,7 +864,7 @@ run test with isDebug:true
 
 
 
-* TODO feat: run element support only scene view(no game view) or scene view + game view
+# * TODO feat: run element support only scene view(no game view) or scene view + game view
 
 
 * TODO feat: element assemble: Pacakges should show loading...
@@ -865,6 +875,7 @@ run test with isDebug:true
 
 
 
+* TODO feat: run element support scene view or no scene view?
 
 * TODO publish
 

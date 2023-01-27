@@ -93,8 +93,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					null,
 					[
 						{
-							pipelineName: "init",
-							insertElementName: "prepare_init_data_webgl1_engine",
+							pipelineName: "update",
+							insertElementName: "prepare_update_data_webgl1_engine",
 							insertAction: "after"
 						}
 					]
@@ -104,8 +104,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					null,
 					[
 						{
-							pipelineName: "init",
-							insertElementName: "prepare_init_data_webgl1_engine",
+							pipelineName: "update",
+							insertElementName: "prepare_update_data_webgl1_engine",
 							insertAction: "after"
 						}
 					]

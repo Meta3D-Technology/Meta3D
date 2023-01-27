@@ -1,5 +1,5 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
-import { execFunc as execPrepareInitDataJob } from "./jobs/init/PrepareInitDataJob"
+import { execFunc as execPrepareUpdateDataJob } from "./jobs/update/PrepareUpdateDataJob"
 import { execFunc as execPrepareRenderDataJob } from "./jobs/render/PrepareRenderDataJob"
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-webgl1-data-protocol/src/DependentMapType";
 import { config } from "meta3d-pipeline-webgl1-data-protocol/src/ConfigType";
@@ -11,8 +11,8 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "prepare_init_data_webgl1_engine":
-			return execPrepareInitDataJob
+		case "prepare_update_data_webgl1_engine":
+			return execPrepareUpdateDataJob
 		case "prepare_render_data_webgl1_engine":
 			return execPrepareRenderDataJob
 		default:
@@ -53,14 +53,14 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 		getExecFunc: _getExecFunc,
 		allPipelineData: [
 			{
-				name: "init",
+				name: "update",
 				groups: [
 					{
 						name: "first_webgl1_engine",
 						link: "concat",
 						elements: [
 							{
-								"name": "prepare_init_data_webgl1_engine",
+								"name": "prepare_update_data_webgl1_engine",
 								"type_": "job"
 							}
 						]

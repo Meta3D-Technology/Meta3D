@@ -1,5 +1,5 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
-import { execFunc as execInitMaterial } from "./jobs/init/InitMaterialJob";
+import { execFunc as execInitMaterial } from "./jobs/update/InitMaterialJob";
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-webgl1-material-protocol/src/DependentMapType";
 import { config } from "meta3d-pipeline-webgl1-material-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-webgl1-material-protocol/src/StateType";
@@ -49,7 +49,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 		getExecFunc: _getExecFunc,
 		allPipelineData: [
 			{
-				name: "init",
+				name: "update",
 				groups: [
 					{
 						name: "first_webgl1_material_meta3d",

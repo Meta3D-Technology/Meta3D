@@ -40,9 +40,10 @@ let _registerEditorPipelines = (
 		[
 			{
 				pipelineName: "init",
-				insertElementName: "prepare_init_data_webgl1_engine",
-				// insertAction: "after"
-				insertAction: "before"
+				// insertElementName: "prepare_init_data_webgl1_engine",
+				// insertAction: "before"
+				insertElementName: "init_root_meta3d",
+				insertAction: "after"
 			},
 			{
 				pipelineName: "update",

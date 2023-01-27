@@ -10,7 +10,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, engineCoreService } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("prepare init data job");
+		console.log("prepare update data job");
 
 		let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 

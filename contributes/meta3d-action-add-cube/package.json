@@ -1,22 +1,13 @@
 {
-    "name": "meta3d-pipeline-webgl1-material",
-    "version": "0.9.1",
+    "name": "meta3d-action-add-cube",
+    "version": "0.9.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
-        "name": "meta3d-pipeline-webgl1-material-protocol"
+        "name": "meta3d-action-add-cube-protocol"
     },
     "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dWebgl1ExtensionProtocolName": {
-            "protocolName": "meta3d-webgl1-protocol"
-        },
-        "meta3dEngineCoreExtensionProtocolName": {
-            "protocolName": "meta3d-engine-core-protocol"
-        },
-        "meta3dImmutableExtensionProtocolName": {
-            "protocolName": "meta3d-immutable-protocol"
+        "meta3dEditorEngineWholeExtensionProtocolName": {
+            "protocolName": "meta3d-editor-engine-whole-protocol"
         }
     },
     "dependentContributeProtocolNameMap": {},
@@ -29,12 +20,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.9.0",
-        "meta3d-webgl1-protocol": "^0.9.0",
-        "meta3d-engine-core-protocol": "^0.9.0",
-        "meta3d-immutable-protocol": "^0.9.0",
-        "meta3d-type": "^0.9.0",
-        "meta3d-pipeline-webgl1-material-protocol": "^0.9.0"
+        "meta3d-action-add-cube-protocol": "^0.9.0",
+        "meta3d-editor-engine-whole-protocol": "^0.9.3",
+        "meta3d-type": "^0.9.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

@@ -2,6 +2,7 @@ import { programMap } from "meta3d-pipeline-webgl1-material-protocol/src/StateTy
 import { getFragGLSL, getVertGLSL } from "./GLSLUtils"
 import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
+import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 
 function _createProgram(webgl1Service: webgl1Service, gl: webgl1Context, vertexShaderSource: string, fragmentShaderSource: string) {
 	const vertexShader = webgl1Service.createShader(webgl1Service.getVertexShader(gl), gl)
@@ -38,6 +39,10 @@ export function initMaterial([webgl1Service, immutableService]: [webgl1Service, 
 	let fragmentShaderSource = getFragGLSL()
 
 	return allMaterialIndices.reduce((programMap, materialIndex) => {
+		if (!isNullable(immutableService.mapGet(programMap, materialIndex))) {
+			return programMap
+		}
+
 		let program = _createProgram(webgl1Service, gl, vertexShaderSource, fragmentShaderSource)
 
 		return immutableService.mapSet(programMap, materialIndex, program)
