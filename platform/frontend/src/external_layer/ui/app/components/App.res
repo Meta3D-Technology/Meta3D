@@ -13,13 +13,15 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       },
     },
     url: {
-      useUrl: () => {
-        RescriptReactRouter.useUrl()
+      getUrlParam: paramName => {
+        FrontendUtils.UrlSearchUtils.get(RescriptReactRouter.useUrl().search, paramName)
+        ->Js.Json.parseExn
+        ->Obj.magic
       },
     },
     tab: {
       openUrl: (. url) => {
-        FrontendUtils.Window.\"open"(url, "_self").focus()
+        FrontendUtils.Window.\"open"(url, "_blank").focus()
       },
     },
     storage: {

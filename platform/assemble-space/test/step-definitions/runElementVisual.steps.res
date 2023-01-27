@@ -17,22 +17,58 @@ defineFeature(feature, test => {
     })
   }
 
+  // test(."show the canvas", ({given, \"when", \"and", then}) => {
+  //   let useSelectorStub = ref(Obj.magic(1))
+
+  //   _prepare(given, \"and")
+
+  //   given(
+  //     "prepare canvas data",
+  //     () => {
+  //       useSelectorStub :=
+  //         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //           (
+  //             CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
+  //             ApInspectorTool.buildApInspectorData(),
+  //           ),
+  //           _,
+  //         )
+  //     },
+  //   )
+
+  //   \"when"(
+  //     "render",
+  //     () => {
+  //       ()
+  //     },
+  //   )
+
+  //   then(
+  //     "should show the canvas",
+  //     () => {
+  //       RunElementVisualTool.buildUI(
+  //         ~sandbox,
+  //         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+  //         (),
+  //       )
+  //       ->ReactTestRenderer.create
+  //       ->ReactTestTool.createSnapshotAndMatch
+  //     },
+  //   )
+  // })
+
   test(."show the canvas", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+    let getUrlParamStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     given(
       "prepare canvas data",
       () => {
-        useSelectorStub :=
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()),
-              ApInspectorTool.buildApInspectorData(),
-            ),
-            _,
-          )
+        getUrlParamStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withOneArg("canvasData", _)
+          ->returns(CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ()), _)
       },
     )
 
@@ -48,7 +84,11 @@ defineFeature(feature, test => {
       () => {
         RunElementVisualTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getUrlParam=getUrlParamStub.contents->Obj.magic,
+            (),
+          ),
           (),
         )
         ->ReactTestRenderer.create

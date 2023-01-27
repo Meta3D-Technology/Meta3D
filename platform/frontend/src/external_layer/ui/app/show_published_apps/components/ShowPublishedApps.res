@@ -13,18 +13,18 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
 
-  // let _buildURL = (account: string, appName: string) =>
-  //   j`EnterApp?account=${account}&appName=${appName}`
+  let _buildURL = (account: string, appName: string) =>
+    j`EnterApp?account=${account}&appName=${appName}`
 
-  // let _openLink = url => {
-  //   FrontendUtils.Window.\"open"(url, "_blank").focus()
-  // }
-
-  let _enterApp = (account: string, appName: string) => {
-    dispatch(AppStore.EnterAppAction(EnterAppStore.EnterApp(account, appName)))
-
-    RescriptReactRouter.push("/EnterApp")
+  let _openLink = url => {
+    FrontendUtils.Window.\"open"(url, "_blank").focus()
   }
+
+  // let _enterApp = (account: string, appName: string) => {
+  //   dispatch(AppStore.EnterAppAction(EnterAppStore.EnterApp(account, appName)))
+
+  //   RescriptReactRouter.push("/EnterApp")
+  // }
 
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
@@ -69,8 +69,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 key={j`${item.account}_${item.appName}`}
                 title={<span
                   onClick={_ => {
-                    // _openLink(_buildURL(item.account, item.appName))
-                    _enterApp(item.account, item.appName)
+                    _openLink(_buildURL(item.account, item.appName))
+                    // _enterApp(item.account, item.appName)
                   }}>
                   {React.string(item.appName)}
                 </span>}

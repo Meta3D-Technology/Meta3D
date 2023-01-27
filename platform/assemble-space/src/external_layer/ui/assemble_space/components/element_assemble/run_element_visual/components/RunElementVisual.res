@@ -88,26 +88,31 @@ module Method = {
     }, _)
   }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
-  ) => {
-    let {canvasData, apInspectorData} = apAssembleState
+  // let useSelector = (
+  //   {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  // ) => {
+  //   let {canvasData, apInspectorData} = apAssembleState
 
-    (canvasData, apInspectorData)
-  }
+  //   (canvasData, apInspectorData)
+  // }
 }
 
 @react.component
 let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
-  let url = service.url.useUrl()
+  // let url = service.url.useUrl()
 
-  let (canvasData, apInspectorData) = service.react.useSelector(Method.useSelector)
+  // let (canvasData, apInspectorData) = service.react.useSelector(Method.useSelector)
 
   let loopFrameID = service.react.useRef(None)
+
   // let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
   //   FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
   // let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
   //   FrontendUtils.UrlSearchUtils.get(url.search, "apInspectorData")->Js.Json.parseExn->Obj.magic
+  let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
+    service.url.getUrlParam("canvasData")->Obj.magic
+  let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
+    service.url.getUrlParam("apInspectorData")->Obj.magic
 
   React.useEffect1(() => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {

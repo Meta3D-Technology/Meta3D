@@ -165,7 +165,10 @@ type storageService = {
   setElementVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 
-type urlService = {useUrl: unit => RescriptReactRouter.url}
+type urlParamValue
+
+// type urlService = {useUrl: unit => RescriptReactRouter.url}
+type urlService = {getUrlParam: string => urlParamValue}
 
 type domService = {querySelector: string => option<Dom.htmlElement>}
 

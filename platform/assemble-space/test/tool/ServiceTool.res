@@ -8,7 +8,7 @@ let build = (
   ~requestAnimationFirstFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~requestAnimationOtherFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~cancelAnimationFrame=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~useUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getUrlParam=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~openUrl=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~initForElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -180,7 +180,7 @@ let build = (
     setElementVisualApp,
   },
   url: {
-    useUrl: useUrl,
+    getUrlParam: getUrlParam,
   },
   dom: {
     querySelector: querySelector,

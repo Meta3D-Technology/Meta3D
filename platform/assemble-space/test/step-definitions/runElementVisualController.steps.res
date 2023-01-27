@@ -238,7 +238,7 @@ defineFeature(feature, test => {
     let useSelectorStub = ref(Obj.magic(1))
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let setElementVisualAppStub = ref(Obj.magic(1))
-    // let openUrlStub = ref(Obj.magic(1))
+    let openUrlStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
@@ -284,19 +284,25 @@ defineFeature(feature, test => {
       },
     )
 
-    // \"and"("prepare canvas data", () => {
-    //   canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
-    // })
+    \"and"(
+      "prepare canvas data",
+      () => {
+        canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
+      },
+    )
 
-    // \"and"("prepare ap inspector data", () => {
-    //   apInspectorData :=
-    //     ApInspectorTool.buildApInspectorData(
-    //       ~isDebug=false,
-    //       ~clearColor=(0.1, 1., 1., 1.),
-    //       ~skinName="s1"->Some,
-    //       (),
-    //     )
-    // })
+    \"and"(
+      "prepare ap inspector data",
+      () => {
+        apInspectorData :=
+          ApInspectorTool.buildApInspectorData(
+            ~isDebug=false,
+            ~clearColor=(0.1, 1., 1., 1.),
+            ~skinName="s1"->Some,
+            (),
+          )
+      },
+    )
 
     \"and"(
       "prepare local storage",
@@ -315,9 +321,12 @@ defineFeature(feature, test => {
       },
     )
 
-    // \"and"("prepare open", () => {
-    // openUrlStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-    // })
+    \"and"(
+      "prepare open",
+      () => {
+        openUrlStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      },
+    )
 
     CucumberAsync.execStep(
       \"when",
@@ -328,20 +337,15 @@ defineFeature(feature, test => {
         RunElementVisualControllerTool.run(
           ServiceTool.build(
             ~sandbox,
-            // ~openUrl=openUrlStub.contents->Obj.magic,
+            ~openUrl=openUrlStub.contents->Obj.magic,
             ~initForElementVisualApp=initForElementVisualAppStub.contents->Obj.magic,
             ~setElementVisualApp=setElementVisualAppStub.contents->Obj.magic,
             ~generateApp=Meta3d.Main.generateApp->Obj.magic,
             (),
           ),
+          (canvasData.contents, apInspectorData.contents),
           (
-            (
-              // canvasData.contents,
-              list{},
-              selectedExtensions.contents,
-              selectedContributes.contents,
-              // apInspectorData.contents,
-            ),
+            (list{}, selectedExtensions.contents, selectedContributes.contents),
             (v.contents, element1.contents),
           ),
         )
@@ -365,23 +369,26 @@ defineFeature(feature, test => {
       },
     )
 
-    // \"and"("open link with canvas data and ap inspector data to run", () => {
-    //   openUrlStub.contents
-    //   ->SinonTool.calledWith(
-    //     j`RunElementVisual?canvasData=${canvasData.contents
-    //       ->Obj.magic
-    //       ->Js.Json.stringify}&&apInspectorData=${apInspectorData.contents
-    //       ->Obj.magic
-    //       ->Js.Json.stringify}`,
-    //   )
-    //   ->expect == true
-    // })
-
     \"and"(
-      "jump to run router",
+      "open link with canvas data and ap inspector data to run",
       () => {
-        RescriptReactRouter.dangerouslyGetInitialUrl().path->expect == list{"RunElementVisual"}
+        openUrlStub.contents
+        ->SinonTool.calledWith(
+          j`RunElementVisual?canvasData=${canvasData.contents
+            ->Obj.magic
+            ->Js.Json.stringify}&&apInspectorData=${apInspectorData.contents
+            ->Obj.magic
+            ->Js.Json.stringify}`,
+        )
+        ->expect == true
       },
     )
+
+    // \"and"(
+    //   "jump to run router",
+    //   () => {
+    //     RescriptReactRouter.dangerouslyGetInitialUrl().path->expect == list{"RunElementVisual"}
+    //   },
+    // )
   })
 })

@@ -23,15 +23,16 @@ module Method = {
     )
   }
 
-  // let _buildURL = (canvasData, apInspectorData) =>
-  //   j`RunElementVisual?canvasData=${canvasData}&&apInspectorData=${apInspectorData}`
+  let _buildURL = (canvasData, apInspectorData) =>
+    j`RunElementVisual?canvasData=${canvasData}&&apInspectorData=${apInspectorData}`
 
-  // let _openLink = (service, url) => {
-  //   service.tab.openUrl(. url)
-  // }
+  let _openLink = (service, url) => {
+    service.tab.openUrl(. url)
+  }
 
   let run = (
     service,
+    (canvasData, apInspectorData),
     (
       (selectedPackages, selectedExtensions, selectedContributes),
       (runVisualExtension, elementContribute),
@@ -49,16 +50,15 @@ module Method = {
     ->_saveToLocalStorage(service, _)
     ->Meta3dBsMost.Most.tap(
       _ => {
-        RescriptReactRouter.push("/RunElementVisual")
+        _openLink(
+          service,
+          _buildURL(
+            canvasData->Obj.magic->Js.Json.stringify,
+            apInspectorData->Obj.magic->Js.Json.stringify,
+          ),
+        )
       },
-      // _openLink(
-      //   service,
-      //   _buildURL(
-      //     canvasData->Obj.magic->Js.Json.stringify,
-      //     apInspectorData->Obj.magic->Js.Json.stringify,
-      //   ),
-      // )
-
+      // RescriptReactRouter.push("/RunElementVisual")
       _,
     )
     ->Meta3dBsMost.Most.drain
@@ -70,11 +70,17 @@ module Method = {
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {apInspectorData, selectedPackages, selectedExtensions, selectedContributes} = apAssembleState
+    let {
+      canvasData,
+      apInspectorData,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    } = apAssembleState
     let {runVisualExtension, elementContribute} = elementAssembleState
 
     (
-      (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
+      (canvasData, apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
       (runVisualExtension, elementContribute),
     )
   }
@@ -85,7 +91,7 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
+    (canvasData, apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
     (runVisualExtension, elementContribute),
   ) = service.react.useSelector(Method.useSelector)
 
@@ -107,6 +113,7 @@ let make = (~service: service) => {
           FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
             Method.run(
               service,
+              (canvasData, apInspectorData),
               (
                 (selectedPackages, selectedExtensions, selectedContributes),
                 (runVisualExtension, elementContribute),

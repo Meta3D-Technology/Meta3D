@@ -25,10 +25,10 @@ Feature: RunElementVisualController
     Scenario: run
         Given generate empty element contribute element1
         And get run visual extension v
-        # And prepare canvas data
-        # And prepare ap inspector data
+        And prepare canvas data
+        And prepare ap inspector data
         And prepare local storage
-        # And prepare open
+        And prepare open
         # And generate extension ui
         # And generate contribute c1
         # And select ui
@@ -38,7 +38,7 @@ Feature: RunElementVisualController
         When run
         Then generate app
         And save app to local storage
-        # And open link with canvas data and ap inspector data to run
-        And jump to run router
+        And open link with canvas data and ap inspector data to run
+        # And jump to run router
 
 
