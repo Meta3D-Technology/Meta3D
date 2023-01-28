@@ -883,7 +883,16 @@ only new gameObject, transform
 # * TODO feat: run element support only scene view(no game view) or scene view + game view
 
 
+* DONE feat: add u_color
+
+
+* TODO refactor: use engine scene api in render pipeline
+
+
 * TODO style: ui controls
+
+
+
 
 * TODO feat: element assemble: Pacakges should show loading...
 

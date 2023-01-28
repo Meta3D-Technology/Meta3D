@@ -13,8 +13,9 @@ import { geometry, indicesCount } from "meta3d-component-geometry-common-protoco
 import { pbrMaterial } from "meta3d-component-pbrmaterial-common-protocol"
 import { componentName as geometryName, dataName as geometryDataName } from "meta3d-component-geometry-protocol"
 import { componentName as transformName, dataName as transformDataName } from "meta3d-component-transform-protocol"
+import { componentName as pbrMaterialName, dataName as pbrMaterialDataName, diffuseColor } from "meta3d-component-pbrmaterial-protocol"
 
-function _render(webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer: buffer, indicesBuffer: buffer, program: program, modelMatrix: Float32Array, indicesCount: number) {
+function _render(webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer: buffer, indicesBuffer: buffer, program: program, diffuseColor: diffuseColor, modelMatrix: Float32Array, indicesCount: number) {
 	webgl1Service.useProgram(program, gl)
 
 	webgl1Service.bindBuffer(webgl1Service.getArrayBuffer(gl), verticesBuffer, gl)
@@ -26,6 +27,11 @@ function _render(webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer
 
 	const u_model = webgl1Service.getUniformLocation(program, "u_model", gl)
 	webgl1Service.uniformMatrix4fv(u_model, modelMatrix, gl)
+
+
+	const u_color = webgl1Service.getUniformLocation(program, "u_color", gl)
+	webgl1Service.uniform3f(u_color, diffuseColor[0], diffuseColor[1], diffuseColor[2], gl)
+
 
 	webgl1Service.drawElements(webgl1Service.getTriangles(gl), indicesCount, webgl1Service.getUnsignedInt(gl), 0, gl)
 }
@@ -46,16 +52,20 @@ function _getProgramData(immutableService: immutableService, materialIndex: numb
 function _getRenderData([engineCoreService, immutableService]: [engineCoreService, immutableService], engineCoreState: engineCoreState, [transform, geometry, material,]: [transform, geometry, pbrMaterial], verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap): [
 	{ verticesBuffer: buffer, indicesBuffer: buffer },
 	indicesCount,
-	program, localToWorldMatrix
+	program, diffuseColor, localToWorldMatrix
 ] {
 	let { verticesBuffer, indicesBuffer } = _getVBOBuffer(immutableService, geometry, verticesVBOMap, indicesVBOMap)
 
+	// TODO refactor: use engine scene api
 	let indicesCount = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryName), geometry, geometryDataName.indicesCount))
+
+	let diffuseColor = getExn(engineCoreService.getComponentData<pbrMaterial, diffuseColor>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialName), material, pbrMaterialDataName.diffuseColor))
+
 
 	let program = _getProgramData(immutableService, material, programMap)
 	let modelMatrix = getExn(engineCoreService.getComponentData<transform, localToWorldMatrix>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformName), transform, transformDataName.localToWorldMatrix))
 
-	return [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix]
+	return [{ verticesBuffer, indicesBuffer }, indicesCount, program, diffuseColor, modelMatrix]
 }
 
 function _clear(webgl1Service: webgl1Service, gl: webgl1Context) {
@@ -76,9 +86,9 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 		_clear(webgl1Service, getGL(states))
 
 		getAllRenderComponents(states).forEach(({ transform, geometry, material }) => {
-			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, modelMatrix] = _getRenderData([engineCoreService, immutableService], api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
+			let [{ verticesBuffer, indicesBuffer }, indicesCount, program, diffuseColor, modelMatrix] = _getRenderData([engineCoreService, immutableService], api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), [transform, geometry, material], verticesVBOMap, indicesVBOMap, programMap)
 
-			_render(webgl1Service, getGL(states), verticesBuffer, indicesBuffer, program, modelMatrix, indicesCount)
+			_render(webgl1Service, getGL(states), verticesBuffer, indicesBuffer, program, diffuseColor, modelMatrix, indicesCount)
 		})
 
 		return meta3dState
