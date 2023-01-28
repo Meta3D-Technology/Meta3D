@@ -5,7 +5,7 @@ import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 
 // import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
 // import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.0.6.package"
-import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_1.0.2.package"
+import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.1.1.package"
 
 
 let _loop = (
@@ -134,8 +134,7 @@ let _createScene = (meta3dState, scene, canvasSize) => {
 
 // debugger
 
-// TODO change to true
-let isDebug = false
+let isDebug = true
 
 let float9Array1 = new Float32Array()
 let float32Array1 = new Float32Array()

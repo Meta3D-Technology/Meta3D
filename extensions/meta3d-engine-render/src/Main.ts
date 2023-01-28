@@ -139,8 +139,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					},
 					[
 						{
-							pipelineName: "init",
-							insertElementName: "detect_gl_webgl1_detectgl_meta3d",
+							pipelineName: "update",
+							insertElementName: "update_root_meta3d",
 							insertAction: "after"
 						},
 						{

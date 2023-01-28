@@ -897,15 +897,15 @@ only new gameObject, transform
 
 
 
-* TODO feat: element assemble: Pacakges should show loading...
+# * TODO feat: element assemble: Pacakges should show loading...
 
 
-* TODO refactor: rename getGL to getGl??
+# * TODO refactor: rename getGL to getGl??
 
 
 
 
-* TODO feat: run element support scene view or no scene view?
+# * TODO feat: run element support scene view or no scene view?
 
 
 
@@ -914,11 +914,11 @@ only new gameObject, transform
 
 
 # ** TODO clean and publish 0.10.0
-** TODO clean and publish 0.9.10
+** DONE clean and publish 0.9.10
 
 
 # * TODO run test for 0.11.0 in dev
-** TODO run test for Contract in dev
+** DONE run test for Contract in dev
 
 clear all old ones
 
@@ -935,6 +935,14 @@ run test with isDebug:true
 rebuild all editor engine packages
 
 
-** TODO run test: download engine and use
+** DONE run test: download engine and use
 
 ** TODO run test: run, app
+
+** TODO pass ci
+
+TODO meta3d-event should pass
+
+** TODO publish
+
+** TODO record video
