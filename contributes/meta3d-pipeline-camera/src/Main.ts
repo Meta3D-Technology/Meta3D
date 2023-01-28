@@ -6,7 +6,6 @@ import { config } from "meta3d-pipeline-camera-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
@@ -24,7 +23,6 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 	let {
 		meta3dBsMostExtensionProtocolName,
 		meta3dEngineCoreExtensionProtocolName,
-		meta3dEngineSceneExtensionProtocolName,
 	} = dependentMapData[0]
 
 	return {
@@ -33,7 +31,6 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
 				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionProtocolName),
-				engineSceneService: api.getExtensionService<engineSceneService>(meta3dState, meta3dEngineSceneExtensionProtocolName),
 				isDebug
 			}
 		},

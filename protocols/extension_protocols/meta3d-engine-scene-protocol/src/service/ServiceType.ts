@@ -14,7 +14,9 @@ import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./ecs/PB
 import { createGeometry, setIndices, setVertices } from "./ecs/Geometry";
 import { createBasicCameraView, active } from "./ecs/BasicCameraView";
 import {
-	createArcballCameraController, getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+	createArcballCameraController,
+	// getAllDirtyArcballCameraControllers, clearDirtyList,
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
 } from "./ecs/ArcballCameraController"
 
 export type ecsConfig = {
@@ -93,8 +95,8 @@ export type service = {
 	},
 	arcballCameraController: {
 		createArcballCameraController: createArcballCameraController,
-		getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
-		clearDirtyList: clearDirtyList,
+		// getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
+		// clearDirtyList: clearDirtyList,
 		getDistance: getDistance,
 		setDistance: setDistance,
 		getPhi: getPhi,

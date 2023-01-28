@@ -29,6 +29,6 @@ export type getTarget = (engineCoreState: engineCoreState, { unsafeGetUsedCompon
 
 export type setTarget = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, target: target) => engineCoreState
 
-export type getAllDirtyArcballCameraControllers = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData, getAllComponents }: engineCoreService) => Array<arcballCameraController>
+// export type getAllDirtyArcballCameraControllers = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData, getAllComponents }: engineCoreService) => Array<arcballCameraController>
 
-export type clearDirtyList = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, getAllComponents, setUsedComponentContribute }: engineCoreService) => engineCoreState
+// export type clearDirtyList = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, getAllComponents, setUsedComponentContribute }: engineCoreService) => engineCoreState

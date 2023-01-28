@@ -27,7 +27,9 @@ import { createGeometry, setIndices, setVertices } from "./GeometryAPI";
 import { createBasicCameraView, active } from "./BasicCameraViewAPI";
 import {
 	createArcballCameraController,
-	getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+
+	// getAllDirtyArcballCameraControllers, clearDirtyList,
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
 } from "./ArcballCameraControllerAPI"
 import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
@@ -201,7 +203,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			},
 			arcballCameraController: {
 				createArcballCameraController,
-				getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+
+				// getAllDirtyArcballCameraControllers, clearDirtyList,
+
+				getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
 			},
 			perspectiveCameraProjection: {
 				createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear

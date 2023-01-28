@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-whole",
-    "version": "0.9.5",
+    "version": "0.9.6",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-whole-protocol"
@@ -34,7 +34,7 @@
         "meta3d-bs-most-protocol": "^0.9.0",
         "meta3d-engine-core-protocol": "^0.9.1",
         "meta3d-engine-basic-protocol": "^0.9.1",
-        "meta3d-engine-scene-protocol": "^0.9.4",
+        "meta3d-engine-scene-protocol": "^0.9.5",
         "meta3d-engine-render-protocol": "^0.9.2",
         "meta3d-engine-whole-protocol": "^0.9.3"
     },

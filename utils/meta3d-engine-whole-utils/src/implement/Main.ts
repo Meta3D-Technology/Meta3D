@@ -384,18 +384,18 @@ export let getExtensionService = (api: api, [
 						meta3dEngineSceneExtensionProtocolName
 					).arcballCameraController.createArcballCameraController, api, meta3dEngineCoreExtensionProtocolName)
 				},
-				getAllDirtyArcballCameraControllers: (meta3dState) => {
-					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
-						meta3dState,
-						meta3dEngineSceneExtensionProtocolName
-					).arcballCameraController.getAllDirtyArcballCameraControllers(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
-				},
-				clearDirtyList: (meta3dState) => {
-					return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
-						meta3dState,
-						meta3dEngineSceneExtensionProtocolName
-					).arcballCameraController.clearDirtyList(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
-				},
+				// getAllDirtyArcballCameraControllers: (meta3dState) => {
+				// 	return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+				// 		meta3dState,
+				// 		meta3dEngineSceneExtensionProtocolName
+				// 	).arcballCameraController.getAllDirtyArcballCameraControllers(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
+				// },
+				// clearDirtyList: (meta3dState) => {
+				// 	return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
+				// 		meta3dState,
+				// 		meta3dEngineSceneExtensionProtocolName
+				// 	).arcballCameraController.clearDirtyList(engineCoreState, engineCoreService), api, meta3dEngineCoreExtensionProtocolName)
+				// },
 				getDistance: (meta3dState, arcballCameraController) => {
 					return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => api.getExtensionService<engineSceneService>(
 						meta3dState,

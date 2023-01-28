@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-camera",
-    "version": "0.9.3",
+    "version": "0.9.5",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-camera-protocol"
@@ -11,9 +11,6 @@
         },
         "meta3dEngineCoreExtensionProtocolName": {
             "protocolName": "meta3d-engine-core-protocol"
-        },
-        "meta3dEngineSceneExtensionProtocolName": {
-            "protocolName": "meta3d-engine-scene-protocol"
         }
     },
     "dependentContributeProtocolNameMap": {},
@@ -29,8 +26,7 @@
         "meta3d-type": "^0.9.0",
         "meta3d-bs-most-protocol": "^0.9.0",
         "meta3d-engine-core-protocol": "^0.9.0",
-        "meta3d-engine-scene-protocol": "^0.9.4",
-        "meta3d-pipeline-camera-protocol": "^0.9.1"
+        "meta3d-pipeline-camera-protocol": "^0.9.2"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

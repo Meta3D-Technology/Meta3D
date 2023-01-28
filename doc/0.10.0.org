@@ -886,7 +886,10 @@ only new gameObject, transform
 * DONE feat: add u_color
 
 
-* TODO refactor: use engine scene api in render pipeline
+# * TODO refactor: use engine scene api in render pipeline
+* DONE refactor: not use engine scene api in scene, render pipeline
+
+* DONE refactor: arcball api remove getAllDirtyArcballCameraControllers, clearDirtyList
 
 
 * TODO style: ui controls

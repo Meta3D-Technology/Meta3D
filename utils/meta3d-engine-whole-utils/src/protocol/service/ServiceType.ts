@@ -15,7 +15,9 @@ import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./PBRMat
 import { createGeometry, setIndices, setVertices } from "./Geometry";
 import { createBasicCameraView, active } from "./BasicCameraView";
 import {
-	createArcballCameraController, getAllDirtyArcballCameraControllers, clearDirtyList, getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+	createArcballCameraController,
+	// getAllDirtyArcballCameraControllers, clearDirtyList,
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
 } from "./ArcballCameraController"
 
 // import { nullable } from "meta3d-commonlib-ts/src/nullable";
@@ -94,8 +96,8 @@ export type service = {
 		},
 		arcballCameraController: {
 			createArcballCameraController: createArcballCameraController,
-			getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
-			clearDirtyList: clearDirtyList,
+			// getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
+			// clearDirtyList: clearDirtyList,
 			getDistance: getDistance,
 			setDistance: setDistance,
 			getPhi: getPhi,

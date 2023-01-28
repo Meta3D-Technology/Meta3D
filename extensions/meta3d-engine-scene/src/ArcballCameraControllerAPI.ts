@@ -91,20 +91,20 @@ export function setTarget(engineCoreState: engineCoreState, { unsafeGetUsedCompo
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export function getAllDirtyArcballCameraControllers(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData, getAllComponents }: engineCoreService): Array<arcballCameraController> {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+// export function getAllDirtyArcballCameraControllers(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData, getAllComponents }: engineCoreService): Array<arcballCameraController> {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
-    return getAllComponents<arcballCameraController>(contribute).filter(arcballCameraController => {
-        return getComponentData<arcballCameraController, dirty>(contribute, arcballCameraController, dataName.dirty)
-    })
-}
+//     return getAllComponents<arcballCameraController>(contribute).filter(arcballCameraController => {
+//         return getComponentData<arcballCameraController, dirty>(contribute, arcballCameraController, dataName.dirty)
+//     })
+// }
 
-export function clearDirtyList(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, getAllComponents, setUsedComponentContribute }: engineCoreService): engineCoreState {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+// export function clearDirtyList(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, getAllComponents, setUsedComponentContribute }: engineCoreService): engineCoreState {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
-    contribute = getAllComponents<arcballCameraController>(contribute).reduce((contribute, arcballCameraController) => {
-        return setComponentData(contribute, arcballCameraController, dataName.dirty, false)
-    }, contribute)
+//     contribute = getAllComponents<arcballCameraController>(contribute).reduce((contribute, arcballCameraController) => {
+//         return setComponentData(contribute, arcballCameraController, dataName.dirty, false)
+//     }, contribute)
 
-    return setUsedComponentContribute(engineCoreState, contribute, componentName)
-}
+//     return setUsedComponentContribute(engineCoreState, contribute, componentName)
+// }

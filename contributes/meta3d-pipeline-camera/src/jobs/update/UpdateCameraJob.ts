@@ -7,13 +7,13 @@ import { pipelineName as dataPipelineName } from "meta3d-pipeline-webgl1-data-pr
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, engineCoreService, engineSceneService, isDebug } = getState(states)
+	let { mostService, engineCoreService, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("update camera job")
 
 		let { width, height } = getExn(states[dataPipelineName].viewRect)
 
-		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateCamera(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService, engineSceneService, isDebug, [width, height]))
+		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateCamera(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService, isDebug, [width, height]))
 	})
 }

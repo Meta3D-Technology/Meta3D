@@ -56,7 +56,6 @@ function _getRenderData([engineCoreService, immutableService]: [engineCoreServic
 ] {
 	let { verticesBuffer, indicesBuffer } = _getVBOBuffer(immutableService, geometry, verticesVBOMap, indicesVBOMap)
 
-	// TODO refactor: use engine scene api
 	let indicesCount = getExn(engineCoreService.getComponentData<geometry, indicesCount>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryName), geometry, geometryDataName.indicesCount))
 
 	let diffuseColor = getExn(engineCoreService.getComponentData<pbrMaterial, diffuseColor>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialName), material, pbrMaterialDataName.diffuseColor))
