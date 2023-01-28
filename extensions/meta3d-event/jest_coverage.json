@@ -17,6 +17,7 @@
     "coveragePathIgnorePatterns": [
         "<rootDir>/lib/js/src/Main.*",
         "<rootDir>/lib/js/src/EventManager.*",
+        "<rootDir>/lib/js/src/.+/api/.*",
         "<rootDir>/lib/js/src/.+/HandleMouseEventDoService.+"
     ],
     "collectCoverageFrom": [
