@@ -20,6 +20,8 @@ export type state = {
     meta3dEventExtensionProtocolName: extensionProtocolName,
     // cameraGameObject: nullable<gameObject>,
     arcballCameraController: nullable<arcballCameraController>,
+    lastYaw: nullable<number>,
+    lastPitch: nullable<number>,
     fbo: strictNullable<fbo>,
 }
 

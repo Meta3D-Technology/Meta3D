@@ -52,7 +52,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 				meta3dUIExtensionProtocolName: meta3dUIExtensionProtocolName,
 				meta3dEventExtensionProtocolName: meta3dEventExtensionProtocolName,
 				arcballCameraController: null,
-				// cameraGameObject: null,
+				lastYaw: null,
+				lastPitch: null,
 				fbo: null
 			}
 		},

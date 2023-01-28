@@ -26,12 +26,19 @@ let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeS
 
     meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
 
+
+
     data = scene.arcballCameraController.createArcballCameraController(meta3dState)
     meta3dState = data[0]
     let cameraController = data[1]
+
+    meta3dState = scene.arcballCameraController.setDistance(meta3dState, cameraController, 30)
+
     bindEvent(eventService, eventExtensionProtocolName)
 
     meta3dState = scene.gameObject.addArcballCameraController(meta3dState, gameObject, cameraController)
+
+
 
 
     data = scene.basicCameraView.createBasicCameraView(meta3dState)

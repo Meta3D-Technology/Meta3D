@@ -81,8 +81,8 @@ let _registerEditorPipelines = (
 		[
 			{
 				pipelineName: "init",
-				insertElementName: "init_root_meta3d",
-				insertAction: "after"
+				insertElementName: "scene_view1_gl_webgl1_create_default_scene_meta3d",
+				insertAction: "before"
 			},
 		]
 	)

@@ -9,6 +9,10 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc }) => {
 	return mostService.callFunc(() => {
 		console.log("init event job")
 
+		meta3dState = eventService.setBody(meta3dState, meta3dEventExtensionProtocolName, document.body as HTMLBodyElement)
+		meta3dState = eventService.setBrowser(meta3dState, meta3dEventExtensionProtocolName, eventService.getBrowserChromeType());
+		meta3dState = eventService.setCanvas(meta3dState, meta3dEventExtensionProtocolName, document.querySelector("canvas") as HTMLCanvasElement)
+
 		return eventService.initEvent(meta3dState, meta3dEventExtensionProtocolName)
 	})
 }

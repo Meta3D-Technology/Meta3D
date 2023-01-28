@@ -859,7 +859,7 @@ only new gameObject, transform
 
 
 
-** TODO run test
+** DONE run test
 
 # build render package
 
@@ -869,7 +869,9 @@ only new gameObject, transform
 # publish
 
 
-test
+# test
+
+
 
 
 
@@ -880,6 +882,8 @@ test
 
 # * TODO feat: run element support only scene view(no game view) or scene view + game view
 
+
+* TODO style: ui controls
 
 * TODO feat: element assemble: Pacakges should show loading...
 
