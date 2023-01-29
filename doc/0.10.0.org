@@ -937,12 +937,19 @@ rebuild all editor engine packages
 
 ** DONE run test: download engine and use
 
-** TODO run test: run, app
+# ** TODO run test: run, app
 
-** TODO pass ci
+** DONE pass ci
 
 TODO meta3d-event should pass
 
 ** TODO publish
 
-** TODO record video
+*** TODO clean and publish 0.10.0 in pro
+
+*** TODO write release
+
+*** TODO build packages
+
+
+*** TODO run test and record video
