@@ -943,13 +943,14 @@ rebuild all editor engine packages
 
 TODO meta3d-event should pass
 
-** TODO publish
+** DONE publish
 
-*** TODO clean and publish 0.10.0 in pro
+*** DONE clean and publish 0.10.0 in pro
 
-*** TODO write release
+*** DONE update website and online
 
-*** TODO build packages
+*** DONE build packages
 
+*** DONE run test and record video
 
-*** TODO run test and record video
+*** DONE write release
