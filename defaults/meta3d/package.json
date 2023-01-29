@@ -1,6 +1,6 @@
 {
     "name": "meta3d",
-    "version": "0.9.0",
+    "version": "0.10.0",
     "authors": "Wonder",
     "main": "lib/js/src/Main.bs.js",
     "types": "src/Main.d.ts",
@@ -17,9 +17,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-commonlib": "^0.9.0",
-        "meta3d-commonlib-type": "^0.9.0",
-        "meta3d-type": "^0.9.0",
+        "meta3d-commonlib": "^0.10.0",
+        "meta3d-commonlib-type": "^0.10.0",
+        "meta3d-type": "^0.10.0",
         "rescript": "^10.0.1",
         "semver": "7.3.7"
     }

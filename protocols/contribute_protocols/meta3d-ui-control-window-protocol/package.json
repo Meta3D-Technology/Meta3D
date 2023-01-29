@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-window-protocol",
-    "version": "0.9.1",
+    "version": "0.10.0",
     "description": "",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
@@ -17,7 +17,7 @@
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.9.0",
+        "meta3d-tool-publish": "^0.10.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
