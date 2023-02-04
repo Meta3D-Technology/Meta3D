@@ -1,0 +1,95 @@
+# * TODO build webgpu engine and app(render a triangle)
+
+
+* TODO 协议增加版本，商城中可切换不同版本的协议（默认为最新版本），以及协议的同一个实现的不同版本（如对于a-protocol有两个实现：a1, a2，a1和a2又有不同的版本。则可切换a1或者a2的不同版本！）
+显示对应版本的实现
+（注：不兼容性升级时应该升级协议的主版本号！）
+
+# 注意：用户只应该选择一个实现的一个版本，而不是多个版本！
+
+
+# * TODO 用户选择的扩展、贡献增加版本管理
+# 用户从市场选择到个人数据中
+
+# 增加用户中心
+
+# 在用户中心中，指定使用的协议版本、协议的同一个实现的版本；
+# 在装配中心中，显示对应的版本
+
+
+
+* TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
+e.g. meta3d-ui-control-button-protocol
+
+
+* TODO add ap marketplace
+
+** TODO rename 商城 to 市场
+
+** TODO 增加查看所有发布的应用
+
+** TODO 能够在一个url中jump to 发布的应用
+
+url:
+https://meta3d-platform-production.4everland.app?jump_to_published_application=true&&uid=xxx
+
+
+
+* TODO add Action装配
+预先要发布协议；
+装配时，选择一个协议，根据Config.ts生成inspector（like ui control protocol->Config）
+
+
+add ActionMRUtils
+
+support log,dispatch system action
+
+# get actionData
+
+
+# ** TODO remove protocol->Config.ts, move getActions to getContribute as actions; remove getActionName(protocol not define actionName!)
+
+
+# ** TODO read actions by parse getContribute instead of get from protocol config str!!!
+
+** TODO action 能调用扩展（非贡献）的api
+
+** TODO remove protocol->Config.ts, move them to action view data
+
+refer to element!
+
+** TODO when switch to ui view, get selected actions' view data!
+
+
+** TODO implement view
+
+
+** TODO publish
+
+
+note:
+all actions use the same element protocol!
+(not define actionName in protocol)
+
+
+
+** TODO import
+
+** TODO future: support combine other actions
+left panel:
+Actions
+
+
+
+
+
+* TODO more
+
+** TODO add resize(%)
+
+
+** TODO add effect of select in canvas
+
+
+
+* TODO publish
