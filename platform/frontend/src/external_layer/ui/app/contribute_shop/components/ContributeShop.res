@@ -16,14 +16,80 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   ) = React.useState(_ => [])
   let (contributeProtocolItem, setContributeProtocolItem) = React.useState(_ => None)
   let (allPublishContributes, setAllPublishContributes) = React.useState(_ => None)
+  let (selectPublishContributeProtocol, setSelectPublishContributeProtocol) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
+  let (selectPublishContribute, setSelectPublishContribute) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
+
+  let (selectPublishExtensionProtocol, setSelectPublishExtensionProtocol) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
+  let (selectPublishExtension, setSelectPublishExtension) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
+
 
   let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
     selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
       id === selectedContribute.id
     )
+  }
+
+  let _groupAllPublishContributeProtocols = (
+    allPublishContributeProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
+  ): array<array<FrontendUtils.BackendCloudbaseType.protocol>> => {
+    allPublishContributeProtocols
+    ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name} as protocol) => {
+      map->Meta3dCommonlib.ImmutableHashMap.set(
+        name,
+        map
+        ->Meta3dCommonlib.ImmutableHashMap.get(name)
+        ->Meta3dCommonlib.OptionSt.getWithDefault([])
+        ->Meta3dCommonlib.ArraySt.push(protocol),
+      )
+    }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
+    ->Meta3dCommonlib.ImmutableHashMap.entries
+    ->Meta3dCommonlib.ArraySt.map(((
+      name,
+      protocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
+    )) => {
+      protocols
+      // ->Meta3dCommonlib.ArraySt.copy
+      ->Meta3dCommonlib.ArraySt.sort((a, b) => {
+        Meta3d.Semver.gt(a.version, b.version) ? -1 : 1
+      })
+    })
+  }
+
+  let _groupAllPublishContributes = (
+    allPublishContributes: array<FrontendUtils.FrontendType.publishContribute>,
+  ): array<array<FrontendUtils.FrontendType.publishContribute>> => {
+    allPublishContributes
+    ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {info} as implement) => {
+      map->Meta3dCommonlib.ImmutableHashMap.set(
+        info.name,
+        map
+        ->Meta3dCommonlib.ImmutableHashMap.get(info.name)
+        ->Meta3dCommonlib.OptionSt.getWithDefault([])
+        ->Meta3dCommonlib.ArraySt.push(implement),
+      )
+    }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
+    ->Meta3dCommonlib.ImmutableHashMap.entries
+    ->Meta3dCommonlib.ArraySt.map(((
+      name,
+      implements: array<FrontendUtils.FrontendType.publishContribute>,
+    )) => {
+      implements
+      // ->Meta3dCommonlib.ArraySt.copy
+      ->Meta3dCommonlib.ArraySt.sort((a, b) => {
+        Meta3d.Semver.gt(a.info.version, b.info.version) ? -1 : 1
+      })
+    })
   }
 
   RescriptReactRouter.watchUrl(url => {
@@ -87,16 +153,35 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   : React.null}
                 <List
                   itemLayout=#horizontal
-                  dataSource={allPublishContributes}
-                  renderItem={(item: FrontendUtils.FrontendType.publishContribute) =>
+                  dataSource={allPublishContributes->_groupAllPublishContributes}
+                  renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
+                    let firstItem =
+                      items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+
+                    let item =
+                      selectPublishContribute
+                      ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.info.name)
+                      ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+
                     <List.Item>
                       <List.Item.Meta
                         key={item.info.name}
                         title={<span> {React.string(item.info.name)} </span>}
-                        description={React.string(`TODO`)}
+                        description={React.string(j`发布者：${item.info.account}`)}
                       />
-                      <span> {React.string({j`版本号：${item.info.version}`})} </span>
-                      <span> {React.string({j`发布者：${item.info.account}`})} </span>
+                      {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                        version =>
+                          setSelectPublishContribute(value =>
+                            value->Meta3dCommonlib.ImmutableHashMap.set(
+                              item.info.name,
+                              items
+                              ->Meta3dCommonlib.ArraySt.find(item => item.info.version === version)
+                              ->Meta3dCommonlib.OptionSt.getExn,
+                            )
+                          ),
+                        item.info.version,
+                        items->Meta3dCommonlib.ArraySt.map(item => item.info.version),
+                      )}
                       {_isSelect(item.info.id, selectedContributes)
                         ? <Button
                             onClick={_ => {
@@ -172,7 +257,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                             }}>
                             {React.string(`选择`)}
                           </Button>}
-                    </List.Item>}
+                    </List.Item>
+                  }}
                 />
               </>
             | None =>
@@ -209,8 +295,16 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           | None =>
             <List
               itemLayout=#horizontal
-              dataSource={allPublishContributeProtocols}
-              renderItem={(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+              dataSource={allPublishContributeProtocols->_groupAllPublishContributeProtocols}
+              renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
+                let firstItem =
+                  items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+
+                let item =
+                  selectPublishContributeProtocol
+                  ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
+                  ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+
                 <List.Item>
                   <List.Item.Meta
                     key={item.name}
@@ -221,11 +315,23 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       }}>
                       {React.string(item.name)}
                     </span>}
-                    description={React.string(`TODO`)}
+                    description={React.string(j`发布者：${item.account}`)}
                   />
-                  <span> {React.string({j`版本号：${item.version}`})} </span>
-                  <span> {React.string({j`发布者：${item.account}`})} </span>
-                </List.Item>}
+                  {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                    version =>
+                      setSelectPublishContributeProtocol(value =>
+                        value->Meta3dCommonlib.ImmutableHashMap.set(
+                          item.name,
+                          items
+                          ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
+                          ->Meta3dCommonlib.OptionSt.getExn,
+                        )
+                      ),
+                    item.version,
+                    items->Meta3dCommonlib.ArraySt.map(item => item.version),
+                  )}
+                </List.Item>
+              }}
             />
           }
         }}

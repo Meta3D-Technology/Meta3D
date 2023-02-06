@@ -1,7 +1,7 @@
 # * TODO build webgpu engine and app(render a triangle)
 
 
-* TODO 协议增加版本，商城中可切换不同版本的协议（默认为最新版本），以及协议的同一个实现的不同版本（如对于a-protocol有两个实现：a1, a2，a1和a2又有不同的版本。则可切换a1或者a2的不同版本！）
+* DONE 协议增加版本，商城中可切换不同版本的协议（默认为最新版本），以及协议的同一个实现的不同版本（如对于a-protocol有两个实现：a1, a2，a1和a2又有不同的版本。则可切换a1或者a2的不同版本！）
 显示对应版本的实现
 （注：不兼容性升级时应该升级协议的主版本号！）
 
@@ -20,11 +20,11 @@
 
 
 
-ExtensionShop
+# ExtensionShop
 
-ContributeShop
+# ContributeShop
 
-PackageShop
+# PackageShop
 
 # 注意：用户只应该选择一个实现的一个版本，而不是多个版本！
 
