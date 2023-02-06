@@ -39,7 +39,7 @@ module Method = {
   }
 
   let setSkinName = (dispatch, skinName) => {
-    SelectUtils.isEmptySelectOptionValue(skinName)
+    FrontendUtils.SelectUtils.isEmptySelectOptionValue(skinName)
       ? dispatch(FrontendUtils.ApAssembleStoreType.SetSkinName(None))
       : {
           dispatch(FrontendUtils.ApAssembleStoreType.SetSkinName(skinName->Some))
@@ -73,7 +73,7 @@ let make = (~service: service) => {
   isShowApInspector
     ? <>
         <h1> {React.string(`IsDebug`)} </h1>
-        {SelectUtils.buildSelect(
+        {FrontendUtils.SelectUtils.buildSelect(
           Method.setIsDebug(dispatch),
           isDebug->BoolUtils.boolToString,
           ["true", "false"],
@@ -84,10 +84,10 @@ let make = (~service: service) => {
         {Method.buildClearColorField(dispatch, Method.setClearColorB, clearColor, b)}
         {Method.buildClearColorField(dispatch, Method.setClearColorA, clearColor, a)}
         <h1> {React.string(`Skin`)} </h1>
-        {SelectUtils.buildSelect(
+        {FrontendUtils.SelectUtils.buildSelect(
           Method.setSkinName(dispatch),
           skinName->Meta3dCommonlib.OptionSt.getWithDefault(
-            SelectUtils.buildEmptySelectOptionValue(),
+            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
           ),
           selectedContributes
           ->SelectedContributesForElementUtils.getSkins

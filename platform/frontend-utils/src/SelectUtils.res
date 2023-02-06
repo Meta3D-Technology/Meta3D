@@ -4,7 +4,7 @@ let isEmptySelectOptionValue = value =>
   value === buildEmptySelectOptionValue() || value->Obj.magic === Js.Nullable.undefined
 
 let buildSelect = (onChange, defaultValue, values) => {
-  open FrontendUtils.Antd
+  open Antd
 
   <Select key={defaultValue} defaultValue={defaultValue} onChange>
     <Select.Option key={buildEmptySelectOptionValue()} value={buildEmptySelectOptionValue()}>
@@ -19,7 +19,7 @@ let buildSelect = (onChange, defaultValue, values) => {
 }
 
 let buildSelectWithoutEmpty = (onChange, defaultValue, values) => {
-  open FrontendUtils.Antd
+  open Antd
 
   <Select key={defaultValue} defaultValue={defaultValue} onChange>
     {values

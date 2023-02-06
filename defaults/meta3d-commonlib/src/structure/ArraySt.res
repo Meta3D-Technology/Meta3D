@@ -82,7 +82,7 @@ let rec traverseReduceResultM = (
 
 let unsafeGetFirst = arr => Array.unsafe_get(arr, 0)
 
-let getFirst = arr => arr->length === 1 ? arr[0]->Some : None
+let getFirst = arr => arr->length >= 1 ? arr[0]->Some : None
 
 let push = (arr, value) => {
   Js.Array.push(value, arr)->ignore
@@ -178,4 +178,8 @@ let chunk = (arr, size) => {
   }, ([], []))
 
   group->length > 0 ? result->push(group) : result
+}
+
+let sort = (arr, func) => {
+  arr->Js.Array.sortInPlaceWith(func, _)
 }

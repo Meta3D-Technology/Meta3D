@@ -99,7 +99,7 @@ function unsafeGetFirst(arr) {
 }
 
 function getFirst(arr) {
-  if (arr.length === 1) {
+  if (arr.length >= 1) {
     return Caml_option.some(Caml_array.get(arr, 0));
   }
   
@@ -211,6 +211,10 @@ function chunk(arr, size) {
   }
 }
 
+function sort(arr, func) {
+  return Js_array.sortInPlaceWith(func, arr);
+}
+
 exports._getExn = _getExn;
 exports.getExn = getExn;
 exports.length = length;
@@ -239,4 +243,5 @@ exports.range = range;
 exports.removeDuplicateItems = removeDuplicateItems;
 exports.removeDuplicateItemsWithBuildKeyFunc = removeDuplicateItemsWithBuildKeyFunc;
 exports.chunk = chunk;
+exports.sort = sort;
 /* No side effect */

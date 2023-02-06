@@ -32,7 +32,7 @@ module Method = {
   let setRole = (dispatch, role: string) => {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetRole(
-        SelectUtils.isEmptySelectOptionValue(role) ? None : Some(role),
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(role) ? None : Some(role),
       ),
     )
   }
@@ -68,8 +68,8 @@ module Method = {
   let _removeEmptyData = (handlers: FrontendUtils.ElementAssembleStoreType.handlers) => {
     handlers->Meta3dCommonlib.ListSt.filter(({actionName, updatedElementStateFieldName}) => {
       !(
-        SelectUtils.isEmptySelectOptionValue(actionName) ||
-        SelectUtils.isEmptySelectOptionValue(updatedElementStateFieldName)
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(actionName) ||
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(updatedElementStateFieldName)
       )
     })
   }
@@ -166,10 +166,10 @@ let make = (~service: service) => {
         </Form>
         <h1> {React.string(`Reducer`)} </h1>
         <span> {React.string(`Role: `)} </span>
-        {SelectUtils.buildSelect(
+        {FrontendUtils.SelectUtils.buildSelect(
           Method.setRole(dispatch),
           reducers.role->Meta3dCommonlib.OptionSt.getWithDefault(
-            SelectUtils.buildEmptySelectOptionValue(),
+            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
           ),
           protocolConfigActions->Method.getUniqueRoles,
         )}
@@ -189,9 +189,9 @@ let make = (~service: service) => {
                   ->Meta3dCommonlib.ArraySt.map(field => {
                     <Form.Item key={field.key}>
                       <Form.Item label=`Action Name` name={[field.name, "actionName"]->Obj.magic}>
-                        {SelectUtils.buildSelect(
+                        {FrontendUtils.SelectUtils.buildSelect(
                           _ => (),
-                          SelectUtils.buildEmptySelectOptionValue(),
+                          FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
                           protocolConfigActions->Method.getUniqueActionNamesByRole(role),
                         )}
                       </Form.Item>
@@ -199,9 +199,9 @@ let make = (~service: service) => {
                       // label=`Updated Element State Field Name`
                         label=`Field Name`
                         name={[field.name, "updatedElementStateFieldName"]->Obj.magic}>
-                        {SelectUtils.buildSelect(
+                        {FrontendUtils.SelectUtils.buildSelect(
                           _ => (),
-                          SelectUtils.buildEmptySelectOptionValue(),
+                          FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
                           elementStateFields
                           ->Meta3dCommonlib.ListSt.map(({name}) => name)
                           ->Meta3dCommonlib.ListSt.toArray,

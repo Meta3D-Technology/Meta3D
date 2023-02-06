@@ -5,6 +5,25 @@
 显示对应版本的实现
 （注：不兼容性升级时应该升级协议的主版本号！）
 
+# protocol
+
+# newest
+
+# select
+
+
+
+implement
+
+
+
+
+ExtensionShop
+
+ContributeShop
+
+PackageShop
+
 # 注意：用户只应该选择一个实现的一个版本，而不是多个版本！
 
 

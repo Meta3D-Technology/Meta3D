@@ -81,4 +81,4 @@ let setAction = UIControlInspector.Method.setAction
 
 let setSpecificData = UIControlInspector.Method._setSpecificData
 
-let buildEmptySelectOptionValue = SelectUtils.buildEmptySelectOptionValue
+let buildEmptySelectOptionValue = FrontendUtils.SelectUtils.buildEmptySelectOptionValue

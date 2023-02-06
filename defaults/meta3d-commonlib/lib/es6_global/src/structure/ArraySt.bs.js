@@ -99,7 +99,7 @@ function unsafeGetFirst(arr) {
 }
 
 function getFirst(arr) {
-  if (arr.length === 1) {
+  if (arr.length >= 1) {
     return Caml_option.some(Caml_array.get(arr, 0));
   }
   
@@ -211,6 +211,10 @@ function chunk(arr, size) {
   }
 }
 
+function sort(arr, func) {
+  return Js_array.sortInPlaceWith(func, arr);
+}
+
 export {
   _getExn ,
   getExn ,
@@ -240,5 +244,6 @@ export {
   removeDuplicateItems ,
   removeDuplicateItemsWithBuildKeyFunc ,
   chunk ,
+  sort ,
 }
 /* No side effect */

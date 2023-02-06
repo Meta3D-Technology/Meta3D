@@ -103,7 +103,7 @@ module Method = {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetAction(
         id,
-        (eventName, SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
+        (eventName, FrontendUtils.SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
       ),
     )
   }
@@ -150,8 +150,8 @@ module Method = {
           )
         }}
       />
-      {SelectUtils.buildSelect(value =>
-        SelectUtils.isEmptySelectOptionValue(value)
+      {FrontendUtils.SelectUtils.buildSelect(value =>
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
           ? ()
           : {
               setRectField(
@@ -164,7 +164,7 @@ module Method = {
       , rectField
       ->_getRectFieldElementFieldValue
       ->Meta3dCommonlib.OptionSt.getWithDefault(
-        SelectUtils.buildEmptySelectOptionValue(),
+        FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
       ), elementStateFields
       ->_getSpecificTypeElementStateFieldNames(#int)
       ->Meta3dCommonlib.ListSt.toArray)}
@@ -195,7 +195,7 @@ module Method = {
 
   let buildIsDraw = (dispatch, elementStateFields, id, isDraw) => {
     <>
-      {SelectUtils.buildSelectWithoutEmpty(
+      {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
         value =>
           setIsDraw(
             dispatch,
@@ -208,8 +208,8 @@ module Method = {
         ->BoolUtils.boolToString,
         ["true", "false"],
       )}
-      {SelectUtils.buildSelect(value =>
-        SelectUtils.isEmptySelectOptionValue(value)
+      {FrontendUtils.SelectUtils.buildSelect(value =>
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
           ? ()
           : {
               setIsDraw(
@@ -221,7 +221,7 @@ module Method = {
       , isDraw
       ->getIsDrawElementFieldValue
       ->Meta3dCommonlib.OptionSt.getWithDefault(
-        SelectUtils.buildEmptySelectOptionValue(),
+        FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
       ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
     </>
   }
@@ -290,8 +290,8 @@ module Method = {
               )
             }}
           />
-          {SelectUtils.buildSelect(value =>
-            SelectUtils.isEmptySelectOptionValue(value)
+          {FrontendUtils.SelectUtils.buildSelect(value =>
+            FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
               ? ()
               : {
                   _setSpecificData(
@@ -306,7 +306,7 @@ module Method = {
           , value
           ->_getSpecificDataValueElementFieldValue
           ->Meta3dCommonlib.OptionSt.getWithDefault(
-            SelectUtils.buildEmptySelectOptionValue(),
+            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
           ), elementStateFields
           ->_getSpecificTypeElementStateFieldNames(
             type_->FrontendUtils.ElementAssembleStoreType.specificTypeToElementStateFieldType,
@@ -408,12 +408,12 @@ let make = (~service: service) => {
                   event,
                   eventName,
                 )->Meta3dCommonlib.NullableSt.getWithDefault(
-                  SelectUtils.buildEmptySelectOptionValue(),
+                  FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
                 )
 
               <List.Item key={eventName->Obj.magic}>
                 <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-                {SelectUtils.buildSelect(
+                {FrontendUtils.SelectUtils.buildSelect(
                   Method.setAction(dispatch, id, eventName),
                   value,
                   actions->Meta3dCommonlib.ArraySt.map(({data}) => {
