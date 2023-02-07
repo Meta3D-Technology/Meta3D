@@ -24,6 +24,8 @@ export let findPublishApp = PublishAppService.findPublishApp
 
 export let findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByAccount
 
+export let findAllPublishApps = PublishAppService.findAllPublishApps
+
 export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
 
 export let getElementAssembleData = GetElementDataService.getElementAssembleData

@@ -47,7 +47,7 @@ e.g. meta3d-ui-control-button-protocol
 
 ** DONE rename 商城 to 市场
 
-** TODO 增加所有发布的应用
+** DONE 修改为所有发布的应用
 
 
 ** TODO 能够在一个url中jump to 发布的应用
@@ -58,8 +58,6 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 
-# ** TODO rename 发布的应用 to 我发布的应用
-** TODO 隐藏 发布的应用
 
 
 * TODO add Action装配

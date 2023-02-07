@@ -7,7 +7,7 @@ open FrontendUtils.Antd
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
-  let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
+  // let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
 
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
@@ -37,21 +37,18 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
-    ->Meta3dBsMost.Most.observe(allPublishApps => {
+    service.backend.findAllPublishApps()->Meta3dBsMost.Most.observe(allPublishApps => {
       Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)
-    }, _)
-    ->Js.Promise.catch(e => {
+    }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
       FrontendUtils.ErrorUtils.errorWithExn(
         e->FrontendUtils.Error.promiseErrorToExn,
         None,
       )->Obj.magic
-    }, _)
-    ->ignore
+    }, _)->ignore
 
     None
   }, [refreshValue])

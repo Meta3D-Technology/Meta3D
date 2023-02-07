@@ -3,7 +3,7 @@ import { empty, just, map } from "most";
 import { createSandbox } from "sinon";
 import { resolve } from "../../../../services/meta3d-tool-utils/src/publish/PromiseTool";
 import { getFileID } from "meta3d-backend-cloudbase";
-import { findAllPublishAppsByAccount, findPublishApp, publish } from "../../src/application_layer/publish/PublishAppService";
+import { findAllPublishAppsByAccount, findAllPublishApps, findPublishApp, publish } from "../../src/application_layer/publish/PublishAppService";
 import { buildKey } from "../tool/PublishAppTool"
 
 const feature = loadFeature("./test/features/publish_app.feature")
@@ -13,6 +13,7 @@ defineFeature(feature, test => {
     let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc
     let getDataByKeyFunc, downloadFileFunc
     let getDataByKeyContainFunc
+    let getDataFunc
 
     function _createFuncsForPublish(sandbox) {
         onUploadProgressFunc = "onUploadProgressFunc"
@@ -173,8 +174,12 @@ defineFeature(feature, test => {
         downloadFileFunc = sandbox.stub()
     }
 
-    function _createFuncsForFindAllPublishApps(sandbox) {
+    function _createFuncsForFindAllPublishAppsByAccount(sandbox) {
         getDataByKeyContainFunc = sandbox.stub()
+    }
+
+    function _createFuncsForFindAllPublishApps(sandbox) {
+        getDataFunc = sandbox.stub()
     }
 
     test('if not find, findPublishApp return empty', ({ given, and, when, then }) => {
@@ -246,7 +251,7 @@ defineFeature(feature, test => {
         _prepare(given)
 
         given('prepare funcs', () => {
-            _createFuncsForFindAllPublishApps(sandbox)
+            _createFuncsForFindAllPublishAppsByAccount(sandbox)
 
             getDataByKeyContainFunc.returns(
                 just([])
@@ -279,11 +284,12 @@ defineFeature(feature, test => {
         and('generate two apps by the same user', () => {
             account1 = "account1"
 
+            appName1 = "app1"
             appName2 = "app2"
         });
 
         given('prepare funcs', () => {
-            _createFuncsForFindAllPublishApps(sandbox)
+            _createFuncsForFindAllPublishAppsByAccount(sandbox)
 
             getDataByKeyContainFunc.returns(
                 just([
@@ -311,6 +317,88 @@ defineFeature(feature, test => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedapps",
                     [account1]
+                ])
+
+                expect(result).toEqual([{
+                    account: account1, appName: appName1
+                },
+                {
+                    account: account1, appName: appName2
+                }])
+            })
+        });
+    });
+
+
+    test('if not find, findAllPublishApps return empty array', ({ given, and, when, then }) => {
+        _prepare(given)
+
+        given('prepare funcs', () => {
+            _createFuncsForFindAllPublishApps(sandbox)
+
+            getDataFunc.returns(
+                resolve([])
+            )
+        });
+
+        when('find all published apps', () => {
+        });
+
+        then('should return empty array', () => {
+            return findAllPublishApps(
+                getDataFunc,
+            ).observe(result => {
+                expect(result).toEqual([])
+            })
+        });
+    });
+
+    test('if find, findAllPublishApps return all publish app data', ({ given, and, when, then }) => {
+        let fileID1 = "1"
+        let fileID2 = "2"
+        let account1
+        let account2
+        let appName1
+        let appName2
+
+
+        _prepare(given)
+
+        and('generate two apps by two users', () => {
+            account1 = "account1"
+            account2 = "account2"
+
+            appName1 = "app1"
+            appName2 = "app2"
+        });
+
+        given('prepare funcs', () => {
+            _createFuncsForFindAllPublishApps(sandbox)
+
+            getDataFunc.returns(
+                resolve([
+                    {
+                        account: account1, appName: appName1, fileID: fileID1
+                    },
+                    {
+                        account: account1, appName: appName2, fileID: fileID2
+                    }
+                ])
+            )
+        });
+
+        and('publish the apps', () => {
+        });
+
+        when('find all published apps', () => {
+        });
+
+        then('should return the apps\' data', () => {
+            return findAllPublishApps(
+                getDataFunc
+            ).observe(result => {
+                expect(getDataFunc).toCalledWith([
+                    "publishedapps"
                 ])
 
                 expect(result).toEqual([{

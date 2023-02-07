@@ -50,3 +50,17 @@ Feature: Publish App
             And publish the apps
             When find all published apps
             Then should return the apps' data
+
+    Rule: findAllPublishApps
+
+        Scenario: if not find, findAllPublishApps return empty array
+            Given prepare funcs
+            When find all published apps
+            Then should return empty array
+
+        Scenario: if find, findAllPublishApps return all publish app data
+            Given generate two apps by two users
+            And prepare funcs
+            And publish the apps
+            When find all published apps
+            Then should return the apps' data

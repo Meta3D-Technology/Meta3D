@@ -25,7 +25,7 @@ type backendService = {
   publishApp: publishApp,
   publishPackage: publishPackage,
   findPublishApp: findPublishApp,
-  findAllPublishAppsByAccount: findAllPublishAppsByAccount,
+  findAllPublishApps: findAllPublishApps,
   publishElementContribute: publishElementContribute,
   publishElementAssembleData: publishElementAssembleData,
   getElementAssembleData: getElementAssembleData,

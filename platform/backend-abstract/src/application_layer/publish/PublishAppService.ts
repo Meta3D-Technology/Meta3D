@@ -75,3 +75,19 @@ export let findAllPublishAppsByAccount = (
         }))
     })
 }
+
+export let findAllPublishApps = (
+    getDataFunc: any): Stream<Array<publishAppInfo>> => {
+    return fromPromise(getDataFunc("publishedapps")).flatMap((data: any) => {
+        if (data.length === 0) {
+            return just([])
+        }
+
+        return just(data.map(({ account, appName }) => {
+            return {
+                account,
+                appName,
+            }
+        }))
+    })
+}

@@ -104,6 +104,11 @@ export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishApp
     account
 )
 
+export let findAllPublishApps = () => Abstract.findAllPublishApps(
+    getData
+)
+
+
 function _throwError(msg: string): never {
     throw new Error(msg)
 }

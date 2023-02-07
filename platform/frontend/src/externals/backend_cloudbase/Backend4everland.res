@@ -41,7 +41,7 @@ external publishApp: publishApp = "publishApp"
 external findPublishApp: findPublishApp = "findPublishApp"
 
 @module("backend-4everland")
-external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPublishAppsByAccount"
+external findAllPublishApps: findAllPublishApps = "findAllPublishApps"
 
 @module("backend-4everland")
 external publishElementContribute: publishElementContribute = "publishElementContribute"
@@ -84,11 +84,11 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishContributeProtocolConfigs,
     getAllPublishContributeInfos,
     findPublishContribute,
-    findAllPublishAppsByAccount,
-    findPublishApp,
+    findAllPublishApps,
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,
+    findPublishApp,
   }
 }
 
@@ -102,7 +102,7 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     publishApp,
     publishPackage,
     findPublishApp,
-    findAllPublishAppsByAccount,
+    findAllPublishApps,
     publishElementContribute,
     publishElementAssembleData,
     getElementAssembleData,

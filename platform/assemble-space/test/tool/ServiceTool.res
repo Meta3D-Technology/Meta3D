@@ -51,7 +51,10 @@ let build = (
   // ~findPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   // ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
   // ->Obj.magic,
-  ~findAllPublishAppsByAccount=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ~findAllPublishAppsByAccount=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ->returns(Meta3dBsMost.Most.just([]), _)
+  // ->Obj.magic,
+  ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.just([]), _)
   ->Obj.magic,
   ~publishElementContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -133,7 +136,8 @@ let build = (
     publishApp,
     findPublishApp,
     // findPublishPackage,
-    findAllPublishAppsByAccount,
+    // findAllPublishAppsByAccount,
+    findAllPublishApps,
     publishElementContribute,
     publishElementAssembleData,
     getElementAssembleData,

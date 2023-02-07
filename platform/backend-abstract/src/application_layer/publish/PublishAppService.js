@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
+exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
 const most_1 = require("most");
 let _buildFileName = (appName, account) => account + "_" + appName;
 exports._buildKey = _buildFileName;
@@ -55,3 +55,17 @@ let findAllPublishAppsByAccount = (getDataByKeyContainFunc, account) => {
     });
 };
 exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
+let findAllPublishApps = (getDataFunc) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedapps")).flatMap((data) => {
+        if (data.length === 0) {
+            return (0, most_1.just)([]);
+        }
+        return (0, most_1.just)(data.map(({ account, appName }) => {
+            return {
+                account,
+                appName,
+            };
+        }));
+    });
+};
+exports.findAllPublishApps = findAllPublishApps;

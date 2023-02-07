@@ -105,9 +105,7 @@ type findPublishApp = (
   appName,
 ) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
-type findAllPublishAppsByAccount = (
-  . account,
-) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppInfo>>
+type findAllPublishApps = unit => Meta3dBsMostProtocol.StreamType.stream<array<publishAppInfo>>
 
 type publishElementContribute = (
   . onUploadProgressFunc,

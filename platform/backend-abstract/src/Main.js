@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = exports.handleLogin = exports.init = void 0;
+exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = exports.handleLogin = exports.init = void 0;
 const MarketService = require("./application_layer/market/MarketService");
 const PublishAppService = require("./application_layer/publish/PublishAppService");
 const GetElementDataService = require("./application_layer/assemble_space/element_assemble/GetElementDataService");
@@ -18,6 +18,7 @@ exports.findPublishImplement = MarketService.findPublishImplement;
 exports.publishApp = PublishAppService.publish;
 exports.findPublishApp = PublishAppService.findPublishApp;
 exports.findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByAccount;
+exports.findAllPublishApps = PublishAppService.findAllPublishApps;
 exports.getAllPublishNewestData = GetElementDataService.getAllPublishNewestData;
 exports.getElementAssembleData = GetElementDataService.getElementAssembleData;
 exports.publishElementAssembleData = PublishElementContributeService.publishElementAssembleData;
