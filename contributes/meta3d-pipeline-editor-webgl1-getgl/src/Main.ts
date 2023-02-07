@@ -1,6 +1,6 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execGetGL } from "./jobs/init/GetGLJob";
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/DependentMapType";
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"

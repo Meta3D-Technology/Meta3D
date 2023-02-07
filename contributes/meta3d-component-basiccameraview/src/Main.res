@@ -1,6 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dComponentBasiccameraviewProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dComponentBasiccameraviewProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentBasiccameraviewProtocol.Index.config,

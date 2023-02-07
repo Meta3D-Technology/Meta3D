@@ -1,6 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dEngineCoreProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ServiceType.service,
 > = (api, (dependentExtensionProtocolNameMap, _)) => {
   getIsDebug: DirectorForJs.getIsDebug,

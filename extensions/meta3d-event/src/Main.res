@@ -1,6 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  Meta3dEventProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dEventProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEventProtocol.ServiceType.service,
 > = (api, _) => {
   trigger: EventManager.trigger(api)->Obj.magic,

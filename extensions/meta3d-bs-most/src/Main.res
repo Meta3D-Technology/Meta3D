@@ -20,8 +20,8 @@ let callFunc = func => {
 }
 
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  Meta3dBsMostProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dBsMostProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dBsMostProtocol.ServiceType.service,
 > = (api, _) => {
   tap: Most.tap,
@@ -34,8 +34,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   flatMap: Most.flatMap,
   mergeArray: Most.mergeArray,
   concat: Most.concat,
-  concatArray: concatArray,
-  callFunc: callFunc,
+  concatArray,
+  callFunc,
   drain: Most.drain,
 }
 

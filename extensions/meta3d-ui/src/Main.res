@@ -1,6 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  Meta3dUiProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dUiProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dUiProtocol.ServiceType.service,
 > = (api, (dependentExtensionProtocolNameMap, _)) => {
   let {meta3dImguiRendererExtensionProtocolName} = dependentExtensionProtocolNameMap

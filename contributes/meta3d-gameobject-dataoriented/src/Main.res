@@ -1,12 +1,12 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dGameobjectProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dGameobjectProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<StateType.state>,
 > = (api, _) => {
   createStateFunc: (. config) => {
     maxUID: 0,
     needDisposedGameObjectArray: [],
-    config: config,
+    config,
   },
   createGameObjectFunc: (. state) => CreateGameObjectUtils.create(state),
   getNeedDisposedGameObjectsFunc: (. state) => {

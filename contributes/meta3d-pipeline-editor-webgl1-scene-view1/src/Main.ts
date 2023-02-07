@@ -3,7 +3,7 @@ import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefault
 import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/DependentMapType";
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"

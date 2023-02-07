@@ -1,6 +1,6 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-ui-control-button-protocol/src/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 

@@ -1,7 +1,7 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { actionData } from "meta3d-action-click-button-protocol"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "meta3d-action-click-button-protocol/src/DependentMapType"
+import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 

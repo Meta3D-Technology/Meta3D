@@ -60,62 +60,49 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 
+# * TODO 最简单的App：“只有一个按钮”
+* TODO 最简单的App2：“只有一个按钮+log action”
+    ■ need build and use meta3d-editor-engine-empty-whole package!
 
-* TODO add Action装配
-预先要发布协议；
-装配时，选择一个协议，根据Config.ts生成inspector（like ui control protocol->Config）
-
-
-add ActionMRUtils
-
-support log,dispatch system action
-
-# get actionData
+# move DependentMapType from protocol to implement
 
 
-# ** TODO remove protocol->Config.ts, move getActions to getContribute as actions; remove getActionName(protocol not define actionName!)
+* TODO fix: should only select one version of implement in market
+
+* TODO fix: should reorder by version when jump between second and third page
 
 
-# ** TODO read actions by parse getContribute instead of get from protocol config str!!!
+* TODO “点击按钮，加入多个立方体”的编辑器Demo（开启深度检测）
+* TODO 支持three.js引擎
+** TODO 封装three.js引擎及其扩展为多个Extension，成为一个引擎，引擎Package可单独使用
+** TODO 开发该引擎的Demo App
+move some basic examples here!
+** TODO 编辑器使用该引擎来渲染
 
-** TODO action 能调用扩展（非贡献）的api
-
-** TODO remove protocol->Config.ts, move them to action view data
-
-refer to element!
-
-** TODO when switch to ui view, get selected actions' view data!
-
-
-** TODO implement view
-
-
-** TODO publish
-
-
-note:
-all actions use the same element protocol!
-(not define actionName in protocol)
-
-
-
-** TODO import
-
-** TODO future: support combine other actions
-left panel:
-Actions
+* TODO 改进用户体验
+** TODO 改进使用流程
+    ■ 用户发布扩展/贡献时，如果没有注册，则给出链接，提醒用户注册
+** TODO 扩展、贡献、包加入detail page
+** TODO 为扩展、贡献、包、app增加信息
+refer to vs code plugin info
+    ■ ReadME, github link, display name,  //description(limit: length:<100)
+    ■ 装配空间显示protocol display name instead of protocol name
+    ■ extension/contribute detail add repo link(e.g. github link), displayName(so can hidden npm name for private extension/contribute)!
+如：README.md、repo link, ...
+    ■ extension,contribute detail page show more
+e.g. protocol, dependent map, ...
+** TODO improve error info
+** TODO 新增 账号、密码 注册和登录的方式
+  
+** TODO 更新模板repo
+如开发Extension、Contribute
 
 
+** TODO 优化UI
+*** TODO 信息完整显示，如没有省略号、显示出inspector的标题
+*** TODO 点击扩展、贡献、包、app的二级、三级页面title+avatar instead of click title
+*** TODO 美化UI，如Nav显示出按钮、页面布局要对齐、Canvas用白底 instead of border、首页和登录/注册页
 
-
-
-* TODO more
-
-** TODO add resize(%)
-
-
-** TODO add effect of select in canvas
-
-
+** TODO clean:remove unused Extension,Contribute Protocols
 
 * TODO publish

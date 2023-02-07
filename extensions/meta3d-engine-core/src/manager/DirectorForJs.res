@@ -4,8 +4,8 @@ let _convertJobOrders = (
   jobOrders->Meta3dCommonlib.ArraySt.map((
     {pipelineName, insertElementName, insertAction} as jobOrder,
   ): Meta3dEngineCoreProtocol.RegisterPipelineType.jobOrder => {
-    pipelineName: pipelineName,
-    insertElementName: insertElementName,
+    pipelineName,
+    insertElementName,
     insertAction: switch insertAction {
     | #before => Meta3dEngineCoreProtocol.RegisterPipelineType.Before
     | #after => Meta3dEngineCoreProtocol.RegisterPipelineType.After
@@ -36,9 +36,7 @@ let init = (state, meta3dState) => {
 let runPipeline = (
   (
     api: Meta3dType.Index.api,
-    {
-      meta3dBsMostExtensionProtocolName,
-    }: Meta3dEngineCoreProtocol.DependentMapType.dependentExtensionProtocolNameMap,
+    {meta3dBsMostExtensionProtocolName}: DependentMapType.dependentExtensionProtocolNameMap,
   ),
   (unsafeGetMeta3dState, setMeta3dState),
   meta3dState,

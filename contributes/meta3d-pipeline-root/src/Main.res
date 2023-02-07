@@ -12,8 +12,8 @@ let _init = _state => {
 }
 
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dPipelineRootProtocol.DependentMapType.dependentExtensionProtocolNameMap,
-  Meta3dPipelineRootProtocol.DependentMapType.dependentContributeProtocolNameMap,
+  DependentMapType.dependentExtensionProtocolNameMap,
+  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.StateType.pipelineContribute<
     Meta3dPipelineRootProtocol.ConfigType.config,
     Meta3dPipelineRootProtocol.StateType.state,
