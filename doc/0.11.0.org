@@ -42,19 +42,20 @@
 * DONE fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
 e.g. meta3d-ui-control-button-protocol
 
+* DONE fix version
 
-* TODO add ap marketplace
+
+* DONE add ap marketplace
 
 ** DONE rename 商城 to 市场
 
 ** DONE 修改为所有发布的应用
 
 
-** TODO 能够在一个url中jump to 发布的应用
+** DONE 能够在一个url中jump to 发布的应用
 
 url:
 https://meta3d-platform-production.4everland.app?jump_to_published_application=true&&uid=xxx
-
 
 
 

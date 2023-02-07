@@ -528,7 +528,7 @@ defineFeature(feature, test => {
             )
             ->Meta3dCommonlib.ImmutableHashMap.set(
               "meta3dImguiRendererExtensionProtocolName",
-              "meta3d-imgui-renderer2-protocol",
+              "meta3d-imgui-renderer-protocol",
             ),
             Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           ),

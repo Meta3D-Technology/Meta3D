@@ -1,6 +1,8 @@
 let getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
 
-let getElementContributeProtocolVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
+let getElementContributeProtocolVersion = () => {
+  j`^${FrontendUtils.VersionConfig.getPlatformVersion()}`
+}
 
 let buildElementContributeFileStr = (
   service,
