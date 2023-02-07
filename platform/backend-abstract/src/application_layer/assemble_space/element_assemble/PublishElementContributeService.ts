@@ -18,8 +18,8 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc,
-    updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any],
+function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc,
+    updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any],
     account: string,
     [
         name,
@@ -40,11 +40,11 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
     let fileName = name
 
     return fromPromise(
-        getShopImplementAccountDataFunc(
+        getMarketImplementAccountDataFunc(
             _getPublishedCollectionName(fileType),
             account
-        ).then(([shopImplementAccountData, _]) => {
-            let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+        ).then(([marketImplementAccountData, _]) => {
+            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
             return isContainFunc(
                 (data) => {
@@ -66,11 +66,11 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
         let fileID = getFileIDFunc(uploadData, filePath)
 
         return fromPromise(
-            getShopImplementAccountDataFunc(
+            getMarketImplementAccountDataFunc(
                 _getPublishedCollectionName(fileType),
                 account
-            ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
-                let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+            ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
+                let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
                 let data = {
                     protocolName: protocolName,
@@ -80,12 +80,12 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDa
                     fileID
                 }
 
-                return addShopImplementDataToDataFromShopImplementCollectionDataFunc(resData, data).then(resData => {
-                    return updateShopImplementDataFunc(
+                return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
+                    return updateMarketImplementDataFunc(
                         _getPublishedCollectionName(fileType),
                         account,
-                        buildShopImplementAccountDataFunc(resData, account),
-                        shopImplementAllCollectionData
+                        buildMarketImplementAccountDataFunc(resData, account),
+                        marketImplementAllCollectionData
                     )
                 })
             }))
@@ -107,18 +107,18 @@ export function publishElementContribute(
     )
 }
 
-export function publishElementAssembleData([errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc]: [any, any, any, any, any, any, any],
+export function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc]: [any, any, any, any, any, any, any],
     account: string,
     elementName: string,
     elementVersion: string,
     inspectorData: any
 ) {
     return fromPromise(
-        getShopImplementAccountDataFunc(
+        getMarketImplementAccountDataFunc(
             "publishedelementassembledata",
             account
-        ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
-            let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+        ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
+            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
             return isContainFunc(
                 (fileData) => {
@@ -131,7 +131,7 @@ export function publishElementAssembleData([errorFunc, getShopImplementAccountDa
                         errorFunc("version: " + elementVersion + " already exist, please update version")
                     }
                 }).then(_ => {
-                    let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+                    let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
                     let data = {
                         elementName,
@@ -139,12 +139,12 @@ export function publishElementAssembleData([errorFunc, getShopImplementAccountDa
                         inspectorData
                     }
 
-                    return addShopImplementDataToDataFromShopImplementCollectionDataFunc(resData, data).then(resData => {
-                        return updateShopImplementDataFunc(
+                    return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
+                        return updateMarketImplementDataFunc(
                             "publishedelementassembledata",
                             account,
-                            buildShopImplementAccountDataFunc(resData, account),
-                            shopImplementAllCollectionData
+                            buildMarketImplementAccountDataFunc(resData, account),
+                            marketImplementAllCollectionData
                         )
                     })
                 })

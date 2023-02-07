@@ -3,10 +3,10 @@ open Sinon
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~selectedPackagesFromShop=list{},
+  ~selectedPackagesFromMarket=list{},
   (),
 ) => {
-  <PackagePackages service selectedPackagesFromShop />
+  <PackagePackages service selectedPackagesFromMarket />
 }
 
 let selectPackage = (~package, ~dispatch) => {

@@ -3,13 +3,13 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { publishConfig } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addShopProtocolDataToDataFromShopProtocolCollectionData, getDataFromShopProtocolCollection, isContain, parseShopCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { addMarketProtocolDataToDataFromMarketProtocolCollectionData, getDataFromMarketProtocolCollection, isContain, parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_contribute_protocol_config.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -18,12 +18,12 @@ defineFeature(feature, test => {
         readJsonFunc = sandbox.stub()
         initFunc = sandbox.stub()
         hasAccountFunc = sandbox.stub()
-        getShopProtocolCollectionFunc = sandbox.stub()
+        getMarketProtocolCollectionFunc = sandbox.stub()
         isContainFunc = isContain
-        addDataToShopProtocolCollectionFunc = sandbox.stub()
-        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = addShopProtocolDataToDataFromShopProtocolCollectionData
-        getDataFromShopProtocolCollectionFunc = getDataFromShopProtocolCollection
-        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
+        addDataToMarketProtocolCollectionFunc = sandbox.stub()
+        addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc = addMarketProtocolDataToDataFromMarketProtocolCollectionData
+        getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
+        parseMarketCollectionDataBodyFunc = parseMarketCollectionDataBodyForNodejs
     }
 
     function _buildPackageJson(name = "test1-protocol",
@@ -34,7 +34,7 @@ defineFeature(feature, test => {
 
     function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
         return publishConfig(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "contribute"
         )
@@ -105,7 +105,7 @@ defineFeature(feature, test => {
                 just(true)
             )
             readFileSyncFunc.returns(distFileContent)
-            getShopProtocolCollectionFunc.returns(
+            getMarketProtocolCollectionFunc.returns(
                 resolve(collectionData)
             )
         });
@@ -115,12 +115,12 @@ defineFeature(feature, test => {
         });
 
         then('should add to collection', () => {
-            expect(addDataToShopProtocolCollectionFunc).toCalledWith([
+            expect(addDataToMarketProtocolCollectionFunc).toCalledWith([
                 app,
-                addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
+                addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
                 "publishedcontributeprotocolconfigs",
                 "publishedcontributeprotocolconfigs",
-                getDataFromShopProtocolCollectionFunc(collectionData),
+                getDataFromMarketProtocolCollectionFunc(collectionData),
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
@@ -152,12 +152,12 @@ defineFeature(feature, test => {
             hasAccountFunc.returns(
                 just(true)
             )
-            getShopProtocolCollectionFunc.onCall(0).returns(
+            getMarketProtocolCollectionFunc.onCall(0).returns(
                 resolve({
                     data: []
                 })
             )
-            getShopProtocolCollectionFunc.onCall(1).returns(
+            getMarketProtocolCollectionFunc.onCall(1).returns(
                 resolve({
                     data: [
                         {

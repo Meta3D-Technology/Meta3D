@@ -9,7 +9,7 @@ const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseServi
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension_protocol.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -17,18 +17,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         readJsonFunc = sandbox.stub();
         initFunc = sandbox.stub();
         hasAccountFunc = sandbox.stub();
-        getShopProtocolCollectionFunc = sandbox.stub();
+        getMarketProtocolCollectionFunc = sandbox.stub();
         isContainFunc = CloudbaseService_1.isContain;
-        addDataToShopProtocolCollectionFunc = sandbox.stub();
-        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc = CloudbaseService_1.addShopProtocolDataToDataFromShopProtocolCollectionData;
-        getDataFromShopProtocolCollectionFunc = CloudbaseService_1.getDataFromShopProtocolCollection;
-        parseShopCollectionDataBodyFunc = CloudbaseService_1.parseShopCollectionDataBodyForNodejs;
+        addDataToMarketProtocolCollectionFunc = sandbox.stub();
+        addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc = CloudbaseService_1.addMarketProtocolDataToDataFromMarketProtocolCollectionData;
+        getDataFromMarketProtocolCollectionFunc = CloudbaseService_1.getDataFromMarketProtocolCollection;
+        parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
     }
     function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
         return { name, version, publisher: account };
     }
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
-        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
+        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -65,18 +65,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             initFunc.returns((0, most_1.just)(app));
             hasAccountFunc.returns((0, most_1.just)(true));
             readFileSyncFunc.returns(iconContent);
-            getShopProtocolCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
+            getMarketProtocolCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
         });
         when('publish extension protocol', () => {
             return _publishExtensionProtocol();
         });
         then('should add to collection', () => {
-            expect(addDataToShopProtocolCollectionFunc).toCalledWith([
+            expect(addDataToMarketProtocolCollectionFunc).toCalledWith([
                 app,
-                addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
+                addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
                 "publishedextensionprotocols",
                 "publishedextensionprotocols",
-                getDataFromShopProtocolCollectionFunc(collectionData),
+                getDataFromMarketProtocolCollectionFunc(collectionData),
                 {
                     "name": "test1-protocol",
                     "version": "0.0.2",
@@ -108,12 +108,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //         )
     //         readFileSyncFunc.onCall(0).returns(iconContent1)
     //         readFileSyncFunc.onCall(1).returns(iconContent2)
-    //         getShopProtocolCollectionFunc.onCall(0).returns(
+    //         getMarketProtocolCollectionFunc.onCall(0).returns(
     //             resolve({
     //                 data: []
     //             })
     //         )
-    //         getShopProtocolCollectionFunc.onCall(1).returns(
+    //         getMarketProtocolCollectionFunc.onCall(1).returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -132,7 +132,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //         return _publishExtensionProtocol()
     //     });
     //     then('should update icon base64 in collection', () => {
-    //         expect(addDataToShopProtocolCollectionFunc.getCall(1)).toCalledWith([
+    //         expect(addDataToMarketProtocolCollectionFunc.getCall(1)).toCalledWith([
     //             app,
     //             "publishedextensionprotocols",
     //             {
@@ -154,10 +154,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1-protocol", "0.0.2", "meta3d")));
             initFunc.returns((0, most_1.just)(app));
             hasAccountFunc.returns((0, most_1.just)(true));
-            getShopProtocolCollectionFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
+            getMarketProtocolCollectionFunc.onCall(0).returns((0, PromiseTool_1.resolve)({
                 data: []
             }));
-            getShopProtocolCollectionFunc.onCall(1).returns((0, PromiseTool_1.resolve)({
+            getMarketProtocolCollectionFunc.onCall(1).returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         name: "test1-protocol",

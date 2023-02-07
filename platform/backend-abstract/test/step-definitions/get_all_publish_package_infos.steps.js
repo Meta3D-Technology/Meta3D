@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 // import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-const PackageShopService_1 = require("../../src/application_layer/shop/PackageShopService");
+const PackageMarketService_1 = require("../../src/application_layer/market/PackageMarketService");
 const most_1 = require("most");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_package_infos.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
@@ -77,7 +77,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         when('get all publish pacakge infos of entry extension protocol2', () => {
         });
         then('should return package2 info', () => {
-            return (0, PackageShopService_1.getAllPublishPackageInfos)(getDataByKeyContainFunc, entryExtensionProtocolName2, entryExtensionProtocolVersion2).observe(result => {
+            return (0, PackageMarketService_1.getAllPublishPackageInfos)(getDataByKeyContainFunc, entryExtensionProtocolName2, entryExtensionProtocolVersion2).observe(result => {
                 expect(result).toEqual([
                     {
                         account: account2,

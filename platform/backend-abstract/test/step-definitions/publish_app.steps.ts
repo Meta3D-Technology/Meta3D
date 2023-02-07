@@ -3,7 +3,7 @@ import { empty, just, map } from "most";
 import { createSandbox } from "sinon";
 import { resolve } from "../../../../services/meta3d-tool-utils/src/publish/PromiseTool";
 import { getFileID } from "meta3d-backend-cloudbase";
-import { findAllPublishApps, findPublishApp, publish } from "../../src/application_layer/publish/PublishAppService";
+import { findAllPublishAppsByAccount, findPublishApp, publish } from "../../src/application_layer/publish/PublishAppService";
 import { buildKey } from "../tool/PublishAppTool"
 
 const feature = loadFeature("./test/features/publish_app.feature")
@@ -242,7 +242,7 @@ defineFeature(feature, test => {
         });
     });
 
-    test('if not find, findAllPublishApps return empty array', ({ given, and, when, then }) => {
+    test('if not find, findAllPublishAppsByAccount return empty array', ({ given, and, when, then }) => {
         _prepare(given)
 
         given('prepare funcs', () => {
@@ -257,7 +257,7 @@ defineFeature(feature, test => {
         });
 
         then('should return empty array', () => {
-            return findAllPublishApps(
+            return findAllPublishAppsByAccount(
                 getDataByKeyContainFunc,
                 ""
             ).observe(result => {
@@ -266,7 +266,7 @@ defineFeature(feature, test => {
         });
     });
 
-    test('if find, findAllPublishApps return all publish app data', ({ given, and, when, then }) => {
+    test('if find, findAllPublishAppsByAccount return all publish app data', ({ given, and, when, then }) => {
         let fileID1 = "1"
         let fileID2 = "2"
         let account1
@@ -304,7 +304,7 @@ defineFeature(feature, test => {
         });
 
         then('should return the apps\' data', () => {
-            return findAllPublishApps(
+            return findAllPublishAppsByAccount(
                 getDataByKeyContainFunc,
                 account1
             ).observe(result => {

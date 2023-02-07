@@ -145,7 +145,7 @@ solution: set different id
 
 * DONE 修复bug
   ○ 进入assemblespace 时应该reset
-    ■ 进入extension shop->选择e1->进入assemblespace->选择e1->进入extension shop->取消选择e1->进入assemblespace: selectedExtensions 应该为空！
+    ■ 进入extension market->选择e1->进入assemblespace->选择e1->进入extension market->取消选择e1->进入assemblespace: selectedExtensions 应该为空！
     ■ inspector should be reset
 
 
@@ -243,13 +243,13 @@ still has publisher in package.json
 
 * DONE extension/contribute protocol show version
 
-* DONE extension/contribute shop should show publisher
+* DONE extension/contribute market should show publisher
 
 
 
 
 
-* DONE extension/contribute shop should refresh
+* DONE extension/contribute market should refresh
 
 
 
@@ -302,7 +302,7 @@ pass coverage:
 
 
 
-* DONE fix: extension/contribute shop should refresh
+* DONE fix: extension/contribute market should refresh
 
 
 

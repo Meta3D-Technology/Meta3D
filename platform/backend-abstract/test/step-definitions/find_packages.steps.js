@@ -4,7 +4,7 @@ const jest_cucumber_1 = require("jest-cucumber");
 const most_1 = require("most");
 const sinon_1 = require("sinon");
 // import { getFileID } from "meta3d-backend-cloudbase";
-const PackageShopService_1 = require("../../src/application_layer/shop/PackageShopService");
+const PackageMarketService_1 = require("../../src/application_layer/market/PackageMarketService");
 // import { buildKey } from "../tool/PublishPackageTool"
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_package.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
@@ -29,7 +29,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         when('find the published package', () => {
         });
         then('should return empty', () => {
-            return (0, PackageShopService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], "", "", "").observe(result => {
+            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], "", "", "").observe(result => {
                 expect(result).toBeNull();
             });
         });
@@ -58,7 +58,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         when('find the published package', () => {
         });
         then('should return the package file', () => {
-            return (0, PackageShopService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion).observe(result => {
+            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedpackages",
                     [packageName,

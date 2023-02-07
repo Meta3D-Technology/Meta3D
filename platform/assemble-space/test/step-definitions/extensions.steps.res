@@ -12,7 +12,7 @@ let feature = loadFeature("./test/features/extensions.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   let allPublishExtensionProtocols = ref([])
-  let selectedExtensionsFromShop = ref(list{})
+  let selectedExtensionsFromMarket = ref(list{})
 
   let _prepare = given => {
     given("prepare", () => {
@@ -85,7 +85,7 @@ defineFeature(feature, test => {
         )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
         (),
       ),
-      ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+      ~selectedExtensionsFromMarket=selectedExtensionsFromMarket.contents,
       (),
     )
     ->ServiceTool.getUseEffectOncePromise
@@ -117,7 +117,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension a1 for a",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~name=a1Name,
@@ -153,7 +153,7 @@ defineFeature(feature, test => {
             )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
             (),
           ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+          ~selectedExtensionsFromMarket=selectedExtensionsFromMarket.contents,
           (),
         )
         ->ServiceTool.getUseEffectOncePromise
@@ -176,7 +176,7 @@ defineFeature(feature, test => {
             a1Name,
             a.iconBase64,
             protocolConfig.configStr,
-            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+            selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),
         ])
       },
@@ -211,7 +211,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension a1, a2 for a",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~name=a1Name,
@@ -254,7 +254,7 @@ defineFeature(feature, test => {
             )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
             (),
           ),
-          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+          ~selectedExtensionsFromMarket=selectedExtensionsFromMarket.contents,
           (),
         )
         ->ServiceTool.getUseEffectOncePromise
@@ -277,13 +277,13 @@ defineFeature(feature, test => {
             a1Name,
             a.iconBase64,
             protocolConfig.configStr,
-            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+            selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),
           (
             a2Name,
             a.iconBase64,
             protocolConfig.configStr,
-            selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+            selectedExtensionsFromMarket.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
           ),
         ])
       },
@@ -325,7 +325,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension a1 for a of low version",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~name=a1Name,
@@ -361,7 +361,7 @@ defineFeature(feature, test => {
     //         )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
     //         (),
     //       ),
-    //       ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+    //       ~selectedExtensionsFromMarket=selectedExtensionsFromMarket.contents,
     //       (),
     //     )
     //     ->ServiceTool.getUseEffectOncePromise
@@ -384,13 +384,13 @@ defineFeature(feature, test => {
             a1Name,
             protocolIconBase64,
             protocolConfig.configStr,
-            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+            selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),
           // (
           //   a2Name,
           //   a.iconBase64,
           //   protocolConfig.configStr,
-          //   selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+          //   selectedExtensionsFromMarket.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
           // ),
         ])
       },
@@ -418,7 +418,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension a1 for a",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
@@ -441,7 +441,7 @@ defineFeature(feature, test => {
       () => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+        let (extension, protocolConfig) = selectedExtensionsFromMarket.contents->ListTool.getHeadExn
 
         ExtensionsTool.selectExtension(
           ~dispatch=dispatchStub.contents,
@@ -455,7 +455,7 @@ defineFeature(feature, test => {
     then(
       "should dispatch SelectExtension action",
       () => {
-        let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+        let (extension, protocolConfig) = selectedExtensionsFromMarket.contents->ListTool.getHeadExn
 
         dispatchStub.contents
         ->Obj.magic
@@ -491,7 +491,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension b1 for protocol b",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName="b",
@@ -533,7 +533,7 @@ defineFeature(feature, test => {
   //   })
 
   //   \"and"("select extension a1 and a2 for a", () => {
-  //     selectedExtensionsFromShop :=
+  //     selectedExtensionsFromMarket :=
   //       list{
   //         ExtensionTool.buildSelectedExtension(
   //           ~id="a1",
@@ -579,7 +579,7 @@ defineFeature(feature, test => {
     \"and"(
       "select extension a1 for a with old version",
       () => {
-        selectedExtensionsFromShop :=
+        selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,

@@ -4,18 +4,28 @@ open FrontendUtils.Antd
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
+  let {selectedContributes} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
     userCenterState
   )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
-  let (allPublishExtensionProtocols, setAllPublishExtensionProtocols) = React.useState(_ => [])
+  let (allPublishContributeProtocols, setAllPublishContributeProtocols) = React.useState(_ => [])
   let (
-    allPublishExtensionProtocolConfigs,
-    setAllPublishExtensionProtocolConfigs,
+    allPublishContributeProtocolConfigs,
+    setAllPublishContributeProtocolConfigs,
   ) = React.useState(_ => [])
-  let (extensionProtocolItem, setExtensionProtocolItem) = React.useState(_ => None)
-  let (allPublishExtensions, setAllPublishExtensions) = React.useState(_ => None)
+  let (contributeProtocolItem, setContributeProtocolItem) = React.useState(_ => None)
+  let (allPublishContributes, setAllPublishContributes) = React.useState(_ => None)
+  let (selectPublishContributeProtocol, setSelectPublishContributeProtocol) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
+  let (selectPublishContribute, setSelectPublishContribute) = React.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
+
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
+
   let (selectPublishExtensionProtocol, setSelectPublishExtensionProtocol) = React.useState(_ =>
     Meta3dCommonlib.ImmutableHashMap.createEmpty()
   )
@@ -23,19 +33,17 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     Meta3dCommonlib.ImmutableHashMap.createEmpty()
   )
 
-  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
-  let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
 
-  let _isSelect = (id, selectedExtensions: UserCenterStore.selectedExtensions) => {
-    selectedExtensions->Meta3dCommonlib.ListSt.includesByFunc(((selectedExtension, _)) =>
-      id === selectedExtension.id
+  let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
+    selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
+      id === selectedContribute.id
     )
   }
 
-  let _groupAllPublishExtensionProtocols = (
-    allPublishExtensionProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
+  let _groupAllPublishContributeProtocols = (
+    allPublishContributeProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
   ): array<array<FrontendUtils.BackendCloudbaseType.protocol>> => {
-    allPublishExtensionProtocols
+    allPublishContributeProtocols
     ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name} as protocol) => {
       map->Meta3dCommonlib.ImmutableHashMap.set(
         name,
@@ -58,10 +66,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     })
   }
 
-  let _groupAllPublishExtensions = (
-    allPublishExtensions: array<FrontendUtils.FrontendType.publishExtension>,
-  ): array<array<FrontendUtils.FrontendType.publishExtension>> => {
-    allPublishExtensions
+  let _groupAllPublishContributes = (
+    allPublishContributes: array<FrontendUtils.FrontendType.publishContribute>,
+  ): array<array<FrontendUtils.FrontendType.publishContribute>> => {
+    allPublishContributes
     ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {info} as implement) => {
       map->Meta3dCommonlib.ImmutableHashMap.set(
         info.name,
@@ -74,7 +82,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     ->Meta3dCommonlib.ImmutableHashMap.entries
     ->Meta3dCommonlib.ArraySt.map(((
       name,
-      implements: array<FrontendUtils.FrontendType.publishExtension>,
+      implements: array<FrontendUtils.FrontendType.publishContribute>,
     )) => {
       implements
       // ->Meta3dCommonlib.ArraySt.copy
@@ -86,33 +94,33 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
-    | list{"ExtensionShop"} =>
-      setExtensionProtocolItem(_ => None)
-      setAllPublishExtensions(_ => None)
+    | list{"ContributeMarket"} =>
+      setContributeProtocolItem(_ => None)
+      setAllPublishContributes(_ => None)
     | _ => ()
     }
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
-      service.backend.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
+    service.backend.getAllPublishContributeProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
+      service.backend.getAllPublishContributeProtocolConfigs()->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
               ({name}: FrontendUtils.BackendCloudbaseType.protocol) =>
-                name->ShopUtils.isNotInnerProtocol,
+                name->MarketUtils.isNotInnerProtocol,
             ),
             protocolConfigs->Meta3dCommonlib.ArraySt.filter(
               ({name}: FrontendUtils.CommonType.protocolConfig) =>
-                name->ShopUtils.isNotInnerProtocol,
+                name->MarketUtils.isNotInnerProtocol,
             ),
           )
         },
         _,
       )
     }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
-      setAllPublishExtensionProtocols(_ => protocols)
-      setAllPublishExtensionProtocolConfigs(_ => protocolConfigs)
+      setAllPublishContributeProtocols(_ => protocols)
+      setAllPublishContributeProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)
     }, _)->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
@@ -131,12 +139,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     {!isLoaded
       ? <p> {React.string(`loading...`)} </p>
       : {
-          switch extensionProtocolItem {
+          switch contributeProtocolItem {
           | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
             let (protocolName, protocolVersion) = (item.name, item.version)
 
-            switch allPublishExtensions {
-            | Some(allPublishExtensions) =>
+            switch allPublishContributes {
+            | Some(allPublishContributes) =>
               <>
                 {isDownloadBegin
                   ? <p>
@@ -145,13 +153,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   : React.null}
                 <List
                   itemLayout=#horizontal
-                  dataSource={allPublishExtensions->_groupAllPublishExtensions}
-                  renderItem={(items: array<FrontendUtils.FrontendType.publishExtension>) => {
+                  dataSource={allPublishContributes->_groupAllPublishContributes}
+                  renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
                     let firstItem =
                       items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
 
                     let item =
-                      selectPublishExtension
+                      selectPublishContribute
                       ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.info.name)
                       ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
 
@@ -163,7 +171,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       />
                       {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                         version =>
-                          setSelectPublishExtension(value =>
+                          setSelectPublishContribute(value =>
                             value->Meta3dCommonlib.ImmutableHashMap.set(
                               item.info.name,
                               items
@@ -174,12 +182,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                         item.info.version,
                         items->Meta3dCommonlib.ArraySt.map(item => item.info.version),
                       )}
-                      {_isSelect(item.info.id, selectedExtensions)
+                      {_isSelect(item.info.id, selectedContributes)
                         ? <Button
                             onClick={_ => {
                               dispatch(
                                 AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectExtension(item.info.id),
+                                  UserCenterStore.NotSelectContribute(item.info.id),
                                 ),
                               )
                             }}>
@@ -189,7 +197,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                             onClick={_ => {
                               setIsDownloadBegin(_ => true)
 
-                              service.backend.findPublishExtension(.
+                              service.backend.findPublishContribute(.
                                 progress => setDownloadProgress(_ => progress),
                                 item.info.account,
                                 item.info.name,
@@ -201,7 +209,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                       setIsDownloadBegin(_ => false)
 
                                       FrontendUtils.ErrorUtils.error(
-                                        {j`找不到extension file`},
+                                        {j`找不到contribute file`},
                                         None,
                                       )->Obj.magic
                                     }
@@ -210,10 +218,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                                       dispatch(
                                         AppStore.UserCenterAction(
-                                          UserCenterStore.SelectExtension(
+                                          UserCenterStore.SelectContribute(
                                             {
                                               id: item.info.id,
-                                              data: Meta3d.Main.loadExtension(
+                                              data: Meta3d.Main.loadContribute(
                                                 file->Meta3dCommonlib.NullableSt.getExn,
                                               ),
                                               protocolName: item.protocolName,
@@ -222,7 +230,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                               version: item.info.version,
                                               account: item.info.account,
                                             },
-                                            allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                            allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
                                               (
                                                 {
                                                   name,
@@ -256,12 +264,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             | None =>
               setIsLoaded(_ => false)
 
-              service.backend.getAllPublishExtensionInfos(. item.name, item.version)
+              service.backend.getAllPublishContributeInfos(. item.name, item.version)
               ->Meta3dBsMost.Most.observe(data => {
-                setAllPublishExtensions(_ =>
+                setAllPublishContributes(_ =>
                   data
                   ->Meta3dCommonlib.ArraySt.map(
-                    (info): FrontendUtils.FrontendType.publishExtension => {
+                    (info): FrontendUtils.FrontendType.publishContribute => {
                       protocolName: item.name,
                       protocolVersion: item.version,
                       protocolIconBase64: item.iconBase64,
@@ -287,13 +295,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           | None =>
             <List
               itemLayout=#horizontal
-              dataSource={allPublishExtensionProtocols->_groupAllPublishExtensionProtocols}
+              dataSource={allPublishContributeProtocols->_groupAllPublishContributeProtocols}
               renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                 let firstItem =
                   items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
 
                 let item =
-                  selectPublishExtensionProtocol
+                  selectPublishContributeProtocol
                   ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
                   ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
 
@@ -303,7 +311,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     avatar={<img src={item.iconBase64} />}
                     title={<span
                       onClick={_ => {
-                        setExtensionProtocolItem(_ => item->Some)
+                        setContributeProtocolItem(_ => item->Some)
                       }}>
                       {React.string(item.name)}
                     </span>}
@@ -311,7 +319,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   />
                   {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                     version =>
-                      setSelectPublishExtensionProtocol(value =>
+                      setSelectPublishContributeProtocol(value =>
                         value->Meta3dCommonlib.ImmutableHashMap.set(
                           item.name,
                           items

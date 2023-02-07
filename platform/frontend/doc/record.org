@@ -33,7 +33,7 @@ for finish->error infp
 show account
 
 
-* DONE add extension shop page
+* DONE add extension market page
 
 show published extensions
 
@@ -44,7 +44,7 @@ show published extension's detail
 
 
 
-* DONE add contribute shop page
+* DONE add contribute market page
 
 show published contribute
 
@@ -171,7 +171,7 @@ password
 
 ** DONE use meta3d-tool-publish to publish
 
-** DONE fix extension,contribute shop
+** DONE fix extension,contribute market
 
 
 ** DONE fix app manager

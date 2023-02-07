@@ -161,7 +161,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             });
         });
     });
-    test('if not find, findAllPublishApps return empty array', ({ given, and, when, then }) => {
+    test('if not find, findAllPublishAppsByAccount return empty array', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishApps(sandbox);
@@ -170,12 +170,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find all published apps', () => {
         });
         then('should return empty array', () => {
-            return (0, PublishAppService_1.findAllPublishApps)(getDataByKeyContainFunc, "").observe(result => {
+            return (0, PublishAppService_1.findAllPublishAppsByAccount)(getDataByKeyContainFunc, "").observe(result => {
                 expect(result).toEqual([]);
             });
         });
     });
-    test('if find, findAllPublishApps return all publish app data', ({ given, and, when, then }) => {
+    test('if find, findAllPublishAppsByAccount return all publish app data', ({ given, and, when, then }) => {
         let fileID1 = "1";
         let fileID2 = "2";
         let account1;
@@ -202,7 +202,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find all published apps', () => {
         });
         then('should return the apps\' data', () => {
-            return (0, PublishAppService_1.findAllPublishApps)(getDataByKeyContainFunc, account1).observe(result => {
+            return (0, PublishAppService_1.findAllPublishAppsByAccount)(getDataByKeyContainFunc, account1).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedapps",
                     [account1]

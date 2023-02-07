@@ -2,13 +2,13 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { just } from "most";
 import { createSandbox } from "sinon";
 import { resolve } from "../../../../services/meta3d-tool-utils/src/publish/PromiseTool";
-import { findPublishImplement } from "../../src/application_layer/shop/ShopService";
+import { findPublishImplement } from "../../src/application_layer/market/MarketService";
 
 const feature = loadFeature("./test/features/find_publish_extension.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementFunc, downloadFileFunc
+    let getMarketImplementFunc, downloadFileFunc
 
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -17,7 +17,7 @@ defineFeature(feature, test => {
     }
 
     function _createFuncs(sandbox) {
-        getShopImplementFunc = sandbox.stub()
+        getMarketImplementFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
     }
 
@@ -28,7 +28,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementFunc.returns(
+            getMarketImplementFunc.returns(
                 resolve(null)
             )
         });
@@ -38,7 +38,7 @@ defineFeature(feature, test => {
 
         then('should return empty', () => {
             return findPublishImplement(
-                [getShopImplementFunc, downloadFileFunc],
+                [getMarketImplementFunc, downloadFileFunc],
                 "", "", "", ""
             ).observe(result => {
                 expect(result).toBeNull()
@@ -59,7 +59,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementFunc.returns(
+            getMarketImplementFunc.returns(
                 resolve(
                     {
                         fileID: fileID
@@ -77,13 +77,13 @@ defineFeature(feature, test => {
 
         then('should return the extension file', () => {
             return findPublishImplement(
-                [getShopImplementFunc, downloadFileFunc],
+                [getMarketImplementFunc, downloadFileFunc],
                 collectionName,
                 account,
                 name,
                 version
             ).observe(result => {
-                expect(getShopImplementFunc).toCalledWith([
+                expect(getMarketImplementFunc).toCalledWith([
                     collectionName, account, name, version
                 ])
                 expect(downloadFileFunc).toCalledWith([

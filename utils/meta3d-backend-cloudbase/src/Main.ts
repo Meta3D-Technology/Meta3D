@@ -9,20 +9,20 @@ type allCollectionData = {
 }
 
 
-type dataFromShopProtocolCollectionData = any
+type dataFromMarketProtocolCollectionData = any
 
-type dataFromShopImplementCollectionData = any
+type dataFromMarketImplementCollectionData = any
 
-type shopProtocolData = any
+type marketProtocolData = any
 
-type shopImplementData = any
+type marketImplementData = any
 
-type shopImplementAccountData = {
+type marketImplementAccountData = {
     key: account,
-    fileData: Array<shopImplementData>
+    fileData: Array<marketImplementData>
 }
 
-type shopImplementCollectionData = Array<shopImplementAccountData>
+type marketImplementCollectionData = Array<marketImplementAccountData>
 
 let _getDatabase = (app: any) => {
     return app.database()
@@ -44,13 +44,13 @@ let _buildEmptyCollectionData = () => null
 
 let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null
 
-export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
+export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCollectionData: dataFromMarketProtocolCollectionData, data: marketProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {
         resolve(null)
     })
 }
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
+export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData: dataFromMarketImplementCollectionData, data: marketImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
         resolve(allCollectionData.concat([data]))
     })
@@ -62,15 +62,15 @@ export let handleLogin = (app: any, account: account) => {
             return fromPromise(
                 addDataToUserCollection(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})
             ).concat(fromPromise(
-                addDataToShopImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+                addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
                     fileData: []
                 })
             )).concat(fromPromise(
-                addDataToShopImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+                addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
                     fileData: []
                 })
             )).concat(fromPromise(
-                addDataToShopImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+                addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
                     fileData: []
                 })
             ))
@@ -84,7 +84,7 @@ export let handleKeyToLowercase = (key: string) => {
     return key.toLowerCase()
 }
 
-export let addDataToShopProtocolCollection = (app: any, addShopProtocolDataToDataFromShopProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
+export let addDataToMarketProtocolCollection = (app: any, addMarketProtocolDataToDataFromMarketProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
     return _getDatabase(app).collection(collectionName)
         .add({
             ...data,
@@ -93,9 +93,9 @@ export let addDataToShopProtocolCollection = (app: any, addShopProtocolDataToDat
         })
 }
 
-export let addDataToShopImplementCollection = addDataToShopProtocolCollection
+export let addDataToMarketImplementCollection = addDataToMarketProtocolCollection
 
-export let addDataToUserCollection = addDataToShopProtocolCollection
+export let addDataToUserCollection = addDataToMarketProtocolCollection
 
 let _hasData = (app: any, collectionName: string, key: string) => {
     return fromPromise(_getDatabase(app).collection(collectionName)
@@ -112,25 +112,25 @@ export let hasData = (app: any, collectionName: string, key: string) => {
     return _hasData(app, collectionName, handleKeyToLowercase(key))
 }
 
-export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
+export let getDataFromMarketProtocolCollection = (allCollectionData: allCollectionData): dataFromMarketProtocolCollectionData => {
     return allCollectionData.data
 }
 
-export let getDataFromShopImplementAccountData = (data: shopImplementAccountData): dataFromShopImplementCollectionData => {
+export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
     return data.fileData
 }
 
-export let buildShopImplementAccountData = (data: dataFromShopImplementCollectionData, account: account): shopImplementAccountData => {
+export let buildMarketImplementAccountData = (data: dataFromMarketImplementCollectionData, account: account): marketImplementAccountData => {
     return {
         key: handleKeyToLowercase(account),
         fileData: data
     }
 }
 
-export let isContain = (find: (dataFromShopCollectionData: dataFromShopProtocolCollectionData | dataFromShopImplementCollectionData) => boolean, dataFromShopCollectionData: dataFromShopProtocolCollectionData | dataFromShopImplementCollectionData) => {
+export let isContain = (find: (dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => boolean, dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => {
     return new Promise((resolve, reject) => {
         resolve(
-            dataFromShopCollectionData.findIndex((data) => {
+            dataFromMarketCollectionData.findIndex((data) => {
                 return find(data)
             }) !== -1
         )
@@ -160,11 +160,11 @@ export let uploadFile = (app: any, filePath: string, fileContent: ArrayBuffer) =
 }
 
 
-export let getShopProtocolCollection = (app: any, parseShopCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
+export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
     return _getDatabase(app).collection(collectionName).get()
 }
 
-export let getShopImplementAccountData = (app: any, parseShopCollectionDataBody, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
+export let getMarketImplementAccountData = (app: any, parseMarketCollectionDataBody, collectionName: string, account: account): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: handleKeyToLowercase(account) })
         .get()
@@ -176,30 +176,30 @@ export let getShopImplementAccountData = (app: any, parseShopCollectionDataBody,
 //         .update(updateData)
 // }
 
-export let updateShopImplementData = (app: any, collectionName: string, account: account, updateData: shopImplementAccountData, _oldShopImplementCollectionData: shopImplementCollectionData) => {
+export let updateMarketImplementData = (app: any, collectionName: string, account: account, updateData: marketImplementAccountData, _oldMarketImplementCollectionData: marketImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: handleKeyToLowercase(account) })
         .update(updateData)
 }
 
-// export let getShopImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
+// export let getMarketImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
 //     return _getDatabase(app).collection(collectionName).get()
 // }
-export let getShopImplementCollection = getShopProtocolCollection
+export let getMarketImplementCollection = getMarketProtocolCollection
 
-export let mapShopImplementCollection = (allCollectionData: allCollectionData, func) => {
+export let mapMarketImplementCollection = (allCollectionData: allCollectionData, func) => {
     return allCollectionData.data.map(func)
 }
 
-export let getAccountFromShopImplementCollectionData = (data: collectionData) => {
+export let getAccountFromMarketImplementCollectionData = (data: collectionData) => {
     return data.key
 }
 
-export let getFileDataFromShopImplementCollectionData = (data: collectionData) => {
+export let getFileDataFromMarketImplementCollectionData = (data: collectionData) => {
     return data.fileData
 }
 
-export let downloadFile = (app: any, parseShopCollectionDataBody, fileID: string) => {
+export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string) => {
     return fromPromise(app.getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {
@@ -207,4 +207,4 @@ export let downloadFile = (app: any, parseShopCollectionDataBody, fileID: string
     })
 }
 
-export let parseShopCollectionDataBodyForNodejs = null
+export let parseMarketCollectionDataBodyForNodejs = null

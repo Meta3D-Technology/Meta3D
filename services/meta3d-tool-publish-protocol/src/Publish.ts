@@ -18,7 +18,7 @@ function _isPNG(iconPath: string) {
     return iconPath.match(/\.png$/) !== null
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -34,12 +34,12 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
             }
 
             return fromPromise(
-                getShopProtocolCollectionFunc(
+                getMarketProtocolCollectionFunc(
                     backendInstance,
-                    parseShopCollectionDataBodyFunc,
+                    parseMarketCollectionDataBodyFunc,
                     _getPublishedCollectionName(fileType),
                 ).then(res => {
-                    let resData = getDataFromShopProtocolCollectionFunc(res)
+                    let resData = getDataFromMarketProtocolCollectionFunc(res)
 
                     return isContainFunc(
                         ({ name, version }) => {
@@ -52,8 +52,8 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
-                    return addDataToShopProtocolCollectionFunc(backendInstance,
-                        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
+                    return addDataToMarketProtocolCollectionFunc(backendInstance,
+                        addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
                         _getPublishedCollectionName(fileType),
                         _getPublishedCollectionName(fileType),
                         resData,
@@ -89,7 +89,7 @@ function _getPublishedConfigCollectionName(fileType: "extension" | "contribute")
     }
 }
 
-export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getShopProtocolCollectionFunc, isContainFunc, addDataToShopProtocolCollectionFunc, addShopProtocolDataToDataFromShopProtocolCollectionDataFunc, getDataFromShopProtocolCollectionFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -103,12 +103,12 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
             let collectioName = _getPublishedConfigCollectionName(fileType)
 
             return fromPromise(
-                getShopProtocolCollectionFunc(
+                getMarketProtocolCollectionFunc(
                     backendInstance,
-                    parseShopCollectionDataBodyFunc,
+                    parseMarketCollectionDataBodyFunc,
                     collectioName
                 ).then(res => {
-                    let resData = getDataFromShopProtocolCollectionFunc(res)
+                    let resData = getDataFromMarketProtocolCollectionFunc(res)
 
                     return isContainFunc(
                         ({ name, version }) => {
@@ -120,8 +120,8 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
-                    return addDataToShopProtocolCollectionFunc(backendInstance,
-                        addShopProtocolDataToDataFromShopProtocolCollectionDataFunc,
+                    return addDataToMarketProtocolCollectionFunc(backendInstance,
+                        addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
                         collectioName,
                         collectioName,
                         resData,

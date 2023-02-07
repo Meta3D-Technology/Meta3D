@@ -1,4 +1,4 @@
-import { account, protocolName, protocolVersion, protocolIconBase64, implementName, implementVersion } from "./ShopType"
+import { account, protocolName, protocolVersion, protocolIconBase64, implementName, implementVersion } from "./MarketType"
 
 type entryExtensionProtocolName = protocolName
 

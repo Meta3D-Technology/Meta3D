@@ -42,11 +42,11 @@ const Publish_1 = require("./Publish");
 // 				buildReadJsonFunc(packageFilePath),
 // 				CloudbaseService.init,
 // 				CloudbaseService.hasAccount,
-// 				CloudbaseService.getShopProtocolCollection,
+// 				CloudbaseService.getMarketProtocolCollection,
 // 				CloudbaseService.isContain,
-// 				CloudbaseService.addDataToShopProtocolCollection,
-// 				CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-// 				CloudbaseService.getDataFromShopProtocolCollection
+// 				CloudbaseService.addDataToMarketProtocolCollection,
+// 				CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+// 				CloudbaseService.getDataFromMarketProtocolCollection
 // 			]
 // 		case "production":
 // 			return [
@@ -54,9 +54,9 @@ const Publish_1 = require("./Publish");
 // 				console.log,
 // 				console.error,
 // 				buildReadJsonFunc(packageFilePath),
-// 				_4everlandService.init, _4everlandService.hasAccount, _4everlandService.getShopProtocolCollection, _4everlandService.isContain, _4everlandService.addDataToShopProtocolCollection,
-// 				_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-// 				_4everlandService.getDataFromShopProtocolCollection
+// 				_4everlandService.init, _4everlandService.hasAccount, _4everlandService.getMarketProtocolCollection, _4everlandService.isContain, _4everlandService.addDataToMarketProtocolCollection,
+// 				_4everlandService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+// 				_4everlandService.getDataFromMarketProtocolCollection
 // 			]
 // 		default:
 // 			throw new Error("unknown env")
@@ -75,14 +75,14 @@ function publishExtension(env, packageFilePath, distFilePath) {
                 CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
-                CloudbaseService.getShopImplementAccountData,
-                CloudbaseService.updateShopImplementData,
-                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.updateMarketImplementData,
+                CloudbaseService.getDataFromMarketImplementAccountData,
                 CloudbaseService.isContain,
-                CloudbaseService.buildShopImplementAccountData,
-                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.buildMarketImplementAccountData,
+                CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
                 CloudbaseService.getFileID,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         case "production":
@@ -95,14 +95,14 @@ function publishExtension(env, packageFilePath, distFilePath) {
             // 	_4everlandService.init,
             // 	_4everlandService.hasAccount,
             // 	_4everlandService.uploadFile,
-            // 	_4everlandService.getShopImplementAccountData,
-            // 	_4everlandService.updateShopImplementData,
-            // 	_4everlandService.getDataFromShopImplementAccountData,
+            // 	_4everlandService.getMarketImplementAccountData,
+            // 	_4everlandService.updateMarketImplementData,
+            // 	_4everlandService.getDataFromMarketImplementAccountData,
             // 	_4everlandService.isContain,
-            // 	_4everlandService.buildShopImplementAccountData,
-            // 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+            // 	_4everlandService.buildMarketImplementAccountData,
+            // 	_4everlandService.addMarketImplementDataToDataFromMarketImplementCollectionData,
             // 	_4everlandService.getFileID,
-            // 	_4everlandService.parseShopCollectionDataBodyForNodejs,
+            // 	_4everlandService.parseMarketCollectionDataBodyForNodejs,
             // ]
             funcArr = [
                 fs_1.default.readFileSync,
@@ -113,14 +113,14 @@ function publishExtension(env, packageFilePath, distFilePath) {
                 CloudbaseService.initProduction,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
-                CloudbaseService.getShopImplementAccountData,
-                CloudbaseService.updateShopImplementData,
-                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.updateMarketImplementData,
+                CloudbaseService.getDataFromMarketImplementAccountData,
                 CloudbaseService.isContain,
-                CloudbaseService.buildShopImplementAccountData,
-                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.buildMarketImplementAccountData,
+                CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
                 CloudbaseService.getFileID,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         default:
@@ -142,14 +142,14 @@ function publishContribute(env, packageFilePath, distFilePath) {
                 CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
-                CloudbaseService.getShopImplementAccountData,
-                CloudbaseService.updateShopImplementData,
-                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.updateMarketImplementData,
+                CloudbaseService.getDataFromMarketImplementAccountData,
                 CloudbaseService.isContain,
-                CloudbaseService.buildShopImplementAccountData,
-                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.buildMarketImplementAccountData,
+                CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
                 CloudbaseService.getFileID,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         case "production":
@@ -162,14 +162,14 @@ function publishContribute(env, packageFilePath, distFilePath) {
             // 	_4everlandService.init,
             // 	_4everlandService.hasAccount,
             // 	_4everlandService.uploadFile,
-            // 	_4everlandService.getShopImplementAccountData,
-            // 	_4everlandService.updateShopImplementData,
-            // 	_4everlandService.getDataFromShopImplementAccountData,
+            // 	_4everlandService.getMarketImplementAccountData,
+            // 	_4everlandService.updateMarketImplementData,
+            // 	_4everlandService.getDataFromMarketImplementAccountData,
             // 	_4everlandService.isContain,
-            // 	_4everlandService.buildShopImplementAccountData,
-            // 	_4everlandService.addShopImplementDataToDataFromShopImplementCollectionData,
+            // 	_4everlandService.buildMarketImplementAccountData,
+            // 	_4everlandService.addMarketImplementDataToDataFromMarketImplementCollectionData,
             // 	_4everlandService.getFileID,
-            // 	_4everlandService.parseShopCollectionDataBodyForNodejs
+            // 	_4everlandService.parseMarketCollectionDataBodyForNodejs
             // ]
             funcArr = [
                 fs_1.default.readFileSync,
@@ -180,14 +180,14 @@ function publishContribute(env, packageFilePath, distFilePath) {
                 CloudbaseService.initProduction,
                 CloudbaseService.hasAccount,
                 CloudbaseService.uploadFile,
-                CloudbaseService.getShopImplementAccountData,
-                CloudbaseService.updateShopImplementData,
-                CloudbaseService.getDataFromShopImplementAccountData,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.updateMarketImplementData,
+                CloudbaseService.getDataFromMarketImplementAccountData,
                 CloudbaseService.isContain,
-                CloudbaseService.buildShopImplementAccountData,
-                CloudbaseService.addShopImplementDataToDataFromShopImplementCollectionData,
+                CloudbaseService.buildMarketImplementAccountData,
+                CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
                 CloudbaseService.getFileID,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         default:

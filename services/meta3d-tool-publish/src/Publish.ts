@@ -63,7 +63,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
             return initFunc().map(backendInstance => [backendInstance, packageJson])
@@ -82,16 +82,16 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                 let filePath =
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer"
 
-                // TODO perf: only invoke getShopImplementAccountDataFunc once
+                // TODO perf: only invoke getMarketImplementAccountDataFunc once
 
                 return fromPromise(
-                    getShopImplementAccountDataFunc(
+                    getMarketImplementAccountDataFunc(
                         backendInstance,
-                        parseShopCollectionDataBodyFunc,
+                        parseMarketCollectionDataBodyFunc,
                         _getPublishedCollectionName(fileType),
                         account
-                    ).then(([shopImplementAccountData, _]) => {
-                        let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+                    ).then(([marketImplementAccountData, _]) => {
+                        let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
                         return isContainFunc(
                             ({ protocolName, protocolVersion, name, version }) => {
@@ -116,13 +116,13 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                     let fileID = getFileIDFunc(uploadData, filePath)
 
                     return fromPromise(
-                        getShopImplementAccountDataFunc(
+                        getMarketImplementAccountDataFunc(
                             backendInstance,
-                            parseShopCollectionDataBodyFunc,
+                            parseMarketCollectionDataBodyFunc,
                             _getPublishedCollectionName(fileType),
                             account
-                        ).then(([shopImplementAccountData, shopImplementAllCollectionData]) => {
-                            let resData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData)
+                        ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
+                            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
 
                             let data = {
                                 protocolName: packageData.protocol.name,
@@ -132,13 +132,13 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                                 fileID
                             }
 
-                            return addShopImplementDataToDataFromShopImplementCollectionDataFunc(resData, data).then(resData => {
-                                return updateShopImplementDataFunc(
+                            return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
+                                return updateMarketImplementDataFunc(
                                     backendInstance,
                                     _getPublishedCollectionName(fileType),
                                     account,
-                                    buildShopImplementAccountDataFunc(resData, account),
-                                    shopImplementAllCollectionData
+                                    buildMarketImplementAccountDataFunc(resData, account),
+                                    marketImplementAllCollectionData
                                 )
                             })
                         }))

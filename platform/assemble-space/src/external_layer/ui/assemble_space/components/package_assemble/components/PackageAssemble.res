@@ -10,9 +10,9 @@ module Method = {
 let make = (
   ~service: service,
   ~account,
-  ~selectedPackagesFromShop: selectedPackagesFromShop,
-  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
-  ~selectedContributesFromShop: selectedContributesFromShop,
+  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
+  ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+  ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
   <Layout>
     <Layout.Header>
@@ -23,13 +23,13 @@ let make = (
       <Layout.Sider>
         <Collapse defaultActiveKey={["1"]}>
           <Collapse.Panel header="Packages" key="1">
-            <PackagePackages service selectedPackagesFromShop />
+            <PackagePackages service selectedPackagesFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Extensions" key="2">
-            <PackageExtensions service selectedExtensionsFromShop />
+            <PackageExtensions service selectedExtensionsFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Contributes" key="3">
-            <PackageContributes service selectedContributesFromShop />
+            <PackageContributes service selectedContributesFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Selected Packages" key="4">
             <PackageSelectedPackages service />

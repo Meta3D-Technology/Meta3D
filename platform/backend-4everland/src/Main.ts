@@ -2,10 +2,10 @@ import * as Abstract from "backend-abstract";
 import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
 
 import {
-    init as initCloud, handleLogin as handleLoginCloud, getShopProtocolCollection, getDataFromShopProtocolCollection, getShopImplementCollection,
-    mapShopImplementCollection,
-    getAccountFromShopImplementCollectionData,
-    getFileDataFromShopImplementCollectionData,
+    init as initCloud, handleLogin as handleLoginCloud, getMarketProtocolCollection, getDataFromMarketProtocolCollection, getMarketImplementCollection,
+    mapMarketImplementCollection,
+    getAccountFromMarketImplementCollectionData,
+    getFileDataFromMarketImplementCollectionData,
     downloadFile,
     addData,
     hasData,
@@ -13,11 +13,11 @@ import {
     uploadFile,
     updateData,
     getDataByKey,
-    getShopImplementAccountData,
-    updateShopImplementData,
-    getDataFromShopImplementAccountData,
+    getMarketImplementAccountData,
+    updateMarketImplementData,
+    getDataFromMarketImplementAccountData,
     isContain,
-    buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData, getDataByKeyContain, getShopImplement,
+    buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData, getDataByKeyContain, getMarketImplement,
     getData,
 } from "./application_layer/BackendService";
 
@@ -26,26 +26,26 @@ export let init = (_env) => Abstract.init(initCloud, null)
 
 export let handleLogin = (account) => Abstract.handleLogin(handleLoginCloud, account)
 
-export let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocols")
+export let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocols")
 
-export let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocols")
+export let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocols")
 
-export let getAllPublishExtensionProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedextensionprotocolconfigs")
+export let getAllPublishExtensionProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs")
 
-export let getAllPublishContributeProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getShopProtocolCollection, getDataFromShopProtocolCollection], "publishedcontributeprotocolconfigs")
+export let getAllPublishContributeProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs")
 
 export let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
-    getShopImplementCollection,
-    mapShopImplementCollection,
-    getAccountFromShopImplementCollectionData,
-    getFileDataFromShopImplementCollectionData,
+    getMarketImplementCollection,
+    mapMarketImplementCollection,
+    getAccountFromMarketImplementCollectionData,
+    getFileDataFromMarketImplementCollectionData,
 ], "publishedextensions", protocolName, protocolVersion)
 
 export let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
-    getShopImplementCollection,
-    mapShopImplementCollection,
-    getAccountFromShopImplementCollectionData,
-    getFileDataFromShopImplementCollectionData,
+    getMarketImplementCollection,
+    mapMarketImplementCollection,
+    getAccountFromMarketImplementCollectionData,
+    getFileDataFromMarketImplementCollectionData,
 ], "publishedcontributes", protocolName, protocolVersion)
 
 export let findPublishExtension = (onDownloadProgressFunc,
@@ -53,7 +53,7 @@ export let findPublishExtension = (onDownloadProgressFunc,
     name,
     version
 ) => Abstract.findPublishImplement([
-    getShopImplement,
+    getMarketImplement,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedextensions",
@@ -67,7 +67,7 @@ export let findPublishContribute = (onDownloadProgressFunc,
     name,
     version
 ) => Abstract.findPublishImplement([
-    getShopImplement,
+    getMarketImplement,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedcontributes",
@@ -94,7 +94,7 @@ export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstra
     account, appName
 )
 
-export let findAllPublishApps = (account) => Abstract.findAllPublishApps(
+export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
     getDataByKeyContain,
     account
 )
@@ -110,8 +110,8 @@ export let publishElementContribute = (
     contributeBinaryFile,
 ) => Abstract.publishElementContribute([
     onUploadProgressFunc,
-    _throwError, uploadFile, getShopImplementAccountData, updateShopImplementData,
-    getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
+    _throwError, uploadFile, getMarketImplementAccountData, updateMarketImplementData,
+    getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
     getFileID
 ],
     account,
@@ -126,7 +126,7 @@ export let publishElementAssembleData = (
     inspectorData
 ) => Abstract.publishElementAssembleData([
     _throwError,
-    getShopImplementAccountData, updateShopImplementData, getDataFromShopImplementAccountData, isContain, buildShopImplementAccountData, addShopImplementDataToDataFromShopImplementCollectionData,
+    getMarketImplementAccountData, updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
 ],
     account,
     elementName,
@@ -137,10 +137,10 @@ export let publishElementAssembleData = (
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 
 export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
-    getShopImplementCollection,
-    mapShopImplementCollection,
-    getAccountFromShopImplementCollectionData,
-    getFileDataFromShopImplementCollectionData,
+    getMarketImplementCollection,
+    mapMarketImplementCollection,
+    getAccountFromMarketImplementCollectionData,
+    getFileDataFromMarketImplementCollectionData,
     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ],
     "publishedextensions",
@@ -152,7 +152,7 @@ export let getElementAssembleData = (
     elementName,
     elementVersion,
 ) => Abstract.getElementAssembleData(
-    [getShopImplementAccountData, getDataFromShopImplementAccountData],
+    [getMarketImplementAccountData, getDataFromMarketImplementAccountData],
     account,
     elementName,
     elementVersion,

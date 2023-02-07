@@ -9,20 +9,20 @@ const BackendService_1 = require("backend-cloudbase/src/application_layer/Backen
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_newest_extensions.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, downloadFileFunc;
+    let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc;
     function _createFuncs(sandbox) {
-        getShopImplementCollectionFunc = sandbox.stub();
+        getMarketImplementCollectionFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
-        mapShopImplementCollectionFunc = BackendService_1.mapShopImplementCollection;
-        getAccountFromShopImplementCollectionDataFunc = BackendService_1.getAccountFromShopImplementCollectionData;
-        getFileDataFromShopImplementCollectionDataFunc = BackendService_1.getFileDataFromShopImplementCollectionData;
+        mapMarketImplementCollectionFunc = BackendService_1.mapMarketImplementCollection;
+        getAccountFromMarketImplementCollectionDataFunc = BackendService_1.getAccountFromMarketImplementCollectionData;
+        getFileDataFromMarketImplementCollectionDataFunc = BackendService_1.getFileDataFromMarketImplementCollectionData;
     }
     function _getAllPublishNewestExtensions(protocolName) {
         return (0, GetElementDataService_1.getAllPublishNewestData)([
-            getShopImplementCollectionFunc,
-            mapShopImplementCollectionFunc,
-            getAccountFromShopImplementCollectionDataFunc,
-            getFileDataFromShopImplementCollectionDataFunc,
+            getMarketImplementCollectionFunc,
+            mapMarketImplementCollectionFunc,
+            getAccountFromMarketImplementCollectionDataFunc,
+            getFileDataFromMarketImplementCollectionDataFunc,
             downloadFileFunc
         ], "publishedextensions", protocolName);
     }
@@ -44,7 +44,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
     //     _prepare(given)
     //     given('prepare funcs', () => {
     //         _createFuncs(sandbox)
-    //         getShopImplementCollectionFunc.returns(
+    //         getMarketImplementCollectionFunc.returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -127,7 +127,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
+            getMarketImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         key: account1,

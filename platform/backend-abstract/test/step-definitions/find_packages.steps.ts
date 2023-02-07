@@ -4,7 +4,7 @@ import { createSandbox } from "sinon";
 import { resolve } from "../../../../services/meta3d-tool-utils/src/publish/PromiseTool";
 import { buildPartialKeyByPackageData } from "../../src/application_layer/publish/PublishPackageService";
 // import { getFileID } from "meta3d-backend-cloudbase";
-import { findPublishPackage } from "../../src/application_layer/shop/PackageShopService";
+import { findPublishPackage } from "../../src/application_layer/market/PackageMarketService";
 // import { buildKey } from "../tool/PublishPackageTool"
 
 const feature = loadFeature("./test/features/find_publish_package.feature")

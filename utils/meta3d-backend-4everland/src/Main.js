@@ -1,26 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToShopProtocolCollection = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToMarketProtocolCollection = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
-let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
+let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         allCollectionData = allCollectionData.slice();
         allCollectionData.push(data);
         resolve(JSON.stringify(allCollectionData));
     });
 };
-exports.addShopProtocolDataToDataFromShopProtocolCollectionData = addShopProtocolDataToDataFromShopProtocolCollectionData;
-let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData, data) => {
+exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = addMarketProtocolDataToDataFromMarketProtocolCollectionData;
+let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
-        console.log("addShopImplementDataToDataFromShopImplementCollectionData:", allCollectionData, data);
+        console.log("addMarketImplementDataToDataFromMarketImplementCollectionData:", allCollectionData, data);
         allCollectionData = allCollectionData.slice();
         allCollectionData.push(data);
         resolve(allCollectionData);
     });
 };
-exports.addShopImplementDataToDataFromShopImplementCollectionData = addShopImplementDataToDataFromShopImplementCollectionData;
-let addDataToShopProtocolCollection = (s3, addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data) => {
-    return addShopProtocolDataToDataFromShopProtocolCollectionData(allCollectionData, data).then(body => {
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = addMarketImplementDataToDataFromMarketImplementCollectionData;
+let addDataToMarketProtocolCollection = (s3, addMarketProtocolDataToDataFromMarketProtocolCollectionData, collectionName, key, allCollectionData, data) => {
+    return addMarketProtocolDataToDataFromMarketProtocolCollectionData(allCollectionData, data).then(body => {
         console.log("add data", key, body);
         return s3.putObject({
             Bucket: collectionName,
@@ -29,9 +29,9 @@ let addDataToShopProtocolCollection = (s3, addShopProtocolDataToDataFromShopProt
         });
     });
 };
-exports.addDataToShopProtocolCollection = addDataToShopProtocolCollection;
-let _addDataToShopImplementCollection = exports.addDataToShopProtocolCollection;
-exports.addDataToUserCollection = exports.addDataToShopProtocolCollection;
+exports.addDataToMarketProtocolCollection = addDataToMarketProtocolCollection;
+let _addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection;
+exports.addDataToUserCollection = exports.addDataToMarketProtocolCollection;
 let _buildEmptyBody = () => "";
 let _buildAccountAsKey = (account) => "meta3d_" + account;
 let _buildEmptyCollectionData = () => null;
@@ -70,58 +70,58 @@ let hasData = (s3, collectionName, key) => {
     return _hasData(s3, collectionName, (0, exports.handleKeyToLowercase)(key));
 };
 exports.hasData = hasData;
-let getDataFromShopProtocolCollection = (allCollectionData) => {
+let getDataFromMarketProtocolCollection = (allCollectionData) => {
     return allCollectionData;
 };
-exports.getDataFromShopProtocolCollection = getDataFromShopProtocolCollection;
-let getDataFromShopImplementAccountData = (data) => {
-    console.log("getDataFromShopImplementAccountData->data: ", data);
+exports.getDataFromMarketProtocolCollection = getDataFromMarketProtocolCollection;
+let getDataFromMarketImplementAccountData = (data) => {
+    console.log("getDataFromMarketImplementAccountData->data: ", data);
     return data.fileData;
 };
-exports.getDataFromShopImplementAccountData = getDataFromShopImplementAccountData;
-let buildShopImplementAccountData = (data, account) => {
+exports.getDataFromMarketImplementAccountData = getDataFromMarketImplementAccountData;
+let buildMarketImplementAccountData = (data, account) => {
     return {
         key: (0, exports.handleKeyToLowercase)(account),
         fileData: data
     };
 };
-exports.buildShopImplementAccountData = buildShopImplementAccountData;
-let isContain = (find, dataFromShopCollectionData) => {
+exports.buildMarketImplementAccountData = buildMarketImplementAccountData;
+let isContain = (find, dataFromMarketCollectionData) => {
     return new Promise((resolve, reject) => {
-        resolve(dataFromShopCollectionData.findIndex((data) => {
+        resolve(dataFromMarketCollectionData.findIndex((data) => {
             return find(data);
         }) !== -1);
     });
 };
 exports.isContain = isContain;
 let _buildEmptyArrBody = () => [];
-let getShopProtocolCollection = (s3, parseShopCollectionDataBody, collectionName) => {
+let getMarketProtocolCollection = (s3, parseMarketCollectionDataBody, collectionName) => {
     console.log("get collection: ", collectionName);
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
     })
-        .then(data => parseShopCollectionDataBody("json", data))
+        .then(data => parseMarketCollectionDataBody("json", data))
         .catch(err => {
         if (err.name === 'NoSuchKey') {
             console.log("add");
-            return (0, exports.addDataToShopProtocolCollection)(s3, _buildFirstAddDataToBodyFunc(), collectionName, collectionName, _buildEmptyCollectionData(), _buildEmptyArrBody()).then(_ => {
+            return (0, exports.addDataToMarketProtocolCollection)(s3, _buildFirstAddDataToBodyFunc(), collectionName, collectionName, _buildEmptyCollectionData(), _buildEmptyArrBody()).then(_ => {
                 console.log("after add");
-                return (0, exports.getShopProtocolCollection)(s3, parseShopCollectionDataBody, collectionName);
+                return (0, exports.getMarketProtocolCollection)(s3, parseMarketCollectionDataBody, collectionName);
             });
         }
         throw err;
     });
 };
-exports.getShopProtocolCollection = getShopProtocolCollection;
-let getShopImplementAccountData = (s3, parseShopCollectionDataBody, collectionName, account) => {
+exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let getMarketImplementAccountData = (s3, parseMarketCollectionDataBody, collectionName, account) => {
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
     })
-        .then(data => parseShopCollectionDataBody("json", data))
+        .then(data => parseMarketCollectionDataBody("json", data))
         .then((body) => {
-        console.log("getShopImplementAccountData->body:", body);
+        console.log("getMarketImplementAccountData->body:", body);
         account = (0, exports.handleKeyToLowercase)(account);
         let result = body.find((data) => {
             return data.key === account;
@@ -132,21 +132,21 @@ let getShopImplementAccountData = (s3, parseShopCollectionDataBody, collectionNa
                 fileData: []
             };
         }
-        console.log("getShopImplementAccountData->return:", [result, JSON.stringify(body)]);
+        console.log("getMarketImplementAccountData->return:", [result, JSON.stringify(body)]);
         return [result, body];
     })
         .catch(err => {
         if (err.name === 'NoSuchKey') {
             console.log("add");
-            return _addDataToShopImplementCollection(s3, _buildFirstAddDataToBodyFunc(), collectionName, collectionName, _buildEmptyCollectionData(), _buildEmptyArrBody()).then(_ => {
+            return _addDataToMarketImplementCollection(s3, _buildFirstAddDataToBodyFunc(), collectionName, collectionName, _buildEmptyCollectionData(), _buildEmptyArrBody()).then(_ => {
                 console.log("after add");
-                return (0, exports.getShopImplementAccountData)(s3, parseShopCollectionDataBody, collectionName, account);
+                return (0, exports.getMarketImplementAccountData)(s3, parseMarketCollectionDataBody, collectionName, account);
             });
         }
         throw err;
     });
 };
-exports.getShopImplementAccountData = getShopImplementAccountData;
+exports.getMarketImplementAccountData = getMarketImplementAccountData;
 let getFileBucketName = () => "meta3d-files";
 exports.getFileBucketName = getFileBucketName;
 let _arrayBufferToBuffer = (arrayBuffer) => {
@@ -165,49 +165,49 @@ let uploadFile = (s3, filePath, fileContent) => {
     }));
 };
 exports.uploadFile = uploadFile;
-let updateShopImplementData = (s3, collectionName, account, updateData, oldShopImplementCollectionData) => {
+let updateMarketImplementData = (s3, collectionName, account, updateData, oldMarketImplementCollectionData) => {
     account = (0, exports.handleKeyToLowercase)(account);
-    let newShopImplementCollectionData = [];
-    let index = oldShopImplementCollectionData.findIndex((data) => {
+    let newMarketImplementCollectionData = [];
+    let index = oldMarketImplementCollectionData.findIndex((data) => {
         data.key === account;
     });
     if (index === -1) {
-        newShopImplementCollectionData.push(updateData);
+        newMarketImplementCollectionData.push(updateData);
     }
     else {
-        newShopImplementCollectionData = oldShopImplementCollectionData.slice();
-        newShopImplementCollectionData[index] = updateData;
+        newMarketImplementCollectionData = oldMarketImplementCollectionData.slice();
+        newMarketImplementCollectionData[index] = updateData;
     }
-    console.log("updateShopImplementData->putObject Body:", newShopImplementCollectionData, newShopImplementCollectionData[0].fileData, JSON.stringify(newShopImplementCollectionData));
+    console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData, newMarketImplementCollectionData[0].fileData, JSON.stringify(newMarketImplementCollectionData));
     return s3.putObject({
         Bucket: collectionName,
         Key: collectionName,
-        Body: JSON.stringify(newShopImplementCollectionData),
+        Body: JSON.stringify(newMarketImplementCollectionData),
     });
 };
-exports.updateShopImplementData = updateShopImplementData;
-exports.getShopImplementCollection = exports.getShopProtocolCollection;
-let mapShopImplementCollection = (allCollectionData, func) => {
+exports.updateMarketImplementData = updateMarketImplementData;
+exports.getMarketImplementCollection = exports.getMarketProtocolCollection;
+let mapMarketImplementCollection = (allCollectionData, func) => {
     return allCollectionData.map(func);
 };
-exports.mapShopImplementCollection = mapShopImplementCollection;
-let getAccountFromShopImplementCollectionData = (data) => {
+exports.mapMarketImplementCollection = mapMarketImplementCollection;
+let getAccountFromMarketImplementCollectionData = (data) => {
     return data.key;
 };
-exports.getAccountFromShopImplementCollectionData = getAccountFromShopImplementCollectionData;
-let getFileDataFromShopImplementCollectionData = (data) => {
+exports.getAccountFromMarketImplementCollectionData = getAccountFromMarketImplementCollectionData;
+let getFileDataFromMarketImplementCollectionData = (data) => {
     return data.fileData;
 };
-exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
-let downloadFile = (s3, parseShopCollectionDataBody, fileID) => {
+exports.getFileDataFromMarketImplementCollectionData = getFileDataFromMarketImplementCollectionData;
+let downloadFile = (s3, parseMarketCollectionDataBody, fileID) => {
     return (0, most_1.fromPromise)(s3.getObject({
         Bucket: (0, exports.getFileBucketName)(),
         Key: (0, exports.handleKeyToLowercase)(fileID)
     })
-        .then(data => parseShopCollectionDataBody("arrayBuffer", data)));
+        .then(data => parseMarketCollectionDataBody("arrayBuffer", data)));
 };
 exports.downloadFile = downloadFile;
-let parseShopCollectionDataBodyForNodejs = (returnDataType, allCollectionData) => {
+let parseMarketCollectionDataBodyForNodejs = (returnDataType, allCollectionData) => {
     let stream = allCollectionData.Body;
     return new Promise((resolve, reject) => {
         const chunks = [];
@@ -226,5 +226,5 @@ let parseShopCollectionDataBodyForNodejs = (returnDataType, allCollectionData) =
         }
     });
 };
-exports.parseShopCollectionDataBodyForNodejs = parseShopCollectionDataBodyForNodejs;
+exports.parseMarketCollectionDataBodyForNodejs = parseMarketCollectionDataBodyForNodejs;
 //# sourceMappingURL=Main.js.map

@@ -3,10 +3,10 @@ open Sinon
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~selectedContributesFromShop=list{},
+  ~selectedContributesFromMarket=list{},
   (),
 ) => {
-  <PackageContributes service selectedContributesFromShop />
+  <PackageContributes service selectedContributesFromMarket />
 }
 
 let useEffectOnceAsync = (
@@ -14,13 +14,13 @@ let useEffectOnceAsync = (
   ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setContributes=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~service=ServiceTool.build(~sandbox, ()),
-  ~selectedContributesFromShop=list{},
+  ~selectedContributesFromMarket=list{},
   (),
 ) => {
   ContributesUtils.Method.useEffectOnceAsync(
     (setIsLoaded, setContributes),
     service,
-    selectedContributesFromShop,
+    selectedContributesFromMarket,
   )
 }
 

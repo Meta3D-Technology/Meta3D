@@ -11,23 +11,23 @@ let make = () => {
       {React.string("| ")}
       <span
         onClick={_ => {
-          RescriptReactRouter.push("/ExtensionShop")
+          RescriptReactRouter.push("/ExtensionMarket")
         }}>
-        {React.string(`扩展商城`)}
+        {React.string(`扩展市场`)}
       </span>
       {React.string("| ")}
       <span
         onClick={_ => {
-          RescriptReactRouter.push("/ContributeShop")
+          RescriptReactRouter.push("/ContributeMarket")
         }}>
-        {React.string(`贡献商城`)}
+        {React.string(`贡献市场`)}
       </span>
       {React.string("| ")}
       <span
         onClick={_ => {
-          RescriptReactRouter.push("/PackageShop")
+          RescriptReactRouter.push("/PackageMarket")
         }}>
-        {React.string(`包商城`)}
+        {React.string(`包市场`)}
       </span>
       {React.string("| ")}
       <span

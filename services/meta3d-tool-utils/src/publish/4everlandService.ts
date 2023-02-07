@@ -17,30 +17,30 @@ export let init = () => {
     return just(s3)
 }
 
-export let addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection
+export let addDataToMarketProtocolCollection = BackendService.addDataToMarketProtocolCollection
 
 export let hasAccount = BackendService.hasAccount
 
 export let isContain = BackendService.isContain
 
-export let getShopProtocolCollection = BackendService.getShopProtocolCollection
+export let getMarketProtocolCollection = BackendService.getMarketProtocolCollection
 
-export let addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData
+export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = BackendService.addMarketProtocolDataToDataFromMarketProtocolCollectionData
 
-export let getShopImplementAccountData = BackendService.getShopImplementAccountData
+export let getMarketImplementAccountData = BackendService.getMarketImplementAccountData
 
-export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+export let getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection
 
-export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
 
-export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
 export let getFileID = BackendService.getFileID
 
-export let updateShopImplementData = BackendService.updateShopImplementData
+export let updateMarketImplementData = BackendService.updateMarketImplementData
 
 export let uploadFile = BackendService.uploadFile
 
-export let parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs
+export let parseMarketCollectionDataBodyForNodejs = BackendService.parseMarketCollectionDataBodyForNodejs

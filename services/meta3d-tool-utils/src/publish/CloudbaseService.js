@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.addDataToShopProtocolCollection = exports.isContain = exports.getShopProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.updateMarketImplementData = exports.getFileID = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.isContain = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
@@ -64,9 +64,9 @@ exports.hasAccount = BackendService.hasAccount;
 // 		fileContent
 // 	}))
 // }
-exports.getShopProtocolCollection = BackendService.getShopProtocolCollection;
+exports.getMarketProtocolCollection = BackendService.getMarketProtocolCollection;
 exports.isContain = BackendService.isContain;
-// export let getShopImplementAccountData = (app: any, collectionName: string, data: any) => {
+// export let getMarketImplementAccountData = (app: any, collectionName: string, data: any) => {
 // 	return _getDatabase(app).collection(collectionName)
 // 		.where(data)
 // 		.get()
@@ -75,15 +75,15 @@ exports.isContain = BackendService.isContain;
 // 	return _getDatabase(app).collection(collectionName)
 // 		.update(updateData)
 // }
-exports.addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection;
-exports.addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData;
-exports.getShopImplementAccountData = BackendService.getShopImplementAccountData;
-exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
-exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
-exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
-exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.addDataToMarketProtocolCollection = BackendService.addDataToMarketProtocolCollection;
+exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = BackendService.addMarketProtocolDataToDataFromMarketProtocolCollectionData;
+exports.getMarketImplementAccountData = BackendService.getMarketImplementAccountData;
+exports.getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection;
+exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData;
+exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
 exports.getFileID = BackendService.getFileID;
-exports.updateShopImplementData = BackendService.updateShopImplementData;
+exports.updateMarketImplementData = BackendService.updateMarketImplementData;
 exports.uploadFile = BackendService.uploadFile;
-exports.parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs;
+exports.parseMarketCollectionDataBodyForNodejs = BackendService.parseMarketCollectionDataBodyForNodejs;
 //# sourceMappingURL=CloudbaseService.js.map

@@ -25,9 +25,9 @@ module Method = {
 let make = (
   ~service: service,
   ~account,
-  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
-  ~selectedContributesFromShop: selectedContributesFromShop,
-  ~selectedPackagesFromShop: selectedPackagesFromShop,
+  ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+  ~selectedContributesFromMarket: selectedContributesFromMarket,
+  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -62,18 +62,18 @@ let make = (
         <ApAssemble
           service
           account
-          selectedExtensionsFromShop
-          selectedContributesFromShop
-          selectedPackagesFromShop
+          selectedExtensionsFromMarket
+          selectedContributesFromMarket
+          selectedPackagesFromMarket
         />
       | Element => <ElementAssemble service account />
       | Package =>
         <PackageAssemble
           service
           account
-          selectedExtensionsFromShop
-          selectedContributesFromShop
-          selectedPackagesFromShop
+          selectedExtensionsFromMarket
+          selectedContributesFromMarket
+          selectedPackagesFromMarket
         />
       }}
     </Layout.Content>

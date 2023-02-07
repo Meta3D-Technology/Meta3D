@@ -5,7 +5,7 @@ open FrontendUtils.AssembleSpaceType
 @react.component
 let make = (
   ~service: service,
-  ~selectedPackagesFromShop: selectedPackagesFromShop,
+  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~useDispatch,
   ~selectPackage,
 ) => {
@@ -13,7 +13,7 @@ let make = (
 
   <List
     grid={{gutter: 16, column: 3}}
-    dataSource={selectedPackagesFromShop->Meta3dCommonlib.ListSt.toArray}
+    dataSource={selectedPackagesFromMarket->Meta3dCommonlib.ListSt.toArray}
     renderItem={({protocol, name} as package) => {
       <List.Item>
         <Card

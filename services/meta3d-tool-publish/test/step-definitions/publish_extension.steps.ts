@@ -3,13 +3,13 @@ import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, getFileID, isContain, parseShopCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, getFileID, isContain, parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
 
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         readFileSyncFunc = sandbox.stub()
@@ -20,14 +20,14 @@ defineFeature(feature, test => {
         initFunc = sandbox.stub()
         hasAccountFunc = sandbox.stub()
         uploadFileFunc = sandbox.stub()
-        getShopImplementAccountDataFunc = sandbox.stub()
-        updateShopImplementDataFunc = sandbox.stub()
-        getDataFromShopImplementAccountDataFunc = getDataFromShopImplementAccountData
+        getMarketImplementAccountDataFunc = sandbox.stub()
+        updateMarketImplementDataFunc = sandbox.stub()
+        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
         isContainFunc = isContain
-        buildShopImplementAccountDataFunc = buildShopImplementAccountData
-        addShopImplementDataToDataFromShopImplementCollectionDataFunc = addShopImplementDataToDataFromShopImplementCollectionData
+        buildMarketImplementAccountDataFunc = buildMarketImplementAccountData
+        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = addMarketImplementDataToDataFromMarketImplementCollectionData
         getFileIDFunc = getFileID
-        parseShopCollectionDataBodyFunc = parseShopCollectionDataBodyForNodejs
+        parseMarketCollectionDataBodyFunc = parseMarketCollectionDataBodyForNodejs
     }
 
     function _buildPackageJson(name = "test1",
@@ -43,7 +43,7 @@ defineFeature(feature, test => {
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "extension"
         )
@@ -101,7 +101,7 @@ defineFeature(feature, test => {
             initFunc.returns(
                 just({})
             )
-            getShopImplementAccountDataFunc.returns(
+            getMarketImplementAccountDataFunc.returns(
                 resolve([{
                     fileData: []
                 }, []])
@@ -140,7 +140,7 @@ defineFeature(feature, test => {
         let distFileContent = "dist"
         let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
-        let shopImplementCollectionData = []
+        let marketImplementCollectionData = []
 
         _prepare(given)
 
@@ -174,10 +174,10 @@ defineFeature(feature, test => {
             uploadFileFunc.returns(
                 just({ fileID: fileID1 })
             )
-            getShopImplementAccountDataFunc.returns(
+            getMarketImplementAccountDataFunc.returns(
                 resolve([{
                     fileData: []
-                }, shopImplementCollectionData])
+                }, marketImplementCollectionData])
             )
         });
 
@@ -198,7 +198,7 @@ defineFeature(feature, test => {
         });
 
         and('should add to collection', () => {
-            expect(updateShopImplementDataFunc).toCalledWith([
+            expect(updateMarketImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
                 "meta3d",
@@ -211,7 +211,7 @@ defineFeature(feature, test => {
                         "fileID": fileID1
                     }]
                 },
-                shopImplementCollectionData
+                marketImplementCollectionData
             ])
         });
     });
@@ -258,7 +258,7 @@ defineFeature(feature, test => {
     //         uploadFileFunc.onCall(1).returns(
     //             just({ fileID: fileID2 })
     //         )
-    //         getShopImplementAccountDataFunc.onCall(0).returns(
+    //         getMarketImplementAccountDataFunc.onCall(0).returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -267,7 +267,7 @@ defineFeature(feature, test => {
     //                 ]
     //             })
     //         )
-    //         getShopImplementAccountDataFunc.onCall(1).returns(
+    //         getMarketImplementAccountDataFunc.onCall(1).returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -300,7 +300,7 @@ defineFeature(feature, test => {
     //     });
 
     //     and('should update fileID in collection', () => {
-    //         expect(updateShopImplementDataFunc.getCall(1)).toCalledWith([
+    //         expect(updateMarketImplementDataFunc.getCall(1)).toCalledWith([
     //             app,
     //             "publishedextensions",
     //             { "account": "meta3d" },
@@ -349,12 +349,12 @@ defineFeature(feature, test => {
             uploadFileFunc.returns(
                 empty()
             )
-            getShopImplementAccountDataFunc.onCall(0).returns(
+            getMarketImplementAccountDataFunc.onCall(0).returns(
                 resolve([{
                     fileData: []
                 }, []])
             )
-            getShopImplementAccountDataFunc.onCall(1).returns(
+            getMarketImplementAccountDataFunc.onCall(1).returns(
                 resolve([{
                     fileData: [
                         {

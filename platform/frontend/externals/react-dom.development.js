@@ -8406,7 +8406,7 @@
     startText = null;
     fallbackText = null;
   }
-  function getShopData() {
+  function getMarketData() {
     if (fallbackText) {
       return fallbackText;
     }
@@ -8937,7 +8937,7 @@
         isComposing = initialize(nativeEventTarget);
       } else if (eventType === eventTypes.compositionEnd) {
         if (isComposing) {
-          fallbackData = getShopData();
+          fallbackData = getMarketData();
         }
       }
     }
@@ -9029,7 +9029,7 @@
     // compositionevent, otherwise extract it at fallback events.
     if (isComposing) {
       if (topLevelType === TOP_COMPOSITION_END || !canUseCompositionEvent && isFallbackCompositionEnd(topLevelType, nativeEvent)) {
-        var chars = getShopData();
+        var chars = getMarketData();
         reset();
         isComposing = false;
         return chars;
@@ -19874,7 +19874,7 @@
               if (destroy === null) {
                 addendum = ' You returned null. If your effect does not require clean ' + 'up, return undefined (or nothing).';
               } else if (typeof destroy.then === 'function') {
-                addendum = '\n\nIt looks like you wrote useEffect(async () => ...) or returned a Promise. ' + 'Instead, write the async function inside your effect ' + 'and call it immediately:\n\n' + 'useEffect(() => {\n' + '  async function fetchData() {\n' + '    // You can await here\n' + '    const response = await MyAPI.getShopData(someId);\n' + '    // ...\n' + '  }\n' + '  fetchData();\n' + "}, [someId]); // Or [] if effect doesn't need props or state\n\n" + 'Learn more about data fetching with Hooks: https://fb.me/react-hooks-data-fetching';
+                addendum = '\n\nIt looks like you wrote useEffect(async () => ...) or returned a Promise. ' + 'Instead, write the async function inside your effect ' + 'and call it immediately:\n\n' + 'useEffect(() => {\n' + '  async function fetchData() {\n' + '    // You can await here\n' + '    const response = await MyAPI.getMarketData(someId);\n' + '    // ...\n' + '  }\n' + '  fetchData();\n' + "}, [someId]); // Or [] if effect doesn't need props or state\n\n" + 'Learn more about data fetching with Hooks: https://fb.me/react-hooks-data-fetching';
               } else {
                 addendum = ' You returned: ' + destroy;
               }

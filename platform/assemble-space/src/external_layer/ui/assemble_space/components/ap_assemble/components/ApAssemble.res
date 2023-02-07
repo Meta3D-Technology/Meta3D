@@ -12,9 +12,9 @@ module Method = {
 let make = (
   ~service: service,
   ~account,
-  ~selectedPackagesFromShop: selectedPackagesFromShop,
-  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
-  ~selectedContributesFromShop: selectedContributesFromShop,
+  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
+  ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+  ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -34,13 +34,13 @@ let make = (
       <Layout.Sider>
         <Collapse defaultActiveKey={["1"]}>
           <Collapse.Panel header="Packages" key="1">
-            <Packages service selectedPackagesFromShop />
+            <Packages service selectedPackagesFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Extensions" key="2">
-            <Extensions service selectedExtensionsFromShop />
+            <Extensions service selectedExtensionsFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Contributes" key="3">
-            <Contributes service selectedContributesFromShop />
+            <Contributes service selectedContributesFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Selected Packages" key="4">
             <SelectedPackages service />

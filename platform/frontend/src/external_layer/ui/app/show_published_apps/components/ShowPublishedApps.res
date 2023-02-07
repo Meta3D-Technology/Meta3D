@@ -37,7 +37,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.findAllPublishApps(. account->Meta3dCommonlib.OptionSt.getExn)
+    service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
     ->Meta3dBsMost.Most.observe(allPublishApps => {
       Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)

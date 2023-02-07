@@ -15,10 +15,10 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedExtensionsFromShop: selectedExtensionsFromShop) => {
+let make = (~service: service, ~selectedExtensionsFromMarket: selectedExtensionsFromMarket) => {
   <ExtensionsUtils
     service
-    selectedExtensionsFromShop
+    selectedExtensionsFromMarket
     useDispatch=ReduxUtils.PackageAssemble.useDispatch
     selectExtension=Method.selectExtension
   />

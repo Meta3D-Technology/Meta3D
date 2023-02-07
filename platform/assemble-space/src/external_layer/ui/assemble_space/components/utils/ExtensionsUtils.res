@@ -10,13 +10,13 @@ module Method = {
   }
 
   // TODO perf: defer load when panel change
-  let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromShop) => {
+  let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromMarket) => {
     getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter(
+            switch selectedExtensionsFromMarket->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
                 let protocol = data.extensionPackageData.protocol
 
@@ -50,11 +50,11 @@ module Method = {
     )
   }
 
-  let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromShop) => {
+  let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromMarket) => {
     (
       _getExtensions(
         service.backend,
-        selectedExtensionsFromShop,
+        selectedExtensionsFromMarket,
       )->Meta3dBsMost.Most.observe(extensions => {
         setIsLoaded(_ => true)
         setExtensions(_ => extensions)
@@ -67,7 +67,7 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
-  ~selectedExtensionsFromShop: selectedExtensionsFromShop,
+  ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~useDispatch,
   ~selectExtension,
 ) => {
@@ -77,7 +77,7 @@ let make = (
   let (extensions, setExtensions) = service.react.useState(_ => [])
 
   service.react.useEffectOnceAsync(() =>
-    Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromShop)
+    Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromMarket)
   )
 
   !isLoaded

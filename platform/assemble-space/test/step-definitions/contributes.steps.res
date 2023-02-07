@@ -12,7 +12,7 @@ let feature = loadFeature("./test/features/contributes.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   let allPublishContributeProtocols = ref([])
-  let selectedContributesFromShop = ref(list{})
+  let selectedContributesFromMarket = ref(list{})
 
   let _prepare = given => {
     given("prepare", () => {
@@ -73,7 +73,7 @@ defineFeature(feature, test => {
         )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
         (),
       ),
-      ~selectedContributesFromShop=selectedContributesFromShop.contents,
+      ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
       (),
     )
     ->ServiceTool.getUseEffectOncePromise
@@ -101,7 +101,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select contribute a1 for a", () => {
-      selectedContributesFromShop :=
+      selectedContributesFromMarket :=
         list{
           ContributeTool.buildSelectedContribute(
             ~name=a1Name,
@@ -130,7 +130,7 @@ defineFeature(feature, test => {
           )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
           (),
         ),
-        ~selectedContributesFromShop=selectedContributesFromShop.contents,
+        ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
         (),
       )
       ->ServiceTool.getUseEffectOncePromise
@@ -148,7 +148,7 @@ defineFeature(feature, test => {
             a1Name,
             a.iconBase64,
             protocolConfig.configStr,
-            selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
+            selectedContributesFromMarket.contents->ListTool.getHeadExn->ContributeTool.getContribute,
           ),
         ])
       },
@@ -178,7 +178,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select contribute a1, a2 for a", () => {
-      selectedContributesFromShop :=
+      selectedContributesFromMarket :=
         list{
           ContributeTool.buildSelectedContribute(
             ~name=a1Name,
@@ -214,7 +214,7 @@ defineFeature(feature, test => {
           )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
           (),
         ),
-        ~selectedContributesFromShop=selectedContributesFromShop.contents,
+        ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
         (),
       )
       ->ServiceTool.getUseEffectOncePromise
@@ -229,13 +229,13 @@ defineFeature(feature, test => {
           a1Name,
           a.iconBase64,
           protocolConfig.configStr,
-          selectedContributesFromShop.contents->ListTool.getHeadExn->ContributeTool.getContribute,
+          selectedContributesFromMarket.contents->ListTool.getHeadExn->ContributeTool.getContribute,
         ),
         (
           a2Name,
           a.iconBase64,
           protocolConfig.configStr,
-          selectedContributesFromShop.contents->ListTool.getNthExn(1)->ContributeTool.getContribute,
+          selectedContributesFromMarket.contents->ListTool.getNthExn(1)->ContributeTool.getContribute,
         ),
       ])
     })
@@ -257,7 +257,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select contribute a1 for a", () => {
-      selectedContributesFromShop :=
+      selectedContributesFromMarket :=
         list{
           ContributeTool.buildSelectedContribute(
             ~protocolName=a.name,
@@ -274,7 +274,7 @@ defineFeature(feature, test => {
     \"when"("select a1", () => {
       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      let (contribute, protocolConfig) = selectedContributesFromShop.contents->ListTool.getHeadExn
+      let (contribute, protocolConfig) = selectedContributesFromMarket.contents->ListTool.getHeadExn
 
       ContributesTool.selectContribute(
         ~dispatch=dispatchStub.contents,
@@ -285,7 +285,7 @@ defineFeature(feature, test => {
     })
 
     then("should dispatch SelectContribute action", () => {
-      let (contribute, protocolConfig) = selectedContributesFromShop.contents->ListTool.getHeadExn
+      let (contribute, protocolConfig) = selectedContributesFromMarket.contents->ListTool.getHeadExn
 
       dispatchStub.contents
       ->Obj.magic
@@ -315,7 +315,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select contribute b1 for protocol b", () => {
-      selectedContributesFromShop :=
+      selectedContributesFromMarket :=
         list{
           ContributeTool.buildSelectedContribute(~protocolName="b", ~protocolVersionRange="0.0.1", ()),
         }
@@ -345,7 +345,7 @@ defineFeature(feature, test => {
   //   })
 
   //   \"and"("select contribute a1 and a2 for a", () => {
-  //     selectedContributesFromShop :=
+  //     selectedContributesFromMarket :=
   //       list{
   //         ContributeTool.buildSelectedContribute(
   //           ~id="a1",
@@ -386,7 +386,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("select contribute a1 for a with old version", () => {
-      selectedContributesFromShop :=
+      selectedContributesFromMarket :=
         list{
           ContributeTool.buildSelectedContribute(
             ~protocolName=a.name,

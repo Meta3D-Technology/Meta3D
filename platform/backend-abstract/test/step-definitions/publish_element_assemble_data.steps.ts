@@ -3,23 +3,23 @@ import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
-import { addShopImplementDataToDataFromShopImplementCollectionData, buildShopImplementAccountData, getDataFromShopImplementAccountData, isContain } from "meta3d-backend-cloudbase";
+import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc
+    let logFunc, errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc
 
     function _createFuncs(sandbox) {
         logFunc = sandbox.stub()
         errorFunc = sandbox.stub()
-        getShopImplementAccountDataFunc = sandbox.stub()
-        updateShopImplementDataFunc = sandbox.stub()
-        getDataFromShopImplementAccountDataFunc = getDataFromShopImplementAccountData
+        getMarketImplementAccountDataFunc = sandbox.stub()
+        updateMarketImplementDataFunc = sandbox.stub()
+        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
         isContainFunc = isContain
-        buildShopImplementAccountDataFunc = buildShopImplementAccountData
-        addShopImplementDataToDataFromShopImplementCollectionDataFunc = addShopImplementDataToDataFromShopImplementCollectionData
+        buildMarketImplementAccountDataFunc = buildMarketImplementAccountData
+        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = addMarketImplementDataToDataFromMarketImplementCollectionData
     }
 
     function _publish(
@@ -29,7 +29,7 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [errorFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc,],
+            [errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc,],
             account,
             elementName, elementVersion, inspectorData
         )
@@ -49,17 +49,17 @@ defineFeature(feature, test => {
             element: 1,
             uiControls: []
         }
-        let shopImplementCollectionData = []
+        let marketImplementCollectionData = []
 
         _prepare(given)
 
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementAccountDataFunc.returns(
+            getMarketImplementAccountDataFunc.returns(
                 resolve([{
                     fileData: []
-                }, shopImplementCollectionData])
+                }, marketImplementCollectionData])
             )
         });
 
@@ -73,7 +73,7 @@ defineFeature(feature, test => {
         });
 
         and('should add to collection', () => {
-            expect(updateShopImplementDataFunc).toCalledWith([
+            expect(updateMarketImplementDataFunc).toCalledWith([
                 "publishedelementassembledata",
                 "meta3d",
                 {
@@ -83,7 +83,7 @@ defineFeature(feature, test => {
                         "inspectorData": inspectorData
                     }]
                 },
-                shopImplementCollectionData
+                marketImplementCollectionData
             ])
         });
     });
@@ -103,14 +103,14 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementAccountDataFunc.onCall(0).returns(
+            getMarketImplementAccountDataFunc.onCall(0).returns(
                 resolve([
                     {
                         fileData: []
                     }
                 ])
             )
-            getShopImplementAccountDataFunc.onCall(1).returns(
+            getMarketImplementAccountDataFunc.onCall(1).returns(
                 resolve([
                     {
                         fileData: [

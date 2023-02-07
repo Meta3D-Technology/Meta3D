@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.uploadFile = exports.updateShopImplementData = exports.getFileID = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.getShopImplementAccountData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = exports.getShopProtocolCollection = exports.isContain = exports.hasAccount = exports.addDataToShopProtocolCollection = exports.init = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.updateMarketImplementData = exports.getFileID = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.getMarketProtocolCollection = exports.isContain = exports.hasAccount = exports.addDataToMarketProtocolCollection = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-4everland"));
@@ -41,18 +41,18 @@ let init = () => {
     return (0, most_1.just)(s3);
 };
 exports.init = init;
-exports.addDataToShopProtocolCollection = BackendService.addDataToShopProtocolCollection;
+exports.addDataToMarketProtocolCollection = BackendService.addDataToMarketProtocolCollection;
 exports.hasAccount = BackendService.hasAccount;
 exports.isContain = BackendService.isContain;
-exports.getShopProtocolCollection = BackendService.getShopProtocolCollection;
-exports.addShopProtocolDataToDataFromShopProtocolCollectionData = BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData;
-exports.getShopImplementAccountData = BackendService.getShopImplementAccountData;
-exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
-exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
-exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
-exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.getMarketProtocolCollection = BackendService.getMarketProtocolCollection;
+exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = BackendService.addMarketProtocolDataToDataFromMarketProtocolCollectionData;
+exports.getMarketImplementAccountData = BackendService.getMarketImplementAccountData;
+exports.getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection;
+exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData;
+exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
 exports.getFileID = BackendService.getFileID;
-exports.updateShopImplementData = BackendService.updateShopImplementData;
+exports.updateMarketImplementData = BackendService.updateMarketImplementData;
 exports.uploadFile = BackendService.uploadFile;
-exports.parseShopCollectionDataBodyForNodejs = BackendService.parseShopCollectionDataBodyForNodejs;
+exports.parseMarketCollectionDataBodyForNodejs = BackendService.parseMarketCollectionDataBodyForNodejs;
 //# sourceMappingURL=4everlandService.js.map

@@ -4,29 +4,29 @@ exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getA
 const most_1 = require("most");
 const semver_1 = require("semver");
 const NullableUtils_1 = require("../../utils/NullableUtils");
-let getAllPublishProtocolData = ([getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc], collectionName) => {
-    return (0, most_1.fromPromise)(getShopProtocolCollectionFunc(collectionName)).map((res) => {
-        let resData = getDataFromShopProtocolCollectionFunc(res);
+let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName) => {
+    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName)).map((res) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res);
         return resData.map(({ name, version, account, iconBase64 }) => {
             return { name, version, account, iconBase64 };
         });
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
-let getAllPublishProtocolConfigData = ([getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc], collectionName) => {
-    return (0, most_1.fromPromise)(getShopProtocolCollectionFunc(collectionName)).map((res) => {
-        let resData = getDataFromShopProtocolCollectionFunc(res);
+let getAllPublishProtocolConfigData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName) => {
+    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName)).map((res) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res);
         return resData.map(({ name, version, account, configStr }) => {
             return { name, version, account, configStr };
         });
     });
 };
 exports.getAllPublishProtocolConfigData = getAllPublishProtocolConfigData;
-let getAllPublishImplementInfo = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc,], collectionName, protocolName, protocolVersion) => {
-    return (0, most_1.fromPromise)(getShopImplementCollectionFunc(collectionName)).flatMap((res) => {
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
-            let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData);
-            let fileData = getFileDataFromShopImplementCollectionDataFunc(shopImplementCollectionData);
+let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc,], collectionName, protocolName, protocolVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName)).flatMap((res) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
+            let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
+            let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
             let result = fileData.filter(data => {
                 return data.protocolName === protocolName &&
                     (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
@@ -44,8 +44,8 @@ let getAllPublishImplementInfo = ([getShopImplementCollectionFunc, mapShopImplem
     });
 };
 exports.getAllPublishImplementInfo = getAllPublishImplementInfo;
-let findPublishImplement = ([getShopImplementFunc, downloadFileFunc], collectionName, account, name, version) => {
-    return (0, most_1.fromPromise)(getShopImplementFunc(collectionName, account, name, version)).flatMap((data) => {
+let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc], collectionName, account, name, version) => {
+    return (0, most_1.fromPromise)(getMarketImplementFunc(collectionName, account, name, version)).flatMap((data) => {
         if ((0, NullableUtils_1.isNullable)(data)) {
             return (0, most_1.just)(null);
         }

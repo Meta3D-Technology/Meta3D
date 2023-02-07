@@ -1,23 +1,23 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { getAllPublishProtocolConfigData } from "../../src/application_layer/shop/ShopService"
-import { getDataFromShopProtocolCollection } from "backend-cloudbase/src/application_layer/BackendService";
+import { getAllPublishProtocolConfigData } from "../../src/application_layer/market/MarketService"
+import { getDataFromMarketProtocolCollection } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/get_all_publish_contribute_protocol_configs.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc
+    let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
     function _createFuncs(sandbox) {
-        getShopProtocolCollectionFunc = sandbox.stub()
-        getDataFromShopProtocolCollectionFunc = getDataFromShopProtocolCollection
+        getMarketProtocolCollectionFunc = sandbox.stub()
+        getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
     }
 
     function _getAllPublishContributeProtocolConfigs() {
         return getAllPublishProtocolConfigData(
-            [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc],
+            [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
             "publishedcontributeprotocolconfigs"
         )
     }
@@ -49,7 +49,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopProtocolCollectionFunc.returns(
+            getMarketProtocolCollectionFunc.returns(
                 resolve({
                     data: allPublishContributeProtocolConfigs.map((protocolData, index) => {
                         return {

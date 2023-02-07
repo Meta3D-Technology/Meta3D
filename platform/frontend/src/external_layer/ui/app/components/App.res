@@ -164,18 +164,18 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
   {
     switch url.path {
     | list{"Login"} => <Login service />
-    | list{"ExtensionShop"} => <ExtensionShop service />
-    | list{"ContributeShop"} => <ContributeShop service />
-    | list{"PackageShop"} => <PackageShop service />
+    | list{"ExtensionMarket"} => <ExtensionMarket service />
+    | list{"ContributeMarket"} => <ContributeMarket service />
+    | list{"PackageMarket"} => <PackageMarket service />
     | list{"AssembleSpace"} =>
       <>
         <Nav />
         <AssembleSpace.AssembleSpace
           service={_buildAssembleSpaceService()}
           account
-          selectedExtensionsFromShop=selectedExtensions
-          selectedContributesFromShop=selectedContributes
-          selectedPackagesFromShop=selectedPackages
+          selectedExtensionsFromMarket=selectedExtensions
+          selectedContributesFromMarket=selectedContributes
+          selectedPackagesFromMarket=selectedPackages
         />
       </>
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />

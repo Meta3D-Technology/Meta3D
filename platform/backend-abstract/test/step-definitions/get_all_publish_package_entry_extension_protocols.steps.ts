@@ -1,7 +1,7 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { getAllPublishPackageEntryExtensionProtocols } from "../../src/application_layer/shop/PackageShopService";
+import { getAllPublishPackageEntryExtensionProtocols } from "../../src/application_layer/market/PackageMarketService";
 
 const feature = loadFeature("./test/features/get_all_publish_package_entry_extension_protocols.feature")
 
@@ -15,7 +15,7 @@ defineFeature(feature, test => {
 
     // function _getAllPublishExtensionProtocols() {
     //     return getAllPublishProtocolData(
-    //         [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc],
+    //         [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
     //         "publishedextensionprotocols"
     //     )
     // }

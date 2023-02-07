@@ -25,7 +25,7 @@ type backendService = {
   publishApp: publishApp,
   publishPackage: publishPackage,
   findPublishApp: findPublishApp,
-  findAllPublishApps: findAllPublishApps,
+  findAllPublishAppsByAccount: findAllPublishAppsByAccount,
   publishElementContribute: publishElementContribute,
   publishElementAssembleData: publishElementAssembleData,
   getElementAssembleData: getElementAssembleData,
@@ -184,8 +184,8 @@ type service = {
   dom: domService,
 }
 
-type selectedPackagesFromShop = list<AssembleSpaceCommonType.packageData>
+type selectedPackagesFromMarket = list<AssembleSpaceCommonType.packageData>
 
-type selectedExtensionsFromShop = list<AssembleSpaceCommonType.extensionData>
+type selectedExtensionsFromMarket = list<AssembleSpaceCommonType.extensionData>
 
-type selectedContributesFromShop = list<AssembleSpaceCommonType.contributeData>
+type selectedContributesFromMarket = list<AssembleSpaceCommonType.contributeData>

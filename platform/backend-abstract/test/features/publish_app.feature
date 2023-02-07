@@ -37,14 +37,14 @@ Feature: Publish App
             When find the published app
             Then should return the app file
 
-    Rule: findAllPublishApps
+    Rule: findAllPublishAppsByAccount
 
-        Scenario: if not find, findAllPublishApps return empty array
+        Scenario: if not find, findAllPublishAppsByAccount return empty array
             Given prepare funcs
             When find all published apps
             Then should return empty array
 
-        Scenario: if find, findAllPublishApps return all publish app data
+        Scenario: if find, findAllPublishAppsByAccount return all publish app data
             Given generate two apps by the same user
             And prepare funcs
             And publish the apps

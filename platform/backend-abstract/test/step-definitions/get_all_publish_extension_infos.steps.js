@@ -3,24 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
-const ShopService_1 = require("../../src/application_layer/shop/ShopService");
+const MarketService_1 = require("../../src/application_layer/market/MarketService");
 const BackendService_1 = require("backend-cloudbase/src/application_layer/BackendService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_extension_infos.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc;
+    let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc;
     function _createFuncs(sandbox) {
-        getShopImplementCollectionFunc = sandbox.stub();
-        mapShopImplementCollectionFunc = BackendService_1.mapShopImplementCollection;
-        getAccountFromShopImplementCollectionDataFunc = BackendService_1.getAccountFromShopImplementCollectionData;
-        getFileDataFromShopImplementCollectionDataFunc = BackendService_1.getFileDataFromShopImplementCollectionData;
+        getMarketImplementCollectionFunc = sandbox.stub();
+        mapMarketImplementCollectionFunc = BackendService_1.mapMarketImplementCollection;
+        getAccountFromMarketImplementCollectionDataFunc = BackendService_1.getAccountFromMarketImplementCollectionData;
+        getFileDataFromMarketImplementCollectionDataFunc = BackendService_1.getFileDataFromMarketImplementCollectionData;
     }
     function _getAllPublishExtensions(protocolName, protocolVersion) {
-        return (0, ShopService_1.getAllPublishImplementInfo)([
-            getShopImplementCollectionFunc,
-            mapShopImplementCollectionFunc,
-            getAccountFromShopImplementCollectionDataFunc,
-            getFileDataFromShopImplementCollectionDataFunc,
+        return (0, MarketService_1.getAllPublishImplementInfo)([
+            getMarketImplementCollectionFunc,
+            mapMarketImplementCollectionFunc,
+            getAccountFromMarketImplementCollectionDataFunc,
+            getFileDataFromMarketImplementCollectionDataFunc,
         ], "publishedextensions", protocolName, protocolVersion);
     }
     function _prepare(given) {
@@ -43,7 +43,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
+            getMarketImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         key: account,
@@ -106,7 +106,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
+            getMarketImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         key: account,
@@ -161,7 +161,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
+            getMarketImplementCollectionFunc.returns((0, PromiseTool_1.resolve)({
                 data: [
                     {
                         fileData: [

@@ -1,32 +1,32 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { getAllPublishImplementInfo } from "../../src/application_layer/shop/ShopService"
+import { getAllPublishImplementInfo } from "../../src/application_layer/market/MarketService"
 import { just } from "most";
-import { mapShopImplementCollection, getAccountFromShopImplementCollectionData, getFileDataFromShopImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
+import { mapMarketImplementCollection, getAccountFromMarketImplementCollectionData, getFileDataFromMarketImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/get_all_publish_extension_infos.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementCollectionFunc, mapShopImplementCollectionFunc,
-        getAccountFromShopImplementCollectionDataFunc,
-        getFileDataFromShopImplementCollectionDataFunc
+    let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc,
+        getAccountFromMarketImplementCollectionDataFunc,
+        getFileDataFromMarketImplementCollectionDataFunc
 
     function _createFuncs(sandbox) {
-        getShopImplementCollectionFunc = sandbox.stub()
-        mapShopImplementCollectionFunc = mapShopImplementCollection
-        getAccountFromShopImplementCollectionDataFunc = getAccountFromShopImplementCollectionData
-        getFileDataFromShopImplementCollectionDataFunc = getFileDataFromShopImplementCollectionData
+        getMarketImplementCollectionFunc = sandbox.stub()
+        mapMarketImplementCollectionFunc = mapMarketImplementCollection
+        getAccountFromMarketImplementCollectionDataFunc = getAccountFromMarketImplementCollectionData
+        getFileDataFromMarketImplementCollectionDataFunc = getFileDataFromMarketImplementCollectionData
     }
 
     function _getAllPublishExtensions(protocolName, protocolVersion) {
         return getAllPublishImplementInfo(
             [
-                getShopImplementCollectionFunc,
-                mapShopImplementCollectionFunc,
-                getAccountFromShopImplementCollectionDataFunc,
-                getFileDataFromShopImplementCollectionDataFunc,
+                getMarketImplementCollectionFunc,
+                mapMarketImplementCollectionFunc,
+                getAccountFromMarketImplementCollectionDataFunc,
+                getFileDataFromMarketImplementCollectionDataFunc,
             ],
             "publishedextensions",
             protocolName, protocolVersion
@@ -57,7 +57,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementCollectionFunc.returns(
+            getMarketImplementCollectionFunc.returns(
                 resolve({
                     data: [
                         {
@@ -134,7 +134,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementCollectionFunc.returns(
+            getMarketImplementCollectionFunc.returns(
                 resolve({
                     data: [
                         {
@@ -203,7 +203,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementCollectionFunc.returns(
+            getMarketImplementCollectionFunc.returns(
                 resolve({
                     data: [
                         {

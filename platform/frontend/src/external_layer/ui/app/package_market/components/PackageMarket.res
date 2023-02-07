@@ -98,7 +98,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
-    | list{"PackageShop"} =>
+    | list{"PackageMarket"} =>
       setPackageEntryExtensionProtocolItem(_ => None)
       setAllPublishPackages(_ => None)
     | _ => ()
@@ -113,11 +113,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     //       (
     //         protocols->Meta3dCommonlib.ArraySt.filter(
     //           ({name}: FrontendUtils.BackendCloudbaseType.protocol) =>
-    //             name->ShopUtils.isNotInnerProtocol,
+    //             name->MarketUtils.isNotInnerProtocol,
     //         ),
     //         protocolConfigs->Meta3dCommonlib.ArraySt.filter(
     //           ({name}: FrontendUtils.CommonType.protocolConfig) =>
-    //             name->ShopUtils.isNotInnerProtocol,
+    //             name->MarketUtils.isNotInnerProtocol,
     //         ),
     //       )
     //     },

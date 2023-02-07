@@ -42,12 +42,12 @@ let _getFuncArr = (env, packageFilePath) => {
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
-                CloudbaseService.getShopProtocolCollection,
+                CloudbaseService.getMarketProtocolCollection,
                 CloudbaseService.isContain,
-                CloudbaseService.addDataToShopProtocolCollection,
-                CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-                CloudbaseService.getDataFromShopProtocolCollection,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs
+                CloudbaseService.addDataToMarketProtocolCollection,
+                CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+                CloudbaseService.getDataFromMarketProtocolCollection,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs
             ];
         case "production":
             // return [
@@ -57,12 +57,12 @@ let _getFuncArr = (env, packageFilePath) => {
             // 	buildReadJsonFunc(packageFilePath),
             // 	_4everlandService.init,
             // 	_4everlandService.hasAccount,
-            // 	_4everlandService.getShopProtocolCollection,
+            // 	_4everlandService.getMarketProtocolCollection,
             // 	_4everlandService.isContain,
-            // 	_4everlandService.addDataToShopProtocolCollection,
-            // 	_4everlandService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-            // 	_4everlandService.getDataFromShopProtocolCollection,
-            // 	_4everlandService.parseShopCollectionDataBodyForNodejs
+            // 	_4everlandService.addDataToMarketProtocolCollection,
+            // 	_4everlandService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+            // 	_4everlandService.getDataFromMarketProtocolCollection,
+            // 	_4everlandService.parseMarketCollectionDataBodyForNodejs
             // ]
             return [
                 fs_1.default.readFileSync,
@@ -71,12 +71,12 @@ let _getFuncArr = (env, packageFilePath) => {
                 (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
                 CloudbaseService.initProduction,
                 CloudbaseService.hasAccount,
-                CloudbaseService.getShopProtocolCollection,
+                CloudbaseService.getMarketProtocolCollection,
                 CloudbaseService.isContain,
-                CloudbaseService.addDataToShopProtocolCollection,
-                CloudbaseService.addShopProtocolDataToDataFromShopProtocolCollectionData,
-                CloudbaseService.getDataFromShopProtocolCollection,
-                CloudbaseService.parseShopCollectionDataBodyForNodejs
+                CloudbaseService.addDataToMarketProtocolCollection,
+                CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+                CloudbaseService.getDataFromMarketProtocolCollection,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs
             ];
         default:
             throw new Error("unknown env");

@@ -12,7 +12,7 @@ let feature = loadFeature("./test/features/package/package_packages.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   // let allPublishPackageProtocols = ref([])
-  let selectedPackagesFromShop = ref(list{})
+  let selectedPackagesFromMarket = ref(list{})
 
   let _prepare = given => {
     given("prepare", () => {
@@ -36,7 +36,7 @@ defineFeature(feature, test => {
         PackagePackagesTool.buildUI(
           ~sandbox,
           ~service=ServiceTool.build(~sandbox, ()),
-          ~selectedPackagesFromShop=list{PackageTool.buildSelectedPackage()},
+          ~selectedPackagesFromMarket=list{PackageTool.buildSelectedPackage()},
           (),
         )
         ->ReactTestRenderer.create
@@ -66,7 +66,7 @@ defineFeature(feature, test => {
     given(
       "select package a1",
       () => {
-        selectedPackagesFromShop :=
+        selectedPackagesFromMarket :=
           list{
             PackageTool.buildSelectedPackage(
               ~protocolName="a1_protocol",
@@ -90,7 +90,7 @@ defineFeature(feature, test => {
       () => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        let package = selectedPackagesFromShop.contents->ListTool.getHeadExn
+        let package = selectedPackagesFromMarket.contents->ListTool.getHeadExn
 
         PackagePackagesTool.selectPackage(~dispatch=dispatchStub.contents, ~package)
       },
@@ -99,7 +99,7 @@ defineFeature(feature, test => {
     then(
       "should dispatch SelectPackage action",
       () => {
-        let package = selectedPackagesFromShop.contents->ListTool.getHeadExn
+        let package = selectedPackagesFromMarket.contents->ListTool.getHeadExn
 
         dispatchStub.contents
         ->Obj.magic

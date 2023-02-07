@@ -15,10 +15,10 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedContributesFromShop: selectedContributesFromShop) => {
+let make = (~service: service, ~selectedContributesFromMarket: selectedContributesFromMarket) => {
   <ContributesUtils
     service
-    selectedContributesFromShop
+    selectedContributesFromMarket
     useDispatch=ReduxUtils.ApAssemble.useDispatch
     selectContribute=Method.selectContribute
   />

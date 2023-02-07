@@ -2,22 +2,22 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService";
-import { getDataFromShopImplementAccountData } from "meta3d-backend-cloudbase";
+import { getDataFromMarketImplementAccountData } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/get_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc
+    let getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc
 
     function _createFuncs(sandbox) {
-        getShopImplementAccountDataFunc = sandbox.stub()
-        getDataFromShopImplementAccountDataFunc = getDataFromShopImplementAccountData
+        getMarketImplementAccountDataFunc = sandbox.stub()
+        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
     }
 
     function _getElementAssembleData(account, elementName, elementVersion) {
         return getElementAssembleData(
-            [getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc],
+            [getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc],
             account, elementName, elementVersion
         )
     }
@@ -51,7 +51,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementAccountDataFunc.returns(
+            getMarketImplementAccountDataFunc.returns(
                 resolve([
                     {
                         fileData: [
@@ -79,7 +79,7 @@ defineFeature(feature, test => {
         });
 
         then('should return e2', () => {
-            expect(getShopImplementAccountDataFunc).toCalledWith([
+            expect(getMarketImplementAccountDataFunc).toCalledWith([
                 "publishedelementassembledata",
                 account
             ])

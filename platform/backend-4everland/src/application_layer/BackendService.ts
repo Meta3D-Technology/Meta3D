@@ -34,7 +34,7 @@ export let hasAccount = (collectionName, account) => BackendService.hasAccount(g
 
 let _onDownloadProgressFuncForJson = console.log
 
-let _parseShopCollectionDataBody = (
+let _parseMarketCollectionDataBody = (
     onDownloadProgressFunc,
     returnDataType: "arrayBuffer" | "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -79,17 +79,17 @@ let _parseShopCollectionDataBody = (
         )
 }
 
-export let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection(getBackend(), curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName)
+export let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection(getBackend(), curry3_1(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName)
 
-export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName)
+export let getMarketImplementCollection = (collectionName) => BackendService.getMarketImplementCollection(getBackend(), curry3_1(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName)
 
-export let getShopImplement = (
+export let getMarketImplement = (
     collectionName: string,
     account: string,
     name: string,
     version: string
 ) => {
-    return _getObjectWithJsonBody(collectionName, collectionName).then((body: BackendService.shopImplementCollectionData) => {
+    return _getObjectWithJsonBody(collectionName, collectionName).then((body: BackendService.marketImplementCollectionData) => {
         account = BackendService.handleKeyToLowercase(account)
 
         let result = body.find(data => data.key === account)
@@ -109,15 +109,15 @@ export let getShopImplement = (
 }
 
 
-export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+export let getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection
 
-export let mapShopImplementCollection = BackendService.mapShopImplementCollection
+export let mapMarketImplementCollection = BackendService.mapMarketImplementCollection
 
-export let getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData
+export let getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData
 
-export let getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData
+export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
 
-export let downloadFile = (onDownloadProgressFunc, fileID) => BackendService.downloadFile(getBackend(), curry3_1(_parseShopCollectionDataBody)(onDownloadProgressFunc), fileID)
+export let downloadFile = (onDownloadProgressFunc, fileID) => BackendService.downloadFile(getBackend(), curry3_1(_parseMarketCollectionDataBody)(onDownloadProgressFunc), fileID)
 
 let _arrayBufferToUint8Array = (arrayBuffer: ArrayBuffer) => {
     return new Uint8Array(arrayBuffer)
@@ -154,24 +154,24 @@ export let uploadFile = (onUploadProgressFunc, filePath: string, fileContent: Ar
 }
 
 export let updateData = (collectionName: string, key: string, updateData: any) => {
-    return BackendService.getShopProtocolCollection(getBackend(),
-        curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson),
+    return BackendService.getMarketProtocolCollection(getBackend(),
+        curry3_1(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson),
         collectionName
     ).then(oldCollectionData => {
-        return BackendService.updateShopImplementData(getBackend(), collectionName, key, updateData,
+        return BackendService.updateMarketImplementData(getBackend(), collectionName, key, updateData,
             oldCollectionData
         )
     })
 }
 
 export let addData = (collectionName: string, key: string, data: any) => {
-    return BackendService.getShopProtocolCollection(getBackend(),
-        curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson),
+    return BackendService.getMarketProtocolCollection(getBackend(),
+        curry3_1(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson),
         collectionName
     ).then(allCollectionData => {
-        return BackendService.addDataToShopProtocolCollection(
+        return BackendService.addDataToMarketProtocolCollection(
             getBackend(),
-            BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData,
+            BackendService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
             collectionName, key, allCollectionData, data
         )
     })
@@ -182,7 +182,7 @@ let _getObjectWithJsonBody = (collectionName, key) => {
         Bucket: collectionName,
         Key: key
     })
-        .then(data => _parseShopCollectionDataBody(_onDownloadProgressFuncForJson, "json", data))
+        .then(data => _parseMarketCollectionDataBody(_onDownloadProgressFuncForJson, "json", data))
 }
 
 export let getDataByKey = (collectionName: string, key: string) => {
@@ -230,18 +230,18 @@ export let hasData = (collectionName: string, key: string) => BackendService.has
 
 export let getFileID = BackendService.getFileID
 
-export let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData(getBackend(), curry3_1(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName, account)
+export let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData(getBackend(), curry3_1(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName, account)
 
-export let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) =>
-    BackendService.updateShopImplementData(getBackend(), collectionName, account, updateData, oldShopImplementCollectionData)
+export let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) =>
+    BackendService.updateMarketImplementData(getBackend(), collectionName, account, updateData, oldMarketImplementCollectionData)
 
-export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
 
 export let isContain = BackendService.isContain
 
-export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
 export let getData = (collectionName: string) => {
     return fromPromise(getBackend().listObjects({

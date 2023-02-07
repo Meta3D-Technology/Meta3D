@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
-const PackageShopService_1 = require("../../src/application_layer/shop/PackageShopService");
+const PackageMarketService_1 = require("../../src/application_layer/market/PackageMarketService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_package_entry_extension_protocols.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
@@ -13,7 +13,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
     }
     // function _getAllPublishExtensionProtocols() {
     //     return getAllPublishProtocolData(
-    //         [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc],
+    //         [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
     //         "publishedextensionprotocols"
     //     )
     // }
@@ -80,7 +80,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         when('get all publish pacakge entry extension protocols', () => {
         });
         then('should return entry extension protocol1 and entry extension protocol2 that are not duplicate', () => {
-            return (0, PackageShopService_1.getAllPublishPackageEntryExtensionProtocols)(getDataFunc).observe(result => {
+            return (0, PackageMarketService_1.getAllPublishPackageEntryExtensionProtocols)(getDataFunc).observe(result => {
                 expect(result).toEqual([
                     {
                         account: account1,

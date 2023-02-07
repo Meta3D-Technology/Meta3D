@@ -9,19 +9,19 @@ const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_contribute.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc;
+    let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
     function _createFuncs(sandbox, errorFuncStub = console.error) {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
         uploadFileFunc = sandbox.stub();
-        getShopImplementAccountDataFunc = sandbox.stub();
-        updateShopImplementDataFunc = sandbox.stub();
-        getDataFromShopImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromShopImplementAccountData;
+        getMarketImplementAccountDataFunc = sandbox.stub();
+        updateMarketImplementDataFunc = sandbox.stub();
+        getDataFromMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromMarketImplementAccountData;
         isContainFunc = meta3d_backend_cloudbase_1.isContain;
-        buildShopImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildShopImplementAccountData;
-        addShopImplementDataToDataFromShopImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addShopImplementDataToDataFromShopImplementCollectionData;
+        buildMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildMarketImplementAccountData;
+        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
-        parseShopCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseShopCollectionDataBodyForNodejs;
+        parseMarketCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseMarketCollectionDataBodyForNodejs;
     }
     function _publish(account = "u1", packageData = [
         "",
@@ -32,7 +32,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, (message) => {
                 errorFunc(message);
                 throw new Error(message);
-            }, uploadFileFunc, getShopImplementAccountDataFunc, updateShopImplementDataFunc, getDataFromShopImplementAccountDataFunc, isContainFunc, buildShopImplementAccountDataFunc, addShopImplementDataToDataFromShopImplementCollectionDataFunc, getFileIDFunc, parseShopCollectionDataBodyFunc], account, packageData, contributeBinaryFile);
+            }, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], account, packageData, contributeBinaryFile);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -47,14 +47,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         let protocolVersion = "^0.0.1";
         let binaryFile = new ArrayBuffer(10);
         let fileID1 = "id1";
-        let shopImplementCollectionData = [];
+        let marketImplementCollectionData = [];
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
             uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
-            getShopImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
                     fileData: []
-                }, shopImplementCollectionData]));
+                }, marketImplementCollectionData]));
         });
         when('publish', () => {
             return _publish(account, [
@@ -72,7 +72,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             ]);
         });
         and('should add to collection', () => {
-            expect(updateShopImplementDataFunc).toCalledWith([
+            expect(updateMarketImplementDataFunc).toCalledWith([
                 "publishedcontributes",
                 "meta3d",
                 {
@@ -84,7 +84,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                             "fileID": fileID1
                         }]
                 },
-                shopImplementCollectionData
+                marketImplementCollectionData
             ]);
         });
     });
@@ -99,10 +99,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
             uploadFileFunc.returns((0, most_1.empty)());
-            getShopImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([{
+            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([{
                     fileData: []
                 }, []]));
-            getShopImplementAccountDataFunc.onCall(1).returns((0, PromiseTool_1.resolve)([
+            getMarketImplementAccountDataFunc.onCall(1).returns((0, PromiseTool_1.resolve)([
                 {
                     fileData: [
                         {

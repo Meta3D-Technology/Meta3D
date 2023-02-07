@@ -2,15 +2,15 @@ import { fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { removeDuplicateItemsWithBuildKeyFunc } from "../../utils/ArrayUtils"
 // import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
-import { protocols } from "./ShopType"
-import { packageImplementInfos } from "./PackageShopType"
+import { protocols } from "./MarketType"
+import { packageImplementInfos } from "./PackageMarketType"
 
 export let getAllPublishPackageEntryExtensionProtocols = (
-    // [getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection]: [any, any]
+    // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
     getDataFunc: any
 ): Stream<protocols> => {
-    // return fromPromise(getPackageShopEntryExtensionProtocolCollectionFunc()).map((res: any) => {
-    //     let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
+    // return fromPromise(getPackageMarketEntryExtensionProtocolCollectionFunc()).map((res: any) => {
+    //     let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
 
     //     return resData.map(({
     //         account,
@@ -23,7 +23,7 @@ export let getAllPublishPackageEntryExtensionProtocols = (
     // })
 
     return fromPromise(getDataFunc("publishedpackages")).map((data: any) => {
-        // let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
+        // let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
 
         return removeDuplicateItemsWithBuildKeyFunc(data.map(({
             account,
@@ -49,9 +49,9 @@ export let getAllPublishPackageEntryExtensionProtocols = (
 
 
 // export let getAllPublishPackageEntryExtensionProtocols = (
-//     [getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection]: [any, any]
+//     [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
 // ): Stream<protocols> => {
-//     return getAllPublishProtocolData([getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection],
+//     return getAllPublishProtocolData([getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection],
 //         "publishedpackages"
 //     )
 // }

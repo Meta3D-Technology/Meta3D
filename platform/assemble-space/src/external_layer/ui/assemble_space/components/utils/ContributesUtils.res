@@ -10,13 +10,13 @@ module Method = {
   }
 
   // TODO perf: defer load when panel change
-  let _getContributes = ({getAllPublishContributeProtocols}, selectedContributesFromShop) => {
+  let _getContributes = ({getAllPublishContributeProtocols}, selectedContributesFromMarket) => {
     getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter(
+            switch selectedContributesFromMarket->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.contribute, _)) => {
                 let protocol = data.contributePackageData.protocol
 
@@ -50,11 +50,11 @@ module Method = {
     )
   }
 
-  let useEffectOnceAsync = ((setIsLoaded, setContributes), service, selectedContributesFromShop) => {
+  let useEffectOnceAsync = ((setIsLoaded, setContributes), service, selectedContributesFromMarket) => {
     (
       _getContributes(
         service.backend,
-        selectedContributesFromShop,
+        selectedContributesFromMarket,
       )->Meta3dBsMost.Most.observe(contributes => {
         setIsLoaded(_ => true)
         setContributes(_ => contributes)
@@ -67,7 +67,7 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
-  ~selectedContributesFromShop: selectedContributesFromShop,
+  ~selectedContributesFromMarket: selectedContributesFromMarket,
   ~useDispatch,
   ~selectContribute,
 ) => {
@@ -77,7 +77,7 @@ let make = (
   let (contributes, setContributes) = service.react.useState(_ => [])
 
   service.react.useEffectOnceAsync(() =>
-    Method.useEffectOnceAsync((setIsLoaded, setContributes), service, selectedContributesFromShop)
+    Method.useEffectOnceAsync((setIsLoaded, setContributes), service, selectedContributesFromMarket)
   )
 
   !isLoaded

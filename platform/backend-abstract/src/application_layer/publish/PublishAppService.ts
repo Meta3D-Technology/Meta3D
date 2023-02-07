@@ -59,7 +59,7 @@ export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], a
     })
 }
 
-export let findAllPublishApps = (
+export let findAllPublishAppsByAccount = (
     getDataByKeyContainFunc: any,
     account: string): Stream<Array<publishAppInfo>> => {
     return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data: any) => {

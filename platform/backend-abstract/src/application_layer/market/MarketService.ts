@@ -2,13 +2,13 @@ import { empty, from, fromPromise, just, mergeArray, Stream } from "most"
 import { satisfies } from "semver";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn, isNullable } from "../../utils/NullableUtils";
-import { implementInfos, protocols } from "./ShopType";
+import { implementInfos, protocols } from "./MarketType";
 
 export let getAllPublishProtocolData = (
-    [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc]: [any, any],
+    [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc]: [any, any],
     collectionName: string): Stream<protocols> => {
-    return fromPromise(getShopProtocolCollectionFunc(collectionName)).map((res: any) => {
-        let resData = getDataFromShopProtocolCollectionFunc(res)
+    return fromPromise(getMarketProtocolCollectionFunc(collectionName)).map((res: any) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res)
 
         return resData.map(({ name, version, account, iconBase64 }) => {
             return { name, version, account, iconBase64 }
@@ -17,10 +17,10 @@ export let getAllPublishProtocolData = (
 }
 
 export let getAllPublishProtocolConfigData = (
-    [getShopProtocolCollectionFunc, getDataFromShopProtocolCollectionFunc]: [any, any],
+    [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc]: [any, any],
     collectionName: string) => {
-    return fromPromise(getShopProtocolCollectionFunc(collectionName)).map((res: any) => {
-        let resData = getDataFromShopProtocolCollectionFunc(res)
+    return fromPromise(getMarketProtocolCollectionFunc(collectionName)).map((res: any) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res)
 
         return resData.map(({ name, version, account, configStr }) => {
             return { name, version, account, configStr }
@@ -30,17 +30,17 @@ export let getAllPublishProtocolConfigData = (
 
 export let getAllPublishImplementInfo = (
     [
-        getShopImplementCollectionFunc,
-        mapShopImplementCollectionFunc,
-        getAccountFromShopImplementCollectionDataFunc,
-        getFileDataFromShopImplementCollectionDataFunc,
+        getMarketImplementCollectionFunc,
+        mapMarketImplementCollectionFunc,
+        getAccountFromMarketImplementCollectionDataFunc,
+        getFileDataFromMarketImplementCollectionDataFunc,
     ]: [any, any, any, any],
     collectionName: string, protocolName: string, protocolVersion: string): Stream<implementInfos> => {
-    return fromPromise(getShopImplementCollectionFunc(collectionName)).flatMap((res: any) => {
+    return fromPromise(getMarketImplementCollectionFunc(collectionName)).flatMap((res: any) => {
         return fromPromise(mergeArray(
-            mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
-                let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData)
-                let fileData = getFileDataFromShopImplementCollectionDataFunc(shopImplementCollectionData)
+            mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
+                let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
+                let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
 
                 let result = fileData.filter(data => {
                     return data.protocolName === protocolName &&
@@ -69,13 +69,13 @@ export let getAllPublishImplementInfo = (
     })
 }
 
-export let findPublishImplement = ([getShopImplementFunc, downloadFileFunc]: [any, any],
+export let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc]: [any, any],
     collectionName: string,
     account: string,
     name: string,
     version: string
 ) => {
-    return fromPromise(getShopImplementFunc(collectionName, account, name, version)).flatMap((data: nullable<any>) => {
+    return fromPromise(getMarketImplementFunc(collectionName, account, name, version)).flatMap((data: nullable<any>) => {
         if (isNullable(data)) {
             return just(null)
         }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseShopCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getShopImplementCollection = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getShopProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildShopImplementAccountData = exports.getDataFromShopImplementAccountData = exports.getDataFromShopProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.addShopProtocolDataToDataFromShopProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -16,28 +16,28 @@ let _checkUserName = (app, account) => {
 };
 let _buildEmptyCollectionData = () => null;
 let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null;
-let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData, data) => {
+let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         resolve(null);
     });
 };
-exports.addShopProtocolDataToDataFromShopProtocolCollectionData = addShopProtocolDataToDataFromShopProtocolCollectionData;
-let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData, data) => {
+exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = addMarketProtocolDataToDataFromMarketProtocolCollectionData;
+let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
         resolve(allCollectionData.concat([data]));
     });
 };
-exports.addShopImplementDataToDataFromShopImplementCollectionData = addShopImplementDataToDataFromShopImplementCollectionData;
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = addMarketImplementDataToDataFromMarketImplementCollectionData;
 let handleLogin = (app, account) => {
     return _checkUserName(app, account).flatMap((isNotHasData) => {
         if (isNotHasData) {
-            return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToShopImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+            return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
                 fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToShopImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
                 fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToShopImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
                 fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToShopImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedskinassembledata", account, _buildEmptyCollectionData(), {
+            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedskinassembledata", account, _buildEmptyCollectionData(), {
                 fileData: []
             })));
         }
@@ -49,15 +49,15 @@ let handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };
 exports.handleKeyToLowercase = handleKeyToLowercase;
-let addDataToShopProtocolCollection = (app, addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data) => {
+let addDataToMarketProtocolCollection = (app, addMarketProtocolDataToDataFromMarketProtocolCollectionData, collectionName, key, allCollectionData, data) => {
     return _getDatabase(app).collection(collectionName)
         .add(Object.assign(Object.assign({}, data), { 
         // key: handleKeyToLowercase(key)
         key: key }));
 };
-exports.addDataToShopProtocolCollection = addDataToShopProtocolCollection;
-exports.addDataToShopImplementCollection = exports.addDataToShopProtocolCollection;
-exports.addDataToUserCollection = exports.addDataToShopProtocolCollection;
+exports.addDataToMarketProtocolCollection = addDataToMarketProtocolCollection;
+exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection;
+exports.addDataToUserCollection = exports.addDataToMarketProtocolCollection;
 let _hasData = (app, collectionName, key) => {
     return (0, most_1.fromPromise)(_getDatabase(app).collection(collectionName)
         .where({ key: key })
@@ -72,24 +72,24 @@ let hasData = (app, collectionName, key) => {
     return _hasData(app, collectionName, (0, exports.handleKeyToLowercase)(key));
 };
 exports.hasData = hasData;
-let getDataFromShopProtocolCollection = (allCollectionData) => {
+let getDataFromMarketProtocolCollection = (allCollectionData) => {
     return allCollectionData.data;
 };
-exports.getDataFromShopProtocolCollection = getDataFromShopProtocolCollection;
-let getDataFromShopImplementAccountData = (data) => {
+exports.getDataFromMarketProtocolCollection = getDataFromMarketProtocolCollection;
+let getDataFromMarketImplementAccountData = (data) => {
     return data.fileData;
 };
-exports.getDataFromShopImplementAccountData = getDataFromShopImplementAccountData;
-let buildShopImplementAccountData = (data, account) => {
+exports.getDataFromMarketImplementAccountData = getDataFromMarketImplementAccountData;
+let buildMarketImplementAccountData = (data, account) => {
     return {
         key: (0, exports.handleKeyToLowercase)(account),
         fileData: data
     };
 };
-exports.buildShopImplementAccountData = buildShopImplementAccountData;
-let isContain = (find, dataFromShopCollectionData) => {
+exports.buildMarketImplementAccountData = buildMarketImplementAccountData;
+let isContain = (find, dataFromMarketCollectionData) => {
     return new Promise((resolve, reject) => {
-        resolve(dataFromShopCollectionData.findIndex((data) => {
+        resolve(dataFromMarketCollectionData.findIndex((data) => {
             return find(data);
         }) !== -1);
     });
@@ -116,44 +116,44 @@ let uploadFile = (app, filePath, fileContent) => {
     }));
 };
 exports.uploadFile = uploadFile;
-let getShopProtocolCollection = (app, parseShopCollectionDataBody, collectionName) => {
+let getMarketProtocolCollection = (app, parseMarketCollectionDataBody, collectionName) => {
     return _getDatabase(app).collection(collectionName).get();
 };
-exports.getShopProtocolCollection = getShopProtocolCollection;
-let getShopImplementAccountData = (app, parseShopCollectionDataBody, collectionName, account) => {
+exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let getMarketImplementAccountData = (app, parseMarketCollectionDataBody, collectionName, account) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: (0, exports.handleKeyToLowercase)(account) })
         .get()
         .then(res => [res.data[0], []]);
 };
-exports.getShopImplementAccountData = getShopImplementAccountData;
+exports.getMarketImplementAccountData = getMarketImplementAccountData;
 // export let updateCollection = (app: any, collectionName: string, updateData: any) => {
 //     return _getDatabase(app).collection(collectionName)
 //         .update(updateData)
 // }
-let updateShopImplementData = (app, collectionName, account, updateData, _oldShopImplementCollectionData) => {
+let updateMarketImplementData = (app, collectionName, account, updateData, _oldMarketImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: (0, exports.handleKeyToLowercase)(account) })
         .update(updateData);
 };
-exports.updateShopImplementData = updateShopImplementData;
-// export let getShopImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
+exports.updateMarketImplementData = updateMarketImplementData;
+// export let getMarketImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
 //     return _getDatabase(app).collection(collectionName).get()
 // }
-exports.getShopImplementCollection = exports.getShopProtocolCollection;
-let mapShopImplementCollection = (allCollectionData, func) => {
+exports.getMarketImplementCollection = exports.getMarketProtocolCollection;
+let mapMarketImplementCollection = (allCollectionData, func) => {
     return allCollectionData.data.map(func);
 };
-exports.mapShopImplementCollection = mapShopImplementCollection;
-let getAccountFromShopImplementCollectionData = (data) => {
+exports.mapMarketImplementCollection = mapMarketImplementCollection;
+let getAccountFromMarketImplementCollectionData = (data) => {
     return data.key;
 };
-exports.getAccountFromShopImplementCollectionData = getAccountFromShopImplementCollectionData;
-let getFileDataFromShopImplementCollectionData = (data) => {
+exports.getAccountFromMarketImplementCollectionData = getAccountFromMarketImplementCollectionData;
+let getFileDataFromMarketImplementCollectionData = (data) => {
     return data.fileData;
 };
-exports.getFileDataFromShopImplementCollectionData = getFileDataFromShopImplementCollectionData;
-let downloadFile = (app, parseShopCollectionDataBody, fileID) => {
+exports.getFileDataFromMarketImplementCollectionData = getFileDataFromMarketImplementCollectionData;
+let downloadFile = (app, parseMarketCollectionDataBody, fileID) => {
     return (0, most_1.fromPromise)(app.getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {
@@ -161,5 +161,5 @@ let downloadFile = (app, parseShopCollectionDataBody, fileID) => {
     });
 };
 exports.downloadFile = downloadFile;
-exports.parseShopCollectionDataBodyForNodejs = null;
+exports.parseMarketCollectionDataBodyForNodejs = null;
 //# sourceMappingURL=Main.js.map

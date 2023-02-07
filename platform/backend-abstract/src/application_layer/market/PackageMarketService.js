@@ -4,10 +4,10 @@ exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllP
 const most_1 = require("most");
 const ArrayUtils_1 = require("../../utils/ArrayUtils");
 let getAllPublishPackageEntryExtensionProtocols = (
-// [getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection]: [any, any]
+// [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
 getDataFunc) => {
-    // return fromPromise(getPackageShopEntryExtensionProtocolCollectionFunc()).map((res: any) => {
-    //     let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
+    // return fromPromise(getPackageMarketEntryExtensionProtocolCollectionFunc()).map((res: any) => {
+    //     let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
     //     return resData.map(({
     //         account,
     //         entryExtensionProtocolName,
@@ -18,7 +18,7 @@ getDataFunc) => {
     //     })
     // })
     return (0, most_1.fromPromise)(getDataFunc("publishedpackages")).map((data) => {
-        // let resData = getDataFromPackageShopEntryExtensionProtocolCollection(res)
+        // let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
         return (0, ArrayUtils_1.removeDuplicateItemsWithBuildKeyFunc)(data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolIconBase64, }) => {
             return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 };
         }), 
@@ -34,9 +34,9 @@ getDataFunc) => {
 };
 exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryExtensionProtocols;
 // export let getAllPublishPackageEntryExtensionProtocols = (
-//     [getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection]: [any, any]
+//     [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
 // ): Stream<protocols> => {
-//     return getAllPublishProtocolData([getPackageShopEntryExtensionProtocolCollectionFunc, getDataFromPackageShopEntryExtensionProtocolCollection],
+//     return getAllPublishProtocolData([getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection],
 //         "publishedpackages"
 //     )
 // }

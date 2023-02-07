@@ -12,7 +12,7 @@ let feature = loadFeature("./test/features/uiControls.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
   let allPublishUIControlProtocols = ref([])
-  let selectedUIControlsFromShop = ref(list{})
+  let selectedUIControlsFromMarket = ref(list{})
 
   let _prepare = given => {
     given("prepare", () => {

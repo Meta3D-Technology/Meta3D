@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
+exports.getData = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKeyContain = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.handleLogin = exports.init = void 0;
 const client_s3_1 = require("@aws-sdk/client-s3");
 const lib_storage_1 = require("@aws-sdk/lib-storage");
 const most_1 = require("most");
@@ -30,7 +30,7 @@ exports.handleLogin = handleLogin;
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
 let _onDownloadProgressFuncForJson = console.log;
-let _parseShopCollectionDataBody = (onDownloadProgressFunc, returnDataType, allCollectionData) => {
+let _parseMarketCollectionDataBody = (onDownloadProgressFunc, returnDataType, allCollectionData) => {
     return new Promise((resolve, reject) => {
         resolve(allCollectionData.Body);
     }).then((body) => {
@@ -65,11 +65,11 @@ let _parseShopCollectionDataBody = (onDownloadProgressFunc, returnDataType, allC
         }
     });
 };
-let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName);
-exports.getShopProtocolCollection = getShopProtocolCollection;
-let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName);
-exports.getShopImplementCollection = getShopImplementCollection;
-let getShopImplement = (collectionName, account, name, version) => {
+let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName);
+exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let getMarketImplementCollection = (collectionName) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName);
+exports.getMarketImplementCollection = getMarketImplementCollection;
+let getMarketImplement = (collectionName, account, name, version) => {
     return _getObjectWithJsonBody(collectionName, collectionName).then((body) => {
         account = BackendService.handleKeyToLowercase(account);
         let result = body.find(data => data.key === account);
@@ -83,12 +83,12 @@ let getShopImplement = (collectionName, account, name, version) => {
         return result;
     });
 };
-exports.getShopImplement = getShopImplement;
-exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
-exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
-exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
-exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
-let downloadFile = (onDownloadProgressFunc, fileID) => BackendService.downloadFile((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(onDownloadProgressFunc), fileID);
+exports.getMarketImplement = getMarketImplement;
+exports.getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection;
+exports.mapMarketImplementCollection = BackendService.mapMarketImplementCollection;
+exports.getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData;
+exports.getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData;
+let downloadFile = (onDownloadProgressFunc, fileID) => BackendService.downloadFile((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(onDownloadProgressFunc), fileID);
 exports.downloadFile = downloadFile;
 let _arrayBufferToUint8Array = (arrayBuffer) => {
     return new Uint8Array(arrayBuffer);
@@ -118,14 +118,14 @@ let uploadFile = (onUploadProgressFunc, filePath, fileContent, fileName) => {
 };
 exports.uploadFile = uploadFile;
 let updateData = (collectionName, key, updateData) => {
-    return BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName).then(oldCollectionData => {
-        return BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, oldCollectionData);
+    return BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName).then(oldCollectionData => {
+        return BackendService.updateMarketImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, oldCollectionData);
     });
 };
 exports.updateData = updateData;
 let addData = (collectionName, key, data) => {
-    return BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName).then(allCollectionData => {
-        return BackendService.addDataToShopProtocolCollection((0, Repo_1.getBackend)(), BackendService.addShopProtocolDataToDataFromShopProtocolCollectionData, collectionName, key, allCollectionData, data);
+    return BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName).then(allCollectionData => {
+        return BackendService.addDataToMarketProtocolCollection((0, Repo_1.getBackend)(), BackendService.addMarketProtocolDataToDataFromMarketProtocolCollectionData, collectionName, key, allCollectionData, data);
     });
 };
 exports.addData = addData;
@@ -134,7 +134,7 @@ let _getObjectWithJsonBody = (collectionName, key) => {
         Bucket: collectionName,
         Key: key
     })
-        .then(data => _parseShopCollectionDataBody(_onDownloadProgressFuncForJson, "json", data));
+        .then(data => _parseMarketCollectionDataBody(_onDownloadProgressFuncForJson, "json", data));
 };
 let getDataByKey = (collectionName, key) => {
     return _getObjectWithJsonBody(collectionName, key)
@@ -172,14 +172,14 @@ exports.getDataByKeyContain = getDataByKeyContain;
 let hasData = (collectionName, key) => BackendService.hasData((0, Repo_1.getBackend)(), collectionName, key);
 exports.hasData = hasData;
 exports.getFileID = BackendService.getFileID;
-let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseShopCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName, account);
-exports.getShopImplementAccountData = getShopImplementAccountData;
-let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) => BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldShopImplementCollectionData);
-exports.updateShopImplementData = updateShopImplementData;
-exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
+let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData((0, Repo_1.getBackend)(), (0, Curry_1.curry3_1)(_parseMarketCollectionDataBody)(_onDownloadProgressFuncForJson), collectionName, account);
+exports.getMarketImplementAccountData = getMarketImplementAccountData;
+let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) => BackendService.updateMarketImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldMarketImplementCollectionData);
+exports.updateMarketImplementData = updateMarketImplementData;
+exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData;
 exports.isContain = BackendService.isContain;
-exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
-exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
 let getData = (collectionName) => {
     return (0, most_1.fromPromise)((0, Repo_1.getBackend)().listObjects({
         Bucket: collectionName

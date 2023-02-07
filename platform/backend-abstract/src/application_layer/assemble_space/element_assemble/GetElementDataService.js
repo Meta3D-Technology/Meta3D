@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplementCollectionFunc, getAccountFromShopImplementCollectionDataFunc, getFileDataFromShopImplementCollectionDataFunc, downloadFileFunc], collectionName, protocolName) => {
-    return (0, most_1.fromPromise)(getShopImplementCollectionFunc(collectionName)).flatMap((res) => {
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapShopImplementCollectionFunc(res, (shopImplementCollectionData) => {
-            let account = getAccountFromShopImplementCollectionDataFunc(shopImplementCollectionData);
-            let fileData = getFileDataFromShopImplementCollectionDataFunc(shopImplementCollectionData);
+let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, protocolName) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName)).flatMap((res) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
+            let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
+            let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
             let result = fileData.filter(data => {
                 return data.protocolName === protocolName;
             });
@@ -47,9 +47,9 @@ let getAllPublishNewestData = ([getShopImplementCollectionFunc, mapShopImplement
     });
 };
 exports.getAllPublishNewestData = getAllPublishNewestData;
-let getElementAssembleData = ([getShopImplementAccountDataFunc, getDataFromShopImplementAccountDataFunc], account, elementName, elementVersion) => {
-    return (0, most_1.fromPromise)(getShopImplementAccountDataFunc("publishedelementassembledata", account)).flatMap(([shopImplementAccountData, shopImplementAllCollectionData]) => {
-        let fileData = getDataFromShopImplementAccountDataFunc(shopImplementAccountData);
+let getElementAssembleData = ([getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc], account, elementName, elementVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account)).flatMap(([marketImplementAccountData, marketImplementAllCollectionData]) => {
+        let fileData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
         let result = fileData.filter(data => {
             return data.elementName === elementName && data.elementVersion === elementVersion;
         });

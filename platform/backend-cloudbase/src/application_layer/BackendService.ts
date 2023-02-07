@@ -25,11 +25,11 @@ export let handleLogin = (account) => BackendService.handleLogin(getBackend(), a
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection(getBackend(), null, collectionName)
+export let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection(getBackend(), null, collectionName)
 
-export let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection(getBackend(), null, collectionName)
+export let getMarketImplementCollection = (collectionName) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName)
 
-export let getShopImplement = (
+export let getMarketImplement = (
 	collectionName: string,
 	account: string,
 	name: string,
@@ -57,13 +57,13 @@ export let getShopImplement = (
 }
 
 
-export let getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection
+export let getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection
 
-export let mapShopImplementCollection = BackendService.mapShopImplementCollection
+export let mapMarketImplementCollection = BackendService.mapMarketImplementCollection
 
-export let getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData
+export let getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData
 
-export let getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData
+export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
 
 export let downloadFile = (onDownloadProgressFunc, fileID) => {
 	// TODO support onDownloadProgressFunc
@@ -101,9 +101,9 @@ export let uploadFile = (onUploadProgressFunc, filePath: string, fileContent: Ar
 	// .then(({ fileID }) => fileID))
 }
 
-export let updateData = (collectionName: string, key: string, updateData: any) => BackendService.updateShopImplementData(getBackend(), collectionName, key, updateData, null)
+export let updateData = (collectionName: string, key: string, updateData: any) => BackendService.updateMarketImplementData(getBackend(), collectionName, key, updateData, null)
 
-export let addData = (collectionName: string, key: string, data: any) => BackendService.addDataToShopProtocolCollection(getBackend(), null, collectionName, key, null, data)
+export let addData = (collectionName: string, key: string, data: any) => BackendService.addDataToMarketProtocolCollection(getBackend(), null, collectionName, key, null, data)
 
 export let getDataByKey = (collectionName: string, key: string) => {
 	return getDatabase().collection(collectionName)
@@ -116,18 +116,18 @@ export let hasData = (collectionName: string, key: string) => BackendService.has
 
 export let getFileID = BackendService.getFileID
 
-export let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData(getBackend(), null, collectionName, account)
+export let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData(getBackend(), null, collectionName, account)
 
-export let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) =>
-	BackendService.updateShopImplementData(getBackend(), collectionName, account, updateData, oldShopImplementCollectionData)
+export let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) =>
+	BackendService.updateMarketImplementData(getBackend(), collectionName, account, updateData, oldMarketImplementCollectionData)
 
-export let getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData
+export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
 
 export let isContain = BackendService.isContain
 
-export let buildShopImplementAccountData = BackendService.buildShopImplementAccountData
+export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData
+export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
 export let getDataByKeyContain = (collectionName: string, values: Array<string>) => {
 	return fromPromise(getDatabase().collection(collectionName)
@@ -149,7 +149,7 @@ export let getData = (collectionName: string) => {
 		.then(res => res.data)
 }
 
-// export let getPackageShopEntryExtensionProtocolCollection = () => getShopProtocolCollection("publishedpackages")
-// export let getPackageShopEntryExtensionProtocolCollection = () => getData("publishedpackages")
+// export let getPackageMarketEntryExtensionProtocolCollection = () => getMarketProtocolCollection("publishedpackages")
+// export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
 
-// export let getDataFromPackageShopEntryExtensionProtocolCollection = getDataFromShopProtocolCollection
+// export let getDataFromPackageMarketEntryExtensionProtocolCollection = getDataFromMarketProtocolCollection

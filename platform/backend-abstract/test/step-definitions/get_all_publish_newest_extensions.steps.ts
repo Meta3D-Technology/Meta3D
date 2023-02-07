@@ -3,34 +3,34 @@ import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishNewestData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService"
 import { just } from "most";
-import { mapShopImplementCollection, getAccountFromShopImplementCollectionData, getFileDataFromShopImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
+import { mapMarketImplementCollection, getAccountFromMarketImplementCollectionData, getFileDataFromMarketImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/get_all_publish_newest_extensions.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getShopImplementCollectionFunc,
-        mapShopImplementCollectionFunc,
-        getAccountFromShopImplementCollectionDataFunc,
-        getFileDataFromShopImplementCollectionDataFunc,
+    let getMarketImplementCollectionFunc,
+        mapMarketImplementCollectionFunc,
+        getAccountFromMarketImplementCollectionDataFunc,
+        getFileDataFromMarketImplementCollectionDataFunc,
         downloadFileFunc
 
     function _createFuncs(sandbox) {
-        getShopImplementCollectionFunc = sandbox.stub()
+        getMarketImplementCollectionFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
-        mapShopImplementCollectionFunc = mapShopImplementCollection
-        getAccountFromShopImplementCollectionDataFunc = getAccountFromShopImplementCollectionData
-        getFileDataFromShopImplementCollectionDataFunc = getFileDataFromShopImplementCollectionData
+        mapMarketImplementCollectionFunc = mapMarketImplementCollection
+        getAccountFromMarketImplementCollectionDataFunc = getAccountFromMarketImplementCollectionData
+        getFileDataFromMarketImplementCollectionDataFunc = getFileDataFromMarketImplementCollectionData
 
     }
 
     function _getAllPublishNewestExtensions(protocolName) {
         return getAllPublishNewestData(
             [
-                getShopImplementCollectionFunc,
-                mapShopImplementCollectionFunc,
-                getAccountFromShopImplementCollectionDataFunc,
-                getFileDataFromShopImplementCollectionDataFunc,
+                getMarketImplementCollectionFunc,
+                mapMarketImplementCollectionFunc,
+                getAccountFromMarketImplementCollectionDataFunc,
+                getFileDataFromMarketImplementCollectionDataFunc,
                 downloadFileFunc
             ],
             "publishedextensions",
@@ -60,7 +60,7 @@ defineFeature(feature, test => {
     //     given('prepare funcs', () => {
     //         _createFuncs(sandbox)
 
-    //         getShopImplementCollectionFunc.returns(
+    //         getMarketImplementCollectionFunc.returns(
     //             resolve({
     //                 data: [
     //                     {
@@ -151,7 +151,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getShopImplementCollectionFunc.returns(
+            getMarketImplementCollectionFunc.returns(
                 resolve({
                     data: [
                         {

@@ -4,30 +4,30 @@ const jest_cucumber_1 = require("jest-cucumber");
 const most_1 = require("most");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("../../../../services/meta3d-tool-utils/src/publish/PromiseTool");
-const ShopService_1 = require("../../src/application_layer/shop/ShopService");
+const MarketService_1 = require("../../src/application_layer/market/MarketService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_extension.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getShopImplementFunc, downloadFileFunc;
+    let getMarketImplementFunc, downloadFileFunc;
     function _prepare(given) {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
     }
     function _createFuncs(sandbox) {
-        getShopImplementFunc = sandbox.stub();
+        getMarketImplementFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
     }
     test('if not find, return empty', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementFunc.returns((0, PromiseTool_1.resolve)(null));
+            getMarketImplementFunc.returns((0, PromiseTool_1.resolve)(null));
         });
         when('find the published extension', () => {
         });
         then('should return empty', () => {
-            return (0, ShopService_1.findPublishImplement)([getShopImplementFunc, downloadFileFunc], "", "", "", "").observe(result => {
+            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], "", "", "", "").observe(result => {
                 expect(result).toBeNull();
             });
         });
@@ -42,7 +42,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_e
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getShopImplementFunc.returns((0, PromiseTool_1.resolve)({
+            getMarketImplementFunc.returns((0, PromiseTool_1.resolve)({
                 fileID: fileID
             }));
             downloadFileFunc.returns((0, most_1.just)(extensionBinaryFile));
@@ -52,8 +52,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_e
         when('find the published extension', () => {
         });
         then('should return the extension file', () => {
-            return (0, ShopService_1.findPublishImplement)([getShopImplementFunc, downloadFileFunc], collectionName, account, name, version).observe(result => {
-                expect(getShopImplementFunc).toCalledWith([
+            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], collectionName, account, name, version).observe(result => {
+                expect(getMarketImplementFunc).toCalledWith([
                     collectionName, account, name, version
                 ]);
                 expect(downloadFileFunc).toCalledWith([

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addShopImplementDataToDataFromShopImplementCollectionData = exports.buildShopImplementAccountData = exports.isContain = exports.getDataFromShopImplementAccountData = exports.updateShopImplementData = exports.getShopImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromShopImplementCollectionData = exports.getAccountFromShopImplementCollectionData = exports.mapShopImplementCollection = exports.getDataFromShopProtocolCollection = exports.getShopImplement = exports.getShopImplementCollection = exports.getShopProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -23,11 +23,11 @@ let handleLogin = (account) => BackendService.handleLogin((0, Repo_1.getBackend)
 exports.handleLogin = handleLogin;
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
-let getShopProtocolCollection = (collectionName) => BackendService.getShopProtocolCollection((0, Repo_1.getBackend)(), null, collectionName);
-exports.getShopProtocolCollection = getShopProtocolCollection;
-let getShopImplementCollection = (collectionName) => BackendService.getShopImplementCollection((0, Repo_1.getBackend)(), null, collectionName);
-exports.getShopImplementCollection = getShopImplementCollection;
-let getShopImplement = (collectionName, account, name, version) => {
+let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), null, collectionName);
+exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let getMarketImplementCollection = (collectionName) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), null, collectionName);
+exports.getMarketImplementCollection = getMarketImplementCollection;
+let getMarketImplement = (collectionName, account, name, version) => {
     return (0, exports.getDatabase)()
         .collection(collectionName)
         .where({ key: BackendService.handleKeyToLowercase(account) })
@@ -44,11 +44,11 @@ let getShopImplement = (collectionName, account, name, version) => {
         return result;
     });
 };
-exports.getShopImplement = getShopImplement;
-exports.getDataFromShopProtocolCollection = BackendService.getDataFromShopProtocolCollection;
-exports.mapShopImplementCollection = BackendService.mapShopImplementCollection;
-exports.getAccountFromShopImplementCollectionData = BackendService.getAccountFromShopImplementCollectionData;
-exports.getFileDataFromShopImplementCollectionData = BackendService.getFileDataFromShopImplementCollectionData;
+exports.getMarketImplement = getMarketImplement;
+exports.getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection;
+exports.mapMarketImplementCollection = BackendService.mapMarketImplementCollection;
+exports.getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData;
+exports.getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData;
 let downloadFile = (onDownloadProgressFunc, fileID) => {
     // TODO support onDownloadProgressFunc
     onDownloadProgressFunc(0);
@@ -75,9 +75,9 @@ let uploadFile = (onUploadProgressFunc, filePath, fileContent, fileName) => {
     // .then(({ fileID }) => fileID))
 };
 exports.uploadFile = uploadFile;
-let updateData = (collectionName, key, updateData) => BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, null);
+let updateData = (collectionName, key, updateData) => BackendService.updateMarketImplementData((0, Repo_1.getBackend)(), collectionName, key, updateData, null);
 exports.updateData = updateData;
-let addData = (collectionName, key, data) => BackendService.addDataToShopProtocolCollection((0, Repo_1.getBackend)(), null, collectionName, key, null, data);
+let addData = (collectionName, key, data) => BackendService.addDataToMarketProtocolCollection((0, Repo_1.getBackend)(), null, collectionName, key, null, data);
 exports.addData = addData;
 let getDataByKey = (collectionName, key) => {
     return (0, exports.getDatabase)().collection(collectionName)
@@ -89,14 +89,14 @@ exports.getDataByKey = getDataByKey;
 let hasData = (collectionName, key) => BackendService.hasData((0, Repo_1.getBackend)(), collectionName, key);
 exports.hasData = hasData;
 exports.getFileID = BackendService.getFileID;
-let getShopImplementAccountData = (collectionName, account) => BackendService.getShopImplementAccountData((0, Repo_1.getBackend)(), null, collectionName, account);
-exports.getShopImplementAccountData = getShopImplementAccountData;
-let updateShopImplementData = (collectionName, account, updateData, oldShopImplementCollectionData) => BackendService.updateShopImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldShopImplementCollectionData);
-exports.updateShopImplementData = updateShopImplementData;
-exports.getDataFromShopImplementAccountData = BackendService.getDataFromShopImplementAccountData;
+let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData((0, Repo_1.getBackend)(), null, collectionName, account);
+exports.getMarketImplementAccountData = getMarketImplementAccountData;
+let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) => BackendService.updateMarketImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldMarketImplementCollectionData);
+exports.updateMarketImplementData = updateMarketImplementData;
+exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData;
 exports.isContain = BackendService.isContain;
-exports.buildShopImplementAccountData = BackendService.buildShopImplementAccountData;
-exports.addShopImplementDataToDataFromShopImplementCollectionData = BackendService.addShopImplementDataToDataFromShopImplementCollectionData;
+exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
+exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
 let getDataByKeyContain = (collectionName, values) => {
     return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
         .get()
@@ -116,6 +116,6 @@ let getData = (collectionName) => {
         .then(res => res.data);
 };
 exports.getData = getData;
-// export let getPackageShopEntryExtensionProtocolCollection = () => getShopProtocolCollection("publishedpackages")
-// export let getPackageShopEntryExtensionProtocolCollection = () => getData("publishedpackages")
-// export let getDataFromPackageShopEntryExtensionProtocolCollection = getDataFromShopProtocolCollection
+// export let getPackageMarketEntryExtensionProtocolCollection = () => getMarketProtocolCollection("publishedpackages")
+// export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
+// export let getDataFromPackageMarketEntryExtensionProtocolCollection = getDataFromMarketProtocolCollection

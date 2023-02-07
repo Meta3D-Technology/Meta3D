@@ -7,22 +7,22 @@ type collectionData = any
 
 type allCollectionData = Array<collectionData>
 
-type dataFromShopProtocolCollectionData = any
+type dataFromMarketProtocolCollectionData = any
 
-type dataFromShopImplementCollectionData = any
+type dataFromMarketImplementCollectionData = any
 
-type shopProtocolData = any
+type marketProtocolData = any
 
-type shopImplementData = any
+type marketImplementData = any
 
-type shopImplementAccountData = {
+type marketImplementAccountData = {
     key: account,
-    fileData: Array<shopImplementData>
+    fileData: Array<marketImplementData>
 }
 
-export type shopImplementCollectionData = Array<shopImplementAccountData>
+export type marketImplementCollectionData = Array<marketImplementAccountData>
 
-export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollectionData: dataFromShopProtocolCollectionData, data: shopProtocolData): Promise<any> => {
+export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCollectionData: dataFromMarketProtocolCollectionData, data: marketProtocolData): Promise<any> => {
     return new Promise((resolve, reject) => {
         allCollectionData = allCollectionData.slice()
 
@@ -32,9 +32,9 @@ export let addShopProtocolDataToDataFromShopProtocolCollectionData = (allCollect
     })
 }
 
-export let addShopImplementDataToDataFromShopImplementCollectionData = (allCollectionData: dataFromShopImplementCollectionData, data: shopImplementData): Promise<any> => {
+export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData: dataFromMarketImplementCollectionData, data: marketImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
-        console.log("addShopImplementDataToDataFromShopImplementCollectionData:", allCollectionData, data)
+        console.log("addMarketImplementDataToDataFromMarketImplementCollectionData:", allCollectionData, data)
 
         allCollectionData = allCollectionData.slice()
 
@@ -44,8 +44,8 @@ export let addShopImplementDataToDataFromShopImplementCollectionData = (allColle
     })
 }
 
-export let addDataToShopProtocolCollection = (s3: S3, addShopProtocolDataToDataFromShopProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
-    return addShopProtocolDataToDataFromShopProtocolCollectionData(allCollectionData, data).then(body => {
+export let addDataToMarketProtocolCollection = (s3: S3, addMarketProtocolDataToDataFromMarketProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
+    return addMarketProtocolDataToDataFromMarketProtocolCollectionData(allCollectionData, data).then(body => {
         console.log("add data", key, body)
 
         return s3.putObject({
@@ -57,9 +57,9 @@ export let addDataToShopProtocolCollection = (s3: S3, addShopProtocolDataToDataF
     })
 }
 
-let _addDataToShopImplementCollection = addDataToShopProtocolCollection
+let _addDataToMarketImplementCollection = addDataToMarketProtocolCollection
 
-export let addDataToUserCollection = addDataToShopProtocolCollection
+export let addDataToUserCollection = addDataToMarketProtocolCollection
 
 let _buildEmptyBody = () => ""
 
@@ -114,27 +114,27 @@ export let hasData = (s3: S3, collectionName: string, key: string) => {
     return _hasData(s3, collectionName, handleKeyToLowercase(key))
 }
 
-export let getDataFromShopProtocolCollection = (allCollectionData: allCollectionData): dataFromShopProtocolCollectionData => {
+export let getDataFromMarketProtocolCollection = (allCollectionData: allCollectionData): dataFromMarketProtocolCollectionData => {
     return allCollectionData
 }
 
-export let getDataFromShopImplementAccountData = (data: shopImplementAccountData): dataFromShopImplementCollectionData => {
-    console.log("getDataFromShopImplementAccountData->data: ", data)
+export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
+    console.log("getDataFromMarketImplementAccountData->data: ", data)
 
     return data.fileData
 }
 
-export let buildShopImplementAccountData = (data: dataFromShopImplementCollectionData, account: account): shopImplementAccountData => {
+export let buildMarketImplementAccountData = (data: dataFromMarketImplementCollectionData, account: account): marketImplementAccountData => {
     return {
         key: handleKeyToLowercase(account),
         fileData: data
     }
 }
 
-export let isContain = (find: (dataFromShopCollectionData: dataFromShopProtocolCollectionData | dataFromShopImplementCollectionData) => boolean, dataFromShopCollectionData: dataFromShopProtocolCollectionData | dataFromShopImplementCollectionData) => {
+export let isContain = (find: (dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => boolean, dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => {
     return new Promise((resolve, reject) => {
         resolve(
-            dataFromShopCollectionData.findIndex((data) => {
+            dataFromMarketCollectionData.findIndex((data) => {
                 return find(data)
             }) !== -1
         )
@@ -143,25 +143,25 @@ export let isContain = (find: (dataFromShopCollectionData: dataFromShopProtocolC
 
 let _buildEmptyArrBody = () => []
 
-export let getShopProtocolCollection = (s3: S3, parseShopCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
+export let getMarketProtocolCollection = (s3: S3, parseMarketCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
     console.log("get collection: ", collectionName)
 
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
     })
-        .then(data => parseShopCollectionDataBody("json", data))
+        .then(data => parseMarketCollectionDataBody("json", data))
         .catch(err => {
             if (err.name === 'NoSuchKey') {
                 console.log("add")
 
-                return addDataToShopProtocolCollection(s3,
+                return addDataToMarketProtocolCollection(s3,
                     _buildFirstAddDataToBodyFunc(),
                     collectionName, collectionName,
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
                         console.log("after add")
-                        return getShopProtocolCollection(s3, parseShopCollectionDataBody, collectionName)
+                        return getMarketProtocolCollection(s3, parseMarketCollectionDataBody, collectionName)
                     })
             }
 
@@ -169,14 +169,14 @@ export let getShopProtocolCollection = (s3: S3, parseShopCollectionDataBody, col
         })
 }
 
-export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, collectionName: string, account: account): Promise<[shopImplementAccountData, shopImplementCollectionData]> => {
+export let getMarketImplementAccountData = (s3: S3, parseMarketCollectionDataBody, collectionName: string, account: account): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
     return s3.getObject({
         Bucket: collectionName,
         Key: collectionName
     })
-        .then(data => parseShopCollectionDataBody("json", data))
-        .then((body: shopImplementCollectionData): [shopImplementAccountData, shopImplementCollectionData] => {
-            console.log("getShopImplementAccountData->body:", body)
+        .then(data => parseMarketCollectionDataBody("json", data))
+        .then((body: marketImplementCollectionData): [marketImplementAccountData, marketImplementCollectionData] => {
+            console.log("getMarketImplementAccountData->body:", body)
 
             account = handleKeyToLowercase(account)
 
@@ -191,7 +191,7 @@ export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, c
                 }
             }
 
-            console.log("getShopImplementAccountData->return:", [result, JSON.stringify(body)])
+            console.log("getMarketImplementAccountData->return:", [result, JSON.stringify(body)])
 
             return [result, body]
         })
@@ -199,13 +199,13 @@ export let getShopImplementAccountData = (s3: S3, parseShopCollectionDataBody, c
             if (err.name === 'NoSuchKey') {
                 console.log("add")
 
-                return _addDataToShopImplementCollection(s3,
+                return _addDataToMarketImplementCollection(s3,
                     _buildFirstAddDataToBodyFunc(),
                     collectionName, collectionName,
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
                         console.log("after add")
-                        return getShopImplementAccountData(s3, parseShopCollectionDataBody, collectionName, account)
+                        return getMarketImplementAccountData(s3, parseMarketCollectionDataBody, collectionName, account)
                     })
             }
 
@@ -235,61 +235,61 @@ export let uploadFile = (s3: S3, filePath: string, fileContent: ArrayBuffer) => 
     }))
 }
 
-export let updateShopImplementData = (s3: S3, collectionName: string, account: account, updateData: shopImplementAccountData, oldShopImplementCollectionData: shopImplementCollectionData) => {
+export let updateMarketImplementData = (s3: S3, collectionName: string, account: account, updateData: marketImplementAccountData, oldMarketImplementCollectionData: marketImplementCollectionData) => {
     account = handleKeyToLowercase(account)
 
-    let newShopImplementCollectionData = []
+    let newMarketImplementCollectionData = []
 
-    let index = oldShopImplementCollectionData.findIndex((data) => {
+    let index = oldMarketImplementCollectionData.findIndex((data) => {
         data.key === account
     })
 
     if (index === -1) {
-        newShopImplementCollectionData.push(updateData)
+        newMarketImplementCollectionData.push(updateData)
     }
     else {
-        newShopImplementCollectionData = oldShopImplementCollectionData.slice()
+        newMarketImplementCollectionData = oldMarketImplementCollectionData.slice()
 
-        newShopImplementCollectionData[index] = updateData
+        newMarketImplementCollectionData[index] = updateData
     }
 
-    console.log("updateShopImplementData->putObject Body:", newShopImplementCollectionData,
-        newShopImplementCollectionData[0].fileData,
-        JSON.stringify(newShopImplementCollectionData)
+    console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData,
+        newMarketImplementCollectionData[0].fileData,
+        JSON.stringify(newMarketImplementCollectionData)
     )
 
     return s3.putObject({
         Bucket: collectionName,
         Key: collectionName,
-        Body: JSON.stringify(newShopImplementCollectionData)
+        Body: JSON.stringify(newMarketImplementCollectionData)
         ,
     })
 }
 
-export let getShopImplementCollection = getShopProtocolCollection
+export let getMarketImplementCollection = getMarketProtocolCollection
 
-export let mapShopImplementCollection = (allCollectionData: allCollectionData, func) => {
+export let mapMarketImplementCollection = (allCollectionData: allCollectionData, func) => {
     return allCollectionData.map(func)
 }
 
-export let getAccountFromShopImplementCollectionData = (data: collectionData) => {
+export let getAccountFromMarketImplementCollectionData = (data: collectionData) => {
     return data.key
 }
 
-export let getFileDataFromShopImplementCollectionData = (data: collectionData) => {
+export let getFileDataFromMarketImplementCollectionData = (data: collectionData) => {
     return data.fileData
 }
 
-export let downloadFile = (s3: S3, parseShopCollectionDataBody, fileID: string) => {
+export let downloadFile = (s3: S3, parseMarketCollectionDataBody, fileID: string) => {
     return fromPromise(s3.getObject({
         Bucket: getFileBucketName(),
         Key: handleKeyToLowercase(fileID)
     })
-        .then(data => parseShopCollectionDataBody("arrayBuffer", data))
+        .then(data => parseMarketCollectionDataBody("arrayBuffer", data))
     )
 }
 
-export let parseShopCollectionDataBodyForNodejs = (returnDataType: "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
+export let parseMarketCollectionDataBodyForNodejs = (returnDataType: "json", allCollectionData: GetObjectCommandOutput): Promise<any> => {
     let stream = allCollectionData.Body as any
 
     return new Promise((resolve, reject) => {
