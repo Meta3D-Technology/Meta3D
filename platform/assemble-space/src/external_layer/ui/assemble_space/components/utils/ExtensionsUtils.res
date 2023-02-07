@@ -13,7 +13,8 @@ module Method = {
   let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromShop) => {
     getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(
       protocols => {
-        protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
+        protocols
+        ->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
             switch selectedExtensionsFromShop->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
@@ -39,6 +40,9 @@ module Method = {
           },
           [],
         )
+        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (name, _, _, _)) => {
+          name
+        })
       },
       // | list{(extension, protocolConfig)} =>
 

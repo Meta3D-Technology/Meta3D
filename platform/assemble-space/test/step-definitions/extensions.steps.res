@@ -23,41 +23,53 @@ defineFeature(feature, test => {
   test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
     _prepare(given)
 
-    \"when"("not loaded and render", () => {
-      ()
-    })
+    \"when"(
+      "not loaded and render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show loading", () => {
-      ExtensionsTool.buildUI(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+    then(
+      "should show loading",
+      () => {
+        ExtensionsTool.buildUI(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."if loaded, show extensions list", ({given, \"when", \"and", then}) => {
     _prepare(given)
 
-    \"when"("loaded and render", () => {
-      ()
-    })
+    \"when"(
+      "loaded and render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show extensions list", () => {
-      let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      useStateStub
-      ->onCall(0, _)
-      ->returns((true, _ => true), _)
-      ->onCall(1, _)
-      ->returns(([], _ => []), _)
-      ->ignore
+    then(
+      "should show extensions list",
+      () => {
+        let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        useStateStub
+        ->onCall(0, _)
+        ->returns((true, _ => true), _)
+        ->onCall(1, _)
+        ->returns(([], _ => []), _)
+        ->ignore
 
-      ExtensionsTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useState=useStateStub->Obj.magic, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ExtensionsTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useState=useStateStub->Obj.magic, ()),
+          (),
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   let _setExtensions = extensions => {
@@ -95,48 +107,65 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+    given(
+      "publish extension protocol a",
+      () => {
+        allPublishExtensionProtocols := [a]
+      },
+    )
 
-    \"and"("select extension a1 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          ExtensionTool.buildSelectedExtension(
-            ~name=a1Name,
-            ~protocolName=a.name,
-            ~protocolVersionRange=">= 1.0.0",
-            ~protocolConfig=protocolConfig->Some,
+    \"and"(
+      "select extension a1 for a",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~name=a1Name,
+              ~protocolName=a.name,
+              ~protocolVersionRange=">= 1.0.0",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
+
+    CucumberAsync.execStep(
+      then,
+      "should mark loaded",
+      () => {
+        let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        ExtensionsTool.useEffectOnceAsync(
+          ~sandbox,
+          ~setIsLoaded=setIsLoadedStub,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllPublishExtensionProtocols=createEmptyStub(
+              refJsObjToSandbox(sandbox.contents),
+            )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
             (),
           ),
-        }
-    })
-
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
-
-    CucumberAsync.execStep(then, "should mark loaded", () => {
-      let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      ExtensionsTool.useEffectOnceAsync(
-        ~sandbox,
-        ~setIsLoaded=setIsLoadedStub,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~getAllPublishExtensionProtocols=createEmptyStub(
-            refJsObjToSandbox(sandbox.contents),
-          )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
-        ),
-        ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
-        (),
-      )
-      ->ServiceTool.getUseEffectOncePromise
-      ->then_(() => {
-        (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)->resolve
-      }, _)
-    })
+        )
+        ->ServiceTool.getUseEffectOncePromise
+        ->then_(
+          () => {
+            (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
+              ->resolve
+          },
+          _,
+        )
+      },
+    )
 
     CucumberAsync.execStep(
       \"and",
@@ -172,72 +201,200 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+    given(
+      "publish extension protocol a",
+      () => {
+        allPublishExtensionProtocols := [a]
+      },
+    )
 
-    \"and"("select extension a1, a2 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          ExtensionTool.buildSelectedExtension(
-            ~name=a1Name,
-            ~protocolName=a.name,
-            ~protocolVersionRange=">= 1.0.0",
-            ~protocolConfig=protocolConfig->Some,
-            (),
-          ),
-          ExtensionTool.buildSelectedExtension(
-            ~name=a2Name,
-            ~protocolName=a.name,
-            ~protocolVersionRange=">= 1.0.0",
-            ~protocolConfig=protocolConfig->Some,
-            (),
-          ),
-        }
-    })
+    \"and"(
+      "select extension a1, a2 for a",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~name=a1Name,
+              ~protocolName=a.name,
+              ~protocolVersionRange=">= 1.0.0",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+            ExtensionTool.buildSelectedExtension(
+              ~name=a2Name,
+              ~protocolName=a.name,
+              ~protocolVersionRange=">= 1.0.0",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+          }
+      },
+    )
 
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
 
-    CucumberAsync.execStep(then, "should mark loaded", () => {
-      let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(
+      then,
+      "should mark loaded",
+      () => {
+        let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      ExtensionsTool.useEffectOnceAsync(
-        ~sandbox,
-        ~setIsLoaded=setIsLoadedStub,
-        ~service=ServiceTool.build(
+        ExtensionsTool.useEffectOnceAsync(
           ~sandbox,
-          ~getAllPublishExtensionProtocols=createEmptyStub(
-            refJsObjToSandbox(sandbox.contents),
-          )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
+          ~setIsLoaded=setIsLoadedStub,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllPublishExtensionProtocols=createEmptyStub(
+              refJsObjToSandbox(sandbox.contents),
+            )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
+            (),
+          ),
+          ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
           (),
-        ),
-        ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
-        (),
-      )
-      ->ServiceTool.getUseEffectOncePromise
-      ->then_(() => {
-        (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)->resolve
-      }, _)
-    })
+        )
+        ->ServiceTool.getUseEffectOncePromise
+        ->then_(
+          () => {
+            (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
+              ->resolve
+          },
+          _,
+        )
+      },
+    )
 
-    CucumberAsync.execStep(\"and", "extensions should contain a1 and a2", () => {
-      _setExtensions([
-        (
-          a1Name,
-          a.iconBase64,
-          protocolConfig.configStr,
-          selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
-        ),
-        (
-          a2Name,
-          a.iconBase64,
-          protocolConfig.configStr,
-          selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
-        ),
-      ])
-    })
+    CucumberAsync.execStep(
+      \"and",
+      "extensions should contain a1 and a2",
+      () => {
+        _setExtensions([
+          (
+            a1Name,
+            a.iconBase64,
+            protocolConfig.configStr,
+            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+          ),
+          (
+            a2Name,
+            a.iconBase64,
+            protocolConfig.configStr,
+            selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+          ),
+        ])
+      },
+    )
+  })
+
+  test(."set extensions when select one extension of the protocol with low version", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let protocolName = "a"
+    let protocolIconBase64 = "i1"
+    let a_low: FrontendUtils.BackendCloudbaseType.protocol = {
+      name: protocolName,
+      version: "0.1.0",
+      iconBase64: protocolIconBase64,
+      account: "meta3d",
+    }
+    let a_high: FrontendUtils.BackendCloudbaseType.protocol = {
+      name: protocolName,
+      version: "0.1.1",
+      iconBase64: protocolIconBase64,
+      account: "meta3d",
+    }
+    let a1Name = "a1"
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+    _prepare(given)
+
+    given(
+      "publish extension protocol a with low version and hight version",
+      () => {
+        allPublishExtensionProtocols := [a_low, a_high]
+      },
+    )
+
+    \"and"(
+      "select extension a1 for a of low version",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~name=a1Name,
+              ~protocolName,
+              ~protocolVersionRange="^0.1.0",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
+
+    // CucumberAsync.execStep(
+    //   then,
+    //   "should mark loaded",
+    //   () => {
+    //     let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+    //     ExtensionsTool.useEffectOnceAsync(
+    //       ~sandbox,
+    //       ~setIsLoaded=setIsLoadedStub,
+    //       ~service=ServiceTool.build(
+    //         ~sandbox,
+    //         ~getAllPublishExtensionProtocols=createEmptyStub(
+    //           refJsObjToSandbox(sandbox.contents),
+    //         )->returns(Meta3dBsMost.Most.just(allPublishExtensionProtocols.contents), _),
+    //         (),
+    //       ),
+    //       ~selectedExtensionsFromShop=selectedExtensionsFromShop.contents,
+    //       (),
+    //     )
+    //     ->ServiceTool.getUseEffectOncePromise
+    //     ->then_(
+    //       () => {
+    //         (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
+    //           ->resolve
+    //       },
+    //       _,
+    //     )
+    //   },
+    // )
+
+    CucumberAsync.execStep(
+      \"and",
+      "extensions should has only one a1",
+      () => {
+        _setExtensions([
+          (
+            a1Name,
+            protocolIconBase64,
+            protocolConfig.configStr,
+            selectedExtensionsFromShop.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+          ),
+          // (
+          //   a2Name,
+          //   a.iconBase64,
+          //   protocolConfig.configStr,
+          //   selectedExtensionsFromShop.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+          // ),
+        ])
+      },
+    )
   })
 
   test(."select extension", ({given, \"when", \"and", then}) => {
@@ -251,52 +408,67 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+    given(
+      "publish extension protocol a",
+      () => {
+        allPublishExtensionProtocols := [a]
+      },
+    )
 
-    \"and"("select extension a1 for a", () => {
-      selectedExtensionsFromShop :=
-        list{
-          ExtensionTool.buildSelectedExtension(
-            ~protocolName=a.name,
-            ~protocolVersionRange=">= 1.0.0",
-            (),
+    \"and"(
+      "select extension a1 for a",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~protocolName=a.name,
+              ~protocolVersionRange=">= 1.0.0",
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
+
+    \"when"(
+      "select a1",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+
+        ExtensionsTool.selectExtension(
+          ~dispatch=dispatchStub.contents,
+          ~iconBase64=a.iconBase64,
+          ~extension,
+          ~protocolConfigStr=protocolConfig->ExtensionsTool.getProtocolConfigStr,
+        )
+      },
+    )
+
+    then(
+      "should dispatch SelectExtension action",
+      () => {
+        let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
+
+        dispatchStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(
+          FrontendUtils.ApAssembleStoreType.SelectExtension(
+            a.iconBase64,
+            protocolConfig->ExtensionsTool.getProtocolConfigStr,
+            extension,
           ),
-        }
-    })
-
-    \"and"("render after useEffectOnceAsync", () => {
-      ()
-    })
-
-    \"when"("select a1", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-      let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
-
-      ExtensionsTool.selectExtension(
-        ~dispatch=dispatchStub.contents,
-        ~iconBase64=a.iconBase64,
-        ~extension,
-        ~protocolConfigStr=protocolConfig->ExtensionsTool.getProtocolConfigStr,
-      )
-    })
-
-    then("should dispatch SelectExtension action", () => {
-      let (extension, protocolConfig) = selectedExtensionsFromShop.contents->ListTool.getHeadExn
-
-      dispatchStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWith(
-        FrontendUtils.ApAssembleStoreType.SelectExtension(
-          a.iconBase64,
-          protocolConfig->ExtensionsTool.getProtocolConfigStr,
-          extension,
-        ),
-      )
-      ->expect == true
-    })
+        )
+        ->expect == true
+      },
+    )
   })
 
   test(."has zero implement of extension protocol", ({given, \"when", \"and", then}) => {
@@ -309,22 +481,41 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+    given(
+      "publish extension protocol a",
+      () => {
+        allPublishExtensionProtocols := [a]
+      },
+    )
 
-    \"and"("select extension b1 for protocol b", () => {
-      selectedExtensionsFromShop :=
-        list{ExtensionTool.buildSelectedExtension(~protocolName="b", ~protocolVersionRange="0.0.1", ())}
-    })
+    \"and"(
+      "select extension b1 for protocol b",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~protocolName="b",
+              ~protocolVersionRange="0.0.1",
+              (),
+            ),
+          }
+      },
+    )
 
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
 
-    CucumberAsync.execStep(then, "should set empty", () => {
-      _setExtensions([])
-    })
+    CucumberAsync.execStep(
+      then,
+      "should set empty",
+      () => {
+        _setExtensions([])
+      },
+    )
   })
 
   // test(."has multiple implements of extension protocol", ({given, \"when", \"and", then}) => {
@@ -378,27 +569,40 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("publish extension protocol a", () => {
-      allPublishExtensionProtocols := [a]
-    })
+    given(
+      "publish extension protocol a",
+      () => {
+        allPublishExtensionProtocols := [a]
+      },
+    )
 
-    \"and"("select extension a1 for a with old version", () => {
-      selectedExtensionsFromShop :=
-        list{
-          ExtensionTool.buildSelectedExtension(
-            ~protocolName=a.name,
-            ~protocolVersionRange=">= 1.0.0",
-            (),
-          ),
-        }
-    })
+    \"and"(
+      "select extension a1 for a with old version",
+      () => {
+        selectedExtensionsFromShop :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~protocolName=a.name,
+              ~protocolVersionRange=">= 1.0.0",
+              (),
+            ),
+          }
+      },
+    )
 
-    \"when"("render after useEffectOnceAsync", () => {
-      ()
-    })
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
 
-    CucumberAsync.execStep(then, "should set empty", () => {
-      _setExtensions([])
-    })
+    CucumberAsync.execStep(
+      then,
+      "should set empty",
+      () => {
+        _setExtensions([])
+      },
+    )
   })
 })

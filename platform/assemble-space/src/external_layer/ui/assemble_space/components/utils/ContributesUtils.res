@@ -2,8 +2,6 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-// TODO refactor: duplicate with Extensions
-
 module Method = {
   let _getProtocolConfigStr = protocolConfig => {
     protocolConfig->Meta3dCommonlib.OptionSt.map((
@@ -15,7 +13,8 @@ module Method = {
   let _getContributes = ({getAllPublishContributeProtocols}, selectedContributesFromShop) => {
     getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(
       protocols => {
-        protocols->Meta3dCommonlib.ArraySt.reduceOneParam(
+        protocols
+        ->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
             switch selectedContributesFromShop->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.contribute, _)) => {
@@ -41,6 +40,9 @@ module Method = {
           },
           [],
         )
+        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (name, _, _, _)) => {
+          name
+        })
       },
       // | list{(contribute, protocolConfig)} =>
 
@@ -48,21 +50,7 @@ module Method = {
     )
   }
 
-  //   let selectContribute = (
-  //     dispatch,
-  //     selectContribute,
-  //     protocolIconBase64,
-  //     protocolConfigStr,
-  //     contribute,
-  //   ) => {
-  //     dispatch(selectContribute(protocolIconBase64, protocolConfigStr, contribute))
-  //   }
-
-  let useEffectOnceAsync = (
-    (setIsLoaded, setContributes),
-    service,
-    selectedContributesFromShop,
-  ) => {
+  let useEffectOnceAsync = ((setIsLoaded, setContributes), service, selectedContributesFromShop) => {
     (
       _getContributes(
         service.backend,

@@ -39,7 +39,7 @@
 
 
 
-* TODO fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
+* DONE fix: publish protocol of two versions, select one implement of them, shouldn't show two in Contributes!
 e.g. meta3d-ui-control-button-protocol
 
 

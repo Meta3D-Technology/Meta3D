@@ -37,6 +37,11 @@ Feature: Extensions
             Then should mark loaded
             And extensions should contain a1 and a2
 
+        Scenario: set extensions when select one extension of the protocol with low version
+            Given publish extension protocol a with low version and hight version
+            And select extension a1 for a of low version
+            When render after useEffectOnceAsync
+            Then extensions should has only one a1
 
         Scenario: select extension
             Given publish extension protocol a
