@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual-run",
-    "version": "0.10.1",
+    "version": "0.10.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
@@ -15,8 +15,8 @@
         "meta3dImguiRendererExtensionProtocolName": {
             "protocolName": "meta3d-imgui-renderer-protocol"
         },
-        "meta3dEditorEngineWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-whole-protocol"
+        "meta3dEditorRunEngineExtensionProtocolName": {
+            "protocolName": "meta3d-editor-run-engine-protocol"
         }
     },
     "dependentContributeProtocolNameMap": {
@@ -33,7 +33,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-editor-engine-whole-protocol": ">=0.9.0",
+        "meta3d-editor-run-engine-protocol": ">=0.9.0",
         "meta3d-element-assemble-element-protocol": "^0.10.0",
         "meta3d-element-assemble-visual-run-protocol": "^0.10.0",
         "meta3d-event-protocol": ">=0.9.0",

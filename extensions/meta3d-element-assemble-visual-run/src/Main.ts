@@ -14,7 +14,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { service as engineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
 	let { meta3dEventExtensionProtocolName, meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
@@ -77,48 +77,6 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtoco
 	return meta3dState
 }
 
-let _prepareAndInitEngine = (
-	meta3dState: meta3dState, api: api,
-	uiService: uiService,
-	meta3dEditorEngineWholeExtensionProtocolName: string,
-	isDebug: boolean
-) => {
-	let engineWholeService = api.getExtensionService<engineWholeService>(
-		meta3dState,
-		meta3dEditorEngineWholeExtensionProtocolName
-	)
-
-	meta3dState = engineWholeService.prepare(meta3dState, isDebug,
-		{
-			float9Array1: new Float32Array(),
-			float32Array1: new Float32Array(),
-			transformCount: 100,
-			geometryCount: 100,
-			geometryPointCount: 1000,
-			pbrMaterialCount: 100
-		},
-		uiService.getContext(meta3dState)
-	)
-
-
-
-	return engineWholeService.init(meta3dState)
-
-}
-
-let _loopEngine = (
-	meta3dState: meta3dState,
-	api: api,
-	meta3dEditorEngineWholeExtensionProtocolName: string
-) => {
-	let engineWholeService = api.getExtensionService<engineWholeService>(
-		meta3dState,
-		meta3dEditorEngineWholeExtensionProtocolName
-	)
-
-	return engineWholeService.update(meta3dState).then(meta3dState => engineWholeService.render(meta3dState))
-}
-
 export let getExtensionService: getExtensionServiceMeta3D<
 	dependentExtensionProtocolNameMap,
 	dependentContributeProtocolNameMap,
@@ -128,7 +86,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	let {
 		meta3dUIExtensionProtocolName,
 		meta3dImguiRendererExtensionProtocolName,
-		meta3dEditorEngineWholeExtensionProtocolName
+		meta3dEditorRunEngineExtensionProtocolName
 	} = dependentExtensionProtocolNameMap
 
 	return {
@@ -149,10 +107,16 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let uiService = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
 
 			return uiService.init(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], true, isDebug, canvas).then(meta3dState => {
-				return _prepareAndInitEngine(
-					meta3dState, api,
-					uiService,
-					meta3dEditorEngineWholeExtensionProtocolName,
+
+
+
+				let runEngineService = api.getExtensionService<runEngineService>(
+					meta3dState,
+					meta3dEditorRunEngineExtensionProtocolName
+				)
+
+				return runEngineService.prepareAndInitEngine(meta3dState,
+					uiService.getContext(meta3dState),
 					isDebug
 				)
 			})
@@ -174,7 +138,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], clearColor)
 
 			return render(meta3dState, [meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], time).then(meta3dState => {
-				return _loopEngine(meta3dState, api, meta3dEditorEngineWholeExtensionProtocolName)
+				let runEngineService = api.getExtensionService<runEngineService>(
+					meta3dState,
+					meta3dEditorRunEngineExtensionProtocolName
+				)
+
+				return runEngineService.loopEngine(meta3dState)
 			})
 		}
 	}

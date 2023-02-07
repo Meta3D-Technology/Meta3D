@@ -60,19 +60,30 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 
-# * TODO 最简单的App：“只有一个按钮”
-* TODO 最简单的App2：“只有一个按钮+log action”
-    ■ need build and use meta3d-editor-engine-empty-whole package!
+* DONE 最简单的App：“只有一个按钮”
+# * TODO 最简单的App2：“只有一个按钮+log action”
+    # ■ need build and use meta3d-editor-run-engine-whole package!
+    # ■ need build and use meta3d-use-empty-package!
+
 
 # move DependentMapType from protocol to implement
 
+# run element
+
+# run app
+
+* TODO “点击按钮，加入多个立方体”的编辑器Demo（开启深度检测）
+    ■ need build and use meta3d-editor-engine-whole package!
+
+run element
+
+run app
 
 * TODO fix: should only select one version of implement in market
 
 * TODO fix: should reorder by version when jump between second and third page
 
 
-* TODO “点击按钮，加入多个立方体”的编辑器Demo（开启深度检测）
 * TODO 支持three.js引擎
 ** TODO 封装three.js引擎及其扩展为多个Extension，成为一个引擎，引擎Package可单独使用
 ** TODO 开发该引擎的Demo App
@@ -93,6 +104,7 @@ refer to vs code plugin info
 e.g. protocol, dependent map, ...
 ** TODO improve error info
 ** TODO 新增 账号、密码 注册和登录的方式
+no any limit(e.g. length, ...)!!!
   
 ** TODO 更新模板repo
 如开发Extension、Contribute
