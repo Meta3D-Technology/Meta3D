@@ -88,7 +88,7 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 # publish all
 
 
-* TODO fix: should only select one version of implement in market
+* DONE fix: should only select one version of implement in market
 
 * TODO fix: should reorder by version when jump between second and third page
 

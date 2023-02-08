@@ -38,14 +38,46 @@ type state = {
   selectedPackages: selectedPackages,
 }
 
+let _removeOtherSelectedExtensionsOfSameProtocolName = (
+  selectedExtensions: selectedExtensions,
+  data: extension,
+) => {
+  let protocolName = data.protocolName
+
+  selectedExtensions->Meta3dCommonlib.ListSt.filter(((selectedExtension, _)) => {
+    selectedExtension.protocolName !== protocolName
+  })
+}
+
+let _removeOtherSelectedContributesOfSameProtocolName = (
+  selectedContributes: selectedContributes,
+  data: contribute,
+) => {
+  let protocolName = data.protocolName
+
+  selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+    selectedContribute.protocolName !== protocolName
+  })
+}
+
+let _removeOtherSelectedPackagesOfSameProtocolName = (
+  selectedPackages: selectedPackages,
+  data: packageData,
+) => {
+  let protocolName = data.protocol.name
+
+  selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage => {
+    selectedPackage.protocol.name !== protocolName
+  })
+}
+
 let reducer = (state, action) => {
   switch action {
   | SelectExtension(data, protocolConfigOpt) => {
       ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push((
-        data,
-        protocolConfigOpt,
-      )),
+      selectedExtensions: state.selectedExtensions
+      ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
+      ->Meta3dCommonlib.ListSt.push((data, protocolConfigOpt)),
     }
   | NotSelectExtension(id) => {
       ...state,
@@ -56,10 +88,9 @@ let reducer = (state, action) => {
     }
   | SelectContribute(data, protocolConfigOpt) => {
       ...state,
-      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push((
-        data,
-        protocolConfigOpt,
-      )),
+      selectedContributes: state.selectedContributes
+      ->_removeOtherSelectedContributesOfSameProtocolName(data)
+      ->Meta3dCommonlib.ListSt.push((data, protocolConfigOpt)),
       // selectedContributeProtocolConfigs: state.selectedContributeProtocolConfigs->Meta3dCommonlib.ListSt.push(
       //   protocolConfigOpt,
       // ),
@@ -73,7 +104,9 @@ let reducer = (state, action) => {
     }
   | SelectPackage(data) => {
       ...state,
-      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push(data),
+      selectedPackages: state.selectedPackages
+      ->_removeOtherSelectedPackagesOfSameProtocolName(data)
+      ->Meta3dCommonlib.ListSt.push(data),
     }
   | NotSelectPackage(id) => {
       ...state,
