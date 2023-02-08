@@ -33,7 +33,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     Meta3dCommonlib.ImmutableHashMap.createEmpty()
   )
 
-
   let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
     selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
       id === selectedContribute.id
@@ -95,6 +94,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ContributeMarket"} =>
+      setSelectPublishContributeProtocol(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+      setSelectPublishContribute(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+
       setContributeProtocolItem(_ => None)
       setAllPublishContributes(_ => None)
     | _ => ()

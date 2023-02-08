@@ -32,6 +32,16 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     )
   }
 
+  // let _clearSelectPublishExtensionProtocol = name => {
+  //   setSelectPublishExtensionProtocol(value =>
+  //     value->Meta3dCommonlib.ImmutableHashMap.deleteVal(name)
+  //   )
+  // }
+
+  // let _clearSelectPublishExtension = name => {
+  //   setSelectPublishExtension(value => value->Meta3dCommonlib.ImmutableHashMap.deleteVal(name))
+  // }
+
   let _groupAllPublishExtensionProtocols = (
     allPublishExtensionProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
   ): array<array<FrontendUtils.BackendCloudbaseType.protocol>> => {
@@ -87,6 +97,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ExtensionMarket"} =>
+      setSelectPublishExtensionProtocol(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+      setSelectPublishExtension(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+
       setExtensionProtocolItem(_ => None)
       setAllPublishExtensions(_ => None)
     | _ => ()
@@ -303,6 +316,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     avatar={<img src={item.iconBase64} />}
                     title={<span
                       onClick={_ => {
+                        // _clearSelectPublishExtensionProtocol(item.name)
+
                         setExtensionProtocolItem(_ => item->Some)
                       }}>
                       {React.string(item.name)}

@@ -99,6 +99,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"PackageMarket"} =>
+      setSelectPublishPackageEntryExtensionProtocol(_ =>
+        Meta3dCommonlib.ImmutableHashMap.createEmpty()
+      )
+      setSelectPublishPackage(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+
       setPackageEntryExtensionProtocolItem(_ => None)
       setAllPublishPackages(_ => None)
     | _ => ()

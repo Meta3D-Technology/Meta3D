@@ -90,7 +90,7 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 * DONE fix: should only select one version of implement in market
 
-* TODO fix: should reorder by version when jump between second and third page
+* DONE fix: should reorder by version when jump between second and third page
 
 
 * TODO 支持three.js引擎
