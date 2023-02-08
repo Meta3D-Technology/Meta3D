@@ -93,63 +93,6 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 * DONE fix: should reorder by version when jump between second and third page
 
 
-* TODO 支持three.js引擎
-** TODO 封装three.js引擎及其扩展为多个Extension，成为一个引擎，引擎Package可单独使用
-
-abstract level:
-engine-whole level
-
-
-# basic, scene remain
-# render->pipeline use custom job to use three.js, own(e.g. fbo jobs)
-
-basic remain
-# implement whole->scene by three.js
-render->pipeline use custom job to use three.js, own(e.g. fbo jobs)
-
-
-
-
-
-scene state = {
-    scene,
-    camera
-}
-
-render state = {
-    renderer
-}
-
-
-
-
-*** DONE scene protocol should equal whole.scene(only know meta3dState)!
-
-*** TODO add three-scene extension
-
-protocol add scene:{
-    getSceneGameObject:  () => gameObject
-}
-
-
-use @type/three
-
-
-
-
-*** TODO add three-render extension and related pipeline contributes
-
-
-** TODO pass engine package run test
-
-
-
-# ** TODO 开发该引擎的Demo App
-move some basic examples(geometry-cube) here!
-
-
-** TODO 编辑器使用该引擎来渲染
-
 
 
 
