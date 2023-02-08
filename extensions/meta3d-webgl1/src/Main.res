@@ -283,8 +283,17 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getFrameBufferType: (. gl) => {
     (gl->Obj.magic)["FRAMEBUFFER"]
   },
+  getRenderBufferType: (. gl) => {
+    (gl->Obj.magic)["RENDERBUFFER"]
+  },
   getColorAttachment0: (. gl) => {
     (gl->Obj.magic)["COLOR_ATTACHMENT0"]
+  },
+  getDepthAttachment: (. gl) => {
+    (gl->Obj.magic)["DEPTH_ATTACHMENT"]
+  },
+  getDepthComponent16: (. gl) => {
+    (gl->Obj.magic)["DEPTH_COMPONENT16"]
   },
   createFramebuffer: (. gl) => {
     (gl->Obj.magic)["createFramebuffer"](.)
@@ -294,6 +303,23 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   },
   framebufferTexture2D: (. target, attachment, textarget, texture, level, gl) => {
     (gl->Obj.magic)["framebufferTexture2D"](. target, attachment, textarget, texture, level)
+  },
+  createRenderbuffer: (. gl) => {
+    (gl->Obj.magic)["createRenderbuffer"](.)
+  },
+  bindRenderbuffer: (. target, renderBuffer, gl) => {
+    (gl->Obj.magic)["bindRenderbuffer"](. target, renderBuffer)
+  },
+  renderbufferStorage: (. target, internalFormat, width, height, gl) => {
+    (gl->Obj.magic)["renderbufferStorage"](. target, internalFormat, width, height)
+  },
+  framebufferRenderbuffer: (. target, attachment, renderBufferTarget, renderBuffer, gl) => {
+    (gl->Obj.magic)["framebufferRenderbuffer"](.
+      target,
+      attachment,
+      renderBufferTarget,
+      renderBuffer,
+    )
   },
 }
 

@@ -163,6 +163,8 @@ let _loop = (
 	[meta3dEditorRunEngineExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName]: [string, string, string],
 	configData: configData
 ) => {
+	console.log("loop")
+
 	let [_, { skinName, clearColor }] = configData
 
 	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
@@ -187,7 +189,7 @@ let _loop = (
 			meta3dEditorRunEngineExtensionProtocolName
 		)
 
-		runEngineService.loopEngine(meta3dState) .then(meta3dState => {
+		runEngineService.loopEngine(meta3dState).then(meta3dState => {
 			requestAnimationFrame(
 				(time) => {
 					_loop(api, meta3dState,
@@ -204,14 +206,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	dependentContributeProtocolNameMap,
 	service
 > = (api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
-	let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEditorEngineWholeExtensionProtocolName } = dependentExtensionProtocolNameMap
+	let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEditorRunEngineExtensionProtocolName } = dependentExtensionProtocolNameMap
 
 	return {
 		run: (meta3dState: meta3dState, configData) => {
 			_init(meta3dState, api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap], configData).then((meta3dState: meta3dState) => {
 				_loop(api, meta3dState,
 					0,
-					[meta3dEditorEngineWholeExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], configData)
+					[meta3dEditorRunEngineExtensionProtocolName, meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], configData)
 			})
 		}
 	}

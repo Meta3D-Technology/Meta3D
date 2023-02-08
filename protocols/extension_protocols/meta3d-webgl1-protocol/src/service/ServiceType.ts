@@ -12,6 +12,8 @@ export abstract class program { protected opaque!: any }; /* simulate opaque typ
 // tslint:disable-next-line:class-name
 export abstract class buffer { protected opaque!: any }; /* simulate opaque types */
 
+export abstract class renderBuffer { protected opaque!: any }; /* simulate opaque types */
+
 // tslint:disable-next-line:interface-over-type-literal
 export type attributeLocation = number;
 
@@ -155,8 +157,15 @@ export type service = {
   readonly getTextureWrapTType: (_1: webgl1Context) => number;
   readonly getClampToEdgeType: (_1: webgl1Context) => number;
   readonly getFrameBufferType: (_1: webgl1Context) => number;
+  readonly getRenderBufferType: (_1: webgl1Context) => number;
   readonly getColorAttachment0: (_1: webgl1Context) => number;
+  readonly getDepthAttachment: (_1: webgl1Context) => number;
+  readonly getDepthComponent16: (_1: webgl1Context) => glenum;
   readonly createFramebuffer: (_1: webgl1Context) => (null | fbo);
   readonly bindFramebuffer: (_1: glenum, _2: (null | fbo), _3: webgl1Context) => void;
-  readonly framebufferTexture2D: (_1: glenum, _2: glenum, _3: glenum, _4: (null | texture), _5: glint, _6: webgl1Context) => void
+  readonly framebufferTexture2D: (_1: glenum, _2: glenum, _3: glenum, _4: (null | texture), _5: glint, _6: webgl1Context) => void;
+  readonly createRenderbuffer: (_1: webgl1Context) => renderBuffer;
+  readonly bindRenderbuffer: (_1: glenum, _2: renderBuffer, _3: webgl1Context) => void;
+  readonly renderbufferStorage: (_1: glenum, _2: glenum, _3: number, _4: number, _5: webgl1Context) => void;
+  readonly framebufferRenderbuffer: (_1: glenum, _2: glenum, _3: glenum, _4: renderBuffer, _5: webgl1Context) => void
 };

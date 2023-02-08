@@ -37,6 +37,14 @@ let _createAndInitFBOData = (webgl1Service: webgl1Service, gl: webgl1Context, vi
 
     webgl1Service.framebufferTexture2D(webgl1Service.getFrameBufferType(gl), webgl1Service.getColorAttachment0(gl), webgl1Service.getTexture2DType(gl), texture, _getLevel(), gl);
 
+    // create a depth renderbuffer
+    let depthBuffer = webgl1Service.createRenderbuffer(gl)
+    webgl1Service.bindRenderbuffer(webgl1Service.getRenderBufferType(gl), depthBuffer, gl);
+
+    // make a depth buffer and the same size as the targetTexture
+    webgl1Service.renderbufferStorage(webgl1Service.getRenderBufferType(gl), webgl1Service.getDepthComponent16(gl), viewSize[0], viewSize[1], gl);
+    webgl1Service.framebufferRenderbuffer(webgl1Service.getFrameBufferType(gl), webgl1Service.getDepthAttachment(gl), webgl1Service.getRenderBufferType(gl), depthBuffer, gl);
+
     webgl1Service.bindFramebuffer(webgl1Service.getFrameBufferType(gl), null, gl);
     webgl1Service.bindTexture(webgl1Service.getTexture2DType(gl), null, gl);
 

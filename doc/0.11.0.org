@@ -72,12 +72,21 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 # run app
 
-* TODO “点击按钮，加入多个立方体”的编辑器Demo（开启深度检测）
+* DONE “点击按钮，加入多个立方体”的编辑器Demo（开启深度检测）
     ■ need build and use meta3d-editor-engine-whole package!
 
-run element
+# run element
 
-run app
+# run app
+
+
+
+# * TODO fix: fix all version
+
+# still use ^0.10.0 instead of >=0.9.0 except platform/
+
+# publish all
+
 
 * TODO fix: should only select one version of implement in market
 

@@ -256,8 +256,17 @@ function getExtensionService(api, param) {
           getFrameBufferType: (function (gl) {
               return gl.FRAMEBUFFER;
             }),
+          getRenderBufferType: (function (gl) {
+              return gl.RENDERBUFFER;
+            }),
           getColorAttachment0: (function (gl) {
               return gl.COLOR_ATTACHMENT0;
+            }),
+          getDepthAttachment: (function (gl) {
+              return gl.DEPTH_ATTACHMENT;
+            }),
+          getDepthComponent16: (function (gl) {
+              return gl.DEPTH_COMPONENT16;
             }),
           createFramebuffer: (function (gl) {
               return gl.createFramebuffer();
@@ -267,6 +276,18 @@ function getExtensionService(api, param) {
             }),
           framebufferTexture2D: (function (target, attachment, textarget, texture, level, gl) {
               gl.framebufferTexture2D(target, attachment, textarget, texture, level);
+            }),
+          createRenderbuffer: (function (gl) {
+              return gl.createRenderbuffer();
+            }),
+          bindRenderbuffer: (function (target, renderBuffer, gl) {
+              gl.bindRenderbuffer(target, renderBuffer);
+            }),
+          renderbufferStorage: (function (target, internalFormat, width, height, gl) {
+              gl.renderbufferStorage(target, internalFormat, width, height);
+            }),
+          framebufferRenderbuffer: (function (target, attachment, renderBufferTarget, renderBuffer, gl) {
+              gl.framebufferRenderbuffer(target, attachment, renderBufferTarget, renderBuffer);
             })
         };
 }

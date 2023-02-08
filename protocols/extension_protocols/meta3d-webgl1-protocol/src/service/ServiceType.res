@@ -6,6 +6,8 @@ type program
 
 type buffer
 
+type renderBuffer
+
 type attributeLocation = int
 
 type uniformLocation
@@ -48,6 +50,7 @@ type contextConfigJsObj = {
 
 type canvas = Dom.htmlCanvasElement
 
+// @genType
 type service = {
   getContext: (. canvas, contextConfigJsObj) => webgl1Context,
   createProgram: (. webgl1Context) => program,
@@ -144,7 +147,10 @@ type service = {
   getTextureWrapTType: (. webgl1Context) => int,
   getClampToEdgeType: (. webgl1Context) => int,
   getFrameBufferType: (. webgl1Context) => int,
+  getRenderBufferType: (. webgl1Context) => int,
   getColorAttachment0: (. webgl1Context) => int,
+  getDepthAttachment: (. webgl1Context) => int,
+  getDepthComponent16: (. webgl1Context) => glenum,
   createFramebuffer: (. webgl1Context) => Js.Null.t<fbo>,
   bindFramebuffer: (. glenum, Js.Null.t<fbo>, webgl1Context) => unit,
   framebufferTexture2D: (
@@ -155,6 +161,10 @@ type service = {
     glint,
     webgl1Context,
   ) => unit,
+  createRenderbuffer: (. webgl1Context) => renderBuffer,
+  bindRenderbuffer: (. glenum, renderBuffer, webgl1Context) => unit,
+  renderbufferStorage: (. glenum, glenum, int, int, webgl1Context) => unit,
+  framebufferRenderbuffer: (. glenum, glenum, glenum, renderBuffer, webgl1Context) => unit,
 }
 
 external parameterIntToNullableProgram: int => Js.Nullable.t<program> = "%identity"

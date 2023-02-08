@@ -2,6 +2,7 @@ import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/w
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
+import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
@@ -21,6 +22,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execPrepareFBO;
 		case "scene_view1_gl_webgl1_update_arcballcameracontroller_meta3d":
 			return execUpdateArcballCameraControllerJob;
+		case "scene_view1_gl_webgl1_prepare_status_meta3d":
+			return execPrepareStatus;
 		case "scene_view1_gl_webgl1_use_fbo_meta3d":
 			return execUseFBO;
 		default:
@@ -105,6 +108,10 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
 						elements: [
 							{
 								"name": "scene_view1_gl_webgl1_use_fbo_meta3d",
+								"type_": "job"
+							},
+							{
+								"name": "scene_view1_gl_webgl1_prepare_status_meta3d",
 								"type_": "job"
 							},
 						]

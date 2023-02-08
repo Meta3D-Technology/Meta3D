@@ -21,7 +21,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-add-cube-protocol": "^0.10.0",
-        "meta3d-editor-engine-whole-protocol": "^0.10.0",
+        "meta3d-editor-engine-whole-protocol": ">=0.9.0",
         "meta3d-type": "^0.10.0"
     },
     "devDependencies": {
