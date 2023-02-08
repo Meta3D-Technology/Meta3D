@@ -1,12 +1,8 @@
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { state as meta3dState } from "meta3d-type"
 import { componentName, pbrMaterial, diffuseColor, dataName } from "meta3d-component-pbrmaterial-protocol"
 
-export type createPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
-	createComponent,
-	setUsedComponentContribute,
-}: engineCoreService) => [engineCoreState, pbrMaterial]
+export type createPBRMaterial = (meta3dState: meta3dState) => [meta3dState, pbrMaterial]
 
-export type setDiffuseColor = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) => engineCoreState
+export type setDiffuseColor = (meta3dState: meta3dState, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) => meta3dState
 
-export type getAllPBRMaterials = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) => pbrMaterial[]
+export type getAllPBRMaterials = (meta3dState: meta3dState) => pbrMaterial[]

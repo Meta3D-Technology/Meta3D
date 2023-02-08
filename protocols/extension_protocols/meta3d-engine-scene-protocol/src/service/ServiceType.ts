@@ -1,3 +1,4 @@
+import { Merge } from "meta3d-commonlib-ts/src/type"
 import { state as meta3dState } from "meta3d-type"
 import {
 	addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,
@@ -28,8 +29,7 @@ export type ecsConfig = {
 	pbrMaterialCount: number
 }
 
-export type service = {
-	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig) => meta3dState,
+export type scene = {
 	gameObject: {
 		addBasicCameraView: addBasicCameraView,
 		addGeometry: addGeometry,
@@ -107,4 +107,85 @@ export type service = {
 		setTarget: setTarget,
 		getGameObjects: getGameObjects
 	}
-};
+}
+
+export type service = Merge<scene, {
+	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig) => meta3dState,
+	// gameObject: {
+	// 	addBasicCameraView: addBasicCameraView,
+	// 	addGeometry: addGeometry,
+	// 	addPBRMaterial: addPBRMaterial,
+	// 	addPerspectiveCameraProjection: addPerspectiveCameraProjection,
+	// 	addTransform: addTransform,
+	// 	addArcballCameraController: addArcballCameraController,
+	// 	cloneGameObject: cloneGameObject,
+	// 	createGameObject: createGameObject,
+
+	// 	disposeGameObjectArcballCameraControllerComponent: disposeGameObjectArcballCameraControllerComponent,
+
+	// 	disposeGameObjectBasicCameraViewComponent: disposeGameObjectBasicCameraViewComponent,
+	// 	disposeGameObjectGeometryComponent: disposeGameObjectGeometryComponent,
+	// 	disposeGameObjectPBRMaterialComponent: disposeGameObjectPBRMaterialComponent,
+	// 	disposeGameObjectPerspectiveCameraProjectionComponent: disposeGameObjectPerspectiveCameraProjectionComponent,
+	// 	disposeGameObjects: disposeGameObjects,
+	// 	disposeGameObjectTransformComponent: disposeGameObjectTransformComponent,
+	// 	getAllGameObjects: getAllGameObjects,
+
+	// 	getArcballCameraController: getArcballCameraController,
+
+	// 	getBasicCameraView: getBasicCameraView,
+	// 	getGeometry: getGeometry,
+	// 	getNeedDisposedGameObjects: getNeedDisposedGameObjects,
+	// 	getPBRMaterial: getPBRMaterial,
+	// 	getPerspectiveCameraProjection: getPerspectiveCameraProjection,
+	// 	getTransform: getTransform,
+
+	// 	hasArcballCameraController: hasArcballCameraController,
+	// 	hasBasicCameraView: hasBasicCameraView,
+	// 	hasGeometry: hasGeometry,
+	// 	hasPBRMaterial: hasPBRMaterial,
+	// 	hasPerspectiveCameraProjection: hasPerspectiveCameraProjection,
+	// 	hasTransform: hasTransform
+	// },
+	// transform: {
+	// 	createTransform: createTransform,
+	// 	getLocalPosition: getLocalPosition,
+	// 	setLocalPosition: setLocalPosition,
+	// 	lookAt: lookAt,
+	// },
+	// perspectiveCameraProjection: {
+	// 	createPerspectiveCameraProjection: createPerspectiveCameraProjection,
+	// 	setFovy: setFovy,
+	// 	setNear: setNear,
+	// 	setFar: setFar,
+	// 	setAspect: setAspect
+	// },
+	// pbrMaterial: {
+	// 	createPBRMaterial: createPBRMaterial,
+	// 	setDiffuseColor: setDiffuseColor,
+	// 	getAllPBRMaterials: getAllPBRMaterials
+	// },
+	// geometry: {
+	// 	createGeometry: createGeometry,
+	// 	setVertices: setVertices,
+	// 	setIndices: setIndices
+	// },
+	// basicCameraView: {
+	// 	createBasicCameraView: createBasicCameraView,
+	// 	active: active
+	// },
+	// arcballCameraController: {
+	// 	createArcballCameraController: createArcballCameraController,
+	// 	// getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
+	// 	// clearDirtyList: clearDirtyList,
+	// 	getDistance: getDistance,
+	// 	setDistance: setDistance,
+	// 	getPhi: getPhi,
+	// 	setPhi: setPhi,
+	// 	getTheta: getTheta,
+	// 	setTheta: setTheta,
+	// 	getTarget: getTarget,
+	// 	setTarget: setTarget,
+	// 	getGameObjects: getGameObjects
+	// }
+}>;
