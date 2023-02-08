@@ -81,7 +81,7 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 
-# * TODO fix: fix all version
+* DONE fix: fix all version
 
 # still use ^0.10.0 instead of >=0.9.0 except platform/
 
@@ -127,3 +127,5 @@ no any limit(e.g. length, ...)!!!
 ** TODO clean:remove unused Extension,Contribute Protocols
 
 * TODO publish
+
+** TODO update version:>=0.9.0 to >= 0.11.0

@@ -23,8 +23,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.10.0",
-        "meta3d-event-protocol": "^0.10.0",
+        "meta3d-bs-most-protocol": ">=0.9.0",
+        "meta3d-event-protocol": ">=0.9.0",
         "meta3d-pipeline-editor-event-protocol": "^0.10.0",
         "meta3d-type": "^0.10.0"
     },
