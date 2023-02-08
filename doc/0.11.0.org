@@ -97,7 +97,7 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 * TODO 改进用户体验
-** TODO 改进使用流程
+** DONE 改进使用流程
     ■ 用户发布扩展/贡献时，如果没有注册，则给出链接，提醒用户注册
 ** TODO 扩展、贡献、包加入detail page
 ** TODO 为扩展、贡献、包、app增加信息

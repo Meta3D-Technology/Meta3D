@@ -72,7 +72,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
 
             return isPublisherRegistered(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
                 if (!isPublisherRegistered) {
-                    _throwError("找不到publishser，请至少登录过一次")
+                    _throwError("找不到publishser，请在平台上注册该用户")
                 }
 
                 _defineWindow()

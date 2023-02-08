@@ -26,7 +26,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
 
         return isPublisherRegistered(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
-                _throwError("找不到publishser，请至少登录过一次")
+                _throwError("找不到publishser，请在平台上注册该用户")
             }
 
             if (!_isPNG(iconPath)) {
@@ -97,7 +97,7 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
 
         return isPublisherRegistered(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
-                _throwError("找不到publishser，请至少登录过一次")
+                _throwError("找不到publishser，请在平台上注册该用户")
             }
 
             let collectioName = _getPublishedConfigCollectionName(fileType)

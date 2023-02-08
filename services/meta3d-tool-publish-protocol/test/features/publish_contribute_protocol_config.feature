@@ -10,7 +10,7 @@ Feature: Publish Contribute Protocol Config
         Given prepare funcs
         And make publisher not be registered
         When publish contribute protocol config
-        Then should error: "找不到publishser，请至少登录过一次"
+        Then should error: "找不到publishser，请在平台上注册该用户"
 
     Scenario: add to collection
         Given prepare funcs
