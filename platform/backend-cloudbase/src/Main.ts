@@ -81,7 +81,7 @@ export let findPublishContribute = (onDownloadProgressFunc,
     version
 )
 
-export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abstract.publishApp([
+export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
     onUploadProgressFunc,
     uploadFile,
     hasData,
@@ -89,7 +89,8 @@ export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) 
     updateData,
     getFileID,
 ],
-    appBinaryFile, appName, account
+    appBinaryFile, appName, account,
+    description
 )
 
 export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
@@ -173,7 +174,7 @@ export let publishPackage = (onUploadProgressFunc,
     packageBinaryFile,
     entryExtensionData,
     packageData,
-    account
+    account,
 ) => Abstract.publishPackage([
     onUploadProgressFunc,
     uploadFile,
@@ -185,7 +186,7 @@ export let publishPackage = (onUploadProgressFunc,
     packageBinaryFile,
     entryExtensionData,
     packageData,
-    account
+    account,
 )
 
 export let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(

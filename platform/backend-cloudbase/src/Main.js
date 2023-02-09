@@ -42,14 +42,14 @@ let findPublishContribute = (onDownloadProgressFunc, account, name, version) => 
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], "publishedcontributes", account, name, version);
 exports.findPublishContribute = findPublishContribute;
-let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) => Abstract.publishApp([
+let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
     BackendService_1.hasData,
     BackendService_1.addData,
     BackendService_1.updateData,
     BackendService_1.getFileID,
-], appBinaryFile, appName, account);
+], appBinaryFile, appName, account, description);
 exports.publishApp = publishApp;
 let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
     BackendService_1.getDataByKey,

@@ -18,7 +18,7 @@ function _getPublishedCollectionName(fileType) {
             return "publishedcontributes";
     }
 }
-function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc], account, [name, version, protocolName, protocolVersion], binaryFile, fileType) {
+function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc], account, [name, version, protocolName, protocolVersion, displayName, repoLink, description], binaryFile, fileType) {
     let filePath = _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer";
     let fileName = name;
     return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(_getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, _]) => {
@@ -40,6 +40,9 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccount
                 protocolVersion: protocolVersion,
                 name: name,
                 version: version,
+                displayName,
+                repoLink,
+                description,
                 fileID
             };
             return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {

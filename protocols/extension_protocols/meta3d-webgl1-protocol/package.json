@@ -2,7 +2,7 @@
     "name": "meta3d-webgl1-protocol",
     "version": "0.10.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "description": "",
+    "displayName": "webgl1 protocol",
     "author": "Wonder",
     "license": "MIT",
     "scripts": {

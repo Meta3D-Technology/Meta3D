@@ -29,9 +29,12 @@ export let publish = (
         entryExtensionProtocolVersion,
         entryExtensionProtocolVersionRange,
         entryExtensionProtocolIconBase64,
+        entryExtensionProtocolDisplayName,
+        entryExtensionProtocolRepoLink,
+        entryExtensionProtocolDescription,
         entryExtensionName
-    ]: [string, string, string, string, string],
-    [packageName, packageVersion]: [string, string],
+    ]: [string, string, string, string, string, string, string, string],
+    [packageName, packageVersion, description]: [string, string, string],
     account: string
 ) => {
     let key = _buildKey(
@@ -60,9 +63,13 @@ export let publish = (
                         entryExtensionProtocolVersion,
                         entryExtensionProtocolVersionRange,
                         entryExtensionProtocolIconBase64,
+                        entryExtensionProtocolDisplayName,
+                        entryExtensionProtocolRepoLink,
+                        entryExtensionProtocolDescription,
                         entryExtensionName,
                         packageName,
                         packageVersion,
+                        description,
                         fileID
                     }
                 ))
@@ -76,9 +83,13 @@ export let publish = (
                     entryExtensionProtocolVersion,
                     entryExtensionProtocolVersionRange,
                     entryExtensionProtocolIconBase64,
+                    entryExtensionProtocolDisplayName,
+                    entryExtensionProtocolRepoLink,
+                    entryExtensionProtocolDescription,
                     entryExtensionName,
                     packageName,
                     packageVersion,
+                    description,
                     fileID
                 }))
         })

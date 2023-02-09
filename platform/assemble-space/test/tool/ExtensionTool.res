@@ -1,5 +1,8 @@
 let buildExtensionPackageData = (
   ~name="p1",
+  ~displayName="",
+  ~repoLink="",
+  ~description="",
   ~protocol={
     name: "p1",
     version: "^0.0.1",
@@ -10,6 +13,9 @@ let buildExtensionPackageData = (
 ): Meta3d.ExtensionFileType.extensionPackageData => {
   {
     name,
+    displayName,
+    repoLink,
+    description,
     protocol,
     dependentExtensionProtocolNameMap,
     dependentContributeProtocolNameMap,
@@ -33,8 +39,10 @@ let buildSelectedExtension = (
   ~protocolVersion="0.0.1",
   ~protocolConfig=None,
   ~protocolIconBase64="pi1",
+  // ~protocolDisplayName="d1",
   ~extensionFuncData=Js.Typed_array.Uint8Array.make([]),
   ~name="e1",
+  ~displayName="d1",
   ~id="e1",
   ~version="0.0.1",
   ~account="u1",
@@ -46,6 +54,7 @@ let buildSelectedExtension = (
       data: buildExtensionData(
         ~extensionPackageData=buildExtensionPackageData(
           ~name,
+          ~displayName,
           ~protocol={
             name: protocolName,
             version: protocolVersionRange,
@@ -58,6 +67,7 @@ let buildSelectedExtension = (
       protocolName,
       protocolVersion,
       protocolIconBase64,
+      // protocolDisplayName,
       version,
       account,
     },
@@ -82,6 +92,9 @@ let generateExtension = (
   ~name,
   ~protocolName="",
   ~protocolVersion="",
+  ~displayName="",
+  ~repoLink="",
+  ~description="",
   ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
@@ -91,6 +104,9 @@ let generateExtension = (
     (
       {
         name,
+        displayName,
+        repoLink,
+        description,
         protocol: {
           name: protocolName,
           version: protocolVersion,

@@ -6,6 +6,8 @@ type version = string
 
 type protocolName = string
 
+type protocolDisplayName = string
+
 // type protocolVersion = versionRange
 type protocolVersion = version
 
@@ -13,7 +15,13 @@ type protocolIconBase64 = string
 
 type implementName = string
 
+type implementDisplayName = string
+
 type implementVersion = version
+
+type repoLink = string
+
+type description = string
 
 // TODO refactor: move type out
 type protocol = {
@@ -21,6 +29,10 @@ type protocol = {
   version: protocolVersion,
   account: account,
   iconBase64: protocolIconBase64,
+  displayName: protocolDisplayName,
+  // repoLink: option<repoLink>,
+  repoLink: repoLink,
+  description: description,
 }
 
 type protocols = array<protocol>
@@ -55,6 +67,10 @@ type implementInfo = {
   name: implementName,
   version: implementVersion,
   account: account,
+  displayName: implementDisplayName,
+  // repoLink: option<repoLink>,
+  repoLink: repoLink,
+  description: description,
 }
 
 type implementInfos = array<implementInfo>
@@ -90,6 +106,7 @@ type appName = string
 type publishAppInfo = {
   account: account,
   appName: appName,
+  description: description,
 }
 
 type publishApp = (
@@ -97,6 +114,7 @@ type publishApp = (
   Js.Typed_array.ArrayBuffer.t,
   appName,
   account,
+  description,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type findPublishApp = (
@@ -110,7 +128,7 @@ type findAllPublishApps = unit => Meta3dBsMostProtocol.StreamType.stream<array<p
 type publishElementContribute = (
   . onUploadProgressFunc,
   account,
-  (string, string, string, string),
+  (string, string, string, string, string, string, string),
   Js.Typed_array.ArrayBuffer.t,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
@@ -172,6 +190,12 @@ type entryExtensionProtocolVersionRange = versionRange
 
 type entryExtensionProtocolIconBase64 = protocolIconBase64
 
+type entryExtensionProtocolDisplayName = protocolDisplayName
+
+type entryExtensionProtocolRepoLink = repoLink
+
+type entryExtensionProtocolDescription = description
+
 type entryExtensionName = string
 
 type publishPackage = (
@@ -182,9 +206,12 @@ type publishPackage = (
     entryExtensionProtocolVersion,
     entryExtensionProtocolVersionRange,
     entryExtensionProtocolIconBase64,
+    entryExtensionProtocolDisplayName,
+    entryExtensionProtocolRepoLink,
+    entryExtensionProtocolDescription,
     entryExtensionName,
   ),
-  (implementName, implementVersion),
+  (implementName, implementVersion, description),
   account,
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
@@ -206,6 +233,7 @@ type packageImplementInfo = {
   name: implementName,
   version: implementVersion,
   account: account,
+  description: description,
 }
 
 type packageImplementInfos = array<packageImplementInfo>

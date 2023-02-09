@@ -24,8 +24,11 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         getDataFromMarketProtocolCollectionFunc = CloudbaseService_1.getDataFromMarketProtocolCollection;
         parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
     }
-    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
-        return { name, version, publisher: account };
+    function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60", displayName = "d1", repoLink = "", description = "dp1") {
+        return {
+            name, version, publisher: account,
+            displayName, repoLink, description
+        };
     }
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
         return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
@@ -61,7 +64,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1-protocol", "0.0.2", "meta3d")));
+            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1-protocol", "0.0.2", "meta3d", "d1", "l1", "dp1")));
             initFunc.returns((0, most_1.just)(app));
             hasAccountFunc.returns((0, most_1.just)(true));
             readFileSyncFunc.returns(iconContent);
@@ -81,7 +84,50 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     "name": "test1-protocol",
                     "version": "0.0.2",
                     "account": "meta3d",
-                    "iconBase64": "data:image/png;base64, " + iconContent
+                    "iconBase64": "data:image/png;base64, " + iconContent,
+                    "displayName": "d1",
+                    "repoLink": "l1",
+                    "description": "dp1",
+                }
+            ]);
+        });
+    });
+    test('handle nullable package json fields', ({ given, when, then, and }) => {
+        let app = {};
+        let iconContent = "v91";
+        let collectionData = {
+            data: []
+        };
+        _prepare(given);
+        given('prepare funcs that package json not has displayName, repoLink, description', () => {
+            _createFuncs(sandbox);
+            readJsonFunc.returns((0, most_1.just)({
+                name: "test1-protocol", version: "0.0.2",
+                publisher: "meta3d"
+            }));
+            initFunc.returns((0, most_1.just)(app));
+            hasAccountFunc.returns((0, most_1.just)(true));
+            readFileSyncFunc.returns(iconContent);
+            getMarketProtocolCollectionFunc.returns((0, PromiseTool_1.resolve)(collectionData));
+        });
+        when('publish extension protocol', () => {
+            return _publishExtensionProtocol();
+        });
+        then('should use default value', () => {
+            expect(addDataToMarketProtocolCollectionFunc).toCalledWith([
+                app,
+                addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
+                "publishedextensionprotocols",
+                "publishedextensionprotocols",
+                getDataFromMarketProtocolCollectionFunc(collectionData),
+                {
+                    "name": "test1-protocol",
+                    "version": "0.0.2",
+                    "account": "meta3d",
+                    "iconBase64": "data:image/png;base64, " + iconContent,
+                    "displayName": "test1-protocol",
+                    "repoLink": "",
+                    "description": "",
                 }
             ]);
         });

@@ -74,6 +74,7 @@ module Method = {
     values,
   ): Js.Promise.t<unit> => {
     let appName = values["appName"]
+    let appDescription = values["appDescription"]
 
     let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
@@ -118,6 +119,7 @@ module Method = {
                 appBinaryFile,
                 appName,
                 account->Meta3dCommonlib.OptionSt.getExn,
+                appDescription,
               )
               ->Meta3dBsMost.Most.drain
               ->Js.Promise.then_(_ => {
@@ -229,6 +231,17 @@ let make = (~service: service, ~account: option<string>) => {
                     {
                       required: true,
                       message: `输入应用名`,
+                    },
+                  ]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label={`介绍`}
+                  name="appDescription"
+                  rules={[
+                    {
+                      required: true,
+                      message: `输入介绍`,
                     },
                   ]}>
                   <Input />

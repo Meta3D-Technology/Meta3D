@@ -30,8 +30,17 @@ export let getAllPublishPackageEntryExtensionProtocols = (
             entryExtensionProtocolName,
             entryExtensionProtocolVersion,
             entryExtensionProtocolIconBase64,
+
+            entryExtensionProtocolDisplayName,
+            entryExtensionProtocolRepoLink,
+            entryExtensionProtocolDescription,
         }) => {
-            return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 }
+            return {
+                name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64,
+                displayName: entryExtensionProtocolDisplayName,
+                repoLink: entryExtensionProtocolRepoLink,
+                description: entryExtensionProtocolDescription,
+            }
         }),
             // (({
             //     name, version, account
@@ -77,8 +86,8 @@ export let getAllPublishPackageInfos = (
             entryExtensionName,
             packageName,
             packageVersion,
+            description,
             fileID
-
         }) => {
             return {
                 id: fileID,
@@ -90,6 +99,7 @@ export let getAllPublishPackageInfos = (
                 entryExtensionName,
                 name: packageName,
                 version: packageVersion,
+                description
             }
         })
     })

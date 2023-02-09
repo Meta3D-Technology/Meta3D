@@ -109,6 +109,9 @@ let generateElementContributeBinaryFile = (
   name,
   protocolName,
   protocolVersion,
+  displayName,
+  repoLink,
+  description,
   fileStr,
 ) => {
   service.meta3d.generateContribute(.
@@ -119,6 +122,9 @@ let generateElementContributeBinaryFile = (
           name: protocolName,
           version: protocolVersion,
         },
+        displayName,
+        repoLink,
+        description,
         dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
         ->Meta3dCommonlib.ImmutableHashMap.set(
           "meta3dUIExtensionProtocolName",

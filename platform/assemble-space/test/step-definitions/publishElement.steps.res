@@ -30,29 +30,35 @@ defineFeature(feature, test => {
   test(."show publish button", ({given, \"when", \"and", then}) => {
     _prepare(given, \"and")
 
-    \"when"("render Publish", () => {
-      ()
-    })
+    \"when"(
+      "render Publish",
+      () => {
+        ()
+      },
+    )
 
-    then("should show publish button", () => {
-      PublishElementTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show publish button",
+      () => {
+        PublishElementTool.buildUI(
           ~sandbox,
-          ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-              list{},
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+              (
+                ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+                list{},
+              ),
+              _,
             ),
-            _,
+            (),
           ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   // test(."show modal after click publish button", ({given, \"when", \"and", then}) => {
@@ -177,70 +183,80 @@ defineFeature(feature, test => {
 
     _prepareData(given)
 
-    CucumberAsync.execStep(\"when", "publish", () => {
-      generateContributeStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(
+      \"when",
+      "publish",
+      () => {
+        generateContributeStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      PublishElementTool.publish(
-        ~sandbox,
-        ~values={
-          "elementName": elementName.contents,
-          "elementVersion": elementVersion.contents,
-        },
-        ~service=ServiceTool.build(
+        PublishElementTool.publish(
           ~sandbox,
-          ~generateContribute=generateContributeStub.contents->Obj.magic,
-          ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
-          ~generateUIControlCommonDataStr=Meta3d.Main.generateUIControlCommonDataStr->Obj.magic,
-          ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
-          ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
-          (),
-        ),
-        ~account=account.contents->Some,
-        (),
-      )
-    })
-
-    then("should generat element contribute", () => {
-      (
-        generateContributeStub.contents
-        ->Obj.magic
-        ->SinonTool.getArg(~stub=_, ~argIndex=1, ())
-        ->Js.String.includes("elementName:\"e1\",", _),
-        generateContributeStub.contents
-        ->Obj.magic
-        ->SinonTool.calledWith(
-          (
-            {
-              name: elementName.contents,
-              protocol: {
-                name: ElementContributeUtils.getElementContributeProtocolName(),
-                version: ElementContributeUtils.getElementContributeProtocolVersion(),
-              },
-              dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
-              ->Meta3dCommonlib.ImmutableHashMap.set(
-                "meta3dUIExtensionProtocolName",
-                (
-                  {
-                    protocolName: "meta3d-ui-protocol",
-                    protocolVersion: ElementVisualTool.getUIProtocolVersion(),
-                  }: Meta3d.ExtensionFileType.dependentData
-                ),
-              )
-              ->Meta3dCommonlib.ImmutableHashMap.set(
-                "meta3dEventExtensionProtocolName",
-                (
-                  {
-                    protocolName: "meta3d-event-protocol",
-                    protocolVersion: ElementVisualTool.getEventProtocolVersion(),
-                  }: Meta3d.ExtensionFileType.dependentData
-                ),
-              ),
-              dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: Meta3d.ExtensionFileType.contributePackageData
+          ~values={
+            "elementName": elementName.contents,
+            "elementVersion": elementVersion.contents,
+          },
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~generateContribute=generateContributeStub.contents->Obj.magic,
+            ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
+            ~generateUIControlCommonDataStr=Meta3d.Main.generateUIControlCommonDataStr->Obj.magic,
+            ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
+            ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
+            (),
           ),
-        ),
-      )->expect == (true, true)
-    })
+          ~account=account.contents->Some,
+          (),
+        )
+      },
+    )
+
+    then(
+      "should generat element contribute",
+      () => {
+        (
+          generateContributeStub.contents
+          ->Obj.magic
+          ->SinonTool.getArg(~stub=_, ~argIndex=1, ())
+          ->Js.String.includes("elementName:\"e1\",", _),
+          generateContributeStub.contents
+          ->Obj.magic
+          ->SinonTool.calledWith(
+            (
+              {
+                name: elementName.contents,
+                displayName: elementName.contents,
+                repoLink: ElementContributeUtils.getElementContributeRepoLink(),
+                description: ElementContributeUtils.getElementContributeDescription(),
+                protocol: {
+                  name: ElementContributeUtils.getElementContributeProtocolName(),
+                  version: ElementContributeUtils.getElementContributeProtocolVersion(),
+                },
+                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+                ->Meta3dCommonlib.ImmutableHashMap.set(
+                  "meta3dUIExtensionProtocolName",
+                  (
+                    {
+                      protocolName: "meta3d-ui-protocol",
+                      protocolVersion: ElementVisualTool.getUIProtocolVersion(),
+                    }: Meta3d.ExtensionFileType.dependentData
+                  ),
+                )
+                ->Meta3dCommonlib.ImmutableHashMap.set(
+                  "meta3dEventExtensionProtocolName",
+                  (
+                    {
+                      protocolName: "meta3d-event-protocol",
+                      protocolVersion: ElementVisualTool.getEventProtocolVersion(),
+                    }: Meta3d.ExtensionFileType.dependentData
+                  ),
+                ),
+                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              }: Meta3d.ExtensionFileType.contributePackageData
+            ),
+          ),
+        )->expect == (true, true)
+      },
+    )
   })
 
   test(."publish element contribute", ({given, \"when", \"and", then}) => {
@@ -252,62 +268,78 @@ defineFeature(feature, test => {
 
     _prepareData(given)
 
-    CucumberAsync.execStep(\"when", "publish", () => {
-      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    CucumberAsync.execStep(
+      \"when",
+      "publish",
+      () => {
+        setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      publishElementContributeStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+        publishElementContributeStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.empty(),
+            _,
+          )
 
-      PublishElementTool.publish(
-        ~sandbox,
-        ~account=account.contents->Some,
-        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
-        ~values={
-          "elementName": elementName.contents,
-          "elementVersion": elementVersion.contents,
-        },
-        ~service=ServiceTool.build(
+        PublishElementTool.publish(
           ~sandbox,
-          ~publishElementContribute=publishElementContributeStub.contents->Obj.magic,
-          ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(elementContributeBinaryFile, _)
-          ->Obj.magic,
+          ~account=account.contents->Some,
+          ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
+          ~values={
+            "elementName": elementName.contents,
+            "elementVersion": elementVersion.contents,
+          },
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~publishElementContribute=publishElementContributeStub.contents->Obj.magic,
+            ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(elementContributeBinaryFile, _)
+            ->Obj.magic,
+            (),
+          ),
+          ~elementInspectorData=elementInspectorData.contents,
+          // ~selectedUIControls=selectedUIControls.contents,
+          // ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
           (),
-        ),
-        ~elementInspectorData=elementInspectorData.contents,
-        // ~selectedUIControls=selectedUIControls.contents,
-        // ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
-        (),
-      )
-    })
+        )
+      },
+    )
 
-    then("should mark begin upload", () => {
-      let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
+    then(
+      "should mark begin upload",
+      () => {
+        let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
 
-      (
-        setIsUploadBeginStub.contents
-        ->getCall(0, _)
-        ->calledBefore(publishElementContributeStub.contents->getCall(0, _)),
-        func(),
-      )->expect == (true, true)
-    })
-
-    \"and"("should publish generated element contribute", () => {
-      publishElementContributeStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg4(
-        matchAny,
-        account.contents,
         (
-          elementName.contents,
-          elementVersion.contents,
-          ElementContributeUtils.getElementContributeProtocolName(),
-          ElementContributeUtils.getElementContributeProtocolVersion(),
-        ),
-        elementContributeBinaryFile,
-      )
-      ->expect == true
-    })
+          setIsUploadBeginStub.contents
+          ->getCall(0, _)
+          ->calledBefore(publishElementContributeStub.contents->getCall(0, _)),
+          func(),
+        )->expect == (true, true)
+      },
+    )
+
+    \"and"(
+      "should publish generated element contribute",
+      () => {
+        publishElementContributeStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg4(
+          matchAny,
+          account.contents,
+          (
+            elementName.contents,
+            elementVersion.contents,
+            ElementContributeUtils.getElementContributeProtocolName(),
+            ElementContributeUtils.getElementContributeProtocolVersion(),
+            elementName.contents,
+            ElementContributeUtils.getElementContributeRepoLink(),
+            ElementContributeUtils.getElementContributeDescription(),
+          ),
+          elementContributeBinaryFile,
+        )
+        ->expect == true
+      },
+    )
   })
 
   test(."publish element assemble data", ({given, \"when", \"and", then}) => {
@@ -317,69 +349,79 @@ defineFeature(feature, test => {
 
     _prepareData(given)
 
-    CucumberAsync.execStep(\"when", "publish", () => {
-      publishElementAssembleDataStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+    CucumberAsync.execStep(
+      \"when",
+      "publish",
+      () => {
+        publishElementAssembleDataStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.empty(),
+            _,
+          )
 
-      PublishElementTool.publish(
-        ~sandbox,
-        ~account=account.contents->Some,
-        ~values={
-          "elementName": elementName.contents,
-          "elementVersion": elementVersion.contents,
-        },
-        ~service=ServiceTool.build(
+        PublishElementTool.publish(
           ~sandbox,
-          ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
+          ~account=account.contents->Some,
+          ~values={
+            "elementName": elementName.contents,
+            "elementVersion": elementVersion.contents,
+          },
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
+            (),
+          ),
+          ~elementInspectorData=elementInspectorData.contents,
+          ~selectedUIControls=selectedUIControls.contents,
+          ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
           (),
-        ),
-        ~elementInspectorData=elementInspectorData.contents,
-        ~selectedUIControls=selectedUIControls.contents,
-        ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
-        (),
-      )
-    })
+        )
+      },
+    )
 
-    then("should publish element assemble data", () => {
-      publishElementAssembleDataStub.contents
-      ->Obj.magic
-      ->SinonTool.calledWithArg4(
-        account.contents,
-        elementName.contents,
-        elementVersion.contents,
-        (
-          {
-            element: elementInspectorData.contents,
-            uiControls: [
-              {
-                name: "b1",
-                rect: UIControlInspectorTool.buildRect(
-                  ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-                  (),
-                ),
-                isDraw: isDraw.contents,
-                event: event.contents,
-                specific: specific.contents,
-                children: [
-                  {
-                    name: "b2",
-                    rect: UIControlInspectorTool.buildRect(
-                      ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-                      (),
-                    ),
-                    isDraw: isDraw.contents,
-                    event: event.contents,
-                    specific: specific.contents,
-                    children: [],
-                  },
-                ],
-              },
-            ],
-          }: FrontendUtils.BackendCloudbaseType.inspectorData
-        ),
-      )
-      ->expect == true
-    })
+    then(
+      "should publish element assemble data",
+      () => {
+        publishElementAssembleDataStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg4(
+          account.contents,
+          elementName.contents,
+          elementVersion.contents,
+          (
+            {
+              element: elementInspectorData.contents,
+              uiControls: [
+                {
+                  name: "b1",
+                  rect: UIControlInspectorTool.buildRect(
+                    ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                    (),
+                  ),
+                  isDraw: isDraw.contents,
+                  event: event.contents,
+                  specific: specific.contents,
+                  children: [
+                    {
+                      name: "b2",
+                      rect: UIControlInspectorTool.buildRect(
+                        ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                        (),
+                      ),
+                      isDraw: isDraw.contents,
+                      event: event.contents,
+                      specific: specific.contents,
+                      children: [],
+                    },
+                  ],
+                },
+              ],
+            }: FrontendUtils.BackendCloudbaseType.inspectorData
+          ),
+        )
+        ->expect == true
+      },
+    )
   })
 
   test(."handle after publish successfully", ({given, \"when", \"and", then}) => {
@@ -391,41 +433,54 @@ defineFeature(feature, test => {
 
     _prepareData(given)
 
-    CucumberAsync.execStep(\"when", "publish", () => {
-      setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-      publishElementContributeStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(Meta3dBsMost.Most.empty(), _)
+    CucumberAsync.execStep(
+      \"when",
+      "publish",
+      () => {
+        setIsUploadBeginStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        publishElementContributeStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            Meta3dBsMost.Most.empty(),
+            _,
+          )
 
-      PublishElementTool.publish(
-        ~sandbox,
-        ~account=account.contents->Some,
-        ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
-        ~setVisible=setVisibleStub.contents->Obj.magic,
-        ~service=ServiceTool.build(
+        PublishElementTool.publish(
           ~sandbox,
-          ~publishElementContribute=publishElementContributeStub.contents->Obj.magic,
+          ~account=account.contents->Some,
+          ~setIsUploadBegin=setIsUploadBeginStub.contents->Obj.magic,
+          ~setVisible=setVisibleStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~publishElementContribute=publishElementContributeStub.contents->Obj.magic,
+            (),
+          ),
           (),
-        ),
-        (),
-      )
-    })
+        )
+      },
+    )
 
-    then("should mark finish upload", () => {
-      let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
+    then(
+      "should mark finish upload",
+      () => {
+        let func = SinonTool.getFirstArg(~callIndex=1, ~stub=setIsUploadBeginStub.contents, ())
 
-      (
-        setIsUploadBeginStub.contents
-        ->getCall(1, _)
-        ->calledAfter(publishElementContributeStub.contents->getCall(0, _)),
-        func(),
-      )->expect == (true, false)
-    })
+        (
+          setIsUploadBeginStub.contents
+          ->getCall(1, _)
+          ->calledAfter(publishElementContributeStub.contents->getCall(0, _)),
+          func(),
+        )->expect == (true, false)
+      },
+    )
 
-    \"and"("should close modal", () => {
-      let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
+    \"and"(
+      "should close modal",
+      () => {
+        let func = SinonTool.getFirstArg(~stub=setVisibleStub.contents, ())
 
-      func()->expect == false
-    })
+        func()->expect == false
+      },
+    )
   })
 })

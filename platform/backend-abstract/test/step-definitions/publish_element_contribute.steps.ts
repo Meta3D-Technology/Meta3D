@@ -33,6 +33,9 @@ defineFeature(feature, test => {
             "",
             "",
             "",
+            "",
+            "",
+            "",
         ],
         contributeBinaryFile = new ArrayBuffer(0)
     ) {
@@ -60,6 +63,9 @@ defineFeature(feature, test => {
         let version = "0.0.2"
         let protocolName = "test1-protocol"
         let protocolVersion = "^0.0.1"
+        let displayName = name
+        let repoLink = ""
+        let description = "dp1"
         let binaryFile = new ArrayBuffer(10)
         let fileID1 = "id1"
         let marketImplementCollectionData = []
@@ -87,6 +93,9 @@ defineFeature(feature, test => {
                     version,
                     protocolName,
                     protocolVersion,
+                    displayName,
+                    repoLink,
+                    description
                 ],
                 binaryFile
             ).drain()
@@ -110,6 +119,10 @@ defineFeature(feature, test => {
                         "protocolName": protocolName, "protocolVersion": protocolVersion,
                         "name": name,
                         "version": version,
+
+                        "displayName": displayName,
+                        "repoLink": repoLink,
+                        "description": description,
                         "fileID": fileID1
                     }]
                 },
@@ -160,8 +173,9 @@ defineFeature(feature, test => {
                 [
                     name,
                     version,
-                    // protocolName,
-                    // protocolVersion,
+                    "",
+                    "",
+                    "",
                     "",
                     ""
                 ],
@@ -175,8 +189,9 @@ defineFeature(feature, test => {
                 [
                     name,
                     version,
-                    // protocolName,
-                    // protocolVersion,
+                    "",
+                    "",
+                    "",
                     "",
                     ""
                 ],

@@ -96,13 +96,12 @@ defineFeature(feature, test => {
   }
 
   test(."set extensions when select one extension", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
-    let a1Name = "a1"
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="1.0.1",
+      (),
+    )
+    let a1DisplayName = "a1"
     let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
@@ -120,7 +119,8 @@ defineFeature(feature, test => {
         selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
-              ~name=a1Name,
+              // ~name=a1DisplayName,
+              ~displayName=a1DisplayName,
               ~protocolName=a.name,
               ~protocolVersionRange=">= 1.0.0",
               ~protocolConfig=protocolConfig->Some,
@@ -169,12 +169,15 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(
       \"and",
-      "should set a's icon, config str and a1's name as extensions",
+      "should set a's icon, config str and a1's displayName as extensions",
       () => {
         _setExtensions([
           (
-            a1Name,
+            a1DisplayName,
             a.iconBase64,
+            a.displayName,
+            a.repoLink,
+            a.description,
             protocolConfig.configStr,
             selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),
@@ -189,14 +192,13 @@ defineFeature(feature, test => {
     \"and",
     then,
   }) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
-    let a1Name = "a1"
-    let a2Name = "a2"
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="1.0.1",
+      (),
+    )
+    let a1DisplayName = "a1"
+    let a2DisplayName = "a2"
     let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
     _prepare(given)
@@ -214,14 +216,14 @@ defineFeature(feature, test => {
         selectedExtensionsFromMarket :=
           list{
             ExtensionTool.buildSelectedExtension(
-              ~name=a1Name,
+              ~displayName=a1DisplayName,
               ~protocolName=a.name,
               ~protocolVersionRange=">= 1.0.0",
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
             ExtensionTool.buildSelectedExtension(
-              ~name=a2Name,
+              ~displayName=a2DisplayName,
               ~protocolName=a.name,
               ~protocolVersionRange=">= 1.0.0",
               ~protocolConfig=protocolConfig->Some,
@@ -274,16 +276,24 @@ defineFeature(feature, test => {
       () => {
         _setExtensions([
           (
-            a1Name,
+            a1DisplayName,
             a.iconBase64,
+            a.displayName,
+            a.repoLink,
+            a.description,
             protocolConfig.configStr,
             selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),
           (
-            a2Name,
+            a2DisplayName,
             a.iconBase64,
+            a.displayName,
+            a.repoLink,
+            a.description,
             protocolConfig.configStr,
-            selectedExtensionsFromMarket.contents->ListTool.getNthExn(1)->ExtensionTool.getExtension,
+            selectedExtensionsFromMarket.contents
+            ->ListTool.getNthExn(1)
+            ->ExtensionTool.getExtension,
           ),
         ])
       },
@@ -291,12 +301,14 @@ defineFeature(feature, test => {
   })
 
   test(."select extension", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="1.0.1",
+      ~displayName="d1",
+      ~repoLink="l1",
+      ~description="dp1",
+      (),
+    )
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given)
@@ -340,7 +352,11 @@ defineFeature(feature, test => {
           ~dispatch=dispatchStub.contents,
           ~iconBase64=a.iconBase64,
           ~extension,
+          ~protocolDisplayName=a.displayName,
+          ~protocolRepoLink=a.repoLink,
+          ~protocolDescription=a.description,
           ~protocolConfigStr=protocolConfig->PackageExtensionsTool.getProtocolConfigStr,
+          (),
         )
       },
     )
@@ -355,6 +371,9 @@ defineFeature(feature, test => {
         ->SinonTool.calledWith(
           FrontendUtils.PackageAssembleStoreType.SelectExtension(
             a.iconBase64,
+            a.displayName,
+            a.repoLink,
+            a.description,
             protocolConfig->PackageExtensionsTool.getProtocolConfigStr,
             extension,
           ),
@@ -365,12 +384,11 @@ defineFeature(feature, test => {
   })
 
   test(."has zero implement of extension protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="0.0.1",
+      (),
+    )
 
     _prepare(given)
 
@@ -386,7 +404,11 @@ defineFeature(feature, test => {
       () => {
         selectedExtensionsFromMarket :=
           list{
-            ExtensionTool.buildSelectedExtension(~protocolName="b", ~protocolVersionRange="0.0.1", ()),
+            ExtensionTool.buildSelectedExtension(
+              ~protocolName="b",
+              ~protocolVersionRange="0.0.1",
+              (),
+            ),
           }
       },
     )
@@ -449,12 +471,11 @@ defineFeature(feature, test => {
   // })
 
   test(."extension's version not match", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "0.1.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="0.1.1",
+      (),
+    )
 
     _prepare(given)
 

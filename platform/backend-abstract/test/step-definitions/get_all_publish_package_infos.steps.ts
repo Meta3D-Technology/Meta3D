@@ -28,6 +28,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolVersion1,
             entryExtensionProtocolIconBase641,
             entryExtensionName1,
+            description1,
             account1
         let fileID2,
             packageName2,
@@ -36,6 +37,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolVersion2,
             entryExtensionProtocolIconBase642,
             entryExtensionName2,
+            description2,
             account2
 
         _prepare(given)
@@ -48,6 +50,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolVersion1 = "0.0.1"
             entryExtensionProtocolIconBase641 = "epi1"
             entryExtensionName1 = "e1"
+            description1 = "dp1"
             account1 = "account1"
         });
 
@@ -59,6 +62,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolVersion2 = "0.0.2"
             entryExtensionProtocolIconBase642 = "epi2"
             entryExtensionName2 = "e2"
+            description2 = "dp2"
             account2 = "account2"
         });
 
@@ -80,7 +84,9 @@ defineFeature(feature, test => {
                         entryExtensionProtocolName: entryExtensionProtocolName1,
                         entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
                         entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
-                        entryExtensionName: entryExtensionName1
+                        entryExtensionName: entryExtensionName1,
+                        description: description1
+
                     }
                 ])
             )
@@ -99,7 +105,9 @@ defineFeature(feature, test => {
                         entryExtensionProtocolName: entryExtensionProtocolName2,
                         entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                         entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
-                        entryExtensionName: entryExtensionName2
+                        entryExtensionName: entryExtensionName2,
+
+                        description: description2
                     }
                 ])
             )
@@ -123,6 +131,8 @@ defineFeature(feature, test => {
                         entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                         entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
                         entryExtensionName: entryExtensionName2,
+
+                        description: description2,
                         id: fileID2
                     }
                 ])

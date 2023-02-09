@@ -32,13 +32,23 @@ defineFeature(feature, test => {
 
     function _buildPackageJson(name = "test1",
         version = "0.0.1",
-        protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionProtocolNameMap = {
+        protocol = { name: "test1-protocol" }, publisher = "meta3d",
+        dependentExtensionProtocolNameMap = {
         }, dependentContributeProtocolNameMap = {},
         dependencies: any = {
             "test1-protocol": "^0.0.1"
         },
+        displayName = "d1",
+        repoLink = "",
+        description = "dp1",
     ) {
-        return { name, version, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }
+        return {
+            name, version, protocol, publisher,
+            displayName,
+            repoLink,
+            description,
+            dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies
+        }
     }
 
     function _publishExtension(packageFilePath = "", distFilePath = "") {
@@ -160,7 +170,10 @@ defineFeature(feature, test => {
                     {
                         "test1-protocol": "^0.0.1",
                         "meta3d-extension-test1-protocol": "^0.3.4"
-                    }
+                    },
+                    "d1",
+                    "l1",
+                    "dp1",
                 ))
             )
             initFunc.returns(
@@ -187,7 +200,13 @@ defineFeature(feature, test => {
 
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
-                { "name": "test1", "publisher": "meta3d", "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {} },
+                {
+                    "name": "test1", "publisher": "meta3d",
+                    "displayName": "d1",
+                    "repoLink": "l1",
+                    "description": "dp1",
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {}
+                },
                 distFileContent
             ])
             expect(uploadFileFunc).toCalledWith([
@@ -208,6 +227,87 @@ defineFeature(feature, test => {
                         "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
                         "name": "test1",
                         "version": "0.0.2",
+                        "displayName": "d1",
+                        "repoLink": "l1",
+                        "description": "dp1",
+                        "fileID": fileID1
+                    }]
+                },
+                marketImplementCollectionData
+            ])
+        });
+    });
+
+    test('handle nullable package json fields', ({ given, when, then, and }) => {
+        let app = { "app": true }
+        let distFileContent = "dist"
+        let generatedResult = new ArrayBuffer(0)
+        let fileID1 = "id1"
+        let marketImplementCollectionData = []
+
+        _prepare(given)
+
+        given('prepare funcs that package json not has displayName, repoLink, description', () => {
+            _createFuncs(sandbox)
+
+            readJsonFunc.returns(
+                just(
+                    {
+                        name: "test1", version: "0.0.2",
+                        protocol: { name: "test1-protocol" }, publisher: "meta3d",
+                        dependentExtensionProtocolNameMap: {}, dependentContributeProtocolNameMap: {},
+                        dependencies: {
+                            "test1-protocol": "^0.0.1"
+                        },
+                    }
+                )
+            )
+            initFunc.returns(
+                just(app)
+            )
+            hasAccountFunc.returns(
+                just(true)
+            )
+            readFileSyncFunc.returns(distFileContent)
+            generateFunc.returns(generatedResult)
+            uploadFileFunc.returns(
+                just({ fileID: fileID1 })
+            )
+            getMarketImplementAccountDataFunc.returns(
+                resolve([{
+                    fileData: []
+                }, marketImplementCollectionData])
+            )
+        });
+
+        when('publish extension', () => {
+            return _publishExtension()
+        });
+
+        then('should use default value', () => {
+            expect(generateFunc).toCalledWith([
+                {
+                    "name": "test1", "publisher": "meta3d",
+                    "displayName": "test1",
+                    "repoLink": "",
+                    "description": "",
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": {}, "dependentContributeProtocolNameMap": {}
+                },
+                distFileContent
+            ])
+            expect(updateMarketImplementDataFunc).toCalledWith([
+                app,
+                "publishedextensions",
+                "meta3d",
+                {
+                    "key": "meta3d",
+                    "fileData": [{
+                        "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                        "name": "test1",
+                        "version": "0.0.2",
+                        "displayName": "test1",
+                        "repoLink": "",
+                        "description": "",
                         "fileID": fileID1
                     }]
                 },

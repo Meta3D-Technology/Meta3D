@@ -49,13 +49,23 @@ let reducer = (state, action) => {
         id: IdUtils.generateId(Js.Math.random),
       }),
     }
-  | SelectExtension(protocolIconBase64, protocolConfigStr, extension) => {
+  | SelectExtension(
+      protocolIconBase64,
+      protocolDisplayName,
+      protocolRepoLink,
+      protocolDescription,
+      protocolConfigStr,
+      extension,
+    ) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
         id: IdUtils.generateId(Js.Math.random),
         protocolName: extension.protocolName,
         protocolVersion: extension.protocolVersion,
         protocolIconBase64,
+        protocolDisplayName,
+        protocolRepoLink,
+        protocolDescription,
         protocolConfigStr,
         // newName: None,
         isEntry: false,

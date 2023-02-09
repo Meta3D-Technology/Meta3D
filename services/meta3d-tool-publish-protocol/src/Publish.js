@@ -17,6 +17,9 @@ function _getPublishedCollectionName(fileType) {
 function _isPNG(iconPath) {
     return iconPath.match(/\.png$/) !== null;
 }
+function _isEmpty(value) {
+    return value === undefined || value === null;
+}
 function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, fileType) {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
@@ -24,7 +27,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
         let account = packageJson.publisher;
         return (0, PublishUtils_1.isPublisherRegistered)(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
-                _throwError("找不到publishser，请至少登录过一次");
+                _throwError("找不到publishser，请在平台上注册该用户");
             }
             if (!_isPNG(iconPath)) {
                 _throwError("icon's format should be png");
@@ -45,7 +48,10 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
                     iconBase64: 
                     // TODO check file size should be small(< 10kb)
                     // TODO icon can be any format include png
-                    "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
+                    "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64"),
+                    displayName: _isEmpty(packageJson.displayName) ? packageJson.name : packageJson.displayName,
+                    repoLink: _isEmpty(packageJson.repoLink) ? "" : packageJson.repoLink,
+                    description: _isEmpty(packageJson.description) ? "" : packageJson.description,
                 });
             }));
         });
@@ -73,7 +79,7 @@ function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, init
         let account = packageJson.publisher;
         return (0, PublishUtils_1.isPublisherRegistered)(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
-                _throwError("找不到publishser，请至少登录过一次");
+                _throwError("找不到publishser，请在平台上注册该用户");
             }
             let collectioName = _getPublishedConfigCollectionName(fileType);
             return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, collectioName).then(res => {

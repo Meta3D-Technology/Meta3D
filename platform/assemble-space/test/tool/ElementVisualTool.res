@@ -64,6 +64,9 @@ let generateElementContribute = (
     protocolVersion,
     elementName,
     elementVersion,
+    elementName,
+    ElementContributeUtils.getElementContributeRepoLink(),
+    ElementContributeUtils.getElementContributeDescription(),
     fileStr,
   )
 

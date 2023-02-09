@@ -1,6 +1,7 @@
 {
     "name": "meta3d-use-empty",
-    "version": "0.10.0",
+    "version": "0.10.1",
+    "displayName": "use empty",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -28,7 +29,7 @@
         "meta3d-imgui-renderer-protocol": ">=0.9.0",
         "meta3d-type": "^0.10.0",
         "meta3d-ui-protocol": ">=0.9.0",
-        "meta3d-use-editor-protocol": "^0.10.0"
+        "meta3d-use-editor-protocol": "^0.10.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

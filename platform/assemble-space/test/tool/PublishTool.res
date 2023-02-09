@@ -18,6 +18,7 @@ let publish = (
   ~apInspectorData=ApInspectorTool.buildApInspectorData(),
   ~values={
     "appName": "n1",
+    "appDescription": "dp1",
   },
   (),
 ) => {

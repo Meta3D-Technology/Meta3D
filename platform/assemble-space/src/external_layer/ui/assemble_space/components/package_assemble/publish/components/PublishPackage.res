@@ -17,6 +17,7 @@ module Method = {
   ): Js.Promise.t<unit> => {
     let packageName = values["packageName"]
     let packageVersion = values["packageVersion"]
+    let packageDescription = values["packageDescription"]
 
     let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
@@ -41,6 +42,9 @@ module Method = {
             entryExtensionProtocolVersion,
             entryExtensionProtocolVersionRange,
             entryExtensionProtocolIconBase64,
+            entryExtensionProtocolDisplayName,
+            entryExtensionProtocolRepoLink,
+            entryExtensionProtocolDescription,
           ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
 
           setIsUploadBegin(_ => true)
@@ -53,9 +57,12 @@ module Method = {
               entryExtensionProtocolVersion,
               entryExtensionProtocolVersionRange,
               entryExtensionProtocolIconBase64,
+              entryExtensionProtocolDisplayName,
+              entryExtensionProtocolRepoLink,
+              entryExtensionProtocolDescription,
               PackageUtils.getEntryExtensionName(selectedExtensions),
             ),
-            (packageName, packageVersion),
+            (packageName, packageVersion, packageDescription),
             account->Meta3dCommonlib.OptionSt.getExn,
           )
           ->Meta3dBsMost.Most.drain
@@ -168,6 +175,17 @@ let make = (~service: service, ~account: option<string>) => {
                     {
                       required: true,
                       message: `输入包版本号`,
+                    },
+                  ]}>
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label={`包介绍`}
+                  name="packageDescription"
+                  rules={[
+                    {
+                      required: true,
+                      message: `输入包介绍`,
                     },
                   ]}>
                   <Input />

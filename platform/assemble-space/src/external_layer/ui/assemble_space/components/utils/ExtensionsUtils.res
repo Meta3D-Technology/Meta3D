@@ -15,32 +15,51 @@ module Method = {
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            switch selectedExtensionsFromMarket->Meta3dCommonlib.ListSt.filter(
+          (.
+            result,
+            {
+              name,
+              iconBase64,
+              version,
+              displayName,
+              repoLink,
+              description,
+            }: FrontendUtils.BackendCloudbaseType.protocol,
+          ) => {
+            selectedExtensionsFromMarket
+            ->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
                 let protocol = data.extensionPackageData.protocol
 
                 protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
               },
-            ) {
-            | extensions =>
-              extensions->Meta3dCommonlib.ListSt.reduce(
-                result,
-                (result, (extension, protocolConfig)) => {
-                  result->Meta3dCommonlib.ArraySt.push((
-                    extension.data.extensionPackageData.name,
-                    iconBase64,
-                    protocolConfig->_getProtocolConfigStr,
-                    extension,
-                  ))
-                },
-              )
-            | _ => result
-            }
+            )
+            ->Meta3dCommonlib.ListSt.reduce(
+              result,
+              (result, (extension, protocolConfig)) => {
+                result->Meta3dCommonlib.ArraySt.push((
+                  extension.data.extensionPackageData.displayName,
+                  iconBase64,
+                  displayName,
+                  repoLink,
+                  description,
+                  protocolConfig->_getProtocolConfigStr,
+                  extension,
+                ))
+              },
+            )
           },
           [],
         )
-        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (name, _, _, _)) => {
+        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
+          name,
+          _,
+          _,
+          _,
+          _,
+          _,
+          _,
+        )) => {
           name
         })
       },
@@ -50,7 +69,11 @@ module Method = {
     )
   }
 
-  let useEffectOnceAsync = ((setIsLoaded, setExtensions), service, selectedExtensionsFromMarket) => {
+  let useEffectOnceAsync = (
+    (setIsLoaded, setExtensions),
+    service,
+    selectedExtensionsFromMarket,
+  ) => {
     (
       _getExtensions(
         service.backend,
@@ -85,12 +108,28 @@ let make = (
     : <List
         grid={{gutter: 16, column: 3}}
         dataSource={extensions}
-        renderItem={((name, iconBase64, configStr, extension)) => {
+        renderItem={((
+          name,
+          iconBase64,
+          displayName,
+          repoLink,
+          description,
+          configStr,
+          extension,
+        )) => {
           <List.Item>
             <Card
               key={name}
               onClick={_ => {
-                selectExtension(dispatch, iconBase64, configStr, extension)
+                selectExtension(
+                  dispatch,
+                  iconBase64,
+                  displayName,
+                  repoLink,
+                  description,
+                  configStr,
+                  extension,
+                )
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
               cover={<img

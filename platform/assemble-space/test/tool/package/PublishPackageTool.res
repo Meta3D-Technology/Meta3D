@@ -17,6 +17,7 @@ let publish = (
   ~values={
     "packageName": "n1",
     "packageVersion": "0.0.1",
+    "packageDescription": "dp1",
   },
   (),
 ) => {

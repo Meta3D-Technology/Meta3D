@@ -122,19 +122,15 @@ defineFeature(feature, test => {
       "generate run visual extension v1 with old version",
       () => {
         v1 :=
-          Meta3d.Main.generateExtension(
-            (
-              {
-                name,
-                protocol: {
-                  name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                  version: "0.4.0",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: Meta3d.ExtensionFileType.extensionPackageData
-            ),
-            "",
+          Meta3dTool.generateExtension(
+            ~name,
+            ~protocol={
+              name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+              version: "0.4.0",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            (),
           )
       },
     )
@@ -143,19 +139,15 @@ defineFeature(feature, test => {
       "generate run visual extension v2 with newest version",
       () => {
         v2 :=
-          Meta3d.Main.generateExtension(
-            (
-              {
-                name,
-                protocol: {
-                  name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: Meta3d.ExtensionFileType.extensionPackageData
-            ),
-            "",
+          Meta3dTool.generateExtension(
+            ~name,
+            ~protocol={
+              name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            (),
           )
       },
     )
@@ -264,19 +256,16 @@ defineFeature(feature, test => {
       "get run visual extension v",
       () => {
         v :=
-          Meta3d.Main.generateExtension(
-            (
-              {
-                name: RunElementVisualControllerTool.getVisualExtensionName(),
-                protocol: {
-                  name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: Meta3d.ExtensionFileType.extensionPackageData
-            ),
-            ElementVisualTool.buildEmptyExtensionFileStr(),
+          Meta3dTool.generateExtension(
+            ~name=RunElementVisualControllerTool.getVisualExtensionName(),
+            ~protocol={
+              name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
+            (),
           )->RunElementVisualControllerTool.loadAndBuildVisualExtension(
             ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
             _,

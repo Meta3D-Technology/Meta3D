@@ -1,7 +1,10 @@
 {
   "name": "meta3d-bs-most",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+  "displayName": "most",
+  "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/extensions/meta3d-bs-most",
+  "description": "most.js rescript external",
   "protocol": {
     "name": "meta3d-bs-most-protocol"
   },
@@ -15,7 +18,7 @@
     "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "dependencies": {
-    "meta3d-bs-most-protocol": "^0.10.0",
+    "meta3d-bs-most-protocol": "^0.10.3",
     "meta3d-type": "^0.10.0",
     "most": "1.7.0",
     "most-subject": "^5.3.0",

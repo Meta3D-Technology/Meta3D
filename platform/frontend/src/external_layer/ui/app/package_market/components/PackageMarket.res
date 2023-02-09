@@ -188,7 +188,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       <List.Item.Meta
                         key={item.name}
                         title={<span> {React.string(item.name)} </span>}
-                        description={React.string(j`发布者：${item.account}`)}
+                        description={<div>
+                          <div>
+                            <span> {React.string({j`发布者：${item.account}`})} </span>
+                          </div>
+                          <div>
+                            <span> {React.string(item.description)} </span>
+                          </div>
+                        </div>}
                       />
                       {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                         version =>
@@ -372,15 +379,25 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                 <List.Item>
                   <List.Item.Meta
-                    key={item.name}
+                    key={item.displayName}
                     avatar={<img src={item.iconBase64} />}
                     title={<span
                       onClick={_ => {
                         setPackageEntryExtensionProtocolItem(_ => item->Some)
                       }}>
-                      {React.string(item.name)}
+                      {React.string(item.displayName)}
                     </span>}
-                    description={React.string(j`发布者：${item.account}`)}
+                    description={<div>
+                      <div>
+                        {item.repoLink === ""
+                          ? React.null
+                          : <a href={item.repoLink} target="_blank"> {React.string(`Repo|`)} </a>}
+                        <span> {React.string({j`发布者：${item.account}`})} </span>
+                      </div>
+                      <div>
+                        <span> {React.string(item.description)} </span>
+                      </div>
+                    </div>}
                   />
                   {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                     version =>

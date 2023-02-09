@@ -6,15 +6,14 @@ function _throwError(msg: string): never {
     throw new Error(msg)
 }
 
-function _checkNotEmpty(value: any) {
-    return value === undefined || value === null ?
-        _throwError("empty") : value
+function _isEmpty(value: any) {
+    return value === undefined || value === null
 }
 
 function _searchProtocolVersion(name: string, dependencies: any) {
     let value = dependencies[name]
 
-    if (value === undefined || value === null) {
+    if (_isEmpty(value)) {
         console.log(dependencies);
         _throwError("empty name: " + name)
     }
@@ -22,10 +21,15 @@ function _searchProtocolVersion(name: string, dependencies: any) {
     return value
 }
 
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }: any): any {
+
+
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }: any): any {
     return {
         name,
         publisher,
+        displayName: _isEmpty(displayName) ? name : displayName,
+        repoLink: _isEmpty(repoLink) ? "" : repoLink,
+        description: _isEmpty(description) ? "" : description,
         protocol: {
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
@@ -129,6 +133,9 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                                 protocolVersion: packageData.protocol.version,
                                 name: packageJson.name,
                                 version: packageJson.version,
+                                displayName: packageData.displayName,
+                                repoLink: packageData.repoLink,
+                                description: packageData.description,
                                 fileID
                             }
 

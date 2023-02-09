@@ -26,18 +26,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
 
-  let (selectPublishExtensionProtocol, setSelectPublishExtensionProtocol) = React.useState(_ =>
-    Meta3dCommonlib.ImmutableHashMap.createEmpty()
-  )
-  let (selectPublishExtension, setSelectPublishExtension) = React.useState(_ =>
-    Meta3dCommonlib.ImmutableHashMap.createEmpty()
-  )
-
   let _isSelect = (id, selectedContributes: UserCenterStore.selectedContributes) => {
     selectedContributes->Meta3dCommonlib.ListSt.includesByFunc(((selectedContribute, _)) =>
       id === selectedContribute.id
     )
   }
+
+  // let _clearSelectPublishContributeProtocol = name => {
+  //   setSelectPublishContributeProtocol(value =>
+  //     value->Meta3dCommonlib.ImmutableHashMap.deleteVal(name)
+  //   )
+  // }
+
+  // let _clearSelectPublishContribute = name => {
+  //   setSelectPublishContribute(value => value->Meta3dCommonlib.ImmutableHashMap.deleteVal(name))
+  // }
 
   let _groupAllPublishContributeProtocols = (
     allPublishContributeProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
@@ -167,9 +170,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                     <List.Item>
                       <List.Item.Meta
-                        key={item.info.name}
-                        title={<span> {React.string(item.info.name)} </span>}
-                        description={React.string(j`发布者：${item.info.account}`)}
+                        key={item.info.displayName}
+                        title={<span> {React.string(item.info.displayName)} </span>}
+                        description={<div>
+                          <div>
+                            {item.info.repoLink === ""
+                              ? React.null
+                              : <a href={item.info.repoLink} target="_blank">
+                                  {React.string(`Repo|`)}
+                                </a>}
+                            <span> {React.string({j`发布者：${item.info.account}`})} </span>
+                          </div>
+                          <div>
+                            <span> {React.string(item.info.description)} </span>
+                          </div>
+                        </div>}
                       />
                       {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                         version =>
@@ -275,6 +290,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       protocolName: item.name,
                       protocolVersion: item.version,
                       protocolIconBase64: item.iconBase64,
+                      protocolDisplayName: item.displayName,
                       info,
                     },
                   )
@@ -309,15 +325,27 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                 <List.Item>
                   <List.Item.Meta
-                    key={item.name}
+                    key={item.displayName}
                     avatar={<img src={item.iconBase64} />}
                     title={<span
                       onClick={_ => {
+                        // _clearSelectPublishContributeProtocol(item.name)
+
                         setContributeProtocolItem(_ => item->Some)
                       }}>
-                      {React.string(item.name)}
+                      {React.string(item.displayName)}
                     </span>}
-                    description={React.string(j`发布者：${item.account}`)}
+                    description={<div>
+                      <div>
+                        {item.repoLink === ""
+                          ? React.null
+                          : <a href={item.repoLink} target="_blank"> {React.string(`Repo|`)} </a>}
+                        <span> {React.string({j`发布者：${item.account}`})} </span>
+                      </div>
+                      <div>
+                        <span> {React.string(item.description)} </span>
+                      </div>
+                    </div>}
                   />
                   {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                     version =>

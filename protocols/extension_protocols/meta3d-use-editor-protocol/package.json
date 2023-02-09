@@ -1,7 +1,7 @@
 {
     "name": "meta3d-use-editor-protocol",
-    "version": "0.10.0",
-    "description": "",
+    "version": "0.10.1",
+    "displayName": "use editor protocol",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",

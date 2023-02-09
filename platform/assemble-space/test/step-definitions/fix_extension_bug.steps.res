@@ -28,12 +28,11 @@ defineFeature(feature, test => {
     then,
   }) => {
     let store = ref(Obj.magic(1))
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="1.0.1",
+      (),
+    )
     let (a1, _) = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,
       ~protocolVersionRange=">= 1.0.0",
@@ -43,45 +42,71 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and", AssembleSpaceStore.initialState, store)
 
-    given("select extension a1 for protocol a in Extensions", () => {
-      //   dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    given(
+      "select extension a1 for protocol a in Extensions",
+      () => {
+        //   dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      store :=
-        ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~iconBase64=a.iconBase64,
-          ~extension=a1,
-          ~protocolConfigStr=None,
-        )
-    })
+        store :=
+          ExtensionsTool.selectExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~iconBase64=a.iconBase64,
+            ~extension=a1,
+            ~protocolConfigStr=None,
+            (),
+          )
+      },
+    )
 
-    \"and"("select extension a1 for protocol a in Extensions", () => {
-      store :=
-        ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~iconBase64=a.iconBase64,
-          ~extension=a1,
-          ~protocolConfigStr=None,
-        )
-    })
+    \"and"(
+      "select extension a1 for protocol a in Extensions",
+      () => {
+        store :=
+          ExtensionsTool.selectExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~iconBase64=a.iconBase64,
+            ~extension=a1,
+            ~protocolConfigStr=None,
+            (),
+          )
+      },
+    )
 
-    \"and"("select the first extension in SelectedExtensions", () => {
-      store :=
-        SelectedExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getHeadExn).id,
-        )
-    })
+    \"and"(
+      "select the first extension in SelectedExtensions",
+      () => {
+        store :=
+          SelectedExtensionsTool.selectExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getHeadExn).id,
+          )
+      },
+    )
 
-    \"and"("start it", () => {
-      store :=
-        ExtensionInspectorTool.startExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
-          ->ExtensionInspectorTool.getInspectorCurrentExtension
-          ->Meta3dCommonlib.OptionSt.getExn,
-        )
-    })
+    \"and"(
+      "start it",
+      () => {
+        store :=
+          ExtensionInspectorTool.startExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~inspectorCurrentExtension=ExtensionInspectorTool.useSelector(store.contents)
+            ->ExtensionInspectorTool.getInspectorCurrentExtension
+            ->Meta3dCommonlib.OptionSt.getExn,
+          )
+      },
+    )
 
     // \"and"("set new name", () => {
     //   store :=
@@ -94,21 +119,33 @@ defineFeature(feature, test => {
     //     )
     // })
 
-    \"when"("select the second extension in SelectedExtensions", () => {
-      store :=
-        SelectedExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getNthExn(1)).id,
-        )
-    })
+    \"when"(
+      "select the second extension in SelectedExtensions",
+      () => {
+        store :=
+          SelectedExtensionsTool.selectExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~id=(SelectedExtensionsTool.useSelector(store.contents)->ListTool.getNthExn(1)).id,
+          )
+      },
+    )
 
-    \"and"("render ExtensionInspector", () => {
-      ()
-    })
+    \"and"(
+      "render ExtensionInspector",
+      () => {
+        ()
+      },
+    )
 
-    then("should show start button", () => {
-      ()
-    })
+    then(
+      "should show start button",
+      () => {
+        ()
+      },
+    )
 
     // \"and"("set new name input's default name should be old name", () => {
     //   ExtensionInspectorTool.buildUI(

@@ -27,13 +27,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                 name: "a1-protocol",
                 account: "meta3d",
                 version: "0.0.1",
-                iconBase64: "b1"
+                iconBase64: "b1",
+                displayName: "d1",
+                repoLink: "l1",
+                description: "dp1"
             },
             {
                 name: "a2-protocol",
                 account: "user1",
                 version: "0.0.2",
-                iconBase64: "b2"
+                iconBase64: "b2",
+                displayName: "d1",
+                repoLink: null,
+                description: "dp1"
             },
         ];
         _prepare(given);

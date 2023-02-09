@@ -18,6 +18,12 @@ function _isPNG(iconPath: string) {
     return iconPath.match(/\.png$/) !== null
 }
 
+
+function _isEmpty(value: any) {
+    return value === undefined || value === null
+}
+
+
 export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
@@ -66,7 +72,10 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
 
                                 // TODO icon can be any format include png
 
-                                "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64")
+                                "data:image/png;base64, " + readFileSyncFunc(iconPath, "base64"),
+                            displayName: _isEmpty(packageJson.displayName) ? packageJson.name : packageJson.displayName,
+                            repoLink: _isEmpty(packageJson.repoLink) ? "" : packageJson.repoLink,
+                            description: _isEmpty(packageJson.description) ? "" : packageJson.description,
                         }
                     )
                 }))

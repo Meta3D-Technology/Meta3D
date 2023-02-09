@@ -1,4 +1,4 @@
-import { account, protocolName, protocolVersion, protocolIconBase64, implementName, implementVersion } from "./MarketType"
+import { account, protocolName, protocolVersion, protocolIconBase64, implementName, implementVersion, description } from "./MarketType"
 
 type entryExtensionProtocolName = protocolName
 
@@ -16,6 +16,7 @@ type packageImplementInfo = {
     entryExtensionName: entryExtensionName,
     name: implementName,
     version: implementVersion,
+    desciption: description,
     account: account,
 
 }

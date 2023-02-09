@@ -4,7 +4,7 @@ exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findP
 const most_1 = require("most");
 let _buildFileName = (appName, account) => account + "_" + appName;
 exports._buildKey = _buildFileName;
-let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account) => {
+let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description) => {
     let key = (0, exports._buildKey)(appName, account);
     return hasDataFunc("publishedapps", key).concatMap((isExist) => {
         let fileName = _buildFileName(appName, account);
@@ -15,12 +15,14 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                 return (0, most_1.fromPromise)(updateDataFunc("publishedapps", key, {
                     account,
                     appName,
+                    description,
                     fileID
                 }));
             }
             return (0, most_1.fromPromise)(addDataFunc("publishedapps", key, {
                 account,
                 appName,
+                description,
                 fileID
             }));
         });
@@ -46,10 +48,11 @@ let findAllPublishAppsByAccount = (getDataByKeyContainFunc, account) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        return (0, most_1.just)(data.map(({ account, appName }) => {
+        return (0, most_1.just)(data.map(({ account, appName, description }) => {
             return {
                 account,
                 appName,
+                description
             };
         }));
     });
@@ -60,10 +63,11 @@ let findAllPublishApps = (getDataFunc) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        return (0, most_1.just)(data.map(({ account, appName }) => {
+        return (0, most_1.just)(data.map(({ account, appName, description }) => {
             return {
                 account,
                 appName,
+                description
             };
         }));
     });

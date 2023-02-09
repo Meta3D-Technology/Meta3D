@@ -28,7 +28,7 @@ Feature: Extensions
             And select extension a1 for a
             When render after useEffectOnceAsync
             Then should mark loaded
-            And should set a's icon, config str and a1's name as extensions
+            And should set a's icon, config str and a1's displayName as extensions
 
         Scenario: set extensions when select two extensions of the same protocol
             Given publish extension protocol a

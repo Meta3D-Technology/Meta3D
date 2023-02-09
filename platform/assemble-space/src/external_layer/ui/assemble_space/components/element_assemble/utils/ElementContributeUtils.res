@@ -4,6 +4,10 @@ let getElementContributeProtocolVersion = () => {
   j`^${FrontendUtils.VersionConfig.getPlatformVersion()}`
 }
 
+let getElementContributeRepoLink = () => ""
+
+let getElementContributeDescription = () => "element contribute"
+
 let buildElementContributeFileStr = (
   service,
   elementContributeName,

@@ -71,6 +71,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   }}>
                   {React.string(item.appName)}
                 </span>}
+                description={<div>
+                  <div>
+                    <span> {React.string({j`发布者：${item.account}`})} </span>
+                  </div>
+                  <div>
+                    <span> {React.string(item.description)} </span>
+                  </div>
+                </div>}
               />
             </List.Item>}
         />}

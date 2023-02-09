@@ -134,58 +134,49 @@ defineFeature(feature, test => {
       "generate two extensions that the seond is entry",
       () => {
         firstExtension :=
-          Main.generateExtension(
-            (
-              {
-                name: "first-extension",
-                protocol: {
-                  name: "first-extension-protocol",
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "second-extension",
-                  (
-                    {
-                      protocolName: "second-extension-protocol",
-                      protocolVersion: ">=0.4.1 < 1.0.0",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.5.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="first-extension",
+            ~protocol={
+              name: "first-extension-protocol",
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "second-extension",
+              (
+                {
+                  protocolName: "second-extension-protocol",
+                  protocolVersion: ">=0.4.1 < 1.0.0",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.5.2",
+                }: ExtensionFileType.dependentData
+              ),
+            ),
+            (),
           )
         secondExtension :=
-          Main.generateExtension(
-            (
-              {
-                name: "second-extension",
-                protocol: {
-                  name: "second-extension-protocol",
-                  version: "0.5.2",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.6.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="second-extension",
+            ~protocol={
+              name: "second-extension-protocol",
+              version: "0.5.2",
+            },
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.6.2",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            (),
           )
 
         entryExtensionName := "second-extension"
@@ -196,19 +187,15 @@ defineFeature(feature, test => {
       "generate one contribute",
       () => {
         firstContribute :=
-          Main.generateContribute(
-            (
-              {
-                name: "first-contribute",
-                protocol: {
-                  name: "first-contribute-protocol",
-                  version: "0.5.3",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: ExtensionFileType.contributePackageData
-            ),
-            PackageManagerTool.buildEmptyContributeFileStr(),
+          ExtensionFileManagerTool.generateContribute(
+            ~name="first-contribute",
+            ~protocol={
+              name: "first-contribute-protocol",
+              version: "0.5.3",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            (),
           )
       },
     )
@@ -347,59 +334,49 @@ defineFeature(feature, test => {
       "generate two extensions",
       () => {
         firstExtension :=
-          Main.generateExtension(
-            (
-              {
-                name: "first-extension",
-                protocol: {
-                  name: "first-extension-protocol",
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "second-extension",
-                  (
-                    {
-                      protocolName: "second-extension-protocol",
-                      protocolVersion: ">=0.4.1 < 1.0.0",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.5.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="first-extension",
+            ~protocol={
+              name: "first-extension-protocol",
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "second-extension",
+              (
+                {
+                  protocolName: "second-extension-protocol",
+                  protocolVersion: ">=0.4.1 < 1.0.0",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            // PackageManagerTool.buildEmptyExtensionFileStr()
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.5.2",
+                }: ExtensionFileType.dependentData
+              ),
+            ),
+            (),
           )
         secondExtension :=
-          Main.generateExtension(
-            (
-              {
-                name: "second-extension",
-                protocol: {
-                  name: "second-extension-protocol",
-                  version: "0.5.2",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.5.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="second-extension",
+            ~protocol={
+              name: "second-extension-protocol",
+              version: "0.5.2",
+            },
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.5.2",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            (),
           )
       },
     )
@@ -408,19 +385,13 @@ defineFeature(feature, test => {
       "generate one contribute",
       () => {
         firstContribute :=
-          Main.generateContribute(
-            (
-              {
-                name: "first-contribute",
-                protocol: {
-                  name: "first-contribute-protocol",
-                  version: "0.5.3",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: ExtensionFileType.contributePackageData
-            ),
-            PackageManagerTool.buildEmptyContributeFileStr(),
+          ExtensionFileManagerTool.generateContribute(
+            ~name="first-contribute",
+            ~protocol={
+              name: "first-contribute-protocol",
+              version: "0.5.3",
+            },
+            (),
           )
       },
     )
@@ -517,19 +488,13 @@ defineFeature(feature, test => {
       "generate one extension as e1",
       () => {
         e1 :=
-          Main.generateExtension(
-            (
-              {
-                name: "e1",
-                protocol: {
-                  name: "e1-protocol",
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: ExtensionFileType.extensionPackageData
-            ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+          ExtensionFileManagerTool.generateExtension(
+            ~name="e1",
+            ~protocol={
+              name: "e1-protocol",
+              version: "0.4.1",
+            },
+            (),
           )
       },
     )
@@ -561,58 +526,49 @@ defineFeature(feature, test => {
       "generate two extensions",
       () => {
         e2 :=
-          Main.generateExtension(
-            (
-              {
-                name: "e2",
-                protocol: {
-                  name: "e2-protocol",
-                  version: "0.4.1",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "e3",
-                  (
-                    {
-                      protocolName: "e3-protocol",
-                      protocolVersion: ">=0.4.1 < 1.0.0",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.5.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="e2",
+            ~protocol={
+              name: "e2-protocol",
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "e3",
+              (
+                {
+                  protocolName: "e3-protocol",
+                  protocolVersion: ">=0.4.1 < 1.0.0",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.5.2",
+                }: ExtensionFileType.dependentData
+              ),
+            ),
+            (),
           )
         e3 :=
-          Main.generateExtension(
-            (
-              {
-                name: "e3",
-                protocol: {
-                  name: "e3-protocol",
-                  version: "0.5.2",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-                  "first-contribute",
-                  (
-                    {
-                      protocolName: "first-contribute-protocol",
-                      protocolVersion: "^0.5.2",
-                    }: ExtensionFileType.dependentData
-                  ),
-                ),
-              }: ExtensionFileType.extensionPackageData
+          ExtensionFileManagerTool.generateExtension(
+            ~name="e3",
+            ~protocol={
+              name: "e3-protocol",
+              version: "0.5.2",
+            },
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+              "first-contribute",
+              (
+                {
+                  protocolName: "first-contribute-protocol",
+                  protocolVersion: "^0.5.2",
+                }: ExtensionFileType.dependentData
+              ),
             ),
-            PackageManagerTool.buildEmptyExtensionFileStr(),
+            (),
           )
       },
     )
@@ -621,19 +577,13 @@ defineFeature(feature, test => {
       "generate one contribute",
       () => {
         firstContribute :=
-          Main.generateContribute(
-            (
-              {
-                name: "first-contribute",
-                protocol: {
-                  name: "first-contribute-protocol",
-                  version: "0.5.3",
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: ExtensionFileType.contributePackageData
-            ),
-            PackageManagerTool.buildEmptyContributeFileStr(),
+          ExtensionFileManagerTool.generateContribute(
+            ~name="first-contribute",
+            ~protocol={
+              name: "first-contribute-protocol",
+              version: "0.5.3",
+            },
+            (),
           )
       },
     )
@@ -717,34 +667,24 @@ defineFeature(feature, test => {
 
     given("generate two extensions", () => {
       firstExtension :=
-        Main.generateExtension(
-          (
-            {
-              name: "first-extension",
-              protocol: {
-                name: "first-extension-protocol",
-                version: "0.4.1",
-              },
-              dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: ExtensionFileType.extensionPackageData
-          ),
-          buildEmptyExtensionFileStrWithLifeHandleForExtension1(),
+        ExtensionFileManagerTool.generateExtension(
+          ~name="first-extension",
+          ~protocol={
+            name: "first-extension-protocol",
+            version: "0.4.1",
+          },
+          ~fileStr=buildEmptyExtensionFileStrWithLifeHandleForExtension1(),
+          (),
         )
       secondExtension :=
-        Main.generateExtension(
-          (
-            {
-              name: "second-extension",
-              protocol: {
-                name: "second-extension-protocol",
-                version: "0.5.2",
-              },
-              dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            }: ExtensionFileType.extensionPackageData
-          ),
-          buildEmptyExtensionFileStrWithLifeHandleForExtension2(),
+        ExtensionFileManagerTool.generateExtension(
+          ~name="second-extension",
+          ~protocol={
+            name: "second-extension-protocol",
+            version: "0.5.2",
+          },
+          ~fileStr=buildEmptyExtensionFileStrWithLifeHandleForExtension2(),
+          (),
         )
     })
 

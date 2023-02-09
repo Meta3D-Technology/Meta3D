@@ -23,12 +23,11 @@ defineFeature(feature, test => {
 
   test(."fix \"enter AssembleSpace should reset\" bug", ({given, \"when", \"and", then}) => {
     let store = ref(Obj.magic(1))
-    let a: FrontendUtils.BackendCloudbaseType.protocol = {
-      name: "a",
-      version: "1.0.1",
-      iconBase64: "i1",
-      account: "meta3d",
-    }
+    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name="a",
+      ~version="1.0.1",
+      (),
+    )
     let (a1, _) = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,
       ~protocolVersionRange=">= 1.0.0",
@@ -38,42 +37,61 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and", AssembleSpaceStore.initialState, store)
 
-    given("select extension a1 for protocol a in Extensions", () => {
-      store :=
-        ExtensionsTool.selectExtension(
-          ~dispatch=ReduxTool.ApAssemble.buildDispatch(AssembleSpaceStore.reducer, store.contents),
-          ~iconBase64=a.iconBase64,
-          ~extension=a1,
-          ~protocolConfigStr=None,
-        )
-    })
+    given(
+      "select extension a1 for protocol a in Extensions",
+      () => {
+        store :=
+          ExtensionsTool.selectExtension(
+            ~dispatch=ReduxTool.ApAssemble.buildDispatch(
+              AssembleSpaceStore.reducer,
+              store.contents,
+            ),
+            ~iconBase64=a.iconBase64,
+            ~extension=a1,
+            ~protocolConfigStr=None,
+            (),
+          )
+      },
+    )
 
-    \"when"("enter AssembleSpace", () => {
-      store := AssembleSpaceTool.reset(~dispatch=AssembleSpaceStore.reducer(store.contents))
-    })
+    \"when"(
+      "enter AssembleSpace",
+      () => {
+        store := AssembleSpaceTool.reset(~dispatch=AssembleSpaceStore.reducer(store.contents))
+      },
+    )
 
-    \"and"("render SelectedExtensions", () => {
-      ()
-    })
+    \"and"(
+      "render SelectedExtensions",
+      () => {
+        ()
+      },
+    )
 
-    then("should reset store", () => {
-      let {selectedExtensions, inspectorCurrentExtensionId} = store.contents.apAssembleState
+    then(
+      "should reset store",
+      () => {
+        let {selectedExtensions, inspectorCurrentExtensionId} = store.contents.apAssembleState
 
-      (selectedExtensions, inspectorCurrentExtensionId)->expect == (list{}, None)
-    })
+        (selectedExtensions, inspectorCurrentExtensionId)->expect == (list{}, None)
+      },
+    )
 
-    \"and"("should show nothing", () => {
-      SelectedExtensionsTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    \"and"(
+      "should show nothing",
+      () => {
+        SelectedExtensionsTool.buildUI(
           ~sandbox,
-          ~useSelector=ReduxTool.ApAssemble.useSelector(store.contents),
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=ReduxTool.ApAssemble.useSelector(store.contents),
+            (),
+          ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 })

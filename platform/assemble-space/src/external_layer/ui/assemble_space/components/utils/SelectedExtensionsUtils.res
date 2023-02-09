@@ -30,7 +30,7 @@ let make = (~service: service, ~useDispatch, ~useSelectorResult, ~selectExtensio
                 ~wordBreak="break-all",
                 (),
               )}>
-              {React.string(data.extensionPackageData.name)}
+              {React.string(data.extensionPackageData.displayName)}
             </span>}
           />
         </Card>

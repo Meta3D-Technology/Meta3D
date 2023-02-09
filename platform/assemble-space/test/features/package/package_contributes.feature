@@ -29,7 +29,7 @@ Feature: PackageContributes
             And select contribute a1 for a
             When render after useEffectOnceAsync
             Then should mark loaded
-            And should set a's icon, config str and a1's name as contributes
+            And should set a's icon, config str and a1's displayName as contributes
 
         Scenario: set contributes when select two contributes of the same protocol
             Given publish contribute protocol a

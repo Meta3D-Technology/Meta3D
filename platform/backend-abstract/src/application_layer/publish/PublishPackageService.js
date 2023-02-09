@@ -12,7 +12,7 @@ let _buildFileName = (packageName, packageVersion, account) => account + "_" +
 let buildPartialKeyByEntryProcoltolData = (entryExtensionProtocolName, entryExtensionProtocolVersion) => entryExtensionProtocolName + "_" + entryExtensionProtocolVersion;
 exports.buildPartialKeyByEntryProcoltolData = buildPartialKeyByEntryProcoltolData;
 exports.buildPartialKeyByPackageData = _buildFileName;
-let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionName], [packageName, packageVersion], account) => {
+let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, entryExtensionName], [packageName, packageVersion, description], account) => {
     let key = (0, exports._buildKey)(entryExtensionProtocolName, entryExtensionProtocolVersion, packageName, packageVersion, account);
     return hasDataFunc("publishedpackages", key).concatMap((isExist) => {
         let fileName = _buildFileName(packageName, packageVersion, account);
@@ -26,9 +26,13 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                     entryExtensionProtocolVersion,
                     entryExtensionProtocolVersionRange,
                     entryExtensionProtocolIconBase64,
+                    entryExtensionProtocolDisplayName,
+                    entryExtensionProtocolRepoLink,
+                    entryExtensionProtocolDescription,
                     entryExtensionName,
                     packageName,
                     packageVersion,
+                    description,
                     fileID
                 }));
             }
@@ -38,9 +42,13 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                 entryExtensionProtocolVersion,
                 entryExtensionProtocolVersionRange,
                 entryExtensionProtocolIconBase64,
+                entryExtensionProtocolDisplayName,
+                entryExtensionProtocolRepoLink,
+                entryExtensionProtocolDescription,
                 entryExtensionName,
                 packageName,
                 packageVersion,
+                description,
                 fileID
             }));
         });

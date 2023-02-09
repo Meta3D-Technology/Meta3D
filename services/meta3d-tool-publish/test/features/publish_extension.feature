@@ -24,6 +24,12 @@ Feature: Publish Extension
         Then should upload generated file
         And should add to collection
 
+    Scenario: handle nullable package json fields
+        Given prepare funcs that package json not has displayName, repoLink, description
+        When publish extension
+        Then should use default value
+
+
     # Scenario: update fileID in collection if exist
     #     Given prepare funcs
     #     And publish extension

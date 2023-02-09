@@ -48,6 +48,15 @@ defineFeature(feature, test => {
         let fileId1 = "i1"
         let fileId2 = "i2"
         let fileId3 = "i3"
+        let displayName1 = "d1"
+        let displayName2 = "d2"
+        let displayName3 = "d3"
+        let repoLink1 = "l1"
+        let repoLink2 = "l2"
+        let repoLink3 = "l3"
+        let description1 = "dp1"
+        let description2 = "dp2"
+        let description3 = "dp3"
         // let fileName2 = "f2"
         // let fileName3 = "f3"
         let allPublishExtensions = null
@@ -68,21 +77,30 @@ defineFeature(feature, test => {
                                     protocolName: "test1-protocol",
                                     protocolVersion: "^0.2.0",
                                     name: fileName1,
-                                    version: fileVersion1
+                                    version: fileVersion1,
+                                    displayName: displayName1,
+                                    repoLink: repoLink1,
+                                    description: description1
                                 },
                                 {
                                     fileID: fileId2,
                                     protocolName: "test1-protocol",
                                     protocolVersion: "^0.1.0",
                                     name: fileName1,
-                                    version: fileVersion2
+                                    version: fileVersion2,
+                                    displayName: displayName2,
+                                    repoLink: repoLink2,
+                                    description: description2
                                 },
                                 {
                                     fileID: fileId3,
                                     protocolName: "test2-protocol",
                                     protocolVersion: "^0.1.0",
                                     name: fileName1,
-                                    version: fileVersion3
+                                    version: fileVersion3,
+                                    displayName: displayName3,
+                                    repoLink: repoLink3,
+                                    description: description3
                                 }
                             ]
                         }
@@ -113,7 +131,10 @@ defineFeature(feature, test => {
                     name: fileName1,
                     id: fileId2,
                     version: fileVersion2,
-                    account
+                    account,
+                    displayName: displayName2,
+                    repoLink: repoLink2,
+                    description: description2
                 }
             ])
         });
@@ -127,6 +148,14 @@ defineFeature(feature, test => {
         let fileName2 = "f2"
         let fileId1 = "i1"
         let fileId2 = "i2"
+        let displayName1 = "d1"
+        let displayName2 = "d2"
+        let repoLink1 = "l1"
+        let repoLink2 = "l2"
+        let description1 = "dp1"
+        let description2 = "dp2"
+        // let fileName2 = "f2"
+        // let fileName3 = "f3"
         let allPublishExtensions = null
 
         _prepare(given)
@@ -145,14 +174,20 @@ defineFeature(feature, test => {
                                     protocolName: "test1-protocol",
                                     protocolVersion: "^0.1.0",
                                     name: fileName1,
-                                    version: fileVersion1
+                                    version: fileVersion1,
+                                    displayName: displayName1,
+                                    repoLink: repoLink1,
+                                    description: description1
                                 },
                                 {
                                     fileID: fileId2,
                                     protocolName: "test1-protocol",
                                     protocolVersion: "^0.1.0",
                                     name: fileName2,
-                                    version: fileVersion2
+                                    version: fileVersion2,
+                                    displayName: displayName2,
+                                    repoLink: repoLink2,
+                                    description: description2
                                 },
                             ]
                         }
@@ -183,13 +218,19 @@ defineFeature(feature, test => {
                     id: fileId1,
                     name: fileName1,
                     version: fileVersion1,
-                    account
+                    account,
+                    displayName: displayName1,
+                    repoLink: repoLink1,
+                    description: description1
                 },
                 {
                     id: fileId2,
                     name: fileName2,
                     version: fileVersion2,
-                    account
+                    account,
+                    displayName: displayName2,
+                    repoLink: repoLink2,
+                    description: description2
                 }
             ])
         });

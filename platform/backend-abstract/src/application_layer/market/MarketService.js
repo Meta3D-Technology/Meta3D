@@ -7,8 +7,8 @@ const NullableUtils_1 = require("../../utils/NullableUtils");
 let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName) => {
     return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName)).map((res) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res);
-        return resData.map(({ name, version, account, iconBase64 }) => {
-            return { name, version, account, iconBase64 };
+        return resData.map(({ name, version, account, iconBase64, displayName, repoLink, description }) => {
+            return { name, version, account, iconBase64, displayName, repoLink, description };
         });
     });
 };
@@ -34,8 +34,11 @@ let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketIm
             if (result.length === 0) {
                 return (0, most_1.empty)();
             }
-            return (0, most_1.from)(result.map(({ fileID, name, version }) => {
-                return { id: fileID, name, version, account: account };
+            return (0, most_1.from)(result.map(({ fileID, name, version, displayName, repoLink, description }) => {
+                return {
+                    id: fileID, name, version, account,
+                    displayName, repoLink, description
+                };
             }));
         })).reduce((result, data) => {
             result.push(data);

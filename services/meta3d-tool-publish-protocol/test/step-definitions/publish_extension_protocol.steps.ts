@@ -28,8 +28,15 @@ defineFeature(feature, test => {
 
     function _buildPackageJson(name = "test1-protocol",
         version = "0.0.1",
-        account = "0xf60") {
-        return { name, version, publisher: account }
+        account = "0xf60",
+        displayName = "d1",
+        repoLink = "",
+        description = "dp1"
+    ) {
+        return {
+            name, version, publisher: account,
+            displayName, repoLink, description
+        }
     }
 
     function _publishExtensionProtocol(packageFilePath = "", iconPath = "a.png") {
@@ -96,6 +103,9 @@ defineFeature(feature, test => {
                     "test1-protocol",
                     "0.0.2",
                     "meta3d",
+                    "d1",
+                    "l1",
+                    "dp1",
                 ))
             )
             initFunc.returns(
@@ -125,7 +135,64 @@ defineFeature(feature, test => {
                     "name": "test1-protocol",
                     "version": "0.0.2",
                     "account": "meta3d",
-                    "iconBase64": "data:image/png;base64, " + iconContent
+                    "iconBase64": "data:image/png;base64, " + iconContent,
+                    "displayName": "d1",
+                    "repoLink": "l1",
+                    "description": "dp1",
+                }
+            ])
+        });
+    });
+
+    test('handle nullable package json fields', ({ given, when, then, and }) => {
+        let app = {}
+        let iconContent = "v91"
+        let collectionData = {
+            data: []
+        }
+
+        _prepare(given)
+
+        given('prepare funcs that package json not has displayName, repoLink, description', () => {
+            _createFuncs(sandbox)
+
+            readJsonFunc.returns(
+                just({
+                    name: "test1-protocol", version: "0.0.2",
+                    publisher: "meta3d"
+                })
+            )
+            initFunc.returns(
+                just(app)
+            )
+            hasAccountFunc.returns(
+                just(true)
+            )
+            readFileSyncFunc.returns(iconContent)
+            getMarketProtocolCollectionFunc.returns(
+                resolve(collectionData)
+            )
+        });
+
+        when('publish extension protocol', () => {
+            return _publishExtensionProtocol()
+        });
+
+        then('should use default value', () => {
+            expect(addDataToMarketProtocolCollectionFunc).toCalledWith([
+                app,
+                addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc,
+                "publishedextensionprotocols",
+                "publishedextensionprotocols",
+                getDataFromMarketProtocolCollectionFunc(collectionData),
+                {
+                    "name": "test1-protocol",
+                    "version": "0.0.2",
+                    "account": "meta3d",
+                    "iconBase64": "data:image/png;base64, " + iconContent,
+                    "displayName": "test1-protocol",
+                    "repoLink": "",
+                    "description": "",
                 }
             ])
         });

@@ -6,22 +6,24 @@ const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 function _throwError(msg) {
     throw new Error(msg);
 }
-function _checkNotEmpty(value) {
-    return value === undefined || value === null ?
-        _throwError("empty") : value;
+function _isEmpty(value) {
+    return value === undefined || value === null;
 }
 function _searchProtocolVersion(name, dependencies) {
     let value = dependencies[name];
-    if (value === undefined || value === null) {
+    if (_isEmpty(value)) {
         console.log(dependencies);
         _throwError("empty name: " + name);
     }
     return value;
 }
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }) {
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }) {
     return {
         name,
         publisher,
+        displayName: _isEmpty(displayName) ? name : displayName,
+        repoLink: _isEmpty(repoLink) ? "" : repoLink,
+        description: _isEmpty(description) ? "" : description,
         protocol: {
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
@@ -61,7 +63,7 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
         let account = packageJson.publisher;
         return (0, PublishUtils_1.isPublisherRegistered)(hasAccountFunc, backendInstance, account).flatMap(isPublisherRegistered => {
             if (!isPublisherRegistered) {
-                _throwError("找不到publishser，请至少登录过一次");
+                _throwError("找不到publishser，请在平台上注册该用户");
             }
             _defineWindow();
             let packageData = _convertToExtensionOrContributePackageData(packageJson);
@@ -87,6 +89,9 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                         protocolVersion: packageData.protocol.version,
                         name: packageJson.name,
                         version: packageJson.version,
+                        displayName: packageData.displayName,
+                        repoLink: packageData.repoLink,
+                        description: packageData.description,
                         fileID
                     };
                     return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {

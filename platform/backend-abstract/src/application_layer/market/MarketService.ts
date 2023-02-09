@@ -10,8 +10,8 @@ export let getAllPublishProtocolData = (
     return fromPromise(getMarketProtocolCollectionFunc(collectionName)).map((res: any) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res)
 
-        return resData.map(({ name, version, account, iconBase64 }) => {
-            return { name, version, account, iconBase64 }
+        return resData.map(({ name, version, account, iconBase64, displayName, repoLink, description }) => {
+            return { name, version, account, iconBase64, displayName, repoLink, description }
         })
     })
 }
@@ -54,8 +54,13 @@ export let getAllPublishImplementInfo = (
                     return empty()
                 }
 
-                return from(result.map(({ fileID, name, version }) => {
-                    return { id: fileID, name, version, account: account }
+                return from(result.map(({ fileID, name, version,
+                    displayName, repoLink, description
+                }) => {
+                    return {
+                        id: fileID, name, version, account,
+                        displayName, repoLink, description
+                    }
                 }))
             })
         ).reduce(

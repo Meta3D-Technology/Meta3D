@@ -83,7 +83,7 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                             }
                           }
                         >
-                          e1
+                          d1
                         </span>
                       </div>
                     </div>
@@ -157,7 +157,7 @@ exports[`Package Selected Contributes show selected contributes 1`] = `
                             }
                           }
                         >
-                          e2
+                          d1
                         </span>
                       </div>
                     </div>

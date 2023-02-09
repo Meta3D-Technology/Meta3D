@@ -8,7 +8,7 @@ export let _buildKey = _buildFileName
 
 export let publish = (
     [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any],
-    appBinaryFile: ArrayBuffer, appName: string, account: string) => {
+    appBinaryFile: ArrayBuffer, appName: string, account: string, description: string) => {
     let key = _buildKey(appName, account)
 
     return hasDataFunc("publishedapps", key).concatMap((isExist) => {
@@ -25,6 +25,7 @@ export let publish = (
                     {
                         account,
                         appName,
+                        description,
                         fileID
                     }
                 ))
@@ -35,6 +36,7 @@ export let publish = (
                 {
                     account,
                     appName,
+                    description,
                     fileID
                 }))
         })
@@ -67,10 +69,11 @@ export let findAllPublishAppsByAccount = (
             return just([])
         }
 
-        return just(data.map(({ account, appName }) => {
+        return just(data.map(({ account, appName, description }) => {
             return {
                 account,
                 appName,
+                description
             }
         }))
     })
@@ -83,10 +86,11 @@ export let findAllPublishApps = (
             return just([])
         }
 
-        return just(data.map(({ account, appName }) => {
+        return just(data.map(({ account, appName, description }) => {
             return {
                 account,
                 appName,
+                description
             }
         }))
     })

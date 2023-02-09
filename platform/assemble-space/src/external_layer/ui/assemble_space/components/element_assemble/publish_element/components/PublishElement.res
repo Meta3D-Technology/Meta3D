@@ -37,10 +37,10 @@ module Method = {
             id,
           )->Meta3dCommonlib.OptionSt.getExn
         ).name,
-        rect: rect,
-        isDraw: isDraw,
-        event: event,
-        specific: specific,
+        rect,
+        isDraw,
+        event,
+        specific,
         children: _convertToUIControls(children, selectedUIControls),
       }
     })
@@ -68,6 +68,9 @@ module Method = {
 
       let protocolName = ElementContributeUtils.getElementContributeProtocolName()
       let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
+      let displayName = elementName
+      let repoLink = ElementContributeUtils.getElementContributeRepoLink()
+      let description = ElementContributeUtils.getElementContributeDescription()
 
       setIsUploadBegin(_ => true)
 
@@ -75,12 +78,23 @@ module Method = {
         service.backend.publishElementContribute(.
           progress => setUploadProgress(_ => progress),
           account->Meta3dCommonlib.OptionSt.getExn,
-          (elementName, elementVersion, protocolName, protocolVersion),
+          (
+            elementName,
+            elementVersion,
+            protocolName,
+            protocolVersion,
+            displayName,
+            repoLink,
+            description,
+          ),
           ElementVisualUtils.generateElementContributeBinaryFile(
             service,
             elementName,
             protocolName,
             protocolVersion,
+            displayName,
+            repoLink,
+            description,
             ElementContributeUtils.buildElementContributeFileStr(
               service,
               elementName,
@@ -150,7 +164,7 @@ let make = (~service: service, ~account: option<string>) => {
       {React.string(`发布Element`)}
     </Button>
     <Modal
-      title=`发布Element`
+      title={`发布Element`}
       visible={visible}
       onOk={() => {
         setVisible(_ => false)
@@ -185,7 +199,7 @@ let make = (~service: service, ~account: option<string>) => {
             // onFinishFailed={Method.onFinishFailed(service)}
             autoComplete="off">
             <Form.Item
-              label=`Element名`
+              label={`Element名`}
               name="elementName"
               rules={[
                 {
@@ -196,7 +210,7 @@ let make = (~service: service, ~account: option<string>) => {
               <Input />
             </Form.Item>
             <Form.Item
-              label=`Element版本号`
+              label={`Element版本号`}
               name="elementVersion"
               rules={[
                 {

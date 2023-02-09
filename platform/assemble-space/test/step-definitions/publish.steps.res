@@ -236,6 +236,7 @@ defineFeature(feature, test => {
     let c1 = false
     let account = "u1"
     let appName = "n1"
+    let appDescription = "dp1"
     let appBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generateAppStub = ref(Obj.magic(1))
     let convertAllFileDataStub = ref(Obj.magic(1))
@@ -305,7 +306,8 @@ defineFeature(feature, test => {
       \"when",
       "publish app",
       () => {
-        (values.contents->Obj.magic)["appName"] = "n1"
+        (values.contents->Obj.magic)["appName"] = appName
+        (values.contents->Obj.magic)["appDescription"] = appDescription
 
         generateAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(appBinaryFile, _)
@@ -387,7 +389,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
           )
       },
     )
@@ -397,7 +399,7 @@ defineFeature(feature, test => {
       () => {
         publishAppStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg4(matchAny, appBinaryFile, appName, account)
+        ->SinonTool.calledWithArg5(matchAny, appBinaryFile, appName, account, appDescription)
         ->expect == true
       },
     )

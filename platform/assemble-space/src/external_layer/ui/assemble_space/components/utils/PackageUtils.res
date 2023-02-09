@@ -22,11 +22,22 @@ let getEntryExtensionProtocolData = selectedExtensions => {
   ->Meta3dCommonlib.ArraySt.filter(({isEntry}: FrontendUtils.PackageAssembleStoreType.extension) =>
     isEntry
   )
-  ->Meta3dCommonlib.ArraySt.map(({protocolName, protocolVersion, protocolIconBase64, data}) => (
+  ->Meta3dCommonlib.ArraySt.map(({
+    protocolName,
+    protocolVersion,
+    protocolIconBase64,
+    protocolDisplayName,
+    protocolRepoLink,
+    protocolDescription,
+    data,
+  }) => (
     protocolName,
     protocolVersion,
     data.extensionPackageData.protocol.version,
     protocolIconBase64,
+    protocolDisplayName,
+    protocolRepoLink,
+    protocolDescription,
   ))
   ->Meta3dCommonlib.ArraySt.getExn(0)
 }

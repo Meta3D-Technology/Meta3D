@@ -28,6 +28,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         "",
         "",
         "",
+        "",
+        "",
+        "",
     ], contributeBinaryFile = new ArrayBuffer(0)) {
         return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, (message) => {
                 errorFunc(message);
@@ -45,6 +48,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         let version = "0.0.2";
         let protocolName = "test1-protocol";
         let protocolVersion = "^0.0.1";
+        let displayName = name;
+        let repoLink = "";
+        let description = "dp1";
         let binaryFile = new ArrayBuffer(10);
         let fileID1 = "id1";
         let marketImplementCollectionData = [];
@@ -62,6 +68,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 version,
                 protocolName,
                 protocolVersion,
+                displayName,
+                repoLink,
+                description
             ], binaryFile).drain();
         });
         then('should upload file', () => {
@@ -81,6 +90,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                             "protocolName": protocolName, "protocolVersion": protocolVersion,
                             "name": name,
                             "version": version,
+                            "displayName": displayName,
+                            "repoLink": repoLink,
+                            "description": description,
                             "fileID": fileID1
                         }]
                 },
@@ -118,8 +130,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             return _publish(account, [
                 name,
                 version,
-                // protocolName,
-                // protocolVersion,
+                "",
+                "",
+                "",
                 "",
                 ""
             ], binaryFile).drain();
@@ -128,8 +141,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             return _publish(account, [
                 name,
                 version,
-                // protocolName,
-                // protocolVersion,
+                "",
+                "",
+                "",
                 "",
                 ""
             ], binaryFile).drain().catch(e => { });

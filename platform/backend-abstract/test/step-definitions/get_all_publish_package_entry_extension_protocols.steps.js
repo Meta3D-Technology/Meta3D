@@ -23,8 +23,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         });
     }
     test('get all publish pacakge entry extension protocols', ({ given, when, then, and }) => {
-        let entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, account1;
-        let entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, account2;
+        let entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, entryExtensionProtocolDisplayName1, entryExtensionProtocolRepoLink1, entryExtensionProtocolDescription1, account1;
+        let entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, entryExtensionProtocolDisplayName2, entryExtensionProtocolRepoLink2, entryExtensionProtocolDescription2, account2;
         // let allPublishExtensionProtocols = [
         //     {
         //         name: "a1-protocol",
@@ -44,6 +44,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryExtensionProtocolName1 = "ep1";
             entryExtensionProtocolVersion1 = "0.0.1";
             entryExtensionProtocolIconBase641 = "epi1";
+            entryExtensionProtocolDisplayName1 = "epd1";
+            entryExtensionProtocolRepoLink1 = "epl1";
+            entryExtensionProtocolDescription1 = "epdp1";
             account1 = "account1";
         });
         and('publish pacakge2 with entry extension protocol1 and account1', () => {
@@ -52,6 +55,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryExtensionProtocolName2 = "ep2";
             entryExtensionProtocolVersion2 = "0.0.2";
             entryExtensionProtocolIconBase642 = "epi2";
+            entryExtensionProtocolDisplayName2 = "epd2";
+            entryExtensionProtocolRepoLink2 = "epl2";
+            entryExtensionProtocolDescription2 = "epdp2";
             account2 = "account2";
         });
         and('prepare funcs', () => {
@@ -62,18 +68,27 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     entryExtensionProtocolName: entryExtensionProtocolName1,
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
+                    entryExtensionProtocolDisplayName: entryExtensionProtocolDisplayName1,
+                    entryExtensionProtocolRepoLink: entryExtensionProtocolRepoLink1,
+                    entryExtensionProtocolDescription: entryExtensionProtocolDescription1,
                 },
                 {
                     account: account1,
                     entryExtensionProtocolName: entryExtensionProtocolName1,
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
+                    entryExtensionProtocolDisplayName: entryExtensionProtocolDisplayName1,
+                    entryExtensionProtocolRepoLink: entryExtensionProtocolRepoLink1,
+                    entryExtensionProtocolDescription: entryExtensionProtocolDescription1,
                 },
                 {
                     account: account2,
                     entryExtensionProtocolName: entryExtensionProtocolName2,
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
+                    entryExtensionProtocolDisplayName: entryExtensionProtocolDisplayName2,
+                    entryExtensionProtocolRepoLink: entryExtensionProtocolRepoLink2,
+                    entryExtensionProtocolDescription: entryExtensionProtocolDescription2,
                 }
             ]));
         });
@@ -87,12 +102,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                         name: entryExtensionProtocolName1,
                         version: entryExtensionProtocolVersion1,
                         iconBase64: entryExtensionProtocolIconBase641,
+                        displayName: entryExtensionProtocolDisplayName1,
+                        repoLink: entryExtensionProtocolRepoLink1,
+                        description: entryExtensionProtocolDescription1,
                     },
                     {
                         account: account2,
                         name: entryExtensionProtocolName2,
                         version: entryExtensionProtocolVersion2,
                         iconBase64: entryExtensionProtocolIconBase642,
+                        displayName: entryExtensionProtocolDisplayName2,
+                        repoLink: entryExtensionProtocolRepoLink2,
+                        description: entryExtensionProtocolDescription2,
                     }
                 ]);
             });

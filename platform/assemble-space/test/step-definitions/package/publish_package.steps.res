@@ -102,11 +102,15 @@ defineFeature(feature, test => {
     let account = "u1"
     let packageName = "n1"
     let packageVersion = "0.1.0"
+    let packageDescription = "pdp1"
     let entryExtensionName = "e3"
     let entryExtensionProtocolName = "ep3"
     let entryExtensionProtocolVersion = "0.0.3"
     let entryExtensionProtocolVersionRange = "^0.0.3"
     let entryExtensionProtocolIconBase64 = "ei3"
+    let entryExtensionProtocolDisplayName = "eid1"
+    let entryExtensionProtocolRepoLink = "eil1"
+    let entryExtensionProtocolDescription = "eidp1"
     let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
     let packageBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generatePackageStub = ref(Obj.magic(1))
@@ -182,6 +186,9 @@ defineFeature(feature, test => {
               ~protocolName=entryExtensionProtocolName,
               ~protocolVersion=entryExtensionProtocolVersion,
               ~protocolIconBase64=entryExtensionProtocolIconBase64,
+              ~protocolDisplayName=entryExtensionProtocolDisplayName,
+              ~protocolRepoLink=entryExtensionProtocolRepoLink,
+              ~protocolDescription=entryExtensionProtocolDescription,
               ~data=ExtensionTool.buildExtensionData(
                 ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
                   ~name=entryExtensionName,
@@ -227,6 +234,7 @@ defineFeature(feature, test => {
           {
             "packageName": packageName,
             "packageVersion": packageVersion,
+            "packageDescription": packageDescription,
           }
 
         generatePackageStub :=
@@ -291,7 +299,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             1,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"protocol\":{\"name\":\"ep3\",\"version\":\"^0.0.3\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentExtensionProtocolNameMap\":{},\"dependentContributeProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
             [selectedPackageBinaryFile1],
           )
       },
@@ -310,9 +318,12 @@ defineFeature(feature, test => {
             entryExtensionProtocolVersion,
             entryExtensionProtocolVersionRange,
             entryExtensionProtocolIconBase64,
+            entryExtensionProtocolDisplayName,
+            entryExtensionProtocolRepoLink,
+            entryExtensionProtocolDescription,
             entryExtensionName,
           ],
-          [packageName, packageVersion],
+          [packageName, packageVersion, packageDescription],
           account,
         )
         ->expect == true

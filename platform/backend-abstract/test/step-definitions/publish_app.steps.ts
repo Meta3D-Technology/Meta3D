@@ -35,14 +35,13 @@ defineFeature(feature, test => {
     }
 
     test('if not exist, publish should add app', ({ given, and, when, then }) => {
-        let appBinaryFile, appName, account
+        let appBinaryFile, appName, account, description
         let fileID = "1"
 
         _prepare(given)
 
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox)
-
 
             uploadFileFunc.returns(
                 just({ fileID })
@@ -56,6 +55,7 @@ defineFeature(feature, test => {
             appBinaryFile = new ArrayBuffer(10)
             appName = "app1"
             account = "account1"
+            description = "d1"
         });
 
         when('publish the app', () => {
@@ -63,7 +63,8 @@ defineFeature(feature, test => {
                 [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile,
                 appName,
-                account
+                account,
+                description
             ).drain()
         });
 
@@ -83,6 +84,7 @@ defineFeature(feature, test => {
                 {
                     account,
                     appName,
+                    description,
                     fileID
                 }
             ])
@@ -92,8 +94,8 @@ defineFeature(feature, test => {
     test('if exist, publish should overwrite app', ({ given, and, when, then }) => {
         let fileID1 = "1"
         let fileID2 = "2"
-        let appBinaryFile1, appName1, account1
-        let appBinaryFile2, appName2, account2
+        let appBinaryFile1, appName1, account1, description1
+        let appBinaryFile2, appName2, account2, description2
 
         _prepare(given)
 
@@ -119,10 +121,12 @@ defineFeature(feature, test => {
             appBinaryFile1 = new ArrayBuffer(10)
             appName1 = "app1"
             account1 = "account1"
+            description1 = "d1"
 
             appBinaryFile2 = new ArrayBuffer(11)
             appName2 = appName1
             account2 = account1
+            description2 = "d2"
         });
 
         and('publish the first app', () => {
@@ -130,7 +134,8 @@ defineFeature(feature, test => {
                 [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile1,
                 appName1,
-                account1
+                account1,
+                description1
             ).drain()
         });
 
@@ -139,7 +144,8 @@ defineFeature(feature, test => {
                 [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile2,
                 appName2,
-                account2
+                account2,
+                description2
             ).drain()
         });
 
@@ -162,6 +168,7 @@ defineFeature(feature, test => {
                 {
                     account: account1,
                     appName: appName1,
+                    description: description2,
                     fileID: fileID2
                 }
             ])
@@ -277,6 +284,8 @@ defineFeature(feature, test => {
         let account1
         let appName1
         let appName2
+        let description1
+        let description2
 
 
         _prepare(given)
@@ -286,6 +295,9 @@ defineFeature(feature, test => {
 
             appName1 = "app1"
             appName2 = "app2"
+
+            description1 = "d1"
+            description2 = "d2"
         });
 
         given('prepare funcs', () => {
@@ -294,10 +306,14 @@ defineFeature(feature, test => {
             getDataByKeyContainFunc.returns(
                 just([
                     {
-                        account: account1, appName: appName1, fileID: fileID1
+                        account: account1, appName: appName1,
+                        description: description1,
+                        fileID: fileID1
                     },
                     {
-                        account: account1, appName: appName2, fileID: fileID2
+                        account: account1, appName: appName2,
+                        description: description2,
+                        fileID: fileID2
                     }
                 ])
             )
@@ -320,10 +336,12 @@ defineFeature(feature, test => {
                 ])
 
                 expect(result).toEqual([{
-                    account: account1, appName: appName1
+                    account: account1, appName: appName1,
+                    description: description1
                 },
                 {
-                    account: account1, appName: appName2
+                    account: account1, appName: appName2,
+                    description: description2
                 }])
             })
         });
@@ -360,6 +378,8 @@ defineFeature(feature, test => {
         let account2
         let appName1
         let appName2
+        let description1
+        let description2
 
 
         _prepare(given)
@@ -370,6 +390,9 @@ defineFeature(feature, test => {
 
             appName1 = "app1"
             appName2 = "app2"
+
+            description1 = "d1"
+            description2 = "d2"
         });
 
         given('prepare funcs', () => {
@@ -378,10 +401,14 @@ defineFeature(feature, test => {
             getDataFunc.returns(
                 resolve([
                     {
-                        account: account1, appName: appName1, fileID: fileID1
+                        account: account1, appName: appName1,
+                        description: description1,
+                        fileID: fileID1
                     },
                     {
-                        account: account1, appName: appName2, fileID: fileID2
+                        account: account1, appName: appName2,
+                        description: description2,
+                        fileID: fileID2
                     }
                 ])
             )
@@ -402,10 +429,12 @@ defineFeature(feature, test => {
                 ])
 
                 expect(result).toEqual([{
-                    account: account1, appName: appName1
+                    account: account1, appName: appName1,
+                    description:description1
                 },
                 {
-                    account: account1, appName: appName2
+                    account: account1, appName: appName2,
+                    description:description2
                 }])
             })
         });

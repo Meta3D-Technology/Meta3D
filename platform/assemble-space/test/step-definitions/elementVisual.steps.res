@@ -151,19 +151,15 @@ defineFeature(feature, test => {
       "generate visual extension v1 with old version",
       () => {
         v1 :=
-          Meta3d.Main.generateExtension(
-            (
-              {
-                name,
-                protocol: {
-                  name: ElementVisualTool.getVisualExtensionProtocolName(),
-                  version: FrontendUtils.VersionConfig.getPlatformVersion(),
-                },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              }: Meta3d.ExtensionFileType.extensionPackageData
-            ),
-            "",
+          Meta3dTool.generateExtension(
+            ~name,
+            ~protocol={
+              name: ElementVisualTool.getVisualExtensionProtocolName(),
+              version: FrontendUtils.VersionConfig.getPlatformVersion(),
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            (),
           )
       },
     )

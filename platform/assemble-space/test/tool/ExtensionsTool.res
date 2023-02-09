@@ -32,8 +32,20 @@ let selectExtension = (
   ~protocolConfigStr,
   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~dispatch,
+  ~protocolDisplayName="d1",
+  ~protocolRepoLink="",
+  ~protocolDescription="dp1",
+  (),
 ) => {
-  Extensions.Method.selectExtension(dispatch, iconBase64, protocolConfigStr, extension)
+  Extensions.Method.selectExtension(
+    dispatch,
+    iconBase64,
+    protocolDisplayName,
+    protocolRepoLink,
+    protocolDescription,
+    protocolConfigStr,
+    extension,
+  )
 }
 
 let getProtocolConfigStr = ExtensionsUtils.Method._getProtocolConfigStr

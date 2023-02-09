@@ -1,7 +1,8 @@
 {
     "name": "meta3d-imgui-webgl1-renderer",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "imgui-webgl1-renderer",
     "protocol": {
         "name": "meta3d-imgui-renderer-protocol"
     },
@@ -14,7 +15,7 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-imgui-renderer-protocol": "^0.10.0",
+        "meta3d-imgui-renderer-protocol": "^0.10.1",
         "meta3d-type": "^0.10.0"
     },
     "devDependencies": {

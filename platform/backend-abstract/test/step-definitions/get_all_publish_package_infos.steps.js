@@ -18,8 +18,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         });
     }
     test('get all publish pacakge infos', ({ given, when, then, and }) => {
-        let fileID1, packageName1, packageVersion1, entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, entryExtensionName1, account1;
-        let fileID2, packageName2, packageVersion2, entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, entryExtensionName2, account2;
+        let fileID1, packageName1, packageVersion1, entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, entryExtensionName1, description1, account1;
+        let fileID2, packageName2, packageVersion2, entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, entryExtensionName2, description2, account2;
         _prepare(given);
         given('publish pacakge1 with entry extension protocol1', () => {
             packageName1 = "p1";
@@ -29,6 +29,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryExtensionProtocolVersion1 = "0.0.1";
             entryExtensionProtocolIconBase641 = "epi1";
             entryExtensionName1 = "e1";
+            description1 = "dp1";
             account1 = "account1";
         });
         and('publish pacakge2 with entry extension protocol2', () => {
@@ -39,6 +40,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             entryExtensionProtocolVersion2 = "0.0.2";
             entryExtensionProtocolIconBase642 = "epi2";
             entryExtensionName2 = "e2";
+            description2 = "dp2";
             account2 = "account2";
         });
         and('prepare funcs', () => {
@@ -55,7 +57,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     entryExtensionProtocolName: entryExtensionProtocolName1,
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion1,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase641,
-                    entryExtensionName: entryExtensionName1
+                    entryExtensionName: entryExtensionName1,
+                    description: description1
                 }
             ]));
             getDataByKeyContainFunc.withArgs("publishedpackages", [
@@ -70,7 +73,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     entryExtensionProtocolName: entryExtensionProtocolName2,
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
-                    entryExtensionName: entryExtensionName2
+                    entryExtensionName: entryExtensionName2,
+                    description: description2
                 }
             ]));
         });
@@ -87,6 +91,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                         entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                         entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
                         entryExtensionName: entryExtensionName2,
+                        description: description2,
                         id: fileID2
                     }
                 ]);

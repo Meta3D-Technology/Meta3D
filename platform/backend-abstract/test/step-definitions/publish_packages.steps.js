@@ -27,7 +27,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
         });
     }
     test('if not exist, publish should add package', ({ given, and, when, then }) => {
-        let packageBinaryFile, packageName, packageVersion, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionName, account;
+        let packageBinaryFile, packageName, packageVersion, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, entryExtensionProtocolIconBase64, entryExtensionName, account, description;
         let fileID = "1";
         _prepare(given);
         given('prepare funcs', () => {
@@ -43,8 +43,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             entryExtensionProtocolVersion = "0.0.2";
             entryExtensionProtocolVersionRange = "^0.0.2";
             entryExtensionProtocolIconBase64 = "epi1";
+            entryExtensionProtocolDisplayName = "epd1";
+            entryExtensionProtocolRepoLink = "epl1";
+            entryExtensionProtocolDescription = "epdp1";
             entryExtensionName = "e1";
             account = "account1";
+            description = "d1";
         });
         when('publish the package', () => {
             return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [
@@ -52,10 +56,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                 entryExtensionProtocolVersion,
                 entryExtensionProtocolVersionRange,
                 entryExtensionProtocolIconBase64,
+                entryExtensionProtocolDisplayName,
+                entryExtensionProtocolRepoLink,
+                entryExtensionProtocolDescription,
                 entryExtensionName,
             ], [
                 packageName,
                 packageVersion,
+                description
             ], account).drain();
         });
         then('should upload package', () => {
@@ -76,9 +84,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                     entryExtensionProtocolVersion,
                     entryExtensionProtocolVersionRange,
                     entryExtensionProtocolIconBase64,
+                    entryExtensionProtocolDisplayName,
+                    entryExtensionProtocolRepoLink,
+                    entryExtensionProtocolDescription,
                     entryExtensionName,
                     packageName,
                     packageVersion,
+                    description,
                     fileID
                 }
             ]);
@@ -87,8 +99,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
     test('if exist, publish should overwrite package', ({ given, and, when, then }) => {
         let fileID1 = "1";
         let fileID2 = "2";
-        let packageBinaryFile1, packageName1, packageVersion1, entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolVersionRange1, entryExtensionProtocolIconBase641, entryExtensionName1, account1;
-        let packageBinaryFile2, packageName2, packageVersion2, entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolVersionRange2, entryExtensionProtocolIconBase642, entryExtensionName2, account2;
+        let packageBinaryFile1, packageName1, packageVersion1, entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolVersionRange1, entryExtensionProtocolIconBase641, entryExtensionProtocolDisplayName1, entryExtensionProtocolRepoLink1, entryExtensionProtocolDescription1, entryExtensionName1, account1, description1;
+        let packageBinaryFile2, packageName2, packageVersion2, entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolVersionRange2, entryExtensionProtocolIconBase642, entryExtensionProtocolDisplayName2, entryExtensionProtocolRepoLink2, entryExtensionProtocolDescription2, entryExtensionName2, account2, description2;
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox);
@@ -105,8 +117,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             entryExtensionProtocolVersion1 = "0.0.2";
             entryExtensionProtocolVersionRange1 = "^0.0.2";
             entryExtensionProtocolIconBase641 = "epi1";
+            entryExtensionProtocolDisplayName1 = "epd1";
+            entryExtensionProtocolRepoLink1 = "epl1";
+            entryExtensionProtocolDescription1 = "epdp1";
             entryExtensionName1 = "e1";
             account1 = "account1";
+            description1 = "d1";
             packageBinaryFile2 = new ArrayBuffer(11);
             packageName2 = packageName1;
             packageVersion2 = packageVersion1;
@@ -114,8 +130,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
             entryExtensionProtocolVersion2 = entryExtensionProtocolVersion1;
             entryExtensionProtocolVersionRange2 = entryExtensionProtocolVersionRange1;
             entryExtensionProtocolIconBase642 = entryExtensionProtocolIconBase641;
+            entryExtensionProtocolDisplayName2 = "epd2";
+            entryExtensionProtocolRepoLink2 = "epl2";
+            entryExtensionProtocolDescription2 = "epdp2";
             entryExtensionName2 = entryExtensionName1;
             account2 = account1;
+            description2 = "d2";
         });
         and('publish the first package', () => {
             return (0, PublishPackageService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile1, [
@@ -123,10 +143,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                 entryExtensionProtocolVersion1,
                 entryExtensionProtocolVersionRange1,
                 entryExtensionProtocolIconBase641,
+                entryExtensionProtocolDisplayName1,
+                entryExtensionProtocolRepoLink1,
+                entryExtensionProtocolDescription1,
                 entryExtensionName1,
             ], [
                 packageName1,
                 packageVersion1,
+                description1
             ], account1).drain();
         });
         when('publish the second package', () => {
@@ -135,10 +159,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                 entryExtensionProtocolVersion2,
                 entryExtensionProtocolVersionRange2,
                 entryExtensionProtocolIconBase642,
+                entryExtensionProtocolDisplayName2,
+                entryExtensionProtocolRepoLink2,
+                entryExtensionProtocolDescription2,
                 entryExtensionName2,
             ], [
                 packageName2,
                 packageVersion2,
+                description2
             ], account2).drain();
         });
         then(/^should upload package(\d+)'s binary file$/, () => {
@@ -161,9 +189,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
                     entryExtensionProtocolVersion: entryExtensionProtocolVersion2,
                     entryExtensionProtocolVersionRange: entryExtensionProtocolVersionRange2,
                     entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase642,
+                    entryExtensionProtocolDisplayName: entryExtensionProtocolDisplayName2,
+                    entryExtensionProtocolRepoLink: entryExtensionProtocolRepoLink2,
+                    entryExtensionProtocolDescription: entryExtensionProtocolDescription2,
                     entryExtensionName: entryExtensionName1,
                     packageName: packageName2,
                     packageVersion: packageVersion2,
+                    description: description2,
                     fileID: fileID2
                 }
             ]);

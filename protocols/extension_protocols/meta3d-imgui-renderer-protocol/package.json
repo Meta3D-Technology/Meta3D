@@ -1,8 +1,8 @@
 {
     "name": "meta3d-imgui-renderer-protocol",
-    "version": "0.10.0",
+    "version": "0.10.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "description": "",
+    "displayName": "renderer",
     "author": "Wonder",
     "license": "MIT",
     "scripts": {

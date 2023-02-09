@@ -25,8 +25,14 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccount
         name,
         version,
         protocolName,
-        protocolVersion
+        protocolVersion,
+        displayName,
+        repoLink,
+        description
     ]: [
+            string,
+            string,
+            string,
             string,
             string,
             string,
@@ -77,6 +83,9 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccount
                     protocolVersion: protocolVersion,
                     name: name,
                     version: version,
+                    displayName,
+                    repoLink,
+                    description,
                     fileID
                 }
 

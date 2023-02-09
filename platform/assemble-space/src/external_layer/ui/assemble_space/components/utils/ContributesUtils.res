@@ -15,28 +15,29 @@ module Method = {
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            switch selectedContributesFromMarket->Meta3dCommonlib.ListSt.filter(
+          (.
+            result,
+            {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol,
+          ) => {
+            selectedContributesFromMarket
+            ->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.contribute, _)) => {
                 let protocol = data.contributePackageData.protocol
 
                 protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
               },
-            ) {
-            | contributes =>
-              contributes->Meta3dCommonlib.ListSt.reduce(
-                result,
-                (result, (contribute, protocolConfig)) => {
-                  result->Meta3dCommonlib.ArraySt.push((
-                    contribute.data.contributePackageData.name,
-                    iconBase64,
-                    protocolConfig->_getProtocolConfigStr,
-                    contribute,
-                  ))
-                },
-              )
-            | _ => result
-            }
+            )
+            ->Meta3dCommonlib.ListSt.reduce(
+              result,
+              (result, (contribute, protocolConfig)) => {
+                result->Meta3dCommonlib.ArraySt.push((
+                  contribute.data.contributePackageData.displayName,
+                  iconBase64,
+                  protocolConfig->_getProtocolConfigStr,
+                  contribute,
+                ))
+              },
+            )
           },
           [],
         )
@@ -50,7 +51,11 @@ module Method = {
     )
   }
 
-  let useEffectOnceAsync = ((setIsLoaded, setContributes), service, selectedContributesFromMarket) => {
+  let useEffectOnceAsync = (
+    (setIsLoaded, setContributes),
+    service,
+    selectedContributesFromMarket,
+  ) => {
     (
       _getContributes(
         service.backend,

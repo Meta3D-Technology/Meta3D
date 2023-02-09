@@ -203,6 +203,9 @@ module Method = {
     protocolVersion,
     elementName,
     elementVersion,
+    displayName,
+    repoLink,
+    description,
     fileStr,
   ) => {
     ElementVisualUtils.generateElementContributeBinaryFile(
@@ -210,6 +213,9 @@ module Method = {
       elementName,
       protocolName,
       protocolVersion,
+      displayName,
+      repoLink,
+      description,
       fileStr,
     )
     ->service.meta3d.loadContribute(. _)
@@ -217,15 +223,15 @@ module Method = {
   }
 
   let generateElementContributeData = (service, fileStr) => {
-    let protocolName = ElementContributeUtils.getElementContributeProtocolName()
-    let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
-
     _generateElementContribute(
       service,
-      protocolName,
-      protocolVersion,
+      ElementContributeUtils.getElementContributeProtocolName(),
+      ElementContributeUtils.getElementContributeProtocolVersion(),
       _getElementContributeName(),
       _getElementContributeVersion(),
+      _getElementContributeName(),
+      ElementContributeUtils.getElementContributeRepoLink(),
+      ElementContributeUtils.getElementContributeDescription(),
       fileStr,
     )
   }

@@ -28,7 +28,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
     }
     test('if not exist, publish should add app', ({ given, and, when, then }) => {
-        let appBinaryFile, appName, account;
+        let appBinaryFile, appName, account, description;
         let fileID = "1";
         _prepare(given);
         given('prepare funcs', () => {
@@ -40,9 +40,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             appBinaryFile = new ArrayBuffer(10);
             appName = "app1";
             account = "account1";
+            description = "d1";
         });
         when('publish the app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description).drain();
         });
         then('should upload app', () => {
             expect(uploadFileFunc).toCalledWith([
@@ -59,6 +60,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                 {
                     account,
                     appName,
+                    description,
                     fileID
                 }
             ]);
@@ -67,8 +69,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     test('if exist, publish should overwrite app', ({ given, and, when, then }) => {
         let fileID1 = "1";
         let fileID2 = "2";
-        let appBinaryFile1, appName1, account1;
-        let appBinaryFile2, appName2, account2;
+        let appBinaryFile1, appName1, account1, description1;
+        let appBinaryFile2, appName2, account2, description2;
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox);
@@ -81,15 +83,17 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             appBinaryFile1 = new ArrayBuffer(10);
             appName1 = "app1";
             account1 = "account1";
+            description1 = "d1";
             appBinaryFile2 = new ArrayBuffer(11);
             appName2 = appName1;
             account2 = account1;
+            description2 = "d2";
         });
         and('publish the first app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1, description1).drain();
         });
         when('publish the second app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2, description2).drain();
         });
         then(/^should upload app(\d+)'s binary file$/, () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
@@ -108,6 +112,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                 {
                     account: account1,
                     appName: appName1,
+                    description: description2,
                     fileID: fileID2
                 }
             ]);
@@ -185,20 +190,28 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         let account1;
         let appName1;
         let appName2;
+        let description1;
+        let description2;
         _prepare(given);
         and('generate two apps by the same user', () => {
             account1 = "account1";
             appName1 = "app1";
             appName2 = "app2";
+            description1 = "d1";
+            description2 = "d2";
         });
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishAppsByAccount(sandbox);
             getDataByKeyContainFunc.returns((0, most_1.just)([
                 {
-                    account: account1, appName: appName1, fileID: fileID1
+                    account: account1, appName: appName1,
+                    description: description1,
+                    fileID: fileID1
                 },
                 {
-                    account: account1, appName: appName2, fileID: fileID2
+                    account: account1, appName: appName2,
+                    description: description2,
+                    fileID: fileID2
                 }
             ]));
         });
@@ -213,10 +226,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                     [account1]
                 ]);
                 expect(result).toEqual([{
-                        account: account1, appName: appName1
+                        account: account1, appName: appName1,
+                        description: description1
                     },
                     {
-                        account: account1, appName: appName2
+                        account: account1, appName: appName2,
+                        description: description2
                     }]);
             });
         });
@@ -242,21 +257,29 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         let account2;
         let appName1;
         let appName2;
+        let description1;
+        let description2;
         _prepare(given);
         and('generate two apps by two users', () => {
             account1 = "account1";
             account2 = "account2";
             appName1 = "app1";
             appName2 = "app2";
+            description1 = "d1";
+            description2 = "d2";
         });
         given('prepare funcs', () => {
             _createFuncsForFindAllPublishApps(sandbox);
             getDataFunc.returns((0, PromiseTool_1.resolve)([
                 {
-                    account: account1, appName: appName1, fileID: fileID1
+                    account: account1, appName: appName1,
+                    description: description1,
+                    fileID: fileID1
                 },
                 {
-                    account: account1, appName: appName2, fileID: fileID2
+                    account: account1, appName: appName2,
+                    description: description2,
+                    fileID: fileID2
                 }
             ]));
         });
@@ -270,10 +293,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                     "publishedapps"
                 ]);
                 expect(result).toEqual([{
-                        account: account1, appName: appName1
+                        account: account1, appName: appName1,
+                        description: description1
                     },
                     {
-                        account: account1, appName: appName2
+                        account: account1, appName: appName2,
+                        description: description2
                     }]);
             });
         });

@@ -2,6 +2,12 @@ type protocolIconBase64 = string
 
 type protocolConfigStr = string
 
+type protocolDisplayName = string
+
+type protocolRepoLink = string
+
+type protocolDescription = string
+
 type id = string
 
 // type newName = string
@@ -14,6 +20,9 @@ type extension = {
   protocolVersion: version,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
+  protocolDisplayName: protocolDisplayName,
+  protocolRepoLink: protocolRepoLink,
+  protocolDescription: protocolDescription,
   // newName: option<newName>,
   isEntry: bool,
   version: version,
@@ -42,6 +51,9 @@ type action =
   | SelectPackage(package)
   | SelectExtension(
       protocolIconBase64,
+      protocolDisplayName,
+      protocolRepoLink,
+      protocolDescription,
       option<protocolConfigStr>,
       AssembleSpaceCommonType.extension,
     )
@@ -55,7 +67,7 @@ type action =
       AssembleSpaceCommonType.contribute,
     )
   | SetInspectorCurrentContributeId(id)
-  // | SetContributeNewName(id, newName)
+// | SetContributeNewName(id, newName)
 
 type state = {
   selectedPackages: selectedPackages,

@@ -17,6 +17,12 @@ Feature: Publish Extension Protocol
         When publish extension protocol
         Then should add to collection
 
+
+    Scenario: handle nullable package json fields
+        Given prepare funcs that package json not has displayName, repoLink, description
+        When publish extension protocol
+        Then should use default value
+
     # Scenario: update icon base64 in collection if exist
     #     Given prepare funcs
     #     And publish extension protocol

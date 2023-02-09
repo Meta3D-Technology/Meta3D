@@ -12,6 +12,9 @@ export type extensionPackageData = {
     name: string,
     version: versionRange
   },
+  displayName: string,
+  repoLink: string,
+  description: string,
   dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,
@@ -57,6 +60,9 @@ export type contributePackageData = {
     name: string,
     version: versionRange
   },
+  displayName: string,
+  repoLink: string,
+  description: string,
   dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
     protocolName: string,
     protocolVersion: versionRange,

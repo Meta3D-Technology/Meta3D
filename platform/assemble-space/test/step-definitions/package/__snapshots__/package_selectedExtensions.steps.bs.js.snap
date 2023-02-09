@@ -83,7 +83,7 @@ exports[`Package Selected Extensions show selected extensions 1`] = `
                             }
                           }
                         >
-                          e1
+                          
                         </span>
                       </div>
                     </div>
@@ -157,7 +157,7 @@ exports[`Package Selected Extensions show selected extensions 1`] = `
                             }
                           }
                         >
-                          e2
+                          
                         </span>
                       </div>
                     </div>
