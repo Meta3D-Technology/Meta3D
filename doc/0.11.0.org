@@ -95,7 +95,7 @@ https://meta3d-platform-production.4everland.app?jump_to_published_application=t
 
 
 
-* TODO 改进用户体验
+* DONE 改进用户体验
 ** DONE 改进使用流程
     ■ 用户发布扩展/贡献时，如果没有注册，则给出链接，提醒用户注册
 ** DONE 为扩展、贡献、包、app增加信息
@@ -204,14 +204,12 @@ TODO pass run test
 ** DONE 新增 账号 注册和登录的方式
 no any limit(e.g. length, ...)!!!
 
-** TODO improve error info
+** DONE improve error info
 
-- package entry extension not found
-- check dependent
+# - package entry extension not found
+////- check dependent
+# - entry extension
   
-** TODO 更新模板repo
-如开发Extension、Contribute
-
 
 ** TODO 优化UI
 *** TODO use Typography排版 instead of span, link, h1, description(div)
@@ -224,6 +222,11 @@ Inspector
 *** TODO 信息完整显示，如没有省略号、显示出inspector的标题
 *** TODO 点击扩展、贡献、包、app的二级、三级页面title+avatar instead of click title
 *** TODO 美化UI，如Nav显示出按钮、页面布局要对齐、Canvas用白底 instead of border、首页和登录/注册页
+
+
+** TODO 更新模板repo
+如开发Extension、Contribute
+
 
 ** TODO clean:remove unused Extension,Contribute Protocols
 

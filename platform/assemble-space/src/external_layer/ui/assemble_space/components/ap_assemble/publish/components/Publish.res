@@ -20,13 +20,13 @@ module Method = {
       // service.console.error(. {j`can't find start extension`}, None)
       // []
 
-      Meta3dCommonlib.Result.fail({j`can't find start extension`})
+      Meta3dCommonlib.Result.fail({j`找不到启动扩展`})
     | Some({protocolConfigStr}) =>
       switch protocolConfigStr {
       | None =>
         // service.console.error(. {j`start extension should has protocolConfigStr`}, None)
         // []
-        Meta3dCommonlib.Result.fail({j`start extension should has protocolConfigStr`})
+        Meta3dCommonlib.Result.fail({j`启动扩展应该有protocolConfigStr`})
       | Some(protocolConfigStr) =>
         service.meta3d.getNeedConfigData(.
           service.meta3d.serializeStartExtensionProtocolConfigLib(. protocolConfigStr),

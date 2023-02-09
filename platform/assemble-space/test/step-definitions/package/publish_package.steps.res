@@ -409,4 +409,50 @@ defineFeature(feature, test => {
       },
     )
   })
+
+  test(."if not select entry extension, publish should error", ({given, \"when", \"and", then}) => {
+    let selectedExtensions = ref(Obj.magic(1))
+    let errorStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "select extension e1",
+      () => {
+        selectedExtensions :=
+          list{
+            PackageSelectedExtensionsTool.buildSelectedExtension(
+              ~name="e1",
+              ~protocolIconBase64="i1",
+              (),
+            ),
+          }
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "publish package",
+      () => {
+        errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        PublishPackageTool.publish(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+          ~selectedExtensions=selectedExtensions.contents,
+          (),
+        )
+      },
+    )
+
+    then(
+      "should error",
+      () => {
+        errorStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2({j`找不到入口扩展`}, None)
+        ->expect == true
+      },
+    )
+  })
 })

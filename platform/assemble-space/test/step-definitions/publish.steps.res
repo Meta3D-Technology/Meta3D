@@ -220,7 +220,7 @@ defineFeature(feature, test => {
     then(
       "error for get config data",
       () => {
-        errorStub.contents->SinonTool.calledWith({j`can't find start extension`})->expect == true
+        errorStub.contents->SinonTool.calledWith({j`找不到启动扩展`})->expect == true
       },
     )
   })

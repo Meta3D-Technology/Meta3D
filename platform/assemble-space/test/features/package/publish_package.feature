@@ -41,3 +41,8 @@ Feature: Publish Package
             # And select package p1
             When publish package
             Then should error
+
+        Scenario: if not select entry extension, publish should error
+            Given select extension e1
+            When publish package
+            Then should error
