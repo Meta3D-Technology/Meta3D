@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.handleLogin = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -19,8 +19,12 @@ let getDatabase = () => {
     return (0, Repo_1.getBackend)().database();
 };
 exports.getDatabase = getDatabase;
-let handleLogin = (account) => BackendService.handleLogin((0, Repo_1.getBackend)(), account);
-exports.handleLogin = handleLogin;
+let checkUserName = (account) => BackendService.checkUserName((0, Repo_1.getBackend)(), account);
+exports.checkUserName = checkUserName;
+let handleLoginForWeb3 = (account) => BackendService.handleLoginForWeb3((0, Repo_1.getBackend)(), account);
+exports.handleLoginForWeb3 = handleLoginForWeb3;
+let registerUser = (account) => BackendService.registerUser((0, Repo_1.getBackend)(), account);
+exports.registerUser = registerUser;
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;
 let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), null, collectionName);

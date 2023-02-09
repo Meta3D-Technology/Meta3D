@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.handleLogin = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -10,9 +10,6 @@ let _notHasData = (app, collectionName, data) => {
         .where(data)
         .get()
         .then(res => res.data.length === 0));
-};
-let _checkUserName = (app, account) => {
-    return _notHasData(app, "user", { key: account });
 };
 let _buildEmptyCollectionData = () => null;
 let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null;
@@ -28,8 +25,12 @@ let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollecti
     });
 };
 exports.addMarketImplementDataToDataFromMarketImplementCollectionData = addMarketImplementDataToDataFromMarketImplementCollectionData;
-let handleLogin = (app, account) => {
-    return _checkUserName(app, account).flatMap((isNotHasData) => {
+let checkUserName = (app, account) => {
+    return _notHasData(app, "user", { key: account });
+};
+exports.checkUserName = checkUserName;
+let handleLoginForWeb3 = (app, account) => {
+    return (0, exports.checkUserName)(app, account).flatMap((isNotHasData) => {
         if (isNotHasData) {
             return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
                 fileData: []
@@ -37,14 +38,22 @@ let handleLogin = (app, account) => {
                 fileData: []
             }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
                 fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedskinassembledata", account, _buildEmptyCollectionData(), {
-                fileData: []
             })));
         }
         return (0, most_1.just)(account);
     });
 };
-exports.handleLogin = handleLogin;
+exports.handleLoginForWeb3 = handleLoginForWeb3;
+let registerUser = (app, account) => {
+    return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+        fileData: []
+    }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+        fileData: []
+    }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+        fileData: []
+    })));
+};
+exports.registerUser = registerUser;
 let handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };

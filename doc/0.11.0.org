@@ -198,15 +198,16 @@ TODO pass run test
 # ** TODO fix: Package with ui control->element assemble not show ui controls
 ** DONE package assemble: fix: should not select ui control
 
-** TODO fix: enter app: remove account param!
+# ** TODO fix: enter app: remove account param!
 
 
-** TODO 新增 账号、密码 注册和登录的方式
+** DONE 新增 账号 注册和登录的方式
 no any limit(e.g. length, ...)!!!
 
 ** TODO improve error info
 
 - package entry extension not found
+- check dependent
   
 ** TODO 更新模板repo
 如开发Extension、Contribute
@@ -215,6 +216,11 @@ no any limit(e.g. length, ...)!!!
 ** TODO 优化UI
 *** TODO use Typography排版 instead of span, link, h1, description(div)
 refer to https://ant-design.gitee.io/components/typography-cn#components-typography-demo-text
+
+Index
+Login
+Market
+Inspector
 *** TODO 信息完整显示，如没有省略号、显示出inspector的标题
 *** TODO 点击扩展、贡献、包、app的二级、三级页面title+avatar instead of click title
 *** TODO 美化UI，如Nav显示出按钮、页面布局要对齐、Canvas用白底 instead of border、首页和登录/注册页

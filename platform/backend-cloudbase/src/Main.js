@@ -1,14 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.handleLogin = exports.init = void 0;
+exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 // export let error = ErrorService.error
 let init = (env) => Abstract.init(BackendService_1.init, env);
 exports.init = init;
-let handleLogin = (account) => Abstract.handleLogin(BackendService_1.handleLogin, account);
-exports.handleLogin = handleLogin;
+let checkUserName = (account) => Abstract.checkUserName(BackendService_1.checkUserName, account);
+exports.checkUserName = checkUserName;
+let handleLoginForWeb3 = (account) => Abstract.handleLoginForWeb3(BackendService_1.handleLoginForWeb3, account);
+exports.handleLoginForWeb3 = handleLoginForWeb3;
+let registerUser = (account) => Abstract.registerUser(BackendService_1.registerUser, account);
+exports.registerUser = registerUser;
+let isLoginSuccess = (account) => Abstract.isLoginSuccess(BackendService_1.hasData, account);
+exports.isLoginSuccess = isLoginSuccess;
 let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedextensionprotocols");
 exports.getAllPublishExtensionProtocols = getAllPublishExtensionProtocols;
 let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedcontributeprotocols");

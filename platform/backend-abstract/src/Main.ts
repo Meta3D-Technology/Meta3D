@@ -1,5 +1,6 @@
 import { Stream } from "most";
 import * as MarketService from "./application_layer/market/MarketService"
+import * as LoginService from "./application_layer/user/LoginService"
 import * as PublishAppService from "./application_layer/publish/PublishAppService"
 import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
@@ -8,7 +9,13 @@ import * as PackageMarketService from "./application_layer/market/PackageMarketS
 
 export let init = (init: (string) => Stream<unknown>, env) => init(env)
 
-export let handleLogin = (handleLogin: (account: string) => Stream<unknown>, account: string) => handleLogin(account)
+export let handleLoginForWeb3 = (handleLoginForWeb3: (account: string) => Stream<unknown>, account: string) => handleLoginForWeb3(account)
+
+export let checkUserName = (checkUserName: (account: string) => Stream<unknown>, account: string) => checkUserName(account)
+
+export let registerUser = (registerUser: (account: string) => Stream<unknown>, account: string) => registerUser(account)
+
+export let isLoginSuccess = LoginService.isLoginSuccess
 
 export let getAllPublishProtocolData = MarketService.getAllPublishProtocolData
 

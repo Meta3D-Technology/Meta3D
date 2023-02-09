@@ -36,10 +36,6 @@ let _notHasData = (app: any, collectionName: string, data: object) => {
 }
 
 
-let _checkUserName = (app: any, account: account) => {
-    return _notHasData(app, "user", { key: account })
-}
-
 let _buildEmptyCollectionData = () => null
 
 let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => null
@@ -56,8 +52,13 @@ export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allC
     })
 }
 
-export let handleLogin = (app: any, account: account) => {
-    return _checkUserName(app, account).flatMap((isNotHasData: boolean) => {
+export let checkUserName = (app: any, account: account) => {
+    return _notHasData(app, "user", { key: account })
+}
+
+
+export let handleLoginForWeb3 = (app: any, account: account) => {
+    return checkUserName(app, account).flatMap((isNotHasData: boolean) => {
         if (isNotHasData) {
             return fromPromise(
                 addDataToUserCollection(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})
@@ -78,6 +79,25 @@ export let handleLogin = (app: any, account: account) => {
 
         return just(account)
     })
+}
+
+export let registerUser = (app: any, account: account) => {
+    return fromPromise(
+        addDataToUserCollection(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})
+    ).concat(fromPromise(
+        addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+            fileData: []
+        })
+    )).concat(fromPromise(
+        addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+            fileData: []
+        })
+    )).concat(fromPromise(
+        addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+            fileData: []
+        })
+    ))
+
 }
 
 export let handleKeyToLowercase = (key: string) => {

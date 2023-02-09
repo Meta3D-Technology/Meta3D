@@ -164,6 +164,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
   {
     switch url.path {
     | list{"Login"} => <Login service />
+    | list{"Register"} => <Register service />
     | list{"ExtensionMarket"} => <ExtensionMarket service />
     | list{"ContributeMarket"} => <ContributeMarket service />
     | list{"PackageMarket"} => <PackageMarket service />

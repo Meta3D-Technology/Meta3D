@@ -2,7 +2,10 @@ open BackendCloudbaseType
 
 type backendService = {
   init: init,
-  handleLogin: handleLogin,
+  handleLoginForWeb3: handleLoginForWeb3,
+  checkUserName: checkUserName,
+  registerUser: registerUser,
+  isLoginSuccess: isLoginSuccess,
   getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols,
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,

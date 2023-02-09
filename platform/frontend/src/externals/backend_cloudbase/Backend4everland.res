@@ -4,7 +4,7 @@ open FrontendUtils.BackendCloudbaseType
 external init: init = "init"
 
 @module("backend-4everland")
-external handleLogin: handleLogin = "handleLogin"
+external handleLoginForWeb3: handleLoginForWeb3 = "handleLoginForWeb3"
 
 @module("backend-4everland")
 external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols =
@@ -75,7 +75,11 @@ external findPublishPackage: findPublishPackage = "findPublishPackage"
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
     init,
-    handleLogin,
+    handleLoginForWeb3,
+    // TODO finish
+    checkUserName: Obj.magic(1),
+    registerUser: Obj.magic(1),
+    isLoginSuccess: Obj.magic(1),
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,

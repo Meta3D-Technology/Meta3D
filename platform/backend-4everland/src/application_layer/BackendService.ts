@@ -28,7 +28,7 @@ export let init = (_env) => {
 }
 
 
-export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
+export let handleLoginForWeb3 = (account) => BackendService.handleLoginForWeb3(getBackend(), account)
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 

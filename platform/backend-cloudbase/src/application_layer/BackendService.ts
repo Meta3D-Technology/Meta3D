@@ -20,8 +20,11 @@ export let getDatabase = () => {
 	return getBackend().database()
 }
 
+export let checkUserName = (account) => BackendService.checkUserName(getBackend(), account)
 
-export let handleLogin = (account) => BackendService.handleLogin(getBackend(), account)
+export let handleLoginForWeb3 = (account) => BackendService.handleLoginForWeb3(getBackend(), account)
+
+export let registerUser = (account) => BackendService.registerUser(getBackend(), account)
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 

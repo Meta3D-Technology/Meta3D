@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLogin = exports.addDataToUserCollection = exports.addDataToMarketProtocolCollection = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.uploadFile = exports.getFileID = exports.getFileBucketName = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.handleKeyToLowercase = exports.handleLoginForWeb3 = exports.addDataToUserCollection = exports.addDataToMarketProtocolCollection = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCollectionData, data) => {
     return new Promise((resolve, reject) => {
@@ -40,10 +40,10 @@ let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data) => {
         resolve(JSON.stringify(data));
     });
 };
-let handleLogin = (s3, account) => {
+let handleLoginForWeb3 = (s3, account) => {
     return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(s3, _buildFirstAddDataToBodyFunc(), "user", _buildAccountAsKey(account), _buildEmptyCollectionData(), _buildEmptyBody()));
 };
-exports.handleLogin = handleLogin;
+exports.handleLoginForWeb3 = handleLoginForWeb3;
 let _hasData = (s3, collectionName, key) => {
     return (0, most_1.fromPromise)(s3.headObject({
         Bucket: collectionName,

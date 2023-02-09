@@ -4,7 +4,16 @@ open FrontendUtils.BackendCloudbaseType
 external init: init = "init"
 
 @module("backend-cloudbase")
-external handleLogin: handleLogin = "handleLogin"
+external handleLoginForWeb3: handleLoginForWeb3 = "handleLoginForWeb3"
+
+@module("backend-cloudbase")
+external checkUserName: checkUserName = "checkUserName"
+
+@module("backend-cloudbase")
+external registerUser: registerUser = "registerUser"
+
+@module("backend-cloudbase")
+external isLoginSuccess: isLoginSuccess = "isLoginSuccess"
 
 @module("backend-cloudbase")
 external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols =
@@ -75,7 +84,10 @@ external findPublishPackage: findPublishPackage = "findPublishPackage"
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
     init,
-    handleLogin,
+    handleLoginForWeb3,
+    checkUserName,
+    registerUser,
+    isLoginSuccess,
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,

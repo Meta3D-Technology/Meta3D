@@ -73,7 +73,7 @@ let _buildFirstAddDataToBodyFunc = () => (allCollectionData, data): Promise<stri
     })
 }
 
-export let handleLogin = (s3: S3, account: account) => {
+export let handleLoginForWeb3 = (s3: S3, account: account) => {
     return fromPromise(addDataToUserCollection(s3,
         _buildFirstAddDataToBodyFunc(),
         "user", _buildAccountAsKey(account),

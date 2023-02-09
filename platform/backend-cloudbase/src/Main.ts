@@ -2,7 +2,10 @@ import * as Abstract from "backend-abstract";
 import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
 
 import {
-    init as initCloud, handleLogin as handleLoginCloud, getMarketProtocolCollection, getDataFromMarketProtocolCollection, getMarketImplementCollection,
+    init as initCloud,
+    checkUserName as checkUserNameCloud,
+    handleLoginForWeb3 as handleLoginForWeb3Cloud, getMarketProtocolCollection, getDataFromMarketProtocolCollection, getMarketImplementCollection,
+    registerUser as registerUserCloud,
     mapMarketImplementCollection,
     getAccountFromMarketImplementCollectionData,
     getFileDataFromMarketImplementCollectionData,
@@ -27,7 +30,14 @@ import {
 
 export let init = (env) => Abstract.init(initCloud, env)
 
-export let handleLogin = (account) => Abstract.handleLogin(handleLoginCloud, account)
+export let checkUserName = (account) => Abstract.checkUserName(checkUserNameCloud, account)
+
+export let handleLoginForWeb3 = (account) => Abstract.handleLoginForWeb3(handleLoginForWeb3Cloud, account)
+
+export let registerUser = (account) => Abstract.registerUser(registerUserCloud, account)
+
+
+export let isLoginSuccess = (account) => Abstract.isLoginSuccess(hasData, account)
 
 export let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocols")
 

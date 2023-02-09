@@ -39,9 +39,16 @@ type protocols = array<protocol>
 
 type init = string => Meta3dBsMostProtocol.StreamType.stream<unit>
 
-type handleLogin = account => Meta3dBsMostProtocol.StreamType.stream<unit>
+type handleLoginForWeb3 = account => Meta3dBsMostProtocol.StreamType.stream<unit>
 
-type registerUser = (string, string) => Meta3dBsMostProtocol.StreamType.stream<unit>
+type checkUserName = string => Meta3dBsMostProtocol.StreamType.stream<bool>
+
+type registerUser = string => Meta3dBsMostProtocol.StreamType.stream<unit>
+
+type isLoginSuccess = string => Meta3dBsMostProtocol.StreamType.stream<(
+  bool,
+  Js.Nullable.t<string>,
+)>
 
 type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.stream<protocols>
 
