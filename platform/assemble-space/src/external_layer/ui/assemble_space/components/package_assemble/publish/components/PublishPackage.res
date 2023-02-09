@@ -9,6 +9,14 @@ module Method = {
     selectedContributes->Meta3dCommonlib.ArraySt.length == 0
   }
 
+  let _check = (selectedPackages, selectedExtensions, selectedContributes) => {
+    _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
+      ? Some({j`请至少选择一个包或者扩展或者贡献`})
+      : selectedContributes->SelectedContributesForElementUtils.hasUIControl
+      ? Some({j`不能选择UI Control`})
+      : None
+  }
+
   let onFinish = (
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
@@ -23,63 +31,59 @@ module Method = {
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
 
-    _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
-      ? {
-          service.console.error(. {j`请至少选择一个包或者扩展或者贡献`}, None)
+    switch _check(selectedPackages, selectedExtensions, selectedContributes) {
+    | Some(errorMsg) =>
+      service.console.error(. errorMsg, None)
 
-          ()->Js.Promise.resolve
-        }
-      : {
-          let packageBinaryFile = PackageUtils.generatePackage(
-            service,
-            selectedPackages,
-            selectedExtensions,
-            selectedContributes,
-          )
+      ()->Js.Promise.resolve
+    | None =>
+      let packageBinaryFile = PackageUtils.generatePackage(
+        service,
+        selectedPackages,
+        selectedExtensions,
+        selectedContributes,
+      )
 
-          let (
-            entryExtensionProtocolName,
-            entryExtensionProtocolVersion,
-            entryExtensionProtocolVersionRange,
-            entryExtensionProtocolIconBase64,
-            entryExtensionProtocolDisplayName,
-            entryExtensionProtocolRepoLink,
-            entryExtensionProtocolDescription,
-          ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
+      let (
+        entryExtensionProtocolName,
+        entryExtensionProtocolVersion,
+        entryExtensionProtocolVersionRange,
+        entryExtensionProtocolIconBase64,
+        entryExtensionProtocolDisplayName,
+        entryExtensionProtocolRepoLink,
+        entryExtensionProtocolDescription,
+      ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
 
-          setIsUploadBegin(_ => true)
+      setIsUploadBegin(_ => true)
 
-          service.backend.publishPackage(.
-            progress => setUploadProgress(_ => progress),
-            packageBinaryFile,
-            (
-              entryExtensionProtocolName,
-              entryExtensionProtocolVersion,
-              entryExtensionProtocolVersionRange,
-              entryExtensionProtocolIconBase64,
-              entryExtensionProtocolDisplayName,
-              entryExtensionProtocolRepoLink,
-              entryExtensionProtocolDescription,
-              PackageUtils.getEntryExtensionName(selectedExtensions),
-            ),
-            (packageName, packageVersion, packageDescription),
-            account->Meta3dCommonlib.OptionSt.getExn,
-          )
-          ->Meta3dBsMost.Most.drain
-          ->Js.Promise.then_(_ => {
-            setIsUploadBegin(_ => false)
-            setVisible(_ => false)
+      service.backend.publishPackage(.
+        progress => setUploadProgress(_ => progress),
+        packageBinaryFile,
+        (
+          entryExtensionProtocolName,
+          entryExtensionProtocolVersion,
+          entryExtensionProtocolVersionRange,
+          entryExtensionProtocolIconBase64,
+          entryExtensionProtocolDisplayName,
+          entryExtensionProtocolRepoLink,
+          entryExtensionProtocolDescription,
+          PackageUtils.getEntryExtensionName(selectedExtensions),
+        ),
+        (packageName, packageVersion, packageDescription),
+        account->Meta3dCommonlib.OptionSt.getExn,
+      )
+      ->Meta3dBsMost.Most.drain
+      ->Js.Promise.then_(_ => {
+        setIsUploadBegin(_ => false)
+        setVisible(_ => false)
 
-            ()->Js.Promise.resolve
-          }, _)
-          ->Js.Promise.catch(e => {
-            setIsUploadBegin(_ => false)
-            service.console.errorWithExn(.
-              e->FrontendUtils.Error.promiseErrorToExn,
-              None,
-            )->Obj.magic
-          }, _)
-        }
+        ()->Js.Promise.resolve
+      }, _)
+      ->Js.Promise.catch(e => {
+        setIsUploadBegin(_ => false)
+        service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+      }, _)
+    }
   }
 
   // let onFinishFailed = (service, errorInfo) => {

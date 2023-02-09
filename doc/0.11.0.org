@@ -194,7 +194,9 @@ TODO pass run test
 ** DONE fix: select element contribute e1->run->error:already register extension or contribute of protocol: meta3d-element-assemble-element-protocol
 
 
-** TODO fix: Package with element contribute->element assemble not show ui controls
+# ** TODO fix: Package with element contribute->element assemble not show ui controls
+# ** TODO fix: Package with ui control->element assemble not show ui controls
+** DONE package assemble: fix: should not select ui control
 
 ** TODO fix: enter app: remove account param!
 
@@ -203,6 +205,8 @@ TODO pass run test
 no any limit(e.g. length, ...)!!!
 
 ** TODO improve error info
+
+- package entry extension not found
   
 ** TODO 更新模板repo
 如开发Extension、Contribute

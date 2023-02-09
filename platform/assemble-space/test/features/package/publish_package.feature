@@ -21,7 +21,7 @@ Feature: Publish Package
         #     And select extension e1, e2 without newName
         #     And select contribute c1, c2 with newName
 
-        Scenario: generate correct package
+        Scenario: should generate correct package after publish
             # Given select extension e1, e2 without newName
             # And select contribute c1, c2 with newName
             Given select extension e1, e2
@@ -34,3 +34,10 @@ Feature: Publish Package
             And should publish the generated package
             And should mark finish upload
             And should close modal
+
+        Scenario: if select ui control, publish should error
+            Given select ui control contribute u1
+            # And select entry extension e3
+            # And select package p1
+            When publish package
+            Then should error
