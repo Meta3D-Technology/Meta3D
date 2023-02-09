@@ -78,6 +78,15 @@ let getAndSetNewestVisualExtension = (
   }, _)
 }
 
+let _removeElementContribute = selectedContributes => {
+  selectedContributes->Meta3dCommonlib.ArraySt.filter((
+    {data}: FrontendUtils.ApAssembleStoreType.contribute,
+  ) => {
+    data.contributePackageData.protocol.name !==
+      ElementContributeUtils.getElementContributeProtocolName()
+  })
+}
+
 let generateApp = (
   service,
   (selectedPackages, selectedExtensions, selectedContributes),
@@ -87,7 +96,7 @@ let generateApp = (
     service,
     selectedPackages,
     selectedExtensions->Meta3dCommonlib.ArraySt.push(runVisualExtension),
-    selectedContributes->Meta3dCommonlib.ArraySt.push(elementContribute),
+    selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
     Js.Nullable.null,
   )
 }

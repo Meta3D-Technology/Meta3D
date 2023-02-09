@@ -172,7 +172,7 @@ defineFeature(feature, test => {
       () => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        let initData = Obj.magic(1)
+        // let initData = Obj.magic(1)
 
         RunElementVisualControllerTool.getAndSetNewestVisualExtension(
           ServiceTool.build(
@@ -321,7 +321,7 @@ defineFeature(feature, test => {
       \"when",
       "run",
       () => {
-        let initData = Obj.magic(1)
+        // let initData = Obj.magic(1)
 
         RunElementVisualControllerTool.run(
           ServiceTool.build(
@@ -341,7 +341,7 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
+    then(
       "generate app",
       () => {
         ()
@@ -379,5 +379,137 @@ defineFeature(feature, test => {
     //     RescriptReactRouter.dangerouslyGetInitialUrl().path->expect == list{"RunElementVisual"}
     //   },
     // )
+  })
+
+  test(."run when select element contribute", ({given, \"when", \"and", then}) => {
+    let element1 = ref(Obj.magic(1))
+    let c1 = ref(Obj.magic(1))
+    let v = ref(Obj.magic(1))
+    let selectedExtensions = ref(list{})
+    let selectedContributes = ref(list{})
+    let canvasData = ref(Obj.magic(1))
+    let apInspectorData = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+    let convertAllFileDataForAppStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "generate empty element contribute element1",
+      () => {
+        element1 :=
+          ElementVisualTool.generateElementContribute(
+            ~sandbox,
+            ~service=ServiceTool.build(
+              ~sandbox,
+              ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+              ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+              (),
+            ),
+            ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "get run visual extension v",
+      () => {
+        v :=
+          Meta3dTool.generateExtension(
+            ~name=RunElementVisualControllerTool.getVisualExtensionName(),
+            ~protocol={
+              name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
+              version: "0.4.1",
+            },
+            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
+            (),
+          )->RunElementVisualControllerTool.loadAndBuildVisualExtension(
+            ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
+            _,
+          )
+      },
+    )
+
+    \"and"(
+      "prepare canvas data",
+      () => {
+        canvasData := CanvasControllerTool.buildCanvasData()
+      },
+    )
+
+    \"and"(
+      "prepare ap inspector data",
+      () => {
+        apInspectorData := ApInspectorTool.buildApInspectorData()
+      },
+    )
+
+    \"and"(
+      "generate element contribute c1",
+      () => {
+        c1 :=
+          ElementVisualTool.generateElementContribute(
+            ~sandbox,
+            ~service=ServiceTool.build(
+              ~sandbox,
+              ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+              ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+              (),
+            ),
+            ~elementName="c1",
+            ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select c1",
+      () => {
+        selectedContributes := list{c1.contents, ...selectedContributes.contents}
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "run",
+      () => {
+        convertAllFileDataForAppStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        RunElementVisualControllerTool.run(
+          ServiceTool.build(
+            ~sandbox,
+            ~setElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(Meta3dBsMost.Most.just(1), _)
+            ->Obj.magic,
+            ~convertAllFileDataForApp=convertAllFileDataForAppStub.contents->Obj.magic,
+            (),
+          ),
+          (canvasData.contents, apInspectorData.contents),
+          (
+            (list{}, selectedExtensions.contents, selectedContributes.contents),
+            (v.contents, element1.contents),
+          ),
+        )
+      },
+    )
+
+    then(
+      "should only generate app with one element contribute: element1",
+      () => {
+        let convertedSelectedContributes =
+          convertAllFileDataForAppStub.contents
+          ->Obj.magic
+          ->SinonTool.getArg(~stub=_, ~callIndex=0, ~argIndex=1, ())
+
+        (
+          convertedSelectedContributes->Meta3dCommonlib.ArraySt.length,
+          convertedSelectedContributes[0],
+        )->expect == (1, element1.contents.data)
+      },
+    )
   })
 })

@@ -39,6 +39,18 @@ Feature: RunElementVisualController
         Then generate app
         And save app to local storage
         And open link with canvas data and ap inspector data to run
-        # And jump to run router
+    # And jump to run router
 
+
+    Rule: error case
+
+        Scenario: run when select element contribute
+            Given generate empty element contribute element1
+            And get run visual extension v
+            And prepare canvas data
+            And prepare ap inspector data
+            And generate element contribute c1
+            And select c1
+            When run
+            Then should only generate app with one element contribute: element1
 

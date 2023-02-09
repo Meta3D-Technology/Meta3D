@@ -191,7 +191,10 @@ TODO pass run test
 
 
 
-** TODO fix: select element contribute e1->run->error:already register extension or contribute of protocol: meta3d-element-assemble-element-protocol
+** DONE fix: select element contribute e1->run->error:already register extension or contribute of protocol: meta3d-element-assemble-element-protocol
+
+
+** TODO fix: Package with element contribute->element assemble not show ui controls
 
 ** TODO fix: enter app: remove account param!
 
