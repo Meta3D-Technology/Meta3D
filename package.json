@@ -1,6 +1,31 @@
 {
 	"name": "meta3d",
 	"private": true,
+	"description": "low-code development platform for developing Web3D Editor and Engine",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Meta3D-Technology/Meta3D"
+	},
+	"license": "MIT",
+	"author": "yyc",
+	"homepage": "https://meta3d-website.4everland.app/",
+	"bugs": {
+		"url": "https://github.com/Meta3D-Technology/Meta3D/issues"
+	},
+	"keywords": [
+		"Meta3D",
+		"low-code",
+		"yyc",
+		"3d",
+		"web3d",
+		"engine",
+		"editor",
+		"typescript",
+		"rescript",
+		"webgl",
+		"webgl2",
+		"webgpu"
+	],
 	"scripts": {
 		"clean": "lerna clean",
 		"bootstrap": "lerna bootstrap",

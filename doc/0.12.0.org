@@ -1,0 +1,5 @@
+* DONE 清理数据
+* DONE 完善开源协议
+* TODO 完善package.json，如author, repo, ...
+* TODO 设计logo
+url add icon with logo
