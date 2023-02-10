@@ -229,15 +229,15 @@ Inspector
 
 # ** TODO clean:remove unused Extension,Contribute Protocols
 
-* TODO publish
+* DONE publish
 
-** TODO pass ci
-
-
-** TODO publish version
+** DONE pass ci
 
 
-** TODO update version:>=0.9.0 to >= 0.11.0
+** DONE publish version
 
 
-** TODO update production
+** DONE update version:>=0.9.0 to >= 0.11.0
+
+
+** DONE update production
