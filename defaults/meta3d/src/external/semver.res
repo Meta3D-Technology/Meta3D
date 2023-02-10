@@ -12,4 +12,7 @@ external minVersion: versionRange => version = "minVersion"
 external gt: (version, version) => bool = "gt"
 
 @module("semver")
+external gte: (version, version) => bool = "gte"
+
+@module("semver")
 external eq: (version, version) => bool = "eq"

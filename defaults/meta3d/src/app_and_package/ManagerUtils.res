@@ -169,7 +169,8 @@ let _prepare = (): Meta3dType.Index.state => {
 }
 
 let _checkVersion = (protocolVersion, dependentProtocolVersion, dependentProtocolName) => {
-  Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
+  // Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
+  Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))
     ? ()
     : Meta3dCommonlib.Exception.throwErr(
         Meta3dCommonlib.Exception.buildErr(
