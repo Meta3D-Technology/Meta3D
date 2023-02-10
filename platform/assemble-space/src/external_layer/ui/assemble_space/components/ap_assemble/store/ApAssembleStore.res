@@ -27,6 +27,13 @@ let _setApIControlInspectorData = (state, setFunc) => {
   }
 }
 
+let _resetInspector = state => {
+  ...state,
+  inspectorCurrentExtensionId: None,
+  inspectorCurrentContributeId: None,
+  isShowApInspector: false,
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
@@ -50,11 +57,13 @@ let reducer = (state, action) => {
       }),
       isShowApInspector: false,
     }
-  | SetInspectorCurrentExtensionId(id) => {
+  | SetInspectorCurrentExtensionId(id) =>
+    let state = state->_resetInspector
+
+    {
       ...state,
       inspectorCurrentExtensionId: id->Some,
       inspectorCurrentContributeId: None,
-      isShowApInspector: false,
     }
   | StartExtension(id) => {
       ...state,
@@ -101,11 +110,13 @@ let reducer = (state, action) => {
       }),
       isShowApInspector: false,
     }
-  | SetInspectorCurrentContributeId(id) => {
+  | SetInspectorCurrentContributeId(id) =>
+    let state = state->_resetInspector
+
+    {
       ...state,
       inspectorCurrentExtensionId: None,
       inspectorCurrentContributeId: id->Some,
-      isShowApInspector: false,
     }
   // | SetContributeNewName(id, newName) => {
   //     ...state,
@@ -122,7 +133,10 @@ let reducer = (state, action) => {
       ...state,
       canvasData,
     }
-  | ShowApInspector => {
+  | ShowApInspector =>
+    let state = state->_resetInspector
+
+    {
       ...state,
       isShowApInspector: true,
     }
