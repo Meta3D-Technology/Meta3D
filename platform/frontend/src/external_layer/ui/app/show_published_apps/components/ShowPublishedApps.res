@@ -67,13 +67,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               <List.Item>
                 <List.Item.Meta
                   key={j`${item.account}_${item.appName}`}
-                  title={<span
+                  title={<Typography.Title
+                    level=3
                     onClick={_ => {
                       _openLink(_buildURL(item.account, item.appName))
-                      // _enterApp(item.account, item.appName)
                     }}>
                     {React.string(item.appName)}
-                  </span>}
+                  </Typography.Title>}
                   description={UIDescriptionUtils.buildWithoutRepoLink(
                     item.account,
                     item.description,

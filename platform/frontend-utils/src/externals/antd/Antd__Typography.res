@@ -4,7 +4,11 @@ type target = [#_blank]
 
 module Title = {
   @react.component @module("antd") @scope("Typography")
-  external make: (~level: int=?, ~children: React.element=?) => React.element = "Title"
+  external make: (
+    ~onClick: ReactEvent.Mouse.t => unit=?,
+    ~level: int=?,
+    ~children: React.element=?,
+  ) => React.element = "Title"
 }
 
 module Text = {

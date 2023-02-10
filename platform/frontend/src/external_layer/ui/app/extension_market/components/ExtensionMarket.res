@@ -174,7 +174,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       <List.Item>
                         <List.Item.Meta
                           key={item.info.displayName}
-                          title={<span> {React.string(item.info.displayName)} </span>}
+                          title={<Typography.Title level=3>
+                            {React.string(item.info.displayName)}
+                          </Typography.Title>}
                           description={UIDescriptionUtils.build(
                             item.info.account,
                             item.info.repoLink,
@@ -324,15 +326,23 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.displayName}
-                      avatar={<Image preview=false src={item.iconBase64} width=50 height=50 />}
-                      title={<span
+                      avatar={<img
+                        src={item.iconBase64}
+                        width="50px"
+                        height="50px"
+                        onClick={_ => {
+                          setExtensionProtocolItem(_ => item->Some)
+                        }}
+                      />}
+                      title={<Typography.Title
+                        level=3
                         onClick={_ => {
                           // _clearSelectPublishExtensionProtocol(item.name)
 
                           setExtensionProtocolItem(_ => item->Some)
                         }}>
                         {React.string(item.displayName)}
-                      </span>}
+                      </Typography.Title>}
                       description={UIDescriptionUtils.build(
                         item.account,
                         item.repoLink,

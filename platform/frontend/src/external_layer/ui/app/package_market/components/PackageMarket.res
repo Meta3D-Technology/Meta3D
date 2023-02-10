@@ -190,7 +190,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       <List.Item>
                         <List.Item.Meta
                           key={item.name}
-                          title={<span> {React.string(item.name)} </span>}
+                          title={<Typography.Title level=3>
+                            {React.string(item.name)}
+                          </Typography.Title>}
                           description={UIDescriptionUtils.buildWithoutRepoLink(
                             item.account,
                             item.description,
@@ -379,13 +381,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.displayName}
-                      avatar={<Image preview=false src={item.iconBase64} width=50 height=50 />}
-                      title={<span
+                      avatar={<img
+                        src={item.iconBase64}
+                        width="50px"
+                        height="50px"
+                        onClick={_ => {
+                          setPackageEntryExtensionProtocolItem(_ => item->Some)
+                        }}
+                      />}
+                      title={<Typography.Title
+                        level=3
                         onClick={_ => {
                           setPackageEntryExtensionProtocolItem(_ => item->Some)
                         }}>
                         {React.string(item.displayName)}
-                      </span>}
+                      </Typography.Title>}
                       description={UIDescriptionUtils.build(
                         item.account,
                         item.repoLink,
