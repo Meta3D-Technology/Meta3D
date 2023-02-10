@@ -29,7 +29,7 @@ module Method = {
         id,
         {
           ...rect,
-          x: x,
+          x,
         },
       ),
     )
@@ -41,7 +41,7 @@ module Method = {
         id,
         {
           ...rect,
-          y: y,
+          y,
         },
       ),
     )
@@ -53,7 +53,7 @@ module Method = {
         id,
         {
           ...rect,
-          width: width,
+          width,
         },
       ),
     )
@@ -65,7 +65,7 @@ module Method = {
         id,
         {
           ...rect,
-          height: height,
+          height,
         },
       ),
     )
@@ -103,7 +103,10 @@ module Method = {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetAction(
         id,
-        (eventName, FrontendUtils.SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
+        (
+          eventName,
+          FrontendUtils.SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName),
+        ),
       ),
     )
   }
@@ -194,7 +197,7 @@ module Method = {
   }
 
   let buildIsDraw = (dispatch, elementStateFields, id, isDraw) => {
-    <>
+    <Space direction=#vertical>
       {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
         value =>
           setIsDraw(
@@ -223,7 +226,7 @@ module Method = {
       ->Meta3dCommonlib.OptionSt.getWithDefault(
         FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
       ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
-    </>
+    </Space>
   }
 
   let _setSpecificData = (dispatch, specific, id, i, value, type_) => {
@@ -237,7 +240,7 @@ module Method = {
           j === i
             ? {
                 ...specificData,
-                value: value,
+                value,
               }
             : specificData
         }),
@@ -365,13 +368,22 @@ let make = (~service: service) => {
   | Some({id, rect, isDraw, event, specific}) =>
     let {x, y, width, height} = rect
 
-    <>
-      <h1> {React.string(`Rect`)} </h1>
-      {Method.buildRectField(dispatch, Method.setRectX, elementStateFields, id, rect, x)}
-      {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
-      {Method.buildRectField(dispatch, Method.setRectWidth, elementStateFields, id, rect, width)}
-      {Method.buildRectField(dispatch, Method.setRectHeight, elementStateFields, id, rect, height)}
-      <h1> {React.string(`IsDraw`)} </h1>
+    <Space direction=#vertical size=#middle>
+      <Typography.Title level=2> {React.string(`Rect`)} </Typography.Title>
+      <Space direction=#horizontal wrap=true>
+        {Method.buildRectField(dispatch, Method.setRectX, elementStateFields, id, rect, x)}
+        {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
+        {Method.buildRectField(dispatch, Method.setRectWidth, elementStateFields, id, rect, width)}
+        {Method.buildRectField(
+          dispatch,
+          Method.setRectHeight,
+          elementStateFields,
+          id,
+          rect,
+          height,
+        )}
+      </Space>
+      <Typography.Title level=2> {React.string(`IsDraw`)} </Typography.Title>
       {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
@@ -396,10 +408,10 @@ let make = (~service: service) => {
           protocolConfigStr,
         )
 
-        <>
-          <h1> {React.string(`Specific`)} </h1>
+        <Space direction=#vertical size=#middle>
+          <Typography.Title level=2> {React.string(`Specific`)} </Typography.Title>
           {Method.buildSpecific(service, dispatch, id, specific, elementStateFields)}
-          <h1> {React.string(`Event`)} </h1>
+          <Typography.Title level=2> {React.string(`Event`)} </Typography.Title>
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
             renderItem={eventName => {
@@ -429,8 +441,8 @@ let make = (~service: service) => {
               </List.Item>
             }}
           />
-        </>
+        </Space>
       }}
-    </>
+    </Space>
   }
 }

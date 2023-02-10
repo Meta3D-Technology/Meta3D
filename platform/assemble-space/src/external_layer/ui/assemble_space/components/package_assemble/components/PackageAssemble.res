@@ -15,12 +15,13 @@ let make = (
   ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
   <Layout>
-    <Layout.Header>
-      <PublishPackage service account />
-    </Layout.Header>
+    <Layout.Content>
+      <Space direction=#horizontal size=#small>
+        <PublishPackage service account />
+      </Space>
+    </Layout.Content>
     <Layout>
-      // TODO extract Sider component
-      <Layout.Sider>
+      <Layout.Sider theme=#light>
         <Collapse defaultActiveKey={["1"]}>
           <Collapse.Panel header="Packages" key="1">
             <PackagePackages service selectedPackagesFromMarket />
@@ -43,7 +44,7 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content />
-      <Layout.Sider>
+      <Layout.Sider theme=#light>
         <PackageExtensionInspector service />
         <PackageContributeInspector />
       </Layout.Sider>

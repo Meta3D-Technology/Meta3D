@@ -108,8 +108,8 @@ let make = (~service: service) => {
   let {elementStateFields, reducers} = elementInspectorData
 
   isShowElementInspector
-    ? <>
-        <h1> {React.string(`State`)} </h1>
+    ? <Space direction=#vertical size=#middle>
+        <Typography.Title level=2> {React.string(`State`)} </Typography.Title>
         <Form
           name="dynamic_form_item"
           onFinish={Method.onFinishState(dispatch)}
@@ -133,17 +133,18 @@ let make = (~service: service) => {
                 {fields
                 ->Meta3dCommonlib.ArraySt.map(field => {
                   <Form.Item key={field.key}>
-                    <Form.Item label=`Name` name={[field.name, "name"]->Obj.magic}>
+                    <Form.Item label={`Name`} name={[field.name, "name"]->Obj.magic}>
                       <Input />
                     </Form.Item>
-                    <Form.Item label=`Type` name={[field.name, "type_"]->Obj.magic}>
+                    <Form.Item label={`Type`} name={[field.name, "type_"]->Obj.magic}>
                       <Select>
                         <Select.Option value={`int`}> {React.string(`int`)} </Select.Option>
                         <Select.Option value={`string`}> {React.string(`string`)} </Select.Option>
                         <Select.Option value={`bool`}> {React.string(`bool`)} </Select.Option>
                       </Select>
                     </Form.Item>
-                    <Form.Item label=`Default Value` name={[field.name, "defaultValue"]->Obj.magic}>
+                    <Form.Item
+                      label={`Default Value`} name={[field.name, "defaultValue"]->Obj.magic}>
                       <Input />
                     </Form.Item>
                     <Icon.MinusCircleOutlined onClick={_ => remove(. field.name)} />
@@ -162,17 +163,21 @@ let make = (~service: service) => {
               </>
             }}
           </Form.List>
-          <Form.Item> <Button htmlType="submit"> {React.string(`Submit`)} </Button> </Form.Item>
+          <Form.Item>
+            <Button _type=#primary htmlType="submit"> {React.string(`Submit`)} </Button>
+          </Form.Item>
         </Form>
-        <h1> {React.string(`Reducer`)} </h1>
-        <span> {React.string(`Role: `)} </span>
-        {FrontendUtils.SelectUtils.buildSelect(
-          Method.setRole(dispatch),
-          reducers.role->Meta3dCommonlib.OptionSt.getWithDefault(
-            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-          ),
-          protocolConfigActions->Method.getUniqueRoles,
-        )}
+        <Typography.Title level=2> {React.string(`Reducer`)} </Typography.Title>
+        <Space direction=#horizontal>
+          <Typography.Text> {React.string(`Role: `)} </Typography.Text>
+          {FrontendUtils.SelectUtils.buildSelect(
+            Method.setRole(dispatch),
+            reducers.role->Meta3dCommonlib.OptionSt.getWithDefault(
+              FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+            ),
+            protocolConfigActions->Method.getUniqueRoles,
+          )}
+        </Space>
         {switch reducers.role {
         | None => React.null
         | Some(role) =>
@@ -188,7 +193,7 @@ let make = (~service: service) => {
                   {fields
                   ->Meta3dCommonlib.ArraySt.map(field => {
                     <Form.Item key={field.key}>
-                      <Form.Item label=`Action Name` name={[field.name, "actionName"]->Obj.magic}>
+                      <Form.Item label={`Action Name`} name={[field.name, "actionName"]->Obj.magic}>
                         {FrontendUtils.SelectUtils.buildSelect(
                           _ => (),
                           FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
@@ -197,7 +202,7 @@ let make = (~service: service) => {
                       </Form.Item>
                       <Form.Item
                       // label=`Updated Element State Field Name`
-                        label=`Field Name`
+                        label={`Field Name`}
                         name={[field.name, "updatedElementStateFieldName"]->Obj.magic}>
                         {FrontendUtils.SelectUtils.buildSelect(
                           _ => (),
@@ -223,9 +228,11 @@ let make = (~service: service) => {
                 </>
               }}
             </Form.List>
-            <Form.Item> <Button htmlType="submit"> {React.string(`Submit`)} </Button> </Form.Item>
+            <Form.Item>
+              <Button _type=#primary htmlType="submit"> {React.string(`Submit`)} </Button>
+            </Form.Item>
           </Form>
         }}
-      </>
+      </Space>
     : React.null
 }

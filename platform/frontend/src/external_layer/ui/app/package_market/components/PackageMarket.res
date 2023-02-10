@@ -379,7 +379,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                   <List.Item>
                     <List.Item.Meta
                       key={item.displayName}
-                      avatar={<img src={item.iconBase64} />}
+                      avatar={<Image preview=false src={item.iconBase64} width=50 height=50 />}
                       title={<span
                         onClick={_ => {
                           setPackageEntryExtensionProtocolItem(_ => item->Some)

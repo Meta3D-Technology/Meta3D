@@ -212,7 +212,7 @@ no any limit(e.g. length, ...)!!!
   
 
 ** TODO 优化UI
-*** TODO use Typography排版 instead of span, link, h1, description(div)
+*** DONE use Typography排版 instead of span, link, h1, description(div)
 refer to https://ant-design.gitee.io/components/typography-cn#components-typography-demo-text
 
 Index

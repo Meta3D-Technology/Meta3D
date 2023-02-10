@@ -25,13 +25,15 @@ let make = (
   })
 
   <Layout>
-    <Layout.Header>
-      <Publish service account />
-      <ApController service />
-    </Layout.Header>
+    <Layout.Content>
+      <Space direction=#horizontal size=#small>
+        <Publish service account />
+        <ApController service />
+        <CanvasController service />
+      </Space>
+    </Layout.Content>
     <Layout>
-      // TODO extract Sider component
-      <Layout.Sider>
+      <Layout.Sider theme=#light>
         <Collapse defaultActiveKey={["1"]}>
           <Collapse.Panel header="Packages" key="1">
             <Packages service selectedPackagesFromMarket />
@@ -54,10 +56,9 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <CanvasController service />
         <Visual service />
       </Layout.Content>
-      <Layout.Sider>
+      <Layout.Sider theme=#light>
         <ExtensionInspector service />
         <ContributeInspector />
         <ApInspector service />

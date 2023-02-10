@@ -123,7 +123,7 @@ let make = (~service: service) => {
         }}>
         {React.string(`运行`)}
       </Button>
-    | _ => <p> {React.string(`waiting...`)} </p>
+    | _ => <Button disabled=true> {React.string(`运行`)} </Button>
     }
   }
 }

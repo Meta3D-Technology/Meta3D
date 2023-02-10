@@ -14,6 +14,14 @@ module Method = {
     dispatch(FrontendUtils.AssembleSpaceStoreType.Reset)
   }
 
+  let getCurrentKey = (currentAssemble: view) => {
+    switch currentAssemble {
+    | Ap => "1"
+    | Element => "2"
+    | Package => "3"
+    }
+  }
+
   let useEffectOnce = dispatch => {
     reset(dispatch)
 
@@ -36,26 +44,37 @@ let make = (
   service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
 
   <Layout>
-    <Layout.Header>
-      <Button
-        onClick={_ => {
-          setCurrentAssemble(_ => Ap)
-        }}>
-        {React.string(`应用装配`)}
-      </Button>
-      <Button
-        onClick={_ => {
-          setCurrentAssemble(_ => Element)
-        }}>
-        {React.string(`Element装配`)}
-      </Button>
-      <Button
-        onClick={_ => {
-          setCurrentAssemble(_ => Package)
-        }}>
-        {React.string(`包装配`)}
-      </Button>
-    </Layout.Header>
+    <Layout.Content>
+      <Menu
+        theme=#light
+        mode=#horizontal
+        defaultSelectedKeys={["1"]}
+        selectedKeys={[Method.getCurrentKey(currentAssemble)]}
+        onClick={({key}) => {
+          switch key {
+          | "2" => setCurrentAssemble(_ => Element)
+          | "3" => setCurrentAssemble(_ => Package)
+          | "1"
+          | _ =>
+            setCurrentAssemble(_ => Ap)
+          }
+        }}
+        items=[
+          {
+            key: "1",
+            label: {React.string(`应用装配`)},
+          },
+          {
+            key: "2",
+            label: {React.string(`Element装配`)},
+          },
+          {
+            key: "3",
+            label: {React.string(`包装配`)},
+          },
+        ]
+      />
+    </Layout.Content>
     <Layout.Content>
       {switch currentAssemble {
       | Ap =>

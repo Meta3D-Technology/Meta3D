@@ -19,9 +19,7 @@ let make = (~service: service, ~useDispatch, ~useSelectorResult, ~selectContribu
             selectContribute(dispatch, id)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-          cover={<img
-            style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={protocolIconBase64}
-          />}>
+          cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
           <Card.Meta
             title={<span
               style={ReactDOM.Style.make(

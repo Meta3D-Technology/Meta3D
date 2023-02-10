@@ -22,9 +22,7 @@ let make = (
             selectPackage(dispatch, package)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-          cover={<img
-            style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={protocol.iconBase64}
-          />}>
+          cover={<Image preview=false src={protocol.iconBase64} width=50 height=50 />}>
           <Card.Meta
             title={<span
               style={ReactDOM.Style.make(

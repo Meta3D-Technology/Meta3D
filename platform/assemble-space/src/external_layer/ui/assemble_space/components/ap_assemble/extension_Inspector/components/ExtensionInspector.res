@@ -60,7 +60,7 @@ let make = (~service: service) => {
     //   {}
     // </Collapse>
 
-    <>
+    <Space direction=#vertical size=#middle>
       {inspectorCurrentExtension.isStart
         ? <Button
             onClick={_ => {
@@ -88,6 +88,6 @@ let make = (~service: service) => {
       //     )
       //   }}
       // />
-    </>
+    </Space>
   }
 }

@@ -71,19 +71,21 @@ let make = (~service: service) => {
   let (r, g, b, a) = clearColor
 
   isShowApInspector
-    ? <>
-        <h1> {React.string(`IsDebug`)} </h1>
+    ? <Space direction=#vertical size=#middle>
+        <Typography.Title level=2> {React.string(`IsDebug`)} </Typography.Title>
         {FrontendUtils.SelectUtils.buildSelect(
           Method.setIsDebug(dispatch),
           isDebug->BoolUtils.boolToString,
           ["true", "false"],
         )}
-        <h1> {React.string(`ClearColor`)} </h1>
-        {Method.buildClearColorField(dispatch, Method.setClearColorR, clearColor, r)}
-        {Method.buildClearColorField(dispatch, Method.setClearColorG, clearColor, g)}
-        {Method.buildClearColorField(dispatch, Method.setClearColorB, clearColor, b)}
-        {Method.buildClearColorField(dispatch, Method.setClearColorA, clearColor, a)}
-        <h1> {React.string(`Skin`)} </h1>
+        <Typography.Title level=2> {React.string(`ClearColor`)} </Typography.Title>
+        <Space direction=#horizontal wrap=true>
+          {Method.buildClearColorField(dispatch, Method.setClearColorR, clearColor, r)}
+          {Method.buildClearColorField(dispatch, Method.setClearColorG, clearColor, g)}
+          {Method.buildClearColorField(dispatch, Method.setClearColorB, clearColor, b)}
+          {Method.buildClearColorField(dispatch, Method.setClearColorA, clearColor, a)}
+        </Space>
+        <Typography.Title level=2> {React.string(`Skin`)} </Typography.Title>
         {FrontendUtils.SelectUtils.buildSelect(
           Method.setSkinName(dispatch),
           skinName->Meta3dCommonlib.OptionSt.getWithDefault(
@@ -102,6 +104,6 @@ let make = (~service: service) => {
             )["skinName"]
           }),
         )}
-      </>
+      </Space>
     : React.null
 }

@@ -16,7 +16,7 @@ module Method = {
       dispatch,
       canvasData => {
         ...canvasData,
-        width: width,
+        width,
       },
       canvasData,
     )
@@ -27,7 +27,7 @@ module Method = {
       dispatch,
       canvasData => {
         ...canvasData,
-        height: height,
+        height,
       },
       canvasData,
     )
@@ -47,11 +47,17 @@ let make = (~service: service) => {
     Method.useSelector,
   )
 
-  <>
+  <Space direction=#horizontal size=#small>
+    <Typography.Text> {React.string(`画布大小：`)} </Typography.Text>
+
     <Input
       value={width->Js.Int.toString}
       onChange={e => {
-        Method.setWidth(dispatch, canvasData, e->EventUtils.getEventTargetValue->IntUtils.stringToInt)
+        Method.setWidth(
+          dispatch,
+          canvasData,
+          e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
+        )
       }}
     />
     <Input
@@ -64,5 +70,5 @@ let make = (~service: service) => {
         )
       }}
     />
-  </>
+  </Space>
 }

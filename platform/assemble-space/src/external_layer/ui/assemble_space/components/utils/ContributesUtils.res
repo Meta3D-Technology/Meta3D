@@ -15,10 +15,7 @@ module Method = {
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (.
-            result,
-            {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol,
-          ) => {
+          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
             selectedContributesFromMarket
             ->Meta3dCommonlib.ListSt.filter(
               (({data}: FrontendUtils.AssembleSpaceCommonType.contribute, _)) => {
@@ -98,9 +95,7 @@ let make = (
                 selectContribute(dispatch, iconBase64, configStr, contribute)
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-              cover={<img
-                style={ReactDOM.Style.make(~width="50px", ~height="50px", ())} src={iconBase64}
-              />}>
+              cover={<Image preview=false src={iconBase64} width=50 height=50 />}>
               <Card.Meta
                 title={<span
                   style={ReactDOM.Style.make(

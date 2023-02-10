@@ -26,9 +26,7 @@ module Method = {
       {
         title: name,
         key: id,
-        icon: <img
-          style={ReactDOM.Style.make(~width="20px", ~height="20px", ())} src={protocolIconBase64}
-        />,
+        icon: <Image preview=false src={protocolIconBase64} width=20 height=20 />,
         children: convertToTreeData(children),
       }
     })
