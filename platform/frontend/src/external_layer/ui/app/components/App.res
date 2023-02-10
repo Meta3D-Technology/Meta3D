@@ -11,7 +11,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
     ui: {
-      buildTitle: (. ~children, ~level=1, ()) => {
+      buildTitle: (. ~level, ~children, ()) => {
         <Typography.Title level> {children} </Typography.Title>
       },
       buildText: (. ~children) => {

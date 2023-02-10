@@ -173,7 +173,7 @@ type urlService = {getUrlParam: string => urlParamValue}
 type domService = {querySelector: string => option<Dom.htmlElement>}
 
 type uiService = {
-  buildTitle: (. ~level: int=?, ~children: React.element, unit) => React.element,
+  buildTitle: (. ~level: int, ~children: React.element, unit) => React.element,
   buildText: (. ~children: React.element) => React.element,
 }
 
