@@ -3,27 +3,47 @@
 exports[`ExtensionInspector show nothing 1`] = `null`;
 
 exports[`ExtensionInspector show start button 1`] = `
-<button
-  className="ant-btn ant-btn-default"
-  disabled={false}
-  onClick={[Function]}
-  type="button"
+<div
+  className="ant-space ant-space-vertical"
+  style={Object {}}
 >
-  <span>
-    启 动
-  </span>
-</button>
+  <div
+    className="ant-space-item"
+    style={Object {}}
+  >
+    <button
+      className="ant-btn ant-btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        启 动
+      </span>
+    </button>
+  </div>
+</div>
 `;
 
 exports[`ExtensionInspector show unstart button 1`] = `
-<button
-  className="ant-btn ant-btn-default"
-  disabled={false}
-  onClick={[Function]}
-  type="button"
+<div
+  className="ant-space ant-space-vertical"
+  style={Object {}}
 >
-  <span>
-    取消启动
-  </span>
-</button>
+  <div
+    className="ant-space-item"
+    style={Object {}}
+  >
+    <button
+      className="ant-btn ant-btn-default"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        取消启动
+      </span>
+    </button>
+  </div>
+</div>
 `;

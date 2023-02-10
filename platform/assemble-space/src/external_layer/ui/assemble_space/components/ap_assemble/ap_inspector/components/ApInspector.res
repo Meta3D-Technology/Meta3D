@@ -72,20 +72,20 @@ let make = (~service: service) => {
 
   isShowApInspector
     ? <Space direction=#vertical size=#middle>
-        <Typography.Title level=2> {React.string(`IsDebug`)} </Typography.Title>
+        {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDebug`)}, ())}
         {FrontendUtils.SelectUtils.buildSelect(
           Method.setIsDebug(dispatch),
           isDebug->BoolUtils.boolToString,
           ["true", "false"],
         )}
-        <Typography.Title level=2> {React.string(`ClearColor`)} </Typography.Title>
+        {service.ui.buildTitle(. ~level=2, ~children={React.string(`ClearColor`)}, ())}
         <Space direction=#horizontal wrap=true>
           {Method.buildClearColorField(dispatch, Method.setClearColorR, clearColor, r)}
           {Method.buildClearColorField(dispatch, Method.setClearColorG, clearColor, g)}
           {Method.buildClearColorField(dispatch, Method.setClearColorB, clearColor, b)}
           {Method.buildClearColorField(dispatch, Method.setClearColorA, clearColor, a)}
         </Space>
-        <Typography.Title level=2> {React.string(`Skin`)} </Typography.Title>
+        {service.ui.buildTitle(. ~level=2, ~children={React.string(`Skin`)}, ())}
         {FrontendUtils.SelectUtils.buildSelect(
           Method.setSkinName(dispatch),
           skinName->Meta3dCommonlib.OptionSt.getWithDefault(

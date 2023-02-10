@@ -369,7 +369,7 @@ let make = (~service: service) => {
     let {x, y, width, height} = rect
 
     <Space direction=#vertical size=#middle>
-      <Typography.Title level=2> {React.string(`Rect`)} </Typography.Title>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
       <Space direction=#horizontal wrap=true>
         {Method.buildRectField(dispatch, Method.setRectX, elementStateFields, id, rect, x)}
         {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
@@ -383,7 +383,7 @@ let make = (~service: service) => {
           height,
         )}
       </Space>
-      <Typography.Title level=2> {React.string(`IsDraw`)} </Typography.Title>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
       {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
@@ -409,9 +409,9 @@ let make = (~service: service) => {
         )
 
         <Space direction=#vertical size=#middle>
-          <Typography.Title level=2> {React.string(`Specific`)} </Typography.Title>
+          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
           {Method.buildSpecific(service, dispatch, id, specific, elementStateFields)}
-          <Typography.Title level=2> {React.string(`Event`)} </Typography.Title>
+          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
             renderItem={eventName => {

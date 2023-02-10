@@ -109,7 +109,7 @@ let make = (~service: service) => {
 
   isShowElementInspector
     ? <Space direction=#vertical size=#middle>
-        <Typography.Title level=2> {React.string(`State`)} </Typography.Title>
+        {service.ui.buildTitle(. ~level=2, ~children={React.string(`State`)}, ())}
         <Form
           name="dynamic_form_item"
           onFinish={Method.onFinishState(dispatch)}
@@ -167,9 +167,9 @@ let make = (~service: service) => {
             <Button _type=#primary htmlType="submit"> {React.string(`Submit`)} </Button>
           </Form.Item>
         </Form>
-        <Typography.Title level=2> {React.string(`Reducer`)} </Typography.Title>
+        {service.ui.buildTitle(. ~level=2, ~children={React.string(`Reducer`)}, ())}
         <Space direction=#horizontal>
-          <Typography.Text> {React.string(`Role: `)} </Typography.Text>
+          {service.ui.buildText(. ~children={React.string(`Role: `)})}
           {FrontendUtils.SelectUtils.buildSelect(
             Method.setRole(dispatch),
             reducers.role->Meta3dCommonlib.OptionSt.getWithDefault(

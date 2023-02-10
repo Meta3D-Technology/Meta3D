@@ -180,15 +180,29 @@ exports[`Selected UIControls show selected hierachy uiControls 1`] = `
               <span
                 className="ant-tree-iconEle ant-tree-icon__customize"
               >
-                <img
-                  src="i1"
+                <div
+                  className="ant-image"
                   style={
                     Object {
-                      "height": "20px",
-                      "width": "20px",
+                      "height": 20,
+                      "width": 20,
                     }
                   }
-                />
+                >
+                  <img
+                    className="ant-image-img"
+                    height={20}
+                    onError={[Function]}
+                    onLoad={[Function]}
+                    src="i1"
+                    style={
+                      Object {
+                        "height": 20,
+                      }
+                    }
+                    width={20}
+                  />
+                </div>
               </span>
               <span
                 className="ant-tree-title"

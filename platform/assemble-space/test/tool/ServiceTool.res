@@ -109,6 +109,16 @@ let build = (
   ~getNeedConfigData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns([], _)
   ->Obj.magic,
+  // ~buildTitle=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ->returns(React.null, _)
+  // ->Obj.magic,
+
+  ~buildTitle=(. ~children, ~level, ()) => {
+    <h1> {children} </h1>
+  },
+  ~buildText=(. ~children) => {
+    <span> {children} </span>
+  },
   (),
 ) => {
   react: {
@@ -188,6 +198,10 @@ let build = (
   },
   dom: {
     querySelector: querySelector,
+  },
+  ui: {
+    buildTitle: buildTitle->Obj.magic,
+    buildText: buildText->Obj.magic,
   },
 }
 

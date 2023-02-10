@@ -10,6 +10,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
   ) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
+    ui: {
+      buildTitle: (. ~children, ~level=1, ()) => {
+        <Typography.Title level> {children} </Typography.Title>
+      },
+      buildText: (. ~children) => {
+        <Typography.Text> {children} </Typography.Text>
+      },
+    },
     dom: {
       querySelector: str => {
         DomExtend.querySelector(DomExtend.document, str)
