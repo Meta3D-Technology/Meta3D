@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-empty",
-    "version": "0.10.1",
+    "version": "0.11.0",
     "displayName": "use empty",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
@@ -25,17 +25,17 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-event-protocol": ">=0.9.0",
-        "meta3d-imgui-renderer-protocol": ">=0.9.0",
-        "meta3d-type": "^0.10.0",
-        "meta3d-ui-protocol": ">=0.9.0",
-        "meta3d-use-editor-protocol": "^0.10.1"
+        "meta3d-event-protocol": "^0.11.0",
+        "meta3d-imgui-renderer-protocol": "^0.11.0",
+        "meta3d-type": "^0.11.0",
+        "meta3d-ui-protocol": "^0.11.0",
+        "meta3d-use-editor-protocol": "^0.11.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.10.0",
+        "meta3d-tool-publish": "^0.11.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
