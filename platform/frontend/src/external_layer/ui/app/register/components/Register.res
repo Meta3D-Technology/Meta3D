@@ -36,40 +36,44 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 2->Some)
   }
 
-  <>
-    <Nav />
-    <Form
-    //   name="basic"
-      labelCol={{
-        "span": 8,
-      }}
-      wrapperCol={{
-        "span": 6,
-      }}
-      initialValues={{
-        "remember": true,
-      }}
-      onFinish={_onFinish}
-      onFinishFailed={_onFinishFailed}
-      autoComplete="off">
-      <Form.Item
-        label={`用户名`}
-        name="account"
-        rules={[
-          {
-            required: true,
-            message: `输入用户名`,
-          },
-        ]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
+  <Layout>
+    <Layout.Header>
+      <Nav currentKey="1" />
+    </Layout.Header>
+    <Layout.Content>
+      <Form
+      //   name="basic"
+        labelCol={{
+          "span": 8,
+        }}
         wrapperCol={{
-          "offset": 8,
-          "span": 16,
-        }}>
-        <Button htmlType="submit"> {React.string(`注册`)} </Button>
-      </Form.Item>
-    </Form>
-  </>
+          "span": 6,
+        }}
+        initialValues={{
+          "remember": true,
+        }}
+        onFinish={_onFinish}
+        onFinishFailed={_onFinishFailed}
+        autoComplete="off">
+        <Form.Item
+          label={`用户名`}
+          name="account"
+          rules={[
+            {
+              required: true,
+              message: `输入用户名`,
+            },
+          ]}>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            "offset": 8,
+            "span": 16,
+          }}>
+          <Button _type=#primary htmlType="submit"> {React.string(`注册`)} </Button>
+        </Form.Item>
+      </Form>
+    </Layout.Content>
+  </Layout>
 }

@@ -56,6 +56,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let _onFinish = values => {
     let {account} = values->Obj.magic
 
+    setIsLoginBegin(_ => true)
+
     service.backend.isLoginSuccess(account)->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
       !isSuccess
         ? {
@@ -66,8 +68,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             ()
           }
         : {
-            setIsLoginBegin(_ => true)
-
             dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(account)))
 
             RescriptReactRouter.push("/")
@@ -81,58 +81,71 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 2->Some)
   }
 
-  <>
-    <Nav />
-    <Button
-      onClick={_ => {
-        RescriptReactRouter.push("/Register")
-      }}>
-      {React.string(`注册`)}
-    </Button>
-    <Form
-    // name="basic"
-      labelCol={{
-        "span": 8,
-      }}
-      wrapperCol={{
-        "span": 6,
-      }}
-      initialValues={{
-        "remember": true,
-      }}
-      onFinish={_onFinish}
-      onFinishFailed={_onFinishFailed(service)}
-      autoComplete="off">
-      <Form.Item
-        label={`用户名`}
-        name="account"
-        rules={[
-          {
-            required: true,
-            message: `输入用户名`,
-          },
-        ]}>
-        <Input />
-      </Form.Item>
-      <Form.Item
-        wrapperCol={{
-          "offset": 8,
-          "span": 16,
-        }}>
-        <Button htmlType="submit"> {React.string(`登录`)} </Button>
-      </Form.Item>
-    </Form>
-    <Button
-      onClick={_ => {
-        _login()->ignore
-      }}>
-      {React.string(`或者使用MetaMask钱包登录`)}
-    </Button>
-    <h1>
-      <a href="https://zhuanlan.zhihu.com/p/112285438" target="_blank">
-        {React.string(`如何开启MetaMask钱包？`)}
-      </a>
-    </h1>
-    {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
-  </>
+  <Layout>
+    <Layout.Header>
+      <Nav currentKey="1" />
+    </Layout.Header>
+    <Layout.Content>
+      <Space direction=#vertical size=#large>
+        <Typography.Paragraph>
+          <Typography.Title> {React.string({j`使用用户名登录`})} </Typography.Title>
+          <Form
+          // name="basic"
+            labelCol={{
+              "span": 8,
+            }}
+            wrapperCol={{
+              "span": 6,
+            }}
+            initialValues={{
+              "remember": true,
+            }}
+            onFinish={_onFinish}
+            onFinishFailed={_onFinishFailed(service)}
+            autoComplete="off">
+            <Form.Item
+              label={`用户名`}
+              name="account"
+              rules={[
+                {
+                  required: true,
+                  message: `输入用户名`,
+                },
+              ]}>
+              <Input />
+            </Form.Item>
+            <Form.Item
+              wrapperCol={{
+                "offset": 8,
+                "span": 16,
+              }}>
+              <Button _type=#primary htmlType="submit"> {React.string(`登录`)} </Button>
+              <Button
+                onClick={_ => {
+                  RescriptReactRouter.push("/Register")
+                }}>
+                {React.string(`注册`)}
+              </Button>
+            </Form.Item>
+          </Form>
+        </Typography.Paragraph>
+        <Typography.Paragraph>
+          <Typography.Title>
+            {React.string({`或者使用MetaMask钱包登录`})}
+          </Typography.Title>
+          <Button
+            _type=#primary
+            onClick={_ => {
+              _login()->ignore
+            }}>
+            {React.string(`使用MetaMask钱包登录`)}
+          </Button>
+          <Typography.Link href="https://zhuanlan.zhihu.com/p/112285438" target=#_blank>
+            {React.string(`如何开启MetaMask钱包？`)}
+          </Typography.Link>
+        </Typography.Paragraph>
+      </Space>
+      {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
+    </Layout.Content>
+  </Layout>
 }

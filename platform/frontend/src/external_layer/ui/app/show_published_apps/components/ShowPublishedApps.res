@@ -53,34 +53,34 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     None
   }, [refreshValue])
 
-  <>
-    <Nav />
-    {!isLoaded
-      ? <p> {React.string(`loading...`)} </p>
-      : <List
-          itemLayout=#horizontal
-          dataSource={allPublishApps}
-          renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
-            <List.Item>
-              <List.Item.Meta
-                key={j`${item.account}_${item.appName}`}
-                title={<span
-                  onClick={_ => {
-                    _openLink(_buildURL(item.account, item.appName))
-                    // _enterApp(item.account, item.appName)
-                  }}>
-                  {React.string(item.appName)}
-                </span>}
-                description={<div>
-                  <div>
-                    <span> {React.string({j`发布者：${item.account}`})} </span>
-                  </div>
-                  <div>
-                    <span> {React.string(item.description)} </span>
-                  </div>
-                </div>}
-              />
-            </List.Item>}
-        />}
-  </>
+  <Layout>
+    <Layout.Header>
+      <Nav currentKey="5" />
+    </Layout.Header>
+    <Layout.Content>
+      {!isLoaded
+        ? <p> {React.string(`loading...`)} </p>
+        : <List
+            itemLayout=#horizontal
+            dataSource={allPublishApps}
+            renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
+              <List.Item>
+                <List.Item.Meta
+                  key={j`${item.account}_${item.appName}`}
+                  title={<span
+                    onClick={_ => {
+                      _openLink(_buildURL(item.account, item.appName))
+                      // _enterApp(item.account, item.appName)
+                    }}>
+                    {React.string(item.appName)}
+                  </span>}
+                  description={UIDescriptionUtils.buildWithoutRepoLink(
+                    item.account,
+                    item.description,
+                  )}
+                />
+              </List.Item>}
+          />}
+    </Layout.Content>
+  </Layout>
 }

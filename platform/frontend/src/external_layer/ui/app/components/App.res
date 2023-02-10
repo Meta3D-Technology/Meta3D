@@ -1,3 +1,6 @@
+open FrontendUtils.Antd
+%%raw("import 'antd/dist/antd.css'")
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
@@ -169,16 +172,20 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     | list{"ContributeMarket"} => <ContributeMarket service />
     | list{"PackageMarket"} => <PackageMarket service />
     | list{"AssembleSpace"} =>
-      <>
-        <Nav />
-        <AssembleSpace.AssembleSpace
-          service={_buildAssembleSpaceService()}
-          account
-          selectedExtensionsFromMarket=selectedExtensions
-          selectedContributesFromMarket=selectedContributes
-          selectedPackagesFromMarket=selectedPackages
-        />
-      </>
+      <Layout>
+        <Layout.Header>
+          <Nav currentKey="6" />
+        </Layout.Header>
+        <Layout.Content>
+          <AssembleSpace.AssembleSpace
+            service={_buildAssembleSpaceService()}
+            account
+            selectedExtensionsFromMarket=selectedExtensions
+            selectedContributesFromMarket=selectedContributes
+            selectedPackagesFromMarket=selectedPackages
+          />
+        </Layout.Content>
+      </Layout>
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} =>

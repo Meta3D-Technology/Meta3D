@@ -139,231 +139,224 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     None
   }, [])
 
-  <>
-    <Nav />
-    {!isLoaded
-      ? <p> {React.string(`loading...`)} </p>
-      : {
-          switch contributeProtocolItem {
-          | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
-            let (protocolName, protocolVersion) = (item.name, item.version)
+  <Layout>
+    <Layout.Header>
+      <Nav currentKey="3" />
+    </Layout.Header>
+    <Layout.Content>
+      {!isLoaded
+        ? <p> {React.string(`loading...`)} </p>
+        : {
+            switch contributeProtocolItem {
+            | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+              let (protocolName, protocolVersion) = (item.name, item.version)
 
-            switch allPublishContributes {
-            | Some(allPublishContributes) =>
-              <>
-                {isDownloadBegin
-                  ? <p>
-                      {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
-                    </p>
-                  : React.null}
-                <List
-                  itemLayout=#horizontal
-                  dataSource={allPublishContributes->_groupAllPublishContributes}
-                  renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
-                    let firstItem =
-                      items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+              switch allPublishContributes {
+              | Some(allPublishContributes) =>
+                <>
+                  {isDownloadBegin
+                    ? <p>
+                        {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
+                      </p>
+                    : React.null}
+                  <List
+                    itemLayout=#horizontal
+                    dataSource={allPublishContributes->_groupAllPublishContributes}
+                    renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
+                      let firstItem =
+                        items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
 
-                    let item =
-                      selectPublishContribute
-                      ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.info.name)
-                      ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+                      let item =
+                        selectPublishContribute
+                        ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.info.name)
+                        ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
 
-                    <List.Item>
-                      <List.Item.Meta
-                        key={item.info.displayName}
-                        title={<span> {React.string(item.info.displayName)} </span>}
-                        description={<div>
-                          <div>
-                            {item.info.repoLink === ""
-                              ? React.null
-                              : <a href={item.info.repoLink} target="_blank">
-                                  {React.string(`Repo|`)}
-                                </a>}
-                            <span> {React.string({j`发布者：${item.info.account}`})} </span>
-                          </div>
-                          <div>
-                            <span> {React.string(item.info.description)} </span>
-                          </div>
-                        </div>}
-                      />
-                      {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
-                        version =>
-                          setSelectPublishContribute(value =>
-                            value->Meta3dCommonlib.ImmutableHashMap.set(
-                              item.info.name,
-                              items
-                              ->Meta3dCommonlib.ArraySt.find(item => item.info.version === version)
-                              ->Meta3dCommonlib.OptionSt.getExn,
-                            )
-                          ),
-                        item.info.version,
-                        items->Meta3dCommonlib.ArraySt.map(item => item.info.version),
-                      )}
-                      {_isSelect(item.info.id, selectedContributes)
-                        ? <Button
-                            onClick={_ => {
-                              dispatch(
-                                AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectContribute(item.info.id),
-                                ),
-                              )
-                            }}>
-                            {React.string(`取消选择`)}
-                          </Button>
-                        : <Button
-                            onClick={_ => {
-                              setIsDownloadBegin(_ => true)
-
-                              service.backend.findPublishContribute(.
-                                progress => setDownloadProgress(_ => progress),
-                                item.info.account,
+                      <List.Item>
+                        <List.Item.Meta
+                          key={item.info.displayName}
+                          title={<span> {React.string(item.info.displayName)} </span>}
+                          description={UIDescriptionUtils.build(
+                            item.info.account,
+                            item.info.repoLink,
+                            item.info.description,
+                          )}
+                        />
+                        {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                          version =>
+                            setSelectPublishContribute(value =>
+                              value->Meta3dCommonlib.ImmutableHashMap.set(
                                 item.info.name,
-                                item.info.version,
+                                items
+                                ->Meta3dCommonlib.ArraySt.find(
+                                  item => item.info.version === version,
+                                )
+                                ->Meta3dCommonlib.OptionSt.getExn,
                               )
-                              ->Meta3dBsMost.Most.observe(file => {
-                                Meta3dCommonlib.NullableSt.isNullable(file)
-                                  ? {
-                                      setIsDownloadBegin(_ => false)
+                            ),
+                          item.info.version,
+                          items->Meta3dCommonlib.ArraySt.map(item => item.info.version),
+                        )}
+                        {_isSelect(item.info.id, selectedContributes)
+                          ? <Button
+                              onClick={_ => {
+                                dispatch(
+                                  AppStore.UserCenterAction(
+                                    UserCenterStore.NotSelectContribute(item.info.id),
+                                  ),
+                                )
+                              }}>
+                              {React.string(`取消选择`)}
+                            </Button>
+                          : <Button
+                              onClick={_ => {
+                                setIsDownloadBegin(_ => true)
 
-                                      FrontendUtils.ErrorUtils.error(
-                                        {j`找不到contribute file`},
-                                        None,
-                                      )->Obj.magic
-                                    }
-                                  : {
-                                      setIsDownloadBegin(_ => false)
+                                service.backend.findPublishContribute(.
+                                  progress => setDownloadProgress(_ => progress),
+                                  item.info.account,
+                                  item.info.name,
+                                  item.info.version,
+                                )
+                                ->Meta3dBsMost.Most.observe(file => {
+                                  Meta3dCommonlib.NullableSt.isNullable(file)
+                                    ? {
+                                        setIsDownloadBegin(_ => false)
 
-                                      dispatch(
-                                        AppStore.UserCenterAction(
-                                          UserCenterStore.SelectContribute(
-                                            {
-                                              id: item.info.id,
-                                              data: Meta3d.Main.loadContribute(
-                                                file->Meta3dCommonlib.NullableSt.getExn,
-                                              ),
-                                              protocolName: item.protocolName,
-                                              protocolVersion: item.protocolVersion,
-                                              protocolIconBase64: item.protocolIconBase64,
-                                              version: item.info.version,
-                                              account: item.info.account,
-                                            },
-                                            allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                              (
-                                                {
-                                                  name,
-                                                  version,
-                                                }: FrontendUtils.CommonType.protocolConfig,
-                                              ) => {
-                                                name === protocolName && version === protocolVersion
+                                        FrontendUtils.ErrorUtils.error(
+                                          {j`找不到contribute file`},
+                                          None,
+                                        )->Obj.magic
+                                      }
+                                    : {
+                                        setIsDownloadBegin(_ => false)
+
+                                        dispatch(
+                                          AppStore.UserCenterAction(
+                                            UserCenterStore.SelectContribute(
+                                              {
+                                                id: item.info.id,
+                                                data: Meta3d.Main.loadContribute(
+                                                  file->Meta3dCommonlib.NullableSt.getExn,
+                                                ),
+                                                protocolName: item.protocolName,
+                                                protocolVersion: item.protocolVersion,
+                                                protocolIconBase64: item.protocolIconBase64,
+                                                version: item.info.version,
+                                                account: item.info.account,
                                               },
+                                              allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                                (
+                                                  {
+                                                    name,
+                                                    version,
+                                                  }: FrontendUtils.CommonType.protocolConfig,
+                                                ) => {
+                                                  name === protocolName &&
+                                                    version === protocolVersion
+                                                },
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    }
-                              }, _)
-                              ->Js.Promise.catch(e => {
-                                setIsDownloadBegin(_ => false)
+                                        )
+                                      }
+                                }, _)
+                                ->Js.Promise.catch(e => {
+                                  setIsDownloadBegin(_ => false)
 
-                                FrontendUtils.ErrorUtils.errorWithExn(
-                                  e->FrontendUtils.Error.promiseErrorToExn,
-                                  None,
-                                )->Obj.magic
-                              }, _)
-                              ->ignore
-                            }}>
-                            {React.string(`选择`)}
-                          </Button>}
-                    </List.Item>
-                  }}
-                />
-              </>
-            | None =>
-              setIsLoaded(_ => false)
-
-              service.backend.getAllPublishContributeInfos(. item.name, item.version)
-              ->Meta3dBsMost.Most.observe(data => {
-                setAllPublishContributes(_ =>
-                  data
-                  ->Meta3dCommonlib.ArraySt.map(
-                    (info): FrontendUtils.FrontendType.publishContribute => {
-                      protocolName: item.name,
-                      protocolVersion: item.version,
-                      protocolIconBase64: item.iconBase64,
-                      protocolDisplayName: item.displayName,
-                      info,
-                    },
-                  )
-                  ->Some
-                )
-                setIsLoaded(_ => true)
-              }, _)
-              ->Js.Promise.catch(e => {
+                                  FrontendUtils.ErrorUtils.errorWithExn(
+                                    e->FrontendUtils.Error.promiseErrorToExn,
+                                    None,
+                                  )->Obj.magic
+                                }, _)
+                                ->ignore
+                              }}>
+                              {React.string(`选择`)}
+                            </Button>}
+                      </List.Item>
+                    }}
+                  />
+                </>
+              | None =>
                 setIsLoaded(_ => false)
 
-                FrontendUtils.ErrorUtils.errorWithExn(
-                  e->FrontendUtils.Error.promiseErrorToExn,
-                  None,
-                )->Obj.magic
-              }, _)
-              ->ignore
+                service.backend.getAllPublishContributeInfos(. item.name, item.version)
+                ->Meta3dBsMost.Most.observe(data => {
+                  setAllPublishContributes(_ =>
+                    data
+                    ->Meta3dCommonlib.ArraySt.map(
+                      (info): FrontendUtils.FrontendType.publishContribute => {
+                        protocolName: item.name,
+                        protocolVersion: item.version,
+                        protocolIconBase64: item.iconBase64,
+                        protocolDisplayName: item.displayName,
+                        info,
+                      },
+                    )
+                    ->Some
+                  )
+                  setIsLoaded(_ => true)
+                }, _)
+                ->Js.Promise.catch(e => {
+                  setIsLoaded(_ => false)
 
-              <> </>
+                  FrontendUtils.ErrorUtils.errorWithExn(
+                    e->FrontendUtils.Error.promiseErrorToExn,
+                    None,
+                  )->Obj.magic
+                }, _)
+                ->ignore
+
+                <> </>
+              }
+            | None =>
+              <List
+                itemLayout=#horizontal
+                dataSource={allPublishContributeProtocols->_groupAllPublishContributeProtocols}
+                renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
+                  let firstItem =
+                    items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+
+                  let item =
+                    selectPublishContributeProtocol
+                    ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
+                    ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+
+                  <List.Item>
+                    <List.Item.Meta
+                      key={item.displayName}
+                      avatar={<img src={item.iconBase64} />}
+                      title={<span
+                        onClick={_ => {
+                          // _clearSelectPublishContributeProtocol(item.name)
+
+                          setContributeProtocolItem(_ => item->Some)
+                        }}>
+                        {React.string(item.displayName)}
+                      </span>}
+                      description={UIDescriptionUtils.build(
+                        item.account,
+                        item.repoLink,
+                        item.description,
+                      )}
+                    />
+                    {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                      version =>
+                        setSelectPublishContributeProtocol(value =>
+                          value->Meta3dCommonlib.ImmutableHashMap.set(
+                            item.name,
+                            items
+                            ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
+                            ->Meta3dCommonlib.OptionSt.getExn,
+                          )
+                        ),
+                      item.version,
+                      items->Meta3dCommonlib.ArraySt.map(item => item.version),
+                    )}
+                  </List.Item>
+                }}
+              />
             }
-          | None =>
-            <List
-              itemLayout=#horizontal
-              dataSource={allPublishContributeProtocols->_groupAllPublishContributeProtocols}
-              renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
-                let firstItem =
-                  items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
-
-                let item =
-                  selectPublishContributeProtocol
-                  ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
-                  ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
-
-                <List.Item>
-                  <List.Item.Meta
-                    key={item.displayName}
-                    avatar={<img src={item.iconBase64} />}
-                    title={<span
-                      onClick={_ => {
-                        // _clearSelectPublishContributeProtocol(item.name)
-
-                        setContributeProtocolItem(_ => item->Some)
-                      }}>
-                      {React.string(item.displayName)}
-                    </span>}
-                    description={<div>
-                      <div>
-                        {item.repoLink === ""
-                          ? React.null
-                          : <a href={item.repoLink} target="_blank"> {React.string(`Repo|`)} </a>}
-                        <span> {React.string({j`发布者：${item.account}`})} </span>
-                      </div>
-                      <div>
-                        <span> {React.string(item.description)} </span>
-                      </div>
-                    </div>}
-                  />
-                  {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
-                    version =>
-                      setSelectPublishContributeProtocol(value =>
-                        value->Meta3dCommonlib.ImmutableHashMap.set(
-                          item.name,
-                          items
-                          ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
-                          ->Meta3dCommonlib.OptionSt.getExn,
-                        )
-                      ),
-                    item.version,
-                    items->Meta3dCommonlib.ArraySt.map(item => item.version),
-                  )}
-                </List.Item>
-              }}
-            />
-          }
-        }}
-  </>
+          }}
+    </Layout.Content>
+  </Layout>
 }

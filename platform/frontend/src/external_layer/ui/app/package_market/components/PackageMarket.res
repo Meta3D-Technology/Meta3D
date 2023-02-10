@@ -153,269 +153,263 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     None
   }, [])
 
-  <>
-    <Nav />
-    {!isLoaded
-      ? <p> {React.string(`loading...`)} </p>
-      : {
-          switch packageEntryExtensionProtocolItem {
-          | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
-            let (protocolName, protocolVersion) = (item.name, item.version)
+  <Layout>
+    <Layout.Header>
+      <Nav currentKey="4" />
+    </Layout.Header>
+    <Layout.Content>
+      {!isLoaded
+        ? <p> {React.string(`loading...`)} </p>
+        : {
+            switch packageEntryExtensionProtocolItem {
+            | Some(item: FrontendUtils.BackendCloudbaseType.protocol) =>
+              let (protocolName, protocolVersion) = (item.name, item.version)
 
-            switch allPublishPackages {
-            | Some(allPublishPackages) =>
-              <>
-                {isDownloadBegin
-                  ? <p>
-                      {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
-                    </p>
-                  : React.null}
-                <List
-                  itemLayout=#horizontal
-                  dataSource={allPublishPackages->_groupAllPublishPackages}
-                  renderItem={(
-                    items: array<FrontendUtils.BackendCloudbaseType.packageImplementInfo>,
-                  ) => {
-                    let firstItem =
-                      items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+              switch allPublishPackages {
+              | Some(allPublishPackages) =>
+                <>
+                  {isDownloadBegin
+                    ? <p>
+                        {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
+                      </p>
+                    : React.null}
+                  <List
+                    itemLayout=#horizontal
+                    dataSource={allPublishPackages->_groupAllPublishPackages}
+                    renderItem={(
+                      items: array<FrontendUtils.BackendCloudbaseType.packageImplementInfo>,
+                    ) => {
+                      let firstItem =
+                        items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
 
-                    let item =
-                      selectPublishPackage
-                      ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
-                      ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+                      let item =
+                        selectPublishPackage
+                        ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
+                        ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
 
-                    <List.Item>
-                      <List.Item.Meta
-                        key={item.name}
-                        title={<span> {React.string(item.name)} </span>}
-                        description={<div>
-                          <div>
-                            <span> {React.string({j`发布者：${item.account}`})} </span>
-                          </div>
-                          <div>
-                            <span> {React.string(item.description)} </span>
-                          </div>
-                        </div>}
-                      />
-                      {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
-                        version =>
-                          setSelectPublishPackage(value =>
-                            value->Meta3dCommonlib.ImmutableHashMap.set(
-                              item.name,
-                              items
-                              ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
-                              ->Meta3dCommonlib.OptionSt.getExn,
-                            )
-                          ),
-                        item.version,
-                        items->Meta3dCommonlib.ArraySt.map(item => item.version),
-                      )}
-                      {_isSelect(item.id, selectedPackages)
-                        ? <Button
-                            onClick={_ => {
-                              dispatch(
-                                AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectPackage(item.id),
-                                ),
-                              )
-                            }}>
-                            {React.string(`取消选择`)}
-                          </Button>
-                        : <Button
-                            onClick={_ => {
-                              setIsDownloadBegin(_ => true)
-
-                              service.backend.findPublishPackage(.
-                                progress => setDownloadProgress(_ => progress),
-                                // item.entryExtensionProtocolName,
-                                // item.entryExtensionProtocolVersion,
-                                // item.entryExtensionProtocolIconBase64,
-                                item.account,
-                                // item.entryExtensionName,
-                                item.name,
-                                item.version,
-                              )
-                              ->Meta3dBsMost.Most.observe(
-                                file => {
-                                  Meta3dCommonlib.NullableSt.isNullable(file)
-                                    ? {
-                                        setIsDownloadBegin(_ => false)
-
-                                        FrontendUtils.ErrorUtils.error(
-                                          {j`找不到package file`},
-                                          None,
-                                        )->Obj.magic
-                                      }
-                                    : {
-                                        setIsDownloadBegin(_ => false)
-
-                                        dispatch(
-                                          AppStore.UserCenterAction(
-                                            UserCenterStore.SelectPackage({
-                                              id: item.id,
-                                              protocol: {
-                                                name: item.entryExtensionProtocolName,
-                                                version: item.entryExtensionProtocolVersionRange,
-                                                iconBase64: item.entryExtensionProtocolIconBase64,
-                                              },
-                                              entryExtensionName: item.entryExtensionName,
-                                              version: item.version,
-                                              name: item.name,
-                                              binaryFile: file->Meta3dCommonlib.NullableSt.getExn,
-                                            }),
-                                          ),
-                                        )
-                                      }
-                                },
-                                //   data: Meta3d.Main.loadPackage(
-                                //     file->Meta3dCommonlib.NullableSt.getExn,
-                                //   ),
-                                //   version: item.version,
-                                //   account: item.account,
-
-                                // allPublishPackageProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                //   (
-                                //     {
-                                //       name,
-                                //       version,
-                                //     }: FrontendUtils.CommonType.protocolConfig,
-                                //   ) => {
-                                //     name === protocolName && version === protocolVersion
-                                //   },
-                                // ),
-
-                                _,
-                              )
-                              ->Js.Promise.catch(e => {
-                                setIsDownloadBegin(_ => false)
-
-                                FrontendUtils.ErrorUtils.errorWithExn(
-                                  e->FrontendUtils.Error.promiseErrorToExn,
-                                  None,
-                                )->Obj.magic
-                              }, _)
-                              ->ignore
-                            }}>
-                            {React.string(`选择`)}
-                          </Button>}
-                      <Button
-                        onClick={_ => {
-                          setIsDownloadBegin(_ => true)
-
-                          service.backend.findPublishPackage(.
-                            progress => setDownloadProgress(_ => progress),
+                      <List.Item>
+                        <List.Item.Meta
+                          key={item.name}
+                          title={<span> {React.string(item.name)} </span>}
+                          description={UIDescriptionUtils.buildWithoutRepoLink(
                             item.account,
-                            item.name,
-                            item.version,
-                          )
-                          ->Meta3dBsMost.Most.observe(file => {
-                            Meta3dCommonlib.NullableSt.isNullable(file)
-                              ? {
+                            item.description,
+                          )}
+                        />
+                        {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                          version =>
+                            setSelectPublishPackage(value =>
+                              value->Meta3dCommonlib.ImmutableHashMap.set(
+                                item.name,
+                                items
+                                ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
+                                ->Meta3dCommonlib.OptionSt.getExn,
+                              )
+                            ),
+                          item.version,
+                          items->Meta3dCommonlib.ArraySt.map(item => item.version),
+                        )}
+                        {_isSelect(item.id, selectedPackages)
+                          ? <Button
+                              onClick={_ => {
+                                dispatch(
+                                  AppStore.UserCenterAction(
+                                    UserCenterStore.NotSelectPackage(item.id),
+                                  ),
+                                )
+                              }}>
+                              {React.string(`取消选择`)}
+                            </Button>
+                          : <Button
+                              onClick={_ => {
+                                setIsDownloadBegin(_ => true)
+
+                                service.backend.findPublishPackage(.
+                                  progress => setDownloadProgress(_ => progress),
+                                  // item.entryExtensionProtocolName,
+                                  // item.entryExtensionProtocolVersion,
+                                  // item.entryExtensionProtocolIconBase64,
+                                  item.account,
+                                  // item.entryExtensionName,
+                                  item.name,
+                                  item.version,
+                                )
+                                ->Meta3dBsMost.Most.observe(
+                                  file => {
+                                    Meta3dCommonlib.NullableSt.isNullable(file)
+                                      ? {
+                                          setIsDownloadBegin(_ => false)
+
+                                          FrontendUtils.ErrorUtils.error(
+                                            {j`找不到package file`},
+                                            None,
+                                          )->Obj.magic
+                                        }
+                                      : {
+                                          setIsDownloadBegin(_ => false)
+
+                                          dispatch(
+                                            AppStore.UserCenterAction(
+                                              UserCenterStore.SelectPackage({
+                                                id: item.id,
+                                                protocol: {
+                                                  name: item.entryExtensionProtocolName,
+                                                  version: item.entryExtensionProtocolVersionRange,
+                                                  iconBase64: item.entryExtensionProtocolIconBase64,
+                                                },
+                                                entryExtensionName: item.entryExtensionName,
+                                                version: item.version,
+                                                name: item.name,
+                                                binaryFile: file->Meta3dCommonlib.NullableSt.getExn,
+                                              }),
+                                            ),
+                                          )
+                                        }
+                                  },
+                                  //   data: Meta3d.Main.loadPackage(
+                                  //     file->Meta3dCommonlib.NullableSt.getExn,
+                                  //   ),
+                                  //   version: item.version,
+                                  //   account: item.account,
+
+                                  // allPublishPackageProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                  //   (
+                                  //     {
+                                  //       name,
+                                  //       version,
+                                  //     }: FrontendUtils.CommonType.protocolConfig,
+                                  //   ) => {
+                                  //     name === protocolName && version === protocolVersion
+                                  //   },
+                                  // ),
+
+                                  _,
+                                )
+                                ->Js.Promise.catch(e => {
                                   setIsDownloadBegin(_ => false)
 
-                                  FrontendUtils.ErrorUtils.error(
-                                    {j`找不到package file`},
+                                  FrontendUtils.ErrorUtils.errorWithExn(
+                                    e->FrontendUtils.Error.promiseErrorToExn,
                                     None,
                                   )->Obj.magic
-                                }
-                              : {
-                                  setIsDownloadBegin(_ => false)
+                                }, _)
+                                ->ignore
+                              }}>
+                              {React.string(`选择`)}
+                            </Button>}
+                        <Button
+                          onClick={_ => {
+                            setIsDownloadBegin(_ => true)
 
-                                  DownloadUtils.createAndDownloadBlobFile(
-                                    file->Meta3dCommonlib.NullableSt.getExn,
-                                    _buildPackageFileName(item.name, item.version),
-                                    "package",
-                                  )
-                                }
-                          }, _)
-                          ->Js.Promise.catch(e => {
-                            setIsDownloadBegin(_ => false)
+                            service.backend.findPublishPackage(.
+                              progress => setDownloadProgress(_ => progress),
+                              item.account,
+                              item.name,
+                              item.version,
+                            )
+                            ->Meta3dBsMost.Most.observe(file => {
+                              Meta3dCommonlib.NullableSt.isNullable(file)
+                                ? {
+                                    setIsDownloadBegin(_ => false)
 
-                            FrontendUtils.ErrorUtils.errorWithExn(
-                              e->FrontendUtils.Error.promiseErrorToExn,
-                              None,
-                            )->Obj.magic
-                          }, _)
-                          ->ignore
-                        }}>
-                        {React.string(`下载`)}
-                      </Button>
-                    </List.Item>
-                  }}
-                />
-              </>
-            | None =>
-              setIsLoaded(_ => false)
+                                    FrontendUtils.ErrorUtils.error(
+                                      {j`找不到package file`},
+                                      None,
+                                    )->Obj.magic
+                                  }
+                                : {
+                                    setIsDownloadBegin(_ => false)
 
-              service.backend.getAllPublishPackageInfos(. item.name, item.version)
-              ->Meta3dBsMost.Most.observe(data => {
-                setAllPublishPackages(_ => data->Some)
-                setIsLoaded(_ => true)
-              }, _)
-              ->Js.Promise.catch(e => {
+                                    DownloadUtils.createAndDownloadBlobFile(
+                                      file->Meta3dCommonlib.NullableSt.getExn,
+                                      _buildPackageFileName(item.name, item.version),
+                                      "package",
+                                    )
+                                  }
+                            }, _)
+                            ->Js.Promise.catch(e => {
+                              setIsDownloadBegin(_ => false)
+
+                              FrontendUtils.ErrorUtils.errorWithExn(
+                                e->FrontendUtils.Error.promiseErrorToExn,
+                                None,
+                              )->Obj.magic
+                            }, _)
+                            ->ignore
+                          }}>
+                          {React.string(`下载`)}
+                        </Button>
+                      </List.Item>
+                    }}
+                  />
+                </>
+              | None =>
                 setIsLoaded(_ => false)
 
-                FrontendUtils.ErrorUtils.errorWithExn(
-                  e->FrontendUtils.Error.promiseErrorToExn,
-                  None,
-                )->Obj.magic
-              }, _)
-              ->ignore
+                service.backend.getAllPublishPackageInfos(. item.name, item.version)
+                ->Meta3dBsMost.Most.observe(data => {
+                  setAllPublishPackages(_ => data->Some)
+                  setIsLoaded(_ => true)
+                }, _)
+                ->Js.Promise.catch(e => {
+                  setIsLoaded(_ => false)
 
-              <> </>
+                  FrontendUtils.ErrorUtils.errorWithExn(
+                    e->FrontendUtils.Error.promiseErrorToExn,
+                    None,
+                  )->Obj.magic
+                }, _)
+                ->ignore
+
+                <> </>
+              }
+            | None =>
+              <List
+                itemLayout=#horizontal
+                dataSource={allPublishPackageEntryExtensionProtocols->_groupAllPublishPackageEntryExtensionProtocols}
+                renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
+                  let firstItem =
+                    items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
+
+                  let item =
+                    selectPublishPackageEntryExtensionProtocol
+                    ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
+                    ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
+
+                  <List.Item>
+                    <List.Item.Meta
+                      key={item.displayName}
+                      avatar={<img src={item.iconBase64} />}
+                      title={<span
+                        onClick={_ => {
+                          setPackageEntryExtensionProtocolItem(_ => item->Some)
+                        }}>
+                        {React.string(item.displayName)}
+                      </span>}
+                      description={UIDescriptionUtils.build(
+                        item.account,
+                        item.repoLink,
+                        item.description,
+                      )}
+                    />
+                    {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+                      version =>
+                        setSelectPublishPackageEntryExtensionProtocol(value =>
+                          value->Meta3dCommonlib.ImmutableHashMap.set(
+                            item.name,
+                            items
+                            ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
+                            ->Meta3dCommonlib.OptionSt.getExn,
+                          )
+                        ),
+                      item.version,
+                      items->Meta3dCommonlib.ArraySt.map(item => item.version),
+                    )}
+                  </List.Item>
+                }}
+              />
             }
-          | None =>
-            <List
-              itemLayout=#horizontal
-              dataSource={allPublishPackageEntryExtensionProtocols->_groupAllPublishPackageEntryExtensionProtocols}
-              renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
-                let firstItem =
-                  items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
-
-                let item =
-                  selectPublishPackageEntryExtensionProtocol
-                  ->Meta3dCommonlib.ImmutableHashMap.get(firstItem.name)
-                  ->Meta3dCommonlib.OptionSt.getWithDefault(firstItem)
-
-                <List.Item>
-                  <List.Item.Meta
-                    key={item.displayName}
-                    avatar={<img src={item.iconBase64} />}
-                    title={<span
-                      onClick={_ => {
-                        setPackageEntryExtensionProtocolItem(_ => item->Some)
-                      }}>
-                      {React.string(item.displayName)}
-                    </span>}
-                    description={<div>
-                      <div>
-                        {item.repoLink === ""
-                          ? React.null
-                          : <a href={item.repoLink} target="_blank"> {React.string(`Repo|`)} </a>}
-                        <span> {React.string({j`发布者：${item.account}`})} </span>
-                      </div>
-                      <div>
-                        <span> {React.string(item.description)} </span>
-                      </div>
-                    </div>}
-                  />
-                  {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
-                    version =>
-                      setSelectPublishPackageEntryExtensionProtocol(value =>
-                        value->Meta3dCommonlib.ImmutableHashMap.set(
-                          item.name,
-                          items
-                          ->Meta3dCommonlib.ArraySt.find(item => item.version === version)
-                          ->Meta3dCommonlib.OptionSt.getExn,
-                        )
-                      ),
-                    item.version,
-                    items->Meta3dCommonlib.ArraySt.map(item => item.version),
-                  )}
-                </List.Item>
-              }}
-            />
-          }
-        }}
-  </>
+          }}
+    </Layout.Content>
+  </Layout>
 }

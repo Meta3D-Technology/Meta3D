@@ -19,3 +19,7 @@ module Card = Antd__Card
 module Select = Antd__Select
 module Tree = Antd__Tree
 module InputNumber = Antd__InputNumber
+
+module Typography = Antd__Typography
+module Menu = Antd__Menu
+module Space = Antd__Space
