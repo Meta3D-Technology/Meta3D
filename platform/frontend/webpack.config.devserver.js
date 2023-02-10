@@ -102,7 +102,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './index.html',
-            filename: 'index.html',
+            filename: 'index.html'
         }),
     ],
     // // When importing a module whose path matches one of the following, just

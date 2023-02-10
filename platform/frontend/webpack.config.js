@@ -95,6 +95,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './index.html',
             filename: 'index.html',
+            inject: true,
+            favicon: path.resolve('favicon.ico'),//favicon路径
         }),
     ],
     // // When importing a module whose path matches one of the following, just
