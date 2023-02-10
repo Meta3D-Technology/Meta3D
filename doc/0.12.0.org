@@ -3,3 +3,76 @@
 * DONE 完善package.json，如author, repo, ...
 * DONE 设计logo
 url add icon with logo
+
+* TODO 写基础文档
+refer to https://docs.appsmith.com/
+
+入门
+    简介
+        一句话介绍
+        使用场景、用户
+        特点
+        索引资源
+            完整可供学习的案例（e.g. 搭建引擎链接、。。。。。。）
+    快速预览
+        根据界面，介绍每个模块
+        核心概念：扩展、贡献、包、Element、应用
+    搭建你的第一个应用
+        simple without engine
+    FAQ
+包
+    搭建引擎
+        运行测试
+Element
+    搭建
+    运行
+    发布
+    更新
+应用
+    搭建
+        ApInspector
+    发布
+    查看和运行
+扩展、贡献
+    扩展、贡献的类型
+    开发扩展
+    开发贡献
+        介绍每种类型贡献的开发
+    单元测试扩展、贡献
+    运行测试扩展、贡献
+    调试流程
+        如何在平台中调试（只获得更新版本号的扩展、贡献，其他的不需要再选进来！）
+# 测试
+    
+
+
+** TODO finish index draft
+
+
+** TODO publish extension, contribute, package used in doc(except in "extension, contribute")
+
+
+** TODO 更新模板repo
+如开发Extension、Contribute
+** TODO 发布需要用到的扩展、贡献
+** TODO 准备用户入门的相关操作
+边写文档边进行运行测试
+	发布element contribute	
+	更新element contribute
+	
+
+使用gif演示操作一个步骤
+refer to https://github.com/appsmithorg/appsmith
+
+文档发布到知乎专栏、博客园中，官网->文档 跳转到知乎专栏：https://www.zhihu.com/column/c_1521448592849649664
+
+*** TODO 首页：给出索引
+*** TODO Start
+*** TODO 如何开发和发布Extension、Contribute
+*** TODO 开发引擎
+TODO独使用引擎Package
+*** TODO 给出开发流程，如 如何在平台中调试（只获得更新版本号的扩展、贡献，其他的不需要再选进来！）
+*** TODO 开发ui control、component、pipeline。。。。。。
+*** TODO 。。。。。。
+
+** TODO 整理用例（如编辑器App用例等）
