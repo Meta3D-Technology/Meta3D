@@ -30,7 +30,7 @@ defineFeature(feature, test => {
     )
     let (a1, _) = ExtensionTool.buildSelectedExtension(
       ~protocolName=a.name,
-      ~protocolVersionRange=">= 1.0.0",
+      ~protocolVersion=a.version,
       (),
     )
     let dispatchStub = ref(Obj.magic(1))

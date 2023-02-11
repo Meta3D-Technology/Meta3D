@@ -38,7 +38,7 @@ Feature: Extensions
             And extensions should contain a1 and a2
 
         Scenario: set extensions when select one extension of the protocol with low version
-            Given publish extension protocol a with low version and hight version
+            Given publish extension protocol a with low version and high version
             And select extension a1 for a of low version
             When render after useEffectOnceAsync
             Then extensions should has only one a1
@@ -69,3 +69,9 @@ Feature: Extensions
             And select extension a1 for a with old version
             When render after useEffectOnceAsync
             Then should set empty
+
+        Scenario: extension's protocol has multiple version with different displayName
+            Given publish extension protocol a with low version and high version with different displayName
+            And select extension a1 for a with low versionRange but high version
+            When render after useEffectOnceAsync
+            Then extensions should has a1 whose protocolDisplay is high version protocol's displayName

@@ -121,7 +121,8 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersionRange=">= 1.0.0",
+              ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -217,14 +218,16 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersionRange=">= 1.0.0",
+              ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
             ExtensionTool.buildSelectedExtension(
               ~displayName=a2DisplayName,
               ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersionRange=">= 1.0.0",
+              ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -326,7 +329,7 @@ defineFeature(feature, test => {
     _prepare(given)
 
     given(
-      "publish extension protocol a with low version and hight version",
+      "publish extension protocol a with low version and high version",
       () => {
         allPublishExtensionProtocols := [a_low, a_high]
       },
@@ -340,7 +343,8 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName,
-              ~protocolVersionRange="^0.1.0",
+              // ~protocolVersionRange="^0.1.0",
+              ~protocolVersion=a_low.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -435,6 +439,7 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
               ~protocolVersionRange=">= 1.0.0",
+              ~protocolVersion=a.version,
               (),
             ),
           }
@@ -507,7 +512,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName="b",
-              ~protocolVersionRange="0.0.1",
+              // ~protocolVersionRange="0.0.1",
+              ~protocolVersion=a.version,
               (),
             ),
           }
@@ -594,7 +600,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersionRange=">= 1.0.0",
+              ~protocolVersion="1.0.0",
               (),
             ),
           }
@@ -613,6 +620,83 @@ defineFeature(feature, test => {
       "should set empty",
       () => {
         _setExtensions([])
+      },
+    )
+  })
+
+  test(."extension's protocol has multiple version with different displayName", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let protocolName = "a"
+    let protocolIconBase64 = "i1"
+    let a_low: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name=protocolName,
+      ~version="0.1.0",
+      ~iconBase64=protocolIconBase64,
+      ~displayName="lowD",
+      (),
+    )
+    let a_high: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name=protocolName,
+      ~version="0.1.1",
+      ~iconBase64=protocolIconBase64,
+      ~displayName="highD",
+      (),
+    )
+    let a1DisplayName = "a1"
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+    _prepare(given)
+
+    given(
+      "publish extension protocol a with low version and high version with different displayName",
+      () => {
+        allPublishExtensionProtocols := [a_low, a_high]
+      },
+    )
+
+    \"and"(
+      "select extension a1 for a with low versionRange but high version",
+      () => {
+        selectedExtensionsFromMarket :=
+          list{
+            ExtensionTool.buildSelectedExtension(
+              ~displayName=a1DisplayName,
+              ~protocolName,
+              ~protocolVersionRange="^0.1.0",
+              ~protocolVersion="0.1.1",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"and",
+      "extensions should has a1 whose protocolDisplay is high version protocol's displayName",
+      () => {
+        _setExtensions([
+          (
+            a1DisplayName,
+            protocolIconBase64,
+            a_high.displayName,
+            a_high.repoLink,
+            a_high.description,
+            protocolConfig.configStr,
+            selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
+          ),
+        ])
       },
     )
   })

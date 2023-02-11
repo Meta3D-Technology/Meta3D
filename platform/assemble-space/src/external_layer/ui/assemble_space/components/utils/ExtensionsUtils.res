@@ -28,10 +28,10 @@ module Method = {
           ) => {
             selectedExtensionsFromMarket
             ->Meta3dCommonlib.ListSt.filter(
-              (({data}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
+              (({data, protocolVersion}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
                 let protocol = data.extensionPackageData.protocol
 
-                protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
+                protocol.name === name && Meta3d.Semver.eq(version, protocolVersion)
               },
             )
             ->Meta3dCommonlib.ListSt.reduce(
@@ -63,6 +63,9 @@ module Method = {
           name
         })
       },
+      // protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
+      // protocol.name === name && Meta3d.Semver.gte(version, protocolVersion)
+
       // | list{(extension, protocolConfig)} =>
 
       _,

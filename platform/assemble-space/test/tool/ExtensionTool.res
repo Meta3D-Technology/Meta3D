@@ -35,8 +35,8 @@ let buildExtensionData = (
 
 let buildSelectedExtension = (
   ~protocolName,
-  ~protocolVersionRange,
-  ~protocolVersion="0.0.1",
+  ~protocolVersion,
+  ~protocolVersionRange="^0.0.1",
   ~protocolConfig=None,
   ~protocolIconBase64="pi1",
   // ~protocolDisplayName="d1",
