@@ -3,7 +3,9 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-
+  let resetElementAssemble = dispatch => {
+    dispatch(FrontendUtils.ElementAssembleStoreType.ResetWhenSwitch)
+  }
 }
 
 @react.component
@@ -14,6 +16,14 @@ let make = (
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
+  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+
+  service.react.useEffectOnce(() => {
+    Method.resetElementAssemble(dispatch)
+
+    ((), None)
+  })
+
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
