@@ -139,11 +139,11 @@ defineFeature(feature, test => {
         list{
           SelectedUIControlsTool.buildSelectedUIControl(
             ~id="b1",
-            ~name="b1",
+            ~displayName="b1",
             ~children=list{
               SelectedUIControlsTool.buildSelectedUIControl(
                 ~id="b2",
-                ~name="b2",
+                ~displayName="b2",
                 ~children=list{},
                 (),
               ),
@@ -393,7 +393,7 @@ defineFeature(feature, test => {
               element: elementInspectorData.contents,
               uiControls: [
                 {
-                  name: "b1",
+                  displayName: "b1",
                   rect: UIControlInspectorTool.buildRect(
                     ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                     (),
@@ -403,7 +403,7 @@ defineFeature(feature, test => {
                   specific: specific.contents,
                   children: [
                     {
-                      name: "b2",
+                      displayName: "b2",
                       rect: UIControlInspectorTool.buildRect(
                         ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                         (),

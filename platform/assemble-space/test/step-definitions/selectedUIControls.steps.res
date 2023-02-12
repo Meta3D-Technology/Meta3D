@@ -69,12 +69,12 @@ defineFeature(feature, test => {
           list{
             SelectedUIControlsTool.buildSelectedUIControl(
               ~id="u1",
-              ~name="u1",
+              ~displayName="u1",
               ~protocolIconBase64="i1",
               ~children=list{
                 SelectedUIControlsTool.buildSelectedUIControl(
                   ~id="u2",
-                  ~name="u2",
+                  ~displayName="u2",
                   ~protocolIconBase64="i2",
                   (),
                 ),

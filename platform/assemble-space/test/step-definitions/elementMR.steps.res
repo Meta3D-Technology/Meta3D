@@ -211,7 +211,7 @@ defineFeature(feature, test => {
             },
             uiControls: [
               {
-                name: b1Name,
+                displayName: b1Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.6.0",
@@ -223,7 +223,7 @@ defineFeature(feature, test => {
                 children: [],
               },
               {
-                name: b2Name,
+                displayName: b2Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.6.0",
@@ -339,7 +339,7 @@ defineFeature(feature, test => {
             },
             uiControls: [
               {
-                name: b1Name,
+                displayName: b1Name,
                 protocol: {
                   name: "meta3d-ui-control-button-protocol",
                   version: "0.6.0",
@@ -516,7 +516,7 @@ defineFeature(feature, test => {
             },
             uiControls: [
               {
-                name: w1Name,
+                displayName: w1Name,
                 protocol: {
                   name: "meta3d-ui-control-window-protocol",
                   version: "0.7.0",
@@ -737,7 +737,7 @@ defineFeature(feature, test => {
               },
               uiControls: [
                 {
-                  name: w1Name,
+                  displayName: w1Name,
                   protocol: {
                     name: "meta3d-ui-control-window-protocol",
                     version: "0.7.0",
@@ -748,7 +748,7 @@ defineFeature(feature, test => {
                   ->Meta3dCommonlib.OptionSt.getExn,
                   children: [
                     {
-                      name: w2Name,
+                      displayName: w2Name,
                       protocol: {
                         name: "meta3d-ui-control-window-protocol",
                         version: "0.7.0",
@@ -993,7 +993,7 @@ defineFeature(feature, test => {
               },
               uiControls: [
                 {
-                  name: w1Name,
+                  displayName: w1Name,
                   protocol: {
                     name: "meta3d-ui-control-window-protocol",
                     version: "0.7.0",
@@ -1004,7 +1004,7 @@ defineFeature(feature, test => {
                   ->Meta3dCommonlib.OptionSt.getExn,
                   children: [
                     {
-                      name: w2Name,
+                      displayName: w2Name,
                       protocol: {
                         name: "meta3d-ui-control-window-protocol",
                         version: "0.7.0",
@@ -1015,7 +1015,7 @@ defineFeature(feature, test => {
                       ->Meta3dCommonlib.OptionSt.getExn,
                       children: [
                         {
-                          name: b1Name,
+                          displayName: b1Name,
                           protocol: {
                             name: "meta3d-ui-control-button-protocol",
                             version: "0.6.0",

@@ -86,7 +86,7 @@ let reducer = (state, action) => {
       ..._createState(),
       visualExtension: state.visualExtension,
     }
-  | SelectUIControl(protocolIconBase64, protocolConfigStr, name, data, parentId, specific) => {
+  | SelectUIControl(protocolIconBase64, protocolConfigStr, displayName, data, parentId, specific) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       let childUIControl = {
@@ -95,7 +95,7 @@ let reducer = (state, action) => {
         children: list{},
         protocolIconBase64: protocolIconBase64,
         protocolConfigStr: protocolConfigStr,
-        name: name,
+        displayName: displayName,
         data: data,
       }
 

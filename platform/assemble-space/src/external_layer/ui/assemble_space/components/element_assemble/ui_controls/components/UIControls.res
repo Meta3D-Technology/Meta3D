@@ -47,7 +47,7 @@ module Method = {
     selectedContributes,
     protocolIconBase64,
     protocolConfigStr,
-    name,
+    displayName,
     data: Meta3d.ExtensionFileType.contributeFileData,
     parentUIControlId,
   ) => {
@@ -63,7 +63,7 @@ module Method = {
         FrontendUtils.ElementAssembleStoreType.SelectUIControl(
           protocolIconBase64,
           protocolConfigStr,
-          name,
+          displayName,
           data,
           parentUIControlId,
           service.meta3d.getUIControlSpecificDataFields(.
@@ -97,7 +97,8 @@ let make = (~service: service) => {
   // grid={{gutter: 16, column: 3}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
     renderItem={({id, protocolIconBase64, protocolConfigStr, data}) => {
-      let name = data.contributePackageData.name
+      // let name = data.contributePackageData.name
+      let displayName = data.contributePackageData.displayName
 
       <List.Item>
         <Card
@@ -111,7 +112,7 @@ let make = (~service: service) => {
                 selectedContributes,
                 protocolIconBase64,
                 protocolConfigStr,
-                name,
+                displayName,
                 data,
                 parentUIControlId,
               )
@@ -127,7 +128,7 @@ let make = (~service: service) => {
                 ~wordBreak="break-all",
                 (),
               )}>
-              {React.string(name)}
+              {React.string(displayName)}
             </span>}
           />
         </Card>

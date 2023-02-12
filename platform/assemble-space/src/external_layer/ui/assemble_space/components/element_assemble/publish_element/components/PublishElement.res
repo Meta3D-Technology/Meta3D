@@ -26,7 +26,7 @@ module Method = {
       specific,
     }): FrontendUtils.BackendCloudbaseType.uiControl => {
       {
-        name: (
+        displayName: (
           HierachyUtils.findSelectedUIControlData(
             None,
             (
@@ -36,7 +36,7 @@ module Method = {
             selectedUIControls,
             id,
           )->Meta3dCommonlib.OptionSt.getExn
-        ).name,
+        ).displayName,
         rect,
         isDraw,
         event,

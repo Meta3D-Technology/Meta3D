@@ -14,7 +14,7 @@ type protocol = {
 }
 
 type rec uiControl = {
-  name: string,
+  displayName: string,
   protocol: protocol,
   data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
   children: array<uiControl>,
@@ -38,7 +38,7 @@ let rec _buildUIControls = (
       let {name, version} = data.contributePackageData.protocol
 
       uiControls->Meta3dCommonlib.ArraySt.push({
-        name: (
+        displayName: (
           service.meta3d.execGetContributeFunc(.
             data.contributeFuncData,
             Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -88,13 +88,13 @@ let buildElementMR = (
 
 let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service, uiControls) => {
   uiControls
-  ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
-    name
+  ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
+    displayName
   })
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {name, protocol}) => {
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, protocol}) => {
     str ++
     j`
-    let ${name} = getUIControlFunc(uiState,"${name}")
+    let ${displayName} = getUIControlFunc(uiState,"${displayName}")
     `
   }, "")
 }
@@ -221,12 +221,12 @@ and _generateAllDrawUIControlAndHandleEventStr = (
   uiControls,
 ) => {
   let (str, endCount) = uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. (str, endCount), {name, protocol, data, children}) => {
+    (. (str, endCount), {displayName, protocol, data, children}) => {
       (
         str ++
         _generateIsDrawIfBegin(data.isDraw) ++
         j`
-                 return ${name}(meta3dState,
+                 return ${displayName}(meta3dState,
                 {
                   ...${service.meta3d.generateUIControlCommonDataStr(.
             protocol.configLib,

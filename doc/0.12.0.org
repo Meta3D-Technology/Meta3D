@@ -5,7 +5,11 @@
 url add icon with logo
 
 
-* TODO add repo,display,description and publish all
+# * TODO add repo,display,description and publish all
+
+* DONE fix: ui controls, selected: displayName
+
+* TODO fix: switch to 包装配 should refresh
 
 * TODO 写基础文档
 refer to https://docs.appsmith.com/

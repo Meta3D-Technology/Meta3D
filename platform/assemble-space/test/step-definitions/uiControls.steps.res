@@ -41,14 +41,14 @@ defineFeature(feature, test => {
               list{
                 UIControlsTool.buildSelectedContribute(
                   ~id="1",
-                  ~name="u1",
+                  ~displayName="u1",
                   ~protocolName="meta3d-ui-control-u1",
                   ~protocolConfigStr="u1_config"->Some,
                   (),
                 ),
                 UIControlsTool.buildSelectedContribute(
                   ~id="2",
-                  ~name="a1",
+                  ~displayName="a1",
                   ~protocolName="meta3d-action-a1",
                   (),
                 ),

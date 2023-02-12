@@ -13,6 +13,8 @@ type id = string
 
 type name = string
 
+type displayName = string
+
 type parentId = option<id>
 
 type rec uiControl = {
@@ -21,7 +23,7 @@ type rec uiControl = {
   children: list<uiControl>,
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: protocolConfigStr,
-  name: name,
+  displayName: displayName,
   data: Meta3d.ExtensionFileType.contributeFileData,
 }
 
@@ -114,7 +116,7 @@ type action =
   | SelectUIControl(
       protocolIconBase64,
       protocolConfigStr,
-      name,
+      displayName,
       Meta3d.ExtensionFileType.contributeFileData,
       parentId,
       specific,

@@ -3,14 +3,14 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
 }
 
 let buildSelectedUIControl = (
-  ~name="e1",
+  ~displayName="e1",
   ~protocolIconBase64="i1",
   ~protocolConfigStr="",
   ~parentId=None,
   ~children=list{},
   ~id="e1",
   ~data=ContributeTool.buildContributeData(
-    ~contributePackageData=ContributeTool.buildContributePackageData(~name, ()),
+    ~contributePackageData=ContributeTool.buildContributePackageData(~displayName, ()),
     (),
   ),
   (),
@@ -21,7 +21,7 @@ let buildSelectedUIControl = (
     children: children,
     protocolIconBase64: protocolIconBase64,
     protocolConfigStr: protocolConfigStr,
-    name: name,
+    displayName: displayName,
     data: data,
   }
 }

@@ -8,6 +8,7 @@ let buildSelectedContribute = (
   ~protocolConfigStr=None,
   // ~newName=None,
   ~name="e1",
+  ~displayName="ed1",
   ~id="e1",
   ~version="0.0.1",
   (),
@@ -21,6 +22,7 @@ let buildSelectedContribute = (
     data: {
       contributePackageData: ContributeTool.buildContributePackageData(
         ~name,
+        ~displayName,
         ~protocol={
           name: protocolName,
           version: "0.0.1",

@@ -140,7 +140,7 @@ type publishElementContribute = (
 ) => Meta3dBsMostProtocol.StreamType.stream<unit>
 
 type rec uiControl = {
-  name: string,
+  displayName: string,
   rect: ElementAssembleStoreType.rect,
   isDraw: ElementAssembleStoreType.isDraw,
   event: ElementAssembleStoreType.event,

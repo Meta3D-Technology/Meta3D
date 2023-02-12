@@ -21,10 +21,15 @@ module Method = {
   let rec convertToTreeData = selectedUIControls => {
     selectedUIControls
     ->Meta3dCommonlib.ListSt.map((
-      {id, protocolIconBase64, name, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
+      {
+        id,
+        protocolIconBase64,
+        displayName,
+        children,
+      }: FrontendUtils.ElementAssembleStoreType.uiControl,
     ): Tree.treeData => {
       {
-        title: name,
+        title: displayName,
         key: id,
         icon: <Image preview=false src={protocolIconBase64} width=20 height=20 />,
         children: convertToTreeData(children),

@@ -200,7 +200,7 @@ defineFeature(feature, test => {
       u1 :=
         ContributeTool.buildContributeData(
           ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~name="u1",
+            ~displayName="u1",
             ~protocol=windowProtocol,
             (),
           ),
@@ -210,7 +210,7 @@ defineFeature(feature, test => {
       u2 :=
         ContributeTool.buildContributeData(
           ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~name="u2",
+            ~displayName="u2",
             ~protocol=windowProtocol,
             (),
           ),
@@ -264,7 +264,7 @@ defineFeature(feature, test => {
 
         uiControl1 :=
           ImportElementTool.buildUIControl(
-            ~name="u1",
+            ~displayName="u1",
             ~rect=UIControlInspectorTool.buildRect(
               ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
               (),
@@ -274,7 +274,7 @@ defineFeature(feature, test => {
             ~specific=[Obj.magic(10)],
             ~children=[
               ImportElementTool.buildUIControl(
-                ~name="u2",
+                ~displayName="u2",
                 ~rect=UIControlInspectorTool.buildRect(
                   ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                   (),
@@ -348,7 +348,7 @@ defineFeature(feature, test => {
             SelectedUIControlsTool.buildSelectedUIControl(
               ~id=id1,
               ~protocolConfigStr=uiControl1Contribute.protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-              ~name="u1",
+              ~displayName="u1",
               ~protocolIconBase64=uiControl1Contribute.protocolIconBase64,
               ~data=uiControl1Contribute.data,
               ~parentId=None,
@@ -356,7 +356,7 @@ defineFeature(feature, test => {
                 SelectedUIControlsTool.buildSelectedUIControl(
                   ~id=id2,
                   ~protocolConfigStr=uiControl2Contribute.protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-                  ~name="u2",
+                  ~displayName="u2",
                   ~protocolIconBase64=uiControl2Contribute.protocolIconBase64,
                   ~data=uiControl2Contribute.data,
                   ~parentId=id1->Some,

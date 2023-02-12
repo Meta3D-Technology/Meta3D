@@ -5,7 +5,7 @@ let buildNo = () => ElementVisual.No
 let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
 
 let buildUIControl = (
-  ~name="u1",
+  ~displayName="u1",
   ~rect=UIControlInspectorTool.buildRect(),
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
   ~event=[],
@@ -13,12 +13,12 @@ let buildUIControl = (
   ~children=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.uiControl => {
-  name: name,
-  rect: rect,
-  isDraw: isDraw,
-  event: event,
-  specific: specific,
-  children: children,
+  displayName,
+  rect,
+  isDraw,
+  event,
+  specific,
+  children,
 }
 
 let buildElementAssembleData = (
@@ -28,11 +28,11 @@ let buildElementAssembleData = (
   ~uiControls=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.elementAssembleData => {
-  elementName: elementName,
-  elementVersion: elementVersion,
+  elementName,
+  elementVersion,
   inspectorData: {
-    element: element,
-    uiControls: uiControls,
+    element,
+    uiControls,
   },
 }
 

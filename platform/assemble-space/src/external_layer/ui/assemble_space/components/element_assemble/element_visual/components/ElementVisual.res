@@ -282,16 +282,16 @@ module Method = {
     let rec _generate = uiControls => {
       uiControls
       ->Meta3dCommonlib.ArraySt.map((
-        {name, children}: FrontendUtils.BackendCloudbaseType.uiControl,
+        {displayName, children}: FrontendUtils.BackendCloudbaseType.uiControl,
       ) => {
         switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
-          selectedUIControl.data.contributePackageData.name === name
+          selectedUIControl.data.contributePackageData.displayName === displayName
         ) {
         | None =>
           Meta3dCommonlib.Exception.throwErr(
             Meta3dCommonlib.Exception.buildErr(
               Meta3dCommonlib.Log.buildErrorMessage(
-                ~title={j`${name} not select`},
+                ~title={j`${displayName} not select`},
                 ~description={
                   ""
                 },
@@ -307,7 +307,7 @@ module Method = {
               id: IdUtils.generateId(service.other.random),
               protocolIconBase64,
               protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
-              name: data.contributePackageData.name,
+              displayName: data.contributePackageData.displayName,
               data,
               parentId: None,
               children: _generate(children),
