@@ -4,6 +4,9 @@
 * DONE 设计logo
 url add icon with logo
 
+
+* TODO add repo,display,description and publish all
+
 * TODO 写基础文档
 refer to https://docs.appsmith.com/
 
@@ -79,3 +82,8 @@ TODO独使用引擎Package
 *** TODO 。。。。。。
 
 ** TODO 整理用例（如编辑器App用例等）
+
+
+** TODO 录制宣传gif
+
+展示Element装配
