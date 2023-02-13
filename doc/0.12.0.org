@@ -101,21 +101,33 @@ refer to https://github.com/appsmithorg/appsmith
 
 
 
-● 更新官网
-  ○ 给出Github Star的显示图标
-  ○ 更新logo
-  ○ 更新一句话介绍：开源Web3D低代码平台
-  ○ 移除“（内测版本）”？
-  ○ 更新首页feature等
-● 官网、平台加入数据统计
-跟Wonder的数据统计一样
-● 平台更新logo
-● 更新Meta3D-Technology
-https://github.com/Meta3D-Technology
-● Github Wiki 作为索引页面
-refer to https://github.com/mrdoob/three.js/wiki
-● 更新 README徽章badget
-● 更新Github Project, 任务看板（TODO list） ，里程碑管理
-● 更新论坛：Discussion
-● 完善Github Community
-https://docs.github.com/en/site-policy/github-terms/github-community-guidelines
+# ● 更新官网
+#   ○ 给出Github Star的显示图标
+#   ○ 更新logo
+#   ○ 更新一句话介绍：开源Web3D低代码平台
+#   ○ 移除“（内测版本）”？
+#   ○ 更新首页feature等
+# ● 平台更新logo
+# ● 更新Meta3D-Technology
+# https://github.com/Meta3D-Technology
+# ● Github Wiki 作为索引页面
+# refer to https://github.com/mrdoob/three.js/wiki
+# ● 更新 README徽章badget
+
+# ● 更新论坛：Discussion
+# ● 完善Github Community
+# https://docs.github.com/en/site-policy/github-terms/github-community-guidelines
+
+
+
+● 通过ci
+● 发布版本
+● 更新线上数据
+  ○ 更新为最新版本号的数据
+  ○ 只保留 用例数据，删除测试数据
+● 更新和整理文档
+● 内部发布
+  ○ 暂时只发布文章到语雀上
+  ○ 先跟熟人宣传，积累2个左右用户，收集反馈意见
+  ○ 在QQ群宣传，积累10个用户，收集反馈意见
+更新QQ群公告
