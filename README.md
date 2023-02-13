@@ -4,7 +4,7 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 
 [![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases)
 
-[开始您的第一步](TODO)
+[开始您的第一步](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B#%E5%BC%80%E5%A7%8B%E6%82%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AD%A5)
 
 ![index](./doc/files/index.png)
 
@@ -20,7 +20,7 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 
 # 支持和社区
 
-- 📄 [文档](TODO)中找到解决方案
+- 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
 - ⚠️ [Github](https://github.com/Meta3D-Technology/Meta3D/issues)上提Issue
 - 👾 [论坛](https://github.com/Meta3D-Technology/Meta3D/discussions)上寻求帮助
 <!-- - 💡 [案例]()作为学习资料 -->
@@ -34,7 +34,7 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 
 - 通过[issue](https://github.com/Meta3D-Technology/Meta3D/issues)来报告Bug
 - 您在本地开发扩展、贡献或者对应的协议，然后将其发布到Meta3D平台
-这样所有的用户都能在平台上使用它们来搭建引擎或者编辑器。具体如何开发和发布它们请见[自定义](开发和发布扩展协议)
+这样所有的用户都能在平台上使用它们来搭建引擎或者编辑器。具体如何开发和发布它们请见[自定义](https://meta3d-website.4everland.app/docs/%E5%BC%80%E5%8F%91%E5%92%8C%E5%8F%91%E5%B8%83%E6%89%A9%E5%B1%95%E5%8D%8F%E8%AE%AE)
 - 您将本地开发的扩展、贡献通过PR Merge到[Meta3D](https://github.com/Meta3D-Technology/Meta3D)
 这样其它用户可以修改和扩展它们。请先提交[issue](https://github.com/Meta3D-Technology/Meta3D/issues)来说明情况
 - 您将本地开发的扩展协议、贡献协议通过PR Merge到[Meta3D](https://github.com/Meta3D-Technology/Meta3D)
