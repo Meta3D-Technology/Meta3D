@@ -11,7 +11,7 @@ url add icon with logo
 
 * DONE fix: switch to 包装配 should refresh
 
-* TODO 写基础文档
+* DONE 写基础文档
 refer to https://docs.appsmith.com/
 
 入门
@@ -56,16 +56,16 @@ Element
     
 
 
-** TODO finish index draft
+** DONE finish index draft
 
 
-** TODO publish extension, contribute, package used in doc(except in "extension, contribute")
+** DONE publish extension, contribute, package used in doc(except in "extension, contribute")
 
 
-** TODO 更新模板repo
+** DONE 更新模板repo
 如开发Extension、Contribute
-** TODO 发布需要用到的扩展、贡献
-** TODO 准备用户入门的相关操作
+** DONE 发布需要用到的扩展、贡献
+** DONE 准备用户入门的相关操作
 边写文档边进行运行测试
 	发布element contribute	
 	更新element contribute
@@ -85,9 +85,37 @@ TODO独使用引擎Package
 *** TODO 开发ui control、component、pipeline。。。。。。
 *** TODO 。。。。。。
 
-** TODO 整理用例（如编辑器App用例等）
+** DONE 整理用例（如编辑器App用例等）
 
 
-** TODO 录制宣传gif
+# ** TODO 录制宣传gif
 
-展示Element装配
+# 展示Element装配
+
+
+** DONE 更新宣传页面(ReadMe)
+refer to https://github.com/appsmithorg/appsmith
+    ■ 加入个谈论目标、产品愿景和路线
+    # ■ 演示主要流程的视频（小于2分钟）
+    # ■ 展示主要feature的gif图
+
+
+
+● 更新官网
+  ○ 给出Github Star的显示图标
+  ○ 更新logo
+  ○ 更新一句话介绍：开源Web3D低代码平台
+  ○ 移除“（内测版本）”？
+  ○ 更新首页feature等
+● 官网、平台加入数据统计
+跟Wonder的数据统计一样
+● 平台更新logo
+● 更新Meta3D-Technology
+https://github.com/Meta3D-Technology
+● Github Wiki 作为索引页面
+refer to https://github.com/mrdoob/three.js/wiki
+● 更新 README徽章badget
+● 更新Github Project, 任务看板（TODO list） ，里程碑管理
+● 更新论坛：Discussion
+● 完善Github Community
+https://docs.github.com/en/site-policy/github-terms/github-community-guidelines
