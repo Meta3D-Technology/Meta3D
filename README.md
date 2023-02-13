@@ -23,6 +23,7 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 
 # 支持和社区
 
+- 💬 [加QQ群](https://qm.qq.com/cgi-bin/qm/qr?k=nS2aXzVnD2MsrwaZinPdE5KzGXdpMDX_&jump_from=webapi&authKey=lRRtao0aHyzsDRgakbPNvh/BYkFRnGfUQRBrsAbd3NftO7nzpx7AREz+wC8ZJuDS):274130205 与我们交流
 - 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
 - ⚠️ [Github](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)上提Issue
 - 👾 [论坛](https://github.com/Meta3D-Technology/Meta3D/discussions)上寻求帮助
