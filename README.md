@@ -22,6 +22,13 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 - **Web3 Dapp**
 拥抱Web3，完全开源，建设共享互助开放的Web3D生态
 
+# 优势
+
+- 世界首个搭建Web3D编辑器和引擎的低代码平台
+- 一切皆可扩展，用户可100%自定义
+- 拥抱Web3，完全开源
+
+
 # 支持和社区
 
 - 💬 [加QQ群](https://qm.qq.com/cgi-bin/qm/qr?k=nS2aXzVnD2MsrwaZinPdE5KzGXdpMDX_&jump_from=webapi&authKey=lRRtao0aHyzsDRgakbPNvh/BYkFRnGfUQRBrsAbd3NftO7nzpx7AREz+wC8ZJuDS):274130205 与我们交流
