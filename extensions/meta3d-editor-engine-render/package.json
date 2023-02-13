@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-engine-render",
-    "version": "0.11.0",
+    "version": "0.12.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-engine-render-protocol"
@@ -43,23 +43,23 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-engine-render-protocol": "^0.11.0",
-        "meta3d-engine-core-protocol": "^0.11.0",
-        "meta3d-pipeline-editor-viewrect-protocol": "^0.11.0",
-        "meta3d-pipeline-editor-webgl1-getgl-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-data-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-detectgl-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-geometry-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-material-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-render-protocol": "^0.11.0",
-        "meta3d-pipeline-webgl1-senduniformshaderdata-protocol": "^0.11.0",
-        "meta3d-type": "^0.11.0"
+        "meta3d-editor-engine-render-protocol": "^0.12.0",
+        "meta3d-engine-core-protocol": "^0.12.0",
+        "meta3d-pipeline-editor-viewrect-protocol": "^0.12.0",
+        "meta3d-pipeline-editor-webgl1-getgl-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-data-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-detectgl-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-geometry-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-material-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-render-protocol": "^0.12.0",
+        "meta3d-pipeline-webgl1-senduniformshaderdata-protocol": "^0.12.0",
+        "meta3d-type": "^0.12.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.11.0",
+        "meta3d-tool-publish": "^0.12.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

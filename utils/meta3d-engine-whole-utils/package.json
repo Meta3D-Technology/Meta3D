@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-whole-utils",
-    "version": "0.11.0",
+    "version": "0.12.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
