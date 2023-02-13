@@ -7,7 +7,7 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 
 
 
-[文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B) • [在线Demo](https://meta3d-platform-production.4everland.app/EnterApp?account=0xf63e1991a343814ede505d7cfc368615eae75307&appName=%E7%BC%96%E8%BE%91%E5%99%A8demo1)
+[文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B) • [搭建的编辑器Demo](https://meta3d-platform-production.4everland.app/EnterApp?account=0xf63e1991a343814ede505d7cfc368615eae75307&appName=%E7%BC%96%E8%BE%91%E5%99%A8demo1)
  • [进入平台](https://meta3d-platform-production.4everland.app)
 
 ![index](./doc/files/index.png)
