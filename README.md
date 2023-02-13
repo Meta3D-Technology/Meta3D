@@ -2,7 +2,7 @@
 
 Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web3D生态，让Web3D引擎和编辑器开发轻而易举
 
-[![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) ![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)
+[![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
 
 
 
