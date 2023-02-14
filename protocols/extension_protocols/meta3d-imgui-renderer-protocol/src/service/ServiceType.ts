@@ -30,7 +30,8 @@ export type style = string
 
 export type texture = webgl1Texture
 
-export type context = webgl1Context
+// export type context = webgl1Context
+export type context = any
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {

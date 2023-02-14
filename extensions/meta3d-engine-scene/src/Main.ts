@@ -9,7 +9,7 @@ import { state as cameraPipelineState, states as cameraPipelineStates } from "me
 import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-protocol/src/ConfigType";
 import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-protocol/src/StateType";
 import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
-// import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-webgpu-triangle-protocol/src/StateType";
+// import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
 // import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
 import {
 	addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,

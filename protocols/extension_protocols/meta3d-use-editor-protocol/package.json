@@ -4,7 +4,6 @@
     "displayName": "use editor protocol",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
-    "main": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

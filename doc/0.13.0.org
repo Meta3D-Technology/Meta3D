@@ -1,11 +1,66 @@
+* TODO 将光栅化管线绘制三角形、计算管线绘制三角形改为使用Meta3D来构建的引擎和引擎Demo
+
+** DONE add imgui-webgpu-renderer
+
+only implement getContext
+
+** DONE add webgpu whole screen scene view ui control
+
+set viewRect to uiState
+
+** DONE can render a triangle by webgpu in run element 
+
+run element
+
+run app
+
+** DONE commit
+
+
+** TODO notice
+
+
+** TODO add contribute, contribute protocol templates
+
+** TODO commit
+
+** TODO meta3d platform add token to support run webgpu?
+
+
+** TODO do again with others(in canary)
+
+task:
+publish all(except ui) to platform(production): imgui webgpu renderer, ui control, pipeline, render, whole, run engine
+
+# change color to blue;
+# change triangle to cube
+
+
+
+
+** TODO can render a triangle by webgpu+cs in run element 
+
+
+** TODO do again with others(in canary)
+
+task1:
+publish xxx to platform
+# change triangle to cube
+# change color to blue
+
+
+task2: learn how to update extension/contribute
+change color to blue
+
+
 * TODO fix: package with all except ui controls not work in element->run
 
 
-# TODO 清空数据
+* TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
 
-TODO 加入Demo
+* TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
 
-TODO fix doc:重写选择
+* TODO update doc to select all
 
 
-TODO 加入优点
+* TODO add paging

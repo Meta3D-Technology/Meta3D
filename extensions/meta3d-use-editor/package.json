@@ -15,9 +15,6 @@
         "meta3dImguiRendererExtensionProtocolName": {
             "protocolName": "meta3d-imgui-renderer-protocol"
         },
-        "meta3dEditorEngineWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-whole-protocol"
-        },
         "meta3dEditorRunEngineExtensionProtocolName": {
             "protocolName": "meta3d-editor-run-engine-protocol"
         }
@@ -30,7 +27,6 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-engine-whole-protocol": "^0.12.0",
         "meta3d-editor-run-engine-protocol": "^0.12.0",
         "meta3d-event-protocol": "^0.12.0",
         "meta3d-imgui-renderer-protocol": "^0.12.0",
