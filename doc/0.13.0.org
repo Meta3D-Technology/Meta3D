@@ -17,14 +17,42 @@ run app
 ** DONE commit
 
 
-** TODO notice
-
-
-** TODO add contribute, contribute protocol templates
+** DONE add contribute, contribute protocol templates
 
 ** TODO commit
 
 ** TODO meta3d platform add token to support run webgpu?
+
+
+** TODO FAQ: explain diff with three.js引擎 or editor
+** TODO FAQ: explain how to use exist tool, e.g. three.js, three.js editor?
+
+@sxleaf
+
+
+** TODO write tutorial
+
+should use template!
+
+
+** TODO update doc, readme
+
+update [自定义]
+
+
+move to 案例->自定义的案例->xxx
+
+
+
+** TODO write announce
+
+
+** TODO publish announce and tutorial to 知乎->Meta3D专栏 as blog
+
+
+
+** TODO 2.16 notice 
+
 
 
 ** TODO do again with others(in canary)
@@ -41,6 +69,14 @@ publish all(except ui) to platform(production): imgui webgpu renderer, ui contro
 ** TODO can render a triangle by webgpu+cs in run element 
 
 
+** TODO write and publish tutorial
+
+should use template!
+
+
+** TODO update doc, readme
+
+
 ** TODO do again with others(in canary)
 
 task1:
@@ -53,14 +89,15 @@ task2: learn how to update extension/contribute
 change color to blue
 
 
-* TODO fix: package with all except ui controls not work in element->run
-
-
 * TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
 
 * TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
 
 * TODO update doc to select all
+
+
+* TODO fix: package with all except ui controls not work in element->run
+
 
 
 * TODO add paging

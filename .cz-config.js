@@ -21,6 +21,7 @@ module.exports = {
     { name: "extensions" },
     { name: "contributes" },
     { name: "services" },
+    { name: "templates" },
     { name: "website" }
   ],
 

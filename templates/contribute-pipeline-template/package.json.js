@@ -3,10 +3,10 @@
     "version": "TODO",
     //注册的用户名，或者MetaMask钱包地址
     "publisher": "TODO",
-    //在平台中显示的扩展名
+    //在平台中显示的协议名
     "displayName": "TODO",
     //该repo的链接地址
-    //e.g. https://github.com/Meta3D-Technology/Meta3D/tree/master/extensions/meta3d-editor-run-engine-empty
+    //e.g. https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/extension_protocols/meta3d-editor-run-engine-protocol
     //也可以为空字符串：""
     "repoLink": "TODO",
     "description": "TODO",
@@ -18,6 +18,9 @@
     //该Map中的key能在Main->getExtensionService->dependentExtensionNameMap中拿到
     //key对应DependentMapType->dependentExtensionProtocolNameMap中的key
     "dependentExtensionNameMap": {
+        "meta3dBsMostExtensionProtocolName": {
+            "protocolName": "meta3d-bs-most-protocol"
+        },
         "TODO": {
             "protocolName": "TODO"
         }
@@ -37,6 +40,8 @@
     },
     "dependencies": {
         TODO 给出实现的协议、依赖的所有扩展和贡献的协议的版本号
+
+        "meta3d-bs-most-protocol": ">=0.12.0",
 
         "meta3d-type": ">=0.12.0"
     },

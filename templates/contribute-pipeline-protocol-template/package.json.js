@@ -14,12 +14,7 @@
         "watch": "tsc -w -noEmit",
         "meta3d:publish": "gulp publish_production_env"
     },
-    "dependencies": {
-        "meta3d-type": ">=0.12.0"
-    },
     "devDependencies": {
-        "gulp": "^4.0.2",
-        "typescript": "^4.2.3",
-        "meta3d-tool-publish-protocol": "^0.11.0"
+        "typescript": "^4.2.3"
     }
 }
