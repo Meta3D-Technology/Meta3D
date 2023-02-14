@@ -35,7 +35,7 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 
 # 支持和社区
 
-- 💬 [加QQ群](https://qm.qq.com/cgi-bin/qm/qr?k=nS2aXzVnD2MsrwaZinPdE5KzGXdpMDX_&jump_from=webapi&authKey=lRRtao0aHyzsDRgakbPNvh/BYkFRnGfUQRBrsAbd3NftO7nzpx7AREz+wC8ZJuDS):274130205 与我们交流
+- 💬 [点这里](https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh)加QQ群:106047770 与我们交流
 - 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
 - ⚠️ [Github](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)上提Issue
 - 👾 [论坛](https://github.com/Meta3D-Technology/Meta3D/discussions)上寻求帮助
@@ -59,7 +59,7 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 - 通过PR修改[Meta3D](https://github.com/Meta3D-Technology/Meta3D)发布的扩展、贡献、扩展协议和贡献协议。请先提交[issue](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)来说明情况
 
 
-一起开发Meta3D 请加QQ群：561291403
+一起开发Meta3D 请点[这里](https://qm.qq.com/cgi-bin/qm/qr?k=Kiaj6UDk6FuKDPHKpHYruzB8eAt0xRRy&jump_from=webapi&authKey=D6yCua8jRdfWgAQqSSRMRQvaYxGVL5XN671Cz/g2CSYRJ9WPPgNPZIzcCZKwQZBC)加QQ群：561291403
 
 ## Roadmap
 [这里](https://github.com/orgs/Meta3D-Technology/projects/1/views/1)是Meta3D的开发任务，欢迎大家一起来开发，谢谢！
