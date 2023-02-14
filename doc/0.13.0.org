@@ -19,20 +19,26 @@ run app
 
 ** DONE add contribute, contribute protocol templates
 
-** TODO commit
+** DONE commit
 
-** TODO meta3d platform add token to support run webgpu?
-
-
-** TODO FAQ: explain diff with three.js引擎 or editor
-** TODO FAQ: explain how to use exist tool, e.g. three.js, three.js editor?
+** DONE FAQ: explain diff with three.js引擎 or editor
+** DONE FAQ: explain how to use exist tool, e.g. three.js, three.js editor?
 
 @sxleaf
+
+
+
+** DONE meta3d platform add token to support run webgpu?
+
+
+
 
 
 ** TODO write tutorial
 
 should use template!
+
+test in chrome instead of canary!
 
 
 ** TODO update doc, readme
