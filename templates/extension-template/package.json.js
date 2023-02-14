@@ -36,7 +36,7 @@
         "meta3d:publish": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        TODO 给出实现的协议、依赖的所有扩展和贡献的协议的版本号
+        TODO 给出实现的协议、依赖的所有扩展和贡献的协议的版本号（版本号最好都用>=，如>=0.12.0）
 
         "meta3d-type": ">=0.12.0"
     },

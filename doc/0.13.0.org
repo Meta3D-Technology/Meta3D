@@ -54,10 +54,10 @@ merge to master
 
 
 
-** TODO write announce
+# ** TODO write announce
 
 
-** TODO publish announce and tutorial to 知乎->Meta3D专栏 as blog
+# ** TODO publish announce and tutorial to 知乎->Meta3D专栏 as blog
 
 
 
@@ -99,11 +99,17 @@ task2: learn how to update extension/contribute
 change color to blue
 
 
-* TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
+
+# * TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
+* TODO feat: assemble-space: if select, should disappear
+
 
 * TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
 
 * TODO update doc to select all
+
+
+* TODO feat: should check login before select from market
 
 
 * TODO fix: package with all except ui controls not work in element->run
@@ -111,3 +117,10 @@ change color to blue
 
 
 * TODO add paging
+
+
+30 count per page
+
+
+
+* TODO publish v0.12.1
