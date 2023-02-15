@@ -34,14 +34,14 @@ run app
 
 
 
-** TODO write tutorial
+** DONE write tutorial
 
 should use template!
 
 test in chrome instead of canary!
 
 
-** TODO update doc, readme
+** DONE update doc, readme
 
 update [自定义]
 
