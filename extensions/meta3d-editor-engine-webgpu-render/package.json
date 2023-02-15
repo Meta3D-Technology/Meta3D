@@ -2,6 +2,9 @@
     "name": "meta3d-editor-engine-webgpu-render",
     "version": "0.12.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "meta3d-editor-engine-webgpu-render",
+    "repoLink": "",
+    "description": "",
     "protocol": {
         "name": "meta3d-editor-engine-webgpu-render-protocol"
     },

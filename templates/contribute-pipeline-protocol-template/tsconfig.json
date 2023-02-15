@@ -7,7 +7,7 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"jsx": "react",
-		// "noEmit": true,
+		"noEmit": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,

@@ -2,6 +2,9 @@
     "name": "meta3d-pipeline-editor-webgpu-triangle",
     "version": "0.12.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "meta3d-pipeline-editor-webgpu-triangle",
+    "repoLink": "",
+    "description": "",
     "protocol": {
         "name": "meta3d-pipeline-editor-webgpu-triangle-protocol"
     },

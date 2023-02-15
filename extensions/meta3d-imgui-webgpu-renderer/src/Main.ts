@@ -4,9 +4,7 @@ import { service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { context } from "meta3d-webgpu-protocol/src/service/ServiceType"
-// import { service as webgpuService } from "meta3d-webgpu-protocol/src/service/ServiceType"
 
-// TODO move to state
 let _context: nullable<context> = null
 
 let _notImplement = () => {
@@ -17,7 +15,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
     dependentExtensionProtocolNameMap,
     dependentContributeProtocolNameMap,
     service
-// > = (api, [{ meta3dWebGPUExtensionProtocolName }, _]) => {
 > = (api, _) => {
     return {
         init: (state, isInitEvent, isDebug, canvas) => {
@@ -71,7 +68,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 > = () => {
     return {
         isDebug: false,
-        style: "classic"
+        style: ""
     }
 }
 
