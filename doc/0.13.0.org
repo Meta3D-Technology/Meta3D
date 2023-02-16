@@ -139,10 +139,10 @@ package assemble run test
 
 
 
-* TODO add paging
+* DONE add paging
 
 
-50 count per page
+30 count per page
 
 
 # ExtensionMarket
@@ -193,16 +193,25 @@ package assemble run test
 
 
 
-ShowPublishedApps
+# ShowPublishedApps
+
+
+# restore page size
 
 
 
 
-pass all bdd test(pass TODO)
+
+# pass all bdd test(pass TODO)
 
 * TODO refactor record: handle > 1000
 
+fix Utils
+
 ExtensionsUtils, ...
+
+
+* TODO duplicate
 
 * TODO refactor: refactor Market: extract Second, Third
 
