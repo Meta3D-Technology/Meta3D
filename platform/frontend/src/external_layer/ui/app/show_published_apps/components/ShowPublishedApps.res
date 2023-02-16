@@ -48,7 +48,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.findAllPublishApps(. MarketUtils.getLimitCount(), 0)
+    service.backend.findAllPublishApps(. FrontendUtils.MarketUtils.getLimitCount(), 0)
     ->Meta3dBsMost.Most.observe(allPublishApps => {
       Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)
@@ -79,7 +79,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             dataSource={_getCurrentPageOfAllPublishApps(
               allPublishApps,
               page,
-              MarketUtils.getPageSize(),
+              FrontendUtils.MarketUtils.getPageSize(),
             )}
             renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
               <List.Item>
@@ -105,7 +105,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       | true =>
         <Pagination
           defaultCurrent={1}
-          defaultPageSize={MarketUtils.getPageSize()}
+          defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={allPublishApps->Meta3dCommonlib.ArraySt.length}
           onChange
         />

@@ -141,7 +141,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     setThirdPage(_ => page)
   }
 
-
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ContributeMarket"} =>
@@ -176,26 +175,26 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
   React.useEffect1(() => {
     // TODO handle count > limitCount
-    service.backend.getAllPublishContributeProtocols(
-      // MarketUtils.getPageSize(),
-      // (page - 1) * MarketUtils.getPageSize(),
-      MarketUtils.getLimitCount(),
+    service.backend.getAllPublishContributeProtocols(.
+      // FrontendUtils.MarketUtils.getPageSize(),
+      // (page - 1) * FrontendUtils.MarketUtils.getPageSize(),
+      FrontendUtils.MarketUtils.getLimitCount(),
       0,
     )
     ->Meta3dBsMost.Most.flatMap(protocols => {
       service.backend.getAllPublishContributeProtocolConfigs(
-        MarketUtils.getLimitCount(),
+        FrontendUtils.MarketUtils.getLimitCount(),
         0,
       )->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
               ({name}: FrontendUtils.BackendCloudbaseType.protocol) =>
-                name->MarketUtils.isNotInnerProtocol,
+                name->FrontendUtils.MarketUtils.isNotInnerProtocol,
             ),
             protocolConfigs->Meta3dCommonlib.ArraySt.filter(
               ({name}: FrontendUtils.CommonType.protocolConfig) =>
-                name->MarketUtils.isNotInnerProtocol,
+                name->FrontendUtils.MarketUtils.isNotInnerProtocol,
             ),
           )
         },
@@ -245,7 +244,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     dataSource={_getCurrentPageOfAllPublishContributes(
                       allPublishContributes->_groupAllPublishContributes,
                       thirdPage,
-                      MarketUtils.getPageSize(),
+                      FrontendUtils.MarketUtils.getPageSize(),
                     )}
                     renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
                       let firstItem =
@@ -367,7 +366,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 setIsLoaded(_ => false)
 
                 service.backend.getAllPublishContributeInfos(.
-                  MarketUtils.getLimitCount(),
+                  FrontendUtils.MarketUtils.getLimitCount(),
                   0,
                   item.name,
                   item.version,
@@ -406,7 +405,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 dataSource={_getCurrentPageOfAllPublishContributeProtocols(
                   allPublishContributeProtocols->_groupAllPublishContributeProtocols,
                   secondPage,
-                  MarketUtils.getPageSize(),
+                  FrontendUtils.MarketUtils.getPageSize(),
                 )}
                 renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                   let firstItem =
@@ -470,7 +469,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         | Second =>
           <Pagination
             defaultCurrent={1}
-            defaultPageSize={MarketUtils.getPageSize()}
+            defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
             total={_getAllPublishContributeProtocolsCount(allPublishContributeProtocols)}
             onChange=onChangeForSecond
           />
@@ -479,7 +478,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           | Some(allPublishContributes) =>
             <Pagination
               defaultCurrent={1}
-              defaultPageSize={MarketUtils.getPageSize()}
+              defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
               total={_getAllPublishContributesCount(allPublishContributes)}
               onChange=onChangeForThird
             />

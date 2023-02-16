@@ -57,7 +57,7 @@ type isLoginSuccess = string => Meta3dBsMostProtocol.StreamType.stream<(
 )>
 
 type getAllPublishExtensionProtocols = (
-  limitCount,
+  . limitCount,
   skipCount,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocols>
 

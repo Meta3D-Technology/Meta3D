@@ -204,11 +204,11 @@ package assemble run test
 
 # pass all bdd test(pass TODO)
 
-* TODO refactor record: handle > 1000
+* DONE refactor record: handle > 1000
 
-fix Utils
+# fix Utils
 
-ExtensionsUtils, ...
+# ExtensionsUtils, ...
 
 
 * TODO duplicate

@@ -113,7 +113,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     allPublishPackages->_groupAllPublishPackages->Meta3dCommonlib.ArraySt.length
   }
 
-// TODO duplicate
+  // TODO duplicate
   let _getCurrentPageOfAllPublishPackageEntryExtensionProtocols = (
     groupedAllPublishPackageEntryExtensionProtocols,
     page,
@@ -156,18 +156,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.getAllPublishPackageEntryExtensionProtocols(MarketUtils.getLimitCount(), 0)
+    service.backend.getAllPublishPackageEntryExtensionProtocols(.
+      FrontendUtils.MarketUtils.getLimitCount(),
+      0,
+    )
     // ->Meta3dBsMost.Most.flatMap(protocols => {
     //   service.backend.getAllPublishPackageProtocolConfigs()->Meta3dBsMost.Most.map(
     //     protocolConfigs => {
     //       (
     //         protocols->Meta3dCommonlib.ArraySt.filter(
     //           ({name}: FrontendUtils.BackendCloudbaseType.protocol) =>
-    //             name->MarketUtils.isNotInnerProtocol,
+    //             name->FrontendUtils.MarketUtils.isNotInnerProtocol,
     //         ),
     //         protocolConfigs->Meta3dCommonlib.ArraySt.filter(
     //           ({name}: FrontendUtils.CommonType.protocolConfig) =>
-    //             name->MarketUtils.isNotInnerProtocol,
+    //             name->FrontendUtils.MarketUtils.isNotInnerProtocol,
     //         ),
     //       )
     //     },
@@ -223,7 +226,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     dataSource={_getCurrentPageOfAllPublishPackages(
                       allPublishPackages->_groupAllPublishPackages,
                       thirdPage,
-                      MarketUtils.getPageSize(),
+                      FrontendUtils.MarketUtils.getPageSize(),
                     )}
                     renderItem={(
                       items: array<FrontendUtils.BackendCloudbaseType.packageImplementInfo>,
@@ -398,7 +401,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 setIsLoaded(_ => false)
 
                 service.backend.getAllPublishPackageInfos(.
-                  MarketUtils.getLimitCount(),
+                  FrontendUtils.MarketUtils.getLimitCount(),
                   0,
                   item.name,
                   item.version,
@@ -425,7 +428,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 dataSource={_getCurrentPageOfAllPublishPackageEntryExtensionProtocols(
                   allPublishPackageEntryExtensionProtocols->_groupAllPublishPackageEntryExtensionProtocols,
                   secondPage,
-                  MarketUtils.getPageSize(),
+                  FrontendUtils.MarketUtils.getPageSize(),
                 )}
                 renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                   let firstItem =
@@ -488,7 +491,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         | Second =>
           <Pagination
             defaultCurrent={1}
-            defaultPageSize={MarketUtils.getPageSize()}
+            defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
             total={_getAllPublishPackageEntryExtensionProtocolsCount(
               allPublishPackageEntryExtensionProtocols,
             )}
@@ -499,7 +502,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           | Some(allPublishPackages) =>
             <Pagination
               defaultCurrent={1}
-              defaultPageSize={MarketUtils.getPageSize()}
+              defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
               total={_getAllPublishPackagesCount(allPublishPackages)}
               onChange=onChangeForThird
             />
