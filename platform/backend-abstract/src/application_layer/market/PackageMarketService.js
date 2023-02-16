@@ -5,7 +5,7 @@ const most_1 = require("most");
 const ArrayUtils_1 = require("../../utils/ArrayUtils");
 let getAllPublishPackageEntryExtensionProtocols = (
 // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
-getDataFunc) => {
+getDataFunc, limitCount, skipCount) => {
     // return fromPromise(getPackageMarketEntryExtensionProtocolCollectionFunc()).map((res: any) => {
     //     let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
     //     return resData.map(({
@@ -17,7 +17,7 @@ getDataFunc) => {
     //         return { name: entryExtensionProtocolName, version: entryExtensionProtocolVersion, account, iconBase64: entryExtensionProtocolIconBase64 }
     //     })
     // })
-    return (0, most_1.fromPromise)(getDataFunc("publishedpackages")).map((data) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedpackages", limitCount, skipCount)).map((data) => {
         // let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
         return (0, ArrayUtils_1.removeDuplicateItemsWithBuildKeyFunc)(data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolIconBase64, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, }) => {
             return {
@@ -45,10 +45,10 @@ exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryE
 //         "publishedpackages"
 //     )
 // }
-let getAllPublishPackageInfos = (getDataByKeyContainFunc, entryExtensionProtocolName, entryExtensionProtocolVersion) => {
+let getAllPublishPackageInfos = (getDataByKeyContainFunc, limitCount, skipCount, entryExtensionProtocolName, entryExtensionProtocolVersion) => {
     return getDataByKeyContainFunc("publishedpackages", 
     // buildPartialKeyByEntryProcoltolData(entryExtensionProtocolName, entryExtensionProtocolVersion)
-    [
+    limitCount, skipCount, [
         entryExtensionProtocolName, entryExtensionProtocolVersion
     ]).map((data) => {
         return data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionName, packageName, packageVersion, description, fileID }) => {

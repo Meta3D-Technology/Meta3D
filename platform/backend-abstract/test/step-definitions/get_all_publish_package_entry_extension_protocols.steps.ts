@@ -1,5 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
-import { createSandbox } from "sinon";
+import { createSandbox, match } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishPackageEntryExtensionProtocols } from "../../src/application_layer/market/PackageMarketService";
 
@@ -121,10 +121,21 @@ defineFeature(feature, test => {
         when('get all publish pacakge entry extension protocols', () => {
         });
 
-        then('should return entry extension protocol1 and entry extension protocol2 that are not duplicate', () => {
+
+        then('should get by page', () => {
+        });
+
+        and('should return entry extension protocol1 and entry extension protocol2 that are not duplicate', () => {
             return getAllPublishPackageEntryExtensionProtocols(
-                getDataFunc
+                getDataFunc,
+                100,
+                0
             ).observe(result => {
+                expect(getDataFunc).toCalledWith([
+                    match.string,
+                    100,
+                    0
+                ])
                 expect(result).toEqual([
                     {
                         account: account1,

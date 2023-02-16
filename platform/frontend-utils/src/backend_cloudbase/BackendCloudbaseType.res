@@ -260,7 +260,9 @@ type packageImplementInfo = {
 type packageImplementInfos = array<packageImplementInfo>
 
 type getAllPublishPackageInfos = (
-  . protocolName,
+  . limitCount,
+  skipCount,
+  protocolName,
   protocolVersion,
 ) => Meta3dBsMostProtocol.StreamType.stream<packageImplementInfos>
 

@@ -1,5 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
-import { createSandbox } from "sinon";
+import { createSandbox, match } from "sinon";
 // import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishPackageInfos } from "../../src/application_layer/market/PackageMarketService";
 import { just } from "most";
@@ -91,6 +91,8 @@ defineFeature(feature, test => {
                 ])
             )
             getDataByKeyContainFunc.withArgs("publishedpackages",
+                match.number,
+                match.number,
                 [
                     entryExtensionProtocolName2,
                     entryExtensionProtocolVersion2
@@ -119,9 +121,17 @@ defineFeature(feature, test => {
         then('should return package2 info', () => {
             return getAllPublishPackageInfos(
                 getDataByKeyContainFunc,
+                2,
+                0,
                 entryExtensionProtocolName2,
                 entryExtensionProtocolVersion2
             ).observe(result => {
+                expect(getDataByKeyContainFunc).toCalledWith([
+                    match.string,
+                    2,
+                    0,
+                    match.any
+                ])
                 expect(result).toEqual([
                     {
                         account: account2,

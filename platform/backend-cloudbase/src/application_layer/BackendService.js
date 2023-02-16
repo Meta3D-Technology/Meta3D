@@ -103,8 +103,10 @@ exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarket
 exports.isContain = BackendService.isContain;
 exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
 exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
-let getDataByKeyContain = (collectionName, values) => {
+let getDataByKeyContain = (collectionName, limitCount, skipCount, values) => {
     return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
+        .skip(skipCount)
+        .limit(limitCount)
         .get()
         .then(res => res.data.filter(({ key }) => {
         return values.reduce((result, value) => {
@@ -116,8 +118,10 @@ let getDataByKeyContain = (collectionName, values) => {
     })));
 };
 exports.getDataByKeyContain = getDataByKeyContain;
-let getData = (collectionName) => {
+let getData = (collectionName, limitCount, skipCount) => {
     return (0, exports.getDatabase)().collection(collectionName)
+        .skip(skipCount)
+        .limit(limitCount)
         .get()
         .then(res => res.data);
 };

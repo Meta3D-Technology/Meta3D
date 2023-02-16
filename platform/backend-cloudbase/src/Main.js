@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -64,9 +64,11 @@ let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.find
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], account, appName);
 exports.findPublishApp = findPublishApp;
-let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(BackendService_1.getDataByKeyContain, account);
-exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
-let findAllPublishApps = () => Abstract.findAllPublishApps(BackendService_1.getData);
+// export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
+//     getDataByKeyContain,
+//     account
+// )
+let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(BackendService_1.getData, limitCount, skipCount);
 exports.findAllPublishApps = findAllPublishApps;
 function _throwError(msg) {
     throw new Error(msg);
@@ -102,14 +104,14 @@ let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionDat
     BackendService_1.getFileID,
 ], packageBinaryFile, entryExtensionData, packageData, account);
 exports.publishPackage = publishPackage;
-let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(
+let getAllPublishPackageEntryExtensionProtocols = (limitCount, skipCount) => Abstract.getAllPublishPackageEntryExtensionProtocols(
 // [
 //     getPackageMarketEntryExtensionProtocolCollection,
 //     getDataFromPackageMarketEntryExtensionProtocolCollection
 // ]
-BackendService_1.getData);
+BackendService_1.getData, limitCount, skipCount);
 exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryExtensionProtocols;
-let getAllPublishPackageInfos = (entryExtensionProtocolName, entryExtensionProtocolVersion) => Abstract.getAllPublishPackageInfos(BackendService_1.getDataByKeyContain, entryExtensionProtocolName, entryExtensionProtocolVersion);
+let getAllPublishPackageInfos = (limitCount, skipCount, entryExtensionProtocolName, entryExtensionProtocolVersion) => Abstract.getAllPublishPackageInfos(BackendService_1.getDataByKeyContain, limitCount, skipCount, entryExtensionProtocolName, entryExtensionProtocolVersion);
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
 let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
     BackendService_1.getDataByKeyContain,

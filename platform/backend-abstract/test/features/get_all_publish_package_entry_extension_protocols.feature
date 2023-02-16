@@ -12,4 +12,5 @@ Feature: Get All Publish Pacakge Entry Extension Protocols
         And publish pacakge3 with entry extension protocol2 and account2
         And prepare funcs
         When get all publish pacakge entry extension protocols
-        Then should return entry extension protocol1 and entry extension protocol2 that are not duplicate
+        Then should get by page
+        And should return entry extension protocol1 and entry extension protocol2 that are not duplicate

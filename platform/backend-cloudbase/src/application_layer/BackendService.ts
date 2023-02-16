@@ -134,8 +134,12 @@ export let buildMarketImplementAccountData = BackendService.buildMarketImplement
 
 export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
-export let getDataByKeyContain = (collectionName: string, values: Array<string>) => {
+export let getDataByKeyContain = (collectionName: string,
+	limitCount: number, skipCount: number,
+	values: Array<string>) => {
 	return fromPromise(getDatabase().collection(collectionName)
+		.skip(skipCount)
+		.limit(limitCount)
 		.get()
 		.then(res => res.data.filter(({ key }: { key: string }) => {
 			return values.reduce((result, value) => {
@@ -148,8 +152,10 @@ export let getDataByKeyContain = (collectionName: string, values: Array<string>)
 		})))
 }
 
-export let getData = (collectionName: string) => {
+export let getData = (collectionName: string, limitCount: number, skipCount: number) => {
 	return getDatabase().collection(collectionName)
+		.skip(skipCount)
+		.limit(limitCount)
 		.get()
 		.then(res => res.data)
 }

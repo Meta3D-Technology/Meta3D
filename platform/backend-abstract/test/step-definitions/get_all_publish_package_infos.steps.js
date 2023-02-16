@@ -61,7 +61,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                     description: description1
                 }
             ]));
-            getDataByKeyContainFunc.withArgs("publishedpackages", [
+            getDataByKeyContainFunc.withArgs("publishedpackages", sinon_1.match.number, sinon_1.match.number, [
                 entryExtensionProtocolName2,
                 entryExtensionProtocolVersion2
             ]).returns((0, most_1.just)([
@@ -81,7 +81,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         when('get all publish pacakge infos of entry extension protocol2', () => {
         });
         then('should return package2 info', () => {
-            return (0, PackageMarketService_1.getAllPublishPackageInfos)(getDataByKeyContainFunc, entryExtensionProtocolName2, entryExtensionProtocolVersion2).observe(result => {
+            return (0, PackageMarketService_1.getAllPublishPackageInfos)(getDataByKeyContainFunc, 2, 0, entryExtensionProtocolName2, entryExtensionProtocolVersion2).observe(result => {
+                expect(getDataByKeyContainFunc).toCalledWith([
+                    sinon_1.match.string,
+                    2,
+                    0,
+                    sinon_1.match.any
+                ]);
                 expect(result).toEqual([
                     {
                         account: account2,

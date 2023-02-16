@@ -124,13 +124,18 @@ export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstra
     account, appName
 )
 
-export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
-    getDataByKeyContain,
-    account
-)
+// export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
+//     getDataByKeyContain,
+//     account
+// )
 
-export let findAllPublishApps = () => Abstract.findAllPublishApps(
-    getData
+export let findAllPublishApps = (
+    limitCount,
+    skipCount,
+) => Abstract.findAllPublishApps(
+    getData,
+    limitCount,
+    skipCount,
 )
 
 
@@ -213,19 +218,28 @@ export let publishPackage = (onUploadProgressFunc,
     account,
 )
 
-export let getAllPublishPackageEntryExtensionProtocols = () => Abstract.getAllPublishPackageEntryExtensionProtocols(
+export let getAllPublishPackageEntryExtensionProtocols = (
+    limitCount,
+    skipCount,
+) => Abstract.getAllPublishPackageEntryExtensionProtocols(
     // [
     //     getPackageMarketEntryExtensionProtocolCollection,
     //     getDataFromPackageMarketEntryExtensionProtocolCollection
     // ]
-    getData
+    getData,
+    limitCount,
+    skipCount,
 )
 
 export let getAllPublishPackageInfos = (
+    limitCount,
+    skipCount,
     entryExtensionProtocolName,
     entryExtensionProtocolVersion,
 ) => Abstract.getAllPublishPackageInfos(
     getDataByKeyContain,
+    limitCount,
+    skipCount,
     entryExtensionProtocolName,
     entryExtensionProtocolVersion,
 )

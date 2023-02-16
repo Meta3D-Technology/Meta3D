@@ -61,27 +61,30 @@ export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], a
     })
 }
 
-export let findAllPublishAppsByAccount = (
-    getDataByKeyContainFunc: any,
-    account: string): Stream<Array<publishAppInfo>> => {
-    return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data: any) => {
-        if (data.length === 0) {
-            return just([])
-        }
+// export let findAllPublishAppsByAccount = (
+//     getDataByKeyContainFunc: any,
+//     account: string): Stream<Array<publishAppInfo>> => {
+//     return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data: any) => {
+//         if (data.length === 0) {
+//             return just([])
+//         }
 
-        return just(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            }
-        }))
-    })
-}
+//         return just(data.map(({ account, appName, description }) => {
+//             return {
+//                 account,
+//                 appName,
+//                 description
+//             }
+//         }))
+//     })
+// }
 
 export let findAllPublishApps = (
-    getDataFunc: any): Stream<Array<publishAppInfo>> => {
-    return fromPromise(getDataFunc("publishedapps")).flatMap((data: any) => {
+    getDataFunc: any,
+    limitCount: number,
+    skipCount: number,
+): Stream<Array<publishAppInfo>> => {
+    return fromPromise(getDataFunc("publishedapps", limitCount, skipCount)).flatMap((data: any) => {
         if (data.length === 0) {
             return just([])
         }

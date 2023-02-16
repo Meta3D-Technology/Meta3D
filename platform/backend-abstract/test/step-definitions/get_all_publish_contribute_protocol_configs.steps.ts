@@ -1,79 +1,106 @@
-// import { loadFeature, defineFeature } from "jest-cucumber"
-// import { createSandbox } from "sinon";
-// import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-// import { getAllPublishProtocolConfigData } from "../../src/application_layer/market/MarketService"
-// import { getDataFromMarketProtocolCollection } from "backend-cloudbase/src/application_layer/BackendService";
+import { loadFeature, defineFeature } from "jest-cucumber"
+import { createSandbox } from "sinon";
+import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
+import { getAllPublishProtocolConfigData } from "../../src/application_layer/market/MarketService"
+import { getDataFromMarketProtocolCollection } from "backend-cloudbase/src/application_layer/BackendService";
 
-// const feature = loadFeature("./test/features/get_all_publish_contribute_protocol_configs.feature")
+const feature = loadFeature("./test/features/get_all_publish_contribute_protocol_configs.feature")
 
-// defineFeature(feature, test => {
-//     let sandbox = null
-//     let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
+defineFeature(feature, test => {
+    let sandbox = null
+    let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
-//     function _createFuncs(sandbox) {
-//         getMarketProtocolCollectionFunc = sandbox.stub()
-//         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
-//     }
+    function _createFuncs(sandbox) {
+        // getMarketProtocolCollectionFunc = sandbox.stub()
+        getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
+    }
 
-//     function _getAllPublishContributeProtocolConfigs() {
-//         return getAllPublishProtocolConfigData(
-//             [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
-//             "publishedcontributeprotocolconfigs"
-//         )
-//     }
+    function _getAllPublishContributeProtocolConfigs(
+        limitCount, skipCount
+    ) {
+        return getAllPublishProtocolConfigData(
+            [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
+            "publishedcontributeprotocolconfigs",
+            limitCount, skipCount
+        )
+    }
 
-//     function _prepare(given) {
-//         given('prepare sandbox', () => {
-//             sandbox = createSandbox()
-//         });
-//     }
+    function _prepare(given) {
+        given('prepare sandbox', () => {
+            sandbox = createSandbox()
+        });
+    }
 
-//     test('get all publish contribute protocol configs', ({ given, when, then, and }) => {
-//         let allPublishContributeProtocolConfigs = [
-//             {
-//                 name: "a1-protocol",
-//                 account: "meta3d",
-//                 version: "0.0.1",
-//                 configStr: "b1"
-//             },
-//             {
-//                 name: "a2-protocol",
-//                 account: "user1",
-//                 version: "0.0.2",
-//                 configStr: "b2"
-//             },
-//         ]
+    test('get all publish contribute protocol configs', ({ given, when, then, and }) => {
+        let allPublishContributeProtocolConfigs = [
+            {
+                name: "a1-protocol",
+                account: "meta3d",
+                version: "0.0.1",
+                configStr: "b1"
+            },
+            {
+                name: "a2-protocol",
+                account: "user1",
+                version: "0.0.2",
+                configStr: "b2"
+            },
+            {
+                name: "a3-protocol",
+                account: "user2",
+                version: "0.0.3",
+                configStr: "b3"
+            },
+        ]
 
-//         _prepare(given)
+        _prepare(given)
 
-//         given('prepare funcs', () => {
-//             _createFuncs(sandbox)
+        given('prepare funcs', () => {
+            _createFuncs(sandbox)
 
-//             getMarketProtocolCollectionFunc.returns(
-//                 resolve({
-//                     data: allPublishContributeProtocolConfigs.map((protocolData, index) => {
-//                         return {
-//                             ...protocolData,
-//                             id: index.toString()
-//                         }
-//                     })
-//                 })
-//             )
-//         });
+            // getMarketProtocolCollectionFunc.returns(
+            //     resolve({
+            //         data: allPublishContributeProtocolConfigs.map((protocolData, index) => {
+            //             return {
+            //                 ...protocolData,
+            //                 id: index.toString()
+            //             }
+            //         })
+            //     })
+            // )
 
-//         and('publish contribute protocol config1', () => {
-//         });
+            getMarketProtocolCollectionFunc = (_, limitCount, skipCount) => {
+                return resolve({
+                    data: allPublishContributeProtocolConfigs
+                        .slice(skipCount, limitCount)
+                        .map((protocolData, index) => {
+                            return {
+                                ...protocolData,
+                                id: index.toString()
+                            }
+                        })
+                })
+            }
+        });
 
-//         and('publish contribute protocol config2', () => {
-//         });
+        and('publish contribute protocol config1', () => {
+        });
 
-//         when('get all publish contribute protocol configs', () => {
-//         });
+        and('publish contribute protocol config2', () => {
+        });
 
-//         then('should return correct data', () => {
-//             return _getAllPublishContributeProtocolConfigs().observe(result => {
-//                 expect(result).toEqual(allPublishContributeProtocolConfigs)
-//             })
-//         });
-//     });
-// })
+        when('get all publish contribute protocol configs', () => {
+        });
+
+        then('should return correct data', () => {
+            // return _getAllPublishContributeProtocolConfigs().observe(result => {
+            //     expect(result).toEqual(allPublishContributeProtocolConfigs)
+            // })
+
+
+            return _getAllPublishContributeProtocolConfigs(2, 1).observe(result => {
+                expect(result).toEqual([allPublishContributeProtocolConfigs[1]])
+            })
+        });
+    });
+})

@@ -94,8 +94,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         });
         when('get all publish pacakge entry extension protocols', () => {
         });
-        then('should return entry extension protocol1 and entry extension protocol2 that are not duplicate', () => {
-            return (0, PackageMarketService_1.getAllPublishPackageEntryExtensionProtocols)(getDataFunc).observe(result => {
+        then('should get by page', () => {
+        });
+        and('should return entry extension protocol1 and entry extension protocol2 that are not duplicate', () => {
+            return (0, PackageMarketService_1.getAllPublishPackageEntryExtensionProtocols)(getDataFunc, 100, 0).observe(result => {
+                expect(getDataFunc).toCalledWith([
+                    sinon_1.match.string,
+                    100,
+                    0
+                ]);
                 expect(result).toEqual([
                     {
                         account: account1,

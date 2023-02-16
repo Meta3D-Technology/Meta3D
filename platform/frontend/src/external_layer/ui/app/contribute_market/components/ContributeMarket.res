@@ -133,6 +133,15 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     )
   }
 
+  let onChangeForSecond = (page, pageSize) => {
+    setSecondPage(_ => page)
+  }
+
+  let onChangeForThird = (page, pageSize) => {
+    setThirdPage(_ => page)
+  }
+
+
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ContributeMarket"} =>
@@ -143,17 +152,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       setAllPublishContributes(_ => None)
 
       setShowType(_ => Second)
+      setSecondPage(_ => 1)
+      setThirdPage(_ => 1)
     | _ => ()
     }
   })->ignore
-
-  let onChangeForSecond = (page, pageSize) => {
-    setSecondPage(_ => page)
-  }
-
-  let onChangeForThird = (page, pageSize) => {
-    setThirdPage(_ => page)
-  }
 
   // React.useEffect1(() => {
   //   service.backend.getAllPublishContributeProtocolsCount()->Meta3dBsMost.Most.observe(count => {
@@ -461,14 +464,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           }}
     </Layout.Content>
     <Layout.Footer>
-      // {switch allPublishContributeProtocolsCount {
-      // | Some(count) =>
-      //   <Pagination
-      //     defaultCurrent={1} defaultPageSize={MarketUtils.getPageSize()} total={count} onChange
-      //   />
-      // | None => React.null
-      // }}
-
       {switch isLoaded {
       | true =>
         switch showType {

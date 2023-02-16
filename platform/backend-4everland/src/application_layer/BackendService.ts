@@ -194,6 +194,7 @@ export let getDataByKey = (collectionName: string, key: string) => {
         })
 }
 
+// TODO update
 export let getDataByKeyContain = (collectionName: string, values: Array<string>) => {
     return fromPromise(getBackend().listObjects({
         Bucket: collectionName

@@ -181,7 +181,7 @@ package assemble run test
 
 
 
-ContributeMarket
+# ContributeMarket
 
 
 
@@ -189,7 +189,7 @@ ContributeMarket
 # extract Page ui component
 
 
-PackageMarket
+# PackageMarket
 
 
 
@@ -200,8 +200,14 @@ ShowPublishedApps
 
 pass all bdd test(pass TODO)
 
+* TODO refactor record: handle > 1000
+
+ExtensionsUtils, ...
 
 * TODO refactor: refactor Market: extract Second, Third
+
+
+* TODO fix: enter second->jump to 2->enter third: current should be 1! 
 
 
 * TODO fix: package with all except ui controls not work in element->run

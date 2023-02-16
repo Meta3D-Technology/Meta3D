@@ -1,4 +1,4 @@
-import { fromPromise, just, Stream } from "most"
+import { fromPromise, just, skip, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { removeDuplicateItemsWithBuildKeyFunc } from "../../utils/ArrayUtils"
 // import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
@@ -7,7 +7,9 @@ import { packageImplementInfos } from "./PackageMarketType"
 
 export let getAllPublishPackageEntryExtensionProtocols = (
     // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
-    getDataFunc: any
+    getDataFunc: any,
+    limitCount: number,
+    skipCount: number
 ): Stream<protocols> => {
     // return fromPromise(getPackageMarketEntryExtensionProtocolCollectionFunc()).map((res: any) => {
     //     let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
@@ -22,7 +24,7 @@ export let getAllPublishPackageEntryExtensionProtocols = (
     //     })
     // })
 
-    return fromPromise(getDataFunc("publishedpackages")).map((data: any) => {
+    return fromPromise(getDataFunc("publishedpackages", limitCount, skipCount)).map((data: any) => {
         // let resData = getDataFromPackageMarketEntryExtensionProtocolCollection(res)
 
         return removeDuplicateItemsWithBuildKeyFunc(data.map(({
@@ -67,12 +69,16 @@ export let getAllPublishPackageEntryExtensionProtocols = (
 
 export let getAllPublishPackageInfos = (
     getDataByKeyContainFunc: any,
+    limitCount: number,
+    skipCount: number,
     entryExtensionProtocolName: string,
     entryExtensionProtocolVersion: string,
 ): Stream<packageImplementInfos> => {
     return getDataByKeyContainFunc(
         "publishedpackages",
         // buildPartialKeyByEntryProcoltolData(entryExtensionProtocolName, entryExtensionProtocolVersion)
+        limitCount,
+        skipCount,
         [
             entryExtensionProtocolName, entryExtensionProtocolVersion
         ]

@@ -94,13 +94,14 @@ export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstra
     account, appName
 )
 
-export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
-    getDataByKeyContain,
-    account
-)
+// export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
+//     getDataByKeyContain,
+//     account
+// )
 
-export let findAllPublishApps = () => Abstract.findAllPublishApps(
-    getData
+export let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(
+    getData,
+    limitCount, skipCount
 )
 
 function _throwError(msg: string): never {

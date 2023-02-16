@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
+exports.findAllPublishApps = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
 const most_1 = require("most");
 let _buildFileName = (appName, account) => account + "_" + appName;
 exports._buildKey = _buildFileName;
@@ -43,23 +43,24 @@ let findPublishApp = ([getDataByKeyFunc, downloadFileFunc], account, appName) =>
     });
 };
 exports.findPublishApp = findPublishApp;
-let findAllPublishAppsByAccount = (getDataByKeyContainFunc, account) => {
-    return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data) => {
-        if (data.length === 0) {
-            return (0, most_1.just)([]);
-        }
-        return (0, most_1.just)(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            };
-        }));
-    });
-};
-exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
-let findAllPublishApps = (getDataFunc) => {
-    return (0, most_1.fromPromise)(getDataFunc("publishedapps")).flatMap((data) => {
+// export let findAllPublishAppsByAccount = (
+//     getDataByKeyContainFunc: any,
+//     account: string): Stream<Array<publishAppInfo>> => {
+//     return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data: any) => {
+//         if (data.length === 0) {
+//             return just([])
+//         }
+//         return just(data.map(({ account, appName, description }) => {
+//             return {
+//                 account,
+//                 appName,
+//                 description
+//             }
+//         }))
+//     })
+// }
+let findAllPublishApps = (getDataFunc, limitCount, skipCount) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedapps", limitCount, skipCount)).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }

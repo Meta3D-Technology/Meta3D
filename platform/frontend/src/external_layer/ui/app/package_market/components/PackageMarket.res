@@ -1,6 +1,10 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
+type showType =
+  | Second
+  | Third
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
@@ -17,6 +21,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   //     allPublishPackageProtocolConfigs,
   //     setAllPublishPackageProtocolConfigs,
   //   ) = React.useState(_ => [])
+  let (showType, setShowType) = React.useState(_ => Second)
+  let (secondPage, setSecondPage) = React.useState(_ => 1)
+  let (thirdPage, setThirdPage) = React.useState(_ => 1)
   let (
     packageEntryExtensionProtocolItem,
     setPackageEntryExtensionProtocolItem,
@@ -96,6 +103,39 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     j`${packageName}_${packageVersion}`
   }
 
+  let _getAllPublishPackageEntryExtensionProtocolsCount = allPublishPackageEntryExtensionProtocols => {
+    allPublishPackageEntryExtensionProtocols
+    ->_groupAllPublishPackageEntryExtensionProtocols
+    ->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getAllPublishPackagesCount = allPublishPackages => {
+    allPublishPackages->_groupAllPublishPackages->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getCurrentPageOfAllPublishPackageEntryExtensionProtocols = (
+    groupedAllPublishPackageEntryExtensionProtocols,
+    page,
+    pageSize,
+  ) => {
+    groupedAllPublishPackageEntryExtensionProtocols->Meta3dCommonlib.ArraySt.slice(
+      (page - 1) * pageSize,
+      page * pageSize,
+    )
+  }
+
+  let _getCurrentPageOfAllPublishPackages = (groupedAllPublishPackages, page, pageSize) => {
+    groupedAllPublishPackages->Meta3dCommonlib.ArraySt.slice((page - 1) * pageSize, page * pageSize)
+  }
+
+  let onChangeForSecond = (page, pageSize) => {
+    setSecondPage(_ => page)
+  }
+
+  let onChangeForThird = (page, pageSize) => {
+    setThirdPage(_ => page)
+  }
+
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"PackageMarket"} =>
@@ -106,13 +146,16 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
       setPackageEntryExtensionProtocolItem(_ => None)
       setAllPublishPackages(_ => None)
+
+      setShowType(_ => Second)
+      setSecondPage(_ => 1)
+      setThirdPage(_ => 1)
     | _ => ()
     }
   })->ignore
 
   React.useEffect1(() => {
-    // TODO handle
-    service.backend.getAllPublishPackageEntryExtensionProtocols(10, 10)
+    service.backend.getAllPublishPackageEntryExtensionProtocols(MarketUtils.getLimitCount(), 0)
     // ->Meta3dBsMost.Most.flatMap(protocols => {
     //   service.backend.getAllPublishPackageProtocolConfigs()->Meta3dBsMost.Most.map(
     //     protocolConfigs => {
@@ -176,7 +219,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     : React.null}
                   <List
                     itemLayout=#horizontal
-                    dataSource={allPublishPackages->_groupAllPublishPackages}
+                    dataSource={_getCurrentPageOfAllPublishPackages(
+                      allPublishPackages->_groupAllPublishPackages,
+                      thirdPage,
+                      MarketUtils.getPageSize(),
+                    )}
                     renderItem={(
                       items: array<FrontendUtils.BackendCloudbaseType.packageImplementInfo>,
                     ) => {
@@ -349,8 +396,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               | None =>
                 setIsLoaded(_ => false)
 
-                // TODO handle
-                service.backend.getAllPublishPackageInfos(. item.name, item.version)
+                service.backend.getAllPublishPackageInfos(.
+                  MarketUtils.getLimitCount(),
+                  0,
+                  item.name,
+                  item.version,
+                )
                 ->Meta3dBsMost.Most.observe(data => {
                   setAllPublishPackages(_ => data->Some)
                   setIsLoaded(_ => true)
@@ -370,7 +421,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             | None =>
               <List
                 itemLayout=#horizontal
-                dataSource={allPublishPackageEntryExtensionProtocols->_groupAllPublishPackageEntryExtensionProtocols}
+                dataSource={_getCurrentPageOfAllPublishPackageEntryExtensionProtocols(
+                  allPublishPackageEntryExtensionProtocols->_groupAllPublishPackageEntryExtensionProtocols,
+                  secondPage,
+                  MarketUtils.getPageSize(),
+                )}
                 renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                   let firstItem =
                     items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
@@ -394,6 +449,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       title={<Typography.Title
                         level=3
                         onClick={_ => {
+                          setShowType(_ => Third)
+
                           setPackageEntryExtensionProtocolItem(_ => item->Some)
                         }}>
                         {React.string(item.displayName)}
@@ -423,5 +480,33 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             }
           }}
     </Layout.Content>
+    <Layout.Footer>
+      {switch isLoaded {
+      | true =>
+        switch showType {
+        | Second =>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={MarketUtils.getPageSize()}
+            total={_getAllPublishPackageEntryExtensionProtocolsCount(
+              allPublishPackageEntryExtensionProtocols,
+            )}
+            onChange=onChangeForSecond
+          />
+        | Third =>
+          switch allPublishPackages {
+          | Some(allPublishPackages) =>
+            <Pagination
+              defaultCurrent={1}
+              defaultPageSize={MarketUtils.getPageSize()}
+              total={_getAllPublishPackagesCount(allPublishPackages)}
+              onChange=onChangeForThird
+            />
+          | None => React.null
+          }
+        }
+      | false => React.null
+      }}
+    </Layout.Footer>
   </Layout>
 }
