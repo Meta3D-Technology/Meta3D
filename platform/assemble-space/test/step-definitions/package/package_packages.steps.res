@@ -20,8 +20,34 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."show packages list", ({given, \"when", \"and", then}) => {
+  test(."show packages list exclude selected packages", ({given, \"when", \"and", then}) => {
+    let package1Name = "p1"
+    let package2Name = "p2"
+    let useSelectorStub = ref(Obj.magic(1))
+
     _prepare(given)
+
+    given(
+      "prepare selected packages from market",
+      () => {
+        selectedPackagesFromMarket :=
+          list{
+            PackageTool.buildSelectedPackage(~name=package1Name, ()),
+            PackageTool.buildSelectedPackage(~name=package2Name, ()),
+          }
+      },
+    )
+
+    \"and"(
+      "prepare selected packages",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            list{PackageSelectedPackagesTool.buildSelectedPackage(~name=package1Name, ())},
+            _,
+          )
+      },
+    )
 
     \"when"(
       "render",
@@ -31,12 +57,16 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should show packages list",
+      "should show packages list exclude selected packages",
       () => {
         PackagePackagesTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ()),
-          ~selectedPackagesFromMarket=list{PackageTool.buildSelectedPackage()},
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=useSelectorStub.contents->Obj.magic,
+            (),
+          ),
+          ~selectedPackagesFromMarket=selectedPackagesFromMarket.contents,
           (),
         )
         ->ReactTestRenderer.create
@@ -64,7 +94,7 @@ defineFeature(feature, test => {
     // )
 
     given(
-      "select package a1",
+      "select package a1 from market",
       () => {
         selectedPackagesFromMarket :=
           list{

@@ -61,11 +61,19 @@ merge to master
 
 
 
-** TODO 2.16 notice 
 
 
 
 ** TODO do again with others(in canary)
+
+
+content:
+build engine demo
+
+build engine package
+download and use to render a triangle
+
+
 
 task:
 publish all(except ui) to platform(production): imgui webgpu renderer, ui control, pipeline, render, whole, run engine
@@ -74,6 +82,8 @@ publish all(except ui) to platform(production): imgui webgpu renderer, ui contro
 # change triangle to cube
 
 
+
+** TODO update doc to add build and download and use engine package!
 
 
 ** TODO can render a triangle by webgpu+cs in run element 
@@ -101,15 +111,32 @@ change color to blue
 
 
 # * TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
-* TODO feat: assemble-space: if select, should disappear
+* DONE feat: assemble-space: if select, should disappear
+
+extensions
+
+contributes
+
+packages
+
+package assemble run test
 
 
-* TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
 
-* TODO update doc to select all
+* TODO notice 周六
+
+* TODO feat: assemble-space: support cancel select(move to first TODO for new)
+* TODO feat: should check login before select from market(move to first TODO for new)
 
 
-* TODO feat: should check login before select from market
+# * TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
+
+# * TODO update doc to select all
+
+* TODO update doc: 选中一次:删除一次
+
+
+
 
 
 * TODO fix: package with all except ui controls not work in element->run

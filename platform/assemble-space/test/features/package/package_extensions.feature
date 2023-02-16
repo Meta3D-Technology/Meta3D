@@ -16,23 +16,23 @@ Feature: PackageExtensions
 
     # Scenario: set extensions
     #     Given publish extension protocol a
-    #     And select extension a1 for a
+    #     And select extension a1 for a from market
     #     When render after useEffectOnceAsync
     #     Then should mark loaded
     #     And should set a's name and icon and a1
 
     Rule: set extensions
 
-        Scenario: set extensions when select one extension
+        Scenario: set extensions when select one extension from market
             Given publish extension protocol a
-            And select extension a1 for a
+            And select extension a1 for a from market
             When render after useEffectOnceAsync
             Then should mark loaded
             And should set a's icon, config str and a1's displayName as extensions
 
-        Scenario: set extensions when select two extensions of the same protocol
+        Scenario: set extensions when select two extensions of the same protocol from market
             Given publish extension protocol a
-            And select extension a1, a2 for a
+            And select extension a1, a2 for a from market
             When render after useEffectOnceAsync
             Then should mark loaded
             And extensions should contain a1 and a2
@@ -40,7 +40,7 @@ Feature: PackageExtensions
 
         Scenario: select extension
             Given publish extension protocol a
-            And select extension a1 for a
+            And select extension a1 for a from market
             And render after useEffectOnceAsync
             When select a1
             Then should dispatch SelectExtension action
@@ -49,7 +49,7 @@ Feature: PackageExtensions
 
         Scenario: has zero implement of extension protocol
             Given publish extension protocol a
-            And select extension b1 for protocol b
+            And select extension b1 for protocol b from market
             When render after useEffectOnceAsync
             Then should set empty
 
@@ -61,6 +61,6 @@ Feature: PackageExtensions
 
         Scenario: extension's version not match
             Given publish extension protocol a
-            And select extension a1 for a with old version
+            And select extension a1 for a from market with old version
             When render after useEffectOnceAsync
             Then should set empty

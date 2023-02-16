@@ -142,7 +142,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       useRef: value => {
         React.useRef(value->Obj.magic)
       },
-      useSelector: func => {
+      useSelector: (. func) => {
         AppStore.useSelector(({assembleSpaceState}: AppStore.state) => {
           func(assembleSpaceState)
         })

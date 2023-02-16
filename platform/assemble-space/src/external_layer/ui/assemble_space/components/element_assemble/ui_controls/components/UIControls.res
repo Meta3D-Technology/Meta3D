@@ -88,7 +88,7 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (selectedContributes, selectedUIControls, parentUIControlId) = service.react.useSelector(
+  let (selectedContributes, selectedUIControls, parentUIControlId) = service.react.useSelector(. 
     Method.useSelector,
   )
 

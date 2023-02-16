@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PackagePackages show packages list 1`] = `
+exports[`PackagePackages show packages list exclude selected packages 1`] = `
 <div
   className="ant-list ant-list-split ant-list-grid"
 >
@@ -97,7 +97,7 @@ exports[`PackagePackages show packages list 1`] = `
                             }
                           }
                         >
-                          p1
+                          p2
                         </span>
                       </div>
                     </div>

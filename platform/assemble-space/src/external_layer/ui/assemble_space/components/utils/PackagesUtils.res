@@ -2,10 +2,22 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
+module Method = {
+  let getDifferenceSet = (
+    packages: array<FrontendUtils.AssembleSpaceCommonType.packageData>,
+    selectedPackageNames,
+  ) => {
+    packages->Meta3dCommonlib.ArraySt.filter(({name}) => {
+      !(selectedPackageNames->Meta3dCommonlib.ListSt.includes(name))
+    })
+  }
+}
+
 @react.component
 let make = (
   ~service: service,
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
+  ~selectedPackageNames,
   ~useDispatch,
   ~selectPackage,
 ) => {
@@ -13,7 +25,9 @@ let make = (
 
   <List
     grid={{gutter: 16, column: 3}}
-    dataSource={selectedPackagesFromMarket->Meta3dCommonlib.ListSt.toArray}
+    dataSource={selectedPackagesFromMarket
+    ->Meta3dCommonlib.ListSt.toArray
+    ->Method.getDifferenceSet(selectedPackageNames)}
     renderItem={({protocol, name} as package) => {
       <List.Item>
         <Card

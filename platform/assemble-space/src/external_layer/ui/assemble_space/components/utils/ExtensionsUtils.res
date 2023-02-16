@@ -52,7 +52,7 @@ module Method = {
           [],
         )
         ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
-          name,
+          displayName,
           _,
           _,
           _,
@@ -60,7 +60,7 @@ module Method = {
           _,
           _,
         )) => {
-          name
+          displayName
         })
       },
       // protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
@@ -70,6 +70,24 @@ module Method = {
 
       _,
     )
+  }
+
+  let getDifferenceSet = (extensions, selectedExtensionNames) => {
+    extensions->Meta3dCommonlib.ArraySt.filter(((
+      displayName,
+      _,
+      _,
+      _,
+      _,
+      _,
+      extension: FrontendUtils.AssembleSpaceCommonType.extension,
+    )) => {
+      !(
+        selectedExtensionNames->Meta3dCommonlib.ListSt.includes(
+          extension.data.extensionPackageData.name,
+        )
+      )
+    })
   }
 
   let useEffectOnceAsync = (
@@ -83,6 +101,7 @@ module Method = {
         selectedExtensionsFromMarket,
       )->Meta3dBsMost.Most.observe(extensions => {
         setIsLoaded(_ => true)
+
         setExtensions(_ => extensions)
       }, _),
       None,
@@ -94,6 +113,7 @@ module Method = {
 let make = (
   ~service: service,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+  ~selectedExtensionNames,
   ~useDispatch,
   ~selectExtension,
 ) => {
@@ -101,6 +121,8 @@ let make = (
 
   let (isLoaded, setIsLoaded) = service.react.useState(_ => false)
   let (extensions, setExtensions) = service.react.useState(_ => [])
+
+  // let showedExtensions = service.react.useSelector(. Method.useSelector)
 
   service.react.useEffectOnceAsync(() =>
     Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromMarket)
@@ -110,32 +132,32 @@ let make = (
     ? <p> {React.string(`loading...`)} </p>
     : <List
         grid={{gutter: 16, column: 3}}
-        dataSource={extensions}
+        dataSource={extensions->Method.getDifferenceSet(selectedExtensionNames)}
         renderItem={((
-          name,
-          iconBase64,
           displayName,
-          repoLink,
-          description,
+          protocolIconBase64,
+          protocolDisplayName,
+          protocolRepoLink,
+          protocolDescription,
           configStr,
           extension,
         )) => {
           <List.Item>
             <Card
-              key={name}
+              key={displayName}
               onClick={_ => {
                 selectExtension(
                   dispatch,
-                  iconBase64,
-                  displayName,
-                  repoLink,
-                  description,
+                  protocolIconBase64,
+                  protocolDisplayName,
+                  protocolRepoLink,
+                  protocolDescription,
                   configStr,
                   extension,
                 )
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-              cover={<Image preview=false src={iconBase64} width=50 height=50 />}>
+              cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
               <Card.Meta
                 title={<span
                   style={ReactDOM.Style.make(
@@ -144,7 +166,7 @@ let make = (
                     ~wordBreak="break-all",
                     (),
                   )}>
-                  {React.string(name)}
+                  {React.string(displayName)}
                 </span>}
               />
             </Card>

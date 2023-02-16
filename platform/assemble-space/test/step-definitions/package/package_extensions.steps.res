@@ -95,7 +95,7 @@ defineFeature(feature, test => {
     }, _)
   }
 
-  test(."set extensions when select one extension", ({given, \"when", \"and", then}) => {
+  test(."set extensions when select one extension from market", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
       ~name="a",
       ~version="1.0.1",
@@ -114,7 +114,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a",
+      "select extension a1 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -187,7 +187,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."set extensions when select two extensions of the same protocol", ({
+  test(."set extensions when select two extensions of the same protocol from market", ({
     given,
     \"when",
     \"and",
@@ -212,7 +212,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1, a2 for a",
+      "select extension a1, a2 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -324,7 +324,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a",
+      "select extension a1 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -404,7 +404,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension b1 for protocol b",
+      "select extension b1 for protocol b from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -491,7 +491,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a with old version",
+      "select extension a1 for a from market with old version",
       () => {
         selectedExtensionsFromMarket :=
           list{

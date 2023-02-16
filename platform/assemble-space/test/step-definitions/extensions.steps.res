@@ -40,30 +40,95 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."if loaded, show extensions list", ({given, \"when", \"and", then}) => {
+  test(."if loaded, show extensions list exclude selected extensions", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let extension1Name = "e1"
+    let extension2Name = "e2"
+    let useStateStub = ref(Obj.magic(1))
+    let useSelectorStub = ref(Obj.magic(1))
+
     _prepare(given)
+
+    given(
+      "prepare extensions",
+      () => {
+        useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        useStateStub.contents
+        ->onCall(1, _)
+        ->returns(
+          (
+            [
+              (
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                ExtensionTool.buildSelectedExtension(
+                  ~name=extension1Name,
+                  ~protocolName=Obj.magic(1),
+                  ~protocolVersion=Obj.magic(1),
+                  (),
+                )->ExtensionTool.getExtension,
+              ),
+              (
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                Obj.magic(1),
+                ExtensionTool.buildSelectedExtension(
+                  ~name=extension2Name,
+                  ~protocolName=Obj.magic(1),
+                  ~protocolVersion=Obj.magic(1),
+                  (),
+                )->ExtensionTool.getExtension,
+              ),
+            ],
+            _ => [],
+          ),
+          _,
+        )
+        ->ignore
+      },
+    )
+
+    \"and"(
+      "prepare selected extensions",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            list{SelectedExtensionsTool.buildSelectedExtension(~name=extension1Name, ())},
+            _,
+          )
+      },
+    )
 
     \"when"(
       "loaded and render",
       () => {
-        ()
+        useStateStub.contents->onCall(0, _)->returns((true, _ => true), _)->ignore
       },
     )
 
     then(
-      "should show extensions list",
+      "should show extensions list exclude selected extensions",
       () => {
-        let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-        useStateStub
-        ->onCall(0, _)
-        ->returns((true, _ => true), _)
-        ->onCall(1, _)
-        ->returns(([], _ => []), _)
-        ->ignore
-
         ExtensionsTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useState=useStateStub->Obj.magic, ()),
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useState=useStateStub.contents->Obj.magic,
+            ~useSelector=useSelectorStub.contents->Obj.magic,
+            (),
+          ),
           (),
         )
         ->ReactTestRenderer.create
@@ -95,7 +160,12 @@ defineFeature(feature, test => {
     }, _)
   }
 
-  test(."set extensions when select one extension", ({given, \"when", \"and", then}) => {
+  test(."set extensions when select one extension from market", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
       ~name="a",
       ~version="1.0.1",
@@ -114,7 +184,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a",
+      "select extension a1 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -186,7 +256,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."set extensions when select two extensions of the same protocol", ({
+  test(."set extensions when select two extensions of the same protocol from market", ({
     given,
     \"when",
     \"and",
@@ -211,7 +281,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1, a2 for a",
+      "select extension a1, a2 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -302,7 +372,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."set extensions when select one extension of the protocol with low version", ({
+  test(."set extensions when select one extension from market of the protocol with low version", ({
     given,
     \"when",
     \"and",
@@ -336,7 +406,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a of low version",
+      "select extension a1 for a from market of low version",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -414,6 +484,66 @@ defineFeature(feature, test => {
     )
   })
 
+  // test(."set extensions exclude selected extensions", ({given, \"when", \"and", then}) => {
+  //   let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+  //     ~name="a",
+  //     ~version="1.0.1",
+  //     (),
+  //   )
+  //   let a1Name = "a1"
+  //   // let a1DisplayName = "a1"
+  //   let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+  //   _prepare(given)
+
+  //   given(
+  //     "publish extension protocol a",
+  //     () => {
+  //       allPublishExtensionProtocols := [a]
+  //     },
+  //   )
+
+  //   \"and"(
+  //     "select extension a1 for a from market",
+  //     () => {
+  //       selectedExtensionsFromMarket :=
+  //         list{
+  //           ExtensionTool.buildSelectedExtension(
+  //             // ~displayName=a1DisplayName,
+  //             ~name=a1Name,
+  //             ~protocolName=a.name,
+  //             // ~protocolVersionRange=">= 1.0.0",
+  //             ~protocolVersion=a.version,
+  //             ~protocolConfig=protocolConfig->Some,
+  //             (),
+  //           ),
+  //         }
+  //     },
+  //   )
+
+  //   \"and"(
+  //     "select extension a1 for a",
+  //     () => {
+  //       selectedExtensions := list{SelectedExtensionsTool.buildSelectedExtension(~name=a1Name, ())}
+  //     },
+  //   )
+
+  //   \"when"(
+  //     "render after useEffectOnceAsync",
+  //     () => {
+  //       ()
+  //     },
+  //   )
+
+  //   CucumberAsync.execStep(
+  //     \"and",
+  //     "extensions should has only be empty",
+  //     () => {
+  //       _setExtensions([])
+  //     },
+  //   )
+  // })
+
   test(."select extension", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
       ~name="a",
@@ -432,7 +562,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a",
+      "select extension a1 for a from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -506,7 +636,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension b1 for protocol b",
+      "select extension b1 for protocol b from market",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -594,7 +724,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a with old version",
+      "select extension a1 for a from market with old version",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -659,7 +789,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a with low versionRange but high version",
+      "select extension a1 for a from market with low versionRange but high version",
       () => {
         selectedExtensionsFromMarket :=
           list{

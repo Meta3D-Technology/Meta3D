@@ -93,7 +93,7 @@ let make = (~service: service) => {
   let (
     (canvasData, apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
     (runVisualExtension, elementContribute),
-  ) = service.react.useSelector(Method.useSelector)
+  ) = service.react.useSelector(. Method.useSelector)
 
   service.react.useEffect1(. () => {
     switch runVisualExtension {

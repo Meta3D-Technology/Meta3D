@@ -101,7 +101,7 @@ let make = (~service: service) => {
   let (
     selectedContributes,
     (isShowElementInspector, elementInspectorData),
-  ) = service.react.useSelector(Method.useSelector)
+  ) = service.react.useSelector(. Method.useSelector)
 
   let protocolConfigActions = Method.getProtocolConfigActions(service, selectedContributes)
 

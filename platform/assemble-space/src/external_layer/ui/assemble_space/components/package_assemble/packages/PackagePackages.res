@@ -6,6 +6,10 @@ module Method = {
   let selectPackage = (dispatch, package) => {
     dispatch(FrontendUtils.PackageAssembleStoreType.SelectPackage(package))
   }
+
+  let useSelector = ({selectedPackages}: FrontendUtils.PackageAssembleStoreType.state) => {
+    selectedPackages
+  }
 }
 
 @react.component
@@ -13,6 +17,10 @@ let make = (~service: service, ~selectedPackagesFromMarket: selectedPackagesFrom
   <PackagesUtils
     service
     selectedPackagesFromMarket
+    selectedPackageNames={ReduxUtils.PackageAssemble.useSelector(
+      service.react.useSelector,
+      Method.useSelector,
+    )->Meta3dCommonlib.ListSt.map(({name}) => name)}
     useDispatch=ReduxUtils.PackageAssemble.useDispatch
     selectPackage=Method.selectPackage
   />

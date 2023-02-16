@@ -170,7 +170,7 @@ let make = (~service: service, ~account: option<string>) => {
     selectedContributes,
     canvasData,
     apInspectorData,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = ReduxUtils.ApAssemble.useSelector( service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 

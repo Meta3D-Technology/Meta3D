@@ -10,7 +10,7 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let {width, height} = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  let {width, height} = ReduxUtils.ApAssemble.useSelector( service.react.useSelector, Method.useSelector)
 
   <>
     <canvas

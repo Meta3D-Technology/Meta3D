@@ -20,6 +20,10 @@ module Method = {
       ),
     )
   }
+
+  let useSelector = ({selectedExtensions}: FrontendUtils.ApAssembleStoreType.state) => {
+    selectedExtensions
+  }
 }
 
 @react.component
@@ -27,6 +31,10 @@ let make = (~service: service, ~selectedExtensionsFromMarket: selectedExtensions
   <ExtensionsUtils
     service
     selectedExtensionsFromMarket
+    selectedExtensionNames={ReduxUtils.ApAssemble.useSelector(
+      service.react.useSelector,
+      Method.useSelector,
+    )->Meta3dCommonlib.ListSt.map(({data}) => data.extensionPackageData.name)}
     useDispatch=ReduxUtils.ApAssemble.useDispatch
     selectExtension=Method.selectExtension
   />

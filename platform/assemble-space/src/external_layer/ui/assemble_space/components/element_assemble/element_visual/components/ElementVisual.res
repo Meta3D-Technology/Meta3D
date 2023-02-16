@@ -440,7 +440,7 @@ let make = (~service: service, ~account: option<string>) => {
       elementContribute,
       elementInspectorData,
     ),
-  ) = service.react.useSelector(Method.useSelector)
+  ) = service.react.useSelector(. Method.useSelector)
 
   let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
   let loopFrameID = service.react.useRef(None)

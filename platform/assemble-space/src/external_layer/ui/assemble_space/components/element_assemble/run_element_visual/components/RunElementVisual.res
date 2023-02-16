@@ -101,7 +101,7 @@ module Method = {
 let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
   // let url = service.url.useUrl()
 
-  // let (canvasData, apInspectorData) = service.react.useSelector(Method.useSelector)
+  // let (canvasData, apInspectorData) = service.react.useSelector(. Method.useSelector)
 
   let loopFrameID = service.react.useRef(None)
 

@@ -356,7 +356,7 @@ let make = (~service: service) => {
       selectedUIControls,
       selectedUIControlInspectorData,
     ),
-  ) = service.react.useSelector(Method.useSelector)
+  ) = service.react.useSelector(. Method.useSelector)
 
   let {elementStateFields} = elementInspectorData
 

@@ -8,7 +8,7 @@ module ApAssemble = {
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
-    useSelectorForAssembleSpaceStore((
+    useSelectorForAssembleSpaceStore(.(
       {apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
     ) => {
       func(apAssembleState)
@@ -26,7 +26,7 @@ module ElementAssemble = {
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
-    useSelectorForAssembleSpaceStore((
+    useSelectorForAssembleSpaceStore(.(
       {elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
     ) => {
       func(elementAssembleState)
@@ -44,7 +44,7 @@ module PackageAssemble = {
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
-    useSelectorForAssembleSpaceStore((
+    useSelectorForAssembleSpaceStore(.(
       {packageAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
     ) => {
       func(packageAssembleState)

@@ -38,14 +38,34 @@ module Method = {
           },
           [],
         )
-        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (name, _, _, _)) => {
-          name
+        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
+          displayName,
+          _,
+          _,
+          _,
+        )) => {
+          displayName
         })
       },
       // | list{(contribute, protocolConfig)} =>
 
       _,
     )
+  }
+
+  let getDifferenceSet = (contributes, selectedContributeNames) => {
+    contributes->Meta3dCommonlib.ArraySt.filter(((
+      displayName,
+      _,
+      _,
+      contribute: FrontendUtils.AssembleSpaceCommonType.contribute,
+    )) => {
+      !(
+        selectedContributeNames->Meta3dCommonlib.ListSt.includes(
+          contribute.data.contributePackageData.name,
+        )
+      )
+    })
   }
 
   let useEffectOnceAsync = (
@@ -70,6 +90,7 @@ module Method = {
 let make = (
   ~service: service,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
+  ~selectedContributeNames,
   ~useDispatch,
   ~selectContribute,
 ) => {
@@ -86,16 +107,16 @@ let make = (
     ? <p> {React.string(`loading...`)} </p>
     : <List
         grid={{gutter: 16, column: 3}}
-        dataSource={contributes}
-        renderItem={((name, iconBase64, configStr, contribute)) => {
+        dataSource={contributes->Method.getDifferenceSet(selectedContributeNames)}
+        renderItem={((displayName, protocolIconBase64, protocolConfigStr, contribute)) => {
           <List.Item>
             <Card
-              key={name}
+              key={displayName}
               onClick={_ => {
-                selectContribute(dispatch, iconBase64, configStr, contribute)
+                selectContribute(dispatch, protocolIconBase64, protocolConfigStr, contribute)
               }}
               bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-              cover={<Image preview=false src={iconBase64} width=50 height=50 />}>
+              cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
               <Card.Meta
                 title={<span
                   style={ReactDOM.Style.make(
@@ -104,7 +125,7 @@ let make = (
                     ~wordBreak="break-all",
                     (),
                   )}>
-                  {React.string(name)}
+                  {React.string(displayName)}
                 </span>}
               />
             </Card>

@@ -12,6 +12,10 @@ module Method = {
       ),
     )
   }
+
+  let useSelector = ({selectedContributes}: FrontendUtils.ApAssembleStoreType.state) => {
+    selectedContributes
+  }
 }
 
 @react.component
@@ -19,6 +23,10 @@ let make = (~service: service, ~selectedContributesFromMarket: selectedContribut
   <ContributesUtils
     service
     selectedContributesFromMarket
+    selectedContributeNames={ReduxUtils.ApAssemble.useSelector(
+      service.react.useSelector,
+      Method.useSelector,
+    )->Meta3dCommonlib.ListSt.map(({data}) => data.contributePackageData.name)}
     useDispatch=ReduxUtils.ApAssemble.useDispatch
     selectContribute=Method.selectContribute
   />
