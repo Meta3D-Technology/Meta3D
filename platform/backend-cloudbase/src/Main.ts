@@ -4,7 +4,10 @@ import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
 import {
     init as initCloud,
     checkUserName as checkUserNameCloud,
-    handleLoginForWeb3 as handleLoginForWeb3Cloud, getMarketProtocolCollection, getDataFromMarketProtocolCollection, getMarketImplementCollection,
+    handleLoginForWeb3 as handleLoginForWeb3Cloud, getMarketProtocolCollection,
+    getMarketProtocolCollectionCount,
+    getDataFromMarketProtocolCollection,
+    getMarketImplementCollection,
     registerUser as registerUserCloud,
     mapMarketImplementCollection,
     getAccountFromMarketImplementCollectionData,
@@ -39,29 +42,40 @@ export let registerUser = (account) => Abstract.registerUser(registerUserCloud, 
 
 export let isLoginSuccess = (account) => Abstract.isLoginSuccess(hasData, account)
 
-export let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocols")
 
-export let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocols")
+export let getAllPublishExtensionProtocolsCount = () => Abstract.getAllPublishProtocolDataCount(getMarketProtocolCollectionCount, "publishedextensionprotocols")
 
-export let getAllPublishExtensionProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs")
+export let getAllPublishExtensionProtocols = (limitCount, skipCount) => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocols", limitCount, skipCount)
 
-export let getAllPublishContributeProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs")
+export let getAllPublishContributeProtocols = (limitCount, skipCount) => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocols", limitCount, skipCount)
+
+export let getAllPublishExtensionProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs", limitCount, skipCount)
+
+export let getAllPublishContributeProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs", limitCount, skipCount)
 
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 
-export let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
-    getMarketImplementCollection,
-    mapMarketImplementCollection,
-    getAccountFromMarketImplementCollectionData,
-    getFileDataFromMarketImplementCollectionData,
-], "publishedextensions", protocolName, protocolVersion)
+export let getAllPublishExtensionInfos = (
+    limitCount, skipCount,
+    protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
+        getMarketImplementCollection,
+        mapMarketImplementCollection,
+        getAccountFromMarketImplementCollectionData,
+        getFileDataFromMarketImplementCollectionData,
+    ], "publishedextensions",
+        limitCount, skipCount,
+        protocolName, protocolVersion)
 
-export let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
-    getMarketImplementCollection,
-    mapMarketImplementCollection,
-    getAccountFromMarketImplementCollectionData,
-    getFileDataFromMarketImplementCollectionData,
-], "publishedcontributes", protocolName, protocolVersion)
+export let getAllPublishContributeInfos = (
+    limitCount, skipCount,
+    protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
+        getMarketImplementCollection,
+        mapMarketImplementCollection,
+        getAccountFromMarketImplementCollectionData,
+        getFileDataFromMarketImplementCollectionData,
+    ], "publishedcontributes",
+        limitCount, skipCount,
+        protocolName, protocolVersion)
 
 export let findPublishExtension = (onDownloadProgressFunc,
     account,

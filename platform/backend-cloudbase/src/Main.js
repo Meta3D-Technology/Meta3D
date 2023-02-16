@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -15,28 +15,30 @@ let registerUser = (account) => Abstract.registerUser(BackendService_1.registerU
 exports.registerUser = registerUser;
 let isLoginSuccess = (account) => Abstract.isLoginSuccess(BackendService_1.hasData, account);
 exports.isLoginSuccess = isLoginSuccess;
-let getAllPublishExtensionProtocols = () => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedextensionprotocols");
+let getAllPublishExtensionProtocolsCount = () => Abstract.getAllPublishProtocolDataCount(BackendService_1.getMarketProtocolCollectionCount, "publishedextensionprotocols");
+exports.getAllPublishExtensionProtocolsCount = getAllPublishExtensionProtocolsCount;
+let getAllPublishExtensionProtocols = (limitCount, skipCount) => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedextensionprotocols", limitCount, skipCount);
 exports.getAllPublishExtensionProtocols = getAllPublishExtensionProtocols;
-let getAllPublishContributeProtocols = () => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedcontributeprotocols");
+let getAllPublishContributeProtocols = (limitCount, skipCount) => Abstract.getAllPublishProtocolData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedcontributeprotocols", limitCount, skipCount);
 exports.getAllPublishContributeProtocols = getAllPublishContributeProtocols;
-let getAllPublishExtensionProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs");
+let getAllPublishExtensionProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs", limitCount, skipCount);
 exports.getAllPublishExtensionProtocolConfigs = getAllPublishExtensionProtocolConfigs;
-let getAllPublishContributeProtocolConfigs = () => Abstract.getAllPublishProtocolConfigData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs");
+let getAllPublishContributeProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([BackendService_1.getMarketProtocolCollection, BackendService_1.getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs", limitCount, skipCount);
 exports.getAllPublishContributeProtocolConfigs = getAllPublishContributeProtocolConfigs;
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log;
-let getAllPublishExtensionInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
+let getAllPublishExtensionInfos = (limitCount, skipCount, protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
     BackendService_1.getFileDataFromMarketImplementCollectionData,
-], "publishedextensions", protocolName, protocolVersion);
+], "publishedextensions", limitCount, skipCount, protocolName, protocolVersion);
 exports.getAllPublishExtensionInfos = getAllPublishExtensionInfos;
-let getAllPublishContributeInfos = (protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
+let getAllPublishContributeInfos = (limitCount, skipCount, protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
     BackendService_1.getFileDataFromMarketImplementCollectionData,
-], "publishedcontributes", protocolName, protocolVersion);
+], "publishedcontributes", limitCount, skipCount, protocolName, protocolVersion);
 exports.getAllPublishContributeInfos = getAllPublishContributeInfos;
 let findPublishExtension = (onDownloadProgressFunc, account, name, version) => Abstract.findPublishImplement([
     BackendService_1.getMarketImplement,

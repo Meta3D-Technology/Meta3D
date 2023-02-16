@@ -11,7 +11,7 @@ module Method = {
 
   // TODO perf: defer load when panel change
   let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromMarket) => {
-    getAllPublishExtensionProtocols()->Meta3dBsMost.Most.map(
+    getAllPublishExtensionProtocols(10, 10)->Meta3dBsMost.Most.map(
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(

@@ -7,6 +7,7 @@ type backendService = {
   registerUser: registerUser,
   isLoginSuccess: isLoginSuccess,
   getAllPublishPackageEntryExtensionProtocols: getAllPublishPackageEntryExtensionProtocols,
+  getAllPublishExtensionProtocolsCount: getAllPublishExtensionProtocolsCount,
   getAllPublishExtensionProtocols: getAllPublishExtensionProtocols,
   getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs,
   getAllPublishPackageInfos: getAllPublishPackageInfos,

@@ -5,3 +5,8 @@ let isNotInnerProtocol = protocolName => {
   | _ => true
   }
 }
+
+// TODO change to 50
+let getPageSize = () => 10
+
+let getLimitCount = () => 1000

@@ -125,15 +125,15 @@ package assemble run test
 
 * DONE notice 周六
 
-* TODO feat: assemble-space: support cancel select(move to first TODO for new)
-* TODO feat: should check login before select from market(move to first TODO for new)
+* DONE feat: assemble-space: support cancel select(move to first TODO for new)
+* DONE feat: should check login before select from market(move to first TODO for new)
 
 
 # * TODO feat: assemble-space: add each selectAll button for extensions, contributes, pacakges
 
 # * TODO update doc to select all
 
-* TODO update doc: 选中一次:删除一次
+* DONE update doc: 选中一次:删除一次
 
 
 
@@ -142,7 +142,66 @@ package assemble run test
 * TODO add paging
 
 
-30 count per page
+50 count per page
+
+
+# ExtensionMarket
+
+# protocols
+
+# backend
+# skip
+# limit
+
+
+# run test
+
+# bdd test
+
+
+
+
+
+# add page ui
+
+# run test
+
+# ////bdd test
+
+
+
+add TODO record:
+implemenet >1000
+    orderBy version
+
+
+# implements
+
+
+
+
+
+ContributeMarket
+
+
+
+refactor:
+extract Page ui component
+
+
+PackageMarket
+
+
+
+ShowPublishedApps
+
+
+
+
+pass all bdd test(pass TODO)
+
+
+* TODO refactor: refactor Market: extract Second, Third
 
 
 * TODO fix: package with all except ui controls not work in element->run
@@ -153,3 +212,7 @@ package assemble run test
 
 
 * TODO publish v0.12.1
+
+
+* TODO update production
+

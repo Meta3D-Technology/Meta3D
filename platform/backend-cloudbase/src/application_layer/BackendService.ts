@@ -28,9 +28,11 @@ export let registerUser = (account) => BackendService.registerUser(getBackend(),
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 
-export let getMarketProtocolCollection = (collectionName) => BackendService.getMarketProtocolCollection(getBackend(), null, collectionName)
+export let getMarketProtocolCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketProtocolCollection(getBackend(), null, collectionName, limitCount, skipCount)
 
-export let getMarketImplementCollection = (collectionName) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName)
+export let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount(getBackend(), collectionName)
+
+export let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount)
 
 export let getMarketImplement = (
 	collectionName: string,

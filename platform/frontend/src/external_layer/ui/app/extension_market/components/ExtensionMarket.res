@@ -1,6 +1,10 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
+type showType =
+  | Second
+  | Third
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
@@ -9,6 +13,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
+  // let (
+  //   allPublishExtensionProtocolsCount,
+  //   setAllPublishExtensionProtocolsCount,
+  // ) = React.useState(_ => None)
+  let (showType, setShowType) = React.useState(_ => Second)
+  let (secondPage, setSecondPage) = React.useState(_ => 1)
+  let (thirdPage, setThirdPage) = React.useState(_ => 1)
   let (allPublishExtensionProtocols, setAllPublishExtensionProtocols) = React.useState(_ => [])
   let (
     allPublishExtensionProtocolConfigs,
@@ -94,6 +105,32 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     })
   }
 
+  let _getAllPublishExtensionProtocolsCount = allPublishExtensionProtocols => {
+    allPublishExtensionProtocols->_groupAllPublishExtensionProtocols->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getAllPublishExtensionsCount = allPublishExtensions => {
+    allPublishExtensions->_groupAllPublishExtensions->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getCurrentPageOfAllPublishExtensionProtocols = (
+    groupedAllPublishExtensionProtocols,
+    page,
+    pageSize,
+  ) => {
+    groupedAllPublishExtensionProtocols->Meta3dCommonlib.ArraySt.slice(
+      (page - 1) * pageSize,
+      page * pageSize,
+    )
+  }
+
+  let _getCurrentPageOfAllPublishExtensions = (groupedAllPublishExtensions, page, pageSize) => {
+    groupedAllPublishExtensions->Meta3dCommonlib.ArraySt.slice(
+      (page - 1) * pageSize,
+      page * pageSize,
+    )
+  }
+
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ExtensionMarket"} =>
@@ -102,13 +139,49 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
       setExtensionProtocolItem(_ => None)
       setAllPublishExtensions(_ => None)
+
+      setShowType(_ => Second)
     | _ => ()
     }
   })->ignore
 
+  let onChangeForSecond = (page, pageSize) => {
+    setSecondPage(_ => page)
+  }
+
+  let onChangeForThird = (page, pageSize) => {
+    setThirdPage(_ => page)
+  }
+
+  // React.useEffect1(() => {
+  //   service.backend.getAllPublishExtensionProtocolsCount()->Meta3dBsMost.Most.observe(count => {
+  //     setAllPublishExtensionProtocolsCount(_ => count->Some)
+  //     setIsLoaded(_ => true)
+  //   }, _)->Js.Promise.catch(e => {
+  //     setIsLoaded(_ => false)
+
+  //     FrontendUtils.ErrorUtils.errorWithExn(
+  //       e->FrontendUtils.Error.promiseErrorToExn,
+  //       None,
+  //     )->Obj.magic
+  //   }, _)->ignore
+
+  //   None
+  // }, [])
+
   React.useEffect1(() => {
-    service.backend.getAllPublishExtensionProtocols()->Meta3dBsMost.Most.flatMap(protocols => {
-      service.backend.getAllPublishExtensionProtocolConfigs()->Meta3dBsMost.Most.map(
+    // TODO handle count > limitCount
+    service.backend.getAllPublishExtensionProtocols(
+      // MarketUtils.getPageSize(),
+      // (page - 1) * MarketUtils.getPageSize(),
+      MarketUtils.getLimitCount(),
+      0,
+    )
+    ->Meta3dBsMost.Most.flatMap(protocols => {
+      service.backend.getAllPublishExtensionProtocolConfigs(
+        MarketUtils.getLimitCount(),
+        0,
+      )->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
@@ -123,18 +196,21 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         },
         _,
       )
-    }, _)->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
+    }, _)
+    ->Meta3dBsMost.Most.observe(((protocols, protocolConfigs)) => {
       setAllPublishExtensionProtocols(_ => protocols)
       setAllPublishExtensionProtocolConfigs(_ => protocolConfigs)
       setIsLoaded(_ => true)
-    }, _)->Js.Promise.catch(e => {
+    }, _)
+    ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
       FrontendUtils.ErrorUtils.errorWithExn(
         e->FrontendUtils.Error.promiseErrorToExn,
         None,
       )->Obj.magic
-    }, _)->ignore
+    }, _)
+    ->ignore
 
     None
   }, [])
@@ -161,7 +237,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     : React.null}
                   <List
                     itemLayout=#horizontal
-                    dataSource={allPublishExtensions->_groupAllPublishExtensions}
+                    dataSource={_getCurrentPageOfAllPublishExtensions(
+                      allPublishExtensions->_groupAllPublishExtensions,
+                      thirdPage,
+                      MarketUtils.getPageSize(),
+                    )}
                     renderItem={(items: array<FrontendUtils.FrontendType.publishExtension>) => {
                       let firstItem =
                         items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
@@ -281,7 +361,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               | None =>
                 setIsLoaded(_ => false)
 
-                service.backend.getAllPublishExtensionInfos(. item.name, item.version)
+                service.backend.getAllPublishExtensionInfos(.
+                  MarketUtils.getLimitCount(),
+                  0,
+                  item.name,
+                  item.version,
+                )
                 ->Meta3dBsMost.Most.observe(data => {
                   setAllPublishExtensions(_ =>
                     data
@@ -313,7 +398,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             | None =>
               <List
                 itemLayout=#horizontal
-                dataSource={allPublishExtensionProtocols->_groupAllPublishExtensionProtocols}
+                dataSource={_getCurrentPageOfAllPublishExtensionProtocols(
+                  allPublishExtensionProtocols->_groupAllPublishExtensionProtocols,
+                  secondPage,
+                  MarketUtils.getPageSize(),
+                )}
                 renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                   let firstItem =
                     items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
@@ -338,6 +427,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                         level=3
                         onClick={_ => {
                           // _clearSelectPublishExtensionProtocol(item.name)
+                          setShowType(_ => Third)
 
                           setExtensionProtocolItem(_ => item->Some)
                         }}>
@@ -368,5 +458,35 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             }
           }}
     </Layout.Content>
+    <Layout.Footer>
+      // {switch allPublishExtensionProtocolsCount {
+      // | Some(count) =>
+      //   <Pagination
+      //     defaultCurrent={1} defaultPageSize={MarketUtils.getPageSize()} total={count} onChange
+      //   />
+      // | None => React.null
+      // }}
+
+      {switch showType {
+      | Second =>
+        <Pagination
+          defaultCurrent={1}
+          defaultPageSize={MarketUtils.getPageSize()}
+          total={_getAllPublishExtensionProtocolsCount(allPublishExtensionProtocols)}
+          onChange=onChangeForSecond
+        />
+      | Third =>
+        switch allPublishExtensions {
+        | Some(allPublishExtensions) =>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={MarketUtils.getPageSize()}
+            total={_getAllPublishExtensionsCount(allPublishExtensions)}
+            onChange=onChangeForThird
+          />
+        | None => React.null
+        }
+      }}
+    </Layout.Footer>
   </Layout>
 }

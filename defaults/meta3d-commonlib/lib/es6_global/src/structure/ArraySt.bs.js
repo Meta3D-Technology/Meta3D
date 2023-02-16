@@ -38,6 +38,10 @@ function sliceFrom(arr, index) {
   return Js_array.sliceFrom(index, arr);
 }
 
+function slice(arr, start, end_) {
+  return Js_array.slice(start, end_, arr);
+}
+
 function copy(prim) {
   return prim.slice();
 }
@@ -223,6 +227,7 @@ export {
   includes ,
   includesByFunc ,
   sliceFrom ,
+  slice ,
   copy ,
   reduceOneParam ,
   reduceOneParami ,

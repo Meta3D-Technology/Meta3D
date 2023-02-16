@@ -11,14 +11,15 @@ defineFeature(feature, test => {
     let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
     function _createFuncs(sandbox) {
-        getMarketProtocolCollectionFunc = sandbox.stub()
+        // getMarketProtocolCollectionFunc = sandbox.stub()
         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
     }
 
-    function _getAllPublishExtensionProtocols() {
+    function _getAllPublishExtensionProtocols(limitCount, skipCount) {
         return getAllPublishProtocolData(
             [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
-            "publishedextensionprotocols"
+            "publishedextensionprotocols",
+            limitCount, skipCount
         )
     }
 
@@ -48,6 +49,15 @@ defineFeature(feature, test => {
                 repoLink: null,
                 description: "dp1"
             },
+            {
+                name: "a3-protocol",
+                account: "user2",
+                version: "0.0.2",
+                iconBase64: "b3",
+                displayName: "d2",
+                repoLink: null,
+                description: "dp2"
+            },
         ]
 
         _prepare(given)
@@ -55,16 +65,29 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getMarketProtocolCollectionFunc.returns(
-                resolve({
-                    data: allPublishExtensionProtocols.map((protocolData, index) => {
-                        return {
-                            ...protocolData,
-                            id: index.toString()
-                        }
-                    })
+            getMarketProtocolCollectionFunc = (_, limitCount, skipCount) => {
+                return resolve({
+                    data: allPublishExtensionProtocols
+                        .slice(skipCount, limitCount)
+                        .map((protocolData, index) => {
+                            return {
+                                ...protocolData,
+                                id: index.toString()
+                            }
+                        })
                 })
-            )
+            }
+
+            // getMarketProtocolCollectionFunc.returns(
+            //     resolve({
+            //         data: allPublishExtensionProtocols.map((protocolData, index) => {
+            //             return {
+            //                 ...protocolData,
+            //                 id: index.toString()
+            //             }
+            //         })
+            //     })
+            // )
         });
 
         and('publish extension protocol1', () => {
@@ -77,8 +100,8 @@ defineFeature(feature, test => {
         });
 
         then('should return correct data', () => {
-            return _getAllPublishExtensionProtocols().observe(result => {
-                expect(result).toEqual(allPublishExtensionProtocols)
+            return _getAllPublishExtensionProtocols(2, 1).observe(result => {
+                expect(result).toEqual([allPublishExtensionProtocols[1]])
             })
         });
     });

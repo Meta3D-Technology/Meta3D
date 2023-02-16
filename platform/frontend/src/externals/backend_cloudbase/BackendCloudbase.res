@@ -16,6 +16,10 @@ external registerUser: registerUser = "registerUser"
 external isLoginSuccess: isLoginSuccess = "isLoginSuccess"
 
 @module("backend-cloudbase")
+external getAllPublishExtensionProtocolsCount: getAllPublishExtensionProtocolsCount =
+  "getAllPublishExtensionProtocolsCount"
+
+@module("backend-cloudbase")
 external getAllPublishExtensionProtocols: getAllPublishExtensionProtocols =
   "getAllPublishExtensionProtocols"
 
@@ -88,6 +92,7 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     checkUserName,
     registerUser,
     isLoginSuccess,
+    getAllPublishExtensionProtocolsCount: getAllPublishExtensionProtocolsCount->Obj.magic,
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,

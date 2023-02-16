@@ -11,7 +11,7 @@ module Method = {
 
   // TODO perf: defer load when panel change
   let _getContributes = ({getAllPublishContributeProtocols}, selectedContributesFromMarket) => {
-    getAllPublishContributeProtocols()->Meta3dBsMost.Most.map(
+    getAllPublishContributeProtocols(10, 10)->Meta3dBsMost.Most.map(
       protocols => {
         protocols
         ->Meta3dCommonlib.ArraySt.reduceOneParam(

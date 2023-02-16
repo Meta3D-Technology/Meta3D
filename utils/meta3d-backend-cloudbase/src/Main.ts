@@ -136,6 +136,7 @@ export let getDataFromMarketProtocolCollection = (allCollectionData: allCollecti
     return allCollectionData.data
 }
 
+
 export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
     return data.fileData
 }
@@ -179,10 +180,21 @@ export let uploadFile = (app: any, filePath: string, fileContent: ArrayBuffer) =
     }))
 }
 
-
-export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
-    return _getDatabase(app).collection(collectionName).get()
+export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string, limitCount: number, skipCount: number): Promise<allCollectionData> => {
+    return _getDatabase(app).collection(collectionName)
+        // .skip(skipCount + 1)
+        // .limit(limitCount + 1)
+        .skip(skipCount)
+        .limit(limitCount)
+        .get()
 }
+
+export let getMarketProtocolCollectionCount = (app: any, collectionName: string): Promise<allCollectionData> => {
+    return _getDatabase(app).collection(collectionName)
+        .count()
+        .then(res => res.total)
+}
+
 
 export let getMarketImplementAccountData = (app: any, parseMarketCollectionDataBody, collectionName: string, account: account): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
     return _getDatabase(app).collection(collectionName)

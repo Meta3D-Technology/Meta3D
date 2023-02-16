@@ -23,3 +23,5 @@ module InputNumber = Antd__InputNumber
 module Typography = Antd__Typography
 module Menu = Antd__Menu
 module Space = Antd__Space
+
+module Pagination = Antd__Pagination

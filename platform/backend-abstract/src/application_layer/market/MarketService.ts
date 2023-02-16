@@ -6,8 +6,8 @@ import { implementInfos, protocols } from "./MarketType";
 
 export let getAllPublishProtocolData = (
     [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc]: [any, any],
-    collectionName: string): Stream<protocols> => {
-    return fromPromise(getMarketProtocolCollectionFunc(collectionName)).map((res: any) => {
+    collectionName: string, limitCount: number, skipCount: number): Stream<protocols> => {
+    return fromPromise(getMarketProtocolCollectionFunc(collectionName, limitCount, skipCount)).map((res: any) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res)
 
         return resData.map(({ name, version, account, iconBase64, displayName, repoLink, description }) => {
@@ -16,10 +16,19 @@ export let getAllPublishProtocolData = (
     })
 }
 
+export let getAllPublishProtocolDataCount = (
+    getMarketProtocolCollectionCount: any,
+    collectionName: string): Stream<protocols> => {
+    return fromPromise(getMarketProtocolCollectionCount(collectionName))
+}
+
 export let getAllPublishProtocolConfigData = (
     [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc]: [any, any],
-    collectionName: string) => {
-    return fromPromise(getMarketProtocolCollectionFunc(collectionName)).map((res: any) => {
+    collectionName: string,
+    limitCount: number,
+    skipCount: number
+) => {
+    return fromPromise(getMarketProtocolCollectionFunc(collectionName, limitCount, skipCount)).map((res: any) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res)
 
         return resData.map(({ name, version, account, configStr }) => {
@@ -35,8 +44,12 @@ export let getAllPublishImplementInfo = (
         getAccountFromMarketImplementCollectionDataFunc,
         getFileDataFromMarketImplementCollectionDataFunc,
     ]: [any, any, any, any],
-    collectionName: string, protocolName: string, protocolVersion: string): Stream<implementInfos> => {
-    return fromPromise(getMarketImplementCollectionFunc(collectionName)).flatMap((res: any) => {
+    collectionName: string,
+    limitCount: number,
+    skipCount: number,
+    protocolName: string, protocolVersion: string): Stream<implementInfos> => {
+    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res: any) => {
+        // console.log(JSON.stringify( res.data))
         return fromPromise(mergeArray(
             mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
                 let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)

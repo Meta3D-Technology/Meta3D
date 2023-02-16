@@ -23,6 +23,12 @@ type repoLink = string
 
 type description = string
 
+type limitCount = int
+
+type skipCount = int
+
+type count = int
+
 // TODO refactor: move type out
 type protocol = {
   name: protocolName,
@@ -50,7 +56,12 @@ type isLoginSuccess = string => Meta3dBsMostProtocol.StreamType.stream<(
   Js.Nullable.t<string>,
 )>
 
-type getAllPublishExtensionProtocols = unit => Meta3dBsMostProtocol.StreamType.stream<protocols>
+type getAllPublishExtensionProtocols = (
+  limitCount,
+  skipCount,
+) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+
+type getAllPublishExtensionProtocolsCount = unit => Meta3dBsMostProtocol.StreamType.stream<count>
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
@@ -63,9 +74,10 @@ type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
 type protocolConfigs = array<CommonType.protocolConfig>
 
-type getAllPublishExtensionProtocolConfigs = unit => Meta3dBsMostProtocol.StreamType.stream<
-  protocolConfigs,
->
+type getAllPublishExtensionProtocolConfigs = (
+  limitCount,
+  skipCount,
+) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
 
 type getAllPublishContributeProtocolConfigs = getAllPublishExtensionProtocolConfigs
 
@@ -85,7 +97,9 @@ type implementInfos = array<implementInfo>
 type onUploadProgressFunc = int => unit
 
 type getAllPublishExtensionInfos = (
-  . protocolName,
+  . limitCount,
+  skipCount,
+  protocolName,
   protocolVersion,
 ) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
 

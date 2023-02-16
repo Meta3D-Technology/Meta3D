@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolData = void 0;
+exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.getAllPublishProtocolData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
 const NullableUtils_1 = require("../../utils/NullableUtils");
-let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName) => {
-    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName)).map((res) => {
+let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName, limitCount, skipCount) => {
+    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName, limitCount, skipCount)).map((res) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res);
         return resData.map(({ name, version, account, iconBase64, displayName, repoLink, description }) => {
             return { name, version, account, iconBase64, displayName, repoLink, description };
@@ -13,8 +13,12 @@ let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMa
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
-let getAllPublishProtocolConfigData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName) => {
-    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName)).map((res) => {
+let getAllPublishProtocolDataCount = (getMarketProtocolCollectionCount, collectionName) => {
+    return (0, most_1.fromPromise)(getMarketProtocolCollectionCount(collectionName));
+};
+exports.getAllPublishProtocolDataCount = getAllPublishProtocolDataCount;
+let getAllPublishProtocolConfigData = ([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], collectionName, limitCount, skipCount) => {
+    return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(collectionName, limitCount, skipCount)).map((res) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res);
         return resData.map(({ name, version, account, configStr }) => {
             return { name, version, account, configStr };
@@ -22,8 +26,9 @@ let getAllPublishProtocolConfigData = ([getMarketProtocolCollectionFunc, getData
     });
 };
 exports.getAllPublishProtocolConfigData = getAllPublishProtocolConfigData;
-let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc,], collectionName, protocolName, protocolVersion) => {
-    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName)).flatMap((res) => {
+let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc,], collectionName, limitCount, skipCount, protocolName, protocolVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res) => {
+        // console.log(JSON.stringify( res.data))
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
             let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
             let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);

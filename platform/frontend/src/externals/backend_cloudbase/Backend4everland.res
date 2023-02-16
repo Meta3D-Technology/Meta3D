@@ -80,6 +80,8 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     checkUserName: Obj.magic(1),
     registerUser: Obj.magic(1),
     isLoginSuccess: Obj.magic(1),
+    // TODO finish
+    getAllPublishExtensionProtocolsCount: Obj.magic(1),
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,

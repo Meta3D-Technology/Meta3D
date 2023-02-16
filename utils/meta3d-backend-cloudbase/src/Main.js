@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollectionCount = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -125,10 +125,21 @@ let uploadFile = (app, filePath, fileContent) => {
     }));
 };
 exports.uploadFile = uploadFile;
-let getMarketProtocolCollection = (app, parseMarketCollectionDataBody, collectionName) => {
-    return _getDatabase(app).collection(collectionName).get();
+let getMarketProtocolCollection = (app, parseMarketCollectionDataBody, collectionName, limitCount, skipCount) => {
+    return _getDatabase(app).collection(collectionName)
+        // .skip(skipCount + 1)
+        // .limit(limitCount + 1)
+        .skip(skipCount)
+        .limit(limitCount)
+        .get();
 };
 exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let getMarketProtocolCollectionCount = (app, collectionName) => {
+    return _getDatabase(app).collection(collectionName)
+        .count()
+        .then(res => res.total);
+};
+exports.getMarketProtocolCollectionCount = getMarketProtocolCollectionCount;
 let getMarketImplementAccountData = (app, parseMarketCollectionDataBody, collectionName, account) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: (0, exports.handleKeyToLowercase)(account) })
