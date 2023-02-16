@@ -1,6 +1,10 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
+type showType =
+  | Second
+  | Third
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
@@ -9,6 +13,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
+  // let (
+  //   allPublishContributeProtocolsCount,
+  //   setAllPublishContributeProtocolsCount,
+  // ) = React.useState(_ => None)
+  let (showType, setShowType) = React.useState(_ => Second)
+  let (secondPage, setSecondPage) = React.useState(_ => 1)
+  let (thirdPage, setThirdPage) = React.useState(_ => 1)
   let (allPublishContributeProtocols, setAllPublishContributeProtocols) = React.useState(_ => [])
   let (
     allPublishContributeProtocolConfigs,
@@ -94,6 +105,34 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     })
   }
 
+  let _getAllPublishContributeProtocolsCount = allPublishContributeProtocols => {
+    allPublishContributeProtocols
+    ->_groupAllPublishContributeProtocols
+    ->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getAllPublishContributesCount = allPublishContributes => {
+    allPublishContributes->_groupAllPublishContributes->Meta3dCommonlib.ArraySt.length
+  }
+
+  let _getCurrentPageOfAllPublishContributeProtocols = (
+    groupedAllPublishContributeProtocols,
+    page,
+    pageSize,
+  ) => {
+    groupedAllPublishContributeProtocols->Meta3dCommonlib.ArraySt.slice(
+      (page - 1) * pageSize,
+      page * pageSize,
+    )
+  }
+
+  let _getCurrentPageOfAllPublishContributes = (groupedAllPublishContributes, page, pageSize) => {
+    groupedAllPublishContributes->Meta3dCommonlib.ArraySt.slice(
+      (page - 1) * pageSize,
+      page * pageSize,
+    )
+  }
+
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ContributeMarket"} =>
@@ -102,14 +141,49 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
       setContributeProtocolItem(_ => None)
       setAllPublishContributes(_ => None)
+
+      setShowType(_ => Second)
     | _ => ()
     }
   })->ignore
 
+  let onChangeForSecond = (page, pageSize) => {
+    setSecondPage(_ => page)
+  }
+
+  let onChangeForThird = (page, pageSize) => {
+    setThirdPage(_ => page)
+  }
+
+  // React.useEffect1(() => {
+  //   service.backend.getAllPublishContributeProtocolsCount()->Meta3dBsMost.Most.observe(count => {
+  //     setAllPublishContributeProtocolsCount(_ => count->Some)
+  //     setIsLoaded(_ => true)
+  //   }, _)->Js.Promise.catch(e => {
+  //     setIsLoaded(_ => false)
+
+  //     FrontendUtils.ErrorUtils.errorWithExn(
+  //       e->FrontendUtils.Error.promiseErrorToExn,
+  //       None,
+  //     )->Obj.magic
+  //   }, _)->ignore
+
+  //   None
+  // }, [])
+
   React.useEffect1(() => {
-    service.backend.getAllPublishContributeProtocols(10, 10)
+    // TODO handle count > limitCount
+    service.backend.getAllPublishContributeProtocols(
+      // MarketUtils.getPageSize(),
+      // (page - 1) * MarketUtils.getPageSize(),
+      MarketUtils.getLimitCount(),
+      0,
+    )
     ->Meta3dBsMost.Most.flatMap(protocols => {
-      service.backend.getAllPublishContributeProtocolConfigs(10, 10)->Meta3dBsMost.Most.map(
+      service.backend.getAllPublishContributeProtocolConfigs(
+        MarketUtils.getLimitCount(),
+        0,
+      )->Meta3dBsMost.Most.map(
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
@@ -165,7 +239,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     : React.null}
                   <List
                     itemLayout=#horizontal
-                    dataSource={allPublishContributes->_groupAllPublishContributes}
+                    dataSource={_getCurrentPageOfAllPublishContributes(
+                      allPublishContributes->_groupAllPublishContributes,
+                      thirdPage,
+                      MarketUtils.getPageSize(),
+                    )}
                     renderItem={(items: array<FrontendUtils.FrontendType.publishContribute>) => {
                       let firstItem =
                         items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
@@ -285,7 +363,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               | None =>
                 setIsLoaded(_ => false)
 
-                service.backend.getAllPublishContributeInfos(. 10, 10, item.name, item.version)
+                service.backend.getAllPublishContributeInfos(.
+                  MarketUtils.getLimitCount(),
+                  0,
+                  item.name,
+                  item.version,
+                )
                 ->Meta3dBsMost.Most.observe(data => {
                   setAllPublishContributes(_ =>
                     data
@@ -317,7 +400,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             | None =>
               <List
                 itemLayout=#horizontal
-                dataSource={allPublishContributeProtocols->_groupAllPublishContributeProtocols}
+                dataSource={_getCurrentPageOfAllPublishContributeProtocols(
+                  allPublishContributeProtocols->_groupAllPublishContributeProtocols,
+                  secondPage,
+                  MarketUtils.getPageSize(),
+                )}
                 renderItem={(items: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
                   let firstItem =
                     items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
@@ -342,6 +429,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                         level=3
                         onClick={_ => {
                           // _clearSelectPublishContributeProtocol(item.name)
+                          setShowType(_ => Third)
 
                           setContributeProtocolItem(_ => item->Some)
                         }}>
@@ -372,5 +460,39 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             }
           }}
     </Layout.Content>
+    <Layout.Footer>
+      // {switch allPublishContributeProtocolsCount {
+      // | Some(count) =>
+      //   <Pagination
+      //     defaultCurrent={1} defaultPageSize={MarketUtils.getPageSize()} total={count} onChange
+      //   />
+      // | None => React.null
+      // }}
+
+      {switch isLoaded {
+      | true =>
+        switch showType {
+        | Second =>
+          <Pagination
+            defaultCurrent={1}
+            defaultPageSize={MarketUtils.getPageSize()}
+            total={_getAllPublishContributeProtocolsCount(allPublishContributeProtocols)}
+            onChange=onChangeForSecond
+          />
+        | Third =>
+          switch allPublishContributes {
+          | Some(allPublishContributes) =>
+            <Pagination
+              defaultCurrent={1}
+              defaultPageSize={MarketUtils.getPageSize()}
+              total={_getAllPublishContributesCount(allPublishContributes)}
+              onChange=onChangeForThird
+            />
+          | None => React.null
+          }
+        }
+      | false => React.null
+      }}
+    </Layout.Footer>
   </Layout>
 }

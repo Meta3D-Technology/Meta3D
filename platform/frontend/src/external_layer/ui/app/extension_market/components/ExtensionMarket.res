@@ -467,25 +467,29 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       // | None => React.null
       // }}
 
-      {switch showType {
-      | Second =>
-        <Pagination
-          defaultCurrent={1}
-          defaultPageSize={MarketUtils.getPageSize()}
-          total={_getAllPublishExtensionProtocolsCount(allPublishExtensionProtocols)}
-          onChange=onChangeForSecond
-        />
-      | Third =>
-        switch allPublishExtensions {
-        | Some(allPublishExtensions) =>
+      {switch isLoaded {
+      | true =>
+        switch showType {
+        | Second =>
           <Pagination
             defaultCurrent={1}
             defaultPageSize={MarketUtils.getPageSize()}
-            total={_getAllPublishExtensionsCount(allPublishExtensions)}
-            onChange=onChangeForThird
+            total={_getAllPublishExtensionProtocolsCount(allPublishExtensionProtocols)}
+            onChange=onChangeForSecond
           />
-        | None => React.null
+        | Third =>
+          switch allPublishExtensions {
+          | Some(allPublishExtensions) =>
+            <Pagination
+              defaultCurrent={1}
+              defaultPageSize={MarketUtils.getPageSize()}
+              total={_getAllPublishExtensionsCount(allPublishExtensions)}
+              onChange=onChangeForThird
+            />
+          | None => React.null
+          }
         }
+      | false => React.null
       }}
     </Layout.Footer>
   </Layout>

@@ -170,9 +170,9 @@ package assemble run test
 
 
 
-add TODO record:
-implemenet >1000
-    orderBy version
+# add TODO record:
+# implemenet >1000
+#     orderBy version
 
 
 # implements
@@ -185,8 +185,8 @@ ContributeMarket
 
 
 
-refactor:
-extract Page ui component
+# refactor:
+# extract Page ui component
 
 
 PackageMarket
