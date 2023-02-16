@@ -46,20 +46,7 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 
 我们爱贡献者！欢迎贡献，共建Web3D生态！
 
-如果您希望对Meta3D构建的Web3D生态或者Meta3D本身进行贡献，可以通过下面的途径来贡献：
-
-
-- 通过[issue](https://github.com/Meta3D-Technology/Meta3D/issues/new?assignees=yyc-git&labels=bug&template=%E6%8A%A5%E5%91%8Abug.md&title=)来报告Bug
-- 您在本地开发扩展、贡献或者对应的协议，然后将其发布到Meta3D平台
-这样所有的用户都能在平台上使用它们来搭建引擎或者编辑器。具体如何开发和发布它们请见[自定义案例](https://meta3d-website.4everland.app/docs/搭建您的自定义引擎：实现WebGPU光栅化管线绘制三角形)
-- 您将本地开发的扩展、贡献通过PR Merge到[Meta3D](https://github.com/Meta3D-Technology/Meta3D)
-这样其它用户可以修改和扩展它们。请先提交[issue](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)来说明情况
-- 您将本地开发的扩展协议、贡献协议通过PR Merge到[Meta3D](https://github.com/Meta3D-Technology/Meta3D)
-这样其它用户既可以修改和扩展您的扩展协议、贡献协议，也可以开发实现该协议的扩展/贡献。请先提交[issue](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)来说明情况
-- 通过PR修改[Meta3D](https://github.com/Meta3D-Technology/Meta3D)发布的扩展、贡献、扩展协议和贡献协议。请先提交[issue](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)来说明情况
-
-
-一起开发Meta3D 请点[这里](https://qm.qq.com/cgi-bin/qm/qr?k=Kiaj6UDk6FuKDPHKpHYruzB8eAt0xRRy&jump_from=webapi&authKey=D6yCua8jRdfWgAQqSSRMRQvaYxGVL5XN671Cz/g2CSYRJ9WPPgNPZIzcCZKwQZBC)加QQ群：561291403
+如果您希望对Meta3D构建的Web3D生态或者Meta3D本身进行贡献，请阅读[CONTRIBUTING](CONTRIBUTING.md)
 
 ## Roadmap
 [这里](https://github.com/orgs/Meta3D-Technology/projects/1/views/1)是Meta3D的开发任务，欢迎大家一起来开发，谢谢！

@@ -123,7 +123,7 @@ package assemble run test
 
 
 
-* TODO notice 周六
+* DONE notice 周六
 
 * TODO feat: assemble-space: support cancel select(move to first TODO for new)
 * TODO feat: should check login before select from market(move to first TODO for new)
@@ -139,14 +139,16 @@ package assemble run test
 
 
 
-* TODO fix: package with all except ui controls not work in element->run
-
-
-
 * TODO add paging
 
 
 30 count per page
+
+
+* TODO fix: package with all except ui controls not work in element->run
+
+
+
 
 
 
