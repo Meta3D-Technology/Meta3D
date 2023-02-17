@@ -404,7 +404,63 @@ defineFeature(feature, test => {
       () => {
         errorStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg2({j`不能选择UI Control`}, None)
+        ->SinonTool.calledWithArg2({j`不能选择UI Control 或者Action`}, None)
+        ->expect == true
+      },
+    )
+  })
+
+  test(."if select action, publish should error", ({given, \"when", \"and", then}) => {
+    let selectedContributes = ref(Obj.magic(1))
+    let errorStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "select action contribute a1",
+      () => {
+        selectedContributes :=
+          list{
+            PackageSelectedContributesTool.buildSelectedContribute(
+              ~data=ContributeTool.buildContributeData(
+                ~contributePackageData=ContributeTool.buildContributePackageData(
+                  ~protocol=(
+                    {
+                      name: "meta3d-action-a1-protocol",
+                      version: "^0.0.1",
+                    }: Meta3d.ExtensionFileType.contributeProtocolData
+                  ),
+                  (),
+                ),
+                (),
+              ),
+              (),
+            ),
+          }
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "publish package",
+      () => {
+        errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        PublishPackageTool.publish(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
+          ~selectedContributes=selectedContributes.contents,
+          (),
+        )
+      },
+    )
+
+    then(
+      "should error",
+      () => {
+        errorStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2({j`不能选择UI Control 或者Action`}, None)
         ->expect == true
       },
     )

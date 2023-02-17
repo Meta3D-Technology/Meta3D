@@ -12,8 +12,9 @@ module Method = {
   let _check = (selectedPackages, selectedExtensions, selectedContributes) => {
     _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
       ? Meta3dCommonlib.Result.fail({j`请至少选择一个包或者扩展或者贡献`})
-      : selectedContributes->SelectedContributesForElementUtils.hasUIControl
-      ? Meta3dCommonlib.Result.fail({j`不能选择UI Control`})
+      : selectedContributes->SelectedContributesForElementUtils.hasUIControl ||
+        selectedContributes->SelectedContributesForElementUtils.hasAction
+      ? Meta3dCommonlib.Result.fail({j`不能选择UI Control 或者Action`})
       : !(
         selectedExtensions->Meta3dCommonlib.ArraySt.includesByFunc((
           {isEntry}: FrontendUtils.PackageAssembleStoreType.extension,

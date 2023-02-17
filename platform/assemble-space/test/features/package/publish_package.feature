@@ -37,8 +37,11 @@ Feature: Publish Package
 
         Scenario: if select ui control, publish should error
             Given select ui control contribute u1
-            # And select entry extension e3
-            # And select package p1
+            When publish package
+            Then should error
+
+        Scenario: if select action, publish should error
+            Given select action contribute a1
             When publish package
             Then should error
 

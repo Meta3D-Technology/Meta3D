@@ -222,9 +222,26 @@ package assemble run test
 * DONE fix: enter second->jump to 2->enter third: current should be 1! 
 
 
-* TODO fix: package with all except ui controls not work in element->run
+* DONE fix: package with all except ui controls not work in element->run
+
+# with action, not has!
 
 
+** DONE record
+
+
+* TODO close version dependent check
+
+
+* TODO run test engine 
+
+build package and use
+
+build and run demo
+
+
+
+* TODO pass ci
 
 
 
@@ -233,12 +250,6 @@ package assemble run test
 
 * TODO update production
 
-
-* TODO run test engine in production
-
-build package and use
-
-build and run demo
 
 
 * TODO send to @...

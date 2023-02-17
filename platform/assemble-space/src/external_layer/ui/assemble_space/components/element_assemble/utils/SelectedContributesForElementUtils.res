@@ -34,3 +34,10 @@ let hasUIControl = (
       Meta3dType.ContributeType.UIControl
   })
 }
+
+let hasAction = (selectedContributes: array<FrontendUtils.PackageAssembleStoreType.contribute>) => {
+  selectedContributes->Meta3dCommonlib.ArraySt.includesByFunc(({data}) => {
+    data.contributePackageData.protocol.name->ContributeTypeUtils.decideContributeType ==
+      Meta3dType.ContributeType.Action
+  })
+}
