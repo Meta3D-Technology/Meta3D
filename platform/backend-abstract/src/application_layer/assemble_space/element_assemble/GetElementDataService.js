@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, protocolName) => {
-    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName)).flatMap((res) => {
+let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, limitCount, skipCount, protocolName) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
             let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
             let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);

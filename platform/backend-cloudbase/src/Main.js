@@ -85,13 +85,13 @@ let publishElementAssembleData = (account, elementName, elementVersion, inspecto
     BackendService_1.getMarketImplementAccountData, BackendService_1.updateMarketImplementData, BackendService_1.getDataFromMarketImplementAccountData, BackendService_1.isContain, BackendService_1.buildMarketImplementAccountData, BackendService_1.addMarketImplementDataToDataFromMarketImplementCollectionData,
 ], account, elementName, elementVersion, inspectorData);
 exports.publishElementAssembleData = publishElementAssembleData;
-let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
+let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
     BackendService_1.getFileDataFromMarketImplementCollectionData,
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
-], "publishedextensions", protocolName);
+], "publishedextensions", limitCount, skipCount, protocolName);
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
 let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData([BackendService_1.getMarketImplementAccountData, BackendService_1.getDataFromMarketImplementAccountData], account, elementName, elementVersion);
 exports.getElementAssembleData = getElementAssembleData;

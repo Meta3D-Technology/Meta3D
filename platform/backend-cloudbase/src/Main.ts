@@ -182,7 +182,7 @@ export let publishElementAssembleData = (
     inspectorData
 )
 
-export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
+export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
     getMarketImplementCollection,
     mapMarketImplementCollection,
     getAccountFromMarketImplementCollectionData,
@@ -190,6 +190,8 @@ export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPubl
     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ],
     "publishedextensions",
+    limitCount,
+    skipCount,
     protocolName
 )
 

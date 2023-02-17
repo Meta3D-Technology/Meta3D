@@ -193,7 +193,9 @@ type implement = {
 type implements = array<implement>
 
 type getAllPublishNewestExtensions = (
-  . protocolName,
+  . limitCount,
+  skipCount,
+  protocolName,
 ) => Meta3dBsMostProtocol.StreamType.stream<implements>
 
 type elementAssembleData = {

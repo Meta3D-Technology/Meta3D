@@ -9,8 +9,10 @@ export let getAllPublishNewestData = (
         getFileDataFromMarketImplementCollectionDataFunc,
         downloadFileFunc
     ]: [any, any, any, any, any],
-    collectionName: string, protocolName: string) => {
-    return fromPromise(getMarketImplementCollectionFunc(collectionName)).flatMap((res: any) => {
+    collectionName: string,
+    limitCount: number, skipCount: number,
+    protocolName: string) => {
+    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res: any) => {
         return fromPromise(mergeArray(
             mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
                 let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)

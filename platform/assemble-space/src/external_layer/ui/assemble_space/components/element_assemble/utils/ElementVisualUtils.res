@@ -65,7 +65,12 @@ let getAndSetNewestVisualExtension = (
   (visualExtensionProtocolName, visualExtensionName),
   isDebug,
 ) => {
-  service.backend.getAllPublishNewestExtensions(. visualExtensionProtocolName)
+  // TODO support >1000
+  service.backend.getAllPublishNewestExtensions(.
+    FrontendUtils.MarketUtils.getLimitCount(),
+    0,
+    visualExtensionProtocolName,
+  )
   ->Meta3dBsMost.Most.map(_getNewestImplement(_, service, visualExtensionName, isDebug), _)
   ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
     _loadAndBuildVisualExtension(service, data.file)

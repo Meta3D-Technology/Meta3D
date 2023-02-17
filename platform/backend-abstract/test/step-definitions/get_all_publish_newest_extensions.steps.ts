@@ -1,5 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
-import { createSandbox } from "sinon";
+import { createSandbox, match } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishNewestData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService"
 import { just } from "most";
@@ -24,7 +24,7 @@ defineFeature(feature, test => {
 
     }
 
-    function _getAllPublishNewestExtensions(protocolName) {
+    function _getAllPublishNewestExtensions(limitCount, skipCount, protocolName) {
         return getAllPublishNewestData(
             [
                 getMarketImplementCollectionFunc,
@@ -34,6 +34,7 @@ defineFeature(feature, test => {
                 downloadFileFunc
             ],
             "publishedextensions",
+            limitCount, skipCount,
             protocolName
         )
     }
@@ -145,6 +146,8 @@ defineFeature(feature, test => {
         let fileVersion5 = "0.1.5"
         let file = new ArrayBuffer(10)
         let allPublishExtensions = null
+        let limitCount = 10
+        let skipCount = 0
 
         _prepare(given)
 
@@ -220,13 +223,17 @@ defineFeature(feature, test => {
 
         when('get all publish newest extensions of protocol1', () => {
             return _getAllPublishNewestExtensions(
-                protocol1Name
+                limitCount, skipCount, protocol1Name
             ).observe(result => {
                 allPublishExtensions = result
             })
         });
 
         then('should return [extension3, extension4]', () => {
+            expect(getMarketImplementCollectionFunc).toCalledWith([
+                match.string,
+                limitCount, skipCount
+            ])
             expect(downloadFileFunc.callCount).toEqual(3)
             expect(
                 allPublishExtensions

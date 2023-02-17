@@ -17,14 +17,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         getAccountFromMarketImplementCollectionDataFunc = BackendService_1.getAccountFromMarketImplementCollectionData;
         getFileDataFromMarketImplementCollectionDataFunc = BackendService_1.getFileDataFromMarketImplementCollectionData;
     }
-    function _getAllPublishNewestExtensions(protocolName) {
+    function _getAllPublishNewestExtensions(limitCount, skipCount, protocolName) {
         return (0, GetElementDataService_1.getAllPublishNewestData)([
             getMarketImplementCollectionFunc,
             mapMarketImplementCollectionFunc,
             getAccountFromMarketImplementCollectionDataFunc,
             getFileDataFromMarketImplementCollectionDataFunc,
             downloadFileFunc
-        ], "publishedextensions", protocolName);
+        ], "publishedextensions", limitCount, skipCount, protocolName);
     }
     function _prepare(given) {
         given('prepare sandbox', () => {
@@ -124,6 +124,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         let fileVersion5 = "0.1.5";
         let file = new ArrayBuffer(10);
         let allPublishExtensions = null;
+        let limitCount = 10;
+        let skipCount = 0;
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
@@ -184,11 +186,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
         and('user2 publish extension5 for protocol2 and high version', () => {
         });
         when('get all publish newest extensions of protocol1', () => {
-            return _getAllPublishNewestExtensions(protocol1Name).observe(result => {
+            return _getAllPublishNewestExtensions(limitCount, skipCount, protocol1Name).observe(result => {
                 allPublishExtensions = result;
             });
         });
         then('should return [extension3, extension4]', () => {
+            expect(getMarketImplementCollectionFunc).toCalledWith([
+                sinon_1.match.string,
+                limitCount, skipCount
+            ]);
             expect(downloadFileFunc.callCount).toEqual(3);
             expect(allPublishExtensions).toEqual([
                 {
