@@ -68,8 +68,8 @@ let getAllPublishPackageInfos = (getDataByKeyContainFunc, limitCount, skipCount,
     });
 };
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
-let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion) => {
-    return getDataByKeyContainFunc("publishedpackages", 
+let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc], limitCount, skipCount, account, packageName, packageVersion) => {
+    return getDataByKeyContainFunc("publishedpackages", limitCount, skipCount, 
     // buildPartialKeyByPackageData(
     //     packageName,
     //     packageVersion,

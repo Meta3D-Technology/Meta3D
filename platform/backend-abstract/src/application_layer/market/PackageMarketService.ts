@@ -112,12 +112,16 @@ export let getAllPublishPackageInfos = (
 }
 
 export let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc]: [any, any],
+    limitCount: number,
+    skipCount: number,
     account: string,
     packageName: string,
     packageVersion: string
 ): Stream<nullable<ArrayBuffer>> => {
     return getDataByKeyContainFunc(
         "publishedpackages",
+        limitCount,
+        skipCount,
         // buildPartialKeyByPackageData(
         //     packageName,
         //     packageVersion,

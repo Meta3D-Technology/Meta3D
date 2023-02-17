@@ -29,7 +29,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         when('find the published package', () => {
         });
         then('should return empty', () => {
-            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], "", "", "").observe(result => {
+            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], 10, 0, "", "", "").observe(result => {
                 expect(result).toBeNull();
             });
         });
@@ -57,10 +57,16 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
         });
         when('find the published package', () => {
         });
-        then('should return the package file', () => {
-            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], account, packageName, packageVersion).observe(result => {
+        then('should get with limitCount and skipCount', () => {
+        });
+        and('should return the package file', () => {
+            let limitCount = 10;
+            let skipCount = 1;
+            return (0, PackageMarketService_1.findPublishPackage)([getDataByKeyContainFunc, downloadFileFunc], limitCount, skipCount, account, packageName, packageVersion).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedpackages",
+                    limitCount,
+                    skipCount,
                     [packageName,
                         packageVersion,
                         account]

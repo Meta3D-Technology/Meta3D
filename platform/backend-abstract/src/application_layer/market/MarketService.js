@@ -52,8 +52,8 @@ let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketIm
     });
 };
 exports.getAllPublishImplementInfo = getAllPublishImplementInfo;
-let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc], collectionName, account, name, version) => {
-    return (0, most_1.fromPromise)(getMarketImplementFunc(collectionName, account, name, version)).flatMap((data) => {
+let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc], collectionName, limitCount, skipCount, account, name, version) => {
+    return (0, most_1.fromPromise)(getMarketImplementFunc(collectionName, limitCount, skipCount, account, name, version)).flatMap((data) => {
         if ((0, NullableUtils_1.isNullable)(data)) {
             return (0, most_1.just)(null);
         }

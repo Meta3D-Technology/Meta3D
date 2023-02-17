@@ -27,7 +27,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_e
         when('find the published extension', () => {
         });
         then('should return empty', () => {
-            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], "", "", "", "").observe(result => {
+            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], "", 10, 0, "", "", "").observe(result => {
                 expect(result).toBeNull();
             });
         });
@@ -51,10 +51,17 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_e
         });
         when('find the published extension', () => {
         });
-        then('should return the extension file', () => {
-            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], collectionName, account, name, version).observe(result => {
+        then('should get with limitCount and skipCount', () => {
+        });
+        and('should return the extension file', () => {
+            let limitCount = 10;
+            let skipCount = 1;
+            return (0, MarketService_1.findPublishImplement)([getMarketImplementFunc, downloadFileFunc], collectionName, limitCount, skipCount, account, name, version).observe(result => {
                 expect(getMarketImplementFunc).toCalledWith([
-                    collectionName, account, name, version
+                    collectionName,
+                    limitCount,
+                    skipCount,
+                    account, name, version
                 ]);
                 expect(downloadFileFunc).toCalledWith([
                     fileID

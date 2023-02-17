@@ -15,4 +15,5 @@ Feature: Find Publish Extension
         Given prepare funcs
         And publish extension1
         When find the published extension
-        Then should return the extension file
+        Then should get with limitCount and skipCount
+        And should return the extension file

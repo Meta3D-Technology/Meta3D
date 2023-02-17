@@ -89,15 +89,19 @@ export let getAllPublishImplementInfo = (
 
 export let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc]: [any, any],
     collectionName: string,
+    limitCount: number,
+    skipCount: number,
     account: string,
     name: string,
     version: string
 ) => {
-    return fromPromise(getMarketImplementFunc(collectionName, account, name, version)).flatMap((data: nullable<any>) => {
-        if (isNullable(data)) {
-            return just(null)
-        }
+    return fromPromise(getMarketImplementFunc(collectionName,
+        limitCount, skipCount,
+        account, name, version)).flatMap((data: nullable<any>) => {
+            if (isNullable(data)) {
+                return just(null)
+            }
 
-        return downloadFileFunc(getExn(data).fileID)
-    })
+            return downloadFileFunc(getExn(data).fileID)
+        })
 }

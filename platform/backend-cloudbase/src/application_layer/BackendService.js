@@ -33,10 +33,12 @@ let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMar
 exports.getMarketProtocolCollectionCount = getMarketProtocolCollectionCount;
 let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), null, collectionName, limitCount, skipCount);
 exports.getMarketImplementCollection = getMarketImplementCollection;
-let getMarketImplement = (collectionName, account, name, version) => {
+let getMarketImplement = (collectionName, limitCount, skipCount, account, name, version) => {
     return (0, exports.getDatabase)()
         .collection(collectionName)
         .where({ key: BackendService.handleKeyToLowercase(account) })
+        .skip(skipCount)
+        .limit(limitCount)
         .get()
         .then(res => {
         if (res.data.length === 0) {

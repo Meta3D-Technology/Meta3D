@@ -78,6 +78,8 @@ export let getAllPublishContributeInfos = (
         protocolName, protocolVersion)
 
 export let findPublishExtension = (onDownloadProgressFunc,
+    limitCount,
+    skipCount,
     account,
     name,
     version
@@ -86,12 +88,16 @@ export let findPublishExtension = (onDownloadProgressFunc,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedextensions",
+    limitCount,
+    skipCount,
     account,
     name,
     version
 )
 
 export let findPublishContribute = (onDownloadProgressFunc,
+    limitCount,
+    skipCount,
     account,
     name,
     version
@@ -100,6 +106,8 @@ export let findPublishContribute = (onDownloadProgressFunc,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedcontributes",
+    limitCount,
+    skipCount,
     account,
     name,
     version
@@ -244,9 +252,10 @@ export let getAllPublishPackageInfos = (
     entryExtensionProtocolVersion,
 )
 
-export let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
+export let findPublishPackage = (onDownloadProgressFunc, limitCount, skipCount, account, packageName, packageVersion) => Abstract.findPublishPackage([
     getDataByKeyContain,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
+    limitCount, skipCount,
     account, packageName, packageVersion
 )

@@ -16,4 +16,5 @@ Feature: Find Publish Package
         And prepare funcs
         And publish the package
         When find the published package
-        Then should return the package file
+        Then should get with limitCount and skipCount
+        And should return the package file

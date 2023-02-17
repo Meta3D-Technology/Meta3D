@@ -214,7 +214,7 @@ package assemble run test
 * DONE duplicate
 
 
-* TODO fix: find extension,contribute,package
+* DONE fix: find extension,contribute,package
 
 * TODO refactor: refactor Market: extract Second, Third
 

@@ -43,6 +43,7 @@ defineFeature(feature, test => {
         then('should return empty', () => {
             return findPublishPackage(
                 [getDataByKeyContainFunc, downloadFileFunc],
+                10, 0,
                 "", "", ""
             ).observe(result => {
                 expect(result).toBeNull()
@@ -86,13 +87,24 @@ defineFeature(feature, test => {
         when('find the published package', () => {
         });
 
-        then('should return the package file', () => {
+        then('should get with limitCount and skipCount', () => {
+        });
+
+
+        and('should return the package file', () => {
+            let limitCount = 10
+            let skipCount = 1
+
             return findPublishPackage(
                 [getDataByKeyContainFunc, downloadFileFunc],
+                limitCount,
+                skipCount,
                 account, packageName, packageVersion
             ).observe(result => {
                 expect(getDataByKeyContainFunc).toCalledWith([
                     "publishedpackages",
+                    limitCount,
+                    skipCount,
                     [packageName,
                         packageVersion,
                         account]

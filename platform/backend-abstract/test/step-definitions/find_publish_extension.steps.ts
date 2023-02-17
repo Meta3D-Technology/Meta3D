@@ -39,7 +39,9 @@ defineFeature(feature, test => {
         then('should return empty', () => {
             return findPublishImplement(
                 [getMarketImplementFunc, downloadFileFunc],
-                "", "", "", ""
+                "",
+                10, 0,
+                "", "", ""
             ).observe(result => {
                 expect(result).toBeNull()
             })
@@ -75,16 +77,27 @@ defineFeature(feature, test => {
         when('find the published extension', () => {
         });
 
-        then('should return the extension file', () => {
+        then('should get with limitCount and skipCount', () => {
+        })
+
+        and('should return the extension file', () => {
+            let limitCount = 10
+            let skipCount = 1
+
             return findPublishImplement(
                 [getMarketImplementFunc, downloadFileFunc],
                 collectionName,
+                limitCount,
+                skipCount,
                 account,
                 name,
                 version
             ).observe(result => {
                 expect(getMarketImplementFunc).toCalledWith([
-                    collectionName, account, name, version
+                    collectionName,
+                    limitCount,
+                    skipCount,
+                    account, name, version
                 ])
                 expect(downloadFileFunc).toCalledWith([
                     fileID

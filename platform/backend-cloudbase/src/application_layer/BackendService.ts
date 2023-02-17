@@ -36,6 +36,8 @@ export let getMarketImplementCollection = (collectionName, limitCount, skipCount
 
 export let getMarketImplement = (
 	collectionName: string,
+	limitCount: number,
+	skipCount: number,
 	account: string,
 	name: string,
 	version: string
@@ -43,6 +45,8 @@ export let getMarketImplement = (
 	return getDatabase()
 		.collection(collectionName)
 		.where({ key: BackendService.handleKeyToLowercase(account) })
+		.skip(skipCount)
+		.limit(limitCount)
 		.get()
 		.then(res => {
 			if (res.data.length === 0) {

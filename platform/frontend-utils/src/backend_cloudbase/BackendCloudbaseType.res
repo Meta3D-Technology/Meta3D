@@ -109,6 +109,8 @@ type onDownloadProgressFunc = int => unit
 
 type findPublishExtension = (
   . onDownloadProgressFunc,
+  limitCount,
+  skipCount,
   account,
   implementName,
   implementVersion,

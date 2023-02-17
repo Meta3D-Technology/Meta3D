@@ -291,6 +291,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                                 service.backend.findPublishContribute(.
                                   progress => setDownloadProgress(_ => progress),
+                                  FrontendUtils.MarketUtils.getLimitCount(),
+                                  0,
                                   item.info.account,
                                   item.info.name,
                                   item.info.version,

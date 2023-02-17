@@ -216,6 +216,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                                 service.backend.findPublishPackage(.
                                   progress => setDownloadProgress(_ => progress),
+                                  FrontendUtils.MarketUtils.getLimitCount(),
+                                  0,
                                   // item.entryExtensionProtocolName,
                                   // item.entryExtensionProtocolVersion,
                                   // item.entryExtensionProtocolIconBase64,
@@ -293,6 +295,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                             service.backend.findPublishPackage(.
                               progress => setDownloadProgress(_ => progress),
+                              FrontendUtils.MarketUtils.getLimitCount(),
+                              0,
                               item.account,
                               item.name,
                               item.version,

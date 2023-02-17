@@ -40,15 +40,15 @@ let getAllPublishContributeInfos = (limitCount, skipCount, protocolName, protoco
     BackendService_1.getFileDataFromMarketImplementCollectionData,
 ], "publishedcontributes", limitCount, skipCount, protocolName, protocolVersion);
 exports.getAllPublishContributeInfos = getAllPublishContributeInfos;
-let findPublishExtension = (onDownloadProgressFunc, account, name, version) => Abstract.findPublishImplement([
+let findPublishExtension = (onDownloadProgressFunc, limitCount, skipCount, account, name, version) => Abstract.findPublishImplement([
     BackendService_1.getMarketImplement,
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
-], "publishedextensions", account, name, version);
+], "publishedextensions", limitCount, skipCount, account, name, version);
 exports.findPublishExtension = findPublishExtension;
-let findPublishContribute = (onDownloadProgressFunc, account, name, version) => Abstract.findPublishImplement([
+let findPublishContribute = (onDownloadProgressFunc, limitCount, skipCount, account, name, version) => Abstract.findPublishImplement([
     BackendService_1.getMarketImplement,
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
-], "publishedcontributes", account, name, version);
+], "publishedcontributes", limitCount, skipCount, account, name, version);
 exports.findPublishContribute = findPublishContribute;
 let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
     onUploadProgressFunc,
@@ -113,8 +113,8 @@ BackendService_1.getData, limitCount, skipCount);
 exports.getAllPublishPackageEntryExtensionProtocols = getAllPublishPackageEntryExtensionProtocols;
 let getAllPublishPackageInfos = (limitCount, skipCount, entryExtensionProtocolName, entryExtensionProtocolVersion) => Abstract.getAllPublishPackageInfos(BackendService_1.getDataByKeyContain, limitCount, skipCount, entryExtensionProtocolName, entryExtensionProtocolVersion);
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
-let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
+let findPublishPackage = (onDownloadProgressFunc, limitCount, skipCount, account, packageName, packageVersion) => Abstract.findPublishPackage([
     BackendService_1.getDataByKeyContain,
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
-], account, packageName, packageVersion);
+], limitCount, skipCount, account, packageName, packageVersion);
 exports.findPublishPackage = findPublishPackage;
