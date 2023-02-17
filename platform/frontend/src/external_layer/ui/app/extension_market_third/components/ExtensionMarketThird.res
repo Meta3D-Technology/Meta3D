@@ -233,7 +233,7 @@ let make = (
       {switch isLoaded {
       | true =>
         <Pagination
-          defaultCurrent={1}
+          current={page}
           defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={_getAllPublishExtensionsCount(allPublishExtensions)}
           onChange=_onChange

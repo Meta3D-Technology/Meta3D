@@ -174,7 +174,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         switch showType {
         | Second =>
           <Pagination
-            defaultCurrent={1}
+            current={page}
             defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
             total={FrontendUtils.MarketUtils.getAllProtocolsCount(allPublishContributeProtocols)}
             onChange=_onChange

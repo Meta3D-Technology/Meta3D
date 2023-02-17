@@ -219,7 +219,7 @@ package assemble run test
 * DONE refactor: refactor Market: extract Second, Third
 
 
-* TODO fix: enter second->jump to 2->enter third: current should be 1! 
+* DONE fix: enter second->jump to 2->enter third: current should be 1! 
 
 
 * TODO fix: package with all except ui controls not work in element->run
