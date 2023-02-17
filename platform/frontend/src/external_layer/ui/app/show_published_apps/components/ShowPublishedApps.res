@@ -31,10 +31,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     setPage(_ => page)
   }
 
-  let _getCurrentPageOfAllPublishApps = (allPublishApps, page, pageSize) => {
-    allPublishApps->Meta3dCommonlib.ArraySt.slice((page - 1) * pageSize, page * pageSize)
-  }
-
   RescriptReactRouter.watchUrl(url => {
     switch url.path {
     | list{"ShowPublishedApps"} =>
@@ -76,7 +72,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         ? <p> {React.string(`loading...`)} </p>
         : <List
             itemLayout=#horizontal
-            dataSource={_getCurrentPageOfAllPublishApps(
+            dataSource={FrontendUtils.MarketUtils.getCurrentPage(
               allPublishApps,
               page,
               FrontendUtils.MarketUtils.getPageSize(),

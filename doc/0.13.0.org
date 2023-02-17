@@ -211,7 +211,10 @@ package assemble run test
 # ExtensionsUtils, ...
 
 
-* TODO duplicate
+* DONE duplicate
+
+
+* TODO fix: find extension,contribute,package
 
 * TODO refactor: refactor Market: extract Second, Third
 
@@ -224,6 +227,7 @@ package assemble run test
 
 
 
+* TODO run test engine
 
 
 * TODO publish v0.12.1

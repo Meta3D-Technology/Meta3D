@@ -53,82 +53,72 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   //   setSelectPublishExtension(value => value->Meta3dCommonlib.ImmutableHashMap.deleteVal(name))
   // }
 
-  let _groupAllPublishExtensionProtocols = (
-    allPublishExtensionProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
-  ): array<array<FrontendUtils.BackendCloudbaseType.protocol>> => {
-    allPublishExtensionProtocols
-    ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name} as protocol) => {
-      map->Meta3dCommonlib.ImmutableHashMap.set(
-        name,
-        map
-        ->Meta3dCommonlib.ImmutableHashMap.get(name)
-        ->Meta3dCommonlib.OptionSt.getWithDefault([])
-        ->Meta3dCommonlib.ArraySt.push(protocol),
-      )
-    }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
-    ->Meta3dCommonlib.ImmutableHashMap.entries
-    ->Meta3dCommonlib.ArraySt.map(((
-      name,
-      protocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
-    )) => {
-      protocols
-      // ->Meta3dCommonlib.ArraySt.copy
-      ->Meta3dCommonlib.ArraySt.sort((a, b) => {
-        Meta3d.Semver.gt(a.version, b.version) ? -1 : 1
-      })
-    })
-  }
+  // let _groupAllPublishExtensionProtocols = (
+  //   allPublishExtensionProtocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
+  // ): array<array<FrontendUtils.BackendCloudbaseType.protocol>> => {
+  //   allPublishExtensionProtocols
+  //   ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name} as protocol) => {
+  //     map->Meta3dCommonlib.ImmutableHashMap.set(
+  //       name,
+  //       map
+  //       ->Meta3dCommonlib.ImmutableHashMap.get(name)
+  //       ->Meta3dCommonlib.OptionSt.getWithDefault([])
+  //       ->Meta3dCommonlib.ArraySt.push(protocol),
+  //     )
+  //   }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
+  //   ->Meta3dCommonlib.ImmutableHashMap.entries
+  //   ->Meta3dCommonlib.ArraySt.map(((
+  //     name,
+  //     protocols: array<FrontendUtils.BackendCloudbaseType.protocol>,
+  //   )) => {
+  //     protocols
+  //     // ->Meta3dCommonlib.ArraySt.copy
+  //     ->Meta3dCommonlib.ArraySt.sort((a, b) => {
+  //       Meta3d.Semver.gt(a.version, b.version) ? -1 : 1
+  //     })
+  //   })
+  // }
+
+  // let _groupAllPublishExtensions = (
+  //   allPublishExtensions: array<FrontendUtils.FrontendType.publishExtension>,
+  // ): array<array<FrontendUtils.FrontendType.publishExtension>> => {
+  //   allPublishExtensions
+  //   ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {info} as implement) => {
+  //     map->Meta3dCommonlib.ImmutableHashMap.set(
+  //       info.name,
+  //       map
+  //       ->Meta3dCommonlib.ImmutableHashMap.get(info.name)
+  //       ->Meta3dCommonlib.OptionSt.getWithDefault([])
+  //       ->Meta3dCommonlib.ArraySt.push(implement),
+  //     )
+  //   }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
+  //   ->Meta3dCommonlib.ImmutableHashMap.entries
+  //   ->Meta3dCommonlib.ArraySt.map(((
+  //     name,
+  //     implements: array<FrontendUtils.FrontendType.publishExtension>,
+  //   )) => {
+  //     implements
+  //     // ->Meta3dCommonlib.ArraySt.copy
+  //     ->Meta3dCommonlib.ArraySt.sort((a, b) => {
+  //       Meta3d.Semver.gt(a.info.version, b.info.version) ? -1 : 1
+  //     })
+  //   })
+  // }
 
   let _groupAllPublishExtensions = (
     allPublishExtensions: array<FrontendUtils.FrontendType.publishExtension>,
   ): array<array<FrontendUtils.FrontendType.publishExtension>> => {
-    allPublishExtensions
-    ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {info} as implement) => {
-      map->Meta3dCommonlib.ImmutableHashMap.set(
-        info.name,
-        map
-        ->Meta3dCommonlib.ImmutableHashMap.get(info.name)
-        ->Meta3dCommonlib.OptionSt.getWithDefault([])
-        ->Meta3dCommonlib.ArraySt.push(implement),
-      )
-    }, Meta3dCommonlib.ImmutableHashMap.createEmpty())
-    ->Meta3dCommonlib.ImmutableHashMap.entries
-    ->Meta3dCommonlib.ArraySt.map(((
-      name,
-      implements: array<FrontendUtils.FrontendType.publishExtension>,
-    )) => {
-      implements
-      // ->Meta3dCommonlib.ArraySt.copy
-      ->Meta3dCommonlib.ArraySt.sort((a, b) => {
-        Meta3d.Semver.gt(a.info.version, b.info.version) ? -1 : 1
-      })
-    })
-  }
-
-  let _getAllPublishExtensionProtocolsCount = allPublishExtensionProtocols => {
-    allPublishExtensionProtocols->_groupAllPublishExtensionProtocols->Meta3dCommonlib.ArraySt.length
+    FrontendUtils.MarketUtils.groupAllPublishItems(
+      (
+        ({info}: FrontendUtils.FrontendType.publishExtension) => info.name,
+        ({info}: FrontendUtils.FrontendType.publishExtension) => info.version,
+      ),
+      allPublishExtensions,
+    )
   }
 
   let _getAllPublishExtensionsCount = allPublishExtensions => {
     allPublishExtensions->_groupAllPublishExtensions->Meta3dCommonlib.ArraySt.length
-  }
-
-  let _getCurrentPageOfAllPublishExtensionProtocols = (
-    groupedAllPublishExtensionProtocols,
-    page,
-    pageSize,
-  ) => {
-    groupedAllPublishExtensionProtocols->Meta3dCommonlib.ArraySt.slice(
-      (page - 1) * pageSize,
-      page * pageSize,
-    )
-  }
-
-  let _getCurrentPageOfAllPublishExtensions = (groupedAllPublishExtensions, page, pageSize) => {
-    groupedAllPublishExtensions->Meta3dCommonlib.ArraySt.slice(
-      (page - 1) * pageSize,
-      page * pageSize,
-    )
   }
 
   let onChangeForSecond = (page, pageSize) => {
@@ -239,7 +229,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     : React.null}
                   <List
                     itemLayout=#horizontal
-                    dataSource={_getCurrentPageOfAllPublishExtensions(
+                    dataSource={FrontendUtils.MarketUtils.getCurrentPage(
                       allPublishExtensions->_groupAllPublishExtensions,
                       thirdPage,
                       FrontendUtils.MarketUtils.getPageSize(),
@@ -280,7 +270,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                           item.info.version,
                           items->Meta3dCommonlib.ArraySt.map(item => item.info.version),
                         )}
-                        {_isSelect(item.info.id, selectedExtensions)
+                        {FrontendUtils.MarketUtils.isSelect(
+                          (({id}, _): FrontendUtils.AssembleSpaceCommonType.extensionData) => id,
+                          item.info.id,
+                          selectedExtensions,
+                        )
                           ? <Button
                               onClick={_ => {
                                 dispatch(
@@ -400,8 +394,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             | None =>
               <List
                 itemLayout=#horizontal
-                dataSource={_getCurrentPageOfAllPublishExtensionProtocols(
-                  allPublishExtensionProtocols->_groupAllPublishExtensionProtocols,
+                dataSource={FrontendUtils.MarketUtils.getCurrentPage(
+                  allPublishExtensionProtocols->FrontendUtils.MarketUtils.groupAllPublishProtocols,
                   secondPage,
                   FrontendUtils.MarketUtils.getPageSize(),
                 )}
@@ -468,7 +462,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           <Pagination
             defaultCurrent={1}
             defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
-            total={_getAllPublishExtensionProtocolsCount(allPublishExtensionProtocols)}
+            total={FrontendUtils.MarketUtils.getAllProtocolsCount(allPublishExtensionProtocols)}
             onChange=onChangeForSecond
           />
         | Third =>
