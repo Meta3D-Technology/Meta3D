@@ -6,7 +6,8 @@ let isNotInnerProtocol = protocolName => {
   }
 }
 
-let getPageSize = () => 30
+// let getPageSize = () => 30
+let getPageSize = () => 1
 
 let getLimitCount = () => 1000
 

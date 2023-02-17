@@ -216,7 +216,7 @@ package assemble run test
 
 * DONE fix: find extension,contribute,package
 
-* TODO refactor: refactor Market: extract Second, Third
+* DONE refactor: refactor Market: extract Second, Third
 
 
 * TODO fix: enter second->jump to 2->enter third: current should be 1! 
@@ -227,11 +227,18 @@ package assemble run test
 
 
 
-* TODO run test engine
-
 
 * TODO publish v0.12.1
 
 
 * TODO update production
 
+
+* TODO run test engine in production
+
+build package and use
+
+build and run demo
+
+
+* TODO send to @...
