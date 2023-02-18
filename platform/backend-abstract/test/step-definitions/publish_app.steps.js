@@ -39,7 +39,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
         and('generate a app', () => {
             appBinaryFile = new ArrayBuffer(10);
-            appName = "app1";
+            appName = "App1";
             account = "account1";
             description = "d1";
         });
@@ -49,9 +49,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         then('should upload app', () => {
             expect(uploadFileFunc).toCalledWith([
                 onUploadProgressFunc,
-                "apps/account1_app1.arrayBuffer",
+                "apps/account1_App1.arrayBuffer",
                 appBinaryFile,
-                "account1_app1"
+                "account1_App1"
             ]);
         });
         and('add to collection', () => {
@@ -146,6 +146,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     test('if find, findPublishApp return published app file', ({ given, and, when, then }) => {
         let appBinaryFile = new ArrayBuffer(10);
         let fileID = "id1";
+        let account = "a1";
+        let appName = "AN1";
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForFindPublishApp(sandbox);
@@ -163,7 +165,11 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find the published app', () => {
         });
         then('should return the app file', () => {
-            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], "", "").observe(result => {
+            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], account, appName).observe(result => {
+                expect(getDataByKeyFunc).toCalledWith([
+                    sinon_1.match.string,
+                    "a1_an1"
+                ]);
                 expect(downloadFileFunc).toCalledWith([
                     fileID
                 ]);

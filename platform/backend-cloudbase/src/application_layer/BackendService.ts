@@ -117,6 +117,9 @@ export let addData = (collectionName: string, key: string, data: any) => Backend
 export let getDataByKey = (collectionName: string, key: string) => {
 	return getDatabase().collection(collectionName)
 		.where({ key: BackendService.handleKeyToLowercase(key) })
+		//TODO support 1000
+		.skip(0)
+		.limit(1000)
 		.get()
 		.then(res => res.data)
 }

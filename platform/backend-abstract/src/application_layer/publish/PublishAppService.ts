@@ -1,10 +1,11 @@
 import { fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { publishAppInfo } from "./PublishAppType"
+import { handleKeyToLowercase } from "../../../../../utils/meta3d-backend-cloudbase/src/Main"
 
 let _buildFileName = (appName: string, account: string) => account + "_" + appName
 
-export let _buildKey = _buildFileName
+export let _buildKey = (appName: string, account: string) => handleKeyToLowercase(_buildFileName(appName, account))
 
 export let publish = (
     [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any],

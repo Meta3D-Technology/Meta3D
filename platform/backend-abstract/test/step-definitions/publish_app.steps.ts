@@ -1,6 +1,6 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { empty, just, map } from "most";
-import { createSandbox } from "sinon";
+import { createSandbox, match } from "sinon";
 import { resolve } from "../../../../services/meta3d-tool-utils/src/publish/PromiseTool";
 import { getFileID } from "meta3d-backend-cloudbase";
 // import { findAllPublishAppsByAccount, findAllPublishApps, findPublishApp, publish } from "../../src/application_layer/publish/PublishAppService";
@@ -54,7 +54,7 @@ defineFeature(feature, test => {
 
         and('generate a app', () => {
             appBinaryFile = new ArrayBuffer(10)
-            appName = "app1"
+            appName = "App1"
             account = "account1"
             description = "d1"
         });
@@ -72,9 +72,9 @@ defineFeature(feature, test => {
         then('should upload app', () => {
             expect(uploadFileFunc).toCalledWith([
                 onUploadProgressFunc,
-                "apps/account1_app1.arrayBuffer",
+                "apps/account1_App1.arrayBuffer",
                 appBinaryFile,
-                "account1_app1"
+                "account1_App1"
             ])
         });
 
@@ -217,6 +217,8 @@ defineFeature(feature, test => {
     test('if find, findPublishApp return published app file', ({ given, and, when, then }) => {
         let appBinaryFile = new ArrayBuffer(10)
         let fileID = "id1"
+        let account = "a1"
+        let appName = "AN1"
 
         _prepare(given)
 
@@ -245,8 +247,15 @@ defineFeature(feature, test => {
         then('should return the app file', () => {
             return findPublishApp(
                 [getDataByKeyFunc, downloadFileFunc],
-                "", ""
+                account,
+                appName
             ).observe(result => {
+                expect(getDataByKeyFunc).toCalledWith(
+                    [
+                        match.string,
+                        "a1_an1"
+                    ]
+                )
                 expect(downloadFileFunc).toCalledWith([
                     fileID
                 ])

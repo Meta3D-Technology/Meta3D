@@ -7,4 +7,3 @@ function resolve(value) {
     });
 }
 exports.resolve = resolve;
-//# sourceMappingURL=PromiseTool.js.map

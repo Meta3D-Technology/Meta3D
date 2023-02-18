@@ -143,6 +143,8 @@ exports.getMarketProtocolCollectionCount = getMarketProtocolCollectionCount;
 let getMarketImplementAccountData = (app, parseMarketCollectionDataBody, collectionName, account) => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: (0, exports.handleKeyToLowercase)(account) })
+        .skip(0)
+        .limit(1000)
         .get()
         .then(res => [res.data[0], []]);
 };
@@ -182,4 +184,3 @@ let downloadFile = (app, parseMarketCollectionDataBody, fileID) => {
 };
 exports.downloadFile = downloadFile;
 exports.parseMarketCollectionDataBodyForNodejs = null;
-//# sourceMappingURL=Main.js.map

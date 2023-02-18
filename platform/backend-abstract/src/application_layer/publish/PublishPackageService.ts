@@ -1,12 +1,13 @@
 import { fromPromise } from "most"
+import { handleKeyToLowercase } from "../../../../../utils/meta3d-backend-cloudbase/src/Main"
 
 export let _buildKey = (
     entryExtensionProtocolName: string,
     entryExtensionProtocolVersion: string,
-    packageName: string, packageVersion: string, account: string) => account + "_" +
-    entryExtensionProtocolName + "_" +
-    entryExtensionProtocolVersion + "_" +
-    packageName + "_" + packageVersion
+    packageName: string, packageVersion: string, account: string) => handleKeyToLowercase(account + "_" +
+        entryExtensionProtocolName + "_" +
+        entryExtensionProtocolVersion + "_" +
+        packageName + "_" + packageVersion)
 
 
 let _buildFileName = (

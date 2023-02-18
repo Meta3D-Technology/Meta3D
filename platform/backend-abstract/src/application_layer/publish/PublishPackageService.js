@@ -2,10 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publish = exports.buildPartialKeyByPackageData = exports.buildPartialKeyByEntryProcoltolData = exports._buildKey = void 0;
 const most_1 = require("most");
-let _buildKey = (entryExtensionProtocolName, entryExtensionProtocolVersion, packageName, packageVersion, account) => account + "_" +
+const Main_1 = require("../../../../../utils/meta3d-backend-cloudbase/src/Main");
+let _buildKey = (entryExtensionProtocolName, entryExtensionProtocolVersion, packageName, packageVersion, account) => (0, Main_1.handleKeyToLowercase)(account + "_" +
     entryExtensionProtocolName + "_" +
     entryExtensionProtocolVersion + "_" +
-    packageName + "_" + packageVersion;
+    packageName + "_" + packageVersion);
 exports._buildKey = _buildKey;
 let _buildFileName = (packageName, packageVersion, account) => account + "_" +
     packageName + "_" + packageVersion;
