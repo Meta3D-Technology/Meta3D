@@ -18,6 +18,10 @@ export function buildReadJsonFunc(packageFilePath: string) {
     }
 }
 
-export function isPublisherRegistered(hasAccountFunc, backendInstance:any, publisher: string) {
+export function isPublisherRegistered(hasAccountFunc, backendInstance: any, publisher: string) {
     return hasAccountFunc(backendInstance, "user", publisher)
+}
+
+export function getLimitCount() {
+    return 1000
 }

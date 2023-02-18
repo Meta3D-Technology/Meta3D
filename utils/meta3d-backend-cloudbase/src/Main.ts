@@ -195,10 +195,11 @@ export let getMarketProtocolCollectionCount = (app: any, collectionName: string)
         .then(res => res.total)
 }
 
-
 export let getMarketImplementAccountData = (app: any, parseMarketCollectionDataBody, collectionName: string, account: account): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
     return _getDatabase(app).collection(collectionName)
         .where({ key: handleKeyToLowercase(account) })
+        .skip(0)
+        .limit(1000)
         .get()
         .then(res => [res.data[0], []])
 }

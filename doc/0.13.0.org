@@ -239,17 +239,27 @@ package assemble run test
 
 
 
-* TODO publish v0.12.1
+* DONE publish v0.12.1
 
 
-* TODO update production
+* DONE update production
 
 
 * TODO run test engine in production
 
-# build package and use
+build package and use
 
 build and run demo
 
 
+
+
+
 * TODO send to @...
+
+
+
+
+* TODO update doc
+
+

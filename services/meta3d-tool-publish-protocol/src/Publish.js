@@ -32,7 +32,9 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
             if (!_isPNG(iconPath)) {
                 _throwError("icon's format should be png");
             }
-            return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType)).then(res => {
+            return (0, most_1.fromPromise)(
+            // TODO support > 1000
+            getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), (0, PublishUtils_1.getLimitCount)(), 0).then(res => {
                 let resData = getDataFromMarketProtocolCollectionFunc(res);
                 return isContainFunc(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;
@@ -82,7 +84,9 @@ function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, init
                 _throwError("找不到publishser，请在平台上注册该用户");
             }
             let collectioName = _getPublishedConfigCollectionName(fileType);
-            return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, collectioName).then(res => {
+            return (0, most_1.fromPromise)(
+            // TODO support > 1000
+            getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, collectioName, (0, PublishUtils_1.getLimitCount)(), 0).then(res => {
                 let resData = getDataFromMarketProtocolCollectionFunc(res);
                 return isContainFunc(({ name, version }) => {
                     return name === packageJson.name && version === packageJson.version;

@@ -1,5 +1,5 @@
 import { fromPromise } from "most";
-import { isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
+import { getLimitCount, isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
 function _throwError(msg: string): never {
     throw new Error(msg)
@@ -40,10 +40,13 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
             }
 
             return fromPromise(
+                // TODO support > 1000
                 getMarketProtocolCollectionFunc(
                     backendInstance,
                     parseMarketCollectionDataBodyFunc,
                     _getPublishedCollectionName(fileType),
+                    getLimitCount(),
+                    0
                 ).then(res => {
                     let resData = getDataFromMarketProtocolCollectionFunc(res)
 
@@ -112,10 +115,13 @@ export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFun
             let collectioName = _getPublishedConfigCollectionName(fileType)
 
             return fromPromise(
+                // TODO support > 1000
                 getMarketProtocolCollectionFunc(
                     backendInstance,
                     parseMarketCollectionDataBodyFunc,
-                    collectioName
+                    collectioName,
+                    getLimitCount(),
+                    0
                 ).then(res => {
                     let resData = getDataFromMarketProtocolCollectionFunc(res)
 

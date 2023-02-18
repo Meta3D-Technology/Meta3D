@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isPublisherRegistered = exports.buildReadJsonFunc = void 0;
+exports.getLimitCount = exports.isPublisherRegistered = exports.buildReadJsonFunc = void 0;
 const most_1 = require("most");
 const read_package_json_1 = __importDefault(require("read-package-json"));
 function buildReadJsonFunc(packageFilePath) {
@@ -24,4 +24,8 @@ function isPublisherRegistered(hasAccountFunc, backendInstance, publisher) {
     return hasAccountFunc(backendInstance, "user", publisher);
 }
 exports.isPublisherRegistered = isPublisherRegistered;
+function getLimitCount() {
+    return 1000;
+}
+exports.getLimitCount = getLimitCount;
 //# sourceMappingURL=PublishUtils.js.map
