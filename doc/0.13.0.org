@@ -233,15 +233,9 @@ package assemble run test
 * DONE close version dependent check
 
 
-* TODO run test engine 
-
-build package and use
-
-build and run demo
 
 
-
-* TODO pass ci
+* DONE pass ci
 
 
 
@@ -250,6 +244,12 @@ build and run demo
 
 * TODO update production
 
+
+* TODO run test engine in production
+
+# build package and use
+
+build and run demo
 
 
 * TODO send to @...
