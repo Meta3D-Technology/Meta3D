@@ -1,6 +1,6 @@
 {
   "name": "use-package2",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "scripts": {
     "watch": "tsc -w -noEmit",
     "webpack_dev": "NODE_ENV=development webpack --config webpack.config.js",
@@ -18,6 +18,6 @@
     "webpack-dev-server": "^4.4.0"
   },
   "dependencies": {
-    "meta3d-package": "^0.12.0"
+    "meta3d-package": "^0.12.1"
   }
 }

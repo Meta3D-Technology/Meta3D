@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-render",
-    "version": "0.12.0",
+    "version": "0.12.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-render-protocol"
@@ -30,7 +30,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-bs-most-protocol": "^0.12.0",
-        "meta3d-engine-core-protocol": "^0.12.0",
+        "meta3d-engine-core-protocol": "^0.12.1",
         "meta3d-immutable-protocol": "^0.12.0",
         "meta3d-pipeline-webgl1-render-protocol": "^0.12.0",
         "meta3d-type": "^0.12.0",
@@ -40,7 +40,7 @@
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.12.0",
+        "meta3d-tool-publish": "^0.12.1",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

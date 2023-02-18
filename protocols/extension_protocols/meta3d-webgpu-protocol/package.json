@@ -1,10 +1,10 @@
 {
     "name": "meta3d-webgpu-protocol",
-    "version": "0.12.0",
+    "version": "0.12.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d webgpu protocol",
-    "repoLink":"",
-    "description":"",
+    "repoLink": "",
+    "description": "",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
@@ -12,7 +12,6 @@
         "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.3"
     }
