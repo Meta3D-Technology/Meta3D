@@ -69,4 +69,4 @@ exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
 exports._getEntryExtensionProtocolName = _getEntryExtensionProtocolName;
 exports.load = load;
-/* ManagerUtils-Meta3d Not a pure module */
+/* No side effect */

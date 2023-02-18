@@ -104,4 +104,4 @@ exports.getActions = getActions;
 exports.serializeStartExtensionProtocolConfigLib = serializeStartExtensionProtocolConfigLib;
 exports.getNeedConfigData = getNeedConfigData;
 exports.buildAPI = buildAPI;
-/* AppManager-Meta3d Not a pure module */
+/* No side effect */

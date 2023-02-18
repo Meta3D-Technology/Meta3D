@@ -168,25 +168,25 @@ let _prepare = (): Meta3dType.Index.state => {
   }
 }
 
-let _checkVersion = (protocolVersion, dependentProtocolVersion, dependentProtocolName) => {
-  // Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
-  Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))
-    ? ()
-    : Meta3dCommonlib.Exception.throwErr(
-        Meta3dCommonlib.Exception.buildErr(
-          Meta3dCommonlib.Log.buildErrorMessage(
-            ~title="version not match",
-            ~description={
-              j`${dependentProtocolName}
-              ${protocolVersion} not match dependentProtocolVersion: ${dependentProtocolVersion}`
-            },
-            ~reason="",
-            ~solution=j``,
-            ~params=j``,
-          ),
-        ),
-      )
-}
+// let _checkVersion = (protocolVersion, dependentProtocolVersion, dependentProtocolName) => {
+//   // Semver.satisfies(Semver.minVersion(protocolVersion), dependentProtocolVersion)
+//   Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))
+//     ? ()
+//     : Meta3dCommonlib.Exception.throwErr(
+//         Meta3dCommonlib.Exception.buildErr(
+//           Meta3dCommonlib.Log.buildErrorMessage(
+//             ~title="version not match",
+//             ~description={
+//               j`${dependentProtocolName}
+//               ${protocolVersion} not match dependentProtocolVersion: ${dependentProtocolVersion}`
+//             },
+//             ~reason="",
+//             ~solution=j``,
+//             ~params=j``,
+//           ),
+//         ),
+//       )
+// }
 
 let _checkDependentMap = (dependentMap, allDataMap) => {
   dependentMap
@@ -215,7 +215,7 @@ let _checkDependentMap = (dependentMap, allDataMap) => {
     | Some(data) => data
     }
 
-    _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName)
+    // _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName)
   })
 }
 

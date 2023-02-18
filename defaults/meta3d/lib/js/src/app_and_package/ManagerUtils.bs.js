@@ -1,8 +1,8 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
-var Semver = require("semver");
 var Js_array = require("rescript/lib/js/js_array.js");
+var Caml_option = require("rescript/lib/js/caml_option.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
 var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
@@ -158,20 +158,15 @@ function _prepare(param) {
         };
 }
 
-function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
-  if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
-    return ;
-  } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
-  }
-}
-
 function _checkDependentMap(dependentMap, allDataMap) {
   ArraySt$Meta3dCommonlib.forEach(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (param) {
           var dependentData = param[1];
           var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
-          var protocolVersion = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
-          _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName);
+          if (data !== undefined) {
+            Caml_option.valFromOption(data);
+          } else {
+            Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
+          }
         }));
 }
 
@@ -248,10 +243,9 @@ exports.mergeAllPackageBinaryFiles = mergeAllPackageBinaryFiles;
 exports.getContributeFunc = getContributeFunc;
 exports._parse = _parse;
 exports._prepare = _prepare;
-exports._checkVersion = _checkVersion;
 exports._checkDependentMap = _checkDependentMap;
 exports._checkAllDependents = _checkAllDependents;
 exports._convertDependentMap = _convertDependentMap;
 exports._run = _run;
 exports.load = load;
-/* semver Not a pure module */
+/* No side effect */

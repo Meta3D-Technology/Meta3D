@@ -113,4 +113,4 @@ export {
   _getStartExtensionProtocolName ,
   start ,
 }
-/* ManagerUtils-Meta3d Not a pure module */
+/* No side effect */

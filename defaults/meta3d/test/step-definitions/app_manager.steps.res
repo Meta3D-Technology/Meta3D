@@ -660,373 +660,373 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."version not match case1", ({given, \"when", \"and", then}) => {
-    let firstExtension = ref(Obj.magic(1))
-    let secondExtension = ref(Obj.magic(1))
-    let c1 = ref(Obj.magic(1))
-    // let startExtensionName = ref(Obj.magic(1))
-    let state = ref(Obj.magic(1))
+  // test(."version not match case1", ({given, \"when", \"and", then}) => {
+  //   let firstExtension = ref(Obj.magic(1))
+  //   let secondExtension = ref(Obj.magic(1))
+  //   let c1 = ref(Obj.magic(1))
+  //   // let startExtensionName = ref(Obj.magic(1))
+  //   let state = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareFlag(given)
+  //   _prepareFlag(given)
 
-    given(
-      "generate two extensions that version not match",
-      () => {
-        firstExtension :=
-          ExtensionFileManagerTool.generateExtension(
-            ~name="first-extension",
-            ~protocol={
-              name: "first-extension-protocol",
-              version: "^0.4.1",
-            },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-              "second-extension",
-              (
-                {
-                  protocolName: "second-extension-protocol",
-                  // protocolVersion: ">=0.4.1 < 1.0.0",
-                  protocolVersion: ">=1.1.0 < 1.2.0",
-                }: ExtensionFileType.dependentData
-              ),
-            ),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
-            (),
-          )
+  //   given(
+  //     "generate two extensions that version not match",
+  //     () => {
+  //       firstExtension :=
+  //         ExtensionFileManagerTool.generateExtension(
+  //           ~name="first-extension",
+  //           ~protocol={
+  //             name: "first-extension-protocol",
+  //             version: "^0.4.1",
+  //           },
+  //           ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+  //             "second-extension",
+  //             (
+  //               {
+  //                 protocolName: "second-extension-protocol",
+  //                 // protocolVersion: ">=0.4.1 < 1.0.0",
+  //                 protocolVersion: ">=1.1.0 < 1.2.0",
+  //               }: ExtensionFileType.dependentData
+  //             ),
+  //           ),
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
+  //           (),
+  //         )
 
-        secondExtension :=
-          ExtensionFileManagerTool.generateExtension(
-            ~name="second-extension",
-            ~protocol={
-              name: "second-extension-protocol",
-              version: ">=1.0.2",
-            },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(2),
-            (),
-          )
-      },
-    )
+  //       secondExtension :=
+  //         ExtensionFileManagerTool.generateExtension(
+  //           ~name="second-extension",
+  //           ~protocol={
+  //             name: "second-extension-protocol",
+  //             version: ">=1.0.2",
+  //           },
+  //           ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(2),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    // \"and"(
-    //   "start the second extension",
-    //   () => {
-    //     startExtensionName := "second-extension"
-    //   },
-    // )
+  //   // \"and"(
+  //   //   "start the second extension",
+  //   //   () => {
+  //   //     startExtensionName := "second-extension"
+  //   //   },
+  //   // )
 
-    \"and"(
-      "load them and convert as c1",
-      () => {
-        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
-        let secondExtensionFileData = Main.loadExtension(secondExtension.contents)
+  //   \"and"(
+  //     "load them and convert as c1",
+  //     () => {
+  //       let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+  //       let secondExtensionFileData = Main.loadExtension(secondExtension.contents)
 
-        c1 :=
-          Main.convertAllFileDataForApp(
-            [firstExtensionFileData, secondExtensionFileData],
-            [],
-            // [startExtensionName.contents],
-            [],
-          )
-      },
-    )
+  //       c1 :=
+  //         Main.convertAllFileDataForApp(
+  //           [firstExtensionFileData, secondExtensionFileData],
+  //           [],
+  //           // [startExtensionName.contents],
+  //           [],
+  //         )
+  //     },
+  //   )
 
-    \"when"(
-      "generate app with c1 and load it",
-      () => {
-        ()
-      },
-    )
+  //   \"when"(
+  //     "generate app with c1 and load it",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    then(
-      "error",
-      () => {
-        expect(
-          () => {
-            let (s, allExtensionDataArr, _) =
-              Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
-          },
-        )->toThrowMessage("version not match")
-      },
-    )
-  })
+  //   then(
+  //     "error",
+  //     () => {
+  //       expect(
+  //         () => {
+  //           let (s, allExtensionDataArr, _) =
+  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+  //         },
+  //       )->toThrowMessage("version not match")
+  //     },
+  //   )
+  // })
 
-  test(."version not match case2", ({given, \"when", \"and", then}) => {
-    let firstExtension = ref(Obj.magic(1))
-    let firstContribute = ref(Obj.magic(1))
-    let c1 = ref(Obj.magic(1))
-    // let startExtensionName = ref(Obj.magic(1))
-    let state = ref(Obj.magic(1))
+  // test(."version not match case2", ({given, \"when", \"and", then}) => {
+  //   let firstExtension = ref(Obj.magic(1))
+  //   let firstContribute = ref(Obj.magic(1))
+  //   let c1 = ref(Obj.magic(1))
+  //   // let startExtensionName = ref(Obj.magic(1))
+  //   let state = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareFlag(given)
+  //   _prepareFlag(given)
 
-    given(
-      "generate one extension",
-      () => {
-        firstExtension :=
-          ExtensionFileManagerTool.generateExtension(
-            ~name="first-extension",
-            ~protocol={
-              name: "first-extension-protocol",
-              version: "^0.4.1",
-            },
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-              "first-contribute",
-              (
-                {
-                  protocolName: "first-contribute-protocol",
-                  protocolVersion: ">=0.4.1 < 1.0.0",
-                }: ExtensionFileType.dependentData
-              ),
-            ),
-            ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
-            (),
-          )
-      },
-    )
+  //   given(
+  //     "generate one extension",
+  //     () => {
+  //       firstExtension :=
+  //         ExtensionFileManagerTool.generateExtension(
+  //           ~name="first-extension",
+  //           ~protocol={
+  //             name: "first-extension-protocol",
+  //             version: "^0.4.1",
+  //           },
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+  //             "first-contribute",
+  //             (
+  //               {
+  //                 protocolName: "first-contribute-protocol",
+  //                 protocolVersion: ">=0.4.1 < 1.0.0",
+  //               }: ExtensionFileType.dependentData
+  //             ),
+  //           ),
+  //           ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"and"(
-      "generate one contribute that version not match",
-      () => {
-        firstContribute :=
-          ExtensionFileManagerTool.generateContribute(
-            ~name="first-contribute",
-            ~protocol={
-              name: "first-contribute-protocol",
-              version: ">=0.1.0 < 0.5.0",
-            },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=AppManagerTool.buildEmptyContributeFileStr(),
-            (),
-          )
-      },
-    )
+  //   \"and"(
+  //     "generate one contribute that version not match",
+  //     () => {
+  //       firstContribute :=
+  //         ExtensionFileManagerTool.generateContribute(
+  //           ~name="first-contribute",
+  //           ~protocol={
+  //             name: "first-contribute-protocol",
+  //             version: ">=0.1.0 < 0.5.0",
+  //           },
+  //           ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~fileStr=AppManagerTool.buildEmptyContributeFileStr(),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    // \"and"(
-    //   "start the first extension",
-    //   () => {
-    //     startExtensionName := "first-extension"
-    //   },
-    // )
+  //   // \"and"(
+  //   //   "start the first extension",
+  //   //   () => {
+  //   //     startExtensionName := "first-extension"
+  //   //   },
+  //   // )
 
-    \"and"(
-      "load them and convert as c1",
-      () => {
-        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
-        let firstContributeFileData = Main.loadContribute(firstContribute.contents)
+  //   \"and"(
+  //     "load them and convert as c1",
+  //     () => {
+  //       let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+  //       let firstContributeFileData = Main.loadContribute(firstContribute.contents)
 
-        c1 :=
-          Main.convertAllFileDataForApp(
-            [firstExtensionFileData],
-            [firstContributeFileData],
-            // [startExtensionName.contents],
-            [],
-          )
-      },
-    )
+  //       c1 :=
+  //         Main.convertAllFileDataForApp(
+  //           [firstExtensionFileData],
+  //           [firstContributeFileData],
+  //           // [startExtensionName.contents],
+  //           [],
+  //         )
+  //     },
+  //   )
 
-    \"when"(
-      "generate app with c1 and load it",
-      () => {
-        ()
-      },
-    )
+  //   \"when"(
+  //     "generate app with c1 and load it",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    then(
-      "error",
-      () => {
-        expect(
-          () => {
-            let (s, allExtensionDataArr, _) =
-              Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
-          },
-        )->toThrowMessage("version not match")
-      },
-    )
-  })
+  //   then(
+  //     "error",
+  //     () => {
+  //       expect(
+  //         () => {
+  //           let (s, allExtensionDataArr, _) =
+  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+  //         },
+  //       )->toThrowMessage("version not match")
+  //     },
+  //   )
+  // })
 
-  test(."version not match case3", ({given, \"when", \"and", then}) => {
-    let firstExtension = ref(Obj.magic(1))
-    let p1 = ref(Obj.magic(1))
-    let c1 = ref(Obj.magic(1))
-    let state = ref(Obj.magic(1))
+  // test(."version not match case3", ({given, \"when", \"and", then}) => {
+  //   let firstExtension = ref(Obj.magic(1))
+  //   let p1 = ref(Obj.magic(1))
+  //   let c1 = ref(Obj.magic(1))
+  //   let state = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareFlag(given)
+  //   _prepareFlag(given)
 
-    given(
-      "generate one extension",
-      () => {
-        firstExtension :=
-          ExtensionFileManagerTool.generateExtension(
-            ~name="first-extension",
-            ~protocol={
-              name: "first-extension-protocol",
-              version: "^0.4.1",
-            },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-              "package-first-extension",
-              (
-                {
-                  protocolName: "package-first-extension-protocol",
-                  protocolVersion: ">1.0.0",
-                }: ExtensionFileType.dependentData
-              ),
-            ),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
-            (),
-          )
-      },
-    )
+  //   given(
+  //     "generate one extension",
+  //     () => {
+  //       firstExtension :=
+  //         ExtensionFileManagerTool.generateExtension(
+  //           ~name="first-extension",
+  //           ~protocol={
+  //             name: "first-extension-protocol",
+  //             version: "^0.4.1",
+  //           },
+  //           ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+  //             "package-first-extension",
+  //             (
+  //               {
+  //                 protocolName: "package-first-extension-protocol",
+  //                 protocolVersion: ">1.0.0",
+  //               }: ExtensionFileType.dependentData
+  //             ),
+  //           ),
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"and"(
-      "generate one package as p1 with one extension that not match",
-      () => {
-        let extension = ExtensionFileManagerTool.generateExtension(
-          ~name="package-first-extension",
-          ~protocol={
-            name: "package-first-extension-protocol",
-            version: "^0.4.1",
-          },
-          ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          ~fileStr=AppManagerTool.buildEmptyExtensionFileStr(),
-          (),
-        )
+  //   \"and"(
+  //     "generate one package as p1 with one extension that not match",
+  //     () => {
+  //       let extension = ExtensionFileManagerTool.generateExtension(
+  //         ~name="package-first-extension",
+  //         ~protocol={
+  //           name: "package-first-extension-protocol",
+  //           version: "^0.4.1",
+  //         },
+  //         ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         ~fileStr=AppManagerTool.buildEmptyExtensionFileStr(),
+  //         (),
+  //       )
 
-        let extensionFileData = Main.loadExtension(extension)
+  //       let extensionFileData = Main.loadExtension(extension)
 
-        p1 :=
-          Main.generatePackage(Main.convertAllFileDataForPackage([extensionFileData], [], []), [])
-      },
-    )
+  //       p1 :=
+  //         Main.generatePackage(Main.convertAllFileDataForPackage([extensionFileData], [], []), [])
+  //     },
+  //   )
 
-    \"and"(
-      "load them and convert as c1",
-      () => {
-        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+  //   \"and"(
+  //     "load them and convert as c1",
+  //     () => {
+  //       let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
 
-        c1 := Main.convertAllFileDataForApp([firstExtensionFileData], [], [])
-      },
-    )
+  //       c1 := Main.convertAllFileDataForApp([firstExtensionFileData], [], [])
+  //     },
+  //   )
 
-    \"when"(
-      "generate app with c1, p1 and load it",
-      () => {
-        ()
-      },
-    )
+  //   \"when"(
+  //     "generate app with c1, p1 and load it",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    then(
-      "error",
-      () => {
-        expect(
-          () => {
-            let (s, allExtensionDataArr, _) =
-              Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
-          },
-        )->toThrowMessage("version not match")
-      },
-    )
-  })
+  //   then(
+  //     "error",
+  //     () => {
+  //       expect(
+  //         () => {
+  //           let (s, allExtensionDataArr, _) =
+  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
+  //         },
+  //       )->toThrowMessage("version not match")
+  //     },
+  //   )
+  // })
 
-  test(."version match case1", ({given, \"when", \"and", then}) => {
-    let firstExtension = ref(Obj.magic(1))
-    let p1 = ref(Obj.magic(1))
-    let c1 = ref(Obj.magic(1))
-    let state = ref(Obj.magic(1))
+  // test(."version match case1", ({given, \"when", \"and", then}) => {
+  //   let firstExtension = ref(Obj.magic(1))
+  //   let p1 = ref(Obj.magic(1))
+  //   let c1 = ref(Obj.magic(1))
+  //   let state = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareFlag(given)
+  //   _prepareFlag(given)
 
-    given(
-      "generate one extension",
-      () => {
-        firstExtension :=
-          ExtensionFileManagerTool.generateExtension(
-            ~name="first-extension",
-            ~protocol={
-              name: "first-extension-protocol",
-              version: "^0.4.1",
-            },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-              "package-first-extension",
-              (
-                {
-                  protocolName: "package-first-extension-protocol",
-                  // protocolVersion: ">1.0.0",
-                  // protocolVersion: ">0.4.0",
-                  protocolVersion: "^0.4.0",
-                }: ExtensionFileType.dependentData
-              ),
-            ),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
-            (),
-          )
-      },
-    )
+  //   given(
+  //     "generate one extension",
+  //     () => {
+  //       firstExtension :=
+  //         ExtensionFileManagerTool.generateExtension(
+  //           ~name="first-extension",
+  //           ~protocol={
+  //             name: "first-extension-protocol",
+  //             version: "^0.4.1",
+  //           },
+  //           ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+  //             "package-first-extension",
+  //             (
+  //               {
+  //                 protocolName: "package-first-extension-protocol",
+  //                 // protocolVersion: ">1.0.0",
+  //                 // protocolVersion: ">0.4.0",
+  //                 protocolVersion: "^0.4.0",
+  //               }: ExtensionFileType.dependentData
+  //             ),
+  //           ),
+  //           ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //           ~fileStr=AppManagerTool.buildEmptyExtensionFileStrWithOnStart(1),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"and"(
-      "generate one package as p1 with one extension that match",
-      () => {
-        let extension = ExtensionFileManagerTool.generateExtension(
-          ~name="package-first-extension",
-          ~protocol={
-            name: "package-first-extension-protocol",
-            // version: "^0.4.1",
-            version: "^0.5.0",
-          },
-          ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          ~fileStr=AppManagerTool.buildEmptyExtensionFileStr(),
-          (),
-        )
+  //   \"and"(
+  //     "generate one package as p1 with one extension that match",
+  //     () => {
+  //       let extension = ExtensionFileManagerTool.generateExtension(
+  //         ~name="package-first-extension",
+  //         ~protocol={
+  //           name: "package-first-extension-protocol",
+  //           // version: "^0.4.1",
+  //           version: "^0.5.0",
+  //         },
+  //         ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         ~fileStr=AppManagerTool.buildEmptyExtensionFileStr(),
+  //         (),
+  //       )
 
-        let extensionFileData = Main.loadExtension(extension)
+  //       let extensionFileData = Main.loadExtension(extension)
 
-        p1 :=
-          Main.generatePackage(Main.convertAllFileDataForPackage([extensionFileData], [], []), [])
-      },
-    )
+  //       p1 :=
+  //         Main.generatePackage(Main.convertAllFileDataForPackage([extensionFileData], [], []), [])
+  //     },
+  //   )
 
-    \"and"(
-      "load them and convert as c1",
-      () => {
-        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+  //   \"and"(
+  //     "load them and convert as c1",
+  //     () => {
+  //       let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
 
-        c1 := Main.convertAllFileDataForApp([firstExtensionFileData], [], [])
-      },
-    )
+  //       c1 := Main.convertAllFileDataForApp([firstExtensionFileData], [], [])
+  //     },
+  //   )
 
-    \"when"(
-      "generate app with c1, p1 and load it",
-      () => {
-        ()
-      },
-    )
+  //   \"when"(
+  //     "generate app with c1, p1 and load it",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    then(
-      "not error",
-      () => {
-        expect(
-          () => {
-            let (s, allExtensionDataArr, _) =
-              Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
-          },
-        )->toNotThrow
-      },
-    )
-  })
+  //   then(
+  //     "not error",
+  //     () => {
+  //       expect(
+  //         () => {
+  //           let (s, allExtensionDataArr, _) =
+  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
+  //         },
+  //       )->toNotThrow
+  //     },
+  //   )
+  // })
 
   test(."load and start generated app", ({given, \"when", \"and", then}) => {
     let firstExtension = ref(Obj.magic(1))

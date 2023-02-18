@@ -1,8 +1,8 @@
 
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Semver from "semver";
 import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
@@ -158,20 +158,15 @@ function _prepare(param) {
         };
 }
 
-function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
-  if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
-    return ;
-  } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
-  }
-}
-
 function _checkDependentMap(dependentMap, allDataMap) {
   ArraySt$Meta3dCommonlib.forEach(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (param) {
           var dependentData = param[1];
           var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
-          var protocolVersion = data !== undefined ? data : Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
-          _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName);
+          if (data !== undefined) {
+            Caml_option.valFromOption(data);
+          } else {
+            Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
+          }
         }));
 }
 
@@ -249,11 +244,10 @@ export {
   getContributeFunc ,
   _parse ,
   _prepare ,
-  _checkVersion ,
   _checkDependentMap ,
   _checkAllDependents ,
   _convertDependentMap ,
   _run ,
   load ,
 }
-/* semver Not a pure module */
+/* No side effect */

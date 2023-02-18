@@ -111,4 +111,4 @@ exports.execGetContributeFunc = execGetContributeFunc;
 exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;
 exports.start = start;
-/* ManagerUtils-Meta3d Not a pure module */
+/* No side effect */
