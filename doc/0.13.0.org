@@ -1,4 +1,4 @@
-* TODO 将光栅化管线绘制三角形、计算管线绘制三角形改为使用Meta3D来构建的引擎和引擎Demo
+* TODO 将光栅化管线绘制三角形改为使用Meta3D来构建的引擎和引擎Demo
 
 ** DONE add imgui-webgpu-renderer
 
@@ -83,31 +83,7 @@ publish all(except ui) to platform(production): imgui webgpu renderer, ui contro
 
 
 
-** TODO update doc to add build and download and use engine package!
-
-
-** TODO can render a triangle by webgpu+cs in run element 
-
-
-** TODO write and publish tutorial
-
-should use template!
-
-
-** TODO update doc, readme
-
-
-** TODO do again with others(in canary)
-
-task1:
-publish xxx to platform
-# change triangle to cube
-# change color to blue
-
-
-task2: learn how to update extension/contribute
-change color to blue
-
+# ** TODO update doc to add build and download and use engine package!
 
 
 # * TODO feat: assemble-space: if select, shouln't select again(button ui should forbidden)
@@ -245,9 +221,9 @@ package assemble run test
 * DONE update production
 
 
-* TODO run test engine in production
+* DONE run test engine in production
 
-build package and use
+# build package and use
 
 build and run demo
 
@@ -255,11 +231,42 @@ build and run demo
 
 
 
-* TODO send to @...
+
+
+# * TODO update doc
+
+
+
+* DONE send to @...
 
 
 
 
-* TODO update doc
+
+
+* TODO 将计算管线绘制三角形改为使用Meta3D来构建的引擎和引擎Demo
+
+
+** TODO can render a triangle by webgpu+cs in run element 
+
+
+** TODO write and publish tutorial
+
+should use template!
+
+
+** TODO update doc, readme
+
+
+** TODO do again with others(in canary)
+
+task1:
+publish xxx to platform
+# change triangle to cube
+# change color to blue
+
+
+task2: learn how to update extension/contribute
+change color to blue
 
 
