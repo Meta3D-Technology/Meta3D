@@ -1,4 +1,4 @@
-import { loadPackage, getExtensionService, getExtensionState, setExtensionState } from "meta3d-package"
+import { loadPackage, getExtensionService, getExtensionState, setExtensionState } from "meta3d-package/src/Main"
 
 import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 // import { state } from "meta3d-engine-whole-protocol/src/state/StateType"

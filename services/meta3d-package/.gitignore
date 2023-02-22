@@ -12,8 +12,6 @@ lib/bs/
 
 coverage
 
-dist/
-
 npm-debug
 
 .bsb.lock

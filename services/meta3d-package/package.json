@@ -1,6 +1,6 @@
 {
   "name": "meta3d-package",
-  "version": "0.12.1",
+  "version": "0.12.3",
   "main": "./dist/main.js",
   "types": "src/Main.d.ts",
   "scripts": {
