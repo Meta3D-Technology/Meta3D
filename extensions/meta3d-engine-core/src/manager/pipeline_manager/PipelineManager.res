@@ -166,6 +166,8 @@ module ParsePipelineData = {
           ),
         )
       | #group =>
+        // TODO fix: handle is_set_state for group
+
         let group = _findGroup(name, groups)
         let stream = buildPipelineStreamFunc(data, getExecFuncs, pipelineName, group, groups)
         streams->Meta3dCommonlib.ListSt.push(stream)
