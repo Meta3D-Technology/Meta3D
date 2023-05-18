@@ -16,7 +16,7 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 
 后面Meta3D会发布更多和引擎和编辑器相关的扩展，从而使用户可以直接组装已有的扩展来搭建出完整的引擎和编辑器！谢谢支持！
 
-# 特性
+## 特性
 
 - **一切皆扩展**
 通过组装多个扩展，积木式搭建自己的“Web3D引擎或编辑器”
@@ -26,14 +26,14 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 - **Web3 Dapp**
 拥抱Web3，完全开源，建设共享互助开放的Web3D生态
 
-# 优势
+## 优势
 
 - 世界首个搭建Web3D编辑器和引擎的低代码平台
 - 一切皆可扩展，用户可100%自定义
 - 拥抱Web3，完全开源
 
 
-# 支持和社区
+## 支持和社区
 
 - 💬 [点这里](https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh)加QQ群:106047770 与我们交流
 - 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
@@ -42,16 +42,16 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 <!-- - 💡 [案例]()作为学习资料 -->
 
  
-# 如何贡献
+## 如何贡献
 
 我们爱贡献者！欢迎贡献，共建Web3D生态！
 
 如果您希望对Meta3D构建的Web3D生态或者Meta3D本身进行贡献，请阅读[CONTRIBUTING](CONTRIBUTING.md)
 
-## Roadmap
+### Roadmap
 [这里](https://github.com/orgs/Meta3D-Technology/projects/1/views/1)是Meta3D的开发任务，欢迎大家一起来开发，谢谢！
 
-## 贡献者
+### 贡献者
 
 <!-- TODO
 refer to [README.MD 中生成贡献者名单](https://www.jianshu.com/p/495bb77eb672) -->
