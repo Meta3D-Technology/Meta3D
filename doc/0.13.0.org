@@ -268,7 +268,97 @@ change color to blue
 
 
 
-# * TODO 加入协作开发
+
+# * TODO 云开发环境
+
+# goal:
+# - dev fully on web
+# - edit code realtime
+
+# problem:
+# how to add vim online?
+# how to support ts/rescript compiler?
+# how to import files?
+#     get ts by sourcemap from webpacked file string?
+#         then webpack?
+
+
+# # - import/export local package
+
+# - edit online
+
+# - commit
+# add commit button
+
+# commit locally
+
+# - publish
+# can only publish that is the author!
+
+# publish extension/contribute/package with new version
+
+
+# split extension/contribute functions to:
+# getExtensionService
+# createExtensionState
+# getExtensionLife
+
+# ...
+
+
+
+
+
+
+
+
+* TODO remove DependentMapType
+
+# - update book
+
+- update Meta3D
+
+
+
+            let editorEngineWholeService = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+
+            remove dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, DependentMapType
+
+
+
+
+
+# * TODO add action:event, handler to encapuslate action contribute
+* TODO update action
+
+refer to:  
+https://cloud.tencent.com/document/product/1301/65931
+
+https://cloud.tencent.com/document/product/1301/57912#handler-.E6.96.B9.E6.B3.95.E4.BD.BF.E7.94.A8.E4.BB.8B.E7.BB.8D
+
+
+support:
+- write handler functions bind to editor
+through code editor(just copy and commit)
+
+- or can load handler functions from action contribute
+
+
+- trigger even with param
+
+
+
+
+* TODO 加上代码框  更新扩展贡献的代码
+
+每个selected extension,contribute(except pacakge) add selectarea to show and update its code
+
+
+can't change protocol?
+
+
+
+
 
 * TODO 重新设计两个核心的使用场景的开发流程：引擎、编辑器
 
@@ -301,10 +391,24 @@ change color to blue
 
 - 标明引擎/编辑器
 
+- extension/contribute 应该标明 提供的协议、依赖的协议
 
 
 1.用户点击创建引擎的引导后，可选择引擎+入口扩展
-2.TODO
+2.选择入口扩展后，可视化地显示它的依赖
+
+    - 点击其中一个依赖后，显示一个实现该依赖的可选的列表（从select from market中）
+    分页，如市场二级页面
+        - 列表中有“从市场查找”按钮，点击后，显示一个实现该依赖的可选的列表（from market）
+        分页，如市场二级页面
+        选择后，直接select并加入
+
+可查看它的详细页面，即开new tab，跳转到它的三级页面
+
+
+
+            
+
 
 
 
@@ -332,19 +436,29 @@ change color to blue
 ** TODO 编辑器
 
 
-* TODO 更新开发和发布扩展、贡献、协议的流程
-
-平台上加上便捷入口！
-link?
 
 
+
+# * TODO 更新开发和发布扩展、贡献、协议的流程
+
+# 平台上加上便捷入口！
+# link?
+
+
+
+
+
+
+
+
+* TODO update all extensions, contributes
 
 
 
 * TODO 更新文档
 
 
-* TODO 邀请种子用户测试
+# * TODO 邀请种子用户测试
 
 
 
