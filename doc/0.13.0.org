@@ -312,9 +312,9 @@ change color to blue
 
 
 
-* TODO remove DependentMapType
+* DONE remove DependentMapType
 
-# - update book
+- update book
 
 - update Meta3D
 

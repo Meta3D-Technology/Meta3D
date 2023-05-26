@@ -1,6 +1,6 @@
 open Meta3dType.Index
 
-type versionRange = string
+// type versionRange = string
 
 // type dependentExtensionData = {
 //   protocolName: string,
@@ -26,25 +26,25 @@ type extensionPackageData = {
   // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
   // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
   protocol: ExtensionFileType.extensionProtocolData,
-  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionProtocolNameKey,
-    ExtensionFileType.dependentExtensionData,
+  dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    ExtensionFileType.blockProtocolName,
+    ExtensionFileType.blockProtocolVersion,
   >,
-  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeProtocolNameKey,
-    ExtensionFileType.dependentContributeData,
-  >,
+  // dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  //   ExtensionFileType.dependentExtensionProtocolNameKey,
+  //   ExtensionFileType.dependentExtensionData,
+  // >,
+  // dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  //   ExtensionFileType.dependentContributeProtocolNameKey,
+  //   ExtensionFileType.dependentContributeData,
+  // >,
 }
 
 // type extensionFuncData = ExtensionFileType.extensionFuncData
 // type extensionFuncData = Js.Typed_array.Uint8Array.t
 
 type extensionFuncData = {
-  getExtensionServiceFunc: getExtensionService<
-    dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-    extensionService,
-  >,
+  getExtensionServiceFunc: getExtensionService<extensionService>,
   createExtensionStateFunc: createExtensionState<extensionState>,
   getExtensionLifeFunc: getExtensionLife<extensionService>,
 }
@@ -60,25 +60,23 @@ type contributePackageData = {
   // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
   // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
   protocol: ExtensionFileType.contributeProtocolData,
-  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionProtocolNameKey,
-    ExtensionFileType.dependentExtensionData,
-  >,
-  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeProtocolNameKey,
-    ExtensionFileType.dependentContributeData,
+  // dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  //   ExtensionFileType.dependentExtensionProtocolNameKey,
+  //   ExtensionFileType.dependentExtensionData,
+  // >,
+  // dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  //   ExtensionFileType.dependentContributeProtocolNameKey,
+  //   ExtensionFileType.dependentContributeData,
+  // >,
+  dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    ExtensionFileType.blockProtocolName,
+    ExtensionFileType.blockProtocolVersion,
   >,
 }
 
 // type contributeFuncData = ExtensionFileType.contributeFuncData
 // type contributeFuncData = Js.Typed_array.Uint8Array.t
-type contributeFuncData = {
-  getContributeFunc: getContribute<
-    dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-    contribute,
-  >,
-}
+type contributeFuncData = {getContributeFunc: getContribute<contribute>}
 
 type contributeFileData = {
   contributePackageData: contributePackageData,

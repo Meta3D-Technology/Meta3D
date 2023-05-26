@@ -74,6 +74,12 @@ function map(map$1, func) {
   return Js_dict.map(func, map$1);
 }
 
+function merge(sourceMap, targetMap) {
+  return Belt_Array.reduceU(Js_dict.entries(sourceMap), targetMap, (function (targetMap, param) {
+                return _mutableSet(targetMap, param[0], param[1]);
+              }));
+}
+
 export {
   createEmpty ,
   unsafeGet ,
@@ -89,5 +95,6 @@ export {
   copy ,
   getValidValues ,
   map ,
+  merge ,
 }
 /* No side effect */

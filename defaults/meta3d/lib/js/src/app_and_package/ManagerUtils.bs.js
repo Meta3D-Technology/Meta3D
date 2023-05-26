@@ -160,12 +160,12 @@ function _prepare(param) {
 
 function _checkDependentMap(dependentMap, allDataMap) {
   ArraySt$Meta3dCommonlib.forEach(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (param) {
-          var dependentData = param[1];
-          var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, dependentData.protocolName);
+          var blockProtocolName = param[0];
+          var data = ImmutableHashMap$Meta3dCommonlib.get(allDataMap, blockProtocolName);
           if (data !== undefined) {
             Caml_option.valFromOption(data);
           } else {
-            Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + dependentData.protocolName + "", "", "", "", "")));
+            Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("not find dependent protocol: " + blockProtocolName + "", "", "", "", "")));
           }
         }));
 }
@@ -182,14 +182,10 @@ function _checkAllDependents(param) {
           return ImmutableHashMap$Meta3dCommonlib.set(result, contributePackageData.protocol.name, contributePackageData.protocol.version);
         }), ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined));
   ArraySt$Meta3dCommonlib.forEach(allExtensionDataArr, (function (param) {
-          var extensionPackageData = param.extensionPackageData;
-          _checkDependentMap(extensionPackageData.dependentExtensionProtocolNameMap, allExtensionDataMap);
-          _checkDependentMap(extensionPackageData.dependentContributeProtocolNameMap, allContributeDataMap);
+          _checkDependentMap(param.extensionPackageData.dependentBlockProtocolNameMap, ImmutableHashMap$Meta3dCommonlib.merge(allExtensionDataMap, allContributeDataMap));
         }));
   ArraySt$Meta3dCommonlib.forEach(allContributeDataArr, (function (param) {
-          var contributePackageData = param.contributePackageData;
-          _checkDependentMap(contributePackageData.dependentExtensionProtocolNameMap, allExtensionDataMap);
-          _checkDependentMap(contributePackageData.dependentContributeProtocolNameMap, allContributeDataMap);
+          _checkDependentMap(param.contributePackageData.dependentBlockProtocolNameMap, ImmutableHashMap$Meta3dCommonlib.merge(allExtensionDataMap, allContributeDataMap));
         }));
   return [
           allExtensionDataArr,
@@ -197,36 +193,14 @@ function _checkAllDependents(param) {
         ];
 }
 
-function _convertDependentMap(dependentMap) {
-  return ImmutableHashMap$Meta3dCommonlib.map(dependentMap, (function (dependentData) {
-                return dependentData.protocolName;
-              }));
-}
-
 function _run(param) {
   var allExtensionDataArr = param[0];
   var state = ArraySt$Meta3dCommonlib.reduceOneParam(allExtensionDataArr, (function (state, param) {
           var extensionFuncData = param.extensionFuncData;
-          var extensionPackageData = param.extensionPackageData;
-          return ExtensionManager$Meta3d.registerExtension(state, extensionPackageData.protocol.name, extensionFuncData.getExtensionServiceFunc, extensionFuncData.getExtensionLifeFunc, [
-                      ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
-                              return dependentData.protocolName;
-                            })),
-                      ImmutableHashMap$Meta3dCommonlib.map(extensionPackageData.dependentContributeProtocolNameMap, (function (dependentData) {
-                              return dependentData.protocolName;
-                            }))
-                    ], Curry._1(extensionFuncData.createExtensionStateFunc, undefined));
+          return ExtensionManager$Meta3d.registerExtension(state, param.extensionPackageData.protocol.name, extensionFuncData.getExtensionServiceFunc, extensionFuncData.getExtensionLifeFunc, Curry._1(extensionFuncData.createExtensionStateFunc, undefined));
         }), _prepare(undefined));
   var state$1 = ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (state, param) {
-          var contributePackageData = param.contributePackageData;
-          return ExtensionManager$Meta3d.registerContribute(state, contributePackageData.protocol.name, param.contributeFuncData.getContributeFunc, [
-                      ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentExtensionProtocolNameMap, (function (dependentData) {
-                              return dependentData.protocolName;
-                            })),
-                      ImmutableHashMap$Meta3dCommonlib.map(contributePackageData.dependentContributeProtocolNameMap, (function (dependentData) {
-                              return dependentData.protocolName;
-                            }))
-                    ]);
+          return ExtensionManager$Meta3d.registerContribute(state, param.contributePackageData.protocol.name, param.contributeFuncData.getContributeFunc);
         }), state);
   return [
           state$1,
@@ -245,7 +219,6 @@ exports._parse = _parse;
 exports._prepare = _prepare;
 exports._checkDependentMap = _checkDependentMap;
 exports._checkAllDependents = _checkAllDependents;
-exports._convertDependentMap = _convertDependentMap;
 exports._run = _run;
 exports.load = load;
 /* No side effect */

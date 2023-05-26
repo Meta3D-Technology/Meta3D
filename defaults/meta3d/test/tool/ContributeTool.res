@@ -1,3 +1,3 @@
 let buildGetContributeFunc = contribute => {
-  (api, _) => contribute
+  api => contribute
 }

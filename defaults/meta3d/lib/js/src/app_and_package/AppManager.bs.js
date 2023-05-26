@@ -2,7 +2,6 @@
 
 var Curry = require("rescript/lib/js/curry.js");
 var Caml_array = require("rescript/lib/js/caml_array.js");
-var Caml_option = require("rescript/lib/js/caml_option.js");
 var FileUtils$Meta3d = require("../FileUtils.bs.js");
 var TextDecoder$Meta3d = require("../file/TextDecoder.bs.js");
 var TextEncoder$Meta3d = require("../file/TextEncoder.bs.js");
@@ -13,7 +12,6 @@ var ExtensionManager$Meta3d = require("../ExtensionManager.bs.js");
 var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
-var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, startExtensionNames) {
   return [
@@ -24,8 +22,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                                 name: extensionPackageData.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
-                                dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
-                                dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap
+                                dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
                               },
                               param.extensionFuncData
                             ]);
@@ -36,8 +33,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                               {
                                 name: contributePackageData.name,
                                 protocol: contributePackageData.protocol,
-                                dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
-                                dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap
+                                dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },
                               param.contributeFuncData
                             ]);
@@ -53,13 +49,8 @@ function generate(param, allPackageBinaryFiles, configData) {
                           ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
-function execGetContributeFunc(contributeFuncData, dependentExtensionProtocolNameMapOpt, dependentContributeProtocolNameMapOpt, param) {
-  var dependentExtensionProtocolNameMap = dependentExtensionProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  var dependentContributeProtocolNameMap = dependentContributeProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  return Curry._2(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
-              dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap
-            ]);
+function execGetContributeFunc(contributeFuncData, param) {
+  return Curry._1(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined));
 }
 
 function load(appBinaryFile) {
@@ -69,7 +60,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            110,
+            100,
             6
           ],
           Error: new Error()

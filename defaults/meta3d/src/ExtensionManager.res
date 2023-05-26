@@ -144,16 +144,8 @@ let _checkIsRegister = (protocolName: string, isRegister) => {
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
-  getServiceFunc: getExtensionService<
-    dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-    extensionService,
-  >,
+  getServiceFunc: getExtensionService<extensionService>,
   getLifeFunc: getExtensionLife<extensionService>,
-  (
-    dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-  ),
   extensionState: extensionState,
 ) => {
   _checkIsRegister(
@@ -165,10 +157,7 @@ let rec registerExtension = (
     ...state,
     extensionServiceMap: state.extensionServiceMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
-      getServiceFunc(
-        buildAPI(),
-        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-      ),
+      getServiceFunc(buildAPI()),
     ),
     extensionLifeMap: state.extensionLifeMap->Meta3dCommonlib.ImmutableHashMap.set(
       protocolName,
@@ -185,25 +174,14 @@ let rec registerExtension = (
 and registerContribute = (
   state,
   protocolName: contributeProtocolName,
-  getContributeFunc: getContribute<
-    dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-    contribute,
-  >,
-  (
-    dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
-  ),
+  getContributeFunc: getContribute<contribute>,
 ) => {
   _checkIsRegister(
     protocolName,
     state.contributeMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
   )
 
-  let contribute = getContributeFunc(
-    buildAPI(),
-    (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-  )
+  let contribute = getContributeFunc(buildAPI())
 
   {
     ...state,
@@ -215,20 +193,12 @@ and registerContribute = (
 }
 and buildAPI = (): api => {
   registerExtension: (
-    (.
-      state,
-      extensionProtocolName,
-      getExtensionService,
-      getExtensionLife,
-      (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-      extensionState,
-    ) =>
+    (. state, extensionProtocolName, getExtensionService, getExtensionLife, extensionState) =>
       registerExtension(
         state,
         extensionProtocolName,
         getExtensionService,
         getExtensionLife,
-        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
         extensionState,
       )
   )->Obj.magic,
@@ -242,18 +212,8 @@ and buildAPI = (): api => {
       setExtensionState(state, protocolName, extensionState)
   )->Obj.magic,
   registerContribute: (
-    (.
-      state,
-      contributeProtocolName,
-      getContribute,
-      (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-    ) =>
-      registerContribute(
-        state,
-        contributeProtocolName,
-        getContribute,
-        (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-      )
+    (. state, contributeProtocolName, getContribute) =>
+      registerContribute(state, contributeProtocolName, getContribute)
   )->Obj.magic,
   getContribute: (. state, protocolName: contributeProtocolName) =>
     getContributeExn(state, (protocolName: contributeProtocolName))->Obj.magic,

@@ -22,14 +22,14 @@ let prepareInitFlag = %raw(` function(){window.initFlag = 0} `)
 let prepareUpdateFlag = %raw(` function(){window.updateFlag = 0} `)
 
 let buildEmptyExtensionFileStr = () => {
-  `window.Extension = { getExtensionService: (api, dependentData) =>{ return {} }, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { } } } `
+  `window.Extension = { getExtensionService: (api) =>{ return {} }, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { } } } `
 }
 
 let buildEmptyExtensionFileStrWithOnInitAndOnUpdate = (
   addNumberForInit: int,
   addNumberForUpdate: int,
 ) => {
-  j`window.Extension = { getExtensionService: (api, dependentData) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service, data) =>{ window.initFlag += ${addNumberForInit->Js.Int.toString}; return new Promise((resolve) =>{
+  j`window.Extension = { getExtensionService: (api) =>{return {}}, createExtensionState: () => {}, getExtensionLife: (api, extensionName) =>{ return { onInit: (meta3dState, service, data) =>{ window.initFlag += ${addNumberForInit->Js.Int.toString}; return new Promise((resolve) =>{
 resolve(meta3dState)
   }) ; }, onUpdate: (meta3dState, service, data) =>{ window.updateFlag += ${addNumberForUpdate->Js.Int.toString}; return new Promise((resolve) =>{
 resolve(meta3dState)
@@ -37,7 +37,7 @@ resolve(meta3dState)
 }
 
 let buildEmptyContributeFileStr = () => {
-  `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
+  `window.Contribute = { getContribute: (api) =>{ return {} }}`
 }
 
 let getInitFlag = %raw(` function(){return window.initFlag} `)
@@ -71,7 +71,7 @@ let generateElementContribute = (
   )
 
 let buildEmptyContributeFileStr = () => {
-  `window.Contribute = { getContribute: (api, dependentData) =>{ return {} }}`
+  `window.Contribute = { getContribute: (api) =>{ return {} }}`
 }
 
 let buildElementMR = ElementMRUtils.buildElementMR

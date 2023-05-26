@@ -10,9 +10,8 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
 
-export function registerExtension<extensionService, dependentExtensionNameMap, dependentContributeNameMap, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionService: getExtensionService<dependentExtensionNameMap, dependentContributeNameMap, extensionService>,
+export function registerExtension<extensionService, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionService: getExtensionService<extensionService>,
     getExtensionLife: getExtensionLife<extensionService>,
-    [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
     extensionState: extensionState
 ): state
 
@@ -46,8 +45,7 @@ export function getExtensionState<extensionState>(
     extensionProtocolName: extensionProtocolName,
 ): extensionState
 
-export function registerContribute<contribute, dependentExtensionNameMap, dependentContributeNameMap>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContribute<dependentExtensionNameMap, dependentContributeNameMap, contribute>,
-    [dependentExtensionNameMap, dependentContributeNameMap]: [dependentExtensionNameMap, dependentContributeNameMap],
+export function registerContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContribute<contribute>
 ): state
 
 export function getContribute<contribute>(
@@ -66,8 +64,6 @@ export function generateExtension(
 ): ArrayBuffer
 
 export function loadExtension<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
     extensionService,
     extensionState
 >(
@@ -79,17 +75,9 @@ export function generateContribute(
     contributeFileStr: string
 ): ArrayBuffer
 
-export function loadContribute<
-    dependentExtensionNameMap,
-    dependentContributeNameMap,
-    contributeService,
-    >(
-        contributeBinaryFile: ArrayBuffer
-    ): contributeFileData<
-        dependentExtensionNameMap,
-        dependentContributeNameMap,
-        contributeService
-    >
+export function loadContribute(
+    contributeBinaryFile: ArrayBuffer
+): contributeFileData
 
 type allPackageBinaryFiles = Array<ArrayBuffer>
 
@@ -137,9 +125,7 @@ export function startApp(
 ): void
 
 export function execGetContributeFunc(
-    contributeFuncData: Uint8Array,
-    dependentExtensionNameMap: Record<string, string>,
-    dependentContributeNameMap: Record<string, string>
+    contributeFuncData: Uint8Array
 ): getContributeFuncResult
 
 type protocolConfigStr = string

@@ -9,14 +9,22 @@ type extensionProtocolData = {
   version: versionRange,
 }
 
-type dependentData = {
-  protocolName: string,
-  protocolVersion: versionRange,
-}
+type blockProtocolName = string
 
-type dependentExtensionData = dependentData
+type blockProtocolVersion = versionRange
 
-type dependentContributeData = dependentData
+// type dependentExtensionProtocolNameKey = string
+
+// type dependentContributeProtocolNameKey = string
+
+// type dependentData = {
+//   protocolName: string,
+//   protocolVersion: versionRange,
+// }
+
+// type dependentExtensionData = dependentData
+
+// type dependentContributeData = dependentData
 
 type extensionPackageData = {
   name: extensionName,
@@ -24,13 +32,9 @@ type extensionPackageData = {
   displayName: string,
   repoLink: string,
   description: string,
-  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionProtocolNameKey,
-    dependentExtensionData,
-  >,
-  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeProtocolNameKey,
-    dependentContributeData,
+  dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    blockProtocolName,
+    blockProtocolVersion,
   >,
 }
 
@@ -62,13 +66,9 @@ type contributePackageData = {
   displayName: string,
   repoLink: string,
   description: string,
-  dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentExtensionProtocolNameKey,
-    dependentExtensionData,
-  >,
-  dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    dependentContributeProtocolNameKey,
-    dependentContributeData,
+  dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    blockProtocolName,
+    blockProtocolVersion,
   >,
 }
 

@@ -33,8 +33,7 @@ let convertAllFileData = (
               )
                 ? Start
                 : Default,
-              dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap,
+              dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
             }: extensionPackageData
           ),
           extensionFuncData,
@@ -51,8 +50,7 @@ let convertAllFileData = (
             {
               name: contributePackageData.name,
               protocol: contributePackageData.protocol,
-              dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap,
+              dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
             }: contributePackageData
           ),
           contributeFuncData,
@@ -85,21 +83,13 @@ let generate = (
   ->BinaryFileOperator.generate
 }
 
-let execGetContributeFunc = (
-  ~contributeFuncData,
-  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  (),
-) => {
+let execGetContributeFunc = (~contributeFuncData, ()) => {
   (
     ManagerUtils.getContributeFunc(
       contributeFuncData,
       TextDecoder.newTextDecoder("utf-8"),
     )->Obj.magic
-  )(
-    ExtensionManager.buildAPI(),
-    (dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap),
-  )
+  )(ExtensionManager.buildAPI())
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): (

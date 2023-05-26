@@ -1,4 +1,5 @@
-import { contributeName, createExtensionState, dependentContributeProtocolNameMap, dependentExtensionProtocolNameMap, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
+import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
+import { blockProtocolName, blockProtocolVersion } from "../file/ExtensionFileType";
 
 export enum extensionType {
 	Default,
@@ -9,12 +10,10 @@ export enum extensionType {
 export type extensionPackageData = {
 	name: extensionName,
 	type_: extensionType,
-	dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-	dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+	dependentBlockProtocolNameMap: Record<blockProtocolName, blockProtocolVersion>
 }
 
 export type contributePackageData = {
 	name: contributeName,
-	dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-	dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+	dependentBlockProtocolNameMap: Record<blockProtocolName, blockProtocolVersion>
 }

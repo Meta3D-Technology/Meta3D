@@ -191,18 +191,15 @@ let _prepare = (): Meta3dType.Index.state => {
 let _checkDependentMap = (dependentMap, allDataMap) => {
   dependentMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
-  ->Meta3dCommonlib.ArraySt.forEach(((
-    dependentNameKey,
-    dependentData: ExtensionFileType.dependentData,
-  )) => {
+  ->Meta3dCommonlib.ArraySt.forEach(((blockProtocolName, blockProtocolVersion)) => {
     let protocolVersion = switch allDataMap->Meta3dCommonlib.ImmutableHashMap.get(
-      dependentData.protocolName,
+      blockProtocolName,
     ) {
     | None =>
       Meta3dCommonlib.Exception.throwErr(
         Meta3dCommonlib.Exception.buildErr(
           Meta3dCommonlib.Log.buildErrorMessage(
-            ~title={j`not find dependent protocol: ${dependentData.protocolName}`},
+            ~title={j`not find dependent protocol: ${blockProtocolName}`},
             ~description={
               j``
             },
@@ -215,7 +212,7 @@ let _checkDependentMap = (dependentMap, allDataMap) => {
     | Some(data) => data
     }
 
-    // _checkVersion(protocolVersion, dependentData.protocolVersion, dependentData.protocolName)
+    // _checkVersion(protocolVersion, blockProtocolVersion, blockProtocolName)
   })
 }
 
@@ -245,29 +242,21 @@ let _checkAllDependents = ((allExtensionDataArr, allContributeDataArr)) => {
   allExtensionDataArr->Meta3dCommonlib.ArraySt.forEach((
     {extensionPackageData}: extensionFileData,
   ) => {
-    _checkDependentMap(extensionPackageData.dependentExtensionProtocolNameMap, allExtensionDataMap)
     _checkDependentMap(
-      extensionPackageData.dependentContributeProtocolNameMap,
-      allContributeDataMap,
+      extensionPackageData.dependentBlockProtocolNameMap,
+      allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.merge(allContributeDataMap),
     )
   })
   allContributeDataArr->Meta3dCommonlib.ArraySt.forEach((
     {contributePackageData}: contributeFileData,
   ) => {
-    _checkDependentMap(contributePackageData.dependentExtensionProtocolNameMap, allExtensionDataMap)
     _checkDependentMap(
-      contributePackageData.dependentContributeProtocolNameMap,
-      allContributeDataMap,
+      contributePackageData.dependentBlockProtocolNameMap,
+      allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.merge(allContributeDataMap),
     )
   })
 
   (allExtensionDataArr, allContributeDataArr)
-}
-
-let _convertDependentMap = dependentMap => {
-  dependentMap->Meta3dCommonlib.ImmutableHashMap.map((.
-    dependentData: ExtensionFileType.dependentData,
-  ) => dependentData.protocolName)
 }
 
 // let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
@@ -279,10 +268,6 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
           extensionPackageData.protocol.name,
           extensionFuncData.getExtensionServiceFunc,
           extensionFuncData.getExtensionLifeFunc,
-          (
-            extensionPackageData.dependentExtensionProtocolNameMap->_convertDependentMap,
-            extensionPackageData.dependentContributeProtocolNameMap->_convertDependentMap,
-          ),
           extensionFuncData.createExtensionStateFunc(),
         )
       },
@@ -295,10 +280,6 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
         state->ExtensionManager.registerContribute(
           contributePackageData.protocol.name,
           contributeFuncData.getContributeFunc,
-          (
-            contributePackageData.dependentExtensionProtocolNameMap->_convertDependentMap,
-            contributePackageData.dependentContributeProtocolNameMap->_convertDependentMap,
-          ),
         )
       },
       state,

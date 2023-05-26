@@ -6,10 +6,6 @@ open Operators
 let feature = loadFeature("./test/features/contribute.feature")
 
 defineFeature(feature, test => {
-  let _buildEmptyMapData = () => {
-    (Meta3dCommonlib.ImmutableHashMap.createEmpty(), Meta3dCommonlib.ImmutableHashMap.createEmpty())
-  }
-
   test(."get all contributes by type", ({given, \"when", \"and", then}) => {
     let state = ref(Obj.magic(1))
 
@@ -26,7 +22,6 @@ defineFeature(feature, test => {
               "actionName": "a1",
               "handler": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -36,7 +31,6 @@ defineFeature(feature, test => {
               "componentName": "c1",
               "createComponentFunc": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -46,7 +40,6 @@ defineFeature(feature, test => {
               "elementName": "e1",
               "execOrder": 0,
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -56,7 +49,6 @@ defineFeature(feature, test => {
               "createGameObjectFunc": Obj.magic(1),
               "getAllGameObjectsFunc": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -66,7 +58,6 @@ defineFeature(feature, test => {
               "uiControlName": "u1",
               "func": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -76,7 +67,6 @@ defineFeature(feature, test => {
               "skinName": "s1",
               "skin": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
         state :=
           Main.registerContribute(
@@ -86,7 +76,6 @@ defineFeature(feature, test => {
               "pipelineName": "w1",
               "allPipelineData": Obj.magic(1),
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
       },
     )
@@ -173,7 +162,6 @@ defineFeature(feature, test => {
             ContributeTool.buildGetContributeFunc({
               "a1": "a1",
             })->Obj.magic,
-            _buildEmptyMapData(),
           )
       },
     )
@@ -213,7 +201,6 @@ defineFeature(feature, test => {
             state.contents,
             protocolName,
             ContributeTool.buildGetContributeFunc(1)->Obj.magic,
-            _buildEmptyMapData(),
           )
       },
     )
@@ -235,7 +222,6 @@ defineFeature(feature, test => {
                 state.contents,
                 protocolName,
                 ContributeTool.buildGetContributeFunc(1)->Obj.magic,
-                _buildEmptyMapData(),
               )
           },
         )->toThrowMessage({

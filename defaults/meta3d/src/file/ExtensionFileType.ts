@@ -1,8 +1,8 @@
 import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
 
-type dependentExtensionProtocolName = string
+export type blockProtocolName = string
 
-type dependentContributeProtocolName = string
+export type blockProtocolVersion = versionRange
 
 type versionRange = string
 
@@ -15,14 +15,10 @@ export type extensionPackageData = {
   displayName: string,
   repoLink: string,
   description: string,
-  dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
-    protocolName: string,
-    protocolVersion: versionRange,
-  }>,
-  dependentContributeProtocolNameMap: Record<dependentContributeProtocolName, {
-    protocolName: string,
-    protocolVersion: versionRange,
-  }>,
+  dependentBlockProtocolNameMap: Record<
+    blockProtocolName,
+    blockProtocolVersion
+  >
 }
 
 // export type extensionFuncData<
@@ -63,14 +59,10 @@ export type contributePackageData = {
   displayName: string,
   repoLink: string,
   description: string,
-  dependentExtensionProtocolNameMap: Record<dependentExtensionProtocolName, {
-    protocolName: string,
-    protocolVersion: versionRange,
-  }>,
-  dependentContributeProtocolNameMap: Record<dependentContributeProtocolName, {
-    protocolName: string,
-    protocolVersion: versionRange,
-  }>,
+  dependentBlockProtocolNameMap: Record<
+    blockProtocolName,
+    blockProtocolVersion
+  >
 }
 
 // export type contributeFuncData<
@@ -87,11 +79,7 @@ export type contributePackageData = {
 
 export type contributeFuncData = Uint8Array
 
-export type contributeFileData<
-  dependentExtensionProtocolNameMap,
-  dependentContributeProtocolNameMap,
-  contribubteService
-  > = {
-    contributePackageData: contributePackageData,
-    contributeFuncData: contributeFuncData
-  };
+export type contributeFileData = {
+  contributePackageData: contributePackageData,
+  contributeFuncData: contributeFuncData
+};

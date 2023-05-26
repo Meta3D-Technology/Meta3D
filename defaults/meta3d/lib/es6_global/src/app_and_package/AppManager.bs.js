@@ -2,7 +2,6 @@
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
 import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
@@ -13,7 +12,6 @@ import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, startExtensionNames) {
   return [
@@ -24,8 +22,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                                 name: extensionPackageData.name,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
-                                dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
-                                dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap
+                                dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
                               },
                               param.extensionFuncData
                             ]);
@@ -36,8 +33,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                               {
                                 name: contributePackageData.name,
                                 protocol: contributePackageData.protocol,
-                                dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
-                                dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap
+                                dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },
                               param.contributeFuncData
                             ]);
@@ -53,13 +49,8 @@ function generate(param, allPackageBinaryFiles, configData) {
                           ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
-function execGetContributeFunc(contributeFuncData, dependentExtensionProtocolNameMapOpt, dependentContributeProtocolNameMapOpt, param) {
-  var dependentExtensionProtocolNameMap = dependentExtensionProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentExtensionProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  var dependentContributeProtocolNameMap = dependentContributeProtocolNameMapOpt !== undefined ? Caml_option.valFromOption(dependentContributeProtocolNameMapOpt) : ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-  return Curry._2(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined), [
-              dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap
-            ]);
+function execGetContributeFunc(contributeFuncData, param) {
+  return Curry._1(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined));
 }
 
 function load(appBinaryFile) {
@@ -69,7 +60,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            110,
+            100,
             6
           ],
           Error: new Error()

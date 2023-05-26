@@ -78,8 +78,7 @@ let convertAllFileData = (
               )
                 ? Entry
                 : Default,
-              dependentExtensionProtocolNameMap: extensionPackageData.dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap: extensionPackageData.dependentContributeProtocolNameMap,
+              dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
             }: extensionPackageData
           ),
           extensionFuncData,
@@ -96,8 +95,7 @@ let convertAllFileData = (
             {
               name: contributePackageData.name,
               protocol: contributePackageData.protocol,
-              dependentExtensionProtocolNameMap: contributePackageData.dependentExtensionProtocolNameMap,
-              dependentContributeProtocolNameMap: contributePackageData.dependentContributeProtocolNameMap,
+              dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
             }: contributePackageData
           ),
           contributeFuncData,

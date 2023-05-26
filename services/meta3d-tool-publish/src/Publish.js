@@ -17,7 +17,10 @@ function _searchProtocolVersion(name, dependencies) {
     }
     return value;
 }
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }) {
+function _isProtocol(protocolName) {
+    return /-protocol$/.test(protocolName);
+}
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependencies }) {
     return {
         name,
         publisher,
@@ -28,12 +31,9 @@ function _convertToExtensionOrContributePackageData({ name, protocol, publisher,
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
-        dependentExtensionProtocolNameMap: Object.fromEntries(Object
-            .entries(dependentExtensionProtocolNameMap)
-            .map(([key, { protocolName }]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])),
-        dependentContributeProtocolNameMap: Object.fromEntries(Object
-            .entries(dependentContributeProtocolNameMap)
-            .map(([key, { protocolName }]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }]))
+        dependentBlockProtocolNameMap: Object.fromEntries(Object
+            .entries(dependencies)
+            .filter(([protocolName, protocolVersion]) => _isProtocol(protocolName) && protocolName != protocol.name))
     };
 }
 function _defineWindow() {

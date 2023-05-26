@@ -97,13 +97,10 @@ function _checkIsRegister(protocolName, isRegister) {
   
 }
 
-function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, param, extensionState) {
+function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, extensionState) {
   _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
-        extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, protocolName, Curry._2(getServiceFunc, buildAPI(undefined), [
-                  param[0],
-                  param[1]
-                ])),
+        extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionServiceMap, protocolName, Curry._1(getServiceFunc, buildAPI(undefined))),
         extensionStateMap: state.extensionStateMap,
         extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionLifeMap, protocolName, Curry._2(getLifeFunc, buildAPI(undefined), protocolName)),
         contributeMap: state.contributeMap
@@ -111,12 +108,9 @@ function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, par
   return _invokeSyncLifeOtherHander(state$1, protocolName, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, protocolName).onRegister);
 }
 
-function registerContribute(state, protocolName, getContributeFunc, param) {
+function registerContribute(state, protocolName, getContributeFunc) {
   _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.contributeMap, protocolName));
-  var contribute = Curry._2(getContributeFunc, buildAPI(undefined), [
-        param[0],
-        param[1]
-      ]);
+  var contribute = Curry._1(getContributeFunc, buildAPI(undefined));
   return {
           extensionServiceMap: state.extensionServiceMap,
           extensionStateMap: state.extensionStateMap,
@@ -130,12 +124,7 @@ function registerContribute(state, protocolName, getContributeFunc, param) {
 
 function buildAPI(param) {
   return {
-          registerExtension: (function (state, extensionProtocolName, getExtensionService, getExtensionLife, param, extensionState) {
-              return registerExtension(state, extensionProtocolName, getExtensionService, getExtensionLife, [
-                          param[0],
-                          param[1]
-                        ], extensionState);
-            }),
+          registerExtension: registerExtension,
           getExtensionService: (function (state, protocolName) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, protocolName);
             }),
@@ -143,12 +132,7 @@ function buildAPI(param) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, protocolName);
             }),
           setExtensionState: setExtensionState,
-          registerContribute: (function (state, contributeProtocolName, getContribute, param) {
-              return registerContribute(state, contributeProtocolName, getContribute, [
-                          param[0],
-                          param[1]
-                        ]);
-            }),
+          registerContribute: registerContribute,
           getContribute: getContributeExn,
           getAllContributesByType: getAllContributesByType
         };

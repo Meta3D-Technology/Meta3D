@@ -33,8 +33,8 @@ defineFeature(feature, test => {
     function _buildPackageJson(name = "test1",
         version = "0.0.1",
         protocol = { name: "test1-protocol" }, publisher = "meta3d",
-        dependentExtensionProtocolNameMap = {
-        }, dependentContributeProtocolNameMap = {},
+        // dependentExtensionProtocolNameMap = {
+        // }, dependentContributeProtocolNameMap = {},
         dependencies: any = {
             "test1-protocol": "^0.0.1"
         },
@@ -47,7 +47,8 @@ defineFeature(feature, test => {
             displayName,
             repoLink,
             description,
-            dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies
+            // dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap,
+            dependencies
         }
     }
 
@@ -162,11 +163,11 @@ defineFeature(feature, test => {
                     "test1",
                     "0.0.2",
                     { name: "test1-protocol" }, "meta3d",
-                    {
-                        meta3dTest1ExtensionProtocolName: {
-                            "protocolName": "meta3d-extension-test1-protocol"
-                        }
-                    }, {},
+                    // {
+                    //     meta3dTest1ExtensionProtocolName: {
+                    //         "protocolName": "meta3d-extension-test1-protocol"
+                    //     }
+                    // }, {},
                     {
                         "test1-protocol": "^0.0.1",
                         "meta3d-extension-test1-protocol": "^0.3.4"
@@ -205,7 +206,9 @@ defineFeature(feature, test => {
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {
+                        "meta3d-extension-test1-protocol": "^0.3.4"
+                    }
                 },
                 distFileContent
             ])
@@ -255,7 +258,7 @@ defineFeature(feature, test => {
                     {
                         name: "test1", version: "0.0.2",
                         protocol: { name: "test1-protocol" }, publisher: "meta3d",
-                        dependentExtensionProtocolNameMap: {}, dependentContributeProtocolNameMap: {},
+                        dependentBlockProtocolNameMap: {},
                         dependencies: {
                             "test1-protocol": "^0.0.1"
                         },
@@ -291,7 +294,7 @@ defineFeature(feature, test => {
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": {}, "dependentContributeProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {}
                 },
                 distFileContent
             ])
@@ -431,8 +434,8 @@ defineFeature(feature, test => {
                     "test1",
                     "0.0.2",
                     { name: "test1-protocol" }, "meta3d",
-                    {
-                    }, {},
+                    // {
+                    // }, {},
                     {
                         "test1-protocol": "^0.0.1"
                     }

@@ -34,6 +34,8 @@ var entries = HashMap$Meta3dCommonlib.entries;
 
 var map = HashMap$Meta3dCommonlib.map;
 
+var merge = HashMap$Meta3dCommonlib.merge;
+
 exports.createEmpty = createEmpty;
 exports.set = set;
 exports.unsafeGet = unsafeGet;
@@ -46,4 +48,5 @@ exports.getValidValues = getValidValues;
 exports.copy = copy;
 exports.entries = entries;
 exports.map = map;
+exports.merge = merge;
 /* No side effect */

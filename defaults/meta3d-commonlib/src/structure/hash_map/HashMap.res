@@ -67,3 +67,16 @@ let map = (map: Meta3dCommonlibType.HashMapType.t2<'a>, func: (. 'a) => 'b) =>
   ->Meta3dCommonlibType.HashMapType.dictNullableToDictNotNullable
   ->Js.Dict.map(func, _)
   ->Meta3dCommonlibType.HashMapType.dictNotNullableToDictNullable
+
+let merge = (
+  sourceMap: Meta3dCommonlibType.HashMapType.t2<'a>,
+  targetMap: Meta3dCommonlibType.HashMapType.t2<'a>,
+) => {
+  sourceMap
+  ->entries
+  ->_reduceArray(
+    (. targetMap, (key, value)) => targetMap->_mutableSet(key, value),
+    targetMap->Meta3dCommonlibType.HashMapType.dictNullableToDictNotNullable,
+  )
+  ->Meta3dCommonlibType.HashMapType.dictNotNullableToDictNullable
+}

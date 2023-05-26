@@ -28,7 +28,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         getFileIDFunc = CloudbaseService_1.getFileID;
         parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
     }
-    function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", dependentExtensionProtocolNameMap = {}, dependentContributeProtocolNameMap = {}, dependencies = {
+    function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", 
+    // dependentExtensionProtocolNameMap = {
+    // }, dependentContributeProtocolNameMap = {},
+    dependencies = {
         "test1-protocol": "^0.0.1"
     }, displayName = "d1", repoLink = "", description = "dp1") {
         return {
@@ -36,7 +39,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             displayName,
             repoLink,
             description,
-            dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies
+            // dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap,
+            dependencies
         };
     }
     function _publishExtension(packageFilePath = "", distFilePath = "") {
@@ -99,11 +103,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1", "0.0.2", { name: "test1-protocol" }, "meta3d", {
-                meta3dTest1ExtensionProtocolName: {
-                    "protocolName": "meta3d-extension-test1-protocol"
-                }
-            }, {}, {
+            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1", "0.0.2", { name: "test1-protocol" }, "meta3d", 
+            // {
+            //     meta3dTest1ExtensionProtocolName: {
+            //         "protocolName": "meta3d-extension-test1-protocol"
+            //     }
+            // }, {},
+            {
                 "test1-protocol": "^0.0.1",
                 "meta3d-extension-test1-protocol": "^0.3.4"
             }, "d1", "l1", "dp1")));
@@ -126,7 +132,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": { "meta3dTest1ExtensionProtocolName": { "protocolName": "meta3d-extension-test1-protocol", "protocolVersion": "^0.3.4" } }, "dependentContributeProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {
+                        "meta3d-extension-test1-protocol": "^0.3.4"
+                    }
                 },
                 distFileContent
             ]);
@@ -169,7 +177,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             readJsonFunc.returns((0, most_1.just)({
                 name: "test1", version: "0.0.2",
                 protocol: { name: "test1-protocol" }, publisher: "meta3d",
-                dependentExtensionProtocolNameMap: {}, dependentContributeProtocolNameMap: {},
+                dependentBlockProtocolNameMap: {},
                 dependencies: {
                     "test1-protocol": "^0.0.1"
                 },
@@ -193,7 +201,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentExtensionProtocolNameMap": {}, "dependentContributeProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {}
                 },
                 distFileContent
             ]);
@@ -316,7 +324,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
-            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1", "0.0.2", { name: "test1-protocol" }, "meta3d", {}, {}, {
+            readJsonFunc.returns((0, most_1.just)(_buildPackageJson("test1", "0.0.2", { name: "test1-protocol" }, "meta3d", 
+            // {
+            // }, {},
+            {
                 "test1-protocol": "^0.0.1"
             })));
             initFunc.returns((0, most_1.just)(app));

@@ -12,32 +12,28 @@ export type extensionService = any
 
 export type extensionState = any
 
-export type dependentExtensionProtocolNameMap = any
-
-export type dependentContributeProtocolNameMap = any
-
 export type getContributeFuncResult = any
 
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
-  registerExtension<getExtensionServiceFunc, getLifeFunc, dependentExtensionProtocolNameMap, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap, extensionState: extensionState): state,
+  registerExtension<getExtensionServiceFunc, getLifeFunc, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, extensionState: extensionState): state,
   getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService,
   getExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName): extensionState,
   setExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName, extensionState: extensionState): state
-  registerContribute<getContributeFunc, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContributeFunc, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]): state,
+  registerContribute<getContributeFunc>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContributeFunc): state,
   getContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName): contribute,
   getAllContributesByType<contribute>(state: state, contributeType: contributeType): Array<contribute>,
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type getExtensionService<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, extensionService> = (_1: api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => extensionService;
+export type getExtensionService<extensionService> = (_1: api) => extensionService;
 
 // tslint:disable-next-line:interface-over-type-literal
 export type createExtensionState<extensionState> = () => extensionState;
 
-export type getContribute<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, contribute> = (_1: api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => contribute;
+export type getContribute<contribute> = (_1: api) => contribute;
 
 
 export type extensionLifeEventHandler<extensionService> = (state: state, extensionService: extensionService) => state;

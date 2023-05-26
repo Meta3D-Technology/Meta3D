@@ -21,9 +21,11 @@ function _searchProtocolVersion(name: string, dependencies: any) {
     return value
 }
 
+function _isProtocol(protocolName: string) {
+    return /-protocol$/.test(protocolName)
+}
 
-
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, dependencies }: any): any {
+function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependencies }: any): any {
     return {
         name,
         publisher,
@@ -34,13 +36,10 @@ function _convertToExtensionOrContributePackageData({ name, protocol, publisher,
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
-        dependentExtensionProtocolNameMap: Object.fromEntries(Object
-            .entries(dependentExtensionProtocolNameMap)
-            .map(([key, { protocolName }]: [string, any]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])
-        ),
-        dependentContributeProtocolNameMap: Object.fromEntries(Object
-            .entries(dependentContributeProtocolNameMap)
-            .map(([key, { protocolName }]: [string, any]) => [key, { protocolName, protocolVersion: _searchProtocolVersion(protocolName, dependencies) }])
+        dependentBlockProtocolNameMap: Object.fromEntries(Object
+            .entries(dependencies)
+            .filter(([protocolName, protocolVersion]: [string, string]) => _isProtocol(protocolName) && protocolName != protocol.name
+            )
         )
     }
 }

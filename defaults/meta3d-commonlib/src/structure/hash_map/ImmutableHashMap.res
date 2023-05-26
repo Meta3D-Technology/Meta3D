@@ -37,3 +37,5 @@ let copy = HashMap.copy
 let entries = HashMap.entries
 
 let map = HashMap.map
+
+let merge = HashMap.merge
