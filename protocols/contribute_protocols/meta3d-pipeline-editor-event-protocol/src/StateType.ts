@@ -5,8 +5,7 @@ export const pipelineName = "Editor_Event"
 
 export type state = {
     mostService: mostService,
-    eventService: eventService,
-    meta3dEventExtensionProtocolName: string
+    eventService: eventService
 }
 
 export type states = {

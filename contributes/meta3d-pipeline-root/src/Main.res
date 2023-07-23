@@ -12,19 +12,17 @@ let _init = _state => {
 }
 
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.StateType.pipelineContribute<
     Meta3dPipelineRootProtocol.ConfigType.config,
     Meta3dPipelineRootProtocol.StateType.state,
   >,
-> = (api, ({meta3dBsMostExtensionProtocolName}, _)) => {
+> = (api) => {
   {
     pipelineName: Meta3dPipelineRootProtocol.StateType.pipelineName,
     createStateFunc: (meta3dState, _): Meta3dPipelineRootProtocol.StateType.state => {
       let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
         meta3dState,
-        meta3dBsMostExtensionProtocolName,
+        "meta3d-bs-most-protocol",
       )
 
       {mostService: mostService}

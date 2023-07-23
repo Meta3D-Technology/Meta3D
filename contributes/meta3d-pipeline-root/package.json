@@ -5,12 +5,6 @@
     "protocol": {
         "name": "meta3d-pipeline-root-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

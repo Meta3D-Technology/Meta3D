@@ -157,8 +157,7 @@ defineFeature(feature, test => {
               name: ElementVisualTool.getVisualExtensionProtocolName(),
               version: FrontendUtils.VersionConfig.getPlatformVersion(),
             },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             (),
           )
       },
@@ -172,8 +171,7 @@ defineFeature(feature, test => {
             ~name,
             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr="",
             (),
           )
@@ -185,7 +183,7 @@ defineFeature(feature, test => {
         //         name: ElementVisualTool.getVisualExtensionProtocolName(),
         //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
         //       },
-        //       dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         //     }: Meta3d.ExtensionFileType.extensionPackageData
         //   ),
@@ -332,7 +330,7 @@ defineFeature(feature, test => {
           //         name: ElementVisualTool.getVisualExtensionProtocolName(),
           //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
           //       },
-          //       dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           //     }: Meta3d.ExtensionFileType.extensionPackageData
           //   ),
@@ -343,8 +341,7 @@ defineFeature(feature, test => {
             ~name=ElementVisualTool.getVisualExtensionName(),
             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr=ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
             (),
           )->ElementVisualTool.loadAndBuildVisualExtension(

@@ -5,12 +5,6 @@
     "protocol": {
         "name": "meta3d-editor-run-engine-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEditorEngineWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-whole-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

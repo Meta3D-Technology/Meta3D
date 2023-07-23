@@ -8,12 +8,6 @@
     "protocol": {
         "name": "meta3d-editor-run-engine-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEditorEngineWebgpuWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-webgpu-whole-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

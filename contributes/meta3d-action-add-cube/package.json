@@ -8,12 +8,6 @@
     "protocol": {
         "name": "meta3d-action-add-cube-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEditorEngineWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-whole-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

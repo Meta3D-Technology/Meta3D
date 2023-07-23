@@ -1,7 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
 import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 // import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 // import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineBasicService } from "meta3d-engine-basic-protocol/src/service/ServiceType"
@@ -14,58 +13,49 @@ import { service as engineRenderService } from "meta3d-engine-render-protocol/sr
 import { getExtensionService as getEngineWholeExtensionService } from "meta3d-engine-whole-utils/src/implement/Main"
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionProtocolNameMap,
-	dependentContributeProtocolNameMap,
 	service
-> = (api, [{
-	meta3dBsMostExtensionProtocolName,
-	meta3dEngineCoreExtensionProtocolName,
-	meta3dEngineBasicExtensionProtocolName,
-	meta3dEngineSceneExtensionProtocolName,
-	meta3dEngineRenderExtensionProtocolName,
-}, {
-}]) => {
-		return {
-			...getEngineWholeExtensionService(api, [
-				meta3dBsMostExtensionProtocolName,
-				meta3dEngineCoreExtensionProtocolName,
-				meta3dEngineSceneExtensionProtocolName,
-			]),
-			prepare: (meta3dState: meta3dState, isDebug, ecsConfig, canvas) => {
-				// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
+> = (api) => {
+	return {
+		...getEngineWholeExtensionService(api, [
+			"meta3d-bs-most-protocol",
+			"meta3d-engine-core-protocol",
+			"meta3d-engine-scene-protocol",
+		]),
+		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, canvas) => {
+			// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
-				let engineBasicService = api.getExtensionService<engineBasicService>(
-					meta3dState,
-					meta3dEngineBasicExtensionProtocolName
-				)
+			let engineBasicService = api.getExtensionService<engineBasicService>(
+				meta3dState,
+				"meta3d-engine-basic-protocol"
+			)
 
-				meta3dState = engineBasicService.prepare(meta3dState, isDebug)
+			meta3dState = engineBasicService.prepare(meta3dState, isDebug)
 
-				// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, meta3dEngineSceneExtensionProtocolName)
+			// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, "meta3d-engine-scene-protocol")
 
-				let engineSceneService = api.getExtensionService<engineSceneService>(
-					meta3dState,
-					meta3dEngineSceneExtensionProtocolName
-				)
+			let engineSceneService = api.getExtensionService<engineSceneService>(
+				meta3dState,
+				"meta3d-engine-scene-protocol"
+			)
 
-				meta3dState = engineSceneService.prepare(meta3dState, isDebug, ecsConfig)
+			meta3dState = engineSceneService.prepare(meta3dState, isDebug, ecsConfig)
 
 
-				// let engineRenderState = api.getExtensionState<engineRenderState>(meta3dState, meta3dEngineRenderExtensionProtocolName)
+			// let engineRenderState = api.getExtensionState<engineRenderState>(meta3dState, meta3dEngineRenderExtensionProtocolName)
 
-				let engineRenderService = api.getExtensionService<engineRenderService>(
-					meta3dState,
-					meta3dEngineRenderExtensionProtocolName
-				)
+			let engineRenderService = api.getExtensionService<engineRenderService>(
+				meta3dState,
+				"meta3d-engine-render-protocol"
+			)
 
-				meta3dState = engineRenderService.prepare(meta3dState, isDebug, canvas)
+			meta3dState = engineRenderService.prepare(meta3dState, isDebug, canvas)
 
 
 
-				return meta3dState
-			},
-		}
+			return meta3dState
+		},
 	}
+}
 
 export let createExtensionState: createExtensionStateMeta3D<
 	state

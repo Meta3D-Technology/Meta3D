@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentDirectionlightProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentDirectionlightProtocol.Index.cloneConfig,
     Meta3dComponentDirectionlightProtocol.Index.directionLight,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentDirectionlightProtocol.Index.componentName,
   createStateFunc: (. {isDebug, directionLightCount}) =>
     CreateStateUtils.createState(isDebug, directionLightCount),

@@ -34,10 +34,7 @@ let init = (state, meta3dState) => {
 }
 
 let runPipeline = (
-  (
-    api: Meta3dType.Index.api,
-    {meta3dBsMostExtensionProtocolName}: DependentMapType.dependentExtensionProtocolNameMap,
-  ),
+  api: Meta3dType.Index.api,
   (unsafeGetMeta3dState, setMeta3dState),
   meta3dState,
   meta3dEngineCoreExtensionProtocolName,
@@ -45,7 +42,7 @@ let runPipeline = (
 ) => {
   let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    meta3dBsMostExtensionProtocolName,
+    "meta3d-bs-most-protocol"
   )
 
   meta3dState

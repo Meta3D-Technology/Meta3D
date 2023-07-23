@@ -6,18 +6,6 @@
     "protocol": {
         "name": "meta3d-use-editor-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEventExtensionProtocolName": {
-            "protocolName": "meta3d-event-protocol"
-        },
-        "meta3dUIExtensionProtocolName": {
-            "protocolName": "meta3d-ui-protocol"
-        },
-        "meta3dImguiRendererExtensionProtocolName": {
-            "protocolName": "meta3d-imgui-renderer-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

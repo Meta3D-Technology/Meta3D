@@ -139,26 +139,15 @@ let generateElementContributeBinaryFile = (
         displayName,
         repoLink,
         description,
-        dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+        dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
         ->Meta3dCommonlib.ImmutableHashMap.set(
-          "meta3dUIExtensionProtocolName",
-          (
-            {
-              protocolName: getUIExtensionProtocolName(),
-              protocolVersion: _getUIProtocolVersion(),
-            }: Meta3d.ExtensionFileType.dependentData
-          ),
+  getUIExtensionProtocolName(),
+               _getUIProtocolVersion()
         )
         ->Meta3dCommonlib.ImmutableHashMap.set(
-          "meta3dEventExtensionProtocolName",
-          (
-            {
-              protocolName: "meta3d-event-protocol",
-              protocolVersion: _getEventProtocolVersion(),
-            }: Meta3d.ExtensionFileType.dependentData
-          ),
-        ),
-        dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+ "meta3d-event-protocol",
+               _getEventProtocolVersion()
+        )
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,

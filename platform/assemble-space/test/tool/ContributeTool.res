@@ -7,8 +7,7 @@ let buildContributePackageData = (
     name: "p1",
     version: "^0.0.1",
   }: Meta3d.ExtensionFileType.contributeProtocolData,
-  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ): Meta3d.ExtensionFileType.contributePackageData => {
   {
@@ -17,8 +16,7 @@ let buildContributePackageData = (
     repoLink,
     description,
     protocol,
-    dependentExtensionProtocolNameMap,
-    dependentContributeProtocolNameMap,
+    dependentBlockProtocolNameMap,
   }
 }
 
@@ -81,8 +79,7 @@ let generateContribute = (
   ~displayName="d1",
   ~repoLink="",
   ~description="dp1",
-  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
   (),
 ) => {
@@ -97,8 +94,7 @@ let generateContribute = (
           name: protocolName,
           version: protocolVersion,
         },
-        dependentExtensionProtocolNameMap,
-        dependentContributeProtocolNameMap,
+        dependentBlockProtocolNameMap,
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,

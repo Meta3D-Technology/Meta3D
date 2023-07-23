@@ -5,8 +5,7 @@ let generateExtension = (
   ~repoLink="",
   ~description="",
   ~fileStr="",
-  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ) => {
   Meta3d.Main.generateExtension(
@@ -17,8 +16,7 @@ let generateExtension = (
         displayName,
         repoLink,
         description,
-        dependentExtensionProtocolNameMap,
-        dependentContributeProtocolNameMap,
+        dependentBlockProtocolNameMap,
       }: Meta3d.ExtensionFileType.extensionPackageData
     ),
     fileStr,
@@ -32,8 +30,7 @@ let generateContribute = (
   ~repoLink="",
   ~description="",
   ~fileStr="",
-  ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ) => {
   Meta3d.Main.generateContribute(
@@ -44,8 +41,7 @@ let generateContribute = (
         displayName,
         repoLink,
         description,
-        dependentExtensionProtocolNameMap,
-        dependentContributeProtocolNameMap,
+        dependentBlockProtocolNameMap,
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,

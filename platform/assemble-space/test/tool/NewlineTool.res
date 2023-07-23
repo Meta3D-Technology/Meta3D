@@ -27,16 +27,20 @@ function () {
 `)
 
 let buildNewlineChar = () => {
-    switch(_judgeOS()){
-        | "win" => "\r\n"
-        | _ => "\n"
-    }
+  switch _judgeOS() {
+  | "win" => "\r\n"
+  | _ => "\n"
+  }
 }
 
-let handleNewlineChar = (str) => {
-    str -> Js.String.replaceByRe(%re("/\n/g"), buildNewlineChar(),_)
+let handleNewlineChar = str => {
+  str->Js.String.replaceByRe(%re("/\n/g"), buildNewlineChar(), _)
 }
 
-let unifyNewlineChar = (str) => {
-    str -> Js.String.replaceByRe(%re("/\r\n|\r|\n/g"), "\n",_)
+let unifyNewlineChar = str => {
+  str->Js.String.replaceByRe(%re("/\r\n|\r|\n/g"), "\n", _)
+}
+
+let removeBlankChar = str => {
+  str->Js.String.replaceByRe(%re("/\s/g"), "", _)
 }

@@ -5,15 +5,6 @@
     "protocol": {
         "name": "meta3d-pipeline-webgl1-detectgl-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dWebgl1ExtensionProtocolName": {
-            "protocolName": "meta3d-webgl1-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

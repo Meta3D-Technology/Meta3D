@@ -15,7 +15,7 @@ import * as GetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracont
 import * as SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller from "./operate_data/SetArcballCameraControllerDataUtils.bs.js";
 import * as GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller from "./gameobject/GetNeedDisposedArcballCameraControllersUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentArcballcameracontrollerProtocol.componentName,
           createStateFunc: (function (param) {

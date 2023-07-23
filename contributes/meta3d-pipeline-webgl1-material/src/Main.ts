@@ -1,6 +1,5 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execInitMaterial } from "./jobs/update/InitMaterialJob";
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { config } from "meta3d-pipeline-webgl1-material-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-webgl1-material-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
@@ -21,23 +20,16 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, pipelineContribute<config, state>> = (api, dependentMapData) => {
-	let {
-		meta3dWebgl1ExtensionProtocolName,
-		meta3dBsMostExtensionProtocolName,
-		meta3dEngineCoreExtensionProtocolName,
-		meta3dImmutableExtensionProtocolName
-	} = dependentMapData[0]
-
+export let getContribute: getContributeMeta3D<pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
 		createStateFunc: (meta3dState, _) => {
-			let immutableService = api.getExtensionService<immutableService>(meta3dState, meta3dImmutableExtensionProtocolName)
+			let immutableService = api.getExtensionService<immutableService>(meta3dState, "meta3d-immutable-protocol")
 
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
-				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionProtocolName),
-				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionProtocolName),
+				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
+				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
+				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-protocol"),
 				immutableService: immutableService,
 
 				material: {

@@ -5,15 +5,6 @@
     "protocol": {
         "name": "meta3d-element-assemble-visual-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dUIExtensionProtocolName": {
-            "protocolName": "meta3d-ui-protocol"
-        },
-        "meta3dImguiRendererExtensionProtocolName": {
-            "protocolName": "meta3d-imgui-renderer-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

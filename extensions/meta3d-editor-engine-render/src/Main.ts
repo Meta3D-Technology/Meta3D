@@ -1,7 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
 import { state } from "meta3d-editor-engine-render-protocol/src/state/StateType"
 import { service } from "meta3d-editor-engine-render-protocol/src/service/ServiceType"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
@@ -23,34 +22,21 @@ import { state as senduniformshaderdataState, states as senduniformshaderdataSta
 import { config as senduniformshaderdataConfig } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/ConfigType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionProtocolNameMap,
-	dependentContributeProtocolNameMap,
 	service
-> = (api, [{
-	meta3dEngineCoreExtensionProtocolName,
-}, {
-	meta3dPipelineEditorViewRectContributeName,
-	meta3dPipelineEditorWebgl1GetGLContributeName,
-	meta3dPipelineWebgl1DetectGLContributeName,
-	meta3dPipelineWebgl1GeometryContributeName,
-	meta3dPipelineWebgl1MaterialContributeName,
-	meta3dPipelineWebgl1DataContributeName,
-	meta3dPipelineWebgl1RenderContributeName,
-	meta3dPipelineWebgl1SenduniformshaderdataContributeName,
-}]) => {
+> = (api) => {
 		return {
 			prepare: (meta3dState: meta3dState, isDebug, gl) => {
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
+				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
 
 				let engineCoreService = api.getExtensionService<engineCoreService>(
 					meta3dState,
-					meta3dEngineCoreExtensionProtocolName
+					"meta3d-engine-core-protocol"
 				)
 
 
 				let { registerPipeline } = engineCoreService
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, meta3dPipelineEditorViewRectContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-editor-viewrect-protocol"),
 					null,
 					[
 						{
@@ -63,7 +49,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<getGLConfig, getGLState>>(meta3dState, meta3dPipelineEditorWebgl1GetGLContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<getGLConfig, getGLState>>(meta3dState,  "meta3d-pipeline-editor-webgl1-getgl-protocol"),
 					null,
 					[
 						{
@@ -74,7 +60,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<detectGLConfig, detectGLState>>(meta3dState, meta3dPipelineWebgl1DetectGLContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<detectGLConfig, detectGLState>>(meta3dState,  "meta3d-pipeline-webgl1-detectgl-protocol"),
 					null,
 					[
 						{
@@ -85,7 +71,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<geometryConfig, geometryState>>(meta3dState, meta3dPipelineWebgl1GeometryContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<geometryConfig, geometryState>>(meta3dState,  "meta3d-pipeline-webgl1-geometry-protocol"),
 					null,
 					[
 						{
@@ -96,7 +82,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<materialConfig, materialState>>(meta3dState, meta3dPipelineWebgl1MaterialContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<materialConfig, materialState>>(meta3dState,  "meta3d-pipeline-webgl1-material-protocol"),
 					null,
 					[
 						{
@@ -107,7 +93,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, meta3dPipelineWebgl1SenduniformshaderdataContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState,  "meta3d-pipeline-webgl1-senduniformshaderdata-protocol"),
 					null,
 					[
 						{
@@ -118,7 +104,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<renderConfig, renderState>>(meta3dState, meta3dPipelineWebgl1RenderContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<renderConfig, renderState>>(meta3dState,  "meta3d-pipeline-webgl1-render-protocol"),
 					null,
 					[
 						{
@@ -129,7 +115,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					]
 				)
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<dataConfig, dataState>>(meta3dState, meta3dPipelineWebgl1DataContributeName),
+				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<dataConfig, dataState>>(meta3dState,  "meta3d-pipeline-webgl1-data-protocol"),
 					{
 						isDebug: isDebug
 					},
@@ -152,7 +138,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				meta3dState =
 					api.setExtensionState(
 						meta3dState,
-						meta3dEngineCoreExtensionProtocolName,
+						"meta3d-engine-core-protocol",
 						engineCoreState
 					)
 

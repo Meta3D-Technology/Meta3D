@@ -3,9 +3,7 @@ import { uiControlName, inputData, outputData } from "your-protocol"
 import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
-    let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
-
+export let getContribute: getContributeMeta3D< uiControlContribute<inputData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,

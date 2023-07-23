@@ -43,7 +43,7 @@ let initProduction = () => {
     let app = node_sdk_1.default.init({
         secretId: "AKIDdL16e8c2KOWccglputqiU8cO5fMYlhcM",
         secretKey: "a1GJHNZntyxojls2Galt8FHSp5A1g8Ul",
-        env: "meta3d-production-6eaj4630a6b9e7" // 此处填入您的环境ID
+        env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
     });
     return (0, most_1.just)(app);
 };

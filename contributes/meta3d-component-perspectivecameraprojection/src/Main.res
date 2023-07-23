@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentPerspectivecameraprojectionProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentPerspectivecameraprojectionProtocol.Index.cloneConfig,
     Meta3dComponentPerspectivecameraprojectionProtocol.Index.perspectiveCameraProjection,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),
   createComponentFunc: (. state) => CreatePerspectiveCameraProjectionUtils.create(state),

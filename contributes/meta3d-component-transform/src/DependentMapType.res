@@ -1,3 +1,0 @@
-type dependentExtensionProtocolNameMap = {.}
-
-type dependentContributeProtocolNameMap = {.}

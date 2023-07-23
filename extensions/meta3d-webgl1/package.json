@@ -6,8 +6,6 @@
     "protocol": {
         "name": "meta3d-webgl1-protocol"
     },
-    "dependentExtensionProtocolNameMap": {},
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",

@@ -205,7 +205,7 @@ function buildPerspective(resultFloat32Arr, isDebug, param) {
   resultFloat32Arr[7] = 0;
   resultFloat32Arr[8] = 0;
   resultFloat32Arr[9] = 0;
-  resultFloat32Arr[10] = -(far + near) * rd;
+  resultFloat32Arr[10] = - (far + near) * rd;
   resultFloat32Arr[11] = -1;
   resultFloat32Arr[12] = 0;
   resultFloat32Arr[13] = 0;
@@ -279,13 +279,13 @@ function invertTo3x3(resultFloat32Arr, mat) {
   var a21 = mat[9];
   var a22 = mat[10];
   var b11 = a22 * a11 - a12 * a21;
-  var b21 = -a22 * a01 + a02 * a21;
+  var b21 = - a22 * a01 + a02 * a21;
   var b31 = a12 * a01 - a02 * a11;
-  var b12 = -a22 * a10 + a12 * a20;
+  var b12 = - a22 * a10 + a12 * a20;
   var b22 = a22 * a00 - a02 * a20;
-  var b32 = -a12 * a00 + a02 * a10;
+  var b32 = - a12 * a00 + a02 * a10;
   var b13 = a21 * a10 - a11 * a20;
-  var b23 = -a21 * a00 + a01 * a20;
+  var b23 = - a21 * a00 + a01 * a20;
   var b33 = a11 * a00 - a01 * a10;
   var det = a00 * b11 + a01 * b12 + a02 * b13;
   var match = det;
@@ -316,17 +316,17 @@ function getEulerAngles(matTypeArr) {
   var a11 = matTypeArr[5];
   var a12 = matTypeArr[6];
   var a22 = matTypeArr[10];
-  var y = Math.asin(-a02 / sx);
+  var y = Math.asin(- a02 / sx);
   var halfPi = Math.PI * 0.5;
   var x = 0;
   var z = 0;
   if (y < halfPi) {
-    if (y > -halfPi) {
+    if (y > - halfPi) {
       x = Math.atan2(a12 / sy, a22 / match[2]);
       z = Math.atan2(a01 / sx, a00 / sx);
     } else {
       z = 0;
-      x = -Math.atan2(a11 / sy, a10 / sy);
+      x = - Math.atan2(a11 / sy, a10 / sy);
     }
   } else {
     z = 0;

@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentTransformProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentTransformProtocol.Index.cloneConfig,
     Meta3dComponentTransformProtocol.Index.transform,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentTransformProtocol.Index.componentName,
   createStateFunc: (. {isDebug, transformCount, float9Array1, float32Array1}) =>
     CreateStateUtils.createState(isDebug, transformCount, float9Array1, float32Array1),

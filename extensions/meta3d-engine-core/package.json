@@ -5,12 +5,6 @@
     "protocol": {
         "name": "meta3d-engine-core-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",

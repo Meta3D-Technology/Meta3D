@@ -14,25 +14,6 @@
     "protocol": {
         "name": "TODO"
     },
-    //该Map定义了该扩展依赖的所有扩展的协议的name
-    //该Map中的key能在Main->getExtensionService->dependentExtensionNameMap中拿到
-    //key对应DependentMapType->dependentExtensionProtocolNameMap中的key
-    "dependentExtensionNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "TODO": {
-            "protocolName": "TODO"
-        }
-    },
-    //该Map定义了该扩展依赖的所有贡献的协议的name
-    //该Map中的key能在Main->getExtensionService->dependentContributeNameMap中拿到
-    //key对应DependentMapType->dependentContributeProtocolNameMap中的key
-    "dependentContributeNameMap": {
-        "TODO": {
-            "protocolName": "TODO"
-        }
-    },
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

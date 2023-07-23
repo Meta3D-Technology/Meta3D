@@ -326,6 +326,55 @@ change color to blue
 
 
 
+* DONE update info
+
+** DONE 组建团队
+
+
+* DONE update extensions
+
+
+* DONE update contributes
+
+
+
+* DONE update frontend
+
+update
+
+run and login with metamask
+
+
+commit
+
+
+* TODO update online env and doc
+
+publish
+
+
+update doc:
+demo link
+
+update Github README:
+demo link
+
+
+
+
+* TODO encapuslate three.js engine
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # * TODO add action:event, handler to encapuslate action contribute

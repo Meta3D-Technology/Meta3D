@@ -1,7 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { contributeType } from "meta3d-type/src/contribute/ContributeType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 import { service } from "meta3d-element-assemble-visual-run-protocol/src/service/ServiceType"
 import { state } from "meta3d-element-assemble-visual-run-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
@@ -16,19 +15,14 @@ import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 
-let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]: [dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap]) => {
-	let { meta3dEventExtensionProtocolName, meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
-	let {
-		meta3dUIViewElementContributeName,
-	} = dependentContributeProtocolNameMap
+let _prepareUI = (meta3dState: meta3dState, api: api) => {
+	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-	let { registerElement } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
-
-	let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
 
 
-	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
+	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
 		return registerSkin(uiState, contribute)
@@ -47,19 +41,19 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtoco
 
 
 	uiState = registerElement<elementState>(uiState,
-		api.getContribute<elementContribute<elementState>>(meta3dState, meta3dUIViewElementContributeName)
+		api.getContribute<elementContribute<elementState>>(meta3dState, "meta3d-element-assemble-element-protocol")
 	)
 
 
 
-	meta3dState = api.setExtensionState(meta3dState, meta3dUIExtensionProtocolName, uiState)
+	meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
 
 
 
 
-	let { registerAction } = api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionProtocolName)
+	let { registerAction } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
 
-	let eventState = api.getExtensionState<eventState>(meta3dState, meta3dEventExtensionProtocolName)
+	let eventState = api.getExtensionState<eventState>(meta3dState, "meta3d-event-protocol")
 
 
 
@@ -68,7 +62,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtoco
 	}, eventState)
 
 
-	meta3dState = api.setExtensionState(meta3dState, meta3dEventExtensionProtocolName, eventState)
+	meta3dState = api.setExtensionState(meta3dState, "meta3d-event-protocol", eventState)
 
 
 
@@ -78,41 +72,30 @@ let _prepareUI = (meta3dState: meta3dState, api: api, [dependentExtensionProtoco
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
-	dependentExtensionProtocolNameMap,
-	dependentContributeProtocolNameMap,
 	service
-> = (api, dependentMapData) => {
-	let [dependentExtensionProtocolNameMap, _] = dependentMapData
-	let {
-		meta3dUIExtensionProtocolName,
-		meta3dImguiRendererExtensionProtocolName,
-		meta3dEditorRunEngineExtensionProtocolName
-	} = dependentExtensionProtocolNameMap
-
+> = (api) => {
 	return {
 		init: (meta3dState: meta3dState, { isDebug, canvas }) => {
 			// let isDebug = true
 
-			// let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName, meta3dEventExtensionProtocolName, meta3dBindIOEventExtensionProtocolName } = dependentExtensionProtocolNameMap
-			let { meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName } = dependentExtensionProtocolNameMap
-
-			meta3dState = _prepareUI(meta3dState, api, dependentMapData)
+			// let { "meta3d-ui-protocol", "meta3d-imgui-renderer-protocol", "meta3d-event-protocol", meta3dBindIOEventExtensionProtocolName } = dependentExtensionProtocolNameMap
+			meta3dState = _prepareUI(meta3dState, api)
 
 
-			// let { init } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
+			// let { init } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-			// return init(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], true, isDebug, canvas)
+			// return init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas)
 
 
-			let uiService = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
+			let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-			return uiService.init(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], true, isDebug, canvas).then(meta3dState => {
+			return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
 
 
 
 				let runEngineService = api.getExtensionService<runEngineService>(
 					meta3dState,
-					meta3dEditorRunEngineExtensionProtocolName
+					"meta3d-editor-run-engine-protocol"
 				)
 
 				return runEngineService.prepareAndInitEngine(meta3dState,
@@ -122,9 +105,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			})
 		},
 		update: (meta3dState: meta3dState, { clearColor, time, skinName }) => {
-			let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName)
+			let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-			let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+			let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
 			if (!isNullable(skinName)) {
 				let skin = getSkin<skin>(uiState, skinName)
@@ -135,12 +118,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 
-			meta3dState = clear(meta3dState, [api, meta3dImguiRendererExtensionProtocolName], clearColor)
+			meta3dState = clear(meta3dState, [api, "meta3d-imgui-renderer-protocol"], clearColor)
 
-			return render(meta3dState, [meta3dUIExtensionProtocolName, meta3dImguiRendererExtensionProtocolName], time).then(meta3dState => {
+			return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time).then(meta3dState => {
 				let runEngineService = api.getExtensionService<runEngineService>(
 					meta3dState,
-					meta3dEditorRunEngineExtensionProtocolName
+					"meta3d-editor-run-engine-protocol"
 				)
 
 				return runEngineService.loopEngine(meta3dState)

@@ -37,7 +37,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         mostService,
         engineWholeService,
         uiService,
-        meta3dUIExtensionProtocolName,
         arcballCameraController,
         lastYaw,
         lastPitch
@@ -56,7 +55,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
         if (isNullable(dragOverLocation)
             || !_isDragInSceneView(getExn(dragOverLocation), getExn(getViewRect(uiService,
-                api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName
+                api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol"
                 )
             )))
         ) {

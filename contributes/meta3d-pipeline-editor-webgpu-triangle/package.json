@@ -8,18 +8,6 @@
     "protocol": {
         "name": "meta3d-pipeline-editor-webgpu-triangle-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dUIExtensionProtocolName": {
-            "protocolName": "meta3d-ui-protocol"
-        },
-        "meta3dWebgpuExtensionProtocolName": {
-            "protocolName": "meta3d-webgpu-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

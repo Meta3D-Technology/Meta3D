@@ -1,7 +1,6 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execInitJob } from "./jobs/init/InitJob"
 import { execFunc as execRenderJob } from "./jobs/render/RenderJob"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { state, states, pipelineName } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
 import { config } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
@@ -23,20 +22,14 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, pipelineContribute<config, state>> = (api, dependentMapData) => {
-	let {
-		meta3dBsMostExtensionProtocolName,
-		meta3dUIExtensionProtocolName,
-		meta3dWebgpuExtensionProtocolName
-	} = dependentMapData[0]
-
+export let getContribute: getContributeMeta3D<pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
 		createStateFunc: (meta3dState, _) => {
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
-				uiService: api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName),
-				webgpuService: api.getExtensionService<webgpuService>(meta3dState, meta3dWebgpuExtensionProtocolName),
+				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
+				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
+				webgpuService: api.getExtensionService<webgpuService>(meta3dState, "meta3d-webgpu-protocol"),
 				device: null,
 				context: null,
 				renderPipeline: null

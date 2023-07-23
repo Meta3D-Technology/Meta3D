@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentBasiccameraviewProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentBasiccameraviewProtocol.Index.cloneConfig,
     Meta3dComponentBasiccameraviewProtocol.Index.basicCameraView,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentBasiccameraviewProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),
   createComponentFunc: (. state) => CreateBasicCameraViewUtils.create(state),

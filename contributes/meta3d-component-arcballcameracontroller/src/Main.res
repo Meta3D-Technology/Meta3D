@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentArcballcameracontrollerProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentArcballcameracontrollerProtocol.Index.cloneConfig,
     Meta3dComponentArcballcameracontrollerProtocol.Index.arcballCameraController,
   >,
-> = (_, _) => {
+> = (_) => {
 
   componentName: Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
   createStateFunc: (. {isDebug}) => CreateStateUtils.createState(isDebug),

@@ -1,8 +1,6 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<StateType.state>,
-> = (api, _) => {
+> = (api) => {
   createStateFunc: (. config) => {
     maxUID: 0,
     needDisposedGameObjectArray: [],

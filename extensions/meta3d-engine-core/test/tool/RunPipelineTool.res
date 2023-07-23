@@ -29,7 +29,8 @@ let buildFakeDataAndMeta3DState = sandbox => {
 
   // let meta3dState = Meta3d.ManagerUtils._prepare()
 
-  ((api, Obj.magic(1)), Obj.magic(2))
+  // ((api, Obj.magic(1)), Obj.magic(2))
+  (api, Obj.magic(2))
   // ((api, Obj.magic(1)), meta3dState)
 }
 

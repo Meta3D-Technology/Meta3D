@@ -8,16 +8,6 @@
     "protocol": {
         "name": "meta3d-editor-engine-webgpu-render-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEngineCoreExtensionProtocolName": {
-            "protocolName": "meta3d-engine-core-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {
-        "meta3dPipelineEditorWebgpuTriangleContributeName": {
-            "protocolName": "meta3d-pipeline-editor-webgpu-triangle-protocol"
-        }
-    },
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

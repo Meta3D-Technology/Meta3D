@@ -5,24 +5,6 @@
     "protocol": {
         "name": "meta3d-pipeline-editor-webgl1-scene-view1-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dWebgl1ExtensionProtocolName": {
-            "protocolName": "meta3d-webgl1-protocol"
-        },
-        "meta3dUIExtensionProtocolName": {
-            "protocolName": "meta3d-ui-protocol"
-        },
-        "meta3dEventExtensionProtocolName": {
-            "protocolName": "meta3d-event-protocol"
-        },
-        "meta3dEditorEngineWholeExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-whole-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

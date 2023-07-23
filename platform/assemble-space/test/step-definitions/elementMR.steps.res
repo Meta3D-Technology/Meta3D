@@ -24,7 +24,7 @@ defineFeature(feature, test => {
       ...uiControl,
       protocol: {
         ...protocol,
-        configLib: configLib,
+        configLib,
       },
       children: children->Meta3dCommonlib.ArraySt.map(_setUIControlFakeConfigLib(configLib)),
     }
@@ -75,490 +75,14 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("generate ui control button b1, b2", () => {
-      execGetContributeFuncStub.contents
-      ->onCall(0, _)
-      ->returns(
-        {
-          "uiControlName": b1Name,
-        },
-        _,
-      )
-      ->ignore
-
-      execGetContributeFuncStub.contents
-      ->onCall(1, _)
-      ->returns(
-        {
-          "uiControlName": b2Name,
-        },
-        _,
-      )
-      ->ignore
-
-      let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-        name: "meta3d-ui-control-button-protocol",
-        version: "0.6.0",
-      }
-
-      b1 :=
-        ContributeTool.buildContributeData(
-          ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~protocol=buttonProtocol,
-            (),
-          ),
-          (),
-        )
-      b2 :=
-        ContributeTool.buildContributeData(
-          ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~protocol=buttonProtocol,
-            (),
-          ),
-          (),
-        )
-    })
-
-    \"and"("select b1, b2", () => {
-      selectedUIControls :=
-        list{
-          SelectedUIControlsTool.buildSelectedUIControl(
-            // ~name,
-            // ~newName=None,
-            ~id="b1",
-            ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
-            ~data=b1.contents,
-            (),
-          ),
-          SelectedUIControlsTool.buildSelectedUIControl(
-            ~id="b2",
-            ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
-            ~data=b2.contents,
-            (),
-          ),
-        }
-    })
-
-    \"and"("prepare element inspector data", () => {
-      elementStateFields :=
-        list{
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="a1",
-            ~type_=#int,
-            ~defaultValue="10",
-            (),
-          ),
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="a2",
-            ~type_=#string,
-            ~defaultValue="zzz",
-            (),
-          ),
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="a3",
-            ~type_=#bool,
-            ~defaultValue=false,
-            (),
-          ),
-        }
-    })
-
-    \"and"("prepare b1's, b2's inspector data", () => {
-      selectedUIControlInspectorData :=
-        list{
-          UIControlInspectorTool.buildUIControlInspectorData(
-            ~id="b1",
-            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-            ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-            (),
-          ),
-          UIControlInspectorTool.buildUIControlInspectorData(
-            ~id="b2",
-            ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
-            ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-            (),
-          ),
-        }
-    })
-
-    \"when"("build element middle represent with b1, b2 and inspector data", () => {
-      mr :=
-        ElementVisualTool.buildElementMR(
-          service.contents,
-          elementName,
-          selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
-          selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-          (elementStateFields.contents, ReducerTool.buildReducers()),
-        )
-    })
-
-    \"and"("generate element contribute string", () => {
-      str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-    })
-
-    then("should build correct result", () => {
-      let configLib = Obj.magic(1)
-      mr := _setFakeConfigLib(mr.contents, configLib)
-
-      mr.contents->expect ==
-        (
-          {
-            element: {
-              elementName: elementName,
-              execOrder: 0,
-              elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
-              reducers: ReducerTool.buildReducers(),
-            },
-            uiControls: [
-              {
-                displayName: b1Name,
-                protocol: {
-                  name: "meta3d-ui-control-button-protocol",
-                  version: "0.6.0",
-                  configLib: configLib,
-                },
-                data: selectedUIControlInspectorData.contents
-                ->Meta3dCommonlib.ListSt.head
-                ->Meta3dCommonlib.OptionSt.getExn,
-                children: [],
-              },
-              {
-                displayName: b2Name,
-                protocol: {
-                  name: "meta3d-ui-control-button-protocol",
-                  version: "0.6.0",
-                  configLib: configLib,
-                },
-                data: selectedUIControlInspectorData.contents
-                ->Meta3dCommonlib.ListSt.getLast
-                ->Meta3dCommonlib.OptionSt.getExn,
-                children: [],
-              },
-            ],
-          }: ElementMRUtils.elementMR
-        )
-    })
-
-    \"and"("generate correct result", () => {
-      str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
-    })
-  })
-
-  test(."build element middle represent with event and generate element contribute string", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let b1 = ref(Obj.magic(1))
-    let b1Name = "Button1"
-    let mr = ref(Obj.magic(1))
-    let str = ref(Obj.magic(1))
-    let selectedUIControls = ref(list{})
-    let selectedUIControlInspectorData = ref(list{})
-
-    _prepare(given, \"and")
-
-    given("generate ui control button b1", () => {
-      execGetContributeFuncStub.contents
-      ->onCall(0, _)
-      ->returns(
-        {
-          "uiControlName": b1Name,
-        },
-        _,
-      )
-      ->ignore
-
-      let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-        name: "meta3d-ui-control-button-protocol",
-        version: "0.6.0",
-      }
-
-      b1 :=
-        ContributeTool.buildContributeData(
-          ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~protocol=buttonProtocol,
-            (),
-          ),
-          (),
-        )
-    })
-
-    \"and"("select b1", () => {
-      selectedUIControls :=
-        list{
-          SelectedUIControlsTool.buildSelectedUIControl(
-            ~id="b1",
-            ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
-            ~data=b1.contents,
-            (),
-          ),
-        }
-    })
-
-    \"and"("prepare b1's inspector data", () => {
-      selectedUIControlInspectorData :=
-        list{
-          UIControlInspectorTool.buildUIControlInspectorData(
-            ~id="b1",
-            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-            ~event=[UIControlInspectorTool.buildEventData(#click, "a1")],
-            (),
-          ),
-        }
-    })
-
-    \"when"("build element middle represent with b1 and inspector data", () => {
-      mr :=
-        ElementVisualTool.buildElementMR(
-          service.contents,
-          elementName,
-          selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
-          selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-          (list{}, ReducerTool.buildReducers()),
-        )
-    })
-
-    \"and"("generate element contribute string", () => {
-      str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-    })
-
-    then("should build correct result", () => {
-      let configLib = Obj.magic(1)
-      mr := _setFakeConfigLib(mr.contents, configLib)
-
-      mr.contents->expect ==
-        (
-          {
-            element: {
-              elementName: elementName,
-              execOrder: 0,
-              elementStateFields: [],
-              reducers: ReducerTool.buildReducers(),
-            },
-            uiControls: [
-              {
-                displayName: b1Name,
-                protocol: {
-                  name: "meta3d-ui-control-button-protocol",
-                  version: "0.6.0",
-                  configLib: configLib,
-                },
-                data: selectedUIControlInspectorData.contents
-                ->Meta3dCommonlib.ListSt.head
-                ->Meta3dCommonlib.OptionSt.getExn,
-                children: [],
-              },
-            ],
-          }: ElementMRUtils.elementMR
-        )
-    })
-
-    \"and"("generate correct result", () => {
-      str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n                let data = null\n  if(true){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nhandle click event code...\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
-
-    })
-  })
-
-  test(."build element middle represent with reducer and generate element contribute string", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let b1 = ref(Obj.magic(1))
-    let b1Name = "Button1"
-    let mr = ref(Obj.magic(1))
-    let str = ref(Obj.magic(1))
-    let selectedUIControls = ref(list{})
-    let selectedUIControlInspectorData = ref(list{})
-    let reducers = ref(Obj.magic(1))
-
-    _prepare(given, \"and")
-
-    given("prepare reducers", () => {
-      reducers :=
-        ReducerTool.buildReducers(
-          ~role="role1"->Some,
-          ~handlers=list{ReducerTool.buildHandler("action1", "x")},
-          (),
-        )
-    })
-
-    \"when"("build element middle represent with reducers", () => {
-      mr :=
-        ElementVisualTool.buildElementMR(
-          service.contents,
-          elementName,
-          [],
-          [],
-          (list{}, reducers.contents),
-        )
-    })
-
-    \"and"("generate element contribute string", () => {
-      str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-    })
-
-    then("should build correct result", () => {
-      mr.contents.element.reducers->expect == reducers.contents
-    })
-
-    \"and"("generate correct result", () => {
-      str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: {\"role\":\"role1\",\"handlers\":[{\"actionName\":\"action1\",\"updatedElementStateFieldName\":\"x\"}]},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n                let data = null\n  \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
-
-    })
-  })
-
-  test(."build element middle represent with window and generate element contribute string", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let w1 = ref(Obj.magic(1))
-    let w1Name = "Window1"
-    let mr = ref(Obj.magic(1))
-    let str = ref(Obj.magic(1))
-    let selectedUIControls = ref(list{})
-    let selectedUIControlInspectorData = ref(list{})
-
-    _prepare(given, \"and")
-
-    given("generate ui control window w1", () => {
-      execGetContributeFuncStub.contents
-      ->onCall(0, _)
-      ->returns(
-        {
-          "uiControlName": w1Name,
-        },
-        _,
-      )
-      ->ignore
-
-      let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-        name: "meta3d-ui-control-window-protocol",
-        version: "0.7.0",
-      }
-
-      w1 :=
-        ContributeTool.buildContributeData(
-          ~contributePackageData=ContributeTool.buildContributePackageData(
-            ~protocol=windowProtocol,
-            (),
-          ),
-          (),
-        )
-    })
-
-    \"and"("select w1", () => {
-      selectedUIControls :=
-        list{
-          SelectedUIControlsTool.buildSelectedUIControl(
-            ~id="w1",
-            ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
-            ~data=w1.contents,
-            (),
-          ),
-        }
-    })
-
-    \"and"("prepare w1's inspector data", () => {
-      selectedUIControlInspectorData :=
-        list{
-          UIControlInspectorTool.buildUIControlInspectorData(
-            ~id="w1",
-            ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-            ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-            ~specific=[
-              UIControlInspectorTool.buildSpecific(
-                ~name="label",
-                ~type_=#string,
-                ~value="Window1"
-                ->Obj.magic
-                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                (),
-              ),
-            ],
-            (),
-          ),
-        }
-    })
-
-    \"when"("build element middle represent with w1 and inspector data", () => {
-      mr :=
-        ElementVisualTool.buildElementMR(
-          service.contents,
-          elementName,
-          selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
-          selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-          (list{}, ReducerTool.buildReducers()),
-        )
-    })
-
-    \"and"("generate element contribute string", () => {
-      str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-    })
-
-    then("should build correct result", () => {
-      let configLib = Obj.magic(1)
-      mr := _setFakeConfigLib(mr.contents, configLib)
-
-      mr.contents->expect ==
-        (
-          {
-            element: {
-              elementName: elementName,
-              execOrder: 0,
-              elementStateFields: [],
-              reducers: ReducerTool.buildReducers(),
-            },
-            uiControls: [
-              {
-                displayName: w1Name,
-                protocol: {
-                  name: "meta3d-ui-control-window-protocol",
-                  version: "0.7.0",
-                  configLib: configLib,
-                },
-                data: selectedUIControlInspectorData.contents
-                ->Meta3dCommonlib.ListSt.head
-                ->Meta3dCommonlib.OptionSt.getExn,
-                children: [],
-              },
-            ],
-          }: ElementMRUtils.elementMR
-        )
-    })
-
-    \"and"("generate correct result", () => {
-      str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n    let Window1 = getUIControlFunc(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
-
-    })
-  })
-
-  test(.
-    "build element middle represent with parent window and child window and generate element contribute string",
-    ({given, \"when", \"and", then}) => {
-      let w1 = ref(Obj.magic(1))
-      let w2 = ref(Obj.magic(1))
-      let w1Name = "ParentWindow"
-      let w2Name = "ChildWindow"
-      let mr = ref(Obj.magic(1))
-      let str = ref(Obj.magic(1))
-      let selectedUIControls = ref(list{})
-      let selectedUIControlInspectorData = ref(list{})
-      let elementStateFields = ref(list{})
-
-      _prepare(given, \"and")
-
-      given("generate ui control window w1, w2", () => {
+    given(
+      "generate ui control button b1, b2",
+      () => {
         execGetContributeFuncStub.contents
         ->onCall(0, _)
         ->returns(
           {
-            "uiControlName": w1Name,
+            "uiControlName": b1Name,
           },
           _,
         )
@@ -568,80 +92,62 @@ defineFeature(feature, test => {
         ->onCall(1, _)
         ->returns(
           {
-            "uiControlName": w2Name,
+            "uiControlName": b2Name,
           },
           _,
         )
         ->ignore
 
-        let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-          name: "meta3d-ui-control-window-protocol",
-          version: "0.7.0",
+        let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+          name: "meta3d-ui-control-button-protocol",
+          version: "0.6.0",
         }
 
-        w1 :=
+        b1 :=
           ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol=windowProtocol,
+              ~protocol=buttonProtocol,
               (),
             ),
             (),
           )
-        w2 :=
+        b2 :=
           ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol=windowProtocol,
+              ~protocol=buttonProtocol,
               (),
             ),
             (),
           )
-      })
+      },
+    )
 
-      \"and"("select w1", () => {
-        ()
-      })
-
-      \"and"("select selected w1", () => {
-        ()
-      })
-
-      \"and"("select w2", () => {
+    \"and"(
+      "select b1, b2",
+      () => {
         selectedUIControls :=
           list{
             SelectedUIControlsTool.buildSelectedUIControl(
-              ~id="w1",
-              ~children=list{
-                SelectedUIControlsTool.buildSelectedUIControl(
-                  ~id="w2",
-                  ~children=list{},
-                  ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
-                  ~data=w2.contents,
-                  (),
-                ),
-              },
-              ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
-              ~data=w1.contents,
+              // ~name,
+              // ~newName=None,
+              ~id="b1",
+              ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
+              ~data=b1.contents,
+              (),
+            ),
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~id="b2",
+              ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
+              ~data=b2.contents,
               (),
             ),
           }
+      },
+    )
 
-        // selectedUIControls := selectedUIControls.contents->Meta3dCommonlib.ListSt.push(w2)
-
-        // selectedUIControls :=
-        //   selectedUIControls.contents->Meta3dCommonlib.ListSt.mapi((
-        //     i,
-        //     {children} as selectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
-        //   ) => {
-        //     i === 0
-        //       ? {
-        //           ...selectedUIControl,
-        //           children: list{w2},
-        //         }
-        //       : selectedUIControl
-        //   })
-      })
-
-      \"and"("prepare element inspector data", () => {
+    \"and"(
+      "prepare element inspector data",
+      () => {
         elementStateFields :=
           list{
             ElementInspectorTool.buildElementStateFieldData(
@@ -662,52 +168,34 @@ defineFeature(feature, test => {
               ~defaultValue=false,
               (),
             ),
-            ElementInspectorTool.buildElementStateFieldData(
-              ~name="label",
-              ~type_=#string,
-              ~defaultValue="Window2",
-              (),
-            ),
           }
-      })
+      },
+    )
 
-      \"and"("prepare w1's, w2's inspector data", () => {
+    \"and"(
+      "prepare b1's, b2's inspector data",
+      () => {
         selectedUIControlInspectorData :=
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
-              ~id="w1",
+              ~id="b1",
               ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
               ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-              ~specific=[
-                UIControlInspectorTool.buildSpecific(
-                  ~name="label",
-                  ~type_=#string,
-                  ~value="Window1"
-                  ->Obj.magic
-                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                  (),
-                ),
-              ],
               (),
             ),
             UIControlInspectorTool.buildUIControlInspectorData(
-              ~id="w2",
+              ~id="b2",
               ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
               ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-              ~specific=[
-                UIControlInspectorTool.buildSpecific(
-                  ~name="label",
-                  ~type_=#string,
-                  ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
-                  (),
-                ),
-              ],
               (),
             ),
           }
-      })
+      },
+    )
 
-      \"when"("build element middle represent with w1, w2 and inspector data", () => {
+    \"when"(
+      "build element middle represent with b1, b2 and inspector data",
+      () => {
         mr :=
           ElementVisualTool.buildElementMR(
             service.contents,
@@ -716,13 +204,19 @@ defineFeature(feature, test => {
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
             (elementStateFields.contents, ReducerTool.buildReducers()),
           )
-      })
+      },
+    )
 
-      \"and"("generate element contribute string", () => {
+    \"and"(
+      "generate element contribute string",
+      () => {
         str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-      })
+      },
+    )
 
-      then("should build correct result", () => {
+    then(
+      "should build correct result",
+      () => {
         let configLib = Obj.magic(1)
         mr := _setFakeConfigLib(mr.contents, configLib)
 
@@ -730,113 +224,71 @@ defineFeature(feature, test => {
           (
             {
               element: {
-                elementName: elementName,
+                elementName,
                 execOrder: 0,
                 elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
                 reducers: ReducerTool.buildReducers(),
               },
               uiControls: [
                 {
-                  displayName: w1Name,
+                  displayName: b1Name,
                   protocol: {
-                    name: "meta3d-ui-control-window-protocol",
-                    version: "0.7.0",
-                    configLib: configLib,
+                    name: "meta3d-ui-control-button-protocol",
+                    version: "0.6.0",
+                    configLib,
                   },
                   data: selectedUIControlInspectorData.contents
                   ->Meta3dCommonlib.ListSt.head
                   ->Meta3dCommonlib.OptionSt.getExn,
-                  children: [
-                    {
-                      displayName: w2Name,
-                      protocol: {
-                        name: "meta3d-ui-control-window-protocol",
-                        version: "0.7.0",
-                        configLib: configLib,
-                      },
-                      data: selectedUIControlInspectorData.contents
-                      ->Meta3dCommonlib.ListSt.getLast
-                      ->Meta3dCommonlib.OptionSt.getExn,
-                      children: [],
-                    },
-                  ],
+                  children: [],
+                },
+                {
+                  displayName: b2Name,
+                  protocol: {
+                    name: "meta3d-ui-control-button-protocol",
+                    version: "0.6.0",
+                    configLib,
+                  },
+                  data: selectedUIControlInspectorData.contents
+                  ->Meta3dCommonlib.ListSt.getLast
+                  ->Meta3dCommonlib.OptionSt.getExn,
+                  children: [],
                 },
               ],
             }: ElementMRUtils.elementMR
           )
-      })
+      },
+    )
 
-      \"and"("generate correct result", () => {
-        str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+    \"and"(
+      "generate correct result",
+      () => {
+        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+      },
+    )
+  })
 
-      })
-    },
-  )
+  test(."build element middle represent with event and generate element contribute string", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let b1 = ref(Obj.magic(1))
+    let b1Name = "Button1"
+    let mr = ref(Obj.magic(1))
+    let str = ref(Obj.magic(1))
+    let selectedUIControls = ref(list{})
+    let selectedUIControlInspectorData = ref(list{})
 
-  test(.
-    "build element middle represent with parent window w1 and child window w2 and button b1(child of w2) and generate element contribute string",
-    ({given, \"when", \"and", then}) => {
-      let w1 = ref(Obj.magic(1))
-      let w2 = ref(Obj.magic(1))
-      let b1 = ref(Obj.magic(1))
-      let w1Name = "ParentWindow"
-      let w2Name = "ChildWindow"
-      let b1Name = "Button"
-      let mr = ref(Obj.magic(1))
-      let str = ref(Obj.magic(1))
-      let selectedUIControls = ref(list{})
-      let selectedUIControlInspectorData = ref(list{})
-      // let elementStateFields = ref(list{})
+    _prepare(given, \"and")
 
-      _prepare(given, \"and")
-
-      given("generate ui control window w1, w2", () => {
+    given(
+      "generate ui control button b1",
+      () => {
         execGetContributeFuncStub.contents
         ->onCall(0, _)
-        ->returns(
-          {
-            "uiControlName": w1Name,
-          },
-          _,
-        )
-        ->ignore
-
-        execGetContributeFuncStub.contents
-        ->onCall(1, _)
-        ->returns(
-          {
-            "uiControlName": w2Name,
-          },
-          _,
-        )
-        ->ignore
-
-        let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-          name: "meta3d-ui-control-window-protocol",
-          version: "0.7.0",
-        }
-
-        w1 :=
-          ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol=windowProtocol,
-              (),
-            ),
-            (),
-          )
-        w2 :=
-          ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol=windowProtocol,
-              (),
-            ),
-            (),
-          )
-      })
-
-      given("generate ui control button b1", () => {
-        execGetContributeFuncStub.contents
-        ->onCall(2, _)
         ->returns(
           {
             "uiControlName": b1Name,
@@ -858,51 +310,777 @@ defineFeature(feature, test => {
             ),
             (),
           )
-      })
+      },
+    )
 
-      \"and"("select w1", () => {
-        ()
-      })
+    \"and"(
+      "select b1",
+      () => {
+        selectedUIControls :=
+          list{
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~id="b1",
+              ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
+              ~data=b1.contents,
+              (),
+            ),
+          }
+      },
+    )
 
-      \"and"("select selected w1", () => {
-        ()
-      })
+    \"and"(
+      "prepare b1's inspector data",
+      () => {
+        selectedUIControlInspectorData :=
+          list{
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id="b1",
+              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+              ~event=[UIControlInspectorTool.buildEventData(#click, "a1")],
+              (),
+            ),
+          }
+      },
+    )
 
-      \"and"("select w2", () => {
-        ()
-      })
+    \"when"(
+      "build element middle represent with b1 and inspector data",
+      () => {
+        mr :=
+          ElementVisualTool.buildElementMR(
+            service.contents,
+            elementName,
+            selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
+            selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
+            (list{}, ReducerTool.buildReducers()),
+          )
+      },
+    )
 
-      \"and"("select selected w2", () => {
-        ()
-      })
+    \"and"(
+      "generate element contribute string",
+      () => {
+        str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+      },
+    )
 
-      \"and"("select b1", () => {
-        let b1 = SelectedUIControlsTool.buildSelectedUIControl(
-          ~id="b1",
-          ~children=list{},
-          ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
-          ~data=b1.contents,
-          (),
+    then(
+      "should build correct result",
+      () => {
+        let configLib = Obj.magic(1)
+        mr := _setFakeConfigLib(mr.contents, configLib)
+
+        mr.contents->expect ==
+          (
+            {
+              element: {
+                elementName,
+                execOrder: 0,
+                elementStateFields: [],
+                reducers: ReducerTool.buildReducers(),
+              },
+              uiControls: [
+                {
+                  displayName: b1Name,
+                  protocol: {
+                    name: "meta3d-ui-control-button-protocol",
+                    version: "0.6.0",
+                    configLib,
+                  },
+                  data: selectedUIControlInspectorData.contents
+                  ->Meta3dCommonlib.ListSt.head
+                  ->Meta3dCommonlib.OptionSt.getExn,
+                  children: [],
+                },
+              ],
+            }: ElementMRUtils.elementMR
+          )
+      },
+    )
+
+    \"and"(
+      "generate correct result",
+      () => {
+        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+          {
+            j`window.Contribute = {
+    getContribute: (api) => {
+        return {
+            elementName:"ElementAssembleElement",
+            execOrder: 0,
+            elementState: {},
+            reducers: null,
+            elementFunc: (meta3dState, elementState) => {
+                let { getUIControlFunc } = api.getExtensionService(meta3dState, "meta3d-ui-protocol")
+
+                let uiState = api.getExtensionState(meta3dState, "meta3d-ui-protocol")
+
+    let Button1 = getUIControlFunc(uiState,"Button1")
+    
+                let data = null
+  if(true){
+                  return Button1(meta3dState,
+                {
+                  ...{rect: {
+    x: 1,
+    y: 0,
+    width: 0,
+    height: 0
+    }},
+        ...{},
+      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))
+                }
+                    ).then(data =>{
+                meta3dState = data[0]
+handle click event code...
+  return new Promise((resolve) => {
+                    resolve(meta3dState)
+                })
+                })}
+  return new Promise((resolve) => {
+                    resolve(meta3dState)
+                })
+  
+            }
+        }
+    }
+      }`
+          }
+          ->NewlineTool.unifyNewlineChar
+          ->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
+  test(."build element middle represent with reducer and generate element contribute string", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let b1 = ref(Obj.magic(1))
+    let b1Name = "Button1"
+    let mr = ref(Obj.magic(1))
+    let str = ref(Obj.magic(1))
+    let selectedUIControls = ref(list{})
+    let selectedUIControlInspectorData = ref(list{})
+    let reducers = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "prepare reducers",
+      () => {
+        reducers :=
+          ReducerTool.buildReducers(
+            ~role="role1"->Some,
+            ~handlers=list{ReducerTool.buildHandler("action1", "x")},
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build element middle represent with reducers",
+      () => {
+        mr :=
+          ElementVisualTool.buildElementMR(
+            service.contents,
+            elementName,
+            [],
+            [],
+            (list{}, reducers.contents),
+          )
+      },
+    )
+
+    \"and"(
+      "generate element contribute string",
+      () => {
+        str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+      },
+    )
+
+    then(
+      "should build correct result",
+      () => {
+        mr.contents.element.reducers->expect == reducers.contents
+      },
+    )
+
+    \"and"(
+      "generate correct result",
+      () => {
+        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: {\"role\":\"role1\",\"handlers\":[{\"actionName\":\"action1\",\"updatedElementStateFieldName\":\"x\"}]},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n                let data = null\n  \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
+  test(."build element middle represent with window and generate element contribute string", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let w1 = ref(Obj.magic(1))
+    let w1Name = "Window1"
+    let mr = ref(Obj.magic(1))
+    let str = ref(Obj.magic(1))
+    let selectedUIControls = ref(list{})
+    let selectedUIControlInspectorData = ref(list{})
+
+    _prepare(given, \"and")
+
+    given(
+      "generate ui control window w1",
+      () => {
+        execGetContributeFuncStub.contents
+        ->onCall(0, _)
+        ->returns(
+          {
+            "uiControlName": w1Name,
+          },
+          _,
         )
-        let w2 = SelectedUIControlsTool.buildSelectedUIControl(
-          ~id="w2",
-          ~children=list{b1},
-          ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
-          ~data=w2.contents,
-          (),
-        )
+        ->ignore
 
+        let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+          name: "meta3d-ui-control-window-protocol",
+          version: "0.7.0",
+        }
+
+        w1 :=
+          ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol=windowProtocol,
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select w1",
+      () => {
         selectedUIControls :=
           list{
             SelectedUIControlsTool.buildSelectedUIControl(
               ~id="w1",
-              ~children=list{w2},
               ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
               ~data=w1.contents,
               (),
             ),
           }
-      })
+      },
+    )
+
+    \"and"(
+      "prepare w1's inspector data",
+      () => {
+        selectedUIControlInspectorData :=
+          list{
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id="w1",
+              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+              ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+              ~specific=[
+                UIControlInspectorTool.buildSpecific(
+                  ~name="label",
+                  ~type_=#string,
+                  ~value="Window1"
+                  ->Obj.magic
+                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  (),
+                ),
+              ],
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "build element middle represent with w1 and inspector data",
+      () => {
+        mr :=
+          ElementVisualTool.buildElementMR(
+            service.contents,
+            elementName,
+            selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
+            selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
+            (list{}, ReducerTool.buildReducers()),
+          )
+      },
+    )
+
+    \"and"(
+      "generate element contribute string",
+      () => {
+        str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+      },
+    )
+
+    then(
+      "should build correct result",
+      () => {
+        let configLib = Obj.magic(1)
+        mr := _setFakeConfigLib(mr.contents, configLib)
+
+        mr.contents->expect ==
+          (
+            {
+              element: {
+                elementName,
+                execOrder: 0,
+                elementStateFields: [],
+                reducers: ReducerTool.buildReducers(),
+              },
+              uiControls: [
+                {
+                  displayName: w1Name,
+                  protocol: {
+                    name: "meta3d-ui-control-window-protocol",
+                    version: "0.7.0",
+                    configLib,
+                  },
+                  data: selectedUIControlInspectorData.contents
+                  ->Meta3dCommonlib.ListSt.head
+                  ->Meta3dCommonlib.OptionSt.getExn,
+                  children: [],
+                },
+              ],
+            }: ElementMRUtils.elementMR
+          )
+      },
+    )
+
+    \"and"(
+      "generate correct result",
+      () => {
+        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Window1 = getUIControlFunc(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
+  test(.
+    "build element middle represent with parent window and child window and generate element contribute string",
+    ({given, \"when", \"and", then}) => {
+      let w1 = ref(Obj.magic(1))
+      let w2 = ref(Obj.magic(1))
+      let w1Name = "ParentWindow"
+      let w2Name = "ChildWindow"
+      let mr = ref(Obj.magic(1))
+      let str = ref(Obj.magic(1))
+      let selectedUIControls = ref(list{})
+      let selectedUIControlInspectorData = ref(list{})
+      let elementStateFields = ref(list{})
+
+      _prepare(given, \"and")
+
+      given(
+        "generate ui control window w1, w2",
+        () => {
+          execGetContributeFuncStub.contents
+          ->onCall(0, _)
+          ->returns(
+            {
+              "uiControlName": w1Name,
+            },
+            _,
+          )
+          ->ignore
+
+          execGetContributeFuncStub.contents
+          ->onCall(1, _)
+          ->returns(
+            {
+              "uiControlName": w2Name,
+            },
+            _,
+          )
+          ->ignore
+
+          let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+            name: "meta3d-ui-control-window-protocol",
+            version: "0.7.0",
+          }
+
+          w1 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=windowProtocol,
+                (),
+              ),
+              (),
+            )
+          w2 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=windowProtocol,
+                (),
+              ),
+              (),
+            )
+        },
+      )
+
+      \"and"(
+        "select w1",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select selected w1",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select w2",
+        () => {
+          selectedUIControls :=
+            list{
+              SelectedUIControlsTool.buildSelectedUIControl(
+                ~id="w1",
+                ~children=list{
+                  SelectedUIControlsTool.buildSelectedUIControl(
+                    ~id="w2",
+                    ~children=list{},
+                    ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+                    ~data=w2.contents,
+                    (),
+                  ),
+                },
+                ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+                ~data=w1.contents,
+                (),
+              ),
+            }
+
+          // selectedUIControls := selectedUIControls.contents->Meta3dCommonlib.ListSt.push(w2)
+
+          // selectedUIControls :=
+          //   selectedUIControls.contents->Meta3dCommonlib.ListSt.mapi((
+          //     i,
+          //     {children} as selectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
+          //   ) => {
+          //     i === 0
+          //       ? {
+          //           ...selectedUIControl,
+          //           children: list{w2},
+          //         }
+          //       : selectedUIControl
+          //   })
+        },
+      )
+
+      \"and"(
+        "prepare element inspector data",
+        () => {
+          elementStateFields :=
+            list{
+              ElementInspectorTool.buildElementStateFieldData(
+                ~name="a1",
+                ~type_=#int,
+                ~defaultValue="10",
+                (),
+              ),
+              ElementInspectorTool.buildElementStateFieldData(
+                ~name="a2",
+                ~type_=#string,
+                ~defaultValue="zzz",
+                (),
+              ),
+              ElementInspectorTool.buildElementStateFieldData(
+                ~name="a3",
+                ~type_=#bool,
+                ~defaultValue=false,
+                (),
+              ),
+              ElementInspectorTool.buildElementStateFieldData(
+                ~name="label",
+                ~type_=#string,
+                ~defaultValue="Window2",
+                (),
+              ),
+            }
+        },
+      )
+
+      \"and"(
+        "prepare w1's, w2's inspector data",
+        () => {
+          selectedUIControlInspectorData :=
+            list{
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="w1",
+                ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+                ~specific=[
+                  UIControlInspectorTool.buildSpecific(
+                    ~name="label",
+                    ~type_=#string,
+                    ~value="Window1"
+                    ->Obj.magic
+                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    (),
+                  ),
+                ],
+                (),
+              ),
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="w2",
+                ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+                ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                ~specific=[
+                  UIControlInspectorTool.buildSpecific(
+                    ~name="label",
+                    ~type_=#string,
+                    ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                    (),
+                  ),
+                ],
+                (),
+              ),
+            }
+        },
+      )
+
+      \"when"(
+        "build element middle represent with w1, w2 and inspector data",
+        () => {
+          mr :=
+            ElementVisualTool.buildElementMR(
+              service.contents,
+              elementName,
+              selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
+              selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
+              (elementStateFields.contents, ReducerTool.buildReducers()),
+            )
+        },
+      )
+
+      \"and"(
+        "generate element contribute string",
+        () => {
+          str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+        },
+      )
+
+      then(
+        "should build correct result",
+        () => {
+          let configLib = Obj.magic(1)
+          mr := _setFakeConfigLib(mr.contents, configLib)
+
+          mr.contents->expect ==
+            (
+              {
+                element: {
+                  elementName,
+                  execOrder: 0,
+                  elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
+                  reducers: ReducerTool.buildReducers(),
+                },
+                uiControls: [
+                  {
+                    displayName: w1Name,
+                    protocol: {
+                      name: "meta3d-ui-control-window-protocol",
+                      version: "0.7.0",
+                      configLib,
+                    },
+                    data: selectedUIControlInspectorData.contents
+                    ->Meta3dCommonlib.ListSt.head
+                    ->Meta3dCommonlib.OptionSt.getExn,
+                    children: [
+                      {
+                        displayName: w2Name,
+                        protocol: {
+                          name: "meta3d-ui-control-window-protocol",
+                          version: "0.7.0",
+                          configLib,
+                        },
+                        data: selectedUIControlInspectorData.contents
+                        ->Meta3dCommonlib.ListSt.getLast
+                        ->Meta3dCommonlib.OptionSt.getExn,
+                        children: [],
+                      },
+                    ],
+                  },
+                ],
+              }: ElementMRUtils.elementMR
+            )
+        },
+      )
+
+      \"and"(
+        "generate correct result",
+        () => {
+          str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+        },
+      )
+    },
+  )
+
+  test(.
+    "build element middle represent with parent window w1 and child window w2 and button b1(child of w2) and generate element contribute string",
+    ({given, \"when", \"and", then}) => {
+      let w1 = ref(Obj.magic(1))
+      let w2 = ref(Obj.magic(1))
+      let b1 = ref(Obj.magic(1))
+      let w1Name = "ParentWindow"
+      let w2Name = "ChildWindow"
+      let b1Name = "Button"
+      let mr = ref(Obj.magic(1))
+      let str = ref(Obj.magic(1))
+      let selectedUIControls = ref(list{})
+      let selectedUIControlInspectorData = ref(list{})
+      // let elementStateFields = ref(list{})
+
+      _prepare(given, \"and")
+
+      given(
+        "generate ui control window w1, w2",
+        () => {
+          execGetContributeFuncStub.contents
+          ->onCall(0, _)
+          ->returns(
+            {
+              "uiControlName": w1Name,
+            },
+            _,
+          )
+          ->ignore
+
+          execGetContributeFuncStub.contents
+          ->onCall(1, _)
+          ->returns(
+            {
+              "uiControlName": w2Name,
+            },
+            _,
+          )
+          ->ignore
+
+          let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+            name: "meta3d-ui-control-window-protocol",
+            version: "0.7.0",
+          }
+
+          w1 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=windowProtocol,
+                (),
+              ),
+              (),
+            )
+          w2 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=windowProtocol,
+                (),
+              ),
+              (),
+            )
+        },
+      )
+
+      given(
+        "generate ui control button b1",
+        () => {
+          execGetContributeFuncStub.contents
+          ->onCall(2, _)
+          ->returns(
+            {
+              "uiControlName": b1Name,
+            },
+            _,
+          )
+          ->ignore
+
+          let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+            name: "meta3d-ui-control-button-protocol",
+            version: "0.6.0",
+          }
+
+          b1 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=buttonProtocol,
+                (),
+              ),
+              (),
+            )
+        },
+      )
+
+      \"and"(
+        "select w1",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select selected w1",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select w2",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select selected w2",
+        () => {
+          ()
+        },
+      )
+
+      \"and"(
+        "select b1",
+        () => {
+          let b1 = SelectedUIControlsTool.buildSelectedUIControl(
+            ~id="b1",
+            ~children=list{},
+            ~protocolConfigStr=UIControlProtocolConfigTool.buildButtonContributeProtocolConfigStr(),
+            ~data=b1.contents,
+            (),
+          )
+          let w2 = SelectedUIControlsTool.buildSelectedUIControl(
+            ~id="w2",
+            ~children=list{b1},
+            ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+            ~data=w2.contents,
+            (),
+          )
+
+          selectedUIControls :=
+            list{
+              SelectedUIControlsTool.buildSelectedUIControl(
+                ~id="w1",
+                ~children=list{w2},
+                ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+                ~data=w1.contents,
+                (),
+              ),
+            }
+        },
+      )
 
       // \"and"("prepare element inspector data", () => {
       //   elementStateFields :=
@@ -928,117 +1106,132 @@ defineFeature(feature, test => {
       //     }
       // })
 
-      \"and"("prepare w1's, w2's, b1's inspector data", () => {
-        selectedUIControlInspectorData :=
-          list{
-            UIControlInspectorTool.buildUIControlInspectorData(
-              ~id="w1",
-              ~specific=[
-                UIControlInspectorTool.buildSpecific(
-                  ~name="label",
-                  ~type_=#string,
-                  ~value="Window1"
-                  ->Obj.magic
-                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                  (),
-                ),
-              ],
-              (),
-            ),
-            UIControlInspectorTool.buildUIControlInspectorData(
-              ~id="w2",
-              ~specific=[
-                UIControlInspectorTool.buildSpecific(
-                  ~name="label",
-                  ~type_=#string,
-                  ~value="Window2"
-                  ->Obj.magic
-                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                  (),
-                ),
-              ],
-              (),
-            ),
-            UIControlInspectorTool.buildUIControlInspectorData(~id="b1", ()),
-          }
-      })
+      \"and"(
+        "prepare w1's, w2's, b1's inspector data",
+        () => {
+          selectedUIControlInspectorData :=
+            list{
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="w1",
+                ~specific=[
+                  UIControlInspectorTool.buildSpecific(
+                    ~name="label",
+                    ~type_=#string,
+                    ~value="Window1"
+                    ->Obj.magic
+                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    (),
+                  ),
+                ],
+                (),
+              ),
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="w2",
+                ~specific=[
+                  UIControlInspectorTool.buildSpecific(
+                    ~name="label",
+                    ~type_=#string,
+                    ~value="Window2"
+                    ->Obj.magic
+                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    (),
+                  ),
+                ],
+                (),
+              ),
+              UIControlInspectorTool.buildUIControlInspectorData(~id="b1", ()),
+            }
+        },
+      )
 
-      \"when"("build element middle represent", () => {
-        mr :=
-          ElementVisualTool.buildElementMR(
-            service.contents,
-            elementName,
-            selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
-            selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            (list{}, ReducerTool.buildReducers()),
-          )
-      })
+      \"when"(
+        "build element middle represent",
+        () => {
+          mr :=
+            ElementVisualTool.buildElementMR(
+              service.contents,
+              elementName,
+              selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
+              selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
+              (list{}, ReducerTool.buildReducers()),
+            )
+        },
+      )
 
-      \"and"("generate element contribute string", () => {
-        str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-      })
+      \"and"(
+        "generate element contribute string",
+        () => {
+          str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+        },
+      )
 
-      then("should build correct result", () => {
-        let configLib = Obj.magic(1)
-        mr := _setFakeConfigLib(mr.contents, configLib)
+      then(
+        "should build correct result",
+        () => {
+          let configLib = Obj.magic(1)
+          mr := _setFakeConfigLib(mr.contents, configLib)
 
-        mr.contents->expect ==
-          (
-            {
-              element: {
-                elementName: elementName,
-                execOrder: 0,
-                elementStateFields: [],
-                reducers: ReducerTool.buildReducers(),
-              },
-              uiControls: [
-                {
-                  displayName: w1Name,
-                  protocol: {
-                    name: "meta3d-ui-control-window-protocol",
-                    version: "0.7.0",
-                    configLib: configLib,
-                  },
-                  data: selectedUIControlInspectorData.contents
-                  ->Meta3dCommonlib.ListSt.head
-                  ->Meta3dCommonlib.OptionSt.getExn,
-                  children: [
-                    {
-                      displayName: w2Name,
-                      protocol: {
-                        name: "meta3d-ui-control-window-protocol",
-                        version: "0.7.0",
-                        configLib: configLib,
-                      },
-                      data: selectedUIControlInspectorData.contents
-                      ->Meta3dCommonlib.ListSt.nth(1)
-                      ->Meta3dCommonlib.OptionSt.getExn,
-                      children: [
-                        {
-                          displayName: b1Name,
-                          protocol: {
-                            name: "meta3d-ui-control-button-protocol",
-                            version: "0.6.0",
-                            configLib: configLib,
-                          },
-                          data: selectedUIControlInspectorData.contents
-                          ->Meta3dCommonlib.ListSt.nth(2)
-                          ->Meta3dCommonlib.OptionSt.getExn,
-                          children: [],
-                        },
-                      ],
-                    },
-                  ],
+          mr.contents->expect ==
+            (
+              {
+                element: {
+                  elementName,
+                  execOrder: 0,
+                  elementStateFields: [],
+                  reducers: ReducerTool.buildReducers(),
                 },
-              ],
-            }: ElementMRUtils.elementMR
-          )
-      })
+                uiControls: [
+                  {
+                    displayName: w1Name,
+                    protocol: {
+                      name: "meta3d-ui-control-window-protocol",
+                      version: "0.7.0",
+                      configLib,
+                    },
+                    data: selectedUIControlInspectorData.contents
+                    ->Meta3dCommonlib.ListSt.head
+                    ->Meta3dCommonlib.OptionSt.getExn,
+                    children: [
+                      {
+                        displayName: w2Name,
+                        protocol: {
+                          name: "meta3d-ui-control-window-protocol",
+                          version: "0.7.0",
+                          configLib,
+                        },
+                        data: selectedUIControlInspectorData.contents
+                        ->Meta3dCommonlib.ListSt.nth(1)
+                        ->Meta3dCommonlib.OptionSt.getExn,
+                        children: [
+                          {
+                            displayName: b1Name,
+                            protocol: {
+                              name: "meta3d-ui-control-button-protocol",
+                              version: "0.6.0",
+                              configLib,
+                            },
+                            data: selectedUIControlInspectorData.contents
+                            ->Meta3dCommonlib.ListSt.nth(2)
+                            ->Meta3dCommonlib.OptionSt.getExn,
+                            children: [],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              }: ElementMRUtils.elementMR
+            )
+        },
+      )
 
-      \"and"("generate correct result", () => {
-        str.contents->NewlineTool.unifyNewlineChar->expect == "\nwindow.Contribute = {\n    getContribute: (api, [dependentExtensionProtocolNameMap, _]) => {\n        let { meta3dUIExtensionProtocolName, meta3dEventExtensionProtocolName } = dependentExtensionProtocolNameMap\n\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, meta3dUIExtensionProtocolName)\n\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(true){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(true){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window2\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)\n    \n    let Button = getUIControlFunc(uiState,\"Button\")\n    \n                let data = null\n  if(true){\n                 return Button(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
-
-      })
+      \"and"(
+        "generate correct result",
+        () => {
+          str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(true){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(true){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window2\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let Button = getUIControlFunc(uiState,\"Button\")\n    \n                let data = null\n  if(true){\n                 return Button(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+        },
+      )
     },
   )
 })

@@ -1,10 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dUiProtocol.ServiceType.service,
-> = (api, (dependentExtensionProtocolNameMap, _)) => {
-  let {meta3dImguiRendererExtensionProtocolName} = dependentExtensionProtocolNameMap
-
+> = (api) => {
   {
     registerElement: UIManager.registerElement->Obj.magic,
     registerSkin: UIManager.registerSkin,
@@ -29,18 +25,18 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     isStateChange: UIManager.isStateChange,
     getElementState: UIManager.getElementState->Obj.magic,
     setStyle: (meta3dState, style) => {
-      UIManager.setStyle(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), style)
+      UIManager.setStyle(meta3dState, (api, "meta3d-imgui-renderer-protocol"), style)
     },
     beginWindow: (meta3dState, label) => {
-      UIManager.beginWindow(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), label)
+      UIManager.beginWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"), label)
     },
     endWindow: meta3dState => {
-      UIManager.endWindow(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
+      UIManager.endWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
     },
     setNextWindowRect: (meta3dState, rect) => {
       UIManager.setNextWindowRect(
         meta3dState,
-        (api, meta3dImguiRendererExtensionProtocolName),
+        (api, "meta3d-imgui-renderer-protocol"),
         rect,
       )
     },
@@ -49,22 +45,22 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     addFBOTexture: (meta3dState, texture, rect) => {
       UIManager.addFBOTexture(
         meta3dState,
-        (api, meta3dImguiRendererExtensionProtocolName),
+        (api, "meta3d-imgui-renderer-protocol"),
         texture,
         rect,
       )
     },
     getWindowBarHeight: meta3dState => {
-      UIManager.getWindowBarHeight(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
+      UIManager.getWindowBarHeight(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
     },
     getContext: meta3dState => {
-      UIManager.getContext(meta3dState, (api, meta3dImguiRendererExtensionProtocolName))
+      UIManager.getContext(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
     },
     button: (meta3dState, label, size) => {
-      UIManager.button(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), label, size)
+      UIManager.button(meta3dState, (api, "meta3d-imgui-renderer-protocol"), label, size)
     },
     setCursorPos: (meta3dState, pos) => {
-      UIManager.setCursorPos(meta3dState, (api, meta3dImguiRendererExtensionProtocolName), pos)
+      UIManager.setCursorPos(meta3dState, (api, "meta3d-imgui-renderer-protocol"), pos)
     },
     // getIOData: UIManager.getIOData,
     dispatch: UIManager.dispatch,

@@ -5,8 +5,6 @@
   "protocol": {
     "name": "meta3d-gameobject-protocol"
   },
-  "dependentExtensionProtocolNameMap": {},
-  "dependentContributeProtocolNameMap": {},
   "license": "MIT",
   "scripts": {
     "watch": "rescript clean && rescript build -w",

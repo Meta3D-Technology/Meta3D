@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentGeometryProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentGeometryProtocol.Index.cloneConfig,
     Meta3dComponentGeometryProtocol.Index.geometry,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentGeometryProtocol.Index.componentName,
   createStateFunc: (. {isDebug, geometryPointCount, geometryCount}) =>
     CreateStateUtils.createState(isDebug, geometryPointCount, geometryCount),

@@ -3,7 +3,7 @@
 import * as EventManager$Meta3dEvent from "./EventManager.bs.js";
 import * as ManageEventAPIForSrc$Meta3dEvent from "./event_manager/api/ManageEventAPIForSrc.bs.js";
 
-function getExtensionService(api, param) {
+function getExtensionService(api) {
   return {
           trigger: (function (param, param$1, param$2, param$3) {
               return EventManager$Meta3dEvent.trigger(api, param, param$1, param$2, param$3);

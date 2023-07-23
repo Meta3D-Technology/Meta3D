@@ -8,12 +8,6 @@
     "protocol": {
         "name": "meta3d-ui-control-button-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dUIExtensionProtocolName": {
-            "protocolName": "meta3d-ui-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

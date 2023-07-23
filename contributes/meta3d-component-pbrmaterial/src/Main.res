@@ -1,6 +1,4 @@
 let getContribute: Meta3dType.Index.getContribute<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentPbrmaterialProtocol.Index.config,
@@ -9,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
     Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
   >,
-> = (_, _) => {
+> = (_) => {
   componentName: Meta3dComponentPbrmaterialProtocol.Index.componentName,
   createStateFunc: (. {isDebug, pbrMaterialCount}) =>
     CreateStateUtils.createState(isDebug, pbrMaterialCount),

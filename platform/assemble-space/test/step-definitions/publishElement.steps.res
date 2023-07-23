@@ -231,26 +231,15 @@ defineFeature(feature, test => {
                   name: ElementContributeUtils.getElementContributeProtocolName(),
                   version: ElementContributeUtils.getElementContributeProtocolVersion(),
                 },
-                dependentExtensionProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+                dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
                 ->Meta3dCommonlib.ImmutableHashMap.set(
-                  "meta3dUIExtensionProtocolName",
-                  (
-                    {
-                      protocolName: "meta3d-ui-protocol",
-                      protocolVersion: ElementVisualTool.getUIProtocolVersion(),
-                    }: Meta3d.ExtensionFileType.dependentData
-                  ),
+                  "meta3d-ui-protocol",
+                  ElementVisualTool.getUIProtocolVersion(),
                 )
                 ->Meta3dCommonlib.ImmutableHashMap.set(
-                  "meta3dEventExtensionProtocolName",
-                  (
-                    {
-                      protocolName: "meta3d-event-protocol",
-                      protocolVersion: ElementVisualTool.getEventProtocolVersion(),
-                    }: Meta3d.ExtensionFileType.dependentData
-                  ),
+                  "meta3d-event-protocol",
+                  ElementVisualTool.getEventProtocolVersion(),
                 ),
-                dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               }: Meta3d.ExtensionFileType.contributePackageData
             ),
           ),

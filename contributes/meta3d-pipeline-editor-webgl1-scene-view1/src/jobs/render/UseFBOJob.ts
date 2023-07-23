@@ -12,7 +12,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         mostService,
         webgl1Service,
         uiService,
-        meta3dUIExtensionProtocolName,
         fbo
     } = getState(states)
 
@@ -21,7 +20,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         console.log("use fbo job");
 
 
-        let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+        let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
         let viewRect = getViewRect(uiService, uiState)
 
         // if (isNullable(viewRect)) {

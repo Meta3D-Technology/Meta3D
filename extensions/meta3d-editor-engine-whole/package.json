@@ -5,34 +5,6 @@
     "protocol": {
         "name": "meta3d-editor-engine-whole-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dEngineCoreExtensionProtocolName": {
-            "protocolName": "meta3d-engine-core-protocol"
-        },
-        "meta3dEngineBasicExtensionProtocolName": {
-            "protocolName": "meta3d-engine-basic-protocol"
-        },
-        "meta3dEngineSceneExtensionProtocolName": {
-            "protocolName": "meta3d-engine-scene-protocol"
-        },
-        "meta3dEditorEngineRenderExtensionProtocolName": {
-            "protocolName": "meta3d-editor-engine-render-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {
-        "meta3dPipelineEditorWebgl1SceneView1ContributeName": {
-            "protocolName": "meta3d-pipeline-editor-webgl1-scene-view1-protocol"
-        },
-        "meta3dPipelineEditorWebgl1SceneView2ContributeName": {
-            "protocolName": "meta3d-pipeline-editor-webgl1-scene-view2-protocol"
-        },
-        "meta3dPipelineEditorEventContributeName": {
-            "protocolName": "meta3d-pipeline-editor-event-protocol"
-        }
-    },
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

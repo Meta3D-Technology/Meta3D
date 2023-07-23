@@ -149,8 +149,8 @@ export abstract class userData { protected opaque!: any }; /* simulate opaque ty
 export type customEvent = {
   readonly name: string; 
   readonly isStopPropagation: boolean; 
-  readonly phase?: phaseType; 
-  readonly userData?: userData
+  readonly phase: (undefined | phaseType); 
+  readonly userData: (undefined | userData)
 };
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -161,8 +161,8 @@ export type pointEvent = {
   readonly name: pointEventName; 
   readonly location: pointData<number>; 
   readonly locationInView: pointData<number>; 
-  readonly button?: mouseButton; 
-  readonly wheel?: number; 
+  readonly button: (undefined | mouseButton); 
+  readonly wheel: (undefined | number); 
   readonly movementDelta: pointData<number>; 
   readonly event: pointDomEvent
 };

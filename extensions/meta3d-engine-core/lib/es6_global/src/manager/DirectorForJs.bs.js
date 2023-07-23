@@ -32,14 +32,13 @@ function prepare(param) {
 
 var init = PipelineManager$Meta3dEngineCore.init;
 
-function runPipeline(param, param$1, meta3dState, meta3dEngineCoreExtensionProtocolName, pipelineName) {
-  var api = param[0];
-  var mostService = api.getExtensionService(meta3dState, param[1].meta3dBsMostExtensionProtocolName);
+function runPipeline(api, param, meta3dState, meta3dEngineCoreExtensionProtocolName, pipelineName) {
+  var mostService = api.getExtensionService(meta3dState, "meta3d-bs-most-protocol");
   return Result$Meta3dCommonlib.handleFail(PipelineManager$Meta3dEngineCore.runPipeline(meta3dState, [
                   api,
                   mostService,
-                  param$1[0],
-                  param$1[1],
+                  param[0],
+                  param[1],
                   meta3dEngineCoreExtensionProtocolName
                 ], pipelineName), Exception$Meta3dCommonlib.throwErr);
 }

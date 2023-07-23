@@ -1,6 +1,5 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { uiControlName, textureID, state as uiControlState, inputData, outputData } from "meta3d-ui-control-scene-view-protocol"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 import { texture, service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
@@ -26,9 +25,7 @@ let _getFBORect = (rect: rect, windowBarHeight: number) => {
     }
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, uiControlContribute<inputData, outputData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
-    let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
-
+export let getContribute: getContributeMeta3D< uiControlContribute<inputData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,
@@ -40,8 +37,8 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
         ) => {
             let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture,
                 getWindowBarHeight,
-                setUIControlState } = api.getExtensionService<service>(meta3dState, meta3dUIExtensionProtocolName)
-            let state = api.getExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName)
+                setUIControlState } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
+            let state = api.getExtensionState<state>(meta3dState, "meta3d-ui-protocol")
 
 
 
@@ -62,7 +59,7 @@ export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap,
                 rect: fboRect
             })
 
-            meta3dState = api.setExtensionState<state>(meta3dState, meta3dUIExtensionProtocolName, state)
+            meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-ui-protocol", state)
 
             console.log("tttt")
 

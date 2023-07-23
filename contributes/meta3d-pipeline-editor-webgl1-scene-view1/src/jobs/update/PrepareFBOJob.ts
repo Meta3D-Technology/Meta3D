@@ -58,7 +58,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         webgl1Service,
         uiService,
         fbo,
-        meta3dUIExtensionProtocolName,
     } =
         getState(states)
 
@@ -71,17 +70,17 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
             return meta3dState
         }
 
-        let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+        let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
         let viewRect = getExn(getViewRect(uiService, uiState))
 
         let [fbo_, texture] = _createAndInitFBOData(webgl1Service, getContext(meta3dState), [viewRect.width, viewRect.height])
 
-        // let uiState = api.getExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName)
+        // let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
         uiState = setFBOTexture(uiState, getTextureID(), texture)
 
-        meta3dState = api.setExtensionState<uiState>(meta3dState, meta3dUIExtensionProtocolName, uiState)
+        meta3dState = api.setExtensionState<uiState>(meta3dState, "meta3d-ui-protocol", uiState)
 
 
         return setStatesFunc<states>(

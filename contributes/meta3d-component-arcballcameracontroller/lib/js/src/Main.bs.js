@@ -15,7 +15,7 @@ var GetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller =
 var SetArcballCameraControllerDataUtils$Meta3dComponentArcballcameracontroller = require("./operate_data/SetArcballCameraControllerDataUtils.bs.js");
 var GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller = require("./gameobject/GetNeedDisposedArcballCameraControllersUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentArcballcameracontrollerProtocol.componentName,
           createStateFunc: (function (param) {

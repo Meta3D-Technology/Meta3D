@@ -1,12 +1,10 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { actionData } from "meta3d-action-click-button-protocol"
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, actionContribute<actionData>> = (api, [dependentExtensionProtocolNameMap, _]) => {
-    let { meta3dUIExtensionProtocolName } = dependentExtensionProtocolNameMap
+export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (api) => {
     return {
         actionName: "ClickButton2",
         handler: (meta3dState, actionData) => {

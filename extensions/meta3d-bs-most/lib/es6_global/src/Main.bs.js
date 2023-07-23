@@ -27,7 +27,7 @@ function callFunc(func) {
               }), __x);
 }
 
-function getExtensionService(api, param) {
+function getExtensionService(api) {
   return {
           tap: (function (prim0, prim1) {
               return Most.tap(prim0, prim1);

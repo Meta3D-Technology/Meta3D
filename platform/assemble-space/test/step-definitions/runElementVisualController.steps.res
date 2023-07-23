@@ -128,8 +128,7 @@ defineFeature(feature, test => {
               name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
               version: "0.4.0",
             },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             (),
           )
       },
@@ -145,8 +144,7 @@ defineFeature(feature, test => {
               name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
               version: "0.4.1",
             },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             (),
           )
       },
@@ -262,8 +260,7 @@ defineFeature(feature, test => {
               name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
               version: "0.4.1",
             },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
             (),
           )->RunElementVisualControllerTool.loadAndBuildVisualExtension(
@@ -422,8 +419,7 @@ defineFeature(feature, test => {
               name: RunElementVisualControllerTool.getVisualExtensionProtocolName(),
               version: "0.4.1",
             },
-            ~dependentExtensionProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~dependentContributeProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             ~fileStr=ElementVisualTool.buildEmptyExtensionFileStr(),
             (),
           )->RunElementVisualControllerTool.loadAndBuildVisualExtension(

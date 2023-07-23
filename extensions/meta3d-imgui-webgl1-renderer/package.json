@@ -6,8 +6,6 @@
     "protocol": {
         "name": "meta3d-imgui-renderer-protocol"
     },
-    "dependentExtensionProtocolNameMap": {},
-    "dependentContributeProtocolNameMap": {},
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

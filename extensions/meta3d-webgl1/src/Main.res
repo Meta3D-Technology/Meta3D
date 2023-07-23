@@ -1,8 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
-  DependentMapType.dependentExtensionProtocolNameMap,
-  DependentMapType.dependentContributeProtocolNameMap,
   Meta3dWebgl1Protocol.ServiceType.service,
-> = (api, _) => {
+> = (api) => {
   getContext: (. canvas, contextConfigJsObj) => {
     (canvas->Obj.magic)["getContext"](. "webgl", contextConfigJsObj)
   },

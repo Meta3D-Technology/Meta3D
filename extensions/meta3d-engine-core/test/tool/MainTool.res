@@ -50,15 +50,9 @@ let runPipeline = (
   ~setMeta3dState=createEmptyStubWithJsObjSandbox(sandbox),
   (),
 ) => {
-  let (
-    api: Meta3dType.Index.api,
-    {
-      meta3dBsMostExtensionProtocolName,
-    }: DependentMapType.dependentExtensionProtocolNameMap,
-  ) = data
+  let api: Meta3dType.Index.api = data
 
   let mostService: Meta3dBsMostProtocol.ServiceType.service = Meta3dBsMost.Main.getExtensionService(
-    Obj.magic(1),
     Obj.magic(1),
   )
 

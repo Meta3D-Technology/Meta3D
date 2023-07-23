@@ -5,15 +5,6 @@
     "protocol": {
         "name": "meta3d-pipeline-transform-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dBsMostExtensionProtocolName": {
-            "protocolName": "meta3d-bs-most-protocol"
-        },
-        "meta3dEngineCoreExtensionProtocolName": {
-            "protocolName": "meta3d-engine-core-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {},
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

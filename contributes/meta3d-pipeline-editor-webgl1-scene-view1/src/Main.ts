@@ -4,7 +4,6 @@ import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
 import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
-import { dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap } from "./DependentMapType";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
@@ -34,26 +33,16 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D<dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, pipelineContribute<config, state>> = (api, dependentMapData) => {
-	let {
-		meta3dWebgl1ExtensionProtocolName,
-		meta3dBsMostExtensionProtocolName,
-		meta3dUIExtensionProtocolName,
-		meta3dEventExtensionProtocolName,
-		meta3dEditorEngineWholeExtensionProtocolName
-	} = dependentMapData[0]
-
+export let getContribute: getContributeMeta3D< pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
 		createStateFunc: (meta3dState, _) => {
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, meta3dBsMostExtensionProtocolName),
-				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, meta3dWebgl1ExtensionProtocolName),
-				uiService: api.getExtensionService<uiService>(meta3dState, meta3dUIExtensionProtocolName),
-				eventService: api.getExtensionService<eventService>(meta3dState, meta3dEventExtensionProtocolName),
-				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, meta3dEditorEngineWholeExtensionProtocolName),
-				meta3dUIExtensionProtocolName: meta3dUIExtensionProtocolName,
-				meta3dEventExtensionProtocolName: meta3dEventExtensionProtocolName,
+				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
+				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
+				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
+				eventService: api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
+				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-editor-engine-whole-protcol"),
 				arcballCameraController: null,
 				lastYaw: null,
 				lastPitch: null,

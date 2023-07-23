@@ -5,40 +5,6 @@
     "protocol": {
         "name": "meta3d-engine-scene-protocol"
     },
-    "dependentExtensionProtocolNameMap": {
-        "meta3dEngineCoreExtensionProtocolName": {
-            "protocolName": "meta3d-engine-core-protocol"
-        }
-    },
-    "dependentContributeProtocolNameMap": {
-        "meta3dPipelineCameraContributeName": {
-            "protocolName": "meta3d-pipeline-camera-protocol"
-        },
-        "meta3dPipelineTransformContributeName": {
-            "protocolName": "meta3d-pipeline-transform-protocol"
-        },
-        "meta3dComponentTransformContributeName": {
-            "protocolName": "meta3d-component-transform-protocol"
-        },
-        "meta3dComponentGeometryContributeName": {
-            "protocolName": "meta3d-component-geometry-protocol"
-        },
-        "meta3dComponentPBRMaterialContributeName": {
-            "protocolName": "meta3d-component-pbrmaterial-protocol"
-        },
-        "meta3dComponentBasicCameraViewContributeName": {
-            "protocolName": "meta3d-component-basiccameraview-protocol"
-        },
-        "meta3dComponentPerspectiveCameraProjectionContributeName": {
-            "protocolName": "meta3d-component-perspectivecameraprojection-protocol"
-        },
-        "meta3dComponentArcballCameraControllerContributeName": {
-            "protocolName": "meta3d-component-arcballcameracontroller-protocol"
-        },
-        "meta3dGameObjectContributeName": {
-            "protocolName": "meta3d-gameobject-protocol"
-        }
-    },
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",

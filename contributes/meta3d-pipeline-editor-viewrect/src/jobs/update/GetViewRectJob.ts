@@ -6,7 +6,7 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
-    let { mostService, uiService, meta3dUIExtensionProtocolName } = getState(states)
+    let { mostService, uiService } = getState(states)
 
     return mostService.callFunc(() => {
         console.log("get editor view rect job");
@@ -17,7 +17,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
                 {
                     ...getDataState(states),
                     viewRect:
-                        getExn(getViewRect(uiService, api.getExtensionState(meta3dState, meta3dUIExtensionProtocolName)))
+                        getExn(getViewRect(uiService, api.getExtensionState(meta3dState, "meta3d-ui-protocol")))
                 }
             )
         )
