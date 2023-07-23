@@ -353,6 +353,11 @@ commit
 publish
 
 
+
+fix doc:
+meta3d-pipeline-webgl1-scene-view2（实现的协议名：meta3d-pipeline-webgl1-scene-view2-protocol） 该贡献属于Pipeline类型，负责与Scene View相关的restore的逻辑
+
+
 update doc:
 demo link
 
@@ -360,6 +365,7 @@ update Github README:
 demo link
 
 
+notice wy
 
 
 * TODO encapuslate three.js engine

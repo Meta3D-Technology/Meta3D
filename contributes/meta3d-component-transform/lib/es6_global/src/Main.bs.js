@@ -15,7 +15,7 @@ import * as GetTransformDataUtils$Meta3dComponentTransform from "./operate_data/
 import * as SetTransformDataUtils$Meta3dComponentTransform from "./operate_data/SetTransformDataUtils.bs.js";
 import * as GetNeedDisposedTransformsUtils$Meta3dComponentTransform from "./gameobject/GetNeedDisposedTransformsUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentTransformProtocol.componentName,
           createStateFunc: (function (param) {

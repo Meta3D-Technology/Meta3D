@@ -15,7 +15,7 @@ import * as GetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/Ge
 import * as SetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/SetGeometryDataUtils.bs.js";
 import * as GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry from "./gameobject/GetNeedDisposedGeometrysUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentGeometryProtocol.componentName,
           createStateFunc: (function (param) {

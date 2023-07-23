@@ -15,7 +15,7 @@ var GetBasicCameraViewDataUtils$Meta3dComponentBasiccameraview = require("./oper
 var SetBasicCameraViewDataUtils$Meta3dComponentBasiccameraview = require("./operate_data/SetBasicCameraViewDataUtils.bs.js");
 var GetNeedDisposedBasicCameraViewsUtils$Meta3dComponentBasiccameraview = require("./gameobject/GetNeedDisposedBasicCameraViewsUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentBasiccameraviewProtocol.componentName,
           createStateFunc: (function (param) {

@@ -22,12 +22,11 @@ function _init(_state) {
   
 }
 
-function getContribute(api, param) {
-  var meta3dBsMostExtensionProtocolName = param[0].meta3dBsMostExtensionProtocolName;
+function getContribute(api) {
   return {
           pipelineName: StateType$Meta3dPipelineRootProtocol.pipelineName,
           createStateFunc: (function (meta3dState, param) {
-              var mostService = api.getExtensionService(meta3dState, meta3dBsMostExtensionProtocolName);
+              var mostService = api.getExtensionService(meta3dState, "meta3d-bs-most-protocol");
               return {
                       mostService: mostService
                     };

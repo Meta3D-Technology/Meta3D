@@ -2,7 +2,7 @@
 
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 
-function getExtensionService(api, param) {
+function getExtensionService(api) {
   return {
           getContext: (function (canvas, contextConfigJsObj) {
               return canvas.getContext("webgl", contextConfigJsObj);

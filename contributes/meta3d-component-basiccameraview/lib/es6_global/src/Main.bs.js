@@ -15,7 +15,7 @@ import * as GetBasicCameraViewDataUtils$Meta3dComponentBasiccameraview from "./o
 import * as SetBasicCameraViewDataUtils$Meta3dComponentBasiccameraview from "./operate_data/SetBasicCameraViewDataUtils.bs.js";
 import * as GetNeedDisposedBasicCameraViewsUtils$Meta3dComponentBasiccameraview from "./gameobject/GetNeedDisposedBasicCameraViewsUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentBasiccameraviewProtocol.componentName,
           createStateFunc: (function (param) {

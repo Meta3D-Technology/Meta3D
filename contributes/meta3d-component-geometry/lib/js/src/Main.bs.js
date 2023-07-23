@@ -15,7 +15,7 @@ var GetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/GetGe
 var SetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/SetGeometryDataUtils.bs.js");
 var GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry = require("./gameobject/GetNeedDisposedGeometrysUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentGeometryProtocol.componentName,
           createStateFunc: (function (param) {

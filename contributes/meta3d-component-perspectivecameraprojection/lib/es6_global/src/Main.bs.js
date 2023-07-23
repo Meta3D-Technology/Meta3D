@@ -15,7 +15,7 @@ import * as GetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectiveca
 import * as SetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection from "./operate_data/SetPerspectiveCameraProjectionDataUtils.bs.js";
 import * as GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/GetNeedDisposedPerspectiveCameraProjectionsUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName,
           createStateFunc: (function (param) {

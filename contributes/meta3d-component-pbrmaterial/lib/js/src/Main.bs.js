@@ -15,7 +15,7 @@ var GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial = require("./operate_data
 var SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial = require("./operate_data/SetPBRMaterialDataUtils.bs.js");
 var GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial = require("./gameobject/GetNeedDisposedPBRMaterialsUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentPbrmaterialProtocol.componentName,
           createStateFunc: (function (param) {

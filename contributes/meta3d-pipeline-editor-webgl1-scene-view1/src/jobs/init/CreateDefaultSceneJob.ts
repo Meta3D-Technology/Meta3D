@@ -125,7 +125,7 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
 }
 
 // let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
-let setBody_addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
+let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
     eventService: eventService,
     eventExtensionProtocolName: string
 ): [meta3dState, arcballCameraController, gameObject] => {

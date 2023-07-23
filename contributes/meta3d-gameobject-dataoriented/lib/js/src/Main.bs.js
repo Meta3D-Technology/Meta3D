@@ -7,7 +7,7 @@ var GetAllGameObjectUtils$Meta3dGameobjectDataoriented = require("./GetAllGameOb
 var DisposeGameObjectUtils$Meta3dGameobjectDataoriented = require("./DisposeGameObjectUtils.bs.js");
 var GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented = require("./GetNeedDisposedGameObjectsUtils.bs.js");
 
-function getContribute(api, param) {
+function getContribute(api) {
   return {
           createStateFunc: (function (config) {
               return {

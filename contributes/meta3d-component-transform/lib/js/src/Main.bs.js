@@ -15,7 +15,7 @@ var GetTransformDataUtils$Meta3dComponentTransform = require("./operate_data/Get
 var SetTransformDataUtils$Meta3dComponentTransform = require("./operate_data/SetTransformDataUtils.bs.js");
 var GetNeedDisposedTransformsUtils$Meta3dComponentTransform = require("./gameobject/GetNeedDisposedTransformsUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentTransformProtocol.componentName,
           createStateFunc: (function (param) {

@@ -15,7 +15,7 @@ import * as GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_d
 import * as SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial from "./operate_data/SetPBRMaterialDataUtils.bs.js";
 import * as GetNeedDisposedPBRMaterialsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetNeedDisposedPBRMaterialsUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentPbrmaterialProtocol.componentName,
           createStateFunc: (function (param) {

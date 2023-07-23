@@ -15,7 +15,7 @@ import * as GetDirectionLightDataUtils$Meta3dComponentDirectionlight from "./ope
 import * as SetDirectionLightDataUtils$Meta3dComponentDirectionlight from "./operate_data/SetDirectionLightDataUtils.bs.js";
 import * as GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight from "./gameobject/GetNeedDisposedDirectionLightsUtils.bs.js";
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentDirectionlightProtocol.componentName,
           createStateFunc: (function (param) {

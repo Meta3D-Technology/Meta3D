@@ -15,7 +15,7 @@ var GetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraproj
 var SetPerspectiveCameraProjectionDataUtils$Meta3dComponentPerspectivecameraprojection = require("./operate_data/SetPerspectiveCameraProjectionDataUtils.bs.js");
 var GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/GetNeedDisposedPerspectiveCameraProjectionsUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName,
           createStateFunc: (function (param) {

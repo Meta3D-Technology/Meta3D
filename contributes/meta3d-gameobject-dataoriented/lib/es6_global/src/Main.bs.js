@@ -7,7 +7,7 @@ import * as GetAllGameObjectUtils$Meta3dGameobjectDataoriented from "./GetAllGam
 import * as DisposeGameObjectUtils$Meta3dGameobjectDataoriented from "./DisposeGameObjectUtils.bs.js";
 import * as GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented from "./GetNeedDisposedGameObjectsUtils.bs.js";
 
-function getContribute(api, param) {
+function getContribute(api) {
   return {
           createStateFunc: (function (config) {
               return {

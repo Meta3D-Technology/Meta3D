@@ -15,7 +15,7 @@ var GetDirectionLightDataUtils$Meta3dComponentDirectionlight = require("./operat
 var SetDirectionLightDataUtils$Meta3dComponentDirectionlight = require("./operate_data/SetDirectionLightDataUtils.bs.js");
 var GetNeedDisposedDirectionLightsUtils$Meta3dComponentDirectionlight = require("./gameobject/GetNeedDisposedDirectionLightsUtils.bs.js");
 
-function getContribute(param, param$1) {
+function getContribute(param) {
   return {
           componentName: Index$Meta3dComponentDirectionlightProtocol.componentName,
           createStateFunc: (function (param) {
