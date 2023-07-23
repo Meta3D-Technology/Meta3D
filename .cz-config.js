@@ -22,7 +22,7 @@ module.exports = {
     { name: "contributes" },
     { name: "services" },
     { name: "templates" },
-    { name: "website" }
+    { name: "utils" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"

@@ -19,7 +19,7 @@ let setComponentData = (contribute, component, dataName, dataValue) => {
 }
 
 let getExtensionService = () => {
-  (Main.getExtensionService->Obj.magic)(Obj.magic(1), Obj.magic(1))
+  (Main.getExtensionService->Obj.magic)(Obj.magic(1))
 }
 
 let addComponent = (contribute, gameObject, component) => {

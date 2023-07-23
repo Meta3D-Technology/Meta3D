@@ -348,13 +348,13 @@ run and login with metamask
 commit
 
 
-* TODO update online env and doc
+* DONE update online env and doc
 
 publish
 
 
 
-fix doc:
+////fix doc:
 meta3d-pipeline-webgl1-scene-view2（实现的协议名：meta3d-pipeline-webgl1-scene-view2-protocol） 该贡献属于Pipeline类型，负责与Scene View相关的restore的逻辑
 
 
@@ -366,6 +366,12 @@ demo link
 
 
 notice wy
+
+
+
+
+* DONE pass meta3d-component-commonlib/ bdd test
+
 
 
 * TODO encapuslate three.js engine
