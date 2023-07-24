@@ -397,6 +397,59 @@ create mesh for three.js
 
 
 
+
+
+- change component, gameObject to abstract type:
+ dis: different engine can't work together(because different scene)
+
+
+- remain use current component, gameObject, convert to three->scene, camera, orbit class when update in extension
+
+store converted result in extension state
+
+share memory:
+by use getter/setter, like:
+
+class Object3D{
+    constructor(gameObject){
+        this.gameObject = gameObject
+    }
+
+    public gameObject:number;
+
+    get parent(){
+        get transform of gameObject
+        get transform's parent 
+    }
+    set parent(parent){
+        get transform of gameObject
+        set transform's parent 
+    }
+}
+
+class Scene extends Object3D{
+
+}
+
+
+
+class Mesh extends Object3D{
+    constructor(gameObject){
+        # this._gameObject = gameObject
+        super(gameObject)
+    }
+
+    # private _gameObject:number;
+
+
+}
+
+
+
+
+
+
+
 ** TODO add renderer
 
 基础渲染

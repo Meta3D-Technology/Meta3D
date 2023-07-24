@@ -21,6 +21,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
 
 
+      // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
         service.backend.findPublishApp(.
           progress => setDownloadProgress(_ => progress),
