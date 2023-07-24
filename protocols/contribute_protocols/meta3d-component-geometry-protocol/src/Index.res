@@ -20,7 +20,7 @@ let dataName = {
   indicesCount: 5,
 }
 
-type geometry = Meta3dComponentGeometryCommonProtocol.Index.geometry
+type geometry = Meta3dComponentGeometryProtocolCommon.Index.geometry
 
 type config = {
   isDebug: bool,

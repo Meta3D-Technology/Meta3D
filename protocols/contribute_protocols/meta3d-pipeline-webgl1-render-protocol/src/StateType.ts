@@ -5,9 +5,9 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 import { pipelineName as dataPipelineName, state as dataState } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
 import { pipelineName as materialPipelineName, state as materialState } from "meta3d-pipeline-webgl1-material-protocol/src/StateType"
 import { pipelineName as geometryPipelineName, state as geometryState } from "meta3d-pipeline-webgl1-geometry-protocol/src/StateType"
-// import { transform } from "meta3d-component-transform-common-protocol"
-// import { geometry } from "meta3d-component-geometry-common-protocol"
-// import { pbrMaterial } from "meta3d-component-pbrmaterial-common-protocol"
+// import { transform } from "meta3d-component-transform-protocol-common"
+// import { geometry } from "meta3d-component-geometry-protocol-common"
+// import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common"
 
 export const pipelineName = "WebGL1_Render"
 

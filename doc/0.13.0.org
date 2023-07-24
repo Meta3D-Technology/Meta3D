@@ -374,154 +374,31 @@ notice wy
 
 
 
+
+* DONE run test render
+
+
+
+
+
 * TODO encapuslate three.js engine
 
 
+** TODO scene: gameObject, component use three.js to implement
 
+e.g.
 
+createGameObject:
+create mesh for three.js
 
 
 
+** TODO add renderer
 
+基础渲染
 
 
 
+** TODO can reuse arcball camera for three and webgl1 render
 
-
-
-# * TODO add action:event, handler to encapuslate action contribute
-* TODO update action
-
-refer to:  
-https://cloud.tencent.com/document/product/1301/65931
-
-https://cloud.tencent.com/document/product/1301/57912#handler-.E6.96.B9.E6.B3.95.E4.BD.BF.E7.94.A8.E4.BB.8B.E7.BB.8D
-
-
-support:
-- write handler functions bind to editor
-through code editor(just copy and commit)
-
-- or can load handler functions from action contribute
-
-
-- trigger even with param
-
-
-
-
-* TODO 加上代码框  更新扩展贡献的代码
-
-每个selected extension,contribute(except pacakge) add selectarea to show and update its code
-
-
-can't change protocol?
-
-
-
-
-
-* TODO 重新设计两个核心的使用场景的开发流程：引擎、编辑器
-
-** TODO 引擎
-
-*** 可视化地给出扩展、贡献之间的依赖关系；选择依赖的扩展、贡献
-
-- 可视化地给出扩展、贡献之间的依赖关系
-- 选择依赖的扩展、贡献
-- 依赖检查
-
-这要求将一个扩展/贡献/Package 协议 dependent可视化，并提供可选列表，进行依赖检查
-
-
-
-*** 给出引导
-
-包括下面的引导（模板？）：
-
-- 创建引擎
-- 修改已有的引擎
-- 使用引擎（下载引擎包？）
-
-
-
-*** TODO 创建引擎
-
-- 标明入口扩展
-
-
-- 标明引擎/编辑器
-
-- extension/contribute 应该标明 提供的协议、依赖的协议
-
-
-1.用户点击创建引擎的引导后，可选择引擎+入口扩展
-2.选择入口扩展后，可视化地显示它的依赖
-
-    - 点击其中一个依赖后，显示一个实现该依赖的可选的列表（从select from market中）
-    分页，如市场二级页面
-        - 列表中有“从市场查找”按钮，点击后，显示一个实现该依赖的可选的列表（from market）
-        分页，如市场二级页面
-        选择后，直接select并加入
-
-可查看它的详细页面，即开new tab，跳转到它的三级页面
-
-
-
-            
-
-
-
-
-
-*** TODO 修改已有的引擎
-
-
-*** TODO 使用引擎
-
-
-如何区别引擎和其它的包？
-
-
-
-
-
-
-
-
-
-# - 创建编辑器
-# - 修改已有的编辑器
-
-
-** TODO 编辑器
-
-
-
-
-
-# * TODO 更新开发和发布扩展、贡献、协议的流程
-
-# 平台上加上便捷入口！
-# link?
-
-
-
-
-
-
-
-
-* TODO update all extensions, contributes
-
-
-
-* TODO 更新文档
-
-
-# * TODO 邀请种子用户测试
-
-
-
-* TODO 发布版本
 

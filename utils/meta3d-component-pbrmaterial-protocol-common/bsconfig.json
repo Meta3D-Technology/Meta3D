@@ -1,5 +1,5 @@
 {
-  "name": "meta3d-component-pbrmaterial-common-protocol",
+  "name": "meta3d-component-pbrmaterial-protocol-common",
   "sources": [
     {
       "dir": "./src",

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-transform",
-    "version": "0.12.1",
+    "version": "0.12.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-transform-protocol"

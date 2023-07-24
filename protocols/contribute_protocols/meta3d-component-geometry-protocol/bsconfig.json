@@ -24,7 +24,7 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-gameobject-protocol",
-    "meta3d-component-geometry-common-protocol",
+    "meta3d-component-geometry-protocol-common",
     "meta3d-commonlib-type"
   ],
   "package-specs": [

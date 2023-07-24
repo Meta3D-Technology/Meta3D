@@ -6,9 +6,9 @@ import { viewMatrix, pMatrix } from "meta3d-pipeline-webgl1-senduniformshaderdat
 // import { allRenderComponents } from "meta3d-pipeline-webgl1-render-protocol/src/StateType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
-import { transform } from "meta3d-component-transform-common-protocol"
-import { geometry } from "meta3d-component-geometry-common-protocol"
-import { pbrMaterial } from "meta3d-component-pbrmaterial-common-protocol"
+import { transform } from "meta3d-component-transform-protocol-common"
+import { geometry } from "meta3d-component-geometry-protocol-common"
+import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common"
 
 export const pipelineName = "WebGL1_Data"
 

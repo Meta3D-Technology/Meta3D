@@ -23,7 +23,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		pipelineName: pipelineName,
 		createStateFunc: (meta3dState, _) => {
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocl"),
+				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
 				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-protocol"),
 			}
 		},

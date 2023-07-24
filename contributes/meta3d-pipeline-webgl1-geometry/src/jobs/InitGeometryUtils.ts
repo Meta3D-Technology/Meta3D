@@ -3,7 +3,7 @@ import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { geometry, vertices, indices } from "meta3d-component-geometry-common-protocol"
+import { geometry, vertices, indices } from "meta3d-component-geometry-protocol-common"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { componentName, dataName } from "meta3d-component-geometry-protocol"
 

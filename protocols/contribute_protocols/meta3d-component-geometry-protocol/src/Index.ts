@@ -1,4 +1,4 @@
-import { geometry as geometryType, vertices as verticesType, indices as indicesType, indicesCount as indicesCountType } from "meta3d-component-geometry-common-protocol"
+import { geometry as geometryType, vertices as verticesType, indices as indicesType, indicesCount as indicesCountType } from "meta3d-component-geometry-protocol-common"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export const componentName = "Geometry"

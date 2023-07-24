@@ -1,4 +1,4 @@
-import { pbrMaterial as pbrMaterialType } from "meta3d-component-pbrmaterial-common-protocol"
+import { pbrMaterial as pbrMaterialType } from "meta3d-component-pbrmaterial-protocol-common"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export const componentName = "PBRMaterial"

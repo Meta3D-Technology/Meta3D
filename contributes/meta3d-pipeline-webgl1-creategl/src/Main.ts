@@ -24,7 +24,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		createStateFunc: (meta3dState, { canvas }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
-				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3-webgl1-protocol"),
+				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
 				canvas: canvas
 			}
 		},

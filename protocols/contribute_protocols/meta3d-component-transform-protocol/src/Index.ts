@@ -1,4 +1,4 @@
-import { transform as transformType, update as updateType, localToWorldMatrix as localToWorldMatrixType } from "meta3d-component-transform-common-protocol"
+import { transform as transformType, update as updateType, localToWorldMatrix as localToWorldMatrixType } from "meta3d-component-transform-protocol-common"
 
 export const componentName = "Transform"
 

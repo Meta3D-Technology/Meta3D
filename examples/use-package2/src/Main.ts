@@ -6,7 +6,7 @@ import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 // import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
 // import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.0.6.package"
 // import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.1.1.package"
-import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.1.package"
+import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.7.package"
 
 
 let _loop = (

@@ -25,7 +25,7 @@ let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
 
 let _getBackendEnv = (env: FrontendUtils.EnvType.env) => {
   switch env {
-  | #local => "meta3d-4g18u7z10c8427f9"
+  | #local => "meta3d-production-5eol5gce9a6b9c"
   | #production => "meta3d-production-5eol5gce9a6b9c"
   }
 }
