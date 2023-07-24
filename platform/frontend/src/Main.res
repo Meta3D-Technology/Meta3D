@@ -23,18 +23,11 @@ let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
   },
 }
 
-let _getBackendEnv = (env: FrontendUtils.EnvType.env) => {
-  switch env {
-  | #local => "meta3d-production-5eol5gce9a6b9c"
-  | #production => "meta3d-production-5eol5gce9a6b9c"
-  }
-}
-
 _hiddenLoadding()
 
 let service = _buildFrontendService(_getEnv())
 
-service.backend.init(_getBackendEnv(_getEnv()))->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
+service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
 }, _)->ignore
 
