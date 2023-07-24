@@ -39,11 +39,7 @@ let rec _buildUIControls = (
 
       uiControls->Meta3dCommonlib.ArraySt.push({
         displayName: (
-          service.meta3d.execGetContributeFunc(.
-            data.contributeFuncData,
-            Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-          )->Obj.magic
+          service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
         )["uiControlName"],
         protocol: {
           name,

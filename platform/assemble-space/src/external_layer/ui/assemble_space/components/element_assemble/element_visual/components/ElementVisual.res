@@ -74,16 +74,16 @@ module Method = {
         service,
         service.meta3d.execGetContributeFunc(.
           elementContribute.data.contributeFuncData,
-          Meta3dCommonlib.ImmutableHashMap.createEmpty()
-          ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dUIExtensionProtocolName",
-            ElementVisualUtils.getUIExtensionProtocolName(),
-          )
-          ->Meta3dCommonlib.ImmutableHashMap.set(
-            "meta3dImguiRendererExtensionProtocolName",
-            "meta3d-imgui-renderer-protocol",
-          ),
-          Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          // Meta3dCommonlib.ImmutableHashMap.createEmpty()
+          // ->Meta3dCommonlib.ImmutableHashMap.set(
+          //   "meta3dUIExtensionProtocolName",
+          //   ElementVisualUtils.getUIExtensionProtocolName(),
+          // )
+          // ->Meta3dCommonlib.ImmutableHashMap.set(
+          //   "meta3dImguiRendererExtensionProtocolName",
+          //   "meta3d-imgui-renderer-protocol",
+          // ),
+          // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         )->Obj.magic,
       )
     }

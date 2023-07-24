@@ -118,8 +118,6 @@ type meta3dService = {
   ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,
-    Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
-    Meta3dCommonlibType.ImmutableHashMapType.t<string, string>,
   ) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: Meta3dServiceCommonType.serializeUIControlProtocolConfigLib,
   generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string) => string,

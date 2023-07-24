@@ -42,7 +42,7 @@ export let getContribute: getContributeMeta3D< pipelineContribute<config, state>
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
 				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
 				eventService: api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
-				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-editor-engine-whole-protcol"),
+				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol"),
 				arcballCameraController: null,
 				lastYaw: null,
 				lastPitch: null,

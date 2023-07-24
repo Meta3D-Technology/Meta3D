@@ -512,18 +512,18 @@ defineFeature(feature, test => {
         (
           execGetContributeFuncStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg3(
+          ->SinonTool.calledWith(
             matchAny,
-            Meta3dCommonlib.ImmutableHashMap.createEmpty()
-            ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dUIExtensionProtocolName",
-              ElementVisualUtils.getUIExtensionProtocolName(),
-            )
-            ->Meta3dCommonlib.ImmutableHashMap.set(
-              "meta3dImguiRendererExtensionProtocolName",
-              "meta3d-imgui-renderer-protocol",
-            ),
-            Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            // Meta3dCommonlib.ImmutableHashMap.createEmpty()
+            // ->Meta3dCommonlib.ImmutableHashMap.set(
+            //   "meta3dUIExtensionProtocolName",
+            //   ElementVisualUtils.getUIExtensionProtocolName(),
+            // )
+            // ->Meta3dCommonlib.ImmutableHashMap.set(
+            //   "meta3dImguiRendererExtensionProtocolName",
+            //   "meta3d-imgui-renderer-protocol",
+            // ),
+            // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
           ),
           getExtensionStateStub.contents
           ->Obj.magic

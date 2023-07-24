@@ -432,8 +432,8 @@ let make = (~service: service) => {
                     (
                       service.meta3d.execGetContributeFunc(.
                         data.contributeFuncData,
-                        Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                        Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                        // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                        // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                       )->Obj.magic
                     )["actionName"]
                   }),
