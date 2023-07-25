@@ -383,6 +383,7 @@ notice wy
 
 
 
+* TODO pr
 
 
 * TODO encapuslate three.js engine
@@ -447,15 +448,33 @@ class Mesh extends Object3D{
 
 
 
+only getter, no setter?
 
+
+
+
+*** TODO pass camera convert run test
+
+
+*** TODO pass camera convert
+
+
+*** TODO pass scene convert
+
+MeshBasicMaterial to PBRMateiral
 
 
 ** TODO add renderer
 
 基础渲染
 
+TODO render a cube
+
 
 
 ** TODO can reuse arcball camera for three and webgl1 render
+
+
+not use Three.OrbitCameraControl!
 
 
