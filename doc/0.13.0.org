@@ -454,6 +454,30 @@ only getter, no setter?
 
 
 *** TODO pass camera convert run test
+add:
+meta3d-editor-engine-webgl1-three-render
+meta3d-editor-engine-webgl1-three-whole
+meta3d-editor-run-webgl1-three-engine
+    create scene
+
+
+
+
+package:
+engine-basic
+engine-scene
+
+
+contribute:
+
+meta3d-ui-control-webgpu-fullscreen-scene-view
+
+
+extension:
+
+imgui-webgl1-renderer
+
+
 
 
 *** TODO pass camera convert

@@ -70,7 +70,7 @@ let _createCameraGameObject = (meta3dState, scene, canvasSize) => {
     return meta3dState
 }
 
-let _createCubeGameObject = (meta3dState) => {
+let _createCubeGameObject = (meta3dState, scene) => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
     let gameObject = data[1]
@@ -126,7 +126,7 @@ let _createCubeGameObject = (meta3dState) => {
 let _createScene = (meta3dState, scene, canvasSize) => {
     meta3dState = _createCameraGameObject(meta3dState, scene, canvasSize)
 
-    meta3dState = _createCubeGameObject(meta3dState)
+    meta3dState = _createCubeGameObject(meta3dState, scene)
 
     return meta3dState
 }

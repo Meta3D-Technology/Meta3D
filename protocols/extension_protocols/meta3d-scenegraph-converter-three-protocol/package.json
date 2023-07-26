@@ -7,20 +7,14 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
-        "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "NODE_ENV=development npm run webpack && gulp publishConfig_local_env && gulp publish_local_env",
-        "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publishConfig_production_env &&gulp publish_production_env"
+        "meta3d:publish_dev": "gulp publish_local_env",
+        "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],
+    "dependencies": {
+        "@types/three": "0.154.0"
+    },
     "devDependencies": {
-        "clean-webpack-plugin": "^4.0.0",
-        "cz-customizable": "^6.3.0",
-        "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.12.1",
-        "source-map-loader": "^3.0.0",
-        "ts-loader": "^9.2.6",
-        "typescript": "^4.2.3",
-        "webpack": "^5.62.1",
-        "webpack-cli": "^4.9.1"
+        "typescript": "^4.2.3"
     }
 }

@@ -1,10 +1,9 @@
 {
-    "name": "meta3d-scenegraph-converter-three",
+    "name": "meta3d-editor-webgl1-three-run-engine",
     "version": "0.12.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "displayName": "scenegraph-converter-three",
     "protocol": {
-        "name": "meta3d-scenegraph-converter-three-protocol"
+        "name": "meta3d-editor-run-engine-protocol"
     },
     "scripts": {
         "watch": "tsc -w -noEmit",
@@ -13,10 +12,10 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-scenegraph-converter-three-protocol": "^0.12.1",
-        "meta3d-type": "^0.12.0",
-        "@types/three": "0.154.0",
-        "three": "0.154.0"
+        "meta3d-editor-engine-whole-protocol": "^0.12.0",
+        "meta3d-editor-run-engine-protocol": "^0.12.0",
+        "meta3d-ui-protocol": "^0.12.0",
+        "meta3d-type": "^0.12.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
