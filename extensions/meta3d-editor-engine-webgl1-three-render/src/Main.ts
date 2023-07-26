@@ -6,12 +6,14 @@ import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-protocol/src/StateType";
 import { config as threeConfig } from "meta3d-pipeline-webgl1-three-protocol/src/ConfigType";
+import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
-		prepare: (meta3dState: meta3dState, isDebug, gl) => {
+		prepare: (meta3dState: meta3dState, isDebug, gl, canvas) => {
 			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
 
 			let engineCoreService = api.getExtensionService<engineCoreService>(
@@ -23,7 +25,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let { registerPipeline } = engineCoreService
 
 			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-protocol"),
-				null,
+				{
+					canvas
+				},
 				[
 					{
 						pipelineName: "init",
@@ -42,6 +46,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					}
 				]
 			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-protocol"),
+				{
+					canvas
+				},
+				[
+					{
+						pipelineName: "init",
+						insertElementName: "init_root_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+
+
+
 
 			meta3dState =
 				api.setExtensionState(

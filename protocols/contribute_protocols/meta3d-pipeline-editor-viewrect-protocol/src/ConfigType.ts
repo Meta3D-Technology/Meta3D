@@ -1,1 +1,3 @@
-export type config = null
+export type config = {
+    canvas: HTMLCanvasElement
+}

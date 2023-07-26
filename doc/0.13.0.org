@@ -453,9 +453,9 @@ only getter, no setter?
 
 
 
-*** TODO pass camera convert run test
+*** DONE pass camera convert run test
 add:
-meta3d-editor-engine-webgl1-three-render
+meta3d-editor-engine-webgl1-three-render(need update, register x)
 meta3d-editor-engine-webgl1-three-whole
 meta3d-editor-run-webgl1-three-engine
     create scene
@@ -465,12 +465,13 @@ meta3d-editor-run-webgl1-three-engine
 
 package:
 engine-basic
-engine-scene
+engine-scene(need update)
 
 
 contribute:
 
 meta3d-ui-control-webgpu-fullscreen-scene-view
+meta3d-pipeline-viewrect
 
 
 extension:

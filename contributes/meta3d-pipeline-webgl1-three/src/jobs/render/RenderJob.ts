@@ -11,7 +11,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         console.log("render job")
 
-        let { perspectiveCamera, scene } = api.getExtensionState<converterState>(meta3dState, "meta3d-scene-graph-converter-three-protocol")
+        let { perspectiveCamera, scene } = api.getExtensionState<converterState>(meta3dState, "meta3d-scenegraph-converter-three-protocol")
 
         perspectiveCamera = getExn(perspectiveCamera)
 

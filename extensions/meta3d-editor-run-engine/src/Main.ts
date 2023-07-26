@@ -7,7 +7,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
-		prepareAndInitEngine: (meta3dState, gl, isDebug) => {
+		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
 			let engineWholeService = api.getExtensionService<engineWholeService>(
 				meta3dState,
 				"meta3d-editor-engine-whole-protocol"
@@ -22,7 +22,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					geometryPointCount: 1000,
 					pbrMaterialCount: 100
 				},
-				gl
+				gl,
+				canvas
 			)
 
 			return engineWholeService.init(meta3dState)

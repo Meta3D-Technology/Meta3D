@@ -116,6 +116,7 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 
 		return runEngineService.prepareAndInitEngine(meta3dState,
 			uiService.getContext(meta3dState),
+			canvas,
 			isDebug
 		)
 

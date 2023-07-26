@@ -35,7 +35,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				gl: null,
 				allGeometryIndices: [],
 				allMaterialIndices: [],
-				viewRect: null,
 				viewMatrix: null,
 				pMatrix: null,
 				allRenderComponents: []

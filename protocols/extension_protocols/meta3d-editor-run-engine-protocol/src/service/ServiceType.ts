@@ -5,6 +5,7 @@ export type service = {
     prepareAndInitEngine: (
         meta3dState: meta3dState,
         gl: context,
+        canvas: HTMLCanvasElement,
         isDebug: boolean
     ) => Promise<meta3dState>,
     loopEngine: (meta3dState: meta3dState) => Promise<meta3dState>

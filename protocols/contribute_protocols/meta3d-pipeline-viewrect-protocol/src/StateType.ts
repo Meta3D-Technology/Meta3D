@@ -1,16 +1,21 @@
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
-import { pipelineName as dataPipelineName, state as dataState } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
-// import { pipelineName as createglPipelineName, state as createglState } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export const pipelineName = "ViewRect"
 
+type viewRect = {
+    x: number,
+    y: number,
+    width: number,
+    height: number
+}
+
 export type state = {
     mostService: mostService,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    viewRect: nullable<viewRect>
 }
 
 export type states = {
-    [dataPipelineName]: dataState,
-    // [createglPipelineName]: createglState,
     [pipelineName]: state,
 }

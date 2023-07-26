@@ -12,13 +12,6 @@ import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common"
 
 export const pipelineName = "WebGL1_Data"
 
-type viewRect = {
-    x: number,
-    y: number,
-    width: number,
-    height: number
-}
-
 export type allRenderComponents = Array<{ transform: transform, geometry: geometry, material: pbrMaterial }>
 
 export type state = {
@@ -28,7 +21,6 @@ export type state = {
     gl: nullable<webgl1Context>,
     allGeometryIndices: number[],
     allMaterialIndices: number[],
-    viewRect: nullable<viewRect>,
     viewMatrix: nullable<viewMatrix>,
     pMatrix: nullable<pMatrix>,
     allRenderComponents: allRenderComponents

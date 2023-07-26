@@ -24,7 +24,8 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		createStateFunc: (meta3dState, { canvas }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
-				canvas: canvas
+				canvas: canvas,
+				viewRect: null
 			}
 		},
 		initFunc: _init,

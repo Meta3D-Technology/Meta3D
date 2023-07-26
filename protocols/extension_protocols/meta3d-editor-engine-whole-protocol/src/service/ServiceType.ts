@@ -5,5 +5,5 @@ import { service as serviceUtils } from "meta3d-engine-whole-utils/src/protocol/
 import { Merge } from "meta3d-commonlib-ts/src/type"
 
 export type service = Merge<serviceUtils, {
-	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig, gl: webgl1Context) => meta3dState,
+	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig, gl: webgl1Context, canvas: HTMLCanvasElement) => meta3dState,
 }>

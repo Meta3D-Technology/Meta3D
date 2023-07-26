@@ -12,7 +12,7 @@ export type state = {
     converterService: converterService,
 
     renderer: nullable<WebGLRenderer>,
-    // canvas:HTMLCanvasElement
+    canvas:HTMLCanvasElement
 }
 
 export type states = {

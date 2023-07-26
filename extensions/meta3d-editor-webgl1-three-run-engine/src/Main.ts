@@ -2,9 +2,9 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 import { service as engineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
-import { getViewRect } from "meta3d-view-utils/src/ViewRect"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
-import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
+// import { getViewRect } from "meta3d-view-utils/src/ViewRect"
+// import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
+// import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 
 function _createCameraGameObject(meta3dState, scene, canvasSize) {
 	// let { gameObject, basicCameraView } = scene
@@ -112,7 +112,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
-		prepareAndInitEngine: (meta3dState, gl, isDebug) => {
+		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
 			let engineWholeService = api.getExtensionService<engineWholeService>(
 				meta3dState,
 				"meta3d-editor-engine-whole-protocol"
@@ -127,12 +127,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					geometryPointCount: 1000,
 					pbrMaterialCount: 100
 				},
-				gl
+				gl,
+				canvas
 			)
 
-			let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-			let { width, height } = getExn(getViewRect(uiService, api.getExtensionState(meta3dState, "meta3d-ui-protocol")))
-			meta3dState = _createScene(meta3dState, engineWholeService.scene, { width, height })
+			meta3dState = _createScene(meta3dState, engineWholeService.scene, { width: canvas.width, height: canvas.height })
 
 
 			return engineWholeService.init(meta3dState)
