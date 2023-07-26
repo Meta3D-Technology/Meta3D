@@ -6,7 +6,7 @@ export let initLocal = () => {
 	let app: any = tcb.init({
 		secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
 		secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
-		env: "meta3d-4g18u7z10c8427f9" // 此处填入您的环境ID
+		env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
 	})
 
 	return just(app)
