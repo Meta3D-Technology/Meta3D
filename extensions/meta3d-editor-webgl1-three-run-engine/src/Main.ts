@@ -131,7 +131,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				canvas
 			)
 
-			meta3dState = _createScene(meta3dState, engineWholeService.scene, { width: canvas.width, height: canvas.height })
+			meta3dState = _createScene(meta3dState, engineWholeService.scene, [canvas.width, canvas.height])
 
 
 			return engineWholeService.init(meta3dState)

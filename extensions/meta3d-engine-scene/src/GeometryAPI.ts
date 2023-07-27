@@ -1,6 +1,7 @@
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { geometry, componentName, dataName } from "meta3d-component-geometry-protocol"
+import { geometry, componentName, dataName, vertices, indices } from "meta3d-component-geometry-protocol"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
 	createComponent,
@@ -21,6 +22,12 @@ export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsed
 	]
 }
 
+export function getVertices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices> {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<geometry, vertices>(contribute, geometry, dataName.vertices)
+}
+
 export function setVertices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
 	setComponentData,
 
@@ -32,6 +39,12 @@ export function setVertices(engineCoreState: engineCoreState, { unsafeGetUsedCom
 	contribute = setComponentData(contribute, geometry, dataName.vertices, vertices)
 
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export function getIndices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices> {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<geometry, indices>(contribute, geometry, dataName.indices)
 }
 
 export function setIndices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,

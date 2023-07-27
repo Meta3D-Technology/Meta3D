@@ -1,9 +1,12 @@
 {
-    "name": "meta3d-editor-webgl1-three-run-engine",
-    "version": "0.12.4",
+    "name": "meta3d-imgui-webgl1-three-renderer",
+    "version": "0.12.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "meta3d-imgui-webgl1-three-renderer",
+    "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/extensions/meta3d-imgui-webgpu-renderer",
+    "description": "",
     "protocol": {
-        "name": "meta3d-editor-run-engine-protocol"
+        "name": "meta3d-imgui-renderer-protocol"
     },
     "scripts": {
         "watch": "tsc -w -noEmit",
@@ -12,8 +15,7 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-engine-whole-protocol": "^0.12.0",
-        "meta3d-editor-run-engine-protocol": "^0.12.0",
+        "meta3d-imgui-renderer-protocol": "^0.12.1",
         "meta3d-type": "^0.12.0"
     },
     "devDependencies": {

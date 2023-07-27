@@ -389,7 +389,7 @@ notice wy
 * TODO encapuslate three.js engine
 
 
-** TODO scene: gameObject, component use three.js to implement
+** DONE scene: gameObject, component use three.js to implement
 
 e.g.
 
@@ -479,21 +479,49 @@ extension:
 imgui-webgl1-renderer
 
 
+*** DONE pass camera convert
+
+# TODO update meta3d-engine-scene implemenet, protocol
+
+# TODO update engine-scene package
 
 
-*** TODO pass camera convert
+
+# TODO update properties
 
 
-*** TODO pass scene convert
+
+# TODO fix:
+# WebGL: INVALID_OPERATION: uniformMatrix4fv: location is not from current program
+
+
+# TODO show cube
+# TODO fix warn: Multiple instances of Three.js being imported.
+    # TODO not uniform4fv, drawElements
+        # clearColor->alpha should be 1
+        # modelViewMatrix error
+        ////uniform4fv
+        # not create buffer
+        # draw with program
+        # camera data error?
+
+
+*** DONE pass scene convert
 
 MeshBasicMaterial to PBRMateiral
 
 
-** TODO add renderer
+** DONE add renderer
 
 基础渲染
 
 TODO render a cube
+
+
+
+
+# ** TODO fix: run: canvas's size not equal canvas.style.size
+
 
 
 

@@ -30,3 +30,11 @@ export function map<T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null
 
     return func(nullableValue as T)
 }
+
+export function getWithDefault<T>(nullableValue: T | null | undefined, default_: T): T {
+    if (isNullable(nullableValue)) {
+        return default_
+    }
+
+    return nullableValue as T
+}

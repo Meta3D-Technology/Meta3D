@@ -1,4 +1,5 @@
 import { transform as transformType, update as updateType, localToWorldMatrix as localToWorldMatrixType } from "meta3d-component-transform-protocol-common"
+// import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export const componentName = "Transform"
 
@@ -35,9 +36,9 @@ export type transform = transformType
 
 export type needDisposedComponents = transform[]
 
-// export type parent = transform
+export type parent = transform
 
-// export type children = Array<transform>
+export type children = Array<transform>
 
 export type localPosition = [number, number, number];
 

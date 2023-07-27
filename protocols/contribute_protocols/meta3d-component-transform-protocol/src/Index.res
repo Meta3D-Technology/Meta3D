@@ -45,7 +45,7 @@ let dataName = {
 
 type transform = Meta3dComponentTransformProtocolCommon.Index.transform
 
-type parent = Js.Nullable.t<transform>
+type parent = transform
 
 type needDisposedComponents = array<transform>
 

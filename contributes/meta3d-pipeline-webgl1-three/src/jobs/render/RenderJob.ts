@@ -14,13 +14,14 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         let { perspectiveCamera, scene } = api.getExtensionState<converterState>(meta3dState, "meta3d-scenegraph-converter-three-protocol")
 
         perspectiveCamera = getExn(perspectiveCamera)
+        scene = getExn(scene)
 
-        console.log(
-            perspectiveCamera.matrixWorldInverse
-        )
+        // console.log(
+        //     perspectiveCamera.matrixWorldInverse
+        // )
 
-        // TODO renderer = getExn(renderer)
-        // TODO renderer.render( scene, perspectiveCamera );
+        renderer = getExn(renderer)
+        renderer.render(scene, perspectiveCamera);
 
         return meta3dState
     })

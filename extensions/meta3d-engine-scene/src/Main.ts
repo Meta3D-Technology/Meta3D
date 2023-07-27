@@ -19,16 +19,23 @@ import {
 	hasArcballCameraController,
 	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
 } from "./GameObjectAPI"
-import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./TransformAPI";
-import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
-import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./PBRMaterialAPI";
-import { createGeometry, setIndices, setVertices } from "./GeometryAPI";
-import { createBasicCameraView, active } from "./BasicCameraViewAPI";
+import {
+	createTransform,
+	getGameObjects as getTransformGameObjects,
+	getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix
+} from "./TransformAPI";
+import { createPerspectiveCameraProjection, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
+import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./PBRMaterialAPI";
+import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./GeometryAPI";
+import {
+	createBasicCameraView, active, getViewWorldToCameraMatrix, getActiveCameraView,
+	getGameObjects as getBasicCameraViewGameObjects
+} from "./BasicCameraViewAPI";
 import {
 	createArcballCameraController,
 
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
-	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
 } from "./ArcballCameraControllerAPI"
 import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
@@ -241,7 +248,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 		// 	// getAllDirtyArcballCameraControllers, clearDirtyList,
 
-		// 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+		// 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getArcballCameraControllerGameObjects
 		// },
 		// perspectiveCameraProjection: {
 		// 	createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear
@@ -342,11 +349,26 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			createTransform: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createTransform, api)
 			},
+			getGameObjects: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransformGameObjects(engineCoreState, engineCoreService, transform), api)
+			},
+			getParent: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getParent(engineCoreState, engineCoreService, transform), api)
+			},
+			setParent: (meta3dState, transform, parent) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setParent(engineCoreState, engineCoreService, transform, parent), api)
+			},
+			getChildren: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getChildren(engineCoreState, engineCoreService, transform), api)
+			},
 			getLocalPosition: (meta3dState, transform) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalPosition(engineCoreState, engineCoreService, transform), api)
 			},
 			setLocalPosition: (meta3dState, transform, localPosition) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalPosition(engineCoreState, engineCoreService, transform, localPosition), api)
+			},
+			getLocalToWorldMatrix: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalToWorldMatrix(engineCoreState, engineCoreService, transform), api)
 			},
 			lookAt: (meta3dState, transform, target) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => lookAt(engineCoreState, engineCoreService, transform, target), api)
@@ -356,16 +378,31 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			createBasicCameraView: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createBasicCameraView, api)
 			},
+			getGameObjects: (meta3dState, basicCameraView) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getBasicCameraViewGameObjects(engineCoreState, engineCoreService, basicCameraView), api)
+			},
 			active: (meta3dState, basicCameraView) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => active(engineCoreState, engineCoreService, basicCameraView), api)
+			},
+			getViewWorldToCameraMatrix: (meta3dState, basicCameraView) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getViewWorldToCameraMatrix(engineCoreState, engineCoreService, basicCameraView), api)
+			},
+			getActiveCameraView: (meta3dState, isDebug) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getActiveCameraView(engineCoreState, engineCoreService, isDebug), api)
 			},
 		},
 		geometry: {
 			createGeometry: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createGeometry, api)
 			},
+			getVertices: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getVertices(engineCoreState, engineCoreService, geometry), api)
+			},
 			setVertices: (meta3dState, geometry, vertices) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setVertices(engineCoreState, engineCoreService, geometry, vertices), api)
+			},
+			getIndices: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIndices(engineCoreState, engineCoreService, geometry), api)
 			},
 			setIndices: (meta3dState, geometry, indices) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIndices(engineCoreState, engineCoreService, geometry, indices), api)
@@ -374,6 +411,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		pbrMaterial: {
 			createPBRMaterial: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createPBRMaterial, api)
+			},
+			getDiffuseColor: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDiffuseColor(engineCoreState, engineCoreService, pbrMaterial), api)
 			},
 			setDiffuseColor: (meta3dState, pbrMaterial, diffuseColor) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDiffuseColor(engineCoreState, engineCoreService, pbrMaterial, diffuseColor), api)
@@ -385,6 +425,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		perspectiveCameraProjection: {
 			createPerspectiveCameraProjection: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createPerspectiveCameraProjection, api)
+			},
+			getPMatrix: (meta3dState, perspectiveCameraProjection) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPMatrix(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setFovy: (meta3dState, perspectiveCameraProjection, fovy) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setFovy(engineCoreState, engineCoreService, perspectiveCameraProjection, fovy), api)
@@ -434,7 +477,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTheta(engineCoreState, engineCoreService, arcballCameraController, value), api)
 			},
 			getGameObjects: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGameObjects(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getArcballCameraControllerGameObjects(engineCoreState, engineCoreService, arcballCameraController), api)
 			},
 		},
 

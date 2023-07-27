@@ -100,6 +100,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				return runEngineService.prepareAndInitEngine(meta3dState,
 					uiService.getContext(meta3dState),
+					canvas,
 					isDebug
 				)
 			})

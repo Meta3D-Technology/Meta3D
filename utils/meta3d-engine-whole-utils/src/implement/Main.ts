@@ -191,6 +191,36 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).transform.createTransform(meta3dState)
 			},
+			getGameObjects: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getGameObjects(meta3dState, transform)
+			},
+			getParent: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getParent(meta3dState, transform)
+			},
+			setParent: (meta3dState, transform, parent) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.setParent(meta3dState, transform, parent)
+			},
+			getChildren: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getChildren(meta3dState, transform)
+			},
+			getLocalToWorldMatrix: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getLocalToWorldMatrix(meta3dState, transform)
+			},
 			getLocalPosition: (meta3dState, transform) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
@@ -217,6 +247,24 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).basicCameraView.createBasicCameraView(meta3dState)
 			},
+			getGameObjects: (meta3dState, basicCameraView) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicCameraView.getGameObjects(meta3dState, basicCameraView)
+			},
+			getViewWorldToCameraMatrix: (meta3dState, basicCameraView) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicCameraView.getViewWorldToCameraMatrix(meta3dState, basicCameraView)
+			},
+			getActiveCameraView: (meta3dState, isDebug) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicCameraView.getActiveCameraView(meta3dState, isDebug)
+			},
 			active: (meta3dState, basicCameraView) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
@@ -231,11 +279,23 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).geometry.createGeometry(meta3dState)
 			},
+			getVertices: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getVertices(meta3dState, geometry)
+			},
 			setVertices: (meta3dState, geometry, vertices) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).geometry.setVertices(meta3dState, geometry, vertices)
+			},
+			getIndices: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getIndices(meta3dState, geometry)
 			},
 			setIndices: (meta3dState, geometry, indices) => {
 				return api.getExtensionService<engineSceneService>(
@@ -251,6 +311,12 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).pbrMaterial.createPBRMaterial(meta3dState)
 
+			},
+			getDiffuseColor: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getDiffuseColor(meta3dState, pbrMaterial)
 			},
 			setDiffuseColor: (meta3dState, pbrMaterial, diffuseColor) => {
 				return api.getExtensionService<engineSceneService>(
@@ -272,6 +338,12 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).perspectiveCameraProjection.createPerspectiveCameraProjection(meta3dState)
 
+			},
+			getPMatrix: (meta3dState, perspectiveCameraProjection) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).perspectiveCameraProjection.getPMatrix(meta3dState, perspectiveCameraProjection)
 			},
 			setFovy: (meta3dState, perspectiveCameraProjection, fovy) => {
 				return api.getExtensionService<engineSceneService>(
@@ -300,10 +372,10 @@ let _getSceneService = (
 		},
 		arcballCameraController: {
 			createArcballCameraController: (meta3dState) => {
-					return api.getExtensionService<engineSceneService>(
-						meta3dState,
-						meta3dEngineSceneExtensionProtocolName
-					).arcballCameraController.createArcballCameraController(meta3dState)
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).arcballCameraController.createArcballCameraController(meta3dState)
 			},
 			getDistance: (meta3dState, arcballCameraController) => {
 				return api.getExtensionService<engineSceneService>(

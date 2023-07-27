@@ -1,6 +1,7 @@
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { componentName, pbrMaterial, diffuseColor, dataName } from "meta3d-component-pbrmaterial-protocol"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function createPBRMaterial(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
 	createComponent,
@@ -19,6 +20,12 @@ export function createPBRMaterial(engineCoreState: engineCoreState, { unsafeGetU
 		engineCoreState,
 		pbrMaterial
 	]
+}
+
+export function getDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, pbrMaterial: pbrMaterial): nullable<diffuseColor> {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<pbrMaterial, diffuseColor>(contribute, pbrMaterial, dataName.diffuseColor)
 }
 
 export function setDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) {

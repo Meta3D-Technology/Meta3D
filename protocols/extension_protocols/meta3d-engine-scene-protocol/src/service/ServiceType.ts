@@ -9,15 +9,19 @@ import {
 	hasArcballCameraController,
 	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
 } from "./ecs/GameObject"
-import { createTransform, getLocalPosition, lookAt, setLocalPosition } from "./ecs/Transform";
-import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
-import { createPBRMaterial, getAllPBRMaterials, setDiffuseColor } from "./ecs/PBRMaterial";
-import { createGeometry, setIndices, setVertices } from "./ecs/Geometry";
-import { createBasicCameraView, active } from "./ecs/BasicCameraView";
+import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix } from "./ecs/Transform";
+import { createPerspectiveCameraProjection, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
+import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./ecs/PBRMaterial";
+import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./ecs/Geometry";
+import {
+	createBasicCameraView,
+	getGameObjects as getBasicCameraViewGameObjects,
+	active, getActiveCameraView, getViewWorldToCameraMatrix
+} from "./ecs/BasicCameraView";
 import {
 	createArcballCameraController,
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
-	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
 } from "./ecs/ArcballCameraController"
 
 export type ecsConfig = {
@@ -68,12 +72,18 @@ export type scene = {
 	},
 	transform: {
 		createTransform: createTransform,
+		getGameObjects: getTransformGameObjects,
+		getParent: getParent,
+		setParent: setParent,
+		getChildren: getChildren,
 		getLocalPosition: getLocalPosition,
 		setLocalPosition: setLocalPosition,
+		getLocalToWorldMatrix: getLocalToWorldMatrix,
 		lookAt: lookAt,
 	},
 	perspectiveCameraProjection: {
 		createPerspectiveCameraProjection: createPerspectiveCameraProjection,
+		getPMatrix: getPMatrix,
 		setFovy: setFovy,
 		setNear: setNear,
 		setFar: setFar,
@@ -81,16 +91,22 @@ export type scene = {
 	},
 	pbrMaterial: {
 		createPBRMaterial: createPBRMaterial,
+		getDiffuseColor: getDiffuseColor,
 		setDiffuseColor: setDiffuseColor,
 		getAllPBRMaterials: getAllPBRMaterials
 	},
 	geometry: {
 		createGeometry: createGeometry,
+		getVertices: getVertices,
 		setVertices: setVertices,
+		getIndices: getIndices,
 		setIndices: setIndices
 	},
 	basicCameraView: {
 		createBasicCameraView: createBasicCameraView,
+		getGameObjects: getBasicCameraViewGameObjects,
+		getViewWorldToCameraMatrix: getViewWorldToCameraMatrix,
+		getActiveCameraView: getActiveCameraView,
 		active: active
 	},
 	arcballCameraController: {
@@ -105,7 +121,7 @@ export type scene = {
 		setTheta: setTheta,
 		getTarget: getTarget,
 		setTarget: setTarget,
-		getGameObjects: getGameObjects
+		getGameObjects: getArcballCameraControllerGameObjects
 	}
 }
 
