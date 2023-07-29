@@ -1,13 +1,13 @@
 {
     "name": "meta3d-tool-utils",
-    "version": "0.12.1",
+    "version": "0.13.0",
     "scripts": {
         "watch": "tsc --watch"
     },
     "dependencies": {
         "@cloudbase/node-sdk": "^2.9.1",
         "@types/node": "^7.0.5",
-        "meta3d": "^0.12.1",
+        "meta3d": "^0.13.0",
         "most": "^1.9.0",
         "read-package-json": "^5.0.1"
     },
