@@ -20,12 +20,113 @@ through code editor(just copy and commit)
 
 ** TODO simplify action
 
-remove protocol config?
+unify protocol to one protocol without config:
+- remove protocol config
+# - simplify ui control protocol config?
 
-simplify ui control protocol config?
+
+refactor dispatch:
+- rename to setElementState
+- change to: setElementState(uiState, (elementState) => new elementState)
+- remove reducer, directly update element state
 
 
-trigger event with param?
+
+
+
+
+
+
+** TODO enhance action
+
+
+# action get event+data+element state
+action get event+element state
+
+event.name: event name(e.g. "click")
+# event.target: current ui control(can get its data, e.g. rect, isDraw, ...)
+event.targetId: current ui control's id
+
+
+support:
+find any ui control's data(e.g. rect, isDraw, ...) by id
+
+# find any ui controls' id by tag
+
+
+add id:
+id not bind to element state
+id can be edit
+    check: id should be unique
+
+
+# add tag:
+# tag not bind to element state
+# tag can be edit
+#     # check: id should be unique
+
+
+
+
+** TODO enhance action again
+
+
+trigger event with data:
+- data is json object
+- set data when set ui control's event handler
+
+
+
+action get event+data+element state
+
+
+
+# ** TODO 对扩展协议和贡献协议规范，整理出统一的格式
+
+
+
+# 预先要发布协议；
+# 装配时，选择一个协议，根据Config.ts生成inspector（like ui control protocol->Config）
+
+
+# add ActionMRUtils
+
+# support log,dispatch system action
+
+# # get actionData
+
+
+# # ** TODO remove protocol->Config.ts, move getActions to getContribute as actions; remove getActionName(protocol not define actionName!)
+
+
+# # ** TODO read actions by parse getContribute instead of get from protocol config str!!!
+
+# ** TODO action 能调用扩展（非贡献）的api
+
+# ** TODO remove protocol->Config.ts, move them to action view data
+
+# refer to element!
+
+# ** TODO when switch to ui view, get selected actions' view data!
+
+
+# ** TODO implement view
+
+
+# ** TODO publish
+
+
+# note:
+# all actions use the same element protocol!
+# (not define actionName in protocol)
+
+
+
+# ** TODO import
+
+# ** TODO future: support combine other actions
+# left panel:
+# Actions
 
 
 
