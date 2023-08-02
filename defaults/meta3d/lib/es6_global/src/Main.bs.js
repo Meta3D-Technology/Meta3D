@@ -3,7 +3,6 @@
 import * as AppManager$Meta3d from "./app_and_package/AppManager.bs.js";
 import * as PackageManager$Meta3d from "./app_and_package/PackageManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
-import * as ActionProtocolConfig$Meta3d from "./contribute_protocol_config/ActionProtocolConfig.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
 import * as UIControlProtocolConfig$Meta3d from "./contribute_protocol_config/UIControlProtocolConfig.bs.js";
 import * as StartExtensionProtocolConfig$Meta3d from "./extension_protocol_config/StartExtensionProtocolConfig.bs.js";
@@ -62,10 +61,6 @@ var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIContro
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
 
-var serializeActionProtocolConfigLib = ActionProtocolConfig$Meta3d.serializeLib;
-
-var getActions = ActionProtocolConfig$Meta3d.getActions;
-
 var serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
 
 var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
@@ -100,8 +95,6 @@ export {
   hasChildren ,
   getUIControlSupportedEventNames ,
   generateHandleUIControlEventStr ,
-  serializeActionProtocolConfigLib ,
-  getActions ,
   serializeStartExtensionProtocolConfigLib ,
   getNeedConfigData ,
   buildAPI ,

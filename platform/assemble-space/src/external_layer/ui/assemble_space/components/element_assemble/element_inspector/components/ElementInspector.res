@@ -3,21 +3,21 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getActions = SelectedContributesForElementUtils.getActions
+  // let _getActions = SelectedContributesForElementUtils.getActions
 
-  let getProtocolConfigActions = (
-    service,
-    selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
-  ) => {
-    selectedContributes
-    ->_getActions
-    ->Meta3dCommonlib.ListSt.map(({protocolConfigStr}) => {
-      protocolConfigStr
-      ->Meta3dCommonlib.OptionSt.getExn
-      ->service.meta3d.serializeActionProtocolConfigLib(. _)
-      ->service.meta3d.getActions(. _)
-    })
-  }
+  // let getProtocolConfigActions = (
+  //   service,
+  //   selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
+  // ) => {
+  //   selectedContributes
+  //   ->_getActions
+  //   ->Meta3dCommonlib.ListSt.map(({protocolConfigStr}) => {
+  //     protocolConfigStr
+  //     ->Meta3dCommonlib.OptionSt.getExn
+  //     ->service.meta3d.serializeActionProtocolConfigLib(. _)
+  //     ->service.meta3d.getActions(. _)
+  //   })
+  // }
 
   // let getUniqueRoles = (
   //   protocolConfigActions: list<Meta3dType.ActionProtocolConfigType.actions>,
@@ -37,21 +37,21 @@ module Method = {
   //   )
   // }
 
-  let getUniqueActionNamesByRole = (
-    protocolConfigActions: list<Meta3dType.ActionProtocolConfigType.actions>,
-    role,
-  ) => {
-    protocolConfigActions
-    ->Meta3dCommonlib.ListSt.reduce([], (actionNames, actions) => {
-      Js.Array.concat(
-        actions
-        ->Meta3dCommonlib.ArraySt.filter(action => action.role === role)
-        ->Meta3dCommonlib.ArraySt.map(({name}) => name),
-        actionNames,
-      )
-    })
-    ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. item) => item)
-  }
+  // let getUniqueActionNamesByRole = (
+  //   protocolConfigActions: list<Meta3dType.ActionProtocolConfigType.actions>,
+  //   role,
+  // ) => {
+  //   protocolConfigActions
+  //   ->Meta3dCommonlib.ListSt.reduce([], (actionNames, actions) => {
+  //     Js.Array.concat(
+  //       actions
+  //       ->Meta3dCommonlib.ArraySt.filter(action => action.role === role)
+  //       ->Meta3dCommonlib.ArraySt.map(({name}) => name),
+  //       actionNames,
+  //     )
+  //   })
+  //   ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. item) => item)
+  // }
 
   let onFinishState = (dispatch, values) => {
     dispatch(
@@ -103,7 +103,7 @@ let make = (~service: service) => {
     (isShowElementInspector, elementInspectorData),
   ) = service.react.useSelector(. Method.useSelector)
 
-  let protocolConfigActions = Method.getProtocolConfigActions(service, selectedContributes)
+  // let protocolConfigActions = Method.getProtocolConfigActions(service, selectedContributes)
 
   // let {elementStateFields, reducers} = elementInspectorData
   let {elementStateFields} = elementInspectorData

@@ -3,7 +3,6 @@
 var AppManager$Meta3d = require("./app_and_package/AppManager.bs.js");
 var PackageManager$Meta3d = require("./app_and_package/PackageManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
-var ActionProtocolConfig$Meta3d = require("./contribute_protocol_config/ActionProtocolConfig.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
 var UIControlProtocolConfig$Meta3d = require("./contribute_protocol_config/UIControlProtocolConfig.bs.js");
 var StartExtensionProtocolConfig$Meta3d = require("./extension_protocol_config/StartExtensionProtocolConfig.bs.js");
@@ -62,10 +61,6 @@ var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIContro
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
 
-var serializeActionProtocolConfigLib = ActionProtocolConfig$Meta3d.serializeLib;
-
-var getActions = ActionProtocolConfig$Meta3d.getActions;
-
 var serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
 
 var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
@@ -99,8 +94,6 @@ exports.getUIControlSpecificDataFields = getUIControlSpecificDataFields;
 exports.hasChildren = hasChildren;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
-exports.serializeActionProtocolConfigLib = serializeActionProtocolConfigLib;
-exports.getActions = getActions;
 exports.serializeStartExtensionProtocolConfigLib = serializeStartExtensionProtocolConfigLib;
 exports.getNeedConfigData = getNeedConfigData;
 exports.buildAPI = buildAPI;

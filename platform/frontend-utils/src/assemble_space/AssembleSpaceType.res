@@ -132,8 +132,8 @@ type meta3dService = {
     . Meta3d.LibUtils.lib,
     array<Meta3dType.UIControlProtocolConfigType.actionName>,
   ) => string,
-  serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
-  getActions: (. Meta3d.LibUtils.lib) => Meta3dType.ActionProtocolConfigType.actions,
+  // serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  // getActions: (. Meta3d.LibUtils.lib) => Meta3dType.ActionProtocolConfigType.actions,
   serializeStartExtensionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getNeedConfigData: (
     . Meta3d.LibUtils.lib,

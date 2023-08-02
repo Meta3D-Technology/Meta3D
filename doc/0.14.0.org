@@ -18,7 +18,7 @@ through code editor(just copy and commit)
 
 
 
-** TODO simplify action
+** DONE simplify action
 
 
 # refactor dispatch:
@@ -29,11 +29,12 @@ through code editor(just copy and commit)
 
 
 
-unify protocol to one protocol without config:
-- remove protocol config
-# - simplify ui control protocol config?
+# unify protocol to one protocol without config:
+# - remove protocol config
+# # - simplify ui control protocol config?
 
 
+# remove getActions related code
 
 
 

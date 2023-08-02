@@ -52,10 +52,6 @@ let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSuppor
 
 let generateHandleUIControlEventStr = UIControlProtocolConfig.generateHandleUIControlEventStr
 
-let serializeActionProtocolConfigLib = ActionProtocolConfig.serializeLib
-
-let getActions = ActionProtocolConfig.getActions
-
 let serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig.serializeLib
 
 let getNeedConfigData = StartExtensionProtocolConfig.getNeedConfigData

@@ -24,12 +24,12 @@ type service = {
     ActionContributeType.actionName,
     'actionData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerAction: 'actionData. (
-    StateType.state,
-    ActionContributeType.actionContribute<'actionData>,
-  ) => StateType.state,
+  registerAction: (StateType.state, ActionContributeType.actionContribute) => StateType.state,
   onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
-  onCustomGlobalEvent: (eventExtensionProtocolName, (customEventName, priority, handleFunc)) => unit,
+  onCustomGlobalEvent: (
+    eventExtensionProtocolName,
+    (customEventName, priority, handleFunc),
+  ) => unit,
   initEvent: (Meta3dType.Index.state, eventExtensionProtocolName) => Meta3dType.Index.state,
   setBrowser: (
     Meta3dType.Index.state,
