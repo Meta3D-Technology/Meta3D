@@ -38,48 +38,72 @@ through code editor(just copy and commit)
 
 
 
-** TODO enhance action
+# ** TODO enhance action
+
+
+# # action get event+data+element state
+# # action get event+element state
+# action get event
+
+# event.name: event name(e.g. "click")
+# # event.target: current ui control(can get its data, e.g. rect, isDraw, ...)
+# event.targetId: current ui control's id
+
+
+# support:
+# find any ui control's data(e.g. rect, isDraw, ...) by id
+
+# # find any ui controls' id by tag
+
+
+# add id:
+# id not bind to element state
+# id can be edit
+#     check: id should be unique
+
+
+
+## add tag:
+## tag not bind to element state
+## tag can be edit
+##     # check: id should be unique
+
+
+
+# get event
+
+
+** DONE enhance action again
+
+
+# trigger event with data:
+# - data is json object
+# - set data when set ui control's event handler
+
 
 
 # action get event+data+element state
-# action get event+element state
-action get event
-
-event.name: event name(e.g. "click")
-# event.target: current ui control(can get its data, e.g. rect, isDraw, ...)
-event.targetId: current ui control's id
 
 
-support:
-find any ui control's data(e.g. rect, isDraw, ...) by id
 
-# find any ui controls' id by tag
+click event with action protocols:
+define actionData
 
-
-add id:
-id not bind to element state
-id can be edit
-    check: id should be unique
-
-
-# add tag:
-# tag not bind to element state
-# tag can be edit
-#     # check: id should be unique
+Inspector:
+only show corresponding action select
 
 
 
 
-** TODO enhance action again
-
-
-trigger event with data:
-- data is json object
-- set data when set ui control's event handler
 
 
 
-action get event+data+element state
+
+** TODO refactor
+move ui control protocol->trigger event logic to ui control implement
+    check actionData type
+
+
 
 
 

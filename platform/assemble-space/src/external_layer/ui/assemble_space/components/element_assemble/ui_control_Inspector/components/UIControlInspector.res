@@ -97,7 +97,8 @@ module Method = {
   let setAction = (
     dispatch,
     id,
-    eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
+    // eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
+    eventName: Meta3dType.UIControlProtocolConfigType.eventName,
     actionName: string,
   ) => {
     dispatch(
@@ -414,7 +415,7 @@ let make = (~service: service) => {
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
-            renderItem={eventName => {
+            renderItem={(( eventName, actionProtocolName )) => {
               let value =
                 ElementMRUtils.getActionName(
                   event,
@@ -428,13 +429,13 @@ let make = (~service: service) => {
                 {FrontendUtils.SelectUtils.buildSelect(
                   Method.setAction(dispatch, id, eventName),
                   value,
-                  actions->Meta3dCommonlib.ArraySt.map(({data}) => {
+                  actions
+                  ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+                    data.contributePackageData.protocol.name == actionProtocolName
+                  })
+                  ->Meta3dCommonlib.ArraySt.map(({data}) => {
                     (
-                      service.meta3d.execGetContributeFunc(.
-                        data.contributeFuncData,
-                        // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                        // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                      )->Obj.magic
+                      service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
                     )["actionName"]
                   }),
                 )}

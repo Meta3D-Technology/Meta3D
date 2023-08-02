@@ -27,7 +27,8 @@ let buildRect = (
 }
 
 let buildEventData = (
-  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  // eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  eventName,
   actionName,
 ): FrontendUtils.ElementAssembleStoreType.eventData => {
   eventName: eventName,

@@ -113,7 +113,7 @@ let _generateHandleUIControlEventStr = (
     configLib,
     service.meta3d.getUIControlSupportedEventNames(.
       configLib,
-    )->Meta3dCommonlib.ArraySt.map(eventName => {
+    )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
       getActionName(event, eventName)
     }),
   )

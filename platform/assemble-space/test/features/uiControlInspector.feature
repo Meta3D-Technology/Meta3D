@@ -68,7 +68,7 @@ Feature: UIControlInsepctor
 
         Scenario: show default action and action select
             Given select ui control button d1
-            And select action a1 and a2
+            And select action a1 and a2 of the same protocol
             And set inspector current selected ui control data to d1 whose event's action is a2
             When render
             Then should show a2 as default action and select with a1, a2

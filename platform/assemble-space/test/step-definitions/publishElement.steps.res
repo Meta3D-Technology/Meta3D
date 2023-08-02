@@ -129,7 +129,7 @@ defineFeature(feature, test => {
       elementInspectorData :=
         ElementInspectorTool.buildElementInspectorData(list{})
 
-      event := [UIControlInspectorTool.buildEventData(#click, "a1")]
+      event := [UIControlInspectorTool.buildEventData("click", "a1")]
 
       isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
 

@@ -10,8 +10,8 @@ let feature = loadFeature("./test/features/uiControlInspector.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
-  let _getButtonSupportedEventNames = () => {
-    [#click]
+  let _getButtonClickEventName = () => {
+    "click"
   }
 
   let _prepare = given => {
@@ -141,7 +141,7 @@ defineFeature(feature, test => {
           ~service=ServiceTool.build(
             ~sandbox,
             ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(_getButtonSupportedEventNames(), _)
+            ->returns([], _)
             ->Obj.magic,
             ~useSelector=useSelectorStub.contents,
             (),
@@ -682,16 +682,14 @@ defineFeature(feature, test => {
 
         serializeUIControlProtocolConfigLibStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(d1ConfigLib, _)
-        getUIControlSupportedEventNamesStub :=
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->withOneArg(d1ConfigLib, _)
-          ->returns(_getButtonSupportedEventNames(), _)
       },
     )
 
     \"and"(
-      "select action a1 and a2",
+      "select action a1 and a2 of the same protocol",
       () => {
+        let actionProtocolName = "meta3d-action-a-protocol"
+
         execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         a1 :=
@@ -702,7 +700,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action1Name,
                 ~protocol={
-                  name: "meta3d-action-a1-protocol",
+                  name:actionProtocolName,
                   version: "^0.6.0",
                 },
                 (),
@@ -730,7 +728,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action2Name,
                 ~protocol={
-                  name: "meta3d-action-a2-protocol",
+                  name:actionProtocolName,
                   version: "^0.6.0",
                 },
                 (),
@@ -749,6 +747,11 @@ defineFeature(feature, test => {
           _,
         )
         ->ignore
+
+        getUIControlSupportedEventNamesStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withOneArg(d1ConfigLib, _)
+          ->returns([ ( _getButtonClickEventName(), actionProtocolName) ], _)
       },
     )
 
@@ -766,7 +769,7 @@ defineFeature(feature, test => {
                 list{
                   UIControlInspectorTool.buildUIControlInspectorData(
                     ~id,
-                    ~event=[UIControlInspectorTool.buildEventData(#click, action2Name)],
+                    ~event=[UIControlInspectorTool.buildEventData(_getButtonClickEventName(), action2Name)],
                     (),
                   ),
                 },
@@ -807,7 +810,7 @@ defineFeature(feature, test => {
 
   test(."set action", ({given, \"when", \"and", then}) => {
     let id = "1"
-    let eventName = #click
+    let eventName = "click"
     let actionName = "a10"
     let dispatchStub = ref(Obj.magic(1))
 
@@ -838,7 +841,7 @@ defineFeature(feature, test => {
 
   test(."set action with empty action name", ({given, \"when", \"and", then}) => {
     let id = "1"
-    let eventName = #click
+    let eventName = "click"
     let actionName = UIControlInspectorTool.buildEmptySelectOptionValue()
     let dispatchStub = ref(Obj.magic(1))
 

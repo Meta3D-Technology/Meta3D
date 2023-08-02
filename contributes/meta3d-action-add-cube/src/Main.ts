@@ -5,6 +5,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
 // import { state as editorEngineWholeState } from "meta3d-editor-engine-whole-protocol/src/state/StateType"
 import { state as meta3dState } from "meta3d-type"
+import { actionData } from "meta3d-action-button-click-protocol"
 
 let _createCubeGameObject = (meta3dState: meta3dState, { scene }: editorEngineWholeService) => {
     let data = scene.gameObject.createGameObject(meta3dState)
@@ -63,7 +64,7 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: editorEngineWh
     return meta3dState
 }
 
-export let getContribute: getContributeMeta3D<actionContribute> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (api) => {
     return {
         actionName: "AddCube",
         handler: (meta3dState, actionData) => {

@@ -20,7 +20,8 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["click"]
+// export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["button_click"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => [["click", "meta3d-action-button-click-protocol"]]
 
 export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([clickActionName]) => {
     if (!isNullable(clickActionName)) {

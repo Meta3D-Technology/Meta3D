@@ -269,7 +269,7 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-            ~event=[UIControlInspectorTool.buildEventData(#click, "action1")],
+            ~event=[UIControlInspectorTool.buildEventData("click", "action1")],
             ~specific=[Obj.magic(10)],
             ~children=[
               ImportElementTool.buildUIControl(
@@ -279,7 +279,7 @@ defineFeature(feature, test => {
                   (),
                 ),
                 ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-                ~event=[UIControlInspectorTool.buildEventData(#click, "action2")],
+                ~event=[UIControlInspectorTool.buildEventData("click", "action2")],
                 ~specific=[Obj.magic(10)],
                 ~children=[],
                 (),

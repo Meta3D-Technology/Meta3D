@@ -10,7 +10,7 @@ export type rect = {
 
 export type childrenFunc = (state: state) => state
 
-export type supportedEventName = "click"
+// export type supportedEventName = "button_click"
 
 export type actionName = nullable<string>
 
@@ -35,7 +35,10 @@ export type getUIControlSpecificDataFields = () => uiControlSpecificDataFields
 
 export type hasChildren = () => boolean
 
-export type getUIControlSupportedEventNames = () => Array<supportedEventName>
+// export type getUIControlSupportedEventNames = () => Array<supportedEventName>
+type eventName = string
+type actionProtocolName = string
+export type getUIControlSupportedEventNames = () => Array<[eventName, actionProtocolName]>
 
 export type generateHandleUIControlEventStr = (actionNames: Array<actionName>) => string
 

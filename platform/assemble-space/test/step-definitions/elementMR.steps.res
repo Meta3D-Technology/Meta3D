@@ -335,7 +335,7 @@ defineFeature(feature, test => {
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b1",
               ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-              ~event=[UIControlInspectorTool.buildEventData(#click, "a1")],
+              ~event=[UIControlInspectorTool.buildEventData("click", "a1")],
               (),
             ),
           }

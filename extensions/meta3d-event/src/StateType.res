@@ -1,7 +1,8 @@
 type state = {
   actionContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     Meta3dEventProtocol.ActionContributeType.actionName,
-    Meta3dEventProtocol.ActionContributeType.actionContribute,
+    Meta3dEventProtocol.ActionContributeType.actionContribute<
+    Meta3dEventProtocol.StateType.actionData>,
   >,
   eventManagerState: EventManagerStateType.state,
 }

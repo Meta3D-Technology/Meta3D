@@ -1,6 +1,6 @@
 {
   "name": "meta3d-event",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "displayName": "event",
   "protocol": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "meta3d-ui-protocol": "^0.13.1",
-    "meta3d-event-protocol": "^0.13.1",
+    "meta3d-event-protocol": "^0.13.2",
     "meta3d-type": "^0.13.0",
     "rescript": "^10.0.1"
   },

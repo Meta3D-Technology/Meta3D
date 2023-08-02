@@ -29,10 +29,13 @@ type rec uiControl = {
 
 type selectedUIControls = list<uiControl>
 
+type eventName = string
+
 type actionName = string
 
 type eventData = {
-  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  // eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  eventName: eventName,
   actionName: actionName,
 }
 
@@ -132,7 +135,7 @@ type action =
   | SetSpecificData(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
-  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
+  | SetAction(id, (eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContribute(elementContribute)
