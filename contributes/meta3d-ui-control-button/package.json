@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-button",
-    "version": "0.13.1",
+    "version": "0.13.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "button",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-ui-control-button",
@@ -18,7 +18,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.13.0",
-        "meta3d-ui-control-button-protocol": "^0.13.1",
+        "meta3d-ui-control-button-protocol": "^0.13.3",
         "meta3d-ui-protocol": "^0.13.0"
     },
     "devDependencies": {

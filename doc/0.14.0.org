@@ -99,9 +99,11 @@ only show corresponding action select
 
 
 
-** TODO refactor
-move ui control protocol->trigger event logic to ui control implement
-    check actionData type
+** DONE refactor
+# move ui control protocol->trigger event logic to ui control implement
+#     check actionData type
+
+refactor button protocol->generateHandleUIControlEventStr
 
 
 
