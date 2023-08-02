@@ -118,10 +118,7 @@ let _setCurrentElementName = (state: Meta3dUiProtocol.StateType.state, elementNa
   currentElementName: Some(elementName),
 }
 
-let updateElementState = (
-  state: Meta3dUiProtocol.StateType.state,
-  updateElementStateFunc,
-) => {
+let updateElementState = (state: Meta3dUiProtocol.StateType.state, updateElementStateFunc) => {
   let elementName = _getCurrentElementName(state)
 
   let oldElementState = _getElementStateExn(state, elementName)
@@ -674,3 +671,5 @@ let init = (
     api.setExtensionState(. meta3dState, imguiRendererExtensionProtocolName, imguiRendererState)
   })
 }
+
+let getCurrentElementState = state => _getElementStateExn(state, _getCurrentElementName(state))

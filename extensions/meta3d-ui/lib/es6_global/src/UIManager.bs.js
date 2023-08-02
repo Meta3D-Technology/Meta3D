@@ -413,6 +413,10 @@ function init(meta3dState, param, isInitEvent, isDebug, canvas) {
               }));
 }
 
+function getCurrentElementState(state) {
+  return _getElementStateExn(state, OptionSt$Meta3dCommonlib.getExn(state.currentElementName));
+}
+
 export {
   hide ,
   show ,
@@ -455,5 +459,6 @@ export {
   setCursorPos ,
   clear ,
   init ,
+  getCurrentElementState ,
 }
 /* No side effect */

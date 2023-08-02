@@ -9,9 +9,13 @@ export let getContribute: getContributeMeta3D<actionContribute> = (api) => {
         handler: (meta3dState, actionData) => {
             console.log("click button")
 
-            let { updateElementState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+            let { updateElementState, getCurrentElementState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
             let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
+
+            console.log(
+                getCurrentElementState(uiState)
+            )
 
             uiState = updateElementState(uiState,
                 (elemenetState) => {

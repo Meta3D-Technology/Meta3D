@@ -88,7 +88,8 @@ let initEvent = (
 
   ContainerManager.createState(CreateEventManagerState.create, eventExtensionProtocolName)
 
-  let eventManagerState = state.eventManagerState->InitEventDoService.initEvent(eventExtensionProtocolName)
+  let eventManagerState =
+    state.eventManagerState->InitEventDoService.initEvent(eventExtensionProtocolName)
 
   _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName)
 
@@ -97,7 +98,7 @@ let initEvent = (
     eventExtensionProtocolName,
     {
       ...state,
-      eventManagerState: eventManagerState,
+      eventManagerState,
     }->StateType.stateToProtocolState,
   )
 }
@@ -119,7 +120,7 @@ let _invokeEventManagerSetDomDataFuncWithOneArg = (
     eventExtensionProtocolName,
     {
       ...state,
-      eventManagerState: eventManagerState,
+      eventManagerState,
     }->StateType.stateToProtocolState,
   )
 }

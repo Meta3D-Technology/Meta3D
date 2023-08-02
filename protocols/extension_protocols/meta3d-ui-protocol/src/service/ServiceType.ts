@@ -78,6 +78,9 @@ export type service = {
         [uiExtensionProtocolName, imguiRendererExtensionProtocolName]: [uiExtensionProtocolName, imguiRendererExtensionProtocolName],
         time: time
     ) => Promise<meta3dState>;
+    readonly getCurrentElementState: (
+        state: state
+    ) => elementState;
     readonly show: (
         state: state,
         elementName: elementName

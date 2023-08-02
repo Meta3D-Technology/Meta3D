@@ -77,7 +77,8 @@ function getExtensionService(api) {
                         ], pos);
             }),
           init: UIManager$Meta3dUi.init,
-          clear: UIManager$Meta3dUi.clear
+          clear: UIManager$Meta3dUi.clear,
+          getCurrentElementState: UIManager$Meta3dUi.getCurrentElementState
         };
 }
 

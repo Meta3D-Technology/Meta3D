@@ -6,7 +6,7 @@ type imguiRendererExtensionProtocolName = Meta3dType.Index.extensionProtocolName
 
 type time = float
 
-type elementStateField
+// type elementStateField
 
 type updateElementStateFunc = StateType.elementState => StateType.elementState
 
@@ -125,4 +125,5 @@ type service = {
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
     clearColor,
   ) => Meta3dType.Index.state,
+  getCurrentElementState: StateType.state => StateType.elementState,
 }

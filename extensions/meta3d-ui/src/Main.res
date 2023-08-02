@@ -60,6 +60,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     init: UIManager.init,
     clear: UIManager.clear,
     render: UIManager.render(api),
+    getCurrentElementState: UIManager.getCurrentElementState,
   }
 }
 

@@ -42,7 +42,8 @@ through code editor(just copy and commit)
 
 
 # action get event+data+element state
-action get event+element state
+# action get event+element state
+action get event
 
 event.name: event name(e.g. "click")
 # event.target: current ui control(can get its data, e.g. rect, isDraw, ...)

@@ -22,6 +22,7 @@
   "bs-dependencies": [
     "meta3d-type",
     "meta3d-event-protocol",
+    "meta3d-ui-protocol",
     "meta3d-commonlib",
     "meta3d-commonlib-type",
     "meta3d-bs-most"
