@@ -42,13 +42,7 @@ defineFeature(feature, test => {
               list{},
               ApInspectorTool.buildApInspectorData(),
             ),
-            (
-              list{},
-              list{},
-              None,
-              None,
-              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-            ),
+            (list{}, list{}, None, None, ElementInspectorTool.buildElementInspectorData(list{})),
           ),
           // (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
 
@@ -97,7 +91,7 @@ defineFeature(feature, test => {
                 list{},
                 Some(Obj.magic(1)),
                 None,
-                ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+                ElementInspectorTool.buildElementInspectorData(list{}),
               ),
             ),
             _,

@@ -127,7 +127,7 @@ let registerElement = (
   ~elementName="e1",
   ~execOrder=0,
   ~elementState=Obj.magic(1),
-  ~reducers=Js.Nullable.null,
+  // ~reducers=Js.Nullable.null,
   (),
 ) => {
   UIManager.registerElement(
@@ -138,7 +138,7 @@ let registerElement = (
         execOrder,
         elementFunc,
         elementState,
-        reducers,
+        // reducers,
       }: Meta3dUiProtocol.ElementContributeType.elementContribute<
         Meta3dUiProtocol.StateType.elementState,
       >
@@ -390,6 +390,7 @@ let registerSkin = (~skinName, ~skin, ~state=createState(), ()) => {
 
 let getSkin = UIManager.getSkin
 
-let dispatch = UIManager.dispatch
+// let dispatch = UIManager.dispatch
+let updateElementState = UIManager.updateElementState
 
 let getElementState = UIManager.getElementState

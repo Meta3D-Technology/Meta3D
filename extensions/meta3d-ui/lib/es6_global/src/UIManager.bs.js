@@ -4,8 +4,8 @@ import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function hide(state, elementName) {
@@ -18,7 +18,7 @@ function hide(state, elementName) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -33,7 +33,7 @@ function show(state, elementName) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -48,7 +48,7 @@ function _markStateChange(state, elementName) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -63,7 +63,7 @@ function _markStateNotChange(state, elementName) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -90,7 +90,7 @@ function _setElementState(state, elementName, elementState) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -109,42 +109,39 @@ function _setElementExecOrder(state, elementName, execOrder) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
 
-var _updateElementField = (function(
-elementState, 
-updatedElementStateFieldName,
-updateElementStateFieldFunc
-){
-  var newElementState = Object.assign({}, elementState)
+function _getCurrentElementName(state) {
+  return OptionSt$Meta3dCommonlib.getExn(state.currentElementName);
+}
 
- newElementState[updatedElementStateFieldName] = updateElementStateFieldFunc(newElementState[updatedElementStateFieldName])
+function _setCurrentElementName(state, elementName) {
+  return {
+          elementFuncMap: state.elementFuncMap,
+          elementStateMap: state.elementStateMap,
+          elementExecOrderMap: state.elementExecOrderMap,
+          isShowMap: state.isShowMap,
+          isStateChangeMap: state.isStateChangeMap,
+          skinContributeMap: state.skinContributeMap,
+          uiControlContributeMap: state.uiControlContributeMap,
+          uiControlStateMap: state.uiControlStateMap,
+          currentElementName: elementName,
+          fboTextureMap: state.fboTextureMap
+        };
+}
 
-  return newElementState
-});
-
-function dispatch(state, actionName, role, updateElementStateFieldFunc) {
-  return ArraySt$Meta3dCommonlib.reduceOneParam(state.reducers, (function (state, param) {
-                var reducers = param[1];
-                if (reducers.role !== role) {
-                  return state;
-                }
-                var elementName = param[0];
-                var oldElementState = _getElementStateExn(state, elementName);
-                var newElementState = ArraySt$Meta3dCommonlib.reduceOneParam(ArraySt$Meta3dCommonlib.filter(reducers.handlers, (function (handler) {
-                            return handler.actionName === actionName;
-                          })), (function (elementState, param) {
-                        return _updateElementField(elementState, param.updatedElementStateFieldName, updateElementStateFieldFunc);
-                      }), oldElementState);
-                if (Caml_obj.notequal(oldElementState, newElementState)) {
-                  return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
-                } else {
-                  return _markStateNotChange(state, elementName);
-                }
-              }), state);
+function updateElementState(state, updateElementStateFunc) {
+  var elementName = OptionSt$Meta3dCommonlib.getExn(state.currentElementName);
+  var oldElementState = _getElementStateExn(state, elementName);
+  var newElementState = Curry._1(updateElementStateFunc, oldElementState);
+  if (Caml_obj.notequal(oldElementState, newElementState)) {
+    return _setElementState(_markStateChange(state, elementName), elementName, newElementState);
+  } else {
+    return _markStateNotChange(state, elementName);
+  }
 }
 
 function _exec(meta3dState, state) {
@@ -243,34 +240,14 @@ function _setElementFunc(state, elementName, elementFunc) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
 
-function _addReducers(state, elementName, reducers) {
-  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(reducers, (function (reducers) {
-                    return {
-                            elementFuncMap: state.elementFuncMap,
-                            elementStateMap: state.elementStateMap,
-                            elementExecOrderMap: state.elementExecOrderMap,
-                            isShowMap: state.isShowMap,
-                            isStateChangeMap: state.isStateChangeMap,
-                            skinContributeMap: state.skinContributeMap,
-                            uiControlContributeMap: state.uiControlContributeMap,
-                            uiControlStateMap: state.uiControlStateMap,
-                            reducers: ArraySt$Meta3dCommonlib.push(state.reducers, [
-                                  elementName,
-                                  reducers
-                                ]),
-                            fboTextureMap: state.fboTextureMap
-                          };
-                  })), state);
-}
-
 function registerElement(state, param) {
   var elementName = param.elementName;
-  return _markStateChange(show(_addReducers(_setElementExecOrder(_setElementState(_setElementFunc(state, elementName, param.elementFunc), elementName, param.elementState), elementName, param.execOrder), elementName, param.reducers), elementName), elementName);
+  return _markStateChange(show(_setElementExecOrder(_setElementState(_setElementFunc(_setCurrentElementName(state, elementName), elementName, param.elementFunc), elementName, param.elementState), elementName, param.execOrder), elementName), elementName);
 }
 
 function registerSkin(state, skinContribute) {
@@ -283,7 +260,7 @@ function registerSkin(state, skinContribute) {
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.skinContributeMap, skinContribute.skinName, skinContribute),
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -298,7 +275,7 @@ function registerUIControl(state, uiControlContribute) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.set(state.uiControlContributeMap, uiControlContribute.uiControlName, uiControlContribute),
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -329,7 +306,7 @@ function setUIControlState(state, uiControlName, uiControlState) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.uiControlStateMap, uiControlName, uiControlState),
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: state.fboTextureMap
         };
 }
@@ -379,7 +356,7 @@ function setFBOTexture(state, textureID, texture) {
           skinContributeMap: state.skinContributeMap,
           uiControlContributeMap: state.uiControlContributeMap,
           uiControlStateMap: state.uiControlStateMap,
-          reducers: state.reducers,
+          currentElementName: state.currentElementName,
           fboTextureMap: ImmutableHashMap$Meta3dCommonlib.set(state.fboTextureMap, textureID, texture)
         };
 }
@@ -447,15 +424,15 @@ export {
   _setElementState ,
   _getElementExecOrderExn ,
   _setElementExecOrder ,
-  _updateElementField ,
-  dispatch ,
+  _getCurrentElementName ,
+  _setCurrentElementName ,
+  updateElementState ,
   _exec ,
   _invokeIMGUIRenderFunc ,
   _invokeIMGUIRenderFuncWithParam ,
   _invokeIMGUIRenderFuncReturnData ,
   render ,
   _setElementFunc ,
-  _addReducers ,
   registerElement ,
   registerSkin ,
   registerUIControl ,

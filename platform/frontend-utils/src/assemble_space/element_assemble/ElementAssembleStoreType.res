@@ -87,25 +87,25 @@ type elementStateFieldData = {
 
 type elementStateFields = list<elementStateFieldData>
 
-type reducerHandler = {
-  actionName: actionName,
-  updatedElementStateFieldName: string,
-}
+// type reducerHandler = {
+//   actionName: actionName,
+//   updatedElementStateFieldName: string,
+// }
 
-type handlers = list<reducerHandler>
+// type handlers = list<reducerHandler>
 
-type reducers = {
-  role: option<string>,
-  // handlerActionName:string,
-  handlers: handlers,
-  // updatedElementStateFieldName: string,
-}
+// type reducers = {
+//   role: option<string>,
+//   // handlerActionName:string,
+//   handlers: handlers,
+//   // updatedElementStateFieldName: string,
+// }
 
 // type reducer = list<reducer>
 
 type elementInspectorData = {
   elementStateFields: elementStateFields,
-  reducers: reducers,
+  // reducers: reducers,
 }
 
 type elementContribute = ApAssembleStoreType.contribute
@@ -139,8 +139,8 @@ type action =
   | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
   | SetElementStateFields(elementStateFields)
-  | SetRole(option<string>)
-  | SetHandlers(handlers)
+  // | SetRole(option<string>)
+  // | SetHandlers(handlers)
   | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
 
 type state = {

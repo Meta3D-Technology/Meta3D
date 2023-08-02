@@ -46,7 +46,7 @@ defineFeature(feature, test => {
             ~sandbox,
             ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
               (
-                ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+                ElementInspectorTool.buildElementInspectorData(list{}),
                 list{},
               ),
               _,
@@ -127,7 +127,7 @@ defineFeature(feature, test => {
       elementName := "e1"
       elementVersion := "0.0.1"
       elementInspectorData :=
-        ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers())
+        ElementInspectorTool.buildElementInspectorData(list{})
 
       event := [UIControlInspectorTool.buildEventData(#click, "a1")]
 

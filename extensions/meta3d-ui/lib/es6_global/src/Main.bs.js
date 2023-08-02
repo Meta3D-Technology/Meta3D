@@ -15,7 +15,7 @@ function getExtensionService(api) {
           hide: UIManager$Meta3dUi.hide,
           isStateChange: UIManager$Meta3dUi.isStateChange,
           getElementState: UIManager$Meta3dUi.getElementState,
-          dispatch: UIManager$Meta3dUi.dispatch,
+          updateElementState: UIManager$Meta3dUi.updateElementState,
           getSkin: UIManager$Meta3dUi.getSkin,
           getUIControlFunc: UIManager$Meta3dUi.getUIControlFuncExn,
           getUIControlState: UIManager$Meta3dUi.getUIControlState,
@@ -91,7 +91,7 @@ function createExtensionState(param) {
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          reducers: [],
+          currentElementName: undefined,
           fboTextureMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }

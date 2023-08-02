@@ -20,18 +20,18 @@ through code editor(just copy and commit)
 
 ** TODO simplify action
 
+
+# refactor dispatch:
+# - rename to updateElementState
+# - change to: updateElementState(uiState, (elementState) => new elementState)
+# - remove reducer, directly update element state
+
+
+
+
 unify protocol to one protocol without config:
 - remove protocol config
 # - simplify ui control protocol config?
-
-
-refactor dispatch:
-- rename to setElementState
-- change to: setElementState(uiState, (elementState) => new elementState)
-- remove reducer, directly update element state
-
-
-
 
 
 

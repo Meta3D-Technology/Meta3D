@@ -8,20 +8,19 @@ let buildElementStateFieldData = (
   ~type_=#int,
   (),
 ): FrontendUtils.ElementAssembleStoreType.elementStateFieldData => {
-  name: name,
-  type_: type_,
+  name,
+  type_,
   defaultValue: defaultValue->Obj.magic,
 }
 
 let submitElementState = ElementInspector.Method.onFinishState
 
 let buildElementInspectorData = (
-  elementStateFields,
-  reducers,
+  elementStateFields
 ): FrontendUtils.ElementAssembleStoreType.elementInspectorData => {
-  {elementStateFields: elementStateFields, reducers: reducers}
+  {elementStateFields: elementStateFields}
 }
 
-let setRole = ElementInspector.Method.setRole
+// let setRole = ElementInspector.Method.setRole
 
-let submitHandlers = ElementInspector.Method.onFinishReducerHandlers
+// let submitHandlers = ElementInspector.Method.onFinishReducerHandlers

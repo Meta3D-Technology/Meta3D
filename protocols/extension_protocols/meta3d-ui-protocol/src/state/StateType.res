@@ -46,7 +46,8 @@ type state = {
     UIControlContributeType.uiControlName,
     uiControlState,
   >,
-  reducers: array<ElementContributeType.reducerData>,
+  // reducers: array<ElementContributeType.reducerData>,
+  currentElementName: option<ElementContributeType.elementName>,
   fboTextureMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     textureID,
     Meta3dImguiRendererProtocol.ServiceType.texture,

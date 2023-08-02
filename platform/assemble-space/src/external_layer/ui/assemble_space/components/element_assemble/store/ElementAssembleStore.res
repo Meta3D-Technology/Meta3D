@@ -27,10 +27,10 @@ let _createState = () => {
   isShowElementInspector: false,
   elementInspectorData: {
     elementStateFields: list{},
-    reducers: {
-      role: None,
-      handlers: list{},
-    },
+    // reducers: {
+    //   role: None,
+    //   handlers: list{},
+    // },
   },
 }
 
@@ -230,26 +230,26 @@ let reducer = (state, action) => {
         elementStateFields: elementStateFields,
       },
     }
-  | SetRole(role) => {
-      ...state,
-      elementInspectorData: {
-        ...state.elementInspectorData,
-        reducers: {
-          ...state.elementInspectorData.reducers,
-          role: role,
-        },
-      },
-    }
-  | SetHandlers(handlers) => {
-      ...state,
-      elementInspectorData: {
-        ...state.elementInspectorData,
-        reducers: {
-          ...state.elementInspectorData.reducers,
-          handlers: handlers,
-        },
-      },
-    }
+  // | SetRole(role) => {
+  //     ...state,
+  //     elementInspectorData: {
+  //       ...state.elementInspectorData,
+  //       reducers: {
+  //         ...state.elementInspectorData.reducers,
+  //         role: role,
+  //       },
+  //     },
+  //   }
+  // | SetHandlers(handlers) => {
+  //     ...state,
+  //     elementInspectorData: {
+  //       ...state.elementInspectorData,
+  //       reducers: {
+  //         ...state.elementInspectorData.reducers,
+  //         handlers: handlers,
+  //       },
+  //     },
+  //   }
   | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData) => {
       ...state,
       selectedUIControls: selectedUIControls,

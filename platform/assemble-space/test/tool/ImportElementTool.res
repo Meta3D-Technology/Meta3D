@@ -24,7 +24,7 @@ let buildUIControl = (
 let buildElementAssembleData = (
   ~elementName="e1",
   ~elementVersion="0.0.1",
-  ~element=ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+  ~element=ElementInspectorTool.buildElementInspectorData(list{}),
   ~uiControls=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.elementAssembleData => {

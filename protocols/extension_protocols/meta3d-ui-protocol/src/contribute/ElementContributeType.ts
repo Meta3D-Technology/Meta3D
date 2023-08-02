@@ -7,15 +7,15 @@ export type elementName = string
 export type elementFunc<elementState> = (_1: meta3dState, elementState: elementState) => Promise<meta3dState>;
 
 
-type handler = {
-    actionName: string,
-    updatedElementStateFieldName: string,
-}
+// type handler = {
+//     actionName: string,
+//     updatedElementStateFieldName: string,
+// }
 
-type reducers = {
-    role: string,
-    handlers: Array<handler>,
-}
+// type reducers = {
+//     role: string,
+//     handlers: Array<handler>,
+// }
 
 // type uiControlName = string
 
@@ -27,7 +27,7 @@ export type elementContribute<elementState> = {
     elementFunc: elementFunc<elementState>,
     elementState: elementState,
     // uiControlStates: Map<uiControlName, uiControlState>,
-    reducers: nullable<reducers>
+    // reducers: nullable<reducers>
 }
 
 // export type getElementContribute<dependentExtensionProtocolNameMap, elementState> = (api: api, dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap) => elementContribute<elementState>;

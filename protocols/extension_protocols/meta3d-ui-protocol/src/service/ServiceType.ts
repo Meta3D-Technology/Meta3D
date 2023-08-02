@@ -1,6 +1,6 @@
 import { api, extensionProtocolName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName } from "../contribute/ElementContributeType"
-import { state, textureID } from "../state/StateType"
+import { state, textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
 import { style, label, pos, size, rect, texture as imguiTexture, context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
@@ -12,9 +12,9 @@ export type imguiRendererExtensionProtocolName = extensionProtocolName
 
 type time = number
 
-type elementStateField = any
+// type elementStateField = any
 
-type updateElementStateFieldFunc = (elementStateField: elementStateField) => elementStateField
+type updateElementStateFunc = (elementState: elementState) => elementState
 
 type clearColor = [number, number, number, number]
 
@@ -94,11 +94,15 @@ export type service = {
         state: state,
         elementName: elementName
     ) => nullable<elementState>;
-    readonly dispatch: <action> (
+    // readonly dispatch: <action> (
+    //     state: state,
+    //     actionName: string,
+    //     role: string,
+    //     updateElementStateFieldFunc: updateElementStateFieldFunc
+    // ) => state;
+    readonly updateElementState: (
         state: state,
-        actionName: string,
-        role: string,
-        updateElementStateFieldFunc: updateElementStateFieldFunc
+        updateElementStateFunc: updateElementStateFunc
     ) => state;
     readonly setStyle: (
         meta3dState: meta3dState,

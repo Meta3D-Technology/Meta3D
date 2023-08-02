@@ -24,34 +24,35 @@ defineFeature(feature, test => {
   test(."show nothing", ({given, \"when", \"and", then}) => {
     _prepare(given)
 
-    \"when"("render", () => {
-      ()
-    })
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show nothing", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show nothing",
+      () => {
+        UIControlInspectorTool.buildUI(
           ~sandbox,
-          ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{},
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
               (
-                ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-                None,
                 list{},
-                list{},
+                (ElementInspectorTool.buildElementInspectorData(list{}), None, list{}, list{}),
               ),
+              _,
             ),
-            _,
+            (),
           ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."show default data", ({given, \"when", \"and", then}) => {
@@ -62,83 +63,95 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("select uiControl u1, u2 that u2 is child of u1", () => {
-      u1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id=id1,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.6.0",
-              },
-              (),
-            ),
-            (),
-          ),
-          ~children=list{
-            SelectedUIControlsTool.buildSelectedUIControl(
-              ~id=id2,
-              ~data=ContributeTool.buildContributeData(
-                ~contributePackageData=ContributeTool.buildContributePackageData(
-                  ~protocol={
-                    name: "meta3d-ui-control-button-protocol",
-                    version: "^0.6.0",
-                  },
-                  (),
-                ),
+    given(
+      "select uiControl u1, u2 that u2 is child of u1",
+      () => {
+        u1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id=id1,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.6.0",
+                },
                 (),
               ),
-              ~children=list{},
               (),
             ),
-          },
-          (),
-        )
-    })
-
-    \"and"("set inspector current selected ui control data to u2", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            list{},
-            (
-              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-              id2->Some,
-              list{u1.contents},
-              list{
-                UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id=id2,
-                  ~y=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~children=list{
+              SelectedUIControlsTool.buildSelectedUIControl(
+                ~id=id2,
+                ~data=ContributeTool.buildContributeData(
+                  ~contributePackageData=ContributeTool.buildContributePackageData(
+                    ~protocol={
+                      name: "meta3d-ui-control-button-protocol",
+                      version: "^0.6.0",
+                    },
+                    (),
+                  ),
                   (),
                 ),
-              },
+                ~children=list{},
+                (),
+              ),
+            },
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to u2",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{},
+              (
+                ElementInspectorTool.buildElementInspectorData(list{}),
+                id2->Some,
+                list{u1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id=id2,
+                    ~y=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                    (),
+                  ),
+                },
+              ),
             ),
-          ),
-          _,
-        )
-    })
+            _,
+          )
+      },
+    )
 
-    \"when"("render", () => {
-      ()
-    })
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show default data", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show default data",
+      () => {
+        UIControlInspectorTool.buildUI(
           ~sandbox,
-          ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->returns(_getButtonSupportedEventNames(), _)
-          ->Obj.magic,
-          ~useSelector=useSelectorStub.contents,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(_getButtonSupportedEventNames(), _)
+            ->Obj.magic,
+            ~useSelector=useSelectorStub.contents,
+            (),
+          ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."show rect with element state fields", ({given, \"when", \"and", then}) => {
@@ -149,80 +162,92 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("element state add fields", () => {
-      elementStateFields :=
-        list{
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="f1",
-            ~type_=#string,
-            ~defaultValue="v1",
-            (),
-          ),
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="f2",
-            ~type_=#int,
-            ~defaultValue=1,
-            (),
-          ),
-        }
-    })
+    given(
+      "element state add fields",
+      () => {
+        elementStateFields :=
+          list{
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="f1",
+              ~type_=#string,
+              ~defaultValue="v1",
+              (),
+            ),
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="f2",
+              ~type_=#int,
+              ~defaultValue=1,
+              (),
+            ),
+          }
+      },
+    )
 
-    \"and"("select ui control button d1", () => {
-      d1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.6.0",
-              },
+    \"and"(
+      "select ui control button d1",
+      () => {
+        d1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
+          )
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to d1",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{},
+              (
+                ElementInspectorTool.buildElementInspectorData(elementStateFields.contents),
+                id->Some,
+                list{d1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id,
+                    ~width=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show element state int field select",
+      () => {
+        UIControlInspectorTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
           (),
         )
-    })
-
-    \"and"("set inspector current selected ui control data to d1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            list{},
-            (
-              ElementInspectorTool.buildElementInspectorData(
-                elementStateFields.contents,
-                ReducerTool.buildReducers(),
-              ),
-              id->Some,
-              list{d1.contents},
-              list{
-                UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id,
-                  ~width=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-                  (),
-                ),
-              },
-            ),
-          ),
-          _,
-        )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show element state int field select", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."set rect x", ({given, \"when", \"and", then}) => {
@@ -239,22 +264,28 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    \"when"("set rect x", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set rect x",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      UIControlInspectorTool.setRectX(dispatchStub.contents->Obj.magic, id, rect, x)
-    })
+        UIControlInspectorTool.setRectX(dispatchStub.contents->Obj.magic, id, rect, x)
+      },
+    )
 
-    then("should dispatch SetRect action with x", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetRect(
-          id,
-          {
-            ...rect,
-            x: x,
-          },
-        )
-    })
+    then(
+      "should dispatch SetRect action with x",
+      () => {
+        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+          FrontendUtils.ElementAssembleStoreType.SetRect(
+            id,
+            {
+              ...rect,
+              x,
+            },
+          )
+      },
+    )
   })
 
   test(."show isDraw with element state fields", ({given, \"when", \"and", then}) => {
@@ -265,80 +296,92 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("element state add fields", () => {
-      elementStateFields :=
-        list{
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="f1",
-            ~type_=#string,
-            ~defaultValue="true",
-            (),
-          ),
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="f2",
-            ~type_=#bool,
-            ~defaultValue=false,
-            (),
-          ),
-        }
-    })
+    given(
+      "element state add fields",
+      () => {
+        elementStateFields :=
+          list{
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="f1",
+              ~type_=#string,
+              ~defaultValue="true",
+              (),
+            ),
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="f2",
+              ~type_=#bool,
+              ~defaultValue=false,
+              (),
+            ),
+          }
+      },
+    )
 
-    \"and"("select ui control button d1", () => {
-      d1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.6.0",
-              },
+    \"and"(
+      "select ui control button d1",
+      () => {
+        d1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
+          )
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to d1",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{},
+              (
+                ElementInspectorTool.buildElementInspectorData(elementStateFields.contents),
+                id->Some,
+                list{d1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id,
+                    ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show element state bool field select",
+      () => {
+        UIControlInspectorTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
           (),
         )
-    })
-
-    \"and"("set inspector current selected ui control data to d1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            list{},
-            (
-              ElementInspectorTool.buildElementInspectorData(
-                elementStateFields.contents,
-                ReducerTool.buildReducers(),
-              ),
-              id->Some,
-              list{d1.contents},
-              list{
-                UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id,
-                  ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-                  (),
-                ),
-              },
-            ),
-          ),
-          _,
-        )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show element state bool field select", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."set isDraw", ({given, \"when", \"and", then}) => {
@@ -348,16 +391,22 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    \"when"("set isDraw", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set isDraw",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      UIControlInspectorTool.setIsDraw(dispatchStub.contents->Obj.magic, id, isDraw)
-    })
+        UIControlInspectorTool.setIsDraw(dispatchStub.contents->Obj.magic, id, isDraw)
+      },
+    )
 
-    then("should dispatch SetIsDraw action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw)
-    })
+    then(
+      "should dispatch SetIsDraw action",
+      () => {
+        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+          FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw)
+      },
+    )
   })
 
   test(."show specific", ({given, \"when", \"and", then}) => {
@@ -367,68 +416,80 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("select ui control window w1", () => {
-      w1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.7.0",
-              },
+    given(
+      "select ui control window w1",
+      () => {
+        w1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.7.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
+          )
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to w1",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{},
+              (
+                ElementInspectorTool.buildElementInspectorData(list{}),
+                id->Some,
+                list{w1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id,
+                    ~specific=[
+                      UIControlInspectorTool.buildSpecific(
+                        ~name="label",
+                        ~type_=#string,
+                        ~value="Window1"
+                        ->Obj.magic
+                        ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                        (),
+                      ),
+                    ],
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show dom with defalut value",
+      () => {
+        UIControlInspectorTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
           (),
         )
-    })
-
-    \"and"("set inspector current selected ui control data to w1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            list{},
-            (
-              ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
-              id->Some,
-              list{w1.contents},
-              list{
-                UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id,
-                  ~specific=[
-                    UIControlInspectorTool.buildSpecific(
-                      ~name="label",
-                      ~type_=#string,
-                      ~value="Window1"
-                      ->Obj.magic
-                      ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                      (),
-                    ),
-                  ],
-                  (),
-                ),
-              },
-            ),
-          ),
-          _,
-        )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show dom with defalut value", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."show specific with element state fields", ({given, \"when", \"and", then}) => {
@@ -439,81 +500,93 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("element state add fields", () => {
-      elementStateFields :=
-        list{
-          ElementInspectorTool.buildElementStateFieldData(
-            ~name="label1",
-            ~type_=#string,
-            ~defaultValue="window1",
-            (),
-          ),
-        }
-    })
+    given(
+      "element state add fields",
+      () => {
+        elementStateFields :=
+          list{
+            ElementInspectorTool.buildElementStateFieldData(
+              ~name="label1",
+              ~type_=#string,
+              ~defaultValue="window1",
+              (),
+            ),
+          }
+      },
+    )
 
-    \"and"("select ui control window w1", () => {
-      w1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.7.0",
-              },
+    \"and"(
+      "select ui control window w1",
+      () => {
+        w1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.7.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
+          )
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to w1",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{},
+              (
+                ElementInspectorTool.buildElementInspectorData(elementStateFields.contents),
+                id->Some,
+                list{w1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id,
+                    ~specific=[
+                      UIControlInspectorTool.buildSpecific(
+                        ~name="label",
+                        ~type_=#string,
+                        ~value="label1"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                        (),
+                      ),
+                    ],
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show element state string field select",
+      () => {
+        UIControlInspectorTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
           (),
         )
-    })
-
-    \"and"("set inspector current selected ui control data to w1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            list{},
-            (
-              ElementInspectorTool.buildElementInspectorData(
-                elementStateFields.contents,
-                ReducerTool.buildReducers(),
-              ),
-              id->Some,
-              list{w1.contents},
-              list{
-                UIControlInspectorTool.buildUIControlInspectorData(
-                  ~id,
-                  ~specific=[
-                    UIControlInspectorTool.buildSpecific(
-                      ~name="label",
-                      ~type_=#string,
-                      ~value="label1"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
-                      (),
-                    ),
-                  ],
-                  (),
-                ),
-              },
-            ),
-          ),
-          _,
-        )
-    })
-
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show element state string field select", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."set specific data", ({given, \"when", \"and", then}) => {
@@ -532,37 +605,43 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    \"when"("set specific data", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set specific data",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      UIControlInspectorTool.setSpecificData(
-        dispatchStub.contents->Obj.magic,
-        specific,
-        id,
-        i,
-        "Window2"
-        ->SpecificUtils.convertStringToValue(type_)
-        ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-        type_,
-      )
-    })
-
-    then("should dispatch SetSpecificData action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetSpecificData(
+        UIControlInspectorTool.setSpecificData(
+          dispatchStub.contents->Obj.magic,
+          specific,
           id,
-          [
-            UIControlInspectorTool.buildSpecific(
-              ~name="label",
-              ~type_,
-              ~value="Window2"
-              ->Obj.magic
-              ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-              (),
-            ),
-          ],
+          i,
+          "Window2"
+          ->SpecificUtils.convertStringToValue(type_)
+          ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+          type_,
         )
-    })
+      },
+    )
+
+    then(
+      "should dispatch SetSpecificData action",
+      () => {
+        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+          FrontendUtils.ElementAssembleStoreType.SetSpecificData(
+            id,
+            [
+              UIControlInspectorTool.buildSpecific(
+                ~name="label",
+                ~type_,
+                ~value="Window2"
+                ->Obj.magic
+                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                (),
+              ),
+            ],
+          )
+      },
+    )
   })
 
   test(."show default action and action select", ({given, \"when", \"and", then}) => {
@@ -582,90 +661,96 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given("select ui control button d1", () => {
-      d1 :=
-        SelectedUIControlsTool.buildSelectedUIControl(
-          ~id,
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~protocol={
-                name: "meta3d-ui-control-button-protocol",
-                version: "^0.6.0",
-              },
+    given(
+      "select ui control button d1",
+      () => {
+        d1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-button-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
-          (),
-        )
+          )
 
-      serializeUIControlProtocolConfigLibStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(d1ConfigLib, _)
-      getUIControlSupportedEventNamesStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))
-        ->withOneArg(d1ConfigLib, _)
-        ->returns(_getButtonSupportedEventNames(), _)
-    })
+        serializeUIControlProtocolConfigLibStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(d1ConfigLib, _)
+        getUIControlSupportedEventNamesStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withOneArg(d1ConfigLib, _)
+          ->returns(_getButtonSupportedEventNames(), _)
+      },
+    )
 
-    \"and"("select action a1 and a2", () => {
-      execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"and"(
+      "select action a1 and a2",
+      () => {
+        execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      a1 :=
-        SelectedContributesTool.buildSelectedContribute(
-          ~id=action1Name,
-          ~protocolConfigStr=Some(""),
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~name=action1Name,
-              ~protocol={
-                name: "meta3d-action-a1-protocol",
-                version: "^0.6.0",
-              },
+        a1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id=action1Name,
+            ~protocolConfigStr=Some(""),
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=action1Name,
+                ~protocol={
+                  name: "meta3d-action-a1-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
-          (),
+          )
+
+        execGetContributeFuncStub.contents
+        ->onCall(0, _)
+        ->returns(
+          {
+            "actionName": action1Name,
+          },
+          _,
         )
+        ->ignore
 
-      execGetContributeFuncStub.contents
-      ->onCall(0, _)
-      ->returns(
-        {
-          "actionName": action1Name,
-        },
-        _,
-      )
-      ->ignore
-
-      a2 :=
-        SelectedContributesTool.buildSelectedContribute(
-          ~id=action2Name,
-          ~protocolConfigStr=Some(""),
-          ~data=ContributeTool.buildContributeData(
-            ~contributePackageData=ContributeTool.buildContributePackageData(
-              ~name=action2Name,
-              ~protocol={
-                name: "meta3d-action-a2-protocol",
-                version: "^0.6.0",
-              },
+        a2 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id=action2Name,
+            ~protocolConfigStr=Some(""),
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=action2Name,
+                ~protocol={
+                  name: "meta3d-action-a2-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
               (),
             ),
             (),
-          ),
-          (),
-        )
+          )
 
-      execGetContributeFuncStub.contents
-      ->onCall(1, _)
-      ->returns(
-        {
-          "actionName": action2Name,
-        },
-        _,
-      )
-      ->ignore
-    })
+        execGetContributeFuncStub.contents
+        ->onCall(1, _)
+        ->returns(
+          {
+            "actionName": action2Name,
+          },
+          _,
+        )
+        ->ignore
+      },
+    )
 
     \"and"(
       "set inspector current selected ui control data to d1 whose event's action is a2",
@@ -675,7 +760,7 @@ defineFeature(feature, test => {
             (
               list{a1.contents, a2.contents},
               (
-                ElementInspectorTool.buildElementInspectorData(list{}, ReducerTool.buildReducers()),
+                ElementInspectorTool.buildElementInspectorData(list{}),
                 id->Some,
                 list{d1.contents},
                 list{
@@ -692,26 +777,32 @@ defineFeature(feature, test => {
       },
     )
 
-    \"when"("render", () => {
-      ()
-    })
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show a2 as default action and select with a1, a2", () => {
-      UIControlInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show a2 as default action and select with a1, a2",
+      () => {
+        UIControlInspectorTool.buildUI(
           ~sandbox,
-          ~serializeUIControlProtocolConfigLib=serializeUIControlProtocolConfigLibStub.contents->Obj.magic,
-          ~getUIControlSupportedEventNames=getUIControlSupportedEventNamesStub.contents->Obj.magic,
-          ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
-          ~useSelector=useSelectorStub.contents,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~serializeUIControlProtocolConfigLib=serializeUIControlProtocolConfigLibStub.contents->Obj.magic,
+            ~getUIControlSupportedEventNames=getUIControlSupportedEventNamesStub.contents->Obj.magic,
+            ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
+            ~useSelector=useSelectorStub.contents,
+            (),
+          ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
   test(."set action", ({given, \"when", \"and", then}) => {
@@ -722,16 +813,27 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    \"when"("set action", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set action",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
-    })
+        UIControlInspectorTool.setAction(
+          dispatchStub.contents->Obj.magic,
+          id,
+          eventName,
+          actionName,
+        )
+      },
+    )
 
-    then("should dispatch SetAction action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some))
-    })
+    then(
+      "should dispatch SetAction action",
+      () => {
+        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+          FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some))
+      },
+    )
   })
 
   test(."set action with empty action name", ({given, \"when", \"and", then}) => {
@@ -742,15 +844,26 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    \"when"("set action with empty action name", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set action with empty action name",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      UIControlInspectorTool.setAction(dispatchStub.contents->Obj.magic, id, eventName, actionName)
-    })
+        UIControlInspectorTool.setAction(
+          dispatchStub.contents->Obj.magic,
+          id,
+          eventName,
+          actionName,
+        )
+      },
+    )
 
-    then("should dispatch SetAction action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, None))
-    })
+    then(
+      "should dispatch SetAction action",
+      () => {
+        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+          FrontendUtils.ElementAssembleStoreType.SetAction(id, (eventName, None))
+      },
+    )
   })
 })

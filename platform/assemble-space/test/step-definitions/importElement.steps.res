@@ -259,7 +259,6 @@ defineFeature(feature, test => {
                 (),
               ),
             },
-            ReducerTool.buildReducers(),
           )
 
         uiControl1 :=

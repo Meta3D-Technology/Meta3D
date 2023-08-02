@@ -26,30 +26,30 @@ Feature: ElementInsepctor
             Then should dispatch SetElementStateFields action
 
 
-    Rule: Show Reducer
+    # Rule: Show Reducer
 
-        Background: prepare reducer
-            Given mark show
-            And select action a1 whose protocol config's actions define role1, role2
+    #     Background: prepare reducer
+    #         Given mark show
+    #         And select action a1 whose protocol config's actions define role1, role2
 
-        Scenario: show role select
-            When render
-            Then should show role select contain role1, role2
+    #     Scenario: show role select
+    #         When render
+    #         Then should show role select contain role1, role2
 
-        Scenario: show handlers
-            Given prepare reducers with role1 and handler h1
-            When render
-            Then should show h1 form
+    #     Scenario: show handlers
+    #         Given prepare reducers with role1 and handler h1
+    #         When render
+    #         Then should show h1 form
 
 
-    Rule: Handle Reducer
+    # Rule: Handle Reducer
 
-        Scenario: set role
-            Given prepare role
-            When set role
-            Then should dispatch SetRole action
+    #     Scenario: set role
+    #         Given prepare role
+    #         When set role
+    #         Then should dispatch SetRole action
 
-        Scenario: submit handlers
-            Given prepare reducers
-            When submit handlers
-            Then should dispatch SetHandlers action
+    #     Scenario: submit handlers
+    #         Given prepare reducers
+    #         When submit handlers
+    #         Then should dispatch SetHandlers action

@@ -178,14 +178,14 @@ module Method = {
     service,
     selectedUIControls,
     selectedUIControlInspectorData,
-    (elementStateFields, reducers),
+    elementStateFields,
   ) =>
     ElementContributeUtils.buildElementContributeFileStr(
       service,
       _getElementContributeName(),
       selectedUIControls,
       selectedUIControlInspectorData,
-      (elementStateFields, reducers),
+      elementStateFields,
     )
 
   let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
@@ -445,7 +445,7 @@ let make = (~service: service, ~account: option<string>) => {
   let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
   let loopFrameID = service.react.useRef(None)
 
-  let {elementStateFields, reducers} = elementInspectorData
+  let {elementStateFields} = elementInspectorData
 
   service.react.useEffectOnce(() => {
     switch visualExtension {
@@ -485,7 +485,7 @@ let make = (~service: service, ~account: option<string>) => {
               service,
               selectedUIControls,
               selectedUIControlInspectorData,
-              (elementStateFields, reducers),
+              elementStateFields,
             ),
           )->Method.updateElementContribute(dispatch, _)
         }, 5->Some)

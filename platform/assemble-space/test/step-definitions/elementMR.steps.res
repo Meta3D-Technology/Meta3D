@@ -202,7 +202,7 @@ defineFeature(feature, test => {
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            (elementStateFields.contents, ReducerTool.buildReducers()),
+            elementStateFields.contents,
           )
       },
     )
@@ -227,7 +227,6 @@ defineFeature(feature, test => {
                 elementName,
                 execOrder: 0,
                 elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
-                reducers: ReducerTool.buildReducers(),
               },
               uiControls: [
                 {
@@ -264,7 +263,7 @@ defineFeature(feature, test => {
       "generate correct result",
       () => {
         str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
       },
     )
   })
@@ -352,7 +351,7 @@ defineFeature(feature, test => {
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            (list{}, ReducerTool.buildReducers()),
+            list{},
           )
       },
     )
@@ -377,7 +376,6 @@ defineFeature(feature, test => {
                 elementName,
                 execOrder: 0,
                 elementStateFields: [],
-                reducers: ReducerTool.buildReducers(),
               },
               uiControls: [
                 {
@@ -409,7 +407,6 @@ defineFeature(feature, test => {
             elementName:"ElementAssembleElement",
             execOrder: 0,
             elementState: {},
-            reducers: null,
             elementFunc: (meta3dState, elementState) => {
                 let { getUIControlFunc } = api.getExtensionService(meta3dState, "meta3d-ui-protocol")
 
@@ -452,70 +449,69 @@ handle click event code...
     )
   })
 
-  test(."build element middle represent with reducer and generate element contribute string", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let b1 = ref(Obj.magic(1))
-    let b1Name = "Button1"
-    let mr = ref(Obj.magic(1))
-    let str = ref(Obj.magic(1))
-    let selectedUIControls = ref(list{})
-    let selectedUIControlInspectorData = ref(list{})
-    let reducers = ref(Obj.magic(1))
+  // test(."build element middle represent with reducer and generate element contribute string", ({
+  //   given,
+  //   \"when",
+  //   \"and",
+  //   then,
+  // }) => {
+  //   let b1 = ref(Obj.magic(1))
+  //   let b1Name = "Button1"
+  //   let mr = ref(Obj.magic(1))
+  //   let str = ref(Obj.magic(1))
+  //   let selectedUIControls = ref(list{})
+  //   let selectedUIControlInspectorData = ref(list{})
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    given(
-      "prepare reducers",
-      () => {
-        reducers :=
-          ReducerTool.buildReducers(
-            ~role="role1"->Some,
-            ~handlers=list{ReducerTool.buildHandler("action1", "x")},
-            (),
-          )
-      },
-    )
+  //   given(
+  //     "prepare reducers",
+  //     () => {
+  //       reducers :=
+  //         ReducerTool.buildReducers(
+  //           ~role="role1"->Some,
+  //           ~handlers=list{ReducerTool.buildHandler("action1", "x")},
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"when"(
-      "build element middle represent with reducers",
-      () => {
-        mr :=
-          ElementVisualTool.buildElementMR(
-            service.contents,
-            elementName,
-            [],
-            [],
-            (list{}, reducers.contents),
-          )
-      },
-    )
+  //   \"when"(
+  //     "build element middle represent with reducers",
+  //     () => {
+  //       mr :=
+  //         ElementVisualTool.buildElementMR(
+  //           service.contents,
+  //           elementName,
+  //           [],
+  //           [],
+  //           (list{}, reducers.contents),
+  //         )
+  //     },
+  //   )
 
-    \"and"(
-      "generate element contribute string",
-      () => {
-        str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
-      },
-    )
+  //   \"and"(
+  //     "generate element contribute string",
+  //     () => {
+  //       str := ElementVisualTool.generateElementContributeFileStr(service.contents, mr.contents)
+  //     },
+  //   )
 
-    then(
-      "should build correct result",
-      () => {
-        mr.contents.element.reducers->expect == reducers.contents
-      },
-    )
+  //   then(
+  //     "should build correct result",
+  //     () => {
+  //       mr.contents.element.reducers->expect == reducers.contents
+  //     },
+  //   )
 
-    \"and"(
-      "generate correct result",
-      () => {
-        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: {\"role\":\"role1\",\"handlers\":[{\"actionName\":\"action1\",\"updatedElementStateFieldName\":\"x\"}]},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n                let data = null\n  \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
-      },
-    )
-  })
+  //   \"and"(
+  //     "generate correct result",
+  //     () => {
+  //       str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
+  //         "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: {\"role\":\"role1\",\"handlers\":[{\"actionName\":\"action1\",\"updatedElementStateFieldName\":\"x\"}]},\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n                let data = null\n  \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                \n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+  //     },
+  //   )
+  // })
 
   test(."build element middle represent with window and generate element contribute string", ({
     given,
@@ -610,7 +606,7 @@ handle click event code...
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            (list{}, ReducerTool.buildReducers()),
+            list{},
           )
       },
     )
@@ -635,7 +631,6 @@ handle click event code...
                 elementName,
                 execOrder: 0,
                 elementStateFields: [],
-                reducers: ReducerTool.buildReducers(),
               },
               uiControls: [
                 {
@@ -660,7 +655,7 @@ handle click event code...
       "generate correct result",
       () => {
         str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Window1 = getUIControlFunc(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n                       elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Window1 = getUIControlFunc(uiState,\"Window1\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
       },
     )
   })
@@ -861,7 +856,7 @@ handle click event code...
               elementName,
               selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
               selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-              (elementStateFields.contents, ReducerTool.buildReducers()),
+              elementStateFields.contents,
             )
         },
       )
@@ -886,7 +881,6 @@ handle click event code...
                   elementName,
                   execOrder: 0,
                   elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
-                  reducers: ReducerTool.buildReducers(),
                 },
                 uiControls: [
                   {
@@ -924,7 +918,7 @@ handle click event code...
         "generate correct result",
         () => {
           str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
         },
       )
     },
@@ -1153,7 +1147,7 @@ handle click event code...
               elementName,
               selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
               selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-              (list{}, ReducerTool.buildReducers()),
+              list{},
             )
         },
       )
@@ -1178,7 +1172,6 @@ handle click event code...
                   elementName,
                   execOrder: 0,
                   elementStateFields: [],
-                  reducers: ReducerTool.buildReducers(),
                 },
                 uiControls: [
                   {
@@ -1229,7 +1222,7 @@ handle click event code...
         "generate correct result",
         () => {
           str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            reducers: null,\n            elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(true){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(true){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window2\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let Button = getUIControlFunc(uiState,\"Button\")\n    \n                let data = null\n  if(true){\n                 return Button(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(true){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(true){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window2\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let Button = getUIControlFunc(uiState,\"Button\")\n    \n                let data = null\n  if(true){\n                 return Button(meta3dState,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
         },
       )
     },

@@ -72,7 +72,6 @@ defineFeature(feature, test => {
                     (),
                   ),
                 },
-                ReducerTool.buildReducers(),
               ),
             ),
           ),
@@ -129,176 +128,176 @@ defineFeature(feature, test => {
     })
   })
 
-  let _prepareReducer = (given, \"and") => {
-    given("mark show", () => {
-      ()
-    })
+  // let _prepareReducer = (given, \"and") => {
+  //   given("mark show", () => {
+  //     ()
+  //   })
 
-    \"and"("select action a1 whose protocol config's actions define role1, role2", () => {
-      selectedContributes :=
-        list{
-          SelectedContributesTool.buildSelectedContribute(
-            ~id="a1",
-            ~protocolConfigStr=ActionProtocolConfigTool.buildActionContributeProtocolConfigStr()->Some,
-            ~data=ContributeTool.buildContributeData(
-              ~contributePackageData=ContributeTool.buildContributePackageData(
-                ~protocol=(
-                  {
-                    name: "meta3d-action-a1",
-                    version: "0.0.1",
-                  }: Meta3d.ExtensionFileType.contributeProtocolData
-                ),
-                (),
-              ),
-              (),
-            ),
-            (),
-          ),
-        }
-    })
-  }
+  //   \"and"("select action a1 whose protocol config's actions define role1, role2", () => {
+  //     selectedContributes :=
+  //       list{
+  //         SelectedContributesTool.buildSelectedContribute(
+  //           ~id="a1",
+  //           ~protocolConfigStr=ActionProtocolConfigTool.buildActionContributeProtocolConfigStr()->Some,
+  //           ~data=ContributeTool.buildContributeData(
+  //             ~contributePackageData=ContributeTool.buildContributePackageData(
+  //               ~protocol=(
+  //                 {
+  //                   name: "meta3d-action-a1",
+  //                   version: "0.0.1",
+  //                 }: Meta3d.ExtensionFileType.contributeProtocolData
+  //               ),
+  //               (),
+  //             ),
+  //             (),
+  //           ),
+  //           (),
+  //         ),
+  //       }
+  //   })
+  // }
 
-  test(."show role select", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+  // test(."show role select", ({given, \"when", \"and", then}) => {
+  //   let useSelectorStub = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareReducer(given, \"and")
+  //   _prepareReducer(given, \"and")
 
-    \"when"("render", () => {
-      ()
-    })
+  //   \"when"("render", () => {
+  //     ()
+  //   })
 
-    then("should show role select contain role1, role2", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            selectedContributes.contents,
-            (
-              true,
-              ElementInspectorTool.buildElementInspectorData(
-                list{},
-                ReducerTool.buildReducers(~role=None, ()),
-              ),
-            ),
-          ),
-          _,
-        )
+  //   then("should show role select contain role1, role2", () => {
+  //     useSelectorStub :=
+  //       createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //         (
+  //           selectedContributes.contents,
+  //           (
+  //             true,
+  //             ElementInspectorTool.buildElementInspectorData(
+  //               list{},
+  //               ReducerTool.buildReducers(~role=None, ()),
+  //             ),
+  //           ),
+  //         ),
+  //         _,
+  //       )
 
-      ElementInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~useSelector=useSelectorStub.contents,
-          ~serializeActionProtocolConfigLib=Meta3d.Main.serializeActionProtocolConfigLib->Obj.magic,
-          ~getActions=Meta3d.Main.getActions->Obj.magic,
-          (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
-  })
+  //     ElementInspectorTool.buildUI(
+  //       ~sandbox,
+  //       ~service=ServiceTool.build(
+  //         ~sandbox,
+  //         ~useSelector=useSelectorStub.contents,
+  //         ~serializeActionProtocolConfigLib=Meta3d.Main.serializeActionProtocolConfigLib->Obj.magic,
+  //         ~getActions=Meta3d.Main.getActions->Obj.magic,
+  //         (),
+  //       ),
+  //       (),
+  //     )
+  //     ->ReactTestRenderer.create
+  //     ->ReactTestTool.createSnapshotAndMatch
+  //   })
+  // })
 
-  test(."show handlers", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+  // test(."show handlers", ({given, \"when", \"and", then}) => {
+  //   let useSelectorStub = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    _prepareReducer(given, \"and")
+  //   _prepareReducer(given, \"and")
 
-    \"and"("prepare reducers with role1 and handler h1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (
-            selectedContributes.contents,
-            (
-              true,
-              ElementInspectorTool.buildElementInspectorData(
-                list{},
-                ReducerTool.buildReducers(
-                  ~role="role1"->Some,
-                  ~handlers=list{ReducerTool.buildHandler("action1", "x")},
-                  (),
-                ),
-              ),
-            ),
-          ),
-          _,
-        )
-    })
+  //   \"and"("prepare reducers with role1 and handler h1", () => {
+  //     useSelectorStub :=
+  //       createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //         (
+  //           selectedContributes.contents,
+  //           (
+  //             true,
+  //             ElementInspectorTool.buildElementInspectorData(
+  //               list{},
+  //               ReducerTool.buildReducers(
+  //                 ~role="role1"->Some,
+  //                 ~handlers=list{ReducerTool.buildHandler("action1", "x")},
+  //                 (),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         _,
+  //       )
+  //   })
 
-    \"when"("render", () => {
-      ()
-    })
+  //   \"when"("render", () => {
+  //     ()
+  //   })
 
-    then("should show h1 form", () => {
-      ElementInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
-          ~sandbox,
-          ~useSelector=useSelectorStub.contents,
-          ~serializeActionProtocolConfigLib=Meta3d.Main.serializeActionProtocolConfigLib->Obj.magic,
-          ~getActions=Meta3d.Main.getActions->Obj.magic,
-          (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
-  })
+  //   then("should show h1 form", () => {
+  //     ElementInspectorTool.buildUI(
+  //       ~sandbox,
+  //       ~service=ServiceTool.build(
+  //         ~sandbox,
+  //         ~useSelector=useSelectorStub.contents,
+  //         ~serializeActionProtocolConfigLib=Meta3d.Main.serializeActionProtocolConfigLib->Obj.magic,
+  //         ~getActions=Meta3d.Main.getActions->Obj.magic,
+  //         (),
+  //       ),
+  //       (),
+  //     )
+  //     ->ReactTestRenderer.create
+  //     ->ReactTestTool.createSnapshotAndMatch
+  //   })
+  // })
 
-  test(."set role", ({given, \"when", \"and", then}) => {
-    let role = ref(Obj.magic(1))
-    let dispatchStub = ref(Obj.magic(1))
+  // test(."set role", ({given, \"when", \"and", then}) => {
+  //   let role = ref(Obj.magic(1))
+  //   let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    given("prepare role", () => {
-      role := "role1"
-    })
+  //   given("prepare role", () => {
+  //     role := "role1"
+  //   })
 
-    \"when"("set role", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //   \"when"("set role", () => {
+  //     dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      ElementInspectorTool.setRole(dispatchStub.contents->Obj.magic, role.contents)
-    })
+  //     ElementInspectorTool.setRole(dispatchStub.contents->Obj.magic, role.contents)
+  //   })
 
-    then("should dispatch SetRole action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetRole(role.contents->Some)
-    })
-  })
+  //   then("should dispatch SetRole action", () => {
+  //     dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+  //       FrontendUtils.ElementAssembleStoreType.SetRole(role.contents->Some)
+  //   })
+  // })
 
-  test(."submit handlers", ({given, \"when", \"and", then}) => {
-    let values = ref(Obj.magic(1))
-    let dispatchStub = ref(Obj.magic(1))
+  // test(."submit handlers", ({given, \"when", \"and", then}) => {
+  //   let values = ref(Obj.magic(1))
+  //   let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    given("prepare reducers", () => {
-      values :=
-        {
-          "handlers": [
-            ReducerTool.buildHandler("action1", "x"),
-            ReducerTool.buildHandler("action2", "y"),
-          ],
-        }
-    })
+  //   given("prepare reducers", () => {
+  //     values :=
+  //       {
+  //         "handlers": [
+  //           ReducerTool.buildHandler("action1", "x"),
+  //           ReducerTool.buildHandler("action2", "y"),
+  //         ],
+  //       }
+  //   })
 
-    \"when"("submit handlers", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //   \"when"("submit handlers", () => {
+  //     dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      ElementInspectorTool.submitHandlers(dispatchStub.contents->Obj.magic, values.contents)
-    })
+  //     ElementInspectorTool.submitHandlers(dispatchStub.contents->Obj.magic, values.contents)
+  //   })
 
-    then("should dispatch SetHandlers action", () => {
-      dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-        FrontendUtils.ElementAssembleStoreType.SetHandlers(
-          values.contents["handlers"]->Meta3dCommonlib.ListSt.fromArray,
-        )
-    })
-  })
+  //   then("should dispatch SetHandlers action", () => {
+  //     dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+  //       FrontendUtils.ElementAssembleStoreType.SetHandlers(
+  //         values.contents["handlers"]->Meta3dCommonlib.ListSt.fromArray,
+  //       )
+  //   })
+  // })
 })

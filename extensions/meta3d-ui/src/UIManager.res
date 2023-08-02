@@ -109,55 +109,32 @@ let _setElementExecOrder = (
   }
 }
 
-let _updateElementField = %raw(` function(
-elementState, 
-updatedElementStateFieldName,
-updateElementStateFieldFunc
-){
-  var newElementState = Object.assign({}, elementState)
+let _getCurrentElementName = (state: Meta3dUiProtocol.StateType.state) => {
+  state.currentElementName->Meta3dCommonlib.OptionSt.getExn
+}
 
- newElementState[updatedElementStateFieldName] = updateElementStateFieldFunc(newElementState[updatedElementStateFieldName])
+let _setCurrentElementName = (state: Meta3dUiProtocol.StateType.state, elementName) => {
+  ...state,
+  currentElementName: Some(elementName),
+}
 
-  return newElementState
-} `)
-
-let dispatch = (
+let updateElementState = (
   state: Meta3dUiProtocol.StateType.state,
-  actionName,
-  role,
-  updateElementStateFieldFunc,
+  updateElementStateFunc,
 ) => {
-  state.reducers->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (elementName, reducers)) => {
-    reducers.role === role
-      ? {
-          let oldElementState = _getElementStateExn(state, elementName)
+  let elementName = _getCurrentElementName(state)
 
-          let newElementState =
-            reducers.handlers
-            ->Meta3dCommonlib.ArraySt.filter(handler => handler.actionName === actionName)
-            ->Meta3dCommonlib.ArraySt.reduceOneParam(
-              (. elementState, {updatedElementStateFieldName}) => {
-                _updateElementField(
-                  elementState,
-                  updatedElementStateFieldName,
-                  updateElementStateFieldFunc,
-                )
-              },
-              oldElementState,
-            )
+  let oldElementState = _getElementStateExn(state, elementName)
 
-          oldElementState != newElementState
-            ? {
-                state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
-              }
-            : {
-                state->_markStateNotChange(elementName)
-              }
-        }
-      : {
-          state
-        }
-  }, state)
+  let newElementState = updateElementStateFunc(oldElementState)
+
+  oldElementState != newElementState
+    ? {
+        state->_markStateChange(elementName)->_setElementState(elementName, newElementState)
+      }
+    : {
+        state->_markStateNotChange(elementName)
+      }
 }
 
 // let getIOData = ({ioData}: Meta3dUiProtocol.StateType.state) => {
@@ -336,16 +313,16 @@ let _setElementFunc = (
   }
 }
 
-let _addReducers = (state: Meta3dUiProtocol.StateType.state, elementName, reducers) => {
-  reducers
-  ->Meta3dCommonlib.NullableSt.map((. reducers): Meta3dUiProtocol.StateType.state => {
-    {
-      ...state,
-      reducers: state.reducers->Meta3dCommonlib.ArraySt.push((elementName, reducers)),
-    }
-  })
-  ->Meta3dCommonlib.NullableSt.getWithDefault(state)
-}
+// let _addReducers = (state: Meta3dUiProtocol.StateType.state, elementName, reducers) => {
+//   reducers
+//   ->Meta3dCommonlib.NullableSt.map((. reducers): Meta3dUiProtocol.StateType.state => {
+//     {
+//       ...state,
+//       reducers: state.reducers->Meta3dCommonlib.ArraySt.push((elementName, reducers)),
+//     }
+//   })
+//   ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+// }
 
 // let _setElementUIControlStates = (
 //   state: Meta3dUiProtocol.StateType.state,
@@ -369,17 +346,18 @@ let registerElement = (
     elementFunc,
     elementState,
     // uiControlStates,
-    reducers,
+    // reducers,
   }: Meta3dUiProtocol.ElementContributeType.elementContribute<
     Meta3dUiProtocol.StateType.elementState,
   >,
 ) => {
   state
+  ->_setCurrentElementName(elementName)
   ->_setElementFunc(elementName, elementFunc)
   ->_setElementState(elementName, elementState)
   // ->_setElementUIControlStates(elementName, uiControlStates)
   ->_setElementExecOrder(elementName, execOrder)
-  ->_addReducers(elementName, reducers)
+  // ->_addReducers(elementName, reducers)
   ->show(elementName)
   ->_markStateChange(elementName)
 }

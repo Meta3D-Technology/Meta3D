@@ -82,17 +82,15 @@ function render(sandbox, getExtensionServiceOpt, getAllContributesByTypeOpt, get
             ], time);
 }
 
-function registerElement(state, elementFunc, elementNameOpt, execOrderOpt, elementStateOpt, reducersOpt, param) {
+function registerElement(state, elementFunc, elementNameOpt, execOrderOpt, elementStateOpt, param) {
   var elementName = elementNameOpt !== undefined ? elementNameOpt : "e1";
   var execOrder = execOrderOpt !== undefined ? execOrderOpt : 0;
   var elementState = elementStateOpt !== undefined ? Caml_option.valFromOption(elementStateOpt) : 1;
-  var reducers = reducersOpt !== undefined ? Caml_option.valFromOption(reducersOpt) : null;
   return UIManager$Meta3dUi.registerElement(state, {
               elementName: elementName,
               execOrder: execOrder,
               elementFunc: elementFunc,
-              elementState: elementState,
-              reducers: reducers
+              elementState: elementState
             });
 }
 
@@ -265,7 +263,7 @@ var getUIControlFuncExn = UIManager$Meta3dUi.getUIControlFuncExn;
 
 var getSkin = UIManager$Meta3dUi.getSkin;
 
-var dispatch = UIManager$Meta3dUi.dispatch;
+var updateElementState = UIManager$Meta3dUi.updateElementState;
 
 var getElementState = UIManager$Meta3dUi.getElementState;
 
@@ -293,6 +291,6 @@ exports.getUIControlFuncExn = getUIControlFuncExn;
 exports.buildSkinContribute = buildSkinContribute;
 exports.registerSkin = registerSkin;
 exports.getSkin = getSkin;
-exports.dispatch = dispatch;
+exports.updateElementState = updateElementState;
 exports.getElementState = getElementState;
 /* Sinon Not a pure module */

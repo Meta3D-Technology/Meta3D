@@ -1,6 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dUiProtocol.ServiceType.service,
-> = (api) => {
+> = api => {
   {
     registerElement: UIManager.registerElement->Obj.magic,
     registerSkin: UIManager.registerSkin,
@@ -34,21 +34,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       UIManager.endWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
     },
     setNextWindowRect: (meta3dState, rect) => {
-      UIManager.setNextWindowRect(
-        meta3dState,
-        (api, "meta3d-imgui-renderer-protocol"),
-        rect,
-      )
+      UIManager.setNextWindowRect(meta3dState, (api, "meta3d-imgui-renderer-protocol"), rect)
     },
     getFBOTexture: UIManager.getFBOTexture,
     setFBOTexture: UIManager.setFBOTexture,
     addFBOTexture: (meta3dState, texture, rect) => {
-      UIManager.addFBOTexture(
-        meta3dState,
-        (api, "meta3d-imgui-renderer-protocol"),
-        texture,
-        rect,
-      )
+      UIManager.addFBOTexture(meta3dState, (api, "meta3d-imgui-renderer-protocol"), texture, rect)
     },
     getWindowBarHeight: meta3dState => {
       UIManager.getWindowBarHeight(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
@@ -63,7 +54,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       UIManager.setCursorPos(meta3dState, (api, "meta3d-imgui-renderer-protocol"), pos)
     },
     // getIOData: UIManager.getIOData,
-    dispatch: UIManager.dispatch,
+    // dispatch: UIManager.dispatch,
+    updateElementState: UIManager.updateElementState,
     // prepare: UIManager.prepare,
     init: UIManager.init,
     clear: UIManager.clear,
@@ -85,7 +77,8 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     uiControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     uiControlStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     // ioData: None,
-    reducers: [],
+    // reducers: [],
+    currentElementName: None,
     // imguiData: ManageIMGUIService.createData()
     // ioData: {
     //   pointUp: false,

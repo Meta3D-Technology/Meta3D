@@ -8,7 +8,7 @@ type time = float
 
 type elementStateField
 
-type updateElementStateFieldFunc = elementStateField => elementStateField
+type updateElementStateFunc = StateType.elementState => StateType.elementState
 
 type clearColor = (float, float, float, float)
 
@@ -42,12 +42,13 @@ type service = {
     StateType.state,
     ElementContributeType.elementName,
   ) => Js.Nullable.t<'elementState>,
-  dispatch: 'action. (
-    StateType.state,
-    string,
-    string,
-    updateElementStateFieldFunc,
-  ) => StateType.state,
+  // dispatch: 'action. (
+  //   StateType.state,
+  //   string,
+  //   string,
+  //   updateElementStateFunc,
+  // ) => StateType.state,
+  updateElementState: (StateType.state, updateElementStateFunc) => StateType.state,
   // getIOData: StateType.state => StateType.ioData,
   getSkin: 'skin. (
     StateType.state,

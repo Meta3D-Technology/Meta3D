@@ -1,3 +1,5 @@
+export type elementState = any
+
 export type textureID = string
 
 // export type uiControlState = any

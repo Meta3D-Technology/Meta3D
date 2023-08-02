@@ -9,15 +9,15 @@ type elementFunc<'elementState> = (
 
 type execOrder = int
 
-type handler = {
-  actionName: string,
-  updatedElementStateFieldName: string,
-}
+// type handler = {
+//   actionName: string,
+//   updatedElementStateFieldName: string,
+// }
 
-type reducers = {
-  role: string,
-  handlers: array<handler>,
-}
+// type reducers = {
+//   role: string,
+//   handlers: array<handler>,
+// }
 
 // type uiControlState
 
@@ -31,7 +31,7 @@ type elementContribute<'elementState> = {
   elementFunc: elementFunc<'elementState>,
   elementState: 'elementState,
   // uiControlStates: uiControlStates,
-  reducers: Js.Nullable.t<reducers>,
+  // reducers: Js.Nullable.t<reducers>,
 }
 
 // type getElementContribute<'dependentExtensionProtocolNameMap, 'elementState> = (
@@ -42,4 +42,4 @@ type elementContribute<'elementState> = {
 // type reducerFunc<'elementState, 'action> = ('elementState, 'action) => 'elementState
 
 // type reducerData<'elementState, 'action> = (elementName, reducerFunc<'elementState, 'action>)
-type reducerData = (elementName, reducers)
+// type reducerData = (elementName, reducers)

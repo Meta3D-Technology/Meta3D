@@ -64,7 +64,7 @@ module Method = {
       let elementName: string = values["elementName"]
       let elementVersion: string = values["elementVersion"]
 
-      let {elementStateFields, reducers} = elementInspectorData
+      let {elementStateFields} = elementInspectorData
 
       let protocolName = ElementContributeUtils.getElementContributeProtocolName()
       let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
@@ -100,7 +100,7 @@ module Method = {
               elementName,
               selectedUIControls,
               selectedUIControlInspectorData,
-              (elementStateFields, reducers),
+              elementStateFields,
             ),
           ),
         ),

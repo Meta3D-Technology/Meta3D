@@ -13,7 +13,6 @@ let publish = (
   ~account=None,
   ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
     list{},
-    ReducerTool.buildReducers(),
   ),
   ~selectedUIControls=list{},
   ~selectedUIControlInspectorData=list{},

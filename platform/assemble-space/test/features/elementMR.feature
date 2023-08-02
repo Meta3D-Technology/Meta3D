@@ -25,12 +25,12 @@ Feature: ElementMR
         Then should build correct result
         And generate correct result
 
-    Scenario: build element middle represent with reducer and generate element contribute string
-        Given prepare reducers
-        When build element middle represent with reducers
-        And generate element contribute string
-        Then should build correct result
-        And generate correct result
+    # Scenario: build element middle represent with reducer and generate element contribute string
+    #     Given prepare reducers
+    #     When build element middle represent with reducers
+    #     And generate element contribute string
+    #     Then should build correct result
+    #     And generate correct result
 
     Scenario: build element middle represent with window and generate element contribute string
         Given generate ui control window w1
