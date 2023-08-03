@@ -11,9 +11,11 @@ let get = (map, key: int) => {
   NullUtils.isEmpty(value) ? None : Some(value)
 }
 
-// let getNullable = (map, key) => get(map, key)->Js.Nullable.fromOption
-// let getNullable = (map, key) => Array.unsafe_get(map, key)
-let getNullable = (map, key) => unsafeGet(map, key)->Js.Nullable.return
+let getNullable = (map, key) => {
+  let value = unsafeGet(map, key)
+
+  NullUtils.isUndefined(value) ? Js.Nullable.null : value->Js.Nullable.return
+}
 
 let has = (map, key: int) => !NullUtils.isEmpty(unsafeGet(map, key))
 

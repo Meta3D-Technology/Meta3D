@@ -8,12 +8,13 @@ import { bindEvent } from "../ArcballCameraControllerEventUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
 
-// type canvasSize = [number, number]
+type canvasSize = [number, number]
 
 // let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
 let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService,
     eventService: eventService,
-    eventExtensionProtocolName: string
+    eventExtensionProtocolName: string,
+    canvasSize: canvasSize
 ): [meta3dState, arcballCameraController, gameObject] => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
@@ -53,7 +54,7 @@ let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeS
     let cameraProjection = data[1]
 
     meta3dState = scene.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
-    // meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
+    meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
     meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
     meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
@@ -127,11 +128,13 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
 // let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService, canvasSize: canvasSize): [meta3dState, gameObject] => {
 let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
     eventService: eventService,
-    eventExtensionProtocolName: string
+    eventExtensionProtocolName: string,
+    canvasSize: canvasSize
 ): [meta3dState, arcballCameraController, gameObject] => {
     // let data = _createCameraGameObject(meta3dState, engineWholeService, canvasSize)
     let data = _createCameraGameObject(meta3dState, engineWholeService,
-        eventService, eventExtensionProtocolName
+        eventService, eventExtensionProtocolName,
+        canvasSize
     )
     meta3dState = data[0]
     let cameraController = data[1]
@@ -148,6 +151,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         mostService,
         engineWholeService,
         eventService,
+        canvas
     } = getState(states)
 
     return mostService.callFunc(() => {
@@ -156,7 +160,8 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
         let data = _addDefaultGameObjects(meta3dState, engineWholeService,
             eventService,
-            "meta3d-event-protocol"
+            "meta3d-event-protocol",
+            [canvas.width, canvas.height]
         )
         meta3dState = data[0]
         // let cameraGameObject = data[1]

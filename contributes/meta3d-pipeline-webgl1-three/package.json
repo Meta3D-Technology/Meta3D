@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-three",
-    "version": "0.13.0",
+    "version": "0.13.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-protocol"
@@ -14,8 +14,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-pipeline-webgl1-three-protocol": "^0.13.0",
-        "meta3d-scenegraph-converter-three-protocol": "^0.13.0",
+        "meta3d-pipeline-webgl1-three-protocol": "^0.13.1",
+        "meta3d-scenegraph-converter-three-protocol": "^0.13.1",
+        "meta3d-three-api-protocol": "^0.13.0",
         "meta3d-type": "^0.13.0"
     },
     "devDependencies": {

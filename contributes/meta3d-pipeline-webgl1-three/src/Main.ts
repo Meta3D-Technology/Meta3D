@@ -8,6 +8,7 @@ import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as converterService } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
+import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
@@ -28,11 +29,12 @@ let _init = (_state: state) => {
 export let getContribute: getContributeMeta3D<pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
-		createStateFunc: (meta3dState, {canvas}) => {
+		createStateFunc: (meta3dState, { canvas }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
 				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
 				converterService: api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol"),
+				threeAPIService: api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol"),
 
 				renderer: null,
 				canvas,

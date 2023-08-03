@@ -33,16 +33,18 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 let _init = (_state: state) => {
 }
 
-export let getContribute: getContributeMeta3D< pipelineContribute<config, state>> = (api) => {
+export let getContribute: getContributeMeta3D<pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
-		createStateFunc: (meta3dState, _) => {
+		createStateFunc: (meta3dState, { canvas }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
 				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
 				eventService: api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
 				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol"),
+
+				canvas: canvas,
 				arcballCameraController: null,
 				lastYaw: null,
 				lastPitch: null,

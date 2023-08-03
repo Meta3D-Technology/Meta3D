@@ -1,6 +1,10 @@
 'use strict';
 
 
+function isUndefined(value) {
+  return value === undefined;
+}
+
 function isEmpty(value) {
   if (value === null) {
     return true;
@@ -17,6 +21,7 @@ function isInMap(value) {
   return value !== undefined;
 }
 
+exports.isUndefined = isUndefined;
 exports.isEmpty = isEmpty;
 exports.isNotInMap = isNotInMap;
 exports.isInMap = isInMap;

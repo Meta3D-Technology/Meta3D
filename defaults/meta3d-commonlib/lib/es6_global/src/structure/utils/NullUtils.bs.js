@@ -1,6 +1,10 @@
 
 
 
+function isUndefined(value) {
+  return value === undefined;
+}
+
 function isEmpty(value) {
   if (value === null) {
     return true;
@@ -18,6 +22,7 @@ function isInMap(value) {
 }
 
 export {
+  isUndefined ,
   isEmpty ,
   isNotInMap ,
   isInMap ,

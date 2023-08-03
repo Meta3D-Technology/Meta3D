@@ -27,7 +27,12 @@ function get(map, key) {
 }
 
 function getNullable(map, key) {
-  return map[key];
+  var value = map[key];
+  if (NullUtils$Meta3dCommonlib.isUndefined(value)) {
+    return null;
+  } else {
+    return value;
+  }
 }
 
 function has(map, key) {

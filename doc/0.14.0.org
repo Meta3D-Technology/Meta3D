@@ -167,24 +167,90 @@ refactor button protocol->generateHandleUIControlEventStr
 
 
 
-** TODO export .glb
+** DONE export .glb
 
 TODO add export scene extension:
-    download .glb
+    # download .glb
+    invoke convertDataOrientedSceneToThreeScene
+
+    //scene.add(camera)
+        TODO handle camera
+
+
+TODO add get three api extension:
+
+TODO unify viewrect to pipeline-viewrect(update)
+
+
+
+three-api
+engine-scene
+convert
+
+
+scene-view1
+whole
+
+
+
+why disappear after download?
+
+
+commit
+
+
+run test
+
+
+
+TODO update doc for fix:
+viewrect
+scene-view2
+
+
+
+
+** DONE fix: children
+
+
+
+** TODO fix: can support multiple implements of the same protocol(but one for different version)
+
+
+
+
+
+** TODO 加上代码框  更新扩展贡献的代码
+
+每个selected extension,contribute(except pacakge) add selectarea to show and update its code
+
+
+can't change protocol?
+ans: no need to change it!
+
+
+
+TODO not clean element assemble when switch between ap/element assemble
+
+
+
 
 
 
 ** TODO import .glb
 
 
-TODO add import scene extension:
-    upload .glb
 
 TODO add three.js -> ec
     meta3d-scenegraph-converter-three:
         rename convert to convertDataOrientedSceneToThreeScene
         add convertThreeSceneToDataOrientedScene
 
+
+# TODO add import scene extension:
+TODO add import glb extension:
+    # upload .glb
+    invoke convertThreeSceneToDataOrientedScene
 
 
 
@@ -210,6 +276,24 @@ TODO add actions
 - download
 - show progress
 
+
+** TODO refactor: extract handle error event and action
+
+
+
+
+
+
+
+
+* TODO implement dispose
+
+** TODO add dispose job
+
+** TODO handle converter for three
+
+
+** TODO import scene should after dispose scene
 
 
 

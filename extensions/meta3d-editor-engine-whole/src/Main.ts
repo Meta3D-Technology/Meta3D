@@ -23,7 +23,8 @@ import { config as eventConfig } from "meta3d-pipeline-editor-event-protocol/src
 
 let _registerEditorPipelines = (
 	meta3dState: meta3dState, api: api,
-	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName, meta3dPipelineEditorEventContributeName]: [string, string, string]
+	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName, meta3dPipelineEditorEventContributeName]: [string, string, string],
+	canvas: HTMLCanvasElement
 ) => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
 
@@ -37,7 +38,7 @@ let _registerEditorPipelines = (
 	let { registerPipeline } = engineCoreService
 
 	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, meta3dPipelineEditorWebgl1SceneView1ContributeName),
-		null,
+		{ canvas },
 		[
 			{
 				pipelineName: "init",
@@ -98,7 +99,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			"meta3d-engine-core-protocol",
 			"meta3d-engine-scene-protocol",
 		]),
-		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, gl) => {
+		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, gl, canvas) => {
 			// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
 			let engineBasicService = api.getExtensionService<engineBasicService>(
@@ -125,13 +126,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				"meta3d-editor-engine-render-protocol"
 			)
 
-			meta3dState = engineRenderService.prepare(meta3dState, isDebug, gl)
+			meta3dState = engineRenderService.prepare(meta3dState, isDebug, gl, canvas)
 
 
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-protocol"]
+				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-protocol"],
+				canvas
 			)
 
 

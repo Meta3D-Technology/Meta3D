@@ -7,16 +7,6 @@ reference/
 node_modules/
 mine/
 
-test/
-
-.github/
-
-donate/
-
-lib/bs/
-
-lib/js/test/
-
 coverage
 
 dist/

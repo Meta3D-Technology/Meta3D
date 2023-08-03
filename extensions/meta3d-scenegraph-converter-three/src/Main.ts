@@ -2,8 +2,20 @@ import { service } from "meta3d-scenegraph-converter-three-protocol/src/service/
 import { state } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
-import { Blending, BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Side, Sphere, Texture, Vector3, WebGLRenderer } from "three";
-import { getExn, getWithDefault, map } from "meta3d-commonlib-ts/src/NullableUtils"
+// import type { Blending, BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Side, Sphere, Texture, Vector3 } from "three";
+import type {
+    Blending, Side,
+    BufferAttribute as BufferAttributeType,
+    CubeTexture,
+    Texture,
+    Color as ColorType,
+    Layers as LayersType,
+    // Matrix3 as Matrix3Type,
+    Matrix4 as Matrix4Type,
+    Sphere as SphereType,
+    // Quaternion,
+} from "three";
+import { getExn, getWithDefault, map, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { createEmptyBasicMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
@@ -15,6 +27,10 @@ import { gameObject } from "meta3d-gameobject-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/Index";
+import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
+import { generateUUID } from "./three/MathUtils";
+
+let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion
 
 
 /*! for WebGLProperties->get(xxx), use the same instance
@@ -56,7 +72,7 @@ function _getGeometryInstance(geometry: geometry) {
     return _getGeometryInstanceMap()[geometry]
 }
 
-function _convertToMatrix4(mat: Float32Array): Matrix4 {
+function _convertToMatrix4(mat: Float32Array): Matrix4Type {
     // return new Matrix4(
     //     mat[0],
     //     mat[1],
@@ -107,6 +123,34 @@ function _convertToMatrix4(mat: Float32Array): Matrix4 {
 //     return getExn(engineCoreService.getComponent<perspectiveCameraProjection>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), gameObject))
 // }
 
+function _getEmptyGameObject() {
+    return -1
+}
+
+function _getMatrix(gameObject: gameObject): Matrix4Type {
+    let meta3dState = getMeta3dState()
+
+    let engineSceneService = getEngineSceneService(meta3dState)
+
+    let transformComponent = engineSceneService.gameObject.getTransform(meta3dState, getExn(
+        gameObject
+    ))
+
+    return (new Matrix4()).compose(
+        (new Vector3()).fromArray(
+            getExn(engineSceneService.transform.getLocalPosition(meta3dState, transformComponent))
+        ),
+        (new Quaternion()).fromArray(
+            engineSceneService.transform.getLocalRotation(meta3dState, transformComponent)
+        )
+        ,
+        (new Vector3()).fromArray(
+            getExn(engineSceneService.transform.getLocalScale(meta3dState, transformComponent))
+        ),
+    )
+
+}
+
 class Object3D {
     constructor(gameObject: gameObject) {
         this.gameObject = gameObject
@@ -122,7 +166,7 @@ class Object3D {
         return true
     }
 
-    public get layers(): Layers {
+    public get layers(): LayersType {
         return new Layers()
     }
 
@@ -147,6 +191,19 @@ class Object3D {
         })
     }
 
+    public get matrixWorldAutoUpdate(): boolean {
+        return false
+    }
+
+    public get matrixAutoUpdate(): boolean {
+        return false
+    }
+
+    public get userData(): { [key: string]: any } {
+        return {}
+    }
+
+
     public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshBasicMaterial, group: any) {
     }
 
@@ -154,8 +211,10 @@ class Object3D {
     }
 }
 
-class Camera {
+class Camera extends Object3D {
     constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection) {
+        super(_getEmptyGameObject())
+
         this.basicCameraViewComponent = basicCameraViewComponent
         this.perspectiveCameraProjectionComponent = perspectiveCameraProjectionComponent
     }
@@ -168,19 +227,19 @@ class Camera {
         return true
     }
 
-    public get layers(): Layers {
+    public get layers(): LayersType {
         return new Layers()
     }
 
-    public get matrixWorldAutoUpdate(): boolean {
-        return false
-    }
+    // public get matrixWorldAutoUpdate(): boolean {
+    //     return false
+    // }
 
     // public get value(): string {
     //     return
     // }
 
-    public get projectionMatrix(): Matrix4 {
+    public get projectionMatrix(): Matrix4Type {
         // let meta3dState = getMeta3dState()
         // let engineCoreState = getEngineCoreState(meta3dState)
         // let engineCoreService = getEngineCoreService(meta3dState)
@@ -203,7 +262,7 @@ class Camera {
         )
     }
 
-    public get matrixWorldInverse(): Matrix4 {
+    public get matrixWorldInverse(): Matrix4Type {
         // let meta3dState = getMeta3dState()
         // let engineCoreState = getEngineCoreState(meta3dState)
         // let engineCoreService = getEngineCoreService(meta3dState)
@@ -233,29 +292,88 @@ class Camera {
             )
         )
     }
+
+    public get children(): Array<Object3D> {
+        return []
+    }
+
+    public get matrix(): Matrix4Type {
+        let meta3dState = getMeta3dState()
+
+        let { basicCameraView } = getEngineSceneService(meta3dState)
+
+        return _getMatrix(
+            basicCameraView.getGameObjects(meta3dState, this.basicCameraViewComponent)[0]
+        )
+    }
 }
 
 class PerspectiveCamera extends Camera {
     constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection) {
         super(basicCameraViewComponent, perspectiveCameraProjectionComponent)
     }
+
+    public get far(): number {
+        let meta3dState = getMeta3dState()
+
+        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+
+        return getExn(
+            perspectiveCameraProjection.getFar(meta3dState,
+                this.perspectiveCameraProjectionComponent
+            )
+        )
+    }
+
+    public get near(): number {
+        let meta3dState = getMeta3dState()
+
+        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+
+        return getExn(
+            perspectiveCameraProjection.getNear(meta3dState,
+                this.perspectiveCameraProjectionComponent
+            )
+        )
+    }
+
+    public get fovy(): number {
+        let meta3dState = getMeta3dState()
+
+        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+
+        return getExn(
+            perspectiveCameraProjection.getFovy(meta3dState,
+                this.perspectiveCameraProjectionComponent
+            )
+        )
+    }
+
+    public get aspect(): number {
+        let meta3dState = getMeta3dState()
+
+        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+
+        return getExn(
+            perspectiveCameraProjection.getAspect(meta3dState,
+                this.perspectiveCameraProjectionComponent
+            )
+        )
+    }
+
 }
 
 class Scene extends Object3D {
     constructor() {
-        super(-1)
+        super(_getEmptyGameObject())
     }
 
-
-    public get matrixWorldAutoUpdate(): boolean {
-        return false
-    }
 
     public get isScene(): boolean {
         return true
     }
 
-    public get layers(): Layers {
+    public get layers(): LayersType {
         let layers = new Layers()
         layers.disableAll()
 
@@ -266,26 +384,53 @@ class Scene extends Object3D {
         return null
     }
 
-    public get children(): Array<Mesh> {
+    public get children(): Array<Object3D> {
         let meta3dState = getMeta3dState()
 
         let engineSceneService = getEngineSceneService(meta3dState)
 
+        let allGameObjects = engineSceneService.gameObject.getAllGameObjects(meta3dState)
+
         // TODO get light
-        return engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
-            return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject)
-        }).map(gameObject => {
-            return _getMeshInstance(gameObject)
-        })
+        return (
+            allGameObjects.filter(gameObject => {
+                return engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
+            }).map(gameObject => {
+                return new PerspectiveCamera(
+                    engineSceneService.gameObject.getBasicCameraView(meta3dState, gameObject),
+                    engineSceneService.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject),
+                )
+            }) as Array<Object3D>
+        ).concat(
+            allGameObjects.filter(gameObject => {
+                return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject) && isNullable(engineSceneService.transform.getParent(meta3dState,
+                    engineSceneService.gameObject.getTransform(meta3dState, gameObject)
+                ))
+
+            }).map(gameObject => {
+                return _getMeshInstance(gameObject)
+            })
+        )
     }
 
-    public get background(): nullable<Color | Texture | CubeTexture> {
+    public get background(): nullable<ColorType | Texture | CubeTexture> {
         return null
     }
 
     public get overrideMaterial(): nullable<Material> {
         return null
     }
+
+    public get matrix(): Matrix4Type {
+        return new Matrix4()
+    }
+
+    public get matrixWorld(): Matrix4Type {
+        return new Matrix4()
+    }
+
+    // public add(...object: Array<Object3D>) {
+    // }
 }
 
 class Mesh extends Object3D {
@@ -301,7 +446,7 @@ class Mesh extends Object3D {
         return true
     }
 
-    public get layers(): Layers {
+    public get layers(): LayersType {
         let layers = new Layers()
         layers.enableAll()
 
@@ -320,7 +465,13 @@ class Mesh extends Object3D {
         return this.getChildren((gameObject: gameObject) => _getMeshInstance(gameObject))
     }
 
-    public get matrixWorld(): Matrix4 {
+    public get matrix(): Matrix4Type {
+        return _getMatrix(
+            this.gameObject
+        )
+    }
+
+    public get matrixWorld(): Matrix4Type {
         let meta3dState = getMeta3dState()
 
         let { gameObject, transform } = getEngineSceneService(meta3dState)
@@ -375,14 +526,18 @@ class BufferGeometry extends EventDispatcher {
         this._indexAttribute = new BufferAttribute(getExn(
             engineSceneService.geometry.getIndices(meta3dState, this._geometry)
         ), 1)
+
+        this.uuid = generateUUID()
     }
 
     private _geometry: geometry
-    private _positionAttribute: BufferAttribute
-    private _indexAttribute: BufferAttribute
+    private _positionAttribute: BufferAttributeType
+    private _indexAttribute: BufferAttributeType
+
+    public uuid: string
 
 
-    public get boundingSphere(): nullable<Sphere> {
+    public get boundingSphere(): nullable<SphereType> {
         // TODO fix fake data
         return new Sphere(
             new Vector3(0, 0, 0),
@@ -390,7 +545,7 @@ class BufferGeometry extends EventDispatcher {
         )
     }
 
-    public get index(): nullable<BufferAttribute> {
+    public get index(): nullable<BufferAttributeType> {
         return this._indexAttribute
     }
 
@@ -408,6 +563,15 @@ class BufferGeometry extends EventDispatcher {
         return { start: 0, count: Infinity }
     }
 
+    public get userData(): { [key: string]: any } {
+        return {}
+    }
+
+
+
+    public getAttribute(name: string) {
+        return this.attributes[name]
+    }
 
     public getIndex() {
         return this.index
@@ -427,9 +591,14 @@ class Material extends EventDispatcher {
         super()
 
         this.material = material
+
+        this.uuid = generateUUID()
     }
 
     protected material: pbrMaterial
+
+    public uuid: string
+
 
     public get visible(): boolean {
         return true
@@ -519,6 +688,11 @@ class Material extends EventDispatcher {
         return NoBlending
     }
 
+    public get userData(): { [key: string]: any } {
+        return {}
+    }
+
+
 
     public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, object: Object3D, group: any) {
     }
@@ -544,7 +718,7 @@ class MeshBasicMaterial extends Material {
         return true
     }
 
-    public get color(): Color {
+    public get color(): ColorType {
         let meta3dState = getMeta3dState()
 
         let { pbrMaterial } = getEngineSceneService(meta3dState)
@@ -586,17 +760,24 @@ class MeshBasicMaterial extends Material {
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
-        init: () => {
-            setAPI(api)
-
-            createEmptyMeshInstanceMap()
-            createEmptyBasicMaterialInstanceMap()
-            createEmptyGeometryInstanceMap()
-        },
         convert: (meta3dState) => {
             let isDebug = true
 
             setMeta3dState(meta3dState)
+
+            let threeAPIService = api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol")
+
+            BufferAttribute = threeAPIService.BufferAttribute
+            Color = threeAPIService.Color
+            FrontSide = threeAPIService.FrontSide
+            Layers = threeAPIService.Layers
+            Matrix3 = threeAPIService.Matrix3
+            Matrix4 = threeAPIService.Matrix4
+            NoBlending = threeAPIService.NoBlending
+            Sphere = threeAPIService.Sphere
+            Vector3 = threeAPIService.Vector3
+            Quaternion = threeAPIService.Quaternion
+
 
             // let engineCoreState = getEngineCoreState(meta3dState)
             // let engineCoreService = getEngineCoreService(meta3dState)
@@ -624,9 +805,9 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                 scene: new Scene() as any
             }
         },
-        threeAPI: {
-            createWebGLRenderer: (parameters) => new WebGLRenderer(parameters)
-        }
+        // threeAPI: {
+        //     createWebGLRenderer: (parameters) => new WebGLRenderer(parameters)
+        // }
     }
 }
 
@@ -639,5 +820,14 @@ export let createExtensionState: createExtensionStateMeta3D<state> = () => {
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
     return {
+        onRegister: (meta3dState, service) => {
+            setAPI(api)
+
+            createEmptyMeshInstanceMap()
+            createEmptyBasicMaterialInstanceMap()
+            createEmptyGeometryInstanceMap()
+
+            return meta3dState
+        }
     }
 }

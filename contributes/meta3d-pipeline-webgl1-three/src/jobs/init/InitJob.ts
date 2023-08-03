@@ -6,15 +6,15 @@ import { states } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
-    let { mostService, converterService, uiService, canvas } = getState(states)
+    let { mostService, converterService, threeAPIService, uiService, canvas } = getState(states)
 
     return mostService.callFunc(() => {
         console.log("init job")
 
-        converterService.init()
+        // converterService.init()
 
 
-        let renderer = converterService.threeAPI.createWebGLRenderer({
+        let renderer = new threeAPIService.WebGLRenderer({
             antialias: true,
             canvas: canvas,
             context: uiService.getContext(meta3dState)

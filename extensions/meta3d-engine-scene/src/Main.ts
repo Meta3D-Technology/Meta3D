@@ -22,9 +22,12 @@ import {
 import {
 	createTransform,
 	getGameObjects as getTransformGameObjects,
-	getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix
+	getChildren, getLocalPosition, getParent, lookAt, setLocalPosition,
+	getLocalRotation, setLocalRotation,
+	getLocalScale, setLocalScale,
+	setParent, getLocalToWorldMatrix
 } from "./TransformAPI";
-import { createPerspectiveCameraProjection, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
+import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
 import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./PBRMaterialAPI";
 import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./GeometryAPI";
 import {
@@ -367,6 +370,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			setLocalPosition: (meta3dState, transform, localPosition) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalPosition(engineCoreState, engineCoreService, transform, localPosition), api)
 			},
+			getLocalRotation: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalRotation(engineCoreState, engineCoreService, transform), api)
+			},
+			setLocalRotation: (meta3dState, transform, localRotation) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalRotation(engineCoreState, engineCoreService, transform, localRotation), api)
+			},
+			getLocalScale: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalScale(engineCoreState, engineCoreService, transform), api)
+			},
+			setLocalScale: (meta3dState, transform, localScale) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalScale(engineCoreState, engineCoreService, transform, localScale), api)
+			},
 			getLocalToWorldMatrix: (meta3dState, transform) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalToWorldMatrix(engineCoreState, engineCoreService, transform), api)
 			},
@@ -429,14 +444,26 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			getPMatrix: (meta3dState, perspectiveCameraProjection) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPMatrix(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
 			},
+			getFovy: (meta3dState, perspectiveCameraProjection) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getFovy(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+			},
 			setFovy: (meta3dState, perspectiveCameraProjection, fovy) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setFovy(engineCoreState, engineCoreService, perspectiveCameraProjection, fovy), api)
+			},
+			getNear: (meta3dState, perspectiveCameraProjection) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNear(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setNear: (meta3dState, perspectiveCameraProjection, near) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNear(engineCoreState, engineCoreService, perspectiveCameraProjection, near), api)
 			},
+			getFar: (meta3dState, perspectiveCameraProjection) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getFar(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+			},
 			setFar: (meta3dState, perspectiveCameraProjection, far) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setFar(engineCoreState, engineCoreService, perspectiveCameraProjection, far), api)
+			},
+			getAspect: (meta3dState, perspectiveCameraProjection) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAspect(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setAspect: (meta3dState, perspectiveCameraProjection, aspect) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setAspect(engineCoreState, engineCoreService, perspectiveCameraProjection, aspect), api)

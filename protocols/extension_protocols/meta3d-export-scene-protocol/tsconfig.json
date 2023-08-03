@@ -8,8 +8,8 @@
 		"esModuleInterop": true,
 		"jsx": "react",
 		"noEmit": true,
-		// "noUnusedLocals": true,
-		// "noUnusedParameters": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"lib": [
 			"DOM",
