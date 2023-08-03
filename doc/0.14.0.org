@@ -160,4 +160,63 @@ refactor button protocol->generateHandleUIControlEventStr
 
 
 
-* TODO add 协作开发
+# * TODO add 协作开发
+
+
+* TODO editor export/import scene
+
+
+
+** TODO export .glb
+
+TODO add export scene extension:
+    download .glb
+
+
+
+** TODO import .glb
+
+
+TODO add import scene extension:
+    upload .glb
+
+TODO add three.js -> ec
+    meta3d-scenegraph-converter-three:
+        rename convert to convertDataOrientedSceneToThreeScene
+        add convertThreeSceneToDataOrientedScene
+
+
+
+
+
+** TODO add to editor
+
+
+TODO add import scene ui control
+event:
+onProgress
+onFinish
+onError
+
+
+TODO add export scene ui control
+onFinish
+onError
+
+
+# TODO add export/import scene action
+TODO add actions
+- handle error 
+- download
+- show progress
+
+
+
+
+* TODO editor export/import package
+
+package = scene
+
+
+
+* TODO platform export/import app
