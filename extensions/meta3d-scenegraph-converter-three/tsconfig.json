@@ -8,7 +8,7 @@
 		"esModuleInterop": true,
 		"jsx": "react",
 		// "noEmit": true,
-		"noImplicitAny": true,
+		// "noImplicitAny": true,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
 		"noImplicitReturns": true,

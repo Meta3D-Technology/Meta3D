@@ -4,8 +4,8 @@ import { service } from "meta3d-editor-engine-render-protocol/src/service/Servic
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-editor-viewrect-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-pipeline-editor-viewrect-protocol/src/ConfigType";
+import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
 import { state as getGLState, states as getGLStates } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType";
 import { config as getGLConfig } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/ConfigType";
 import { state as detectGLState, states as detectGLStates } from "meta3d-pipeline-webgl1-detectgl-protocol/src/StateType";
@@ -24,128 +24,133 @@ import { config as senduniformshaderdataConfig } from "meta3d-pipeline-webgl1-se
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
-		return {
-			prepare: (meta3dState: meta3dState, isDebug, gl) => {
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
+	return {
+		prepare: (meta3dState: meta3dState, isDebug, gl, canvas) => {
+			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
 
-				let engineCoreService = api.getExtensionService<engineCoreService>(
-					meta3dState,
-					"meta3d-engine-core-protocol"
-				)
+			let engineCoreService = api.getExtensionService<engineCoreService>(
+				meta3dState,
+				"meta3d-engine-core-protocol"
+			)
 
 
-				let { registerPipeline } = engineCoreService
+			let { registerPipeline } = engineCoreService
 
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-editor-viewrect-protocol"),
-					null,
-					[
-						{
-							pipelineName: "update",
-							// insertElementName: "update_root_meta3d",
-							// insertAction: "after"
-							insertElementName: "update_camera_camera_meta3d",
-							insertAction: "before"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<getGLConfig, getGLState>>(meta3dState,  "meta3d-pipeline-editor-webgl1-getgl-protocol"),
-					null,
-					[
-						{
-							pipelineName: "init",
-							insertElementName: "init_root_meta3d",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<detectGLConfig, detectGLState>>(meta3dState,  "meta3d-pipeline-webgl1-detectgl-protocol"),
-					null,
-					[
-						{
-							pipelineName: "init",
-							insertElementName: "get_gl_webgl1_getgl_meta3d",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<geometryConfig, geometryState>>(meta3dState,  "meta3d-pipeline-webgl1-geometry-protocol"),
-					null,
-					[
-						{
-							pipelineName: "update",
-							insertElementName: "prepare_update_data_webgl1_engine",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<materialConfig, materialState>>(meta3dState,  "meta3d-pipeline-webgl1-material-protocol"),
-					null,
-					[
-						{
-							pipelineName: "update",
-							insertElementName: "prepare_update_data_webgl1_engine",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState,  "meta3d-pipeline-webgl1-senduniformshaderdata-protocol"),
-					null,
-					[
-						{
-							pipelineName: "render",
-							insertElementName: "prepare_render_data_webgl1_engine",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<renderConfig, renderState>>(meta3dState,  "meta3d-pipeline-webgl1-render-protocol"),
-					null,
-					[
-						{
-							pipelineName: "render",
-							insertElementName: "send_uniform_shader_data_webgl1_senduniformshaderdata_meta3d",
-							insertAction: "after"
-						}
-					]
-				)
-
-				engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<dataConfig, dataState>>(meta3dState,  "meta3d-pipeline-webgl1-data-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-protocol"),
+				{
+					canvas: canvas
+				},
+				[
 					{
-						isDebug: isDebug
+						pipelineName: "init",
+						insertElementName: "init_root_meta3d",
+						insertAction: "after"
 					},
-					[
-						{
-							pipelineName: "update",
-							insertElementName: "update_root_meta3d",
-							insertAction: "after"
-						},
-						{
-							pipelineName: "render",
-							insertElementName: "render_root_meta3d",
-							insertAction: "after"
-						}
-					]
+					{
+						pipelineName: "update",
+						insertElementName: "update_camera_camera_meta3d",
+						insertAction: "before"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<getGLConfig, getGLState>>(meta3dState, "meta3d-pipeline-editor-webgl1-getgl-protocol"),
+				null,
+				[
+					{
+						pipelineName: "init",
+						insertElementName: "init_root_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<detectGLConfig, detectGLState>>(meta3dState, "meta3d-pipeline-webgl1-detectgl-protocol"),
+				null,
+				[
+					{
+						pipelineName: "init",
+						insertElementName: "get_gl_webgl1_getgl_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<geometryConfig, geometryState>>(meta3dState, "meta3d-pipeline-webgl1-geometry-protocol"),
+				null,
+				[
+					{
+						pipelineName: "update",
+						insertElementName: "prepare_update_data_webgl1_engine",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<materialConfig, materialState>>(meta3dState, "meta3d-pipeline-webgl1-material-protocol"),
+				null,
+				[
+					{
+						pipelineName: "update",
+						insertElementName: "prepare_update_data_webgl1_engine",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<senduniformshaderdataConfig, senduniformshaderdataState>>(meta3dState, "meta3d-pipeline-webgl1-senduniformshaderdata-protocol"),
+				null,
+				[
+					{
+						pipelineName: "render",
+						insertElementName: "prepare_render_data_webgl1_engine",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<renderConfig, renderState>>(meta3dState, "meta3d-pipeline-webgl1-render-protocol"),
+				null,
+				[
+					{
+						pipelineName: "render",
+						insertElementName: "send_uniform_shader_data_webgl1_senduniformshaderdata_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<dataConfig, dataState>>(meta3dState, "meta3d-pipeline-webgl1-data-protocol"),
+				{
+					isDebug: isDebug
+				},
+				[
+					{
+						pipelineName: "update",
+						insertElementName: "update_root_meta3d",
+						insertAction: "after"
+					},
+					{
+						pipelineName: "render",
+						insertElementName: "render_root_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+
+
+			meta3dState =
+				api.setExtensionState(
+					meta3dState,
+					"meta3d-engine-core-protocol",
+					engineCoreState
 				)
 
-
-
-				meta3dState =
-					api.setExtensionState(
-						meta3dState,
-						"meta3d-engine-core-protocol",
-						engineCoreState
-					)
-
-				return meta3dState
-			}
+			return meta3dState
 		}
 	}
+}
 
 export let createExtensionState: createExtensionStateMeta3D<
 	state

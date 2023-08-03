@@ -44,11 +44,11 @@ export type localPosition = [number, number, number];
 
 // export type position = [number, number, number];
 
-// export type localRotation = [number, number, number, number];
+export type localRotation = [number, number, number, number];
 
 // export type rotation = [number, number, number, number];
 
-// export type localScale = [number, number, number];
+export type localScale = [number, number, number];
 
 // export type scale = [number, number, number];
 

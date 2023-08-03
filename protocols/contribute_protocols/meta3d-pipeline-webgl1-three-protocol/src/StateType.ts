@@ -1,6 +1,7 @@
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as converterService } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
+import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import type { WebGLRenderer } from "three"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
@@ -10,6 +11,7 @@ export type state = {
     mostService: mostService,
     uiService: uiService,
     converterService: converterService,
+    threeAPIService: threeAPIService,
 
     renderer: nullable<WebGLRenderer>,
     canvas: HTMLCanvasElement

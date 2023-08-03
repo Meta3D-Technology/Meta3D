@@ -233,6 +233,30 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).transform.setLocalPosition(meta3dState, transform, localPosition)
 			},
+			getLocalRotation: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getLocalRotation(meta3dState, transform)
+			},
+			setLocalRotation: (meta3dState, transform, localRotation) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.setLocalRotation(meta3dState, transform, localRotation)
+			},
+			getLocalScale: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getLocalScale(meta3dState, transform)
+			},
+			setLocalScale: (meta3dState, transform, localScale) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.setLocalScale(meta3dState, transform, localScale)
+			},
 			lookAt: (meta3dState, transform, target) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
@@ -345,11 +369,23 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).perspectiveCameraProjection.getPMatrix(meta3dState, perspectiveCameraProjection)
 			},
+			getFovy: (meta3dState, perspectiveCameraProjection) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).perspectiveCameraProjection.getFovy(meta3dState, perspectiveCameraProjection)
+			},
 			setFovy: (meta3dState, perspectiveCameraProjection, fovy) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).perspectiveCameraProjection.setFovy(meta3dState, perspectiveCameraProjection, fovy)
+			},
+			getNear: (meta3dState, perspectiveCameraProjection) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).perspectiveCameraProjection.getNear(meta3dState, perspectiveCameraProjection)
 			},
 			setNear: (meta3dState, perspectiveCameraProjection, near) => {
 				return api.getExtensionService<engineSceneService>(
@@ -357,11 +393,23 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).perspectiveCameraProjection.setNear(meta3dState, perspectiveCameraProjection, near)
 			},
+			getFar: (meta3dState, perspectiveCameraProjection) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).perspectiveCameraProjection.getFar(meta3dState, perspectiveCameraProjection)
+			},
 			setFar: (meta3dState, perspectiveCameraProjection, far) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).perspectiveCameraProjection.setFar(meta3dState, perspectiveCameraProjection, far)
+			},
+			getAspect: (meta3dState, perspectiveCameraProjection) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).perspectiveCameraProjection.getAspect(meta3dState, perspectiveCameraProjection)
 			},
 			setAspect: (meta3dState, perspectiveCameraProjection, aspect) => {
 				return api.getExtensionService<engineSceneService>(

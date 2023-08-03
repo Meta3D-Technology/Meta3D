@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { transform, componentName, dataName, localPosition, parent, children, localToWorldMatrix } from "meta3d-component-transform-protocol"
+import { transform, componentName, dataName, localPosition, localRotation, localScale, parent, children, localToWorldMatrix } from "meta3d-component-transform-protocol"
 import { lookAt as lookAtTransform } from "meta3d-component-commonlib"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
@@ -63,6 +63,35 @@ export function setLocalPosition(engineCoreState: engineCoreState, { unsafeGetUs
 
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
+
+export function getLocalRotation(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localRotation> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<transform, localRotation>(contribute, transform, dataName.localRotation)
+}
+
+export function setLocalRotation(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localRotation: localRotation) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    contribute = setComponentData(contribute, transform, dataName.localRotation, localRotation)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export function getLocalScale(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localScale> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<transform, localScale>(contribute, transform, dataName.localScale)
+}
+
+export function setLocalScale(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localScale: localScale) {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    contribute = setComponentData(contribute, transform, dataName.localScale, localScale)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 
 export function getLocalToWorldMatrix(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localToWorldMatrix> {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)

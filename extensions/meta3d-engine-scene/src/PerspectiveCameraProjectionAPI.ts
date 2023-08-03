@@ -22,12 +22,24 @@ export function createPerspectiveCameraProjection(engineCoreState: engineCoreSta
     ]
 }
 
+export function getFovy(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection): nullable<fovy> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<perspectiveCameraProjection, fovy>(contribute, perspectiveCameraProjection, dataName.fovy)
+}
+
 export function setFovy(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection, fovy: number) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, perspectiveCameraProjection, dataName.fovy, fovy)
 
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export function getNear(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection): nullable<near> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<perspectiveCameraProjection, near>(contribute, perspectiveCameraProjection, dataName.near)
 }
 
 export function setNear(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection, near: number) {
@@ -38,12 +50,24 @@ export function setNear(engineCoreState: engineCoreState, { unsafeGetUsedCompone
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
+export function getFar(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection): nullable<far> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<perspectiveCameraProjection, far>(contribute, perspectiveCameraProjection, dataName.far)
+}
+
 export function setFar(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection, far: number) {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, perspectiveCameraProjection, dataName.far, far)
 
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export function getAspect(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection): nullable<aspect> {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<perspectiveCameraProjection, aspect>(contribute, perspectiveCameraProjection, dataName.aspect)
 }
 
 export function setAspect(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection, aspect: number) {

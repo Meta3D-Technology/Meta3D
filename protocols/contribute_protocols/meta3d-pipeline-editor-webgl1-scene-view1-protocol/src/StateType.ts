@@ -15,6 +15,8 @@ export type state = {
     uiService: uiService,
     eventService: eventService,
     engineWholeService: engineWholeService,
+
+    canvas: HTMLCanvasElement,
     // cameraGameObject: nullable<gameObject>,
     arcballCameraController: nullable<arcballCameraController>,
     lastYaw: nullable<number>,

@@ -1,8 +1,8 @@
 {
-    "name": "meta3d-pipeline-editor-viewrect-protocol",
-    "version": "0.13.0",
-    "description": "",
+    "name": "meta3d-three-api-protocol",
+    "version": "0.13.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "meta3d-three-api-protocol",
     "author": "Meta3D",
     "license": "MIT",
     "scripts": {
@@ -11,6 +11,8 @@
         "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],
+    "dependencies": {
+    },
     "devDependencies": {
         "typescript": "^4.2.3"
     }

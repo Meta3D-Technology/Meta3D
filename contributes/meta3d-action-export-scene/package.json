@@ -1,9 +1,12 @@
 {
-    "name": "meta3d-pipeline-editor-viewrect",
-    "version": "0.13.0",
+    "name": "meta3d-action-export-scene",
+    "version": "0.13.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "meta3d-action-export-scene",
+    "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-click-button",
+    "description": "meta3d-action-export-scene",
     "protocol": {
-        "name": "meta3d-pipeline-editor-viewrect-protocol"
+        "name": "meta3d-action-button-click-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -14,8 +17,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.13.0",
-        "meta3d-pipeline-editor-viewrect-protocol": "^0.13.0",
+        "meta3d-action-button-click-protocol": "^0.13.0",
         "meta3d-type": "^0.13.0",
         "meta3d-ui-protocol": "^0.13.0"
     },

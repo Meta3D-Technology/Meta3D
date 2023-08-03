@@ -9,8 +9,8 @@ import {
 	hasArcballCameraController,
 	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
 } from "./ecs/GameObject"
-import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix } from "./ecs/Transform";
-import { createPerspectiveCameraProjection, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
+import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale } from "./ecs/Transform";
+import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
 import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./ecs/PBRMaterial";
 import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./ecs/Geometry";
 import {
@@ -78,15 +78,23 @@ export type scene = {
 		getChildren: getChildren,
 		getLocalPosition: getLocalPosition,
 		setLocalPosition: setLocalPosition,
+		getLocalRotation: getLocalRotation,
+		setLocalRotation: setLocalRotation,
+		getLocalScale: getLocalScale,
+		setLocalScale: setLocalScale,
 		getLocalToWorldMatrix: getLocalToWorldMatrix,
 		lookAt: lookAt,
 	},
 	perspectiveCameraProjection: {
 		createPerspectiveCameraProjection: createPerspectiveCameraProjection,
 		getPMatrix: getPMatrix,
+		getFovy: getFovy,
 		setFovy: setFovy,
+		getNear: getNear,
 		setNear: setNear,
+		getFar: getFar,
 		setFar: setFar,
+		getAspect: getAspect,
 		setAspect: setAspect
 	},
 	pbrMaterial: {
