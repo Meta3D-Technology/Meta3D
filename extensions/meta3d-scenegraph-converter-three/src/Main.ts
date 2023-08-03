@@ -15,7 +15,11 @@ import type {
     Sphere as SphereType,
     // Quaternion,
 } from "three";
+<<<<<<< HEAD
 import { getExn, getWithDefault, map, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+=======
+import { getExn, getWithDefault, map } from "meta3d-commonlib-ts/src/NullableUtils"
+>>>>>>> 9e36f527f7d4304d911b351b505377e258d9280f
 import { createEmptyBasicMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
@@ -406,7 +410,6 @@ class Scene extends Object3D {
                 return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject) && isNullable(engineSceneService.transform.getParent(meta3dState,
                     engineSceneService.gameObject.getTransform(meta3dState, gameObject)
                 ))
-
             }).map(gameObject => {
                 return _getMeshInstance(gameObject)
             })
