@@ -2,8 +2,22 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
+module Method = {
+  let resetAllAssemble = dispatch => {
+    dispatch(FrontendUtils.AssembleSpaceStoreType.ResetWhenSwitch)
+  }
+}
+
 @react.component
 let make = (~service: service, ~account) => {
+  let dispatch = service.react.useDispatch()
+
+  service.react.useEffectOnce(() => {
+    Method.resetAllAssemble(dispatch)
+
+    ((), None)
+  })
+
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>

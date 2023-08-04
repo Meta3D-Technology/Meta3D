@@ -17,6 +17,21 @@ let reducer = (state, action) => {
         FrontendUtils.PackageAssembleStoreType.Reset,
       ),
     }
+  | ResetWhenSwitch => {
+      ...state,
+      apAssembleState: ApAssembleStore.reducer(
+        state.apAssembleState,
+        FrontendUtils.ApAssembleStoreType.ResetWhenSwitch,
+      ),
+      elementAssembleState: ElementAssembleStore.reducer(
+        state.elementAssembleState,
+        FrontendUtils.ElementAssembleStoreType.ResetWhenSwitch,
+      ),
+      packageAssembleState: PackageAssembleStore.reducer(
+        state.packageAssembleState,
+        FrontendUtils.PackageAssembleStoreType.ResetWhenSwitch,
+      ),
+    }
   | ApAssembleAction(action) => {
       ...state,
       apAssembleState: ApAssembleStore.reducer(state.apAssembleState, action),

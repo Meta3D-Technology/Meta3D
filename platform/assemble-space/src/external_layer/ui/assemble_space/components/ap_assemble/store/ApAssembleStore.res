@@ -37,6 +37,7 @@ let _resetInspector = state => {
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
+  | ResetWhenSwitch => state->_resetInspector
   | SelectPackage(package) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({

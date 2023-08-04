@@ -27,9 +27,16 @@ let _createState = () => {
 //   }
 // }
 
+let _resetInspector = state => {
+  ...state,
+  inspectorCurrentExtensionId: None,
+  inspectorCurrentContributeId: None,
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
+  | ResetWhenSwitch => state->_resetInspector
   // | SelectPackage(package) => {
   //     ...state,
   //     selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({

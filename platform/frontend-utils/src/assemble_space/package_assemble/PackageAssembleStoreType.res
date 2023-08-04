@@ -48,6 +48,7 @@ type selectedPackages = list<package>
 
 type action =
   | Reset
+  | ResetWhenSwitch
   | SelectPackage(package)
   | SelectExtension(
       protocolIconBase64,

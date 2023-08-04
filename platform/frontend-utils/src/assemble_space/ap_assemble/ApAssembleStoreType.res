@@ -61,6 +61,7 @@ type apInspectorData = {
 
 type action =
   | Reset
+  | ResetWhenSwitch
   | SelectPackage(package)
   | SelectExtension(
       protocolIconBase64,

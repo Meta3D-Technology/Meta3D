@@ -2,7 +2,7 @@ open FrontendUtils.ElementAssembleStoreType
 
 let _buildDefaultUIControlInspectorData = (id, specific) => {
   {
-    id: id,
+    id,
     rect: {
       x: 0->IntForRectField,
       y: 0->IntForRectField,
@@ -11,7 +11,7 @@ let _buildDefaultUIControlInspectorData = (id, specific) => {
     },
     isDraw: true->BoolForIsDraw,
     event: [],
-    specific: specific,
+    specific,
     children: list{},
   }
 }
@@ -44,7 +44,7 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
         (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
         (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData, children) => {
           ...data,
-          children: children,
+          children,
         },
       ),
       state.selectedUIControlInspectorData,
@@ -79,24 +79,33 @@ let _findParentUIControlId = (
   //   )
 }
 
+let _resetInspector = state => {
+  ...state,
+  inspectorCurrentUIControlId: None,
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
-  | ResetWhenSwitch => {
-      ..._createState(),
-      visualExtension: state.visualExtension,
-    }
-  | SelectUIControl(protocolIconBase64, protocolConfigStr, displayName, data, parentId, specific) => {
+  | ResetWhenSwitch => state->_resetInspector
+  | SelectUIControl(
+      protocolIconBase64,
+      protocolConfigStr,
+      displayName,
+      data,
+      parentId,
+      specific,
+    ) => {
       let id = IdUtils.generateId(Js.Math.random)
 
       let childUIControl = {
-        id: id,
-        parentId: parentId,
+        id,
+        parentId,
         children: list{},
-        protocolIconBase64: protocolIconBase64,
-        protocolConfigStr: protocolConfigStr,
-        displayName: displayName,
-        data: data,
+        protocolIconBase64,
+        protocolConfigStr,
+        displayName,
+        data,
       }
 
       let childUIControlInspector = _buildDefaultUIControlInspectorData(id, specific)
@@ -109,7 +118,7 @@ let reducer = (state, action) => {
             (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
             (data: FrontendUtils.ElementAssembleStoreType.uiControl, children) => {
               ...data,
-              children: children,
+              children,
             },
           ),
           state.selectedUIControls,
@@ -122,7 +131,7 @@ let reducer = (state, action) => {
             (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
             (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData, children) => {
               ...data,
-              children: children,
+              children,
             },
           ),
           state.selectedUIControlInspectorData,
@@ -136,7 +145,7 @@ let reducer = (state, action) => {
       state,
       data => {
         ...data,
-        specific: specific,
+        specific,
       },
       id,
     )
@@ -145,7 +154,7 @@ let reducer = (state, action) => {
       state,
       data => {
         ...data,
-        rect: rect,
+        rect,
       },
       id,
     )
@@ -154,7 +163,7 @@ let reducer = (state, action) => {
       state,
       data => {
         ...data,
-        isDraw: isDraw,
+        isDraw,
       },
       id,
     )
@@ -169,7 +178,7 @@ let reducer = (state, action) => {
           if event->Meta3dCommonlib.ArraySt.length == 0 &&
             actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
             {
-              eventName: eventName,
+              eventName,
               actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
             },
           ]
@@ -184,7 +193,7 @@ let reducer = (state, action) => {
             eventData.eventName === eventName
               ? {
                   {
-                    eventName: eventName,
+                    eventName,
                     actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
                   }
                 }
@@ -227,7 +236,7 @@ let reducer = (state, action) => {
       ...state,
       elementInspectorData: {
         ...state.elementInspectorData,
-        elementStateFields: elementStateFields,
+        elementStateFields,
       },
     }
   // | SetRole(role) => {
@@ -252,9 +261,9 @@ let reducer = (state, action) => {
   //   }
   | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData) => {
       ...state,
-      selectedUIControls: selectedUIControls,
-      selectedUIControlInspectorData: selectedUIControlInspectorData,
-      elementInspectorData: elementInspectorData,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      elementInspectorData,
       // elementContribute: None,
     }
   }
