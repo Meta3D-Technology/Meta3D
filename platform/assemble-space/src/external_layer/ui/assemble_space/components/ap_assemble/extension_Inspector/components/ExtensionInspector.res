@@ -134,13 +134,15 @@ let make = (~service: service) => {
         />
         <Button
           onClick={_ => {
-            Method.updateSelectedExtension(
-              dispatch,
-              service,
-              inspectorCurrentExtension.id,
-              inspectorCurrentExtension.data.extensionPackageData,
-              extensionStr,
-            )
+            FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+              Method.updateSelectedExtension(
+                dispatch,
+                service,
+                inspectorCurrentExtension.id,
+                inspectorCurrentExtension.data.extensionPackageData,
+                extensionStr,
+              )
+            }, 5->Some)
           }}>
           {React.string(`提交`)}
         </Button>

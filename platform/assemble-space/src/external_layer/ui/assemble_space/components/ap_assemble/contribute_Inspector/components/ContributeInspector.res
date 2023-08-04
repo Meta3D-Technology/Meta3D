@@ -99,13 +99,15 @@ let make = (~service: service) => {
         />
         <Button
           onClick={_ => {
-            Method.updateSelectedContribute(
-              dispatch,
-              service,
-              inspectorCurrentContribute.id,
-              inspectorCurrentContribute.data.contributePackageData,
-              contributeStr,
-            )
+            FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+              Method.updateSelectedContribute(
+                dispatch,
+                service,
+                inspectorCurrentContribute.id,
+                inspectorCurrentContribute.data.contributePackageData,
+                contributeStr,
+              )
+            }, 5->Some)
           }}>
           {React.string(`提交`)}
         </Button>
