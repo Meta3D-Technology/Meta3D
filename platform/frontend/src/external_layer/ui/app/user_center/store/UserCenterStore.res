@@ -49,15 +49,22 @@ let _removeOtherSelectedExtensionsOfSameProtocolName = (
   })
 }
 
-let _removeOtherSelectedContributesOfSameProtocolName = (
+let _removeOtherSelectedContributesOfSameProtocolNameExceptAction = (
   selectedContributes: selectedContributes,
   data: contribute,
 ) => {
   let protocolName = data.protocolName
 
-  selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
-    selectedContribute.protocolName !== protocolName
-  })
+  switch AssembleSpace.ContributeTypeUtils.decideContributeType(protocolName) {
+  | Meta3dType.ContributeType.Action =>
+    selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+      selectedContribute.data.contributePackageData.name !== data.data.contributePackageData.name
+    })
+  | _ =>
+    selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+      selectedContribute.protocolName !== protocolName
+    })
+  }
 }
 
 let _removeOtherSelectedPackagesOfSameProtocolName = (
@@ -89,7 +96,7 @@ let reducer = (state, action) => {
   | SelectContribute(data, protocolConfigOpt) => {
       ...state,
       selectedContributes: state.selectedContributes
-      ->_removeOtherSelectedContributesOfSameProtocolName(data)
+      ->_removeOtherSelectedContributesOfSameProtocolNameExceptAction(data)
       ->Meta3dCommonlib.ListSt.push((data, protocolConfigOpt)),
       // selectedContributeProtocolConfigs: state.selectedContributeProtocolConfigs->Meta3dCommonlib.ListSt.push(
       //   protocolConfigOpt,
