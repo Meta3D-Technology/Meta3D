@@ -27,11 +27,11 @@ let useEffectOnceAsync = (
 
 let selectExtension = (
   // ~sandbox,
-  ~iconBase64,
   ~extension,
   ~protocolConfigStr,
   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~dispatch,
+  ~iconBase64="i1",
   ~protocolDisplayName="d1",
   ~protocolRepoLink="",
   ~protocolDescription="dp1",

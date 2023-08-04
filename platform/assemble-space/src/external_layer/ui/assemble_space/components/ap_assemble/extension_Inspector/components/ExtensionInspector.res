@@ -104,7 +104,6 @@ let make = (~service: service) => {
   switch inspectorCurrentExtension {
   | None => React.null
   | Some(inspectorCurrentExtension) =>
-    Js.log(inspectorCurrentExtension)
     // <Collapse defaultActiveKey={["1"]}>
     //   <Collapse.Panel header="Basic" key="1" />
     //   {}

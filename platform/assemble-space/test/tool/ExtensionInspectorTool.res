@@ -20,3 +20,5 @@ let getInspectorCurrentExtension = ExtensionInspector.Method.getInspectorCurrent
 
 let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   ExtensionInspector.Method.useSelector(apAssembleState)
+
+let updateSelectedExtension = ExtensionInspector.Method.updateSelectedExtension

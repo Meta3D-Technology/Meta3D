@@ -10,7 +10,7 @@ let feature = loadFeature("./test/features/extensionInspector.feature")
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
 
-  let _prepare = (given, \"and") => {
+  let _prepare = given => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
@@ -18,7 +18,7 @@ defineFeature(feature, test => {
   }
 
   test(."show nothing", ({given, \"when", \"and", then}) => {
-    _prepare(given, \"and")
+    _prepare(given)
 
     \"when"(
       "render",
@@ -51,11 +51,11 @@ defineFeature(feature, test => {
   test(."get current extension", ({given, \"when", \"and", then}) => {
     let setInspectorCurrentExtensionStub = ref(Obj.magic(1))
     let setExtensionStrStub = ref(Obj.magic(1))
-    let id = "e1"
+    let id = "a1"
     let extension = ref(Obj.magic(1))
-    let extensionStr = "e1 str"
+    let extensionStr = "a1 str"
 
-    _prepare(given, \"and")
+    _prepare(given)
 
     given(
       "set inspector current extension to a1",
@@ -100,9 +100,9 @@ defineFeature(feature, test => {
 
   // test(."show start button", ({given, \"when", \"and", then}) => {
   //   let useStateStub = ref(Obj.magic(1))
-  //   let id = "e1"
+  //   let id = "a1"
 
-  //   _prepare(given, \"and")
+  //   _prepare(given)
 
   //   given(
   //     "set inspector current extension to a1",
@@ -143,9 +143,9 @@ defineFeature(feature, test => {
 
   // test(."show unstart button", ({given, \"when", \"and", then}) => {
   //   let useSelectorStub = ref(Obj.magic(1))
-  //   let id = "e1"
+  //   let id = "a1"
 
-  //   _prepare(given, \"and")
+  //   _prepare(given)
 
   //   given(
   //     "set inspector current extension to a1",

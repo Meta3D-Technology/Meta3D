@@ -258,6 +258,8 @@ TODO not clean element assemble when switch between ap/element assemble
 TODO reset(inspector current id) when switch to element assemble
 
 
+** DONE add integration test
+
 
 ** TODO implement dispose
 
@@ -268,9 +270,7 @@ TODO reset(inspector current id) when switch to element assemble
 trigger dispose event when dispose e+c?
 
 
-*** TODO import scene should after dispose scene
-
-
+*** TODO run test
 
 
 
@@ -292,6 +292,8 @@ TODO add import glb extension:
 
 
 TODO run test: export->import
+    TODO import scene should after dispose scene
+
 
 
 
