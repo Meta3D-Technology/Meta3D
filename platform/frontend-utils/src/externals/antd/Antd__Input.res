@@ -29,3 +29,9 @@ module Search = {
     ~onSearch: ReactEvent.Form.t => unit=?,
   ) => React.element = "Search"
 }
+
+module TextArea = {
+  @module("antd") @scope("Input") @react.component
+  external make: (~value: string=?, ~onChange: ReactEvent.Form.t => unit=?) => React.element =
+    "TextArea"
+}

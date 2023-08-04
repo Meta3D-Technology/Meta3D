@@ -83,6 +83,8 @@ type action =
   | SetIsDebug(isDebug)
   | SetClearColor(clearColor)
   | SetSkinName(option<skinName>)
+  | UpdateSelectedExtension(id, Js.Typed_array.Uint8Array.t)
+  | UpdateSelectedContribute(id, Js.Typed_array.Uint8Array.t)
 
 type state = {
   selectedPackages: selectedPackages,

@@ -11,3 +11,25 @@ let getValue = (~setLocalValueStub, ~callIndex=0, ()) => {
 let buildEmptySetStateFunc = () => {
   () => ()
 }
+
+// let buildUseStateStub = (~sandbox, ~callData=[], ()) => {
+//   let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+//   (
+    
+    
+//     useStateStub, callData->Js.Array.map(((callIndex, localValueRef)) => {
+//       let setLocalValueFunc = func => {
+//         Js.log(("set: ", localValueRef.contents, func(localValueRef.contents)))
+
+//         localValueRef := func(localValueRef.contents)
+//       }
+
+//       useStateStub
+//       ->onCall(callIndex, _)
+//       ->returns((localValueRef.contents, setLocalValueFunc), _)
+//       ->ignore
+
+//       setLocalValueFunc
+//     }, _))->Obj.magic
+// }

@@ -21,7 +21,9 @@
     "coveragePathIgnorePatterns": [
         "<rootDir>/lib/js/src/.+/AssembleSpace.*",
         "<rootDir>/lib/js/src/.+/ApAssemble.*",
-        "<rootDir>/lib/js/src/.+/ElementAssemble.*"
+        "<rootDir>/lib/js/src/.+/ElementAssemble.*",
+        "<rootDir>/lib/js/src/.+/ExtensionInspector.*",
+        "<rootDir>/lib/js/src/.+/ContributeInspector.*"
     ],
     "collectCoverageFrom": [
         "lib/js/src/**/*.js",

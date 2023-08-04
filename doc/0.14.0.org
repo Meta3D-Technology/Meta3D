@@ -223,7 +223,7 @@ scene-view2
 
 ** TODO 加上代码框  更新扩展贡献的代码
 
-每个selected extension,contribute(except pacakge) add selectarea to show and update its code
+每个selected extension,contribute(except pacakge) add selectArea to show and update its code
 
 
 can't change protocol?
@@ -231,8 +231,44 @@ ans: no need to change it!
 
 
 
+Debug
+selectArea
+commit button
+
+
+
+
+  TODO add getGetExtensionFuncStr,getGetContributeFuncStr
+
+
+TODO forbidden for PackageSelectedExtensions 
+
+
+TODO contribute
+
+commit
+
+
+
+
 TODO not clean element assemble when switch between ap/element assemble
 
+
+
+TODO reset(inspector current id) when switch to element assemble
+
+
+
+** TODO implement dispose
+
+# ** TODO add dispose job
+
+*** TODO handle converter for three
+
+trigger dispose event when dispose e+c?
+
+
+*** TODO import scene should after dispose scene
 
 
 
@@ -253,6 +289,9 @@ TODO add import glb extension:
     # upload .glb
     invoke convertThreeSceneToDataOrientedScene
 
+
+
+TODO run test: export->import
 
 
 
@@ -285,16 +324,6 @@ TODO add actions
 
 
 
-
-
-* TODO implement dispose
-
-** TODO add dispose job
-
-** TODO handle converter for three
-
-
-** TODO import scene should after dispose scene
 
 
 

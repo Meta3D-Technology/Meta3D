@@ -38,6 +38,40 @@ module Method = {
   //   )
   // }
 
+  let updateSelectedExtension = (
+    dispatch,
+    service: service,
+    extensionId,
+    extensionPackageData,
+    extensionStr,
+  ) => {
+    dispatch(
+      FrontendUtils.ApAssembleStoreType.UpdateSelectedExtension(
+        extensionId,
+        service.meta3d.loadExtension(.
+          service.meta3d.generateExtension(. extensionPackageData, extensionStr),
+        ).extensionFuncData,
+      ),
+    )
+  }
+
+  let useEffectOnce = (
+    (setInspectorCurrentExtension, setExtensionStr),
+    service,
+    (inspectorCurrentExtensionId, selectedExtensions),
+  ) => {
+    switch (inspectorCurrentExtensionId, selectedExtensions)->getInspectorCurrentExtension {
+    | None =>
+      setInspectorCurrentExtension(_ => None)
+      setExtensionStr(_ => "")
+    | Some(inspectorCurrentExtension) =>
+      setInspectorCurrentExtension(_ => inspectorCurrentExtension->Some)
+      setExtensionStr(_ =>
+        service.meta3d.getExtensionStr(. inspectorCurrentExtension.data.extensionFuncData)
+      )
+    }
+  }
+
   let useSelector = (
     {inspectorCurrentExtensionId, selectedExtensions}: FrontendUtils.ApAssembleStoreType.state,
   ) => {
@@ -47,20 +81,37 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let (inspectorCurrentExtension, setInspectorCurrentExtension) = service.react.useState(_ => None)
+  let (extensionStr, setExtensionStr) = service.react.useState(_ => "")
 
-  switch ReduxUtils.ApAssemble.useSelector(
+  let (inspectorCurrentExtensionId, selectedExtensions) = ReduxUtils.ApAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
-  )->Method.getInspectorCurrentExtension {
+  )
+
+  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+
+  service.react.useEffect1(. () => {
+    Method.useEffectOnce(
+      (setInspectorCurrentExtension, setExtensionStr),
+      service,
+      (inspectorCurrentExtensionId, selectedExtensions),
+    )
+
+    None
+  }, [inspectorCurrentExtensionId])
+
+  switch inspectorCurrentExtension {
   | None => React.null
   | Some(inspectorCurrentExtension) =>
+    Js.log(inspectorCurrentExtension)
     // <Collapse defaultActiveKey={["1"]}>
     //   <Collapse.Panel header="Basic" key="1" />
     //   {}
     // </Collapse>
 
     <Space direction=#vertical size=#middle>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`入口扩展`)}, ())}
       {inspectorCurrentExtension.isStart
         ? <Button
             onClick={_ => {
@@ -74,20 +125,27 @@ let make = (~service: service) => {
             }}>
             {React.string(`启动`)}
           </Button>}
-      // <Input
-      // // TODO remove newName
-      //   value={NewNameUtils.getName(
-      //     inspectorCurrentExtension.newName,
-      //     inspectorCurrentExtension.data.extensionPackageData.name,
-      //   )}
-      //   onChange={e => {
-      //     Method.setExtensionNewName(
-      //       dispatch,
-      //       inspectorCurrentExtension,
-      //       e->EventUtils.getEventTargetValue,
-      //     )
-      //   }}
-      // />
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
+      {<>
+        <Input.TextArea
+          value={extensionStr}
+          onChange={e => {
+            setExtensionStr(_ => e->EventUtils.getEventTargetValue)
+          }}
+        />
+        <Button
+          onClick={_ => {
+            Method.updateSelectedExtension(
+              dispatch,
+              service,
+              inspectorCurrentExtension.id,
+              inspectorCurrentExtension.data.extensionPackageData,
+              extensionStr,
+            )
+          }}>
+          {React.string(`提交`)}
+        </Button>
+      </>}
     </Space>
   }
 }

@@ -116,6 +116,8 @@ type meta3dService = {
     array<Meta3d.AppAndPackageFileType.extensionFileData>,
     Meta3dType.Index.startConfigData,
   ),
+  getExtensionStr: (. Js.Typed_array.Uint8Array.t) => string,
+  getContributeStr: (. Js.Typed_array.Uint8Array.t) => string,
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,
   ) => Meta3dType.Index.getContributeFuncResult,
@@ -127,8 +129,11 @@ type meta3dService = {
   hasChildren: Meta3dServiceCommonType.hasChildren,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,
-  // ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,
-  ) => array<(Meta3dType.UIControlProtocolConfigType.eventName, Meta3dType.UIControlProtocolConfigType.actionProtocolName)>,
+  ) => // ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,
+  array<(
+    Meta3dType.UIControlProtocolConfigType.eventName,
+    Meta3dType.UIControlProtocolConfigType.actionProtocolName,
+  )>,
   generateHandleUIControlEventStr: (
     . Meta3d.LibUtils.lib,
     array<Meta3dType.UIControlProtocolConfigType.actionName>,

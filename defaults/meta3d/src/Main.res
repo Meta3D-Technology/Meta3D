@@ -40,6 +40,10 @@ let startApp = AppManager.start
 
 let execGetContributeFunc = AppManager.execGetContributeFunc
 
+let getExtensionStr = AppManager.getExtensionStr
+
+let getContributeStr = AppManager.getContributeStr
+
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
 let generateUIControlCommonDataStr = UIControlProtocolConfig.generateUIControlCommonDataStr

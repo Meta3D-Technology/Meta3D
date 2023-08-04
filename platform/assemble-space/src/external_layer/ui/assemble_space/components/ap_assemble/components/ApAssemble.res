@@ -60,7 +60,7 @@ let make = (
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />
-        <ContributeInspector />
+        <ContributeInspector service />
         <ApInspector service />
       </Layout.Sider>
     </Layout>

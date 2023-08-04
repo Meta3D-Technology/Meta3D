@@ -49,6 +49,14 @@ function generate(param, allPackageBinaryFiles, configData) {
                           ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
+function getExtensionStr(extensionFuncData) {
+  return ManagerUtils$Meta3d.getExtensionStr(new TextDecoder("utf-8"), extensionFuncData);
+}
+
+function getContributeStr(contributeFuncData) {
+  return ManagerUtils$Meta3d.getContributeStr(new TextDecoder("utf-8"), contributeFuncData);
+}
+
 function execGetContributeFunc(contributeFuncData, param) {
   return Curry._1(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined));
 }
@@ -60,7 +68,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            100,
+            108,
             6
           ],
           Error: new Error()
@@ -98,6 +106,8 @@ function start(param) {
 
 exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
+exports.getExtensionStr = getExtensionStr;
+exports.getContributeStr = getContributeStr;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;

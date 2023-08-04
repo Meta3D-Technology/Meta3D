@@ -155,6 +155,34 @@ let reducer = (state, action) => {
       ...apInspectorData,
       skinName,
     })
+  | UpdateSelectedExtension(id, extensionFuncData) => {
+      ...state,
+      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+        extension.id === id
+          ? {
+              ...extension,
+              data: {
+                ...extension.data,
+                extensionFuncData,
+              },
+            }
+          : extension
+      }),
+    }
+  | UpdateSelectedContribute(id, contributeFuncData) => {
+      ...state,
+      selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.map(contribute => {
+        contribute.id === id
+          ? {
+              ...contribute,
+              data: {
+                ...contribute.data,
+                contributeFuncData,
+              },
+            }
+          : contribute
+      }),
+    }
   }
 }
 

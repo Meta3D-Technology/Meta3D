@@ -2,6 +2,8 @@ let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
   <ExtensionInspector service />
 }
 
+let useEffectOnce = ExtensionInspector.Method.useEffectOnce
+
 let startExtension = (~dispatch, ~inspectorCurrentExtension) => {
   ExtensionInspector.Method.startExtension(dispatch, inspectorCurrentExtension)
 }
@@ -16,4 +18,5 @@ let unstartExtension = (~dispatch, ~inspectorCurrentExtension) => {
 
 let getInspectorCurrentExtension = ExtensionInspector.Method.getInspectorCurrentExtension
 
-let useSelector =({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state)=> ExtensionInspector.Method.useSelector(apAssembleState)
+let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+  ExtensionInspector.Method.useSelector(apAssembleState)

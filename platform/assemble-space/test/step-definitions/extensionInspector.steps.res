@@ -20,123 +20,169 @@ defineFeature(feature, test => {
   test(."show nothing", ({given, \"when", \"and", then}) => {
     _prepare(given, \"and")
 
-    \"when"("render", () => {
-      ()
-    })
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
 
-    then("should show nothing", () => {
-      ExtensionInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(
+    then(
+      "should show nothing",
+      () => {
+        ExtensionInspectorTool.buildUI(
           ~sandbox,
-          ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (None, list{}),
-            _,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+              (None, list{}),
+              _,
+            ),
+            (),
           ),
           (),
-        ),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
   })
 
-  test(."show start button", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+  test(."get current extension", ({given, \"when", \"and", then}) => {
+    let setInspectorCurrentExtensionStub = ref(Obj.magic(1))
+    let setExtensionStrStub = ref(Obj.magic(1))
     let id = "e1"
+    let extension = ref(Obj.magic(1))
+    let extensionStr = "e1 str"
 
     _prepare(given, \"and")
 
-    given("set inspector current extension to a1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (id->Some, list{SelectedExtensionsTool.buildSelectedExtension(~id, ())}),
-          _,
+    given(
+      "set inspector current extension to a1",
+      () => {
+        setInspectorCurrentExtensionStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        setExtensionStrStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+      },
+    )
+
+    \"when"(
+      "get current extension",
+      () => {
+        extension := SelectedExtensionsTool.buildSelectedExtension(~id, ())
+
+        ExtensionInspectorTool.useEffectOnce(
+          (setInspectorCurrentExtensionStub.contents, setExtensionStrStub.contents),
+          ServiceTool.build(
+            ~sandbox,
+            ~getExtensionStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(extensionStr, _)
+            ->Obj.magic,
+            (),
+          ),
+          (id->Some, list{extension.contents}),
         )
-    })
+      },
+    )
 
-    \"when"("render", () => {
-      ()
-    })
-
-    then("should show start button", () => {
-      ExtensionInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
+    then(
+      "should get a1 and its str",
+      () => {
+        (
+          ReactHookTool.getValue(
+            ~setLocalValueStub=setInspectorCurrentExtensionStub.contents->Obj.magic,
+            (),
+          ),
+          ReactHookTool.getValue(~setLocalValueStub=setExtensionStrStub.contents->Obj.magic, ()),
+        )->expect == (extension.contents, extensionStr)
+      },
+    )
   })
 
-  test(."show unstart button", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
-    let id = "e1"
+  // test(."show start button", ({given, \"when", \"and", then}) => {
+  //   let useStateStub = ref(Obj.magic(1))
+  //   let id = "e1"
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    given("set inspector current extension to a1", () => {
-      ()
-    })
+  //   given(
+  //     "set inspector current extension to a1",
+  //     () => {
+  //       useStateStub :=
+  //         createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //         ->onCall(0, _)
+  //         ->returns((SelectedExtensionsTool.buildSelectedExtension(~id, ()), Obj.magic(1)), _)
+  //         ->onCall(1, _)
+  //         ->returns(("", Obj.magic(1)), _)
+  //     },
+  //   )
 
-    \"and"("start a1", () => {
-      useSelectorStub :=
-        createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          (id->Some, list{SelectedExtensionsTool.buildSelectedExtension(~id, ~isStart=true, ())}),
-          _,
-        )
-    })
+  //   \"when"(
+  //     "render",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    \"when"("render", () => {
-      ()
-    })
+  //   then(
+  //     "should show start button",
+  //     () => {
+  //       ExtensionInspectorTool.buildUI(
+  //         ~sandbox,
+  //         ~service=ServiceTool.build(
+  //           ~sandbox,
+  //           ~useState=useStateStub.contents,
+  //           (),
+  //         ),
+  //         (),
+  //       )
+  //       ->ReactTestRenderer.create
+  //       ->ReactTestTool.createSnapshotAndMatch
+  //     },
+  //   )
+  // })
 
-    then("should show unstart button", () => {
-      ExtensionInspectorTool.buildUI(
-        ~sandbox,
-        ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-        (),
-      )
-      ->ReactTestRenderer.create
-      ->ReactTestTool.createSnapshotAndMatch
-    })
-  })
-
-  // test(."set new name input show default name", ({given, \"when", \"and", then}) => {
+  // test(."show unstart button", ({given, \"when", \"and", then}) => {
   //   let useSelectorStub = ref(Obj.magic(1))
   //   let id = "e1"
 
   //   _prepare(given, \"and")
 
-  //   given("set inspector current extension to a1", () => {
-  //     ()
-  //   })
+  //   given(
+  //     "set inspector current extension to a1",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-  //   \"and"("set a1's new name to new1", () => {
-  //     useSelectorStub :=
-  //       createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-  //         (
-  //           id->Some,
-  //           list{SelectedExtensionsTool.buildSelectedExtension(~id, ~newName="new1"->Some, ())},
-  //         ),
-  //         _,
+  //   \"and"(
+  //     "start a1",
+  //     () => {
+  //       useSelectorStub :=
+  //         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //           (id->Some, list{SelectedExtensionsTool.buildSelectedExtension(~id, ~isStart=true, ())}),
+  //           _,
+  //         )
+  //     },
+  //   )
+
+  //   \"when"(
+  //     "render",
+  //     () => {
+  //       ()
+  //     },
+  //   )
+
+  //   then(
+  //     "should show unstart button",
+  //     () => {
+  //       ExtensionInspectorTool.buildUI(
+  //         ~sandbox,
+  //         ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+  //         (),
   //       )
-  //   })
-
-  //   \"when"("render", () => {
-  //     ()
-  //   })
-
-  //   then("set new name input's default name should be new1", () => {
-  //     ExtensionInspectorTool.buildUI(
-  //       ~sandbox,
-  //       ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
-  //       (),
-  //     )
-  //     ->ReactTestRenderer.create
-  //     ->ReactTestTool.createSnapshotAndMatch
-  //   })
+  //       ->ReactTestRenderer.create
+  //       ->ReactTestTool.createSnapshotAndMatch
+  //     },
+  //   )
   // })
 })

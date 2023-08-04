@@ -83,6 +83,14 @@ let generate = (
   ->BinaryFileOperator.generate
 }
 
+let getExtensionStr = extensionFuncData => {
+  ManagerUtils.getExtensionStr(TextDecoder.newTextDecoder("utf-8"), extensionFuncData)
+}
+
+let getContributeStr = contributeFuncData => {
+  ManagerUtils.getContributeStr(TextDecoder.newTextDecoder("utf-8"), contributeFuncData)
+}
+
 let execGetContributeFunc = (~contributeFuncData, ()) => {
   (
     ManagerUtils.getContributeFunc(

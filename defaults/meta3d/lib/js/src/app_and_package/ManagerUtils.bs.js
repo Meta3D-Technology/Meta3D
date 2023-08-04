@@ -80,6 +80,14 @@ function mergeAllPackageBinaryFiles(param) {
   };
 }
 
+function getExtensionStr(decoder, extensionFuncData) {
+  return TextDecoder$Meta3d.decodeUint8Array(extensionFuncData, decoder);
+}
+
+function getContributeStr(decoder, contributeFuncData) {
+  return TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder);
+}
+
 function getContributeFunc(contributeFuncData, decoder) {
   var lib = LibUtils$Meta3d.serializeLib(TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder), "Contribute");
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
@@ -91,7 +99,7 @@ function _parse(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            114,
+            122,
             13
           ],
           Error: new Error()
@@ -107,7 +115,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            126,
+                            134,
                             34
                           ],
                           Error: new Error()
@@ -131,7 +139,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            144,
+                            152,
                             34
                           ],
                           Error: new Error()
@@ -214,6 +222,8 @@ function load(data) {
 
 exports.generate = generate;
 exports.mergeAllPackageBinaryFiles = mergeAllPackageBinaryFiles;
+exports.getExtensionStr = getExtensionStr;
+exports.getContributeStr = getContributeStr;
 exports.getContributeFunc = getContributeFunc;
 exports._parse = _parse;
 exports._prepare = _prepare;

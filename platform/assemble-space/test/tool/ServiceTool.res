@@ -16,10 +16,12 @@ let build = (
   ~random=Js.Math.random,
   ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useCallback1=React.useCallback1->Obj.magic,
-  ~useState=React.useState->Obj.magic,
+  // ~useState=React.useState->Obj.magic,
+  ~useState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns([], _)->Obj.magic,
   ~useRef=React.useRef->Obj.magic,
-  ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~useEffect1=React.useEffect1,
+  ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns([], _)->Obj.magic,
+  // ~useEffect1=React.useEffect1,
+  ~useEffect1=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~error=Js.Console.error,
@@ -88,6 +90,8 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getExtensionStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns("", _)->Obj.magic,
+  ~getContributeStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns("", _)->Obj.magic,
   ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns({"uiControlName": ""}, _)
   ->Obj.magic,
@@ -167,6 +171,8 @@ let build = (
     convertAllFileDataForPackage,
     convertAllFileDataForApp,
     loadApp,
+    getExtensionStr,
+    getContributeStr,
     execGetContributeFunc,
     hasChildren,
     serializeUIControlProtocolConfigLib,

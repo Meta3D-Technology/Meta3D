@@ -124,6 +124,14 @@ export function startApp(
     ]: [state, Array<extensionFileData>]
 ): void
 
+export function getExtensionStr(
+    extensionFuncData: Uint8Array
+): string
+
+export function getContributeStr(
+    contributeFuncData: Uint8Array
+): string
+
 export function execGetContributeFunc(
     contributeFuncData: Uint8Array
 ): getContributeFuncResult

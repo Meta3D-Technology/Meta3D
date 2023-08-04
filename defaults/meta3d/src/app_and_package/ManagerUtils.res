@@ -104,7 +104,15 @@ array<Uint8Array.t> => {
   )
 }
 
-let getContributeFunc = (contributeFuncData, decoder) => {
+let getExtensionStr = (decoder, extensionFuncData) => {
+  TextDecoder.decodeUint8Array(extensionFuncData, decoder)
+}
+
+let getContributeStr = (decoder, contributeFuncData) => {
+  TextDecoder.decodeUint8Array(contributeFuncData, decoder)
+}
+
+let getContributeFunc = ( contributeFuncData,decoder) => {
   let lib =
     TextDecoder.decodeUint8Array(contributeFuncData, decoder)->LibUtils.serializeLib("Contribute")
 

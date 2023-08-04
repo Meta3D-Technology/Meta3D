@@ -49,6 +49,10 @@ var startApp = AppManager$Meta3d.start;
 
 var execGetContributeFunc = AppManager$Meta3d.execGetContributeFunc;
 
+var getExtensionStr = AppManager$Meta3d.getExtensionStr;
+
+var getContributeStr = AppManager$Meta3d.getContributeStr;
+
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
 
 var generateUIControlCommonDataStr = UIControlProtocolConfig$Meta3d.generateUIControlCommonDataStr;
@@ -89,6 +93,8 @@ export {
   loadPackage ,
   startApp ,
   execGetContributeFunc ,
+  getExtensionStr ,
+  getContributeStr ,
   serializeUIControlProtocolConfigLib ,
   generateUIControlCommonDataStr ,
   getUIControlSpecificDataFields ,
