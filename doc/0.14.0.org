@@ -1,5 +1,5 @@
 # * TODO add action:event, handler to encapuslate action contribute
-* TODO update action
+* DONE update action
 
 refer to:  
 https://cloud.tencent.com/document/product/1301/65931
@@ -261,6 +261,48 @@ TODO reset(inspector current id) when switch to element assemble
 ** DONE add integration test
 
 
+** DONE package support update its extensions and contributes
+
+extension:
+
+meta3d:
+add getAllExtensionAndContributeFileDataOfPackage, 
+//updateExtensionFuncDataOfPackage
+//updatePackageWithAllExtensionAndContributeFileData = generatePackage
+
+add bdd test
+
+
+
+# TODO contribute:
+
+
+TODO assemble-space
+
+TODO add bdd test
+
+extension
+
+contribute
+
+
+
+TODO pass run test
+
+
+
+TODO commit
+
+
+
+
+
+** DONE add integration test
+
+
+# ** TODO pass bdd test
+
+
 ** TODO implement dispose
 
 # ** TODO add dispose job
@@ -272,6 +314,8 @@ trigger dispose event when dispose e+c?
 
 *** TODO run test
 
+
+** TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
 
 
 ** TODO import .glb

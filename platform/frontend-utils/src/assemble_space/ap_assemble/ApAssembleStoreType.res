@@ -78,6 +78,7 @@ type action =
       AssembleSpaceCommonType.contribute,
     )
   | SetInspectorCurrentContributeId(id)
+  | SetInspectorCurrentPackageId(id)
   // | SetContributeNewName(id, newName)
   | SetCanvasData(canvasData)
   | ShowApInspector
@@ -86,6 +87,7 @@ type action =
   | SetSkinName(option<skinName>)
   | UpdateSelectedExtension(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedContribute(id, Js.Typed_array.Uint8Array.t)
+  | UpdateSelectedPackage(id, Js.Typed_array.ArrayBuffer.t)
 
 type state = {
   selectedPackages: selectedPackages,
@@ -93,6 +95,7 @@ type state = {
   selectedContributes: selectedContributes,
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
+  inspectorCurrentPackageId: option<id>,
   canvasData: canvasData,
   isShowApInspector: bool,
   apInspectorData: apInspectorData,

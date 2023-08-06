@@ -104,29 +104,31 @@ array<Uint8Array.t> => {
   )
 }
 
-let getExtensionStr = (decoder, extensionFuncData) => {
+let getExtensionFuncDataStr = (decoder, extensionFuncData) => {
   TextDecoder.decodeUint8Array(extensionFuncData, decoder)
 }
 
-let getContributeStr = (decoder, contributeFuncData) => {
+let getExtensionFuncData = (encoder, extensionFuncDataStr) => {
+  TextEncoder.encodeUint8Array(extensionFuncDataStr, encoder)
+}
+
+let getContributeFuncDataStr = (decoder, contributeFuncData) => {
   TextDecoder.decodeUint8Array(contributeFuncData, decoder)
 }
 
-let getContributeFunc = ( contributeFuncData,decoder) => {
+let getContributeFuncData = (encoder, contributeFuncDataStr) => {
+  TextEncoder.encodeUint8Array(contributeFuncDataStr, encoder)
+}
+
+let getContributeFunc = (contributeFuncData, decoder) => {
   let lib =
     TextDecoder.decodeUint8Array(contributeFuncData, decoder)->LibUtils.serializeLib("Contribute")
 
   LibUtils.getFuncFromLib(lib, "getContribute")
 }
 
-let _parse = ([allExtensionBinaryUint8File, allContributeBinaryUint8File]) => {
+let _parse1 = ([allExtensionBinaryUint8File, allContributeBinaryUint8File]) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
-
-  //   let [
-  //     allExtensionBinaryUint8File,
-  //     allContributeBinaryUint8File,
-  //     configData,
-  //   ] = BinaryFileOperator.load(appBinaryFile)
 
   (
     BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
@@ -160,10 +162,35 @@ let _parse = ([allExtensionBinaryUint8File, allContributeBinaryUint8File]) => {
         },
       }
     }),
-    // TextDecoder.decodeUint8Array(configData, decoder)
-    // ->FileUtils.removeAlignedEmptyChars
-    // ->Js.Json.parseExn
-    // ->Obj.magic,
+  )
+}
+
+let parse2 = ([allExtensionBinaryUint8File, allContributeBinaryUint8File]) => {
+  let decoder = TextDecoder.newTextDecoder("utf-8")
+
+  (
+    BinaryFileOperator.load(allExtensionBinaryUint8File->Uint8Array.buffer)
+    ->Meta3dCommonlib.ArraySt.chunk(2)
+    ->Meta3dCommonlib.ArraySt.map(([extensionPackageData, extensionFuncData]) => {
+      (
+        TextDecoder.decodeUint8Array(extensionPackageData, decoder)
+        ->FileUtils.removeAlignedEmptyChars
+        ->Js.Json.parseExn
+        ->Obj.magic,
+        extensionFuncData,
+      )
+    }),
+    BinaryFileOperator.load(allContributeBinaryUint8File->Uint8Array.buffer)
+    ->Meta3dCommonlib.ArraySt.chunk(2)
+    ->Meta3dCommonlib.ArraySt.map(([contributePackageData, contributeFuncData]) => {
+      (
+        TextDecoder.decodeUint8Array(contributePackageData, decoder)
+        ->FileUtils.removeAlignedEmptyChars
+        ->Js.Json.parseExn
+        ->Obj.magic,
+        contributeFuncData,
+      )
+    }),
   )
 }
 
@@ -297,5 +324,5 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
 }
 
 let load = (data: array<Uint8Array.t>): (Meta3dType.Index.state, array<extensionFileData>) => {
-  data->_parse->_checkAllDependents->_run
+  data->_parse1->_checkAllDependents->_run
 }

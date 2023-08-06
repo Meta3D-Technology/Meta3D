@@ -7,6 +7,7 @@ let _createState = () => {
     selectedContributes: list{},
     inspectorCurrentExtensionId: None,
     inspectorCurrentContributeId: None,
+    inspectorCurrentPackageId: None,
     canvasData: {
       width: 0,
       height: 0,
@@ -31,6 +32,7 @@ let _resetInspector = state => {
   ...state,
   inspectorCurrentExtensionId: None,
   inspectorCurrentContributeId: None,
+  inspectorCurrentPackageId: None,
   isShowApInspector: false,
 }
 
@@ -64,7 +66,6 @@ let reducer = (state, action) => {
     {
       ...state,
       inspectorCurrentExtensionId: id->Some,
-      inspectorCurrentContributeId: None,
     }
   | StartExtension(id) => {
       ...state,
@@ -116,8 +117,14 @@ let reducer = (state, action) => {
 
     {
       ...state,
-      inspectorCurrentExtensionId: None,
       inspectorCurrentContributeId: id->Some,
+    }
+  | SetInspectorCurrentPackageId(id) =>
+    let state = state->_resetInspector
+
+    {
+      ...state,
+      inspectorCurrentPackageId: id->Some,
     }
   // | SetContributeNewName(id, newName) => {
   //     ...state,
@@ -182,6 +189,17 @@ let reducer = (state, action) => {
               },
             }
           : contribute
+      }),
+    }
+  | UpdateSelectedPackage(id, packageBinaryFile) => {
+      ...state,
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.map(package => {
+        package.id === id
+          ? {
+              ...package,
+              binaryFile: packageBinaryFile,
+            }
+          : package
       }),
     }
   }

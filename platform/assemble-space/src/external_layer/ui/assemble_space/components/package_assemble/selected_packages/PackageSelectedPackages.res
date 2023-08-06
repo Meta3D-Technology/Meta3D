@@ -12,6 +12,7 @@ module Method = {
 let make = (~service: service) => {
   <SelectedPackagesUtils
     service
+    useDispatch=ReduxUtils.PackageAssemble.useDispatch
     useSelectorResult={ReduxUtils.PackageAssemble.useSelector(
       service.react.useSelector,
       Method.useSelector,

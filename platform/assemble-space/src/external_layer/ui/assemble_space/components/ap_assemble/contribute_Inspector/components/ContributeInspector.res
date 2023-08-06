@@ -43,7 +43,7 @@ module Method = {
     | Some(inspectorCurrentContribute) =>
       setInspectorCurrentContribute(_ => inspectorCurrentContribute->Some)
       setContributeStr(_ =>
-        service.meta3d.getContributeStr(. inspectorCurrentContribute.data.contributeFuncData)
+        service.meta3d.getContributeFuncDataStr(. inspectorCurrentContribute.data.contributeFuncData)
       )
     }
   }

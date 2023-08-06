@@ -67,7 +67,7 @@ module Method = {
     | Some(inspectorCurrentExtension) =>
       setInspectorCurrentExtension(_ => inspectorCurrentExtension->Some)
       setExtensionStr(_ =>
-        service.meta3d.getExtensionStr(. inspectorCurrentExtension.data.extensionFuncData)
+        service.meta3d.getExtensionFuncDataStr(. inspectorCurrentExtension.data.extensionFuncData)
       )
     }
   }

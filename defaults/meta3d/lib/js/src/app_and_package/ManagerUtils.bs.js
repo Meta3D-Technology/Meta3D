@@ -80,12 +80,20 @@ function mergeAllPackageBinaryFiles(param) {
   };
 }
 
-function getExtensionStr(decoder, extensionFuncData) {
+function getExtensionFuncDataStr(decoder, extensionFuncData) {
   return TextDecoder$Meta3d.decodeUint8Array(extensionFuncData, decoder);
 }
 
-function getContributeStr(decoder, contributeFuncData) {
+function getExtensionFuncData(encoder, extensionFuncDataStr) {
+  return TextEncoder$Meta3d.encodeUint8Array(extensionFuncDataStr, encoder);
+}
+
+function getContributeFuncDataStr(decoder, contributeFuncData) {
   return TextDecoder$Meta3d.decodeUint8Array(contributeFuncData, decoder);
+}
+
+function getContributeFuncData(encoder, contributeFuncDataStr) {
+  return TextEncoder$Meta3d.encodeUint8Array(contributeFuncDataStr, encoder);
 }
 
 function getContributeFunc(contributeFuncData, decoder) {
@@ -93,14 +101,14 @@ function getContributeFunc(contributeFuncData, decoder) {
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
-function _parse(param) {
+function _parse1(param) {
   if (param.length !== 2) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            122,
-            13
+            130,
+            14
           ],
           Error: new Error()
         };
@@ -115,7 +123,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            134,
+                            136,
                             34
                           ],
                           Error: new Error()
@@ -139,7 +147,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            152,
+                            154,
                             34
                           ],
                           Error: new Error()
@@ -153,6 +161,63 @@ function _parse(param) {
                             getContributeFunc: getContributeFunc(contributeFuncData, decoder)
                           }
                         };
+                }))
+        ];
+}
+
+function parse2(param) {
+  if (param.length !== 2) {
+    throw {
+          RE_EXN_ID: "Match_failure",
+          _1: [
+            "ManagerUtils.res",
+            168,
+            13
+          ],
+          Error: new Error()
+        };
+  }
+  var allExtensionBinaryUint8File = param[0];
+  var allContributeBinaryUint8File = param[1];
+  var decoder = new TextDecoder("utf-8");
+  return [
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
+                  if (param.length !== 2) {
+                    throw {
+                          RE_EXN_ID: "Match_failure",
+                          _1: [
+                            "ManagerUtils.res",
+                            174,
+                            34
+                          ],
+                          Error: new Error()
+                        };
+                  }
+                  var extensionPackageData = param[0];
+                  var extensionFuncData = param[1];
+                  return [
+                          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(extensionPackageData, decoder))),
+                          extensionFuncData
+                        ];
+                })),
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer), 2), (function (param) {
+                  if (param.length !== 2) {
+                    throw {
+                          RE_EXN_ID: "Match_failure",
+                          _1: [
+                            "ManagerUtils.res",
+                            185,
+                            34
+                          ],
+                          Error: new Error()
+                        };
+                  }
+                  var contributePackageData = param[0];
+                  var contributeFuncData = param[1];
+                  return [
+                          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(contributePackageData, decoder))),
+                          contributeFuncData
+                        ];
                 }))
         ];
 }
@@ -217,15 +282,18 @@ function _run(param) {
 }
 
 function load(data) {
-  return _run(_checkAllDependents(_parse(data)));
+  return _run(_checkAllDependents(_parse1(data)));
 }
 
 exports.generate = generate;
 exports.mergeAllPackageBinaryFiles = mergeAllPackageBinaryFiles;
-exports.getExtensionStr = getExtensionStr;
-exports.getContributeStr = getContributeStr;
+exports.getExtensionFuncDataStr = getExtensionFuncDataStr;
+exports.getExtensionFuncData = getExtensionFuncData;
+exports.getContributeFuncDataStr = getContributeFuncDataStr;
+exports.getContributeFuncData = getContributeFuncData;
 exports.getContributeFunc = getContributeFunc;
-exports._parse = _parse;
+exports._parse1 = _parse1;
+exports.parse2 = parse2;
 exports._prepare = _prepare;
 exports._checkDependentMap = _checkDependentMap;
 exports._checkAllDependents = _checkAllDependents;

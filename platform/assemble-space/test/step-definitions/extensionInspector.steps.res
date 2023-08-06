@@ -74,7 +74,7 @@ defineFeature(feature, test => {
           (setInspectorCurrentExtensionStub.contents, setExtensionStrStub.contents),
           ServiceTool.build(
             ~sandbox,
-            ~getExtensionStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ~getExtensionFuncDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))
             ->returns(extensionStr, _)
             ->Obj.magic,
             (),

@@ -97,8 +97,16 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       convertAllFileDataForApp: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
-      getExtensionStr: (. extensionFuncData) => Meta3d.Main.getExtensionStr(extensionFuncData),
-      getContributeStr: (. contributeFuncData) => Meta3d.Main.getContributeStr(contributeFuncData),
+      getExtensionFuncDataStr: (. extensionFuncData) =>
+        Meta3d.Main.getExtensionFuncDataStr(extensionFuncData),
+      getExtensionFuncData: (. extensionFuncDataStr) =>
+        Meta3d.Main.getExtensionFuncData(extensionFuncDataStr),
+      getContributeFuncDataStr: (. contributeFuncData) =>
+        Meta3d.Main.getContributeFuncDataStr(contributeFuncData),
+      getContributeFuncData: (. contributeFuncDataStr) =>
+        Meta3d.Main.getContributeFuncData(contributeFuncDataStr),
+      getAllExtensionAndContributeFileDataOfPackage: (. packageBinaryFile) =>
+        Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile),
       execGetContributeFunc: (. contributeFuncData) =>
         Meta3d.Main.execGetContributeFunc(~contributeFuncData, ()),
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>

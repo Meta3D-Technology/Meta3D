@@ -36,13 +36,19 @@ let loadApp = AppManager.load
 
 let loadPackage = PackageManager.load
 
+let getAllExtensionAndContributeFileDataOfPackage = PackageManager.getAllExtensionAndContributeFileDataOfPackage
+
 let startApp = AppManager.start
 
 let execGetContributeFunc = AppManager.execGetContributeFunc
 
-let getExtensionStr = AppManager.getExtensionStr
+let getExtensionFuncDataStr = AppManager.getExtensionFuncDataStr
 
-let getContributeStr = AppManager.getContributeStr
+let getExtensionFuncData = AppManager.getExtensionFuncData
+
+let getContributeFuncDataStr = AppManager.getContributeFuncDataStr
+
+let getContributeFuncData = AppManager.getContributeFuncData
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 

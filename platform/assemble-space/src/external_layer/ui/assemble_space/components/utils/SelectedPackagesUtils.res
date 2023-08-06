@@ -3,7 +3,9 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 @react.component
-let make = (~service: service, ~useSelectorResult) => {
+let make = (~service: service, ~useDispatch, ~useSelectorResult, ~selectPackage=(_, _) => ()) => {
+  let dispatch = useDispatch(service.react.useDispatch)
+
   let selectedPackages = useSelectorResult
 
   <List
@@ -13,6 +15,9 @@ let make = (~service: service, ~useSelectorResult) => {
       <List.Item>
         <Card
           key={id}
+          onClick={_ => {
+            selectPackage(dispatch, id)
+          }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
           cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
           <Card.Meta

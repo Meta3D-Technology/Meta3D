@@ -149,3 +149,10 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
 
   (state, allExtensionDataArr, _getEntryExtensionProtocolName(allExtensionDataArr))
 }
+
+let getAllExtensionAndContributeFileDataOfPackage = (packageBinaryFile: ArrayBuffer.t): (
+  array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+  array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+) => {
+  packageBinaryFile->BinaryFileOperator.load->ManagerUtils.parse2
+}

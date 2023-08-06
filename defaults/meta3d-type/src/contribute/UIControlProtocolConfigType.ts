@@ -36,8 +36,8 @@ export type getUIControlSpecificDataFields = () => uiControlSpecificDataFields
 export type hasChildren = () => boolean
 
 // export type getUIControlSupportedEventNames = () => Array<supportedEventName>
-type eventName = string
-type actionProtocolName = string
+export type eventName = string
+export type actionProtocolName = string
 export type getUIControlSupportedEventNames = () => Array<[eventName, actionProtocolName]>
 
 export type generateHandleUIControlEventStr = (actionNames: Array<actionName>) => string

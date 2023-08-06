@@ -64,9 +64,7 @@ defineFeature(feature, test => {
   //                 protocol: {
   //                   name: "second-extension-protocol",
   //                   version: "1.0.2",
-  //                 },
-  //                 dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  //                 dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //                 dependentcontributeprotocolnamemap: meta3dcommonlib.immutablehashmap.createempty(),
   //               }: ExtensionFileType.extensionPackageData
   //             ),
   //             PackageManagerTool.buildEmptyExtensionFileStr(),
@@ -705,6 +703,105 @@ defineFeature(feature, test => {
       "the second extension's service should be invoked",
       () => {
         PackageManagerTool.getServiceFlag()->expect == 9
+      },
+    )
+  })
+
+  test(."get all extension and contribute file data of package", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let firstExtension = ref(Obj.magic(1))
+    let firstExtensionFileStr = PackageManagerTool.buildEmptyExtensionFileStr()
+    let firstContribute = ref(Obj.magic(1))
+    let firstContributeFileStr = PackageManagerTool.buildEmptyContributeFileStr()
+    let c1 = ref(Obj.magic(1))
+    let entryExtensions = ref(Obj.magic(1))
+    let pacakge = ref(Obj.magic(1))
+    let result = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "generate one extension",
+      () => {
+        firstExtension :=
+          ExtensionFileManagerTool.generateExtension(
+            ~name="first-extension",
+            ~protocol={
+              name: "first-extension-protocol",
+              version: "0.4.1",
+            },
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~fileStr=firstExtensionFileStr,
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "generate one contribute",
+      () => {
+        firstContribute :=
+          ExtensionFileManagerTool.generateContribute(
+            ~name="first-contribute",
+            ~protocol={
+              name: "first-contribute-protocol",
+              version: "0.5.3",
+            },
+            ~fileStr=firstContributeFileStr,
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "mark the extension as entry",
+      () => {
+        entryExtensions := ["first-extension"]
+      },
+    )
+
+    \"and"(
+      "load them and convert as c1",
+      () => {
+        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
+        let firstContributeFileData = Main.loadContribute(firstContribute.contents)
+
+        c1 :=
+          Main.convertAllFileDataForPackage(
+            [firstExtensionFileData],
+            [firstContributeFileData],
+            entryExtensions.contents,
+          )
+      },
+    )
+
+    \"and"(
+      "generate package with c1",
+      () => {
+        pacakge := Main.generatePackage(c1.contents, [])
+      },
+    )
+
+    \"when"(
+      "get all extension and contribute file data of the package",
+      () => {
+        result := Main.getAllExtensionAndContributeFileDataOfPackage(pacakge.contents)
+      },
+    )
+
+    then(
+      "should return the extension and the contribute whose func data is binary file",
+      () => {
+        let (allExtensionFileData, allContributeFileData) = result.contents
+
+        (
+          allExtensionFileData[0]->Meta3dCommonlib.Tuple2.getLast->Main.getExtensionFuncDataStr,
+          allContributeFileData[0]->Meta3dCommonlib.Tuple2.getLast->Main.getContributeFuncDataStr,
+        )->expect == (firstExtensionFileStr, firstContributeFileStr)
       },
     )
   })

@@ -90,8 +90,17 @@ let build = (
   ->returns(([], []), _)
   ->Obj.magic,
   ~loadApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getExtensionStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns("", _)->Obj.magic,
-  ~getContributeStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns("", _)->Obj.magic,
+  ~getExtensionFuncDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns("", _)
+  ->Obj.magic,
+  ~getExtensionFuncData=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getContributeFuncDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns("", _)
+  ->Obj.magic,
+  ~getContributeFuncData=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~getAllExtensionAndContributeFileDataOfPackage=createEmptyStub(
+    refJsObjToSandbox(sandbox.contents),
+  )->Obj.magic,
   ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns({"uiControlName": ""}, _)
   ->Obj.magic,
@@ -171,8 +180,11 @@ let build = (
     convertAllFileDataForPackage,
     convertAllFileDataForApp,
     loadApp,
-    getExtensionStr,
-    getContributeStr,
+    getExtensionFuncDataStr,
+    getExtensionFuncData,
+    getContributeFuncDataStr,
+    getContributeFuncData,
+    getAllExtensionAndContributeFileDataOfPackage,
     execGetContributeFunc,
     hasChildren,
     serializeUIControlProtocolConfigLib,

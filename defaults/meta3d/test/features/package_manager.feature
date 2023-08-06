@@ -73,6 +73,18 @@ Feature: Package Manager
             Then the second extension's service should be invoked
 
 
-    #     Scenario: load and update generated package
-    #         When generate package with c1 and load it and update the second extension
-    #         Then the second extension should be updated
+        #     Scenario: load and update generated package
+        #         When generate package with c1 and load it and update the second extension
+        #         Then the second extension should be updated
+
+
+    Rule: get all extension and contribute file data of package
+
+        Scenario: get all extension and contribute file data of package
+            Given generate one extension
+            And generate one contribute
+            And mark the extension as entry
+            And load them and convert as c1
+            And generate package with c1
+            When get all extension and contribute file data of the package
+            Then should return the extension and the contribute whose func data is binary file

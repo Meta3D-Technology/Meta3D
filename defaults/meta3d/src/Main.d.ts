@@ -1,10 +1,9 @@
 // TODO unify .d.ts, .ts!
 
 import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
-import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
-import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
+import { actionName, actionProtocolName, eventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
-import { extensionFileData, extensionProtocolData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
+import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
@@ -115,7 +114,12 @@ export function loadPackage(
     packageBinaryFile: ArrayBuffer
 ): [state, Array<extensionFileData>, extensionProtocolName]
 
-
+export function getAllExtensionAndContributeFileDataOfPackage(
+    packageBinaryFile: ArrayBuffer
+): [
+        Array<[extensionPackageDataApp, extensionFuncData]>,
+        Array<[contributePackageDataApp, contributeFuncData]>
+    ]
 
 export function startApp(
     [
@@ -148,14 +152,14 @@ export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: stri
 
 export type hasChildren = (configLib: protocolConfigLib) => boolean
 
-export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<supportedEventName>
+export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<[eventName, actionProtocolName]>
 
 export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, actionNames: Array<actionName>) => string
 
 
 export type serializeActionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
 
-export type getActions = (configLib: protocolConfigLib) => actions
+// export type getActions = (configLib: protocolConfigLib) => actions
 
 
 

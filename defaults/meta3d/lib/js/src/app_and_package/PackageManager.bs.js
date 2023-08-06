@@ -63,8 +63,13 @@ function load(packageBinaryFile) {
         ];
 }
 
+function getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile) {
+  return ManagerUtils$Meta3d.parse2(BinaryFileOperator$Meta3d.load(packageBinaryFile));
+}
+
 exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
 exports._getEntryExtensionProtocolName = _getEntryExtensionProtocolName;
 exports.load = load;
+exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
 /* No side effect */

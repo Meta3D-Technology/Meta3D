@@ -56,8 +56,8 @@ defineFeature(feature, test => {
           (setInspectorCurrentExtensionStub.contents, setExtensionStrStub.contents),
           ServiceTool.build(
             ~sandbox,
-            ~getExtensionStr=(. extensionFuncData) =>
-              Meta3d.Main.getExtensionStr(extensionFuncData),
+            ~getExtensionFuncDataStr=(. extensionFuncData) =>
+              Meta3d.Main.getExtensionFuncDataStr(extensionFuncData),
             (),
           ),
           (id->Some, list{a1.contents}),
@@ -85,6 +85,8 @@ defineFeature(feature, test => {
     let store = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
     let id = ref(Obj.magic(1))
+    let f2Str = "\u0002\u0003"
+    let f2 = Js.Typed_array.Uint8Array.make([2, 3])
 
     _prepare(given)
 
@@ -123,7 +125,7 @@ defineFeature(feature, test => {
     )
 
     \"when"(
-      "update selected extension by change extension string to f2 string",
+      "update a1 by change f1 string to f2 string",
       () => {
         store := {
             ...store.contents,
@@ -139,7 +141,7 @@ defineFeature(feature, test => {
               ),
               id.contents,
               ExtensionTool.buildExtensionPackageData(),
-              "\u0002\u0003",
+              f2Str,
             ),
           }
       },
@@ -152,7 +154,7 @@ defineFeature(feature, test => {
 
         (
           selectedExtensions->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
-        ).data.extensionFuncData->expect == Js.Typed_array.Uint8Array.make([2, 3])
+        ).data.extensionFuncData->expect == f2
       },
     )
   })

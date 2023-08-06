@@ -49,12 +49,20 @@ function generate(param, allPackageBinaryFiles, configData) {
                           ]))(allPackageBinaryFiles), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
 }
 
-function getExtensionStr(extensionFuncData) {
-  return ManagerUtils$Meta3d.getExtensionStr(new TextDecoder("utf-8"), extensionFuncData);
+function getExtensionFuncDataStr(extensionFuncData) {
+  return ManagerUtils$Meta3d.getExtensionFuncDataStr(new TextDecoder("utf-8"), extensionFuncData);
 }
 
-function getContributeStr(contributeFuncData) {
-  return ManagerUtils$Meta3d.getContributeStr(new TextDecoder("utf-8"), contributeFuncData);
+function getExtensionFuncData(extensionFuncDataStr) {
+  return ManagerUtils$Meta3d.getExtensionFuncData(new TextEncoder(), extensionFuncDataStr);
+}
+
+function getContributeFuncDataStr(contributeFuncData) {
+  return ManagerUtils$Meta3d.getContributeFuncDataStr(new TextDecoder("utf-8"), contributeFuncData);
+}
+
+function getContributeFuncData(contributeFuncDataStr) {
+  return ManagerUtils$Meta3d.getContributeFuncData(new TextEncoder(), contributeFuncDataStr);
 }
 
 function execGetContributeFunc(contributeFuncData, param) {
@@ -68,7 +76,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            108,
+            116,
             6
           ],
           Error: new Error()
@@ -106,8 +114,10 @@ function start(param) {
 
 exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
-exports.getExtensionStr = getExtensionStr;
-exports.getContributeStr = getContributeStr;
+exports.getExtensionFuncDataStr = getExtensionFuncDataStr;
+exports.getExtensionFuncData = getExtensionFuncData;
+exports.getContributeFuncDataStr = getContributeFuncDataStr;
+exports.getContributeFuncData = getContributeFuncData;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;

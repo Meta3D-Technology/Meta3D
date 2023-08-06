@@ -61,6 +61,7 @@ let make = (
       <Layout.Sider theme=#light>
         <ExtensionInspector service />
         <ContributeInspector service />
+        <PackageInspector service />
         <ApInspector service />
       </Layout.Sider>
     </Layout>

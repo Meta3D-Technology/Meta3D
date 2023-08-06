@@ -116,8 +116,16 @@ type meta3dService = {
     array<Meta3d.AppAndPackageFileType.extensionFileData>,
     Meta3dType.Index.startConfigData,
   ),
-  getExtensionStr: (. Js.Typed_array.Uint8Array.t) => string,
-  getContributeStr: (. Js.Typed_array.Uint8Array.t) => string,
+  getExtensionFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
+  getExtensionFuncData: (. string) => Js.Typed_array.Uint8Array.t,
+  getContributeFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
+  getContributeFuncData: (. string) => Js.Typed_array.Uint8Array.t,
+  getAllExtensionAndContributeFileDataOfPackage: (
+    . Js.Typed_array.ArrayBuffer.t,
+  ) => (
+    array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
+    array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
+  ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,
   ) => Meta3dType.Index.getContributeFuncResult,
