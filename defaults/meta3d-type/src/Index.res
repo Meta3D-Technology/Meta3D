@@ -54,10 +54,11 @@ and state = {
     extensionProtocolName,
     extensionLife<extensionService>,
   >,
-  contributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  contributeExceptActionMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     contributeProtocolName,
     (ContributeType.contributeType, contribute),
   >,
+  actionMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeProtocolName, array<contribute>>,
 }
 
 type api = {

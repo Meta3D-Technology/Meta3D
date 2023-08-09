@@ -39,14 +39,14 @@ module Method = {
           },
           [],
         )
-        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
-          displayName,
-          _,
-          _,
-          _,
-        )) => {
-          displayName
-        })
+        // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
+        //   displayName,
+        //   _,
+        //   _,
+        //   _,
+        // )) => {
+        //   displayName
+        // })
       },
       // | list{(contribute, protocolConfig)} =>
 

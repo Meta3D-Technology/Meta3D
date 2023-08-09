@@ -17,7 +17,12 @@ Feature: Contribute
 
     Rule: error case
 
-        Scenario: register contribute which already registered before
+        Scenario: register contribute which is not action and already registered before
             Given register contribute of protocol name p1
             When register contribute of protocol name p1
             Then error
+
+        Scenario: register contribute which is action and already registered before
+            Given register action a1 of protocol name p1
+            When register action a2 of protocol name p1
+            Then not error

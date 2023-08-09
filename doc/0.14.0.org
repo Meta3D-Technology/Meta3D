@@ -353,6 +353,9 @@ meta3d-pipeline-editor-webgl1-scene-view1
 meta3d-pipeline-editor-webgl1-scene-view2
 
 
+meta3d-pipeline-editor-webgl1-scene-view1-three
+
+
 extension:
 
 
@@ -430,15 +433,18 @@ commit
 
 
 
-
-*** TODO fix bug: ap assemble, package assemble->Contributes: should show all implements for actions
-
+*** DONE pass bdd test
 
 
 
-TODO need reselect:
-meta3d-editor-engine-webgl1-three-render
-converter
+*** DONE fix bug: ap assemble, package assemble->Contributes: should show all implements for actions
+
+
+
+
+# TODO need reselect:
+# meta3d-editor-engine-webgl1-three-render
+# converter
 
 *** TODO run test for dispose cube
 

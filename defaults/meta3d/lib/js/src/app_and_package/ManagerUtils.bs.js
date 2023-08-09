@@ -227,7 +227,8 @@ function _prepare(param) {
           extensionServiceMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           extensionStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          contributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          contributeExceptActionMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          actionMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

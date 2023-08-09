@@ -22,19 +22,51 @@ let getExtensionStateExn = (state, protocolName: extensionProtocolName) => {
   state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
 }
 
+let _isAction = (protocolName: string) => {
+  switch protocolName {
+  | name if name->Js.String.includes("-action-", _) => true
+  | _ => false
+  }
+}
+
 let getContributeExn = (state, protocolName: contributeProtocolName) => {
-  state.contributeMap
-  ->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
-  ->Meta3dCommonlib.Tuple2.getLast
+  _isAction(protocolName)
+    ? Meta3dCommonlib.Exception.throwErr(
+        Meta3dCommonlib.Exception.buildErr(
+          Meta3dCommonlib.Log.buildErrorMessage(
+            ~title={j`shouldn't get action whose protocol is: ${protocolName}!`},
+            ~description={
+              j``
+            },
+            ~reason="",
+            ~solution=j``,
+            ~params=j``,
+          ),
+        ),
+      )
+    : state.contributeExceptActionMap
+      ->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
+      ->Meta3dCommonlib.Tuple2.getLast
 }
 
 let getAllContributesByType = (state, contributeType) => {
-  state.contributeMap
-  ->Meta3dCommonlib.ImmutableHashMap.getValidValues
-  ->Meta3dCommonlib.ArraySt.filter(((type_, _)) => {
-    type_ == contributeType
-  })
-  ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple2.getLast)
+  open Meta3dType.ContributeType
+
+  switch contributeType {
+  | Action =>
+    state.actionMap
+    ->Meta3dCommonlib.ImmutableHashMap.getValidValues
+    ->Meta3dCommonlib.ArraySt.reduceOneParam((. result, arr) => {
+      Js.Array.concat(arr, result)
+    }, [])
+  | _ =>
+    state.contributeExceptActionMap
+    ->Meta3dCommonlib.ImmutableHashMap.getValidValues
+    ->Meta3dCommonlib.ArraySt.filter(((type_, _)) => {
+      type_ == contributeType
+    })
+    ->Meta3dCommonlib.ArraySt.map(Meta3dCommonlib.Tuple2.getLast)
+  }
 }
 
 let _getExtensionLifeExn = (state, protocolName: extensionProtocolName) => {
@@ -176,19 +208,37 @@ and registerContribute = (
   protocolName: contributeProtocolName,
   getContributeFunc: getContribute<contribute>,
 ) => {
-  _checkIsRegister(
-    protocolName,
-    state.contributeMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
-  )
+  open Meta3dType.ContributeType
 
   let contribute = getContributeFunc(buildAPI())
 
-  {
-    ...state,
-    contributeMap: state.contributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+  let contributeType = _decideContributeType(contribute)
+
+  switch contributeType {
+  | Action => {
+      ...state,
+      actionMap: switch state.actionMap->Meta3dCommonlib.ImmutableHashMap.get(protocolName) {
+      | Some(actions) =>
+        state.actionMap->Meta3dCommonlib.ImmutableHashMap.set(
+          protocolName,
+          actions->Meta3dCommonlib.ArraySt.push(contribute),
+        )
+      | None => state.actionMap->Meta3dCommonlib.ImmutableHashMap.set(protocolName, [contribute])
+      },
+    }
+  | _ =>
+    _checkIsRegister(
       protocolName,
-      (_decideContributeType(contribute), contribute),
-    ),
+      state.contributeExceptActionMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
+    )
+
+    {
+      ...state,
+      contributeExceptActionMap: state.contributeExceptActionMap->Meta3dCommonlib.ImmutableHashMap.set(
+        protocolName,
+        (contributeType, contribute),
+      ),
+    }
   }
 }
 and buildAPI = (): api => {

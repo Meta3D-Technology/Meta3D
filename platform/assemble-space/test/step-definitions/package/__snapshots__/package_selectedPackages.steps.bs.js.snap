@@ -42,6 +42,7 @@ exports[`Package Selected Packages show selected packages 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"
@@ -129,6 +130,7 @@ exports[`Package Selected Packages show selected packages 1`] = `
             >
               <div
                 className="ant-card ant-card-bordered"
+                onClick={[Function]}
               >
                 <div
                   className="ant-card-cover"

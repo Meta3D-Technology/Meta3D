@@ -5,6 +5,12 @@ open Operators
 
 let feature = loadFeature("./test/features/contribute.feature")
 
+let _buildAction = actionName =>
+  {
+    "actionName": actionName,
+    "handler": Obj.magic(1),
+  }
+
 defineFeature(feature, test => {
   test(."get all contributes by type", ({given, \"when", \"and", then}) => {
     let state = ref(Obj.magic(1))
@@ -17,11 +23,14 @@ defineFeature(feature, test => {
         state :=
           Main.registerContribute(
             state.contents,
-            "a1",
-            ContributeTool.buildGetContributeFunc({
-              "actionName": "a1",
-              "handler": Obj.magic(1),
-            })->Obj.magic,
+            "a1-protocol",
+            ContributeTool.buildGetContributeFunc(_buildAction("a1"))->Obj.magic,
+          )
+        state :=
+          Main.registerContribute(
+            state.contents,
+            "a1-protocol",
+            ContributeTool.buildGetContributeFunc(_buildAction("a2"))->Obj.magic,
           )
         state :=
           Main.registerContribute(
@@ -135,7 +144,7 @@ defineFeature(feature, test => {
           ->Js.Json.stringify,
         )->expect ==
           (
-            "[{\"actionName\":\"a1\",\"handler\":1}]",
+            "[{\"actionName\":\"a1\",\"handler\":1},{\"actionName\":\"a2\",\"handler\":1}]",
             "[{\"componentName\":\"c1\",\"createComponentFunc\":1}]",
             "[{\"elementName\":\"e1\",\"execOrder\":0}]",
             "[{\"createGameObjectFunc\":1,\"getAllGameObjectsFunc\":1}]",
@@ -187,7 +196,12 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."register contribute which already registered before", ({given, \"when", \"and", then}) => {
+  test(."register contribute which is not action and already registered before", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
     let state = ref(Obj.magic(1))
     let protocolName = "p1"
 
@@ -227,6 +241,53 @@ defineFeature(feature, test => {
         )->toThrowMessage({
           j`already register extension or contribute of protocol: ${protocolName}`
         })
+      },
+    )
+  })
+
+  test(."register contribute which is action and already registered before", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let state = ref(Obj.magic(1))
+    let protocolName = "p1"
+
+    given(
+      "register action a1 of protocol name p1",
+      () => {
+        state := StateTool.create()
+
+        state :=
+          Main.registerContribute(
+            state.contents,
+            protocolName,
+            ContributeTool.buildGetContributeFunc(_buildAction("a1"))->Obj.magic,
+          )
+      },
+    )
+
+    \"when"(
+      "register action a2 of protocol name p1",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "not error",
+      () => {
+        expect(
+          () => {
+            state :=
+              Main.registerContribute(
+                state.contents,
+                protocolName,
+                ContributeTool.buildGetContributeFunc(_buildAction("a2"))->Obj.magic,
+              )
+          },
+        )->toNotThrow
       },
     )
   })
