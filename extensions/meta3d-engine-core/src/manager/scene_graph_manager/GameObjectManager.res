@@ -30,12 +30,12 @@ let createAndSetState = (
     ...state,
     usedGameObjectContribute: {
       state: createStateFunc(. config),
-      createGameObjectFunc: createGameObjectFunc,
-      getAllGameObjectsFunc: getAllGameObjectsFunc,
-      getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
-      deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
-      disposeGameObjectsFunc: disposeGameObjectsFunc,
-      cloneGameObjectFunc: cloneGameObjectFunc,
+      createGameObjectFunc,
+      getAllGameObjectsFunc,
+      getNeedDisposedGameObjectsFunc,
+      deferDisposeGameObjectFunc,
+      disposeGameObjectsFunc,
+      cloneGameObjectFunc,
     }->Some,
   }
 }
@@ -134,19 +134,19 @@ let _setGameObjectStateAndAllComponentStatesToState = (
       usedGeometryContribute,
     )
   let usedDirectionLightContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    directionLightState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedDirectionLightContribute,
     )
   let usedArcballCameraControllerContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    arcballCameraControllerState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedArcballCameraControllerContribute,
     )
   let usedBasicCameraViewContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    basicCameraViewState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedBasicCameraViewContribute,
     )
   let usedPerspectiveCameraProjectionContribute =
-    geometryState->ComponentManager.setComponentStateToUsedComponentContribute(
+    perspectiveCameraProjectionState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedPerspectiveCameraProjectionContribute,
     )
 

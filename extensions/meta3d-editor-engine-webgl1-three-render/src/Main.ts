@@ -8,6 +8,10 @@ import { state as threeState, states as threeStates } from "meta3d-pipeline-webg
 import { config as threeConfig } from "meta3d-pipeline-webgl1-three-protocol/src/ConfigType";
 import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
 import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
+import { state as disposeState, states as disposeStates } from "meta3d-pipeline-dispose-protocol/src/StateType";
+import { config as disposeConfig } from "meta3d-pipeline-dispose-protocol/src/ConfigType";
+import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/ConfigType";
+import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/StateType";
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -56,6 +60,33 @@ export let getExtensionService: getExtensionServiceMeta3D<
 						pipelineName: "init",
 						insertElementName: "init_root_meta3d",
 						insertAction: "after"
+					},
+					{
+						pipelineName: "update",
+						insertElementName: "update_camera_camera_meta3d",
+						insertAction: "before"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-protocol"),
+				null,
+				[
+					{
+						pipelineName: "update",
+						insertElementName: "update_root_meta3d",
+						insertAction: "after"
+					}
+				]
+			)
+
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol"),
+				null,
+				[
+					{
+						pipelineName: "render",
+						insertElementName: "scene_view1_gl_webgl1_use_fbo_meta3d",
+						insertAction: "before"
 					}
 				]
 			)

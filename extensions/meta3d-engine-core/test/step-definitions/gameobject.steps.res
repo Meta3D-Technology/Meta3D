@@ -61,13 +61,13 @@ defineFeature(feature, test => {
     ~cloneGameObjectFunc=(. states, _, _, _, _) => (states, []),
     (),
   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
-    createStateFunc: createStateFunc,
-    createGameObjectFunc: createGameObjectFunc,
-    getAllGameObjectsFunc: getAllGameObjectsFunc,
-    getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc,
-    deferDisposeGameObjectFunc: deferDisposeGameObjectFunc,
-    disposeGameObjectsFunc: disposeGameObjectsFunc,
-    cloneGameObjectFunc: cloneGameObjectFunc,
+    createStateFunc,
+    createGameObjectFunc,
+    getAllGameObjectsFunc,
+    getNeedDisposedGameObjectsFunc,
+    deferDisposeGameObjectFunc,
+    disposeGameObjectsFunc,
+    cloneGameObjectFunc,
   }
 
   let _prepare = (given, \"when", \"and", c) => {
@@ -115,9 +115,12 @@ defineFeature(feature, test => {
       ),
     )
 
-    then("createGameObject should create a gameObject", () => {
-      MainTool.createGameObject()->expect == 0
-    })
+    then(
+      "createGameObject should create a gameObject",
+      () => {
+        MainTool.createGameObject()->expect == 0
+      },
+    )
   })
 
   test(."get all gameObjects", ({given, \"when", \"and", then}) => {
@@ -151,16 +154,22 @@ defineFeature(feature, test => {
       ),
     )
 
-    \"when"("create two gameObjects", () => {
-      allGameObjects
-      ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
-      ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
-      ->ignore
-    })
+    \"when"(
+      "create two gameObjects",
+      () => {
+        allGameObjects
+        ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
+        ->Meta3dCommonlib.ArraySt.push(MainTool.createGameObject())
+        ->ignore
+      },
+    )
 
-    then("getAllGameObjects should return them", () => {
-      MainTool.getAllGameObjects()->expect == allGameObjects
-    })
+    then(
+      "getAllGameObjects should return them",
+      () => {
+        MainTool.getAllGameObjects()->expect == allGameObjects
+      },
+    )
   })
 
   let _buildComponentContribute = componentName => {
@@ -466,63 +475,90 @@ defineFeature(feature, test => {
 
     _prepareComponentsAndCreate(\"when", \"and")
 
-    \"when"("defer dispose g1", () => {
-      MainTool.deferDisposeGameObject(g1.contents)
-    })
+    \"when"(
+      "defer dispose g1",
+      () => {
+        MainTool.deferDisposeGameObject(g1.contents)
+      },
+    )
 
-    then("mark g1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getGameObjectState(), "needDisposeArray")
-      ->Js.Array.includes(g1.contents, _)
-      ->expect == true
-    })
+    then(
+      "mark g1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getGameObjectState(), "needDisposeArray")
+        ->Js.Array.includes(g1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark t1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "needDisposeArray")
-      ->Js.Array.includes(t1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark t1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(transformName), "needDisposeArray")
+        ->Js.Array.includes(t1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark p1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "needDisposeArray")
-      ->Js.Array.includes(p1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark p1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "needDisposeArray")
+        ->Js.Array.includes(p1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark geo1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "needDisposeArray")
-      ->Js.Array.includes(geo1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark geo1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "needDisposeArray")
+        ->Js.Array.includes(geo1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark a1 as need dispose", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(arcballCameraControllerName),
-        "needDisposeArray",
-      )
-      ->Js.Array.includes(a1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark a1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(arcballCameraControllerName),
+          "needDisposeArray",
+        )
+        ->Js.Array.includes(a1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark b1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "needDisposeArray")
-      ->Js.Array.includes(b1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark b1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "needDisposeArray")
+        ->Js.Array.includes(b1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark pcp1 as need dispose", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(perspectiveCameraProjectionName),
-        "needDisposeArray",
-      )
-      ->Js.Array.includes(pcp1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark pcp1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(perspectiveCameraProjectionName),
+          "needDisposeArray",
+        )
+        ->Js.Array.includes(pcp1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark d1 as need dispose", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "needDisposeArray")
-      ->Js.Array.includes(d1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark d1 as need dispose",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "needDisposeArray")
+        ->Js.Array.includes(d1.contents, _)
+        ->expect == true
+      },
+    )
   })
 
   test(."get need disposed gameObjects", ({given, \"when", \"and", then}) => {
@@ -578,13 +614,19 @@ defineFeature(feature, test => {
 
     _prepareComponentsAndCreate(\"when", \"and")
 
-    \"when"("defer dispose g1", () => {
-      MainTool.deferDisposeGameObject(g1.contents)
-    })
+    \"when"(
+      "defer dispose g1",
+      () => {
+        MainTool.deferDisposeGameObject(g1.contents)
+      },
+    )
 
-    then("get need disposed gameObjects should return them", () => {
-      MainTool.getNeedDisposedGameObjects()->expect == [g1.contents]
-    })
+    then(
+      "get need disposed gameObjects should return them",
+      () => {
+        MainTool.getNeedDisposedGameObjects()->expect == [g1.contents]
+      },
+    )
   })
 
   test(."dispose gameObjects", ({given, \"and", \"when", then}) => {
@@ -675,59 +717,90 @@ defineFeature(feature, test => {
 
     _prepareComponentsAndCreate(\"when", \"and")
 
-    \"when"("dispose [g1]", () => {
-      MainTool.disposeGameObjects([g1.contents])
-    })
+    \"when"(
+      "dispose [g1]",
+      () => {
+        MainTool.disposeGameObjects([g1.contents])
+      },
+    )
 
-    then("mark g1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getGameObjectState(), "disposedArray")
-      ->Js.Array.includes(g1.contents, _)
-      ->expect == true
-    })
+    then(
+      "mark g1 as disposed",
+      () => {
+        JsObjTool.getObjValue(MainTool.getGameObjectState(), "disposedArray")
+        ->Js.Array.includes(g1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark t1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")
-      ->Js.Array.includes(t1.contents, _)
-      ->expect == true
-    })
+    \"and"(
+      "mark t1 as disposed",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(transformName), "disposedArray")
+        ->Js.Array.includes(t1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark p1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "disposedArray")->expect ==
-        _buildSharedComponentBatchDisposeData(p1.contents)
-    })
+    \"and"(
+      "mark p1 as disposed",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(pbrMaterialName),
+          "disposedArray",
+        )->expect == _buildSharedComponentBatchDisposeData(p1.contents)
+      },
+    )
 
-    \"and"("mark geo1 as disposed", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "disposedArray")->expect ==
-        _buildSharedComponentBatchDisposeData(geo1.contents)
-    })
+    \"and"(
+      "mark geo1 as disposed",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "disposedArray")->expect ==
+          _buildSharedComponentBatchDisposeData(geo1.contents)
+      },
+    )
 
-    \"and"("mark a1 as disposed", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(arcballCameraControllerName),
-        "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(a1.contents)
-    })
+    \"and"(
+      "mark a1 as disposed",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(arcballCameraControllerName),
+          "disposedArray",
+        )
+        ->Js.Array.includes(a1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark b1 as disposed", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(basicCameraViewName),
-        "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(b1.contents)
-    })
+    \"and"(
+      "mark b1 as disposed",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "disposedArray")
+        ->Js.Array.includes(b1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark pcp1 as disposed", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(perspectiveCameraProjectionName),
-        "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(pcp1.contents)
-    })
+    \"and"(
+      "mark pcp1 as disposed",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(perspectiveCameraProjectionName),
+          "disposedArray",
+        )
+        ->Js.Array.includes(pcp1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark d1 as disposed", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(directionLightName),
-        "disposedArray",
-      )->expect == _buildSharedComponentBatchDisposeData(d1.contents)
-    })
+    \"and"(
+      "mark d1 as disposed",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "disposedArray")
+        ->Js.Array.includes(d1.contents, _)
+        ->expect == true
+      },
+    )
   })
 
   test(."clone gameObject", ({given, \"and", \"when", then}) => {
@@ -840,67 +913,94 @@ defineFeature(feature, test => {
 
     _prepareComponentsAndCreate(\"when", \"and")
 
-    \"when"("clone 2 gameObjects of g1", () => {
-      MainTool.cloneGameObject(2, {isShareMaterial: true}, g1.contents)->ignore
-    })
+    \"when"(
+      "clone 2 gameObjects of g1",
+      () => {
+        MainTool.cloneGameObject(2, {isShareMaterial: true}, g1.contents)->ignore
+      },
+    )
 
-    then("mark g1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getGameObjectState(), "cloneDataArray")
-      ->Js.Array.includes(g1.contents, _)
-      ->expect == true
-    })
+    then(
+      "mark g1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getGameObjectState(), "cloneDataArray")
+        ->Js.Array.includes(g1.contents, _)
+        ->expect == true
+      },
+    )
 
-    \"and"("mark t1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(transformName), "cloneDataArray")
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), t1.contents)
-    })
+    \"and"(
+      "mark t1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(transformName), "cloneDataArray")
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), t1.contents)
+      },
+    )
 
-    \"and"("mark p1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "cloneDataArray")
-      ->Array.unsafe_get(0)
-      ->expect ==
-        (
-          [0, 1],
-          ({isShare: true}: Meta3dComponentPbrmaterialProtocol.Index.cloneConfig),
-          p1.contents,
+    \"and"(
+      "mark p1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(pbrMaterialName), "cloneDataArray")
+        ->Array.unsafe_get(0)
+        ->expect ==
+          (
+            [0, 1],
+            ({isShare: true}: Meta3dComponentPbrmaterialProtocol.Index.cloneConfig),
+            p1.contents,
+          )
+      },
+    )
+
+    \"and"(
+      "mark geo1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "cloneDataArray")
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), geo1.contents)
+      },
+    )
+
+    \"and"(
+      "mark a1 as cloned",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(arcballCameraControllerName),
+          "cloneDataArray",
         )
-    })
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), a1.contents)
+      },
+    )
 
-    \"and"("mark geo1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(geometryName), "cloneDataArray")
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), geo1.contents)
-    })
+    \"and"(
+      "mark b1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "cloneDataArray")
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), b1.contents)
+      },
+    )
 
-    \"and"("mark a1 as cloned", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(arcballCameraControllerName),
-        "cloneDataArray",
-      )
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), a1.contents)
-    })
+    \"and"(
+      "mark pcp1 as cloned",
+      () => {
+        JsObjTool.getObjValue(
+          MainTool.getComponentState(perspectiveCameraProjectionName),
+          "cloneDataArray",
+        )
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), pcp1.contents)
+      },
+    )
 
-    \"and"("mark b1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(basicCameraViewName), "cloneDataArray")
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), b1.contents)
-    })
-
-    \"and"("mark pcp1 as cloned", () => {
-      JsObjTool.getObjValue(
-        MainTool.getComponentState(perspectiveCameraProjectionName),
-        "cloneDataArray",
-      )
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), pcp1.contents)
-    })
-
-    \"and"("mark d1 as cloned", () => {
-      JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "cloneDataArray")
-      ->Array.unsafe_get(0)
-      ->expect == ([0, 1], (), d1.contents)
-    })
+    \"and"(
+      "mark d1 as cloned",
+      () => {
+        JsObjTool.getObjValue(MainTool.getComponentState(directionLightName), "cloneDataArray")
+        ->Array.unsafe_get(0)
+        ->expect == ([0, 1], (), d1.contents)
+      },
+    )
   })
 })

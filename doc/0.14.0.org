@@ -307,15 +307,151 @@ TODO commit
 
 # ** TODO add dispose job
 
+
+*** DONE run test for add cube
+
+add a button to dispose a random cube
+
+    add dispose job
+
+add a button to add cube
+
+use three.js to render
+
+
+
+
+
+
+
+
+
+package:
+engine-basic
+engine-scene
+
+
+contribute:
+
+add-cube
+dispose-cube
+window
+button
+
+# meta3d-ui-control-webgpu-fullscreen-scene-view
+meta3d-ui-control-scene-view
+
+
+meta3d-pipeline-viewrect
+
+meta3d-pipeline-three
+
+meta3d-pipeline-dispose
+
+meta3d-pipeline-editor-event
+meta3d-pipeline-editor-webgl1-scene-view1
+meta3d-pipeline-editor-webgl1-scene-view2
+
+
+extension:
+
+
+imgui-webgl1-renderer
+# meta3d-imgui-webgl1-three-renderer
+
+webgl1
+
+
+
+most（实现的协议名：most protocol）
+immutable（实现的协议名：immutable protocol）
+meta3d-engine-core
+
+event
+
+ui
+
+meta3d-use-editor
+
+
+
+meta3d-editor-engine-webgl1-three-render
+
+meta3d-editor-engine-webgl1-three-whole
+meta3d-editor-run-webgl1-three-engine
+
+scenegraph-converter-three
+
+meta3d-three-api
+
+
+# TODO fix error:  treeDataList.length should be 1
+
+TODO fix: one frame after clear
+////canvas error:
+imgui and renderer's canvas should be different
+
+should set Clear Color in each frame
+bind frame buffer->draw program error?
+
+    three->renderToTarget?
+    use pass???
+    add scene-view-three: renderer.render empty to reset clearColor and program?
+        reset currentProgram
+        reset clearColor
+
+
+
+TODO need publish and reselect:
+# pipeline-dispose
+# engine-core
+
+
+
+
+commit
+
+# TODO add:
+# scene-view1-three
+# scene-view2-three
+
+
+
+# TODO need repackage:
+# engine-scene(with directionlight)
+
+
+
+# *** TODO run test for dispose cube
+
+
+*** DONE fix add cube color bug
+
+
+
+
+
+*** TODO fix bug: ap assemble, package assemble->Contributes: should show all implements for actions
+
+
+
+
+TODO need reselect:
+meta3d-editor-engine-webgl1-three-render
+converter
+
+*** TODO run test for dispose cube
+
+should error
+
+
+
 *** TODO handle converter for three
 
 trigger dispose event when dispose e+c?
 
 
-*** TODO run test
-
-
-** TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
+*** TODO pass run test
 
 
 ** TODO import .glb
@@ -337,6 +473,7 @@ TODO add import glb extension:
 
 TODO run test: export->import
     TODO import scene should after dispose scene
+        invoke DisposeJob
 
 
 
@@ -380,3 +517,11 @@ package = scene
 
 
 * TODO platform export/import app
+
+
+
+
+
+* TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
+
+* TODO refactor: .ts: change function to let xxx = () => xxx

@@ -78,14 +78,13 @@ function _getAllUsedContributes(state) {
 }
 
 function _setGameObjectStateAndAllComponentStatesToState(state, param, param$1) {
-  var geometryState = param$1[3];
   var usedTransformContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[1], param[1]);
   var usedPBRMaterialContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[2], param[2]);
-  var usedGeometryContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(geometryState, param[3]);
-  var usedDirectionLightContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(geometryState, param[4]);
-  var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(geometryState, param[5]);
-  var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(geometryState, param[6]);
-  var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(geometryState, param[7]);
+  var usedGeometryContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[3], param[3]);
+  var usedDirectionLightContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[4], param[4]);
+  var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[5], param[5]);
+  var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[6], param[6]);
+  var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[7], param[7]);
   return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, param[0], param$1[0]), usedTransformContribute, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute, Index$Meta3dComponentGeometryProtocol.componentName), usedDirectionLightContribute, Index$Meta3dComponentDirectionlightProtocol.componentName), usedArcballCameraControllerContribute, Index$Meta3dComponentArcballcameracontrollerProtocol.componentName), usedBasicCameraViewContribute, Index$Meta3dComponentBasiccameraviewProtocol.componentName), usedPerspectiveCameraProjectionContribute, Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName);
 }
 

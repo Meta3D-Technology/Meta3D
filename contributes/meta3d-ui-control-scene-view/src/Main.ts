@@ -61,8 +61,6 @@ export let getContribute: getContributeMeta3D< uiControlContribute<inputData, ou
 
             meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-ui-protocol", state)
 
-            console.log("tttt")
-
 
 
             return new Promise((resolve, reject) => {

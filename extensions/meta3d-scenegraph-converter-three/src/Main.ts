@@ -15,11 +15,7 @@ import type {
     Sphere as SphereType,
     // Quaternion,
 } from "three";
-<<<<<<< HEAD
 import { getExn, getWithDefault, map, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
-=======
-import { getExn, getWithDefault, map } from "meta3d-commonlib-ts/src/NullableUtils"
->>>>>>> 9e36f527f7d4304d911b351b505377e258d9280f
 import { createEmptyBasicMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
@@ -33,6 +29,7 @@ import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/Index";
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { generateUUID } from "./three/MathUtils";
+import { generateId } from "./utils/IdUtils";
 
 let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion
 
@@ -540,6 +537,10 @@ class BufferGeometry extends EventDispatcher {
     public uuid: string
 
 
+    public get id(): number {
+        return generateId()
+    }
+
     public get boundingSphere(): nullable<SphereType> {
         // TODO fix fake data
         return new Sphere(
@@ -602,6 +603,10 @@ class Material extends EventDispatcher {
 
     public uuid: string
 
+
+    public get id(): number {
+        return generateId()
+    }
 
     public get visible(): boolean {
         return true

@@ -48,6 +48,7 @@ import { state as perspecticeCameraProjectionState, componentName as perspectice
 import { state as basicCameraViewState, componentName as basicCameraViewComponentName, config as basicCameraViewConfig, basicCameraView } from "meta3d-component-basiccameraview-protocol"
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName, config as pbrMaterialConfig, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
 import { state as geometryState, componentName as geometryComponentName, config as geometryConfig, geometry } from "meta3d-component-geometry-protocol"
+import { state as directionlightState, config as directionLightConfig, directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol";
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { active, createBasicCameraView } from "./BasicCameraViewAPI"
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
@@ -169,6 +170,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			engineCoreState =
 				registerComponent(engineCoreState, api.getContribute<componentContribute<arcballCameraControllerState, arcballCameraControllerConfig, arcballCameraController>>(meta3dState, "meta3d-component-arcballcameracontroller-protocol"))
 
+			engineCoreState =
+				registerComponent(engineCoreState, api.getContribute<componentContribute<directionlightState, directionLightConfig, directionLight>>(meta3dState, "meta3d-component-directionlight-protocol"))
+
 
 
 			engineCoreState = createAndSetComponentState<transformConfig>(engineCoreState, transformComponentName, {
@@ -194,6 +198,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			})
 			engineCoreState = createAndSetComponentState<arcballCameraControllerConfig>(engineCoreState, arcballCameraControllerComponentName, {
 				isDebug
+			})
+			// TODO get directionLightCount from config
+			engineCoreState = createAndSetComponentState<directionLightConfig>(engineCoreState, directionLightComponentName, {
+				isDebug,
+				directionLightCount: 4
 			})
 
 
