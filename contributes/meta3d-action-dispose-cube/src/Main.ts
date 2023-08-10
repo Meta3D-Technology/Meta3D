@@ -4,16 +4,13 @@ import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-
 import { state as meta3dState } from "meta3d-type"
 import { actionData } from "meta3d-action-button-click-protocol"
 
-let _disposeFirstCubeGameObject = (meta3dState: meta3dState, { scene }: editorEngineWholeService) => {
-    let data = scene.gameObject.createGameObject(meta3dState)
-    meta3dState = data[0]
-
-    let gameObjects = scene.gameObject.getAllGameObjects(meta3dState)
+let _disposeRandomCubeGameObject = (meta3dState: meta3dState, { scene }: editorEngineWholeService) => {
+    let gameObjects = scene.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+        return !scene.gameObject.hasBasicCameraView(meta3dState, gameObject)
+    })
 
     if (gameObjects.length > 0) {
-        gameObjects[0]
-
-        meta3dState = scene.gameObject.disposeGameObjects(meta3dState, [gameObjects[0]])
+        meta3dState = scene.gameObject.disposeGameObjects(meta3dState, [gameObjects[Math.floor(Math.random() * gameObjects.length)]])
     }
 
     return meta3dState
@@ -27,7 +24,7 @@ export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (a
 
             let editorEngineWholeService = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
 
-            meta3dState = _disposeFirstCubeGameObject(meta3dState, editorEngineWholeService)
+            meta3dState = _disposeRandomCubeGameObject(meta3dState, editorEngineWholeService)
 
             // TODO trigger dispose event
 

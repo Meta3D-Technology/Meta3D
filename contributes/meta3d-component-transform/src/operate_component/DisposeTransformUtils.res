@@ -6,7 +6,9 @@ let deferDisposeComponent = (
 ) => {
   {
     ...state,
-    gameObjectTransformMap: gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject),
+    gameObjectTransformMap: gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.remove(
+      gameObject,
+    ),
     needDisposedTransforms: needDisposedTransforms->Meta3dCommonlib.ArraySt.push(transform),
   }
 }
@@ -89,13 +91,10 @@ let _disposeData = (
   state
 }
 
-let disposeComponents = (
-  {gameObjectTransformMap, disposedTransforms} as state,
-  transforms,
-) => {
+let disposeComponents = ({disposedTransforms} as state, transforms) => {
   let isDebug = ConfigUtils.getIsDebug(state)
 
-let needDisposedComponents = GetNeedDisposedTransformsUtils.get(state)
+  let needDisposedComponents = GetNeedDisposedTransformsUtils.get(state)
 
   Meta3dCommonlib.DisposeUtils.checkShouldNeedDisposed(
     isDebug,
@@ -106,9 +105,7 @@ let needDisposedComponents = GetNeedDisposedTransformsUtils.get(state)
 
   state.disposedTransforms = disposedTransforms->Js.Array.concat(transforms, _)
   state.needDisposedTransforms =
-    needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
-      transforms,
-    )
+    needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(transforms)
 
   transforms->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. state, transform) => state->_disposeData(isDebug, transform),

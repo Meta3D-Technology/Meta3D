@@ -88,7 +88,7 @@ defineFeature(feature, test => {
 
     \"and"("get the gameObject's directionLight should return empty", () => {
       contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
-        Js.Nullable.undefined
+        Js.Nullable.null
     })
   })
 

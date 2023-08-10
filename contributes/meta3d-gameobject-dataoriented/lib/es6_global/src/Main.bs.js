@@ -13,7 +13,8 @@ function getContribute(api) {
               return {
                       config: config,
                       maxUID: 0,
-                      needDisposedGameObjectArray: []
+                      needDisposedGameObjectArray: [],
+                      disposedGameObjectArray: []
                     };
             }),
           createGameObjectFunc: CreateGameObjectUtils$Meta3dGameobjectDataoriented.create,

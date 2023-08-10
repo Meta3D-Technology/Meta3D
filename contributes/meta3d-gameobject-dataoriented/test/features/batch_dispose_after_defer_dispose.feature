@@ -151,9 +151,16 @@ Feature: Batch Dispose After Defer Dispose
 
 		Scenario: should remove disposed gameObjects from needDisposedGameObjects
 			Given prepare sandbox
-			And create transform state
 			And create two gameObjects as gameObject1, gameObject2
 			And defer dispose gameObject1
 			And defer dispose gameObject2
 			When dispose gameObject1
 			Then get need disposed gameObjects should return [gameObject2]
+
+		Scenario: get all gameObjects should exclude defer disposed and disposed gameObjects
+			Given prepare sandbox
+			And create two gameObjects as gameObject1, gameObject2
+			And defer dispose gameObject1
+			And defer dispose gameObject2
+			When dispose gameObject1
+			Then get all gameObjects should return []

@@ -233,7 +233,7 @@ defineFeature(feature, test => {
 
     \"and"("get the gameObject's geometry should return empty", () => {
       contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
-        Js.Nullable.undefined
+        Js.Nullable.null
     })
   })
 

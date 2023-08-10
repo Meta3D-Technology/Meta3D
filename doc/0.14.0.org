@@ -446,7 +446,21 @@ commit
 # meta3d-editor-engine-webgl1-three-render
 # converter
 
+
+
+*** DONE study
+
+
 *** TODO run test for dispose cube
+
+
+TODO need update
+action-dispose-cube
+gameobject(engine-scene package)
+
+
+
+
 
 should error
 
@@ -522,8 +536,16 @@ package = scene
 
 
 
-* TODO platform export/import app
+* TODO platform import app
 
+can edit ap/element assemble
+
+
+
+
+* TODO platform import package
+
+can edit package assemble
 
 
 

@@ -6,4 +6,5 @@ type state = {
   config: config,
   mutable maxUID: gameObject,
   mutable needDisposedGameObjectArray: array<gameObject>,
+  mutable disposedGameObjectArray: array<gameObject>,
 }

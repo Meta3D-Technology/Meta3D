@@ -1,9 +1,5 @@
 open StateType
 
 let get = ({gameObjectArcballCameraControllerMap}, gameObject) => {
-  gameObjectArcballCameraControllerMap
-  ->Meta3dCommonlib.ImmutableSparseMap.unsafeGet(
-    gameObject,
-  )
-  ->Js.Nullable.return
+  gameObjectArcballCameraControllerMap->Meta3dCommonlib.ImmutableSparseMap.getNullable(gameObject)
 }

@@ -614,7 +614,7 @@ defineFeature(feature, test => {
         state.contents,
         child1.contents,
         Meta3dComponentTransformProtocol.Index.dataName.parent,
-      )->expect == Js.Nullable.undefined
+      )->expect == Js.Nullable.null
     })
 
     \"and"(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
@@ -815,7 +815,7 @@ defineFeature(feature, test => {
         state.contents,
         transform.contents,
         Meta3dComponentTransformProtocol.Index.dataName.parent,
-      )->expect == Js.Nullable.undefined
+      )->expect == Js.Nullable.null
     })
   })
 

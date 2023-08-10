@@ -1,9 +1,7 @@
 open StateType
 
 let get = ({gameObjectPerspectiveCameraProjectionMap}, gameObject) => {
-  gameObjectPerspectiveCameraProjectionMap
-  ->Meta3dCommonlib.ImmutableSparseMap.unsafeGet(
+  gameObjectPerspectiveCameraProjectionMap->Meta3dCommonlib.ImmutableSparseMap.getNullable(
     gameObject,
   )
-  ->Js.Nullable.return
 }

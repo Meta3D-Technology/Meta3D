@@ -82,7 +82,8 @@ function deferDisposeGameObject(param) {
     var gameObjectState$1 = {
       config: gameObjectState.config,
       maxUID: gameObjectState.maxUID,
-      needDisposedGameObjectArray: ArraySt$Meta3dCommonlib.push(needDisposedGameObjectArray, gameObject)
+      needDisposedGameObjectArray: ArraySt$Meta3dCommonlib.push(needDisposedGameObjectArray, gameObject),
+      disposedGameObjectArray: gameObjectState.disposedGameObjectArray
     };
     return [
             gameObjectState$1,
@@ -140,6 +141,7 @@ function disposeGameObjects(param) {
     var isDebug = ConfigUtils$Meta3dGameobjectDataoriented.getIsDebug(gameObjectState);
     var needDisposedGameObjectArray = GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented.get(gameObjectState);
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "gameObject", gameObjects, needDisposedGameObjectArray);
+    gameObjectState.disposedGameObjectArray = ArraySt$Meta3dCommonlib.removeDuplicateItems(Js_array.concat(gameObjects, gameObjectState.disposedGameObjectArray));
     gameObjectState.needDisposedGameObjectArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedGameObjectArray, gameObjects);
     var transformState$1 = match$6[1](transformState, _getNotSharedComponents(transformState, match$6[0], gameObjects));
     var pbrMaterialState$1 = match$5[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$5[0], gameObjects));

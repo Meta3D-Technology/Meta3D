@@ -159,6 +159,11 @@ let disposeGameObjects = (
     needDisposedGameObjectArray,
   )
 
+  gameObjectState.disposedGameObjectArray =
+    gameObjectState.disposedGameObjectArray
+    ->Js.Array.concat(gameObjects, _)
+    ->Meta3dCommonlib.ArraySt.removeDuplicateItems
+
   gameObjectState.needDisposedGameObjectArray =
     needDisposedGameObjectArray->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
       gameObjects,

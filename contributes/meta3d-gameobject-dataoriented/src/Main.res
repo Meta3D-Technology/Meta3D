@@ -1,9 +1,10 @@
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<StateType.state>,
-> = (api) => {
+> = api => {
   createStateFunc: (. config) => {
     maxUID: 0,
     needDisposedGameObjectArray: [],
+    disposedGameObjectArray: [],
     config,
   },
   createGameObjectFunc: (. state) => CreateGameObjectUtils.create(state),
