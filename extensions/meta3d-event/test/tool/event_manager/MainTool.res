@@ -19,9 +19,9 @@ let offTouchEventByHandleFunc = ManageEventAPI.offTouchEventByHandleFunc
 
 let onCustomGlobalEvent = ManageEventAPI.onCustomGlobalEvent
 
-let offCustomGlobalEventByEventName = ManageEventAPI.offCustomGlobalEventByEventName
+// let offCustomGlobalEventByEventName = ManageEventAPI.offCustomGlobalEventByEventName
 
-let offCustomGlobalEventByHandleFunc = ManageEventAPI.offCustomGlobalEventByHandleFunc
+// let offCustomGlobalEventByHandleFunc = ManageEventAPI.offCustomGlobalEventByHandleFunc
 
 let stopPropagationCustomEvent = ManageEventAPI.stopPropagationCustomEvent
 

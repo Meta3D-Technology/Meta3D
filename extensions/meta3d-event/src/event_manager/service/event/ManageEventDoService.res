@@ -23,11 +23,14 @@ let offTouchEventByHandleFunc = (~eventName, ~handleFunc, ~state) =>
 let onCustomGlobalEvent = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
   BindCustomEventDoService.bindGlobalEvent(eventName, priority, handleFunc, state)
 
-let offCustomGlobalEventByEventName = (~eventName, ~state) =>
-  BindCustomEventDoService.unbindGlobalEventByEventName(eventName, state)
+let onCustomGlobalEvent2 = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
+  BindCustomEventDoService.bindGlobalEvent2(eventName, priority, handleFunc, state)
 
-let offCustomGlobalEventByHandleFunc = (~eventName, ~handleFunc, ~state) =>
-  BindCustomEventDoService.unbindGlobalEventByHandleFunc(eventName, handleFunc, state)
+// let offCustomGlobalEventByEventName = (~eventName, ~state) =>
+//   BindCustomEventDoService.unbindGlobalEventByEventName(eventName, state)
+
+// let offCustomGlobalEventByHandleFunc = (~eventName, ~handleFunc, ~state) =>
+//   BindCustomEventDoService.unbindGlobalEventByHandleFunc(eventName, handleFunc, state)
 
 // let onCustomGameObjectEvent = (~eventName, ~handleFunc, ~target, ~state, ~priority=0, ()) =>
 //   BindCustomEventDoService.bindGameObjectEvent((eventName, priority, target), handleFunc, state)
@@ -50,6 +53,14 @@ let stopPropagationCustomEvent = customEvent =>
 
 let triggerCustomGlobalEvent = (customEvent, state) =>
   HandleCustomEventDoService.triggerGlobalEvent(customEvent, state)
+
+let triggerCustomGlobalEvent2 = (api, meta3dState, eventExtensionProtocolName, customEvent) =>
+  HandleCustomEventDoService.triggerGlobalEvent2(
+    api,
+    meta3dState,
+    eventExtensionProtocolName,
+    customEvent,
+  )
 
 // let triggerCustomGameObjectEvent = (customEvent, target, state) =>
 //   HandleCustomEventDoService.triggerGameObjectEvent(target, customEvent, state)

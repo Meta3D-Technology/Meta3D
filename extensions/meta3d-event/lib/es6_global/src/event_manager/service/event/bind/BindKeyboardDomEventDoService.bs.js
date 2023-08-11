@@ -29,6 +29,7 @@ function bind(eventName, priority, handleFunc, state) {
                 }, eventData.keyboardDomEventDataArrMap),
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -48,6 +49,7 @@ function unbindByHandleFunc(eventName, handleFunc, state) {
             keyboardDomEventDataArrMap: _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventData.keyboardDomEventDataArrMap),
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData

@@ -28,8 +28,8 @@ import {
 	setParent, getLocalToWorldMatrix
 } from "./TransformAPI";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
-import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./PBRMaterialAPI";
-import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./GeometryAPI";
+import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects } from "./PBRMaterialAPI";
+import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects } from "./GeometryAPI";
 import {
 	createBasicCameraView, active, getViewWorldToCameraMatrix, getActiveCameraView,
 	getGameObjects as getBasicCameraViewGameObjects
@@ -431,6 +431,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			setIndices: (meta3dState, geometry, indices) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIndices(engineCoreState, engineCoreService, geometry, indices), api)
 			},
+			getGameObjects: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGeometryGameObjects(engineCoreState, engineCoreService, geometry), api)
+			},
 		},
 		pbrMaterial: {
 			createPBRMaterial: (meta3dState) => {
@@ -444,6 +447,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			},
 			getAllPBRMaterials: (meta3dState) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllPBRMaterials(engineCoreState, engineCoreService), api)
+			},
+			getGameObjects: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterialGameObjects(engineCoreState, engineCoreService, pbrMaterial), api)
 			},
 		},
 		perspectiveCameraProjection: {

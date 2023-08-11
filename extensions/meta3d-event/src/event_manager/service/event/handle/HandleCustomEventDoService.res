@@ -2,11 +2,24 @@ open EventManagerStateType
 
 open Meta3dEventProtocol.EventType
 
-let _triggerHandleFunc = (customEvent, arr, state) =>
-  arr -> Meta3dCommonlib.ArraySt.reduceOneParam(
+let _triggerHandleFunc = (
+  customEvent,
+  arr: array<Meta3dEvent.EventManagerStateType.customEventData>,
+  state,
+) =>
+  arr->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. (state, customEvent), {handleFunc}) =>
       customEvent.isStopPropagation ? (state, customEvent) : handleFunc(. customEvent, state),
     (state, customEvent),
+  )
+
+let _triggerHandleFunc2 = (customEvent, arr, meta3dState) =>
+  arr->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. (meta3dState, customEvent), {handleFunc}) =>
+      customEvent.isStopPropagation
+        ? (meta3dState, customEvent)
+        : handleFunc(. meta3dState, customEvent),
+    (meta3dState, customEvent),
   )
 
 let stopPropagation = customEvent => {
@@ -14,12 +27,29 @@ let stopPropagation = customEvent => {
   isStopPropagation: true,
 }
 
-let triggerGlobalEvent = (({name}: customEvent) as customEvent, {eventData} as state) => {
-  let {customGlobalEventArrMap} = eventData
+let triggerGlobalEvent = (customEvent: customEvent, state: EventManagerStateType.state) => {
+  let {customGlobalEventArrMap} = state.eventData
 
-  switch customGlobalEventArrMap -> Meta3dCommonlib.MutableHashMap.get(name) {
+  switch customGlobalEventArrMap->Meta3dCommonlib.MutableHashMap.get(customEvent.name) {
   | None => (state, customEvent)
   | Some(arr) => _triggerHandleFunc(customEvent, arr, state)
+  }
+}
+
+let triggerGlobalEvent2 = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  eventExtensionProtocolName,
+  customEvent: customEvent,
+) => {
+  let {eventManagerState}: StateType.state =
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
+
+  let {customGlobalEventArrMap2} = eventManagerState.eventData
+
+  switch customGlobalEventArrMap2->Meta3dCommonlib.MutableHashMap.get(customEvent.name) {
+  | None => (meta3dState, customEvent)
+  | Some(arr) => _triggerHandleFunc2(customEvent, arr, meta3dState)
   }
 }
 

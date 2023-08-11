@@ -205,6 +205,7 @@ function create(param) {
             keyboardDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             touchDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             customGlobalEventArrMap: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+            customGlobalEventArrMap2: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             mouseEventData: {
               lastX: undefined,
               lastY: undefined,

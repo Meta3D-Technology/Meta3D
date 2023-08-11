@@ -354,31 +354,99 @@ let _ = describe("ManageEventAPI", () => {
     //   )
     // )
 
-    describe("test custom global event", () =>
-      test("if stopPropagation, less priority handleFunc shouldn't be executed", () => {
-        let value = ref(2)
+    describe(
+      "test custom global event",
+      () =>
+        test(
+          "if stopPropagation, less priority handleFunc shouldn't be executed",
+          () => {
+            let value = ref(2)
 
-        ManageEventAPI.onCustomGlobalEvent(CustomEventTool.getPointDownEventName(), 1, (.
-          event,
-          state,
-        ) => {
-          value := value.contents - 3
+            ManageEventAPI.onCustomGlobalEvent(
+              CustomEventTool.getPointDownEventName(),
+              1,
+              (. event, state) => {
+                value := value.contents - 3
 
-          (state, ManageEventAPI.stopPropagationCustomEvent(event))
-        })
-        let state = ManageEventAPI.onCustomGlobalEvent(CustomEventTool.getPointDownEventName(), 0, (.
-          event,
-          state,
-        ) => {
-          value := value.contents * 2
-          (state, event)
-        })
-        ManageEventAPI.triggerCustomGlobalEvent(
-          CustomEventTool.createCustomEvent(~eventName=CustomEventTool.getPointDownEventName(), ()),
+                (state, ManageEventAPI.stopPropagationCustomEvent(event))
+              },
+            )
+            let state = ManageEventAPI.onCustomGlobalEvent(
+              CustomEventTool.getPointDownEventName(),
+              0,
+              (. event, state) => {
+                value := value.contents * 2
+                (state, event)
+              },
+            )
+            ManageEventAPI.triggerCustomGlobalEvent(
+              CustomEventTool.createCustomEvent(
+                ~eventName=CustomEventTool.getPointDownEventName(),
+                (),
+              ),
+            )
+
+            value.contents->expect == -1
+          },
+        ),
+    )
+
+    describe(
+      "test custom global event2",
+      () => {
+        let _buildAPI = (): Meta3dType.Index.api => {
+          {
+            ...Meta3d.Main.buildAPI(),
+            getExtensionState: (. meta3dState, extensionProtocolName) => {
+              (
+                {
+                  actionContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                  eventManagerState: ContainerManager.getState(
+                    EventExtensionTool.buildEventExtentsionProtocolName(),
+                  ),
+                }: StateType.state
+              )->Obj.magic
+            },
+            setExtensionState: (. meta3dState, extensionProtocolName, extensionState) => {
+              meta3dState
+            },
+          }
+        }
+
+        test(
+          "test",
+          () => {
+            let value = ref(2)
+            let meta3dState = Obj.magic(11)
+            let eventExtensionProtocolName = "eventExtensionProtocolName"
+            let eventName = "e1"
+
+            let meta3dState = ManageEventAPIForSrc.onCustomGlobalEvent2(
+              _buildAPI(),
+              meta3dState,
+              eventExtensionProtocolName,
+              (
+                eventName,
+                1,
+                (. meta3dState, event) => {
+                  value := value.contents - 3
+
+                  meta3dState
+                },
+              ),
+            )
+
+            let meta3dState = ManageEventAPIForSrc.triggerCustomGlobalEvent2(
+              _buildAPI(),
+              meta3dState,
+              eventExtensionProtocolName,
+              ManageEventAPIForSrc.createCustomEvent(eventName, Js.Nullable.fromOption(None)),
+            )
+
+            value.contents->expect == -1
+          },
         )
-
-        value.contents->expect == -1
-      })
+      },
     )
   })
 })

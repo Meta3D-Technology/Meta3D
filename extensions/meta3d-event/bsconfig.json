@@ -17,7 +17,8 @@
   ],
   "bs-dev-dependencies": [
     "meta3d-bs-jest",
-    "meta3d-bs-sinon"
+    "meta3d-bs-sinon",
+    "meta3d"
   ],
   "bs-dependencies": [
     "meta3d-type",

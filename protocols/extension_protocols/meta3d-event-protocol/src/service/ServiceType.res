@@ -17,6 +17,8 @@ type priority = int
 
 type handleFunc = (. EventType.customEvent) => unit
 
+type handleFunc2 = (. Meta3dType.Index.state, EventType.customEvent) => Meta3dType.Index.state
+
 type service = {
   trigger: 'actionData. (
     Meta3dType.Index.state,
@@ -24,12 +26,26 @@ type service = {
     ActionContributeType.actionName,
     'actionData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerAction:'actionData. (StateType.state, ActionContributeType.actionContribute<'actionData>) => StateType.state,
+  registerAction: 'actionData. (
+    StateType.state,
+    ActionContributeType.actionContribute<'actionData>,
+  ) => StateType.state,
   onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
   onCustomGlobalEvent: (
     eventExtensionProtocolName,
     (customEventName, priority, handleFunc),
   ) => unit,
+  onCustomGlobalEvent2: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    (customEventName, priority, handleFunc2),
+  ) => Meta3dType.Index.state,
+  triggerCustomGlobalEvent2: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    EventType.customEvent,
+  ) => Meta3dType.Index.state,
+  createCustomEvent: (customEventName, Js.Nullable.t<EventType.userData>) => EventType.customEvent,
   initEvent: (Meta3dType.Index.state, eventExtensionProtocolName) => Meta3dType.Index.state,
   setBrowser: (
     Meta3dType.Index.state,

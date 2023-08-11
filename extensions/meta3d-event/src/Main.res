@@ -1,10 +1,13 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEventProtocol.ServiceType.service,
-> = (api) => {
+> = api => {
   trigger: EventManager.trigger(api)->Obj.magic,
   registerAction: EventManager.registerAction->Obj.magic,
   onPointEvent: EventManager.onPointEvent(api),
   onCustomGlobalEvent: ManageEventAPIForSrc.onCustomGlobalEvent,
+  onCustomGlobalEvent2: ManageEventAPIForSrc.onCustomGlobalEvent2(api)->Obj.magic,
+  triggerCustomGlobalEvent2: ManageEventAPIForSrc.triggerCustomGlobalEvent2(api)->Obj.magic,
+  createCustomEvent: ManageEventAPIForSrc.createCustomEvent,
   initEvent: EventManager.initEvent(api),
   setBrowser: EventManager.setBrowser(api),
   setCanvas: EventManager.setCanvas(api),

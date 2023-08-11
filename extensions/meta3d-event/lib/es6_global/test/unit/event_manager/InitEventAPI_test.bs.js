@@ -1093,60 +1093,6 @@ Meta3d_jest.describe("InitEventAPI", (function (param) {
                                   EventTool$Meta3dEvent.restore(undefined);
                                   return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 1);
                                 }));
-                          Meta3d_jest.describe("test unbind by handleFunc", (function (param) {
-                                  Meta3d_jest.test("test unbind one handleFunc of the eventName", (function (param) {
-                                          MouseEventTool$Meta3dEvent.prepare(sandbox, undefined, undefined, undefined, undefined, undefined);
-                                          var value = {
-                                            contents: 0
-                                          };
-                                          var handleFunc = function ($$event, state) {
-                                            value.contents = value.contents + 1 | 0;
-                                            return [
-                                                    state,
-                                                    $$event
-                                                  ];
-                                          };
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, handleFunc);
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, (function ($$event, state) {
-                                                  value.contents = value.contents + 10 | 0;
-                                                  return [
-                                                          state,
-                                                          $$event
-                                                        ];
-                                                }));
-                                          ManageEventAPI$Meta3dEvent.offCustomGlobalEventByHandleFunc(pointEventName, handleFunc);
-                                          EventTool$Meta3dEvent.triggerDomEvent(mouseDomEventName, EventTool$Meta3dEvent.getPointEventBindedDom(undefined), MouseEventTool$Meta3dEvent.buildMouseEvent(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined));
-                                          EventTool$Meta3dEvent.restore(undefined);
-                                          return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 10);
-                                        }));
-                                }));
-                          Meta3d_jest.describe("test unbind by eventName", (function (param) {
-                                  Meta3d_jest.test("test", (function (param) {
-                                          MouseEventTool$Meta3dEvent.prepare(sandbox, undefined, undefined, undefined, undefined, undefined);
-                                          var value = {
-                                            contents: 0
-                                          };
-                                          var handleFunc = function ($$event, state) {
-                                            value.contents = value.contents + 1 | 0;
-                                            return [
-                                                    state,
-                                                    $$event
-                                                  ];
-                                          };
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, handleFunc);
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, (function ($$event, state) {
-                                                  value.contents = value.contents + 10 | 0;
-                                                  return [
-                                                          state,
-                                                          $$event
-                                                        ];
-                                                }));
-                                          ManageEventAPI$Meta3dEvent.offCustomGlobalEventByEventName(pointEventName);
-                                          EventTool$Meta3dEvent.triggerDomEvent(mouseDomEventName, EventTool$Meta3dEvent.getPointEventBindedDom(undefined), MouseEventTool$Meta3dEvent.buildMouseEvent(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined));
-                                          EventTool$Meta3dEvent.restore(undefined);
-                                          return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 0);
-                                        }));
-                                }));
                         };
                         Meta3d_jest.describe("test trigger pointdown event", (function (param) {
                                 _testPointEvent(CustomEventTool$Meta3dEvent.getPointDownEventName(undefined), "mousedown");
@@ -1322,60 +1268,6 @@ Meta3d_jest.describe("InitEventAPI", (function (param) {
                                   EventTool$Meta3dEvent.restore(undefined);
                                   return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 1);
                                 }));
-                          Meta3d_jest.describe("test unbind by handleFunc", (function (param) {
-                                  Meta3d_jest.test("test unbind one handleFunc of the eventName", (function (param) {
-                                          TouchEventTool$Meta3dEvent.prepare(sandbox, undefined, undefined, undefined, undefined, undefined);
-                                          var value = {
-                                            contents: 0
-                                          };
-                                          var handleFunc = function ($$event, state) {
-                                            value.contents = value.contents + 1 | 0;
-                                            return [
-                                                    state,
-                                                    $$event
-                                                  ];
-                                          };
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, handleFunc);
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, (function ($$event, state) {
-                                                  value.contents = value.contents + 10 | 0;
-                                                  return [
-                                                          state,
-                                                          $$event
-                                                        ];
-                                                }));
-                                          ManageEventAPI$Meta3dEvent.offCustomGlobalEventByHandleFunc(pointEventName, handleFunc);
-                                          EventTool$Meta3dEvent.triggerDomEvent(touchDomEventName, EventTool$Meta3dEvent.getPointEventBindedDom(undefined), TouchEventTool$Meta3dEvent.buildTouchEvent(undefined, undefined, undefined, undefined, undefined, undefined));
-                                          EventTool$Meta3dEvent.restore(undefined);
-                                          return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 10);
-                                        }));
-                                }));
-                          Meta3d_jest.describe("test unbind by eventName", (function (param) {
-                                  Meta3d_jest.test("test", (function (param) {
-                                          TouchEventTool$Meta3dEvent.prepare(sandbox, undefined, undefined, undefined, undefined, undefined);
-                                          var value = {
-                                            contents: 0
-                                          };
-                                          var handleFunc = function ($$event, state) {
-                                            value.contents = value.contents + 1 | 0;
-                                            return [
-                                                    state,
-                                                    $$event
-                                                  ];
-                                          };
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, handleFunc);
-                                          ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(pointEventName, 0, (function ($$event, state) {
-                                                  value.contents = value.contents + 10 | 0;
-                                                  return [
-                                                          state,
-                                                          $$event
-                                                        ];
-                                                }));
-                                          ManageEventAPI$Meta3dEvent.offCustomGlobalEventByEventName(pointEventName);
-                                          EventTool$Meta3dEvent.triggerDomEvent(touchDomEventName, EventTool$Meta3dEvent.getPointEventBindedDom(undefined), TouchEventTool$Meta3dEvent.buildTouchEvent(undefined, undefined, undefined, undefined, undefined, undefined));
-                                          EventTool$Meta3dEvent.restore(undefined);
-                                          return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 0);
-                                        }));
-                                }));
                         };
                         Meta3d_jest.describe("test trigger pointdown event", (function (param) {
                                 _testPointEvent(CustomEventTool$Meta3dEvent.getPointDownEventName(undefined), "touchstart");
@@ -1485,34 +1377,6 @@ Meta3d_jest.describe("InitEventAPI", (function (param) {
                                         EventTool$Meta3dEvent.triggerDomEvent("touchend", EventTool$Meta3dEvent.getPointEventBindedDom(undefined), TouchEventTool$Meta3dEvent.buildTouchEvent(undefined, undefined, undefined, undefined, undefined, undefined));
                                         EventTool$Meta3dEvent.restore(undefined);
                                         return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 1);
-                                      }));
-                                Meta3d_jest.describe("test unbind by handleFunc", (function (param) {
-                                        Meta3d_jest.test("test unbind one handleFunc of the eventName", (function (param) {
-                                                TouchEventTool$Meta3dEvent.prepare(sandbox, undefined, undefined, undefined, undefined, undefined);
-                                                var value = {
-                                                  contents: 0
-                                                };
-                                                var handleFunc = function ($$event, state) {
-                                                  value.contents = value.contents + 1 | 0;
-                                                  return [
-                                                          state,
-                                                          $$event
-                                                        ];
-                                                };
-                                                ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(CustomEventTool$Meta3dEvent.getPointTapEventName(undefined), 0, handleFunc);
-                                                ManageEventAPI$Meta3dEvent.onCustomGlobalEvent(CustomEventTool$Meta3dEvent.getPointTapEventName(undefined), 0, (function ($$event, state) {
-                                                        value.contents = value.contents + 10 | 0;
-                                                        return [
-                                                                state,
-                                                                $$event
-                                                              ];
-                                                      }));
-                                                ManageEventAPI$Meta3dEvent.offCustomGlobalEventByHandleFunc(CustomEventTool$Meta3dEvent.getPointTapEventName(undefined), handleFunc);
-                                                EventTool$Meta3dEvent.triggerDomEvent("touchstart", EventTool$Meta3dEvent.getPointEventBindedDom(undefined), TouchEventTool$Meta3dEvent.buildTouchEvent(undefined, undefined, undefined, undefined, undefined, undefined));
-                                                EventTool$Meta3dEvent.triggerDomEvent("touchend", EventTool$Meta3dEvent.getPointEventBindedDom(undefined), TouchEventTool$Meta3dEvent.buildTouchEvent(undefined, undefined, undefined, undefined, undefined, undefined));
-                                                EventTool$Meta3dEvent.restore(undefined);
-                                                return Curry._2(Meta3d_jest.Expect.Operators.$eq, Meta3d_jest.Expect.expect(value.contents), 10);
-                                              }));
                                       }));
                               }));
                         Meta3d_jest.describe("test trigger pointmove event", (function (param) {

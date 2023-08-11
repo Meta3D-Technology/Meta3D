@@ -32,6 +32,7 @@ function bindGlobalEvent(eventName, priority, handleFunc, state) {
                   priority: priority,
                   handleFunc: handleFunc
                 }, eventData.customGlobalEventArrMap),
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -42,22 +43,7 @@ function bindGlobalEvent(eventName, priority, handleFunc, state) {
         };
 }
 
-function _removeFromEventArrByHandleFunc(arr, targetHandleFunc) {
-  return Js_array.filter((function (param) {
-                return param.handleFunc !== targetHandleFunc;
-              }), arr);
-}
-
-function _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventArrMap) {
-  var arr = MutableHashMap$Meta3dCommonlib.get(eventArrMap, eventName);
-  if (arr !== undefined) {
-    return MutableHashMap$Meta3dCommonlib.set(eventArrMap, eventName, _removeFromEventArrByHandleFunc(arr, handleFunc));
-  } else {
-    return eventArrMap;
-  }
-}
-
-function unbindGlobalEventByHandleFunc(eventName, handleFunc, state) {
+function bindGlobalEvent2(eventName, priority, handleFunc, state) {
   var eventData = state.eventData;
   return {
           eventData: {
@@ -65,30 +51,11 @@ function unbindGlobalEventByHandleFunc(eventName, handleFunc, state) {
             mouseDomEventDataArrMap: eventData.mouseDomEventDataArrMap,
             keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
-            customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventData.customGlobalEventArrMap),
-            mouseEventData: eventData.mouseEventData,
-            keyboardEventData: eventData.keyboardEventData,
-            touchEventData: eventData.touchEventData
-          },
-          canvas: state.canvas,
-          body: state.body,
-          browser: state.browser
-        };
-}
-
-function _removeFromEventListMapByEventName(eventName, eventArrMap) {
-  return MutableHashMap$Meta3dCommonlib.deleteVal(eventArrMap, eventName);
-}
-
-function unbindGlobalEventByEventName(eventName, state) {
-  var eventData = state.eventData;
-  return {
-          eventData: {
-            domEventStreamSubscription: eventData.domEventStreamSubscription,
-            mouseDomEventDataArrMap: eventData.mouseDomEventDataArrMap,
-            keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
-            touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
-            customGlobalEventArrMap: MutableHashMap$Meta3dCommonlib.deleteVal(eventData.customGlobalEventArrMap, eventName),
+            customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: _addToEventArr(eventName, {
+                  priority: priority,
+                  handleFunc: handleFunc
+                }, eventData.customGlobalEventArrMap2),
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -103,10 +70,6 @@ export {
   _addEventDataByPriority ,
   _addToEventArr ,
   bindGlobalEvent ,
-  _removeFromEventArrByHandleFunc ,
-  _removeFromEventArrMapByHandleFunc ,
-  unbindGlobalEventByHandleFunc ,
-  _removeFromEventListMapByEventName ,
-  unbindGlobalEventByEventName ,
+  bindGlobalEvent2 ,
 }
 /* No side effect */

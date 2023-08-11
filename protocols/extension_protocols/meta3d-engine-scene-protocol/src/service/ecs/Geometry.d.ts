@@ -1,6 +1,7 @@
 import { state as meta3dState } from "meta3d-type"
 import { geometry, componentName, dataName } from "meta3d-component-geometry-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export type createGeometry = (meta3dState: meta3dState) => [meta3dState, geometry]
 
@@ -11,3 +12,5 @@ export type setVertices = (meta3dState: meta3dState, geometry: geometry, vertice
 export type getIndices = (meta3dState: meta3dState, geometry: geometry) => nullable<Uint32Array>
 
 export type setIndices = (meta3dState: meta3dState, geometry: geometry, indices: Uint32Array) => meta3dState
+
+export type getGameObjects = (meta3dState: meta3dState, geometry:geometry) => Array<gameObject>

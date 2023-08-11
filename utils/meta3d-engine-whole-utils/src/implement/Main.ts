@@ -327,6 +327,12 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).geometry.setIndices(meta3dState, geometry, indices)
 			},
+			getGameObjects: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getGameObjects(meta3dState, geometry)
+			},
 		},
 		pbrMaterial: {
 			createPBRMaterial: (meta3dState) => {
@@ -353,6 +359,12 @@ let _getSceneService = (
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).pbrMaterial.getAllPBRMaterials(meta3dState)
+			},
+			getGameObjects: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getGameObjects(meta3dState, pbrMaterial)
 			},
 		},
 		perspectiveCameraProjection: {

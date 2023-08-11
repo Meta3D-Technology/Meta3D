@@ -13,8 +13,22 @@ let _addEventDataByPriority = (eventData, arr) =>
 let _addToEventArr = (eventName, eventData, eventArrMap) =>
   switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
   | None => eventArrMap->Meta3dCommonlib.MutableHashMap.set(eventName, [eventData])
-  | Some(arr) => eventArrMap->Meta3dCommonlib.MutableHashMap.set(eventName, _addEventDataByPriority(eventData, arr))
+  | Some(arr) =>
+    eventArrMap->Meta3dCommonlib.MutableHashMap.set(
+      eventName,
+      _addEventDataByPriority(eventData, arr),
+    )
   }
+
+// let _addToEventArr2 = (eventName, eventData, eventArrMap) =>
+//   switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
+//   | None => eventArrMap->Meta3dCommonlib.MutableHashMap.set(eventName, [eventData])
+//   | Some(arr) =>
+//     eventArrMap->Meta3dCommonlib.MutableHashMap.set(
+//       eventName,
+//       _addEventDataByPriority(eventData, arr),
+//     )
+//   }
 
 let bindGlobalEvent = (eventName, priority, handleFunc, {eventData} as state) => {
   let {customGlobalEventArrMap} = eventData
@@ -25,56 +39,75 @@ let bindGlobalEvent = (eventName, priority, handleFunc, {eventData} as state) =>
       ...eventData,
       customGlobalEventArrMap: _addToEventArr(
         eventName,
-        {priority: priority, handleFunc: handleFunc},
-        customGlobalEventArrMap,
-      ),
+        {priority, handleFunc: handleFunc->Obj.magic},
+        customGlobalEventArrMap->Obj.magic,
+      )->Obj.magic,
     },
   }
 }
 
-let _removeFromEventArrByHandleFunc = (arr, targetHandleFunc) =>
-  arr->Js.Array.filter(({handleFunc}) => handleFunc !== targetHandleFunc, _)
-
-let _removeFromEventArrMapByHandleFunc = (eventName, handleFunc, eventArrMap) =>
-  switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
-  | None => eventArrMap
-  | Some(arr) =>
-    eventArrMap->Meta3dCommonlib.MutableHashMap.set(eventName, _removeFromEventArrByHandleFunc(arr, handleFunc))
-  }
-
-let unbindGlobalEventByHandleFunc = (eventName, handleFunc, {eventData} as state) => {
-  let {customGlobalEventArrMap} = eventData
+let bindGlobalEvent2 = (eventName, priority, handleFunc, {eventData} as state) => {
+  let {customGlobalEventArrMap2} = eventData
 
   {
     ...state,
     eventData: {
       ...eventData,
-      customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(
+      customGlobalEventArrMap2: _addToEventArr(
         eventName,
-        handleFunc,
-        customGlobalEventArrMap,
-      ),
+        {priority, handleFunc},
+        customGlobalEventArrMap2->Obj.magic,
+      )->Obj.magic,
     },
   }
 }
 
-let _removeFromEventListMapByEventName = (eventName, eventArrMap) =>
-  eventArrMap->Obj.magic->Meta3dCommonlib.MutableHashMap.deleteVal(eventName)->Obj.magic
+// let _removeFromEventArrByHandleFunc = (arr, targetHandleFunc) =>
+//   arr->Js.Array.filter(({handleFunc}) => handleFunc !== targetHandleFunc, _)
 
-let unbindGlobalEventByEventName = (eventName, {eventData} as state) => {
-  let {customGlobalEventArrMap} = eventData
+// let _removeFromEventArrMapByHandleFunc = (eventName, handleFunc, eventArrMap) =>
+//   switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
+//   | None => eventArrMap
+//   | Some(arr) =>
+//     eventArrMap->Meta3dCommonlib.MutableHashMap.set(
+//       eventName,
+//       _removeFromEventArrByHandleFunc(arr, handleFunc),
+//     )
+//   }
 
-  {
-    ...state,
-    eventData: {
-      ...eventData,
-      customGlobalEventArrMap: _removeFromEventListMapByEventName(
-        eventName,
-        customGlobalEventArrMap,
-      ),
-    },
-  }
-}
+// let unbindGlobalEventByHandleFunc = (eventName, handleFunc, {eventData} as state) => {
+//   let {customGlobalEventArrMap} = eventData
+
+//   {
+//     ...state,
+//     eventData: {
+//       ...eventData,
+//       customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(
+//         eventName,
+//         handleFunc,
+//         customGlobalEventArrMap,
+//       ),
+//     },
+//   }
+// }
+
+// let _removeFromEventListMapByEventName = (eventName, eventArrMap) =>
+//   eventArrMap->Obj.magic->Meta3dCommonlib.MutableHashMap.deleteVal(eventName)->Obj.magic
+
+// let unbindGlobalEventByEventName = (eventName, {eventData} as state) => {
+//   let {customGlobalEventArrMap} = eventData
+
+//   {
+//     ...state,
+//     eventData: {
+//       ...eventData,
+//       customGlobalEventArrMap: _removeFromEventListMapByEventName(
+//         eventName,
+//         customGlobalEventArrMap,
+//       ),
+//     },
+//   }
+// }
 
 // let bindGameObjectEvent = ((eventName, priority, target), handleFunc, {eventData} as state) => {
 //   let {customGameObjectEventArrMap} = eventData

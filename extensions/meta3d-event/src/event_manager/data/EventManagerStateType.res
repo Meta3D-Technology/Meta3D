@@ -12,14 +12,37 @@ and touchDomEventData = {
 }
 and customEventData = {
   priority: int,
-  handleFunc: (. Meta3dEventProtocol.EventType.customEvent, state) => (state, Meta3dEventProtocol.EventType.customEvent),
+  handleFunc: (
+    . Meta3dEventProtocol.EventType.customEvent,
+    state,
+  ) => (state, Meta3dEventProtocol.EventType.customEvent),
+}
+and customEventData2 = {
+  priority: int,
+  handleFunc: (
+    . Meta3dType.Index.state,
+    Meta3dEventProtocol.EventType.customEvent,
+  ) => (Meta3dType.Index.state, Meta3dEventProtocol.EventType.customEvent),
 }
 and eventData = {
   domEventStreamSubscription: option<Meta3dBsMost.Most.subscription>,
-  mouseDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<int, array<mouseDomEventData>>,
-  keyboardDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<int, array<keyboardDomEventData>>,
-  touchDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<int, array<touchDomEventData>>,
+  mouseDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<
+    int,
+    array<mouseDomEventData>,
+  >,
+  keyboardDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<
+    int,
+    array<keyboardDomEventData>,
+  >,
+  touchDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<
+    int,
+    array<touchDomEventData>,
+  >,
   customGlobalEventArrMap: Meta3dCommonlibType.MutableHashMapType.t<string, array<customEventData>>,
+  customGlobalEventArrMap2: Meta3dCommonlibType.MutableHashMapType.t<
+    string,
+    array<customEventData2>,
+  >,
   // customGameObjectEventArrMap: Meta3dCommonlibType.MutableHashMapType.t<
   //   string,
   //   Meta3dCommonlibType.MutableSparseMapType.t<int, array<customEventData>>,

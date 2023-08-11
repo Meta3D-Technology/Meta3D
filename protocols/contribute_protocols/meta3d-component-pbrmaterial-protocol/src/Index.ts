@@ -7,7 +7,8 @@ export type config = { readonly isDebug: boolean, readonly pbrMaterialCount: num
 
 export type state = {
 	buffer: SharedArrayBuffer,
-	config: config
+	config: config,
+	gameObjectsMap: Array<Array<gameObject>>
 }
 
 export const dataName = {

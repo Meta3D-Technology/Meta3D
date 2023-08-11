@@ -33,13 +33,16 @@ function onCustomGlobalEvent(eventName, handleFunc, state, priorityOpt, param) {
   return BindCustomEventDoService$Meta3dEvent.bindGlobalEvent(eventName, priority, handleFunc, state);
 }
 
-var offCustomGlobalEventByEventName = BindCustomEventDoService$Meta3dEvent.unbindGlobalEventByEventName;
-
-var offCustomGlobalEventByHandleFunc = BindCustomEventDoService$Meta3dEvent.unbindGlobalEventByHandleFunc;
+function onCustomGlobalEvent2(eventName, handleFunc, state, priorityOpt, param) {
+  var priority = priorityOpt !== undefined ? priorityOpt : 0;
+  return BindCustomEventDoService$Meta3dEvent.bindGlobalEvent2(eventName, priority, handleFunc, state);
+}
 
 var stopPropagationCustomEvent = HandleCustomEventDoService$Meta3dEvent.stopPropagation;
 
 var triggerCustomGlobalEvent = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent;
+
+var triggerCustomGlobalEvent2 = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent2;
 
 function setDomEventStreamSubscription(state, domEventStreamSubscription) {
   var eventData = state.eventData;
@@ -50,6 +53,7 @@ function setDomEventStreamSubscription(state, domEventStreamSubscription) {
             keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -82,10 +86,10 @@ export {
   offKeyboardEventByHandleFunc ,
   offTouchEventByHandleFunc ,
   onCustomGlobalEvent ,
-  offCustomGlobalEventByEventName ,
-  offCustomGlobalEventByHandleFunc ,
+  onCustomGlobalEvent2 ,
   stopPropagationCustomEvent ,
   triggerCustomGlobalEvent ,
+  triggerCustomGlobalEvent2 ,
   setDomEventStreamSubscription ,
   _unsubscribeDomEventStream ,
   unsubscribeDomEventStream ,

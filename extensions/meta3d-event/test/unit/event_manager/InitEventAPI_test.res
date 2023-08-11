@@ -1563,72 +1563,72 @@ describe("bind dom event to trigger point event", () => {
           value.contents -> expect == 1
         })
 
-        describe("test unbind by handleFunc", () =>
-          test("test unbind one handleFunc of the eventName", () => {
-            MouseEventTool.prepare(~sandbox, ())
+        // describe("test unbind by handleFunc", () =>
+        //   test("test unbind one handleFunc of the eventName", () => {
+        //     MouseEventTool.prepare(~sandbox, ())
             
-            let value = ref(0)
-            let handleFunc = (. event, state) => {
-              value := value.contents + 1
-              (state, event)
-            }
+        //     let value = ref(0)
+        //     let handleFunc = (. event, state) => {
+        //       value := value.contents + 1
+        //       (state, event)
+        //     }
 
-             ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
-             ManageEventAPI.onCustomGlobalEvent(
-              pointEventName,
-              0,
-              (. event, state) => {
-                value := value.contents + 10
-                (state, event)
-              },
-            )
-             ManageEventAPI.offCustomGlobalEventByHandleFunc(
-              pointEventName,
-              handleFunc,
-            )
+        //      ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       pointEventName,
+        //       0,
+        //       (. event, state) => {
+        //         value := value.contents + 10
+        //         (state, event)
+        //       },
+        //     )
+        //      ManageEventAPI.offCustomGlobalEventByHandleFunc(
+        //       pointEventName,
+        //       handleFunc,
+        //     )
              
-            EventTool.triggerDomEvent(
-              mouseDomEventName,
-              EventTool.getPointEventBindedDom(),
-              MouseEventTool.buildMouseEvent(),
-            )
-             EventTool.restore()
+        //     EventTool.triggerDomEvent(
+        //       mouseDomEventName,
+        //       EventTool.getPointEventBindedDom(),
+        //       MouseEventTool.buildMouseEvent(),
+        //     )
+        //      EventTool.restore()
 
-            value.contents -> expect == 10
-          })
-        )
+        //     value.contents -> expect == 10
+        //   })
+        // )
 
-        describe("test unbind by eventName", () =>
-          test("test", () => {
-            MouseEventTool.prepare(~sandbox, ())
+        // describe("test unbind by eventName", () =>
+        //   test("test", () => {
+        //     MouseEventTool.prepare(~sandbox, ())
             
-            let value = ref(0)
-            let handleFunc = (. event, state) => {
-              value := value.contents + 1
-              (state, event)
-            }
+        //     let value = ref(0)
+        //     let handleFunc = (. event, state) => {
+        //       value := value.contents + 1
+        //       (state, event)
+        //     }
 
-             ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
-             ManageEventAPI.onCustomGlobalEvent(
-              pointEventName,
-              0,
-              (. event, state) => {
-                value := value.contents + 10
-                (state, event)
-              },
-            )
-             ManageEventAPI.offCustomGlobalEventByEventName(pointEventName)
+        //      ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       pointEventName,
+        //       0,
+        //       (. event, state) => {
+        //         value := value.contents + 10
+        //         (state, event)
+        //       },
+        //     )
+        //      ManageEventAPI.offCustomGlobalEventByEventName(pointEventName)
              
-            EventTool.triggerDomEvent(
-              mouseDomEventName,
-              EventTool.getPointEventBindedDom(),
-              MouseEventTool.buildMouseEvent(),
-            )
-             EventTool.restore()
+        //     EventTool.triggerDomEvent(
+        //       mouseDomEventName,
+        //       EventTool.getPointEventBindedDom(),
+        //       MouseEventTool.buildMouseEvent(),
+        //     )
+        //      EventTool.restore()
 
-            value.contents -> expect == 0
-          })
-        )
+        //     value.contents -> expect == 0
+        //   })
+        // )
       }
 
       describe("test trigger pointdown event", () => {
@@ -1894,72 +1894,72 @@ describe("bind dom event to trigger point event", () => {
           value.contents -> expect == 1
         })
 
-        describe("test unbind by handleFunc", () =>
-          test("test unbind one handleFunc of the eventName", () => {
-             TouchEventTool.prepare(~sandbox, ())
+        // describe("test unbind by handleFunc", () =>
+        //   test("test unbind one handleFunc of the eventName", () => {
+        //      TouchEventTool.prepare(~sandbox, ())
             
-            let value = ref(0)
-            let handleFunc = (. event, state) => {
-              value := value.contents + 1
-              (state, event)
-            }
+        //     let value = ref(0)
+        //     let handleFunc = (. event, state) => {
+        //       value := value.contents + 1
+        //       (state, event)
+        //     }
 
-             ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
-             ManageEventAPI.onCustomGlobalEvent(
-              pointEventName,
-              0,
-              (. event, state) => {
-                value := value.contents + 10
-                (state, event)
-              },
-            )
-             ManageEventAPI.offCustomGlobalEventByHandleFunc(
-              pointEventName,
-              handleFunc,
-            )
+        //      ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       pointEventName,
+        //       0,
+        //       (. event, state) => {
+        //         value := value.contents + 10
+        //         (state, event)
+        //       },
+        //     )
+        //      ManageEventAPI.offCustomGlobalEventByHandleFunc(
+        //       pointEventName,
+        //       handleFunc,
+        //     )
              
-            EventTool.triggerDomEvent(
-              touchDomEventName,
-              EventTool.getPointEventBindedDom(),
-              TouchEventTool.buildTouchEvent(),
-            )
-             EventTool.restore()
+        //     EventTool.triggerDomEvent(
+        //       touchDomEventName,
+        //       EventTool.getPointEventBindedDom(),
+        //       TouchEventTool.buildTouchEvent(),
+        //     )
+        //      EventTool.restore()
 
-            value.contents -> expect == 10
-          })
-        )
+        //     value.contents -> expect == 10
+        //   })
+        // )
 
-        describe("test unbind by eventName", () =>
-          test("test", () => {
-             TouchEventTool.prepare(~sandbox, ())
+        // describe("test unbind by eventName", () =>
+        //   test("test", () => {
+        //      TouchEventTool.prepare(~sandbox, ())
             
-            let value = ref(0)
-            let handleFunc = (. event, state) => {
-              value := value.contents + 1
-              (state, event)
-            }
+        //     let value = ref(0)
+        //     let handleFunc = (. event, state) => {
+        //       value := value.contents + 1
+        //       (state, event)
+        //     }
 
-             ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
-             ManageEventAPI.onCustomGlobalEvent(
-              pointEventName,
-              0,
-              (. event, state) => {
-                value := value.contents + 10
-                (state, event)
-              },
-            )
-             ManageEventAPI.offCustomGlobalEventByEventName(pointEventName)
+        //      ManageEventAPI.onCustomGlobalEvent(pointEventName, 0, handleFunc)
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       pointEventName,
+        //       0,
+        //       (. event, state) => {
+        //         value := value.contents + 10
+        //         (state, event)
+        //       },
+        //     )
+        //      ManageEventAPI.offCustomGlobalEventByEventName(pointEventName)
              
-            EventTool.triggerDomEvent(
-              touchDomEventName,
-              EventTool.getPointEventBindedDom(),
-              TouchEventTool.buildTouchEvent(),
-            )
-             EventTool.restore()
+        //     EventTool.triggerDomEvent(
+        //       touchDomEventName,
+        //       EventTool.getPointEventBindedDom(),
+        //       TouchEventTool.buildTouchEvent(),
+        //     )
+        //      EventTool.restore()
 
-            value.contents -> expect == 0
-          })
-        )
+        //     value.contents -> expect == 0
+        //   })
+        // )
       }
 
       describe("test trigger pointdown event", () => {
@@ -2122,49 +2122,49 @@ describe("bind dom event to trigger point event", () => {
           value.contents -> expect == 1
         })
 
-        describe("test unbind by handleFunc", () =>
-          test("test unbind one handleFunc of the eventName", () => {
-             TouchEventTool.prepare(~sandbox, ())
+        // describe("test unbind by handleFunc", () =>
+        //   test("test unbind one handleFunc of the eventName", () => {
+        //      TouchEventTool.prepare(~sandbox, ())
             
-            let value = ref(0)
-            let handleFunc = (. event, state) => {
-              value := value.contents + 1
-              (state, event)
-            }
+        //     let value = ref(0)
+        //     let handleFunc = (. event, state) => {
+        //       value := value.contents + 1
+        //       (state, event)
+        //     }
 
-             ManageEventAPI.onCustomGlobalEvent(
-              CustomEventTool.getPointTapEventName(),
-              0,
-              handleFunc,
-            )
-             ManageEventAPI.onCustomGlobalEvent(
-              CustomEventTool.getPointTapEventName(),
-              0,
-              (. event, state) => {
-                value := value.contents + 10
-                (state, event)
-              },
-            )
-             ManageEventAPI.offCustomGlobalEventByHandleFunc(
-              CustomEventTool.getPointTapEventName(),
-              handleFunc,
-            )
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       CustomEventTool.getPointTapEventName(),
+        //       0,
+        //       handleFunc,
+        //     )
+        //      ManageEventAPI.onCustomGlobalEvent(
+        //       CustomEventTool.getPointTapEventName(),
+        //       0,
+        //       (. event, state) => {
+        //         value := value.contents + 10
+        //         (state, event)
+        //       },
+        //     )
+        //      ManageEventAPI.offCustomGlobalEventByHandleFunc(
+        //       CustomEventTool.getPointTapEventName(),
+        //       handleFunc,
+        //     )
              
-            EventTool.triggerDomEvent(
-              "touchstart",
-              EventTool.getPointEventBindedDom(),
-              TouchEventTool.buildTouchEvent(),
-            )
-            EventTool.triggerDomEvent(
-              "touchend",
-              EventTool.getPointEventBindedDom(),
-              TouchEventTool.buildTouchEvent(),
-            )
-             EventTool.restore()
+        //     EventTool.triggerDomEvent(
+        //       "touchstart",
+        //       EventTool.getPointEventBindedDom(),
+        //       TouchEventTool.buildTouchEvent(),
+        //     )
+        //     EventTool.triggerDomEvent(
+        //       "touchend",
+        //       EventTool.getPointEventBindedDom(),
+        //       TouchEventTool.buildTouchEvent(),
+        //     )
+        //      EventTool.restore()
 
-            value.contents -> expect == 10
-          })
-        )
+        //     value.contents -> expect == 10
+        //   })
+        // )
       })
 
       describe("test trigger pointmove event", () =>

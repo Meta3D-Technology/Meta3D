@@ -13,6 +13,13 @@ function getExtensionService(api) {
               return EventManager$Meta3dEvent.onPointEvent(api, param, param$1);
             }),
           onCustomGlobalEvent: ManageEventAPIForSrc$Meta3dEvent.onCustomGlobalEvent,
+          onCustomGlobalEvent2: (function (param, param$1, param$2) {
+              return ManageEventAPIForSrc$Meta3dEvent.onCustomGlobalEvent2(api, param, param$1, param$2);
+            }),
+          triggerCustomGlobalEvent2: (function (param, param$1, param$2) {
+              return ManageEventAPIForSrc$Meta3dEvent.triggerCustomGlobalEvent2(api, param, param$1, param$2);
+            }),
+          createCustomEvent: ManageEventAPIForSrc$Meta3dEvent.createCustomEvent,
           initEvent: (function (param, param$1) {
               return EventManager$Meta3dEvent.initEvent(api, param, param$1);
             }),

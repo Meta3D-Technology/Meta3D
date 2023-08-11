@@ -1,8 +1,9 @@
 import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
 import { actionName, actionContribute } from "../contribute/ActionContributeType"
 import { state } from "../state/StateType"
-import { customEvent } from "./EventType.gen"
+import { customEvent, userData } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 type eventExtensionProtocolName = extensionName
 
@@ -21,6 +22,8 @@ type customEventName = string
 type priority = number
 
 type handleFunc = (customEvent: customEvent) => void
+
+type handleFunc2 = (meta3dState: meta3dState, customEvent: customEvent) => meta3dState
 
 export type service = {
     trigger: <actionData> (
@@ -41,6 +44,20 @@ export type service = {
         eventExtensionProtocolName: eventExtensionProtocolName,
         [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc]
     ): void;
+    onCustomGlobalEvent2(
+        meta3dState: meta3dState,
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc2]
+    ): meta3dState;
+    triggerCustomGlobalEvent2(
+        meta3dState: meta3dState,
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        customEvent: customEvent
+    ): meta3dState;
+    createCustomEvent(
+        customEventName: customEventName,
+        userData: nullable<userData>
+    ): customEvent;
     initEvent(
         meta3dState: meta3dState,
         eventExtensionProtocolName: eventExtensionProtocolName,

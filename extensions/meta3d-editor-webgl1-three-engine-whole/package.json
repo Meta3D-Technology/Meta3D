@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-engine-whole",
-    "version": "0.13.2",
+    "version": "0.13.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-engine-whole-protocol"
@@ -18,6 +18,10 @@
         "meta3d-engine-basic-protocol": "^0.13.0",
         "meta3d-engine-core-protocol": "^0.13.0",
         "meta3d-engine-scene-protocol": "^0.13.0",
+        "meta3d-event-protocol": "^0.13.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.13.0",
+        "meta3d-component-geometry-protocol": "^0.13.0",
+        "meta3d-scenegraph-converter-three-protocol": "^0.13.0",
         "meta3d-type": "^0.13.0"
     },
     "devDependencies": {

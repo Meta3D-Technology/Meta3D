@@ -48,10 +48,6 @@ var offTouchEventByHandleFunc = ManageEventAPI$Meta3dEvent.offTouchEventByHandle
 
 var onCustomGlobalEvent = ManageEventAPI$Meta3dEvent.onCustomGlobalEvent;
 
-var offCustomGlobalEventByEventName = ManageEventAPI$Meta3dEvent.offCustomGlobalEventByEventName;
-
-var offCustomGlobalEventByHandleFunc = ManageEventAPI$Meta3dEvent.offCustomGlobalEventByHandleFunc;
-
 var stopPropagationCustomEvent = ManageEventAPI$Meta3dEvent.stopPropagationCustomEvent;
 
 var triggerCustomGlobalEvent = ManageEventAPI$Meta3dEvent.triggerCustomGlobalEvent;
@@ -93,8 +89,6 @@ export {
   offKeyboardEventByHandleFunc ,
   offTouchEventByHandleFunc ,
   onCustomGlobalEvent ,
-  offCustomGlobalEventByEventName ,
-  offCustomGlobalEventByHandleFunc ,
   stopPropagationCustomEvent ,
   triggerCustomGlobalEvent ,
   createCustomEvent ,

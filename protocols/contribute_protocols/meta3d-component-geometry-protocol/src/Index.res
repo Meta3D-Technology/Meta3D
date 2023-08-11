@@ -1,7 +1,5 @@
 let componentName = "Geometry"
 
-type state
-
 type dataName = {
   vertices: int,
   normals: int,
@@ -26,6 +24,12 @@ type config = {
   isDebug: bool,
   geometryCount: int,
   geometryPointCount: int,
+}
+
+type state = {
+  buffer: Js.Typed_array.ArrayBuffer.t,
+  config: config,
+  mutable gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
 }
 
 type needDisposedComponents = Meta3dCommonlibType.MutableSparseMapType.t<

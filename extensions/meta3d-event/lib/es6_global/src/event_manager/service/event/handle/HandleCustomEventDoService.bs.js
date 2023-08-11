@@ -21,6 +21,24 @@ function _triggerHandleFunc(customEvent, arr, state) {
             ]);
 }
 
+function _triggerHandleFunc2(customEvent, arr, meta3dState) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(arr, (function (param, param$1) {
+                var customEvent = param[1];
+                var meta3dState = param[0];
+                if (customEvent.isStopPropagation) {
+                  return [
+                          meta3dState,
+                          customEvent
+                        ];
+                } else {
+                  return param$1.handleFunc(meta3dState, customEvent);
+                }
+              }), [
+              meta3dState,
+              customEvent
+            ]);
+}
+
 function stopPropagation(customEvent) {
   return {
           name: customEvent.name,
@@ -31,12 +49,27 @@ function stopPropagation(customEvent) {
 }
 
 function triggerGlobalEvent(customEvent, state) {
-  var arr = MutableHashMap$Meta3dCommonlib.get(state.eventData.customGlobalEventArrMap, customEvent.name);
+  var match = state.eventData;
+  var arr = MutableHashMap$Meta3dCommonlib.get(match.customGlobalEventArrMap, customEvent.name);
   if (arr !== undefined) {
     return _triggerHandleFunc(customEvent, arr, state);
   } else {
     return [
             state,
+            customEvent
+          ];
+  }
+}
+
+function triggerGlobalEvent2(api, meta3dState, eventExtensionProtocolName, customEvent) {
+  var match = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+  var match$1 = match.eventManagerState.eventData;
+  var arr = MutableHashMap$Meta3dCommonlib.get(match$1.customGlobalEventArrMap2, customEvent.name);
+  if (arr !== undefined) {
+    return _triggerHandleFunc2(customEvent, arr, meta3dState);
+  } else {
+    return [
+            meta3dState,
             customEvent
           ];
   }
@@ -48,8 +81,10 @@ function getCustomEventUserData(customEvent) {
 
 export {
   _triggerHandleFunc ,
+  _triggerHandleFunc2 ,
   stopPropagation ,
   triggerGlobalEvent ,
+  triggerGlobalEvent2 ,
   getCustomEventUserData ,
 }
 /* No side effect */

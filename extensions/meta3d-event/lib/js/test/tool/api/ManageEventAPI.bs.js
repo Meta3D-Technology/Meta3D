@@ -35,14 +35,6 @@ function onCustomGlobalEvent(eventName, priority, handleFunc) {
   ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)), priority, undefined), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
 
-function offCustomGlobalEventByEventName(eventName) {
-  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByEventName(eventName, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
-}
-
-function offCustomGlobalEventByHandleFunc(eventName, handleFunc) {
-  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByHandleFunc(eventName, handleFunc, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
-}
-
 function triggerCustomGlobalEvent(customEvent) {
   ContainerManager$Meta3dEvent.setState(Tuple2$Meta3dCommonlib.getFirst(ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent(customEvent, ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined)))), EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined));
 }
@@ -60,8 +52,6 @@ exports.offMouseEventByHandleFunc = offMouseEventByHandleFunc;
 exports.offKeyboardEventByHandleFunc = offKeyboardEventByHandleFunc;
 exports.offTouchEventByHandleFunc = offTouchEventByHandleFunc;
 exports.onCustomGlobalEvent = onCustomGlobalEvent;
-exports.offCustomGlobalEventByEventName = offCustomGlobalEventByEventName;
-exports.offCustomGlobalEventByHandleFunc = offCustomGlobalEventByHandleFunc;
 exports.stopPropagationCustomEvent = stopPropagationCustomEvent;
 exports.triggerCustomGlobalEvent = triggerCustomGlobalEvent;
 exports.createCustomEvent = createCustomEvent;

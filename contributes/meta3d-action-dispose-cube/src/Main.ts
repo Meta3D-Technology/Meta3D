@@ -26,8 +26,6 @@ export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (a
 
             meta3dState = _disposeRandomCubeGameObject(meta3dState, editorEngineWholeService)
 
-            // TODO trigger dispose event
-
             return new Promise((resolve) => {
                 resolve(meta3dState)
             })

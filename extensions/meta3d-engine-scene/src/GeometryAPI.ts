@@ -2,6 +2,7 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { geometry, componentName, dataName, vertices, indices } from "meta3d-component-geometry-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
 	createComponent,
@@ -58,4 +59,10 @@ export function setIndices(engineCoreState: engineCoreState, { unsafeGetUsedComp
 	contribute = setComponentData(contribute, geometry, dataName.indices, indices)
 
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export function getGameObjects(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, geometry: geometry): Array<gameObject> {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentGameObjects<geometry>(contribute, geometry)
 }

@@ -1,10 +1,14 @@
 let componentName = "PBRMaterial"
 
-type state
-
 type config = {
   isDebug: bool,
   pbrMaterialCount: int,
+}
+
+type state = {
+  buffer: Js.Typed_array.ArrayBuffer.t,
+  config: config,
+  mutable gameObjectsMap: Meta3dCommonlibType.ComponentType.gameObjectsMap,
 }
 
 type dataName = {diffuseColor: int, specular: int}
@@ -13,8 +17,6 @@ let dataName = {
   diffuseColor: 0,
   specular: 1,
 }
-
-
 
 type diffuseColor = (float, float, float)
 

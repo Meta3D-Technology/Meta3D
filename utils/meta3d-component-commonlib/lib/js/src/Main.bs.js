@@ -2,6 +2,7 @@
 
 var GeometryAPI$Meta3dComponentCommonlib = require("./GeometryAPI.bs.js");
 var TransformAPI$Meta3dComponentCommonlib = require("./TransformAPI.bs.js");
+var PBRMaterialAPI$Meta3dComponentCommonlib = require("./PBRMaterialAPI.bs.js");
 var DirectionLightAPI$Meta3dComponentCommonlib = require("./DirectionLightAPI.bs.js");
 var BasicCameraViewAPI$Meta3dComponentCommonlib = require("./BasicCameraViewAPI.bs.js");
 var PerspectiveCameraProjectionAPI$Meta3dComponentCommonlib = require("./PerspectiveCameraProjectionAPI.bs.js");
@@ -24,6 +25,10 @@ var getActiveCameraView = BasicCameraViewAPI$Meta3dComponentCommonlib.getActiveC
 
 var getDirection = DirectionLightAPI$Meta3dComponentCommonlib.getDirection;
 
+var isActuallyDisposePBRMateiral = PBRMaterialAPI$Meta3dComponentCommonlib.isActuallyDispose;
+
+var isActuallyDisposeGeometry = GeometryAPI$Meta3dComponentCommonlib.isActuallyDispose;
+
 exports.lookAt = lookAt;
 exports.computeTangents = computeTangents;
 exports.createPlaneGeometry = createPlaneGeometry;
@@ -33,4 +38,6 @@ exports.updatePerspectiveCameraProjection = updatePerspectiveCameraProjection;
 exports.getViewWorldToCameraMatrix = getViewWorldToCameraMatrix;
 exports.getActiveCameraView = getActiveCameraView;
 exports.getDirection = getDirection;
+exports.isActuallyDisposePBRMateiral = isActuallyDisposePBRMateiral;
+exports.isActuallyDisposeGeometry = isActuallyDisposeGeometry;
 /* No side effect */

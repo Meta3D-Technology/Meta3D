@@ -3,7 +3,7 @@ import { state } from "meta3d-scenegraph-converter-three-protocol/src/state/Stat
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 // import type { Blending, BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Side, Sphere, Texture, Vector3 } from "three";
-import type {
+import {
     Blending, Side,
     BufferAttribute as BufferAttributeType,
     CubeTexture,
@@ -30,6 +30,8 @@ import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/In
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { generateUUID } from "./three/MathUtils";
 import { generateId } from "./utils/IdUtils";
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { EventDispatcher } from "./three/EventDispatcher";
 
 let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion
 
@@ -40,6 +42,10 @@ let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sph
 function _getMeshInstanceMap(): Array<Mesh> {
     return (globalThis as any).meshInstanceMap_for_scene_graph_converter
 }
+
+// function _clearMeshInstance(gameObject: gameObject) {
+//     _getMeshInstanceMap()[gameObject] = undefined
+// }
 
 function _getMeshInstance(gameObject: gameObject) {
     if (_getMeshInstanceMap()[gameObject] === undefined) {
@@ -53,6 +59,10 @@ function _getBasicMaterialInstanceMap(): Array<MeshBasicMaterial> {
     return (globalThis as any).basicMaterialInstanceMap_for_scene_graph_converter
 }
 
+// function _clearBasicMaterialInstance(material: pbrMaterial) {
+//     _getBasicMaterialInstanceMap()[material] = undefined
+// }
+
 function _getBasicMaterialInstance(material: pbrMaterial) {
     if (_getBasicMaterialInstanceMap()[material] === undefined) {
         _getBasicMaterialInstanceMap()[material] = new MeshBasicMaterial(material)
@@ -64,6 +74,10 @@ function _getBasicMaterialInstance(material: pbrMaterial) {
 function _getGeometryInstanceMap(): Array<BufferGeometry> {
     return (globalThis as any).geometryInstanceMap_for_scene_graph_converter
 }
+
+// function _clearGeometryInstance(geometry: geometry) {
+//     _getGeometryInstanceMap()[geometry] = undefined
+// }
 
 function _getGeometryInstance(geometry: geometry) {
     if (_getGeometryInstanceMap()[geometry] === undefined) {
@@ -503,10 +517,106 @@ class Mesh extends Object3D {
 
     }
 }
-class EventDispatcher {
-    public addEventListener(eventName: string, func: any) {
-    }
-}
+
+// class EventDispatcher {
+//     // constructor(component: number) {
+//     //     this.component = component
+
+//     //     this._listeners = []
+//     // }
+
+//     private _listeners = {}
+
+//     protected component: number
+
+
+//     // public addEventListener(eventName: string, func: any) {
+
+//     // }
+
+//     // public removeEventListener(type: string, func: any) {
+//     // }
+
+//     // public dispatchEvent(event) {
+//     // }
+
+//     addEventListener(type, listener) {
+
+//         if (this._listeners === undefined) this._listeners = {};
+
+//         const listeners = this._listeners;
+
+//         if (listeners[type] === undefined) {
+
+//             listeners[type] = [];
+
+//         }
+
+//         if (listeners[type].indexOf(listener) === - 1) {
+
+//             listeners[type].push(listener);
+
+//         }
+
+//     }
+
+//     hasEventListener(type, listener) {
+
+//         if (this._listeners === undefined) return false;
+
+//         const listeners = this._listeners;
+
+//         return listeners[type] !== undefined && listeners[type].indexOf(listener) !== - 1;
+
+//     }
+
+//     removeEventListener(type, listener) {
+
+//         if (this._listeners === undefined) return;
+
+//         const listeners = this._listeners;
+//         const listenerArray = listeners[type];
+
+//         if (listenerArray !== undefined) {
+
+//             const index = listenerArray.indexOf(listener);
+
+//             if (index !== - 1) {
+
+//                 listenerArray.splice(index, 1);
+
+//             }
+
+//         }
+
+//     }
+
+//     dispatchEvent(event) {
+
+//         if (this._listeners === undefined) return;
+
+//         const listeners = this._listeners;
+//         const listenerArray = listeners[event.type];
+
+//         if (listenerArray !== undefined) {
+
+//             event.target = this;
+
+//             // Make a copy, in case listeners are removed while iterating.
+//             const array = listenerArray.slice(0);
+
+//             for (let i = 0, l = array.length; i < l; i++) {
+
+//                 array[i].call(this, event);
+
+//             }
+
+//             event.target = null;
+
+//         }
+
+//     }
+// }
 
 class BufferGeometry extends EventDispatcher {
     constructor(geometry: geometry) {
@@ -579,6 +689,10 @@ class BufferGeometry extends EventDispatcher {
 
     public getIndex() {
         return this.index
+    }
+
+    public dispose() {
+        this.dispatchEvent({ type: 'dispose' });
     }
 }
 
@@ -714,6 +828,10 @@ class Material extends EventDispatcher {
     public customProgramCacheKey() {
         return {}
     }
+
+    public dispose() {
+        this.dispatchEvent({ type: 'dispose' });
+    }
 }
 
 class MeshBasicMaterial extends Material {
@@ -766,8 +884,72 @@ class MeshBasicMaterial extends Material {
     }
 }
 
+function _getAllEventNames() {
+    return {
+        disposeGameObjectEventName: "disposeGameObjectEventName",
+        disposeGeometryEventName: "disposeGeometryEventName",
+        disposePBRMaterialEventName: "disposePBRMaterialEventName",
+        disposeArcballCameraControllerEventName: "disposeArcballCameraControllerEventName",
+        disposeBasicCameraViewEventName: "disposeBasicCameraViewEventName",
+        disposeTransformEventName: "disposeTransformEventName",
+        disposePerspectiveCameraProjectionEventName: "disposePerspectiveCameraProjectionEventName",
+    }
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
+        init: (meta3dState) => {
+            let eventProtocolName = "meta3d-event-protocol"
+
+            let eventService = api.getExtensionService<eventService>(
+                meta3dState,
+                eventProtocolName
+            )
+
+
+            let {
+                disposeGameObjectEventName,
+                disposeGeometryEventName,
+                disposePBRMaterialEventName
+            } = _getAllEventNames()
+
+            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
+                disposeGameObjectEventName, 1, (meta3dState, { userData }) => {
+                    console.log("dispose gameObject")
+                    // _clearMeshInstance(userData as any as gameObject)
+
+                    _getMeshInstanceMap()[userData as any as gameObject] = undefined
+
+                    return meta3dState
+                }
+            ])
+            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
+                disposeGeometryEventName, 1, (meta3dState, { userData }) => {
+                    // _clearGeometryInstance(userData as any as geometry)
+
+
+                    _getGeometryInstanceMap()[userData as any as geometry].dispose()
+
+                    _getGeometryInstanceMap()[userData as any as geometry] = undefined
+
+                    return meta3dState
+                }
+            ])
+            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
+                disposePBRMaterialEventName, 1, (meta3dState, { userData }) => {
+                    // _clearBasicMaterialInstance(userData as any as pbrMaterial)
+
+
+                    _getBasicMaterialInstanceMap()[userData as any as pbrMaterial].dispose()
+
+                    _getBasicMaterialInstanceMap()[userData as any as pbrMaterial] = undefined
+
+                    return meta3dState
+                }
+            ])
+
+            return meta3dState
+        },
         convert: (meta3dState) => {
             let isDebug = true
 
@@ -810,7 +992,8 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     cameraView,
                     cameraProjection
                 ) as any,
-                scene: new Scene() as any
+                scene: new Scene() as any,
+                event: _getAllEventNames()
             }
         },
         // threeAPI: {
@@ -822,7 +1005,8 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
 export let createExtensionState: createExtensionStateMeta3D<state> = () => {
     return {
         perspectiveCamera: null,
-        scene: null
+        scene: null,
+        event: _getAllEventNames()
     }
 }
 

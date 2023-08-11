@@ -205,6 +205,7 @@ let create = (): EventManagerStateType.state => {
     keyboardDomEventDataArrMap: Meta3dCommonlib.MutableSparseMap.createEmpty(),
     touchDomEventDataArrMap: Meta3dCommonlib.MutableSparseMap.createEmpty(),
     customGlobalEventArrMap: Meta3dCommonlib.MutableHashMap.createEmpty(),
+    customGlobalEventArrMap2: Meta3dCommonlib.MutableHashMap.createEmpty(),
     // customGameObjectEventArrMap: Meta3dCommonlib.MutableHashMap.createEmpty(),
     mouseEventData: {
       lastX: None,

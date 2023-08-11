@@ -55,18 +55,18 @@ let onCustomGlobalEvent = (eventName, priority, handleFunc) =>
     (),
   )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 
-let offCustomGlobalEventByEventName = eventName =>
-  ManageEventDoService.offCustomGlobalEventByEventName(
-    ~eventName,
-    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName()),
-  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
+// let offCustomGlobalEventByEventName = eventName =>
+//   ManageEventDoService.offCustomGlobalEventByEventName(
+//     ~eventName,
+//     ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName()),
+//   )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 
-let offCustomGlobalEventByHandleFunc = (eventName, handleFunc) =>
-  ManageEventDoService.offCustomGlobalEventByHandleFunc(
-    ~eventName,
-    ~handleFunc,
-    ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName()),
-  )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
+// let offCustomGlobalEventByHandleFunc = (eventName, handleFunc) =>
+//   ManageEventDoService.offCustomGlobalEventByHandleFunc(
+//     ~eventName,
+//     ~handleFunc,
+//     ~state=ContainerManager.getState(EventExtensionTool.buildEventExtentsionProtocolName()),
+//   )->ContainerManager.setState(EventExtensionTool.buildEventExtentsionProtocolName())
 
 // let onCustomGameObjectEvent = (eventName, target, priority, handleFunc, state) =>
 //   ManageEventDoService.onCustomGameObjectEvent(

@@ -11,8 +11,14 @@ import {
 } from "./ecs/GameObject"
 import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale } from "./ecs/Transform";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
-import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor } from "./ecs/PBRMaterial";
-import { createGeometry, getIndices, getVertices, setIndices, setVertices } from "./ecs/Geometry";
+import {
+	createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor,
+	getGameObjects as getPBRMaterialGameObjects,
+} from "./ecs/PBRMaterial";
+import {
+	createGeometry, getIndices, getVertices, setIndices, setVertices,
+	getGameObjects as getGeometryGameObjects,
+} from "./ecs/Geometry";
 import {
 	createBasicCameraView,
 	getGameObjects as getBasicCameraViewGameObjects,
@@ -101,14 +107,16 @@ export type scene = {
 		createPBRMaterial: createPBRMaterial,
 		getDiffuseColor: getDiffuseColor,
 		setDiffuseColor: setDiffuseColor,
-		getAllPBRMaterials: getAllPBRMaterials
+		getAllPBRMaterials: getAllPBRMaterials,
+		getGameObjects: getPBRMaterialGameObjects
 	},
 	geometry: {
 		createGeometry: createGeometry,
 		getVertices: getVertices,
 		setVertices: setVertices,
 		getIndices: getIndices,
-		setIndices: setIndices
+		setIndices: setIndices,
+		getGameObjects: getGeometryGameObjects
 	},
 	basicCameraView: {
 		createBasicCameraView: createBasicCameraView,

@@ -303,7 +303,7 @@ TODO commit
 # ** TODO pass bdd test
 
 
-** TODO implement dispose
+** DONE implement dispose
 
 # ** TODO add dispose job
 
@@ -451,7 +451,7 @@ commit
 *** DONE study
 
 
-*** TODO run test for dispose cube
+*** DONE run test for dispose cube
 
 
 TODO need update
@@ -459,19 +459,27 @@ action-dispose-cube
 gameobject(engine-scene package)
 
 
+TODO need publish and update
+meta3d-scenegraph-converter-three-protocol and implement
+meta3d-event(implement and protocol)
+meta3d-pipeline-webgl1-three
+meta3d-editor-webgl1-three-engine-whole
+
+engine-scene:
+    meta3d-engine-scene
 
 
 
-should error
+# should error
 
 
 
-*** TODO handle converter for three
+*** DONE handle converter for three
 
 trigger dispose event when dispose e+c?
 
 
-*** TODO pass run test
+*** DONE pass run test
 
 
 ** TODO import .glb
@@ -493,7 +501,8 @@ TODO add import glb extension:
 
 TODO run test: export->import
     TODO import scene should after dispose scene
-        invoke DisposeJob
+        # invoke DisposeJob
+        move dispose job utils logic to whole scene api, then invoke it
 
 
 
@@ -530,9 +539,9 @@ TODO add actions
 
 
 
-* TODO editor export/import package
+# * TODO editor export/import package
 
-package = scene
+# package = scene
 
 
 

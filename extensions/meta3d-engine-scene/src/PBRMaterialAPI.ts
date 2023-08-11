@@ -2,6 +2,7 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { componentName, pbrMaterial, diffuseColor, dataName } from "meta3d-component-pbrmaterial-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export function createPBRMaterial(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
 	createComponent,
@@ -41,4 +42,10 @@ export function getAllPBRMaterials(engineCoreState: engineCoreState, { unsafeGet
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getAllComponents<pbrMaterial>(contribute)
+}
+
+export function getGameObjects(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, pbrMaterial: pbrMaterial): Array<gameObject> {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentGameObjects<pbrMaterial>(contribute, pbrMaterial)
 }

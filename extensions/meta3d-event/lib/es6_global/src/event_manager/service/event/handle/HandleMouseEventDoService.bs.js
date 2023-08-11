@@ -158,6 +158,7 @@ function setIsDrag(state, isDrag) {
             keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
             mouseEventData: {
               lastX: init.lastX,
               lastY: init.lastY,
