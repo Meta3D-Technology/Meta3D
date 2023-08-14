@@ -1,6 +1,6 @@
 import { service } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
 import { state } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
-import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
+import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 // import type { Blending, BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Side, Sphere, Texture, Vector3 } from "three";
 import {
@@ -13,6 +13,14 @@ import {
     // Matrix3 as Matrix3Type,
     Matrix4 as Matrix4Type,
     Sphere as SphereType,
+    // Group,
+    Object3D as Object3DType,
+    Camera as CameraType,
+    PerspectiveCamera as PerspectiveCameraType,
+    Mesh as MeshType,
+    TypedArray,
+    BufferGeometry as BufferGeometryType,
+    MeshBasicMaterial as MeshBasicMaterialType
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -32,6 +40,10 @@ import { generateUUID } from "./three/MathUtils";
 import { generateId } from "./utils/IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
+import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { localRotation } from "meta3d-component-transform-protocol";
+import { scene } from "meta3d-engine-scene-protocol/src/service/ServiceType";
+import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
 
 let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion
 
@@ -352,7 +364,7 @@ class PerspectiveCamera extends Camera {
         )
     }
 
-    public get fovy(): number {
+    public get fov(): number {
         let meta3dState = getMeta3dState()
 
         let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
@@ -896,6 +908,138 @@ function _getAllEventNames() {
     }
 }
 
+function _convertToUint32ArrayIndices(indices: TypedArray) {
+    if (!(indices instanceof Uint32Array)) {
+        return new Uint32Array(indices.buffer)
+    }
+
+    return indices
+}
+
+function _getBufferGeometry(mesh: MeshType): BufferGeometryType {
+    let geometry = mesh.geometry
+
+    if (!geometry.isBufferGeometry) {
+        throw new Error("error")
+    }
+
+    return geometry
+}
+
+function _getMeshBasicMaterial(mesh: MeshType): MeshBasicMaterialType {
+    let material = mesh.material as MeshBasicMaterialType
+
+    if (material.type !== "MeshBasicMaterial") {
+        throw new Error("error")
+    }
+
+    return material
+}
+
+function _import(sceneService: scene,
+    meta3dState: meta3dState,
+    object3Ds: Array<Object3DType>) {
+    let gameObjectService = sceneService.gameObject
+    let transformService = sceneService.transform
+    let basicCameraViewService = sceneService.basicCameraView
+    let perspectiveCameraProjectionService = sceneService.perspectiveCameraProjection
+    let geometryService = sceneService.geometry
+    let pbrMaterialService = sceneService.pbrMaterial
+
+    return object3Ds.reduce((meta3dState, object3D) => {
+        let data = gameObjectService.createGameObject(meta3dState)
+        meta3dState = data[0]
+        let gameObject = data[1]
+
+
+        data = transformService.createTransform(meta3dState)
+        meta3dState = data[0]
+        let transform = data[1]
+
+        meta3dState = transformService.setLocalPosition(meta3dState, transform, object3D.position.toArray())
+        meta3dState = transformService.setLocalRotation(meta3dState, transform, object3D.quaternion.toArray() as any as localRotation)
+        meta3dState = transformService.setLocalScale(meta3dState, transform, object3D.scale.toArray())
+
+
+        meta3dState = gameObjectService.addTransform(meta3dState, gameObject, transform)
+
+
+        if ((object3D as any as CameraType).isCamera) {
+            data = basicCameraViewService.createBasicCameraView(meta3dState)
+            meta3dState = data[0]
+            let basicCameraView = data[1]
+
+            meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)
+
+            if ((object3D as any as PerspectiveCameraType).isPerspectiveCamera) {
+                let { near, far, fov, aspect } = object3D as any as PerspectiveCameraType
+
+                data = perspectiveCameraProjectionService.createPerspectiveCameraProjection(meta3dState)
+                meta3dState = data[0]
+                let perspectiveCameraProjection = data[1]
+
+                meta3dState = perspectiveCameraProjectionService.setNear(meta3dState, perspectiveCameraProjection, near)
+                meta3dState = perspectiveCameraProjectionService.setFar(meta3dState, perspectiveCameraProjection, far)
+                meta3dState = perspectiveCameraProjectionService.setFovy(meta3dState, perspectiveCameraProjection, fov)
+                meta3dState = perspectiveCameraProjectionService.setAspect(meta3dState, perspectiveCameraProjection, aspect)
+
+
+                meta3dState = gameObjectService.addPerspectiveCameraProjection(meta3dState, gameObject, perspectiveCameraProjection)
+            }
+
+            // TODO handle ortho camera
+        }
+        else if ((object3D as any as MeshType).isMesh) {
+            let mesh = object3D as any as MeshType
+
+            let bufferGeometry = _getBufferGeometry(mesh)
+
+            data = geometryService.createGeometry(meta3dState)
+            meta3dState = data[0]
+            let geometry = data[1]
+
+
+            meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array
+            )
+            meta3dState = geometryService.setIndices(meta3dState,
+                geometry,
+                _convertToUint32ArrayIndices(
+                    bufferGeometry.getIndex().array
+                )
+            )
+
+
+            meta3dState = gameObjectService.addGeometry(meta3dState, gameObject, geometry)
+
+
+
+
+            let meshBasicMaterial = _getMeshBasicMaterial(mesh)
+
+
+            data = pbrMaterialService.createPBRMaterial(meta3dState)
+            meta3dState = data[0]
+            let pbrMaterial = data[1]
+
+
+            meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshBasicMaterial.color.toArray() as any as diffuseColor
+            )
+
+
+            meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, pbrMaterial)
+        }
+
+
+
+
+        meta3dState = _import(sceneService, meta3dState,
+            object3D.children
+        )
+
+        return meta3dState
+    }, meta3dState)
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         init: (meta3dState) => {
@@ -993,12 +1137,15 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     cameraProjection
                 ) as any,
                 scene: new Scene() as any,
+                // TODO refactor: remove
                 event: _getAllEventNames()
             }
         },
-        // threeAPI: {
-        //     createWebGLRenderer: (parameters) => new WebGLRenderer(parameters)
-        // }
+        import: (meta3dState, sceneGroup) => {
+            let { scene } = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+
+            return _import(scene, meta3dState, sceneGroup.children)
+        }
     }
 }
 

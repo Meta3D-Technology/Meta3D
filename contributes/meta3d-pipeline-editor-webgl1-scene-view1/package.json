@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-editor-webgl1-scene-view1",
-    "version": "0.13.1",
+    "version": "0.13.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-editor-webgl1-scene-view1-protocol"
@@ -17,7 +17,7 @@
         "meta3d-bs-most-protocol": "^0.13.0",
         "meta3d-editor-engine-whole-protocol": "^0.13.0",
         "meta3d-event-protocol": "^0.13.0",
-        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.13.1",
+        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.13.2",
         "meta3d-type": "^0.13.0",
         "meta3d-ui-protocol": "^0.13.0",
         "meta3d-webgl1-protocol": "^0.13.0"

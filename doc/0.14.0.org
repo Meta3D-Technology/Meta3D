@@ -482,20 +482,31 @@ trigger dispose event when dispose e+c?
 *** DONE pass run test
 
 
-** TODO import .glb
+** DONE import .glb
 
 
 
 TODO add three.js -> ec
     meta3d-scenegraph-converter-three:
-        rename convert to convertDataOrientedSceneToThreeScene
-        add convertThreeSceneToDataOrientedScene
+        # rename convert to convertDataOrientedSceneToThreeScene
+        # add convertThreeSceneToDataOrientedScene
+        add import
 
 
 # TODO add import scene extension:
 TODO add import glb extension:
     # upload .glb
     invoke convertThreeSceneToDataOrientedScene
+
+TODO add import action
+- h5 input file load + file reader
+# - imgui file loader(ui control)?
+
+
+TODO finish three-api
+
+
+TODO add protocols
 
 
 
@@ -505,31 +516,41 @@ TODO run test: export->import
         move dispose job utils logic to whole scene api, then invoke it
 
 
+    # init new scene?
+    # why stop loop after click?
+    fov is 0?
+    set arcball data
 
 
-** TODO add to editor
+TODO publish
+
+    publish meta3d-pipeline-editor-webgl1-scene-view1(implement and protocol)
 
 
-TODO add import scene ui control
-event:
-onProgress
-onFinish
-onError
+
+# ** TODO add to editor
 
 
-TODO add export scene ui control
-onFinish
-onError
+# TODO add import scene ui control
+# event:
+# onProgress
+# onFinish
+# onError
 
 
-# TODO add export/import scene action
-TODO add actions
-- handle error 
-- download
-- show progress
+# TODO add export scene ui control
+# onFinish
+# onError
 
 
-** TODO refactor: extract handle error event and action
+# # TODO add export/import scene action
+# TODO add actions
+# - handle error 
+# - download
+# - show progress
+
+
+# ** TODO refactor: extract handle error event and action
 
 
 

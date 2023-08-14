@@ -4,6 +4,9 @@
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
+    "dependencies": {
+        "meta3d-engine-scene-protocol": "^0.13.0"
+    },
     "devDependencies": {
         "typescript": "^4.2.3"
     }

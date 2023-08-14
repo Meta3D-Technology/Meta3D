@@ -18,7 +18,7 @@ export type state = {
 
     canvas: HTMLCanvasElement,
     // cameraGameObject: nullable<gameObject>,
-    arcballCameraController: nullable<arcballCameraController>,
+    // arcballCameraController: nullable<arcballCameraController>,
     lastYaw: nullable<number>,
     lastPitch: nullable<number>,
     fbo: strictNullable<fbo>,

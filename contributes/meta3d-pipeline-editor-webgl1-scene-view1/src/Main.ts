@@ -45,7 +45,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol"),
 
 				canvas: canvas,
-				arcballCameraController: null,
+				// arcballCameraController: null,
 				lastYaw: null,
 				lastPitch: null,
 				fbo: null

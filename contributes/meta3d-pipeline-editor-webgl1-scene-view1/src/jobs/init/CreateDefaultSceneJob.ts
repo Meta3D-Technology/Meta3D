@@ -4,7 +4,7 @@ import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/S
 import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
-import { bindEvent } from "../ArcballCameraControllerEventUtils";
+import { bindEvent } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
 
@@ -167,16 +167,16 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         // let cameraGameObject = data[1]
 
 
-        return setStatesFunc<states>(
-            meta3dState,
-            setState(states,
-                {
-                    ...getState(states),
-                    arcballCameraController: data[1]
-                }
-            )
-        )
+        // return setStatesFunc<states>(
+        //     meta3dState,
+        //     setState(states,
+        //         {
+        //             ...getState(states),
+        //             arcballCameraController: data[1]
+        //         }
+        //     )
+        // )
 
-        // return meta3dState
+        return meta3dState
     })
 }

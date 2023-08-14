@@ -22,5 +22,5 @@
 	},
 	"include": [
 		"./src"
-	]
+, "mine/Transform.d.ts", "mine/ArcballCameraController.d.ts"	]
 }
