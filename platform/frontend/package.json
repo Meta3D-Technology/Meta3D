@@ -7,7 +7,7 @@
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
         "buildAll:pro": "gulp changeToProductionEnv && rescript clean && rescript build && gulp restoreEnv",
         "webpack_pro": "yarn buildAll:pro && NODE_ENV=production webpack --config webpack.config.js",
-        "webpack:dev-server": "NODE_ENV=development webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js"
+        "webpack:dev-server": "NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",
