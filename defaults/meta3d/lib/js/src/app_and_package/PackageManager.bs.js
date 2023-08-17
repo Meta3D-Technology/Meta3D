@@ -14,6 +14,11 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: extensionPackageData.name,
+                                version: extensionPackageData.version,
+                                account: extensionPackageData.account,
+                                displayName: extensionPackageData.displayName,
+                                repoLink: extensionPackageData.repoLink,
+                                description: extensionPackageData.description,
                                 type_: ArraySt$Meta3dCommonlib.includes(entryExtensionNames, extensionPackageData.name) ? /* Entry */2 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
                                 dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
@@ -26,6 +31,11 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: contributePackageData.name,
+                                version: contributePackageData.version,
+                                account: contributePackageData.account,
+                                displayName: contributePackageData.displayName,
+                                repoLink: contributePackageData.repoLink,
+                                description: contributePackageData.description,
                                 protocol: contributePackageData.protocol,
                                 dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },

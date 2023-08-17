@@ -24,6 +24,10 @@ type marketImplementAccountData = {
 
 type marketImplementCollectionData = Array<marketImplementAccountData>
 
+type protocolName = string
+
+type protocolVersion = string
+
 let _getDatabase = (app: any) => {
     return app.database()
 }
@@ -188,6 +192,17 @@ export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBod
         .limit(limitCount)
         .get()
 }
+
+export let batchFindMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string,
+    protocolNames: Array<protocolName>
+): Promise<allCollectionData> => {
+    return _getDatabase(app).collection(collectionName)
+        .where({
+            name: _getDatabase(app).command.in(protocolNames)
+        })
+        .get()
+}
+
 
 export let getMarketProtocolCollectionCount = (app: any, collectionName: string): Promise<allCollectionData> => {
     return _getDatabase(app).collection(collectionName)

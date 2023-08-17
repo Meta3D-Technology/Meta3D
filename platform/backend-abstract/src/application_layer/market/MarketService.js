@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.getAllPublishProtocolData = void 0;
+exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
 const NullableUtils_1 = require("../../utils/NullableUtils");
@@ -13,6 +13,20 @@ let getAllPublishProtocolData = ([getMarketProtocolCollectionFunc, getDataFromMa
     });
 };
 exports.getAllPublishProtocolData = getAllPublishProtocolData;
+let _batchFindPublishProtocolData = ([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc, mapFunc], collectionName, protocolNames) => {
+    return (0, most_1.fromPromise)(batchFindMarketProtocolCollection(collectionName, protocolNames)).map((res) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res);
+        return resData.map(mapFunc);
+    });
+};
+let batchFindPublishProtocolData = ([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc], collectionName, protocolNames) => {
+    return _batchFindPublishProtocolData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc,
+        ({ name, version, account, iconBase64, displayName, repoLink, description }) => {
+            return { name, version, account, iconBase64, displayName, repoLink, description };
+        }
+    ], collectionName, protocolNames);
+};
+exports.batchFindPublishProtocolData = batchFindPublishProtocolData;
 let getAllPublishProtocolDataCount = (getMarketProtocolCollectionCount, collectionName) => {
     return (0, most_1.fromPromise)(getMarketProtocolCollectionCount(collectionName));
 };
@@ -26,6 +40,14 @@ let getAllPublishProtocolConfigData = ([getMarketProtocolCollectionFunc, getData
     });
 };
 exports.getAllPublishProtocolConfigData = getAllPublishProtocolConfigData;
+let batchFindPublishProtocolConfigData = ([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc], collectionName, protocolNames) => {
+    return _batchFindPublishProtocolData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc,
+        ({ name, version, account, configStr }) => {
+            return { name, version, account, configStr };
+        }
+    ], collectionName, protocolNames);
+};
+exports.batchFindPublishProtocolConfigData = batchFindPublishProtocolConfigData;
 let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc,], collectionName, limitCount, skipCount, protocolName, protocolVersion) => {
     return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res) => {
         // console.log(JSON.stringify( res.data))

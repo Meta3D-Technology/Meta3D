@@ -142,87 +142,104 @@ let make = (
                         contributeProtocolItem.info.version
                       ),
                     )}
-                    {FrontendUtils.MarketUtils.isSelect(
-                      (({id}, _): FrontendUtils.AssembleSpaceCommonType.contributeData) => id,
-                      contributeProtocolItem.info.id,
-                      selectedContributes,
-                    )
-                      ? <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.NotSelectContribute(contributeProtocolItem.info.id),
-                              ),
-                            )
-                          }}>
-                          {React.string(`取消选择`)}
-                        </Button>
-                      : <Button
-                          onClick={_ => {
-                            setIsDownloadBegin(_ => true)
+                    {
+                      //   FrontendUtils.MarketUtils.isSelect(
+                      //   (({id}, _): FrontendUtils.AssembleSpaceCommonType.contributeData) => id,
+                      //   contributeProtocolItem.info.id,
+                      //   selectedContributes,
+                      // )
 
-                            service.backend.findPublishContribute(.
-                              progress => setDownloadProgress(_ => progress),
-                              FrontendUtils.MarketUtils.getLimitCount(),
-                              0,
-                              contributeProtocolItem.info.account,
-                              contributeProtocolItem.info.name,
-                              contributeProtocolItem.info.version,
-                            )
-                            ->Meta3dBsMost.Most.observe(file => {
-                              Meta3dCommonlib.NullableSt.isNullable(file)
-                                ? {
-                                    setIsDownloadBegin(_ => false)
+                      FrontendUtils.MarketUtils.isSelect(
+                        (
+                          (
+                            {version, data},
+                            _,
+                          ): FrontendUtils.AssembleSpaceCommonType.contributeData,
+                        ) => {j`${version}_${data.contributePackageData.name}`},
+                        {
+                          j`${contributeProtocolItem.info.version}_${contributeProtocolItem.info.name}`
+                        },
+                        selectedContributes,
+                      )
+                        ? <Button
+                            onClick={_ => {
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.NotSelectContribute(
+                                    contributeProtocolItem.info.id,
+                                  ),
+                                ),
+                              )
+                            }}>
+                            {React.string(`取消选择`)}
+                          </Button>
+                        : <Button
+                            onClick={_ => {
+                              setIsDownloadBegin(_ => true)
 
-                                    FrontendUtils.ErrorUtils.error(
-                                      {j`找不到contribute file`},
-                                      None,
-                                    )->Obj.magic
-                                  }
-                                : {
-                                    setIsDownloadBegin(_ => false)
+                              service.backend.findPublishContribute(.
+                                progress => setDownloadProgress(_ => progress),
+                                FrontendUtils.MarketUtils.getLimitCount(),
+                                0,
+                                contributeProtocolItem.info.account,
+                                contributeProtocolItem.info.name,
+                                contributeProtocolItem.info.version,
+                              )
+                              ->Meta3dBsMost.Most.observe(file => {
+                                Meta3dCommonlib.NullableSt.isNullable(file)
+                                  ? {
+                                      setIsDownloadBegin(_ => false)
 
-                                    dispatch(
-                                      AppStore.UserCenterAction(
-                                        UserCenterStore.SelectContribute(
-                                          {
-                                            id: contributeProtocolItem.info.id,
-                                            data: Meta3d.Main.loadContribute(
-                                              file->Meta3dCommonlib.NullableSt.getExn,
-                                            ),
-                                            protocolName: contributeProtocolItem.protocolName,
-                                            protocolVersion: contributeProtocolItem.protocolVersion,
-                                            protocolIconBase64: contributeProtocolItem.protocolIconBase64,
-                                            version: contributeProtocolItem.info.version,
-                                            account: contributeProtocolItem.info.account,
-                                          },
-                                          allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                            (
-                                              {
-                                                name,
-                                                version,
-                                              }: FrontendUtils.CommonType.protocolConfig,
-                                            ) => {
-                                              name === protocolName && version === protocolVersion
+                                      FrontendUtils.ErrorUtils.error(
+                                        {j`找不到contribute file`},
+                                        None,
+                                      )->Obj.magic
+                                    }
+                                  : {
+                                      setIsDownloadBegin(_ => false)
+
+                                      dispatch(
+                                        AppStore.UserCenterAction(
+                                          UserCenterStore.SelectContribute(
+                                            {
+                                              id: contributeProtocolItem.info.id,
+                                              data: Meta3d.Main.loadContribute(
+                                                file->Meta3dCommonlib.NullableSt.getExn,
+                                              ),
+                                              protocolName: contributeProtocolItem.protocolName,
+                                              protocolVersion: contributeProtocolItem.protocolVersion,
+                                              protocolIconBase64: contributeProtocolItem.protocolIconBase64,
+                                              version: contributeProtocolItem.info.version,
+                                              account: contributeProtocolItem.info.account,
                                             },
+                                            allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                              (
+                                                {
+                                                  name,
+                                                  version,
+                                                }: FrontendUtils.CommonType.protocolConfig,
+                                              ) => {
+                                                name === protocolName && version === protocolVersion
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  }
-                            }, _)
-                            ->Js.Promise.catch(e => {
-                              setIsDownloadBegin(_ => false)
+                                      )
+                                    }
+                              }, _)
+                              ->Js.Promise.catch(e => {
+                                setIsDownloadBegin(_ => false)
 
-                              FrontendUtils.ErrorUtils.errorWithExn(
-                                e->FrontendUtils.Error.promiseErrorToExn,
-                                None,
-                              )->Obj.magic
-                            }, _)
-                            ->ignore
-                          }}>
-                          {React.string(`选择`)}
-                        </Button>}
+                                FrontendUtils.ErrorUtils.errorWithExn(
+                                  e->FrontendUtils.Error.promiseErrorToExn,
+                                  None,
+                                )->Obj.magic
+                              }, _)
+                              ->ignore
+                            }}>
+                            {React.string(`选择`)}
+                          </Button>
+                    }
                   </List.Item>
                 }}
               />

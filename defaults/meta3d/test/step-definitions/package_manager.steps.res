@@ -134,6 +134,8 @@ defineFeature(feature, test => {
         firstExtension :=
           ExtensionFileManagerTool.generateExtension(
             ~name="first-extension",
+            ~version="0.0.1",
+            ~account="meta3d",
             ~protocol={
               name: "first-extension-protocol",
               version: "0.4.1",
@@ -146,6 +148,8 @@ defineFeature(feature, test => {
         secondExtension :=
           ExtensionFileManagerTool.generateExtension(
             ~name="second-extension",
+            ~version="0.0.1",
+            ~account="meta3d",
             ~protocol={
               name: "second-extension-protocol",
               version: "0.5.2",
@@ -167,6 +171,8 @@ defineFeature(feature, test => {
         firstContribute :=
           ExtensionFileManagerTool.generateContribute(
             ~name="first-contribute",
+            ~version="0.0.1",
+            ~account="meta3d",
             ~protocol={
               name: "first-contribute-protocol",
               version: "0.5.3",
@@ -219,6 +225,11 @@ defineFeature(feature, test => {
               (
                 {
                   name: "first-extension",
+                  version: "0.0.1",
+                  account: "meta3d",
+                  displayName: "",
+                  repoLink: "",
+                  description: "",
                   protocol: {
                     name: "first-extension-protocol",
                     version: "0.4.1",
@@ -235,6 +246,11 @@ defineFeature(feature, test => {
               (
                 {
                   name: "second-extension",
+                  version: "0.0.1",
+                  account: "meta3d",
+                  displayName: "",
+                  repoLink: "",
+                  description: "",
                   protocol: {
                     name: "second-extension-protocol",
                     version: "0.5.2",
@@ -251,6 +267,11 @@ defineFeature(feature, test => {
               (
                 {
                   name: "first-contribute",
+                  version: "0.0.1",
+                  account: "meta3d",
+                  displayName: "",
+                  repoLink: "",
+                  description: "",
                   protocol: {
                     name: "first-contribute-protocol",
                     version: "0.5.3",

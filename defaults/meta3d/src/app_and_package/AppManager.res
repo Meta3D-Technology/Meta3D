@@ -27,6 +27,11 @@ let convertAllFileData = (
           (
             {
               name: extensionPackageData.name,
+              version: extensionPackageData.version,
+              account: extensionPackageData.account,
+              displayName: extensionPackageData.displayName,
+              repoLink: extensionPackageData.repoLink,
+              description: extensionPackageData.description,
               protocol: extensionPackageData.protocol,
               type_: startExtensionNames->Meta3dCommonlib.ArraySt.includes(
                 extensionPackageData.name,
@@ -49,6 +54,11 @@ let convertAllFileData = (
           (
             {
               name: contributePackageData.name,
+              version: contributePackageData.version,
+              account: contributePackageData.account,
+              displayName: contributePackageData.displayName,
+              repoLink: contributePackageData.repoLink,
+              description: contributePackageData.description,
               protocol: contributePackageData.protocol,
               dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
             }: contributePackageData

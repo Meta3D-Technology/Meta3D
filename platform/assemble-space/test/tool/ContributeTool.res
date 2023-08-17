@@ -1,5 +1,7 @@
 let buildContributePackageData = (
   ~name="p1",
+  ~version="0.0.1",
+  ~account="meta3d",
   ~displayName="d1",
   ~repoLink="",
   ~description="dp1",
@@ -12,6 +14,8 @@ let buildContributePackageData = (
 ): Meta3d.ExtensionFileType.contributePackageData => {
   {
     name,
+    version,
+    account,
     displayName,
     repoLink,
     description,
@@ -74,6 +78,8 @@ let buildSelectedContribute = (
 
 let generateContribute = (
   ~name,
+  ~version="0.0.1",
+  ~account="meta3d",
   ~protocolName="",
   ~protocolVersion="",
   ~displayName="d1",
@@ -87,6 +93,8 @@ let generateContribute = (
     (
       {
         name,
+        version,
+        account,
         displayName,
         repoLink,
         description,

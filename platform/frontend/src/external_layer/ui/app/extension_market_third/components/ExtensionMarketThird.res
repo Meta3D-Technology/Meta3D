@@ -142,87 +142,98 @@ let make = (
                         extensionProtocolItem.info.version
                       ),
                     )}
-                    {FrontendUtils.MarketUtils.isSelect(
-                      (({id}, _): FrontendUtils.AssembleSpaceCommonType.extensionData) => id,
-                      extensionProtocolItem.info.id,
-                      selectedExtensions,
-                    )
-                      ? <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(
-                                UserCenterStore.NotSelectExtension(extensionProtocolItem.info.id),
-                              ),
-                            )
-                          }}>
-                          {React.string(`取消选择`)}
-                        </Button>
-                      : <Button
-                          onClick={_ => {
-                            setIsDownloadBegin(_ => true)
+                    {
+                      //   FrontendUtils.MarketUtils.isSelect(
+                      //   (({id}, _): FrontendUtils.AssembleSpaceCommonType.extensionData) => id,
+                      //   extensionProtocolItem.info.id,
+                      //   selectedExtensions,
+                      // )
+                      FrontendUtils.MarketUtils.isSelect(
+                        (
+                          ({version, data}, _): FrontendUtils.AssembleSpaceCommonType.extensionData,
+                        ) => {j`${version}_${data.extensionPackageData.name}`},
+                        {
+                          j`${extensionProtocolItem.info.version}_${extensionProtocolItem.info.name}`
+                        },
+                        selectedExtensions,
+                      )
+                        ? <Button
+                            onClick={_ => {
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.NotSelectExtension(extensionProtocolItem.info.id),
+                                ),
+                              )
+                            }}>
+                            {React.string(`取消选择`)}
+                          </Button>
+                        : <Button
+                            onClick={_ => {
+                              setIsDownloadBegin(_ => true)
 
-                            service.backend.findPublishExtension(.
-                              progress => setDownloadProgress(_ => progress),
-                              FrontendUtils.MarketUtils.getLimitCount(),
-                              0,
-                              extensionProtocolItem.info.account,
-                              extensionProtocolItem.info.name,
-                              extensionProtocolItem.info.version,
-                            )
-                            ->Meta3dBsMost.Most.observe(file => {
-                              Meta3dCommonlib.NullableSt.isNullable(file)
-                                ? {
-                                    setIsDownloadBegin(_ => false)
+                              service.backend.findPublishExtension(.
+                                progress => setDownloadProgress(_ => progress),
+                                FrontendUtils.MarketUtils.getLimitCount(),
+                                0,
+                                extensionProtocolItem.info.account,
+                                extensionProtocolItem.info.name,
+                                extensionProtocolItem.info.version,
+                              )
+                              ->Meta3dBsMost.Most.observe(file => {
+                                Meta3dCommonlib.NullableSt.isNullable(file)
+                                  ? {
+                                      setIsDownloadBegin(_ => false)
 
-                                    FrontendUtils.ErrorUtils.error(
-                                      {j`找不到extension file`},
-                                      None,
-                                    )->Obj.magic
-                                  }
-                                : {
-                                    setIsDownloadBegin(_ => false)
+                                      FrontendUtils.ErrorUtils.error(
+                                        {j`找不到extension file`},
+                                        None,
+                                      )->Obj.magic
+                                    }
+                                  : {
+                                      setIsDownloadBegin(_ => false)
 
-                                    dispatch(
-                                      AppStore.UserCenterAction(
-                                        UserCenterStore.SelectExtension(
-                                          {
-                                            id: extensionProtocolItem.info.id,
-                                            data: Meta3d.Main.loadExtension(
-                                              file->Meta3dCommonlib.NullableSt.getExn,
-                                            ),
-                                            protocolName: extensionProtocolItem.protocolName,
-                                            protocolVersion: extensionProtocolItem.protocolVersion,
-                                            protocolIconBase64: extensionProtocolItem.protocolIconBase64,
-                                            version: extensionProtocolItem.info.version,
-                                            account: extensionProtocolItem.info.account,
-                                          },
-                                          allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                            (
-                                              {
-                                                name,
-                                                version,
-                                              }: FrontendUtils.CommonType.protocolConfig,
-                                            ) => {
-                                              name === protocolName && version === protocolVersion
+                                      dispatch(
+                                        AppStore.UserCenterAction(
+                                          UserCenterStore.SelectExtension(
+                                            {
+                                              id: extensionProtocolItem.info.id,
+                                              data: Meta3d.Main.loadExtension(
+                                                file->Meta3dCommonlib.NullableSt.getExn,
+                                              ),
+                                              protocolName: extensionProtocolItem.protocolName,
+                                              protocolVersion: extensionProtocolItem.protocolVersion,
+                                              protocolIconBase64: extensionProtocolItem.protocolIconBase64,
+                                              version: extensionProtocolItem.info.version,
+                                              account: extensionProtocolItem.info.account,
                                             },
+                                            allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find(
+                                              (
+                                                {
+                                                  name,
+                                                  version,
+                                                }: FrontendUtils.CommonType.protocolConfig,
+                                              ) => {
+                                                name === protocolName && version === protocolVersion
+                                              },
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  }
-                            }, _)
-                            ->Js.Promise.catch(e => {
-                              setIsDownloadBegin(_ => false)
+                                      )
+                                    }
+                              }, _)
+                              ->Js.Promise.catch(e => {
+                                setIsDownloadBegin(_ => false)
 
-                              FrontendUtils.ErrorUtils.errorWithExn(
-                                e->FrontendUtils.Error.promiseErrorToExn,
-                                None,
-                              )->Obj.magic
-                            }, _)
-                            ->ignore
-                          }}>
-                          {React.string(`选择`)}
-                        </Button>}
+                                FrontendUtils.ErrorUtils.errorWithExn(
+                                  e->FrontendUtils.Error.promiseErrorToExn,
+                                  None,
+                                )->Obj.magic
+                              }, _)
+                              ->ignore
+                            }}>
+                            {React.string(`选择`)}
+                          </Button>
+                    }
                   </List.Item>
                 }}
               />

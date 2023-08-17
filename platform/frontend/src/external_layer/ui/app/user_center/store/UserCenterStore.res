@@ -30,6 +30,7 @@ type action =
   | SelectPackage(packageData)
   | NotSelectPackage(id)
   | SetAccount(account)
+  | ImportPackage(selectedExtensions, selectedContributes)
 
 type state = {
   account: option<string>,
@@ -120,6 +121,11 @@ let reducer = (state, action) => {
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
         selectedPackage.id !== id
       ),
+    }
+  | ImportPackage(selectedExtensions, selectedContributes) => {
+      ...state,
+      selectedExtensions,
+      selectedContributes,
     }
   | SetAccount(account) => {...state, account: Some(account)}
   }

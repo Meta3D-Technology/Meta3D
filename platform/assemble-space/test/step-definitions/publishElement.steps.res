@@ -224,6 +224,8 @@ defineFeature(feature, test => {
             (
               {
                 name: elementName.contents,
+                version: elementVersion.contents,
+                account: account.contents,
                 displayName: elementName.contents,
                 repoLink: ElementContributeUtils.getElementContributeRepoLink(),
                 description: ElementContributeUtils.getElementContributeDescription(),

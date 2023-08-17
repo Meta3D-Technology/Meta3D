@@ -2,7 +2,7 @@ import { empty, from, fromPromise, just, mergeArray, Stream } from "most"
 import { satisfies } from "semver";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { getExn, isNullable } from "../../utils/NullableUtils";
-import { implementInfos, protocols } from "./MarketType";
+import { implementInfos, protocolConfigs, protocolName, protocols, protocolVersion } from "./MarketType";
 
 export let getAllPublishProtocolData = (
     [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc]: [any, any],
@@ -16,6 +16,37 @@ export let getAllPublishProtocolData = (
     })
 }
 
+let _batchFindPublishProtocolData = (
+    [batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc,
+        mapFunc
+    ]: [any, any, any],
+    collectionName: string,
+    protocolNames: Array<protocolName>
+) => {
+    return fromPromise(batchFindMarketProtocolCollection(collectionName, protocolNames)).map((res: any) => {
+        let resData = getDataFromMarketProtocolCollectionFunc(res)
+
+        return resData.map(mapFunc)
+    })
+}
+
+export let batchFindPublishProtocolData = (
+    [batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc]: [any, any],
+    collectionName: string,
+    protocolNames: Array<protocolName>
+): Stream<protocols> => {
+    return _batchFindPublishProtocolData(
+        [batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc,
+            ({ name, version, account, iconBase64, displayName, repoLink, description }) => {
+                return { name, version, account, iconBase64, displayName, repoLink, description }
+            }
+        ],
+        collectionName,
+        protocolNames
+    )
+}
+
+
 export let getAllPublishProtocolDataCount = (
     getMarketProtocolCollectionCount: any,
     collectionName: string): Stream<protocols> => {
@@ -27,7 +58,7 @@ export let getAllPublishProtocolConfigData = (
     collectionName: string,
     limitCount: number,
     skipCount: number
-) => {
+): Stream<protocolConfigs> => {
     return fromPromise(getMarketProtocolCollectionFunc(collectionName, limitCount, skipCount)).map((res: any) => {
         let resData = getDataFromMarketProtocolCollectionFunc(res)
 
@@ -35,6 +66,22 @@ export let getAllPublishProtocolConfigData = (
             return { name, version, account, configStr }
         })
     })
+}
+
+export let batchFindPublishProtocolConfigData = (
+    [batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc]: [any, any],
+    collectionName: string,
+    protocolNames: Array<protocolName>
+): Stream<protocolConfigs> => {
+    return _batchFindPublishProtocolData(
+        [batchFindMarketProtocolCollection, getDataFromMarketProtocolCollectionFunc,
+            ({ name, version, account, configStr }) => {
+                return { name, version, account, configStr }
+            }
+        ],
+        collectionName,
+        protocolNames
+    )
 }
 
 export let getAllPublishImplementInfo = (

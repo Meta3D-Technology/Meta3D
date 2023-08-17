@@ -26,7 +26,8 @@ import {
     buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData, getDataByKeyContain, getMarketImplement,
     // getPackageMarketEntryExtensionProtocolCollection,
     // getDataFromPackageMarketEntryExtensionProtocolCollection,
-    getData
+    getData,
+    batchFindMarketProtocolCollection
 } from "./application_layer/BackendService";
 
 // export let error = ErrorService.error
@@ -49,9 +50,17 @@ export let getAllPublishExtensionProtocols = (limitCount, skipCount) => Abstract
 
 export let getAllPublishContributeProtocols = (limitCount, skipCount) => Abstract.getAllPublishProtocolData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocols", limitCount, skipCount)
 
+export let batchFindPublishExtensionProtocols = (protocolName) => Abstract.batchFindPublishProtocolData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocols", protocolName)
+
+export let batchFindPublishContributeProtocols = (protocolName) => Abstract.batchFindPublishProtocolData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocols", protocolName)
+
 export let getAllPublishExtensionProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs", limitCount, skipCount)
 
 export let getAllPublishContributeProtocolConfigs = (limitCount, skipCount) => Abstract.getAllPublishProtocolConfigData([getMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs", limitCount, skipCount)
+
+export let batchFindPublishExtensionProtocolConfigs = (protocolName) => Abstract.batchFindPublishProtocolConfigData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedextensionprotocolconfigs", protocolName)
+
+export let batchFindPublishContributeProtocolConfigs = (protocolName) => Abstract.batchFindPublishProtocolConfigData([batchFindMarketProtocolCollection, getDataFromMarketProtocolCollection], "publishedcontributeprotocolconfigs", protocolName)
 
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 

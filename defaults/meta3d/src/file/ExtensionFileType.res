@@ -1,5 +1,7 @@
 open Meta3dType.Index
 
+type account = string
+
 type version = string
 
 type versionRange = string
@@ -28,6 +30,8 @@ type blockProtocolVersion = versionRange
 
 type extensionPackageData = {
   name: extensionName,
+  version: version,
+  account: account,
   protocol: extensionProtocolData,
   displayName: string,
   repoLink: string,
@@ -55,13 +59,12 @@ type extensionFileData = {
   extensionFuncData: extensionFuncData,
 }
 
-type contributeProtocolData = {
-  name: string,
-  version: versionRange,
-}
+type contributeProtocolData = extensionProtocolData
 
 type contributePackageData = {
   name: contributeName,
+  version: version,
+  account: account,
   protocol: contributeProtocolData,
   displayName: string,
   repoLink: string,

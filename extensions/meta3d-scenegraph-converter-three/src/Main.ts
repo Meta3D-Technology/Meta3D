@@ -37,7 +37,7 @@ import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/Index";
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { generateUUID } from "./three/MathUtils";
-import { generateId } from "./utils/IdUtils";
+import { generateId } from "./utils/FrontendUtils.IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
 import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"

@@ -15,8 +15,11 @@ let getCurrentPage = (allPublishItems, page, pageSize) => {
   allPublishItems->Meta3dCommonlib.ArraySt.slice((page - 1) * pageSize, page * pageSize)
 }
 
-let isSelect = (getId, id, selectedItems) => {
-  selectedItems->Meta3dCommonlib.ListSt.includesByFunc(selectedItem => id === getId(selectedItem))
+// let isSelect = (getId, id, selectedItems) => {
+//   selectedItems->Meta3dCommonlib.ListSt.includesByFunc(selectedItem => id === getId(selectedItem))
+// }
+let isSelect = (getKey, key, selectedItems) => {
+  selectedItems->Meta3dCommonlib.ListSt.includesByFunc(selectedItem => key === getKey(selectedItem))
 }
 
 let groupAllPublishProtocols = (allPublishProtocols: array<BackendCloudbaseType.protocol>): array<

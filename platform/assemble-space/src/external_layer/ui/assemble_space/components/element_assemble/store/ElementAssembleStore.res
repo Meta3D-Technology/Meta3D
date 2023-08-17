@@ -96,7 +96,7 @@ let reducer = (state, action) => {
       parentId,
       specific,
     ) => {
-      let id = IdUtils.generateId(Js.Math.random)
+      let id = FrontendUtils.IdUtils.generateId(Js.Math.random)
 
       let childUIControl = {
         id,

@@ -10,6 +10,8 @@ export type protocolVersion = version
 
 export type protocolIconBase64 = string
 
+export type config = string
+
 export type implementName = string
 
 export type implementDisplayName = string
@@ -32,6 +34,15 @@ type protocol = {
 }
 
 export type protocols = Array<protocol>
+
+type protocolConfig = {
+  name: protocolName,
+  version: protocolVersion,
+  account: account,
+  configStr:config,
+}
+
+export type protocolConfigs = Array<protocolConfig>
 
 type implementInfo = {
   id: string,

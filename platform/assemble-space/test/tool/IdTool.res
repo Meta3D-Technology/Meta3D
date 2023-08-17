@@ -1,3 +1,3 @@
 let generateId = randomResult => {
-  IdUtils.generateId(() => randomResult)
+  FrontendUtils.IdUtils.generateId(() => randomResult)
 }

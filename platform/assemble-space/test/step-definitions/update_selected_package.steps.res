@@ -115,6 +115,11 @@ defineFeature(feature, test => {
     ): Meta3d.AppAndPackageFileType.extensionPackageData => {
       {
         name,
+        version: "0.0.1",
+        account: "meta3d",
+        displayName: name,
+        repoLink: "",
+        description: "",
         type_: Meta3d.AppAndPackageFileType.Entry,
         protocol: {
           name: protocolName,

@@ -40,7 +40,7 @@ let reducer = (state, action) => {
   // | SelectPackage(package) => {
   //     ...state,
   //     selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
-  //       id: IdUtils.generateId(Js.Math.random),
+  //       id: FrontendUtils.IdUtils.generateId(Js.Math.random),
   //       protocol: {
   //         name: package.protocol.name,
   //         version: package.protocol.version,
@@ -53,7 +53,7 @@ let reducer = (state, action) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
         ...package,
-        id: IdUtils.generateId(Js.Math.random),
+        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
       }),
     }
   | SelectExtension(
@@ -66,7 +66,7 @@ let reducer = (state, action) => {
     ) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.push({
-        id: IdUtils.generateId(Js.Math.random),
+        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
         protocolName: extension.protocolName,
         protocolVersion: extension.protocolVersion,
         protocolIconBase64,
@@ -123,7 +123,7 @@ let reducer = (state, action) => {
   | SelectContribute(protocolIconBase64, protocolConfigStr, contribute) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.push({
-        id: IdUtils.generateId(Js.Math.random),
+        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
         protocolIconBase64,
         protocolConfigStr,
         // newName: None,

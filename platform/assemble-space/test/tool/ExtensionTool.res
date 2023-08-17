@@ -1,5 +1,7 @@
 let buildExtensionPackageData = (
   ~name="p1",
+  ~version="0.0.1",
+  ~account="meta3d",
   ~displayName="",
   ~repoLink="",
   ~description="",
@@ -12,6 +14,8 @@ let buildExtensionPackageData = (
 ): Meta3d.ExtensionFileType.extensionPackageData => {
   {
     name,
+    version,
+    account,
     displayName,
     repoLink,
     description,
@@ -88,6 +92,8 @@ let buildExtensionImplement = (
 
 let generateExtension = (
   ~name,
+  ~version="0.0.1",
+  ~account="meta3d",
   ~protocolName="",
   ~protocolVersion="",
   ~displayName="",
@@ -101,6 +107,8 @@ let generateExtension = (
     (
       {
         name,
+        version,
+        account,
         displayName,
         repoLink,
         description,

@@ -28,6 +28,14 @@ external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolCo
   "getAllPublishExtensionProtocolConfigs"
 
 @module("backend-cloudbase")
+external batchFindPublishExtensionProtocols: batchFindPublishExtensionProtocols =
+  "batchFindPublishExtensionProtocols"
+
+@module("backend-cloudbase")
+external batchFindPublishExtensionProtocolConfigs: batchFindPublishExtensionProtocolConfigs =
+  "batchFindPublishExtensionProtocolConfigs"
+
+@module("backend-cloudbase")
 external getAllPublishExtensionInfos: getAllPublishExtensionInfos = "getAllPublishExtensionInfos"
 
 @module("backend-cloudbase")
@@ -40,6 +48,14 @@ external getAllPublishContributeProtocols: getAllPublishContributeProtocols =
 @module("backend-cloudbase")
 external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs =
   "getAllPublishContributeProtocolConfigs"
+
+@module("backend-cloudbase")
+external batchFindPublishContributeProtocols: batchFindPublishContributeProtocols =
+  "batchFindPublishContributeProtocols"
+
+@module("backend-cloudbase")
+external batchFindPublishContributeProtocolConfigs: batchFindPublishContributeProtocolConfigs =
+  "batchFindPublishContributeProtocolConfigs"
 
 @module("backend-cloudbase")
 external getAllPublishContributeInfos: getAllPublishContributeInfos = "getAllPublishContributeInfos"
@@ -95,10 +111,14 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishExtensionProtocolsCount: getAllPublishExtensionProtocolsCount->Obj.magic,
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
+    batchFindPublishExtensionProtocols,
+    batchFindPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,
     findPublishExtension,
     getAllPublishContributeProtocols,
     getAllPublishContributeProtocolConfigs,
+    batchFindPublishContributeProtocols,
+    batchFindPublishContributeProtocolConfigs,
     getAllPublishContributeInfos,
     findPublishContribute,
     findAllPublishApps,

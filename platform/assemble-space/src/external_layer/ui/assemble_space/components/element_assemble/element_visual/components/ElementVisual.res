@@ -203,6 +203,7 @@ module Method = {
     protocolVersion,
     elementName,
     elementVersion,
+    account,
     displayName,
     repoLink,
     description,
@@ -211,6 +212,8 @@ module Method = {
     ElementVisualUtils.generateElementContributeBinaryFile(
       service,
       elementName,
+      elementVersion,
+      account,
       protocolName,
       protocolVersion,
       displayName,
@@ -222,13 +225,14 @@ module Method = {
     ->_buildContribute(elementVersion, _)
   }
 
-  let generateElementContributeData = (service, fileStr) => {
+  let generateElementContributeData = (service, account, fileStr) => {
     _generateElementContribute(
       service,
       ElementContributeUtils.getElementContributeProtocolName(),
       ElementContributeUtils.getElementContributeProtocolVersion(),
       _getElementContributeName(),
       _getElementContributeVersion(),
+      account,
       _getElementContributeName(),
       ElementContributeUtils.getElementContributeRepoLink(),
       ElementContributeUtils.getElementContributeDescription(),
@@ -304,7 +308,7 @@ module Method = {
         | Some({protocolIconBase64, protocolConfigStr, data}) =>
           (
             {
-              id: IdUtils.generateId(service.other.random),
+              id: FrontendUtils.IdUtils.generateId(service.other.random),
               protocolIconBase64,
               protocolConfigStr: protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
               displayName: data.contributePackageData.displayName,
@@ -481,6 +485,7 @@ let make = (~service: service, ~account: option<string>) => {
       ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
           Method.generateElementContributeData(
             service,
+            account->Meta3dCommonlib.OptionSt.getExn,
             Method.buildElementContributeFileStr(
               service,
               selectedUIControls,

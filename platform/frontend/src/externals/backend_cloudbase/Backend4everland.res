@@ -15,6 +15,14 @@ external getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolCo
   "getAllPublishExtensionProtocolConfigs"
 
 @module("backend-4everland")
+external batchFindPublishExtensionProtocols: batchFindPublishExtensionProtocols =
+  "batchFindPublishExtensionProtocols"
+
+@module("backend-4everland")
+external batchFindPublishExtensionProtocolConfigs: batchFindPublishExtensionProtocolConfigs =
+  "batchFindPublishExtensionProtocolConfigs"
+
+@module("backend-4everland")
 external getAllPublishExtensionInfos: getAllPublishExtensionInfos = "getAllPublishExtensionInfos"
 
 @module("backend-4everland")
@@ -27,6 +35,14 @@ external getAllPublishContributeProtocols: getAllPublishContributeProtocols =
 @module("backend-4everland")
 external getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs =
   "getAllPublishContributeProtocolConfigs"
+
+@module("backend-4everland")
+external batchFindPublishContributeProtocols: batchFindPublishContributeProtocols =
+  "batchFindPublishContributeProtocols"
+
+@module("backend-4everland")
+external batchFindPublishContributeProtocolConfigs: batchFindPublishContributeProtocolConfigs =
+  "batchFindPublishContributeProtocolConfigs"
 
 @module("backend-4everland")
 external getAllPublishContributeInfos: getAllPublishContributeInfos = "getAllPublishContributeInfos"
@@ -84,10 +100,14 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishExtensionProtocolsCount: Obj.magic(1),
     getAllPublishExtensionProtocols,
     getAllPublishExtensionProtocolConfigs,
+    batchFindPublishExtensionProtocols,
+    batchFindPublishExtensionProtocolConfigs,
     getAllPublishExtensionInfos,
     findPublishExtension,
     getAllPublishContributeProtocols,
     getAllPublishContributeProtocolConfigs,
+    batchFindPublishContributeProtocols,
+    batchFindPublishContributeProtocolConfigs,
     getAllPublishContributeInfos,
     findPublishContribute,
     findAllPublishApps,

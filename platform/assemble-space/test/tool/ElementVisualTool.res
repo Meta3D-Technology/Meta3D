@@ -55,6 +55,7 @@ let generateElementContribute = (
   ~protocolVersion=ElementContributeUtils.getElementContributeProtocolVersion(),
   ~elementName=ElementVisual.Method._getElementContributeName(),
   ~elementVersion=ElementVisual.Method._getElementContributeVersion(),
+  ~account="meta3d",
   ~fileStr="",
   (),
 ) =>
@@ -64,6 +65,7 @@ let generateElementContribute = (
     protocolVersion,
     elementName,
     elementVersion,
+    account,
     elementName,
     ElementContributeUtils.getElementContributeRepoLink(),
     ElementContributeUtils.getElementContributeDescription(),

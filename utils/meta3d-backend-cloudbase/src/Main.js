@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollectionCount = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
+exports.parseMarketCollectionDataBodyForNodejs = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.isContain = exports.buildMarketImplementAccountData = exports.getDataFromMarketImplementAccountData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -134,6 +134,14 @@ let getMarketProtocolCollection = (app, parseMarketCollectionDataBody, collectio
         .get();
 };
 exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let batchFindMarketProtocolCollection = (app, parseMarketCollectionDataBody, collectionName, protocolNames) => {
+    return _getDatabase(app).collection(collectionName)
+        .where({
+        name: _getDatabase(app).command.in(protocolNames)
+    })
+        .get();
+};
+exports.batchFindMarketProtocolCollection = batchFindMarketProtocolCollection;
 let getMarketProtocolCollectionCount = (app, collectionName) => {
     return _getDatabase(app).collection(collectionName)
         .count()
@@ -184,3 +192,4 @@ let downloadFile = (app, parseMarketCollectionDataBody, fileID) => {
 };
 exports.downloadFile = downloadFile;
 exports.parseMarketCollectionDataBodyForNodejs = null;
+//# sourceMappingURL=Main.js.map

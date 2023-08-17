@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -29,6 +29,8 @@ let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo
 exports.hasAccount = hasAccount;
 let getMarketProtocolCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketProtocolCollection((0, Repo_1.getBackend)(), null, collectionName, limitCount, skipCount);
 exports.getMarketProtocolCollection = getMarketProtocolCollection;
+let batchFindMarketProtocolCollection = (collectionName, protocolNames) => BackendService.batchFindMarketProtocolCollection((0, Repo_1.getBackend)(), null, collectionName, protocolNames);
+exports.batchFindMarketProtocolCollection = batchFindMarketProtocolCollection;
 let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount((0, Repo_1.getBackend)(), collectionName);
 exports.getMarketProtocolCollectionCount = getMarketProtocolCollectionCount;
 let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), null, collectionName, limitCount, skipCount);
@@ -90,6 +92,9 @@ exports.addData = addData;
 let getDataByKey = (collectionName, key) => {
     return (0, exports.getDatabase)().collection(collectionName)
         .where({ key: BackendService.handleKeyToLowercase(key) })
+        //TODO support 1000
+        .skip(0)
+        .limit(1000)
         .get()
         .then(res => res.data);
 };

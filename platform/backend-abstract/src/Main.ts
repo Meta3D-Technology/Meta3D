@@ -19,9 +19,13 @@ export let isLoginSuccess = LoginService.isLoginSuccess
 
 export let getAllPublishProtocolData = MarketService.getAllPublishProtocolData
 
+export let batchFindPublishProtocolData = MarketService.batchFindPublishProtocolData
+
 export let getAllPublishProtocolDataCount = MarketService.getAllPublishProtocolDataCount
 
 export let getAllPublishProtocolConfigData = MarketService.getAllPublishProtocolConfigData
+
+export let batchFindPublishProtocolConfigData = MarketService.batchFindPublishProtocolConfigData
 
 export let getAllPublishImplementInfo = MarketService.getAllPublishImplementInfo
 

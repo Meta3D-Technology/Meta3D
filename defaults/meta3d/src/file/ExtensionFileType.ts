@@ -6,12 +6,23 @@ export type blockProtocolVersion = versionRange
 
 type versionRange = string
 
+type version = string
+
+type account = string
+
+export type extensionProtocolData = {
+  name: string,
+  version: versionRange,
+}
+
+export type contributeProtocolData = extensionProtocolData
+
+
 export type extensionPackageData = {
   name: extensionName,
-  protocol: {
-    name: string,
-    version: versionRange
-  },
+  version: version,
+  account: account,
+  protocol: extensionProtocolData,
   displayName: string,
   repoLink: string,
   description: string,
@@ -43,19 +54,13 @@ export type extensionFileData = {
   extensionFuncData: extensionFuncData
 };
 
-export type extensionProtocolData = {
-  name: string,
-  version: versionRange,
-}
-
 
 
 export type contributePackageData = {
   name: contributeName,
-  protocol: {
-    name: string,
-    version: versionRange
-  },
+  version: version,
+  account: account,
+  protocol: contributeProtocolData,
   displayName: string,
   repoLink: string,
   description: string,

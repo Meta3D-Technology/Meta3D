@@ -20,6 +20,11 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: extensionPackageData.name,
+                                version: extensionPackageData.version,
+                                account: extensionPackageData.account,
+                                displayName: extensionPackageData.displayName,
+                                repoLink: extensionPackageData.repoLink,
+                                description: extensionPackageData.description,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
                                 dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
@@ -32,6 +37,11 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                   return ArraySt$Meta3dCommonlib.push(result, [
                               {
                                 name: contributePackageData.name,
+                                version: contributePackageData.version,
+                                account: contributePackageData.account,
+                                displayName: contributePackageData.displayName,
+                                repoLink: contributePackageData.repoLink,
+                                description: contributePackageData.description,
                                 protocol: contributePackageData.protocol,
                                 dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },
@@ -76,7 +86,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            116,
+            126,
             6
           ],
           Error: new Error()

@@ -128,7 +128,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
                 {
-                    "name": "test1", "publisher": "meta3d",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "account": "meta3d",
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
@@ -197,7 +199,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         then('should use default value', () => {
             expect(generateFunc).toCalledWith([
                 {
-                    "name": "test1", "publisher": "meta3d",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "account": "meta3d",
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",

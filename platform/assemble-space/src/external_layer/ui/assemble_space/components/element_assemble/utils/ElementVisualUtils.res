@@ -121,6 +121,8 @@ let _getEventProtocolVersion = () => ">=0.12.0"
 let generateElementContributeBinaryFile = (
   service: FrontendUtils.AssembleSpaceType.service,
   name,
+  version,
+  account,
   protocolName,
   protocolVersion,
   displayName,
@@ -132,6 +134,8 @@ let generateElementContributeBinaryFile = (
     (
       {
         name,
+        version,
+        account,
         protocol: {
           name: protocolName,
           version: protocolVersion,
@@ -141,13 +145,10 @@ let generateElementContributeBinaryFile = (
         description,
         dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
         ->Meta3dCommonlib.ImmutableHashMap.set(
-  getUIExtensionProtocolName(),
-               _getUIProtocolVersion()
+          getUIExtensionProtocolName(),
+          _getUIProtocolVersion(),
         )
-        ->Meta3dCommonlib.ImmutableHashMap.set(
- "meta3d-event-protocol",
-               _getEventProtocolVersion()
-        )
+        ->Meta3dCommonlib.ImmutableHashMap.set("meta3d-event-protocol", _getEventProtocolVersion()),
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,

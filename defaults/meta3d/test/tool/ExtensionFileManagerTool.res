@@ -1,6 +1,8 @@
 let generateExtension = (
   ~name,
   ~protocol,
+  ~version="0.0.1",
+  ~account="meta3d",
   ~displayName="",
   ~repoLink="",
   ~description="",
@@ -12,6 +14,8 @@ let generateExtension = (
     (
       {
         name,
+        version,
+        account,
         protocol,
         displayName,
         repoLink,
@@ -26,6 +30,8 @@ let generateExtension = (
 let generateContribute = (
   ~name,
   ~protocol,
+  ~version="0.0.1",
+  ~account="meta3d",
   ~displayName="",
   ~repoLink="",
   ~description="",
@@ -37,6 +43,8 @@ let generateContribute = (
     (
       {
         name,
+        version,
+        account,
         protocol,
         displayName,
         repoLink,

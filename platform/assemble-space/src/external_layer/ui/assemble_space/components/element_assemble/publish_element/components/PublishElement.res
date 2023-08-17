@@ -90,6 +90,8 @@ module Method = {
           ElementVisualUtils.generateElementContributeBinaryFile(
             service,
             elementName,
+            elementVersion,
+            account->Meta3dCommonlib.OptionSt.getExn,
             protocolName,
             protocolVersion,
             displayName,

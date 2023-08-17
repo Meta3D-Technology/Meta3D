@@ -24,6 +24,8 @@ defineFeature(feature, test => {
       () => {
         let file = ExtensionFileManagerTool.generateExtension(
           ~name="meta3d-app",
+          ~version="0.0.1",
+          ~account="meta3d",
           ~protocol={
             name: "meta3d-app-protocol",
             version: "0.4.1",
@@ -47,6 +49,8 @@ defineFeature(feature, test => {
           (
             {
               name: "meta3d-app",
+              version: "0.0.1",
+              account: "meta3d",
               protocol: {
                 name: "meta3d-app-protocol",
                 version: "0.4.1",
@@ -84,6 +88,8 @@ defineFeature(feature, test => {
       () => {
         let file = ExtensionFileManagerTool.generateContribute(
           ~name="meta3d-contribute-test1",
+          ~version="0.0.1",
+          ~account="meta3d",
           ~protocol={
             name: "meta3d-contribute-test1-protocol",
             version: "0.4.1",
@@ -107,6 +113,8 @@ defineFeature(feature, test => {
           (
             {
               name: "meta3d-contribute-test1",
+              version: "0.0.1",
+              account: "meta3d",
               protocol: {
                 name: "meta3d-contribute-test1-protocol",
                 version: "0.4.1",

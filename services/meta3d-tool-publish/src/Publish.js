@@ -20,10 +20,11 @@ function _searchProtocolVersion(name, dependencies) {
 function _isProtocol(protocolName) {
     return /-protocol$/.test(protocolName);
 }
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependencies }) {
+function _convertToExtensionOrContributePackageData({ name, version, protocol, displayName, repoLink, description, dependencies }, account) {
     return {
         name,
-        publisher,
+        version,
+        account,
         displayName: _isEmpty(displayName) ? name : displayName,
         repoLink: _isEmpty(repoLink) ? "" : repoLink,
         description: _isEmpty(description) ? "" : description,
@@ -66,7 +67,6 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                 _throwError("找不到publishser，请在平台上注册该用户");
             }
             _defineWindow();
-            let packageData = _convertToExtensionOrContributePackageData(packageJson);
             let filePath = _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer";
             // TODO perf: only invoke getMarketImplementAccountDataFunc once
             return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, _]) => {
@@ -80,10 +80,11 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
                 if (isContain) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
-            })).flatMap(_ => uploadFileFunc(backendInstance, filePath, generateFunc(packageData, readFileSyncFunc(distFilePath, "utf-8"))).flatMap((uploadData) => {
+            })).flatMap(_ => uploadFileFunc(backendInstance, filePath, generateFunc(_convertToExtensionOrContributePackageData(packageJson, account), readFileSyncFunc(distFilePath, "utf-8"))).flatMap((uploadData) => {
                 let fileID = getFileIDFunc(uploadData, filePath);
                 return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
                     let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
+                    let packageData = _convertToExtensionOrContributePackageData(packageJson, account);
                     let data = {
                         protocolName: packageData.protocol.name,
                         protocolVersion: packageData.protocol.version,

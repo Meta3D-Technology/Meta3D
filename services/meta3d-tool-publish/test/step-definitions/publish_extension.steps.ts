@@ -202,7 +202,9 @@ defineFeature(feature, test => {
         then('should upload generated file', () => {
             expect(generateFunc).toCalledWith([
                 {
-                    "name": "test1", "publisher": "meta3d",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "account": "meta3d",
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
@@ -290,7 +292,9 @@ defineFeature(feature, test => {
         then('should use default value', () => {
             expect(generateFunc).toCalledWith([
                 {
-                    "name": "test1", "publisher": "meta3d",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "account": "meta3d",
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",

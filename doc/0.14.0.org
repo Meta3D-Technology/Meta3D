@@ -566,20 +566,79 @@ TODO publish
 
 
 
-* TODO platform import app
-
-can edit ap/element assemble
-
-
-
 
 * TODO platform import package
 
 can edit package assemble
 
 
+TODO draft(pass compile, bdd test):
+
+id?
+
+protocolVersion versionRange?
+version, account?
+
+backend add: batch get protocol iconbase64, config by name, version?
+
+    TODO bdd test
+
+isSelect change: judge by name, version instead of id?
+
+
+
+    TODO pass compile
+        TODO handle package data add version, account
+        TODO pass compile
+
+
+
+TODO pass run test
+
+    TODO check is select
+
+
+
+
+
+TODO refactor: remove id?
+
+
+
+TODO feat: change to 已导入(can't click)
+
+
+
+* TODO platform import app
+
+can edit ap/element assemble
+
+
+add two button:
+运行
+    remove "click name to run"
+导入
+
+
+
+load app->handle it like handle package
+
+
+
+
+**  TODO refactor with import package
 
 
 * TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
 
 * TODO refactor: .ts: change function to let xxx = () => xxx
+
+
+
+* TODO publish
+
+TODO pass ci
+
+TODO tencent cloud recharge
+
+TODO publish

@@ -65,6 +65,16 @@ type getAllPublishExtensionProtocolsCount = unit => Meta3dBsMostProtocol.StreamT
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
+type batchFindPublishExtensionProtocols = (
+  . // . array<(protocolName, protocolVersion)>,
+  array<protocolName>,
+) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+
+type batchFindPublishContributeProtocols = (
+  . // . array<(protocolName, protocolVersion)>,
+  array<protocolName>,
+) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+
 // type protocolConfig = {
 //   name: string,
 //   version: string,
@@ -80,6 +90,16 @@ type getAllPublishExtensionProtocolConfigs = (
 ) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
 
 type getAllPublishContributeProtocolConfigs = getAllPublishExtensionProtocolConfigs
+
+type batchFindPublishExtensionProtocolConfigs = (
+  . // . array<(protocolName, protocolVersion)>,
+  array<protocolName>,
+) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
+
+type batchFindPublishContributeProtocolConfigs = (
+  . // . array<(protocolName, protocolVersion)>,
+  array<protocolName>,
+) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
 
 type implementInfo = {
   id: string,

@@ -25,10 +25,12 @@ function _isProtocol(protocolName: string) {
     return /-protocol$/.test(protocolName)
 }
 
-function _convertToExtensionOrContributePackageData({ name, protocol, publisher, displayName, repoLink, description, dependencies }: any): any {
+
+function _convertToExtensionOrContributePackageData({ name, version, protocol, displayName, repoLink, description, dependencies }: any, account): any {
     return {
         name,
-        publisher,
+        version,
+        account,
         displayName: _isEmpty(displayName) ? name : displayName,
         repoLink: _isEmpty(repoLink) ? "" : repoLink,
         description: _isEmpty(description) ? "" : description,
@@ -80,8 +82,6 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
 
                 _defineWindow()
 
-                let packageData = _convertToExtensionOrContributePackageData(packageJson)
-
                 let filePath =
                     _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer"
 
@@ -112,7 +112,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                     backendInstance,
                     filePath,
                     generateFunc(
-                        packageData,
+                        _convertToExtensionOrContributePackageData(packageJson, account),
                         readFileSyncFunc(distFilePath, "utf-8")
                     )
                 ).flatMap((uploadData) => {
@@ -126,6 +126,8 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, gen
                             account
                         ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
                             let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
+
+                            let packageData = _convertToExtensionOrContributePackageData(packageJson, account)
 
                             let data = {
                                 protocolName: packageData.protocol.name,

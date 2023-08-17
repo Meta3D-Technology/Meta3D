@@ -30,6 +30,8 @@ export let hasAccount = (collectionName, account) => BackendService.hasAccount(g
 
 export let getMarketProtocolCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketProtocolCollection(getBackend(), null, collectionName, limitCount, skipCount)
 
+export let batchFindMarketProtocolCollection = (collectionName, protocolNames) => BackendService.batchFindMarketProtocolCollection(getBackend(), null, collectionName, protocolNames)
+
 export let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount(getBackend(), collectionName)
 
 export let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount)
