@@ -30,13 +30,14 @@ type action =
   | SelectPackage(packageData)
   | NotSelectPackage(id)
   | SetAccount(account)
-  | ImportPackage(selectedExtensions, selectedContributes)
+  | ImportPackage(id, selectedExtensions, selectedContributes)
 
 type state = {
   account: option<string>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
   selectedPackages: selectedPackages,
+  importedPackageIds: list<id>,
 }
 
 let _removeOtherSelectedExtensionsOfSameProtocolName = (
@@ -122,8 +123,9 @@ let reducer = (state, action) => {
         selectedPackage.id !== id
       ),
     }
-  | ImportPackage(selectedExtensions, selectedContributes) => {
+  | ImportPackage(packageId, selectedExtensions, selectedContributes) => {
       ...state,
+      importedPackageIds: state.importedPackageIds->Meta3dCommonlib.ListSt.push(packageId),
       selectedExtensions,
       selectedContributes,
     }
@@ -136,5 +138,6 @@ let initialState = {
   selectedExtensions: list{},
   selectedContributes: list{},
   selectedPackages: list{},
+  importedPackageIds: list{},
   // selectedContributeProtocolConfigs: list{},
 }

@@ -11,9 +11,9 @@ let make = (
   ~packageEntryExtensionProtocolItem: FrontendUtils.BackendCloudbaseType.protocol,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedPackages} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
-    userCenterState
-  )
+  let {selectedPackages, importedPackageIds} = AppStore.useSelector((
+    {userCenterState}: AppStore.state,
+  ) => userCenterState)
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (page, setPage) = React.useState(_ => 1)
@@ -241,267 +241,250 @@ let make = (
                       }}>
                       {React.string(`下载`)}
                     </Button>
-                    <Button
-                      onClick={_ => {
-                        setIsBackendBegin(_ => true)
+                    {FrontendUtils.MarketUtils.isSelect(id => id, item.id, importedPackageIds)
+                      ? <Button disabled=true> {React.string(`已导入`)} </Button>
+                      : <Button
+                          onClick={_ => {
+                            setIsBackendBegin(_ => true)
 
-                        service.backend.findPublishPackage(.
-                          progress => setBackendProgress(_ => progress),
-                          FrontendUtils.MarketUtils.getLimitCount(),
-                          0,
-                          item.account,
-                          item.name,
-                          item.version,
-                        )
-                        ->Meta3dBsMost.Most.flatMap(file => {
-                          Meta3dCommonlib.NullableSt.isNullable(file)
-                            ? {
-                                setIsBackendBegin(_ => false)
+                            service.backend.findPublishPackage(.
+                              progress => setBackendProgress(_ => progress),
+                              FrontendUtils.MarketUtils.getLimitCount(),
+                              0,
+                              item.account,
+                              item.name,
+                              item.version,
+                            )
+                            ->Meta3dBsMost.Most.flatMap(file => {
+                              Meta3dCommonlib.NullableSt.isNullable(file)
+                                ? {
+                                    setIsBackendBegin(_ => false)
 
-                                FrontendUtils.ErrorUtils.error(
-                                  {j`找不到package file`},
-                                  None,
-                                )->Obj.magic
+                                    FrontendUtils.ErrorUtils.error(
+                                      {j`找不到package file`},
+                                      None,
+                                    )->Obj.magic
 
-                                Meta3dBsMost.Most.empty()->Obj.magic
-                              }
-                            : {
-                                Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(
-                                  file->Meta3dCommonlib.NullableSt.getExn,
-                                )->Meta3dBsMost.Most.just
-                              }
-                        }, _)
-                        ->Meta3dBsMost.Most.flatMap(
-                          ((allExtensionFileData, allContributeFileData)) => {
-                            let extensionProtocolNames =
-                              allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
-                                extensionPackageData: Meta3d.AppAndPackageFileType.extensionPackageData,
-                                _,
-                              )) => {
-                                extensionPackageData.protocol.name
-                              })
-                            let contributeProtocolNames =
-                              allContributeFileData->Meta3dCommonlib.ArraySt.map(((
-                                contributePackageData: Meta3d.AppAndPackageFileType.contributePackageData,
-                                _,
-                              )) => {
-                                contributePackageData.protocol.name
-                              })
+                                    Meta3dBsMost.Most.empty()->Obj.magic
+                                  }
+                                : {
+                                    Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(
+                                      file->Meta3dCommonlib.NullableSt.getExn,
+                                    )->Meta3dBsMost.Most.just
+                                  }
+                            }, _)
+                            ->Meta3dBsMost.Most.flatMap(
+                              ((allExtensionFileData, allContributeFileData)) => {
+                                let extensionProtocolNames =
+                                  allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
+                                    extensionPackageData: Meta3d.AppAndPackageFileType.extensionPackageData,
+                                    _,
+                                  )) => {
+                                    extensionPackageData.protocol.name
+                                  })
+                                let contributeProtocolNames =
+                                  allContributeFileData->Meta3dCommonlib.ArraySt.map(((
+                                    contributePackageData: Meta3d.AppAndPackageFileType.contributePackageData,
+                                    _,
+                                  )) => {
+                                    contributePackageData.protocol.name
+                                  })
 
-                            MostUtils.concatArray([
-                              service.backend.batchFindPublishExtensionProtocols(.
-                                extensionProtocolNames,
-                              ),
-                              service.backend.batchFindPublishExtensionProtocolConfigs(.
-                                extensionProtocolNames,
-                              )->Obj.magic,
-                              service.backend.batchFindPublishContributeProtocols(.
-                                contributeProtocolNames,
-                              ),
-                              service.backend.batchFindPublishContributeProtocolConfigs(.
-                                contributeProtocolNames,
-                              )->Obj.magic,
-                            ])
-                            ->Meta3dBsMost.Most.reduce((arr, data) => {
-                              arr->Meta3dCommonlib.ArraySt.push(data)
-                            }, [
-                              allExtensionFileData->Obj.magic,
-                              allContributeFileData->Obj.magic,
-                            ], _)
-                            ->Meta3dBsMost.Most.fromPromise
-                          },
-                          // (
-                          //   extensionPackageData.protocol.name,
-                          //   extensionPackageData.protocol.version->Meta3d.Semver.minVersion,
-                          // )
+                                MostUtils.concatArray([
+                                  service.backend.batchFindPublishExtensionProtocols(.
+                                    extensionProtocolNames,
+                                  ),
+                                  service.backend.batchFindPublishExtensionProtocolConfigs(.
+                                    extensionProtocolNames,
+                                  )->Obj.magic,
+                                  service.backend.batchFindPublishContributeProtocols(.
+                                    contributeProtocolNames,
+                                  ),
+                                  service.backend.batchFindPublishContributeProtocolConfigs(.
+                                    contributeProtocolNames,
+                                  )->Obj.magic,
+                                ])
+                                ->Meta3dBsMost.Most.reduce((arr, data) => {
+                                  arr->Meta3dCommonlib.ArraySt.push(data)
+                                }, [
+                                  allExtensionFileData->Obj.magic,
+                                  allContributeFileData->Obj.magic,
+                                ], _)
+                                ->Meta3dBsMost.Most.fromPromise
+                              },
+                              _,
+                            )
+                            ->Meta3dBsMost.Most.tap(arr => {
+                              let (
+                                allExtensionFileData: array<(
+                                  Meta3d.AppAndPackageFileType.extensionPackageData,
+                                  Meta3d.ExtensionFileType.extensionFuncData,
+                                )>,
+                                allContributeFileData: array<(
+                                  Meta3d.AppAndPackageFileType.contributePackageData,
+                                  Meta3d.ExtensionFileType.contributeFuncData,
+                                )>,
+                                extensionProtocols: FrontendUtils.BackendCloudbaseType.protocols,
+                                extensionProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
+                                contributeProtocols: FrontendUtils.BackendCloudbaseType.protocols,
+                                contributeProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
+                              ) =
+                                arr->Obj.magic
 
-                          // (
-                          //   contributePackageData.protocol.name,
-                          //   contributePackageData.protocol.version->Meta3d.Semver.minVersion,
-                          // )
+                              let selectedExtensions =
+                                allExtensionFileData
+                                ->Meta3dCommonlib.ArraySt.map(data => {
+                                  let (extensionPackageData, extensionFuncData) = data
 
-                          // service.backend.batchFindPublishExtensionProtocols(.
-                          //   extensionProtocolNames,
-                          // ) ->Meta3dBsMost.Most.flatMap(extensionProtocols =>{
-                          // service.backend.batchFindPublishExtensionProtocolConfigs(.
-                          //   extensionProtocolNames,
-                          // ) ->Meta3dBsMost.Most.flatMap(extensionProtocolConfigs =>{
+                                  let extensionProtocol =
+                                    extensionProtocols
+                                    ->Meta3dCommonlib.ArraySt.filter(
+                                      extensionProtocol => {
+                                        extensionProtocol.name ==
+                                          extensionPackageData.protocol.name &&
+                                          Meta3d.Semver.satisfies(
+                                            extensionProtocol.version,
+                                            extensionPackageData.protocol.version,
+                                          )
+                                      },
+                                    )
+                                    ->Meta3dCommonlib.ArraySt.getFirst
+                                    ->Meta3dCommonlib.OptionSt.getExn
 
-                          // }, _)
+                                  let extensionProtocolConfig =
+                                    extensionProtocolConfigs
+                                    ->Meta3dCommonlib.ArraySt.filter(
+                                      extensionProtocolConfig => {
+                                        extensionProtocolConfig.name ==
+                                          extensionPackageData.protocol.name &&
+                                          Meta3d.Semver.satisfies(
+                                            extensionProtocolConfig.version,
+                                            extensionPackageData.protocol.version,
+                                          )
+                                      },
+                                    )
+                                    ->Meta3dCommonlib.ArraySt.getFirst
 
-                          // }, _)
-
-                          _,
-                        )
-                        ->Meta3dBsMost.Most.tap(arr => {
-                          let (
-                            allExtensionFileData: array<(
-                              Meta3d.AppAndPackageFileType.extensionPackageData,
-                              Meta3d.ExtensionFileType.extensionFuncData,
-                            )>,
-                            allContributeFileData: array<(
-                              Meta3d.AppAndPackageFileType.contributePackageData,
-                              Meta3d.ExtensionFileType.contributeFuncData,
-                            )>,
-                            extensionProtocols: FrontendUtils.BackendCloudbaseType.protocols,
-                            extensionProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
-                            contributeProtocols: FrontendUtils.BackendCloudbaseType.protocols,
-                            contributeProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
-                          ) =
-                            arr->Obj.magic
-
-                          let selectedExtensions =
-                            allExtensionFileData
-                            ->Meta3dCommonlib.ArraySt.map(data => {
-                              let (extensionPackageData, extensionFuncData) = data
-
-                              let extensionProtocol =
-                                extensionProtocols
-                                ->Meta3dCommonlib.ArraySt.filter(
-                                  extensionProtocol => {
-                                    extensionProtocol.name == extensionPackageData.protocol.name &&
-                                      Meta3d.Semver.satisfies(
-                                        extensionProtocol.version,
-                                        extensionPackageData.protocol.version,
-                                      )
-                                  },
-                                )
-                                ->Meta3dCommonlib.ArraySt.getFirst
-                                ->Meta3dCommonlib.OptionSt.getExn
-
-                              let extensionProtocolConfig =
-                                extensionProtocolConfigs
-                                ->Meta3dCommonlib.ArraySt.filter(
-                                  extensionProtocolConfig => {
-                                    extensionProtocolConfig.name ==
-                                      extensionPackageData.protocol.name &&
-                                      Meta3d.Semver.satisfies(
-                                        extensionProtocolConfig.version,
-                                        extensionPackageData.protocol.version,
-                                      )
-                                  },
-                                )
-                                ->Meta3dCommonlib.ArraySt.getFirst
-
-                              (
-                                (
-                                  {
-                                    id: FrontendUtils.IdUtils.generateId(Js.Math.random),
-                                    protocolName: extensionProtocol.name,
-                                    protocolVersion: extensionProtocol.version,
-                                    protocolIconBase64: extensionProtocol.iconBase64,
-                                    data: (
+                                  (
+                                    (
                                       {
-                                        extensionPackageData: {
-                                          name: extensionPackageData.name,
-                                          version: extensionPackageData.version,
-                                          account: extensionPackageData.account,
-                                          protocol: extensionPackageData.protocol,
-                                          displayName: extensionPackageData.displayName,
-                                          repoLink: extensionPackageData.repoLink,
-                                          description: extensionPackageData.description,
-                                          dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
-                                        },
-                                        extensionFuncData,
-                                      }: Meta3d.ExtensionFileType.extensionFileData
+                                        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+                                        protocolName: extensionProtocol.name,
+                                        protocolVersion: extensionProtocol.version,
+                                        protocolIconBase64: extensionProtocol.iconBase64,
+                                        data: (
+                                          {
+                                            extensionPackageData: {
+                                              name: extensionPackageData.name,
+                                              version: extensionPackageData.version,
+                                              account: extensionPackageData.account,
+                                              protocol: extensionPackageData.protocol,
+                                              displayName: extensionPackageData.displayName,
+                                              repoLink: extensionPackageData.repoLink,
+                                              description: extensionPackageData.description,
+                                              dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
+                                            },
+                                            extensionFuncData,
+                                          }: Meta3d.ExtensionFileType.extensionFileData
+                                        ),
+                                        version: extensionPackageData.version,
+                                        account: extensionPackageData.account,
+                                      }: FrontendUtils.AssembleSpaceCommonType.extension
                                     ),
-                                    version: extensionPackageData.version,
-                                    account: extensionPackageData.account,
-                                  }: FrontendUtils.AssembleSpaceCommonType.extension
-                                ),
-                                extensionProtocolConfig,
-                              )
-                            })
-                            ->Meta3dCommonlib.ListSt.fromArray
-                          let selectedContributes =
-                            allContributeFileData
-                            ->Meta3dCommonlib.ArraySt.map(data => {
-                              let (contributePackageData, contributeFuncData) = data
+                                    extensionProtocolConfig,
+                                  )
+                                })
+                                ->Meta3dCommonlib.ListSt.fromArray
+                              let selectedContributes =
+                                allContributeFileData
+                                ->Meta3dCommonlib.ArraySt.map(data => {
+                                  let (contributePackageData, contributeFuncData) = data
 
-                              let contributeProtocol =
-                                contributeProtocols
-                                ->Meta3dCommonlib.ArraySt.filter(
-                                  contributeProtocol => {
-                                    contributeProtocol.name ==
-                                      contributePackageData.protocol.name &&
-                                      Meta3d.Semver.satisfies(
-                                        contributeProtocol.version,
-                                        contributePackageData.protocol.version,
-                                      )
-                                  },
-                                )
-                                ->Meta3dCommonlib.ArraySt.getFirst
-                                ->Meta3dCommonlib.OptionSt.getExn
+                                  let contributeProtocol =
+                                    contributeProtocols
+                                    ->Meta3dCommonlib.ArraySt.filter(
+                                      contributeProtocol => {
+                                        contributeProtocol.name ==
+                                          contributePackageData.protocol.name &&
+                                          Meta3d.Semver.satisfies(
+                                            contributeProtocol.version,
+                                            contributePackageData.protocol.version,
+                                          )
+                                      },
+                                    )
+                                    ->Meta3dCommonlib.ArraySt.getFirst
+                                    ->Meta3dCommonlib.OptionSt.getExn
 
-                              let contributeProtocolConfig =
-                                contributeProtocolConfigs
-                                ->Meta3dCommonlib.ArraySt.filter(
-                                  contributeProtocolConfig => {
-                                    contributeProtocolConfig.name ==
-                                      contributePackageData.protocol.name &&
-                                      Meta3d.Semver.satisfies(
-                                        contributeProtocolConfig.version,
-                                        contributePackageData.protocol.version,
-                                      )
-                                  },
-                                )
-                                ->Meta3dCommonlib.ArraySt.getFirst
+                                  let contributeProtocolConfig =
+                                    contributeProtocolConfigs
+                                    ->Meta3dCommonlib.ArraySt.filter(
+                                      contributeProtocolConfig => {
+                                        contributeProtocolConfig.name ==
+                                          contributePackageData.protocol.name &&
+                                          Meta3d.Semver.satisfies(
+                                            contributeProtocolConfig.version,
+                                            contributePackageData.protocol.version,
+                                          )
+                                      },
+                                    )
+                                    ->Meta3dCommonlib.ArraySt.getFirst
 
-                              (
-                                (
-                                  {
-                                    id: FrontendUtils.IdUtils.generateId(Js.Math.random),
-                                    protocolName: contributeProtocol.name,
-                                    protocolVersion: contributeProtocol.version,
-                                    protocolIconBase64: contributeProtocol.iconBase64,
-                                    data: (
+                                  (
+                                    (
                                       {
-                                        contributePackageData: {
-                                          name: contributePackageData.name,
-                                          version: contributePackageData.version,
-                                          account: contributePackageData.account,
-                                          protocol: contributePackageData.protocol,
-                                          displayName: contributePackageData.displayName,
-                                          repoLink: contributePackageData.repoLink,
-                                          description: contributePackageData.description,
-                                          dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
-                                        },
-                                        contributeFuncData,
-                                      }: Meta3d.ExtensionFileType.contributeFileData
+                                        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+                                        protocolName: contributeProtocol.name,
+                                        protocolVersion: contributeProtocol.version,
+                                        protocolIconBase64: contributeProtocol.iconBase64,
+                                        data: (
+                                          {
+                                            contributePackageData: {
+                                              name: contributePackageData.name,
+                                              version: contributePackageData.version,
+                                              account: contributePackageData.account,
+                                              protocol: contributePackageData.protocol,
+                                              displayName: contributePackageData.displayName,
+                                              repoLink: contributePackageData.repoLink,
+                                              description: contributePackageData.description,
+                                              dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
+                                            },
+                                            contributeFuncData,
+                                          }: Meta3d.ExtensionFileType.contributeFileData
+                                        ),
+                                        version: contributePackageData.version,
+                                        account: contributePackageData.account,
+                                      }: FrontendUtils.AssembleSpaceCommonType.contribute
                                     ),
-                                    version: contributePackageData.version,
-                                    account: contributePackageData.account,
-                                  }: FrontendUtils.AssembleSpaceCommonType.contribute
+                                    contributeProtocolConfig,
+                                  )
+                                })
+                                ->Meta3dCommonlib.ListSt.fromArray
+
+                              setIsBackendBegin(_ => false)
+
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.ImportPackage(
+                                    item.id,
+                                    selectedExtensions,
+                                    selectedContributes,
+                                  ),
                                 ),
-                                contributeProtocolConfig,
                               )
-                            })
-                            ->Meta3dCommonlib.ListSt.fromArray
+                            }, _)
+                            ->Meta3dBsMost.Most.drain
+                            ->Js.Promise.catch(e => {
+                              setIsBackendBegin(_ => false)
 
-                          setIsBackendBegin(_ => false)
-
-                          dispatch(
-                            AppStore.UserCenterAction(
-                              UserCenterStore.ImportPackage(
-                                selectedExtensions,
-                                selectedContributes,
-                              ),
-                            ),
-                          )
-                        }, _)
-                        ->Meta3dBsMost.Most.drain
-                        ->Js.Promise.catch(e => {
-                          setIsBackendBegin(_ => false)
-
-                          FrontendUtils.ErrorUtils.errorWithExn(
-                            e->FrontendUtils.Error.promiseErrorToExn,
-                            None,
-                          )->Obj.magic
-                        }, _)
-                        ->ignore
-                      }}>
-                      {React.string(`导入`)}
-                    </Button>
+                              FrontendUtils.ErrorUtils.errorWithExn(
+                                e->FrontendUtils.Error.promiseErrorToExn,
+                                None,
+                              )->Obj.magic
+                            }, _)
+                            ->ignore
+                          }}>
+                          {React.string(`导入`)}
+                        </Button>}
                   </List.Item>
                 }}
               />
