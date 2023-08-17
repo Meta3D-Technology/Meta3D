@@ -636,7 +636,7 @@ TODO implement 已导入
 **  DONE refactor with import package
 
 
-* TODO fix Inspector(E,C,P) not refresh bug
+* DONE fix Inspector(E) not refresh bug
 
 
 * TODO refactor: assemble-space, frontend: add "xxxFunc" postfix

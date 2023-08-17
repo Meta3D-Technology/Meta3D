@@ -43,7 +43,9 @@ module Method = {
     | Some(inspectorCurrentContribute) =>
       setInspectorCurrentContribute(_ => inspectorCurrentContribute->Some)
       setContributeStr(_ =>
-        service.meta3d.getContributeFuncDataStr(. inspectorCurrentContribute.data.contributeFuncData)
+        service.meta3d.getContributeFuncDataStr(.
+          inspectorCurrentContribute.data.contributeFuncData,
+        )
       )
     }
   }
@@ -77,7 +79,7 @@ let make = (~service: service) => {
     )
 
     None
-  }, [inspectorCurrentContributeId])
+  }, [inspectorCurrentExtensionId, selectedContributes->Obj.magic])
 
   switch inspectorCurrentContribute {
   | None => React.null
