@@ -134,8 +134,35 @@ let reducer = (state, action) => {
   | ImportPackage(packageId, selectedExtensions, selectedContributes) => {
       ...state,
       importedPackageIds: state.importedPackageIds->Meta3dCommonlib.ListSt.push(packageId),
-      selectedExtensions,
-      selectedContributes,
+      selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
+        state.selectedExtensions,
+        (result, (data, protocolConfigOpt) as selectedExtension) => {
+          result
+          ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
+          ->Meta3dCommonlib.ListSt.push(selectedExtension)
+        },
+      ),
+      selectedContributes: selectedContributes->Meta3dCommonlib.ListSt.reduce(
+        state.selectedContributes,
+        (result, (data, protocolConfigOpt) as selectedContribute) => {
+          result
+          ->_removeOtherSelectedContributesOfSameProtocolNameExceptAction(data)
+          ->Meta3dCommonlib.ListSt.push(selectedContribute)
+        },
+      ),
+
+      //  Meta3dCommonlib.ListSt.concat(
+      //   state.selectedExtensions,
+      //   selectedExtensions,
+      // )->Meta3dCommonlib.ListSt.removeDuplicateItemsU((({data}, _)) => {
+      //   j`${data.extensionPackageData.name}_${data.extensionPackageData.version}`
+      // }),
+      // selectedContributes: Meta3dCommonlib.ListSt.concat(
+      //   state.selectedContributes,
+      //   selectedContributes,
+      // )->Meta3dCommonlib.ListSt.removeDuplicateItemsU((({data}, _)) => {
+      //   j`${data.contributePackageData.name}_${data.contributePackageData.version}`
+      // }),
     }
   | SetAccount(account) => {...state, account: Some(account)}
   }
