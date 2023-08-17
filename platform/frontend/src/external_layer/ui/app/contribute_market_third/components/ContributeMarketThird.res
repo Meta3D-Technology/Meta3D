@@ -166,7 +166,8 @@ let make = (
                               dispatch(
                                 AppStore.UserCenterAction(
                                   UserCenterStore.NotSelectContribute(
-                                    contributeProtocolItem.info.id,
+                                    contributeProtocolItem.info.name,
+                                    contributeProtocolItem.info.version,
                                   ),
                                 ),
                               )

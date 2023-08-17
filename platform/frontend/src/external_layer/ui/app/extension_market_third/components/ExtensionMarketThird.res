@@ -161,7 +161,7 @@ let make = (
                             onClick={_ => {
                               dispatch(
                                 AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectExtension(extensionProtocolItem.info.id),
+                                  UserCenterStore.NotSelectExtension(extensionProtocolItem.info.name, extensionProtocolItem.info.version),
                                 ),
                               )
                             }}>

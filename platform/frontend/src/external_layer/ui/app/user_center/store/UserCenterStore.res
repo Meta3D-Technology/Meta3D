@@ -22,11 +22,13 @@ type selectedPackages = list<packageData>
 
 type account = string
 
+type name = string
+
 type action =
   | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
-  | NotSelectExtension(id)
+  | NotSelectExtension(name, FrontendUtils.AssembleSpaceCommonType.version)
   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
-  | NotSelectContribute(id)
+  | NotSelectContribute(name, FrontendUtils.AssembleSpaceCommonType.version)
   | SelectPackage(packageData)
   | NotSelectPackage(id)
   | SetAccount(account)
@@ -88,12 +90,15 @@ let reducer = (state, action) => {
       ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
       ->Meta3dCommonlib.ListSt.push((data, protocolConfigOpt)),
     }
-  | NotSelectExtension(id) => {
+  | NotSelectExtension(name, version) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.filter(((
         selectedExtension,
         _,
-      )) => selectedExtension.id !== id),
+      )) =>
+        selectedExtension.data.extensionPackageData.name !== name &&
+          selectedExtension.version !== version
+      ),
     }
   | SelectContribute(data, protocolConfigOpt) => {
       ...state,
@@ -104,12 +109,15 @@ let reducer = (state, action) => {
       //   protocolConfigOpt,
       // ),
     }
-  | NotSelectContribute(id) => {
+  | NotSelectContribute(name, version) => {
       ...state,
       selectedContributes: state.selectedContributes->Meta3dCommonlib.ListSt.filter(((
         selectedContribute,
         _,
-      )) => selectedContribute.id !== id),
+      )) =>
+        selectedContribute.data.contributePackageData.name !== name &&
+          selectedContribute.version !== version
+      ),
     }
   | SelectPackage(data) => {
       ...state,
