@@ -116,7 +116,7 @@ eval("\n\nvar HashMap$Meta3dCommonlib = __webpack_require__(/*! ./HashMap.bs.js 
   \**********************************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-eval("\n\n\nfunction isEmpty(value) {\n  if (value === null) {\n    return true;\n  } else {\n    return value === undefined;\n  }\n}\n\nfunction isNotInMap(value) {\n  return value === undefined;\n}\n\nfunction isInMap(value) {\n  return value !== undefined;\n}\n\nexports.isEmpty = isEmpty;\nexports.isNotInMap = isNotInMap;\nexports.isInMap = isInMap;\n/* No side effect */\n\n\n//# sourceURL=webpack://Extension/../../defaults/meta3d-commonlib/lib/js/src/structure/utils/NullUtils.bs.js?");
+eval("\n\n\nfunction isUndefined(value) {\n  return value === undefined;\n}\n\nfunction isEmpty(value) {\n  if (value === null) {\n    return true;\n  } else {\n    return value === undefined;\n  }\n}\n\nfunction isNotInMap(value) {\n  return value === undefined;\n}\n\nfunction isInMap(value) {\n  return value !== undefined;\n}\n\nexports.isUndefined = isUndefined;\nexports.isEmpty = isEmpty;\nexports.isNotInMap = isNotInMap;\nexports.isInMap = isInMap;\n/* No side effect */\n\n\n//# sourceURL=webpack://Extension/../../defaults/meta3d-commonlib/lib/js/src/structure/utils/NullUtils.bs.js?");
 
 /***/ }),
 

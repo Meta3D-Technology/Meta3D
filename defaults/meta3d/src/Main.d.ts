@@ -121,6 +121,13 @@ export function getAllExtensionAndContributeFileDataOfPackage(
         Array<[contributePackageDataApp, contributeFuncData]>
     ]
 
+export function getAllExtensionAndContributeFileDataOfApp(
+    appBinaryFile: ArrayBuffer
+): [
+        Array<[extensionPackageDataApp, extensionFuncData]>,
+        Array<[contributePackageDataApp, contributeFuncData]>
+    ]
+
 export function startApp(
     [
         state,

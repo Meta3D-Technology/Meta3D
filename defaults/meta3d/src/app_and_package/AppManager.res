@@ -176,3 +176,16 @@ let start = ((state, allExtensionDataArr, configData)): unit => {
     configData,
   )
 }
+
+let getAllExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayBuffer.t): (
+  array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+  array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+) => {
+  let [
+    allExtensionBinaryUint8File,
+    allContributeBinaryUint8File,
+    configData,
+  ] = BinaryFileOperator.load(appBinaryFile)
+
+  [allExtensionBinaryUint8File, allContributeBinaryUint8File]->ManagerUtils.parse2
+}

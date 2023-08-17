@@ -38,6 +38,8 @@ let loadPackage = PackageManager.load
 
 let getAllExtensionAndContributeFileDataOfPackage = PackageManager.getAllExtensionAndContributeFileDataOfPackage
 
+let getAllExtensionAndContributeFileDataOfApp = AppManager.getAllExtensionAndContributeFileDataOfApp
+
 let startApp = AppManager.start
 
 let execGetContributeFunc = AppManager.execGetContributeFunc

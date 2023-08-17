@@ -122,6 +122,27 @@ function start(param) {
   ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionProtocolName(param[1]), param[2]);
 }
 
+function getAllExtensionAndContributeFileDataOfApp(appBinaryFile) {
+  var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
+  if (match.length !== 3) {
+    throw {
+          RE_EXN_ID: "Match_failure",
+          _1: [
+            "AppManager.res",
+            184,
+            6
+          ],
+          Error: new Error()
+        };
+  }
+  var allExtensionBinaryUint8File = match[0];
+  var allContributeBinaryUint8File = match[1];
+  return ManagerUtils$Meta3d.parse2([
+              allExtensionBinaryUint8File,
+              allContributeBinaryUint8File
+            ]);
+}
+
 export {
   convertAllFileData ,
   generate ,
@@ -133,5 +154,6 @@ export {
   load ,
   _getStartExtensionProtocolName ,
   start ,
+  getAllExtensionAndContributeFileDataOfApp ,
 }
 /* No side effect */

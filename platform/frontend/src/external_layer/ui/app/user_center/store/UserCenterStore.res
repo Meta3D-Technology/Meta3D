@@ -33,6 +33,7 @@ type action =
   | NotSelectPackage(id)
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes)
+  | ImportApp(id, selectedExtensions, selectedContributes)
 
 type state = {
   account: option<string>,
@@ -40,6 +41,7 @@ type state = {
   selectedContributes: selectedContributes,
   selectedPackages: selectedPackages,
   importedPackageIds: list<id>,
+  importedAppIds: list<id>,
 }
 
 let _removeOtherSelectedExtensionsOfSameProtocolName = (
@@ -150,19 +152,26 @@ let reducer = (state, action) => {
           ->Meta3dCommonlib.ListSt.push(selectedContribute)
         },
       ),
-
-      //  Meta3dCommonlib.ListSt.concat(
-      //   state.selectedExtensions,
-      //   selectedExtensions,
-      // )->Meta3dCommonlib.ListSt.removeDuplicateItemsU((({data}, _)) => {
-      //   j`${data.extensionPackageData.name}_${data.extensionPackageData.version}`
-      // }),
-      // selectedContributes: Meta3dCommonlib.ListSt.concat(
-      //   state.selectedContributes,
-      //   selectedContributes,
-      // )->Meta3dCommonlib.ListSt.removeDuplicateItemsU((({data}, _)) => {
-      //   j`${data.contributePackageData.name}_${data.contributePackageData.version}`
-      // }),
+    }
+  | ImportApp(appId, selectedExtensions, selectedContributes) => {
+      ...state,
+      importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
+      selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
+        state.selectedExtensions,
+        (result, (data, protocolConfigOpt) as selectedExtension) => {
+          result
+          ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
+          ->Meta3dCommonlib.ListSt.push(selectedExtension)
+        },
+      ),
+      selectedContributes: selectedContributes->Meta3dCommonlib.ListSt.reduce(
+        state.selectedContributes,
+        (result, (data, protocolConfigOpt) as selectedContribute) => {
+          result
+          ->_removeOtherSelectedContributesOfSameProtocolNameExceptAction(data)
+          ->Meta3dCommonlib.ListSt.push(selectedContribute)
+        },
+      ),
     }
   | SetAccount(account) => {...state, account: Some(account)}
   }
@@ -174,5 +183,6 @@ let initialState = {
   selectedContributes: list{},
   selectedPackages: list{},
   importedPackageIds: list{},
+  importedAppIds: list{},
   // selectedContributeProtocolConfigs: list{},
 }

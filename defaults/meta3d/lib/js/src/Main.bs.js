@@ -47,6 +47,8 @@ var loadPackage = PackageManager$Meta3d.load;
 
 var getAllExtensionAndContributeFileDataOfPackage = PackageManager$Meta3d.getAllExtensionAndContributeFileDataOfPackage;
 
+var getAllExtensionAndContributeFileDataOfApp = AppManager$Meta3d.getAllExtensionAndContributeFileDataOfApp;
+
 var startApp = AppManager$Meta3d.start;
 
 var execGetContributeFunc = AppManager$Meta3d.execGetContributeFunc;
@@ -97,6 +99,7 @@ exports.generatePackage = generatePackage;
 exports.loadApp = loadApp;
 exports.loadPackage = loadPackage;
 exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
+exports.getAllExtensionAndContributeFileDataOfApp = getAllExtensionAndContributeFileDataOfApp;
 exports.startApp = startApp;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.getExtensionFuncDataStr = getExtensionFuncDataStr;

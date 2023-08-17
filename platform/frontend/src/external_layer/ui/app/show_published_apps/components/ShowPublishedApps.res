@@ -8,11 +8,16 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
   // let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
+  let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
+    userCenterState
+  )
 
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
   let (page, setPage) = React.useState(_ => 1)
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => true)
 
   let _buildURL = (account: string, appName: string) =>
     j`EnterApp?account=${account}&appName=${appName}`
@@ -26,6 +31,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
   //   RescriptReactRouter.push("/EnterApp")
   // }
+
+  let _generateAppId = (account: string, appName: string) => {
+    j`${account}_${appName}`
+  }
 
   let onChange = (page, pageSize) => {
     setPage(_ => page)
@@ -70,31 +79,97 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     <Layout.Content>
       {!isLoaded
         ? <p> {React.string(`loading...`)} </p>
-        : <List
-            itemLayout=#horizontal
-            dataSource={FrontendUtils.MarketUtils.getCurrentPage(
-              allPublishApps,
-              page,
-              FrontendUtils.MarketUtils.getPageSize(),
-            )}
-            renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
-              <List.Item>
-                <List.Item.Meta
-                  key={j`${item.account}_${item.appName}`}
-                  title={<Typography.Title
-                    level=3
+        : <>
+            {!isDownloadFinish
+              ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
+              : React.null}
+            <List
+              itemLayout=#horizontal
+              dataSource={FrontendUtils.MarketUtils.getCurrentPage(
+                allPublishApps,
+                page,
+                FrontendUtils.MarketUtils.getPageSize(),
+              )}
+              renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
+                <List.Item>
+                  <List.Item.Meta
+                    key={j`${item.account}_${item.appName}`}
+                    title={<Typography.Title level=3>
+                      {React.string(item.appName)}
+                    </Typography.Title>}
+                    description={UIDescriptionUtils.buildWithoutRepoLink(
+                      item.account,
+                      item.description,
+                    )}
+                  />
+                  <Button
                     onClick={_ => {
                       _openLink(_buildURL(item.account, item.appName))
                     }}>
-                    {React.string(item.appName)}
-                  </Typography.Title>}
-                  description={UIDescriptionUtils.buildWithoutRepoLink(
-                    item.account,
-                    item.description,
-                  )}
-                />
-              </List.Item>}
-          />}
+                    {React.string(`运行`)}
+                  </Button>
+                  {FrontendUtils.MarketUtils.isSelect(
+                    id => id,
+                    _generateAppId(item.account, item.appName),
+                    importedAppIds,
+                  )
+                    ? <Button disabled=true> {React.string(`已导入`)} </Button>
+                    : <Button
+                        onClick={_ => {
+                          setIsDownloadFinish(_ => false)
+
+                          service.backend.findPublishApp(.
+                            progress => setDownloadProgress(_ => progress),
+                            item.account,
+                            item.appName,
+                          )
+                          ->Meta3dBsMost.Most.flatMap(file => {
+                            Meta3dCommonlib.NullableSt.isNullable(file)
+                              ? {
+                                  setIsDownloadFinish(_ => true)
+
+                                  FrontendUtils.ErrorUtils.error(
+                                    {
+                                      j`account: ${item.account} appName: ${item.appName} has no published app`
+                                    },
+                                    None,
+                                  )->Obj.magic
+
+                                  Meta3dBsMost.Most.empty()->Obj.magic
+                                }
+                              : {
+                                  Meta3d.Main.getAllExtensionAndContributeFileDataOfApp(
+                                    file->Meta3dCommonlib.NullableSt.getExn,
+                                  )->Meta3dBsMost.Most.just
+                                }
+                          }, _)
+                          ->ImportUtils.import(
+                            (
+                              service,
+                              (
+                                () => {
+                                  setIsDownloadFinish(_ => true)
+                                },
+                                (selectedExtensions, selectedContributes) =>
+                                  dispatch(
+                                    AppStore.UserCenterAction(
+                                      UserCenterStore.ImportApp(
+                                        _generateAppId(item.account, item.appName),
+                                        selectedExtensions,
+                                        selectedContributes,
+                                      ),
+                                    ),
+                                  ),
+                              ),
+                            ),
+                            _,
+                          )
+                        }}>
+                        {React.string(`导入`)}
+                      </Button>}
+                </List.Item>}
+            />
+          </>}
     </Layout.Content>
     <Layout.Footer>
       {switch isLoaded {

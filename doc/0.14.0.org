@@ -612,7 +612,7 @@ TODO fix: click cancel select e/c
 
 
 
-* TODO platform import app
+* DONE platform import app
 
 can edit ap/element assemble
 
@@ -628,8 +628,15 @@ load app->handle it like handle package
 
 
 
+TODO implement 已导入
 
-**  TODO refactor with import package
+
+
+
+**  DONE refactor with import package
+
+
+* TODO fix Inspector(E,C,P) not refresh bug
 
 
 * TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
