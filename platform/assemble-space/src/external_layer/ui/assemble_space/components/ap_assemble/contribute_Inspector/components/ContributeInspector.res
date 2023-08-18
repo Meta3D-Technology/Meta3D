@@ -79,7 +79,7 @@ let make = (~service: service) => {
     )
 
     None
-  }, [inspectorCurrentExtensionId, selectedContributes->Obj.magic])
+  }, [inspectorCurrentContributeId, selectedContributes->Obj.magic])
 
   switch inspectorCurrentContribute {
   | None => React.null
