@@ -1,6 +1,6 @@
 {
     "name": "meta3d-import-scene-protocol",
-    "version": "0.13.0",
+    "version": "0.14.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-import-scene-protocol",
     "author": "Meta3D",
@@ -11,8 +11,6 @@
         "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],
-    "dependencies": {
-    },
     "devDependencies": {
         "typescript": "^4.2.3"
     }

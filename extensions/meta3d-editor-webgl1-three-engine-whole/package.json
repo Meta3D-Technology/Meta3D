@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-engine-whole",
-    "version": "0.13.4",
+    "version": "0.14.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-engine-whole-protocol"
@@ -12,23 +12,23 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.13.0",
-        "meta3d-editor-engine-render-protocol": "^0.13.0",
-        "meta3d-editor-engine-whole-protocol": "^0.13.0",
-        "meta3d-engine-basic-protocol": "^0.13.0",
-        "meta3d-engine-core-protocol": "^0.13.0",
-        "meta3d-engine-scene-protocol": "^0.13.0",
-        "meta3d-event-protocol": "^0.13.0",
-        "meta3d-component-pbrmaterial-protocol": "^0.13.0",
-        "meta3d-component-geometry-protocol": "^0.13.0",
-        "meta3d-scenegraph-converter-three-protocol": "^0.13.0",
-        "meta3d-type": "^0.13.0"
+        "meta3d-bs-most-protocol": "^0.14.0",
+        "meta3d-component-geometry-protocol": "^0.14.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.14.0",
+        "meta3d-editor-engine-render-protocol": "^0.14.0",
+        "meta3d-editor-engine-whole-protocol": "^0.14.0",
+        "meta3d-engine-basic-protocol": "^0.14.0",
+        "meta3d-engine-core-protocol": "^0.14.0",
+        "meta3d-engine-scene-protocol": "^0.14.0",
+        "meta3d-event-protocol": "^0.14.0",
+        "meta3d-scenegraph-converter-three-protocol": "^0.14.0",
+        "meta3d-type": "^0.14.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.13.0",
+        "meta3d-tool-publish": "^0.14.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
