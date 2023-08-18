@@ -27,67 +27,67 @@ export default async function(value?: Partial<Bind.Module>): Promise<void> {
 
 export { bind };
 
-function import_Scalar(sca: XY | XYZ | XYZW | Bind.ImAccess<number> | Bind.ImScalar<number> | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImScalar<number> {
+let import_Scalar = (sca: XY | XYZ | XYZW | Bind.ImAccess<number> | Bind.ImScalar<number> | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImScalar<number>  => {
     if (Array.isArray(sca)) { return [ sca[0] ]; }
     if (typeof sca === "function") { return [ sca() ]; }
     return [ sca.x ];
 }
 
-function export_Scalar(tuple: Bind.ImScalar<number>, sca: XY | XYZ | XYZW | Bind.ImAccess<number> | Bind.ImScalar<number> | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void {
+let export_Scalar = (tuple: Bind.ImScalar<number>, sca: XY | XYZ | XYZW | Bind.ImAccess<number> | Bind.ImScalar<number> | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void  => {
     if (Array.isArray(sca)) { sca[0] = tuple[0]; return; }
     if (typeof sca === "function") { sca(tuple[0]); return; }
     sca.x = tuple[0];
 }
 
-function import_Vector2(vec: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple2<number> {
+let import_Vector2 = (vec: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple2<number>  => {
     if (Array.isArray(vec)) { return [ vec[0], vec[1] ]; }
     return [ vec.x, vec.y ];
 }
 
-function export_Vector2(tuple: Bind.ImTuple2<number>, vec: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void {
+let export_Vector2 = (tuple: Bind.ImTuple2<number>, vec: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void  => {
     if (Array.isArray(vec)) { vec[0] = tuple[0]; vec[1] = tuple[1]; return; }
     vec.x = tuple[0]; vec.y = tuple[1];
 }
 
-function import_Vector3(vec: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple3<number> {
+let import_Vector3 = (vec: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple3<number>  => {
     if (Array.isArray(vec)) { return [ vec[0], vec[1], vec[2] ]; }
     return [ vec.x, vec.y, vec.z ];
 }
 
-function export_Vector3(tuple: Bind.ImTuple3<number>, vec: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void {
+let export_Vector3 = (tuple: Bind.ImTuple3<number>, vec: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void  => {
     if (Array.isArray(vec)) { vec[0] = tuple[0]; vec[1] = tuple[1]; vec[2] = tuple[2]; return; }
     vec.x = tuple[0]; vec.y = tuple[1]; vec.z = tuple[2];
 }
 
-function import_Vector4(vec: XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple4<number> {
+let import_Vector4 = (vec: XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple4<number>  => {
     if (Array.isArray(vec)) { return [ vec[0], vec[1], vec[2], vec[3] || 0 ]; }
     return [ vec.x, vec.y, vec.z, vec.w ];
 }
 
-function export_Vector4(tuple: Bind.ImTuple4<number>, vec: XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void {
+let export_Vector4 = (tuple: Bind.ImTuple4<number>, vec: XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void  => {
     if (Array.isArray(vec)) { vec[0] = tuple[0]; vec[1] = tuple[1]; vec[2] = tuple[2]; vec[3] = tuple[3]; return; }
     vec.x = tuple[0]; vec.y = tuple[1]; vec.z = tuple[2]; vec.w = tuple[3];
 }
 
-function import_Color3(col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple3<number> {
+let import_Color3 = (col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): Bind.ImTuple3<number>  => {
     if (Array.isArray(col)) { return [ col[0], col[1], col[2] ]; }
     if ("r" in col) { return [ col.r, col.g, col.b ]; }
     return [ col.x, col.y, col.z ];
 }
 
-function export_Color3(tuple: Bind.ImTuple3<number>, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void {
+let export_Color3 = (tuple: Bind.ImTuple3<number>, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4): void  => {
     if (Array.isArray(col)) { col[0] = tuple[0]; col[1] = tuple[1]; col[2] = tuple[2]; return; }
     if ("r" in col) { col.r = tuple[0]; col.g = tuple[1]; col.b = tuple[2]; return; }
     col.x = tuple[0]; col.y = tuple[1]; col.z = tuple[2];
 }
 
-function import_Color4(col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4 | RGBA): Bind.ImTuple4<number> {
+let import_Color4 = (col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4 | RGBA): Bind.ImTuple4<number>  => {
     if (Array.isArray(col)) { return [ col[0], col[1], col[2], col[3] ]; }
     if ("r" in col) { return [ col.r, col.g, col.b, col.a ]; }
     return [ col.x, col.y, col.z, col.w ];
 }
 
-function export_Color4(tuple: Bind.ImTuple4<number>, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4 | RGBA): void {
+let export_Color4 = (tuple: Bind.ImTuple4<number>, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4 | RGBA): void  => {
     if (Array.isArray(col)) { col[0] = tuple[0]; col[1] = tuple[1]; col[2] = tuple[2]; col[3] = tuple[3]; return; }
     if ("r" in col) { col.r = tuple[0]; col.g = tuple[1]; col.b = tuple[2]; col.a = tuple[3]; return; }
     col.x = tuple[0]; col.y = tuple[1]; col.z = tuple[2]; col.w = tuple[3];
@@ -126,15 +126,15 @@ export const IMGUI_VERSION_NUM: number = 18000; // bind.IMGUI_VERSION_NUM;
 
 // #define IMGUI_CHECKVERSION()        ImGui::DebugCheckVersionAndDataLayout(IMGUI_VERSION, sizeof(ImGuiIO), sizeof(ImGuiStyle), sizeof(ImVec2), sizeof(ImVec4), sizeof(ImDrawVert))
 export { IMGUI_CHECKVERSION as CHECKVERSION }
-export function IMGUI_CHECKVERSION(): boolean { return DebugCheckVersionAndDataLayout(IMGUI_VERSION, bind.ImGuiIOSize, bind.ImGuiStyleSize, bind.ImVec2Size, bind.ImVec4Size, bind.ImDrawVertSize, bind.ImDrawIdxSize); }
+export let IMGUI_CHECKVERSION(): boolean { return DebugCheckVersionAndDataLayout = (IMGUI_VERSION, bind.ImGuiIOSize, bind.ImGuiStyleSize, bind.ImVec2Size, bind.ImVec4Size, bind.ImDrawVertSize, bind.ImDrawIdxSize) => ; }
 
 export const IMGUI_HAS_TABLE: boolean = true;
 
-export function ASSERT(c: any): asserts c { if (!c) { throw new Error(); } }
-export function IM_ASSERT(c: any): asserts c { if (!c) { throw new Error(); } }
+export let ASSERT = (c: any): asserts c { if (!c)  => { throw new Error(); } }
+export let IM_ASSERT = (c: any): asserts c { if (!c)  => { throw new Error(); } }
 
 export { IM_ARRAYSIZE as ARRAYSIZE }
-export function IM_ARRAYSIZE(_ARR: ArrayLike<any> | ImStringBuffer): number {
+export let IM_ARRAYSIZE = (_ARR: ArrayLike<any> | ImStringBuffer): number  => {
     if (_ARR instanceof ImStringBuffer) {
         return _ARR.size;
     } else {
@@ -205,8 +205,8 @@ export enum ImGuiInputTextFlags {
     CharsNoBlank        = 1 << 3,   // Filter out spaces, tabs
     AutoSelectAll       = 1 << 4,   // Select entire text when first taking mouse focus
     EnterReturnsTrue    = 1 << 5,   // Return 'true' when Enter is pressed (as opposed to when the value was modified)
-    CallbackCompletion  = 1 << 6,   // Call user function on pressing TAB (for completion handling)
-    CallbackHistory     = 1 << 7,   // Call user function on pressing Up/Down arrows (for history handling)
+    CallbackCompletion  = 1 << 6,   // Call user let on pressing TAB  = (for completion handling) => 
+    CallbackHistory     = 1 << 7,   // Call user let on pressing Up/Down arrows  = (for history handling) => 
     CallbackAlways      = 1 << 8,   // Call user function every time. User code may query cursor position, modify text buffer.
     CallbackCharFilter  = 1 << 9,   // Call user function to filter character. Modify data->EventChar to replace/filter input, or return 1 to discard character.
     AllowTabInput       = 1 << 10,  // Pressing TAB input a '\t' character into the text field
@@ -814,7 +814,7 @@ export enum ImDrawCornerFlags
     Bot       = BotLeft | BotRight,   // 0xC
     Left      = TopLeft | BotLeft,    // 0x5
     Right     = TopRight | BotRight,  // 0xA
-    All       = 0xF,     // In your function calls you may use ~0 (= all bits sets) instead of All, as a convenience
+    All       = 0xF,     // In your let calls you may use ~0  = (= all bits sets) =>  instead of All, as a convenience
 }
 
 export { ImDrawListFlags as wListFlags };
@@ -1218,7 +1218,7 @@ export const IM_COL32_B_SHIFT: number = 16;
 export const IM_COL32_A_SHIFT: number = 24;
 export const IM_COL32_A_MASK: number = 0xFF000000;
 export { IM_COL32 as COL32 }
-export function IM_COL32(R: number, G: number, B: number, A: number = 255): number {
+export let IM_COL32 = (R: number, G: number, B: number, A: number = 255): number  => {
     return ((A << IM_COL32_A_SHIFT) | (B << IM_COL32_B_SHIFT) | (G << IM_COL32_G_SHIFT) | (R << IM_COL32_R_SHIFT)) >>> 0;
 }
 export const IM_COL32_WHITE: number = IM_COL32(255, 255, 255, 255); export { IM_COL32_WHITE as COL32_WHITE }  // Opaque white = 0xFFFFFFFF
@@ -1460,7 +1460,7 @@ export const IM_DRAWLIST_TEX_LINES_WIDTH_MAX: number = 63;
 // Draw callbacks for advanced uses.
 // NB- You most likely do NOT need to use draw callbacks just to create your own widget or customized UI rendering (you can poke into the draw list for that)
 // Draw callback may be useful for example, A) Change your GPU render state, B) render a complex 3D scene inside a UI element (without an intermediate texture/render target), etc.
-// The expected behavior from your rendering function is 'if (cmd.UserCallback != NULL) cmd.UserCallback(parent_list, cmd); else RenderTriangles()'
+// The expected behavior from your rendering let is 'if (cmd.UserCallback != NULL) cmd.UserCallback = (parent_list, cmd); else RenderTriangles() => '
 // typedef void (*ImDrawCallback)(const ImDrawList* parent_list, const ImDrawCmd* cmd);
 export type ImDrawCallback = (parent_list: Readonly<ImDrawList>, cmd: Readonly<ImDrawCmd>) => void;
 
@@ -1607,7 +1607,7 @@ export class ImDrawList
 
     // ImDrawList(const ImDrawListSharedData* shared_data) { _Data = shared_data; _OwnerName = NULL; Clear(); }
     // ~ImDrawList() { ClearFreeMemory(); }
-    // IMGUI_API void  PushClipRect(ImVec2 clip_rect_min, ImVec2 clip_rect_max, bool intersect_with_current_clip_rect = false);  // Render-level scissoring. This is passed down to your render function but not used for CPU-side coarse clipping. Prefer using higher-level ImGui::PushClipRect() to affect logic (hit-testing and widget culling)
+    // IMGUI_API void  PushClipRect(ImVec2 clip_rect_min, ImVec2 clip_rect_max, bool intersect_with_current_clip_rect = false);  // Render-level scissoring. This is passed down to your render let but not used for CPU-side coarse clipping. Prefer using higher-level ImGui::PushClipRect() to affect logic  = (hit-testing and widget culling) => 
     public PushClipRect(clip_rect_min: Readonly<Bind.interface_ImVec2>, clip_rect_max: Readonly<Bind.interface_ImVec2>, intersect_with_current_clip_rect: boolean = false): void {
         this.native.PushClipRect(clip_rect_min, clip_rect_max, intersect_with_current_clip_rect);
     }
@@ -2843,14 +2843,14 @@ export class ImGuiContext {
         return index;
     }
 }
-export function CreateContext(shared_font_atlas: ImFontAtlas | null = null): ImGuiContext | null {
+export let CreateContext = (shared_font_atlas: ImFontAtlas | null = null): ImGuiContext | null  => {
     const ctx: ImGuiContext = new ImGuiContext(bind.CreateContext(shared_font_atlas !== null ? shared_font_atlas.native : null));
     if (ImGuiContext.current_ctx === null) {
         ImGuiContext.current_ctx = ctx;
     }
     return ctx;
 }
-export function DestroyContext(ctx: ImGuiContext | null = null): void {
+export let DestroyContext = (ctx: ImGuiContext | null = null): void  => {
     if (ctx === null) {
         ctx = ImGuiContext.current_ctx;
         ImGuiContext.current_ctx = null;
@@ -2861,7 +2861,7 @@ export function GetCurrentContext(): ImGuiContext | null {
     // const ctx_native: Bind.ImGuiContext | null = bind.GetCurrentContext();
     return ImGuiContext.current_ctx;
 }
-export function SetCurrentContext(ctx: ImGuiContext | null): void {
+export let SetCurrentContext = (ctx: ImGuiContext | null): void  => {
     bind.SetCurrentContext((ctx === null) ? null : ctx.native);
     ImGuiContext.current_ctx = ctx;
 }
@@ -2873,11 +2873,11 @@ export function SetCurrentContext(ctx: ImGuiContext | null): void {
 // IMGUI_API void          EndFrame();                                 // ends the Dear ImGui frame. automatically called by Render(). If you don't need to render data (skipping rendering) you may call EndFrame() without Render()... but you'll have wasted CPU already! If you don't need to render, better to not create any windows and not call NewFrame() at all!
 // IMGUI_API void          Render();                                   // ends the Dear ImGui frame, finalize the draw data. You can then get call GetDrawData().
 // IMGUI_API ImDrawData*   GetDrawData();                              // valid after Render() and until the next call to NewFrame(). this is what you have to render.
-export function GetIO(): ImGuiIO { return new ImGuiIO(bind.GetIO()); }
-export function GetStyle(): ImGuiStyle { return new ImGuiStyle(bind.GetStyle()); }
-export function NewFrame(): void { bind.NewFrame(); }
-export function EndFrame(): void { bind.EndFrame(); }
-export function Render(): void { bind.Render(); }
+export let GetIO(): ImGuiIO { return new ImGuiIO(bind.GetIO = ()) => ; }
+export let GetStyle(): ImGuiStyle { return new ImGuiStyle(bind.GetStyle = ()) => ; }
+export let NewFrame = (): void { bind.NewFrame() => ; }
+export let EndFrame = (): void { bind.EndFrame() => ; }
+export let Render = (): void { bind.Render() => ; }
 export function GetDrawData(): ImDrawData | null {
     const draw_data: Bind.reference_ImDrawData | null = bind.GetDrawData();
     return (draw_data === null) ? null : new ImDrawData(draw_data);
@@ -2893,8 +2893,8 @@ export function GetDrawData(): ImDrawData | null {
 // IMGUI_API void          ShowUserGuide();                            // add basic help/info block (not a window): how to manipulate ImGui as a end-user (mouse/keyboard controls).
 // IMGUI_API const char*   GetVersion();                               // get the compiled version string e.g. "1.80 WIP" (essentially the value for IMGUI_VERSION from the compiled version of imgui.cpp)
 
-export function ShowDemoWindow(p_open: Bind.ImScalar<boolean> | null = null): void { bind.ShowDemoWindow(p_open); }
-export function ShowMetricsWindow(p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null): void {
+export let ShowDemoWindow = (p_open: Bind.ImScalar<boolean> | null = null): void  => { bind.ShowDemoWindow(p_open); }
+export let ShowMetricsWindow = (p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null): void  => {
     if (p_open === null) {
         bind.ShowMetricsWindow(null);
     } else if (Array.isArray(p_open)) {
@@ -2905,7 +2905,7 @@ export function ShowMetricsWindow(p_open: Bind.ImScalar<boolean> | Bind.ImAccess
         p_open(ref_open[0]);
     }
 }
-export function ShowAboutWindow(p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null): void {
+export let ShowAboutWindow = (p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null): void  => {
     if (p_open === null) {
         bind.ShowAboutWindow(null);
     } else if (Array.isArray(p_open)) {
@@ -2916,7 +2916,7 @@ export function ShowAboutWindow(p_open: Bind.ImScalar<boolean> | Bind.ImAccess<b
         p_open(ref_open[0]);
     }
 }
-export function ShowStyleEditor(ref: ImGuiStyle | null = null): void {
+export let ShowStyleEditor = (ref: ImGuiStyle | null = null): void  => {
     if (ref === null) {
         bind.ShowStyleEditor(null);
     } else if (ref.internal instanceof bind.ImGuiStyle) {
@@ -2930,17 +2930,17 @@ export function ShowStyleEditor(ref: ImGuiStyle | null = null): void {
         native.delete();
     }
 }
-export function ShowStyleSelector(label: string): boolean { return bind.ShowStyleSelector(label); }
-export function ShowFontSelector(label: string): void { bind.ShowFontSelector(label); }
-export function ShowUserGuide(): void { bind.ShowUserGuide(); }
+export let ShowStyleSelector = (label: string): boolean  => { return bind.ShowStyleSelector(label); }
+export let ShowFontSelector = (label: string): void  => { bind.ShowFontSelector(label); }
+export let ShowUserGuide = (): void { bind.ShowUserGuide() => ; }
 
-export function GetVersion(): string { return bind.GetVersion(); }
+export let GetVersion = (): string { return bind.GetVersion() => ; }
 
 // Styles
 // IMGUI_API void          StyleColorsDark(ImGuiStyle* dst = NULL);    // new, recommended style (default)
 // IMGUI_API void          StyleColorsLight(ImGuiStyle* dst = NULL);   // best used with borders and a custom, thicker font
 // IMGUI_API void          StyleColorsClassic(ImGuiStyle* dst = NULL); // classic imgui style
-export function StyleColorsDark(dst: ImGuiStyle | null = null): void {
+export let StyleColorsDark = (dst: ImGuiStyle | null = null): void  => {
     if (dst === null) {
         bind.StyleColorsDark(null);
     } else if (dst.internal instanceof bind.ImGuiStyle) {
@@ -2954,7 +2954,7 @@ export function StyleColorsDark(dst: ImGuiStyle | null = null): void {
         native.delete();
     }
 }
-export function StyleColorsLight(dst: ImGuiStyle | null = null): void {
+export let StyleColorsLight = (dst: ImGuiStyle | null = null): void  => {
     if (dst === null) {
         bind.StyleColorsLight(null);
     } else if (dst.internal instanceof bind.ImGuiStyle) {
@@ -2968,7 +2968,7 @@ export function StyleColorsLight(dst: ImGuiStyle | null = null): void {
         native.delete();
     }
 }
-export function StyleColorsClassic(dst: ImGuiStyle | null = null): void {
+export let StyleColorsClassic = (dst: ImGuiStyle | null = null): void  => {
     if (dst === null) {
         bind.StyleColorsClassic(null);
     } else if (dst.internal instanceof bind.ImGuiStyle) {
@@ -2997,7 +2997,7 @@ export function StyleColorsClassic(dst: ImGuiStyle | null = null): void {
 // - Note that the bottom of window stack always contains a window called "Debug".
 // IMGUI_API bool          Begin(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0);
 // IMGUI_API void          End();
-export function Begin(name: string, open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiWindowFlags = 0): boolean {
+export let Begin = (name: string, open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiWindowFlags = 0): boolean  => {
     if (open === null) {
         return bind.Begin(name, null, flags);
     } else if (Array.isArray(open)) {
@@ -3009,7 +3009,7 @@ export function Begin(name: string, open: Bind.ImScalar<boolean> | Bind.ImAccess
         return opened;
     }
 }
-export function End(): void { bind.End(); }
+export let End = (): void { bind.End() => ; }
 
 // Child Windows
 // - Use child windows to begin into a self-contained independent scrolling/clipping regions within a host window. Child windows can embed their own child.
@@ -3022,10 +3022,10 @@ export function End(): void { bind.End(); }
 // IMGUI_API bool          BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0);
 // IMGUI_API bool          BeginChild(ImGuiID id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0);
 // IMGUI_API void          EndChild();
-export function BeginChild(id: string | ImGuiID, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, border: boolean = false, flags: ImGuiWindowFlags = 0): boolean {
+export let BeginChild = (id: string | ImGuiID, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, border: boolean = false, flags: ImGuiWindowFlags = 0): boolean  => {
     return bind.BeginChild(id, size, border, flags);
 }
-export function EndChild(): void { bind.EndChild(); }
+export let EndChild = (): void { bind.EndChild() => ; }
 
 // Windows Utilities
 // - 'current window' = the window we are appending into while inside a Begin()/End() block. 'next window' = next window we will Begin() into.
@@ -3038,15 +3038,15 @@ export function EndChild(): void { bind.EndChild(); }
 // IMGUI_API ImVec2        GetWindowSize();                            // get current window size
 // IMGUI_API float         GetWindowWidth();                           // get current window width (shortcut for GetWindowSize().x)
 // IMGUI_API float         GetWindowHeight();                          // get current window height (shortcut for GetWindowSize().y)
-export function IsWindowAppearing(): boolean { return bind.IsWindowAppearing(); }
-export function IsWindowCollapsed(): boolean { return bind.IsWindowCollapsed(); }
-export function IsWindowFocused(flags: ImGuiFocusedFlags = 0): boolean { return bind.IsWindowFocused(flags); }
-export function IsWindowHovered(flags: ImGuiHoveredFlags = 0): boolean { return bind.IsWindowHovered(flags); }
-export function GetWindowDrawList(): ImDrawList { return new ImDrawList(bind.GetWindowDrawList()); }
-export function GetWindowPos(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetWindowPos(out); }
-export function GetWindowSize(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetWindowSize(out); }
-export function GetWindowWidth(): number { return bind.GetWindowWidth(); }
-export function GetWindowHeight(): number { return bind.GetWindowHeight(); }
+export let IsWindowAppearing = (): boolean { return bind.IsWindowAppearing() => ; }
+export let IsWindowCollapsed = (): boolean { return bind.IsWindowCollapsed() => ; }
+export let IsWindowFocused = (flags: ImGuiFocusedFlags = 0): boolean  => { return bind.IsWindowFocused(flags); }
+export let IsWindowHovered = (flags: ImGuiHoveredFlags = 0): boolean  => { return bind.IsWindowHovered(flags); }
+export let GetWindowDrawList(): ImDrawList { return new ImDrawList(bind.GetWindowDrawList = ()) => ; }
+export let GetWindowPos(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetWindowPos(out); }
+export let GetWindowSize(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetWindowSize(out); }
+export let GetWindowWidth = (): number { return bind.GetWindowWidth() => ; }
+export let GetWindowHeight = (): number { return bind.GetWindowHeight() => ; }
 
 // Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 // IMGUI_API void          SetNextWindowPos(const ImVec2& pos, ImGuiCond cond = 0, const ImVec2& pivot = ImVec2(0, 0)); // set next window position. call before Begin(). use pivot=(0.5f,0.5f) to center on given point, etc.
@@ -3065,11 +3065,11 @@ export function GetWindowHeight(): number { return bind.GetWindowHeight(); }
 // IMGUI_API void          SetWindowSize(const char* name, const ImVec2& size, ImGuiCond cond = 0);    // set named window size. set axis to 0.0f to force an auto-fit on this axis.
 // IMGUI_API void          SetWindowCollapsed(const char* name, bool collapsed, ImGuiCond cond = 0);   // set named window collapsed state
 // IMGUI_API void          SetWindowFocus(const char* name);                                           // set named window to be focused / top-most. use NULL to remove focus.
-export function SetNextWindowPos(pos: Readonly<Bind.interface_ImVec2>, cond: ImGuiCond = 0, pivot: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): void { bind.SetNextWindowPos(pos, cond, pivot); }
-export function SetNextWindowSize(pos: Readonly<Bind.interface_ImVec2>, cond: ImGuiCond = 0): void { bind.SetNextWindowSize(pos, cond); }
-export function SetNextWindowSizeConstraints(size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>): void;
-export function SetNextWindowSizeConstraints<T>(size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>, custom_callback: ImGuiSizeCallback<T>, custom_callback_data?: T): void;
-export function SetNextWindowSizeConstraints<T>(size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>, custom_callback: ImGuiSizeCallback<T | null> | null = null, custom_callback_data: T | null = null): void {
+export let SetNextWindowPos = (pos: Readonly<Bind.interface_ImVec2>, cond: ImGuiCond = 0, pivot: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): void  => { bind.SetNextWindowPos(pos, cond, pivot); }
+export let SetNextWindowSize = (pos: Readonly<Bind.interface_ImVec2>, cond: ImGuiCond = 0): void  => { bind.SetNextWindowSize(pos, cond); }
+export let SetNextWindowSizeConstraints = (size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>) => : void;
+export let SetNextWindowSizeConstraints<T> = (size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>, custom_callback: ImGuiSizeCallback<T>, custom_callback_data?: T) => : void;
+export let SetNextWindowSizeConstraints<T> = (size_min: Readonly<Bind.interface_ImVec2>, size_max: Readonly<Bind.interface_ImVec2>, custom_callback: ImGuiSizeCallback<T | null> | null = null, custom_callback_data: T | null = null): void  => {
     if (custom_callback) {
         bind.SetNextWindowSizeConstraints(size_min, size_max, (data: Bind.reference_ImGuiSizeCallbackData): void => {
             custom_callback(new ImGuiSizeCallbackData(data, custom_callback_data));
@@ -3078,11 +3078,11 @@ export function SetNextWindowSizeConstraints<T>(size_min: Readonly<Bind.interfac
         bind.SetNextWindowSizeConstraints(size_min, size_max, null, null);
     }
 }
-export function SetNextWindowContentSize(size: Readonly<Bind.interface_ImVec2>): void { bind.SetNextWindowContentSize(size); }
-export function SetNextWindowCollapsed(collapsed: boolean, cond: ImGuiCond = 0): void { bind.SetNextWindowCollapsed(collapsed, cond); }
-export function SetNextWindowFocus(): void { bind.SetNextWindowFocus(); }
-export function SetNextWindowBgAlpha(alpha: number): void { bind.SetNextWindowBgAlpha(alpha); }
-export function SetWindowPos(name_or_pos: string | Readonly<Bind.interface_ImVec2>, pos_or_cond: Readonly<Bind.interface_ImVec2> | ImGuiCond = 0, cond: ImGuiCond = 0): void {
+export let SetNextWindowContentSize = (size: Readonly<Bind.interface_ImVec2>): void  => { bind.SetNextWindowContentSize(size); }
+export let SetNextWindowCollapsed = (collapsed: boolean, cond: ImGuiCond = 0): void  => { bind.SetNextWindowCollapsed(collapsed, cond); }
+export let SetNextWindowFocus = (): void { bind.SetNextWindowFocus() => ; }
+export let SetNextWindowBgAlpha = (alpha: number): void  => { bind.SetNextWindowBgAlpha(alpha); }
+export let SetWindowPos = (name_or_pos: string | Readonly<Bind.interface_ImVec2>, pos_or_cond: Readonly<Bind.interface_ImVec2> | ImGuiCond = 0, cond: ImGuiCond = 0): void  => {
     if (typeof(name_or_pos) === "string") {
         bind.SetWindowNamePos(name_or_pos, pos_or_cond as Readonly<Bind.interface_ImVec2>, cond);
         return;
@@ -3090,28 +3090,28 @@ export function SetWindowPos(name_or_pos: string | Readonly<Bind.interface_ImVec
         bind.SetWindowPos(name_or_pos, pos_or_cond as ImGuiCond);
     }
 }
-export function SetWindowSize(name_or_size: string | Readonly<Bind.interface_ImVec2>, size_or_cond: Readonly<Bind.interface_ImVec2> | ImGuiCond = 0, cond: ImGuiCond = 0): void {
+export let SetWindowSize = (name_or_size: string | Readonly<Bind.interface_ImVec2>, size_or_cond: Readonly<Bind.interface_ImVec2> | ImGuiCond = 0, cond: ImGuiCond = 0): void  => {
     if (typeof(name_or_size) === "string") {
         bind.SetWindowNamePos(name_or_size, size_or_cond as Readonly<Bind.interface_ImVec2>, cond);
     } else {
         bind.SetWindowSize(name_or_size, size_or_cond as ImGuiCond);
     }
 }
-export function SetWindowCollapsed(name_or_collapsed: string | boolean, collapsed_or_cond: boolean | ImGuiCond = 0, cond: ImGuiCond = 0): void {
+export let SetWindowCollapsed = (name_or_collapsed: string | boolean, collapsed_or_cond: boolean | ImGuiCond = 0, cond: ImGuiCond = 0): void  => {
     if (typeof(name_or_collapsed) === "string") {
         bind.SetWindowNameCollapsed(name_or_collapsed, collapsed_or_cond as boolean, cond);
     } else {
         bind.SetWindowCollapsed(name_or_collapsed, collapsed_or_cond as ImGuiCond);
     }
 }
-export function SetWindowFocus(name?: string): void {
+export let SetWindowFocus = (name?: string): void  => {
     if (typeof(name) === "string") {
         bind.SetWindowNameFocus(name);
     } else {
         bind.SetWindowFocus();
     }
 }
-export function SetWindowFontScale(scale: number): void { bind.SetWindowFontScale(scale); }
+export let SetWindowFontScale = (scale: number): void  => { bind.SetWindowFontScale(scale); }
 
 // Content region
 // - Retrieve available space from a given point. GetContentRegionAvail() is frequently useful.
@@ -3121,11 +3121,11 @@ export function SetWindowFontScale(scale: number): void { bind.SetWindowFontScal
 // IMGUI_API ImVec2        GetWindowContentRegionMin();                                    // content boundaries min (roughly (0,0)-Scroll), in window coordinates
 // IMGUI_API ImVec2        GetWindowContentRegionMax();                                    // content boundaries max (roughly (0,0)+Size-Scroll) where Size can be override with SetNextWindowContentSize(), in window coordinates
 // IMGUI_API float         GetWindowContentRegionWidth();                                  //
-export function GetContentRegionAvail(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetContentRegionAvail(out); }
-export function GetContentRegionMax(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetContentRegionMax(out); }
-export function GetWindowContentRegionMin(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetWindowContentRegionMin(out); }
-export function GetWindowContentRegionMax(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetWindowContentRegionMax(out); }
-export function GetWindowContentRegionWidth(): number { return bind.GetWindowContentRegionWidth(); }
+export let GetContentRegionAvail(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetContentRegionAvail(out); }
+export let GetContentRegionMax(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetContentRegionMax(out); }
+export let GetWindowContentRegionMin(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetWindowContentRegionMin(out); }
+export let GetWindowContentRegionMax(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetWindowContentRegionMax(out); }
+export let GetWindowContentRegionWidth = (): number { return bind.GetWindowContentRegionWidth() => ; }
 
 // Windows Scrolling
 // IMGUI_API float         GetScrollX();                                                   // get scrolling amount [0 .. GetScrollMaxX()]
@@ -3138,16 +3138,16 @@ export function GetWindowContentRegionWidth(): number { return bind.GetWindowCon
 // IMGUI_API void          SetScrollHereY(float center_y_ratio = 0.5f);                    // adjust scrolling amount to make current cursor position visible. center_y_ratio=0.0: top, 0.5: center, 1.0: bottom. When using to make a "default/current item" visible, consider using SetItemDefaultFocus() instead.
 // IMGUI_API void          SetScrollFromPosX(float local_x, float center_x_ratio = 0.5f);  // adjust scrolling amount to make given position visible. Generally GetCursorStartPos() + offset to compute a valid position.
 // IMGUI_API void          SetScrollFromPosY(float local_y, float center_y_ratio = 0.5f);  // adjust scrolling amount to make given position visible. Generally GetCursorStartPos() + offset to compute a valid position.
-export function GetScrollX(): number { return bind.GetScrollX(); }
-export function GetScrollY(): number { return bind.GetScrollY(); }
-export function SetScrollX(scroll_x: number): void { bind.SetScrollX(scroll_x); }
-export function SetScrollY(scroll_y: number): void { bind.SetScrollY(scroll_y); }
-export function GetScrollMaxX(): number { return bind.GetScrollMaxX(); }
-export function GetScrollMaxY(): number { return bind.GetScrollMaxY(); }
-export function SetScrollHereX(center_x_ratio: number = 0.5): void { bind.SetScrollHereX(center_x_ratio); }
-export function SetScrollHereY(center_y_ratio: number = 0.5): void { bind.SetScrollHereY(center_y_ratio); }
-export function SetScrollFromPosX(pos_x: number, center_x_ratio: number = 0.5): void { bind.SetScrollFromPosX(pos_x, center_x_ratio); }
-export function SetScrollFromPosY(pos_y: number, center_y_ratio: number = 0.5): void { bind.SetScrollFromPosY(pos_y, center_y_ratio); }
+export let GetScrollX = (): number { return bind.GetScrollX() => ; }
+export let GetScrollY = (): number { return bind.GetScrollY() => ; }
+export let SetScrollX = (scroll_x: number): void  => { bind.SetScrollX(scroll_x); }
+export let SetScrollY = (scroll_y: number): void  => { bind.SetScrollY(scroll_y); }
+export let GetScrollMaxX = (): number { return bind.GetScrollMaxX() => ; }
+export let GetScrollMaxY = (): number { return bind.GetScrollMaxY() => ; }
+export let SetScrollHereX = (center_x_ratio: number = 0.5): void  => { bind.SetScrollHereX(center_x_ratio); }
+export let SetScrollHereY = (center_y_ratio: number = 0.5): void  => { bind.SetScrollHereY(center_y_ratio); }
+export let SetScrollFromPosX = (pos_x: number, center_x_ratio: number = 0.5): void  => { bind.SetScrollFromPosX(pos_x, center_x_ratio); }
+export let SetScrollFromPosY = (pos_y: number, center_y_ratio: number = 0.5): void  => { bind.SetScrollFromPosY(pos_y, center_y_ratio); }
 
 // Parameters stacks (shared)
 // IMGUI_API void          PushFont(ImFont* font);                                         // use NULL as a shortcut to push default font
@@ -3162,22 +3162,22 @@ export function SetScrollFromPosY(pos_y: number, center_y_ratio: number = 0.5): 
 // IMGUI_API void          PopAllowKeyboardFocus();
 // IMGUI_API void          PushButtonRepeat(bool repeat);                                  // in 'repeat' mode, Button*() functions return repeated true in a typematic manner (using io.KeyRepeatDelay/io.KeyRepeatRate setting). Note that you can call IsItemActive() after any Button() to tell if the button is held in the current frame.
 // IMGUI_API void          PopButtonRepeat();
-export function PushFont(font: ImFont | null): void { bind.PushFont(font ? font.native : null); }
-export function PopFont(): void { bind.PopFont(); }
-export function PushStyleColor(idx: ImGuiCol, col: Bind.ImU32 | Readonly<Bind.interface_ImVec4> | Readonly<ImColor>): void {
+export let PushFont = (font: ImFont | null): void  => { bind.PushFont(font ? font.native : null); }
+export let PopFont = (): void { bind.PopFont() => ; }
+export let PushStyleColor = (idx: ImGuiCol, col: Bind.ImU32 | Readonly<Bind.interface_ImVec4> | Readonly<ImColor>): void  => {
     if (col instanceof ImColor) {
         bind.PushStyleColor(idx, col.Value);
     } else {
         bind.PushStyleColor(idx, col as (Bind.ImU32 | Readonly<Bind.interface_ImVec4>));
     }
 }
-export function PopStyleColor(count: number = 1): void { bind.PopStyleColor(count); }
-export function PushStyleVar(idx: ImGuiStyleVar, val: number | Readonly<Bind.interface_ImVec2>): void { bind.PushStyleVar(idx, val); }
-export function PopStyleVar(count: number = 1): void { bind.PopStyleVar(count); }
-export function PushAllowKeyboardFocus(allow_keyboard_focus: boolean): void { bind.PushAllowKeyboardFocus(allow_keyboard_focus); }
-export function PopAllowKeyboardFocus(): void { bind.PopAllowKeyboardFocus(); }
-export function PushButtonRepeat(repeat: boolean): void { bind.PushButtonRepeat(repeat); }
-export function PopButtonRepeat(): void { bind.PopButtonRepeat(); }
+export let PopStyleColor = (count: number = 1): void  => { bind.PopStyleColor(count); }
+export let PushStyleVar = (idx: ImGuiStyleVar, val: number | Readonly<Bind.interface_ImVec2>): void  => { bind.PushStyleVar(idx, val); }
+export let PopStyleVar = (count: number = 1): void  => { bind.PopStyleVar(count); }
+export let PushAllowKeyboardFocus = (allow_keyboard_focus: boolean): void  => { bind.PushAllowKeyboardFocus(allow_keyboard_focus); }
+export let PopAllowKeyboardFocus = (): void { bind.PopAllowKeyboardFocus() => ; }
+export let PushButtonRepeat = (repeat: boolean): void  => { bind.PushButtonRepeat(repeat); }
+export let PopButtonRepeat = (): void { bind.PopButtonRepeat() => ; }
 
 // Parameters stacks (current window)
 // IMGUI_API void          PushItemWidth(float item_width);                                // push width of items for common large "item+label" widgets. >0.0f: width in pixels, <0.0f align xx pixels to the right of window (so -FLT_MIN always align width to the right side). 0.0f = default to ~2/3 of windows width,
@@ -3186,12 +3186,12 @@ export function PopButtonRepeat(): void { bind.PopButtonRepeat(); }
 // IMGUI_API float         CalcItemWidth();                                                // width of item given pushed settings and current cursor position. NOT necessarily the width of last item unlike most 'Item' functions.
 // IMGUI_API void          PushTextWrapPos(float wrap_local_pos_x = 0.0f);                 // push word-wrapping position for Text*() commands. < 0.0f: no wrapping; 0.0f: wrap to end of window (or column); > 0.0f: wrap at 'wrap_pos_x' position in window local space
 // IMGUI_API void          PopTextWrapPos();
-export function PushItemWidth(item_width: number): void { bind.PushItemWidth(item_width); }
-export function PopItemWidth(): void { bind.PopItemWidth(); }
-export function SetNextItemWidth(item_width: number): void { bind.SetNextItemWidth(item_width); } // set width of the _next_ common large "item+label" widget. >0.0f: width in pixels, <0.0f align xx pixels to the right of window (so -1.0f always align width to the right side)
-export function CalcItemWidth(): number { return bind.CalcItemWidth(); }
-export function PushTextWrapPos(wrap_pos_x: number = 0.0): void { bind.PushTextWrapPos(wrap_pos_x); }
-export function PopTextWrapPos(): void { bind.PopTextWrapPos(); }
+export let PushItemWidth = (item_width: number): void  => { bind.PushItemWidth(item_width); }
+export let PopItemWidth = (): void { bind.PopItemWidth() => ; }
+export let SetNextItemWidth = (item_width: number): void  => { bind.SetNextItemWidth(item_width); } // set width of the _next_ common large "item+label" widget. >0.0f: width in pixels, <0.0f align xx pixels to the right of window (so -1.0f always align width to the right side)
+export let CalcItemWidth = (): number { return bind.CalcItemWidth() => ; }
+export let PushTextWrapPos = (wrap_pos_x: number = 0.0): void  => { bind.PushTextWrapPos(wrap_pos_x); }
+export let PopTextWrapPos = (): void { bind.PopTextWrapPos() => ; }
 
 // Style read access
 // IMGUI_API ImFont*       GetFont();                                                      // get current font
@@ -3201,13 +3201,13 @@ export function PopTextWrapPos(): void { bind.PopTextWrapPos(); }
 // IMGUI_API ImU32         GetColorU32(const ImVec4& col);                                 // retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList
 // IMGUI_API ImU32         GetColorU32(ImU32 col);                                         // retrieve given color with style alpha applied, packed as a 32-bit value suitable for ImDrawList
 // IMGUI_API const ImVec4& GetStyleColorVec4(ImGuiCol idx);                                // retrieve style color as stored in ImGuiStyle structure. use to feed back into PushStyleColor(), otherwise use GetColorU32() to get style color with style alpha baked in.
-export function GetFont(): ImFont { return new ImFont(bind.GetFont()); }
-export function GetFontSize(): number { return bind.GetFontSize(); }
-export function GetFontTexUvWhitePixel(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetFontTexUvWhitePixel(out); }
-export function GetColorU32(idx: ImGuiCol, alpha_mul?: number): Bind.ImU32;
-export function GetColorU32(col: Readonly<Bind.interface_ImVec4>): Bind.ImU32;
-export function GetColorU32(col: Bind.ImU32): Bind.ImU32;
-export function GetColorU32(...args: any[]): Bind.ImU32 {
+export let GetFont(): ImFont { return new ImFont(bind.GetFont = ()) => ; }
+export let GetFontSize = (): number { return bind.GetFontSize() => ; }
+export let GetFontTexUvWhitePixel(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetFontTexUvWhitePixel(out); }
+export let GetColorU32 = (idx: ImGuiCol, alpha_mul?: number) => : Bind.ImU32;
+export let GetColorU32 = (col: Readonly<Bind.interface_ImVec4>) => : Bind.ImU32;
+export let GetColorU32 = (col: Bind.ImU32) => : Bind.ImU32;
+export let GetColorU32 = (...args: any[]): Bind.ImU32  => {
     if (args.length === 1) {
         if (typeof(args[0]) === "number") {
             if (0 <= args[0] && args[0] < ImGuiCol.COUNT) {
@@ -3228,7 +3228,7 @@ export function GetColorU32(...args: any[]): Bind.ImU32 {
         return bind.GetColorU32_A(idx, alpha_mul);
     }
 }
-export function GetStyleColorVec4(idx: ImGuiCol): Readonly<Bind.reference_ImVec4> { return bind.GetStyleColorVec4(idx); }
+export let GetStyleColorVec4 = (idx: ImGuiCol): Readonly<Bind.reference_ImVec4>  => { return bind.GetStyleColorVec4(idx); }
 
 // Cursor / Layout
 // - By "cursor" we mean the current output position.
@@ -3260,29 +3260,29 @@ export function GetStyleColorVec4(idx: ImGuiCol): Readonly<Bind.reference_ImVec4
 // IMGUI_API float         GetTextLineHeightWithSpacing();                                 // ~ FontSize + style.ItemSpacing.y (distance in pixels between 2 consecutive lines of text)
 // IMGUI_API float         GetFrameHeight();                                               // ~ FontSize + style.FramePadding.y * 2
 // IMGUI_API float         GetFrameHeightWithSpacing();                                    // ~ FontSize + style.FramePadding.y * 2 + style.ItemSpacing.y (distance in pixels between 2 consecutive lines of framed widgets)
-export function Separator(): void { bind.Separator(); }
-export function SameLine(pos_x: number = 0.0, spacing_w: number = -1.0): void { bind.SameLine(pos_x, spacing_w); }
-export function NewLine(): void { bind.NewLine(); }
-export function Spacing(): void { bind.Spacing(); }
-export function Dummy(size: Readonly<Bind.interface_ImVec2>): void { bind.Dummy(size); }
-export function Indent(indent_w: number = 0.0) { bind.Indent(indent_w); }
-export function Unindent(indent_w: number = 0.0) { bind.Unindent(indent_w); }
-export function BeginGroup(): void { bind.BeginGroup(); }
-export function EndGroup(): void { bind.EndGroup(); }
-export function GetCursorPos(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetCursorPos(out); }
-export function GetCursorPosX(): number { return bind.GetCursorPosX(); }
-export function GetCursorPosY(): number { return bind.GetCursorPosY(); }
-export function SetCursorPos(local_pos: Readonly<Bind.interface_ImVec2>): void { bind.SetCursorPos(local_pos); }
-export function SetCursorPosX(x: number): void { bind.SetCursorPosX(x); }
-export function SetCursorPosY(y: number): void { bind.SetCursorPosY(y); }
-export function GetCursorStartPos(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetCursorStartPos(out); }
-export function GetCursorScreenPos(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetCursorScreenPos(out); }
-export function SetCursorScreenPos(pos: Readonly<Bind.interface_ImVec2>): void { bind.SetCursorScreenPos(pos); }
-export function AlignTextToFramePadding(): void { bind.AlignTextToFramePadding(); }
-export function GetTextLineHeight(): number { return bind.GetTextLineHeight(); }
-export function GetTextLineHeightWithSpacing(): number { return bind.GetTextLineHeightWithSpacing(); }
-export function GetFrameHeight(): number { return bind.GetFrameHeight(); }
-export function GetFrameHeightWithSpacing(): number { return bind.GetFrameHeightWithSpacing(); }
+export let Separator = (): void { bind.Separator() => ; }
+export let SameLine = (pos_x: number = 0.0, spacing_w: number = -1.0): void  => { bind.SameLine(pos_x, spacing_w); }
+export let NewLine = (): void { bind.NewLine() => ; }
+export let Spacing = (): void { bind.Spacing() => ; }
+export let Dummy = (size: Readonly<Bind.interface_ImVec2>): void  => { bind.Dummy(size); }
+export let Indent(indent_w: number = 0.0) { bind.Indent = (indent_w) => ; }
+export let Unindent(indent_w: number = 0.0) { bind.Unindent = (indent_w) => ; }
+export let BeginGroup = (): void { bind.BeginGroup() => ; }
+export let EndGroup = (): void { bind.EndGroup() => ; }
+export let GetCursorPos(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetCursorPos(out); }
+export let GetCursorPosX = (): number { return bind.GetCursorPosX() => ; }
+export let GetCursorPosY = (): number { return bind.GetCursorPosY() => ; }
+export let SetCursorPos = (local_pos: Readonly<Bind.interface_ImVec2>): void  => { bind.SetCursorPos(local_pos); }
+export let SetCursorPosX = (x: number): void  => { bind.SetCursorPosX(x); }
+export let SetCursorPosY = (y: number): void  => { bind.SetCursorPosY(y); }
+export let GetCursorStartPos(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetCursorStartPos(out); }
+export let GetCursorScreenPos(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetCursorScreenPos(out); }
+export let SetCursorScreenPos = (pos: Readonly<Bind.interface_ImVec2>): void  => { bind.SetCursorScreenPos(pos); }
+export let AlignTextToFramePadding = (): void { bind.AlignTextToFramePadding() => ; }
+export let GetTextLineHeight = (): number { return bind.GetTextLineHeight() => ; }
+export let GetTextLineHeightWithSpacing = (): number { return bind.GetTextLineHeightWithSpacing() => ; }
+export let GetFrameHeight = (): number { return bind.GetFrameHeight() => ; }
+export let GetFrameHeightWithSpacing = (): number { return bind.GetFrameHeightWithSpacing() => ; }
 
 // ID stack/scopes
 // - Read the FAQ for more details about how ID are handled in dear imgui. If you are creating widgets in a loop you most
@@ -3299,9 +3299,9 @@ export function GetFrameHeightWithSpacing(): number { return bind.GetFrameHeight
 // IMGUI_API ImGuiID       GetID(const char* str_id);                                      // calculate unique ID (hash of whole ID stack + given parameter). e.g. if you want to query into ImGuiStorage yourself
 // IMGUI_API ImGuiID       GetID(const char* str_id_begin, const char* str_id_end);
 // IMGUI_API ImGuiID       GetID(const void* ptr_id);
-export function PushID(id: string | number): void { bind.PushID(id); }
-export function PopID(): void { bind.PopID(); }
-export function GetID(id: string | number): ImGuiID { return bind.GetID(id); }
+export let PushID = (id: string | number): void  => { bind.PushID(id); }
+export let PopID = (): void { bind.PopID() => ; }
+export let GetID = (id: string | number): ImGuiID  => { return bind.GetID(id); }
 
 // Widgets: Text
 // IMGUI_API void          TextUnformatted(const char* text, const char* text_end = NULL); // raw text without formatting. Roughly equivalent to Text("%s", text) but: A) doesn't require null terminated string if 'text_end' is specified, B) it's faster, no memory copy is done, no buffer size limits, recommended for long chunks of text.
@@ -3317,13 +3317,13 @@ export function GetID(id: string | number): ImGuiID { return bind.GetID(id); }
 // IMGUI_API void          LabelTextV(const char* label, const char* fmt, va_list args)    IM_FMTLIST(2);
 // IMGUI_API void          BulletText(const char* fmt, ...)                                IM_FMTARGS(1); // shortcut for Bullet()+Text()
 // IMGUI_API void          BulletTextV(const char* fmt, va_list args)                      IM_FMTLIST(1);
-export function TextUnformatted(text: string, text_end: number | null = null): void { bind.TextUnformatted(text_end !== null ? text.substring(0, text_end) : text); }
-export function Text(text: string): void { bind.Text(text); }
-export function TextColored(col: Readonly<Bind.interface_ImVec4> | Readonly<ImColor>, text: string): void { bind.TextColored((col instanceof ImColor) ? col.Value : col as Readonly<Bind.interface_ImVec4>, text); }
-export function TextDisabled(text: string): void { bind.TextDisabled(text); }
-export function TextWrapped(text: string): void { bind.TextWrapped(text); }
-export function LabelText(label: string, text: string): void { bind.LabelText(label, text); }
-export function BulletText(text: string): void { bind.BulletText(text); }
+export let TextUnformatted = (text: string, text_end: number | null = null): void  => { bind.TextUnformatted(text_end !== null ? text.substring(0, text_end) : text); }
+export let Text = (text: string): void  => { bind.Text(text); }
+export let TextColored = (col: Readonly<Bind.interface_ImVec4> | Readonly<ImColor>, text: string): void  => { bind.TextColored((col instanceof ImColor) ? col.Value : col as Readonly<Bind.interface_ImVec4>, text); }
+export let TextDisabled = (text: string): void  => { bind.TextDisabled(text); }
+export let TextWrapped = (text: string): void  => { bind.TextWrapped(text); }
+export let LabelText = (label: string, text: string): void  => { bind.LabelText(label, text); }
+export let BulletText = (text: string): void  => { bind.BulletText(text); }
 
 // Widgets: Main
 // - Most widgets return true when the value has been changed or when pressed/selected
@@ -3341,17 +3341,17 @@ export function BulletText(text: string): void { bind.BulletText(text); }
 // IMGUI_API bool          RadioButton(const char* label, int* v, int v_button);           // shortcut to handle the above pattern when value is an integer
 // IMGUI_API void          ProgressBar(float fraction, const ImVec2& size_arg = ImVec2(-FLT_MIN, 0), const char* overlay = NULL);
 // IMGUI_API void          Bullet();                                                       // draw a small circle + keep the cursor on the same line. advance cursor x position by GetTreeNodeToLabelSpacing(), same distance that TreeNode() uses
-export function Button(label: string, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): boolean { return bind.Button(label, size); }
-export function SmallButton(label: string): boolean { return bind.SmallButton(label); }
-export function ArrowButton(str_id: string, dir: ImGuiDir): boolean { return bind.ArrowButton(str_id, dir); }
-export function InvisibleButton(str_id: string, size: Readonly<Bind.interface_ImVec2>, flags: ImGuiButtonFlags = 0): boolean { return bind.InvisibleButton(str_id, size, flags); }
-export function Image(user_texture_id: ImTextureID | null, size: Readonly<Bind.interface_ImVec2>, uv0: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, uv1: Readonly<Bind.interface_ImVec2> = ImVec2.UNIT, tint_col: Readonly<Bind.interface_ImVec4> = ImVec4.WHITE, border_col: Readonly<Bind.interface_ImVec4> = ImVec4.ZERO): void {
+export let Button = (label: string, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): boolean  => { return bind.Button(label, size); }
+export let SmallButton = (label: string): boolean  => { return bind.SmallButton(label); }
+export let ArrowButton = (str_id: string, dir: ImGuiDir): boolean  => { return bind.ArrowButton(str_id, dir); }
+export let InvisibleButton = (str_id: string, size: Readonly<Bind.interface_ImVec2>, flags: ImGuiButtonFlags = 0): boolean  => { return bind.InvisibleButton(str_id, size, flags); }
+export let Image = (user_texture_id: ImTextureID | null, size: Readonly<Bind.interface_ImVec2>, uv0: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, uv1: Readonly<Bind.interface_ImVec2> = ImVec2.UNIT, tint_col: Readonly<Bind.interface_ImVec4> = ImVec4.WHITE, border_col: Readonly<Bind.interface_ImVec4> = ImVec4.ZERO): void  => {
     bind.Image(ImGuiContext.setTexture(user_texture_id), size, uv0, uv1, tint_col, border_col);
 }
-export function ImageButton(user_texture_id: ImTextureID | null, size: Readonly<Bind.interface_ImVec2> = new ImVec2(Number.MIN_SAFE_INTEGER, 0), uv0: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, uv1: Readonly<Bind.interface_ImVec2> = ImVec2.UNIT, frame_padding: number = -1, bg_col: Readonly<Bind.interface_ImVec4> = ImVec4.ZERO, tint_col: Readonly<Bind.interface_ImVec4> = ImVec4.WHITE): boolean {
+export let ImageButton(user_texture_id: ImTextureID | null, size: Readonly<Bind.interface_ImVec2> = new ImVec2 = (Number.MIN_SAFE_INTEGER, 0), uv0: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, uv1: Readonly<Bind.interface_ImVec2> = ImVec2.UNIT, frame_padding: number = -1, bg_col: Readonly<Bind.interface_ImVec4> = ImVec4.ZERO, tint_col: Readonly<Bind.interface_ImVec4> = ImVec4.WHITE): boolean  => {
     return bind.ImageButton(ImGuiContext.setTexture(user_texture_id), size, uv0, uv1, frame_padding, bg_col, tint_col);
 }
-export function Checkbox(label: string, v: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>): boolean {
+export let Checkbox = (label: string, v: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>): boolean  => {
     if (Array.isArray(v)) {
         return bind.Checkbox(label, v);
     } else {
@@ -3361,7 +3361,7 @@ export function Checkbox(label: string, v: Bind.ImScalar<boolean> | Bind.ImAcces
         return ret;
     }
 }
-export function CheckboxFlags(label: string, flags: Bind.ImAccess<number> | Bind.ImScalar<number>, flags_value: number): boolean {
+export let CheckboxFlags = (label: string, flags: Bind.ImAccess<number> | Bind.ImScalar<number>, flags_value: number): boolean  => {
     if (Array.isArray(flags)) {
         return bind.CheckboxFlags(label, flags, flags_value);
     } else {
@@ -3371,9 +3371,9 @@ export function CheckboxFlags(label: string, flags: Bind.ImAccess<number> | Bind
         return ret;
     }
 }
-export function RadioButton(label: string, active: boolean): boolean;
-export function RadioButton(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number>, v_button: number): boolean;
-export function RadioButton(label: string, ...args: any[]): boolean {
+export let RadioButton = (label: string, active: boolean) => : boolean;
+export let RadioButton = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number>, v_button: number) => : boolean;
+export let RadioButton = (label: string, ...args: any[]): boolean  => {
     if (typeof(args[0]) === "boolean") {
         const active: boolean = args[0];
         return bind.RadioButton_A(label, active);
@@ -3386,10 +3386,10 @@ export function RadioButton(label: string, ...args: any[]): boolean {
         return ret;
     }
 }
-export function ProgressBar(fraction: number, size_arg: Readonly<Bind.interface_ImVec2> = new ImVec2(-1, 0), overlay: string | null = null): void {
+export let ProgressBar(fraction: number, size_arg: Readonly<Bind.interface_ImVec2> = new ImVec2 = (-1, 0), overlay: string | null = null): void  => {
     bind.ProgressBar(fraction, size_arg, overlay);
 }
-export function Bullet(): void { bind.Bullet(); }
+export let Bullet = (): void { bind.Bullet() => ; }
 
 // Widgets: Combo Box
 // - The BeginCombo()/EndCombo() api allows you to manage your contents and selection state however you want it, by creating e.g. Selectable() items.
@@ -3399,13 +3399,13 @@ export function Bullet(): void { bind.Bullet(); }
 // IMGUI_API bool          Combo(const char* label, int* current_item, const char* const items[], int items_count, int popup_max_height_in_items = -1);
 // IMGUI_API bool          Combo(const char* label, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items = -1);      // Separate items with \0 within a string, end item-list with \0\0. e.g. "One\0Two\0Three\0"
 // IMGUI_API bool          Combo(const char* label, int* current_item, bool(*items_getter)(void* data, int idx, const char** out_text), void* data, int items_count, int popup_max_height_in_items = -1);
-export function BeginCombo(label: string, preview_value: string | null = null, flags: ImGuiComboFlags = 0): boolean { return bind.BeginCombo(label, preview_value, flags); }
-export function EndCombo(): void { bind.EndCombo(); }
+export let BeginCombo = (label: string, preview_value: string | null = null, flags: ImGuiComboFlags = 0): boolean  => { return bind.BeginCombo(label, preview_value, flags); }
+export let EndCombo = (): void { bind.EndCombo() => ; }
 export type ComboValueGetter<T> = (data: T, idx: number, out_text: [string]) => boolean;
-export function Combo(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items: string[], items_count?: number, popup_max_height_in_items?: number): boolean;
-export function Combo(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_separated_by_zeros: string, popup_max_height_in_items?: number): boolean;
-export function Combo<T>(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_getter: ComboValueGetter<T>, data: T, items_count: number, popup_max_height_in_items?: number): boolean;
-export function Combo<T>(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, ...args: any[]): boolean {
+export let Combo = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items: string[], items_count?: number, popup_max_height_in_items?: number) => : boolean;
+export let Combo = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_separated_by_zeros: string, popup_max_height_in_items?: number) => : boolean;
+export let Combo<T> = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_getter: ComboValueGetter<T>, data: T, items_count: number, popup_max_height_in_items?: number) => : boolean;
+export let Combo<T> = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, ...args: any[]): boolean  => {
     let ret = false;
     const _current_item: Bind.ImScalar<number> = Array.isArray(current_item) ? current_item : [ current_item() ];
     if (Array.isArray(args[0])) {
@@ -3455,31 +3455,31 @@ export function Combo<T>(label: string, current_item: Bind.ImAccess<number> | Bi
 // IMGUI_API bool          DragIntRange2(const char* label, int* v_current_min, int* v_current_max, float v_speed = 1.0f, int v_min = 0, int v_max = 0, const char* format = "%d", const char* format_max = NULL, ImGuiSliderFlags flags = 0);
 // IMGUI_API bool          DragScalar(const char* label, ImGuiDataType data_type, void* p_data, float v_speed, const void* p_min = NULL, const void* p_max = NULL, const char* format = NULL, ImGuiSliderFlags flags = 0);
 // IMGUI_API bool          DragScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, float v_speed, const void* p_min = NULL, const void* p_max = NULL, const char* format = NULL, ImGuiSliderFlags flags = 0);
-export function DragFloat(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string | null = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let DragFloat = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string | null = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.DragFloat(label, _v, v_speed, v_min, v_max, display_format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function DragFloat2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | ImVec2, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let DragFloat2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | ImVec2, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.DragFloat2(label, _v, v_speed, v_min, v_max, display_format, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function DragFloat3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let DragFloat3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.DragFloat3(label, _v, v_speed, v_min, v_max, display_format, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function DragFloat4(label: string, v: XYZW | Bind.ImTuple4<number> | ImVec4, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let DragFloat4 = (label: string, v: XYZW | Bind.ImTuple4<number> | ImVec4, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.DragFloat4(label, _v, v_speed, v_min, v_max, display_format, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function DragFloatRange2(label: string, v_current_min: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_current_max: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", display_format_max: string | null = null, flags: ImGuiSliderFlags = 0): boolean {
+export let DragFloatRange2 = (label: string, v_current_min: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_current_max: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0.0, v_max: number = 0.0, display_format: string = "%.3f", display_format_max: string | null = null, flags: ImGuiSliderFlags = 0): boolean  => {
     const _v_current_min = import_Scalar(v_current_min);
     const _v_current_max = import_Scalar(v_current_max);
     const ret = bind.DragFloatRange2(label, _v_current_min, _v_current_max, v_speed, v_min, v_max, display_format, display_format_max, flags);
@@ -3487,31 +3487,31 @@ export function DragFloatRange2(label: string, v_current_min: Bind.ImAccess<numb
     export_Scalar(_v_current_max, v_current_max);
     return ret;
 }
-export function DragInt(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let DragInt = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.DragInt(label, _v, v_speed, v_min, v_max, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function DragInt2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let DragInt2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.DragInt2(label, _v, v_speed, v_min, v_max, format, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function DragInt3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let DragInt3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.DragInt3(label, _v, v_speed, v_min, v_max, format, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function DragInt4(label: string, v: XYZW | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let DragInt4 = (label: string, v: XYZW | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.DragInt4(label, _v, v_speed, v_min, v_max, format, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function DragIntRange2(label: string, v_current_min: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_current_max: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", format_max: string | null = null, flags: ImGuiSliderFlags = 0): boolean {
+export let DragIntRange2 = (label: string, v_current_min: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_current_max: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_speed: number = 1.0, v_min: number = 0, v_max: number = 0, format: string = "%d", format_max: string | null = null, flags: ImGuiSliderFlags = 0): boolean  => {
     const _v_current_min = import_Scalar(v_current_min);
     const _v_current_max = import_Scalar(v_current_max);
     const ret = bind.DragIntRange2(label, _v_current_min, _v_current_max, v_speed, v_min, v_max, format, format_max, flags);
@@ -3519,7 +3519,7 @@ export function DragIntRange2(label: string, v_current_min: Bind.ImAccess<number
     export_Scalar(_v_current_max, v_current_max);
     return ret;
 }
-export function DragScalar(label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, v_speed: number, v_min: number | null = null, v_max: number | null = null, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean {
+export let DragScalar = (label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, v_speed: number, v_min: number | null = null, v_max: number | null = null, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean  => {
     if (v instanceof Int8Array) { return bind.DragScalar(label, ImGuiDataType.S8, v, v_speed, v_min, v_max, format, flags); }
     if (v instanceof Uint8Array) { return bind.DragScalar(label, ImGuiDataType.U8, v, v_speed, v_min, v_max, format, flags); }
     if (v instanceof Int16Array) { return bind.DragScalar(label, ImGuiDataType.S16, v, v_speed, v_min, v_max, format, flags); }
@@ -3553,37 +3553,37 @@ export function DragScalar(label: string, v: Int8Array | Uint8Array | Int16Array
 // IMGUI_API bool          VSliderFloat(const char* label, const ImVec2& size, float* v, float v_min, float v_max, const char* format = "%.3f", ImGuiSliderFlags flags = 0);
 // IMGUI_API bool          VSliderInt(const char* label, const ImVec2& size, int* v, int v_min, int v_max, const char* format = "%d", ImGuiSliderFlags flags = 0);
 // IMGUI_API bool          VSliderScalar(const char* label, const ImVec2& size, ImGuiDataType data_type, void* p_data, const void* p_min, const void* p_max, const char* format = NULL, ImGuiSliderFlags flags = 0);
-export function SliderFloat(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderFloat = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.SliderFloat(label, _v, v_min, v_max, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function SliderFloat2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec2, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderFloat2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec2, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.SliderFloat2(label, _v, v_min, v_max, format, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function SliderFloat3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderFloat3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.SliderFloat3(label, _v, v_min, v_max, format, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function SliderFloat4(label: string, v: XYZW | Bind.ImTuple4<number> | XYZW, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderFloat4 = (label: string, v: XYZW | Bind.ImTuple4<number> | XYZW, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.SliderFloat4(label, _v, v_min, v_max, format, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function SliderAngle(label: string, v_rad: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_degrees_min: number = -360.0, v_degrees_max: number = +360.0, format: string = "%.0f deg", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderAngle = (label: string, v_rad: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_degrees_min: number = -360.0, v_degrees_max: number = +360.0, format: string = "%.0f deg", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v_rad = import_Scalar(v_rad);
     const ret = bind.SliderAngle(label, _v_rad, v_degrees_min, v_degrees_max, format, flags);
     export_Scalar(_v_rad, v_rad);
     return ret;
 }
-export function SliderAngle3(label: string, v_rad: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_degrees_min: number = -360.0, v_degrees_max: number = +360.0, format: string = "%.0f deg", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderAngle3 = (label: string, v_rad: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_degrees_min: number = -360.0, v_degrees_max: number = +360.0, format: string = "%.0f deg", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v_rad = import_Vector3(v_rad);
     _v_rad[0] = Math.floor(_v_rad[0] * 180 / Math.PI);
     _v_rad[1] = Math.floor(_v_rad[1] * 180 / Math.PI);
@@ -3595,31 +3595,31 @@ export function SliderAngle3(label: string, v_rad: XYZ | XYZW | Bind.ImTuple3<nu
     export_Vector3(_v_rad, v_rad);
     return ret;
 }
-export function SliderInt(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderInt = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.SliderInt(label, _v, v_min, v_max, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function SliderInt2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderInt2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.SliderInt2(label, _v, v_min, v_max, format, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function SliderInt3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderInt3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.SliderInt3(label, _v, v_min, v_max, format, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function SliderInt4(label: string, v: XYZW | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let SliderInt4 = (label: string, v: XYZW | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.SliderInt4(label, _v, v_min, v_max, format, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function SliderScalar(label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, v_min: number, v_max: number, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean {
+export let SliderScalar = (label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, v_min: number, v_max: number, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean  => {
     if (v instanceof Int8Array) { return bind.SliderScalar(label, ImGuiDataType.S8, v, v_min, v_max, format, flags); }
     if (v instanceof Uint8Array) { return bind.SliderScalar(label, ImGuiDataType.U8, v, v_min, v_max, format, flags); }
     if (v instanceof Int16Array) { return bind.SliderScalar(label, ImGuiDataType.S16, v, v_min, v_max, format, flags); }
@@ -3632,19 +3632,19 @@ export function SliderScalar(label: string, v: Int8Array | Uint8Array | Int16Arr
     if (v instanceof Float64Array) { return bind.SliderScalar(label, ImGuiDataType.Double, v, v_min, v_max, format, flags); }
     throw new Error();
 }
-export function VSliderFloat(label: string, size: Readonly<Bind.interface_ImVec2>, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean {
+export let VSliderFloat = (label: string, size: Readonly<Bind.interface_ImVec2>, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%.3f", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.VSliderFloat(label, size, _v, v_min, v_max, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function VSliderInt(label: string, size: Readonly<Bind.interface_ImVec2>, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean {
+export let VSliderInt = (label: string, size: Readonly<Bind.interface_ImVec2>, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, v_min: number, v_max: number, format: string = "%d", flags: ImGuiSliderFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.VSliderInt(label, size, _v, v_min, v_max, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function VSliderScalar(label: string, size: Readonly<Bind.interface_ImVec2>, data_type: ImGuiDataType, v: Bind.ImAccess<number> | Bind.ImScalar<number>, v_min: number, v_max: number, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean {
+export let VSliderScalar = (label: string, size: Readonly<Bind.interface_ImVec2>, data_type: ImGuiDataType, v: Bind.ImAccess<number> | Bind.ImScalar<number>, v_min: number, v_max: number, format: string | null = null, flags: ImGuiSliderFlags = 0): boolean  => {
     if (v instanceof Int8Array) { return bind.VSliderScalar(label, size, ImGuiDataType.S8, v, v_min, v_max, format, flags); }
     if (v instanceof Uint8Array) { return bind.VSliderScalar(label, size, ImGuiDataType.U8, v, v_min, v_max, format, flags); }
     if (v instanceof Int16Array) { return bind.VSliderScalar(label, size, ImGuiDataType.S16, v, v_min, v_max, format, flags); }
@@ -3675,7 +3675,7 @@ export function VSliderScalar(label: string, size: Readonly<Bind.interface_ImVec
 // IMGUI_API bool          InputDouble(const char* label, double* v, double step = 0.0, double step_fast = 0.0, const char* format = "%.6f", ImGuiInputTextFlags flags = 0);
 // IMGUI_API bool          InputScalar(const char* label, ImGuiDataType data_type, void* p_data, const void* p_step = NULL, const void* p_step_fast = NULL, const char* format = NULL, ImGuiInputTextFlags flags = 0);
 // IMGUI_API bool          InputScalarN(const char* label, ImGuiDataType data_type, void* p_data, int components, const void* p_step = NULL, const void* p_step_fast = NULL, const char* format = NULL, ImGuiInputTextFlags flags = 0);
-export function InputText<T>(label: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean {
+export let InputText<T> = (label: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean  => {
     let ret:boolean=false;
     let text:string;
     const _callback = callback && ((data: Bind.reference_ImGuiInputTextCallbackData): number => callback(new ImGuiInputTextCallbackData<T>(data, user_data))) || null;
@@ -3695,7 +3695,7 @@ export function InputText<T>(label: string, buf: ImStringBuffer | Bind.ImAccess<
     }
     return ret;
 }
-export function InputTextMultiline<T>(label: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean {
+export let InputTextMultiline<T> = (label: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean  => {
     let ret:boolean=false;
     let text:string;
 
@@ -3716,7 +3716,7 @@ export function InputTextMultiline<T>(label: string, buf: ImStringBuffer | Bind.
     }
     return ret;
 }
-export function InputTextWithHint<T>(label: string, hint: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean {
+export let InputTextWithHint<T> = (label: string, hint: string, buf: ImStringBuffer | Bind.ImAccess<string> | Bind.ImScalar<string>, buf_size: number = buf instanceof ImStringBuffer ? buf.size : ImGuiInputTextDefaultSize, flags: ImGuiInputTextFlags = 0, callback: ImGuiInputTextCallback<T> | null = null, user_data: T | null = null): boolean  => {
     let ret:boolean=false;
     let text:string;
 
@@ -3737,61 +3737,61 @@ export function InputTextWithHint<T>(label: string, hint: string, buf: ImStringB
     }
     return ret;
 }
-export function InputFloat(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 0.0, step_fast: number = 0.0, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean {
+export let InputFloat = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 0.0, step_fast: number = 0.0, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.InputFloat(label, _v, step, step_fast, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function InputFloat2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean {
+export let InputFloat2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.InputFloat2(label, _v, format, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function InputFloat3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean {
+export let InputFloat3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.InputFloat3(label, _v, format, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function InputFloat4(label: string, v: XYZW | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean {
+export let InputFloat4 = (label: string, v: XYZW | Bind.ImTuple4<number>, format: string = "%.3f", flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.InputFloat4(label, _v, format, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function InputInt(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 1, step_fast: number = 100, flags: ImGuiInputTextFlags = 0): boolean {
+export let InputInt = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 1, step_fast: number = 100, flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.InputInt(label, _v, step, step_fast, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function InputInt2(label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean {
+export let InputInt2 = (label: string, v: XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector2(v);
     const ret = bind.InputInt2(label, _v, flags);
     export_Vector2(_v, v);
     return ret;
 }
-export function InputInt3(label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean {
+export let InputInt3 = (label: string, v: XYZ | XYZW | Bind.ImTuple3<number> | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector3(v);
     const ret = bind.InputInt3(label, _v, flags);
     export_Vector3(_v, v);
     return ret;
 }
-export function InputInt4(label: string, v: XYZW | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean {
+export let InputInt4 = (label: string, v: XYZW | Bind.ImTuple4<number>, flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Vector4(v);
     const ret = bind.InputInt4(label, _v, flags);
     export_Vector4(_v, v);
     return ret;
 }
-export function InputDouble(label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 0.0, step_fast: number = 0.0, format: string = "%.6f", flags: ImGuiInputTextFlags = 0): boolean {
+export let InputDouble = (label: string, v: Bind.ImAccess<number> | Bind.ImScalar<number> | XY | XYZ | XYZW | Bind.ImTuple2<number> | Bind.ImTuple3<number> | Bind.ImTuple4<number>, step: number = 0.0, step_fast: number = 0.0, format: string = "%.6f", flags: ImGuiInputTextFlags = 0): boolean  => {
     const _v = import_Scalar(v);
     const ret = bind.InputDouble(label, _v, step, step_fast, format, flags);
     export_Scalar(_v, v);
     return ret;
 }
-export function InputScalar(label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, step: number | null = null, step_fast: number | null = null, format: string | null = null, flags: ImGuiInputTextFlags = 0): boolean {
+export let InputScalar = (label: string, v: Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array, step: number | null = null, step_fast: number | null = null, format: string | null = null, flags: ImGuiInputTextFlags = 0): boolean  => {
     if (v instanceof Int8Array) { return bind.InputScalar(label, ImGuiDataType.S8, v, step, step_fast, format, flags); }
     if (v instanceof Uint8Array) { return bind.InputScalar(label, ImGuiDataType.U8, v, step, step_fast, format, flags); }
     if (v instanceof Int16Array) { return bind.InputScalar(label, ImGuiDataType.S16, v, step, step_fast, format, flags); }
@@ -3814,25 +3814,25 @@ export function InputScalar(label: string, v: Int8Array | Uint8Array | Int16Arra
 // IMGUI_API bool          ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags flags = 0, const float* ref_col = NULL);
 // IMGUI_API bool          ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags = 0, ImVec2 size = ImVec2(0, 0)); // display a color square/button, hover for details, return true when pressed.
 // IMGUI_API void          SetColorEditOptions(ImGuiColorEditFlags flags);                     // initialize current options (generally on application startup) if you want to select a default format, picker type, etc. User will be able to change many settings, unless you pass the _NoOptions flag to your calls.
-export function ColorEdit3(label: string, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean {
+export let ColorEdit3 = (label: string, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean  => {
     const _col = import_Color3(col);
     const ret = bind.ColorEdit3(label, _col, flags);
     export_Color3(_col, col);
     return ret;
 }
-export function ColorEdit4(label: string, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean {
+export let ColorEdit4 = (label: string, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean  => {
     const _col = import_Color4(col);
     const ret = bind.ColorEdit4(label, _col, flags);
     export_Color4(_col, col);
     return ret;
 }
-export function ColorPicker3(label: string, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean {
+export let ColorPicker3 = (label: string, col: RGB | RGBA | Bind.ImTuple3<number> | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0): boolean  => {
     const _col = import_Color3(col);
     const ret = bind.ColorPicker3(label, _col, flags);
     export_Color3(_col, col);
     return ret;
 }
-export function ColorPicker4(label: string, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0, ref_col: Bind.ImTuple4<number> | Bind.interface_ImVec4 | null = null): boolean {
+export let ColorPicker4 = (label: string, col: RGBA | Bind.ImTuple4<number> | Bind.interface_ImVec4, flags: ImGuiColorEditFlags = 0, ref_col: Bind.ImTuple4<number> | Bind.interface_ImVec4 | null = null): boolean  => {
     const _col = import_Color4(col);
     const _ref_col = ref_col ? import_Color4(ref_col) : null;
     const ret = bind.ColorPicker4(label, _col, flags, _ref_col);
@@ -3840,10 +3840,10 @@ export function ColorPicker4(label: string, col: RGBA | Bind.ImTuple4<number> | 
     if (_ref_col && ref_col) { export_Color4(_ref_col, ref_col); }
     return ret;
 }
-export function ColorButton(desc_id: string, col: Readonly<Bind.interface_ImVec4>, flags: ImGuiColorEditFlags = 0, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): boolean {
+export let ColorButton = (desc_id: string, col: Readonly<Bind.interface_ImVec4>, flags: ImGuiColorEditFlags = 0, size: Readonly<Bind.interface_ImVec2> = ImVec2.ZERO): boolean  => {
     return bind.ColorButton(desc_id, col, flags, size);
 }
-export function SetColorEditOptions(flags: ImGuiColorEditFlags): void {
+export let SetColorEditOptions = (flags: ImGuiColorEditFlags): void  => {
     bind.SetColorEditOptions(flags);
 }
 
@@ -3866,10 +3866,10 @@ export function SetColorEditOptions(flags: ImGuiColorEditFlags): void {
 // IMGUI_API bool          CollapsingHeader(const char* label, ImGuiTreeNodeFlags flags = 0);  // if returning 'true' the header is open. doesn't indent nor push on ID stack. user doesn't have to call TreePop().
 // IMGUI_API bool          CollapsingHeader(const char* label, bool* p_visible, ImGuiTreeNodeFlags flags = 0); // when 'p_visible != NULL': if '*p_visible==true' display an additional small close button on upper right of the header which will set the bool to false when clicked, if '*p_visible==false' don't display the header.
 // IMGUI_API void          SetNextItemOpen(bool is_open, ImGuiCond cond = 0);                  // set next TreeNode/CollapsingHeader open state.
-export function TreeNode(label: string): boolean;
-export function TreeNode(label: string, fmt: string): boolean;
-export function TreeNode(label: number, fmt: string): boolean;
-export function TreeNode(...args: any[]): boolean {
+export let TreeNode = (label: string) => : boolean;
+export let TreeNode = (label: string, fmt: string) => : boolean;
+export let TreeNode = (label: number, fmt: string) => : boolean;
+export let TreeNode = (...args: any[]): boolean  => {
     if (typeof(args[0]) === "string") {
         if (args.length === 1) {
             const label: string = args[0];
@@ -3885,10 +3885,10 @@ export function TreeNode(...args: any[]): boolean {
         return bind.TreeNode_C(ptr_id, fmt);
     }
 }
-export function TreeNodeEx(label: string, flags?: ImGuiTreeNodeFlags): boolean;
-export function TreeNodeEx(str_id: string, flags: ImGuiTreeNodeFlags, fmt: string): boolean;
-export function TreeNodeEx(ptr_id: number, flags: ImGuiTreeNodeFlags, fmt: string): boolean;
-export function TreeNodeEx(...args: any[]): boolean {
+export let TreeNodeEx = (label: string, flags?: ImGuiTreeNodeFlags) => : boolean;
+export let TreeNodeEx = (str_id: string, flags: ImGuiTreeNodeFlags, fmt: string) => : boolean;
+export let TreeNodeEx = (ptr_id: number, flags: ImGuiTreeNodeFlags, fmt: string) => : boolean;
+export let TreeNodeEx = (...args: any[]): boolean  => {
     if (typeof(args[0]) === "string") {
         if (args.length < 3) {
             const label: string = args[0];
@@ -3907,9 +3907,9 @@ export function TreeNodeEx(...args: any[]): boolean {
         return bind.TreeNodeEx_C(ptr_id, flags, fmt);
     }
 }
-export function TreePush(str_id: string): void;
-export function TreePush(ptr_id: number): void;
-export function TreePush(...args: any[]): void {
+export let TreePush = (str_id: string) => : void;
+export let TreePush = (ptr_id: number) => : void;
+export let TreePush = (...args: any[]): void  => {
     if (typeof(args[0]) === "string") {
         const str_id: string = args[0];
         bind.TreePush_A(str_id);
@@ -3918,11 +3918,11 @@ export function TreePush(...args: any[]): void {
         bind.TreePush_B(ptr_id);
     }
 }
-export function TreePop(): void { bind.TreePop(); }
-export function GetTreeNodeToLabelSpacing(): number { return bind.GetTreeNodeToLabelSpacing(); }
-export function CollapsingHeader(label: string, flags?: ImGuiTreeNodeFlags): boolean;
-export function CollapsingHeader(label: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>, flags?: ImGuiTreeNodeFlags): boolean;
-export function CollapsingHeader(label: string, ...args: any[]): boolean {
+export let TreePop = (): void { bind.TreePop() => ; }
+export let GetTreeNodeToLabelSpacing = (): number { return bind.GetTreeNodeToLabelSpacing() => ; }
+export let CollapsingHeader = (label: string, flags?: ImGuiTreeNodeFlags) => : boolean;
+export let CollapsingHeader = (label: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>, flags?: ImGuiTreeNodeFlags) => : boolean;
+export let CollapsingHeader = (label: string, ...args: any[]): boolean  => {
     if (args.length === 0) {
         return bind.CollapsingHeader_A(label, 0);
     } else {
@@ -3939,7 +3939,7 @@ export function CollapsingHeader(label: string, ...args: any[]): boolean {
         }
     }
 }
-export function SetNextItemOpen(is_open: boolean, cond: ImGuiCond = 0): void {
+export let SetNextItemOpen = (is_open: boolean, cond: ImGuiCond = 0): void  => {
     bind.SetNextItemOpen(is_open, cond);
 }
 
@@ -3948,9 +3948,9 @@ export function SetNextItemOpen(is_open: boolean, cond: ImGuiCond = 0): void {
 // - Neighbors selectable extend their highlight bounds in order to leave no gap between them. This is so a series of selected Selectable appear contiguous.
 // IMGUI_API bool          Selectable(const char* label, bool selected = false, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0)); // "bool selected" carry the selection state (read-only). Selectable() is clicked is returns true so you can modify your selection state. size.x==0.0: use remaining width, size.x>0.0: specify width. size.y==0.0: use label height, size.y>0.0: specify height
 // IMGUI_API bool          Selectable(const char* label, bool* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0));      // "bool* p_selected" point to the selection state (read-write), as a convenient helper.
-export function Selectable(label: string, selected?: boolean, flags?: ImGuiSelectableFlags, size?: Readonly<Bind.interface_ImVec2>): boolean;
-export function Selectable(label: string, p_selected: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>, flags?: ImGuiSelectableFlags, size?: Readonly<Bind.interface_ImVec2>): boolean;
-export function Selectable(label: string, ...args: any[]): boolean {
+export let Selectable = (label: string, selected?: boolean, flags?: ImGuiSelectableFlags, size?: Readonly<Bind.interface_ImVec2>) => : boolean;
+export let Selectable = (label: string, p_selected: Bind.ImScalar<boolean> | Bind.ImAccess<boolean>, flags?: ImGuiSelectableFlags, size?: Readonly<Bind.interface_ImVec2>) => : boolean;
+export let Selectable = (label: string, ...args: any[]): boolean  => {
     if (args.length === 0) {
         return bind.Selectable_A(label, false, 0, ImVec2.ZERO);
     } else {
@@ -3979,9 +3979,9 @@ export function Selectable(label: string, ...args: any[]): boolean {
 // IMGUI_API bool          ListBoxHeader(const char* label, int items_count, int height_in_items = -1); // "
 // IMGUI_API void          ListBoxFooter();                                                    // terminate the scrolling region. only call ListBoxFooter() if ListBoxHeader() returned true!
 export type ListBoxItemGetter<T> = (data: T, idx: number, out_text: [string]) => boolean;
-export function ListBox(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items: string[], items_count?: number, height_in_items?: number): boolean;
-export function ListBox<T>(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_getter: ListBoxItemGetter<T>, data: T, items_count: number, height_in_items?: number): boolean;
-export function ListBox<T>(label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, ...args: any[]): boolean {
+export let ListBox = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items: string[], items_count?: number, height_in_items?: number) => : boolean;
+export let ListBox<T> = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, items_getter: ListBoxItemGetter<T>, data: T, items_count: number, height_in_items?: number) => : boolean;
+export let ListBox<T> = (label: string, current_item: Bind.ImAccess<number> | Bind.ImScalar<number>, ...args: any[]): boolean  => {
     let ret: boolean = false;
     const _current_item: Bind.ImScalar<number> = Array.isArray(current_item) ? current_item : [ current_item() ];
     if (Array.isArray(args[0])) {
@@ -3999,9 +3999,9 @@ export function ListBox<T>(label: string, current_item: Bind.ImAccess<number> | 
     if (!Array.isArray(current_item)) { current_item(_current_item[0]); }
     return ret;
 }
-export function ListBoxHeader(label: string, size: Readonly<Bind.interface_ImVec2>): boolean;
-export function ListBoxHeader(label: string, items_count: number, height_in_items?: number): boolean;
-export function ListBoxHeader(label: string, ...args: any[]): boolean {
+export let ListBoxHeader = (label: string, size: Readonly<Bind.interface_ImVec2>) => : boolean;
+export let ListBoxHeader = (label: string, items_count: number, height_in_items?: number) => : boolean;
+export let ListBoxHeader = (label: string, ...args: any[]): boolean  => {
     if (typeof(args[0]) === "object") {
         const size: Readonly<Bind.interface_ImVec2> = args[0];
         return bind.ListBoxHeader_A(label, size);
@@ -4011,7 +4011,7 @@ export function ListBoxHeader(label: string, ...args: any[]): boolean {
         return bind.ListBoxHeader_B(label, items_count, height_in_items);
     }
 }
-export function ListBoxFooter(): void { bind.ListBoxFooter(); }
+export let ListBoxFooter = (): void { bind.ListBoxFooter() => ; }
 
 // Widgets: Data Plotting
 // IMGUI_API void          PlotLines(const char* label, const float* values, int values_count, int values_offset = 0, const char* overlay_text = NULL, float scale_min = FLT_MAX, float scale_max = FLT_MAX, ImVec2 graph_size = ImVec2(0, 0), int stride = sizeof(float));
@@ -4019,9 +4019,9 @@ export function ListBoxFooter(): void { bind.ListBoxFooter(); }
 // IMGUI_API void          PlotHistogram(const char* label, const float* values, int values_count, int values_offset = 0, const char* overlay_text = NULL, float scale_min = FLT_MAX, float scale_max = FLT_MAX, ImVec2 graph_size = ImVec2(0, 0), int stride = sizeof(float));
 // IMGUI_API void          PlotHistogram(const char* label, float(*values_getter)(void* data, int idx), void* data, int values_count, int values_offset = 0, const char* overlay_text = NULL, float scale_min = FLT_MAX, float scale_max = FLT_MAX, ImVec2 graph_size = ImVec2(0, 0));
 export type PlotLinesValueGetter<T> = (data: T, idx: number) => number;
-export function PlotLines(label: string, values: ArrayLike<number>, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>, stride?: number): void;
-export function PlotLines<T>(label: string, values_getter: PlotLinesValueGetter<T>, data: T, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>): void;
-export function PlotLines<T>(label: string, ...args: any[]): void {
+export let PlotLines = (label: string, values: ArrayLike<number>, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>, stride?: number) => : void;
+export let PlotLines<T> = (label: string, values_getter: PlotLinesValueGetter<T>, data: T, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>) => : void;
+export let PlotLines<T> = (label: string, ...args: any[]): void  => {
     if (Array.isArray(args[0])) {
         const values: ArrayLike<number> = args[0];
         const values_getter: PlotLinesValueGetter<null> = (data: null, idx: number): number => values[idx * stride];
@@ -4046,9 +4046,9 @@ export function PlotLines<T>(label: string, ...args: any[]): void {
     }
 }
 export type PlotHistogramValueGetter<T> = (data: T, idx: number) => number;
-export function PlotHistogram(label: string, values: ArrayLike<number>, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>, stride?: number): void;
-export function PlotHistogram<T>(label: string, values_getter: PlotHistogramValueGetter<T>, data: T, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>): void;
-export function PlotHistogram<T>(label: string, ...args: any[]): void {
+export let PlotHistogram = (label: string, values: ArrayLike<number>, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>, stride?: number) => : void;
+export let PlotHistogram<T> = (label: string, values_getter: PlotHistogramValueGetter<T>, data: T, values_count?: number, value_offset?: number, overlay_text?: string | null, scale_min?: number, scale_max?: number, graph_size?: Readonly<Bind.interface_ImVec2>) => : void;
+export let PlotHistogram<T> = (label: string, ...args: any[]): void  => {
     if (Array.isArray(args[0])) {
         const values: ArrayLike<number> = args[0];
         const values_getter: PlotHistogramValueGetter<null> = (data: null, idx: number): number => values[idx * stride];
@@ -4079,11 +4079,11 @@ export function PlotHistogram<T>(label: string, ...args: any[]): void {
 // IMGUI_API void          Value(const char* prefix, int v);
 // IMGUI_API void          Value(const char* prefix, unsigned int v);
 // IMGUI_API void          Value(const char* prefix, float v, const char* float_format = NULL);
-export function Value(prefix: string, b: boolean): void;
-export function Value(prefix: string, v: number): void;
-export function Value(prefix: string, v: number, float_format?: string | null): void;
-export function Value(prefix: string, v: any): void;
-export function Value(prefix: string, ...args: any[]): void {
+export let Value = (prefix: string, b: boolean) => : void;
+export let Value = (prefix: string, v: number) => : void;
+export let Value = (prefix: string, v: number, float_format?: string | null) => : void;
+export let Value = (prefix: string, v: any) => : void;
+export let Value = (prefix: string, ...args: any[]): void  => {
     if (typeof(args[0]) === "boolean") {
         bind.Value_A(prefix, args[0]);
     } else if (typeof(args[0]) === "number") {
@@ -4109,15 +4109,15 @@ export function Value(prefix: string, ...args: any[]): void {
 // IMGUI_API void          EndMenu();                                                          // only call EndMenu() if BeginMenu() returns true!
 // IMGUI_API bool          MenuItem(const char* label, const char* shortcut = NULL, bool selected = false, bool enabled = true);  // return true when activated. shortcuts are displayed for convenience but not processed by ImGui at the moment
 // IMGUI_API bool          MenuItem(const char* label, const char* shortcut, bool* p_selected, bool enabled = true);              // return true when activated + toggle (*p_selected) if p_selected != NULL
-export function BeginMenuBar(): boolean { return bind.BeginMenuBar(); }
-export function EndMenuBar(): void { bind.EndMenuBar(); }
-export function BeginMainMenuBar(): boolean { return bind.BeginMainMenuBar(); }
-export function EndMainMenuBar(): void { bind.EndMainMenuBar(); }
-export function BeginMenu(label: string, enabled: boolean = true): boolean { return bind.BeginMenu(label, enabled); }
-export function EndMenu(): void { bind.EndMenu(); }
-export function MenuItem(label: string, shortcut?: string | null, selected?: boolean, enabled?: boolean): boolean;
-export function MenuItem(label: string, shortcut: string | null, p_selected: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null, enabled?: boolean): boolean;
-export function MenuItem(label: string, ...args: any[]): boolean {
+export let BeginMenuBar = (): boolean { return bind.BeginMenuBar() => ; }
+export let EndMenuBar = (): void { bind.EndMenuBar() => ; }
+export let BeginMainMenuBar = (): boolean { return bind.BeginMainMenuBar() => ; }
+export let EndMainMenuBar = (): void { bind.EndMainMenuBar() => ; }
+export let BeginMenu = (label: string, enabled: boolean = true): boolean  => { return bind.BeginMenu(label, enabled); }
+export let EndMenu = (): void { bind.EndMenu() => ; }
+export let MenuItem = (label: string, shortcut?: string | null, selected?: boolean, enabled?: boolean) => : boolean;
+export let MenuItem = (label: string, shortcut: string | null, p_selected: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null, enabled?: boolean) => : boolean;
+export let MenuItem = (label: string, ...args: any[]): boolean  => {
     if (args.length === 0) {
         return bind.MenuItem_A(label, null, false, true);
     } else if (args.length === 1) {
@@ -4146,9 +4146,9 @@ export function MenuItem(label: string, ...args: any[]): boolean {
 // IMGUI_API void          EndTooltip();
 // IMGUI_API void          SetTooltip(const char* fmt, ...) IM_FMTARGS(1);                     // set a text-only tooltip, typically use with ImGui::IsItemHovered(). override any previous call to SetTooltip().
 // IMGUI_API void          SetTooltipV(const char* fmt, va_list args) IM_FMTLIST(1);
-export function BeginTooltip(): void { bind.BeginTooltip(); }
-export function EndTooltip(): void { bind.EndTooltip(); }
-export function SetTooltip(fmt: string): void { bind.SetTooltip(fmt); }
+export let BeginTooltip = (): void { bind.BeginTooltip() => ; }
+export let EndTooltip = (): void { bind.EndTooltip() => ; }
+export let SetTooltip = (fmt: string): void  => { bind.SetTooltip(fmt); }
 
 // Popups, Modals
 //  - They block normal mouse hovering detection (and therefore most mouse interactions) behind them.
@@ -4164,8 +4164,8 @@ export function SetTooltip(fmt: string): void { bind.SetTooltip(fmt); }
 // IMGUI_API bool          BeginPopup(const char* str_id, ImGuiWindowFlags flags = 0);                         // return true if the popup is open, and you can start outputting to it.
 // IMGUI_API bool          BeginPopupModal(const char* name, bool* p_open = NULL, ImGuiWindowFlags flags = 0); // return true if the modal is open, and you can start outputting to it.
 // IMGUI_API void          EndPopup();                                                                         // only call EndPopup() if BeginPopupXXX() returns true!
-export function BeginPopup(str_id: string, flags: ImGuiWindowFlags = 0): boolean { return bind.BeginPopup(str_id, flags); }
-export function BeginPopupModal(str_id: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiWindowFlags = 0): boolean {
+export let BeginPopup = (str_id: string, flags: ImGuiWindowFlags = 0): boolean  => { return bind.BeginPopup(str_id, flags); }
+export let BeginPopupModal = (str_id: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiWindowFlags = 0): boolean  => {
     if (Array.isArray(p_open)) {
         return bind.BeginPopupModal(str_id, p_open, flags);
     } else if (typeof(p_open) === "function") {
@@ -4177,7 +4177,7 @@ export function BeginPopupModal(str_id: string, p_open: Bind.ImScalar<boolean> |
         return bind.BeginPopupModal(str_id, null, flags);
     }
 }
-export function EndPopup(): void { bind.EndPopup(); }
+export let EndPopup = (): void { bind.EndPopup() => ; }
 // Popups: open/close functions
 //  - OpenPopup(): set popup state to open. ImGuiPopupFlags are available for opening options.
 //  - If not modal: they can be closed by clicking anywhere outside them, or by pressing ESCAPE.
@@ -4187,9 +4187,9 @@ export function EndPopup(): void { bind.EndPopup(); }
 // IMGUI_API void          OpenPopup(const char* str_id, ImGuiPopupFlags popup_flags = 0);                     // call to mark popup as open (don't call every frame!).
 // IMGUI_API void          OpenPopupOnItemClick(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1);   // helper to open popup when clicked on last item. return true when just opened. (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
 // IMGUI_API void          CloseCurrentPopup();                                                                // manually close the popup we have begin-ed into.
-export function OpenPopup(str_id: string, popup_flags: ImGuiPopupFlags = 0): void { bind.OpenPopup(str_id, popup_flags); }
-export function OpenPopupOnItemClick(str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): void { bind.OpenPopupOnItemClick(str_id, popup_flags); }
-export function CloseCurrentPopup(): void { bind.CloseCurrentPopup(); }
+export let OpenPopup = (str_id: string, popup_flags: ImGuiPopupFlags = 0): void  => { bind.OpenPopup(str_id, popup_flags); }
+export let OpenPopupOnItemClick = (str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): void  => { bind.OpenPopupOnItemClick(str_id, popup_flags); }
+export let CloseCurrentPopup = (): void { bind.CloseCurrentPopup() => ; }
 // Popups: open+begin combined functions helpers
 //  - Helpers to do OpenPopup+BeginPopup where the Open action is triggered by e.g. hovering an item and right-clicking.
 //  - They are convenient to easily create context menus, hence the name.
@@ -4198,15 +4198,15 @@ export function CloseCurrentPopup(): void { bind.CloseCurrentPopup(); }
 // IMGUI_API bool          BeginPopupContextItem(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1);  // open+begin popup when clicked on last item. if you can pass a NULL str_id only if the previous item had an id. If you want to use that on a non-interactive item such as Text() you need to pass in an explicit ID here. read comments in .cpp!
 // IMGUI_API bool          BeginPopupContextWindow(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1);// open+begin popup when clicked on current window.
 // IMGUI_API bool          BeginPopupContextVoid(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1);  // open+begin popup when clicked in void (where there are no windows).
-export function BeginPopupContextItem(str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean { return bind.BeginPopupContextItem(str_id, popup_flags); }
-export function BeginPopupContextWindow(str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean { return bind.BeginPopupContextWindow(str_id, popup_flags); }
-export function BeginPopupContextVoid(str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean { return bind.BeginPopupContextVoid(str_id, popup_flags); }
+export let BeginPopupContextItem = (str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean  => { return bind.BeginPopupContextItem(str_id, popup_flags); }
+export let BeginPopupContextWindow = (str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean  => { return bind.BeginPopupContextWindow(str_id, popup_flags); }
+export let BeginPopupContextVoid = (str_id: string | null = null, popup_flags: ImGuiPopupFlags = 1): boolean  => { return bind.BeginPopupContextVoid(str_id, popup_flags); }
 // Popups: test function
 //  - IsPopupOpen(): return true if the popup is open at the current BeginPopup() level of the popup stack.
 //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId: return true if any popup is open at the current BeginPopup() level of the popup stack.
 //  - IsPopupOpen() with ImGuiPopupFlags_AnyPopupId + ImGuiPopupFlags_AnyPopupLevel: return true if any popup is open.
 // IMGUI_API bool          IsPopupOpen(const char* str_id, ImGuiPopupFlags flags = 0);                         // return true if the popup is open.
-export function IsPopupOpen(str_id: string, flags: ImGuiPopupFlags = 0): boolean { return bind.IsPopupOpen(str_id, flags); }
+export let IsPopupOpen = (str_id: string, flags: ImGuiPopupFlags = 0): boolean  => { return bind.IsPopupOpen(str_id, flags); }
 
 // Tables
 // [BETA API] API may evolve slightly! If you use this, please update to the next version when it comes out!
@@ -4238,11 +4238,11 @@ export function IsPopupOpen(str_id: string, flags: ImGuiPopupFlags = 0): boolean
 // IMGUI_API void          TableNextRow(ImGuiTableRowFlags row_flags = 0, float min_row_height = 0.0f); // append into the first cell of a new row.
 // IMGUI_API bool          TableNextColumn();                          // append into the next column (or first column of next row if currently in last column). Return true when column is visible.
 // IMGUI_API bool          TableSetColumnIndex(int column_n);          // append into the specified column. Return true when column is visible.
-export function BeginTable(str_id: string, column: number, flags: ImGuiTableFlags = 0, outer_size: Bind.interface_ImVec2 = ImVec2.ZERO, inner_width: number = 0.0): boolean { return bind.BeginTable(str_id, column, flags, outer_size, inner_width); }
-export function EndTable(): void { bind.EndTable(); }
-export function TableNextRow(row_flags: ImGuiTableRowFlags = 0, min_row_height: number = 0.0): void { bind.TableNextRow(row_flags, min_row_height); }
-export function TableNextColumn(): boolean { return bind.TableNextColumn(); }
-export function TableSetColumnIndex(column_n: number): boolean { return bind.TableSetColumnIndex(column_n); }
+export let BeginTable = (str_id: string, column: number, flags: ImGuiTableFlags = 0, outer_size: Bind.interface_ImVec2 = ImVec2.ZERO, inner_width: number = 0.0): boolean  => { return bind.BeginTable(str_id, column, flags, outer_size, inner_width); }
+export let EndTable = (): void { bind.EndTable() => ; }
+export let TableNextRow = (row_flags: ImGuiTableRowFlags = 0, min_row_height: number = 0.0): void  => { bind.TableNextRow(row_flags, min_row_height); }
+export let TableNextColumn = (): boolean { return bind.TableNextColumn() => ; }
+export let TableSetColumnIndex = (column_n: number): boolean  => { return bind.TableSetColumnIndex(column_n); }
 // Tables: Headers & Columns declaration
 // - Use TableSetupColumn() to specify label, resizing policy, default width/weight, id, various other flags etc.
 // - Use TableHeadersRow() to create a header row and automatically submit a TableHeader() for each column.
@@ -4255,10 +4255,10 @@ export function TableSetColumnIndex(column_n: number): boolean { return bind.Tab
 // IMGUI_API void          TableSetupScrollFreeze(int cols, int rows); // lock columns/rows so they stay visible when scrolled.
 // IMGUI_API void          TableHeadersRow();                          // submit all headers cells based on data provided to TableSetupColumn() + submit context menu
 // IMGUI_API void          TableHeader(const char* label);             // submit one header cell manually (rarely used)
-export function TableSetupColumn(label: string, flags: ImGuiTableColumnFlags = 0, init_width_or_weight: number = 0.0, user_id: Bind.ImU32 = 0): void { bind.TableSetupColumn(label, flags, init_width_or_weight, user_id); }
-export function TableSetupScrollFreeze(cols: number, rows: number): void { bind.TableSetupScrollFreeze(cols, rows); }
-export function TableHeadersRow(): void { bind.TableHeadersRow(); }
-export function TableHeader(label: string): void { bind.TableHeader(label); }
+export let TableSetupColumn = (label: string, flags: ImGuiTableColumnFlags = 0, init_width_or_weight: number = 0.0, user_id: Bind.ImU32 = 0): void  => { bind.TableSetupColumn(label, flags, init_width_or_weight, user_id); }
+export let TableSetupScrollFreeze = (cols: number, rows: number): void  => { bind.TableSetupScrollFreeze(cols, rows); }
+export let TableHeadersRow = (): void { bind.TableHeadersRow() => ; }
+export let TableHeader = (label: string): void  => { bind.TableHeader(label); }
 // Tables: Sorting
 // - Call TableGetSortSpecs() to retrieve latest sort specs for the table. NULL when not sorting.
 // - When 'SpecsDirty == true' you should sort your data. It will be true when sorting specs have changed
@@ -4278,12 +4278,12 @@ export function TableGetSortSpecs(): ImGuiTableSortSpecs | null {
 // IMGUI_API const char*           TableGetColumnName(int column_n = -1);      // return "" if column didn't have a name declared by TableSetupColumn(). Pass -1 to use current column.
 // IMGUI_API ImGuiTableColumnFlags TableGetColumnFlags(int column_n = -1);     // return column flags so you can query their Enabled/Visible/Sorted/Hovered status flags. Pass -1 to use current column.
 // IMGUI_API void                  TableSetBgColor(ImGuiTableBgTarget target, ImU32 color, int column_n = -1);  // change the color of a cell, row, or column. See ImGuiTableBgTarget_ flags for details.
-export function TableGetColumnCount(): number { return bind.TableGetColumnCount(); }
-export function TableGetColumnIndex(): number { return bind.TableGetColumnIndex(); }
-export function TableGetRowIndex(): number { return bind.TableGetRowIndex(); }
-export function TableGetColumnName(column_n: number = -1): string { return bind.TableGetColumnName(column_n); }
-export function TableGetColumnFlags(column_n: number = -1): ImGuiTableColumnFlags { return bind.TableGetColumnFlags(column_n); }
-export function TableSetBgColor(target: ImGuiTableBgTarget, color: Bind.ImU32, column_n: number = -1) { bind.TableSetBgColor(target, color, column_n); }
+export let TableGetColumnCount = (): number { return bind.TableGetColumnCount() => ; }
+export let TableGetColumnIndex = (): number { return bind.TableGetColumnIndex() => ; }
+export let TableGetRowIndex = (): number { return bind.TableGetRowIndex() => ; }
+export let TableGetColumnName = (column_n: number = -1): string  => { return bind.TableGetColumnName(column_n); }
+export let TableGetColumnFlags = (column_n: number = -1): ImGuiTableColumnFlags  => { return bind.TableGetColumnFlags(column_n); }
+export let TableSetBgColor(target: ImGuiTableBgTarget, color: Bind.ImU32, column_n: number = -1) { bind.TableSetBgColor = (target, color, column_n) => ; }
 
 // Legacy Columns API (2020: prefer using Tables!)
 // - You can also use SameLine(pos_x) to mimic simplified columns.
@@ -4295,14 +4295,14 @@ export function TableSetBgColor(target: ImGuiTableBgTarget, color: Bind.ImU32, c
 // IMGUI_API float         GetColumnOffset(int column_index = -1);                             // get position of column line (in pixels, from the left side of the contents region). pass -1 to use current column, otherwise 0..GetColumnsCount() inclusive. column 0 is typically 0.0f
 // IMGUI_API void          SetColumnOffset(int column_index, float offset_x);                  // set position of column line (in pixels, from the left side of the contents region). pass -1 to use current column
 // IMGUI_API int           GetColumnsCount();
-export function Columns(count: number = 1, id: string | null = null, border: boolean = true): void { bind.Columns(count, id, border); }
-export function NextColumn(): void { bind.NextColumn(); }
-export function GetColumnIndex(): number { return bind.GetColumnIndex(); }
-export function GetColumnWidth(column_index: number = -1): number { return bind.GetColumnWidth(column_index); }
-export function SetColumnWidth(column_index: number, width: number): void { bind.SetColumnWidth(column_index, width); }
-export function GetColumnOffset(column_index: number = -1): number { return bind.GetColumnOffset(column_index); }
-export function SetColumnOffset(column_index: number, offset_x: number): void { bind.SetColumnOffset(column_index, offset_x); }
-export function GetColumnsCount(): number { return bind.GetColumnsCount(); }
+export let Columns = (count: number = 1, id: string | null = null, border: boolean = true): void  => { bind.Columns(count, id, border); }
+export let NextColumn = (): void { bind.NextColumn() => ; }
+export let GetColumnIndex = (): number { return bind.GetColumnIndex() => ; }
+export let GetColumnWidth = (column_index: number = -1): number  => { return bind.GetColumnWidth(column_index); }
+export let SetColumnWidth = (column_index: number, width: number): void  => { bind.SetColumnWidth(column_index, width); }
+export let GetColumnOffset = (column_index: number = -1): number  => { return bind.GetColumnOffset(column_index); }
+export let SetColumnOffset = (column_index: number, offset_x: number): void  => { bind.SetColumnOffset(column_index, offset_x); }
+export let GetColumnsCount = (): number { return bind.GetColumnsCount() => ; }
 
 // Tab Bars, Tabs
 // IMGUI_API bool          BeginTabBar(const char* str_id, ImGuiTabBarFlags flags = 0);        // create and append into a TabBar
@@ -4311,9 +4311,9 @@ export function GetColumnsCount(): number { return bind.GetColumnsCount(); }
 // IMGUI_API void          EndTabItem();                                                       // only call EndTabItem() if BeginTabItem() returns true!
 // IMGUI_API bool          TabItemButton(const char* label, ImGuiTabItemFlags flags = 0);      // create a Tab behaving like a button. return true when clicked. cannot be selected in the tab bar.
 // IMGUI_API void          SetTabItemClosed(const char* tab_or_docked_window_label);           // notify TabBar or Docking system of a closed tab/window ahead (useful to reduce visual flicker on reorderable tab bars). For tab-bar: call after BeginTabBar() and before Tab submissions. Otherwise call with a window name.
-export function BeginTabBar(str_id: string, flags: ImGuiTabBarFlags = 0): boolean { return bind.BeginTabBar(str_id, flags); }
-export function EndTabBar(): void { bind.EndTabBar(); }
-export function BeginTabItem(label: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiTabItemFlags = 0): boolean {
+export let BeginTabBar = (str_id: string, flags: ImGuiTabBarFlags = 0): boolean  => { return bind.BeginTabBar(str_id, flags); }
+export let EndTabBar = (): void { bind.EndTabBar() => ; }
+export let BeginTabItem = (label: string, p_open: Bind.ImScalar<boolean> | Bind.ImAccess<boolean> | null = null, flags: ImGuiTabItemFlags = 0): boolean  => {
     if (p_open === null) {
         return bind.BeginTabItem(label, null, flags);
     } else if (Array.isArray(p_open)) {
@@ -4325,9 +4325,9 @@ export function BeginTabItem(label: string, p_open: Bind.ImScalar<boolean> | Bin
         return ret;
     }
 }
-export function EndTabItem(): void { bind.EndTabItem(); }
-export function TabItemButton(label: string, flags: ImGuiTabItemFlags = 0): boolean { return bind.TabItemButton(label, flags); }
-export function SetTabItemClosed(tab_or_docked_window_label: string): void { bind.SetTabItemClosed(tab_or_docked_window_label); }
+export let EndTabItem = (): void { bind.EndTabItem() => ; }
+export let TabItemButton = (label: string, flags: ImGuiTabItemFlags = 0): boolean  => { return bind.TabItemButton(label, flags); }
+export let SetTabItemClosed = (tab_or_docked_window_label: string): void  => { bind.SetTabItemClosed(tab_or_docked_window_label); }
 
 // Logging/Capture
 // - All text output from the interface can be captured into tty/file/clipboard. By default, tree nodes are automatically opened during logging.
@@ -4337,12 +4337,12 @@ export function SetTabItemClosed(tab_or_docked_window_label: string): void { bin
 // IMGUI_API void          LogFinish();                                                        // stop logging (close file, etc.)
 // IMGUI_API void          LogButtons();                                                       // helper to display buttons for logging to tty/file/clipboard
 // IMGUI_API void          LogText(const char* fmt, ...) IM_FMTARGS(1);                        // pass text data straight to log (without being displayed)
-export function LogToTTY(max_depth: number = -1): void { bind.LogToTTY(max_depth); }
-export function LogToFile(max_depth: number = -1, filename: string | null = null): void { bind.LogToFile(max_depth, filename); }
-export function LogToClipboard(max_depth: number = -1): void { bind.LogToClipboard(max_depth); }
-export function LogFinish(): void { bind.LogFinish(); }
-export function LogButtons(): void { bind.LogButtons(); }
-export function LogText(fmt: string): void { bind.LogText(fmt); }
+export let LogToTTY = (max_depth: number = -1): void  => { bind.LogToTTY(max_depth); }
+export let LogToFile = (max_depth: number = -1, filename: string | null = null): void  => { bind.LogToFile(max_depth, filename); }
+export let LogToClipboard = (max_depth: number = -1): void  => { bind.LogToClipboard(max_depth); }
+export let LogFinish = (): void { bind.LogFinish() => ; }
+export let LogButtons = (): void { bind.LogButtons() => ; }
+export let LogText = (fmt: string): void  => { bind.LogText(fmt); }
 
 // Drag and Drop
 // - If you stop calling BeginDragDropSource() the payload is preserved however it won't have a preview tooltip (we currently display a fallback "..." tooltip as replacement)
@@ -4354,10 +4354,10 @@ export function LogText(fmt: string): void { bind.LogText(fmt); }
 // IMGUI_API void                  EndDragDropTarget();                                                            // only call EndDragDropTarget() if BeginDragDropTarget() returns true!
 // IMGUI_API const ImGuiPayload*   GetDragDropPayload();                                                           // peek directly into the current payload from anywhere. may return NULL. use ImGuiPayload::IsDataType() to test for the payload type.
 const _ImGui_DragDropPayload_data: {[key: string]: any} = {};
-export function BeginDragDropSource(flags: ImGuiDragDropFlags = 0): boolean {
+export let BeginDragDropSource = (flags: ImGuiDragDropFlags = 0): boolean  => {
     return bind.BeginDragDropSource(flags);
 }
-export function SetDragDropPayload<T>(type: string, data: T, cond: ImGuiCond = 0): boolean {
+export let SetDragDropPayload<T> = (type: string, data: T, cond: ImGuiCond = 0): boolean  => {
     _ImGui_DragDropPayload_data[type] = data;
     return bind.SetDragDropPayload(type, data, 0, cond);
 }
@@ -4367,7 +4367,7 @@ export function EndDragDropSource(): void {
 export function BeginDragDropTarget(): boolean {
     return bind.BeginDragDropTarget();
 }
-export function AcceptDragDropPayload<T>(type: string, flags: ImGuiDragDropFlags = 0): ImGuiPayload<T> | null {
+export let AcceptDragDropPayload<T> = (type: string, flags: ImGuiDragDropFlags = 0): ImGuiPayload<T> | null  => {
     const data: T = _ImGui_DragDropPayload_data[type];
     return bind.AcceptDragDropPayload(type, flags) ? { Data: data } : null;
 }
@@ -4382,7 +4382,7 @@ export function GetDragDropPayload<T>(): ImGuiPayload<T> | null {
 // - Mouse hovering is affected by ImGui::PushClipRect() calls, unlike direct calls to ImDrawList::PushClipRect() which are render only.
 // IMGUI_API void          PushClipRect(const ImVec2& clip_rect_min, const ImVec2& clip_rect_max, bool intersect_with_current_clip_rect);
 // IMGUI_API void          PopClipRect();
-export function PushClipRect(clip_rect_min: Readonly<Bind.interface_ImVec2>, clip_rect_max: Readonly<Bind.interface_ImVec2>, intersect_with_current_clip_rect: boolean): void {
+export let PushClipRect = (clip_rect_min: Readonly<Bind.interface_ImVec2>, clip_rect_max: Readonly<Bind.interface_ImVec2>, intersect_with_current_clip_rect: boolean): void  => {
     bind.PushClipRect(clip_rect_min, clip_rect_max, intersect_with_current_clip_rect);
 }
 export function PopClipRect(): void {
@@ -4393,8 +4393,8 @@ export function PopClipRect(): void {
 // - Prefer using "SetItemDefaultFocus()" over "if (IsWindowAppearing()) SetScrollHereY()" when applicable to signify "this is the default item"
 // IMGUI_API void          SetItemDefaultFocus();                                              // make last item the default focused item of a window.
 // IMGUI_API void          SetKeyboardFocusHere(int offset = 0);                               // focus keyboard on the next widget. Use positive 'offset' to access sub components of a multiple component widget. Use -1 to access previous widget.
-export function SetItemDefaultFocus(): void { bind.SetItemDefaultFocus(); }
-export function SetKeyboardFocusHere(offset: number = 0): void { bind.SetKeyboardFocusHere(offset); }
+export let SetItemDefaultFocus = (): void { bind.SetItemDefaultFocus() => ; }
+export let SetKeyboardFocusHere = (offset: number = 0): void  => { bind.SetKeyboardFocusHere(offset); }
 
 // Item/Widgets Utilities
 // - Most of the functions are referring to the last/previous item we submitted.
@@ -4416,23 +4416,23 @@ export function SetKeyboardFocusHere(offset: number = 0): void { bind.SetKeyboar
 // IMGUI_API ImVec2        GetItemRectMax();                                                   // get lower-right bounding rectangle of the last item (screen space)
 // IMGUI_API ImVec2        GetItemRectSize();                                                  // get size of last item
 // IMGUI_API void          SetItemAllowOverlap();                                              // allow last item to be overlapped by a subsequent item. sometimes useful with invisible buttons, selectables, etc. to catch unused area.
-export function IsItemHovered(flags: ImGuiHoveredFlags = 0): boolean { return bind.IsItemHovered(flags); }
-export function IsItemActive(): boolean { return bind.IsItemActive(); }
-export function IsItemFocused(): boolean { return bind.IsItemFocused(); }
-export function IsItemClicked(mouse_button: ImGuiMouseButton = 0): boolean { return bind.IsItemClicked(mouse_button); }
-export function IsItemVisible(): boolean { return bind.IsItemVisible(); }
-export function IsItemEdited(): boolean { return bind.IsItemEdited(); }
-export function IsItemActivated(): boolean { return bind.IsItemActivated(); }
-export function IsItemDeactivated(): boolean { return bind.IsItemDeactivated(); }
-export function IsItemDeactivatedAfterEdit(): boolean { return bind.IsItemDeactivatedAfterEdit(); }
-export function IsItemToggledOpen(): boolean { return bind.IsItemToggledOpen(); }
-export function IsAnyItemHovered(): boolean { return bind.IsAnyItemHovered(); }
-export function IsAnyItemActive(): boolean { return bind.IsAnyItemActive(); }
-export function IsAnyItemFocused(): boolean { return bind.IsAnyItemFocused(); }
-export function GetItemRectMin(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetItemRectMin(out); }
-export function GetItemRectMax(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetItemRectMax(out); }
-export function GetItemRectSize(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetItemRectSize(out); }
-export function SetItemAllowOverlap(): void { bind.SetItemAllowOverlap(); }
+export let IsItemHovered = (flags: ImGuiHoveredFlags = 0): boolean  => { return bind.IsItemHovered(flags); }
+export let IsItemActive = (): boolean { return bind.IsItemActive() => ; }
+export let IsItemFocused = (): boolean { return bind.IsItemFocused() => ; }
+export let IsItemClicked = (mouse_button: ImGuiMouseButton = 0): boolean  => { return bind.IsItemClicked(mouse_button); }
+export let IsItemVisible = (): boolean { return bind.IsItemVisible() => ; }
+export let IsItemEdited = (): boolean { return bind.IsItemEdited() => ; }
+export let IsItemActivated = (): boolean { return bind.IsItemActivated() => ; }
+export let IsItemDeactivated = (): boolean { return bind.IsItemDeactivated() => ; }
+export let IsItemDeactivatedAfterEdit = (): boolean { return bind.IsItemDeactivatedAfterEdit() => ; }
+export let IsItemToggledOpen = (): boolean { return bind.IsItemToggledOpen() => ; }
+export let IsAnyItemHovered = (): boolean { return bind.IsAnyItemHovered() => ; }
+export let IsAnyItemActive = (): boolean { return bind.IsAnyItemActive() => ; }
+export let IsAnyItemFocused = (): boolean { return bind.IsAnyItemFocused() => ; }
+export let GetItemRectMin(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetItemRectMin(out); }
+export let GetItemRectMax(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetItemRectMax(out); }
+export let GetItemRectSize(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetItemRectSize(out); }
+export let SetItemAllowOverlap = (): void { bind.SetItemAllowOverlap() => ; }
 
 // Miscellaneous Utilities
 // IMGUI_API bool          IsRectVisible(const ImVec2& size);                                  // test if rectangle (of given size, starting from cursor position) is visible / not clipped.
@@ -4448,9 +4448,9 @@ export function SetItemAllowOverlap(): void { bind.SetItemAllowOverlap(); }
 // IMGUI_API void          CalcListClipping(int items_count, float items_height, int* out_items_display_start, int* out_items_display_end);    // calculate coarse clipping for large list of evenly sized items. Prefer using the ImGuiListClipper higher-level helper if you can.
 // IMGUI_API bool          BeginChildFrame(ImGuiID id, const ImVec2& size, ImGuiWindowFlags flags = 0); // helper to create a child window / scrolling region that looks like a normal widget frame
 // IMGUI_API void          EndChildFrame();                                                    // always call EndChildFrame() regardless of BeginChildFrame() return values (which indicates a collapsed/clipped window)
-export function IsRectVisible(size: Readonly<Bind.interface_ImVec2>): boolean;
-export function IsRectVisible(rect_min: Readonly<Bind.interface_ImVec2>, rect_max: Readonly<Bind.interface_ImVec2>): boolean;
-export function IsRectVisible(...args: any[]): boolean {
+export let IsRectVisible = (size: Readonly<Bind.interface_ImVec2>) => : boolean;
+export let IsRectVisible = (rect_min: Readonly<Bind.interface_ImVec2>, rect_max: Readonly<Bind.interface_ImVec2>) => : boolean;
+export let IsRectVisible = (...args: any[]): boolean  => {
     if (args.length === 1) {
         const size: Readonly<Bind.interface_ImVec2> = args[0];
         return bind.IsRectVisible_A(size);
@@ -4460,8 +4460,8 @@ export function IsRectVisible(...args: any[]): boolean {
         return bind.IsRectVisible_B(rect_min, rect_max);
     }
 }
-export function GetTime(): number { return bind.GetTime(); }
-export function GetFrameCount(): number { return bind.GetFrameCount(); }
+export let GetTime = (): number { return bind.GetTime() => ; }
+export let GetFrameCount = (): number { return bind.GetFrameCount() => ; }
 export function GetBackgroundDrawList(): ImDrawList {
     return new ImDrawList(bind.GetBackgroundDrawList());
 }
@@ -4471,18 +4471,18 @@ export function GetForegroundDrawList(): ImDrawList {
 export function GetDrawListSharedData(): ImDrawListSharedData {
     return new ImDrawListSharedData(bind.GetDrawListSharedData());
 }
-export function GetStyleColorName(idx: ImGuiCol): string { return bind.GetStyleColorName(idx); }
+export let GetStyleColorName = (idx: ImGuiCol): string  => { return bind.GetStyleColorName(idx); }
 // IMGUI_API void          SetStateStorage(ImGuiStorage* tree);
 // IMGUI_API ImGuiStorage* GetStateStorage();
-export function CalcListClipping(items_count: number, items_height: number, out_items_display_start: Bind.ImScalar<number>, out_items_display_end: Bind.ImScalar<number>): void {
+export let CalcListClipping = (items_count: number, items_height: number, out_items_display_start: Bind.ImScalar<number>, out_items_display_end: Bind.ImScalar<number>): void  => {
     return bind.CalcListClipping(items_count, items_height, out_items_display_start, out_items_display_end);
 }
-export function BeginChildFrame(id: ImGuiID, size: Readonly<Bind.interface_ImVec2>, flags: ImGuiWindowFlags = 0): boolean { return bind.BeginChildFrame(id, size, flags); }
-export function EndChildFrame(): void { bind.EndChildFrame(); }
+export let BeginChildFrame = (id: ImGuiID, size: Readonly<Bind.interface_ImVec2>, flags: ImGuiWindowFlags = 0): boolean  => { return bind.BeginChildFrame(id, size, flags); }
+export let EndChildFrame = (): void { bind.EndChildFrame() => ; }
 
 // Text Utilities
 // IMGUI_API ImVec2        CalcTextSize(const char* text, const char* text_end = NULL, bool hide_text_after_double_hash = false, float wrap_width = -1.0f);
-export function CalcTextSize(text: string, text_end: number | null = null, hide_text_after_double_hash: boolean = false, wrap_width: number = -1, out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 {
+export let CalcTextSize(text: string, text_end: number | null = null, hide_text_after_double_hash: boolean = false, wrap_width: number = -1, out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => {
     return bind.CalcTextSize(text_end !== null ? text.substring(0, text_end) : text, hide_text_after_double_hash, wrap_width, out);
 }
 
@@ -4491,10 +4491,10 @@ export function CalcTextSize(text: string, text_end: number | null = null, hide_
 // IMGUI_API ImU32         ColorConvertFloat4ToU32(const ImVec4& in);
 // IMGUI_API void          ColorConvertRGBtoHSV(float r, float g, float b, float& out_h, float& out_s, float& out_v);
 // IMGUI_API void          ColorConvertHSVtoRGB(float h, float s, float v, float& out_r, float& out_g, float& out_b);
-export function ColorConvertU32ToFloat4(in_: Bind.ImU32, out: Bind.interface_ImVec4 = new ImVec4()): Bind.interface_ImVec4 { return bind.ColorConvertU32ToFloat4(in_, out); }
-export function ColorConvertFloat4ToU32(in_: Readonly<Bind.interface_ImVec4>): Bind.ImU32 { return bind.ColorConvertFloat4ToU32(in_); }
-export function ColorConvertRGBtoHSV(r: number, g: number, b: number, out_h: Bind.ImScalar<number>, out_s: Bind.ImScalar<number>, out_v: Bind.ImScalar<number>): void { bind.ColorConvertRGBtoHSV(r, g, b, out_h, out_s, out_v); }
-export function ColorConvertHSVtoRGB(h: number, s: number, v: number, out_r: Bind.ImScalar<number>, out_g: Bind.ImScalar<number>, out_b: Bind.ImScalar<number>): void { bind.ColorConvertHSVtoRGB(h, s, v, out_r, out_g, out_b); }
+export let ColorConvertU32ToFloat4(in_: Bind.ImU32, out: Bind.interface_ImVec4 = new ImVec4 = ()): Bind.interface_ImVec4  => { return bind.ColorConvertU32ToFloat4(in_, out); }
+export let ColorConvertFloat4ToU32 = (in_: Readonly<Bind.interface_ImVec4>): Bind.ImU32  => { return bind.ColorConvertFloat4ToU32(in_); }
+export let ColorConvertRGBtoHSV = (r: number, g: number, b: number, out_h: Bind.ImScalar<number>, out_s: Bind.ImScalar<number>, out_v: Bind.ImScalar<number>): void  => { bind.ColorConvertRGBtoHSV(r, g, b, out_h, out_s, out_v); }
+export let ColorConvertHSVtoRGB = (h: number, s: number, v: number, out_r: Bind.ImScalar<number>, out_g: Bind.ImScalar<number>, out_b: Bind.ImScalar<number>): void  => { bind.ColorConvertHSVtoRGB(h, s, v, out_r, out_g, out_b); }
 
 // Inputs Utilities: Keyboard
 // - For 'int user_key_index' you can use your own indices/enums according to how your backend/engine stored them in io.KeysDown[].
@@ -4505,12 +4505,12 @@ export function ColorConvertHSVtoRGB(h: number, s: number, v: number, out_r: Bin
 // IMGUI_API bool          IsKeyReleased(int user_key_index);                                  // was key released (went from Down to !Down)?
 // IMGUI_API int           GetKeyPressedAmount(int key_index, float repeat_delay, float rate); // uses provided repeat rate/delay. return a count, most often 0 or 1 but might be >1 if RepeatRate is small enough that DeltaTime > RepeatRate
 // IMGUI_API void          CaptureKeyboardFromApp(bool want_capture_keyboard_value = true);    // attention: misleading name! manually override io.WantCaptureKeyboard flag next frame (said flag is entirely left for your application to handle). e.g. force capture keyboard when your widget is being hovered. This is equivalent to setting "io.WantCaptureKeyboard = want_capture_keyboard_value"; after the next NewFrame() call.
-export function GetKeyIndex(imgui_key: ImGuiKey): number { return bind.GetKeyIndex(imgui_key); }
-export function IsKeyDown(user_key_index: number): boolean { return bind.IsKeyDown(user_key_index); }
-export function IsKeyPressed(user_key_index: number, repeat: boolean = true): boolean { return bind.IsKeyPressed(user_key_index, repeat); }
-export function IsKeyReleased(user_key_index: number): boolean { return bind.IsKeyReleased(user_key_index); }
-export function GetKeyPressedAmount(user_key_index: number, repeat_delay: number, rate: number): number { return bind.GetKeyPressedAmount(user_key_index, repeat_delay, rate); }
-export function CaptureKeyboardFromApp(capture: boolean = true) { return bind.CaptureKeyboardFromApp(capture); }
+export let GetKeyIndex = (imgui_key: ImGuiKey): number  => { return bind.GetKeyIndex(imgui_key); }
+export let IsKeyDown = (user_key_index: number): boolean  => { return bind.IsKeyDown(user_key_index); }
+export let IsKeyPressed = (user_key_index: number, repeat: boolean = true): boolean  => { return bind.IsKeyPressed(user_key_index, repeat); }
+export let IsKeyReleased = (user_key_index: number): boolean  => { return bind.IsKeyReleased(user_key_index); }
+export let GetKeyPressedAmount = (user_key_index: number, repeat_delay: number, rate: number): number  => { return bind.GetKeyPressedAmount(user_key_index, repeat_delay, rate); }
+export let CaptureKeyboardFromApp(capture: boolean = true) { return bind.CaptureKeyboardFromApp = (capture) => ; }
 
 // Inputs Utilities: Mouse
 // - To refer to a mouse button, you may use named enums in your code e.g. ImGuiMouseButton_Left, ImGuiMouseButton_Right.
@@ -4531,28 +4531,28 @@ export function CaptureKeyboardFromApp(capture: boolean = true) { return bind.Ca
 // IMGUI_API ImGuiMouseCursor GetMouseCursor();                                                // get desired cursor type, reset in ImGui::NewFrame(), this is updated during the frame. valid before Render(). If you use software rendering by setting io.MouseDrawCursor ImGui will render those for you
 // IMGUI_API void          SetMouseCursor(ImGuiMouseCursor cursor_type);                       // set desired cursor type
 // IMGUI_API void          CaptureMouseFromApp(bool want_capture_mouse_value = true);          // attention: misleading name! manually override io.WantCaptureMouse flag next frame (said flag is entirely left for your application to handle). This is equivalent to setting "io.WantCaptureMouse = want_capture_mouse_value;" after the next NewFrame() call.
-export function IsMouseDown(button: number): boolean { return bind.IsMouseDown(button); }
-export function IsMouseClicked(button: number, repeat: boolean = false): boolean { return bind.IsMouseClicked(button, repeat); }
-export function IsMouseDoubleClicked(button: number): boolean { return bind.IsMouseDoubleClicked(button); }
-export function IsMouseReleased(button: number): boolean { return bind.IsMouseReleased(button); }
-export function IsMouseHoveringRect(r_min: Readonly<Bind.interface_ImVec2>, r_max: Readonly<Bind.interface_ImVec2>, clip: boolean = true): boolean { return bind.IsMouseHoveringRect(r_min, r_max, clip); }
-export function IsMousePosValid(mouse_pos: Readonly<Bind.interface_ImVec2> | null = null): boolean { return bind.IsMousePosValid(mouse_pos); }
-export function IsAnyMouseDown(): boolean { return bind.IsAnyMouseDown(); }
-export function GetMousePos(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetMousePos(out); }
-export function GetMousePosOnOpeningCurrentPopup(out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetMousePosOnOpeningCurrentPopup(out); }
-export function IsMouseDragging(button: number = 0, lock_threshold: number = -1.0): boolean { return bind.IsMouseDragging(button, lock_threshold); }
-export function GetMouseDragDelta(button: number = 0, lock_threshold: number = -1.0, out: Bind.interface_ImVec2 = new ImVec2()): Bind.interface_ImVec2 { return bind.GetMouseDragDelta(button, lock_threshold, out); }
-export function ResetMouseDragDelta(button: number = 0): void { bind.ResetMouseDragDelta(button); }
-export function GetMouseCursor(): ImGuiMouseCursor { return bind.GetMouseCursor(); }
-export function SetMouseCursor(type: ImGuiMouseCursor): void { bind.SetMouseCursor(type); }
-export function CaptureMouseFromApp(capture: boolean = true): void { bind.CaptureMouseFromApp(capture); }
+export let IsMouseDown = (button: number): boolean  => { return bind.IsMouseDown(button); }
+export let IsMouseClicked = (button: number, repeat: boolean = false): boolean  => { return bind.IsMouseClicked(button, repeat); }
+export let IsMouseDoubleClicked = (button: number): boolean  => { return bind.IsMouseDoubleClicked(button); }
+export let IsMouseReleased = (button: number): boolean  => { return bind.IsMouseReleased(button); }
+export let IsMouseHoveringRect = (r_min: Readonly<Bind.interface_ImVec2>, r_max: Readonly<Bind.interface_ImVec2>, clip: boolean = true): boolean  => { return bind.IsMouseHoveringRect(r_min, r_max, clip); }
+export let IsMousePosValid = (mouse_pos: Readonly<Bind.interface_ImVec2> | null = null): boolean  => { return bind.IsMousePosValid(mouse_pos); }
+export let IsAnyMouseDown = (): boolean { return bind.IsAnyMouseDown() => ; }
+export let GetMousePos(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetMousePos(out); }
+export let GetMousePosOnOpeningCurrentPopup(out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetMousePosOnOpeningCurrentPopup(out); }
+export let IsMouseDragging = (button: number = 0, lock_threshold: number = -1.0): boolean  => { return bind.IsMouseDragging(button, lock_threshold); }
+export let GetMouseDragDelta(button: number = 0, lock_threshold: number = -1.0, out: Bind.interface_ImVec2 = new ImVec2 = ()): Bind.interface_ImVec2  => { return bind.GetMouseDragDelta(button, lock_threshold, out); }
+export let ResetMouseDragDelta = (button: number = 0): void  => { bind.ResetMouseDragDelta(button); }
+export let GetMouseCursor = (): ImGuiMouseCursor { return bind.GetMouseCursor() => ; }
+export let SetMouseCursor = (type: ImGuiMouseCursor): void  => { bind.SetMouseCursor(type); }
+export let CaptureMouseFromApp = (capture: boolean = true): void  => { bind.CaptureMouseFromApp(capture); }
 
 // Clipboard Utilities
 // - Also see the LogToClipboard() function to capture GUI into clipboard, or easily output text data to the clipboard.
 // IMGUI_API const char*   GetClipboardText();
 // IMGUI_API void          SetClipboardText(const char* text);
-export function GetClipboardText(): string { return bind.GetClipboardText(); }
-export function SetClipboardText(text: string): void { bind.SetClipboardText(text); }
+export let GetClipboardText = (): string { return bind.GetClipboardText() => ; }
+export let SetClipboardText = (text: string): void  => { bind.SetClipboardText(text); }
 
 // Settings/.Ini Utilities
 // - The disk functions are automatically called if io.IniFilename != NULL (default is "imgui.ini").
@@ -4561,14 +4561,14 @@ export function SetClipboardText(text: string): void { bind.SetClipboardText(tex
 // IMGUI_API void          LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size=0); // call after CreateContext() and before the first call to NewFrame() to provide .ini data from your own data source.
 // IMGUI_API void          SaveIniSettingsToDisk(const char* ini_filename);                    // this is automatically called (if io.IniFilename is not empty) a few seconds after any modification that should be reflected in the .ini file (and also by DestroyContext).
 // IMGUI_API const char*   SaveIniSettingsToMemory(size_t* out_ini_size = NULL);               // return a zero-terminated string with the .ini data which you can save by your own mean. call when io.WantSaveIniSettings is set, then save data by your own mean and clear io.WantSaveIniSettings.
-export function LoadIniSettingsFromDisk(ini_filename: string): void { throw new Error(); } // TODO
-export function LoadIniSettingsFromMemory(ini_data: string, ini_size: number = 0): void { bind.LoadIniSettingsFromMemory(ini_data); }
-export function SaveIniSettingsToDisk(ini_filename: string): void { throw new Error(); } // TODO
-export function SaveIniSettingsToMemory(out_ini_size: Bind.ImScalar<number> | null = null): string { return bind.SaveIniSettingsToMemory(); }
+export let LoadIniSettingsFromDisk = (ini_filename: string): void  => { throw new Error(); } // TODO
+export let LoadIniSettingsFromMemory = (ini_data: string, ini_size: number = 0): void  => { bind.LoadIniSettingsFromMemory(ini_data); }
+export let SaveIniSettingsToDisk = (ini_filename: string): void  => { throw new Error(); } // TODO
+export let SaveIniSettingsToMemory = (out_ini_size: Bind.ImScalar<number> | null = null): string  => { return bind.SaveIniSettingsToMemory(); }
 
 // Debug Utilities
 // IMGUI_API bool          DebugCheckVersionAndDataLayout(const char* version_str, size_t sz_io, size_t sz_style, size_t sz_vec2, size_t sz_vec4, size_t sz_drawvert, size_t sz_drawidx); // This is called by IMGUI_CHECKVERSION() macro.
-export function DebugCheckVersionAndDataLayout(version_str: string, sz_io: number, sz_style: number, sz_vec2: number, sz_vec4: number, sz_draw_vert: number, sz_draw_idx: number): boolean {
+export let DebugCheckVersionAndDataLayout = (version_str: string, sz_io: number, sz_style: number, sz_vec2: number, sz_vec4: number, sz_draw_vert: number, sz_draw_idx: number): boolean  => {
     return bind.DebugCheckVersionAndDataLayout(version_str, sz_io, sz_style, sz_vec2, sz_vec4, sz_draw_vert, sz_draw_idx);
 }
 
@@ -4578,11 +4578,11 @@ export function DebugCheckVersionAndDataLayout(version_str: string, sz_io: numbe
 // IMGUI_API void          SetAllocatorFunctions(void* (*alloc_func)(size_t sz, void* user_data), void (*free_func)(void* ptr, void* user_data), void* user_data = NULL);
 // IMGUI_API void*         MemAlloc(size_t size);
 // IMGUI_API void          MemFree(void* ptr);
-export function SetAllocatorFunctions(alloc_func: (sz: number, user_data: any) => number, free_func: (ptr: number, user_data: any) => void, user_data: any = null): void {
+export let SetAllocatorFunctions(alloc_func: (sz: number, user_data: any) => number, free_func:  = (ptr: number, user_data: any) => void, user_data: any = null): void  => {
     bind.SetAllocatorFunctions(alloc_func, free_func, user_data);
 }
-export function MemAlloc(sz: number): void { bind.MemAlloc(sz); }
-export function MemFree(ptr: any): void { bind.MemFree(ptr); }
+export let MemAlloc = (sz: number): void  => { bind.MemAlloc(sz); }
+export let MemFree = (ptr: any): void  => { bind.MemFree(ptr); }
 
 export { ImGuiWindow as Window }
 export class ImGuiWindow
@@ -4665,29 +4665,29 @@ export class ImGuiInputTextState
     set Text(t:string) {this.native.Text=t;}
 }
 
-export function GetCurrentWindow(): ImGuiWindow { return new ImGuiWindow(bind.GetCurrentWindow()); }
-export function GetHoveredWindow(): ImGuiWindow { return bind.GetHoveredWindow()?new ImGuiWindow(bind.GetHoveredWindow()):null; }
-export function GetHoveredRootWindow(): ImGuiWindow { return bind.GetHoveredRootWindow()?new ImGuiWindow(bind.GetHoveredRootWindow()):null; }
-export function GetActiveWindow(): ImGuiWindow { return bind.GetActiveWindow()?new ImGuiWindow(bind.GetActiveWindow()):null; }
+export let GetCurrentWindow(): ImGuiWindow { return new ImGuiWindow(bind.GetCurrentWindow = ()) => ; }
+export let GetHoveredWindow(): ImGuiWindow { return bind.GetHoveredWindow()?new ImGuiWindow(bind.GetHoveredWindow = ()) => :null; }
+export let GetHoveredRootWindow(): ImGuiWindow { return bind.GetHoveredRootWindow()?new ImGuiWindow(bind.GetHoveredRootWindow = ()) => :null; }
+export let GetActiveWindow(): ImGuiWindow { return bind.GetActiveWindow()?new ImGuiWindow(bind.GetActiveWindow = ()) => :null; }
 
-export function GetHoveredId():ImGuiID {return bind.GetHoveredId();}
-export function GetHoveredIdPreviousFrame():ImGuiID {return bind.GetHoveredIdPreviousFrame();}
-export function GetActiveId():ImGuiID {return bind.GetActiveId();}
-export function GetActiveIdPreviousFrame():ImGuiID {return bind.GetActiveIdPreviousFrame();}
-export function SetActiveId(id:ImGuiID) {return bind.SetActiveId(id);}
+export let GetHoveredId = ():ImGuiID {return bind.GetHoveredId() => ;}
+export let GetHoveredIdPreviousFrame = ():ImGuiID {return bind.GetHoveredIdPreviousFrame() => ;}
+export let GetActiveId = ():ImGuiID {return bind.GetActiveId() => ;}
+export let GetActiveIdPreviousFrame = ():ImGuiID {return bind.GetActiveIdPreviousFrame() => ;}
+export let SetActiveId(id:ImGuiID) {return bind.SetActiveId = (id) => ;}
 
-export function GetInputTextState(id:ImGuiID): ImGuiInputTextState { return new ImGuiInputTextState(bind.GetInputTextState(id)); }
-export function GetInputTextId():ImGuiID {return bind.GetInputTextId();}
+export let GetInputTextState = (id:ImGuiID): ImGuiInputTextState  => { return new ImGuiInputTextState(bind.GetInputTextState(id)); }
+export let GetInputTextId = ():ImGuiID {return bind.GetInputTextId() => ;}
 
-export function Vec4_toRGBA(col:ImVec4):string
+export let Vec4_toRGBA = (col:ImVec4) => :string
 {
     return "rgba("+col.x*255+","+col.y*255+","+col.z*255+","+col.w*255+")";
 }
-export function Font_toString(font:ImFont):string
+export let Font_toString = (font:ImFont) => :string
 {
     return font.FontStyle + " " + font.FontSize + "px " + font.FontName;
 }
-export function CreateFont(name:string, size:number, style?:string):ImFont
+export let CreateFont = (name:string, size:number, style?:string) => :ImFont
 {
     const io=GetIO();
     let font =io.Fonts.AddFontDefault();

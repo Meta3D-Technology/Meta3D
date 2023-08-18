@@ -3,24 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publish = void 0;
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
-function _throwError(msg) {
+let _throwError = (msg) => {
     throw new Error(msg);
-}
-function _isEmpty(value) {
+};
+let _isEmpty = (value) => {
     return value === undefined || value === null;
-}
-function _searchProtocolVersion(name, dependencies) {
+};
+let _searchProtocolVersion = (name, dependencies) => {
     let value = dependencies[name];
     if (_isEmpty(value)) {
         console.log(dependencies);
         _throwError("empty name: " + name);
     }
     return value;
-}
-function _isProtocol(protocolName) {
+};
+let _isProtocol = (protocolName) => {
     return /-protocol$/.test(protocolName);
-}
-function _convertToExtensionOrContributePackageData({ name, version, protocol, displayName, repoLink, description, dependencies }, account) {
+};
+let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies }, account) => {
     return {
         name,
         version,
@@ -36,27 +36,27 @@ function _convertToExtensionOrContributePackageData({ name, version, protocol, d
             .entries(dependencies)
             .filter(([protocolName, protocolVersion]) => _isProtocol(protocolName) && protocolName != protocol.name))
     };
-}
+};
 function _defineWindow() {
     global.window = {};
 }
-function _getFileDirname(fileType) {
+let _getFileDirname = (fileType) => {
     switch (fileType) {
         case "extension":
             return "extensions";
         case "contribute":
             return "contributes";
     }
-}
-function _getPublishedCollectionName(fileType) {
+};
+let _getPublishedCollectionName = (fileType) => {
     switch (fileType) {
         case "extension":
             return "publishedextensions";
         case "contribute":
             return "publishedcontributes";
     }
-}
-function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) {
+};
+let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
@@ -108,6 +108,6 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFu
         .catch(e => {
         errorFunc("error message: ", e);
     });
-}
+};
 exports.publish = publish;
 //# sourceMappingURL=Publish.js.map

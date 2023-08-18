@@ -11,7 +11,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
 
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
         readFileSyncFunc = sandbox.stub()
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
@@ -52,7 +52,7 @@ defineFeature(feature, test => {
         }
     }
 
-    function _publishExtension(packageFilePath = "", distFilePath = "") {
+    let _publishExtension = (packageFilePath = "", distFilePath = "") =>  {
         return publish(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
@@ -60,7 +60,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

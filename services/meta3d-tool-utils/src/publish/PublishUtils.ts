@@ -1,7 +1,7 @@
 import { fromPromise } from "most";
 import readJson from "read-package-json"
 
-export function buildReadJsonFunc(packageFilePath: string) {
+export let buildReadJsonFunc = (packageFilePath: string) =>  {
     return (packageFilePath) => {
         return fromPromise(
             new Promise((resolve, reject) => {
@@ -18,7 +18,7 @@ export function buildReadJsonFunc(packageFilePath: string) {
     }
 }
 
-export function isPublisherRegistered(hasAccountFunc, backendInstance: any, publisher: string) {
+export let isPublisherRegistered = (hasAccountFunc, backendInstance: any, publisher: string) =>  {
     return hasAccountFunc(backendInstance, "user", publisher)
 }
 

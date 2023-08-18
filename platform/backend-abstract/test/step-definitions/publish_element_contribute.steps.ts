@@ -11,7 +11,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
 
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
         uploadFileFunc = sandbox.stub()
@@ -50,7 +50,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

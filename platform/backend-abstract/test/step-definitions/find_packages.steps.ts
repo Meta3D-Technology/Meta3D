@@ -14,14 +14,14 @@ defineFeature(feature, test => {
     // let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasDataFunc, addDataFunc, getFileIDFunc
     let getDataByKeyContainFunc, downloadFileFunc
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
     }
 
 
-    function _createFuncsForFindPublishPackage(sandbox) {
+    let _createFuncsForFindPublishPackage = (sandbox) =>  {
         getDataByKeyContainFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
     }

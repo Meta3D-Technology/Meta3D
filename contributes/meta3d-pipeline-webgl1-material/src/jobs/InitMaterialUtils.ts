@@ -4,7 +4,7 @@ import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/
 import { service as immutableService } from "meta3d-immutable-protocol/src/service/ServiceType"
 import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 
-function _createProgram(webgl1Service: webgl1Service, gl: webgl1Context, vertexShaderSource: string, fragmentShaderSource: string) {
+let _createProgram = (webgl1Service: webgl1Service, gl: webgl1Context, vertexShaderSource: string, fragmentShaderSource: string) =>  {
 	const vertexShader = webgl1Service.createShader(webgl1Service.getVertexShader(gl), gl)
 	const fragmentShader = webgl1Service.createShader(webgl1Service.getFragmentShader(gl), gl)
 
@@ -34,7 +34,7 @@ function _createProgram(webgl1Service: webgl1Service, gl: webgl1Context, vertexS
 	return program
 }
 
-export function initMaterial([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: webgl1Context, programMap: programMap, allMaterialIndices: number[]) {
+export let initMaterial = ([webgl1Service, immutableService]: [webgl1Service, immutableService], gl: webgl1Context, programMap: programMap, allMaterialIndices: number[]) =>  {
 	let vertexShaderSource = getVertGLSL()
 	let fragmentShaderSource = getFragGLSL()
 

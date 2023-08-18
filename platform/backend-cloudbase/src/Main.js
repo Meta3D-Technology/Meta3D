@@ -78,9 +78,9 @@ exports.findPublishApp = findPublishApp;
 // )
 let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(BackendService_1.getData, limitCount, skipCount);
 exports.findAllPublishApps = findAllPublishApps;
-function _throwError(msg) {
+let _throwError = (msg) => {
     throw new Error(msg);
-}
+};
 let publishElementContribute = (onUploadProgressFunc, account, packageData, contributeBinaryFile) => Abstract.publishElementContribute([
     onUploadProgressFunc,
     _throwError, BackendService_1.uploadFile, BackendService_1.getMarketImplementAccountData, BackendService_1.updateMarketImplementData,

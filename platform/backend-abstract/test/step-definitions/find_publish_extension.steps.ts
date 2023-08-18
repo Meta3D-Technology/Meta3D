@@ -10,13 +10,13 @@ defineFeature(feature, test => {
     let sandbox = null
     let getMarketImplementFunc, downloadFileFunc
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
     }
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getMarketImplementFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
     }

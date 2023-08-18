@@ -4,7 +4,7 @@ import { states, viewMatrix, pMatrix } from "meta3d-pipeline-webgl1-senduniforms
 import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { programMap } from "meta3d-pipeline-webgl1-material-protocol/src/StateType"
 
-function _sendCameraData(webgl1Service: webgl1Service, gl: webgl1Context, programMap: programMap, viewMatrix: viewMatrix, pMatrix: pMatrix) {
+let _sendCameraData = (webgl1Service: webgl1Service, gl: webgl1Context, programMap: programMap, viewMatrix: viewMatrix, pMatrix: pMatrix) =>  {
 	programMap.forEach((program) => {
 		webgl1Service.useProgram(program, gl);
 

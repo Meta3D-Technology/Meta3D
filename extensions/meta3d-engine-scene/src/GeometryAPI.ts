@@ -23,7 +23,7 @@ export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsed
 	]
 }
 
-export function getVertices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices> {
+export let getVertices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices>  => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentData<geometry, vertices>(contribute, geometry, dataName.vertices)
@@ -42,7 +42,7 @@ export function setVertices(engineCoreState: engineCoreState, { unsafeGetUsedCom
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export function getIndices(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices> {
+export let getIndices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices>  => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentData<geometry, indices>(contribute, geometry, dataName.indices)
@@ -61,7 +61,7 @@ export function setIndices(engineCoreState: engineCoreState, { unsafeGetUsedComp
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export function getGameObjects(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, geometry: geometry): Array<gameObject> {
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, geometry: geometry): Array<gameObject>  => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentGameObjects<geometry>(contribute, geometry)

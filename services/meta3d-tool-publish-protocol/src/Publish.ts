@@ -1,11 +1,11 @@
 import { fromPromise } from "most";
 import { getLimitCount, isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
-function _throwError(msg: string): never {
+let _throwError = (msg: string): never  => {
     throw new Error(msg)
 }
 
-function _getPublishedCollectionName(fileType: "extension" | "contribute") {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocols"
@@ -14,17 +14,17 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-function _isPNG(iconPath: string) {
+let _isPNG = (iconPath: string) =>  {
     return iconPath.match(/\.png$/) !== null
 }
 
 
-function _isEmpty(value: any) {
+let _isEmpty = (value: any) =>  {
     return value === undefined || value === null
 }
 
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") {
+export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") =>  {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -92,7 +92,7 @@ export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, ini
         })
 }
 
-function _getPublishedConfigCollectionName(fileType: "extension" | "contribute") {
+let _getPublishedConfigCollectionName = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocolconfigs"
@@ -101,7 +101,7 @@ function _getPublishedConfigCollectionName(fileType: "extension" | "contribute")
     }
 }
 
-export function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") =>  {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {

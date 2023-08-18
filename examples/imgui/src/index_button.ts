@@ -5,7 +5,7 @@ import { loop } from "./loop_button";
 export { ImGui, ImGui_Impl }
 
 
-// export function ImGuiObject(obj: any, id: number = 0): number {
+// export let ImGuiObject = (obj: any, id: number = 0): number  => {
 //     if (obj == null) {
 //         ImGui.Text("(null)");
 //         return;
@@ -41,7 +41,7 @@ export { ImGui, ImGui_Impl }
 // }
 
 
-function _loop(time: number) {
+let _loop = (time: number) =>  {
     loop(time)
     window.requestAnimationFrame(_loop);
 }

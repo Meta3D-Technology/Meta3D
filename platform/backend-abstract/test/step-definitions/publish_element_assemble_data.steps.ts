@@ -11,7 +11,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let logFunc, errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         logFunc = sandbox.stub()
         errorFunc = sandbox.stub()
         getMarketImplementAccountDataFunc = sandbox.stub()
@@ -35,7 +35,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

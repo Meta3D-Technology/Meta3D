@@ -62,7 +62,7 @@ const Publish_1 = require("./Publish");
 // 			throw new Error("unknown env")
 // 	}
 // }
-function publishExtension(env, packageFilePath, distFilePath) {
+let publishExtension = (env, packageFilePath, distFilePath) => {
     let funcArr = null;
     switch (env) {
         case "local":
@@ -127,9 +127,9 @@ function publishExtension(env, packageFilePath, distFilePath) {
             throw new Error("unknown env");
     }
     return (0, Publish_1.publish)(funcArr, packageFilePath, distFilePath, "extension");
-}
+};
 exports.publishExtension = publishExtension;
-function publishContribute(env, packageFilePath, distFilePath) {
+let publishContribute = (env, packageFilePath, distFilePath) => {
     let funcArr = null;
     switch (env) {
         case "local":
@@ -194,7 +194,7 @@ function publishContribute(env, packageFilePath, distFilePath) {
             throw new Error("unknown env");
     }
     return (0, Publish_1.publish)(funcArr, packageFilePath, distFilePath, "contribute");
-}
+};
 exports.publishContribute = publishContribute;
 // publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/", "main.js"))
 // publishExtension(path.join(__dirname, "../mine/t/", "package.json"), path.join(__dirname, "../mine/t/", "main.js"))

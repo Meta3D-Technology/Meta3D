@@ -15,7 +15,7 @@ defineFeature(feature, test => {
         getFileDataFromMarketImplementCollectionDataFunc,
         downloadFileFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getMarketImplementCollectionFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
         mapMarketImplementCollectionFunc = mapMarketImplementCollection
@@ -24,7 +24,7 @@ defineFeature(feature, test => {
 
     }
 
-    function _getAllPublishNewestExtensions(limitCount, skipCount, protocolName) {
+    let _getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) =>  {
         return getAllPublishNewestData(
             [
                 getMarketImplementCollectionFunc,
@@ -39,7 +39,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

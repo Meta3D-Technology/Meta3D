@@ -2,20 +2,20 @@ import { state, states, pipelineName } from "meta3d-pipeline-webgl1-geometry-pro
 import { pipelineName as dataPipelineName, state as dataState } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-export function getState(states: states): state {
+export let getState = (states: states): state  => {
     return states[pipelineName]
 }
 
-export function setState(states: states, state: state): states {
+export let setState = (states: states, state: state): states  => {
     return Object.assign({}, states, {
         [pipelineName]: state
     });
 }
 
-export function getGL(states: states) {
+export let getGL = (states: states) =>  {
     return getExn(states[dataPipelineName].gl)
 }
 
-export function getAllGeometryIndices(states: states) {
+export let getAllGeometryIndices = (states: states) =>  {
     return (states[dataPipelineName] as any as dataState).allGeometryIndices
 }

@@ -16,7 +16,7 @@ defineFeature(feature, test => {
     let getDataByKeyContainFunc
     let getDataFunc
 
-    function _createFuncsForPublish(sandbox) {
+    let _createFuncsForPublish = (sandbox) =>  {
         onUploadProgressFunc = "onUploadProgressFunc"
         uploadFileFunc = sandbox.stub()
         hasAccountFunc = sandbox.stub()
@@ -29,7 +29,7 @@ defineFeature(feature, test => {
         getFileIDFunc = getFileID
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -177,16 +177,16 @@ defineFeature(feature, test => {
     });
 
 
-    function _createFuncsForFindPublishApp(sandbox) {
+    let _createFuncsForFindPublishApp = (sandbox) =>  {
         getDataByKeyFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
     }
 
-    function _createFuncsForFindAllPublishAppsByAccount(sandbox) {
+    let _createFuncsForFindAllPublishAppsByAccount = (sandbox) =>  {
         getDataByKeyContainFunc = sandbox.stub()
     }
 
-    function _createFuncsForFindAllPublishApps(sandbox) {
+    let _createFuncsForFindAllPublishApps = (sandbox) =>  {
         getDataFunc = sandbox.stub()
     }
 

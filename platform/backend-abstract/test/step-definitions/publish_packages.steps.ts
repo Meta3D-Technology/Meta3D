@@ -14,7 +14,7 @@ defineFeature(feature, test => {
     // let getDataByKeyFunc, downloadFileFunc
     // let getDataByKeyContainFunc
 
-    function _createFuncsForPublish(sandbox) {
+    let _createFuncsForPublish = (sandbox) =>  {
         onUploadProgressFunc = "onUploadProgressFunc"
         uploadFileFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
@@ -27,7 +27,7 @@ defineFeature(feature, test => {
         getFileIDFunc = getFileID
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

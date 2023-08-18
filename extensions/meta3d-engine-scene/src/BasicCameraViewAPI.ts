@@ -25,13 +25,13 @@ export function createBasicCameraView(engineCoreState: engineCoreState, { unsafe
     ]
 }
 
-export function getGameObjects(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, basicCameraView: basicCameraView): Array<gameObject> {
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, basicCameraView: basicCameraView): Array<gameObject>  => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentGameObjects<basicCameraView>(contribute, basicCameraView)
 }
 
-export function active(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, basicCameraView: basicCameraView) {
+export let active = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, basicCameraView: basicCameraView) =>  {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, basicCameraView, dataName.isActive, true)
@@ -39,7 +39,7 @@ export function active(engineCoreState: engineCoreState, { unsafeGetUsedComponen
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export function getViewWorldToCameraMatrix(engineCoreState: engineCoreState, engineCoreService: engineCoreService, basicCameraView: basicCameraView): nullable<Float32Array> {
+export let getViewWorldToCameraMatrix = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, basicCameraView: basicCameraView): nullable<Float32Array>  => {
     let { unsafeGetUsedComponentContribute } = engineCoreService
 
     return getViewWorldToCameraMatrixUtils(
@@ -50,7 +50,7 @@ export function getViewWorldToCameraMatrix(engineCoreState: engineCoreState, eng
     )
 }
 
-export function getActiveCameraView(engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean): nullable<basicCameraView> {
+export let getActiveCameraView = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean): nullable<basicCameraView>  => {
     let { unsafeGetUsedComponentContribute } = engineCoreService
 
     return getActiveCameraViewUtils(

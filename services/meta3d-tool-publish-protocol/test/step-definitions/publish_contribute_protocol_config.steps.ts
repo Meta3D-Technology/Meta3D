@@ -11,7 +11,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc
 
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
         readFileSyncFunc = sandbox.stub()
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
@@ -32,7 +32,7 @@ defineFeature(feature, test => {
         return { name, version, publisher: account }
     }
 
-    function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
+    let _publishContributeProtocolConfig = (packageFilePath = "", distFilePath = "main.js") =>  {
         return publishConfig(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
@@ -40,7 +40,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

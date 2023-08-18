@@ -10,11 +10,11 @@ defineFeature(feature, test => {
     let sandbox = null
     let getDataByKeyContainFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getDataByKeyContainFunc = sandbox.stub()
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

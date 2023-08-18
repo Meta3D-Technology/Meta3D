@@ -10,19 +10,19 @@ defineFeature(feature, test => {
     let sandbox = null
     let getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getMarketImplementAccountDataFunc = sandbox.stub()
         getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
     }
 
-    function _getElementAssembleData(account, elementName, elementVersion) {
+    let _getElementAssembleData = (account, elementName, elementVersion) =>  {
         return getElementAssembleData(
             [getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc],
             account, elementName, elementVersion
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

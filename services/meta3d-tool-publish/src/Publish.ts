@@ -2,15 +2,15 @@ import { fromPromise } from "most";
 import { isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
 
-function _throwError(msg: string): never {
+let _throwError = (msg: string): never  => {
     throw new Error(msg)
 }
 
-function _isEmpty(value: any) {
+let _isEmpty = (value: any) =>  {
     return value === undefined || value === null
 }
 
-function _searchProtocolVersion(name: string, dependencies: any) {
+let _searchProtocolVersion = (name: string, dependencies: any) =>  {
     let value = dependencies[name]
 
     if (_isEmpty(value)) {
@@ -21,12 +21,12 @@ function _searchProtocolVersion(name: string, dependencies: any) {
     return value
 }
 
-function _isProtocol(protocolName: string) {
+let _isProtocol = (protocolName: string) =>  {
     return /-protocol$/.test(protocolName)
 }
 
 
-function _convertToExtensionOrContributePackageData({ name, version, protocol, displayName, repoLink, description, dependencies }: any, account): any {
+let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies }: any, account): any  => {
     return {
         name,
         version,
@@ -50,7 +50,7 @@ function _defineWindow() {
     (global as any).window = {}
 }
 
-function _getFileDirname(fileType: "extension" | "contribute") {
+let _getFileDirname = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "extensions"
@@ -59,7 +59,7 @@ function _getFileDirname(fileType: "extension" | "contribute") {
     }
 }
 
-function _getPublishedCollectionName(fileType: "extension" | "contribute") {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "publishedextensions"
@@ -68,7 +68,7 @@ function _getPublishedCollectionName(fileType: "extension" | "contribute") {
     }
 }
 
-export function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") {
+export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") =>  {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
             return initFunc().map(backendInstance => [backendInstance, packageJson])

@@ -5,7 +5,7 @@ import { uiControlName, state as uiControlState } from "meta3d-ui-control-scene-
 import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
 // TODO refactor: rename to getSceneViewRect
-export function getViewRect(uiService: uiService, uiState: uiState) {
+export let getViewRect = (uiService: uiService, uiState: uiState) =>  {
     return map<uiControlState, rect>(({ rect }) => rect, uiService.getUIControlState<uiControlState>(uiState, uiControlName)
     )
 }

@@ -4,20 +4,20 @@ import { pipelineName as geometryPipelineName } from "meta3d-pipeline-webgl1-geo
 import { pipelineName as materialPipelineName } from "meta3d-pipeline-webgl1-material-protocol/src/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-export function getState(states: states): state {
+export let getState = (states: states): state  => {
     return states[pipelineName]
 }
 
-export function setState(states: states, state: state): states {
+export let setState = (states: states, state: state): states  => {
     return Object.assign({}, states, {
         [pipelineName]: state
     });
 }
 
-export function getVBO(states: states) {
+export let getVBO = (states: states) =>  {
     return getExn(states[geometryPipelineName].vbo)
 }
 
-export function getMaterial(states: states) {
+export let getMaterial = (states: states) =>  {
     return getExn(states[materialPipelineName].material)
 }

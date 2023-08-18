@@ -639,9 +639,9 @@ TODO implement 已导入
 * DONE fix Inspector(E) not refresh bug
 
 
-* TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
+# * TODO refactor: assemble-space, frontend: add "xxxFunc" postfix
 
-* TODO refactor: .ts: change function to let xxx = () => xxx
+* DONE refactor: .ts: change function to let xxx = () => xxx
 
 
 

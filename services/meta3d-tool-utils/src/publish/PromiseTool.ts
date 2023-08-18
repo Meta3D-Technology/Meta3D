@@ -1,4 +1,4 @@
-export function resolve(value) {
+export let resolve = (value) =>  {
     return new Promise((resolve, reject) => {
         resolve(value)
     })

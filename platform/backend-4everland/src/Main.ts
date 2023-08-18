@@ -104,7 +104,7 @@ export let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPubli
     limitCount, skipCount
 )
 
-function _throwError(msg: string): never {
+let _throwError = (msg: string): never  => {
     throw new Error(msg)
 }
 

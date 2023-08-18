@@ -1,6 +1,6 @@
 import { fromPromise } from "most";
 
-function _getFileDirname(fileType: "extension" | "contribute") {
+let _getFileDirname = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "extensions"
@@ -9,7 +9,7 @@ function _getFileDirname(fileType: "extension" | "contribute") {
     }
 }
 
-function _getPublishedCollectionName(fileType: "extension" | "contribute") {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
     switch (fileType) {
         case "extension":
             return "publishedextensions"

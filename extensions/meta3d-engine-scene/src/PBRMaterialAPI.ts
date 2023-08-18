@@ -23,13 +23,13 @@ export function createPBRMaterial(engineCoreState: engineCoreState, { unsafeGetU
 	]
 }
 
-export function getDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, pbrMaterial: pbrMaterial): nullable<diffuseColor> {
+export let getDiffuseColor = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, pbrMaterial: pbrMaterial): nullable<diffuseColor>  => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentData<pbrMaterial, diffuseColor>(contribute, pbrMaterial, dataName.diffuseColor)
 }
 
-export function setDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) {
+export let setDiffuseColor = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) =>  {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 
@@ -38,13 +38,13 @@ export function setDiffuseColor(engineCoreState: engineCoreState, { unsafeGetUse
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export function getAllPBRMaterials(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) {
+export let getAllPBRMaterials = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) =>  {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getAllComponents<pbrMaterial>(contribute)
 }
 
-export function getGameObjects(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, pbrMaterial: pbrMaterial): Array<gameObject> {
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, pbrMaterial: pbrMaterial): Array<gameObject>  => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentGameObjects<pbrMaterial>(contribute, pbrMaterial)

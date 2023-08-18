@@ -100,7 +100,7 @@ export class Input
 
 export let dom_input:any={}
 
-export function GetInput(type:EType, textColor:string, textBgColor:string):Input
+export let GetInput = (type:EType, textColor:string, textBgColor:string) => :Input
 {
     let inp=dom_input[type];
     if(!inp)    {

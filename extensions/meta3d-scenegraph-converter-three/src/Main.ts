@@ -37,7 +37,7 @@ import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/Index";
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { generateUUID } from "./three/MathUtils";
-import { generateId } from "./utils/FrontendUtils.IdUtils";
+import { generateId } from "./utils/IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
 import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
@@ -55,11 +55,11 @@ function _getMeshInstanceMap(): Array<Mesh> {
     return (globalThis as any).meshInstanceMap_for_scene_graph_converter
 }
 
-// function _clearMeshInstance(gameObject: gameObject) {
+// let _clearMeshInstance = (gameObject: gameObject) =>  {
 //     _getMeshInstanceMap()[gameObject] = undefined
 // }
 
-function _getMeshInstance(gameObject: gameObject) {
+let _getMeshInstance = (gameObject: gameObject) =>  {
     if (_getMeshInstanceMap()[gameObject] === undefined) {
         _getMeshInstanceMap()[gameObject] = new Mesh(gameObject)
     }
@@ -71,11 +71,11 @@ function _getBasicMaterialInstanceMap(): Array<MeshBasicMaterial> {
     return (globalThis as any).basicMaterialInstanceMap_for_scene_graph_converter
 }
 
-// function _clearBasicMaterialInstance(material: pbrMaterial) {
+// let _clearBasicMaterialInstance = (material: pbrMaterial) =>  {
 //     _getBasicMaterialInstanceMap()[material] = undefined
 // }
 
-function _getBasicMaterialInstance(material: pbrMaterial) {
+let _getBasicMaterialInstance = (material: pbrMaterial) =>  {
     if (_getBasicMaterialInstanceMap()[material] === undefined) {
         _getBasicMaterialInstanceMap()[material] = new MeshBasicMaterial(material)
     }
@@ -87,11 +87,11 @@ function _getGeometryInstanceMap(): Array<BufferGeometry> {
     return (globalThis as any).geometryInstanceMap_for_scene_graph_converter
 }
 
-// function _clearGeometryInstance(geometry: geometry) {
+// let _clearGeometryInstance = (geometry: geometry) =>  {
 //     _getGeometryInstanceMap()[geometry] = undefined
 // }
 
-function _getGeometryInstance(geometry: geometry) {
+let _getGeometryInstance = (geometry: geometry) =>  {
     if (_getGeometryInstanceMap()[geometry] === undefined) {
         _getGeometryInstanceMap()[geometry] = new BufferGeometry(geometry)
     }
@@ -99,7 +99,7 @@ function _getGeometryInstance(geometry: geometry) {
     return _getGeometryInstanceMap()[geometry]
 }
 
-function _convertToMatrix4(mat: Float32Array): Matrix4Type {
+let _convertToMatrix4 = (mat: Float32Array): Matrix4Type  => {
     // return new Matrix4(
     //     mat[0],
     //     mat[1],
@@ -142,11 +142,11 @@ function _convertToMatrix4(mat: Float32Array): Matrix4Type {
     )
 }
 
-// function _getCameraView(engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) {
+// let _getCameraView = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) =>  {
 //     return getExn(getActiveCameraView(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName), engineCoreService, isDebug))
 // }
 
-// function _getCameraProjection(engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) {
+// let _getCameraProjection = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) =>  {
 //     return getExn(engineCoreService.getComponent<perspectiveCameraProjection>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), gameObject))
 // }
 
@@ -154,7 +154,7 @@ function _getEmptyGameObject() {
     return -1
 }
 
-function _getMatrix(gameObject: gameObject): Matrix4Type {
+let _getMatrix = (gameObject: gameObject): Matrix4Type  => {
     let meta3dState = getMeta3dState()
 
     let engineSceneService = getEngineSceneService(meta3dState)
@@ -908,7 +908,7 @@ function _getAllEventNames() {
     }
 }
 
-function _convertToUint32ArrayIndices(indices: TypedArray) {
+let _convertToUint32ArrayIndices = (indices: TypedArray) =>  {
     if (!(indices instanceof Uint32Array)) {
         return new Uint32Array(indices.buffer)
     }
@@ -916,7 +916,7 @@ function _convertToUint32ArrayIndices(indices: TypedArray) {
     return indices
 }
 
-function _getBufferGeometry(mesh: MeshType): BufferGeometryType {
+let _getBufferGeometry = (mesh: MeshType): BufferGeometryType  => {
     let geometry = mesh.geometry
 
     if (!geometry.isBufferGeometry) {
@@ -926,7 +926,7 @@ function _getBufferGeometry(mesh: MeshType): BufferGeometryType {
     return geometry
 }
 
-function _getMeshBasicMaterial(mesh: MeshType): MeshBasicMaterialType {
+let _getMeshBasicMaterial = (mesh: MeshType): MeshBasicMaterialType  => {
     let material = mesh.material as MeshBasicMaterialType
 
     if (material.type !== "MeshBasicMaterial") {

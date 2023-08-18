@@ -7,7 +7,7 @@ import { geometry, vertices, indices } from "meta3d-component-geometry-protocol-
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { componentName, dataName } from "meta3d-component-geometry-protocol"
 
-function _createVBOs(webgl1Service: webgl1Service, gl: webgl1Context, vertices: vertices, indices: indices) {
+let _createVBOs = (webgl1Service: webgl1Service, gl: webgl1Context, vertices: vertices, indices: indices) =>  {
 	let verticesBuffer = webgl1Service.createBuffer(gl)
 	webgl1Service.bindBuffer(webgl1Service.getArrayBuffer(gl), verticesBuffer, gl)
 	webgl1Service.bufferFloat32Data(webgl1Service.getArrayBuffer(gl), vertices, webgl1Service.getStaticDraw(gl), gl)

@@ -60,25 +60,25 @@ type fragmentCode = string
 
 type shaderName = string
 
-function initShader(shaderName: shaderName): [vertexCode, fragmentCode, vertexAttributeShaderLocationData, bindGroupLayoutData] {
+let initShader = (shaderName: shaderName): [vertexCode, fragmentCode, vertexAttributeShaderLocationData, bindGroupLayoutData]  => {
     //TODO implement
     return {} as any
 }
 
 type material = component
 
-function getShaderName(material: material): shaderName {
+let getShaderName = (material: material): shaderName  => {
     return getShaderNameFromWGSLPackage()
 }
 
-function getPipelineState(material: material): pipelineState {
+let getPipelineState = (material: material): pipelineState  => {
     // getComponentData(material,dataName.depth)
 
     //TODO implement
     return {} as any
 }
 
-function createRenderPipelinesWithoutMaterial(allRenderPipelineData: Array<[shaderName, pipelineState, vertexBufferData]>): Record<renderPipelineName, renderPipeline> {
+let createRenderPipelinesWithoutMaterial = (allRenderPipelineData: Array<[shaderName, pipelineState, vertexBufferData]>): Record<renderPipelineName, renderPipeline>  => {
     return allRenderPipelineData.reduce((allRenderPipelines, [shaderName, vertexBufferData]) => {
         allRenderPipelines.push(
             device.createRenderPipeline({
@@ -92,7 +92,7 @@ function createRenderPipelinesWithoutMaterial(allRenderPipelineData: Array<[shad
     }, [])
 }
 
-function createRenderPipelinesWithMaterial(allRenderPipelineData: Array<[shaderName, pipelineState, vertexBufferData]>): Record<renderPipelineName, renderPipeline> {
+let createRenderPipelinesWithMaterial = (allRenderPipelineData: Array<[shaderName, pipelineState, vertexBufferData]>): Record<renderPipelineName, renderPipeline>  => {
     return allRenderPipelineData.reduce((allRenderPipelines, [shaderName, vertexBufferData]) => {
         allRenderPipelines.push(
             device.createRenderPipeline({
@@ -111,23 +111,23 @@ function createRenderPipelinesWithMaterial(allRenderPipelineData: Array<[shaderN
 
 
 
-function _createVertexBuffer(allVertices: Array<Float32Array>, maxGeometryCount: number, maxGeometryPointCount: number): buffer {
+let _createVertexBuffer = (allVertices: Array<Float32Array>, maxGeometryCount: number, maxGeometryPointCount: number): buffer  => {
     //TODO implement
     return {} as any
 }
 
-function _createIndexBuffer(allIndices: Array<Uint32Array>, maxGeometryCount: number, maxGeometryPointCount: number): buffer {
+let _createIndexBuffer = (allIndices: Array<Uint32Array>, maxGeometryCount: number, maxGeometryPointCount: number): buffer  => {
     //TODO implement
     return {} as any
 }
 
-function _createInstanceBuffer(allModelMatrices: Array<Float32Array>, maxInstanceCount: number): buffer {
+let _createInstanceBuffer = (allModelMatrices: Array<Float32Array>, maxInstanceCount: number): buffer  => {
 
     //TODO implement
     return {} as any
 }
 
-function _createAllMaterialBuffers(allRegisterdMaterialComponentData: Record<materialType, material>): Record<materialType, buffer> {
+let _createAllMaterialBuffers = (allRegisterdMaterialComponentData: Record<materialType, material>): Record<materialType, buffer>  => {
     //TODO implement
     return {} as any
 }
@@ -144,19 +144,19 @@ function _createIndirectBuffer(): buffer {
 }
 
 
-// function createAllBindGroupsWithMaterial(allBufferData:Array<Record<binding, buffer>> , binding): Record<group, bindGroup> {
-function createAllBindGroupsWithMaterial(?): Record<group, bindGroup> {
+// let createAllBindGroupsWithMaterial = (allBufferData:Array<Record<binding, buffer>> , binding): Record<group, bindGroup>  => {
+let createAllBindGroupsWithMaterial = (?): Record<group, bindGroup>  => {
     //TODO implement
     return {} as any
 }
 
-function createAllBindGroupsWithoutMaterial(?): Record<group, bindGroup> {
+let createAllBindGroupsWithoutMaterial = (?): Record<group, bindGroup>  => {
     //TODO implement
     return {} as any
 }
 
 
-function createBindGroup(layout, Array<[binding, buffer]>): [group, bindGroup] {
+let createBindGroup = (layout, Array<[binding, buffer]>): [group, bindGroup]  => {
     //TODO implement
     return {} as any
 }
@@ -193,7 +193,7 @@ function updateBatches(
 }
 
 
-function updateIndirectBuffer(indirectBuffer, batches): indirectBuffer {
+let updateIndirectBuffer = (indirectBuffer, batches): indirectBuffer  => {
     // getIndirectBufferOffset(batches)
 
     VkDrawIndirectCommand * drawCommands = map_buffer(get_current_frame().indirectBuffer);
@@ -211,12 +211,12 @@ function updateIndirectBuffer(indirectBuffer, batches): indirectBuffer {
 
 }
 
-function updateInstanceBuffer(indirectBuffer, batches): indirectBuffer {
+let updateInstanceBuffer = (indirectBuffer, batches): indirectBuffer  => {
     // getInstanceBufferOffset(batches)
 }
 
 
-function updateInstanceBuffer(indirectBuffer, batches): indirectBuffer {
+let updateInstanceBuffer = (indirectBuffer, batches): indirectBuffer  => {
     // getInstanceBufferOffset(batches)
 }
 
@@ -239,7 +239,7 @@ function buildPassState(): GPURenderPassDescriptor {
     return {} as any
 }
 
-function execBatches(batches, passState): void {
+let execBatches = (batches, passState): void  => {
     /*
     // renderBundle1: setVertexBuffer, setIndexBuffer(with offset, size)
     // renderBundle2: setPipeline, setBindGroup(each bindGroup only its' material buffer not the same!)

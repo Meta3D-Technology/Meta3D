@@ -70,11 +70,11 @@ export function publishContributeProtocol(
 	return publish(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "contribute")
 }
 
-export function publishContributeProtocolConfig(env: env, packageFilePath: string, distFilePath: string) {
+export let publishContributeProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) =>  {
 	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "contribute")
 }
 
-export function publishExtensionProtocolConfig(env: env, packageFilePath: string, distFilePath: string) {
+export let publishExtensionProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) =>  {
 	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "extension")
 }
 

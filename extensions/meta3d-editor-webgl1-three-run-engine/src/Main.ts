@@ -6,7 +6,7 @@ import { service as engineWholeService } from "meta3d-editor-engine-whole-protoc
 // import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 
-// function _createCameraGameObject(meta3dState, scene, canvasSize) {
+// let _createCameraGameObject = (meta3dState, scene, canvasSize) =>  {
 // 	// let { gameObject, basicCameraView } = scene
 
 // 	let data = scene.gameObject.createGameObject(meta3dState)
@@ -46,7 +46,7 @@ import { service as engineWholeService } from "meta3d-editor-engine-whole-protoc
 // 	return meta3dState
 // }
 
-// function _createCubeGameObject(meta3dState, scene) {
+// let _createCubeGameObject = (meta3dState, scene) =>  {
 // 	let data = scene.gameObject.createGameObject(meta3dState)
 // 	meta3dState = data[0]
 // 	let gameObject = data[1]
@@ -99,7 +99,7 @@ import { service as engineWholeService } from "meta3d-editor-engine-whole-protoc
 // 	return meta3dState
 // }
 
-// function _createScene(meta3dState, scene, canvasSize) {
+// let _createScene = (meta3dState, scene, canvasSize) =>  {
 // 	meta3dState = _createCameraGameObject(meta3dState, scene, canvasSize)
 
 // 	meta3dState = _createCubeGameObject(meta3dState, scene)

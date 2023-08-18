@@ -12,18 +12,18 @@ defineFeature(feature, test => {
     let sandbox = null
     let hasDataFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         hasDataFunc = sandbox.stub()
     }
 
-    function _isLoginSuccess(account) {
+    let _isLoginSuccess = (account) =>  {
         return isLoginSuccess(
             hasDataFunc,
             account
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

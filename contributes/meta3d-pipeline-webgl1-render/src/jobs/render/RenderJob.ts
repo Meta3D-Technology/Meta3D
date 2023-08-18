@@ -15,7 +15,7 @@ import { componentName as geometryName, dataName as geometryDataName } from "met
 import { componentName as transformName, dataName as transformDataName } from "meta3d-component-transform-protocol"
 import { componentName as pbrMaterialName, dataName as pbrMaterialDataName, diffuseColor } from "meta3d-component-pbrmaterial-protocol"
 
-function _render(webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer: buffer, indicesBuffer: buffer, program: program, diffuseColor: diffuseColor, modelMatrix: Float32Array, indicesCount: number) {
+let _render = (webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer: buffer, indicesBuffer: buffer, program: program, diffuseColor: diffuseColor, modelMatrix: Float32Array, indicesCount: number) =>  {
 	webgl1Service.useProgram(program, gl)
 
 	webgl1Service.bindBuffer(webgl1Service.getArrayBuffer(gl), verticesBuffer, gl)
@@ -36,20 +36,20 @@ function _render(webgl1Service: webgl1Service, gl: webgl1Context, verticesBuffer
 	webgl1Service.drawElements(webgl1Service.getTriangles(gl), indicesCount, webgl1Service.getUnsignedInt(gl), 0, gl)
 }
 
-function _getVBOBuffer(immutableService: immutableService, geometryIndex: number, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap) {
+let _getVBOBuffer = (immutableService: immutableService, geometryIndex: number, verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap) =>  {
 	let verticesBuffer = getExn(immutableService.mapGet(verticesVBOMap, geometryIndex))
 	let indicesBuffer = getExn(immutableService.mapGet(indicesVBOMap, geometryIndex))
 
 	return { verticesBuffer, indicesBuffer }
 }
 
-function _getProgramData(immutableService: immutableService, materialIndex: number, programMap: programMap) {
+let _getProgramData = (immutableService: immutableService, materialIndex: number, programMap: programMap) =>  {
 	let program = getExn(immutableService.mapGet(programMap, materialIndex))
 
 	return program
 }
 
-function _getRenderData([engineCoreService, immutableService]: [engineCoreService, immutableService], engineCoreState: engineCoreState, [transform, geometry, material,]: [transform, geometry, pbrMaterial], verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap): [
+let _getRenderData = ([engineCoreService, immutableService]: [engineCoreService, immutableService], engineCoreState: engineCoreState, [transform, geometry, material,]: [transform, geometry, pbrMaterial], verticesVBOMap: verticesVBOMap, indicesVBOMap: indicesVBOMap, programMap: programMap) => : [
 	{ verticesBuffer: buffer, indicesBuffer: buffer },
 	indicesCount,
 	program, diffuseColor, localToWorldMatrix
@@ -67,7 +67,7 @@ function _getRenderData([engineCoreService, immutableService]: [engineCoreServic
 	return [{ verticesBuffer, indicesBuffer }, indicesCount, program, diffuseColor, modelMatrix]
 }
 
-function _clear(webgl1Service: webgl1Service, gl: webgl1Context) {
+let _clear = (webgl1Service: webgl1Service, gl: webgl1Context) =>  {
 	webgl1Service.clearColor(0.0, 0.0, 0.0, 1.0, gl)
 	webgl1Service.clear(webgl1Service.getColorBufferBit(gl) | webgl1Service.getDepthBufferBit(gl), gl);
 }

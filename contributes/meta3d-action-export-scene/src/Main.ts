@@ -7,7 +7,7 @@ import { service as exportSceneService } from "meta3d-export-scene-protocol/src/
 import { actionData } from "meta3d-action-button-click-protocol"
 
 
-function _download(body: ArrayBuffer, filename: string, extension: string) {
+let _download = (body: ArrayBuffer, filename: string, extension: string) =>  {
     const blob = new Blob([body], { type: "arraybuffer" });
     const fileName = filename + "." + extension;
 

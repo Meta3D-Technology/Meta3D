@@ -37,7 +37,7 @@ import { publish } from "./Publish";
 // 	}
 // }
 
-export function publishExtension(env: env, packageFilePath: string, distFilePath: string) {
+export let publishExtension = (env: env, packageFilePath: string, distFilePath: string) =>  {
 	let funcArr = null
 
 	switch (env) {
@@ -106,7 +106,7 @@ export function publishExtension(env: env, packageFilePath: string, distFilePath
 	return publish(funcArr, packageFilePath, distFilePath, "extension")
 }
 
-export function publishContribute(env: env, packageFilePath: string, distFilePath: string) {
+export let publishContribute = (env: env, packageFilePath: string, distFilePath: string) =>  {
 	let funcArr = null
 
 	switch (env) {

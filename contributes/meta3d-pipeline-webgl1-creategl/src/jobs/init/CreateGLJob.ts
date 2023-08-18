@@ -4,7 +4,7 @@ import { states } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType";
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-function _createGL({ getContext }: webgl1Service, canvas: HTMLCanvasElement) {
+let _createGL = ({ getContext }: webgl1Service, canvas: HTMLCanvasElement) =>  {
 	return getContext(canvas, {
 		alpha: true,
 		antialias: true,

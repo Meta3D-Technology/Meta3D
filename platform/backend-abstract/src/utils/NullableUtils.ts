@@ -1,4 +1,4 @@
-export function getExn<T>(nullableValue: T | null | undefined): T {
+export let getExn = <T> (nullableValue: T | null | undefined): T  => {
     if (nullableValue === null || nullableValue === undefined) {
         throw new Error("nullableValue should exist")
     }
@@ -6,6 +6,6 @@ export function getExn<T>(nullableValue: T | null | undefined): T {
     return nullableValue as T
 }
 
-export function isNullable<T>(nullableValue: T | null | undefined): boolean {
+export let isNullable = <T> (nullableValue: T | null | undefined): boolean  => {
     return nullableValue === null || nullableValue === undefined
 }

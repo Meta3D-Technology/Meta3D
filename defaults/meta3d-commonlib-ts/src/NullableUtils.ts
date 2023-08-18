@@ -1,4 +1,4 @@
-export function getExn<T>(nullableValue: T | null | undefined): T {
+export let getExn = <T>(nullableValue: T | null | undefined): T => {
     if (nullableValue === null || nullableValue === undefined) {
         throw new Error("nullableValue should exist")
     }
@@ -6,7 +6,7 @@ export function getExn<T>(nullableValue: T | null | undefined): T {
     return nullableValue as T
 }
 
-export function getExnFromStrictNullable<T>(nullableValue: T | null): T {
+export let getExnFromStrictNullable = <T>(nullableValue: T | null): T => {
     if (nullableValue === null) {
         throw new Error("nullableValue should exist")
     }
@@ -14,16 +14,16 @@ export function getExnFromStrictNullable<T>(nullableValue: T | null): T {
     return nullableValue as T
 }
 
-export function isNullable<T>(nullableValue: T | null | undefined): boolean {
+export let isNullable = <T>(nullableValue: T | null | undefined): boolean => {
     return nullableValue === null || nullableValue === undefined
 }
 
-export function isStrictNullable<T>(nullableValue: T | null): boolean {
+export let isStrictNullable = <T>(nullableValue: T | null): boolean => {
     return nullableValue === null
 }
 
 
-export function map<T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null | undefined): Y | null | undefined {
+export let map = <T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null | undefined): Y | null | undefined => {
     if (isNullable(nullableValue)) {
         return nullableValue as null | undefined
     }
@@ -31,7 +31,7 @@ export function map<T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null
     return func(nullableValue as T)
 }
 
-export function getWithDefault<T>(nullableValue: T | null | undefined, default_: T): T {
+export let getWithDefault = <T>(nullableValue: T | null | undefined, default_: T): T => {
     if (isNullable(nullableValue)) {
         return default_
     }

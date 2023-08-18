@@ -10,11 +10,11 @@ defineFeature(feature, test => {
     let sandbox = null
     let batchFindMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
     }
 
-    function _batchFindPublishExtensionProtocols(protocolNames) {
+    let _batchFindPublishExtensionProtocols = (protocolNames) =>  {
         return batchFindPublishProtocolData(
             [batchFindMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
             "publishedextensionprotocols",
@@ -22,7 +22,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

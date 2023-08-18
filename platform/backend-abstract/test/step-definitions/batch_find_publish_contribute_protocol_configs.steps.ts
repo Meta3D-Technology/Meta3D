@@ -10,7 +10,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let batchFindMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
     }
 
@@ -24,7 +24,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

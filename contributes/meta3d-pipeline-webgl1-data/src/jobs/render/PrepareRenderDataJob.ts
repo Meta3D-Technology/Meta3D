@@ -13,16 +13,16 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { getActiveCameraView } from "meta3d-component-commonlib";
 
-function _getCameraView (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) {
+let _getCameraView  = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean) =>  {
 	return getExn(getActiveCameraView(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName), engineCoreService, isDebug))
 
 }
 
-function _getCameraProjection (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) {
+let _getCameraProjection  = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject) =>  {
 	return getExn(engineCoreService.getComponent<perspectiveCameraProjection>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), gameObject))
 }
 
-function _getAllRenderComponents(engineCoreService: engineCoreService, engineCoreState: engineCoreState) {
+let _getAllRenderComponents = (engineCoreService: engineCoreService, engineCoreState: engineCoreState) =>  {
 	let allGameObjects = engineCoreService.getAllGameObjects(engineCoreState)
 	let usedPBRMaterialContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 	let usedTransformContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)

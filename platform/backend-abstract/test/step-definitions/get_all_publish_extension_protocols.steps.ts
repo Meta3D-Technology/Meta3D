@@ -10,12 +10,12 @@ defineFeature(feature, test => {
     let sandbox = null
     let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc
 
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) =>  {
         // getMarketProtocolCollectionFunc = sandbox.stub()
         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
     }
 
-    function _getAllPublishExtensionProtocols(limitCount, skipCount) {
+    let _getAllPublishExtensionProtocols = (limitCount, skipCount) =>  {
         return getAllPublishProtocolData(
             [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
             "publishedextensionprotocols",
@@ -23,7 +23,7 @@ defineFeature(feature, test => {
         )
     }
 
-    function _prepare(given) {
+    let _prepare = (given) =>  {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });

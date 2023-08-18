@@ -1,4 +1,4 @@
-export function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
+export let removeDuplicateItemsWithBuildKeyFunc = (arr, buildKeyFunc) =>  {
     var resultArr = [];
     // var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
     var map = {}
