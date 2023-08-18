@@ -3,24 +3,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishConfig = exports.publish = void 0;
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
-function _throwError(msg) {
+let _throwError = (msg) => {
     throw new Error(msg);
-}
-function _getPublishedCollectionName(fileType) {
+};
+let _getPublishedCollectionName = (fileType) => {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocols";
         case "contribute":
             return "publishedcontributeprotocols";
     }
-}
-function _isPNG(iconPath) {
+};
+let _isPNG = (iconPath) => {
     return iconPath.match(/\.png$/) !== null;
-}
-function _isEmpty(value) {
+};
+let _isEmpty = (value) => {
     return value === undefined || value === null;
-}
-function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, fileType) {
+};
+let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, fileType) => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -64,17 +64,17 @@ function publish([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, 
         .catch(e => {
         errorFunc("error message: ", e);
     });
-}
+};
 exports.publish = publish;
-function _getPublishedConfigCollectionName(fileType) {
+let _getPublishedConfigCollectionName = (fileType) => {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocolconfigs";
         case "contribute":
             return "publishedcontributeprotocolconfigs";
     }
-}
-function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) {
+};
+let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -112,6 +112,6 @@ function publishConfig([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, init
         .catch(e => {
         errorFunc("error message: ", e);
     });
-}
+};
 exports.publishConfig = publishConfig;
 //# sourceMappingURL=Publish.js.map

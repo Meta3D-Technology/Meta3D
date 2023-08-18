@@ -9,14 +9,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getDataByKeyContainFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         getDataByKeyContainFunc = sandbox.stub();
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('get all publish pacakge infos', ({ given, when, then, and }) => {
         let fileID1, packageName1, packageVersion1, entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, entryExtensionName1, description1, account1;
         let fileID2, packageName2, packageVersion2, entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, entryExtensionName2, description2, account2;

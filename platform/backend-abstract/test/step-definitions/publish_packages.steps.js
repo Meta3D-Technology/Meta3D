@@ -13,19 +13,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_packag
     let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasDataFunc, addDataFunc, getFileIDFunc;
     // let getDataByKeyFunc, downloadFileFunc
     // let getDataByKeyContainFunc
-    function _createFuncsForPublish(sandbox) {
+    let _createFuncsForPublish = (sandbox) => {
         onUploadProgressFunc = "onUploadProgressFunc";
         uploadFileFunc = sandbox.stub();
         hasDataFunc = sandbox.stub();
         addDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
         updateDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('if not exist, publish should add package', ({ given, and, when, then }) => {
         let packageBinaryFile, packageName, packageVersion, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, entryExtensionProtocolIconBase64, entryExtensionName, account, description;
         let fileID = "1";

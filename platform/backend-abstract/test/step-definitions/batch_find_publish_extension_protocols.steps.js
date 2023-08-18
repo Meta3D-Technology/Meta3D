@@ -9,17 +9,17 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/batch_find_pub
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let batchFindMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         getDataFromMarketProtocolCollectionFunc = BackendService_1.getDataFromMarketProtocolCollection;
-    }
-    function _batchFindPublishExtensionProtocols(protocolNames) {
+    };
+    let _batchFindPublishExtensionProtocols = (protocolNames) => {
         return (0, MarketService_1.batchFindPublishProtocolData)([batchFindMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], "publishedextensionprotocols", protocolNames);
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('batch find publish extension protocols', ({ given, when, then, and }) => {
         let allPublishExtensionProtocols = [
             {

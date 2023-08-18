@@ -10,7 +10,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc;
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
@@ -23,18 +23,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_contri
         addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc = CloudbaseService_1.addMarketProtocolDataToDataFromMarketProtocolCollectionData;
         getDataFromMarketProtocolCollectionFunc = CloudbaseService_1.getDataFromMarketProtocolCollection;
         parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
-    }
+    };
     function _buildPackageJson(name = "test1-protocol", version = "0.0.1", account = "0xf60") {
         return { name, version, publisher: account };
     }
-    function _publishContributeProtocolConfig(packageFilePath = "", distFilePath = "main.js") {
+    let _publishContributeProtocolConfig = (packageFilePath = "", distFilePath = "main.js") => {
         return (0, Publish_1.publishConfig)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, "contribute");
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {

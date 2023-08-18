@@ -10,17 +10,17 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/login.feature"
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let hasDataFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         hasDataFunc = sandbox.stub();
-    }
-    function _isLoginSuccess(account) {
+    };
+    let _isLoginSuccess = (account) => {
         return (0, LoginService_1.isLoginSuccess)(hasDataFunc, account);
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('login fail', ({ given, when, then, and }) => {
         let account = "u1";
         let data;

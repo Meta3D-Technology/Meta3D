@@ -15,19 +15,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     let getDataByKeyFunc, downloadFileFunc;
     let getDataByKeyContainFunc;
     let getDataFunc;
-    function _createFuncsForPublish(sandbox) {
+    let _createFuncsForPublish = (sandbox) => {
         onUploadProgressFunc = "onUploadProgressFunc";
         uploadFileFunc = sandbox.stub();
         hasAccountFunc = sandbox.stub();
         addDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
         updateDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('if not exist, publish should add app', ({ given, and, when, then }) => {
         let appBinaryFile, appName, account, description;
         let fileID = "1";
@@ -119,16 +119,16 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             ]);
         });
     });
-    function _createFuncsForFindPublishApp(sandbox) {
+    let _createFuncsForFindPublishApp = (sandbox) => {
         getDataByKeyFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
-    }
-    function _createFuncsForFindAllPublishAppsByAccount(sandbox) {
+    };
+    let _createFuncsForFindAllPublishAppsByAccount = (sandbox) => {
         getDataByKeyContainFunc = sandbox.stub();
-    }
-    function _createFuncsForFindAllPublishApps(sandbox) {
+    };
+    let _createFuncsForFindAllPublishApps = (sandbox) => {
         getDataFunc = sandbox.stub();
-    }
+    };
     test('if not find, findPublishApp return empty', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {

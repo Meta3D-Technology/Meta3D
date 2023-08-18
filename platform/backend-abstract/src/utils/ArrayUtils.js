@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeDuplicateItemsWithBuildKeyFunc = void 0;
-function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
+let removeDuplicateItemsWithBuildKeyFunc = (arr, buildKeyFunc) => {
     var resultArr = [];
     // var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
     var map = {};
@@ -20,5 +20,5 @@ function removeDuplicateItemsWithBuildKeyFunc(arr, buildKeyFunc) {
         }
     }
     return resultArr;
-}
+};
 exports.removeDuplicateItemsWithBuildKeyFunc = removeDuplicateItemsWithBuildKeyFunc;

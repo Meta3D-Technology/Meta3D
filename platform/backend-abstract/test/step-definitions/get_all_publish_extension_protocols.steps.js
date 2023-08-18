@@ -9,18 +9,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         // getMarketProtocolCollectionFunc = sandbox.stub()
         getDataFromMarketProtocolCollectionFunc = BackendService_1.getDataFromMarketProtocolCollection;
-    }
-    function _getAllPublishExtensionProtocols(limitCount, skipCount) {
+    };
+    let _getAllPublishExtensionProtocols = (limitCount, skipCount) => {
         return (0, MarketService_1.getAllPublishProtocolData)([getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc], "publishedextensionprotocols", limitCount, skipCount);
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('get all publish extension protocols', ({ given, when, then, and }) => {
         let allPublishExtensionProtocols = [
             {

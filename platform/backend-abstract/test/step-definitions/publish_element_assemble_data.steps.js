@@ -9,7 +9,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let logFunc, errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         logFunc = sandbox.stub();
         errorFunc = sandbox.stub();
         getMarketImplementAccountDataFunc = sandbox.stub();
@@ -18,15 +18,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         isContainFunc = meta3d_backend_cloudbase_1.isContain;
         buildMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildMarketImplementAccountData;
         addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
-    }
+    };
     function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
         return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc,], account, elementName, elementVersion, inspectorData);
     }
-    function _prepare(given) {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('add to collection', ({ given, when, then, and }) => {
         let account = "meta3d";
         let elementName = "test1";

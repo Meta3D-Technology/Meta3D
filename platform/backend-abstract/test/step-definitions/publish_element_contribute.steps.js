@@ -10,7 +10,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
         uploadFileFunc = sandbox.stub();
@@ -22,7 +22,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
         parseMarketCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseMarketCollectionDataBodyForNodejs;
-    }
+    };
     function _publish(account = "u1", packageData = [
         "",
         "",
@@ -37,11 +37,11 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 throw new Error(message);
             }, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], account, packageData, contributeBinaryFile);
     }
-    function _prepare(given) {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('upload file and add to collection', ({ given, when, then, and }) => {
         let account = "meta3d";
         let name = "test1";

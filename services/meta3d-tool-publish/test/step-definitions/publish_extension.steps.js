@@ -10,7 +10,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
-    function _createFuncs(sandbox, errorFuncStub = console.error) {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
@@ -27,7 +27,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = CloudbaseService_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
         getFileIDFunc = CloudbaseService_1.getFileID;
         parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
-    }
+    };
     function _buildPackageJson(name = "test1", version = "0.0.1", protocol = { name: "test1-protocol" }, publisher = "meta3d", 
     // dependentExtensionProtocolNameMap = {
     // }, dependentContributeProtocolNameMap = {},
@@ -43,14 +43,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             dependencies
         };
     }
-    function _publishExtension(packageFilePath = "", distFilePath = "") {
+    let _publishExtension = (packageFilePath = "", distFilePath = "") => {
         return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, "extension");
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {

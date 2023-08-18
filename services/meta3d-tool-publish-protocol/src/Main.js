@@ -90,13 +90,13 @@ function publishContributeProtocol(env, packageFilePath, iconPath) {
     return (0, Publish_1.publish)(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "contribute");
 }
 exports.publishContributeProtocol = publishContributeProtocol;
-function publishContributeProtocolConfig(env, packageFilePath, distFilePath) {
+let publishContributeProtocolConfig = (env, packageFilePath, distFilePath) => {
     return (0, Publish_1.publishConfig)(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "contribute");
-}
+};
 exports.publishContributeProtocolConfig = publishContributeProtocolConfig;
-function publishExtensionProtocolConfig(env, packageFilePath, distFilePath) {
+let publishExtensionProtocolConfig = (env, packageFilePath, distFilePath) => {
     return (0, Publish_1.publishConfig)(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "extension");
-}
+};
 exports.publishExtensionProtocolConfig = publishExtensionProtocolConfig;
 // // publishExtensionProtocol(path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "package.json"), path.join(__dirname, "../../../protocols/extension_protocols/meta3d-editor-protocol/", "icon.png"))
 //# sourceMappingURL=Main.js.map

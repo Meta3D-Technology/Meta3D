@@ -8,20 +8,20 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getDataFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         getDataFunc = sandbox.stub();
-    }
+    };
     // function _getAllPublishExtensionProtocols() {
     //     return getAllPublishProtocolData(
     //         [getMarketProtocolCollectionFunc, getDataFromMarketProtocolCollectionFunc],
     //         "publishedextensionprotocols"
     //     )
     // }
-    function _prepare(given) {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('get all publish pacakge entry extension protocols', ({ given, when, then, and }) => {
         let entryExtensionProtocolName1, entryExtensionProtocolVersion1, entryExtensionProtocolIconBase641, entryExtensionProtocolDisplayName1, entryExtensionProtocolRepoLink1, entryExtensionProtocolDescription1, account1;
         let entryExtensionProtocolName2, entryExtensionProtocolVersion2, entryExtensionProtocolIconBase642, entryExtensionProtocolDisplayName2, entryExtensionProtocolRepoLink2, entryExtensionProtocolDescription2, account2;

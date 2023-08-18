@@ -10,14 +10,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         getMarketImplementCollectionFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
         mapMarketImplementCollectionFunc = BackendService_1.mapMarketImplementCollection;
         getAccountFromMarketImplementCollectionDataFunc = BackendService_1.getAccountFromMarketImplementCollectionData;
         getFileDataFromMarketImplementCollectionDataFunc = BackendService_1.getFileDataFromMarketImplementCollectionData;
-    }
-    function _getAllPublishNewestExtensions(limitCount, skipCount, protocolName) {
+    };
+    let _getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => {
         return (0, GetElementDataService_1.getAllPublishNewestData)([
             getMarketImplementCollectionFunc,
             mapMarketImplementCollectionFunc,
@@ -25,12 +25,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
             getFileDataFromMarketImplementCollectionDataFunc,
             downloadFileFunc
         ], "publishedextensions", limitCount, skipCount, protocolName);
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     // test('one extension implement one protocol', ({ given, when, then, and }) => {
     //     let account = "meta3d"
     //     let fileID1 = "id1"

@@ -2,22 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishElementAssembleData = exports.publishElementContribute = void 0;
 const most_1 = require("most");
-function _getFileDirname(fileType) {
+let _getFileDirname = (fileType) => {
     switch (fileType) {
         case "extension":
             return "extensions";
         case "contribute":
             return "contributes";
     }
-}
-function _getPublishedCollectionName(fileType) {
+};
+let _getPublishedCollectionName = (fileType) => {
     switch (fileType) {
         case "extension":
             return "publishedextensions";
         case "contribute":
             return "publishedcontributes";
     }
-}
+};
 function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc], account, [name, version, protocolName, protocolVersion, displayName, repoLink, description], binaryFile, fileType) {
     let filePath = _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer";
     let fileName = name;

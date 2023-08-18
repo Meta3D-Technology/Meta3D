@@ -5,7 +5,7 @@ import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_module
 function get(param) {
   var gameObjectPBRMaterialMap = param.gameObjectPBRMaterialMap;
   return function (gameObject) {
-    return MutableSparseMap$Meta3dCommonlib.unsafeGet(gameObjectPBRMaterialMap, gameObject);
+    return MutableSparseMap$Meta3dCommonlib.getNullable(gameObjectPBRMaterialMap, gameObject);
   };
 }
 

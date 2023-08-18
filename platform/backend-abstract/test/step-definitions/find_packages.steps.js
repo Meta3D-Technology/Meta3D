@@ -11,15 +11,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_p
     let sandbox = null;
     // let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasDataFunc, addDataFunc, getFileIDFunc
     let getDataByKeyContainFunc, downloadFileFunc;
-    function _prepare(given) {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
-    function _createFuncsForFindPublishPackage(sandbox) {
+    };
+    let _createFuncsForFindPublishPackage = (sandbox) => {
         getDataByKeyContainFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
-    }
+    };
     test('if not find, findPublishPackage return empty', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {

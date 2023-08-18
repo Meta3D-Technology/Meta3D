@@ -9,18 +9,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_as
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc;
-    function _createFuncs(sandbox) {
+    let _createFuncs = (sandbox) => {
         getMarketImplementAccountDataFunc = sandbox.stub();
         getDataFromMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromMarketImplementAccountData;
-    }
-    function _getElementAssembleData(account, elementName, elementVersion) {
+    };
+    let _getElementAssembleData = (account, elementName, elementVersion) => {
         return (0, GetElementDataService_1.getElementAssembleData)([getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc], account, elementName, elementVersion);
-    }
-    function _prepare(given) {
+    };
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
+    };
     test('get element assemble data', ({ given, when, then, and }) => {
         let account = "u1";
         let elementName1 = "e1";

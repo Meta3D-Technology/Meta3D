@@ -9,15 +9,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/find_publish_e
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
     let getMarketImplementFunc, downloadFileFunc;
-    function _prepare(given) {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
         });
-    }
-    function _createFuncs(sandbox) {
+    };
+    let _createFuncs = (sandbox) => {
         getMarketImplementFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
-    }
+    };
     test('if not find, return empty', ({ given, and, when, then }) => {
         _prepare(given);
         given('prepare funcs', () => {
