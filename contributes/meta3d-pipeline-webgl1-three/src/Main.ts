@@ -2,7 +2,7 @@ import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/w
 import { execFunc as execInit } from "./jobs/init/InitJob";
 import { execFunc as execConvertSceneGraph } from "./jobs/update/ConvertSceneGraphJob";
 import { execFunc as execRender } from "./jobs/render/RenderJob";
-import { state, states, pipelineName } from "meta3d-pipeline-webgl1-three-protocol/src/StateType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-three-protocol/src/StateType";
 import { config } from "meta3d-pipeline-webgl1-three-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
@@ -12,11 +12,11 @@ import { service as threeAPIService } from "meta3d-three-api-protocol/src/servic
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "convert_scenegraph_three_meta3d":
+		case job.ConvertSceneGraph:
 			return execConvertSceneGraph;
-		case "init_three_meta3d":
+		case job.Init:
 			return execInit;
-		case "render_three_meta3d":
+		case job.Render:
 			return execRender;
 		default:
 			return null
@@ -42,55 +42,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		},
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
-		allPipelineData: [
-			{
-				name: "init",
-				groups: [
-					{
-						name: "first_three_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "init_three_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_three_meta3d"
-			},
-			{
-				name: "update",
-				groups: [
-					{
-						name: "first_three_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "convert_scenegraph_three_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_three_meta3d"
-			},
-			{
-				name: "render",
-				groups: [
-					{
-						name: "first_three_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "render_three_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_three_meta3d"
-			},
-		],
+		allPipelineData: allPipelineData,
 	}
 }

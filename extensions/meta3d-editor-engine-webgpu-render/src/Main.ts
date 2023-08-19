@@ -6,6 +6,7 @@ import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { state as triangleState, states as triangleStates } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
 import { config as triangleConfig } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/ConfigType";
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -26,13 +27,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "init_root_meta3d",
+						pipelineName: pipelineRootPipeline.Init,
+						insertElementName:pipelineRootJob.Init,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "render",
-						insertElementName: "render_root_meta3d",
+						pipelineName:pipelineRootPipeline.Render,
+						insertElementName:pipelineRootJob.Render,
 						insertAction: "after"
 					}
 				]

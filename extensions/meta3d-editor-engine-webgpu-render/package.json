@@ -18,6 +18,7 @@
         "meta3d-editor-engine-webgpu-render-protocol": "^0.14.0",
         "meta3d-engine-core-protocol": "^0.14.0",
         "meta3d-pipeline-editor-webgpu-triangle-protocol": "^0.14.0",
+        "meta3d-pipeline-root-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"
     },
     "devDependencies": {

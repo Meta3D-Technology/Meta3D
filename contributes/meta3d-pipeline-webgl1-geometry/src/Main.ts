@@ -1,7 +1,7 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execInitGeometry } from "./jobs/update/InitGeometryJob";
 import { config } from "meta3d-pipeline-webgl1-geometry-protocol/src/ConfigType";
-import { state, states, pipelineName } from "meta3d-pipeline-webgl1-geometry-protocol/src/StateType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-geometry-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
@@ -10,7 +10,7 @@ import { service as immutableService } from "meta3d-immutable-protocol/src/servi
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "init_geometry_webgl1_geometry_meta3d":
+		case job.InitGeometry:
 			return execInitGeometry;
 		default:
 			return null
@@ -40,23 +40,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		},
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
-		allPipelineData: [
-			{
-				name: "update",
-				groups: [
-					{
-						name: "first_webgl1_geometry_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "init_geometry_webgl1_geometry_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_geometry_meta3d"
-			}
-		],
+		allPipelineData: allPipelineData,
 	}
 }

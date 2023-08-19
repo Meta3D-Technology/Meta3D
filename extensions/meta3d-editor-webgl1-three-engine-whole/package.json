@@ -20,6 +20,9 @@
         "meta3d-engine-basic-protocol": "^0.14.0",
         "meta3d-engine-core-protocol": "^0.14.0",
         "meta3d-engine-scene-protocol": "^0.14.0",
+        "meta3d-pipeline-root-protocol": "^0.14.0",
+        "meta3d-pipeline-webgl1-three-protocol": "^0.14.0",
+        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.14.0",
         "meta3d-event-protocol": "^0.14.0",
         "meta3d-scenegraph-converter-three-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"

@@ -12,6 +12,9 @@ import { state as disposeState, states as disposeStates } from "meta3d-pipeline-
 import { config as disposeConfig } from "meta3d-pipeline-dispose-protocol/src/ConfigType";
 import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/ConfigType";
 import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/StateType";
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -34,18 +37,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				},
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "init_root_meta3d",
+						pipelineName: pipelineRootPipeline.Init,
+						insertElementName: pipelineRootJob.Init,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "update",
-						insertElementName: "update_root_meta3d",
+						pipelineName: pipelineRootPipeline.Update,
+						insertElementName: pipelineRootJob.Update,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "render",
-						insertElementName: "render_root_meta3d",
+						pipelineName: pipelineRootPipeline.Render,
+						insertElementName: pipelineRootJob.Render,
 						insertAction: "after"
 					}
 				]
@@ -57,13 +60,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				},
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "init_root_meta3d",
+						pipelineName: pipelineRootPipeline.Init,
+						insertElementName: pipelineRootJob.Init,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "update",
-						insertElementName: "update_camera_camera_meta3d",
+						pipelineName: pipelineCameraPipeline.Update,
+						insertElementName: pipelineCameraJob.UpdateCamera,
 						insertAction: "before"
 					}
 				]
@@ -73,8 +76,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "update_root_meta3d",
+						pipelineName: pipelineRootPipeline.Update,
+						insertElementName: pipelineRootJob.Update,
 						insertAction: "after"
 					}
 				]
@@ -84,8 +87,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "render",
-						insertElementName: "scene_view1_gl_webgl1_use_fbo_meta3d",
+						pipelineName: pipelineSceneView1Pipeline.Render,
+						insertElementName: pipelineSceneView1Job.UseFBO,
 						insertAction: "before"
 					}
 				]

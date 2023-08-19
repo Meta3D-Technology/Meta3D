@@ -22,6 +22,8 @@
         "meta3d-pipeline-webgl1-material-protocol": "^0.14.0",
         "meta3d-pipeline-webgl1-render-protocol": "^0.14.0",
         "meta3d-pipeline-webgl1-senduniformshaderdata-protocol": "^0.14.0",
+        "meta3d-pipeline-root-protocol": "^0.14.0",
+        "meta3d-pipeline-camera-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"
     },
     "devDependencies": {

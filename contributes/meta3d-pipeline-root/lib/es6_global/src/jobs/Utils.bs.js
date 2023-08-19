@@ -10,4 +10,4 @@ function getState(states) {
 export {
   getState ,
 }
-/* No side effect */
+/* StateType-Meta3dPipelineRootProtocol Not a pure module */

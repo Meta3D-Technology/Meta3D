@@ -36,7 +36,6 @@ import {
 } from "./BasicCameraViewAPI";
 import {
 	createArcballCameraController,
-
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
 } from "./ArcballCameraControllerAPI"
@@ -52,6 +51,8 @@ import { state as directionlightState, config as directionLightConfig, direction
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { active, createBasicCameraView } from "./BasicCameraViewAPI"
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 
 
 let _encapsulateSceneAPIReturnState = (meta3dState: meta3dState, func: (engineCoreState: engineCoreState, engineCoreService: engineCoreService) => engineCoreState, api: api): meta3dState => {
@@ -133,8 +134,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				},
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "update_root_meta3d",
+						pipelineName: pipelineRootPipeline.Update,
+						insertElementName: pipelineRootJob.Update,
 						insertAction: "after"
 					}
 				]
@@ -144,10 +145,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "update_camera_camera_meta3d",
+						pipelineName: pipelineCameraPipeline.Update,
+						insertElementName: pipelineCameraJob.UpdateCamera,
 						insertAction: "after"
-					}
+					},
 				]
 			)
 

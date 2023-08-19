@@ -1,8 +1,10 @@
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
+  open Meta3dPipelineRootProtocol.StateType
+
   switch jobName {
-  | "init_root_meta3d" => InitJob.execFunc
-  | "update_root_meta3d" => UpdateJob.execFunc
-  | "render_root_meta3d" => RenderJob.execFunc
+  | jobName if jobName == job["Init"] => InitJob.execFunc
+  | jobName if jobName == job["Update"] => UpdateJob.execFunc
+  | jobName if jobName == job["Render"] => RenderJob.execFunc
   | _ => Js.Nullable.null->Obj.magic
   }
 }
@@ -16,7 +18,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dPipelineRootProtocol.ConfigType.config,
     Meta3dPipelineRootProtocol.StateType.state,
   >,
-> = (api) => {
+> = api => {
   {
     pipelineName: Meta3dPipelineRootProtocol.StateType.pipelineName,
     createStateFunc: (meta3dState, _): Meta3dPipelineRootProtocol.StateType.state => {
@@ -29,58 +31,6 @@ let getContribute: Meta3dType.Index.getContribute<
     },
     initFunc: _init,
     getExecFunc: _getExecFunc->Obj.magic,
-    allPipelineData: [
-      {
-        name: "init",
-        groups: [
-          {
-            name: "first_root_meta3d",
-            link: #concat,
-            elements: [
-              {
-                name: "init_root_meta3d",
-                type_: #job,
-                is_set_state: true->Js.Nullable.return,
-              },
-            ],
-          },
-        ],
-        first_group: "first_root_meta3d",
-      },
-      {
-        name: "update",
-        groups: [
-          {
-            name: "first_root_meta3d",
-            link: #concat,
-            elements: [
-              {
-                name: "update_root_meta3d",
-                type_: #job,
-                is_set_state: true->Js.Nullable.return,
-              },
-            ],
-          },
-        ],
-        first_group: "first_root_meta3d",
-      },
-      {
-        name: "render",
-        groups: [
-          {
-            name: "first_root_meta3d",
-            link: #concat,
-            elements: [
-              {
-                name: "render_root_meta3d",
-                type_: #job,
-                is_set_state: true->Js.Nullable.return,
-              },
-            ],
-          },
-        ],
-        first_group: "first_root_meta3d",
-      },
-    ],
+    allPipelineData: Meta3dPipelineRootProtocol.StateType.allPipelineData,
   }
 }

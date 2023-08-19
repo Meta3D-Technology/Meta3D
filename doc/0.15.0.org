@@ -9,12 +9,23 @@
 
 
 
-* TODO auto generate dependent in package.json when webpack
-add a gulp task? or directly use webpack plugin?
+# * TODO auto generate dependent in package.json when webpack
+# add a gulp task? or directly use webpack plugin?
 
 
 
-* TODO pipeline protocol add allPipelineData
+# TODO add gulp task when publish
+
+
+
+
+# TODO update all extensions, contributes
+
+
+# TODO update template
+
+
+* DONE pipeline protocol add allPipelineData
 
 TODO registerPipeline add dependent pipeline protocols for jobOrders
 

@@ -21,6 +21,8 @@
         "meta3d-pipeline-editor-event-protocol": "^0.14.0",
         "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.14.0",
         "meta3d-pipeline-editor-webgl1-scene-view2-protocol": "^0.14.0",
+        "meta3d-pipeline-root-protocol": "^0.14.0",
+        "meta3d-pipeline-webgl1-render-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"
     },
     "devDependencies": {

@@ -24,6 +24,7 @@
         "meta3d-gameobject-protocol": "^0.14.0",
         "meta3d-pipeline-camera-protocol": "^0.14.0",
         "meta3d-pipeline-transform-protocol": "^0.14.0",
+        "meta3d-pipeline-root-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"
     },
     "devDependencies": {

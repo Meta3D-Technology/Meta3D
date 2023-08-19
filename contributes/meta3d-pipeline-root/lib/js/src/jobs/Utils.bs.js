@@ -8,4 +8,4 @@ function getState(states) {
 }
 
 exports.getState = getState;
-/* No side effect */
+/* StateType-Meta3dPipelineRootProtocol Not a pure module */

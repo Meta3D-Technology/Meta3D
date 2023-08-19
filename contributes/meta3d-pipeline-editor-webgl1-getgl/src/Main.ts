@@ -1,14 +1,14 @@
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execGetGL } from "./jobs/init/GetGLJob";
 import { config } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/ConfigType";
-import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "get_gl_webgl1_getgl_meta3d":
+		case job.GetGL:
 			return execGetGL;
 		default:
 			return null
@@ -29,23 +29,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		},
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
-		allPipelineData: [
-			{
-				name: "init",
-				groups: [
-					{
-						name: "first_webgl1_getgl_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "get_gl_webgl1_getgl_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_getgl_meta3d"
-			}
-		],
+		allPipelineData: allPipelineData,
 	}
 }

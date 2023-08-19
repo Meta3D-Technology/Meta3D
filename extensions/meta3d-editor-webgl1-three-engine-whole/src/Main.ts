@@ -21,6 +21,10 @@ import { state as converterState } from "meta3d-scenegraph-converter-three-proto
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
 import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
 import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
+import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
 
 
 
@@ -44,25 +48,18 @@ let _registerEditorPipelines = (
 		{ canvas },
 		[
 			{
-				pipelineName: "init",
-				// insertElementName: "prepare_init_data_webgl1_engine",
-				// insertAction: "before"
-				insertElementName: "init_root_meta3d",
+				pipelineName: pipelineRootPipeline.Init,
+				insertElementName: pipelineRootJob.Init,
 				insertAction: "after"
 			},
-			// {
-			// 	pipelineName: "update",
-			// 	insertElementName: "update_root_meta3d",
-			// 	insertAction: "after"
-			// },
 			{
-				pipelineName: "update",
-				insertElementName: "update_camera_camera_meta3d",
+				pipelineName: pipelineCameraPipeline.Update,
+				insertElementName: pipelineCameraJob.UpdateCamera,
 				insertAction: "before"
 			},
 			{
-				pipelineName: "render",
-				insertElementName: "render_three_meta3d",
+				pipelineName: pipelineThreePipeline.Render,
+				insertElementName: pipelineThreeJob.Render,
 				insertAction: "before"
 			},
 		]
@@ -71,8 +68,8 @@ let _registerEditorPipelines = (
 		null,
 		[
 			{
-				pipelineName: "render",
-				insertElementName: "render_three_meta3d",
+				pipelineName: pipelineThreePipeline.Render,
+				insertElementName: pipelineThreeJob.Render,
 				insertAction: "after"
 			},
 		]
@@ -82,8 +79,8 @@ let _registerEditorPipelines = (
 		null,
 		[
 			{
-				pipelineName: "init",
-				insertElementName: "scene_view1_gl_webgl1_create_default_scene_meta3d",
+				pipelineName: pipelineSceneView1Pipeline.Init,
+				insertElementName: pipelineSceneView1Job.CreateDefaultScene,
 				insertAction: "before"
 			},
 		]

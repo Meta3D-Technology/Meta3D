@@ -5,10 +5,11 @@ import { state, states, pipelineName } from "meta3d-pipeline-webgl1-detectgl-pro
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
+import { allPipelineData, job } from "meta3d-pipeline-webgl1-detectgl-protocol/src/StateType";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "detect_gl_webgl1_detectgl_meta3d":
+		case job.DetectGL:
 			return execDetectGL;
 		default:
 			return null
@@ -29,23 +30,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		},
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
-		allPipelineData: [
-			{
-				name: "init",
-				groups: [
-					{
-						name: "first_webgl1_detectgl_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "detect_gl_webgl1_detectgl_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_detectgl_meta3d"
-			}
-		],
+		allPipelineData: allPipelineData,
 	}
 }

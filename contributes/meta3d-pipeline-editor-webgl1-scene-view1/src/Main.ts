@@ -5,7 +5,7 @@ import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/
 import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
-import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
@@ -15,15 +15,15 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
-		case "scene_view1_gl_webgl1_create_default_scene_meta3d":
+		case job.CreateDefaultScene:
 			return execCreateDefaultSceneJob;
-		case "scene_view1_gl_webgl1_prepare_fbo_meta3d":
+		case job.PrepareFBO:
 			return execPrepareFBO;
-		case "scene_view1_gl_webgl1_update_arcballcameracontroller_meta3d":
+		case job.UpdateArcballCameraController:
 			return execUpdateArcballCameraControllerJob;
-		case "scene_view1_gl_webgl1_prepare_status_meta3d":
+		case job.PrepareStatus:
 			return execPrepareStatus;
-		case "scene_view1_gl_webgl1_use_fbo_meta3d":
+		case job.UseFBO:
 			return execUseFBO;
 		default:
 			return null
@@ -53,63 +53,6 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		},
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
-		allPipelineData: [
-			{
-				name: "init",
-				groups: [
-					{
-						name: "first_webgl1_scene_view1_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "scene_view1_gl_webgl1_create_default_scene_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_scene_view1_meta3d"
-			},
-			{
-				name: "update",
-				groups: [
-					{
-						name: "first_webgl1_scene_view1_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "scene_view1_gl_webgl1_prepare_fbo_meta3d",
-								"type_": "job"
-							},
-							{
-								"name": "scene_view1_gl_webgl1_update_arcballcameracontroller_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_scene_view1_meta3d"
-			},
-			{
-				name: "render",
-				groups: [
-					{
-						name: "first_webgl1_scene_view1_meta3d",
-						link: "concat",
-						elements: [
-							{
-								"name": "scene_view1_gl_webgl1_use_fbo_meta3d",
-								"type_": "job"
-							},
-							{
-								"name": "scene_view1_gl_webgl1_prepare_status_meta3d",
-								"type_": "job"
-							},
-						]
-					}
-				],
-				first_group: "first_webgl1_scene_view1_meta3d"
-			}
-		],
+		allPipelineData: allPipelineData,
 	}
 }

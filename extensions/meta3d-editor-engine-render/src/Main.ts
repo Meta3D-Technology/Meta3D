@@ -20,6 +20,11 @@ import { state as renderState, states as renderStates } from "meta3d-pipeline-we
 import { config as renderConfig } from "meta3d-pipeline-webgl1-render-protocol/src/ConfigType";
 import { state as senduniformshaderdataState, states as senduniformshaderdataStates } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType";
 import { config as senduniformshaderdataConfig } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/ConfigType";
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+import { pipeline as pipelineGetGLPipeline, job as pipelineGetGLJob } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType"
+import { pipeline as pipelineDataPipeline, job as pipelineDataJob } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
+import { pipeline as pipelineSendUniformShaderDataPipeline, job as pipelineSendUniformShaderJob } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -42,13 +47,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				},
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "init_root_meta3d",
+						pipelineName: pipelineRootPipeline.Init,
+						insertElementName: pipelineRootJob.Init,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "update",
-						insertElementName: "update_camera_camera_meta3d",
+						pipelineName: pipelineCameraPipeline.Update,
+						insertElementName: pipelineCameraJob.UpdateCamera,
 						insertAction: "before"
 					}
 				]
@@ -58,8 +63,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "init_root_meta3d",
+						pipelineName: pipelineRootPipeline.Init,
+						insertElementName: pipelineRootJob.Init,
 						insertAction: "after"
 					}
 				]
@@ -69,8 +74,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "init",
-						insertElementName: "get_gl_webgl1_getgl_meta3d",
+						pipelineName: pipelineGetGLPipeline.Init,
+						insertElementName: pipelineGetGLJob.GetGL,
 						insertAction: "after"
 					}
 				]
@@ -80,8 +85,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "prepare_update_data_webgl1_engine",
+						pipelineName: pipelineDataPipeline.Update,
+						insertElementName:
+							pipelineDataJob.PrepareUpdateData,
 						insertAction: "after"
 					}
 				]
@@ -91,8 +97,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "prepare_update_data_webgl1_engine",
+						pipelineName: pipelineDataPipeline.Update,
+						insertElementName:
+							pipelineDataJob.PrepareUpdateData,
 						insertAction: "after"
 					}
 				]
@@ -102,8 +109,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "render",
-						insertElementName: "prepare_render_data_webgl1_engine",
+						pipelineName: pipelineDataPipeline.Render,
+						insertElementName: pipelineDataJob.PrepareRenderData,
 						insertAction: "after"
 					}
 				]
@@ -113,8 +120,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: "render",
-						insertElementName: "send_uniform_shader_data_webgl1_senduniformshaderdata_meta3d",
+						pipelineName: pipelineSendUniformShaderDataPipeline.Render,
+						insertElementName: pipelineSendUniformShaderJob.SendUniformShaderData,
 						insertAction: "after"
 					}
 				]
@@ -126,13 +133,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				},
 				[
 					{
-						pipelineName: "update",
-						insertElementName: "update_root_meta3d",
+						pipelineName: pipelineRootPipeline.Update,
+						insertElementName: pipelineRootJob.Update,
 						insertAction: "after"
 					},
 					{
-						pipelineName: "render",
-						insertElementName: "render_root_meta3d",
+						pipelineName: pipelineRootPipeline.Render,
+						insertElementName: pipelineRootJob.Render,
 						insertAction: "after"
 					}
 				]

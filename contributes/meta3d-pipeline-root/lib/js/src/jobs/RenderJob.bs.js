@@ -12,4 +12,4 @@ function execFunc(meta3dState, param) {
 }
 
 exports.execFunc = execFunc;
-/* No side effect */
+/* Utils-Meta3dPipelineRoot Not a pure module */
