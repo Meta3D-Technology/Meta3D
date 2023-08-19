@@ -33,11 +33,8 @@ TODO registerPipeline add dependent pipeline protocols for jobOrders
 
 
 
-* TODO 重新设计两个核心的使用场景的开发流程：引擎、编辑器
 
-** TODO 引擎
-
-*** TODO 可视化地给出扩展、贡献之间的依赖关系；选择依赖的扩展、贡献
+* TODO 可视化地给出扩展、贡献之间的依赖关系；选择依赖的扩展、贡献
 
 - 可视化地给出扩展、贡献之间的依赖关系
 by package.json->"dependencies"?
@@ -45,6 +42,53 @@ by package.json->"dependencies"?
 - 依赖检查
 
 这要求将一个扩展/贡献/Package 协议 dependent可视化，并提供可选列表，进行依赖检查
+
+
+
+
+
+** TODO add to ap assemble
+
+
+
+*** DONE render basic graph
+
+
+
+# ** TODO mark entry extension in graph
+*** TODO after start entry extension, then show graph
+    start entry extension is the root graph node
+
+
+
+*** TODO style line, node for find/unfind ones
+
+
+
+***  TODO restore: check version in ManagerUtils->_checkDependentMap
+
+
+
+** TODO add to package assemble
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO 重新设计两个核心的使用场景的开发流程：引擎、编辑器
+
+** TODO 引擎
 
 
 
