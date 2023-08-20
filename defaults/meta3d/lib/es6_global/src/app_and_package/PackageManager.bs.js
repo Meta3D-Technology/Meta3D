@@ -84,4 +84,4 @@ export {
   load ,
   getAllExtensionAndContributeFileDataOfPackage ,
 }
-/* No side effect */
+/* ManagerUtils-Meta3d Not a pure module */

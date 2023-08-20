@@ -156,4 +156,4 @@ export {
   start ,
   getAllExtensionAndContributeFileDataOfApp ,
 }
-/* No side effect */
+/* ManagerUtils-Meta3d Not a pure module */

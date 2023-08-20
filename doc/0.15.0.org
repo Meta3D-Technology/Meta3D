@@ -61,13 +61,64 @@ by package.json->"dependencies"?
 
 
 
+
+# title: protocol + version
+
+
+
+update graph when selected packages/extensions/contributes change
+
+
+TODO fix: same to empty
+
+TODO fix: same to exist
+
+
+update version
+
+3 cases
+
+id + version
+
+switch graph
+
+
+TODO handle duplicate extension,contribute
+
+
+commit
+
+
+
+
+
 *** TODO style line, node for find/unfind ones
 
 
+extension: blue
+contribute: green
 
-***  TODO restore: check version in ManagerUtils->_checkDependentMap
+package extension: baby blue
+package contribute: baby green
+
+no: red
 
 
+
+*** TODO adjust size
+
+whole size
+
+auto adjust size
+
+
+# ***  TODO restore: check version in ManagerUtils->_checkDependentMap
+***  TODO not ManagerUtils->_checkDependentMap, use DependencyGraph data check result
+
+
+** TODO refactor: remove Visual
+
+**  TODO refactor: move CanvasController to ElementAssemble
 
 ** TODO add to package assemble
 

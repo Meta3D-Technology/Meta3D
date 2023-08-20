@@ -82,4 +82,4 @@ exports.generate = generate;
 exports._getEntryExtensionProtocolName = _getEntryExtensionProtocolName;
 exports.load = load;
 exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
-/* No side effect */
+/* ManagerUtils-Meta3d Not a pure module */

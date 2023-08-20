@@ -57,7 +57,12 @@ let make = (
       </Layout.Sider>
       <Layout.Content>
         // <Visual service />
-        <DependencyGraph service />
+        <DependencyGraph
+          // selectedPackagesFromMarket
+          // selectedExtensionsFromMarket
+          // selectedContributesFromMarket
+          service
+        />
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />

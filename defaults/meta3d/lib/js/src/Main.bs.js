@@ -115,4 +115,4 @@ exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 exports.serializeStartExtensionProtocolConfigLib = serializeStartExtensionProtocolConfigLib;
 exports.getNeedConfigData = getNeedConfigData;
 exports.buildAPI = buildAPI;
-/* No side effect */
+/* AppManager-Meta3d Not a pure module */

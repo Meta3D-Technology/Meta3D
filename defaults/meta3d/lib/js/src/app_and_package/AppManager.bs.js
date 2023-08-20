@@ -154,4 +154,4 @@ exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;
 exports.start = start;
 exports.getAllExtensionAndContributeFileDataOfApp = getAllExtensionAndContributeFileDataOfApp;
-/* No side effect */
+/* ManagerUtils-Meta3d Not a pure module */

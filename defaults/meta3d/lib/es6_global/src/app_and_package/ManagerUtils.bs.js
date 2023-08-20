@@ -1,6 +1,7 @@
 
 
 import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Semver from "semver";
 import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
@@ -232,6 +233,14 @@ function _prepare(param) {
         };
 }
 
+function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
+  if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
+    return ;
+  } else {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
+  }
+}
+
 function _checkDependentMap(dependentMap, allDataMap) {
   ArraySt$Meta3dCommonlib.forEach(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (param) {
           var blockProtocolName = param[0];
@@ -297,9 +306,10 @@ export {
   _parse1 ,
   parse2 ,
   _prepare ,
+  _checkVersion ,
   _checkDependentMap ,
   _checkAllDependents ,
   _run ,
   load ,
 }
-/* No side effect */
+/* semver Not a pure module */

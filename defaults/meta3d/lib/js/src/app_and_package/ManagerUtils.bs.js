@@ -1,6 +1,7 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
+var Semver = require("semver");
 var Js_array = require("rescript/lib/js/js_array.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
@@ -232,6 +233,14 @@ function _prepare(param) {
         };
 }
 
+function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProtocolName) {
+  if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
+    return ;
+  } else {
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
+  }
+}
+
 function _checkDependentMap(dependentMap, allDataMap) {
   ArraySt$Meta3dCommonlib.forEach(ImmutableHashMap$Meta3dCommonlib.entries(dependentMap), (function (param) {
           var blockProtocolName = param[0];
@@ -296,8 +305,9 @@ exports.getContributeFunc = getContributeFunc;
 exports._parse1 = _parse1;
 exports.parse2 = parse2;
 exports._prepare = _prepare;
+exports._checkVersion = _checkVersion;
 exports._checkDependentMap = _checkDependentMap;
 exports._checkAllDependents = _checkAllDependents;
 exports._run = _run;
 exports.load = load;
-/* No side effect */
+/* semver Not a pure module */
