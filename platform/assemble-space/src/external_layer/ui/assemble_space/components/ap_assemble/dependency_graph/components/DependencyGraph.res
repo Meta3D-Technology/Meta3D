@@ -4,11 +4,17 @@ open FrontendUtils.AssembleSpaceType
 type nodeType =
   | Extension
   | Contribute
+  | PackageExtension
+  | PackageContribute
 
 type packageName = string
 
+type protocolName = string
+
+type id = protocolName
+
 type nodeData = {
-  type_: nodeType,
+  nodeType: nodeType,
   isStart: bool,
   packageName: option<packageName>,
   protocol: Meta3d.ExtensionFileType.extensionProtocolData,
@@ -20,6 +26,23 @@ type nodeData = {
     Meta3d.ExtensionFileType.blockProtocolName,
     Meta3d.ExtensionFileType.blockProtocolVersion,
   >,
+}
+
+type nodeInData = {
+  id: id,
+  nodeType: option<nodeType>,
+  isEmpty: bool,
+  packageName: option<packageName>,
+  protocol: Meta3d.ExtensionFileType.extensionProtocolData,
+  protocolIconBase64: option<FrontendUtils.ApAssembleStoreType.protocolIconBase64>,
+  title: string,
+  name: option<string>,
+  version: option<FrontendUtils.ApAssembleStoreType.version>,
+}
+
+type edgeInData = {
+  source: id,
+  target: id,
 }
 
 module Method = {
@@ -42,7 +65,7 @@ module Method = {
         allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. nodes, (extensionPackageData, _)) => {
             nodes->Meta3dCommonlib.ListSt.push({
-              type_: Extension,
+              nodeType: PackageExtension,
               isStart: false,
               packageName: name->Some,
               protocol: extensionPackageData.protocol,
@@ -59,7 +82,7 @@ module Method = {
         allContributeFileData->Meta3dCommonlib.ArraySt.reduceOneParam(
           (. nodes, (contributePackageData, _)) => {
             nodes->Meta3dCommonlib.ListSt.push({
-              type_: Contribute,
+              nodeType: PackageContribute,
               isStart: false,
               packageName: name->Some,
               protocol: contributePackageData.protocol,
@@ -78,7 +101,7 @@ module Method = {
 
     let nodes = selectedExtensions->Meta3dCommonlib.ListSt.reduce(nodes, (nodes, extension) => {
       nodes->Meta3dCommonlib.ListSt.push({
-        type_: Extension,
+        nodeType: Extension,
         isStart: extension.isStart,
         packageName: None,
         protocol: extension.data.extensionPackageData.protocol,
@@ -91,7 +114,7 @@ module Method = {
     })
     let nodes = selectedContributes->Meta3dCommonlib.ListSt.reduce(nodes, (nodes, contribute) => {
       nodes->Meta3dCommonlib.ListSt.push({
-        type_: Contribute,
+        nodeType: Contribute,
         isStart: false,
         packageName: None,
         protocol: contribute.data.contributePackageData.protocol,
@@ -106,108 +129,253 @@ module Method = {
     nodes
   }
 
-  let _buildItems = (node: nodeData) => {
-    let items = [
-      {
-        "text": "协议名",
-        "value": node.protocol.name,
+  let _getEmptyNodeTitle = () => "无"
+
+  let _isNeedUpdateNodeInData = (nodeInData: nodeInData, nodeProtocolVersion) => {
+    Meta3d.Semver.gte(
+      Meta3d.Semver.minVersion(nodeProtocolVersion),
+      Meta3d.Semver.minVersion(nodeInData.protocol.version),
+    )
+  }
+
+  let _getNodeId = (node: nodeData) => {
+    node.protocol.name
+  }
+
+  let _updateNodeInData = (nodesData: array<nodeInData>, newNodeInData) => {
+    nodesData->Meta3dCommonlib.ArraySt.map(({id} as oldNodeInData) => {
+      id == newNodeInData.id ? newNodeInData : oldNodeInData
+    })
+  }
+
+  let _updateNodesDataForNonEmptyNode = (nodesData: array<nodeInData>, node: nodeData) => {
+    let nodeId = _getNodeId(node)
+
+    switch nodesData->Meta3dCommonlib.ArraySt.find(({id}) => {
+      id == nodeId
+    }) {
+    | Some(nodeInData) =>
+      _isNeedUpdateNodeInData(nodeInData, node.protocol.version)
+        ? _updateNodeInData(
+            nodesData,
+            {
+              ...nodeInData,
+              version: nodeInData.version->Meta3dCommonlib.OptionSt.map(_ => node.version),
+              protocol: {
+                ...nodeInData.protocol,
+                version: node.protocol.version,
+              },
+            },
+          )
+        : nodesData
+    | None =>
+      nodesData->Meta3dCommonlib.ArraySt.push({
+        id: nodeId,
+        isEmpty: false,
+        nodeType: node.nodeType->Some,
+        packageName: node.packageName,
+        protocol: node.protocol,
+        protocolIconBase64: node.protocolIconBase64->Some,
+        title: node.displayName,
+        name: node.name->Some,
+        version: node.version->Some,
+      })
+    }
+  }
+
+  let _updateNodesDataForEmptyNode = (
+    nodesData: array<nodeInData>,
+    nodeId,
+    (blockProtocolName, blockProtocolVersion),
+  ) => {
+    let newNodeInData = {
+      id: nodeId,
+      isEmpty: true,
+      nodeType: None,
+      packageName: None,
+      protocol: {
+        name: blockProtocolName->Meta3dCommonlib.OptionSt.getExn,
+        version: blockProtocolVersion->Meta3dCommonlib.OptionSt.getExn,
       },
-      {
-        "text": "协议版本",
-        "value": node.protocol.version,
-      },
-      {
-        "text": "协议icon",
-        "icon": node.protocolIconBase64,
-      }->Obj.magic,
-      {
-        "text": "实现名",
-        "value": node.name,
-      },
-      {
-        "text": "实现版本",
-        "value": node.version,
-      },
-    ]
-    switch node.packageName {
-    | None => items
-    | Some(packageName) =>
-      items->Meta3dCommonlib.ArraySt.push({
-        "text": "所属包名",
-        "value": packageName,
+      protocolIconBase64: None,
+      title: _getEmptyNodeTitle(),
+      name: None,
+      version: None,
+    }
+
+    switch nodesData->Meta3dCommonlib.ArraySt.find(({id}) => {
+      id == nodeId
+    }) {
+    | Some(nodeInData) =>
+      _isNeedUpdateNodeInData(nodeInData, blockProtocolVersion->Meta3dCommonlib.OptionSt.getExn)
+        ? {
+            _updateNodeInData(nodesData, newNodeInData)
+          }
+        : // Meta3dCommonlib.Exception.throwErr(
+          //     Meta3dCommonlib.Exception.buildErr(
+          //       Meta3dCommonlib.Log.buildErrorMessage(
+          //         ~title={j`should update node in data`},
+          //         ~description={
+          //           ""
+          //         },
+          //         ~reason="",
+          //         ~solution=j``,
+          //         ~params=j``,
+          //       ),
+          //     ),
+          //   )
+          nodesData
+    | None => nodesData->Meta3dCommonlib.ArraySt.push(newNodeInData)
+    }
+  }
+
+  let _updateEdgesData = (edgesData: array<edgeInData>, nodeId, parentNodeId) => {
+    switch parentNodeId {
+    | None => edgesData
+    | Some(parentNodeId) =>
+      edgesData
+      ->Meta3dCommonlib.ArraySt.push({
+        source: parentNodeId,
+        target: nodeId,
+      })
+      ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {source, target}) => {
+        j`${source}_${target}`
       })
     }
   }
 
   let rec _buildData = (
+    (nodesData, edgesData),
     node: option<nodeData>,
-    nodes,
+    nodes: list<nodeData>,
+    parentNodeId,
     (blockProtocolName, blockProtocolVersion),
   ) => {
     let data = Meta3dCommonlib.ImmutableHashMap.createEmpty()
 
     switch node {
     | None =>
-      data
-      ->Meta3dCommonlib.ImmutableHashMap.set(
-        "id",
-        {j`Empty_${blockProtocolName->Meta3dCommonlib.OptionSt.getExn}`},
-      )
-      ->Meta3dCommonlib.ImmutableHashMap.set(
-        "value",
-        Meta3dCommonlib.ImmutableHashMap.createEmpty()
-        ->Meta3dCommonlib.ImmutableHashMap.set("title", "无")
-        ->Meta3dCommonlib.ImmutableHashMap.set(
-          "items",
-          [
-            {
-              "text": "协议名",
-              "value": blockProtocolName->Meta3dCommonlib.OptionSt.getExn,
-            },
-            {
-              "text": "协议版本",
-              "value": blockProtocolVersion->Meta3dCommonlib.OptionSt.getExn,
-            },
-          ]->Obj.magic,
-        )
-        ->Obj.magic,
+      let nodeId = blockProtocolName->Meta3dCommonlib.OptionSt.getExn
+
+      let nodesData = _updateNodesDataForEmptyNode(
+        nodesData,
+        nodeId,
+        (blockProtocolName, blockProtocolVersion),
       )
 
-    | Some({name, displayName, dependentBlockProtocolNameMap} as node) =>
-      data
-      ->Meta3dCommonlib.ImmutableHashMap.set("id", name)
-      ->Meta3dCommonlib.ImmutableHashMap.set(
-        "value",
-        Meta3dCommonlib.ImmutableHashMap.createEmpty()
-        ->Meta3dCommonlib.ImmutableHashMap.set("title", displayName)
-        ->Meta3dCommonlib.ImmutableHashMap.set("items", _buildItems(node)->Obj.magic)
-        ->Obj.magic,
-      )
-      ->Meta3dCommonlib.ImmutableHashMap.set(
-        "children",
-        dependentBlockProtocolNameMap
-        ->Meta3dCommonlib.ImmutableHashMap.entries
-        ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. children, (blockProtocolName, blockProtocolVersion)) => {
-            children->Meta3dCommonlib.ArraySt.push(
-              _buildData(
-                nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
-                  protocol.name == blockProtocolName &&
-                    Meta3d.Semver.gte(
-                      Meta3d.Semver.minVersion(protocol.version),
-                      Meta3d.Semver.minVersion(blockProtocolVersion),
-                    )
-                ),
-                nodes,
-                (blockProtocolName->Some, blockProtocolVersion->Some),
-              ),
-            )
-          },
-          [],
-        )
-        ->Obj.magic,
+      let edgesData = _updateEdgesData(edgesData, nodeId, parentNodeId)
+
+      (nodesData, edgesData)
+    | Some(node) =>
+      let nodesData = _updateNodesDataForNonEmptyNode(nodesData, node)
+
+      let nodeId = _getNodeId(node)
+
+      let edgesData = _updateEdgesData(edgesData, nodeId, parentNodeId)
+
+      node.dependentBlockProtocolNameMap
+      ->Meta3dCommonlib.ImmutableHashMap.entries
+      ->Meta3dCommonlib.ArraySt.reduceOneParam(
+        (. (nodesData, edgesData), (blockProtocolName, blockProtocolVersion)) => {
+          _buildData(
+            (nodesData, edgesData),
+            nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
+              protocol.name == blockProtocolName &&
+                Meta3d.Semver.gte(
+                  Meta3d.Semver.minVersion(protocol.version),
+                  Meta3d.Semver.minVersion(blockProtocolVersion),
+                )
+            ),
+            nodes,
+            nodeId->Some,
+            (blockProtocolName->Some, blockProtocolVersion->Some),
+          )
+        },
+        (nodesData, edgesData),
       )
     }
+  }
+
+  let _convertNodesData = (nodesData: array<nodeInData>) => {
+    nodesData->Meta3dCommonlib.ArraySt.map(({
+      isEmpty,
+      nodeType,
+      id,
+      packageName,
+      protocol,
+      protocolIconBase64,
+      title,
+      name,
+      version,
+    }) => {
+      let items = [
+        {
+          "text": "协议名",
+          "value": protocol.name,
+        },
+        {
+          "text": "协议版本",
+          "value": protocol.version,
+        },
+      ]
+
+      let items = switch protocolIconBase64 {
+      | Some(protocolIconBase64) =>
+        items->Meta3dCommonlib.ArraySt.push(
+          {
+            "text": "协议icon",
+            "icon": protocolIconBase64,
+          }->Obj.magic,
+        )
+      | None => items
+      }
+
+      let items = switch name {
+      | Some(name) =>
+        items->Meta3dCommonlib.ArraySt.push({
+          "text": "实现名",
+          "value": name,
+        })
+      | None => items
+      }
+
+      let items = switch version {
+      | Some(version) =>
+        items->Meta3dCommonlib.ArraySt.push({
+          "text": "实现版本",
+          "value": version,
+        })
+      | None => items
+      }
+
+      let items = switch packageName {
+      | Some(packageName) =>
+        items->Meta3dCommonlib.ArraySt.push({
+          "text": "所属包名",
+          "value": packageName,
+        })
+      | None => items
+      }
+
+      {
+        "id": id,
+        "value": {
+          "title": title,
+          "items": items,
+        },
+        "nodeType": nodeType,
+        "isEmpty": isEmpty,
+      }
+    })
+  }
+
+  let _convertEdgesData = (edgesData: array<edgeInData>) => {
+    edgesData->Meta3dCommonlib.ArraySt.map(({source, target}) => {
+      {
+        "source": source,
+        "target": target,
+      }
+    })
   }
 
   let useEffectOnce = (
@@ -226,8 +394,19 @@ module Method = {
     | Some(extension) =>
       let nodes = _buildNodes(service, selectedPackages, selectedExtensions, selectedContributes)
 
+      let (nodesData, edgesData) = _buildData(
+        ([], []),
+        nodes->Meta3dCommonlib.ListSt.find(({isStart}) => isStart),
+        nodes,
+        None,
+        (None, None),
+      )
+
       setData(_ =>
-        _buildData(nodes->Meta3dCommonlib.ListSt.find(({isStart}) => isStart), nodes, (None, None))
+        {
+          "nodes": nodesData->_convertNodesData,
+          "edges": edgesData->_convertEdgesData,
+        }->Obj.magic
       )
     }
   }
@@ -254,11 +433,13 @@ let make = (~service: service) => {
   ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   service.react.useEffect1(. () => {
-    Method.useEffectOnce(
-      setData,
-      service,
-      (selectedPackages, selectedExtensions, selectedContributes),
-    )
+    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+      Method.useEffectOnce(
+        setData,
+        service,
+        (selectedPackages, selectedExtensions, selectedContributes),
+      )
+    }, 5->Some)
 
     None
   }, [selectedPackages, selectedExtensions->Obj.magic, selectedContributes->Obj.magic])
@@ -266,13 +447,19 @@ let make = (~service: service) => {
   {
     data == Meta3dCommonlib.ImmutableHashMap.createEmpty()
       ? {React.string(`请指定启动扩展`)}
-      : <DecompositionTreeGraph
+      : <FlowAnalysisGraph
           data={data->Obj.magic}
+          edgeCfg={
+            type_: #polyline,
+            endArrow: true,
+          }
           markerCfg={cfg => {
-            let {children} = cfg
-
             {
-              show: children->Meta3dCommonlib.ArraySt.length,
+              show: (data->Obj.magic)["edges"]
+              ->Meta3dCommonlib.ArraySt.filter(item => {
+                item["source"] === cfg.id
+              })
+              ->Meta3dCommonlib.ArraySt.length,
             }
           }}
           behaviors=["drag-canvas", "zoom-canvas", "drag-node"]

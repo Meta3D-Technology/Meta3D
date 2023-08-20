@@ -1,1 +1,2 @@
 module DecompositionTreeGraph = AntdCharts__DecompositionTreeGraph
+module FlowAnalysisGraph = AntdCharts__FlowAnalysisGraph

@@ -56,7 +56,7 @@ by package.json->"dependencies"?
 
 
 # ** TODO mark entry extension in graph
-*** TODO after start entry extension, then show graph
+*** DONE after start entry extension, then show graph
     start entry extension is the root graph node
 
 
@@ -78,18 +78,21 @@ update version
 
 3 cases
 
-id + version
+change id to protocol name
 
-switch graph
+try catch
 
+# id + version
 
-TODO handle duplicate extension,contribute
+TODO switch graph
 
 
 commit
 
 
 
+*** TODO handle duplicate extension,contribute
+check error: give all duplicate ones info
 
 
 *** TODO style line, node for find/unfind ones
@@ -114,6 +117,8 @@ auto adjust size
 
 # ***  TODO restore: check version in ManagerUtils->_checkDependentMap
 ***  TODO not ManagerUtils->_checkDependentMap, use DependencyGraph data check result
+
+** TODO fix: start/unstart extension should effect all
 
 
 ** TODO refactor: remove Visual
