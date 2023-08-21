@@ -35,14 +35,15 @@ defineFeature(feature, test => {
       () => {
         let useSelectorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
           (
+            (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
             (
               CanvasControllerTool.buildCanvasData(),
               list{},
               list{},
-              list{},
-              ApInspectorTool.buildApInspectorData(),
+              None,
+              None,
+              ElementInspectorTool.buildElementInspectorData(list{}),
             ),
-            (list{}, list{}, None, None, ElementInspectorTool.buildElementInspectorData(list{})),
           ),
           // (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
 
@@ -79,14 +80,9 @@ defineFeature(feature, test => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
+              (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
               (
                 CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
-                list{},
-                list{},
-                list{},
-                ApInspectorTool.buildApInspectorData(),
-              ),
-              (
                 list{},
                 list{},
                 Some(Obj.magic(1)),

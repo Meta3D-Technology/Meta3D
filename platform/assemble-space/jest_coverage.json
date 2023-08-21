@@ -24,7 +24,9 @@
         "<rootDir>/lib/js/src/.+/ElementAssemble.*",
         "<rootDir>/lib/js/src/.+/ExtensionInspector.*",
         "<rootDir>/lib/js/src/.+/ContributeInspector.*",
-        "<rootDir>/lib/js/src/.+/PackageInspector.*"
+        "<rootDir>/lib/js/src/.+/PackageInspector.*",
+        "<rootDir>/lib/js/src/.+/ApDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/PackageDependencyGraph.*"
     ],
     "collectCoverageFrom": [
         "lib/js/src/**/*.js",

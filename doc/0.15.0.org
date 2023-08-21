@@ -140,7 +140,7 @@ auto adjust size
 ** DONE fix: start/unstart extension should effect all?
 
 
-** TODO pass bdd test
+** DONE pass bdd test
 
 update coverage
 
