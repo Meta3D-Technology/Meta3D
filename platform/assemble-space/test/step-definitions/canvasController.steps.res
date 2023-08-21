@@ -96,36 +96,45 @@ defineFeature(feature, test => {
 
     _prepare(given, \"and")
 
-    given("prepare the canvas", () => {
-      canvasData := CanvasControllerTool.buildCanvasData(~width=0, ~height=0, ())
-    })
+    given(
+      "prepare the canvas",
+      () => {
+        canvasData := CanvasControllerTool.buildCanvasData(~width=0, ~height=0, ())
+      },
+    )
 
-    \"when"("set its width, height one by one", () => {
-      dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"when"(
+      "set its width, height one by one",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-      let width = 10
+        let width = 10
 
-      CanvasControllerTool.setWidth(dispatchStub.contents->Obj.magic, canvasData.contents, width)
-      canvasData := {
-          ...canvasData.contents,
-          width: width,
-        }
-      CanvasControllerTool.setHeight(dispatchStub.contents->Obj.magic, canvasData.contents, 11)
-    })
+        CanvasControllerTool.setWidth(dispatchStub.contents->Obj.magic, canvasData.contents, width)
+        canvasData := {
+            ...canvasData.contents,
+            width,
+          }
+        CanvasControllerTool.setHeight(dispatchStub.contents->Obj.magic, canvasData.contents, 11)
+      },
+    )
 
-    then("should dispatch SetAllCanvasData action twice", () => {
-      (
-        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ()),
-        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=1, ~stub=_, ()),
-      )->expect ==
+    then(
+      "should dispatch SetAllCanvasData action twice",
+      () => {
         (
-          FrontendUtils.ApAssembleStoreType.SetCanvasData(
-            CanvasControllerTool.buildCanvasData(~width=10, ~height=0, ()),
-          ),
-          FrontendUtils.ApAssembleStoreType.SetCanvasData(
-            CanvasControllerTool.buildCanvasData(~width=10, ~height=11, ()),
-          ),
-        )
-    })
+          dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ()),
+          dispatchStub.contents->SinonTool.getFirstArg(~callIndex=1, ~stub=_, ()),
+        )->expect ==
+          (
+            FrontendUtils.ElementAssembleStoreType.SetCanvasData(
+              CanvasControllerTool.buildCanvasData(~width=10, ~height=0, ()),
+            ),
+            FrontendUtils.ElementAssembleStoreType.SetCanvasData(
+              CanvasControllerTool.buildCanvasData(~width=10, ~height=11, ()),
+            ),
+          )
+      },
+    )
   })
 })

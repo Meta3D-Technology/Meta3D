@@ -113,6 +113,13 @@ type elementInspectorData = {
 
 type elementContribute = ApAssembleStoreType.contribute
 
+type canvasData = {
+  // id: string,
+  width: int,
+  height: int,
+  // zIndex: int,
+}
+
 type action =
   | Reset
   | ResetWhenSwitch
@@ -145,8 +152,10 @@ type action =
   // | SetRole(option<string>)
   // | SetHandlers(handlers)
   | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
+  | SetCanvasData(canvasData)
 
 type state = {
+  canvasData: canvasData,
   selectedUIControls: selectedUIControls,
   parentUIControlId: option<id>,
   inspectorCurrentUIControlId: option<id>,

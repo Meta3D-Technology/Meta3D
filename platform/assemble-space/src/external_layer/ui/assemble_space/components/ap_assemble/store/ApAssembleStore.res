@@ -8,10 +8,6 @@ let _createState = () => {
     inspectorCurrentExtensionId: None,
     inspectorCurrentContributeId: None,
     inspectorCurrentPackageId: None,
-    canvasData: {
-      width: 0,
-      height: 0,
-    },
     isShowApInspector: false,
     apInspectorData: {
       isDebug: true,
@@ -142,10 +138,6 @@ let reducer = (state, action) => {
   //         : contribute
   //     }),
   //   }
-  | SetCanvasData(canvasData) => {
-      ...state,
-      canvasData,
-    }
   | ShowApInspector =>
     let state = state->_resetInspector
 

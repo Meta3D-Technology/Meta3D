@@ -29,7 +29,6 @@ let make = (
       <Space direction=#horizontal size=#small>
         <Publish service account />
         <ApController service />
-        <CanvasController service />
       </Space>
     </Layout.Content>
     <Layout>
@@ -56,13 +55,7 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        // <Visual service />
-        <DependencyGraph
-          // selectedPackagesFromMarket
-          // selectedExtensionsFromMarket
-          // selectedContributesFromMarket
-          service
-        />
+        <DependencyGraph service />
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />

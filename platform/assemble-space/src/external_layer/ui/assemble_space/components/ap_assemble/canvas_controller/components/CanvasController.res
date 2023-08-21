@@ -4,7 +4,7 @@ open FrontendUtils.AssembleSpaceType
 
 module Method = {
   let _dispatchAction = (canvasData, dispatch) => {
-    dispatch(FrontendUtils.ApAssembleStoreType.SetCanvasData(canvasData))
+    dispatch(FrontendUtils.ElementAssembleStoreType.SetCanvasData(canvasData))
   }
 
   let _setData = (dispatch, buildCanvasDataFunc, canvasData) => {
@@ -33,23 +33,22 @@ module Method = {
     )
   }
 
-  let useSelector = ({canvasData}: FrontendUtils.ApAssembleStoreType.state) => {
+  let useSelector = ({canvasData}: FrontendUtils.ElementAssembleStoreType.state) => {
     canvasData
   }
 }
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let {width, height} as canvasData = ReduxUtils.ApAssemble.useSelector(
+  let {width, height} as canvasData = ReduxUtils.ElementAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )
 
   <Space direction=#horizontal size=#small>
     <Typography.Text> {React.string(`画布大小：`)} </Typography.Text>
-
     <Input
       value={width->Js.Int.toString}
       onChange={e => {

@@ -400,7 +400,6 @@ module Method = {
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {
-      canvasData,
       selectedPackages,
       selectedExtensions,
       selectedContributes,
@@ -408,6 +407,7 @@ module Method = {
       isPassDependencyGraphCheck,
     } = apAssembleState
     let {
+      canvasData,
       selectedUIControls,
       selectedUIControlInspectorData,
       visualExtension,
@@ -419,7 +419,6 @@ module Method = {
 
     (
       (
-        canvasData,
         selectedPackages,
         selectedExtensions,
         selectedContributes,
@@ -427,6 +426,7 @@ module Method = {
         isPassDependencyGraphCheck,
       ),
       (
+        canvasData,
         selectedUIControls,
         selectedUIControlInspectorData,
         visualExtension,
@@ -444,7 +444,6 @@ let make = (~service: service, ~account: option<string>) => {
 
   let (
     (
-      canvasData,
       selectedPackages,
       selectedExtensions,
       selectedContributes,
@@ -452,6 +451,7 @@ let make = (~service: service, ~account: option<string>) => {
       isPassDependencyGraphCheck,
     ),
     (
+      canvasData,
       selectedUIControls,
       selectedUIControlInspectorData,
       visualExtension,

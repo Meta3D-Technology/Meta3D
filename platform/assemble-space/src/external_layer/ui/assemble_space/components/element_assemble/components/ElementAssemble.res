@@ -24,6 +24,7 @@ let make = (~service: service, ~account) => {
         <PublishElement service account />
         <ElementController service />
         <RunElementVisualController service />
+        <CanvasController service />
       </Space>
     </Layout.Content>
     <Layout>

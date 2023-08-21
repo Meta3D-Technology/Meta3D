@@ -40,13 +40,6 @@ type package = AssembleSpaceCommonType.packageData
 
 type selectedPackages = list<package>
 
-type canvasData = {
-  // id: string,
-  width: int,
-  height: int,
-  // zIndex: int,
-}
-
 type isDebug = bool
 
 type clearColor = (float, float, float, float)
@@ -80,7 +73,6 @@ type action =
   | SetInspectorCurrentContributeId(id)
   | SetInspectorCurrentPackageId(id)
   // | SetContributeNewName(id, newName)
-  | SetCanvasData(canvasData)
   | ShowApInspector
   | SetIsDebug(isDebug)
   | SetClearColor(clearColor)
@@ -97,7 +89,6 @@ type state = {
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
   inspectorCurrentPackageId: option<id>,
-  canvasData: canvasData,
   isShowApInspector: bool,
   apInspectorData: apInspectorData,
   isPassDependencyGraphCheck: bool

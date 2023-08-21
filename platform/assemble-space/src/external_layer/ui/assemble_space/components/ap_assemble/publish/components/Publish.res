@@ -68,7 +68,7 @@ module Method = {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      canvasData: FrontendUtils.ApAssembleStoreType.canvasData,
+      canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
     ),
     values,
@@ -150,22 +150,26 @@ module Method = {
   // }
 
   let useSelector = (
-    {
-      selectedPackages,
-      selectedExtensions,
-      selectedContributes,
-      canvasData,
-      apInspectorData,
-      isPassDependencyGraphCheck,
-    }: FrontendUtils.ApAssembleStoreType.state,
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    (
+    let {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      canvasData,
       apInspectorData,
       isPassDependencyGraphCheck,
+    } = apAssembleState
+    let {canvasData} = elementAssembleState
+
+    (
+      (
+        selectedPackages,
+        selectedExtensions,
+        selectedContributes,
+        apInspectorData,
+        isPassDependencyGraphCheck,
+      ),
+      canvasData,
     )
   }
 }
@@ -173,13 +177,15 @@ module Method = {
 @react.component
 let make = (~service: service, ~account: option<string>) => {
   let (
-    selectedPackages,
-    selectedExtensions,
-    selectedContributes,
+    (
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      apInspectorData,
+      isPassDependencyGraphCheck,
+    ),
     canvasData,
-    apInspectorData,
-    isPassDependencyGraphCheck,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = service.react.useSelector(. Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 

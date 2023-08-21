@@ -17,6 +17,10 @@ let _buildDefaultUIControlInspectorData = (id, specific) => {
 }
 
 let _createState = () => {
+  canvasData: {
+    width: 0,
+    height: 0,
+  },
   selectedUIControls: list{},
   parentUIControlId: None,
   inspectorCurrentUIControlId: None,
@@ -265,6 +269,10 @@ let reducer = (state, action) => {
       selectedUIControlInspectorData,
       elementInspectorData,
       // elementContribute: None,
+    }
+  | SetCanvasData(canvasData) => {
+      ...state,
+      canvasData,
     }
   }
 }

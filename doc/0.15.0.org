@@ -130,9 +130,9 @@ auto adjust size
 ** DONE fix: start/unstart extension should effect all
 
 
-** TODO refactor: remove Visual
+** DONE refactor: remove Visual
 
-**  TODO refactor: move CanvasController to ElementAssemble
+**  DONE refactor: move CanvasController to ElementAssemble
 
 ** TODO add to package assemble
 

@@ -71,17 +71,17 @@ module Method = {
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {
-      canvasData,
       apInspectorData,
       selectedPackages,
       selectedExtensions,
       selectedContributes,
     } = apAssembleState
-    let {runVisualExtension, elementContribute} = elementAssembleState
+    let {canvasData,runVisualExtension, elementContribute} = elementAssembleState
+      
 
     (
-      (canvasData, apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
-      (runVisualExtension, elementContribute),
+      ( apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
+      (canvasData,runVisualExtension, elementContribute),
     )
   }
 }
@@ -91,8 +91,8 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (canvasData, apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
-    (runVisualExtension, elementContribute),
+    (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
+    (canvasData,runVisualExtension, elementContribute),
   ) = service.react.useSelector(. Method.useSelector)
 
   service.react.useEffect1(. () => {

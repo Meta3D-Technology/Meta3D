@@ -105,11 +105,11 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
 
   let loopFrameID = service.react.useRef(None)
 
-  // let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
+  // let canvasData: FrontendUtils.ElementAssembleStoreType.canvasData =
   //   FrontendUtils.UrlSearchUtils.get(url.search, "canvasData")->Js.Json.parseExn->Obj.magic
   // let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
   //   FrontendUtils.UrlSearchUtils.get(url.search, "apInspectorData")->Js.Json.parseExn->Obj.magic
-  let canvasData: FrontendUtils.ApAssembleStoreType.canvasData =
+  let canvasData: FrontendUtils.ElementAssembleStoreType.canvasData =
     service.url.getUrlParam("canvasData")->Obj.magic
   let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData =
     service.url.getUrlParam("apInspectorData")->Obj.magic
