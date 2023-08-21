@@ -88,6 +88,7 @@ type action =
   | UpdateSelectedExtension(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedContribute(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedPackage(id, Js.Typed_array.ArrayBuffer.t)
+  | MarkIsPassDependencyGraphCheck(bool)
 
 type state = {
   selectedPackages: selectedPackages,
@@ -99,4 +100,5 @@ type state = {
   canvasData: canvasData,
   isShowApInspector: bool,
   apInspectorData: apInspectorData,
+  isPassDependencyGraphCheck: bool
 }

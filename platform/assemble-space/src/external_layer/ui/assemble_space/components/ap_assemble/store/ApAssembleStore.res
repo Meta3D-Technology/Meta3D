@@ -18,6 +18,7 @@ let _createState = () => {
       clearColor: (1., 1., 1., 1.),
       skinName: None,
     },
+    isPassDependencyGraphCheck: false,
   }
 }
 
@@ -201,6 +202,10 @@ let reducer = (state, action) => {
             }
           : package
       }),
+    }
+  | MarkIsPassDependencyGraphCheck(isPass) => {
+      ...state,
+      isPassDependencyGraphCheck: isPass,
     }
   }
 }

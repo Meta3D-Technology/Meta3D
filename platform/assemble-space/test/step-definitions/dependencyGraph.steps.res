@@ -46,9 +46,10 @@ defineFeature(feature, test => {
       "build graph data",
       () => {
         DependencyGraphTool.useEffectOnce(
-          setDataStub.contents->Obj.magic,
-          ServiceTool.build(~sandbox, ()),
-          (list{}, list{e1.contents}, list{}),
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(~sandbox, ()),
+          ~selectedExtensions=list{e1.contents},
+          (),
         )
       },
     )
@@ -187,14 +188,17 @@ defineFeature(feature, test => {
       "build graph data",
       () => {
         DependencyGraphTool.useEffectOnce(
-          setDataStub.contents->Obj.magic,
-          ServiceTool.build(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
             ~sandbox,
             ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
               Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
             (),
           ),
-          (list{p1.contents}, list{e1.contents}, list{c1.contents}),
+          ~selectedPackages=list{p1.contents},
+          ~selectedExtensions=list{e1.contents},
+          ~selectedContributes=list{c1.contents},
+          (),
         )
       },
     )
@@ -298,14 +302,15 @@ defineFeature(feature, test => {
         "build graph data",
         () => {
           DependencyGraphTool.useEffectOnce(
-            setDataStub.contents->Obj.magic,
-            ServiceTool.build(
+            ~setData=setDataStub.contents->Obj.magic,
+            ~service=ServiceTool.build(
               ~sandbox,
               ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
                 Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
               (),
             ),
-            (list{}, list{e1.contents, e2.contents}, list{}),
+            ~selectedExtensions=list{e1.contents, e2.contents},
+            (),
           )
         },
       )
@@ -444,14 +449,15 @@ defineFeature(feature, test => {
         "build graph data",
         () => {
           DependencyGraphTool.useEffectOnce(
-            setDataStub.contents->Obj.magic,
-            ServiceTool.build(
+            ~setData=setDataStub.contents->Obj.magic,
+            ~service=ServiceTool.build(
               ~sandbox,
               ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
                 Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
               (),
             ),
-            (list{}, list{e1.contents, e2.contents, e3.contents}, list{}),
+            ~selectedExtensions=list{e1.contents, e2.contents, e3.contents},
+            (),
           )
         },
       )
@@ -589,14 +595,15 @@ defineFeature(feature, test => {
         "build graph data",
         () => {
           DependencyGraphTool.useEffectOnce(
-            setDataStub.contents->Obj.magic,
-            ServiceTool.build(
+            ~setData=setDataStub.contents->Obj.magic,
+            ~service=ServiceTool.build(
               ~sandbox,
               ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
                 Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
               (),
             ),
-            (list{}, list{e1.contents, e2.contents, e3.contents}, list{}),
+            ~selectedExtensions=list{e1.contents, e2.contents, e3.contents},
+            (),
           )
         },
       )
@@ -697,20 +704,19 @@ defineFeature(feature, test => {
     then(
       "should error",
       () => {
-        let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
         expect(
           () => {
             DependencyGraphTool.useEffectOnce(
-              setDataStub.contents->Obj.magic,
-              ServiceTool.build(
+              ~setData=setDataStub.contents->Obj.magic,
+              ~service=ServiceTool.build(
                 ~sandbox,
-                ~error=errorStub->Obj.magic,
                 ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
                   Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
                 (),
               ),
-              (list{p1.contents}, list{e1.contents}, list{}),
+              ~selectedPackages=list{p1.contents},
+              ~selectedExtensions=list{e1.contents},
+              (),
             )
           },
         )->toThrowMessage({j`协议名：protocol1有重复的实现`})

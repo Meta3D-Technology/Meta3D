@@ -405,6 +405,7 @@ module Method = {
       selectedExtensions,
       selectedContributes,
       apInspectorData,
+      isPassDependencyGraphCheck,
     } = apAssembleState
     let {
       selectedUIControls,
@@ -417,7 +418,14 @@ module Method = {
     // let (_, elementContribute) = elementContribute
 
     (
-      (canvasData, selectedPackages, selectedExtensions, selectedContributes, apInspectorData),
+      (
+        canvasData,
+        selectedPackages,
+        selectedExtensions,
+        selectedContributes,
+        apInspectorData,
+        isPassDependencyGraphCheck,
+      ),
       (
         selectedUIControls,
         selectedUIControlInspectorData,
@@ -435,7 +443,14 @@ let make = (~service: service, ~account: option<string>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (canvasData, selectedPackages, selectedExtensions, selectedContributes, apInspectorData),
+    (
+      canvasData,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      apInspectorData,
+      isPassDependencyGraphCheck,
+    ),
     (
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -510,24 +525,32 @@ let make = (~service: service, ~account: option<string>) => {
   }, [elementContribute])
 
   service.react.useEffect1(. () => {
-    switch visualExtension {
-    | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-        Method.startApp(
-          service,
-          loopFrameID,
-          (selectedPackages, selectedExtensions, selectedContributes),
-          visualExtension,
-          apInspectorData,
-        )->ignore
-      }, 5->Some)
-    | _ => ()
-    }
+    !isPassDependencyGraphCheck
+      ? {
+          FrontendUtils.ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
 
-    (
-      () => {
-        ElementVisualUtils.cancelAppLoop(service, loopFrameID)
-      }
-    )->Some
+          None
+        }
+      : {
+          switch visualExtension {
+          | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+              Method.startApp(
+                service,
+                loopFrameID,
+                (selectedPackages, selectedExtensions, selectedContributes),
+                visualExtension,
+                apInspectorData,
+              )->ignore
+            }, 5->Some)
+          | _ => ()
+          }
+
+          (
+            () => {
+              ElementVisualUtils.cancelAppLoop(service, loopFrameID)
+            }
+          )->Some
+        }
   }, [visualExtension])
 
   <>

@@ -156,9 +156,17 @@ module Method = {
       selectedContributes,
       canvasData,
       apInspectorData,
+      isPassDependencyGraphCheck,
     }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (selectedPackages, selectedExtensions, selectedContributes, canvasData, apInspectorData)
+    (
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      canvasData,
+      apInspectorData,
+      isPassDependencyGraphCheck,
+    )
   }
 }
 
@@ -170,7 +178,8 @@ let make = (~service: service, ~account: option<string>) => {
     selectedContributes,
     canvasData,
     apInspectorData,
-  ) = ReduxUtils.ApAssemble.useSelector( service.react.useSelector, Method.useSelector)
+    isPassDependencyGraphCheck,
+  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -208,19 +217,21 @@ let make = (~service: service, ~account: option<string>) => {
                   "remember": true,
                 }}
                 onFinish={event => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-                    Method.onFinish(
-                      service,
-                      (setUploadProgress, setIsUploadBegin, setVisible),
-                      (
-                        account,
-                        selectedPackages,
-                        selectedExtensions,
-                        selectedContributes,
-                        canvasData,
-                        apInspectorData,
-                      ),
-                      event->Obj.magic,
-                    )->ignore
+                    !isPassDependencyGraphCheck
+                      ? FrontendUtils.ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
+                      : Method.onFinish(
+                          service,
+                          (setUploadProgress, setIsUploadBegin, setVisible),
+                          (
+                            account,
+                            selectedPackages,
+                            selectedExtensions,
+                            selectedContributes,
+                            canvasData,
+                            apInspectorData,
+                          ),
+                          event->Obj.magic,
+                        )->ignore
                   }, 5->Some)}
                 // onFinishFailed={Method.onFinishFailed(service)}
                 autoComplete="off">

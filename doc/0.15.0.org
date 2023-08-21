@@ -120,9 +120,10 @@ auto adjust size
 
 
 # ***  TODO restore: check version in ManagerUtils->_checkDependentMap
-***  TODO not ManagerUtils->_checkDependentMap, use DependencyGraph data check result
+# ***  TODO not ManagerUtils->_checkDependentMap, use DependencyGraph data check result
+***  DONE Element assemble use DependencyGraph data check result
 
-***  TODO publish app use DependencyGraph data check result
+***  DONE publish app use DependencyGraph data check result
 
 
 

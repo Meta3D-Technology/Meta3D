@@ -46,6 +46,10 @@ type edgeInData = {
 }
 
 module Method = {
+  let markIsPassDependencyGraphCheck = (dispatch, isPass) => {
+    dispatch(FrontendUtils.ApAssembleStoreType.MarkIsPassDependencyGraphCheck(isPass))
+  }
+
   let _buildNodes = (
     service,
     selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
@@ -430,9 +434,14 @@ module Method = {
     })
   }
 
+  let _hasEmptyNode = (nodesData: array<nodeInData>) => {
+    !(nodesData->Meta3dCommonlib.ArraySt.includesByFunc(({isEmpty}) => isEmpty))
+  }
+
   let useEffectOnce = (
     setData,
     service,
+    dispatch,
     (
       selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
       selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
@@ -442,7 +451,10 @@ module Method = {
     switch selectedExtensions->Meta3dCommonlib.ListSt.find(({isStart}) => {
       isStart
     }) {
-    | None => setData(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+    | None =>
+      setData(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+
+      markIsPassDependencyGraphCheck(dispatch, false)
     | Some(extension) =>
       let nodes = _buildNodes(service, selectedPackages, selectedExtensions, selectedContributes)
 
@@ -462,6 +474,8 @@ module Method = {
           "edges": edgesData->_convertEdgesData,
         }->Obj.magic
       )
+
+      markIsPassDependencyGraphCheck(dispatch, _hasEmptyNode(nodesData))
     }
   }
 
@@ -478,6 +492,8 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
+  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
 
   let (
@@ -487,13 +503,20 @@ let make = (~service: service) => {
   ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   service.react.useEffect1(. () => {
-    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      Method.useEffectOnce(
-        setData,
-        service,
-        (selectedPackages, selectedExtensions, selectedContributes),
-      )
-    }, 5->Some)
+    FrontendUtils.ErrorUtils.showCatchedErrorMessageWithFunc(
+      () => {
+        Method.useEffectOnce(
+          setData,
+          service,
+          dispatch,
+          (selectedPackages, selectedExtensions, selectedContributes),
+        )
+      },
+      () => {
+        Method.markIsPassDependencyGraphCheck(dispatch, false)
+      },
+      5->Some,
+    )
 
     None
   }, [selectedPackages, selectedExtensions->Obj.magic, selectedContributes->Obj.magic])
