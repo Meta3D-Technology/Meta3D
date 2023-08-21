@@ -47,7 +47,7 @@ by package.json->"dependencies"?
 
 
 
-** TODO add to ap assemble
+** DONE add to ap assemble
 
 
 
@@ -127,7 +127,7 @@ auto adjust size
 
 
 
-** TODO fix: start/unstart extension should effect all
+** DONE fix: start/unstart extension should effect all
 
 
 ** TODO refactor: remove Visual
@@ -138,7 +138,7 @@ auto adjust size
 
 
 
-
+** TODO pass bdd test
 
 
 

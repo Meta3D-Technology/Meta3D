@@ -37,6 +37,15 @@ let _resetInspector = state => {
   isShowApInspector: false,
 }
 
+let _unstartAllSelectedExtensions = selectedExtensions => {
+  selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+    {
+      ...extension,
+      isStart: false,
+    }
+  })
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
@@ -70,7 +79,9 @@ let reducer = (state, action) => {
     }
   | StartExtension(id) => {
       ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+      selectedExtensions: state.selectedExtensions
+      ->_unstartAllSelectedExtensions
+      ->Meta3dCommonlib.ListSt.map(extension => {
         extension.id === id
           ? {
               ...extension,
@@ -81,14 +92,7 @@ let reducer = (state, action) => {
     }
   | UnStartExtension(id) => {
       ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
-        extension.id === id
-          ? {
-              ...extension,
-              isStart: false,
-            }
-          : extension
-      }),
+      selectedExtensions: state.selectedExtensions->_unstartAllSelectedExtensions,
     }
   // | SetExtensionNewName(id, newName) => {
   //     ...state,
