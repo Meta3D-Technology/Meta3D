@@ -137,7 +137,7 @@ auto adjust size
 ** DONE add to package assemble
 
 
-** TODO fix: start/unstart extension should effect all?
+** DONE fix: start/unstart extension should effect all?
 
 
 ** TODO pass bdd test

@@ -33,6 +33,15 @@ let _resetInspector = state => {
   inspectorCurrentContributeId: None,
 }
 
+let _unmarkEntryAllSelectedExtensions = selectedExtensions => {
+  selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+    {
+      ...extension,
+      isEntry: false,
+    }
+  })
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => _createState()
@@ -89,7 +98,9 @@ let reducer = (state, action) => {
     }
   | MarkEntryExtension(id) => {
       ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
+      selectedExtensions: state.selectedExtensions
+      ->_unmarkEntryAllSelectedExtensions
+      ->Meta3dCommonlib.ListSt.map(extension => {
         extension.id === id
           ? {
               ...extension,
@@ -100,14 +111,7 @@ let reducer = (state, action) => {
     }
   | UnMarkEntryExtension(id) => {
       ...state,
-      selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
-        extension.id === id
-          ? {
-              ...extension,
-              isEntry: false,
-            }
-          : extension
-      }),
+      selectedExtensions: state.selectedExtensions->_unmarkEntryAllSelectedExtensions,
     }
   // | SetExtensionNewName(id, newName) => {
   //     ...state,
