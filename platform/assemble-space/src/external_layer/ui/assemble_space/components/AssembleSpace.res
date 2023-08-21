@@ -23,9 +23,9 @@ module Method = {
   }
 
   let useEffectOnce = dispatch => {
-    reset(dispatch)
-
-    ((), None)
+    ((), Some(() =>{
+      reset(dispatch)
+    }))
   }
 }
 

@@ -95,6 +95,10 @@ commit
 check error: give all duplicate ones info
 
 
+
+*** DONE fix store bug
+
+
 *** TODO style line, node for find/unfind ones
 
 
