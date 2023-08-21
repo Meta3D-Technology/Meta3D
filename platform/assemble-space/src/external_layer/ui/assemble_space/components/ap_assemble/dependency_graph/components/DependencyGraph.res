@@ -503,9 +503,49 @@ let make = (~service: service) => {
       ? {React.string(`请指定启动扩展`)}
       : <FlowAnalysisGraph
           data={data->Obj.magic}
+          nodeCfg={
+            autoWidth: true,
+            items: {
+              layout: #follow,
+            },
+            title: {
+              containerStyle: node => {
+                let node = node->Obj.magic
+
+                node["isEmpty"]
+                  ? {
+                      fill: "red",
+                    }
+                  : {
+                      fill: switch node["nodeType"] {
+                      | Extension => "#1E90FF"
+                      | Contribute => "#008000"
+                      | PackageExtension => "#87CEFA"
+                      | PackageContribute => "#00FF00"
+                      },
+                    }
+              },
+            },
+          }
           edgeCfg={
-            type_: #polyline,
+            // type_: #polyline,
             endArrow: true,
+            style: (edge, event) => {
+              let {_cfg} =
+                event.cfg.nodes
+                ->Meta3dCommonlib.ArraySt.find(({_cfg}) => {
+                  (_cfg.model->Obj.magic)["id"] == edge.target
+                })
+                ->Meta3dCommonlib.OptionSt.getExn
+
+              (_cfg.model->Obj.magic)["isEmpty"]
+                ? {
+                    stroke: "#FF00FF",
+                  }
+                : {
+                    stroke: "#696969",
+                  }
+            },
           }
           markerCfg={cfg => {
             {
