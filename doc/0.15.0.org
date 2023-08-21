@@ -134,11 +134,15 @@ auto adjust size
 
 **  DONE refactor: move CanvasController to ElementAssemble
 
-** TODO add to package assemble
+** DONE add to package assemble
 
+
+** TODO fix: start/unstart extension should effect all?
 
 
 ** TODO pass bdd test
+
+update coverage
 
 
 

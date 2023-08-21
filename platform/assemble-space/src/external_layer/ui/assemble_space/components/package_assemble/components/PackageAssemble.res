@@ -53,7 +53,9 @@ let make = (
           </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
-      <Layout.Content />
+      <Layout.Content>
+        <PackageDependencyGraph service />
+      </Layout.Content>
       <Layout.Sider theme=#light>
         <PackageExtensionInspector service />
         <PackageContributeInspector />

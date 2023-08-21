@@ -45,7 +45,7 @@ defineFeature(feature, test => {
     \"when"(
       "build graph data",
       () => {
-        DependencyGraphTool.useEffectOnce(
+        DependencyGraphUtilsTool.useEffectOnce(
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(~sandbox, ()),
           ~selectedExtensions=list{e1.contents},
@@ -187,7 +187,7 @@ defineFeature(feature, test => {
     \"when"(
       "build graph data",
       () => {
-        DependencyGraphTool.useEffectOnce(
+        DependencyGraphUtilsTool.useEffectOnce(
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
@@ -301,7 +301,7 @@ defineFeature(feature, test => {
       \"when"(
         "build graph data",
         () => {
-          DependencyGraphTool.useEffectOnce(
+          DependencyGraphUtilsTool.useEffectOnce(
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
@@ -448,7 +448,7 @@ defineFeature(feature, test => {
       \"when"(
         "build graph data",
         () => {
-          DependencyGraphTool.useEffectOnce(
+          DependencyGraphUtilsTool.useEffectOnce(
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
@@ -594,7 +594,7 @@ defineFeature(feature, test => {
       \"when"(
         "build graph data",
         () => {
-          DependencyGraphTool.useEffectOnce(
+          DependencyGraphUtilsTool.useEffectOnce(
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
@@ -706,7 +706,7 @@ defineFeature(feature, test => {
       () => {
         expect(
           () => {
-            DependencyGraphTool.useEffectOnce(
+            DependencyGraphUtilsTool.useEffectOnce(
               ~setData=setDataStub.contents->Obj.magic,
               ~service=ServiceTool.build(
                 ~sandbox,

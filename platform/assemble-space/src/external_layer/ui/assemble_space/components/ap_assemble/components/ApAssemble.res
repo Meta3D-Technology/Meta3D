@@ -55,7 +55,7 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <DependencyGraph service />
+        <ApDependencyGraph service />
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />

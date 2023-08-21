@@ -7,7 +7,7 @@ let useEffectOnce = (
   ~service,
   (),
 ) => {
-  DependencyGraph.Method.useEffectOnce(
+  DependencyGraphUtils.Method.useEffectOnce(
     setData,
     service,
     dispatch,

@@ -46,10 +46,6 @@ type edgeInData = {
 }
 
 module Method = {
-  let markIsPassDependencyGraphCheck = (dispatch, isPass) => {
-    dispatch(FrontendUtils.ApAssembleStoreType.MarkIsPassDependencyGraphCheck(isPass))
-  }
-
   let _buildNodes = (
     service,
     selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
@@ -441,7 +437,7 @@ module Method = {
   let useEffectOnce = (
     setData,
     service,
-    dispatch,
+    markIsPassDependencyGraphCheck,
     (
       selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
       selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
@@ -454,7 +450,7 @@ module Method = {
     | None =>
       setData(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
 
-      markIsPassDependencyGraphCheck(dispatch, false)
+      markIsPassDependencyGraphCheck(false)
     | Some(extension) =>
       let nodes = _buildNodes(service, selectedPackages, selectedExtensions, selectedContributes)
 
@@ -475,7 +471,7 @@ module Method = {
         }->Obj.magic
       )
 
-      markIsPassDependencyGraphCheck(dispatch, _hasEmptyNode(nodesData))
+      markIsPassDependencyGraphCheck(_hasEmptyNode(nodesData))
     }
   }
 
@@ -491,16 +487,14 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
-
+let make = (
+  ~service: service,
+  ~markIsPassDependencyGraphCheck,
+  ~selectedPackages,
+  ~selectedExtensions,
+  ~selectedContributes,
+) => {
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
-
-  let (
-    selectedPackages,
-    selectedExtensions,
-    selectedContributes,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   service.react.useEffect1(. () => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessageWithFunc(
@@ -508,12 +502,12 @@ let make = (~service: service) => {
         Method.useEffectOnce(
           setData,
           service,
-          dispatch,
+          markIsPassDependencyGraphCheck,
           (selectedPackages, selectedExtensions, selectedContributes),
         )
       },
       () => {
-        Method.markIsPassDependencyGraphCheck(dispatch, false)
+        markIsPassDependencyGraphCheck(false)
       },
       5->Some,
     )
