@@ -473,7 +473,6 @@ defineFeature(feature, test => {
     },
   )
 
-
   test(.
     "if two nodes dependent on the same node, should remain the upper level node to avoid circle depdenency",
     ({given, \"when", \"and", then}) => {
@@ -620,4 +619,102 @@ defineFeature(feature, test => {
       )
     },
   )
+
+  test(."if has duplicate nodes, error", ({given, \"when", \"and", then}) => {
+    let e1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let p1 = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 for protocol1 which is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                ~displayName="ed1",
+                ~protocol=(
+                  {
+                    name: "protocol1",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select package p1 which has extension pe1 for protocol1",
+      () => {
+        let pe1 = ExtensionTool.generateExtension(
+          ~name="pe1",
+          ~version="0.5.1",
+          ~protocolName="protocol1",
+          ~protocolVersion="^0.2.0",
+          ~displayName="ped1",
+          ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          (),
+        )
+        let pe1FileData = Meta3d.Main.loadExtension(pe1)
+
+        p1 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~name="p1",
+            ~protocolIconBase64="pi1",
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
+              [],
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should error",
+      () => {
+        let errorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        expect(
+          () => {
+            DependencyGraphTool.useEffectOnce(
+              setDataStub.contents->Obj.magic,
+              ServiceTool.build(
+                ~sandbox,
+                ~error=errorStub->Obj.magic,
+                ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+                  Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+                (),
+              ),
+              (list{p1.contents}, list{e1.contents}, list{}),
+            )
+          },
+        )->toThrowMessage({j`协议名：protocol1有重复的实现`})
+      },
+    )
+  })
 })

@@ -129,6 +129,58 @@ module Method = {
     nodes
   }
 
+  let _buildNodeErrorInfo = (node: nodeData) => {
+    switch node.nodeType {
+    | Extension => j`- 类型：扩展；`
+    | Contribute => j`- 类型：贡献`
+    | PackageExtension =>
+      j`- 类型：扩展；所属包名：${node.packageName->Meta3dCommonlib.OptionSt.getExn}；`
+    | PackageContribute =>
+      j`- 类型：贡献；所属包名：${node.packageName->Meta3dCommonlib.OptionSt.getExn}；`
+    } ++
+    j`显示名：${node.displayName}；实现名：${node.name}；实现版本：${node.version}
+    `
+  }
+
+  let _checkDuplicateNode = (nodes: list<nodeData>) => {
+    open Meta3dCommonlib
+
+    let arr = nodes->ListSt.toArray
+
+    // let resultArr = []
+    let map = MutableHashMap.createEmpty()
+    for i in 0 to Js.Array.length(arr) - 1 {
+      let item = Array.unsafe_get(arr, i)
+      // let key = buildKeyFunc(item)
+      let key = item.protocol.name
+      switch MutableHashMap.get(map, key) {
+      | None =>
+        // Js.Array.push(item, resultArr)->ignore
+        MutableHashMap.set(map, key, item)->ignore
+      | Some(oldItem) =>
+        let title =
+          j`协议名：${key}有重复的实现，它们分别是：
+    ` ++
+          _buildNodeErrorInfo(item) ++
+          _buildNodeErrorInfo(oldItem)
+
+        Meta3dCommonlib.Exception.throwErr(
+          Meta3dCommonlib.Exception.buildErr(
+            Meta3dCommonlib.Log.buildErrorMessage(
+              ~title,
+              ~description={
+                ""
+              },
+              ~reason="",
+              ~solution=j``,
+              ~params=j``,
+            ),
+          ),
+        )
+      }
+    }
+  }
+
   let _getEmptyNodeTitle = () => "无"
 
   let _isNeedUpdateNodeInData = (nodeInData: nodeInData, nodeProtocolVersion) => {
@@ -393,6 +445,8 @@ module Method = {
     | None => setData(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
     | Some(extension) =>
       let nodes = _buildNodes(service, selectedPackages, selectedExtensions, selectedContributes)
+
+      _checkDuplicateNode(nodes)
 
       let (nodesData, edgesData) = _buildData(
         ([], []),

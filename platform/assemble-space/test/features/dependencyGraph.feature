@@ -39,10 +39,22 @@ Feature: DependencyGraph
             When build graph data
             Then should build data: e1 -> e3 with higher version, e2; e2 -> e3 with higher version
 
-    Scenario: if two nodes dependent on the same node, should remain the upper level node to avoid circle depdenency
-        Given select extension e1 which dependent on protocol1 with higher version, protocol2 and is start extension
-        And select extension e2 for protocol2 which dependent on protocol1 with low version
-        And select extension e3 for protocol1 with high version
-        When build graph data
-        Then should build data: e1 -> e2, empty with higher version; e2 -> empty with higher version
+        Scenario: if two nodes dependent on the same node, should remain the upper level node to avoid circle depdenency
+            Given select extension e1 which dependent on protocol1 with higher version, protocol2 and is start extension
+            And select extension e2 for protocol2 which dependent on protocol1 with low version
+            And select extension e3 for protocol1 with high version
+            When build graph data
+            Then should build data: e1 -> e2, empty with higher version; e2 -> empty with higher version
 
+
+
+    Rule: check duplicate node
+
+        Background: prepare file
+            Given prepare file
+
+        Scenario: if has duplicate nodes, error
+            Given select extension e1 for protocol1 which is start extension
+            And select package p1 which has extension pe1 for protocol1
+            When build graph data
+            Then should error

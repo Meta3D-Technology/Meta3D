@@ -91,7 +91,7 @@ commit
 
 
 
-*** TODO handle duplicate extension,contribute
+*** DONE handle duplicate extension,contribute
 check error: give all duplicate ones info
 
 
@@ -117,6 +117,10 @@ auto adjust size
 
 # ***  TODO restore: check version in ManagerUtils->_checkDependentMap
 ***  TODO not ManagerUtils->_checkDependentMap, use DependencyGraph data check result
+
+***  TODO publish app use DependencyGraph data check result
+
+
 
 ** TODO fix: start/unstart extension should effect all
 
