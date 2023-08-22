@@ -144,12 +144,144 @@ auto adjust size
 
 update coverage
 
-* TODO 增加redo/undo
 
-** TODO 引擎
+* TODO editor implement publish
+
+# 用户可以实现自己的后端逻辑;
+# Meta3D提供Web3、Clound后端的Extension供用户选择
+
+download zip
 
 
-** TODO 编辑器
+
+# engine arraybuffer?
+
+# load?
+
+#     # mark engine package?
+#     add engine package for publish action?
+#         specify entry extension?
+#         generate engine pacakge
+#     add load scene glb from import scene?
+#         not dispose scene
+
+html:
+loading ui
+use-package2
 
 
-** TODO “装配空间”的各个视图
+
+editor->engine
+no worker
+webgl2?
+
+
+publish->engine
+no worker/worker
+webgl1/webgl2/webgpu
+
+
+
+editor vs publish
+
+same:
+scene
+
+different:
+render mode:webgl/webgpu
+
+init/update/render pipeline
+
+
+shouldn't use the same engine package
+
+
+multiple engine packages for publish
+
+
+
+** design
+
+add mark package as 保存在发布包中:
+    check: one package protocol should only has one marked pacakge at most
+
+
+
+generate app now has app file + packages(marked as 保存在发布包中)
+
+load app now store packages(marked as 保存在发布包中) in meta3dState
+
+api add:
+getPackage(meta3dState, package protocol name): nullable<ArrayBuffer>
+
+
+publish action:
+generate zip file: engine pacakge, scene glb, html, res, ...
+
+
+
+
+load engine package->get entry extension
+
+->loadSceneGLB(add loadSceneGLB) 
+use new import scene for engine(not dispose scene) extension + scenegraph converter extension
+
+** TODO update meta3d
+
+TODO generate app now has app file + packages(marked as 保存在发布包中)
+
+TODO load app now store packages(marked as 保存在发布包中) in meta3dState
+
+TODO api add:
+getPackage(meta3dState, package protocol name): nullable<ArrayBuffer>
+
+
+** TODO update assemble space
+
+TODO add mark package as 保存在发布包中:
+    check: one package protocol should only has one marked pacakge at most
+
+
+TODO update publish app(generate app)
+
+TODO update enter app(load app)
+
+
+** TODO prepare engine package(three)
+
+TODO entry extension add loadSceneGLB:
+use new import scene for engine(not dispose scene) extension + scenegraph converter extension
+
+
+
+** TODO add publish action(for button click)
+
+TODO generate zip file: engine pacakge, scene glb, html, res, ...
+
+
+TODO html js:
+- handle loading info;
+- load engine package->get entry extension
+->loadSceneGLB(add loadSceneGLB) 
+
+
+TODO run test
+
+
+
+* TODO update dependency graph(ap, package)
+
+TODO extension,contribute package.json add "packageDependencies":{"protocol name": versionRange} for api.getPackage
+
+TODO extensionPackageData, contributePackageData add 
+  dependentPackageProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    packageProtocolVersion,
+  >
+
+
+TODO graph: handle dependentPackageProtocolNameMap(not recuive)
+    nonempty node is yellow
+    empty node is yellow-red
+
+
