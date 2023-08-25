@@ -723,4 +723,116 @@ defineFeature(feature, test => {
       },
     )
   })
+
+  test(."if dependency recursive, build recursive graph data", ({given, \"when", \"and", then}) => {
+    let e1 = ref(Obj.magic(1))
+    let e2 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let e2Name = "e2"
+    let e2Version = "0.0.1"
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 for protocol1 which dependent on protocol2 and is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                ~displayName="ed1",
+                ~protocol=(
+                  {
+                    name: "protocol1",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "protocol2",
+                  "^0.0.1",
+                ),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select extension e2 for protocol2 which dependent on protocol1",
+      () => {
+        e2 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e2Name,
+            ~version=e2Version,
+            ~isStart=false,
+            ~protocolIconBase64="ei2",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e2Name,
+                ~version=e2Version,
+                ~displayName="ed2",
+                ~protocol=(
+                  {
+                    name: "protocol2",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "protocol1",
+                  "^0.0.1",
+                ),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        DependencyGraphUtilsTool.useEffectOnce(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            (),
+          ),
+          ~selectedExtensions=list{e1.contents, e2.contents},
+          (),
+        )
+      },
+    )
+
+    then(
+      "should build data: e1 -> e2; e2 -> e1",
+      () => {
+        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        // ->Meta3dCommonlib.Log.printForDebug
+        ->Js.Json.stringify
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          {
+            j`
+ {"nodes":[{"id":"protocol1","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"protocol1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+          `
+          }->NewlineTool.removeBlankChar
+      },
+    )
+  })
 })

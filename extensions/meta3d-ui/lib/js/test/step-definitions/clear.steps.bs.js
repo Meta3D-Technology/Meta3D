@@ -50,7 +50,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         getExtensionStateStub.contents = Sinon.returns(12, Sinon.createEmptyStub(sandbox.contents));
                       }));
                 Curry._2(param.when, "clear", (function (param) {
-                        MainTool$Meta3dUi.clear(sandbox, clearColor, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        MainTool$Meta3dUi.clear(sandbox, clearColor, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "clear imgui renderer", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([

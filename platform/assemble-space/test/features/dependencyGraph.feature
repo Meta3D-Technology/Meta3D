@@ -58,3 +58,14 @@ Feature: DependencyGraph
             And select package p1 which has extension pe1 for protocol1
             When build graph data
             Then should error
+
+    Rule: fix bug
+
+        Background: prepare file
+            Given prepare file
+
+        Scenario: if dependency recursive, build recursive graph data
+            Given select extension e1 for protocol1 which dependent on protocol2 and is start extension
+            And select extension e2 for protocol2 which dependent on protocol1
+            When build graph data
+            Then should build data: e1 -> e2; e2 -> e1

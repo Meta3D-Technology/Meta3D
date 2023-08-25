@@ -59,7 +59,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         
                       }));
                 CucumberAsync$Meta3dBsJestCucumber.execStep(param.when, "init", (function (param) {
-                        var __x = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionProtocolName, false, true, 22, 5, undefined);
+                        var __x = MainTool$Meta3dUi.init(sandbox, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, imguiRendererExtensionProtocolName, false, true, 22, 5, undefined);
                         return Js_promise.then_((function (meta3dState) {
                                       newMeta3dState.contents = meta3dState;
                                       return Promise.resolve(undefined);

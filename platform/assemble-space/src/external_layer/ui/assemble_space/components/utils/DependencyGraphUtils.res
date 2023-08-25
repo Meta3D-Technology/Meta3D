@@ -206,32 +206,36 @@ module Method = {
     switch nodesData->Meta3dCommonlib.ArraySt.find(({id}) => {
       id == nodeId
     }) {
-    | Some(nodeInData) =>
-      _isNeedUpdateNodeInData(nodeInData, node.protocol.version)
-        ? _updateNodeInData(
-            nodesData,
-            {
-              ...nodeInData,
-              version: nodeInData.version->Meta3dCommonlib.OptionSt.map(_ => node.version),
-              protocol: {
-                ...nodeInData.protocol,
-                version: node.protocol.version,
+    | Some(nodeInData) => (
+        _isNeedUpdateNodeInData(nodeInData, node.protocol.version)
+          ? _updateNodeInData(
+              nodesData,
+              {
+                ...nodeInData,
+                version: nodeInData.version->Meta3dCommonlib.OptionSt.map(_ => node.version),
+                protocol: {
+                  ...nodeInData.protocol,
+                  version: node.protocol.version,
+                },
               },
-            },
-          )
-        : nodesData
-    | None =>
-      nodesData->Meta3dCommonlib.ArraySt.push({
-        id: nodeId,
-        isEmpty: false,
-        nodeType: node.nodeType->Some,
-        packageName: node.packageName,
-        protocol: node.protocol,
-        protocolIconBase64: node.protocolIconBase64->Some,
-        title: node.displayName,
-        name: node.name->Some,
-        version: node.version->Some,
-      })
+            )
+          : nodesData,
+        true,
+      )
+    | None => (
+        nodesData->Meta3dCommonlib.ArraySt.push({
+          id: nodeId,
+          isEmpty: false,
+          nodeType: node.nodeType->Some,
+          packageName: node.packageName,
+          protocol: node.protocol,
+          protocolIconBase64: node.protocolIconBase64->Some,
+          title: node.displayName,
+          name: node.name->Some,
+          version: node.version->Some,
+        }),
+        false,
+      )
     }
   }
 
@@ -319,32 +323,34 @@ module Method = {
 
       (nodesData, edgesData)
     | Some(node) =>
-      let nodesData = _updateNodesDataForNonEmptyNode(nodesData, node)
+      let (nodesData, isBreak) = _updateNodesDataForNonEmptyNode(nodesData, node)
 
       let nodeId = _getNodeId(node)
 
       let edgesData = _updateEdgesData(edgesData, nodeId, parentNodeId)
 
-      node.dependentBlockProtocolNameMap
-      ->Meta3dCommonlib.ImmutableHashMap.entries
-      ->Meta3dCommonlib.ArraySt.reduceOneParam(
-        (. (nodesData, edgesData), (blockProtocolName, blockProtocolVersion)) => {
-          _buildData(
+      isBreak
+        ? (nodesData, edgesData)
+        : node.dependentBlockProtocolNameMap
+          ->Meta3dCommonlib.ImmutableHashMap.entries
+          ->Meta3dCommonlib.ArraySt.reduceOneParam(
+            (. (nodesData, edgesData), (blockProtocolName, blockProtocolVersion)) => {
+              _buildData(
+                (nodesData, edgesData),
+                nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
+                  protocol.name == blockProtocolName &&
+                    Meta3d.Semver.gte(
+                      Meta3d.Semver.minVersion(protocol.version),
+                      Meta3d.Semver.minVersion(blockProtocolVersion),
+                    )
+                ),
+                nodes,
+                nodeId->Some,
+                (blockProtocolName->Some, blockProtocolVersion->Some),
+              )
+            },
             (nodesData, edgesData),
-            nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
-              protocol.name == blockProtocolName &&
-                Meta3d.Semver.gte(
-                  Meta3d.Semver.minVersion(protocol.version),
-                  Meta3d.Semver.minVersion(blockProtocolVersion),
-                )
-            ),
-            nodes,
-            nodeId->Some,
-            (blockProtocolName->Some, blockProtocolVersion->Some),
           )
-        },
-        (nodesData, edgesData),
-      )
     }
   }
 

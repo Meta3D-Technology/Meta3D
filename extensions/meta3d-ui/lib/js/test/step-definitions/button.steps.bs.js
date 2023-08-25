@@ -68,7 +68,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         ];
                       }));
                 Curry._2(param.when, "button", (function (param) {
-                        var match = MainTool$Meta3dUi.button(sandbox, label.contents, size.contents, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), imguiRendererExtensionProtocolName, 22, undefined);
+                        var match = MainTool$Meta3dUi.button(sandbox, label.contents, size.contents, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, imguiRendererExtensionProtocolName, 22, undefined);
                         isClick.contents = match[1];
                         newMeta3dState.contents = match[0];
                       }));
