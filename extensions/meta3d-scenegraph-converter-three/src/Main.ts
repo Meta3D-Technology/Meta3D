@@ -40,7 +40,7 @@ import { generateUUID } from "./three/MathUtils";
 import { generateId } from "./utils/IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
-import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { localRotation } from "meta3d-component-transform-protocol";
 import { scene } from "meta3d-engine-scene-protocol/src/service/ServiceType";
 import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
@@ -1142,7 +1142,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
             }
         },
         import: (meta3dState, sceneGroup) => {
-            let { scene } = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+            let { scene } = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
             return _import(scene, meta3dState, sceneGroup.children)
         }

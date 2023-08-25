@@ -2,12 +2,11 @@ import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
-// import { state as editorEngineWholeState } from "meta3d-editor-engine-whole-protocol/src/state/StateType"
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { actionData } from "meta3d-action-button-click-protocol"
 
-let _createCubeGameObject = (meta3dState: meta3dState, { scene }: editorEngineWholeService) => {
+let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeService) => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
     let gameObject = data[1]
@@ -70,9 +69,9 @@ export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (a
         handler: (meta3dState, actionData) => {
             console.log("add cube")
 
-            let editorEngineWholeService = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
-            meta3dState = _createCubeGameObject(meta3dState, editorEngineWholeService)
+            meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
 
             return new Promise((resolve) => {
                 resolve(meta3dState)

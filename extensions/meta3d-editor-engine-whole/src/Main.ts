@@ -1,6 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { state } from "meta3d-editor-engine-whole-protocol/src/state/StateType"
-import { service } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
+import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 // import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 // import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineBasicService } from "meta3d-engine-basic-protocol/src/service/ServiceType"
@@ -23,6 +23,7 @@ import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 import { pipeline as pipelineRenderPipeline, job as pipelineRenderJob } from "meta3d-pipeline-webgl1-render-protocol/src/StateType"
 import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 
 let _registerEditorPipelines = (
@@ -97,6 +98,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			"meta3d-engine-scene-protocol",
 		]),
 		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, gl, canvas) => {
+			gl = getExn(gl)
 			// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
 			let engineBasicService = api.getExtensionService<engineBasicService>(
@@ -137,6 +139,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			return meta3dState
+		},
+		loadScene: (meta3dState, sceneGLB) => {
+			throw new Error("not implement")
 		},
 	}
 }

@@ -5,14 +5,14 @@ import { service as converterService } from "meta3d-scenegraph-converter-three-p
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { GLTF, GLTFLoader } from "./three/GLTFLoader"
 import { DefaultLoadingManager } from "./three/LoadingManager"
-import { service as editorEngineWholeService } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { dispose } from "meta3d-pipeline-utils/src/DisposeJobUtils"
 import { bindEvent } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
 
 let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
-    let { scene } = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+    let { scene } = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
     meta3dState = scene.gameObject.disposeGameObjects(
         meta3dState,
@@ -23,7 +23,7 @@ let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
 }
 
 let _activeFirstBasicCameraView = (api: api, meta3dState: meta3dState): meta3dState => {
-    let { scene } = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+    let { scene } = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
 
     let basicCameraViewGameObjects = scene.gameObject.getAllGameObjects(meta3dState)
@@ -47,7 +47,7 @@ let _activeFirstBasicCameraView = (api: api, meta3dState: meta3dState): meta3dSt
 }
 
 let _addArcballCameraController = (api: api, meta3dState: meta3dState): meta3dState => {
-    let { scene } = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+    let { scene } = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
     let data = scene.arcballCameraController.createArcballCameraController(meta3dState)
     meta3dState = data[0]

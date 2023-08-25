@@ -170,6 +170,7 @@ meta3dState = prepare(
         geometryPointCount,
         pbrMaterialCount
     },
+    null,
     canvas
 )
 

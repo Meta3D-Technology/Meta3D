@@ -320,7 +320,7 @@ change color to blue
 
 
 
-            let editorEngineWholeService = api.getExtensionService<editorEngineWholeService>(meta3dState, "meta3d-editor-engine-whole-protocol")
+            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
 
             remove dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, DependentMapType
 

@@ -22,7 +22,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			"meta3d-engine-core-protocol",
 			"meta3d-engine-scene-protocol",
 		]),
-		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, canvas) => {
+		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, gl, canvas) => {
 			// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
 			let engineBasicService = api.getExtensionService<engineBasicService>(

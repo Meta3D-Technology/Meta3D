@@ -271,6 +271,14 @@ TODO html js:
 TODO check: entryExtensionProtocolName should be "meta3d-engine-whole-protocol"
 
 
+** DONE refactor
+
+TODO merge engine-whole
+
+
+# TODO split import scene to load scene, import scene(use engine whole service to load scene)
+
+
 
 ** TODO pass run test
 
@@ -279,6 +287,7 @@ build engine package
 
 
 
+* TODO dependency graph: fix: recursive dependency
 
 
 * TODO dependency graph: todo fix ui control node

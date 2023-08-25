@@ -1,6 +1,6 @@
 {
     "name": "meta3d-scenegraph-converter-three",
-    "version": "0.14.0",
+    "version": "0.14.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "scenegraph-converter-three",
     "protocol": {
@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@types/three": "0.154.0",
-        "meta3d-editor-engine-whole-protocol": "^0.14.0",
+        "meta3d-engine-whole-protocol": "^0.14.0",
         "meta3d-event-protocol": "^0.14.0",
         "meta3d-scenegraph-converter-three-protocol": "^0.14.0",
         "meta3d-three-api-protocol": "^0.14.0",

@@ -1,6 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { state } from "meta3d-editor-engine-whole-protocol/src/state/StateType"
-import { service } from "meta3d-editor-engine-whole-protocol/src/service/ServiceType"
+import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
+import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { service as engineBasicService } from "meta3d-engine-basic-protocol/src/service/ServiceType"
 // import { state as engineBasicState } from "meta3d-engine-basic-protocol/src/state/StateType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
@@ -302,6 +302,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			return meta3dState
+		},
+		loadScene: (meta3dState, sceneGLB) => {
+			throw new Error("not implement")
 		},
 	}
 }

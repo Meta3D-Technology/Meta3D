@@ -17,7 +17,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-button-click-protocol": "^0.14.0",
-        "meta3d-editor-engine-whole-protocol": "^0.14.0",
+        "meta3d-engine-whole-protocol": "^0.14.0",
         "meta3d-type": "^0.14.0"
     },
     "devDependencies": {
