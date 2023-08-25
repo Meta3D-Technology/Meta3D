@@ -81,6 +81,8 @@ type action =
   | UpdateSelectedContribute(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedPackage(id, Js.Typed_array.ArrayBuffer.t)
   | MarkIsPassDependencyGraphCheck(bool)
+  | StorePackageInApp(id)
+  | UnStorePackageInApp(id)
 
 type state = {
   selectedPackages: selectedPackages,
@@ -91,5 +93,6 @@ type state = {
   inspectorCurrentPackageId: option<id>,
   isShowApInspector: bool,
   apInspectorData: apInspectorData,
-  isPassDependencyGraphCheck: bool
+  isPassDependencyGraphCheck: bool,
+  storedPackageIdsInApp: list<id>,
 }

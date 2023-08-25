@@ -94,12 +94,12 @@ let _removeElementContribute = selectedContributes => {
 
 let generateApp = (
   service,
-  (selectedPackages, selectedExtensions, selectedContributes),
+  ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
   (runVisualExtension, elementContribute),
 ) => {
   AppUtils.generateApp(
     service,
-    selectedPackages,
+    (selectPackages, allPackagesStoredInApp),
     selectedExtensions->Meta3dCommonlib.ArraySt.push(runVisualExtension),
     selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
     Js.Nullable.null,

@@ -70,13 +70,17 @@ module Method = {
       selectedContributes,
       canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
+      storedPackageIdsInApp,
     ),
     values,
   ): Js.Promise.t<unit> => {
     let appName = values["appName"]
     let appDescription = values["appDescription"]
 
-    let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
+    let (selectedPackages, allPackagesStoredInApp) = AppUtils.splitPackages(
+      selectedPackages,
+      storedPackageIdsInApp,
+    )
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
     let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
 
@@ -94,7 +98,7 @@ module Method = {
             startExtensionNeedConfigData => {
               let appBinaryFile = AppUtils.generateApp(
                 service,
-                selectedPackages,
+                (selectedPackages, allPackagesStoredInApp),
                 selectedExtensions,
                 selectedContributes,
                 (
@@ -158,6 +162,7 @@ module Method = {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
+      storedPackageIdsInApp,
     } = apAssembleState
     let {canvasData} = elementAssembleState
 
@@ -168,6 +173,7 @@ module Method = {
         selectedContributes,
         apInspectorData,
         isPassDependencyGraphCheck,
+        storedPackageIdsInApp,
       ),
       canvasData,
     )
@@ -183,6 +189,7 @@ let make = (~service: service, ~account: option<string>) => {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
+      storedPackageIdsInApp,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)
@@ -235,6 +242,7 @@ let make = (~service: service, ~account: option<string>) => {
                             selectedContributes,
                             canvasData,
                             apInspectorData,
+                            storedPackageIdsInApp,
                           ),
                           event->Obj.magic,
                         )->ignore

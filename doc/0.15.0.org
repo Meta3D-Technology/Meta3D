@@ -236,15 +236,18 @@ TODO api add:
 getPackage(meta3dState, package protocol name): nullable<ArrayBuffer>
 
 
-** TODO update assemble space
+** DONE update assemble space
 
 TODO add mark package as 保存在发布包中:
     # check: one package protocol should only has one marked pacakge at most
 
 
 TODO update publish app(generate app)
+TODO update run element(generate app)
 
-TODO update enter app(load app)
+# TODO update enter app(load app)
+
+TODO pass bdd test
 
 
 ** TODO prepare engine package(three)
@@ -265,12 +268,12 @@ TODO html js:
 ->loadSceneGLB(add loadSceneGLB) 
 
 
-TODO run test
-
-
-* TODO dependency graph: todo fix ui control node
+** TODO dependency graph: todo fix ui control node
 
 TODO if has entry extension or ui control, show dependency graph
+
+
+** TODO pass run test
 
 
 

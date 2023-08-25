@@ -10,7 +10,7 @@ open FrontendUtils.AssembleSpaceType
 
 let generateApp = (
   service,
-  selectPackages,
+  (selectPackages, allPackagesStoredInApp),
   selectedExtensions,
   selectedContributes,
   configData,
@@ -36,6 +36,23 @@ let generateApp = (
     selectPackages->Meta3dCommonlib.ArraySt.map((
       {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,
     ) => binaryFile),
+    allPackagesStoredInApp,
     configData,
+  )
+}
+
+let splitPackages = (selectedPackages, storedPackageIdsInApp) => {
+  (
+    selectedPackages
+    ->Meta3dCommonlib.ListSt.filter(({id}: FrontendUtils.AssembleSpaceCommonType.packageData) => {
+      !(storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id))
+    })
+    ->Meta3dCommonlib.ListSt.toArray,
+    selectedPackages
+    ->Meta3dCommonlib.ListSt.filter(({id}: FrontendUtils.AssembleSpaceCommonType.packageData) => {
+      storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id)
+    })
+    ->Meta3dCommonlib.ListSt.map(({protocol, binaryFile}) => (protocol.name, binaryFile))
+    ->Meta3dCommonlib.ListSt.toArray,
   )
 }

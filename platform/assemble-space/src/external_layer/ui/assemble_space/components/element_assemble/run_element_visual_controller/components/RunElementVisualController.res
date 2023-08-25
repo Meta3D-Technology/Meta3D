@@ -34,14 +34,14 @@ module Method = {
     service,
     (canvasData, apInspectorData),
     (
-      (selectedPackages, selectedExtensions, selectedContributes),
+      (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
       (runVisualExtension, elementContribute),
     ),
   ) => {
     ElementVisualUtils.generateApp(
       service,
       (
-        selectedPackages->Meta3dCommonlib.ListSt.toArray,
+        AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
@@ -75,13 +75,19 @@ module Method = {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+      storedPackageIdsInApp,
     } = apAssembleState
-    let {canvasData,runVisualExtension, elementContribute} = elementAssembleState
-      
+    let {canvasData, runVisualExtension, elementContribute} = elementAssembleState
 
     (
-      ( apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
-      (canvasData,runVisualExtension, elementContribute),
+      (
+        apInspectorData,
+        selectedPackages,
+        selectedExtensions,
+        selectedContributes,
+        storedPackageIdsInApp,
+      ),
+      (canvasData, runVisualExtension, elementContribute),
     )
   }
 }
@@ -91,8 +97,14 @@ let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
-    (apInspectorData, selectedPackages, selectedExtensions, selectedContributes),
-    (canvasData,runVisualExtension, elementContribute),
+    (
+      apInspectorData,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      storedPackageIdsInApp,
+    ),
+    (canvasData, runVisualExtension, elementContribute),
   ) = service.react.useSelector(. Method.useSelector)
 
   service.react.useEffect1(. () => {
@@ -115,7 +127,7 @@ let make = (~service: service) => {
               service,
               (canvasData, apInspectorData),
               (
-                (selectedPackages, selectedExtensions, selectedContributes),
+                (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
                 (runVisualExtension, elementContribute),
               ),
             )->ignore

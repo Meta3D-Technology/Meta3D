@@ -14,6 +14,7 @@ let publish = (
   ~selectedPackages=list{},
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
+  ~storedPackageIdsInApp=list{},
   ~canvasData=CanvasControllerTool.buildCanvasData(),
   ~apInspectorData=ApInspectorTool.buildApInspectorData(),
   ~values={
@@ -32,6 +33,7 @@ let publish = (
       selectedContributes,
       canvasData,
       apInspectorData,
+      storedPackageIdsInApp,
     ),
     values,
   )

@@ -24,7 +24,7 @@ Feature: Publish
         Background: prepare selected packages and selected extensions and contributes
             Given select extension e1, e2
             And select contribute c1, c2
-            And select package p1
+            And select package p1 which isn't stored in app, p2 which is stored in app
 
         Scenario: generate correct app without config data
             When publish app

@@ -12,6 +12,8 @@ export type extensionService = any
 
 export type extensionState = any
 
+export type packageProtocolName = string
+
 export type getContributeFuncResult = any
 
 export abstract class state { protected opaque!: any }; /* simulate opaque types */

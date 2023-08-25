@@ -106,12 +106,12 @@ module Method = {
 
   let _generateApp = (
     service,
-    (selectedPackages, selectedExtensions, selectedContributes),
+    ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
     visualExtension,
   ) => {
     AppUtils.generateApp(
       service,
-      selectedPackages,
+      (selectPackages, allPackagesStoredInApp),
       selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
       selectedContributes,
       Js.Nullable.null,
@@ -121,7 +121,7 @@ module Method = {
   let startApp = (
     service,
     loopFrameID: React.ref<option<int>>,
-    (selectedPackages, selectedExtensions, selectedContributes),
+    (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
     visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
@@ -129,7 +129,7 @@ module Method = {
       _generateApp(
         service,
         (
-          selectedPackages->Meta3dCommonlib.ListSt.toArray,
+          AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
           selectedExtensions->Meta3dCommonlib.ListSt.toArray,
           selectedContributes->Meta3dCommonlib.ListSt.toArray,
         ),
@@ -405,6 +405,7 @@ module Method = {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
+      storedPackageIdsInApp,
     } = apAssembleState
     let {
       canvasData,
@@ -424,6 +425,7 @@ module Method = {
         selectedContributes,
         apInspectorData,
         isPassDependencyGraphCheck,
+        storedPackageIdsInApp,
       ),
       (
         canvasData,
@@ -449,6 +451,7 @@ let make = (~service: service, ~account: option<string>) => {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
+      storedPackageIdsInApp,
     ),
     (
       canvasData,
@@ -537,7 +540,7 @@ let make = (~service: service, ~account: option<string>) => {
               Method.startApp(
                 service,
                 loopFrameID,
-                (selectedPackages, selectedExtensions, selectedContributes),
+                (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
                 visualExtension,
                 apInspectorData,
               )->ignore

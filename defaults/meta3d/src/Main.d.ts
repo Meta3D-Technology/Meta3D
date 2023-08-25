@@ -1,6 +1,6 @@
 // TODO unify .d.ts, .ts!
 
-import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
+import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData, packageProtocolName } from "meta3d-type"
 import { actionName, actionProtocolName, eventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
@@ -90,6 +90,7 @@ export function generateApp(
             Array<[contributePackageDataApp, contributeFuncData]>
         ],
     allPackageBinaryFiles: allPackageBinaryFiles,
+    allPackageBinaryFileDataStoredInApp: Array<[packageProtocolName, ArrayBuffer]>,
     configData: nullable<startConfigData>
 ): ArrayBuffer
 

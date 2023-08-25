@@ -475,7 +475,7 @@ defineFeature(feature, test => {
             (),
           ),
           loopFrameIDRef,
-          (list{}, selectedExtensions.contents, selectedContributes.contents),
+          (list{}, selectedExtensions.contents, selectedContributes.contents, list{}),
           v.contents,
           ApInspectorTool.buildApInspectorData(),
         )

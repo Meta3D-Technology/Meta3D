@@ -120,6 +120,7 @@ defineFeature(feature, test => {
     given,
     \"and",
     (selectedPackages, selectedPackageBinaryFile1),
+    (storedPackageIdsInApp, selectedPackageBinaryFile2, p2ProtocolName),
     selectedExtensions,
     selectedContributes,
   ) => {
@@ -159,19 +160,26 @@ defineFeature(feature, test => {
         }
     })
 
-    \"and"("select package p1", () => {
+    \"and"("select package p1 which isn't stored in app, p2 which is stored in app", () => {
+      let p2Id = "p2"
+
       selectedPackages :=
         list{
           SelectedPackagesTool.buildSelectedPackage(
             ~name="p1",
-            // ~protocolName=entryExtensionProtocolName,
-            // ~protocolVersion=entryExtensionProtocolVersionRange,
-            // ~protocolIconBase64=entryExtensionProtocolIconBase64,
-            // ~entryExtensionName,
             ~binaryFile=selectedPackageBinaryFile1,
             (),
           ),
+          SelectedPackagesTool.buildSelectedPackage(
+            ~id=p2Id,
+            ~name="p2",
+            ~protocolName=p2ProtocolName,
+            ~binaryFile=selectedPackageBinaryFile2,
+            (),
+          ),
         }
+
+      storedPackageIdsInApp := list{p2Id}
     })
   }
 
@@ -181,6 +189,7 @@ defineFeature(feature, test => {
     let selectedPackages = ref(Obj.magic(1))
     let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
+    let storedPackageIdsInApp = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
@@ -188,6 +197,7 @@ defineFeature(feature, test => {
       given,
       \"and",
       (selectedPackages, selectedPackageBinaryFile1),
+      (storedPackageIdsInApp, Obj.magic(1), ""),
       selectedExtensions,
       selectedContributes,
     )
@@ -244,6 +254,9 @@ defineFeature(feature, test => {
     let setUploadProgressStub = ref(Obj.magic(1))
     let setIsUploadBeginStub = ref(Obj.magic(1))
     let setVisibleStub = ref(Obj.magic(1))
+    let storedPackageIdsInApp = ref(Obj.magic(1))
+    let selectedPackageBinaryFile2 = Js.Typed_array.ArrayBuffer.make(11)
+    let p2ProtocolName = "p2-protocol"
 
     _prepare(given, \"and")
 
@@ -251,6 +264,7 @@ defineFeature(feature, test => {
       given,
       \"and",
       (selectedPackages, selectedPackageBinaryFile1),
+      (storedPackageIdsInApp, selectedPackageBinaryFile2, p2ProtocolName),
       selectedExtensions,
       selectedContributes,
     )
@@ -345,6 +359,7 @@ defineFeature(feature, test => {
           ~selectedPackages=selectedPackages.contents,
           ~selectedExtensions=selectedExtensions.contents,
           ~selectedContributes=selectedContributes.contents,
+          ~storedPackageIdsInApp=storedPackageIdsInApp.contents,
           (),
         )
       },
@@ -372,9 +387,10 @@ defineFeature(feature, test => {
         (
           generateAppStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg3(
+          ->SinonTool.calledWithArg4(
             matchAny,
             [selectedPackageBinaryFile1],
+            [(p2ProtocolName, selectedPackageBinaryFile2)],
             (
               canvasData.contents,
               {
@@ -389,7 +405,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]"
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
           )
       },
     )

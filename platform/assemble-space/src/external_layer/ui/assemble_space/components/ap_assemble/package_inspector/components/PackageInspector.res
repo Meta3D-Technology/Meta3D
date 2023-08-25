@@ -3,6 +3,24 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let isPackageStoredInApp = (id, storedPackageIdsInApp) => {
+    storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id)
+  }
+
+  let storePackageInApp = (
+    dispatch,
+    inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
+  ) => {
+    dispatch(FrontendUtils.ApAssembleStoreType.StorePackageInApp(inspectorCurrentPackage.id))
+  }
+
+  let unstorePackageInApp = (
+    dispatch,
+    inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
+  ) => {
+    dispatch(FrontendUtils.ApAssembleStoreType.UnStorePackageInApp(inspectorCurrentPackage.id))
+  }
+
   let getInspectorCurrentPackage = ((
     inspectorCurrentPackageId,
     selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
@@ -96,14 +114,14 @@ module Method = {
       setInspectorCurrentPackage(_ => inspectorCurrentPackage->Some)
 
       let (
-        allExtensionFileData,
+        allPackageFileData,
         allContributeFileData,
       ) = service.meta3d.getAllExtensionAndContributeFileDataOfPackage(.
         inspectorCurrentPackage.binaryFile,
       )
 
       setExtensions(_ =>
-        allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
+        allPackageFileData->Meta3dCommonlib.ArraySt.map(((
           extensionPackageData,
           extensionFuncData,
         )) => {
@@ -122,9 +140,13 @@ module Method = {
   }
 
   let useSelector = (
-    {inspectorCurrentPackageId, selectedPackages}: FrontendUtils.ApAssembleStoreType.state,
+    {
+      inspectorCurrentPackageId,
+      selectedPackages,
+      storedPackageIdsInApp,
+    }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (inspectorCurrentPackageId, selectedPackages)
+    (inspectorCurrentPackageId, selectedPackages, storedPackageIdsInApp)
   }
 }
 
@@ -134,10 +156,11 @@ let make = (~service: service) => {
   let (extensions, setExtensions) = service.react.useState(_ => [])
   let (contributes, setContributes) = service.react.useState(_ => [])
 
-  let (inspectorCurrentPackageId, selectedPackages) = ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    inspectorCurrentPackageId,
+    selectedPackages,
+    storedPackageIdsInApp,
+  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
@@ -160,6 +183,20 @@ let make = (~service: service) => {
     // </Collapse>
 
     <Space direction=#vertical size=#middle>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`配置`)}, ())}
+      {Method.isPackageStoredInApp(inspectorCurrentPackage.id, storedPackageIdsInApp)
+        ? <Button
+            onClick={_ => {
+              Method.unstorePackageInApp(dispatch, inspectorCurrentPackage)
+            }}>
+            {React.string(`不保存在App中`)}
+          </Button>
+        : <Button
+            onClick={_ => {
+              Method.storePackageInApp(dispatch, inspectorCurrentPackage)
+            }}>
+            {React.string(`保存在App中`)}
+          </Button>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
       <Button
         onClick={_ => {

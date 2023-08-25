@@ -331,7 +331,7 @@ defineFeature(feature, test => {
           ),
           (canvasData.contents, apInspectorData.contents),
           (
-            (list{}, selectedExtensions.contents, selectedContributes.contents),
+            (list{}, selectedExtensions.contents, selectedContributes.contents, list{}),
             (v.contents, element1.contents),
           ),
         )
@@ -486,7 +486,7 @@ defineFeature(feature, test => {
           ),
           (canvasData.contents, apInspectorData.contents),
           (
-            (list{}, selectedExtensions.contents, selectedContributes.contents),
+            (list{}, selectedExtensions.contents, selectedContributes.contents, list{}),
             (v.contents, element1.contents),
           ),
         )
