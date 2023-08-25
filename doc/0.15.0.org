@@ -226,7 +226,7 @@ load engine package->get entry extension
 ->loadSceneGLB(add loadSceneGLB) 
 use new import scene for engine(not dispose scene) extension + scenegraph converter extension
 
-** TODO update meta3d
+** DONE update meta3d
 
 TODO generate app now has app file + packages(marked as 保存在发布包中)
 
@@ -239,7 +239,7 @@ getPackage(meta3dState, package protocol name): nullable<ArrayBuffer>
 ** TODO update assemble space
 
 TODO add mark package as 保存在发布包中:
-    check: one package protocol should only has one marked pacakge at most
+    # check: one package protocol should only has one marked pacakge at most
 
 
 TODO update publish app(generate app)
@@ -268,6 +268,13 @@ TODO html js:
 TODO run test
 
 
+* TODO dependency graph: todo fix ui control node
+
+TODO if has entry extension or ui control, show dependency graph
+
+
+
+
 
 * TODO update dependency graph(ap, package)
 
@@ -283,5 +290,14 @@ TODO extensionPackageData, contributePackageData add
 TODO graph: handle dependentPackageProtocolNameMap(not recuive)
     nonempty node is yellow
     empty node is yellow-red
+
+
+
+
+
+* TODO dependency graph: switch to show all nodes or only empty nodes
+
+
+
 
 

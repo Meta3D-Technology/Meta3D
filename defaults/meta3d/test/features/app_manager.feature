@@ -129,3 +129,14 @@ Feature: App Manager
         Scenario: load and update generated app
             When generate app with c1 and load it and update the second extension
             Then the second extension should be updated
+
+
+    Rule: load generated app with package store in app
+
+        Background: prepare flag
+            Given prepare flag
+
+        Scenario: load generated app with package store in app
+            Given generate empty package p1
+            When generate app with p1 and load it
+            Then get pacakge of p1's protocol name should return p1

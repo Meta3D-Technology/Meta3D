@@ -20,7 +20,8 @@ function setExtensionState(state, protocolName, extensionState) {
           extensionStateMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionStateMap, protocolName, extensionState),
           extensionLifeMap: state.extensionLifeMap,
           contributeExceptActionMap: state.contributeExceptActionMap,
-          actionMap: state.actionMap
+          actionMap: state.actionMap,
+          packageStoreInAppMap: state.packageStoreInAppMap
         };
 }
 
@@ -125,7 +126,8 @@ function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, ext
         extensionStateMap: state.extensionStateMap,
         extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.set(state.extensionLifeMap, protocolName, Curry._2(getLifeFunc, buildAPI(undefined), protocolName)),
         contributeExceptActionMap: state.contributeExceptActionMap,
-        actionMap: state.actionMap
+        actionMap: state.actionMap,
+        packageStoreInAppMap: state.packageStoreInAppMap
       }, protocolName, extensionState);
   return _invokeSyncLifeOtherHander(state$1, protocolName, ImmutableHashMap$Meta3dCommonlib.getExn(state$1.extensionLifeMap, protocolName).onRegister);
 }
@@ -143,7 +145,8 @@ function registerContribute(state, protocolName, getContributeFunc) {
                   contributeType,
                   contribute
                 ]),
-            actionMap: state.actionMap
+            actionMap: state.actionMap,
+            packageStoreInAppMap: state.packageStoreInAppMap
           };
   }
   var actions = ImmutableHashMap$Meta3dCommonlib.get(state.actionMap, protocolName);
@@ -152,7 +155,8 @@ function registerContribute(state, protocolName, getContributeFunc) {
           extensionStateMap: state.extensionStateMap,
           extensionLifeMap: state.extensionLifeMap,
           contributeExceptActionMap: state.contributeExceptActionMap,
-          actionMap: actions !== undefined ? ImmutableHashMap$Meta3dCommonlib.set(state.actionMap, protocolName, ArraySt$Meta3dCommonlib.push(actions, contribute)) : ImmutableHashMap$Meta3dCommonlib.set(state.actionMap, protocolName, [contribute])
+          actionMap: actions !== undefined ? ImmutableHashMap$Meta3dCommonlib.set(state.actionMap, protocolName, ArraySt$Meta3dCommonlib.push(actions, contribute)) : ImmutableHashMap$Meta3dCommonlib.set(state.actionMap, protocolName, [contribute]),
+          packageStoreInAppMap: state.packageStoreInAppMap
         };
 }
 
@@ -168,7 +172,10 @@ function buildAPI(param) {
           setExtensionState: setExtensionState,
           registerContribute: registerContribute,
           getContribute: getContributeExn,
-          getAllContributesByType: getAllContributesByType
+          getAllContributesByType: getAllContributesByType,
+          getPackage: (function (state, packageProtocolName) {
+              return ImmutableHashMap$Meta3dCommonlib.getNullable(state.packageStoreInAppMap, packageProtocolName);
+            })
         };
 }
 

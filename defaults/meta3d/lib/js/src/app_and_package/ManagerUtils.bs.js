@@ -39,8 +39,8 @@ function mergeAllPackageBinaryFiles(param) {
           Error: new Error()
         };
   }
-  var allExtensionBinaryUint8File = param[0];
-  var allContributeBinaryUint8File = param[1];
+  var allExtensionUint8 = param[0];
+  var allContributeUint8 = param[1];
   return function (allPackageBinaryFiles) {
     return ArraySt$Meta3dCommonlib.reduceOneParam(allPackageBinaryFiles, (function (param, param$1) {
                   if (param.length !== 2) {
@@ -54,8 +54,8 @@ function mergeAllPackageBinaryFiles(param) {
                           Error: new Error()
                         };
                   }
-                  var allExtensionBinaryUint8File = param[0];
-                  var allContributeBinaryUint8File = param[1];
+                  var allExtensionUint8 = param[0];
+                  var allContributeUint8 = param[1];
                   var match = BinaryFileOperator$Meta3d.load(param$1);
                   if (match.length !== 2) {
                     throw {
@@ -68,15 +68,15 @@ function mergeAllPackageBinaryFiles(param) {
                           Error: new Error()
                         };
                   }
-                  var allExtensionBinaryUint8FileInPackage = match[0];
-                  var allContributeBinaryUint8FileInPackage = match[1];
+                  var allExtensionUint8InPackage = match[0];
+                  var allContributeUint8InPackage = match[1];
                   return [
-                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer)))),
-                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8FileInPackage.buffer), BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer))))
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allExtensionUint8InPackage.buffer), BinaryFileOperator$Meta3d.load(allExtensionUint8.buffer)))),
+                          new Uint8Array(BinaryFileOperator$Meta3d.generate(Js_array.concat(BinaryFileOperator$Meta3d.load(allContributeUint8InPackage.buffer), BinaryFileOperator$Meta3d.load(allContributeUint8.buffer))))
                         ];
                 }), [
-                allExtensionBinaryUint8File,
-                allContributeBinaryUint8File
+                allExtensionUint8,
+                allContributeUint8
               ]);
   };
 }
@@ -114,11 +114,11 @@ function _parse1(param) {
           Error: new Error()
         };
   }
-  var allExtensionBinaryUint8File = param[0];
-  var allContributeBinaryUint8File = param[1];
+  var allExtensionUint8 = param[0];
+  var allContributeUint8 = param[1];
   var decoder = new TextDecoder("utf-8");
   return [
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionUint8.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
@@ -142,7 +142,7 @@ function _parse1(param) {
                           }
                         };
                 })),
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeUint8.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
@@ -178,11 +178,11 @@ function parse2(param) {
           Error: new Error()
         };
   }
-  var allExtensionBinaryUint8File = param[0];
-  var allContributeBinaryUint8File = param[1];
+  var allExtensionUint8 = param[0];
+  var allContributeUint8 = param[1];
   var decoder = new TextDecoder("utf-8");
   return [
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionBinaryUint8File.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allExtensionUint8.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
@@ -201,7 +201,7 @@ function parse2(param) {
                           extensionFuncData
                         ];
                 })),
-          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeBinaryUint8File.buffer), 2), (function (param) {
+          ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allContributeUint8.buffer), 2), (function (param) {
                   if (param.length !== 2) {
                     throw {
                           RE_EXN_ID: "Match_failure",
@@ -229,7 +229,8 @@ function _prepare(param) {
           extensionStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           extensionLifeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           contributeExceptActionMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          actionMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          actionMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          packageStoreInAppMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

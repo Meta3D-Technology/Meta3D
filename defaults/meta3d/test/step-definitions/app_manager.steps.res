@@ -1180,6 +1180,7 @@ defineFeature(feature, test => {
           Main.generateApp(
             c1.contents,
             [p1.contents],
+            [],
             configData.contents->Obj.magic->Meta3dCommonlib.NullableSt.return,
           )->Main.loadApp
 
@@ -1296,7 +1297,7 @@ defineFeature(feature, test => {
     \"when"(
       "generate app with c1 and load it",
       () => {
-        loadData := Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+        loadData := Main.generateApp(c1.contents, [], [], Js.Nullable.null)->Main.loadApp
       },
     )
 
@@ -1374,7 +1375,7 @@ defineFeature(feature, test => {
       "generate app with c1 and load it and init the first extension",
       () => {
         let (s, allExtensionDataArr, _) =
-          Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+          Main.generateApp(c1.contents, [], [], Js.Nullable.null)->Main.loadApp
 
         state := s
 
@@ -1413,7 +1414,7 @@ defineFeature(feature, test => {
       "generate app with c1 and load it and update the second extension",
       () => {
         let (s, allExtensionDataArr, _) =
-          Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+          Main.generateApp(c1.contents, [], [], Js.Nullable.null)->Main.loadApp
 
         state := s
 
@@ -1432,6 +1433,47 @@ defineFeature(feature, test => {
       "the second extension should be updated",
       () => {
         AppManagerTool.getUpdateFlag()->expect == 22
+      },
+    )
+  })
+
+  test(."load generated app with package store in app", ({given, \"when", \"and", then}) => {
+    let state = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
+    let p1ProtocolName = "p1-protocol"
+
+    _prepare(given)
+
+    _prepareFlag(given)
+
+    given(
+      "generate empty package p1",
+      () => {
+        p1 := Main.generatePackage(([], []), [])
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "generate app with p1 and load it",
+      () => {
+        let (s, allExtensionDataArr, _) =
+          Main.generateApp(
+            ([], []),
+            [],
+            [(p1ProtocolName, p1.contents)],
+            Js.Nullable.null,
+          )->Main.loadApp
+
+        state := s
+      },
+    )
+
+    then(
+      "get pacakge of p1's protocol name should return p1",
+      () => {
+        AppManagerTool.getPackage(state.contents, p1ProtocolName)->expect ==
+          Js.Nullable.return(p1.contents)
       },
     )
   })

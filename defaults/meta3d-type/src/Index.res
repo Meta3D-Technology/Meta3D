@@ -20,6 +20,8 @@ type getContributeFuncResult
 
 type extensionLifeHandlerData
 
+type packageProtocolName = string
+
 type canvasData = {
   width: int,
   height: int,
@@ -59,6 +61,10 @@ and state = {
     (ContributeType.contributeType, contribute),
   >,
   actionMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeProtocolName, array<contribute>>,
+  packageStoreInAppMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    Js.Typed_array.ArrayBuffer.t,
+  >,
 }
 
 type api = {
@@ -84,6 +90,7 @@ type api = {
     . state,
     ContributeType.contributeType,
   ) => array<'contribute>,
+  getPackage: (. state, packageProtocolName) => Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

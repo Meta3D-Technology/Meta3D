@@ -33,3 +33,8 @@ let getStartFlag = %raw(` function(){return window.startFlag} `)
 let getInitFlag = %raw(` function(){return window.initFlag} `)
 
 let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
+
+let getPackage = (
+  state: Meta3dType.Index.state,
+  packageProtocolName: Meta3dType.Index.packageProtocolName,
+) => state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.getNullable(packageProtocolName)

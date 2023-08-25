@@ -269,4 +269,6 @@ and buildAPI = (): api => {
     getContributeExn(state, (protocolName: contributeProtocolName))->Obj.magic,
   getAllContributesByType: (. state, contributeType: Meta3dType.ContributeType.contributeType) =>
     getAllContributesByType(state, contributeType)->Obj.magic,
+  getPackage: (. state, packageProtocolName: Meta3dType.Index.packageProtocolName) =>
+    state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.getNullable(packageProtocolName),
 }
