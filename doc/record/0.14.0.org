@@ -380,8 +380,8 @@ meta3d-use-editor
 
 meta3d-editor-engine-webgl1-three-render
 
-meta3d-editor-engine-webgl1-three-whole
-meta3d-editor-run-webgl1-three-engine
+meta3d-editor-webgl1-three-engine-whole
+meta3d-editor-webgl1-three-run-engine
 
 scenegraph-converter-three
 

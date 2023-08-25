@@ -59,6 +59,13 @@ Feature: DependencyGraph
             When build graph data
             Then should error
 
+        Scenario: if has duplicate nodes for action protocol, not error
+            Given select extension e1 which is start extension
+            And select contribute c1, c2 for action protocol1
+            When build graph data
+            Then should build data: e1
+
+
     Rule: fix bug
 
         Background: prepare file

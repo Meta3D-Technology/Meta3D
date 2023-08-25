@@ -145,7 +145,12 @@ module Method = {
   let _checkDuplicateNode = (nodes: list<nodeData>) => {
     open Meta3dCommonlib
 
-    let arr = nodes->ListSt.toArray
+    let arr =
+      nodes
+      ->ListSt.filter(({protocol}) => {
+        !ContributeTypeUtils.isAction(protocol.name)
+      })
+      ->ListSt.toArray
 
     // let resultArr = []
     let map = MutableHashMap.createEmpty()

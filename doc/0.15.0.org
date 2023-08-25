@@ -289,11 +289,19 @@ build engine package
 
 * DONE dependency graph: fix: recursive dependency
 
+* DONE dependency graph: fix: duplicate for action
 
-* TODO dependency graph: todo fix ui control node
 
-TODO if has entry extension or ui control, show dependency graph
-    ui controls are entry root nodes
+# * TODO dependency graph: todo fix ui control node
+* DONE dependency graph: todo fix action node
+
+# TODO if has entry extension or ui control, show dependency graph
+#     ui controls are entry root nodes
+
+
+# TODO if has entry extension or ui control, show dependency graph
+TODO actions are also entry root nodes
+
 
 TODO element assemble: restore isPass check
 
@@ -323,3 +331,6 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
 
 
 
+
+
+* TODO perf: PackageInspector: add show Debug button. only read debug when show Debug

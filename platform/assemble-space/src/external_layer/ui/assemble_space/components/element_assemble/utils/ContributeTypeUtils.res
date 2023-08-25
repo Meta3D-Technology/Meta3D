@@ -10,3 +10,7 @@ let decideContributeType = (protocolName: string): Meta3dType.ContributeType.con
   | _ => Unknown
   }
 }
+
+let isAction = (protocolName) => {
+  protocolName->Js.String.includes("-action-", _) 
+}

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-add-cube",
-    "version": "0.14.0",
+    "version": "0.14.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "add-cube",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-add-cube",
