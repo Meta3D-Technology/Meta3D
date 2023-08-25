@@ -11,6 +11,7 @@ import { service as engineRenderService } from "meta3d-engine-render-protocol/sr
 // import { state as engineRenderState } from "meta3d-engine-render-protocol/src/state/StateType"
 // import { init, render, update } from "./DirectorAPI"
 import { getExtensionService as getEngineWholeExtensionService } from "meta3d-engine-whole-utils/src/implement/Main"
+import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -53,6 +54,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			return meta3dState
+		},
+		loadScene: (meta3dState, sceneGLB) => {
+			let importSceneService = api.getExtensionService<importSceneService>(
+				meta3dState,
+				"meta3d-import-scene-protocol"
+			)
+
+			return importSceneService.loadScene(meta3dState, sceneGLB)
 		},
 	}
 }

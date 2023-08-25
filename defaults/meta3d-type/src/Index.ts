@@ -1,3 +1,4 @@
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { contributeType } from "./contribute/ContributeType"
 
 export type extensionName = string
@@ -27,6 +28,7 @@ export type api = {
   registerContribute<getContributeFunc>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContributeFunc): state,
   getContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName): contribute,
   getAllContributesByType<contribute>(state: state, contributeType: contributeType): Array<contribute>,
+  getPackage(state: state, packageProtocolName: packageProtocolName): nullable<ArrayBuffer>
 };
 
 // tslint:disable-next-line:interface-over-type-literal

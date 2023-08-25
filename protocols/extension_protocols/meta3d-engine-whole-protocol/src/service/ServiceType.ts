@@ -5,4 +5,5 @@ import { Merge } from "meta3d-commonlib-ts/src/type"
 
 export type service = Merge<serviceUtils, {
 	prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig, canvas: HTMLCanvasElement) => meta3dState,
+	loadScene: (meta3dState: meta3dState, sceneGLB: ArrayBuffer) => Promise<meta3dState>,
 }>

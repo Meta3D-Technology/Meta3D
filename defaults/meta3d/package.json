@@ -8,7 +8,8 @@
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
-        "test:watch": "jest --watch --config jest.json"
+        "test:watch": "jest --watch --config jest.json",
+        "webpack": "NODE_ENV=development webpack --config webpack.config.js"
     },
     "config": {
         "commitizen": {

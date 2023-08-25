@@ -85,11 +85,13 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       generateApp: (.
         (allExtensionFileData, allContributeFileData),
         allPackageBinaryFiles,
+        allPackagesStoredInApp,
         startConfigData,
       ) =>
         Meta3d.Main.generateApp(
           (allExtensionFileData, allContributeFileData),
           allPackageBinaryFiles,
+          allPackagesStoredInApp,
           startConfigData,
         ),
       convertAllFileDataForPackage: (. allExtensionFileData, allContributeFileData, data) =>

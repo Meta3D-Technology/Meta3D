@@ -6,29 +6,29 @@ import { service as engineWebgpuWholeService } from "meta3d-editor-engine-webgpu
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
-		return {
-			prepareAndInitEngine: (meta3dState, gl, isDebug) => {
-				let engineWebgpuWholeService = api.getExtensionService<engineWebgpuWholeService>(
-					meta3dState,
-					"meta3d-editor-engine-webgpu-whole-protocol"
-				)
+	return {
+		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
+			let engineWebgpuWholeService = api.getExtensionService<engineWebgpuWholeService>(
+				meta3dState,
+				"meta3d-editor-engine-webgpu-whole-protocol"
+			)
 
-				meta3dState = engineWebgpuWholeService.prepare(meta3dState, isDebug,
-					gl
-				)
+			meta3dState = engineWebgpuWholeService.prepare(meta3dState, isDebug,
+				gl
+			)
 
-				return engineWebgpuWholeService.init(meta3dState)
-			},
-			loopEngine: (meta3dState) => {
-				let engineWebgpuWholeService = api.getExtensionService<engineWebgpuWholeService>(
-					meta3dState,
-					"meta3d-editor-engine-webgpu-whole-protocol"
-				)
+			return engineWebgpuWholeService.init(meta3dState)
+		},
+		loopEngine: (meta3dState) => {
+			let engineWebgpuWholeService = api.getExtensionService<engineWebgpuWholeService>(
+				meta3dState,
+				"meta3d-editor-engine-webgpu-whole-protocol"
+			)
 
-				return engineWebgpuWholeService.update(meta3dState).then(meta3dState => engineWebgpuWholeService.render(meta3dState))
-			}
+			return engineWebgpuWholeService.update(meta3dState).then(meta3dState => engineWebgpuWholeService.render(meta3dState))
 		}
 	}
+}
 
 export let createExtensionState: createExtensionStateMeta3D<
 	state

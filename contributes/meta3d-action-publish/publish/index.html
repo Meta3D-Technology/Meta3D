@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Meta3D</title>
+
+    <style>
+        #loading {
+            display: block;
+            /* color: #e7981f; */
+            /* margin-top: 10px; */
+            font-size: 85px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <span id="loading">
+            loading...
+        </span>
+    </section>
+
+    <!-- TODO full screen -->
+    <canvas id="canvas" width=800 height=800></canvas>
+
+    <script src="./meta3d.js"></script>
+
+    <script>
+        window.onload = () => {
+            let _removeLoadingUI = () => {
+                document.querySelector("#loading").remove()
+            }
+
+            let _loop = (
+                [
+
+                    update, render,
+                ],
+                meta3dState,
+            ) => {
+                return update(meta3dState).then((meta3dState) => {
+                    render(meta3dState).then((meta3dState) => {
+                        requestAnimationFrame(() => {
+                            _loop(
+                                [
+                                    update, render,
+                                ],
+                                meta3dState
+                            )
+                        })
+                    })
+                })
+            }
+
+            let _main = () => {
+                let isDebug = true
+
+                let float9Array1 = new Float32Array()
+                let float32Array1 = new Float32Array()
+                let transformCount = 1000
+                let geometryCount = 1000
+                let geometryPointCount = 10000
+                let pbrMaterialCount = 1000
+
+                let canvas = document.querySelector("#canvas")
+
+                fetch("./Engine.arraybuffer")
+                    .then(response => response.arrayBuffer())
+                    .then(enginePackageBinaryFile => {
+                        return fetch("./Scene.glb")
+                            .then(response => response.arrayBuffer())
+                            .then(sceneGlb => {
+                                _removeLoadingUI()
+
+                                resolve([enginePackageBinaryFile, sceneGlb])
+                            })
+                    })
+                    .then(([enginePackageBinaryFile, sceneGlb]) => {
+                        let [meta3dState, _, entryExtensionProtocolName] = Meta3d.loadPackage(enginePackageBinaryFile)
+
+                        if (entryExtensionProtocolName !== "meta3d-engine-whole-protocol") {
+                            throw new Error(
+                                `entryExtensionProtocolName: ${entryExtensionProtocolName} should be meta3d-engine-whole-protocol`
+                            )
+                        }
+
+
+                        let { loadScene, prepare, init, update, render, scene } = Meta3d.getExtensionService(meta3dState, entryExtensionProtocolName)
+
+                        meta3dState = prepare(
+                            meta3dState,
+                            isDebug,
+                            {
+                                float9Array1,
+                                float32Array1,
+                                transformCount,
+                                geometryCount,
+                                geometryPointCount,
+                                pbrMaterialCount
+                            },
+                            canvas
+                        )
+
+                        return loadScene(meta3dState, sceneGlb).then(meta3dState => {
+                            return init(meta3dState).then(meta3dState => {
+                                console.log("init success", meta3dState)
+
+                                _loop([update, render], meta3dState)
+                            })
+                        })
+                    })
+                    .catch(error => {
+                        console.error(error)
+                    })
+            }
+
+        }
+    </script>
+</body>
+
+
+</html>

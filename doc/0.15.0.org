@@ -223,7 +223,7 @@ generate zip file: engine pacakge, scene glb, html, res, ...
 
 load engine package->get entry extension
 
-->loadSceneGLB(add loadSceneGLB) 
+->loadScene(add loadScene) 
 use new import scene for engine(not dispose scene) extension + scenegraph converter extension
 
 ** DONE update meta3d
@@ -250,33 +250,43 @@ TODO update run element(generate app)
 TODO pass bdd test
 
 
-** TODO prepare engine package(three)
+** DONE prepare engine package(three)
 
-TODO entry extension add loadSceneGLB:
+TODO entry extension add loadScene:
 use new import scene for engine(not dispose scene) extension + scenegraph converter extension
 
 
 
-** TODO add publish action(for button click)
+** DONE add publish action(for button click)
 
 TODO generate zip file: engine pacakge, scene glb, html, res, ...
 
 
 TODO html js:
 - handle loading info;
-- load engine package->get entry extension
-->loadSceneGLB(add loadSceneGLB) 
+- meta3d js
+- use metad js to load engine package->get entry extension
+->loadScene(add loadScene) 
 
+TODO check: entryExtensionProtocolName should be "meta3d-engine-whole-protocol"
 
-** TODO dependency graph: todo fix ui control node
-
-TODO if has entry extension or ui control, show dependency graph
 
 
 ** TODO pass run test
 
 
+build engine package
 
+
+
+
+
+* TODO dependency graph: todo fix ui control node
+
+TODO if has entry extension or ui control, show dependency graph
+    ui controls are entry root nodes
+
+TODO element assemble: restore isPass check
 
 
 * TODO update dependency graph(ap, package)
