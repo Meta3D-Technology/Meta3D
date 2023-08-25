@@ -3,13 +3,13 @@ module ApAssemble = {
     let dispatch = useDispatchForAssembleSpaceAction()
 
     apAssembleAction => {
-      dispatch(FrontendUtils.AssembleSpaceStoreType.ApAssembleAction(apAssembleAction))
+      dispatch(AssembleSpaceStoreType.ApAssembleAction(apAssembleAction))
     }
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
     useSelectorForAssembleSpaceStore(.(
-      {apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+      {apAssembleState}: AssembleSpaceStoreType.state,
     ) => {
       func(apAssembleState)
     })
@@ -21,13 +21,13 @@ module ElementAssemble = {
     let dispatch = useDispatchForAssembleSpaceAction()
 
     elementAssembleAction => {
-      dispatch(FrontendUtils.AssembleSpaceStoreType.ElementAssembleAction(elementAssembleAction))
+      dispatch(AssembleSpaceStoreType.ElementAssembleAction(elementAssembleAction))
     }
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
     useSelectorForAssembleSpaceStore(.(
-      {elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+      {elementAssembleState}: AssembleSpaceStoreType.state,
     ) => {
       func(elementAssembleState)
     })
@@ -39,13 +39,13 @@ module PackageAssemble = {
     let dispatch = useDispatchForAssembleSpaceAction()
 
     packageAssembleAction => {
-      dispatch(FrontendUtils.AssembleSpaceStoreType.PackageAssembleAction(packageAssembleAction))
+      dispatch(AssembleSpaceStoreType.PackageAssembleAction(packageAssembleAction))
     }
   }
 
   let useSelector = (useSelectorForAssembleSpaceStore, func) => {
     useSelectorForAssembleSpaceStore(.(
-      {packageAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+      {packageAssembleState}: AssembleSpaceStoreType.state,
     ) => {
       func(packageAssembleState)
     })

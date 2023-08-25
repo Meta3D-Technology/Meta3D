@@ -1,6 +1,9 @@
 let generateExtension = (
   ~name,
-  ~protocol,
+  ~protocol={
+    name: "e1-protocol",
+    version: "^0.0.1",
+  }: ExtensionFileType.extensionProtocolData,
   ~version="0.0.1",
   ~account="meta3d",
   ~displayName="",
@@ -29,7 +32,10 @@ let generateExtension = (
 
 let generateContribute = (
   ~name,
-  ~protocol,
+  ~protocol={
+    name: "c1-protocol",
+    version: "^0.0.1",
+  }: ExtensionFileType.contributeProtocolData,
   ~version="0.0.1",
   ~account="meta3d",
   ~displayName="",

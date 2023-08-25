@@ -4,7 +4,7 @@ export type blockProtocolName = string
 
 export type blockProtocolVersion = versionRange
 
-type versionRange = string
+export type versionRange = string
 
 type version = string
 

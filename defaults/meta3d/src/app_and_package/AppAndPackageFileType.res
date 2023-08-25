@@ -96,3 +96,17 @@ type contributeFileData = {
   contributePackageData: contributePackageData,
   contributeFuncData: contributeFuncData,
 }
+
+type packageProtocol = {
+  version: ExtensionFileType.versionRange,
+  name: packageProtocolName,
+  iconBase64: string,
+}
+
+type entryExtensionName = extensionName
+
+type pacakgeName = string
+
+type packageVersion = version
+
+type packageData = (packageProtocol, entryExtensionName, packageVersion, pacakgeName)

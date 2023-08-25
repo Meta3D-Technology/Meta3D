@@ -59,9 +59,9 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
-  let (isShowApInspector, selectedContributes, apInspectorData) = ReduxUtils.ApAssemble.useSelector(
+  let (isShowApInspector, selectedContributes, apInspectorData) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )

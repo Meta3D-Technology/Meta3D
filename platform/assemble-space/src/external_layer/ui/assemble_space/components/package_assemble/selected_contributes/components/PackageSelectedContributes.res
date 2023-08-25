@@ -16,8 +16,8 @@ module Method = {
 let make = (~service: service) => {
   <SelectedContributesUtils
     service
-    useDispatch=ReduxUtils.PackageAssemble.useDispatch
-    useSelectorResult={ReduxUtils.PackageAssemble.useSelector(
+    useDispatch=FrontendUtils.ReduxUtils.PackageAssemble.useDispatch
+    useSelectorResult={FrontendUtils.ReduxUtils.PackageAssemble.useSelector(
       service.react.useSelector,
       Method.useSelector,
     )->Meta3dCommonlib.ListSt.map(({id, protocolIconBase64, data}) => (

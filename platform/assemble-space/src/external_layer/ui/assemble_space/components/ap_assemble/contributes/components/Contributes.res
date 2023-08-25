@@ -23,11 +23,11 @@ let make = (~service: service, ~selectedContributesFromMarket: selectedContribut
   <ContributesUtils
     service
     selectedContributesFromMarket
-    selectedContributeNames={ReduxUtils.ApAssemble.useSelector(
+    selectedContributeNames={FrontendUtils.ReduxUtils.ApAssemble.useSelector(
       service.react.useSelector,
       Method.useSelector,
     )->Meta3dCommonlib.ListSt.map(({data}) => data.contributePackageData.name)}
-    useDispatch=ReduxUtils.ApAssemble.useDispatch
+    useDispatch=FrontendUtils.ReduxUtils.ApAssemble.useDispatch
     selectContribute=Method.selectContribute
   />
 }

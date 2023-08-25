@@ -864,6 +864,146 @@ defineFeature(feature, test => {
     )
   })
 
+  test(."if has duplicate nodes come from selected packages which are stored in app, not error", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let e1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let actionProtocol1Name = "meta3d-action-protocol1"
+    let actionProtocol1Version = "^0.0.1"
+    let c1 = ref(Obj.magic(1))
+    let c2 = ref(Obj.magic(1))
+    let c1Name = "c1"
+    let c1Version = "0.0.2"
+    let c2Name = "c2"
+    let c2Version = "0.0.2"
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 which is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                ~displayName="ed1",
+                ~protocol=(
+                  {
+                    name: "p1",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select contribute c1, c2 for action protocol1",
+      () => {
+        c1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~name=c1Name,
+            ~version=c1Version,
+            ~protocolIconBase64="ci1",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c1Name,
+                ~version=c1Version,
+                ~displayName="cd1",
+                ~protocol=(
+                  {
+                    name: actionProtocol1Name,
+                    version: actionProtocol1Version,
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+
+        c2 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~name=c2Name,
+            ~version=c2Version,
+            ~protocolIconBase64="ci2",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c2Name,
+                ~version=c2Version,
+                ~displayName="cd2",
+                ~protocol=(
+                  {
+                    name: actionProtocol1Name,
+                    version: actionProtocol1Version,
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        DependencyGraphUtilsTool.useEffectOnce(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            (),
+          ),
+          ~selectedExtensions=list{e1.contents},
+          ~selectedContributes=list{c1.contents, c2.contents},
+          (),
+        )
+      },
+    )
+
+    then(
+      "should build data: e1",
+      () => {
+        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        // ->Meta3dCommonlib.Log.printForDebug
+        ->Js.Json.stringify
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          {
+            j`
+             {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[]}
+          `
+          }->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
   test(."if dependency recursive, build recursive graph data", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
     let e2 = ref(Obj.magic(1))

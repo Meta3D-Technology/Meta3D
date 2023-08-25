@@ -84,12 +84,12 @@ let make = (~service: service) => {
   let (inspectorCurrentExtension, setInspectorCurrentExtension) = service.react.useState(_ => None)
   let (extensionStr, setExtensionStr) = service.react.useState(_ => "")
 
-  let (inspectorCurrentExtensionId, selectedExtensions) = ReduxUtils.ApAssemble.useSelector(
+  let (inspectorCurrentExtensionId, selectedExtensions) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )
 
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffect1(. () => {
     Method.useEffectOnce(

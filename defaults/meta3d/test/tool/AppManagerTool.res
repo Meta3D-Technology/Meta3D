@@ -38,3 +38,22 @@ let getPackage = (
   state: Meta3dType.Index.state,
   packageProtocolName: Meta3dType.Index.packageProtocolName,
 ) => state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.getNullable(packageProtocolName)
+
+let buildPackageData = (
+  ~packageProtocolName,
+  ~packageProtocolVersion="^0.0.1",
+  ~packageProtocolIconBase64="ibase64",
+  ~entryExtensionName="en1",
+  ~packageVersion="0.0.1",
+  ~pacakgeName="p1",
+  (),
+): AppAndPackageFileType.packageData => {
+  (
+    {name: packageProtocolName, version: packageProtocolVersion,
+    iconBase64:packageProtocolIconBase64
+    },
+    entryExtensionName,
+    packageVersion,
+    pacakgeName,
+  )
+}

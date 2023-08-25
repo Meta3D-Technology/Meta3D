@@ -28,11 +28,13 @@ type contribute = {
 
 type contributeData = (contribute, option<CommonType.protocolConfig>)
 
-type packageProtocol = {
-  version: Meta3d.ExtensionFileType.versionRange,
-  name: string,
-  iconBase64: iconBase64,
-}
+// type packageProtocol = {
+//   version: Meta3d.ExtensionFileType.versionRange,
+//   name: string,
+//   iconBase64: iconBase64,
+// }
+
+type packageProtocol = Meta3d.AppAndPackageFileType.packageProtocol
 
 type packageData = {
   id: id,

@@ -43,7 +43,7 @@ let make = (~service: service) => {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-  ) = ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = FrontendUtils.ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   <DependencyGraphUtils
     service

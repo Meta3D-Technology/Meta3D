@@ -80,10 +80,7 @@ let _flatten = arr => {
 let generate = (
   (allExtensionFileData, allContributeFileData),
   allPackageBinaryFiles,
-  allPackageBinaryFileDataStoredInApp: array<(
-    Meta3dType.Index.packageProtocolName,
-    Js.Typed_array.ArrayBuffer.t,
-  )>,
+  allPackageBinaryFileDataStoredInApp: array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
   configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
 ) => {
   let encoder = TextEncoder.newTextEncoder()
@@ -92,9 +89,9 @@ let generate = (
   ->ManagerUtils.mergeAllPackageBinaryFiles(allPackageBinaryFiles)
   ->Meta3dCommonlib.ArraySt.push(
     allPackageBinaryFileDataStoredInApp
-    ->Meta3dCommonlib.ArraySt.map(((packageProtocolName, packageBinaryFile)) => {
+    ->Meta3dCommonlib.ArraySt.map(((packageData, packageBinaryFile)) => {
       [
-        TextEncoder.encodeUint8Array(packageProtocolName, encoder),
+        TextEncoder.encodeUint8Array(packageData->Obj.magic->Js.Json.stringify, encoder),
         packageBinaryFile->Uint8Array.fromBuffer,
       ]
     })
@@ -140,26 +137,42 @@ let execGetContributeFunc = (~contributeFuncData, ()) => {
   )(ExtensionManager.buildAPI())
 }
 
-let _loadAllPackageUint8StoredInApp = (
-  state: Meta3dType.Index.state,
-  allPackageUint8StoredInApp,
-): Meta3dType.Index.state => {
+let _parseAllPackageUint8StoredInApp = allPackageUint8StoredInApp => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
   BinaryFileOperator.load(allPackageUint8StoredInApp->Uint8Array.buffer)
   ->Meta3dCommonlib.ArraySt.chunk(2)
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. state: Meta3dType.Index.state, [packageProtocolName, packageUint8]) => {
-    let packageProtocolName = TextDecoder.decodeUint8Array(packageProtocolName, decoder)
+  ->Meta3dCommonlib.ArraySt.map(([packageData, packageUint8]) => {
     let packageBinaryFile = packageUint8->Uint8Array.buffer
 
-    {
-      ...state,
-      packageStoreInAppMap: state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.set(
-        packageProtocolName,
-        packageBinaryFile,
-      ),
-    }
-  }, state)
+    (
+      TextDecoder.decodeUint8Array(packageData, decoder)
+      ->FileUtils.removeAlignedEmptyChars
+      ->Js.Json.parseExn
+      ->Obj.magic,
+      packageBinaryFile,
+    )
+  })
+}
+
+let _loadAllPackageUint8StoredInApp = (
+  state: Meta3dType.Index.state,
+  allPackageUint8StoredInApp,
+): Meta3dType.Index.state => {
+  _parseAllPackageUint8StoredInApp(
+    allPackageUint8StoredInApp,
+  )->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. state: Meta3dType.Index.state, ((packageProtocol, _, _, _), packageBinaryFile)) => {
+      {
+        ...state,
+        packageStoreInAppMap: state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.set(
+          packageProtocol.name,
+          packageBinaryFile,
+        ),
+      }
+    },
+    state,
+  )
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): (
@@ -221,11 +234,22 @@ let start = ((state, allExtensionDataArr, configData)): unit => {
   )
 }
 
-let getAllExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayBuffer.t): (
-  array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
-  array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+let getAllPackageAndExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayBuffer.t): (
+  array<(packageData, ArrayBuffer.t)>,
+  (
+    array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
+    array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+  ),
 ) => {
-  let [allExtensionUint8, allContributeUint8, configData] = BinaryFileOperator.load(appBinaryFile)
+  let [
+    allExtensionUint8,
+    allContributeUint8,
+    allPackageUint8StoredInApp,
+    configData,
+  ] = BinaryFileOperator.load(appBinaryFile)
 
-  [allExtensionUint8, allContributeUint8]->ManagerUtils.parse2
+  (
+    _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
+    [allExtensionUint8, allContributeUint8]->ManagerUtils.parse2,
+  )
 }

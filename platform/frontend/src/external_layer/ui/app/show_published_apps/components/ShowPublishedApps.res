@@ -7,6 +7,14 @@ open FrontendUtils.Antd
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
+  let dispatchApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(() => {
+    let dispatch = AppStore.useDispatch()
+
+    assembleSpaceAction => {
+      dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
+    }
+  })
+
   // let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
   let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
     userCenterState
@@ -138,26 +146,33 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                   Meta3dBsMost.Most.empty()->Obj.magic
                                 }
                               : {
-                                  Meta3d.Main.getAllExtensionAndContributeFileDataOfApp(
+                                  Meta3d.Main.getAllPackageAndExtensionAndContributeFileDataOfApp(
                                     file->Meta3dCommonlib.NullableSt.getExn,
                                   )->Meta3dBsMost.Most.just
                                 }
                           }, _)
-                          ->ImportUtils.import(
+                          ->ImportUtils.importApp(
                             (
                               service,
                               (
                                 () => {
                                   setIsDownloadFinish(_ => true)
                                 },
-                                (selectedExtensions, selectedContributes) =>
+                                (selectedExtensions, selectedContributes, selectedPackages) =>
                                   dispatch(
                                     AppStore.UserCenterAction(
                                       UserCenterStore.ImportApp(
                                         _generateAppId(item.account, item.appName),
                                         selectedExtensions,
                                         selectedContributes,
+                                        selectedPackages,
                                       ),
+                                    ),
+                                  ),
+                                packageIds =>
+                                  dispatchApAssembleStore(
+                                    FrontendUtils.ApAssembleStoreType.BatchStorePackagesInApp(
+                                      packageIds,
                                     ),
                                   ),
                               ),

@@ -4,7 +4,7 @@ import { extensionProtocolName, getExtensionService, getExtensionLife, state, ap
 import { actionName, actionProtocolName, eventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
-import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "./app_and_package/AppAndPackageFileType"
+import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp, packageData } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
@@ -118,8 +118,11 @@ export function loadPackage(
 export function getAllExtensionAndContributeFileDataOfPackage(
     packageBinaryFile: ArrayBuffer
 ): [
-        Array<[extensionPackageDataApp, extensionFuncData]>,
-        Array<[contributePackageDataApp, contributeFuncData]>
+        Array<[packageData, ArrayBuffer]>,
+        [
+            Array<[extensionPackageDataApp, extensionFuncData]>,
+            Array<[contributePackageDataApp, contributeFuncData]>
+        ]
     ]
 
 export function getAllExtensionAndContributeFileDataOfApp(

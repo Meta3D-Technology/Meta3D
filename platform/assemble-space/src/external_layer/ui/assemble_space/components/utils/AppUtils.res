@@ -52,7 +52,10 @@ let splitPackages = (selectedPackages, storedPackageIdsInApp) => {
     ->Meta3dCommonlib.ListSt.filter(({id}: FrontendUtils.AssembleSpaceCommonType.packageData) => {
       storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id)
     })
-    ->Meta3dCommonlib.ListSt.map(({protocol, binaryFile}) => (protocol.name, binaryFile))
+    ->Meta3dCommonlib.ListSt.map(({protocol, entryExtensionName, version, name, binaryFile}) => (
+      (protocol, entryExtensionName, version, name),
+      binaryFile,
+    ))
     ->Meta3dCommonlib.ListSt.toArray,
   )
 }

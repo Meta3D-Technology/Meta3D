@@ -1453,15 +1453,19 @@ defineFeature(feature, test => {
       },
     )
 
-    CucumberAsync.execStep(
-      \"when",
+    \"when"(
       "generate app with p1 and load it",
       () => {
         let (s, allExtensionDataArr, _) =
           Main.generateApp(
             ([], []),
             [],
-            [(p1ProtocolName, p1.contents)],
+            [
+              (
+                AppManagerTool.buildPackageData(~packageProtocolName=p1ProtocolName, ()),
+                p1.contents,
+              ),
+            ],
             Js.Nullable.null,
           )->Main.loadApp
 
@@ -1474,6 +1478,98 @@ defineFeature(feature, test => {
       () => {
         AppManagerTool.getPackage(state.contents, p1ProtocolName)->expect ==
           Js.Nullable.return(p1.contents)
+      },
+    )
+  })
+
+  test(."get all pacakge and extension and contribute file data of app", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let state = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
+    let p1ProtocolName = "p1-protocol"
+    let e1 = ref(Obj.magic(1))
+    let c1 = ref(Obj.magic(1))
+    let a1 = ref(Obj.magic(1))
+    let l1 = ref(Obj.magic(1))
+    let result = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let c1Name = "c1"
+
+    _prepare(given)
+
+    given(
+      "generate one package as p1",
+      () => {
+        p1 := Main.generatePackage(([], []), [])
+      },
+    )
+
+    \"and"(
+      "generate one extension as e1",
+      () => {
+        e1 := ExtensionFileManagerTool.generateExtension(~name=e1Name, ())
+      },
+    )
+
+    \"and"(
+      "generate one contribute as c1",
+      () => {
+        c1 := ExtensionFileManagerTool.generateContribute(~name=c1Name, ())
+      },
+    )
+
+    \"and"(
+      "load e1, c1 and convert as l1",
+      () => {
+        l1 :=
+          Main.convertAllFileDataForApp(
+            [Main.loadExtension(e1.contents)],
+            [Main.loadContribute(c1.contents)],
+            [],
+          )
+      },
+    )
+
+    \"and"(
+      "generate app with p1, l1 as a1",
+      () => {
+        a1 :=
+          Main.generateApp(
+            l1.contents,
+            [],
+            [
+              (
+                AppManagerTool.buildPackageData(~packageProtocolName=p1ProtocolName, ()),
+                p1.contents,
+              ),
+            ],
+            Js.Nullable.null,
+          )
+      },
+    )
+
+    \"when"(
+      "get all pacakge and extension and contribute file data of a1",
+      () => {
+        result := Main.getAllPackageAndExtensionAndContributeFileDataOfApp(a1.contents)
+      },
+    )
+
+    then(
+      "should return parsed p1, parsed e1, parsed c1",
+      () => {
+        let ([parsedP1], ([parsedE1], [parsedC1])) = result.contents
+
+        let ((p1Protocol, _, _, _), _) = parsedP1
+        let (e1PackageData, _) = parsedE1
+        let (c1PackageData, _) = parsedC1
+
+        (p1Protocol.name, e1PackageData.name, c1PackageData.name)->expect ==
+          (p1ProtocolName, e1Name, c1Name)
       },
     )
   })

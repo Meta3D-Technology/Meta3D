@@ -442,7 +442,7 @@ module Method = {
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
-  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
     (

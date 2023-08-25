@@ -11,26 +11,31 @@ module Method = {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+      storedPackageIdsInApp,
     }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (selectedPackages, selectedExtensions, selectedContributes)
+    (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp)
   }
 }
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   let (
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+    storedPackageIdsInApp,
+  ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   <DependencyGraphUtils
     service
     markIsPassDependencyGraphCheck={Method.markIsPassDependencyGraphCheck(dispatch)}
-    selectedPackages
+    selectedPackages={AppUtils.splitPackages(
+      selectedPackages,
+      storedPackageIdsInApp,
+    )->Meta3dCommonlib.Tuple2.getFirst->Meta3dCommonlib.ListSt.fromArray}
     selectedExtensions
     selectedContributes
   />

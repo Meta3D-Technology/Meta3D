@@ -30,10 +30,11 @@ type action =
   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
   | NotSelectContribute(name, FrontendUtils.AssembleSpaceCommonType.version)
   | SelectPackage(packageData)
-  | NotSelectPackage(id)
+  // | NotSelectPackage(id)
+  | NotSelectPackage(name, FrontendUtils.AssembleSpaceCommonType.version)
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes)
-  | ImportApp(id, selectedExtensions, selectedContributes)
+  | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
 
 type state = {
   account: option<string>,
@@ -127,10 +128,17 @@ let reducer = (state, action) => {
       ->_removeOtherSelectedPackagesOfSameProtocolName(data)
       ->Meta3dCommonlib.ListSt.push(data),
     }
-  | NotSelectPackage(id) => {
+  // | NotSelectPackage(id) => {
+  //     ...state,
+  //     selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
+  //       selectedPackage.id !== id
+  //     ),
+  //   }
+  | NotSelectPackage(name, version) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
-        selectedPackage.id !== id
+        selectedPackage.name !== name &&
+          selectedPackage.version !== version
       ),
     }
   | ImportPackage(packageId, selectedExtensions, selectedContributes) => {
@@ -153,7 +161,7 @@ let reducer = (state, action) => {
         },
       ),
     }
-  | ImportApp(appId, selectedExtensions, selectedContributes) => {
+  | ImportApp(appId, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,
       importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
       selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
@@ -172,6 +180,14 @@ let reducer = (state, action) => {
           ->Meta3dCommonlib.ListSt.push(selectedContribute)
         },
       ),
+      selectedPackages: selectedPackages->Meta3dCommonlib.ListSt.reduce(state.selectedPackages, (
+        result,
+        packageData,
+      ) => {
+        result
+        ->_removeOtherSelectedPackagesOfSameProtocolName(packageData)
+        ->Meta3dCommonlib.ListSt.push(packageData)
+      }),
     }
   | SetAccount(account) => {...state, account: Some(account)}
   }

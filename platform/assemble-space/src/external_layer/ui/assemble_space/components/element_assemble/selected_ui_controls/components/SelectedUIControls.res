@@ -71,13 +71,13 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (expandedKeys, setExpandedKeys) = service.react.useState(_ => [Method.getRootKey()])
   let (selectedKeys, setSelectedKeys) = service.react.useState(_ => [])
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
 
-  let selectedUIControls = ReduxUtils.ElementAssemble.useSelector(
+  let selectedUIControls = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )

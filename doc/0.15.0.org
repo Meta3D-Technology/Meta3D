@@ -279,11 +279,22 @@ TODO merge engine-whole
 # TODO split import scene to load scene, import scene(use engine whole service to load scene)
 
 
+** DONE fix import app
+
+** DONE dependency graph: fix: duplicate for packages stored in app
+
+** DONE fix select package
+
 
 ** TODO pass run test
 
 
 build engine package
+
+add publish button, pass run test
+
+
+* TODO perf: PackageInspector: add show Debug button. only read debug when show Debug
 
 
 
@@ -330,7 +341,3 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
 
 
 
-
-
-
-* TODO perf: PackageInspector: add show Debug button. only read debug when show Debug

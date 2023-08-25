@@ -83,6 +83,7 @@ type action =
   | MarkIsPassDependencyGraphCheck(bool)
   | StorePackageInApp(id)
   | UnStorePackageInApp(id)
+  | BatchStorePackagesInApp(list<id>)
 
 type state = {
   selectedPackages: selectedPackages,

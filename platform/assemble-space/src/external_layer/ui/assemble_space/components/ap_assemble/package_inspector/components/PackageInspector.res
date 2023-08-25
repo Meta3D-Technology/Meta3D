@@ -114,14 +114,14 @@ module Method = {
       setInspectorCurrentPackage(_ => inspectorCurrentPackage->Some)
 
       let (
-        allPackageFileData,
+        allExtensionFileData,
         allContributeFileData,
       ) = service.meta3d.getAllExtensionAndContributeFileDataOfPackage(.
         inspectorCurrentPackage.binaryFile,
       )
 
       setExtensions(_ =>
-        allPackageFileData->Meta3dCommonlib.ArraySt.map(((
+        allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
           extensionPackageData,
           extensionFuncData,
         )) => {
@@ -160,9 +160,9 @@ let make = (~service: service) => {
     inspectorCurrentPackageId,
     selectedPackages,
     storedPackageIdsInApp,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffect1(. () => {
     Method.useEffectOnce(

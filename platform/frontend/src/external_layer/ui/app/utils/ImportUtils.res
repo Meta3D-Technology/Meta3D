@@ -1,32 +1,53 @@
-let import = ((service: FrontendUtils.FrontendType.service, (setFlag, dispatch)), stream) => {
-  stream->Meta3dBsMost.Most.flatMap(((allExtensionFileData, allContributeFileData)) => {
-    let extensionProtocolNames = allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
-      extensionPackageData: Meta3d.AppAndPackageFileType.extensionPackageData,
-      _,
-    )) => {
-      extensionPackageData.protocol.name
-    })
-    let contributeProtocolNames = allContributeFileData->Meta3dCommonlib.ArraySt.map(((
-      contributePackageData: Meta3d.AppAndPackageFileType.contributePackageData,
-      _,
-    )) => {
-      contributePackageData.protocol.name
-    })
+let _import = (
+  (
+    service: FrontendUtils.FrontendType.service,
+    (setFlag, dispatchImportApp, dispatchBatchStorePackagesInApp),
+  ),
+  stream,
+) => {
+  stream
+  ->Meta3dBsMost.Most.flatMap(
+    ((allPackageDataStoredInApp, (allExtensionFileData, allContributeFileData))) => {
+      let extensionProtocolNames = allExtensionFileData->Meta3dCommonlib.ArraySt.map(((
+        extensionPackageData: Meta3d.AppAndPackageFileType.extensionPackageData,
+        _,
+      )) => {
+        extensionPackageData.protocol.name
+      })
+      let contributeProtocolNames = allContributeFileData->Meta3dCommonlib.ArraySt.map(((
+        contributePackageData: Meta3d.AppAndPackageFileType.contributePackageData,
+        _,
+      )) => {
+        contributePackageData.protocol.name
+      })
 
-    MostUtils.concatArray([
-      service.backend.batchFindPublishExtensionProtocols(. extensionProtocolNames),
-      service.backend.batchFindPublishExtensionProtocolConfigs(. extensionProtocolNames)->Obj.magic,
-      service.backend.batchFindPublishContributeProtocols(. contributeProtocolNames),
-      service.backend.batchFindPublishContributeProtocolConfigs(.
-        contributeProtocolNames,
-      )->Obj.magic,
-    ])
-    ->Meta3dBsMost.Most.reduce((arr, data) => {
-      arr->Meta3dCommonlib.ArraySt.push(data)
-    }, [allExtensionFileData->Obj.magic, allContributeFileData->Obj.magic], _)
-    ->Meta3dBsMost.Most.fromPromise
-  }, _)->Meta3dBsMost.Most.tap(arr => {
+      MostUtils.concatArray([
+        service.backend.batchFindPublishExtensionProtocols(. extensionProtocolNames),
+        service.backend.batchFindPublishExtensionProtocolConfigs(.
+          extensionProtocolNames,
+        )->Obj.magic,
+        service.backend.batchFindPublishContributeProtocols(. contributeProtocolNames),
+        service.backend.batchFindPublishContributeProtocolConfigs(.
+          contributeProtocolNames,
+        )->Obj.magic,
+      ])
+      ->Meta3dBsMost.Most.reduce((arr, data) => {
+        arr->Meta3dCommonlib.ArraySt.push(data)
+      }, [
+        allPackageDataStoredInApp->Obj.magic,
+        allExtensionFileData->Obj.magic,
+        allContributeFileData->Obj.magic,
+      ], _)
+      ->Meta3dBsMost.Most.fromPromise
+    },
+    _,
+  )
+  ->Meta3dBsMost.Most.tap(arr => {
     let (
+      allPackageDataStoredInApp: array<(
+        Meta3d.AppAndPackageFileType.packageData,
+        Js.Typed_array.ArrayBuffer.t,
+      )>,
       allExtensionFileData: array<(
         Meta3d.AppAndPackageFileType.extensionPackageData,
         Meta3d.ExtensionFileType.extensionFuncData,
@@ -167,10 +188,53 @@ let import = ((service: FrontendUtils.FrontendType.service, (setFlag, dispatch))
       })
       ->Meta3dCommonlib.ListSt.fromArray
 
+    let selectedPackages =
+      allPackageDataStoredInApp
+      ->Meta3dCommonlib.ArraySt.map(((
+        (protocol, entryExtensionName, version, name),
+        binaryFile,
+      )): FrontendUtils.AssembleSpaceCommonType.packageData => {
+        {
+          id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+          protocol,
+          entryExtensionName,
+          version,
+          name,
+          binaryFile,
+        }
+      })
+      ->Meta3dCommonlib.ListSt.fromArray
+
     setFlag()
 
-    dispatch(selectedExtensions, selectedContributes)
-  }, _)->Meta3dBsMost.Most.drain->Js.Promise.catch(e => {
+    dispatchImportApp(selectedExtensions, selectedContributes, selectedPackages)
+    dispatchBatchStorePackagesInApp(selectedPackages->Meta3dCommonlib.ListSt.map(({id}) => id))
+  }, _)
+  ->Meta3dBsMost.Most.drain
+  ->Js.Promise.catch(e => {
     service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
-  }, _)->ignore
+  }, _)
+  ->ignore
+}
+
+let importApp = _import
+
+let importPackage = (
+  (service: FrontendUtils.FrontendType.service, (setFlag, dispatchImportPackage)),
+  stream,
+) => {
+  _import(
+    (
+      service,
+      (
+        setFlag,
+        (selectedExtensions, selectedContributes, _) =>
+          dispatchImportPackage(selectedExtensions, selectedContributes),
+        _ => (),
+      ),
+    ),
+    stream->Meta3dBsMost.Most.map(((allExtensionFileData, allContributeFileData)) => {
+      ([], (allExtensionFileData, allContributeFileData))
+    }, _),
+  )
 }

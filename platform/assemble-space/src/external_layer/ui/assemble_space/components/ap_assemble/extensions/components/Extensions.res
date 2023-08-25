@@ -31,11 +31,11 @@ let make = (~service: service, ~selectedExtensionsFromMarket: selectedExtensions
   <ExtensionsUtils
     service
     selectedExtensionsFromMarket
-    selectedExtensionNames={ReduxUtils.ApAssemble.useSelector(
+    selectedExtensionNames={FrontendUtils.ReduxUtils.ApAssemble.useSelector(
       service.react.useSelector,
       Method.useSelector,
     )->Meta3dCommonlib.ListSt.map(({data}) => data.extensionPackageData.name)}
-    useDispatch=ReduxUtils.ApAssemble.useDispatch
+    useDispatch=FrontendUtils.ReduxUtils.ApAssemble.useDispatch
     selectExtension=Method.selectExtension
   />
 }

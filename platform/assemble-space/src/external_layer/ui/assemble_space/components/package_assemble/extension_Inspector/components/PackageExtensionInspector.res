@@ -54,9 +54,9 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.PackageAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.PackageAssemble.useDispatch(service.react.useDispatch)
 
-  switch ReduxUtils.PackageAssemble.useSelector(
+  switch FrontendUtils.ReduxUtils.PackageAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )->Method.getInspectorCurrentExtension {

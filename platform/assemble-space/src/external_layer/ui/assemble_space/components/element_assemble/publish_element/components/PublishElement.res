@@ -151,7 +151,7 @@ let make = (~service: service, ~account: option<string>) => {
     elementInspectorData,
     selectedUIControls,
     selectedUIControlInspectorData,
-  ) = ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 

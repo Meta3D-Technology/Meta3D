@@ -38,7 +38,7 @@ let loadPackage = PackageManager.load
 
 let getAllExtensionAndContributeFileDataOfPackage = PackageManager.getAllExtensionAndContributeFileDataOfPackage
 
-let getAllExtensionAndContributeFileDataOfApp = AppManager.getAllExtensionAndContributeFileDataOfApp
+let getAllPackageAndExtensionAndContributeFileDataOfApp = AppManager.getAllPackageAndExtensionAndContributeFileDataOfApp
 
 let startApp = AppManager.start
 

@@ -40,9 +40,9 @@ module Method = {
 
 @react.component
 let make = (~service: service) => {
-  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let {width, height} as canvasData = ReduxUtils.ElementAssemble.useSelector(
+  let {width, height} as canvasData = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )

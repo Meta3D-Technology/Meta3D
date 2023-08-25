@@ -17,11 +17,11 @@ let make = (~service: service, ~selectedPackagesFromMarket: selectedPackagesFrom
   <PackagesUtils
     service
     selectedPackagesFromMarket
-    selectedPackageNames={ReduxUtils.ApAssemble.useSelector(
+    selectedPackageNames={FrontendUtils.ReduxUtils.ApAssemble.useSelector(
       service.react.useSelector,
       Method.useSelector,
     )->Meta3dCommonlib.ListSt.map(({name}) => name)}
-    useDispatch=ReduxUtils.ApAssemble.useDispatch
+    useDispatch=FrontendUtils.ReduxUtils.ApAssemble.useDispatch
     selectPackage=Method.selectPackage
   />
 }

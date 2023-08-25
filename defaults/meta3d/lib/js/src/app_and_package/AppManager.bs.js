@@ -64,7 +64,7 @@ function generate(param, allPackageBinaryFiles, allPackageBinaryFileDataStoredIn
                                 param[1]
                               ]))(allPackageBinaryFiles), new Uint8Array(BinaryFileOperator$Meta3d.generate(_flatten(ArraySt$Meta3dCommonlib.map(allPackageBinaryFileDataStoredInApp, (function (param) {
                                         return [
-                                                TextEncoder$Meta3d.encodeUint8Array(param[0], encoder),
+                                                TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder),
                                                 new Uint8Array(param[1])
                                               ];
                                       })))))), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)));
@@ -90,31 +90,39 @@ function execGetContributeFunc(contributeFuncData, param) {
   return Curry._1(ManagerUtils$Meta3d.getContributeFunc(contributeFuncData, new TextDecoder("utf-8")), ExtensionManager$Meta3d.buildAPI(undefined));
 }
 
-function _loadAllPackageUint8StoredInApp(state, allPackageUint8StoredInApp) {
+function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
   var decoder = new TextDecoder("utf-8");
-  return ArraySt$Meta3dCommonlib.reduceOneParam(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allPackageUint8StoredInApp.buffer), 2), (function (state, param) {
+  return ArraySt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.chunk(BinaryFileOperator$Meta3d.load(allPackageUint8StoredInApp.buffer), 2), (function (param) {
                 if (param.length !== 2) {
                   throw {
                         RE_EXN_ID: "Match_failure",
                         _1: [
                           "AppManager.res",
-                          151,
-                          43
+                          145,
+                          32
                         ],
                         Error: new Error()
                       };
                 }
-                var packageProtocolName = param[0];
+                var packageData = param[0];
                 var packageUint8 = param[1];
-                var packageProtocolName$1 = TextDecoder$Meta3d.decodeUint8Array(packageProtocolName, decoder);
                 var packageBinaryFile = packageUint8.buffer;
+                return [
+                        JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(packageData, decoder))),
+                        packageBinaryFile
+                      ];
+              }));
+}
+
+function _loadAllPackageUint8StoredInApp(state, allPackageUint8StoredInApp) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(_parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp), (function (state, param) {
                 return {
                         extensionServiceMap: state.extensionServiceMap,
                         extensionStateMap: state.extensionStateMap,
                         extensionLifeMap: state.extensionLifeMap,
                         contributeExceptActionMap: state.contributeExceptActionMap,
                         actionMap: state.actionMap,
-                        packageStoreInAppMap: ImmutableHashMap$Meta3dCommonlib.set(state.packageStoreInAppMap, packageProtocolName$1, packageBinaryFile)
+                        packageStoreInAppMap: ImmutableHashMap$Meta3dCommonlib.set(state.packageStoreInAppMap, param[0][0].name, param[1])
                       };
               }), state);
 }
@@ -126,7 +134,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            170,
+            183,
             6
           ],
           Error: new Error()
@@ -164,14 +172,14 @@ function start(param) {
   ExtensionManager$Meta3d.startExtension(param[0], _getStartExtensionProtocolName(param[1]), param[2]);
 }
 
-function getAllExtensionAndContributeFileDataOfApp(appBinaryFile) {
+function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 3) {
+  if (match.length !== 4) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            228,
+            244,
             6
           ],
           Error: new Error()
@@ -179,10 +187,14 @@ function getAllExtensionAndContributeFileDataOfApp(appBinaryFile) {
   }
   var allExtensionUint8 = match[0];
   var allContributeUint8 = match[1];
-  return ManagerUtils$Meta3d.parse2([
-              allExtensionUint8,
-              allContributeUint8
-            ]);
+  var allPackageUint8StoredInApp = match[2];
+  return [
+          _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
+          ManagerUtils$Meta3d.parse2([
+                allExtensionUint8,
+                allContributeUint8
+              ])
+        ];
 }
 
 exports.convertAllFileData = convertAllFileData;
@@ -193,9 +205,10 @@ exports.getExtensionFuncData = getExtensionFuncData;
 exports.getContributeFuncDataStr = getContributeFuncDataStr;
 exports.getContributeFuncData = getContributeFuncData;
 exports.execGetContributeFunc = execGetContributeFunc;
+exports._parseAllPackageUint8StoredInApp = _parseAllPackageUint8StoredInApp;
 exports._loadAllPackageUint8StoredInApp = _loadAllPackageUint8StoredInApp;
 exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;
 exports.start = start;
-exports.getAllExtensionAndContributeFileDataOfApp = getAllExtensionAndContributeFileDataOfApp;
+exports.getAllPackageAndExtensionAndContributeFileDataOfApp = getAllPackageAndExtensionAndContributeFileDataOfApp;
 /* ManagerUtils-Meta3d Not a pure module */

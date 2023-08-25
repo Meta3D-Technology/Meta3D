@@ -64,12 +64,12 @@ let make = (~service: service) => {
   )
   let (contributeStr, setContributeStr) = service.react.useState(_ => "")
 
-  let (inspectorCurrentContributeId, selectedContributes) = ReduxUtils.ApAssemble.useSelector(
+  let (inspectorCurrentContributeId, selectedContributes) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
   )
 
-  let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffect1(. () => {
     Method.useEffectOnce(

@@ -125,15 +125,30 @@ let make = (
                       item.version,
                       items->Meta3dCommonlib.ArraySt.map(item => item.version),
                     )}
-                    {FrontendUtils.MarketUtils.isSelect(
-                      ({id}: UserCenterStore.packageData) => id,
-                      item.id,
-                      selectedPackages,
-                    )
+                    {
+                      
+                    //   FrontendUtils.MarketUtils.isSelect(
+                    //   ({id}: UserCenterStore.packageData) => id,
+                    //   item.id,
+                    //   selectedPackages,
+                    // )
+
+                      FrontendUtils.MarketUtils.isSelect(
+                        (
+                          {version, name}: UserCenterStore.packageData,
+                        ) => {j`${version}_${name}`},
+                        {
+                          j`${item.version}_${item.name}`
+                        },
+                        selectedPackages,
+                      )
+
+
+
                       ? <Button
                           onClick={_ => {
                             dispatch(
-                              AppStore.UserCenterAction(UserCenterStore.NotSelectPackage(item.id)),
+                              AppStore.UserCenterAction(UserCenterStore.NotSelectPackage(item.name, item.version)),
                             )
                           }}>
                           {React.string(`取消选择`)}
@@ -273,7 +288,7 @@ let make = (
                                     )->Meta3dBsMost.Most.just
                                   }
                             }, _)
-                            ->ImportUtils.import(
+                            ->ImportUtils.importPackage(
                               (
                                 service,
                                 (

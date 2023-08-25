@@ -49,10 +49,13 @@ let reducer = (state, action) => {
   | ResetWhenSwitch => state->_resetInspector
   | SelectPackage(package) => {
       ...state,
-      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push({
-        ...package,
-        id: FrontendUtils.IdUtils.generateId(Js.Math.random),
-      }),
+      selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push(
+        //   {
+        //   ...package,
+        //   id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+        // }
+        package,
+      ),
     }
   | SelectExtension(protocolIconBase64, protocolConfigStr, extension) => {
       ...state,
@@ -211,6 +214,10 @@ let reducer = (state, action) => {
   | UnStorePackageInApp(id) => {
       ...state,
       storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.remove(id),
+    }
+  | BatchStorePackagesInApp(ids) => {
+      ...state,
+      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
     }
   }
 }

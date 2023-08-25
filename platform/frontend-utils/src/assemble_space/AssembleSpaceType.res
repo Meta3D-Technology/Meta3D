@@ -105,7 +105,7 @@ type meta3dService = {
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
     array<Js.Typed_array.ArrayBuffer.t>,
-    array<(Meta3dType.Index.packageProtocolName, Js.Typed_array.ArrayBuffer.t)>,
+    array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
   ) => Js.Typed_array.ArrayBuffer.t,
   convertAllFileDataForApp: convertAllFileDataForApp,
