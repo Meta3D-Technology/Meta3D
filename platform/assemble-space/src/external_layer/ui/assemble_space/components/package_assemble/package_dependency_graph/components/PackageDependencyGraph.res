@@ -52,7 +52,7 @@ let make = (~service: service) => {
     service
     markIsPassDependencyGraphCheck={Method.markIsPassDependencyGraphCheck}
     selectedPackages
-    allPackagesStoredInApp=list{}
+    storedPackageIdsInApp=list{}
     selectedExtensions={Method.convertSelectedExtensions(selectedExtensions)}
     selectedContributes
   />

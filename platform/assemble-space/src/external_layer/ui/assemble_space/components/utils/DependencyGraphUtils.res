@@ -59,7 +59,7 @@ module Method = {
   let _buildNodes = (
     service,
     (
-      selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+      allPackagesNotStoredInApp: FrontendUtils.ApAssembleStoreType.selectedPackages,
       // allPackagesStoredInApp: FrontendUtils.ApAssembleStoreType.selectedPackages,
       allPackagesStoredInApp: list<(
         Meta3d.AppAndPackageFileType.packageData,
@@ -69,7 +69,7 @@ module Method = {
     selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
     selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
   ): list<nodeData> => {
-    let nodes = selectedPackages->Meta3dCommonlib.ListSt.reduce(list{}, (
+    let nodes = allPackagesNotStoredInApp->Meta3dCommonlib.ListSt.reduce(list{}, (
       nodes,
       {name, protocol, binaryFile},
     ) => {
@@ -526,7 +526,7 @@ module Method = {
     markIsPassDependencyGraphCheck,
     (
       (
-        selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+        allPackagesNotStoredInApp: FrontendUtils.ApAssembleStoreType.selectedPackages,
         allPackagesStoredInApp: list<(
           Meta3d.AppAndPackageFileType.packageData,
           Js.Typed_array.ArrayBuffer.t,
@@ -546,7 +546,7 @@ module Method = {
     | Some(extension) =>
       let nodes = _buildNodes(
         service,
-        (selectedPackages, allPackagesStoredInApp),
+        (allPackagesNotStoredInApp, allPackagesStoredInApp),
         selectedExtensions,
         selectedContributes,
       )
@@ -586,16 +586,6 @@ module Method = {
       markIsPassDependencyGraphCheck(_hasEmptyNode(nodesData))
     }
   }
-
-  let useSelector = (
-    {
-      selectedPackages,
-      selectedExtensions,
-      selectedContributes,
-    }: FrontendUtils.ApAssembleStoreType.state,
-  ) => {
-    (selectedPackages, selectedExtensions, selectedContributes)
-  }
 }
 
 @react.component
@@ -603,11 +593,16 @@ let make = (
   ~service: service,
   ~markIsPassDependencyGraphCheck,
   ~selectedPackages,
-  ~allPackagesStoredInApp,
+  ~storedPackageIdsInApp,
   ~selectedExtensions,
   ~selectedContributes,
 ) => {
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+
+  let (allPackagesNotStoredInApp, allPackagesStoredInApp) = AppUtils.splitPackages(
+    selectedPackages,
+    storedPackageIdsInApp,
+  )
 
   service.react.useEffect1(. () => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessageWithFunc(
@@ -616,7 +611,14 @@ let make = (
           setData,
           service,
           markIsPassDependencyGraphCheck,
-          ((selectedPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
+          (
+            (
+              allPackagesNotStoredInApp->Meta3dCommonlib.ListSt.fromArray,
+              allPackagesStoredInApp->Meta3dCommonlib.ListSt.fromArray,
+            ),
+            selectedExtensions,
+            selectedContributes,
+          ),
         )
       },
       () => {

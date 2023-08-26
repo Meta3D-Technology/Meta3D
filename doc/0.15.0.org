@@ -348,7 +348,7 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
 
 
 
-* TODO fix: not stored: slow
+* DONE fix: not stored: slow
 
 
 * TODO pass bdd test
