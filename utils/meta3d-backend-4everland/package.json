@@ -1,6 +1,6 @@
 {
     "name": "meta3d-backend-4everland",
-    "version": "0.14.0",
+    "version": "0.15.0",
     "main": "src/Main.js",
     "scripts": {
         "watch": "tsc --watch"

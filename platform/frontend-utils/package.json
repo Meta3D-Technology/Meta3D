@@ -1,6 +1,6 @@
 {
     "name": "frontend-utils",
-    "version": "0.14.0",
+    "version": "0.15.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
@@ -32,9 +32,9 @@
         "webpack-dev-server": "^4.4.0"
     },
     "dependencies": {
+        "@ant-design/charts": "^1.4.2",
         "@cloudbase/js-sdk": "^1.7.2",
         "antd": "^4.21.0",
-        "@ant-design/charts": "^1.4.2",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1"
     }

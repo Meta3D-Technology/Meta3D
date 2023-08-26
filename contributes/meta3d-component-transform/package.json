@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-transform",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-component-transform-protocol"
@@ -18,9 +18,9 @@
   },
   "keywords": [],
   "dependencies": {
-    "meta3d-component-transform-protocol": "^0.14.0",
-    "meta3d-component-transform-protocol-common": "^0.14.0",
-    "meta3d-type": "^0.14.0",
+    "meta3d-component-transform-protocol": "^0.15.0",
+    "meta3d-component-transform-protocol-common": "^0.15.0",
+    "meta3d-type": "^0.15.0",
     "rescript": "^10.0.1"
   },
   "devDependencies": {
@@ -33,7 +33,7 @@
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
     "jest": "^25.2.3",
-    "meta3d-tool-publish": "^0.14.0",
+    "meta3d-tool-publish": "^0.15.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }
