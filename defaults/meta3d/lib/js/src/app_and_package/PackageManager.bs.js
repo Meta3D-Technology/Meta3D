@@ -21,6 +21,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                                 description: extensionPackageData.description,
                                 type_: ArraySt$Meta3dCommonlib.includes(entryExtensionNames, extensionPackageData.name) ? /* Entry */2 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
+                                dependentPackageStoredInAppProtocolNameMap: extensionPackageData.dependentPackageStoredInAppProtocolNameMap,
                                 dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
                               },
                               param.extensionFuncData
@@ -37,6 +38,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                                 repoLink: contributePackageData.repoLink,
                                 description: contributePackageData.description,
                                 protocol: contributePackageData.protocol,
+                                dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
                                 dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },
                               param.contributeFuncData

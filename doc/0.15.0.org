@@ -331,7 +331,7 @@ TODO actions are also entry root nodes
 TODO element assemble: restore isPass check
 
 
-* TODO update dependency graph(ap, package)
+* DONE update dependency graph(ap, package)
 
 TODO extension,contribute package.json add "packageDependencies":{"protocol name": versionRange} for api.getPackage
 
@@ -347,6 +347,11 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
     empty node is yellow-red
 
 
+
+* TODO fix: not stored: slow
+
+
+* TODO pass bdd test
 
 
 

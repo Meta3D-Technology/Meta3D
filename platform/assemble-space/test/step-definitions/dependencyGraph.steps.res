@@ -629,6 +629,176 @@ defineFeature(feature, test => {
     },
   )
 
+  test(."if has package stored in app, they are nodes", ({given, \"when", \"and", then}) => {
+    let e1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let p1 = ref(Obj.magic(1))
+    let p1ProtocolName = "protocol1"
+    let p1ProtocolVersion = "^0.1.2"
+    let p2 = ref(Obj.magic(1))
+    let p2ProtocolName = "protocol2"
+    let p2ProtocolVersion = "^0.2.2"
+    // let e2 = ref(Obj.magic(1))
+    // let e2Name = "e2"
+    // let e2Version = "0.0.1"
+    let actionProtocol1Name = "meta3d-action-protocol1"
+    let actionProtocol1Version = "^0.0.1"
+    let c1 = ref(Obj.magic(1))
+    let c2 = ref(Obj.magic(1))
+    let c1Name = "c1"
+    let c1Version = "0.0.2"
+    let c2Name = "c2"
+    let c2Version = "0.0.2"
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 which is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            // ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                // ~displayName="ed1",
+                // ~protocol=(
+                //   {
+                //     name: "protocol2",
+                //     version: "^0.0.1",
+                //   }: Meta3d.ExtensionFileType.extensionProtocolData
+                // ),
+                ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select package p1 for protocol1 which is stored in app",
+      () => {
+        p1 :=
+          PackageStoredInAppTool.buildPackageStoredInApp(
+            ~packageData=PackageStoredInAppTool.buildPackageData(
+              ~packageProtocolName=p1ProtocolName,
+              ~packageProtocolVersion=p1ProtocolVersion,
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select package p2 for protocol2 which is not stored in app and has contribute pc1",
+      () => {
+        let pc1 = ContributeTool.generateContribute(
+          ~name="pc1",
+          ~version="0.5.2",
+          ~protocolName="pc1-protocol",
+          ~protocolVersion="^0.0.1",
+          ~displayName="pcd1",
+          // ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          (),
+        )
+        let pc1FileData = Meta3d.Main.loadContribute(pc1)
+
+        p2 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~protocolName=p2ProtocolName,
+            ~protocolVersion=p2ProtocolVersion,
+            ~name="p2",
+            ~protocolIconBase64="pi2",
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([], [pc1FileData], []),
+              [],
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select contribute c1 for action protocol1 which dependent package on protocol1 and protocol2",
+      () => {
+        c1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~name=c1Name,
+            ~version=c1Version,
+            ~protocolIconBase64="ci1",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c1Name,
+                ~version=c1Version,
+                ~displayName="cd1",
+                ~protocol=(
+                  {
+                    name: actionProtocol1Name,
+                    version: actionProtocol1Version,
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()
+                ->Meta3dCommonlib.ImmutableHashMap.set(p1ProtocolName, p1ProtocolVersion)
+                ->Meta3dCommonlib.ImmutableHashMap.set(p2ProtocolName, p2ProtocolVersion),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        DependencyGraphUtilsTool.useEffectOnce(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            (),
+          ),
+          ~selectedExtensions=list{e1.contents},
+          ~selectedPackages=list{p2.contents},
+          ~allPackagesStoredInApp=list{p1.contents},
+          ~selectedContributes=list{c1.contents},
+          (),
+        )
+      },
+    )
+
+    then(
+      "should build data: c1 -> p1, empty",
+      () => {
+        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        // ->Meta3dCommonlib.Log.printForDebug
+        ->Js.Json.stringify
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          {
+            j`
+            {"nodes":[{"id":"p1_e1","value":{"title":"","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"i1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1_c1","value":{"title":"cd1","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol1_p1","value":{"title":"p1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.2"},{"text":"协议icon","icon":"ibase64"},{"text":"实现名","value":"p1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":4,"isEmpty":false},{"id":"protocol2","value":{"title":"无","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"}]},"emptyNodeType":0,"isEmpty":true}],"edges":[{"source":"meta3d-action-protocol1_c1","target":"protocol1_p1"},{"source":"meta3d-action-protocol1_c1","target":"protocol2"}]}
+          `
+          }->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
   test(."if has duplicate nodes, error", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
     let e1Name = "e1"
@@ -1278,12 +1448,13 @@ defineFeature(feature, test => {
       "should build data: c1 -> e2; c2 -> e2",
       () => {
         ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
-        ->Meta3dCommonlib.Log.printForDebug
+        // ->Meta3dCommonlib.Log.printForDebug
         ->Js.Json.stringify
         ->NewlineTool.removeBlankChar
         ->expect ==
           {
             j`
+             {"nodes":[{"id":"protocol2_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1_c1","value":{"title":"cd1","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol1_e2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"i1"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1_c2","value":{"title":"cd2","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci2"},{"text":"实现名","value":"c2"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false}],"edges":[{"source":"meta3d-action-protocol1_c1","target":"protocol1_e2"},{"source":"meta3d-action-protocol1_c2","target":"protocol1_e2"}]}
           `
           }->NewlineTool.removeBlankChar
       },

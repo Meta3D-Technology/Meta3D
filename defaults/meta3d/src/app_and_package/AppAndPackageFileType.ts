@@ -5,6 +5,8 @@ type version = string
 
 type account = string
 
+type packageProtocolVersion = versionRange
+
 export enum extensionType {
 	Default,
 	Start,
@@ -20,6 +22,10 @@ export type extensionPackageData = {
 	description: string,
 	type_: extensionType,
 	protocol: extensionProtocolData,
+	dependentPackageStoredInAppProtocolNameMap: Record<
+		packageProtocolName,
+		packageProtocolVersion
+	>,
 	dependentBlockProtocolNameMap: Record<blockProtocolName, blockProtocolVersion>
 }
 
@@ -31,6 +37,10 @@ export type contributePackageData = {
 	repoLink: string,
 	description: string,
 	protocol: contributeProtocolData,
+	dependentPackageStoredInAppProtocolNameMap: Record<
+		packageProtocolName,
+		packageProtocolVersion
+	>,
 	dependentBlockProtocolNameMap: Record<blockProtocolName, blockProtocolVersion>
 }
 

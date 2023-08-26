@@ -6,6 +6,7 @@ type nodeType =
   | Contribute
   | PackageExtension
   | PackageContribute
+  | PackageStoredInApp
 
 type packageName = string
 
@@ -19,18 +20,27 @@ type nodeData = {
   packageName: option<packageName>,
   protocol: Meta3d.ExtensionFileType.extensionProtocolData,
   protocolIconBase64: FrontendUtils.ApAssembleStoreType.protocolIconBase64,
-  displayName: string,
+  displayName: option<string>,
   name: string,
   version: FrontendUtils.ApAssembleStoreType.version,
   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     Meta3d.ExtensionFileType.blockProtocolName,
     Meta3d.ExtensionFileType.blockProtocolVersion,
   >,
+  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    Meta3dType.Index.packageProtocolName,
+    Meta3d.AppAndPackageFileType.packageProtocolVersion,
+  >,
 }
+
+type emptyNodeType =
+  | ParentIsPackageStoredInApp
+  | ParentIsOther
 
 type nodeInData = {
   id: id,
   nodeType: option<nodeType>,
+  emptyNodeType: option<emptyNodeType>,
   isEmpty: bool,
   packageName: option<packageName>,
   protocol: Meta3d.ExtensionFileType.extensionProtocolData,
@@ -48,7 +58,14 @@ type edgeInData = {
 module Method = {
   let _buildNodes = (
     service,
-    selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+    (
+      selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+      // allPackagesStoredInApp: FrontendUtils.ApAssembleStoreType.selectedPackages,
+      allPackagesStoredInApp: list<(
+        Meta3d.AppAndPackageFileType.packageData,
+        Js.Typed_array.ArrayBuffer.t,
+      )>,
+    ),
     selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
     selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
   ): list<nodeData> => {
@@ -70,10 +87,11 @@ module Method = {
               packageName: name->Some,
               protocol: extensionPackageData.protocol,
               protocolIconBase64: protocol.iconBase64,
-              displayName: extensionPackageData.displayName,
+              displayName: extensionPackageData.displayName->Some,
               name: extensionPackageData.name,
               version: extensionPackageData.version,
               dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
+              dependentPackageStoredInAppProtocolNameMap: extensionPackageData.dependentPackageStoredInAppProtocolNameMap,
             })
           },
           nodes,
@@ -87,16 +105,38 @@ module Method = {
               packageName: name->Some,
               protocol: contributePackageData.protocol,
               protocolIconBase64: protocol.iconBase64,
-              displayName: contributePackageData.displayName,
+              displayName: contributePackageData.displayName->Some,
               name: contributePackageData.name,
               version: contributePackageData.version,
               dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
+              dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
             })
           },
           nodes,
         )
 
       nodes
+    })
+
+    let nodes = allPackagesStoredInApp->Meta3dCommonlib.ListSt.reduce(nodes, (
+      nodes,
+      ((protocol, _, version, name), _),
+    ) => {
+      nodes->Meta3dCommonlib.ListSt.push({
+        nodeType: PackageStoredInApp,
+        isStart: false,
+        packageName: None,
+        protocol: {
+          name: protocol.name,
+          version: protocol.version,
+        },
+        protocolIconBase64: protocol.iconBase64,
+        displayName: None,
+        name,
+        version,
+        dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+      })
     })
 
     let nodes = selectedExtensions->Meta3dCommonlib.ListSt.reduce(nodes, (nodes, extension) => {
@@ -106,10 +146,11 @@ module Method = {
         packageName: None,
         protocol: extension.data.extensionPackageData.protocol,
         protocolIconBase64: extension.protocolIconBase64,
-        displayName: extension.data.extensionPackageData.displayName,
+        displayName: extension.data.extensionPackageData.displayName->Some,
         name: extension.data.extensionPackageData.name,
         version: extension.data.extensionPackageData.version,
         dependentBlockProtocolNameMap: extension.data.extensionPackageData.dependentBlockProtocolNameMap,
+        dependentPackageStoredInAppProtocolNameMap: extension.data.extensionPackageData.dependentPackageStoredInAppProtocolNameMap,
       })
     })
     let nodes = selectedContributes->Meta3dCommonlib.ListSt.reduce(nodes, (nodes, contribute) => {
@@ -119,10 +160,11 @@ module Method = {
         packageName: None,
         protocol: contribute.data.contributePackageData.protocol,
         protocolIconBase64: contribute.protocolIconBase64,
-        displayName: contribute.data.contributePackageData.displayName,
+        displayName: contribute.data.contributePackageData.displayName->Some,
         name: contribute.data.contributePackageData.name,
         version: contribute.data.contributePackageData.version,
         dependentBlockProtocolNameMap: contribute.data.contributePackageData.dependentBlockProtocolNameMap,
+        dependentPackageStoredInAppProtocolNameMap: contribute.data.contributePackageData.dependentPackageStoredInAppProtocolNameMap,
       })
     })
 
@@ -137,8 +179,11 @@ module Method = {
       j`- 类型：扩展；所属包名：${node.packageName->Meta3dCommonlib.OptionSt.getExn}；`
     | PackageContribute =>
       j`- 类型：贡献；所属包名：${node.packageName->Meta3dCommonlib.OptionSt.getExn}；`
+    | PackageStoredInApp => j`- 类型：保存在App中的包；`
     } ++
-    j`显示名：${node.displayName}；实现名：${node.name}；实现版本：${node.version}
+    j`显示名：${node.displayName->Meta3dCommonlib.OptionSt.getWithDefault(
+        "",
+      )}；实现名：${node.name}；实现版本：${node.version}
     `
   }
 
@@ -233,10 +278,11 @@ module Method = {
           id: nodeId,
           isEmpty: false,
           nodeType: node.nodeType->Some,
+          emptyNodeType: None,
           packageName: node.packageName,
           protocol: node.protocol,
           protocolIconBase64: node.protocolIconBase64->Some,
-          title: node.displayName,
+          title: node.displayName->Meta3dCommonlib.OptionSt.getWithDefault(node.name),
           name: node.name->Some,
           version: node.version->Some,
         }),
@@ -248,16 +294,17 @@ module Method = {
   let _updateNodesDataForEmptyNode = (
     nodesData: array<nodeInData>,
     nodeId,
-    (blockProtocolName, blockProtocolVersion),
+    (protocolName, protocolVersion, emptyNodeType),
   ) => {
     let newNodeInData = {
       id: nodeId,
       isEmpty: true,
       nodeType: None,
+      emptyNodeType,
       packageName: None,
       protocol: {
-        name: blockProtocolName->Meta3dCommonlib.OptionSt.getExn,
-        version: blockProtocolVersion->Meta3dCommonlib.OptionSt.getExn,
+        name: protocolName->Meta3dCommonlib.OptionSt.getExn,
+        version: protocolVersion->Meta3dCommonlib.OptionSt.getExn,
       },
       protocolIconBase64: None,
       title: _getEmptyNodeTitle(),
@@ -269,7 +316,7 @@ module Method = {
       id == nodeId
     }) {
     | Some(nodeInData) =>
-      _isNeedUpdateNodeInData(nodeInData, blockProtocolVersion->Meta3dCommonlib.OptionSt.getExn)
+      _isNeedUpdateNodeInData(nodeInData, protocolVersion->Meta3dCommonlib.OptionSt.getExn)
         ? {
             _updateNodeInData(nodesData, newNodeInData)
           }
@@ -306,12 +353,40 @@ module Method = {
     }
   }
 
-  let rec _buildData = (
+  let rec _buildDependenciesData = (
+    (nodesData, edgesData),
+    nodes: list<nodeData>,
+    nodeId,
+    dependentProtocolNameMap,
+    emptyNodeType,
+  ) => {
+    dependentProtocolNameMap
+    ->Meta3dCommonlib.ImmutableHashMap.entries
+    ->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. (nodesData, edgesData), (protocolName, protocolVersion)) => {
+        _buildData(
+          (nodesData, edgesData),
+          nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
+            protocol.name == protocolName &&
+              Meta3d.Semver.gte(
+                Meta3d.Semver.minVersion(protocol.version),
+                Meta3d.Semver.minVersion(protocolVersion),
+              )
+          ),
+          nodes,
+          nodeId->Some,
+          (protocolName->Some, protocolVersion->Some, emptyNodeType->Some),
+        )
+      },
+      (nodesData, edgesData),
+    )
+  }
+  and _buildData = (
     (nodesData, edgesData),
     node: option<nodeData>,
     nodes: list<nodeData>,
     parentNodeId,
-    (blockProtocolName, blockProtocolVersion),
+    (protocolName, protocolVersion, emptyNodeType),
   ) => {
     let data = Meta3dCommonlib.ImmutableHashMap.createEmpty()
 
@@ -319,12 +394,12 @@ module Method = {
 
     switch node {
     | None =>
-      let nodeId = blockProtocolName->Meta3dCommonlib.OptionSt.getExn
+      let nodeId = protocolName->Meta3dCommonlib.OptionSt.getExn
 
       let nodesData = _updateNodesDataForEmptyNode(
         nodesData,
         nodeId,
-        (blockProtocolName, blockProtocolVersion),
+        (protocolName, protocolVersion, emptyNodeType),
       )
 
       let edgesData = _updateEdgesData(edgesData, nodeId, parentNodeId)
@@ -339,26 +414,21 @@ module Method = {
 
       isBreak
         ? (nodesData, edgesData)
-        : node.dependentBlockProtocolNameMap
-          ->Meta3dCommonlib.ImmutableHashMap.entries
-          ->Meta3dCommonlib.ArraySt.reduceOneParam(
-            (. (nodesData, edgesData), (blockProtocolName, blockProtocolVersion)) => {
-              _buildData(
-                (nodesData, edgesData),
-                nodes->Meta3dCommonlib.ListSt.find(({protocol}) =>
-                  protocol.name == blockProtocolName &&
-                    Meta3d.Semver.gte(
-                      Meta3d.Semver.minVersion(protocol.version),
-                      Meta3d.Semver.minVersion(blockProtocolVersion),
-                    )
-                ),
-                nodes,
-                nodeId->Some,
-                (blockProtocolName->Some, blockProtocolVersion->Some),
-              )
-            },
-            (nodesData, edgesData),
-          )
+        : {
+            (nodesData, edgesData)
+            ->_buildDependenciesData(
+              nodes,
+              nodeId,
+              node.dependentBlockProtocolNameMap,
+              ParentIsOther,
+            )
+            ->_buildDependenciesData(
+              nodes,
+              nodeId,
+              node.dependentPackageStoredInAppProtocolNameMap,
+              ParentIsPackageStoredInApp,
+            )
+          }
     }
   }
 
@@ -366,6 +436,7 @@ module Method = {
     nodesData->Meta3dCommonlib.ArraySt.map(({
       isEmpty,
       nodeType,
+      emptyNodeType,
       id,
       packageName,
       protocol,
@@ -430,6 +501,7 @@ module Method = {
           "items": items,
         },
         "nodeType": nodeType,
+        "emptyNodeType": emptyNodeType,
         "isEmpty": isEmpty,
       }
     })
@@ -453,7 +525,13 @@ module Method = {
     service,
     markIsPassDependencyGraphCheck,
     (
-      selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+      (
+        selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+        allPackagesStoredInApp: list<(
+          Meta3d.AppAndPackageFileType.packageData,
+          Js.Typed_array.ArrayBuffer.t,
+        )>,
+      ),
       selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
       selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
     ),
@@ -466,7 +544,12 @@ module Method = {
 
       markIsPassDependencyGraphCheck(false)
     | Some(extension) =>
-      let nodes = _buildNodes(service, selectedPackages, selectedExtensions, selectedContributes)
+      let nodes = _buildNodes(
+        service,
+        (selectedPackages, allPackagesStoredInApp),
+        selectedExtensions,
+        selectedContributes,
+      )
 
       _checkDuplicateNode(nodes)
 
@@ -479,7 +562,7 @@ module Method = {
         ->Meta3dCommonlib.ListSt.find(({isStart}) => isStart),
         nodes,
         None,
-        (None, None),
+        (None, None, None),
       )
 
       // Js.log(("a0:", nodesData))
@@ -490,7 +573,7 @@ module Method = {
           ContributeTypeUtils.isAction(protocol.name)
         })
         ->Meta3dCommonlib.ListSt.reduce((nodesData, edgesData), ((nodesData, edgesData), node) => {
-          _buildData((nodesData, edgesData), node->Some, nodes, None, (None, None))
+          _buildData((nodesData, edgesData), node->Some, nodes, None, (None, None, None))
         })
 
       setData(_ =>
@@ -520,6 +603,7 @@ let make = (
   ~service: service,
   ~markIsPassDependencyGraphCheck,
   ~selectedPackages,
+  ~allPackagesStoredInApp,
   ~selectedExtensions,
   ~selectedContributes,
 ) => {
@@ -532,7 +616,7 @@ let make = (
           setData,
           service,
           markIsPassDependencyGraphCheck,
-          (selectedPackages, selectedExtensions, selectedContributes),
+          ((selectedPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
         )
       },
       () => {
@@ -560,7 +644,10 @@ let make = (
 
                 node["isEmpty"]
                   ? {
-                      fill: "red",
+                      fill: switch node["emptyNodeType"] {
+                      | ParentIsPackageStoredInApp => "#ED9121"
+                      | ParentIsOther => "red"
+                      },
                     }
                   : {
                       fill: switch node["nodeType"] {
@@ -568,6 +655,7 @@ let make = (
                       | Contribute => "#008000"
                       | PackageExtension => "#87CEFA"
                       | PackageContribute => "#00FF00"
+                      | PackageStoredInApp => "#FFD700"
                       },
                     }
               },

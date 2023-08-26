@@ -6,15 +6,18 @@ let _buildAPI = (sandbox): Meta3dType.Index.api => {
     getExtensionService: createEmptyStubWithJsObjSandbox(sandbox),
     // setExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
     // getExtensionState: createEmptyStubWithJsObjSandbox(sandbox),
-    setExtensionState: ((. meta3dState,_,state) =>{
-      StateContainer.setState(state)
+    setExtensionState: (
+      (. meta3dState, _, state) => {
+        StateContainer.setState(state)
 
-      meta3dState
-    })-> Obj.magic,
-    getExtensionState: ((. _, _) => StateContainer.unsafeGetState())-> Obj.magic,
+        meta3dState
+      }
+    )->Obj.magic,
+    getExtensionState: ((. _, _) => StateContainer.unsafeGetState())->Obj.magic,
     registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
     getContribute: createEmptyStubWithJsObjSandbox(sandbox),
     getAllContributesByType: createEmptyStubWithJsObjSandbox(sandbox),
+    getPackage: createEmptyStubWithJsObjSandbox(sandbox),
   }
 }
 

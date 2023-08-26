@@ -29,6 +29,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                                 description: extensionPackageData.description,
                                 type_: ArraySt$Meta3dCommonlib.includes(startExtensionNames, extensionPackageData.name) ? /* Start */1 : /* Default */0,
                                 protocol: extensionPackageData.protocol,
+                                dependentPackageStoredInAppProtocolNameMap: extensionPackageData.dependentPackageStoredInAppProtocolNameMap,
                                 dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap
                               },
                               param.extensionFuncData
@@ -45,6 +46,7 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, startEx
                                 repoLink: contributePackageData.repoLink,
                                 description: contributePackageData.description,
                                 protocol: contributePackageData.protocol,
+                                dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
                                 dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },
                               param.contributeFuncData
@@ -98,7 +100,7 @@ function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
                         RE_EXN_ID: "Match_failure",
                         _1: [
                           "AppManager.res",
-                          145,
+                          147,
                           32
                         ],
                         Error: new Error()
@@ -134,7 +136,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            183,
+            185,
             6
           ],
           Error: new Error()
@@ -179,7 +181,7 @@ function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            244,
+            246,
             6
           ],
           Error: new Error()

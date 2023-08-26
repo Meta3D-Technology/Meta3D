@@ -20,7 +20,7 @@ let _searchProtocolVersion = (name, dependencies) => {
 let _isProtocol = (protocolName) => {
     return /-protocol$/.test(protocolName);
 };
-let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies }, account) => {
+let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies, packageDependencies }, account) => {
     return {
         name,
         version,
@@ -32,6 +32,10 @@ let _convertToExtensionOrContributePackageData = ({ name, version, protocol, dis
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
+        dependentPackageStoredInAppProtocolNameMap: _isEmpty(packageDependencies) ? {} :
+            Object.fromEntries(Object
+                .entries(packageDependencies)
+                .filter(([protocolName, protocolVersion]) => _isProtocol(protocolName))),
         dependentBlockProtocolNameMap: Object.fromEntries(Object
             .entries(dependencies)
             .filter(([protocolName, protocolVersion]) => _isProtocol(protocolName) && protocolName != protocol.name))

@@ -29,13 +29,20 @@ let make = (~service: service) => {
     storedPackageIdsInApp,
   ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
+  let (selectedPackages, allPackagesStoredInApp) = AppUtils.splitPackages(
+    selectedPackages,
+    storedPackageIdsInApp,
+  )
+
   <DependencyGraphUtils
     service
     markIsPassDependencyGraphCheck={Method.markIsPassDependencyGraphCheck(dispatch)}
-    selectedPackages={AppUtils.splitPackages(
-      selectedPackages,
-      storedPackageIdsInApp,
-    )->Meta3dCommonlib.Tuple2.getFirst->Meta3dCommonlib.ListSt.fromArray}
+    // selectedPackages={AppUtils.splitPackages(
+    //   selectedPackages,
+    //   storedPackageIdsInApp,
+    // )->Meta3dCommonlib.Tuple2.getFirst->Meta3dCommonlib.ListSt.fromArray}
+    selectedPackages={selectedPackages->Meta3dCommonlib.ListSt.fromArray}
+    allPackagesStoredInApp={allPackagesStoredInApp->Meta3dCommonlib.ListSt.fromArray}
     selectedExtensions
     selectedContributes
   />

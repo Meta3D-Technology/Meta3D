@@ -1,4 +1,4 @@
-import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService } from "meta3d-type";
+import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService, packageProtocolName } from "meta3d-type";
 
 export type blockProtocolName = string
 
@@ -17,6 +17,7 @@ export type extensionProtocolData = {
 
 export type contributeProtocolData = extensionProtocolData
 
+type packageProtocolVersion = versionRange
 
 export type extensionPackageData = {
   name: extensionName,
@@ -26,6 +27,10 @@ export type extensionPackageData = {
   displayName: string,
   repoLink: string,
   description: string,
+  dependentPackageStoredInAppProtocolNameMap: Record<
+    packageProtocolName,
+    packageProtocolVersion
+  >,
   dependentBlockProtocolNameMap: Record<
     blockProtocolName,
     blockProtocolVersion
@@ -64,6 +69,10 @@ export type contributePackageData = {
   displayName: string,
   repoLink: string,
   description: string,
+  dependentPackageStoredInAppProtocolNameMap: Record<
+    packageProtocolName,
+    packageProtocolVersion
+  >,
   dependentBlockProtocolNameMap: Record<
     blockProtocolName,
     blockProtocolVersion

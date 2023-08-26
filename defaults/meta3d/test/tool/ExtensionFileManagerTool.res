@@ -10,6 +10,7 @@ let generateExtension = (
   ~repoLink="",
   ~description="",
   ~fileStr=PackageManagerTool.buildEmptyExtensionFileStr(),
+  ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ) => {
@@ -23,6 +24,7 @@ let generateExtension = (
         displayName,
         repoLink,
         description,
+        dependentPackageStoredInAppProtocolNameMap,
         dependentBlockProtocolNameMap,
       }: ExtensionFileType.extensionPackageData
     ),
@@ -42,6 +44,7 @@ let generateContribute = (
   ~repoLink="",
   ~description="",
   ~fileStr=PackageManagerTool.buildEmptyContributeFileStr(),
+  ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   (),
 ) => {
@@ -55,6 +58,7 @@ let generateContribute = (
         displayName,
         repoLink,
         description,
+        dependentPackageStoredInAppProtocolNameMap,
         dependentBlockProtocolNameMap,
       }: ExtensionFileType.contributePackageData
     ),

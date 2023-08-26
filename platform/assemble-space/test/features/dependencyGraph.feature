@@ -47,6 +47,22 @@ Feature: DependencyGraph
             Then should build data: e1 -> e2, empty with higher version; e2 -> empty with higher version
 
 
+    Rule: package stored in app
+
+        Background: prepare file
+            Given prepare file
+
+        Scenario: if has package stored in app, they are nodes
+            Given select extension e1 which is start extension
+            And select package p1 for protocol1 which is stored in app
+            # And select contribute c1
+            And select package p2 for protocol2 which is not stored in app and has contribute pc1
+            And select contribute c1 for action protocol1 which dependent package on protocol1 and protocol2
+            When build graph data
+            Then should build data: c1 -> p1, empty
+
+
+
 
     Rule: check duplicate node
 

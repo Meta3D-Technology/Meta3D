@@ -143,6 +143,7 @@ let generateElementContributeBinaryFile = (
         displayName,
         repoLink,
         description,
+        dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
         ->Meta3dCommonlib.ImmutableHashMap.set(
           getUIExtensionProtocolName(),

@@ -28,6 +28,8 @@ type blockProtocolVersion = versionRange
 
 // type dependentContributeData = dependentData
 
+type packageProtocolVersion = versionRange
+
 type extensionPackageData = {
   name: extensionName,
   version: version,
@@ -36,6 +38,10 @@ type extensionPackageData = {
   displayName: string,
   repoLink: string,
   description: string,
+  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    packageProtocolVersion,
+  >,
   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     blockProtocolName,
     blockProtocolVersion,
@@ -69,6 +75,10 @@ type contributePackageData = {
   displayName: string,
   repoLink: string,
   description: string,
+  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    packageProtocolVersion,
+  >,
   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     blockProtocolName,
     blockProtocolVersion,

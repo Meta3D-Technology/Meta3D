@@ -83,6 +83,7 @@ let convertAllFileData = (
               )
                 ? Entry
                 : Default,
+              dependentPackageStoredInAppProtocolNameMap: extensionPackageData.dependentPackageStoredInAppProtocolNameMap,
               dependentBlockProtocolNameMap: extensionPackageData.dependentBlockProtocolNameMap,
             }: extensionPackageData
           ),
@@ -105,6 +106,7 @@ let convertAllFileData = (
               repoLink: contributePackageData.repoLink,
               description: contributePackageData.description,
               protocol: contributePackageData.protocol,
+              dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
               dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap,
             }: contributePackageData
           ),

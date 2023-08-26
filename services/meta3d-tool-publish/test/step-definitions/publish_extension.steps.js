@@ -33,6 +33,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     // }, dependentContributeProtocolNameMap = {},
     dependencies = {
         "test1-protocol": "^0.0.1"
+    }, packageDependencies = {
+        "test1-package-protocol": "^0.0.1"
     }, displayName = "d1", repoLink = "", description = "dp1") {
         return {
             name, version, protocol, publisher,
@@ -40,6 +42,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             repoLink,
             description,
             // dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap,
+            packageDependencies,
             dependencies
         };
     }
@@ -49,6 +52,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = (0, sinon_1.createSandbox)();
+            delete global.window;
         });
     };
     test('if publisher is not registered, throw error', ({ given, and, when, then }) => {
@@ -112,6 +116,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             {
                 "test1-protocol": "^0.0.1",
                 "meta3d-extension-test1-protocol": "^0.3.4"
+            }, {
+                "test1-package-protocol": "^0.0.1"
             }, "d1", "l1", "dp1")));
             initFunc.returns((0, most_1.just)(app));
             hasAccountFunc.returns((0, most_1.just)(true));
@@ -134,7 +140,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {
+                    "protocol": {
+                        "name": "test1-protocol",
+                        "version": "^0.0.1"
+                    },
+                    "dependentPackageStoredInAppProtocolNameMap": {
+                        "test1-package-protocol": "^0.0.1"
+                    },
+                    "dependentBlockProtocolNameMap": {
                         "meta3d-extension-test1-protocol": "^0.3.4"
                     }
                 },
@@ -180,6 +193,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                 name: "test1", version: "0.0.2",
                 protocol: { name: "test1-protocol" }, publisher: "meta3d",
                 dependentBlockProtocolNameMap: {},
+                dependentPackageStoredInAppProtocolNameMap: {},
                 dependencies: {
                     "test1-protocol": "^0.0.1"
                 },
@@ -205,7 +219,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {},
+                    "dependentPackageStoredInAppProtocolNameMap": {}
                 },
                 distFileContent
             ]);

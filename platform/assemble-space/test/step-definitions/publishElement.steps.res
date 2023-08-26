@@ -233,6 +233,7 @@ defineFeature(feature, test => {
                   name: ElementContributeUtils.getElementContributeProtocolName(),
                   version: ElementContributeUtils.getElementContributeProtocolVersion(),
                 },
+                dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                 dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
                 ->Meta3dCommonlib.ImmutableHashMap.set(
                   "meta3d-ui-protocol",

@@ -125,6 +125,7 @@ defineFeature(feature, test => {
           name: protocolName,
           version: "^0.0.1",
         },
+        dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
       }
     }

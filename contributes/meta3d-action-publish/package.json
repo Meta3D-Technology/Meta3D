@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-publish",
-    "version": "0.14.2",
+    "version": "0.14.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-publish",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-click-button",
@@ -16,6 +16,9 @@
         "meta3d:publish_pro": "NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
+    "packageDependencies": {
+        "meta3d-engine-whole-protocol": "^0.14.0"
+    },
     "dependencies": {
         "@types/file-saver": "^2.0.5",
         "jszip": "^3.10.1",

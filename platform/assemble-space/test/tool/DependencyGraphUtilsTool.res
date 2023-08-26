@@ -1,6 +1,7 @@
 let useEffectOnce = (
   ~dispatch=_ => (),
   ~selectedPackages=list{},
+  ~allPackagesStoredInApp=list{},
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~setData,
@@ -11,6 +12,6 @@ let useEffectOnce = (
     setData,
     service,
     dispatch,
-    (selectedPackages, selectedExtensions, selectedContributes),
+    ((selectedPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
   )
 }

@@ -2,15 +2,15 @@ import { fromPromise } from "most";
 import { isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
 
-let _throwError = (msg: string): never  => {
+let _throwError = (msg: string): never => {
     throw new Error(msg)
 }
 
-let _isEmpty = (value: any) =>  {
+let _isEmpty = (value: any) => {
     return value === undefined || value === null
 }
 
-let _searchProtocolVersion = (name: string, dependencies: any) =>  {
+let _searchProtocolVersion = (name: string, dependencies: any) => {
     let value = dependencies[name]
 
     if (_isEmpty(value)) {
@@ -21,12 +21,12 @@ let _searchProtocolVersion = (name: string, dependencies: any) =>  {
     return value
 }
 
-let _isProtocol = (protocolName: string) =>  {
+let _isProtocol = (protocolName: string) => {
     return /-protocol$/.test(protocolName)
 }
 
 
-let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies }: any, account): any  => {
+let _convertToExtensionOrContributePackageData = ({ name, version, protocol, displayName, repoLink, description, dependencies, packageDependencies }: any, account): any => {
     return {
         name,
         version,
@@ -38,6 +38,13 @@ let _convertToExtensionOrContributePackageData = ({ name, version, protocol, dis
             name: protocol.name,
             version: _searchProtocolVersion(protocol.name, dependencies)
         },
+        dependentPackageStoredInAppProtocolNameMap:
+            _isEmpty(packageDependencies) ? {} :
+                Object.fromEntries(Object
+                    .entries(packageDependencies)
+                    .filter(([protocolName, protocolVersion]: [string, string]) => _isProtocol(protocolName)
+                    )
+                ),
         dependentBlockProtocolNameMap: Object.fromEntries(Object
             .entries(dependencies)
             .filter(([protocolName, protocolVersion]: [string, string]) => _isProtocol(protocolName) && protocolName != protocol.name
@@ -50,7 +57,7 @@ function _defineWindow() {
     (global as any).window = {}
 }
 
-let _getFileDirname = (fileType: "extension" | "contribute") =>  {
+let _getFileDirname = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "extensions"
@@ -59,7 +66,7 @@ let _getFileDirname = (fileType: "extension" | "contribute") =>  {
     }
 }
 
-let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "publishedextensions"
@@ -68,7 +75,7 @@ let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
     }
 }
 
-export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") =>  {
+export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") => {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
             return initFunc().map(backendInstance => [backendInstance, packageJson])

@@ -4,6 +4,8 @@ type version = string
 
 type account = string
 
+type packageProtocolVersion = ExtensionFileType.versionRange
+
 // type versionRange = string
 
 // type dependentExtensionData = {
@@ -35,6 +37,10 @@ type extensionPackageData = {
   // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
   // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
   protocol: ExtensionFileType.extensionProtocolData,
+  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    packageProtocolVersion,
+  >,
   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ExtensionFileType.blockProtocolName,
     ExtensionFileType.blockProtocolVersion,
@@ -82,6 +88,10 @@ type contributePackageData = {
   //   ExtensionFileType.dependentContributeProtocolNameKey,
   //   ExtensionFileType.dependentContributeData,
   // >,
+  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    packageProtocolName,
+    packageProtocolVersion,
+  >,
   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     ExtensionFileType.blockProtocolName,
     ExtensionFileType.blockProtocolVersion,
@@ -98,7 +108,7 @@ type contributeFileData = {
 }
 
 type packageProtocol = {
-  version: ExtensionFileType.versionRange,
+  version: packageProtocolVersion,
   name: packageProtocolName,
   iconBase64: string,
 }

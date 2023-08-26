@@ -11,7 +11,7 @@ defineFeature(feature, test => {
     let sandbox = null
     let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
 
-    let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub()
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
@@ -38,6 +38,9 @@ defineFeature(feature, test => {
         dependencies: any = {
             "test1-protocol": "^0.0.1"
         },
+        packageDependencies: any = {
+            "test1-package-protocol": "^0.0.1"
+        },
         displayName = "d1",
         repoLink = "",
         description = "dp1",
@@ -48,11 +51,12 @@ defineFeature(feature, test => {
             repoLink,
             description,
             // dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap,
+            packageDependencies,
             dependencies
         }
     }
 
-    let _publishExtension = (packageFilePath = "", distFilePath = "") =>  {
+    let _publishExtension = (packageFilePath = "", distFilePath = "") => {
         return publish(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
@@ -60,9 +64,11 @@ defineFeature(feature, test => {
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
+
+            delete (global as any).window
         });
     }
 
@@ -172,6 +178,9 @@ defineFeature(feature, test => {
                         "test1-protocol": "^0.0.1",
                         "meta3d-extension-test1-protocol": "^0.3.4"
                     },
+                    {
+                        "test1-package-protocol": "^0.0.1"
+                    },
                     "d1",
                     "l1",
                     "dp1",
@@ -208,7 +217,14 @@ defineFeature(feature, test => {
                     "displayName": "d1",
                     "repoLink": "l1",
                     "description": "dp1",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {
+                    "protocol": {
+                        "name": "test1-protocol",
+                        "version": "^0.0.1"
+                    },
+                    "dependentPackageStoredInAppProtocolNameMap": {
+                        "test1-package-protocol": "^0.0.1"
+                    },
+                    "dependentBlockProtocolNameMap": {
                         "meta3d-extension-test1-protocol": "^0.3.4"
                     }
                 },
@@ -261,6 +277,7 @@ defineFeature(feature, test => {
                         name: "test1", version: "0.0.2",
                         protocol: { name: "test1-protocol" }, publisher: "meta3d",
                         dependentBlockProtocolNameMap: {},
+                        dependentPackageStoredInAppProtocolNameMap: {},
                         dependencies: {
                             "test1-protocol": "^0.0.1"
                         },
@@ -298,7 +315,8 @@ defineFeature(feature, test => {
                     "displayName": "test1",
                     "repoLink": "",
                     "description": "",
-                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {}
+                    "protocol": { "name": "test1-protocol", "version": "^0.0.1" }, "dependentBlockProtocolNameMap": {},
+                    "dependentPackageStoredInAppProtocolNameMap": {}
                 },
                 distFileContent
             ])

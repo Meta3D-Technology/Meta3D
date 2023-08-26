@@ -58,6 +58,7 @@ defineFeature(feature, test => {
               displayName: "d1",
               repoLink: "l1",
               description: "dp1",
+              dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             }: ExtensionFileType.extensionPackageData
           )
@@ -122,6 +123,7 @@ defineFeature(feature, test => {
               displayName: "d1",
               repoLink: "l1",
               description: "dp1",
+              dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
             }: ExtensionFileType.contributePackageData
           )
