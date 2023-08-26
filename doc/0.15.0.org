@@ -286,12 +286,23 @@ TODO merge engine-whole
 ** DONE fix select package
 
 
-** TODO pass run test
+** DONE pass run test
 
 
 build engine package
 
 add publish button, pass run test
+
+
+* TODO perf: reduce Engine.arraybuffer size
+
+scenegraph not import from three
+
+
+
+* TODO perf: optimize get all of package
+
+test: get all of engine whole package
 
 
 * DONE perf: PackageInspector: add show Debug button. only read debug when show Debug

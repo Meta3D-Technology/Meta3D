@@ -5,13 +5,13 @@ module.exports = {
 	entry: "./src/Main.ts",
 	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
 	output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'static/js/[name].js',
-        library: {
-            name: 'Contribute',
-            type: 'window',
-        },
-    },
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'static/js/[name].js',
+		library: {
+			name: 'Contribute',
+			type: 'window',
+		},
+	},
 
 	// Enable sourcemaps for debugging webpack's output.
 	// devtool: "source-map",
@@ -35,6 +35,24 @@ module.exports = {
 				test: /\.js$/,
 				loader: "source-map-loader"
 			},
+			{
+				test: /\index.html/,
+				type: 'asset/inline',
+				generator: {
+					dataUrl: content => {
+						return content.toString()
+					}
+				}
+			},
+			{
+				test: /\meta3d.js/,
+				type: 'asset/inline',
+				generator: {
+					dataUrl: content => {
+						return content.toString()
+					}
+				}
+			}
 		]
 	},
 	plugins: [

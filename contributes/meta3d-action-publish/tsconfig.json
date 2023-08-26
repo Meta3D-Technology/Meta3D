@@ -19,6 +19,7 @@
 		"strict": true
 	},
 	"include": [
-		"./src"
+		"./src",
+		"./loader.d.ts"
 	]
 }

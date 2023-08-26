@@ -75,7 +75,7 @@
                             .then(sceneGlb => {
                                 _removeLoadingUI()
 
-                                resolve([enginePackageBinaryFile, sceneGlb])
+                                return [enginePackageBinaryFile, sceneGlb]
                             })
                     })
                     .then(([enginePackageBinaryFile, sceneGlb]) => {
@@ -118,6 +118,7 @@
                     })
             }
 
+            _main()
         }
     </script>
 </body>

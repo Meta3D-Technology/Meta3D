@@ -5,13 +5,15 @@ import { actionData } from "meta3d-action-button-click-protocol"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import indexHtml from "../publish/index.html"
+import meta3dJs from "../publish/meta3d.js"
 
 let _loadAndWriteIndexHtmlData = (zip: JSZip) => {
-    return fetch("./publish/index.html").then(res => res.text()).then(text => zip.file("index.html", text))
+    zip.file("index.html", indexHtml)
 }
 
 let _loadAndWriteIndexJsData = (zip: JSZip) => {
-    return fetch("./publish/meta3d.js").then(res => res.text()).then(text => zip.file("meta3d.js", text))
+    zip.file("meta3d.js", meta3dJs)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (api) => {
@@ -27,27 +29,27 @@ export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (a
 
             let zip = new JSZip.default() as JSZip
 
-            return _loadAndWriteIndexHtmlData(zip).then(_ => {
-                return _loadAndWriteIndexJsData(zip)
-            }).then(_ => {
-                return new Promise((resolve, reject) => {
-                    return exportSceneService.export([(glb) => {
-                        resolve(glb)
-                    }, (err) => {
-                        throw err
-                    }], meta3dState)
-                }) as Promise<ArrayBuffer>
-            }).then(sceneGLB => {
-                zip.file("Engine.arraybuffer", enginePackageBinary, { binary: true })
-                zip.file("Scene.glb", sceneGLB, { binary: true })
+            _loadAndWriteIndexHtmlData(zip)
+            _loadAndWriteIndexJsData(zip)
 
-                return zip.generateAsync({ type: "blob" })
-            }).then(content => {
-                // TODO get zipname from user
-                saveAs(content, "publish.zip")
+            return (new Promise((resolve, reject) => {
+                return exportSceneService.export([(glb) => {
+                    resolve(glb)
+                }, (err) => {
+                    throw err
+                }], meta3dState)
+            }) as Promise<ArrayBuffer>)
+                .then(sceneGLB => {
+                    zip.file("Engine.arraybuffer", enginePackageBinary, { binary: true })
+                    zip.file("Scene.glb", sceneGLB, { binary: true })
 
-                return meta3dState
-            })
+                    return zip.generateAsync({ type: "blob" })
+                }).then(content => {
+                    // TODO get zipname from user
+                    saveAs(content, "publish.zip")
+
+                    return meta3dState
+                })
         }
     }
 }
