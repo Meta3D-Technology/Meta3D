@@ -139,6 +139,10 @@ module Method = {
     }
   }
 
+  let showDebug = setIsShowDebug => {
+    setIsShowDebug(_ => true)
+  }
+
   let useSelector = (
     {
       inspectorCurrentPackageId,
@@ -155,6 +159,7 @@ let make = (~service: service) => {
   let (inspectorCurrentPackage, setInspectorCurrentPackage) = service.react.useState(_ => None)
   let (extensions, setExtensions) = service.react.useState(_ => [])
   let (contributes, setContributes) = service.react.useState(_ => [])
+  let (isShowDebug, setIsShowDebug) = service.react.useState(_ => false)
 
   let (
     inspectorCurrentPackageId,
@@ -200,82 +205,92 @@ let make = (~service: service) => {
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
       <Button
         onClick={_ => {
-          FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-            Method.updateSelectedPackage(
-              dispatch,
-              service,
-              inspectorCurrentPackage.id,
-              extensions,
-              contributes,
-            )
-          }, 5->Some)
+          Method.showDebug(setIsShowDebug)
         }}>
-        {React.string(`提交全部`)}
+        {React.string(`显示Debug`)}
       </Button>
-      {service.ui.buildTitle(. ~level=3, ~children={React.string(`Extension`)}, ())}
-      {<List
-        itemLayout=#horizontal
-        dataSource={extensions}
-        renderItem={((extensionPackageData, extensionFuncDataStr)) => {
-          <List.Item>
-            <List.Item.Meta
-              key={extensionPackageData.name}
-              title={<Typography.Title level=3>
-                {React.string(extensionPackageData.name)}
-              </Typography.Title>}
-              description={<Space direction=#vertical size=#middle>
-                <Space direction=#horizontal size=#small>
-                  <Typography.Text>
-                    {React.string({j`协议名：${extensionPackageData.protocol.name}`})}
-                  </Typography.Text>
-                </Space>
-                <Input.TextArea
-                  value={extensionFuncDataStr}
-                  onChange={e => {
-                    Method.setExtension(
-                      setExtensions,
-                      e->EventUtils.getEventTargetValue,
-                      extensionPackageData,
-                    )
-                  }}
-                />
-              </Space>}
-            />
-          </List.Item>
-        }}
-      />}
-      {service.ui.buildTitle(. ~level=3, ~children={React.string(`Contribute`)}, ())}
-      {<List
-        itemLayout=#horizontal
-        dataSource={contributes}
-        renderItem={((contributePackageData, contributeFuncDataStr)) => {
-          <List.Item>
-            <List.Item.Meta
-              key={contributePackageData.name}
-              title={<Typography.Title level=3>
-                {React.string(contributePackageData.name)}
-              </Typography.Title>}
-              description={<Space direction=#vertical size=#middle>
-                <Space direction=#horizontal size=#small>
-                  <Typography.Text>
-                    {React.string({j`协议名：${contributePackageData.protocol.name}`})}
-                  </Typography.Text>
-                </Space>
-                <Input.TextArea
-                  value={contributeFuncDataStr}
-                  onChange={e => {
-                    Method.setContribute(
-                      setContributes,
-                      e->EventUtils.getEventTargetValue,
-                      contributePackageData,
-                    )
-                  }}
-                />
-              </Space>}
-            />
-          </List.Item>
-        }}
-      />}
+      {isShowDebug
+        ? <>
+            <Button
+              onClick={_ => {
+                FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                  Method.updateSelectedPackage(
+                    dispatch,
+                    service,
+                    inspectorCurrentPackage.id,
+                    extensions,
+                    contributes,
+                  )
+                }, 5->Some)
+              }}>
+              {React.string(`提交全部`)}
+            </Button>
+            {service.ui.buildTitle(. ~level=3, ~children={React.string(`Extension`)}, ())}
+            {<List
+              itemLayout=#horizontal
+              dataSource={extensions}
+              renderItem={((extensionPackageData, extensionFuncDataStr)) => {
+                <List.Item>
+                  <List.Item.Meta
+                    key={extensionPackageData.name}
+                    title={<Typography.Title level=3>
+                      {React.string(extensionPackageData.name)}
+                    </Typography.Title>}
+                    description={<Space direction=#vertical size=#middle>
+                      <Space direction=#horizontal size=#small>
+                        <Typography.Text>
+                          {React.string({j`协议名：${extensionPackageData.protocol.name}`})}
+                        </Typography.Text>
+                      </Space>
+                      <Input.TextArea
+                        value={extensionFuncDataStr}
+                        onChange={e => {
+                          Method.setExtension(
+                            setExtensions,
+                            e->EventUtils.getEventTargetValue,
+                            extensionPackageData,
+                          )
+                        }}
+                      />
+                    </Space>}
+                  />
+                </List.Item>
+              }}
+            />}
+            {service.ui.buildTitle(. ~level=3, ~children={React.string(`Contribute`)}, ())}
+            {<List
+              itemLayout=#horizontal
+              dataSource={contributes}
+              renderItem={((contributePackageData, contributeFuncDataStr)) => {
+                <List.Item>
+                  <List.Item.Meta
+                    key={contributePackageData.name}
+                    title={<Typography.Title level=3>
+                      {React.string(contributePackageData.name)}
+                    </Typography.Title>}
+                    description={<Space direction=#vertical size=#middle>
+                      <Space direction=#horizontal size=#small>
+                        <Typography.Text>
+                          {React.string({j`协议名：${contributePackageData.protocol.name}`})}
+                        </Typography.Text>
+                      </Space>
+                      <Input.TextArea
+                        value={contributeFuncDataStr}
+                        onChange={e => {
+                          Method.setContribute(
+                            setContributes,
+                            e->EventUtils.getEventTargetValue,
+                            contributePackageData,
+                          )
+                        }}
+                      />
+                    </Space>}
+                  />
+                </List.Item>
+              }}
+            />}
+          </>
+        : React.null}
     </Space>
   }
 }

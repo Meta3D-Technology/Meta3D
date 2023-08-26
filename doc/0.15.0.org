@@ -294,7 +294,7 @@ build engine package
 add publish button, pass run test
 
 
-* TODO perf: PackageInspector: add show Debug button. only read debug when show Debug
+* DONE perf: PackageInspector: add show Debug button. only read debug when show Debug
 
 
 
