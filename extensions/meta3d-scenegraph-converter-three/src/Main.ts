@@ -2,8 +2,7 @@ import { service } from "meta3d-scenegraph-converter-three-protocol/src/service/
 import { state } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
-// import type { Blending, BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Side, Sphere, Texture, Vector3 } from "three";
-import {
+import type {
     Blending, Side,
     BufferAttribute as BufferAttributeType,
     CubeTexture,
@@ -59,7 +58,7 @@ function _getMeshInstanceMap(): Array<Mesh> {
 //     _getMeshInstanceMap()[gameObject] = undefined
 // }
 
-let _getMeshInstance = (gameObject: gameObject) =>  {
+let _getMeshInstance = (gameObject: gameObject) => {
     if (_getMeshInstanceMap()[gameObject] === undefined) {
         _getMeshInstanceMap()[gameObject] = new Mesh(gameObject)
     }
@@ -75,7 +74,7 @@ function _getBasicMaterialInstanceMap(): Array<MeshBasicMaterial> {
 //     _getBasicMaterialInstanceMap()[material] = undefined
 // }
 
-let _getBasicMaterialInstance = (material: pbrMaterial) =>  {
+let _getBasicMaterialInstance = (material: pbrMaterial) => {
     if (_getBasicMaterialInstanceMap()[material] === undefined) {
         _getBasicMaterialInstanceMap()[material] = new MeshBasicMaterial(material)
     }
@@ -91,7 +90,7 @@ function _getGeometryInstanceMap(): Array<BufferGeometry> {
 //     _getGeometryInstanceMap()[geometry] = undefined
 // }
 
-let _getGeometryInstance = (geometry: geometry) =>  {
+let _getGeometryInstance = (geometry: geometry) => {
     if (_getGeometryInstanceMap()[geometry] === undefined) {
         _getGeometryInstanceMap()[geometry] = new BufferGeometry(geometry)
     }
@@ -99,7 +98,7 @@ let _getGeometryInstance = (geometry: geometry) =>  {
     return _getGeometryInstanceMap()[geometry]
 }
 
-let _convertToMatrix4 = (mat: Float32Array): Matrix4Type  => {
+let _convertToMatrix4 = (mat: Float32Array): Matrix4Type => {
     // return new Matrix4(
     //     mat[0],
     //     mat[1],
@@ -154,7 +153,7 @@ function _getEmptyGameObject() {
     return -1
 }
 
-let _getMatrix = (gameObject: gameObject): Matrix4Type  => {
+let _getMatrix = (gameObject: gameObject): Matrix4Type => {
     let meta3dState = getMeta3dState()
 
     let engineSceneService = getEngineSceneService(meta3dState)
@@ -908,7 +907,7 @@ function _getAllEventNames() {
     }
 }
 
-let _convertToUint32ArrayIndices = (indices: TypedArray) =>  {
+let _convertToUint32ArrayIndices = (indices: TypedArray) => {
     if (!(indices instanceof Uint32Array)) {
         return new Uint32Array(indices.buffer)
     }
@@ -916,7 +915,7 @@ let _convertToUint32ArrayIndices = (indices: TypedArray) =>  {
     return indices
 }
 
-let _getBufferGeometry = (mesh: MeshType): BufferGeometryType  => {
+let _getBufferGeometry = (mesh: MeshType): BufferGeometryType => {
     let geometry = mesh.geometry
 
     if (!geometry.isBufferGeometry) {
@@ -926,7 +925,7 @@ let _getBufferGeometry = (mesh: MeshType): BufferGeometryType  => {
     return geometry
 }
 
-let _getMeshBasicMaterial = (mesh: MeshType): MeshBasicMaterialType  => {
+let _getMeshBasicMaterial = (mesh: MeshType): MeshBasicMaterialType => {
     let material = mesh.material as MeshBasicMaterialType
 
     if (material.type !== "MeshBasicMaterial") {

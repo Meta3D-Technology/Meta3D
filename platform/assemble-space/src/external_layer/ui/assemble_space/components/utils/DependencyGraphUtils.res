@@ -142,22 +142,27 @@ module Method = {
     `
   }
 
+  let _getNodeId = (node: nodeData) => {
+    j`${node.protocol.name}_${node.name}`
+  }
+
   let _checkDuplicateNode = (nodes: list<nodeData>) => {
     open Meta3dCommonlib
 
-    let arr =
-      nodes
-      ->ListSt.filter(({protocol}) => {
-        !ContributeTypeUtils.isAction(protocol.name)
-      })
-      ->ListSt.toArray
+    let arr = nodes
+    // ->ListSt.filter(({protocol}) => {
+    //   !ContributeTypeUtils.isAction(protocol.name)
+    // })
+    ->ListSt.toArray
 
     // let resultArr = []
     let map = MutableHashMap.createEmpty()
     for i in 0 to Js.Array.length(arr) - 1 {
       let item = Array.unsafe_get(arr, i)
       // let key = buildKeyFunc(item)
-      let key = item.protocol.name
+      // let key = item.protocol.name
+
+      let key = _getNodeId(item)
       switch MutableHashMap.get(map, key) {
       | None =>
         // Js.Array.push(item, resultArr)->ignore
@@ -193,10 +198,6 @@ module Method = {
       Meta3d.Semver.minVersion(nodeProtocolVersion),
       Meta3d.Semver.minVersion(nodeInData.protocol.version),
     )
-  }
-
-  let _getNodeId = (node: nodeData) => {
-    node.protocol.name
   }
 
   let _updateNodeInData = (nodesData: array<nodeInData>, newNodeInData) => {
@@ -313,6 +314,8 @@ module Method = {
     (blockProtocolName, blockProtocolVersion),
   ) => {
     let data = Meta3dCommonlib.ImmutableHashMap.createEmpty()
+
+    // Js.log(("aa:", nodesData, node))
 
     switch node {
     | None =>
@@ -469,11 +472,26 @@ module Method = {
 
       let (nodesData, edgesData) = _buildData(
         ([], []),
-        nodes->Meta3dCommonlib.ListSt.find(({isStart}) => isStart),
+        nodes
+        ->Meta3dCommonlib.ListSt.filter(({protocol}) => {
+          !ContributeTypeUtils.isAction(protocol.name)
+        })
+        ->Meta3dCommonlib.ListSt.find(({isStart}) => isStart),
         nodes,
         None,
         (None, None),
       )
+
+      // Js.log(("a0:", nodesData))
+
+      let (nodesData, edgesData) =
+        nodes
+        ->Meta3dCommonlib.ListSt.filter(({protocol}) => {
+          ContributeTypeUtils.isAction(protocol.name)
+        })
+        ->Meta3dCommonlib.ListSt.reduce((nodesData, edgesData), ((nodesData, edgesData), node) => {
+          _buildData((nodesData, edgesData), node->Some, nodes, None, (None, None))
+        })
 
       setData(_ =>
         {

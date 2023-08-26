@@ -294,15 +294,18 @@ build engine package
 add publish button, pass run test
 
 
-* TODO perf: reduce Engine.arraybuffer size
+# * TODO perf: reduce Engine.arraybuffer size
 
-scenegraph not import from three
+# scenegraph not import from three
+
+# engine-scene: 2.4M
+# engine-render:1.4
 
 
 
-* TODO perf: optimize get all of package
+# * TODO perf: optimize get all of package
 
-test: get all of engine whole package
+# test: get all of engine whole package
 
 
 * DONE perf: PackageInspector: add show Debug button. only read debug when show Debug
@@ -347,8 +350,6 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
 
 
 
-* TODO dependency graph: switch to show all nodes or only empty nodes
+* TODO publish
 
-
-
-
+TODO pass ci

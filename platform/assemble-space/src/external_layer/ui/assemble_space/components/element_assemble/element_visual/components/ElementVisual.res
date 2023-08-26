@@ -528,9 +528,7 @@ let make = (~service: service, ~account: option<string>) => {
   }, [elementContribute])
 
   service.react.useEffect1(. () => {
-    // TODO restore
-    // !isPassDependencyGraphCheck
-    false
+    !isPassDependencyGraphCheck
       ? {
           FrontendUtils.ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
 

@@ -207,12 +207,13 @@ defineFeature(feature, test => {
       "should build data: e1 -> pe1, c1; c1 -> pc1, empty",
       () => {
         ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        // ->Meta3dCommonlib.Log.printForDebug
         ->Js.Json.stringify
         ->NewlineTool.removeBlankChar
         ->expect ==
           {
             j`
-        {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"ped1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.0"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pe1"},{"text":"实现版本","value":"0.5.1"},{"text":"所属包名","value":"p1"}]},"nodeType":2,"isEmpty":false},{"id":"protocol2","value":{"title":"cd1","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol3","value":{"title":"pcd1","items":[{"text":"协议名","value":"protocol3"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pc1"},{"text":"实现版本","value":"0.5.2"},{"text":"所属包名","value":"p1"}]},"nodeType":3,"isEmpty":false},{"id":"protocol4","value":{"title":"无","items":[{"text":"协议名","value":"protocol4"},{"text":"协议版本","value":"^0.0.1"}]},"isEmpty":true}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol3"},{"source":"protocol2","target":"protocol4"}]}
+             {"nodes":[{"id":"p1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1_pe1","value":{"title":"ped1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.0"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pe1"},{"text":"实现版本","value":"0.5.1"},{"text":"所属包名","value":"p1"}]},"nodeType":2,"isEmpty":false},{"id":"protocol2_c1","value":{"title":"cd1","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol3_pc1","value":{"title":"pcd1","items":[{"text":"协议名","value":"protocol3"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pc1"},{"text":"实现版本","value":"0.5.2"},{"text":"所属包名","value":"p1"}]},"nodeType":3,"isEmpty":false},{"id":"protocol4","value":{"title":"无","items":[{"text":"协议名","value":"protocol4"},{"text":"协议版本","value":"^0.0.1"}]},"isEmpty":true}],"edges":[{"source":"p1_e1","target":"protocol1_pe1"},{"source":"p1_e1","target":"protocol2_c1"},{"source":"protocol2_c1","target":"protocol3_pc1"},{"source":"protocol2_c1","target":"protocol4"}]}
         `
           }->NewlineTool.removeBlankChar
       },
@@ -325,7 +326,7 @@ defineFeature(feature, test => {
           ->expect ==
             {
               j`
-                {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.1"}]},"isEmpty":true},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+               {"nodes":[{"id":"p1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.1"}]},"isEmpty":true},{"id":"protocol2_e2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1_e1","target":"protocol1"},{"source":"p1_e1","target":"protocol2_e2"},{"source":"protocol2_e2","target":"protocol1"}]}
           `
             }->NewlineTool.removeBlankChar
         },
@@ -466,12 +467,13 @@ defineFeature(feature, test => {
         "should build data: e1 -> e3 with higher version, e2; e2 -> e3 with higher version",
         () => {
           ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+          // ->Meta3dCommonlib.Log.printForDebug
           ->Js.Json.stringify
           ->NewlineTool.removeBlankChar
           ->expect ==
             {
               j`
-              {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"ed3","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei3"},{"text":"实现名","value":"e3"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+              {"nodes":[{"id":"p1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1_e3","value":{"title":"ed3","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei3"},{"text":"实现名","value":"e3"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2_e2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1_e1","target":"protocol1_e3"},{"source":"p1_e1","target":"protocol2_e2"},{"source":"protocol2_e2","target":"protocol1_e3"}]}
           `
             }->NewlineTool.removeBlankChar
         },
@@ -618,7 +620,7 @@ defineFeature(feature, test => {
           ->expect ==
             {
               j`
-               {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"}]},"isEmpty":true},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+               {"nodes":[{"id":"p1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"}]},"isEmpty":true},{"id":"protocol2_e2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1_e3","value":{"title":"ed3","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.1"},{"text":"协议icon","icon":"ei3"},{"text":"实现名","value":"e3"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1_e1","target":"protocol1"},{"source":"p1_e1","target":"protocol2_e2"},{"source":"protocol2_e2","target":"protocol1_e3"}]}
 
           `
             }->NewlineTool.removeBlankChar
@@ -668,10 +670,10 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select package p1 which has extension pe1 for protocol1",
+      "select package p1 which has extension e1 for protocol1",
       () => {
         let pe1 = ExtensionTool.generateExtension(
-          ~name="pe1",
+          ~name=e1Name,
           ~version="0.5.1",
           ~protocolName="protocol1",
           ~protocolVersion="^0.2.0",
@@ -719,7 +721,7 @@ defineFeature(feature, test => {
               (),
             )
           },
-        )->toThrowMessage({j`协议名：protocol1有重复的实现`})
+        )->toThrowMessage({j`协议名：protocol1_e1有重复的实现`})
       },
     )
   })
@@ -857,152 +859,152 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
-             {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[]}
+            {"nodes":[{"id":"p1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1_c1","value":{"title":"cd1","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"meta3d-action-protocol1_c2","value":{"title":"cd2","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci2"},{"text":"实现名","value":"c2"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false}],"edges":[]}
           `
           }->NewlineTool.removeBlankChar
       },
     )
   })
 
-  test(."if has duplicate nodes come from selected packages which are stored in app, not error", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let e1 = ref(Obj.magic(1))
-    let e1Name = "e1"
-    let e1Version = "0.0.1"
-    let actionProtocol1Name = "meta3d-action-protocol1"
-    let actionProtocol1Version = "^0.0.1"
-    let c1 = ref(Obj.magic(1))
-    let c2 = ref(Obj.magic(1))
-    let c1Name = "c1"
-    let c1Version = "0.0.2"
-    let c2Name = "c2"
-    let c2Version = "0.0.2"
+  // test(."if has duplicate nodes come from selected packages which are stored in app, not error", ({
+  //   given,
+  //   \"when",
+  //   \"and",
+  //   then,
+  // }) => {
+  //   let e1 = ref(Obj.magic(1))
+  //   let e1Name = "e1"
+  //   let e1Version = "0.0.1"
+  //   let actionProtocol1Name = "meta3d-action-protocol1"
+  //   let actionProtocol1Version = "^0.0.1"
+  //   let c1 = ref(Obj.magic(1))
+  //   let c2 = ref(Obj.magic(1))
+  //   let c1Name = "c1"
+  //   let c1Version = "0.0.2"
+  //   let c2Name = "c2"
+  //   let c2Version = "0.0.2"
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    _prepareFile(given)
+  //   _prepareFile(given)
 
-    given(
-      "select extension e1 which is start extension",
-      () => {
-        e1 :=
-          SelectedExtensionsTool.buildSelectedExtension(
-            ~name=e1Name,
-            ~version=e1Version,
-            ~isStart=true,
-            ~protocolIconBase64="ei1",
-            ~data=ExtensionTool.buildExtensionData(
-              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
-                ~name=e1Name,
-                ~version=e1Version,
-                ~displayName="ed1",
-                ~protocol=(
-                  {
-                    name: "p1",
-                    version: "^0.0.1",
-                  }: Meta3d.ExtensionFileType.extensionProtocolData
-                ),
-                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                (),
-              ),
-              (),
-            ),
-            (),
-          )
-      },
-    )
+  //   given(
+  //     "select extension e1 which is start extension",
+  //     () => {
+  //       e1 :=
+  //         SelectedExtensionsTool.buildSelectedExtension(
+  //           ~name=e1Name,
+  //           ~version=e1Version,
+  //           ~isStart=true,
+  //           ~protocolIconBase64="ei1",
+  //           ~data=ExtensionTool.buildExtensionData(
+  //             ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+  //               ~name=e1Name,
+  //               ~version=e1Version,
+  //               ~displayName="ed1",
+  //               ~protocol=(
+  //                 {
+  //                   name: "p1",
+  //                   version: "^0.0.1",
+  //                 }: Meta3d.ExtensionFileType.extensionProtocolData
+  //               ),
+  //               ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //               (),
+  //             ),
+  //             (),
+  //           ),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"and"(
-      "select contribute c1, c2 for action protocol1",
-      () => {
-        c1 :=
-          SelectedContributesTool.buildSelectedContribute(
-            ~name=c1Name,
-            ~version=c1Version,
-            ~protocolIconBase64="ci1",
-            ~data=ContributeTool.buildContributeData(
-              ~contributePackageData=ContributeTool.buildContributePackageData(
-                ~name=c1Name,
-                ~version=c1Version,
-                ~displayName="cd1",
-                ~protocol=(
-                  {
-                    name: actionProtocol1Name,
-                    version: actionProtocol1Version,
-                  }: Meta3d.ExtensionFileType.contributeProtocolData
-                ),
-                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                (),
-              ),
-              (),
-            ),
-            (),
-          )
+  //   \"and"(
+  //     "select contribute c1, c2 for action protocol1",
+  //     () => {
+  //       c1 :=
+  //         SelectedContributesTool.buildSelectedContribute(
+  //           ~name=c1Name,
+  //           ~version=c1Version,
+  //           ~protocolIconBase64="ci1",
+  //           ~data=ContributeTool.buildContributeData(
+  //             ~contributePackageData=ContributeTool.buildContributePackageData(
+  //               ~name=c1Name,
+  //               ~version=c1Version,
+  //               ~displayName="cd1",
+  //               ~protocol=(
+  //                 {
+  //                   name: actionProtocol1Name,
+  //                   version: actionProtocol1Version,
+  //                 }: Meta3d.ExtensionFileType.contributeProtocolData
+  //               ),
+  //               ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //               (),
+  //             ),
+  //             (),
+  //           ),
+  //           (),
+  //         )
 
-        c2 :=
-          SelectedContributesTool.buildSelectedContribute(
-            ~name=c2Name,
-            ~version=c2Version,
-            ~protocolIconBase64="ci2",
-            ~data=ContributeTool.buildContributeData(
-              ~contributePackageData=ContributeTool.buildContributePackageData(
-                ~name=c2Name,
-                ~version=c2Version,
-                ~displayName="cd2",
-                ~protocol=(
-                  {
-                    name: actionProtocol1Name,
-                    version: actionProtocol1Version,
-                  }: Meta3d.ExtensionFileType.contributeProtocolData
-                ),
-                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                (),
-              ),
-              (),
-            ),
-            (),
-          )
-      },
-    )
+  //       c2 :=
+  //         SelectedContributesTool.buildSelectedContribute(
+  //           ~name=c2Name,
+  //           ~version=c2Version,
+  //           ~protocolIconBase64="ci2",
+  //           ~data=ContributeTool.buildContributeData(
+  //             ~contributePackageData=ContributeTool.buildContributePackageData(
+  //               ~name=c2Name,
+  //               ~version=c2Version,
+  //               ~displayName="cd2",
+  //               ~protocol=(
+  //                 {
+  //                   name: actionProtocol1Name,
+  //                   version: actionProtocol1Version,
+  //                 }: Meta3d.ExtensionFileType.contributeProtocolData
+  //               ),
+  //               ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //               (),
+  //             ),
+  //             (),
+  //           ),
+  //           (),
+  //         )
+  //     },
+  //   )
 
-    \"when"(
-      "build graph data",
-      () => {
-        DependencyGraphUtilsTool.useEffectOnce(
-          ~setData=setDataStub.contents->Obj.magic,
-          ~service=ServiceTool.build(
-            ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
-            (),
-          ),
-          ~selectedExtensions=list{e1.contents},
-          ~selectedContributes=list{c1.contents, c2.contents},
-          (),
-        )
-      },
-    )
+  //   \"when"(
+  //     "build graph data",
+  //     () => {
+  //       DependencyGraphUtilsTool.useEffectOnce(
+  //         ~setData=setDataStub.contents->Obj.magic,
+  //         ~service=ServiceTool.build(
+  //           ~sandbox,
+  //           ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+  //             Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+  //           (),
+  //         ),
+  //         ~selectedExtensions=list{e1.contents},
+  //         ~selectedContributes=list{c1.contents, c2.contents},
+  //         (),
+  //       )
+  //     },
+  //   )
 
-    then(
-      "should build data: e1",
-      () => {
-        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
-        // ->Meta3dCommonlib.Log.printForDebug
-        ->Js.Json.stringify
-        ->NewlineTool.removeBlankChar
-        ->expect ==
-          {
-            j`
-             {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[]}
-          `
-          }->NewlineTool.removeBlankChar
-      },
-    )
-  })
+  //   then(
+  //     "should build data: e1",
+  //     () => {
+  //       ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+  //       // ->Meta3dCommonlib.Log.printForDebug
+  //       ->Js.Json.stringify
+  //       ->NewlineTool.removeBlankChar
+  //       ->expect ==
+  //         {
+  //           j`
+  //            {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[]}
+  //         `
+  //         }->NewlineTool.removeBlankChar
+  //     },
+  //   )
+  // })
 
   test(."if dependency recursive, build recursive graph data", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
@@ -1109,7 +1111,179 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
- {"nodes":[{"id":"protocol1","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"protocol1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+             {"nodes":[{"id":"protocol1_e1","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2_e2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"protocol1_e1","target":"protocol2_e2"},{"source":"protocol2_e2","target":"protocol1_e1"}]}
+          `
+          }->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
+  test(."if has action nodes, they are root nodes", ({given, \"when", \"and", then}) => {
+    let e1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let e2 = ref(Obj.magic(1))
+    let e2Name = "e2"
+    let e2Version = "0.0.1"
+    let actionProtocol1Name = "meta3d-action-protocol1"
+    let actionProtocol1Version = "^0.0.1"
+    let c1 = ref(Obj.magic(1))
+    let c2 = ref(Obj.magic(1))
+    let c1Name = "c1"
+    let c1Version = "0.0.2"
+    let c2Name = "c2"
+    let c2Version = "0.0.2"
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 for protocol2 which is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                ~displayName="ed1",
+                ~protocol=(
+                  {
+                    name: "protocol2",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select extension e2 for protocol1",
+      () => {
+        e2 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e2Name,
+            ~version=e2Version,
+            ~isStart=false,
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e2Name,
+                ~version=e2Version,
+                ~displayName="ed2",
+                ~protocol=(
+                  {
+                    name: "protocol1",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select contribute c1, c2 for action protocol1 which dependent on protocol1",
+      () => {
+        c1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~name=c1Name,
+            ~version=c1Version,
+            ~protocolIconBase64="ci1",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c1Name,
+                ~version=c1Version,
+                ~displayName="cd1",
+                ~protocol=(
+                  {
+                    name: actionProtocol1Name,
+                    version: actionProtocol1Version,
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "protocol1",
+                  "^0.0.1",
+                ),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+
+        c2 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~name=c2Name,
+            ~version=c2Version,
+            ~protocolIconBase64="ci2",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c2Name,
+                ~version=c2Version,
+                ~displayName="cd2",
+                ~protocol=(
+                  {
+                    name: actionProtocol1Name,
+                    version: actionProtocol1Version,
+                  }: Meta3d.ExtensionFileType.contributeProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+                  "protocol1",
+                  "^0.0.1",
+                ),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        DependencyGraphUtilsTool.useEffectOnce(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            (),
+          ),
+          ~selectedExtensions=list{e1.contents, e2.contents},
+          ~selectedContributes=list{c1.contents, c2.contents},
+          (),
+        )
+      },
+    )
+
+    then(
+      "should build data: c1 -> e2; c2 -> e2",
+      () => {
+        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        ->Meta3dCommonlib.Log.printForDebug
+        ->Js.Json.stringify
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          {
+            j`
           `
           }->NewlineTool.removeBlankChar
       },
