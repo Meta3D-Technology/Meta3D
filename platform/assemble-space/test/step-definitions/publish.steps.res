@@ -120,7 +120,16 @@ defineFeature(feature, test => {
     given,
     \"and",
     (selectedPackages, selectedPackageBinaryFile1),
-    (storedPackageIdsInApp, selectedPackageBinaryFile2, p2ProtocolName),
+    (
+      storedPackageIdsInApp,
+      selectedPackageBinaryFile2,
+      (
+        p2Protocol,
+        p2EntryExtensionName,
+        p2Version,
+        p2Name,
+      ): Meta3d.AppAndPackageFileType.packageData,
+    ),
     selectedExtensions,
     selectedContributes,
   ) => {
@@ -172,8 +181,12 @@ defineFeature(feature, test => {
           ),
           SelectedPackagesTool.buildSelectedPackage(
             ~id=p2Id,
-            ~name="p2",
-            ~protocolName=p2ProtocolName,
+            ~name=p2Name,
+            ~version=p2Version,
+            ~protocolName=p2Protocol.name,
+            ~protocolVersion=p2Protocol.version,
+            ~protocolIconBase64=p2Protocol.iconBase64,
+            ~entryExtensionName=p2EntryExtensionName,
             ~binaryFile=selectedPackageBinaryFile2,
             (),
           ),
@@ -197,7 +210,7 @@ defineFeature(feature, test => {
       given,
       \"and",
       (selectedPackages, selectedPackageBinaryFile1),
-      (storedPackageIdsInApp, Obj.magic(1), ""),
+      (storedPackageIdsInApp, Obj.magic(1), PackageStoredInAppTool.buildPackageData()),
       selectedExtensions,
       selectedContributes,
     )
@@ -256,7 +269,15 @@ defineFeature(feature, test => {
     let setVisibleStub = ref(Obj.magic(1))
     let storedPackageIdsInApp = ref(Obj.magic(1))
     let selectedPackageBinaryFile2 = Js.Typed_array.ArrayBuffer.make(11)
-    let p2ProtocolName = "p2-protocol"
+    let p2PackageData = PackageStoredInAppTool.buildPackageData(
+      ~packageProtocolName="p2-protocol",
+      ~packageProtocolVersion="^0.0.2",
+      ~packageProtocolIconBase64="ibase64",
+      ~entryExtensionName="en2",
+      ~packageVersion="0.0.2",
+      ~pacakgeName="p2",
+      (),
+    )
 
     _prepare(given, \"and")
 
@@ -264,7 +285,7 @@ defineFeature(feature, test => {
       given,
       \"and",
       (selectedPackages, selectedPackageBinaryFile1),
-      (storedPackageIdsInApp, selectedPackageBinaryFile2, p2ProtocolName),
+      (storedPackageIdsInApp, selectedPackageBinaryFile2, p2PackageData),
       selectedExtensions,
       selectedContributes,
     )
@@ -390,7 +411,7 @@ defineFeature(feature, test => {
           ->SinonTool.calledWithArg4(
             matchAny,
             [selectedPackageBinaryFile1],
-            [(p2ProtocolName, selectedPackageBinaryFile2)],
+            [(p2PackageData, selectedPackageBinaryFile2)],
             (
               canvasData.contents,
               {
@@ -405,7 +426,7 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
+            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
           )
       },
     )

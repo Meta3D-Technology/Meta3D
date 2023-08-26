@@ -1,5 +1,5 @@
 let buildPackageData = (
-  ~packageProtocolName,
+  ~packageProtocolName="p1-protocol",
   ~packageProtocolVersion="^0.0.1",
   ~packageProtocolIconBase64="ibase64",
   ~entryExtensionName="en1",
