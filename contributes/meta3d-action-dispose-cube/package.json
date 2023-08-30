@@ -5,7 +5,7 @@
     "displayName": "dispose-cube",
     "description": "dispose a cube action",
     "protocol": {
-        "name": "meta3d-action-button-click-protocol"
+        "name": "meta3d-action-dispose-cube-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -16,7 +16,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-button-click-protocol": "^0.15.0",
+        "meta3d-action-dispose-cube-protocol": "^0.15.0",
         "meta3d-engine-whole-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

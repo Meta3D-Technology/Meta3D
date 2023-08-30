@@ -597,7 +597,7 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
                   className="ant-list-item"
                 >
                   <span>
-                    click: 
+                    button_click: 
                   </span>
                   <div
                     className="ant-select ant-select-single ant-select-show-arrow"

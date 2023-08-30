@@ -1,11 +1,12 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
-import { uiData } from "meta3d-action-button-click-protocol"
+import { clickUIData } from "meta3d-ui-control-button-protocol"
+import { actionName, state } from "meta3d-action-import-scene-protocol"
 
-export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
-        actionName: "ImportScene",
+        actionName: actionName,
         handler: (meta3dState, uiData) => {
             console.log("import scene")
 
@@ -46,6 +47,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) 
                 input.click()
                 document.body.removeChild(input)
             })
-        }
+        },
+        createState: () => null
     }
 }

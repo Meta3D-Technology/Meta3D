@@ -1,10 +1,10 @@
 {
-    "name": "meta3d-action-button-click-protocol",
+    "name": "meta3d-action-dispose-cube-protocol",
     "version": "0.15.0",
     "description": "",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
-    "main": "src/Index.ts",
+    "main": "src/StateType.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

@@ -5,7 +5,7 @@ window.UIControlProtocolConfig = {
         return "{rect: " + rect + "}"
     },
     getUIControlSpecificDataFields: () => [],
-    getUIControlSupportedEventNames: () => [["click", "meta3d-action-button-click-protocol"]],
+    getUIControlSupportedEventNames: () => ["button_click"],
     generateHandleUIControlEventStr: ([clickActionName]) => {
         if (clickActionName !== null && clickActionName !== undefined) {
             return "handle click event code..."

@@ -1,6 +1,6 @@
 * TODO action add in it element store
 
-** TODO finish
+** DONE finish
 
 TODO one action implement has one action protocol, not share!
   TODO move action name to protocol
@@ -39,10 +39,10 @@ TODO remove meta3d-action-button-click-protocol
 commit
 
 
-TODO refactor: rename handler, createState to handlerFunc, createStateFunc
+////TODO refactor: rename handler, createState to handlerFunc, createStateFunc
 
 
-commit
+////commit
 
 
 

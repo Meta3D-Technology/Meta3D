@@ -40,10 +40,7 @@ defineFeature(feature, test => {
           ~service=ServiceTool.build(
             ~sandbox,
             ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-              (
-                list{},
-                ( None, list{}, list{}),
-              ),
+              (list{}, (None, list{}, list{})),
               _,
             ),
             (),
@@ -110,7 +107,6 @@ defineFeature(feature, test => {
             (
               list{},
               (
-                
                 id2->Some,
                 list{u1.contents},
                 list{
@@ -446,7 +442,6 @@ defineFeature(feature, test => {
             (
               list{},
               (
-                
                 id->Some,
                 list{w1.contents},
                 list{
@@ -701,7 +696,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action1Name,
                 ~protocol={
-                  name:actionProtocolName,
+                  name: actionProtocolName,
                   version: "^0.6.0",
                 },
                 (),
@@ -729,7 +724,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action2Name,
                 ~protocol={
-                  name:actionProtocolName,
+                  name: actionProtocolName,
                   version: "^0.6.0",
                 },
                 (),
@@ -752,7 +747,7 @@ defineFeature(feature, test => {
         getUIControlSupportedEventNamesStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->withOneArg(d1ConfigLib, _)
-          ->returns([ ( _getButtonClickEventName(), actionProtocolName) ], _)
+          ->returns([_getButtonClickEventName()], _)
       },
     )
 
@@ -764,13 +759,17 @@ defineFeature(feature, test => {
             (
               list{a1.contents, a2.contents},
               (
-                
                 id->Some,
                 list{d1.contents},
                 list{
                   UIControlInspectorTool.buildUIControlInspectorData(
                     ~id,
-                    ~event=[UIControlInspectorTool.buildEventData(_getButtonClickEventName(), action2Name)],
+                    ~event=[
+                      UIControlInspectorTool.buildEventData(
+                        _getButtonClickEventName(),
+                        action2Name,
+                      ),
+                    ],
                     (),
                   ),
                 },

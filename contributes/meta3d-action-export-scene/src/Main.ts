@@ -4,10 +4,10 @@ import { service as exportSceneService } from "meta3d-export-scene-protocol/src/
 // import { state } from "meta3d-export-scene-protocol/src/state/StateType"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { uiData } from "meta3d-action-button-click-protocol"
+import { clickUIData } from "meta3d-ui-control-button-protocol"
+import { actionName, state } from "meta3d-action-export-scene-protocol"
 
-
-let _download = (body: ArrayBuffer, filename: string, extension: string) =>  {
+let _download = (body: ArrayBuffer, filename: string, extension: string) => {
     const blob = new Blob([body], { type: "arraybuffer" });
     const fileName = filename + "." + extension;
 
@@ -22,9 +22,9 @@ let _download = (body: ArrayBuffer, filename: string, extension: string) =>  {
     document.body.removeChild(link);
 }
 
-export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
-        actionName: "ExportScene",
+        actionName: actionName,
         handler: (meta3dState, uiData) => {
             console.log("export scene")
 
@@ -39,6 +39,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) 
                     throw err
                 }], meta3dState)
             })
-        }
+        },
+        createState: () => null
     }
 }

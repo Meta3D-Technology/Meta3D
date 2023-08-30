@@ -3,10 +3,10 @@
     "version": "0.15.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-publish",
-    "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-click-button",
+    "repoLink": "",
     "description": "meta3d-action-publish",
     "protocol": {
-        "name": "meta3d-action-button-click-protocol"
+        "name": "meta3d-action-publish-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -23,7 +23,7 @@
         "@types/file-saver": "^2.0.5",
         "file-saver": "^2.0.5",
         "jszip": "^3.10.1",
-        "meta3d-action-button-click-protocol": "^0.15.0",
+        "meta3d-action-publish-protocol": "^0.15.0",
         "meta3d-export-scene-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

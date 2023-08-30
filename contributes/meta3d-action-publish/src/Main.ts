@@ -1,12 +1,13 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
-import { uiData } from "meta3d-action-button-click-protocol"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import indexHtml from "../publish/index.html"
 import meta3dJs from "../publish/meta3d.js"
+import { clickUIData } from "meta3d-ui-control-button-protocol"
+import { actionName, state } from "meta3d-action-publish-protocol"
 
 let _loadAndWriteIndexHtmlData = (zip: JSZip) => {
     zip.file("index.html", indexHtml)
@@ -16,9 +17,9 @@ let _loadAndWriteIndexJsData = (zip: JSZip) => {
     zip.file("meta3d.js", meta3dJs)
 }
 
-export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
-        actionName: "Publish",
+        actionName: actionName,
         handler: (meta3dState, uiData) => {
             console.log("publish")
 
@@ -50,6 +51,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) 
 
                     return meta3dState
                 })
-        }
+        },
+        createState: () => null
     }
 }
