@@ -355,7 +355,7 @@ TODO graph: handle dependentPackageProtocolNameMap(not recuive)
 
 
 
-* TODO publish
+* DONE publish
 
 TODO pass ci
 

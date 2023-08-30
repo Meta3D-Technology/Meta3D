@@ -1,0 +1,109 @@
+* TODO  action add in it element store
+
+need refactor meta3d-action-click-button
+
+
+* TODO use view control implement(low level) for scene view and game view
+
+
+one canvas-one view-one gl
+
+
+one engine state(meta3dState?)(encapsulate)
+
+
+
+contain scene view and game view
+
+
+
+
+** TODO add meshrenderer component
+
+
+has isRender
+
+
+** TODO update PrepareRenderDataJob
+
+
+
+** TODO render scene view and game view
+
+
+share gl, engine state
+
+
+
+encapsulate viewport logic
+
+
+
+config:
+viewRect
+
+
+  |> DeviceManagerEngineService.setViewport(viewRect)
+  |> DeviceManagerEngineService.setScissorTest(true)
+  |> DeviceManagerEngineService.setScissor(viewRect)
+
+
+
+
+
+scene view has default scene gameObjects
+
+
+
+
+* TODO refactor: extract pipeline-editor-view-utils
+
+
+
+
+
+* TODO handle event
+
+
+** TODO handle scene view, game view event
+
+
+refer to wonder-editor code
+
+
+add event target
+
+
+
+dependent on scene view event, game view event(has independent state)?
+
+
+
+
+* TODO run test: add scene view, game view based to show a cube + arcball camera + grid
+
+
+
+
+
+
+* TODO add two buttons, to add a cube gameObject and add a arcball camera controller gameObject
+
+
+
+* TODO add run button to run game view
+
+
+
+# * TODO refactor: extract 3D View custom control(low level)
+
+
+
+
+* TODO how to handle publish and run? （发布时需要判断是否在run）
+////责任链 or event queue or query element store?
+
+
+- query element store
+
+
