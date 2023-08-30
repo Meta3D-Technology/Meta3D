@@ -53,7 +53,7 @@ module Method = {
     (
       account,
       (
-        elementInspectorData: FrontendUtils.ElementAssembleStoreType.elementInspectorData,
+        // elementInspectorData: FrontendUtils.ElementAssembleStoreType.elementInspectorData,
         selectedUIControls,
         selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
       ),
@@ -64,7 +64,7 @@ module Method = {
       let elementName: string = values["elementName"]
       let elementVersion: string = values["elementVersion"]
 
-      let {elementStateFields} = elementInspectorData
+      // let {elementStateFields} = elementInspectorData
 
       let protocolName = ElementContributeUtils.getElementContributeProtocolName()
       let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
@@ -102,7 +102,7 @@ module Method = {
               elementName,
               selectedUIControls,
               selectedUIControlInspectorData,
-              elementStateFields,
+              // elementStateFields,
             ),
           ),
         ),
@@ -112,7 +112,7 @@ module Method = {
           elementVersion,
           (
             {
-              element: elementInspectorData,
+              // element: elementInspectorData,
               uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
@@ -136,19 +136,21 @@ module Method = {
 
   let useSelector = (
     {
-      elementInspectorData,
+      // elementInspectorData,
       selectedUIControls,
       selectedUIControlInspectorData,
     }: FrontendUtils.ElementAssembleStoreType.state,
   ) => {
-    (elementInspectorData, selectedUIControls, selectedUIControlInspectorData)
+    (
+      // elementInspectorData,
+       selectedUIControls, selectedUIControlInspectorData)
   }
 }
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
   let (
-    elementInspectorData,
+    // elementInspectorData,
     selectedUIControls,
     selectedUIControlInspectorData,
   ) = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
@@ -193,7 +195,9 @@ let make = (~service: service, ~account: option<string>) => {
                   (setUploadProgress, setIsUploadBegin, setVisible),
                   (
                     account,
-                    (elementInspectorData, selectedUIControls, selectedUIControlInspectorData),
+                    (
+                      // elementInspectorData,
+                       selectedUIControls, selectedUIControlInspectorData),
                   ),
                   event->Obj.magic,
                 )->ignore

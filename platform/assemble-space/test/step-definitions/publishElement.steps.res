@@ -11,7 +11,7 @@ defineFeature(feature, test => {
   let account = ref(Obj.magic(1))
   let elementName = ref(Obj.magic(1))
   let elementVersion = ref(Obj.magic(1))
-  let elementInspectorData = ref(Obj.magic(1))
+  // let elementInspectorData = ref(Obj.magic(1))
   let selectedUIControls = ref(Obj.magic(1))
   let selectedUIControlInspectorData = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
@@ -46,7 +46,7 @@ defineFeature(feature, test => {
             ~sandbox,
             ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
               (
-                ElementInspectorTool.buildElementInspectorData(list{}),
+              list{}  ,
                 list{},
               ),
               _,
@@ -126,10 +126,10 @@ defineFeature(feature, test => {
       account := "u1"
       elementName := "e1"
       elementVersion := "0.0.1"
-      elementInspectorData :=
-        ElementInspectorTool.buildElementInspectorData(list{})
+      // elementInspectorData :=
+      //   ElementInspectorTool.buildElementInspectorData(list{})
 
-      event := [UIControlInspectorTool.buildEventData("click", "a1")]
+      event := [UIControlInspectorTool.buildEventData(#button_click, "a1")]
 
       isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
 
@@ -288,7 +288,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
-          ~elementInspectorData=elementInspectorData.contents,
+          // ~elementInspectorData=elementInspectorData.contents,
           // ~selectedUIControls=selectedUIControls.contents,
           // ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
           (),
@@ -363,7 +363,7 @@ defineFeature(feature, test => {
             ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
             (),
           ),
-          ~elementInspectorData=elementInspectorData.contents,
+          // ~elementInspectorData=elementInspectorData.contents,
           ~selectedUIControls=selectedUIControls.contents,
           ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
           (),
@@ -382,7 +382,7 @@ defineFeature(feature, test => {
           elementVersion.contents,
           (
             {
-              element: elementInspectorData.contents,
+              // element: elementInspectorData.contents,
               uiControls: [
                 {
                   displayName: "b1",

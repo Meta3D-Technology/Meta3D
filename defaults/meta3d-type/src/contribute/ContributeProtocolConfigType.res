@@ -1,2 +1,2 @@
 // type eventName = [#click]
-// type eventName = UIControlProtocolConfigType.supportedEventName
+type eventName = UIControlProtocolConfigType.supportedEventName

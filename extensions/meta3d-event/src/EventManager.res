@@ -2,7 +2,10 @@
 
 let registerAction = (
   state: Meta3dEventProtocol.StateType.state,
-  actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<Meta3dEventProtocol.StateType.actionData>,
+  actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
+    Meta3dEventProtocol.StateType.uiData,
+    Meta3dEventProtocol.StateType.actionState,
+  >,
 ) => {
   let state = state->StateType.protocolStateToState
 
@@ -20,15 +23,18 @@ let trigger = (
   meta3dState: Meta3dType.Index.state,
   eventExtensionProtocolName,
   actionName,
-  actionData: Meta3dEventProtocol.StateType.actionData,
+  uiData: Meta3dEventProtocol.StateType.uiData,
 ) => {
   let state: StateType.state =
     api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
-  let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<Meta3dEventProtocol.StateType.actionData> =
+  let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
+    Meta3dEventProtocol.StateType.uiData,
+    Meta3dEventProtocol.StateType.actionState,
+  > =
     state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(actionName)
 
-  actionContribute.handler(meta3dState, actionData)
+  actionContribute.handler(meta3dState, uiData)
 }
 
 let onPointEvent = (
@@ -195,6 +201,15 @@ let getPointDragStartEventName = NameEventDoService.getPointDragStartEventName->
 let getPointDragOverEventName = NameEventDoService.getPointDragOverEventName->Obj.magic
 
 let getPointDragDropEventName = NameEventDoService.getPointDragDropEventName->Obj.magic
+
+let getAllActionContributes = (
+  state: Meta3dEventProtocol.StateType.state
+) => {
+  let state = state->StateType.protocolStateToState
+
+    state.actionContributeMap
+    ->Meta3dCommonlib.ImmutableHashMap.entries
+}
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {
   {

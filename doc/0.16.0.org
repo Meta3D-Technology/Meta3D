@@ -1,6 +1,58 @@
-* TODO  action add in it element store
+* TODO action add in it element store
 
-need refactor meta3d-action-click-button
+** TODO finish
+
+TODO one action implement has one action protocol, not share!
+  TODO move action name to protocol
+  TODO move actionData to ui-control
+    TODO rename actionData to uiData
+
+
+
+TODO assemble-space
+
+  # TODO need update bind element state to rect
+  TODO remove "bind element state to rect"
+
+  # TODO element inspector: show created element states, can't edit
+  TODO remove element inspector
+  TODO handle createState
+
+
+TODO need refactor meta3d-action-click-button
+
+
+
+
+
+TODO run test
+
+
+commit
+
+
+
+TODO update all actions
+TODO remove meta3d-action-button-click-protocol
+
+
+commit
+
+
+TODO refactor: rename handler, createState to handlerFunc, createStateFunc
+
+
+commit
+
+
+
+
+** TODO update frontend, assemble-space for "one action implement has one action protocol, not share"
+
+TODO dependent graph
+
+TODO judge action(Market?)
+
 
 
 * TODO use view control implement(low level) for scene view and game view

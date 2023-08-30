@@ -648,6 +648,17 @@ let clear = (meta3dState, data, clearColor) => {
   )
 }
 
+let _getCurrentElementStateOption = (state: Meta3dUiProtocol.StateType.state) =>
+  state.currentElementName->Meta3dCommonlib.OptionSt.bind(currentElementName => {
+    state.elementStateMap->Meta3dCommonlib.ImmutableHashMap.get(currentElementName)
+  })
+
+let getCurrentElementState = state => _getElementStateExn(state, _getCurrentElementName(state))
+
+let setCurrentElementState = (state, currentElementState) => {
+  state->_setElementState(_getCurrentElementName(state), currentElementState)
+}
+
 let init = (
   meta3dState,
   (api: Meta3dType.Index.api, imguiRendererExtensionProtocolName),
@@ -655,6 +666,47 @@ let init = (
   isDebug,
   canvas,
 ) => {
+  let uiExtensionProtocolName = "meta3d-ui-protocol"
+
+  let uiState: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    uiExtensionProtocolName,
+  )
+
+  let meta3dState = switch _getCurrentElementStateOption(uiState) {
+  | Some(elementState) =>
+    let eventExtensionProtocolName = "meta3d-event-protocol"
+
+    let eventService: Meta3dEventProtocol.ServiceType.service = api.getExtensionService(.
+      meta3dState,
+      eventExtensionProtocolName,
+    )
+
+    let eventState: Meta3dEventProtocol.StateType.state = api.getExtensionState(.
+      meta3dState,
+      eventExtensionProtocolName,
+    )
+
+    let elementState =
+      eventService.getAllActionContributes(
+        eventState,
+      )->Meta3dCommonlib.ArraySt.reduceOneParam(
+        (. elementState, (actionName, actionContribute)) => {
+          elementState->Meta3dCommonlib.ImmutableHashMap.set(
+            actionName,
+            actionContribute.createState(),
+          )
+        },
+        elementState->Obj.magic,
+      )
+
+    let uiState = setCurrentElementState(uiState, elementState->Obj.magic)
+
+    api.setExtensionState(. meta3dState, uiExtensionProtocolName, uiState)
+
+  | None => meta3dState
+  }
+
   let imguiRendererState = api.getExtensionState(. meta3dState, imguiRendererExtensionProtocolName)
 
   let imguiRendererService: Meta3dImguiRendererProtocol.ServiceType.service = api.getExtensionService(.
@@ -671,5 +723,3 @@ let init = (
     api.setExtensionState(. meta3dState, imguiRendererExtensionProtocolName, imguiRendererState)
   })
 }
-
-let getCurrentElementState = state => _getElementStateExn(state, _getCurrentElementName(state))

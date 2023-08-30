@@ -24,14 +24,12 @@ let buildUIControl = (
 let buildElementAssembleData = (
   ~elementName="e1",
   ~elementVersion="0.0.1",
-  ~element=ElementInspectorTool.buildElementInspectorData(list{}),
   ~uiControls=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.elementAssembleData => {
   elementName,
   elementVersion,
   inspectorData: {
-    element,
     uiControls,
   },
 }

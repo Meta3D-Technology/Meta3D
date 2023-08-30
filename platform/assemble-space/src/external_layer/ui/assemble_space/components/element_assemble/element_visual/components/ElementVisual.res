@@ -178,14 +178,14 @@ module Method = {
     service,
     selectedUIControls,
     selectedUIControlInspectorData,
-    elementStateFields,
+    // elementStateFields,
   ) =>
     ElementContributeUtils.buildElementContributeFileStr(
       service,
       _getElementContributeName(),
       selectedUIControls,
       selectedUIControlInspectorData,
-      elementStateFields,
+      // elementStateFields,
     )
 
   let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
@@ -374,7 +374,7 @@ module Method = {
     switch elementAssembleData {
     | Loaded(elementAssembleData) =>
       let {elementName, elementVersion, inspectorData} = elementAssembleData
-      let {element, uiControls} = inspectorData
+      let { uiControls} = inspectorData
 
       let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
 
@@ -382,7 +382,6 @@ module Method = {
         FrontendUtils.ElementAssembleStoreType.Import(
           selectedUIControls,
           _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
-          element,
         ),
       )
 
@@ -413,7 +412,7 @@ module Method = {
       selectedUIControlInspectorData,
       visualExtension,
       elementContribute,
-      elementInspectorData,
+      // elementInspectorData,
     } = elementAssembleState
 
     // let (_, elementContribute) = elementContribute
@@ -434,7 +433,7 @@ module Method = {
         visualExtension,
         // elementContribute,
         elementContribute,
-        elementInspectorData,
+        // elementInspectorData,
       ),
     )
   }
@@ -460,14 +459,14 @@ let make = (~service: service, ~account: option<string>) => {
       visualExtension,
       // elementContribute,
       elementContribute,
-      elementInspectorData,
+      // elementInspectorData,
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
   let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
   let loopFrameID = service.react.useRef(None)
 
-  let {elementStateFields} = elementInspectorData
+  // let {elementStateFields} = elementInspectorData
 
   service.react.useEffectOnce(() => {
     switch visualExtension {
@@ -508,7 +507,7 @@ let make = (~service: service, ~account: option<string>) => {
               service,
               selectedUIControls,
               selectedUIControlInspectorData,
-              elementStateFields,
+              // elementStateFields,
             ),
           )->Method.updateElementContribute(dispatch, _)
         }, 5->Some)
@@ -518,7 +517,7 @@ let make = (~service: service, ~account: option<string>) => {
   }, [
     selectedUIControls,
     selectedUIControlInspectorData->Obj.magic,
-    elementInspectorData->Obj.magic,
+    // elementInspectorData->Obj.magic,
   ])
 
   service.react.useEffect1(. () => {

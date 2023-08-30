@@ -11,9 +11,9 @@ let publish = (
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account=None,
-  ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
-    list{},
-  ),
+  // ~elementInspectorData=ElementInspectorTool.buildElementInspectorData(
+  //   list{},
+  // ),
   ~selectedUIControls=list{},
   ~selectedUIControlInspectorData=list{},
   ~values={
@@ -25,7 +25,7 @@ let publish = (
   PublishElement.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, (elementInspectorData, selectedUIControls, selectedUIControlInspectorData)),
+    (account, ( selectedUIControls, selectedUIControlInspectorData)),
     values,
   )
 }

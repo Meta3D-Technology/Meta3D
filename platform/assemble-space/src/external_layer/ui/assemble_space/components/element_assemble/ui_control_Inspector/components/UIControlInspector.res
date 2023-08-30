@@ -97,8 +97,8 @@ module Method = {
   let setAction = (
     dispatch,
     id,
-    // eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
-    eventName: Meta3dType.UIControlProtocolConfigType.eventName,
+    eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
+    // eventName: Meta3dType.UIControlProtocolConfigType.eventName,
     actionName: string,
   ) => {
     dispatch(
@@ -119,25 +119,26 @@ module Method = {
     }
   }
 
-  let _getRectFieldElementFieldValue = (
-    rectField: FrontendUtils.ElementAssembleStoreType.rectField,
-  ) => {
-    switch rectField {
-    | ElementStateFieldForRectField(value) => value->Some
-    | _ => None
-    }
-  }
+  // let _getRectFieldElementFieldValue = (
+  //   rectField: FrontendUtils.ElementAssembleStoreType.rectField,
+  // ) => {
+  //   switch rectField {
+  //   | ElementStateFieldForRectField(value) => value->Some
+  //   | _ => None
+  //   }
+  // }
 
-  let _getSpecificTypeElementStateFieldNames = (
-    elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
-    specificType,
-  ) => {
-    elementStateFields
-    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == specificType)
-    ->Meta3dCommonlib.ListSt.map(({name}) => name)
-  }
+  // let _getSpecificTypeElementStateFieldNames = (
+  //   elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
+  //   specificType,
+  // ) => {
+  //   elementStateFields
+  //   ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == specificType)
+  //   ->Meta3dCommonlib.ListSt.map(({name}) => name)
+  // }
 
-  let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
+  // let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
+  let buildRectField = (dispatch, setRectField,  id, rect, rectField) => {
     <>
       <InputNumber
         value={rectField
@@ -154,24 +155,24 @@ module Method = {
           )
         }}
       />
-      {FrontendUtils.SelectUtils.buildSelect(value =>
-        FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
-          ? ()
-          : {
-              setRectField(
-                dispatch,
-                id,
-                rect,
-                value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
-              )
-            }
-      , rectField
-      ->_getRectFieldElementFieldValue
-      ->Meta3dCommonlib.OptionSt.getWithDefault(
-        FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-      ), elementStateFields
-      ->_getSpecificTypeElementStateFieldNames(#int)
-      ->Meta3dCommonlib.ListSt.toArray)}
+      // {FrontendUtils.SelectUtils.buildSelect(value =>
+      //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
+      //     ? ()
+      //     : {
+      //         setRectField(
+      //           dispatch,
+      //           id,
+      //           rect,
+      //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+      //         )
+      //       }
+      // , rectField
+      // ->_getRectFieldElementFieldValue
+      // ->Meta3dCommonlib.OptionSt.getWithDefault(
+      //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+      // ), elementStateFields
+      // ->_getSpecificTypeElementStateFieldNames(#int)
+      // ->Meta3dCommonlib.ListSt.toArray)}
     </>
   }
 
@@ -182,22 +183,22 @@ module Method = {
     }
   }
 
-  let getIsDrawElementFieldValue = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
-    switch isDraw {
-    | ElementStateFieldForIsDraw(value) => value->Some
-    | _ => None
-    }
-  }
+  // let getIsDrawElementFieldValue = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
+  //   switch isDraw {
+  //   | ElementStateFieldForIsDraw(value) => value->Some
+  //   | _ => None
+  //   }
+  // }
 
-  let getBoolElementStateFieldNames = (
-    elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
-  ) => {
-    elementStateFields
-    ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == #bool)
-    ->Meta3dCommonlib.ListSt.map(({name}) => name)
-  }
+  // let getBoolElementStateFieldNames = (
+  //   elementStateFields: FrontendUtils.ElementAssembleStoreType.elementStateFields,
+  // ) => {
+  //   elementStateFields
+  //   ->Meta3dCommonlib.ListSt.filter(({type_}) => type_ == #bool)
+  //   ->Meta3dCommonlib.ListSt.map(({name}) => name)
+  // }
 
-  let buildIsDraw = (dispatch, elementStateFields, id, isDraw) => {
+  let buildIsDraw = (dispatch, id, isDraw) => {
     <Space direction=#vertical>
       {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
         value =>
@@ -212,21 +213,21 @@ module Method = {
         ->BoolUtils.boolToString,
         ["true", "false"],
       )}
-      {FrontendUtils.SelectUtils.buildSelect(value =>
-        FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
-          ? ()
-          : {
-              setIsDraw(
-                dispatch,
-                id,
-                value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-              )
-            }
-      , isDraw
-      ->getIsDrawElementFieldValue
-      ->Meta3dCommonlib.OptionSt.getWithDefault(
-        FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-      ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
+      // {FrontendUtils.SelectUtils.buildSelect(value =>
+      //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
+      //     ? ()
+      //     : {
+      //         setIsDraw(
+      //           dispatch,
+      //           id,
+      //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+      //         )
+      //       }
+      // , isDraw
+      // ->getIsDrawElementFieldValue
+      // ->Meta3dCommonlib.OptionSt.getWithDefault(
+      //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+      // ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
     </Space>
   }
 
@@ -258,16 +259,16 @@ module Method = {
     }
   }
 
-  let _getSpecificDataValueElementFieldValue = (
-    specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
-  ) => {
-    switch specificDataValue {
-    | ElementStateFieldForSpecificDataValue(value) => value->Some
-    | _ => None
-    }
-  }
+  // let _getSpecificDataValueElementFieldValue = (
+  //   specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
+  // ) => {
+  //   switch specificDataValue {
+  //   | ElementStateFieldForSpecificDataValue(value) => value->Some
+  //   | _ => None
+  //   }
+  // }
 
-  let buildSpecific = (service, dispatch, id, specific, elementStateFields) => {
+  let buildSpecific = (service, dispatch, id, specific) => {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
@@ -294,28 +295,28 @@ module Method = {
               )
             }}
           />
-          {FrontendUtils.SelectUtils.buildSelect(value =>
-            FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
-              ? ()
-              : {
-                  _setSpecificData(
-                    dispatch,
-                    specific,
-                    id,
-                    i,
-                    value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
-                    type_,
-                  )
-                }
-          , value
-          ->_getSpecificDataValueElementFieldValue
-          ->Meta3dCommonlib.OptionSt.getWithDefault(
-            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-          ), elementStateFields
-          ->_getSpecificTypeElementStateFieldNames(
-            type_->FrontendUtils.ElementAssembleStoreType.specificTypeToElementStateFieldType,
-          )
-          ->Meta3dCommonlib.ListSt.toArray)}
+          // {FrontendUtils.SelectUtils.buildSelect(value =>
+          //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
+          //     ? ()
+          //     : {
+          //         _setSpecificData(
+          //           dispatch,
+          //           specific,
+          //           id,
+          //           i,
+          //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+          //           type_,
+          //         )
+          //       }
+          // , value
+          // ->_getSpecificDataValueElementFieldValue
+          // ->Meta3dCommonlib.OptionSt.getWithDefault(
+          //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+          // ), elementStateFields
+          // ->_getSpecificTypeElementStateFieldNames(
+          //   type_->FrontendUtils.ElementAssembleStoreType.specificTypeToElementStateFieldType,
+          // )
+          // ->Meta3dCommonlib.ListSt.toArray)}
         </Card>
       })
       ->React.array}
@@ -327,7 +328,7 @@ module Method = {
   ) => {
     let {selectedContributes} = apAssembleState
     let {
-      elementInspectorData,
+      // elementInspectorData,
       inspectorCurrentUIControlId,
       selectedUIControls,
       selectedUIControlInspectorData,
@@ -336,7 +337,7 @@ module Method = {
     (
       selectedContributes,
       (
-        elementInspectorData,
+        // elementInspectorData,
         inspectorCurrentUIControlId,
         selectedUIControls,
         selectedUIControlInspectorData,
@@ -352,14 +353,14 @@ let make = (~service: service) => {
   let (
     selectedContributes,
     (
-      elementInspectorData,
+      // elementInspectorData,
       inspectorCurrentUIControlId,
       selectedUIControls,
       selectedUIControlInspectorData,
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
-  let {elementStateFields} = elementInspectorData
+  // let {elementStateFields} = elementInspectorData
 
   switch Method.getCurrentSelectedUIControlInspectorData(
     inspectorCurrentUIControlId,
@@ -372,20 +373,19 @@ let make = (~service: service) => {
     <Space direction=#vertical size=#middle>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
       <Space direction=#horizontal wrap=true>
-        {Method.buildRectField(dispatch, Method.setRectX, elementStateFields, id, rect, x)}
-        {Method.buildRectField(dispatch, Method.setRectY, elementStateFields, id, rect, y)}
-        {Method.buildRectField(dispatch, Method.setRectWidth, elementStateFields, id, rect, width)}
+        {Method.buildRectField(dispatch, Method.setRectX,  id, rect, x)}
+        {Method.buildRectField(dispatch, Method.setRectY,  id, rect, y)}
+        {Method.buildRectField(dispatch, Method.setRectWidth,  id, rect, width)}
         {Method.buildRectField(
           dispatch,
           Method.setRectHeight,
-          elementStateFields,
           id,
           rect,
           height,
         )}
       </Space>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
-      {Method.buildIsDraw(dispatch, elementStateFields, id, isDraw)}
+      {Method.buildIsDraw(dispatch, id, isDraw)}
       {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
       | None =>
         service.console.errorWithExn(.
@@ -411,11 +411,12 @@ let make = (~service: service) => {
 
         <Space direction=#vertical size=#middle>
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
-          {Method.buildSpecific(service, dispatch, id, specific, elementStateFields)}
+          {Method.buildSpecific(service, dispatch, id, specific)}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
-            renderItem={(( eventName, actionProtocolName )) => {
+            // renderItem={(( eventName, actionProtocolName )) => {
+            renderItem={(eventName) => {
               let value =
                 ElementMRUtils.getActionName(
                   event,
@@ -430,9 +431,9 @@ let make = (~service: service) => {
                   Method.setAction(dispatch, id, eventName),
                   value,
                   actions
-                  ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-                    data.contributePackageData.protocol.name == actionProtocolName
-                  })
+                  // ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+                  //   data.contributePackageData.protocol.name == actionProtocolName
+                  // })
                   ->Meta3dCommonlib.ArraySt.map(({data}) => {
                     (
                       service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic

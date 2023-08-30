@@ -19,10 +19,10 @@ function registerAction(state, actionContribute) {
         };
 }
 
-function trigger(api, meta3dState, eventExtensionProtocolName, actionName, actionData) {
+function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiData) {
   var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
   var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, actionName);
-  return Curry._2(actionContribute.handler, meta3dState, actionData);
+  return Curry._2(actionContribute.handler, meta3dState, uiData);
 }
 
 function onPointEvent(api, eventExtensionProtocolName, param) {
@@ -97,6 +97,10 @@ function getBrowserUnknownType(param) {
   return /* Unknown */4;
 }
 
+function getAllActionContributes(state) {
+  return ImmutableHashMap$Meta3dCommonlib.entries(state.actionContributeMap);
+}
+
 function createExtensionState(param) {
   return {
           actionContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
@@ -143,6 +147,7 @@ export {
   getPointDragStartEventName ,
   getPointDragOverEventName ,
   getPointDragDropEventName ,
+  getAllActionContributes ,
   createExtensionState ,
 }
 /* InitEventDoService-Meta3dEvent Not a pure module */

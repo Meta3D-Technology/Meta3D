@@ -28,14 +28,14 @@ let _createState = () => {
   visualExtension: None,
   runVisualExtension: None,
   elementContribute: None,
-  isShowElementInspector: false,
-  elementInspectorData: {
-    elementStateFields: list{},
-    // reducers: {
-    //   role: None,
-    //   handlers: list{},
-    // },
-  },
+  // isShowElementInspector: false,
+  // elementInspectorData: {
+  //   elementStateFields: list{},
+  //   // reducers: {
+  //   //   role: None,
+  //   //   handlers: list{},
+  //   // },
+  // },
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -211,19 +211,19 @@ let reducer = (state, action) => {
       ...state,
       parentUIControlId: None,
       inspectorCurrentUIControlId: None,
-      isShowElementInspector: false,
+      // isShowElementInspector: false,
     }
   | SelectSelectedUIControl(funcs, id) => {
       ...state,
       parentUIControlId: _findParentUIControlId(funcs, state.selectedUIControls, id),
       inspectorCurrentUIControlId: id->Some,
-      isShowElementInspector: false,
+      // isShowElementInspector: false,
     }
-  | ShowElementInspector => {
-      ...state,
-      inspectorCurrentUIControlId: None,
-      isShowElementInspector: true,
-    }
+  // | ShowElementInspector => {
+  //     ...state,
+  //     inspectorCurrentUIControlId: None,
+  //     isShowElementInspector: true,
+  //   }
   | SetVisualExtension(visualExtension) => {
       ...state,
       visualExtension: visualExtension->Some,
@@ -236,13 +236,13 @@ let reducer = (state, action) => {
       ...state,
       elementContribute: elementContribute->Some,
     }
-  | SetElementStateFields(elementStateFields) => {
-      ...state,
-      elementInspectorData: {
-        ...state.elementInspectorData,
-        elementStateFields,
-      },
-    }
+  // | SetElementStateFields(elementStateFields) => {
+  //     ...state,
+  //     elementInspectorData: {
+  //       ...state.elementInspectorData,
+  //       elementStateFields,
+  //     },
+  //   }
   // | SetRole(role) => {
   //     ...state,
   //     elementInspectorData: {
@@ -263,11 +263,11 @@ let reducer = (state, action) => {
   //       },
   //     },
   //   }
-  | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData) => {
+  | Import(selectedUIControls, selectedUIControlInspectorData) => {
       ...state,
       selectedUIControls,
       selectedUIControlInspectorData,
-      elementInspectorData,
+      // elementInspectorData,
       // elementContribute: None,
     }
   | SetCanvasData(canvasData) => {

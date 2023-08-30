@@ -26,15 +26,15 @@ type handleFunc = (customEvent: customEvent) => void
 type handleFunc2 = (meta3dState: meta3dState, customEvent: customEvent) => meta3dState
 
 export type service = {
-    trigger: <actionData> (
+    trigger: <uiData> (
         meta3dState: meta3dState,
         eventExtensionProtocolName: eventExtensionProtocolName,
         actionName: actionName,
-        actionData: actionData
+        uiData: uiData
     ) => Promise<meta3dState>;
-    registerAction: <actionData>(
+    registerAction: <uiData, state>(
         state: state,
-        actionContribute: actionContribute<actionData>
+        actionContribute: actionContribute<uiData, state>
     ) => state;
     onPointEvent(
         eventExtensionProtocolName: eventExtensionProtocolName,
@@ -89,4 +89,5 @@ export type service = {
     getPointScaleEventName(): pointEventName;
     getPointDragStartEventName(): pointEventName;
     getPointDragOverEventName(): pointEventName;
+    getAllActionContributes: <uiData, state>(state: state) => Array<actionContribute<uiData, state>>
 };

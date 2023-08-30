@@ -20,15 +20,15 @@ type handleFunc = (. EventType.customEvent) => unit
 type handleFunc2 = (. Meta3dType.Index.state, EventType.customEvent) => Meta3dType.Index.state
 
 type service = {
-  trigger: 'actionData. (
+  trigger: 'uiData. (
     Meta3dType.Index.state,
     eventExtensionProtocolName,
     ActionContributeType.actionName,
-    'actionData,
+    'uiData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerAction: 'actionData. (
+  registerAction: 'uiData 'state. (
     StateType.state,
-    ActionContributeType.actionContribute<'actionData>,
+    ActionContributeType.actionContribute<'uiData, 'state>,
   ) => StateType.state,
   onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
   onCustomGlobalEvent: (
@@ -74,4 +74,12 @@ type service = {
   getPointScaleEventName: unit => pointEventName,
   getPointDragStartEventName: unit => pointEventName,
   getPointDragOverEventName: unit => pointEventName,
+  getAllActionContributes: 'uiData 'state. (
+    StateType.state,
+      ) => 
+      array<(
+ActionContributeType.actionName,
+ActionContributeType.actionContribute<'uiData, 'state>
+
+      )>
 }

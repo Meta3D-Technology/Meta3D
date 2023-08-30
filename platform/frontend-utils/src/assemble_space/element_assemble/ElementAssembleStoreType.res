@@ -29,13 +29,13 @@ type rec uiControl = {
 
 type selectedUIControls = list<uiControl>
 
-type eventName = string
+// type eventName = string
 
 type actionName = string
 
 type eventData = {
-  // eventName: Meta3dType.ContributeProtocolConfigType.eventName,
-  eventName: eventName,
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  // eventName: eventName,
   actionName: actionName,
 }
 
@@ -43,7 +43,7 @@ type event = array<eventData>
 
 type rectField =
   | IntForRectField(int)
-  | ElementStateFieldForRectField(string)
+  // | ElementStateFieldForRectField(string)
 
 type rect = {
   x: rectField,
@@ -54,11 +54,11 @@ type rect = {
 
 type isDraw =
   | BoolForIsDraw(bool)
-  | ElementStateFieldForIsDraw(string)
+  // | ElementStateFieldForIsDraw(string)
 
 type specificDataValue =
   | SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
-  | ElementStateFieldForSpecificDataValue(string)
+  // | ElementStateFieldForSpecificDataValue(string)
 
 type specificData = {
   name: string,
@@ -88,7 +88,7 @@ type elementStateFieldData = {
   defaultValue: elementStateFieldValue,
 }
 
-type elementStateFields = list<elementStateFieldData>
+// type elementStateFields = list<elementStateFieldData>
 
 // type reducerHandler = {
 //   actionName: actionName,
@@ -106,10 +106,10 @@ type elementStateFields = list<elementStateFieldData>
 
 // type reducer = list<reducer>
 
-type elementInspectorData = {
-  elementStateFields: elementStateFields,
-  // reducers: reducers,
-}
+// type elementInspectorData = {
+//   elementStateFields: elementStateFields,
+//   // reducers: reducers,
+// }
 
 type elementContribute = ApAssembleStoreType.contribute
 
@@ -142,16 +142,18 @@ type action =
   | SetSpecificData(id, specific)
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
-  | SetAction(id, (eventName, option<actionName>))
+  // | SetAction(id, (eventName, option<actionName>))
+  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
   | SetVisualExtension(ApAssembleStoreType.extension)
   | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContribute(elementContribute)
-  | ShowElementInspector
+  // | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
-  | SetElementStateFields(elementStateFields)
+  // | SetElementStateFields(elementStateFields)
   // | SetRole(option<string>)
   // | SetHandlers(handlers)
-  | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
+  // | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
+  | Import(selectedUIControls, selectedUIControlInspectorData)
   | SetCanvasData(canvasData)
 
 type state = {
@@ -163,6 +165,6 @@ type state = {
   visualExtension: option<ApAssembleStoreType.extension>,
   runVisualExtension: option<ApAssembleStoreType.extension>,
   elementContribute: option<elementContribute>,
-  isShowElementInspector: bool,
-  elementInspectorData: elementInspectorData,
+  // isShowElementInspector: bool,
+  // elementInspectorData: elementInspectorData,
 }

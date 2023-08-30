@@ -18,12 +18,12 @@ Feature: UIControlInsepctor
 
     Rule: Rect
 
-        Scenario: show rect with element state fields
-            Given element state add fields
-            And select ui control button d1
-            And set inspector current selected ui control data to d1
-            When render
-            Then should show element state int field select
+        # Scenario: show rect with element state fields
+        #     Given element state add fields
+        #     And select ui control button d1
+        #     And set inspector current selected ui control data to d1
+        #     When render
+        #     Then should show element state int field select
 
         Scenario: set rect x
             When set rect x
@@ -31,12 +31,12 @@ Feature: UIControlInsepctor
 
     Rule: IsDraw
 
-        Scenario: show isDraw with element state fields
-            Given element state add fields
-            And select ui control button d1
-            And set inspector current selected ui control data to d1
-            When render
-            Then should show element state bool field select
+        # Scenario: show isDraw with element state fields
+        #     Given element state add fields
+        #     And select ui control button d1
+        #     And set inspector current selected ui control data to d1
+        #     When render
+        #     Then should show element state bool field select
 
         Scenario: set isDraw
             When set isDraw
@@ -51,12 +51,12 @@ Feature: UIControlInsepctor
             When render
             Then should show dom with defalut value
 
-        Scenario: show specific with element state fields
-            Given element state add fields
-            And select ui control window w1
-            And set inspector current selected ui control data to w1
-            When render
-            Then should show element state string field select
+        # Scenario: show specific with element state fields
+        #     Given element state add fields
+        #     And select ui control window w1
+        #     And set inspector current selected ui control data to w1
+        #     When render
+        #     Then should show element state string field select
 
 
         Scenario: set specific data

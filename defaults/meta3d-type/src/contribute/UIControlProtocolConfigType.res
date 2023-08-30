@@ -7,7 +7,7 @@ type rect = {
 
 type childrenFunc = (. Index.state) => Index.state
 
-// type supportedEventName = [#button_click]
+type supportedEventName = [#button_click]
 
 type actionName = Js.Nullable.t<string>
 
@@ -31,9 +31,9 @@ type getUIControlSpecificDataFields = unit => uiControlSpecificDataFields
 
 type hasChildren = unit => bool
 
-type eventName = string
-type actionProtocolName = string
-// type getUIControlSupportedEventNames = unit => array<supportedEventName>
-type getUIControlSupportedEventNames = unit => array<(eventName, actionProtocolName)>
+// type eventName = string
+// type actionProtocolName = string
+type getUIControlSupportedEventNames = unit => array<supportedEventName>
+// type getUIControlSupportedEventNames = unit => array<(eventName, actionProtocolName)>
 
 type generateHandleUIControlEventStr = array<actionName> => string

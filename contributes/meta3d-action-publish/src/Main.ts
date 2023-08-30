@@ -1,7 +1,7 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
-import { actionData } from "meta3d-action-button-click-protocol"
+import { uiData } from "meta3d-action-button-click-protocol"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -16,10 +16,10 @@ let _loadAndWriteIndexJsData = (zip: JSZip) => {
     zip.file("meta3d.js", meta3dJs)
 }
 
-export let getContribute: getContributeMeta3D<actionContribute<actionData>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData>> = (api) => {
     return {
         actionName: "Publish",
-        handler: (meta3dState, actionData) => {
+        handler: (meta3dState, uiData) => {
             console.log("publish")
 
             let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))

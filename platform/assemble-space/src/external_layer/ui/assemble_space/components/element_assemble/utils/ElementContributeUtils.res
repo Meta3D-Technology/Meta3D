@@ -13,13 +13,13 @@ let buildElementContributeFileStr = (
   elementContributeName,
   selectedUIControls,
   selectedUIControlInspectorData,
-  elementStateFields,
+  // elementStateFields,
 ) => {
   ElementMRUtils.buildElementMR(
     service,
     elementContributeName,
     selectedUIControls->Meta3dCommonlib.ListSt.toArray,
     selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
-    elementStateFields,
+    // elementStateFields,
   )->ElementMRUtils.generateElementContributeFileStr(service, _)
 }

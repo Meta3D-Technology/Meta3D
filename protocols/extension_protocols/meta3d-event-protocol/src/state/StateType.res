@@ -1,3 +1,5 @@
-type actionData
+type uiData
+
+type actionState
 
 type state

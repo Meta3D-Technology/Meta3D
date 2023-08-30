@@ -33,8 +33,8 @@ Feature: Import Element
             And select u1
             And select selected u1
             And select u2
-            And set element assemble data to d1 which has u1, u2 and element inspector data ei1
+            And set element assemble data to d1 which has u1, u2
             When import d1
             Then should generate selected u1_1, u2_1
             And generate selected ui control inspector data i1, i2
-            And dispatch Import action with u1_1, u2_1, i1, i2, ei1
+            And dispatch Import action with u1_1, u2_1, i1, i2

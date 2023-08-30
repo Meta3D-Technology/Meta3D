@@ -24,6 +24,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getPointScaleEventName: EventManager.getPointScaleEventName,
   getPointDragStartEventName: EventManager.getPointDragStartEventName,
   getPointDragOverEventName: EventManager.getPointDragOverEventName,
+  getAllActionContributes: EventManager.getAllActionContributes-> Obj.magic
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {

@@ -149,7 +149,7 @@ defineFeature(feature, test => {
   }
 
   test(."set action", ({given, \"when", \"and", then}) => {
-    let eventName = "click"
+    let eventName = #button_click
     let actionName = "a1"
 
     _prepare(given)
@@ -180,7 +180,7 @@ defineFeature(feature, test => {
   })
 
   test(."set action with empty action name", ({given, \"when", \"and", then}) => {
-    let eventName = "click"
+    let eventName = #button_click
 
     _prepare(given)
 

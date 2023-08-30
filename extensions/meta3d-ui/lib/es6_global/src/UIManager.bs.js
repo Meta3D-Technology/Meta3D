@@ -3,6 +3,7 @@
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
@@ -403,18 +404,44 @@ function clear(meta3dState, data, clearColor) {
               }), data);
 }
 
-function init(meta3dState, param, isInitEvent, isDebug, canvas) {
-  var imguiRendererExtensionProtocolName = param[1];
-  var api = param[0];
-  var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
-  var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
-  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isInitEvent, isDebug, canvas), (function (imguiRendererState) {
-                return api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, imguiRendererState);
+function _getCurrentElementStateOption(state) {
+  return OptionSt$Meta3dCommonlib.bind(state.currentElementName, (function (currentElementName) {
+                return ImmutableHashMap$Meta3dCommonlib.get(state.elementStateMap, currentElementName);
               }));
 }
 
 function getCurrentElementState(state) {
   return _getElementStateExn(state, OptionSt$Meta3dCommonlib.getExn(state.currentElementName));
+}
+
+function setCurrentElementState(state, currentElementState) {
+  return _setElementState(state, OptionSt$Meta3dCommonlib.getExn(state.currentElementName), currentElementState);
+}
+
+function init(meta3dState, param, isInitEvent, isDebug, canvas) {
+  var imguiRendererExtensionProtocolName = param[1];
+  var api = param[0];
+  var uiExtensionProtocolName = "meta3d-ui-protocol";
+  var uiState = api.getExtensionState(meta3dState, uiExtensionProtocolName);
+  var elementState = _getCurrentElementStateOption(uiState);
+  var meta3dState$1;
+  if (elementState !== undefined) {
+    var eventExtensionProtocolName = "meta3d-event-protocol";
+    var eventService = api.getExtensionService(meta3dState, eventExtensionProtocolName);
+    var eventState = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+    var elementState$1 = ArraySt$Meta3dCommonlib.reduceOneParam(Curry._1(eventService.getAllActionContributes, eventState), (function (elementState, param) {
+            return ImmutableHashMap$Meta3dCommonlib.set(elementState, param[0], Curry._1(param[1].createState, undefined));
+          }), Caml_option.valFromOption(elementState));
+    var uiState$1 = setCurrentElementState(uiState, elementState$1);
+    meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionProtocolName, uiState$1);
+  } else {
+    meta3dState$1 = meta3dState;
+  }
+  var imguiRendererState = api.getExtensionState(meta3dState$1, imguiRendererExtensionProtocolName);
+  var imguiRendererService = api.getExtensionService(meta3dState$1, imguiRendererExtensionProtocolName);
+  return PromiseSt$Meta3dCommonlib.map(imguiRendererService.init(imguiRendererState, isInitEvent, isDebug, canvas), (function (imguiRendererState) {
+                return api.setExtensionState(meta3dState$1, imguiRendererExtensionProtocolName, imguiRendererState);
+              }));
 }
 
 export {
@@ -458,7 +485,9 @@ export {
   button ,
   setCursorPos ,
   clear ,
-  init ,
+  _getCurrentElementStateOption ,
   getCurrentElementState ,
+  setCurrentElementState ,
+  init ,
 }
 /* No side effect */

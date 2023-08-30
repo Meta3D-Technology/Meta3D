@@ -42,7 +42,7 @@ defineFeature(feature, test => {
               list{},
               None,
               None,
-              ElementInspectorTool.buildElementInspectorData(list{}),
+              
             ),
           ),
           // (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
@@ -87,7 +87,7 @@ defineFeature(feature, test => {
                 list{},
                 Some(Obj.magic(1)),
                 None,
-                ElementInspectorTool.buildElementInspectorData(list{}),
+                
               ),
             ),
             _,

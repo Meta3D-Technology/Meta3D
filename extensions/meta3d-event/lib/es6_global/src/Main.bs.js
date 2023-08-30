@@ -43,7 +43,8 @@ function getExtensionService(api) {
           getPointMoveEventName: EventManager$Meta3dEvent.getPointMoveEventName,
           getPointScaleEventName: EventManager$Meta3dEvent.getPointScaleEventName,
           getPointDragStartEventName: EventManager$Meta3dEvent.getPointDragStartEventName,
-          getPointDragOverEventName: EventManager$Meta3dEvent.getPointDragOverEventName
+          getPointDragOverEventName: EventManager$Meta3dEvent.getPointDragOverEventName,
+          getAllActionContributes: EventManager$Meta3dEvent.getAllActionContributes
         };
 }
 

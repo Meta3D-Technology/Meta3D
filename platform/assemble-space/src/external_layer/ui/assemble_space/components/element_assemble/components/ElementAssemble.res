@@ -22,7 +22,7 @@ let make = (~service: service, ~account) => {
     <Layout.Content>
       <Space direction=#horizontal size=#small>
         <PublishElement service account />
-        <ElementController service />
+        // <ElementController service />
         <RunElementVisualController service />
         <CanvasController service />
       </Space>
@@ -42,7 +42,7 @@ let make = (~service: service, ~account) => {
         <ElementVisual service account />
       </Layout.Content>
       <Layout.Sider theme=#light>
-        <ElementInspector service />
+        // <ElementInspector service />
         <UIControlInspector service />
       </Layout.Sider>
     </Layout>

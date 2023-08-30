@@ -71,7 +71,7 @@ defineFeature(feature, test => {
     let str = ref(Obj.magic(1))
     let selectedUIControls = ref(list{})
     let selectedUIControlInspectorData = ref(list{})
-    let elementStateFields = ref(list{})
+    // let elementStateFields = ref(list{})
 
     _prepare(given, \"and")
 
@@ -145,32 +145,32 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare element inspector data",
-      () => {
-        elementStateFields :=
-          list{
-            ElementInspectorTool.buildElementStateFieldData(
-              ~name="a1",
-              ~type_=#int,
-              ~defaultValue="10",
-              (),
-            ),
-            ElementInspectorTool.buildElementStateFieldData(
-              ~name="a2",
-              ~type_=#string,
-              ~defaultValue="zzz",
-              (),
-            ),
-            ElementInspectorTool.buildElementStateFieldData(
-              ~name="a3",
-              ~type_=#bool,
-              ~defaultValue=false,
-              (),
-            ),
-          }
-      },
-    )
+    // \"and"(
+    //   "prepare element inspector data",
+    //   () => {
+    //     elementStateFields :=
+    //       list{
+    //         ElementInspectorTool.buildElementStateFieldData(
+    //           ~name="a1",
+    //           ~type_=#int,
+    //           ~defaultValue="10",
+    //           (),
+    //         ),
+    //         ElementInspectorTool.buildElementStateFieldData(
+    //           ~name="a2",
+    //           ~type_=#string,
+    //           ~defaultValue="zzz",
+    //           (),
+    //         ),
+    //         ElementInspectorTool.buildElementStateFieldData(
+    //           ~name="a3",
+    //           ~type_=#bool,
+    //           ~defaultValue=false,
+    //           (),
+    //         ),
+    //       }
+    //   },
+    // )
 
     \"and"(
       "prepare b1's, b2's inspector data",
@@ -180,12 +180,14 @@ defineFeature(feature, test => {
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b1",
               ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-              ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+              // ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+              ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
               (),
             ),
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b2",
-              ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+              // ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+              ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
               ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
               (),
             ),
@@ -202,7 +204,7 @@ defineFeature(feature, test => {
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            elementStateFields.contents,
+            // elementStateFields.contents,
           )
       },
     )
@@ -226,7 +228,7 @@ defineFeature(feature, test => {
               element: {
                 elementName,
                 execOrder: 0,
-                elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
+                // elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
               },
               uiControls: [
                 {
@@ -263,7 +265,8 @@ defineFeature(feature, test => {
       "generate correct result",
       () => {
         str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+          // "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let Button1 = getUIControlFunc(uiState,\"Button1\")\n    \n    let Button2 = getUIControlFunc(uiState,\"Button2\")\n    \n                let data = null\n  if(elementState.a3){\n                 return Button1(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(false){\n                 return Button2(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+          "window.Contribute={getContribute:(api)=>{return{elementName:\"ElementAssembleElement\",execOrder:0,elementState:{},elementFunc:(meta3dState,elementState)=>{let{getUIControlFunc}=api.getExtensionService(meta3dState,\"meta3d-ui-protocol\")letuiState=api.getExtensionState(meta3dState,\"meta3d-ui-protocol\")letButton1=getUIControlFunc(uiState,\"Button1\")letButton2=getUIControlFunc(uiState,\"Button2\")letdata=nullif(true){returnButton1(meta3dState,{...{rect:{x:1,y:0,width:0,height:0}},...{},childrenFunc:(meta3dState)=>newPromise((resolve,reject)=>resolve(meta3dState))}).then(data=>{meta3dState=data[0]if(false){returnButton2(meta3dState,{...{rect:{x:2,y:0,width:0,height:0}},...{},childrenFunc:(meta3dState)=>newPromise((resolve,reject)=>resolve(meta3dState))}).then(data=>{meta3dState=data[0]returnnewPromise((resolve)=>{resolve(meta3dState)})})}})}returnnewPromise((resolve)=>{resolve(meta3dState)})}}}}"
       },
     )
   })
@@ -335,7 +338,7 @@ defineFeature(feature, test => {
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b1",
               ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-              ~event=[UIControlInspectorTool.buildEventData("click", "a1")],
+              ~event=[UIControlInspectorTool.buildEventData(#button_click, "a1")],
               (),
             ),
           }
@@ -351,7 +354,7 @@ defineFeature(feature, test => {
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            list{},
+            // list{},
           )
       },
     )
@@ -375,7 +378,7 @@ defineFeature(feature, test => {
               element: {
                 elementName,
                 execOrder: 0,
-                elementStateFields: [],
+                // elementStateFields: [],
               },
               uiControls: [
                 {
@@ -606,7 +609,7 @@ handle click event code...
             elementName,
             selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
             selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-            list{},
+            // list{},
           )
       },
     )
@@ -630,7 +633,7 @@ handle click event code...
               element: {
                 elementName,
                 execOrder: 0,
-                elementStateFields: [],
+                // elementStateFields: [],
               },
               uiControls: [
                 {
@@ -671,7 +674,7 @@ handle click event code...
       let str = ref(Obj.magic(1))
       let selectedUIControls = ref(list{})
       let selectedUIControlInspectorData = ref(list{})
-      let elementStateFields = ref(list{})
+      // let elementStateFields = ref(list{})
 
       _prepare(given, \"and")
 
@@ -775,38 +778,38 @@ handle click event code...
         },
       )
 
-      \"and"(
-        "prepare element inspector data",
-        () => {
-          elementStateFields :=
-            list{
-              ElementInspectorTool.buildElementStateFieldData(
-                ~name="a1",
-                ~type_=#int,
-                ~defaultValue="10",
-                (),
-              ),
-              ElementInspectorTool.buildElementStateFieldData(
-                ~name="a2",
-                ~type_=#string,
-                ~defaultValue="zzz",
-                (),
-              ),
-              ElementInspectorTool.buildElementStateFieldData(
-                ~name="a3",
-                ~type_=#bool,
-                ~defaultValue=false,
-                (),
-              ),
-              ElementInspectorTool.buildElementStateFieldData(
-                ~name="label",
-                ~type_=#string,
-                ~defaultValue="Window2",
-                (),
-              ),
-            }
-        },
-      )
+      // \"and"(
+      //   "prepare element inspector data",
+      //   () => {
+      //     elementStateFields :=
+      //       list{
+      //         ElementInspectorTool.buildElementStateFieldData(
+      //           ~name="a1",
+      //           ~type_=#int,
+      //           ~defaultValue="10",
+      //           (),
+      //         ),
+      //         ElementInspectorTool.buildElementStateFieldData(
+      //           ~name="a2",
+      //           ~type_=#string,
+      //           ~defaultValue="zzz",
+      //           (),
+      //         ),
+      //         ElementInspectorTool.buildElementStateFieldData(
+      //           ~name="a3",
+      //           ~type_=#bool,
+      //           ~defaultValue=false,
+      //           (),
+      //         ),
+      //         ElementInspectorTool.buildElementStateFieldData(
+      //           ~name="label",
+      //           ~type_=#string,
+      //           ~defaultValue="Window2",
+      //           (),
+      //         ),
+      //       }
+      //   },
+      // )
 
       \"and"(
         "prepare w1's, w2's inspector data",
@@ -816,7 +819,8 @@ handle click event code...
               UIControlInspectorTool.buildUIControlInspectorData(
                 ~id="w1",
                 ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-                ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+                // ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+                ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
@@ -831,13 +835,17 @@ handle click event code...
               ),
               UIControlInspectorTool.buildUIControlInspectorData(
                 ~id="w2",
-                ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+                // ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
+                ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
                 ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
                     ~type_=#string,
-                    ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                    // ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
+                    ~value="Window1"
+                    ->Obj.magic
+                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -856,7 +864,7 @@ handle click event code...
               elementName,
               selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
               selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-              elementStateFields.contents,
+              // elementStateFields.contents,
             )
         },
       )
@@ -880,7 +888,7 @@ handle click event code...
                 element: {
                   elementName,
                   execOrder: 0,
-                  elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
+                  // elementStateFields: elementStateFields.contents->Meta3dCommonlib.ListSt.toArray,
                 },
                 uiControls: [
                   {
@@ -918,7 +926,7 @@ handle click event code...
         "generate correct result",
         () => {
           str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-            "\nwindow.Contribute = {\n    getContribute: (api) => {        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {\"a1\":10,\"a2\":\"zzz\",\"a3\":false,\"label\":\"Window2\"},\n                        elementFunc: (meta3dState, elementState) => {\n                let { getUIControlFunc } = api.getExtensionService(meta3dState, \"meta3d-ui-protocol\")\n\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n\n    let ParentWindow = getUIControlFunc(uiState,\"ParentWindow\")\n    \n                let data = null\n  if(elementState.a3){\n                 return ParentWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\"},\n      childrenFunc: (meta3dState) =>{\n                let uiState = api.getExtensionState(meta3dState, \"meta3d-ui-protocol\")\n    \n    let ChildWindow = getUIControlFunc(uiState,\"ChildWindow\")\n    \n                let data = null\n  if(false){\n                 return ChildWindow(meta3dState,\n                {\n                  ...{rect: {\n    x: elementState.a2,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: elementState.label},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n        return new Promise((resolve, reject) => resolve(meta3dState))\n        }\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+            "window.Contribute={getContribute:(api)=>{return{elementName:\"ElementAssembleElement\",execOrder:0,elementState:{},elementFunc:(meta3dState,elementState)=>{let{getUIControlFunc}=api.getExtensionService(meta3dState,\"meta3d-ui-protocol\")letuiState=api.getExtensionState(meta3dState,\"meta3d-ui-protocol\")letParentWindow=getUIControlFunc(uiState,\"ParentWindow\")letdata=nullif(true){returnParentWindow(meta3dState,{...{rect:{x:1,y:0,width:0,height:0}},...{label:\"Window1\"},childrenFunc:(meta3dState)=>{letuiState=api.getExtensionState(meta3dState,\"meta3d-ui-protocol\")letChildWindow=getUIControlFunc(uiState,\"ChildWindow\")letdata=nullif(false){returnChildWindow(meta3dState,{...{rect:{x:2,y:0,width:0,height:0}},...{label:\"Window1\"},childrenFunc:(meta3dState)=>newPromise((resolve,reject)=>resolve(meta3dState))}).then(data=>{meta3dState=data[0]returnnewPromise((resolve)=>{resolve(meta3dState)})})}returnnewPromise((resolve,reject)=>resolve(meta3dState))}}).then(data=>{meta3dState=data[0]returnnewPromise((resolve)=>{resolve(meta3dState)})})}returnnewPromise((resolve)=>{resolve(meta3dState)})}}}}"
         },
       )
     },
@@ -1147,7 +1155,7 @@ handle click event code...
               elementName,
               selectedUIControls.contents->Meta3dCommonlib.ListSt.toArray,
               selectedUIControlInspectorData.contents->Meta3dCommonlib.ListSt.toArray,
-              list{},
+              // list{},
             )
         },
       )
@@ -1171,7 +1179,7 @@ handle click event code...
                 element: {
                   elementName,
                   execOrder: 0,
-                  elementStateFields: [],
+                  // elementStateFields: [],
                 },
                 uiControls: [
                   {

@@ -188,7 +188,7 @@ type rec uiControl = {
 }
 
 type inspectorData = {
-  element: ElementAssembleStoreType.elementInspectorData,
+  // element: ElementAssembleStoreType.elementInspectorData,
   uiControls: array<uiControl>,
 }
 

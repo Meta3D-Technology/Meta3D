@@ -67,7 +67,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api) => {
 	let eventState = api.getExtensionState<eventState>(meta3dState, "meta3d-event-protocol")
 
 
-	eventState = api.getAllContributesByType<actionContribute<any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
+	eventState = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
 		return registerAction(eventState, contribute)
 	}, eventState)
 

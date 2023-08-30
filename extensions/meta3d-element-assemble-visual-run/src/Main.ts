@@ -57,7 +57,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api) => {
 
 
 
-	eventState = api.getAllContributesByType<actionContribute<any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
+	eventState = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
 		return registerAction(eventState, contribute)
 	}, eventState)
 
@@ -80,6 +80,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			// let { "meta3d-ui-protocol", "meta3d-imgui-renderer-protocol", "meta3d-event-protocol", meta3dBindIOEventExtensionProtocolName } = dependentExtensionProtocolNameMap
 			meta3dState = _prepareUI(meta3dState, api)
+
 
 
 			// let { init } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")

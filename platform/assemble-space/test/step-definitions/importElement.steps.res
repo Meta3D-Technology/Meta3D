@@ -183,7 +183,7 @@ defineFeature(feature, test => {
     let u1 = ref(Obj.magic(1))
     let u2 = ref(Obj.magic(1))
     // let selectedUIControls = ref(list{})
-    let ei1 = ref(Obj.magic(1))
+    // let ei1 = ref(Obj.magic(1))
     let uiControl1 = ref(Obj.magic(1))
     let id1RandomResult = 0.3
     let id2RandomResult = 0.4
@@ -247,20 +247,8 @@ defineFeature(feature, test => {
     })
 
     \"and"(
-      "set element assemble data to d1 which has u1, u2 and element inspector data ei1",
+      "set element assemble data to d1 which has u1, u2",
       () => {
-        ei1 :=
-          ElementInspectorTool.buildElementInspectorData(
-            list{
-              ElementInspectorTool.buildElementStateFieldData(
-                ~name="x",
-                ~defaultValue=0,
-                ~type_=#int,
-                (),
-              ),
-            },
-          )
-
         uiControl1 :=
           ImportElementTool.buildUIControl(
             ~displayName="u1",
@@ -269,7 +257,7 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-            ~event=[UIControlInspectorTool.buildEventData("click", "action1")],
+            ~event=[UIControlInspectorTool.buildEventData(#button_click, "action1")],
             ~specific=[Obj.magic(10)],
             ~children=[
               ImportElementTool.buildUIControl(
@@ -279,7 +267,7 @@ defineFeature(feature, test => {
                   (),
                 ),
                 ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
-                ~event=[UIControlInspectorTool.buildEventData("click", "action2")],
+                ~event=[UIControlInspectorTool.buildEventData(#button_click, "action2")],
                 ~specific=[Obj.magic(10)],
                 ~children=[],
                 (),
@@ -292,7 +280,7 @@ defineFeature(feature, test => {
           ImportElementTool.buildElementAssembleData(
             ~elementName="d1",
             ~elementVersion="0.0.1",
-            ~element=ei1.contents,
+            // ~element=ei1.contents,
             ~uiControls=[uiControl1.contents],
             (),
           )->ImportElementTool.buildLoaded
@@ -327,7 +315,7 @@ defineFeature(feature, test => {
       ()
     })
 
-    \"and"("dispatch Import action with u1_1, u2_1, i1, i2, ei1", () => {
+    \"and"("dispatch Import action with u1_1, u2_1, i1, i2", () => {
       let uiControl1Contribute =
         selectedContributes.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
 
@@ -387,7 +375,7 @@ defineFeature(feature, test => {
               (),
             ),
           },
-          ei1.contents,
+          // ei1.contents,
         ),
       )
       ->expect == true

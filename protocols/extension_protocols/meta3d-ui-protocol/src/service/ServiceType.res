@@ -126,4 +126,5 @@ type service = {
     clearColor,
   ) => Meta3dType.Index.state,
   getCurrentElementState: StateType.state => StateType.elementState,
+  setCurrentElementState: (StateType.state, StateType.elementState) => StateType.state,
 }

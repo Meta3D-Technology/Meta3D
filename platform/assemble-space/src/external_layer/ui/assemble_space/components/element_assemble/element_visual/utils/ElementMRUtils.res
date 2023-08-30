@@ -1,7 +1,7 @@
 type element = {
   elementName: string,
   execOrder: int,
-  elementStateFields: array<FrontendUtils.ElementAssembleStoreType.elementStateFieldData>,
+  // elementStateFields: array<FrontendUtils.ElementAssembleStoreType.elementStateFieldData>,
   // reducers: FrontendUtils.ElementAssembleStoreType.reducers,
 }
 
@@ -69,13 +69,13 @@ let buildElementMR = (
   elementName,
   selectedUIControls,
   selectedUIControlInspectorData,
-  elementStateFields,
+  // elementStateFields,
 ): elementMR => {
   {
     element: {
       elementName,
       execOrder: 0,
-      elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
+      // elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
       // reducers,
     },
     uiControls: _buildUIControls(service, selectedUIControls, selectedUIControlInspectorData),
@@ -113,7 +113,8 @@ let _generateHandleUIControlEventStr = (
     configLib,
     service.meta3d.getUIControlSupportedEventNames(.
       configLib,
-    )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
+    // )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
+    )->Meta3dCommonlib.ArraySt.map(( eventName ) => {
       getActionName(event, eventName)
     }),
   )
@@ -122,7 +123,7 @@ let _generateHandleUIControlEventStr = (
 let _generateRectField = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
   switch rectField {
   | IntForRectField(value) => value->Js.Int.toString
-  | ElementStateFieldForRectField(value) => j`elementState.${value}`
+  // | ElementStateFieldForRectField(value) => j`elementState.${value}`
   }
 }
 
@@ -166,7 +167,7 @@ let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specif
         | #string => j`"${value->Obj.magic}"`
         | _ => SpecificUtils.convertValueToString(value, type_)
         }
-      | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
+      // | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
       }
 
       // map->Meta3dCommonlib.ImmutableHashMap.set(
@@ -184,7 +185,7 @@ let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specif
 let _generateIsDrawIfBegin = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
   switch isDraw {
   | BoolForIsDraw(value) => j`if(${value->BoolUtils.boolToString}){`
-  | ElementStateFieldForIsDraw(value) => j`if(elementState.${value}){`
+  // | ElementStateFieldForIsDraw(value) => j`if(elementState.${value}){`
   }
 }
 
@@ -261,32 +262,32 @@ and _generateAllDrawUIControlAndHandleEventStr = (
   )
 }
 
-let _generateElementState = elementStateFields => {
-  elementStateFields
-  ->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (.
-      map,
-      {name, type_, defaultValue}: FrontendUtils.ElementAssembleStoreType.elementStateFieldData,
-    ) => {
-      switch type_ {
-      | #string => map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
-      | #int =>
-        map->Meta3dCommonlib.ImmutableHashMap.set(
-          name,
-          defaultValue->Obj.magic->IntUtils.stringToInt->Obj.magic,
-        )
-      | #bool =>
-        map->Meta3dCommonlib.ImmutableHashMap.set(
-          name,
-          defaultValue->Obj.magic->BoolUtils.stringToBool->Obj.magic,
-        )
-      }
-    },
-    Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  )
-  ->Obj.magic
-  ->Js.Json.stringify
-}
+// let _generateElementState = elementStateFields => {
+//   elementStateFields
+//   ->Meta3dCommonlib.ArraySt.reduceOneParam(
+//     (.
+//       map,
+//       {name, type_, defaultValue}: FrontendUtils.ElementAssembleStoreType.elementStateFieldData,
+//     ) => {
+//       switch type_ {
+//       | #string => map->Meta3dCommonlib.ImmutableHashMap.set(name, defaultValue)
+//       | #int =>
+//         map->Meta3dCommonlib.ImmutableHashMap.set(
+//           name,
+//           defaultValue->Obj.magic->IntUtils.stringToInt->Obj.magic,
+//         )
+//       | #bool =>
+//         map->Meta3dCommonlib.ImmutableHashMap.set(
+//           name,
+//           defaultValue->Obj.magic->BoolUtils.stringToBool->Obj.magic,
+//         )
+//       }
+//     },
+//     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+//   )
+//   ->Obj.magic
+//   ->Js.Json.stringify
+// }
 
 // let _generateReducers = (reducers: FrontendUtils.ElementAssembleStoreType.reducers) => {
 //   switch reducers.role {
@@ -302,7 +303,7 @@ let _generateElementState = elementStateFields => {
 // }
 
 let generateElementContributeFileStr = (service, mr: elementMR): string => {
-  let {elementName, execOrder, elementStateFields} = mr.element
+  let {elementName, execOrder} = mr.element
 
   let str = {
     j`
@@ -311,7 +312,7 @@ window.Contribute = {
         return {
             elementName:"${elementName}",
             execOrder: ${execOrder->Js.Int.toString},
-            elementState: ${_generateElementState(elementStateFields)},
+            elementState: {},
             elementFunc: (meta3dState, elementState) => {
                 let { getUIControlFunc } = api.getExtensionService(meta3dState, "meta3d-ui-protocol")
 

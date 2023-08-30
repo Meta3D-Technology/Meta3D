@@ -138,11 +138,11 @@ type meta3dService = {
   hasChildren: Meta3dServiceCommonType.hasChildren,
   getUIControlSupportedEventNames: (
     . Meta3d.LibUtils.lib,
-  ) => // ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,
-  array<(
-    Meta3dType.UIControlProtocolConfigType.eventName,
-    Meta3dType.UIControlProtocolConfigType.actionProtocolName,
-  )>,
+  ) => array<Meta3dType.UIControlProtocolConfigType.supportedEventName>,
+  // array<(
+  //   Meta3dType.UIControlProtocolConfigType.eventName,
+  //   Meta3dType.UIControlProtocolConfigType.actionProtocolName,
+  // )>,
   generateHandleUIControlEventStr: (
     . Meta3d.LibUtils.lib,
     array<Meta3dType.UIControlProtocolConfigType.actionName>,
