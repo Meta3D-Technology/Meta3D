@@ -55,7 +55,7 @@ export type configData = any
 
 export type startConfigData = [canvasData, configData]
 
-type extensionLife<extensionService> = {
+export type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
   onStart?: (state: state, extensionService: extensionService, configData: startConfigData) => void,
   onInit?: extensionLifeAsyncEventHandler<extensionService>,

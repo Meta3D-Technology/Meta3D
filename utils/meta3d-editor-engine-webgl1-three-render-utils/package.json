@@ -1,0 +1,27 @@
+{
+    "name": "meta3d-editor-engine-webgl1-three-render-utils",
+    "version": "0.15.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+        "meta3d-engine-core-protocol": "^0.15.0",
+        "meta3d-pipeline-camera-protocol": "^0.15.0",
+        "meta3d-pipeline-dispose-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.15.0",
+        "meta3d-pipeline-root-protocol": "^0.15.0",
+        "meta3d-pipeline-webgl1-three-protocol": "^0.15.0",
+        "meta3d-type": "^0.15.0"
+    },
+    "devDependencies": {
+        "clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^0.15.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
+    }
+}

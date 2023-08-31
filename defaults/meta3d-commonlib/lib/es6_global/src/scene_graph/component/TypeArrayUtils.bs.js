@@ -1,6 +1,6 @@
 
 
-import * as Js_typed_array from "../../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
+import * as Js_typed_array from "./../../../../../../rescript/lib/es6/js_typed_array.js";
 
 function getFloat16TypeArray(index, typeArray) {
   return Js_typed_array.$$Float32Array.subarray(index, index + 16 | 0, typeArray);

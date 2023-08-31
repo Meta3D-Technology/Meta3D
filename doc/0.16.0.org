@@ -70,13 +70,13 @@ contain scene view and game view
 
 
 
-** TODO add meshrenderer component
+# ** TODO add meshrenderer component
 
 
-has isRender
+# has isRender
 
 
-** TODO update PrepareRenderDataJob
+# ** TODO update PrepareRenderDataJob
 
 
 
@@ -107,14 +107,22 @@ scene view has default scene gameObjects
 
 
 
+TODO add game view
+
+TODO finish TODO
+
+
 
 * TODO refactor: extract pipeline-editor-view-utils
 
 
+* TODO update import/export scene, publish
 
 
 
 * TODO handle event
+
+TODO default scene's camera add arcball
 
 
 ** TODO handle scene view, game view event
@@ -159,3 +167,8 @@ dependent on scene view event, game view event(has independent state)?
 - query element store
 
 
+
+* TODO fix: game view handle no camera
+
+
+* TODO scene view: camera, direction light show image

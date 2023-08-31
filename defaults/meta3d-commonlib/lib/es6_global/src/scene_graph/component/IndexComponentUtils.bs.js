@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
 
 function _getDisposedIndex(disposedComponentArray) {
   return [

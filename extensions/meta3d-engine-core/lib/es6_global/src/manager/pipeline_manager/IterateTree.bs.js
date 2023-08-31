@@ -1,9 +1,9 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as ListSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as Result$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
+import * as Curry from "./../../../../../../rescript/lib/es6/curry.js";
+import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
+import * as ListSt$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as Result$Meta3dCommonlib from "./../../../../../../meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
 
 function postOrderCata(nodeFunc, tree, param) {
   return Curry._3(nodeFunc, tree._0, tree._1, ListSt$Meta3dCommonlib.map(tree._2, (function (__x) {

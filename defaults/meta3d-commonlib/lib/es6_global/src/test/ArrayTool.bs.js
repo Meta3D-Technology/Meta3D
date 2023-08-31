@@ -1,6 +1,6 @@
 
 
-import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as Js_array from "./../../../../../rescript/lib/es6/js_array.js";
 import * as FloatTool$Meta3dCommonlib from "./FloatTool.bs.js";
 
 function truncate(arr) {
