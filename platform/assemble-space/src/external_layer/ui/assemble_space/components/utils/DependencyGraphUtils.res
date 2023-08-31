@@ -188,7 +188,8 @@ module Method = {
   }
 
   let _getNodeId = (node: nodeData) => {
-    j`${node.protocol.name}_${node.name}`
+    // j`${node.protocol.name}_${node.name}`
+    j`${node.protocol.name}`
   }
 
   let _checkDuplicateNode = (nodes: list<nodeData>) => {

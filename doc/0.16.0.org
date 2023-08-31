@@ -1,4 +1,4 @@
-* TODO action add in it element store
+* DONE action add in it element store
 
 ** DONE finish
 
@@ -47,7 +47,7 @@ commit
 
 
 
-** TODO update frontend, assemble-space for "one action implement has one action protocol, not share"
+** DONE update frontend, assemble-space for "one action implement has one action protocol, not share"
 
 TODO dependent graph
 

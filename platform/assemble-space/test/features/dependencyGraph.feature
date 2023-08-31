@@ -71,15 +71,16 @@ Feature: DependencyGraph
 
         Scenario: if has duplicate nodes, error
             Given select extension e1 for protocol1 which is start extension
-            And select package p1 which has extension e1 for protocol1
+            And select package p1 which has extension pe1 for protocol1
             When build graph data
             Then should error
 
-        Scenario: if has duplicate nodes for action protocol, not error
+        Scenario: if has duplicate nodes for action protocol, error
             Given select extension e1 which is start extension
             And select contribute c1, c2 for action protocol1
             When build graph data
-            Then should build data: e1
+            Then should error
+
 
 
     Rule: fix bug
@@ -96,6 +97,6 @@ Feature: DependencyGraph
         Scenario: if has action nodes, they are root nodes
             Given select extension e1 for protocol2 which is start extension
             And select extension e2 for protocol1
-            And select contribute c1, c2 for action protocol1 which dependent on protocol1
+            And select contribute c1 for action protocol1 and c2 for action protocol2 that they are dependent on protocol1
             When build graph data
             Then should build data: c1 -> e2; c2 -> e2

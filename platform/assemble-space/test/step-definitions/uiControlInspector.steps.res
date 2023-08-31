@@ -682,9 +682,10 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select action a1 and a2 of the same protocol",
+      "select action a1 and a2",
       () => {
-        let actionProtocolName = "meta3d-action-a-protocol"
+        let actionProtocol1Name = "meta3d-action-a1-protocol"
+        let actionProtocol2Name = "meta3d-action-a2-protocol"
 
         execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
@@ -696,7 +697,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action1Name,
                 ~protocol={
-                  name: actionProtocolName,
+                  name: actionProtocol1Name,
                   version: "^0.6.0",
                 },
                 (),
@@ -724,7 +725,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=action2Name,
                 ~protocol={
-                  name: actionProtocolName,
+                  name: actionProtocol2Name,
                   version: "^0.6.0",
                 },
                 (),
