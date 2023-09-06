@@ -21,6 +21,7 @@ import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api) => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -113,35 +114,23 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 			meta3dState,
 			"meta3d-editor-run-engine-protocol"
 		)
+		let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+			meta3dState,
+			"meta3d-editor-run-engine-gameview-protocol"
+		)
 
 		return runEngineService.prepareAndInitEngine(meta3dState,
 			uiService.getContext(meta3dState),
 			canvas,
 			isDebug
-		)
-
+		).then(meta3dState => {
+			return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+				uiService.getContext(meta3dState),
+				canvas,
+				isDebug
+			)
+		})
 	})
-
-
-
-	// let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
-
-	// meta3dState = setBody(meta3dState, "meta3d-event-protocol", document.body as HTMLBodyElement)
-	// meta3dState = setBrowser(meta3dState, "meta3d-event-protocol", getBrowserChromeType())
-	// meta3dState = setCanvas(meta3dState, "meta3d-event-protocol", canvas)
-
-	// meta3dState = initEvent(meta3dState, "meta3d-event-protocol")
-
-
-
-
-	// let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionProtocolName)
-
-	// bindIOEvent(meta3dState)
-
-
-
-	// return meta3dState
 }
 
 let _loop = (
@@ -193,9 +182,16 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	return {
 		run: (meta3dState: meta3dState, configData) => {
 			_init(meta3dState, api, configData).then((meta3dState: meta3dState) => {
-				_loop(api, meta3dState,
-					0,
-					configData)
+				let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+					meta3dState,
+					"meta3d-editor-run-engine-gameview-protocol"
+				)
+
+				runEngineGameViewService.loopEngine(meta3dState).then(meta3dState => {
+					_loop(api, meta3dState,
+						0,
+						configData)
+				})
 			})
 		}
 	}

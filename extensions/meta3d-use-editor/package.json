@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "meta3d-editor-run-engine-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
         "meta3d-imgui-renderer-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0",
