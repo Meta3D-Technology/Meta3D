@@ -27,7 +27,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			TODO register game view1
-			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol"),
+			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-view1-three-protocol"),
 			// 	null,
 			// 	[
 			// 		{

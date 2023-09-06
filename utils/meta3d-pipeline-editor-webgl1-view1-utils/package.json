@@ -1,0 +1,16 @@
+{
+    "name": "meta3d-pipeline-editor-webgl1-view1-utils",
+    "version": "0.15.0",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "keywords": [],
+    "dependencies": {
+        "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-type": "^0.15.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

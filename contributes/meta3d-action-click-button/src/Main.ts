@@ -5,6 +5,7 @@ import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { getState, setState } from "./Utils"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-click-button-protocol"
+import { setElementStateField } from "meta3d-ui-utils/src/ElemenetStateUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -12,31 +13,14 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
         handler: (meta3dState, uiData) => {
             console.log("click button")
 
-            let { updateElementState, getCurrentElementState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+            meta3dState = setElementStateField([
+                (elementState: any) => {
+                    let { x } = getState(elementState)
 
-            let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
-
-            console.log(
-                getCurrentElementState(uiState)
-            )
-
-            uiState = updateElementState(uiState,
-                (elemenetState) => {
-                    // return {
-                    //     ...elemenetState,
-                    //     x: elemenetState.x + 10
-                    // }
-
-                    let { x } = getState(elemenetState)
-
-                    return setState(elemenetState, {
-                        x: x + 10
-                    })
-                }
-            )
-
-
-            meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
+                    return { x: x + 10 }
+                },
+                setState
+            ], meta3dState, api)
 
 
             return new Promise((resolve) => {

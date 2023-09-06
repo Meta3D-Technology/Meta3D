@@ -109,8 +109,16 @@ scene view has default scene gameObjects
 
 TODO add game view
 
+TODO add run, stop action
+
+TODO update use
+
 TODO finish TODO
 
+TODO commit
+
+
+* TODO pass run test
 
 
 * TODO refactor: extract pipeline-editor-view-utils
@@ -123,6 +131,12 @@ TODO finish TODO
 * TODO handle event
 
 TODO default scene's camera add arcball
+
+run action:
+bind arcball event
+
+stop action:
+unbind arcball event
 
 
 ** TODO handle scene view, game view event
@@ -140,7 +154,7 @@ dependent on scene view event, game view event(has independent state)?
 
 
 
-* TODO run test: add scene view, game view based to show a cube + arcball camera + grid
+* TODO run test: add scene view, game view based to show a cube + arcball camera
 
 
 
@@ -170,5 +184,8 @@ dependent on scene view event, game view event(has independent state)?
 
 * TODO fix: game view handle no camera
 
+
+
+* TODO scene view: add grid
 
 * TODO scene view: camera, direction light show image

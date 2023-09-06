@@ -4,8 +4,8 @@ import { service } from "meta3d-editor-engine-render-protocol/src/service/Servic
 import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/ConfigType";
-import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol/src/StateType";
+import { config as view1Config } from "meta3d-pipeline-editor-webgl1-view1-three-protocol/src/ConfigType";
+import { state as view1State } from "meta3d-pipeline-editor-webgl1-view1-three-protocol/src/StateType";
 import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
 import { prepare as prepareUtils } from "meta3d-editor-engine-webgl1-three-render-utils/src/Main"
 
@@ -30,7 +30,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let { registerPipeline } = engineCoreService
 
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-scene-view1-three-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<view1Config, view1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-view1-three-protocol"),
 				null,
 				[
 					{

@@ -3,7 +3,7 @@ import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils";
 import { getDragOverLocation, getPitch, getYaw, reset } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";
-import { getViewRect } from "meta3d-view-utils/src/ViewRect";
+import { getViewRect } from "meta3d-view-utils/src/SceneViewRect";
 import { pointData } from "meta3d-event-protocol/src/service/EventType.gen";
 import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"

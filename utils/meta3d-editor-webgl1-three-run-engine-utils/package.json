@@ -1,0 +1,15 @@
+{
+    "name": "meta3d-editor-webgl1-three-run-engine-utils",
+    "version": "0.15.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+        "meta3d-editor-run-engine-protocol": "^0.15.0",
+        "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-type": "^0.15.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

@@ -1,6 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { getState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
+import { restore } from "meta3d-pipeline-editor-webgl1-view2-utils/src/RestoreJobUtils"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
@@ -14,29 +15,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         console.log("restore job");
 
-        let { getContext } = uiService
-
-        let gl = getContext(meta3dState)
-
-
-        webgl1Service.bindFramebuffer(webgl1Service.getFrameBufferType(gl), null, gl);
-
-        webgl1Service.disable(
-            webgl1Service.getScissorTest(gl),
-            gl
-        )
-        /*! no need to restore viewport
-
-        gl.viewport(...);
-        */
-
-
-        webgl1Service.disable(
-            webgl1Service.getDepthTest(gl),
-            gl
-        )
-
-
-        return meta3dState
+        return restore(meta3dState, [uiService, webgl1Service])
     })
 }
