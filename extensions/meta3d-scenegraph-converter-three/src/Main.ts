@@ -20,9 +20,19 @@ let _getAllEventNames = () => {
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return getExtensionServiceUtils(
-        (meta3dState, isDebug) => {
-            TODO finish
-        },
+        // (meta3dState, isDebug) => {
+        //     let { gameObject, basicCameraView } = api.getExtensionService<engineSceneService>(meta3dState, "meta3d-engine-scene-gameview-protocol")
+
+        //     let cameraView = getExn(basicCameraView.getActiveCameraView(meta3dState, isDebug))
+        //     let cameraProjection = gameObject.getPerspectiveCameraProjection(
+        //         meta3dState,
+        //         getExn(
+        //             basicCameraView.getGameObjects(meta3dState, cameraView)[0]
+        //         )
+        //     )
+
+        //     return [cameraView, cameraProjection]
+        // },
         api,
         _getAllEventNames(),
         {

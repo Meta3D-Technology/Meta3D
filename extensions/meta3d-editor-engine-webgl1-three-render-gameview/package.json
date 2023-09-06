@@ -20,7 +20,8 @@
         "meta3d-engine-core-gameview-protocol": "^0.15.0",
         "meta3d-pipeline-camera-protocol": "^0.15.0",
         "meta3d-pipeline-dispose-protocol": "^0.15.0",
-        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-webgl1-view1-three-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-webgl1-game-view1-protocol": "^0.15.0",
         "meta3d-pipeline-root-protocol": "^0.15.0",
         "meta3d-pipeline-webgl1-three-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"

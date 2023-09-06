@@ -1045,7 +1045,7 @@ let _setVariables = (
 }
 
 export let getExtensionServiceUtils = (
-    getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
+    // getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
     api: api,
     allEventNames,
     {
@@ -1128,24 +1128,15 @@ export let getExtensionServiceUtils = (
             Quaternion = threeAPIService.Quaternion
 
 
-            // let engineCoreState = getEngineCoreState(meta3dState)
-            // let engineCoreService = getEngineCoreService(meta3dState)
+            let { gameObject, basicCameraView } = getEngineSceneService(meta3dState)
 
-            // let { gameObject, basicCameraView } = getEngineSceneService(meta3dState)
-
-            // let cameraView = getExn(basicCameraView.getActiveCameraView(meta3dState, isDebug))
-            // let cameraProjection = gameObject.getPerspectiveCameraProjection(
-            //     meta3dState,
-            //     getExn(
-            //         basicCameraView.getGameObjects(meta3dState, cameraView)[0]
-            //     )
-            // )
-            // // let cameraView = _getCameraView(engineCoreState, engineCoreService, isDebug)
-            // // let usedBasicCameraViewContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
-            // // let gameObject = engineCoreService.getComponentGameObjects(usedBasicCameraViewContribute, cameraView)[0]
-            // // let cameraProjection = getExn(_getCameraProjection(engineCoreState, engineCoreService, gameObject))
-
-            let [cameraView, cameraProjection] = getCameraComponentsFunc(meta3dState, isDebug)
+            let cameraView = getExn(basicCameraView.getActiveCameraView(meta3dState, isDebug))
+            let cameraProjection = gameObject.getPerspectiveCameraProjection(
+                meta3dState,
+                getExn(
+                    basicCameraView.getGameObjects(meta3dState, cameraView)[0]
+                )
+            )
 
             return {
                 perspectiveCamera: new PerspectiveCamera(

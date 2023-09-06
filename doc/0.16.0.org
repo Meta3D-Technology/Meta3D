@@ -80,7 +80,7 @@ contain scene view and game view
 
 
 
-** TODO render scene view and game view
+** DONE render scene view and game view
 
 
 share gl, engine state
