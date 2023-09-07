@@ -120,6 +120,51 @@ TODO commit
 
 * TODO pass run test
 
+TODO update add cube
+
+
+
+TODO run test: default
+
+  # game view not show
+
+  # scene view active error
+  no arcball event
+
+    # split pipeline three, camera, transform
+
+
+TODO commit
+
+
+TODO run test: add cube
+
+  game view not add
+    fix meta3dState?
+
+TODO commit
+
+
+TODO run test: run, stop
+
+
+TODO commit
+
+
+TODO finish TODOs
+
+
+
+TODO need publish:
+# meta3d-scenegraph-converter-three, gameview
+# meta3d-engine-basic, gameview
+# meta3d-engine-scene, gameview
+use-editor
+
+
+
+TODO commit
+
 
 * TODO fix: meta3dState
 
@@ -131,7 +176,16 @@ TODO run action: loop should get/set meta3dState?
 * TODO refactor: extract pipeline-editor-view-utils
 
 
-* TODO update import/export scene, publish
+* TODO update import/export scene, publish, dispose
+
+
+** TODO how to handle publish and run? （发布时需要判断是否在run）
+////责任链 or event queue or query element store?
+
+
+- query element store
+
+
 
 
 
@@ -181,18 +235,11 @@ dependent on scene view event, game view event(has independent state)?
 
 
 
-* TODO how to handle publish and run? （发布时需要判断是否在run）
-////责任链 or event queue or query element store?
 
 
-- query element store
+# * TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
 
-
-
-
-* TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
-
-use generic
+# use generic
 
 
 
@@ -209,6 +256,10 @@ use generic
 * TODO add redo/undo
 
 ** TODO engine add redo/undo
+
+three engine when restore to state:
+- reset renderer
+- init?
 
 ** TODO editor add redo/undo
 not add redo/undo action/ui control!

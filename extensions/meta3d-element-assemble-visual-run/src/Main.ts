@@ -14,6 +14,9 @@ import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContribute
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+
+let _isGameViewLooped: boolean = false
 
 let _prepareUI = (meta3dState: meta3dState, api: api) => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -91,19 +94,26 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 			return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
-
-
-
 				let runEngineService = api.getExtensionService<runEngineService>(
 					meta3dState,
 					"meta3d-editor-run-engine-protocol"
+				)
+				let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+					meta3dState,
+					"meta3d-editor-run-engine-gameview-protocol"
 				)
 
 				return runEngineService.prepareAndInitEngine(meta3dState,
 					uiService.getContext(meta3dState),
 					canvas,
 					isDebug
-				)
+				).then(meta3dState => {
+					return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+						uiService.getContext(meta3dState),
+						canvas,
+						isDebug
+					)
+				})
 			})
 		},
 		update: (meta3dState: meta3dState, { clearColor, time, skinName }) => {
@@ -128,7 +138,22 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					"meta3d-editor-run-engine-protocol"
 				)
 
-				return runEngineService.loopEngine(meta3dState)
+				return runEngineService.loopEngine(meta3dState).then(meta3dState => {
+					if (!_isGameViewLooped) {
+						_isGameViewLooped = true
+
+						let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+							meta3dState,
+							"meta3d-editor-run-engine-gameview-protocol"
+						)
+
+						return runEngineGameViewService.loopEngine(meta3dState)
+					}
+
+					return meta3dState
+				})
+
+
 			})
 		}
 	}

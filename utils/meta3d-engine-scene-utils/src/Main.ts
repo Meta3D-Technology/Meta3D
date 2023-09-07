@@ -132,7 +132,8 @@ export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string)
 
 			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<cameraPipelineConfig, cameraPipelineState>>(meta3dState, "meta3d-pipeline-camera-protocol"),
 				{
-					isDebug
+					isDebug,
+					engineCoreProtocolName
 				},
 				[
 					{
@@ -144,7 +145,9 @@ export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string)
 			)
 
 			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<transformPipelineConfig, transformPipelineState>>(meta3dState, "meta3d-pipeline-transform-protocol"),
-				null,
+				{
+					engineCoreProtocolName
+				},
 				[
 					{
 						pipelineName: pipelineCameraPipeline.Update,

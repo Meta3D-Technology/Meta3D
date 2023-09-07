@@ -1,1 +1,3 @@
-export type config = null
+export type config = {
+	engineCoreProtocolName: string
+}

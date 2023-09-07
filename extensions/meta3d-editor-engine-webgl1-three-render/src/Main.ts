@@ -16,7 +16,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		prepare: (meta3dState: meta3dState, isDebug, gl, canvas) => {
 			let engineCoreProtocolName = "meta3d-engine-core-protocol"
 
-			meta3dState = prepareUtils(meta3dState, api, isDebug, gl, canvas, engineCoreProtocolName)
+			meta3dState = prepareUtils(meta3dState, api, isDebug, gl, canvas, [
+				engineCoreProtocolName,
+				"meta3d-scenegraph-converter-three-protocol"
+			])
 
 
 			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)

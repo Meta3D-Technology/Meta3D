@@ -11,7 +11,7 @@ import { config as disposeConfig } from "meta3d-pipeline-dispose-protocol/src/Co
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 
-export let prepare = (meta3dState: meta3dState, api:api, isDebug: boolean, gl: WebGLRenderingContext, canvas: HTMLCanvasElement, engineCoreProtocolName: string) => {
+export let prepare = (meta3dState: meta3dState, api: api, isDebug: boolean, gl: WebGLRenderingContext, canvas: HTMLCanvasElement, [engineCoreProtocolName, scenegraphConverterThreeProtocolName]: [string, string]) => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
 
 	let engineCoreService = api.getExtensionService<engineCoreService>(
@@ -24,7 +24,8 @@ export let prepare = (meta3dState: meta3dState, api:api, isDebug: boolean, gl: W
 
 	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-protocol"),
 		{
-			canvas
+			canvas,
+			scenegraphConverterThreeProtocolName
 		},
 		[
 			{

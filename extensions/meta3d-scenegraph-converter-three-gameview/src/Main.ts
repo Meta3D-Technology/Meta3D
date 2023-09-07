@@ -35,14 +35,6 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
         // },
         api,
         _getAllEventNames(),
-        {
-            engineSceneProtocolName: "meta3d-engine-scene-gameview-protocol",
-            globalKeyNameForMeta3dState: "meta3dState_for_scene_graph_converter_gameview",
-            globalKeyNameForAPI: "meta3dState_for_scene_graph_converter_gameview",
-            globalKeyNameForMeshInstanceMap: "meshInstanceMap_for_scene_graph_converter_gameview",
-            globalKeyNameForBasicMaterialInstanceMap: "basicMaterialInstanceMap_for_scene_graph_converter_gameview",
-            globalKeyNameForGeometryInstanceMap: "geometryInstanceMap_for_scene_graph_converter_gameview"
-        },
         "meta3d-engine-whole-gameview-protocol"
     )
 }
@@ -52,5 +44,14 @@ export let createExtensionState: createExtensionStateMeta3D<state> = () => {
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
-    return getExtensionLifeUtils(api)
+    return getExtensionLifeUtils(api,
+        {
+            engineSceneProtocolName: "meta3d-engine-scene-gameview-protocol",
+            globalKeyNameForMeta3dState: "meta3dState_for_scene_graph_converter_gameview",
+            globalKeyNameForAPI: "api_for_scene_graph_converter_gameview",
+            globalKeyNameForMeshInstanceMap: "meshInstanceMap_for_scene_graph_converter_gameview",
+            globalKeyNameForBasicMaterialInstanceMap: "basicMaterialInstanceMap_for_scene_graph_converter_gameview",
+            globalKeyNameForGeometryInstanceMap: "geometryInstanceMap_for_scene_graph_converter_gameview"
+        }
+    )
 }

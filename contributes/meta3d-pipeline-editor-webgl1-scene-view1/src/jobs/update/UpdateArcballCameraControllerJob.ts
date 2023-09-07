@@ -92,7 +92,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
 
         meta3dState = setTheta(meta3dState, arcballCameraController, getExn(getTheta(meta3dState, arcballCameraController)) - currentPitch)
-        setPhi(meta3dState, arcballCameraController, getExn(getPhi(meta3dState, arcballCameraController)) - currentYaw)
+        meta3dState = setPhi(meta3dState, arcballCameraController, getExn(getPhi(meta3dState, arcballCameraController)) - currentYaw)
 
         return setStatesFunc<states>(
             meta3dState,

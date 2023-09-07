@@ -1,3 +1,4 @@
 export type config = {
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    scenegraphConverterThreeProtocolName: string
 }

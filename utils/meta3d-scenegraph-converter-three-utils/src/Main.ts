@@ -1048,17 +1048,10 @@ export let getExtensionServiceUtils = (
     // getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
     api: api,
     allEventNames,
-    {
-        engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForBasicMaterialInstanceMap, globalKeyNameForGeometryInstanceMap
-    },
     engineWholeProtocolName
 ): service => {
     return {
         init: (meta3dState) => {
-            _setVariables(
-                engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForBasicMaterialInstanceMap, globalKeyNameForGeometryInstanceMap
-            )
-
             let eventProtocolName = "meta3d-event-protocol"
 
             let eventService = api.getExtensionService<eventService>(
@@ -1166,9 +1159,17 @@ export let createExtensionStateUtils = (
     }
 }
 
-export let getExtensionLifeUtils = (api: api): extensionLife<service> => {
+export let getExtensionLifeUtils = (api: api,
+    {
+        engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForBasicMaterialInstanceMap, globalKeyNameForGeometryInstanceMap
+    }: any
+): extensionLife<service> => {
     return {
         onRegister: (meta3dState, service) => {
+            _setVariables(
+                engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForBasicMaterialInstanceMap, globalKeyNameForGeometryInstanceMap
+            )
+
             setAPI(api)
 
             createEmptyMeshInstanceMap()

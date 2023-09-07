@@ -4,13 +4,13 @@ import { states } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(meta3dState)
-	let { mostService, converterService } = getState(states)
+	let { mostService, converterService, scenegraphConverterThreeProtocolName } = getState(states)
 
 	return mostService.callFunc(() => {
 		console.log("convertSceneGraph job")
 
 		return api.setExtensionState(meta3dState,
-			"meta3d-scenegraph-converter-three-protocol",
+			scenegraphConverterThreeProtocolName,
 			converterService.convert(meta3dState)
 		)
 	})

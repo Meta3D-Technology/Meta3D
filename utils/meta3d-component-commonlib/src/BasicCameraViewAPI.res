@@ -41,7 +41,7 @@ let _isActive = (usedComponentContribute, {getComponentData}, cameraView): bool 
   ->Obj.magic
 }
 
-let _checkAtMostTwo = (activeCameraViews, isDebug) => {
+let _checkAtMostOne = (activeCameraViews, isDebug) => {
   activeCameraViews->Meta3dCommonlib.Contract.ensureCheck(r => {
     open Meta3dCommonlib.Contract
     open Operators
@@ -63,7 +63,7 @@ let getActiveCameraView = (
 ) => {
   getAllComponents(usedComponentContribute)
   ->Meta3dCommonlib.ArraySt.filter(_isActive(usedComponentContribute, engineCoreService))
-  ->_checkAtMostTwo(isDebug)
+  ->_checkAtMostOne(isDebug)
   ->Meta3dCommonlib.ArraySt.getFirst
   ->Meta3dCommonlib.OptionSt.map(VOTypeConvert.componentToBasicCameraView)
   ->Meta3dCommonlib.OptionSt.toNullable

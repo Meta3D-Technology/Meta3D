@@ -78,7 +78,8 @@ export type state = {
     threeAPIService: threeAPIService,
 
     renderer: nullable<WebGLRenderer>,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    scenegraphConverterThreeProtocolName: string
 }
 
 export type states = {

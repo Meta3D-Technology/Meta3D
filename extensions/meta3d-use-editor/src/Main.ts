@@ -129,6 +129,9 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 				canvas,
 				isDebug
 			)
+			// TODO fix
+		}).then(meta3dState => {
+			return runEngineGameViewService.loopEngine(meta3dState)
 		})
 	})
 }
@@ -182,16 +185,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	return {
 		run: (meta3dState: meta3dState, configData) => {
 			_init(meta3dState, api, configData).then((meta3dState: meta3dState) => {
-				let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
-					meta3dState,
-					"meta3d-editor-run-engine-gameview-protocol"
-				)
-
-				runEngineGameViewService.loopEngine(meta3dState).then(meta3dState => {
-					_loop(api, meta3dState,
-						0,
-						configData)
-				})
+				_loop(api, meta3dState,
+					0,
+					configData)
 			})
 		}
 	}
