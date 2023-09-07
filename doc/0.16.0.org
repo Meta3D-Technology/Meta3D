@@ -129,7 +129,7 @@ TODO run test: default
   # game view not show
 
   # scene view active error
-  no arcball event
+  # no arcball event
 
     # split pipeline three, camera, transform
 
@@ -160,6 +160,7 @@ TODO need publish:
 # meta3d-engine-basic, gameview
 # meta3d-engine-scene, gameview
 use-editor
+pipeline-camera
 
 
 

@@ -49,7 +49,7 @@ let _updateAllDirtyArcballCameraControllers = (
 			let theta = getExn(getComponentData<arcballCameraController, theta>(contribute, arcballCameraController, arcballCameraControllerDataName.theta))
 			let target = getExn(getComponentData<arcballCameraController, target>(contribute, arcballCameraController, arcballCameraControllerDataName.target))
 			let transform = getExn(
-				getExn(getComponent<transform>(contribute, getExn(getComponentGameObjects<arcballCameraController>(contribute, arcballCameraController)[0])))
+				getExn(getComponent<transform>(unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), getExn(getComponentGameObjects<arcballCameraController>(contribute, arcballCameraController)[0])))
 			)
 
 			engineCoreState = setUsedComponentContribute(engineCoreState, contribute, arcballCameraControllerComponentName)
