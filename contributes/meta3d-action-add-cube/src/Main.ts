@@ -4,6 +4,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-add-cube-protocol"
@@ -77,9 +78,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
             meta3dState = _createCubeGameObject(meta3dState, engineWholeGameViewService)
 
-            return new Promise((resolve) => {
-                resolve(meta3dState)
-            })
+
+            let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol")
+
+            return runEngineGameViewService.loopEngineWhenStop(meta3dState)
         },
         createState: () => null
     }

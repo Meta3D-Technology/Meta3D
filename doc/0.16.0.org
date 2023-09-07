@@ -147,6 +147,8 @@ TODO commit
 
 TODO run test: run, stop
 
+    loop gameview when stop
+
 
 TODO commit
 
@@ -161,6 +163,8 @@ TODO need publish:
 # meta3d-engine-scene, gameview
 use-editor
 pipeline-camera
+meta3d-editor-webgl1-three-run-engine-gameview+protocol
+add-cube
 
 
 
@@ -238,9 +242,9 @@ dependent on scene view event, game view event(has independent state)?
 
 
 
-# * TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
+* TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
 
-# use generic
+use generic
 
 
 

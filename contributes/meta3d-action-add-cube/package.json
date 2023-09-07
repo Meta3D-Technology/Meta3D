@@ -20,6 +20,7 @@
         "meta3d-action-add-cube-protocol": "^0.15.0",
         "meta3d-engine-whole-protocol": "^0.15.0",
         "meta3d-engine-whole-gameview-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {
