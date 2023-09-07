@@ -1,7 +1,7 @@
 
 
-import * as MutableHashMap$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function createState(param) {
   return {

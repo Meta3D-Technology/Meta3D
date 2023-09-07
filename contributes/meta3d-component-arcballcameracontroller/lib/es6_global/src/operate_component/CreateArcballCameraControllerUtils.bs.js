@@ -1,6 +1,6 @@
 
 
-import * as IndexComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/IndexComponentUtils.bs.js";
+import * as IndexComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/IndexComponentUtils.bs.js";
 import * as DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller from "../utils/DirtyArcballCameraControllerUtils.bs.js";
 import * as OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller from "../utils/OperateArcballCameraControllerUtils.bs.js";
 

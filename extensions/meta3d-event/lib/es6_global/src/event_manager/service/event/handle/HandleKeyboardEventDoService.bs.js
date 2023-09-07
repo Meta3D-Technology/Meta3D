@@ -1,9 +1,9 @@
 
 
-import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as MutableHashMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as Caml_option from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
 
 function _getKeyCode(keyboardDomEvent) {
   return keyboardDomEvent.keyCode;

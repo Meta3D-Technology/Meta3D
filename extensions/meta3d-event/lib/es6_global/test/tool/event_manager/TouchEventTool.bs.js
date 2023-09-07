@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Curry from "./../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "./../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as BodyTool$Meta3dEvent from "./BodyTool.bs.js";
 import * as EventTool$Meta3dEvent from "./EventTool.bs.js";
 import * as BodyDoService$Meta3dEvent from "../../../src/event_manager/service/dom/BodyDoService.bs.js";

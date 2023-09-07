@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
-import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
+// import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 

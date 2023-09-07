@@ -1,6 +1,6 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../rescript/lib/es6/curry.js";
 
 var _invokeNotMethod = (function(jsObj, methodName, paramsArr) {
     return jsObj.not[methodName].apply(null, paramsArr)

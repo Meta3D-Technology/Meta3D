@@ -1,12 +1,12 @@
 
 
-import * as Matrix3$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix3.bs.js";
-import * as Matrix4$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
-import * as Vector3$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
-import * as Quaternion$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
+import * as Matrix3$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix3.bs.js";
+import * as Matrix4$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
+import * as Vector3$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
+import * as Quaternion$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
 import * as ConfigUtils$Meta3dComponentTransform from "../config/ConfigUtils.bs.js";
 import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
-import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
+import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
 import * as OperateTypeArrayTransformUtils$Meta3dComponentTransform from "../utils/OperateTypeArrayTransformUtils.bs.js";
 
 function getLocalPosition(localPositions, transform) {

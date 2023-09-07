@@ -1,8 +1,8 @@
 import { getExn, getExnFromStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils";
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { api } from "meta3d-type";
+import { state as meta3dState, api } from "meta3d-type";
 
-export let useFBO = (meta3dState, api: api, [uiService, webgl1Service, getViewRectFunc], fbo) => {
+export let useFBO = (meta3dState: meta3dState, api: api, [uiService, webgl1Service, getViewRectFunc]: [any, any, any], fbo: any) => {
     let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
     let viewRect = getViewRectFunc(uiService, uiState)
 

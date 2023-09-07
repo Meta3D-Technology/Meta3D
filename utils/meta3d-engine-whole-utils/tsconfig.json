@@ -18,9 +18,9 @@
 		"types": [
 			"node"
 		],
-		// "strict": true
+		"strict": true
 	},
 	"include": [
 		"./src"
-, "mine/Transform.d.ts", "mine/ArcballCameraController.d.ts"	]
+	]
 }

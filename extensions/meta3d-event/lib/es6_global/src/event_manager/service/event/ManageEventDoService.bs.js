@@ -1,6 +1,6 @@
 
 
-import * as Caml_option from "../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "./../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as BindCustomEventDoService$Meta3dEvent from "./bind/BindCustomEventDoService.bs.js";
 import * as BindMouseDomEventDoService$Meta3dEvent from "./bind/BindMouseDomEventDoService.bs.js";
 import * as BindTouchDomEventDoService$Meta3dEvent from "./bind/BindTouchDomEventDoService.bs.js";

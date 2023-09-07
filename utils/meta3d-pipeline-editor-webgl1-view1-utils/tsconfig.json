@@ -16,7 +16,7 @@
 			"ESNext",
 		],
 		"types": [],
-		// "strict": true
+		"strict": true
 	},
 	"include": [
 		"./src"

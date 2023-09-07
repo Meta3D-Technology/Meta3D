@@ -1,11 +1,9 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { getState, setState } from "./Utils"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-click-button-protocol"
-import { setElementStateField } from "meta3d-ui-utils/src/ElemenetStateUtils"
+import { setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {

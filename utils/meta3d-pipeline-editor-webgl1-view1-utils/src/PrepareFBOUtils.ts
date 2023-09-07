@@ -1,7 +1,7 @@
 import { service as webgl1Service, webgl1Context, fbo, texture } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { getExn, getExnFromStrictNullable, isStrictNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { api } from "meta3d-type"
+import { state as meta3dState, api } from "meta3d-type";
 
 let _getLevel = () => 0
 
@@ -48,7 +48,7 @@ let _createAndInitFBOData = (webgl1Service: webgl1Service, gl: webgl1Context, vi
 	return [fbo, texture]
 }
 
-export let setFBOTexture = (meta3dState, api: api, [uiService, webgl1Service, getViewRectFunc], textureID) => {
+export let setFBOTexture = (meta3dState: meta3dState, api: api, [uiService, webgl1Service, getViewRectFunc]: any, textureID: string) => {
 	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
 	let viewRect = getExn(getViewRectFunc(uiService, uiState))

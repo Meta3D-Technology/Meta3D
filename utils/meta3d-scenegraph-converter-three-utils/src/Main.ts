@@ -44,7 +44,7 @@ import { localRotation } from "meta3d-component-transform-protocol";
 import { scene } from "meta3d-engine-scene-protocol/src/service/ServiceType";
 import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
 
-let BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion
+let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any, Matrix4: any, NoBlending: any, Sphere: any, Vector3: any, Quaternion: any
 
 
 let _globalKeyNameForMeshInstanceMap: string
@@ -818,7 +818,7 @@ class Material extends EventDispatcher {
         return false
     }
 
-    public get precision(): boolean {
+    public get precision(): nullable<boolean> {
         return null
     }
 

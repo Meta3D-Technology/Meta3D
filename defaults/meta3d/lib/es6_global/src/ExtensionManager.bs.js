@@ -1,14 +1,14 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Js_string from "../../../../../node_modules/rescript/lib/es6/js_string.js";
-import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Curry from "./../../../../rescript/lib/es6/curry.js";
+import * as Js_array from "./../../../../rescript/lib/es6/js_array.js";
+import * as Js_string from "./../../../../rescript/lib/es6/js_string.js";
+import * as Log$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Tuple2$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionServiceExn(state, protocolName) {
   return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, protocolName);

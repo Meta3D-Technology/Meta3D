@@ -238,7 +238,7 @@ function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProto
   if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
     return ;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\r\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
   }
 }
 

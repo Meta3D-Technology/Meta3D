@@ -1,10 +1,10 @@
 
 
-import * as Caml_array from "../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as ListSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Caml_array from "./../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as ListSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateGameObjectUtils$Meta3dGameobjectDataoriented from "./CreateGameObjectUtils.bs.js";
 import * as CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented from "./CloneGameObjectComponentUtils.bs.js";
 

@@ -1,6 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
-import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+// import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
+// import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { service as engineBasicService } from "meta3d-engine-basic-protocol/src/service/ServiceType"
 // import { state as engineBasicState } from "meta3d-engine-basic-protocol/src/state/StateType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
@@ -21,10 +21,10 @@ import { state as converterState } from "meta3d-scenegraph-converter-three-proto
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
 import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
 import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
-import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
-import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
-import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
+// import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+// import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+// import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
+// import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
 
 
 
@@ -91,9 +91,9 @@ import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } 
 // 	return api.setExtensionState(meta3dState, engineCoreProtocolName, engineCoreState)
 // }
 
-let _isActuallyDisposePBRMaterial = (api: api, meta3dState,
-	engineCoreProtocolName,
-	material, gameObjects): boolean => {
+let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
+	engineCoreProtocolName: string,
+	material: number, gameObjects: Array<number>): boolean => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
 	let engineCoreService = api.getExtensionService<engineCoreService>(
 		meta3dState,
@@ -108,9 +108,9 @@ let _isActuallyDisposePBRMaterial = (api: api, meta3dState,
 	)
 }
 
-let _isActuallyDisposeGeometry = (api: api, meta3dState,
-	engineCoreProtocolName,
-	geometry, gameObjects): boolean => {
+let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
+	engineCoreProtocolName: string,
+	geometry: number, gameObjects: Array<number>): boolean => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
 	let engineCoreService = api.getExtensionService<engineCoreService>(
 		meta3dState,
@@ -132,7 +132,7 @@ export let buildNewEngineWholeExtensionService = (api: api,
 		engineCoreProtocolName,
 		// editorEngineRenderProtocolName,
 		scenegraphConverterProtocolName
-	}
+	}: any
 
 ) => {
 	let engineWholeExtensionService = getEngineWholeExtensionService(api, [
@@ -149,7 +149,7 @@ export let buildNewEngineWholeExtensionService = (api: api,
 			...engineWholeExtensionService.scene,
 			gameObject: {
 				...engineWholeExtensionService.scene.gameObject,
-				disposeGameObjects: (meta3dState, gameObjects) => {
+				disposeGameObjects: (meta3dState: meta3dState, gameObjects: Array<number>) => {
 					let eventProtocolName = "meta3d-event-protocol"
 					let eventService = api.getExtensionService<eventService>(
 						meta3dState,
@@ -162,12 +162,12 @@ export let buildNewEngineWholeExtensionService = (api: api,
 					)
 
 
-					meta3dState = gameObjects.reduce((meta3dState, gameObject) => {
+					meta3dState = gameObjects.reduce((meta3dState: meta3dState, gameObject: number) => {
 						meta3dState =
 							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
 								eventService.createCustomEvent(
 									converterState.event.disposeGameObjectEventName,
-									gameObject
+									gameObject as any
 								)
 							)
 
@@ -282,8 +282,8 @@ export let prepare = (meta3dState: meta3dState, api: api,
 		engineBasicProtocolName,
 		engineSceneProtocolName,
 		editorEngineRenderProtocolName,
-	},
-	isDebug, ecsConfig, gl, canvas) => {
+	}: any,
+	isDebug: boolean, ecsConfig: any, gl: WebGLRenderingContext, canvas: HTMLCanvasElement) => {
 	// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
 	let engineBasicService = api.getExtensionService<engineBasicService>(

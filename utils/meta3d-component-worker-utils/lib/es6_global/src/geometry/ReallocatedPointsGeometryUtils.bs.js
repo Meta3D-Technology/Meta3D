@@ -1,8 +1,8 @@
 
 
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Contract$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
-import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as Log$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Contract$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
 
 function getInfo(infoIndex, isDebug, infos) {
   return Contract$Meta3dCommonlib.ensureCheck([

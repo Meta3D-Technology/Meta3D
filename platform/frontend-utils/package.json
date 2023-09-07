@@ -15,7 +15,7 @@
         "@babel/preset-env": "^7.10.4",
         "@rescript/react": "0.10.3",
         "babel-jest": "^26.1.0",
-        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
         "gentype": "^3.48.0",

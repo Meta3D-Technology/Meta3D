@@ -10,8 +10,8 @@
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "yarn buildAll:ci && NODE_ENV=development npm run webpack && gulp publish_local_env",
-        "meta3d:publish_pro": "yarn buildAll:ci && NODE_ENV=production npm run webpack && gulp publish_production_env"
+        "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {
@@ -22,7 +22,7 @@
         "rescript": "^10.0.1"
     },
     "devDependencies": {
-        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
         "meta3d-tool-publish": "^0.15.0",

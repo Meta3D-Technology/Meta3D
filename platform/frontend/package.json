@@ -6,15 +6,15 @@
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
         "buildAll:pro": "gulp changeToProductionEnv && rescript clean && rescript build && gulp restoreEnv",
-        "webpack_pro": "yarn buildAll:pro && NODE_ENV=production webpack --config webpack.config.js",
-        "webpack:dev-server": "NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
+        "webpack_pro": "yarn buildAll:pro && cross-env NODE_ENV=production webpack --config webpack.config.js",
+        "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",
         "@babel/preset-env": "^7.10.4",
         "@rescript/react": "0.10.3",
         "babel-jest": "^26.1.0",
-        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
         "gentype": "^3.48.0",

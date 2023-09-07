@@ -1,7 +1,7 @@
 
 
-import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as BatchAddComponentUtils$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/BatchAddComponentUtils.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as BatchAddComponentUtils$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/BatchAddComponentUtils.bs.js";
 
 function _cloneComponent(componentState, param, isDebug, countRange, cloneConfig, param$1) {
   var clonedGameObjects = param$1[1];

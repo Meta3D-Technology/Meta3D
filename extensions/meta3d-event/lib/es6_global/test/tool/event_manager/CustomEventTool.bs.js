@@ -1,7 +1,7 @@
 
 
-import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Caml_option from "./../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Js_null_undefined from "./../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
 import * as ManageEventAPI$Meta3dEvent from "../api/ManageEventAPI.bs.js";
 import * as NameEventDoService$Meta3dEvent from "../../../src/event_manager/service/event/NameEventDoService.bs.js";
 

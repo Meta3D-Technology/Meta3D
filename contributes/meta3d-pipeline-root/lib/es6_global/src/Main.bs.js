@@ -3,7 +3,7 @@
 import * as InitJob$Meta3dPipelineRoot from "./jobs/InitJob.bs.js";
 import * as RenderJob$Meta3dPipelineRoot from "./jobs/RenderJob.bs.js";
 import * as UpdateJob$Meta3dPipelineRoot from "./jobs/UpdateJob.bs.js";
-import * as StateType$Meta3dPipelineRootProtocol from "../../../../../node_modules/meta3d-pipeline-root-protocol/lib/es6_global/src/StateType.bs.js";
+import * as StateType$Meta3dPipelineRootProtocol from "./../../../../../node_modules/meta3d-pipeline-root-protocol/lib/es6_global/src/StateType.bs.js";
 
 function _getExecFunc(_pipelineName, jobName) {
   if (jobName === StateType$Meta3dPipelineRootProtocol.job.Init) {

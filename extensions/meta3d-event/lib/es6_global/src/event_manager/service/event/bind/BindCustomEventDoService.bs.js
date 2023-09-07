@@ -1,8 +1,8 @@
 
 
-import * as Js_array from "../../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as MutableHashMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as Js_array from "./../../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
 
 function _addEventDataByPriority(eventData, arr) {
   var __x = ArraySt$Meta3dCommonlib.push(arr, eventData);

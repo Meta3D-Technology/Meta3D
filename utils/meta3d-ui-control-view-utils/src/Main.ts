@@ -1,4 +1,4 @@
-import { api} from "meta3d-type"
+import { state as meta3dState, api } from "meta3d-type"
 import { texture, service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state } from "meta3d-ui-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -23,14 +23,14 @@ let _getFBORect = (rect: rect, windowBarHeight: number) => {
     }
 }
 
-export let func = (meta3dState,
+export let func = (meta3dState: meta3dState,
     api: api,
     {
         rect,
         label,
-    },
-    [uiControlName, textureID]
-) => {
+    }: any,
+    [uiControlName, textureID]: any
+): Promise<[meta3dState, null]> => {
     let { beginWindow, endWindow, setNextWindowRect, getFBOTexture, addFBOTexture,
         getWindowBarHeight,
         setUIControlState } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")

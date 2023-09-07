@@ -203,3 +203,15 @@ use generic
 # * TODO scene view: add grid
 
 # * TODO scene view: camera, direction light show image
+
+
+
+* TODO add redo/undo
+
+** TODO engine add redo/undo
+
+** TODO editor add redo/undo
+not add redo/undo action/ui control!
+
+
+** TODO fix: when stop, should restore to the state before run

@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "./../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentPerspectivecameraprojection from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/AddPerspectiveCameraProjectionUtils.bs.js";

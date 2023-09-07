@@ -1,4 +1,6 @@
-export let restore = (meta3dState, [uiService, webgl1Service]) => {
+import { state as meta3dState } from "meta3d-type";
+
+export let restore = (meta3dState: meta3dState, [uiService, webgl1Service]: any) => {
     let { getContext } = uiService
 
     let gl = getContext(meta3dState)

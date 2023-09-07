@@ -1,10 +1,10 @@
 
 
-import * as Caml_option from "./../../../../../rescript/lib/es6/caml_option.js";
-import * as Result$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as Exception$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as Caml_option from "./../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Result$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as PipelineManager$Meta3dEngineCore from "./pipeline_manager/PipelineManager.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./scene_graph_manager/component/ComponentManager.bs.js";
 import * as GameObjectManager$Meta3dEngineCore from "./scene_graph_manager/GameObjectManager.bs.js";

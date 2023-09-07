@@ -1,4 +1,4 @@
-import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType"
+import { state, states, pipelineName } from "meta3d-pipeline-editor-webgl1-game-view2-protocol/src/StateType"
 
 export let getState = (states: states): state  => {
     return states[pipelineName]

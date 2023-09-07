@@ -1,6 +1,6 @@
 
 
-import * as ArrayBufferUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayBufferUtils.bs.js";
+import * as ArrayBufferUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayBufferUtils.bs.js";
 
 function getColorsSize(param) {
   return 3;
