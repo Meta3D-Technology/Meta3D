@@ -184,6 +184,9 @@ module Method = {
     j`显示名：${node.displayName->Meta3dCommonlib.OptionSt.getWithDefault(
         "",
       )}；实现名：${node.name}；实现版本：${node.version}
+
+
+
     `
   }
 
@@ -195,11 +198,15 @@ module Method = {
   let _checkDuplicateNode = (nodes: list<nodeData>) => {
     open Meta3dCommonlib
 
-    let arr = nodes
-    // ->ListSt.filter(({protocol}) => {
-    //   !ContributeTypeUtils.isAction(protocol.name)
-    // })
-    ->ListSt.toArray
+    let arr =
+      nodes
+      ->ListSt.filter(({nodeType}) => {
+        switch nodeType {
+        | PackageStoredInApp => false
+        | _ => true
+        }
+      })
+      ->ListSt.toArray
 
     // let resultArr = []
     let map = MutableHashMap.createEmpty()
@@ -216,6 +223,9 @@ module Method = {
       | Some(oldItem) =>
         let title =
           j`协议名：${key}有重复的实现，它们分别是：
+
+
+
     ` ++
           _buildNodeErrorInfo(item) ++
           _buildNodeErrorInfo(oldItem)

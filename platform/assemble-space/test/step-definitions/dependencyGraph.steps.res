@@ -213,7 +213,52 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"ped1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.0"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pe1"},{"text":"实现版本","value":"0.5.1"},{"text":"所属包名","value":"p1"}]},"nodeType":2,"isEmpty":false},{"id":"protocol2","value":{"title":"cd1","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol3","value":{"title":"pcd1","items":[{"text":"协议名","value":"protocol3"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"pi1"},{"text":"实现名","value":"pc1"},{"text":"实现版本","value":"0.5.2"},{"text":"所属包名","value":"p1"}]},"nodeType":3,"isEmpty":false},{"id":"protocol4","value":{"title":"无","items":[{"text":"协议名","value":"protocol4"},{"text":"协议版本","value":"^0.0.1"}]},"emptyNodeType":1,"isEmpty":true}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol3"},{"source":"protocol2","target":"protocol4"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         `
           }->NewlineTool.removeBlankChar
@@ -327,7 +372,37 @@ defineFeature(feature, test => {
           ->expect ==
             {
               j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.1"}]},"emptyNodeType":1,"isEmpty":true},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
             }->NewlineTool.removeBlankChar
         },
@@ -474,7 +549,37 @@ defineFeature(feature, test => {
           ->expect ==
             {
               j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"ed3","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei3"},{"text":"实现名","value":"e3"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
             }->NewlineTool.removeBlankChar
         },
@@ -621,7 +726,37 @@ defineFeature(feature, test => {
           ->expect ==
             {
               j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               {"nodes":[{"id":"p1","value":{"title":"ed1","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol1","value":{"title":"无","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.2.1"}]},"emptyNodeType":1,"isEmpty":true},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"p1","target":"protocol1"},{"source":"p1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
             }->NewlineTool.removeBlankChar
         },
@@ -792,7 +927,37 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {"nodes":[{"id":"p1","value":{"title":"","items":[{"text":"协议名","value":"p1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"i1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1","value":{"title":"cd1","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol1","value":{"title":"p1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.2"},{"text":"协议icon","icon":"ibase64"},{"text":"实现名","value":"p1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":4,"isEmpty":false},{"id":"protocol2","value":{"title":"无","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"}]},"emptyNodeType":0,"isEmpty":true}],"edges":[{"source":"meta3d-action-protocol1","target":"protocol1"},{"source":"meta3d-action-protocol1","target":"protocol2"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
           }->NewlineTool.removeBlankChar
       },
@@ -1022,6 +1187,122 @@ defineFeature(feature, test => {
             )
           },
         )->toThrowMessage({j`有重复的实现`})
+      },
+    )
+  })
+
+  test(."if has duplicate nodes which is package stored in app, not error", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let e1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1Version = "0.0.1"
+    let p1 = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select extension e1 for protocol1 which is start extension",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~name=e1Name,
+            ~version=e1Version,
+            ~isStart=true,
+            ~protocolIconBase64="ei1",
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                ~version=e1Version,
+                ~displayName="ed1",
+                ~protocol=(
+                  {
+                    name: "protocol1",
+                    version: "^0.0.1",
+                  }: Meta3d.ExtensionFileType.extensionProtocolData
+                ),
+                ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select package p1 which has extension pe1 for protocol1 and is stored in app",
+      () => {
+        let pe1 = ExtensionTool.generateExtension(
+          ~name="pe1",
+          ~version="0.5.1",
+          ~protocolName="protocol1",
+          ~protocolVersion="^0.2.0",
+          ~displayName="ped1",
+          ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          (),
+        )
+        let pe1FileData = Meta3d.Main.loadExtension(pe1)
+
+        // p1 :=
+        //   PackageSelectedPackagesTool.buildSelectedPackage(
+        //     ~name="p1",
+        //     ~protocolIconBase64="pi1",
+        //     ~binaryFile=Meta3d.Main.generatePackage(
+        //       Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
+        //       [],
+        //     ),
+        //     (),
+        //   )
+
+        p1 :=
+          PackageStoredInAppTool.buildPackageStoredInApp(
+            ~pacakgeBinaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
+              [],
+            ),
+            ~packageData=PackageStoredInAppTool.buildPackageData(
+              ~pacakgeName="p1",
+              ~packageProtocolIconBase64="pi1",
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should not error",
+      () => {
+        expect(
+          () => {
+            DependencyGraphUtilsTool.useEffectOnce(
+              ~setData=setDataStub.contents->Obj.magic,
+              ~service=ServiceTool.build(
+                ~sandbox,
+                ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+                  Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+                (),
+              ),
+              ~allPackagesStoredInApp=list{p1.contents},
+              ~selectedExtensions=list{e1.contents},
+              (),
+            )
+          },
+        )->toNotThrow
       },
     )
   })
@@ -1271,7 +1552,37 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              {"nodes":[{"id":"protocol1","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"protocol2","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei2"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false}],"edges":[{"source":"protocol1","target":"protocol2"},{"source":"protocol2","target":"protocol1"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
           }->NewlineTool.removeBlankChar
       },
@@ -1446,7 +1757,37 @@ defineFeature(feature, test => {
         ->expect ==
           {
             j`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              {"nodes":[{"id":"protocol2","value":{"title":"ed1","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ei1"},{"text":"实现名","value":"e1"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol1","value":{"title":"cd1","items":[{"text":"协议名","value":"meta3d-action-protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"ci1"},{"text":"实现名","value":"c1"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false},{"id":"protocol1","value":{"title":"ed2","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.0.1"},{"text":"协议icon","icon":"i1"},{"text":"实现名","value":"e2"},{"text":"实现版本","value":"0.0.1"}]},"nodeType":0,"isEmpty":false},{"id":"meta3d-action-protocol2","value":{"title":"cd2","items":[{"text":"协议名","value":"meta3d-action-protocol2"},{"text":"协议版本","value":"^0.0.2"},{"text":"协议icon","icon":"ci2"},{"text":"实现名","value":"c2"},{"text":"实现版本","value":"0.0.2"}]},"nodeType":1,"isEmpty":false}],"edges":[{"source":"meta3d-action-protocol1","target":"protocol1"},{"source":"meta3d-action-protocol2","target":"protocol1"}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           `
           }->NewlineTool.removeBlankChar
       },

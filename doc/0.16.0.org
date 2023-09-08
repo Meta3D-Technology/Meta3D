@@ -183,7 +183,7 @@ TODO commit
 # * TODO refactor: extract pipeline-editor-view-utils
 
 
-* TODO update import/export scene, publish, dispose
+* DONE update import/export scene, publish, dispose
 
 TODO handle game view instead of scene view
 
@@ -208,12 +208,12 @@ TODO run test with publish
 
 TODO need publish:
 # action-import-scene
-game-view1
-scene-view1
-add-cube
+# game-view1
+# scene-view1
+# add-cube
 
 
-** TODO how to handle publish and run? （发布时需要判断是否在run）
+** DONE how to handle publish and run? （发布时需要判断是否在run）
 ////责任链 or event queue or query element store?
 
 
@@ -303,3 +303,8 @@ change extension's state to immutable
 
 
 ** TODO fix: when stop, should restore to the state before run
+
+
+
+
+* TODO feat: publish to the exist app should overwrite it

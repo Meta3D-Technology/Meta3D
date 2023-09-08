@@ -81,6 +81,11 @@ Feature: DependencyGraph
             When build graph data
             Then should error
 
+        Scenario: if has duplicate nodes which is package stored in app, not error
+            Given select extension e1 for protocol1 which is start extension
+            And select package p1 which has extension pe1 for protocol1 and is stored in app
+            When build graph data
+            Then should not error
 
 
     Rule: fix bug
