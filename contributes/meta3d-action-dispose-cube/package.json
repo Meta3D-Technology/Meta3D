@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-dispose-cube",
-    "version": "0.15.0",
+    "version": "0.15.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "dispose-cube",
     "description": "dispose a cube action",
@@ -18,6 +18,8 @@
     "dependencies": {
         "meta3d-action-dispose-cube-protocol": "^0.15.0",
         "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-engine-whole-gameview-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {

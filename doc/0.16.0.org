@@ -166,7 +166,7 @@ TODO need publish:
 # meta3d-editor-webgl1-three-run-engine+protocol
 # add-cube
 # run,stop
-use-editor
+# use-editor
 
 
 
@@ -184,6 +184,33 @@ TODO commit
 
 
 * TODO update import/export scene, publish, dispose
+
+TODO handle game view instead of scene view
+
+TODO import scene:
+
+
+TODO run test without publish
+
+
+TODO fix: scene,game view: color not the same after add cube
+
+
+# TODO fix: scene,game view: color not the same after import
+TODO fix: scene view: position not the same after import
+  TODO fix: scene view: position not the same after add cube
+
+
+TODO run test with publish
+  TODO update engine whole package(import, then update)
+
+
+
+TODO need publish:
+# action-import-scene
+game-view1
+scene-view1
+add-cube
 
 
 ** TODO how to handle publish and run? （发布时需要判断是否在run）

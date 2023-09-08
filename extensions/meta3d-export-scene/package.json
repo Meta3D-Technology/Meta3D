@@ -1,6 +1,6 @@
 {
     "name": "meta3d-export-scene",
-    "version": "0.15.0",
+    "version": "0.15.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-export-scene",
     "protocol": {
@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "meta3d-export-scene-protocol": "^0.15.0",
-        "meta3d-scenegraph-converter-three-protocol": "^0.15.0",
+        "meta3d-scenegraph-converter-three-gameview-protocol": "^0.15.0",
         "meta3d-three-api-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

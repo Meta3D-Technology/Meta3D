@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-import-scene",
-    "version": "0.15.0",
+    "version": "0.15.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-import-scene",
     "repoLink": "",
@@ -17,6 +17,7 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-action-import-scene-protocol": "^0.15.0",
         "meta3d-import-scene-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0",

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-import-scene",
-    "version": "0.15.0",
+    "version": "0.15.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-import-scene",
     "protocol": {
@@ -13,7 +13,9 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
+        "meta3d-pipeline-editor-webgl1-view1-utils": "^0.15.0",
         "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-engine-whole-gameview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
         "meta3d-import-scene-protocol": "^0.15.0",
         "meta3d-pipeline-utils": "^0.15.0",

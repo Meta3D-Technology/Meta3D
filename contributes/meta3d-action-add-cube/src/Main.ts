@@ -9,7 +9,7 @@ import { state as meta3dState } from "meta3d-type"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-add-cube-protocol"
 
-let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeService) => {
+let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeService, [localPosition, diffuseColor]: [[number, number, number], [number, number, number]]) => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
     let gameObject = data[1]
@@ -55,12 +55,12 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     data = scene.pbrMaterial.createPBRMaterial(meta3dState)
     meta3dState = data[0]
     let material = data[1]
-    meta3dState = scene.pbrMaterial.setDiffuseColor(meta3dState, material, [Math.random(), Math.random(), Math.random()])
+    meta3dState = scene.pbrMaterial.setDiffuseColor(meta3dState, material, diffuseColor)
     meta3dState = scene.gameObject.addPBRMaterial(meta3dState, gameObject, material)
 
 
 
-    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [Math.random() * 10 - 5, Math.random() * 10 - 5, 0])
+    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, localPosition)
 
 
     return meta3dState
@@ -75,13 +75,13 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
             let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
-            meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
-            meta3dState = _createCubeGameObject(meta3dState, engineWholeGameViewService)
+            let diffuseColor: [number, number, number] = [Math.random(), Math.random(), Math.random()]
+            let localPosition: [number, number, number] = [Math.random() * 10 - 5, Math.random() * 10 - 5, 0]
 
+            meta3dState = _createCubeGameObject(meta3dState, engineWholeService, [localPosition, diffuseColor])
+            meta3dState = _createCubeGameObject(meta3dState, engineWholeGameViewService, [localPosition, diffuseColor])
 
-            let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol")
-
-            return runEngineGameViewService.loopEngineWhenStop(meta3dState)
+            return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
         },
         createState: () => null
     }

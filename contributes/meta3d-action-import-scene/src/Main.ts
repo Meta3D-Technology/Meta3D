@@ -3,6 +3,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-import-scene-protocol"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -28,7 +29,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                         let importSceneService = api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol")
 
-                        importSceneService.import(meta3dState, reader.result as ArrayBuffer).then(meta3dState => resolve(meta3dState))
+                        importSceneService.import(meta3dState, reader.result as ArrayBuffer).then(meta3dState => api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState).then(meta3dState => {
+                            resolve(meta3dState)
+                        })
+                        )
                     }
 
                     reader.onprogress = (event) => {

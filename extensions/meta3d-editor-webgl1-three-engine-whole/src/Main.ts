@@ -111,6 +111,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				canvas
 			)
 
+			meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-engine-whole-protocol", {
+				...api.getExtensionState<state>(meta3dState, "meta3d-engine-whole-protocol"),
+				canvas: canvas
+			})
+
 			return meta3dState
 
 		},
@@ -123,7 +128,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = () => {
-	return null
+	return {
+		canvas: null
+	}
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {

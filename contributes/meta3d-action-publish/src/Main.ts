@@ -8,6 +8,8 @@ import indexHtml from "../publish/index.html"
 import meta3dJs from "../publish/meta3d.js"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-publish-protocol"
+import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
+import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 
 let _loadAndWriteIndexHtmlData = (zip: JSZip) => {
     zip.file("index.html", indexHtml)
@@ -22,6 +24,12 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
         actionName: actionName,
         handler: (meta3dState, uiData) => {
             console.log("publish")
+
+            if (getActionState<runState>(meta3dState, api, runActionName).isRun) {
+                return (new Promise((resolve) => {
+                    resolve(meta3dState)
+                }))
+            }
 
             let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))
 
