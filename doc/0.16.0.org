@@ -118,7 +118,7 @@ TODO finish TODO
 TODO commit
 
 
-* TODO pass run test
+* DONE pass run test
 
 TODO update add cube
 
@@ -139,15 +139,15 @@ TODO commit
 
 TODO run test: add cube
 
-  game view not add
-    fix meta3dState?
+  # game view not add
+  #   fix meta3dState?
 
 TODO commit
 
 
 TODO run test: run, stop
 
-    loop gameview when stop
+    # loop gameview when stop
 
 
 TODO commit
@@ -161,24 +161,26 @@ TODO need publish:
 # meta3d-scenegraph-converter-three, gameview
 # meta3d-engine-basic, gameview
 # meta3d-engine-scene, gameview
+# pipeline-camera
+# meta3d-editor-webgl1-three-run-engine-gameview+protocol
+# meta3d-editor-webgl1-three-run-engine+protocol
+# add-cube
+# run,stop
 use-editor
-pipeline-camera
-meta3d-editor-webgl1-three-run-engine-gameview+protocol
-add-cube
 
 
 
 TODO commit
 
 
-* TODO fix: meta3dState
+# * TODO fix: meta3dState
 
-TODO use-editor/empty: main loop should get/set meta3dState?
-TODO run action: loop should get/set meta3dState?
+# TODO use-editor/empty: main loop should get/set meta3dState?
+# TODO run action: loop should get/set meta3dState?
 
 
 
-* TODO refactor: extract pipeline-editor-view-utils
+# * TODO refactor: extract pipeline-editor-view-utils
 
 
 * TODO update import/export scene, publish, dispose
@@ -268,6 +270,9 @@ three engine when restore to state:
 
 ** TODO editor add redo/undo
 not add redo/undo action/ui control!
+
+
+change extension's state to immutable
 
 
 ** TODO fix: when stop, should restore to the state before run

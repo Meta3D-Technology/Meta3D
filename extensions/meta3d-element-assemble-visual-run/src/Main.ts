@@ -16,8 +16,6 @@ import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
-let _isGameViewLooped: boolean = false
-
 let _prepareUI = (meta3dState: meta3dState, api: api) => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
@@ -138,22 +136,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					"meta3d-editor-run-engine-protocol"
 				)
 
-				return runEngineService.loopEngine(meta3dState).then(meta3dState => {
-					if (!_isGameViewLooped) {
-						_isGameViewLooped = true
-
-						let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
-							meta3dState,
-							"meta3d-editor-run-engine-gameview-protocol"
-						)
-
-						return runEngineGameViewService.loopEngine(meta3dState)
-					}
-
-					return meta3dState
-				})
-
-
+				return runEngineService.loopEngine(meta3dState)
 			})
 		}
 	}

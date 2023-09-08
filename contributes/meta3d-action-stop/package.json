@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-stop",
-    "version": "0.15.0",
+    "version": "0.15.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-stop",
     "repoLink": "",
@@ -20,6 +20,7 @@
         "meta3d-ui-utils": "^0.15.0",
         "meta3d-action-stop-protocol": "^0.15.0",
         "meta3d-action-run-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
         "meta3d-ui-control-button-protocol": "^0.15.0",
         "meta3d-ui-protocol": "^0.15.0",

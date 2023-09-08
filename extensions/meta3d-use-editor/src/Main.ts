@@ -129,9 +129,6 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 				canvas,
 				isDebug
 			)
-			// TODO fix
-		}).then(meta3dState => {
-			return runEngineGameViewService.loopEngine(meta3dState)
 		})
 	})
 }
@@ -207,8 +204,9 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 		},
 		onStart: (meta3dState, service, configData) => {
 			// console.log("meta3d-use-editor onStart")
-
 			service.run(meta3dState, configData)
 		}
 	}
 }
+
+

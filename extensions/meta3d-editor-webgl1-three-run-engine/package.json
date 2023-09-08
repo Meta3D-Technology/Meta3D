@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-run-engine",
-    "version": "0.15.0",
+    "version": "0.15.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-run-engine-protocol"
@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "meta3d-editor-webgl1-three-run-engine-utils": "^0.15.0",
-        "meta3d-editor-run-engine-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-protocol": "^0.15.1",
         "meta3d-engine-whole-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

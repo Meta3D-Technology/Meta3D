@@ -15,26 +15,48 @@ let _markIsRun = (meta3dState: meta3dState, api: api) => {
     ], meta3dState, api)
 }
 
-let _startLoop = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+let _startLoop = (meta3dState: meta3dState, api: api): meta3dState => {
+    // let runEngineService = api.getExtensionService<runEngineService>(
+    //     meta3dState,
+    //     "meta3d-editor-run-engine-gameview-protocol"
+    // )
+
+    // return runEngineService.loopEngine(meta3dState).then((meta3dState: meta3dState) => {
+    //     let id = requestAnimationFrame(
+    //         (time) => {
+    //             _startLoop(meta3dState, api)
+    //         }
+    //     )
+
+    //     return setElementStateField([
+    //         (elementState: any) => {
+    //             return { ...getState(elementState), loopHandle: id }
+    //         },
+    //         setState
+    //     ], meta3dState, api)
+    // })
+
     let runEngineService = api.getExtensionService<runEngineService>(
         meta3dState,
         "meta3d-editor-run-engine-gameview-protocol"
     )
 
-    return runEngineService.loopEngine(meta3dState).then((meta3dState: meta3dState) => {
-        let id = requestAnimationFrame(
-            (time) => {
-                _startLoop(meta3dState, api)
-            }
-        )
+    return runEngineService.addToLoopFuncs(meta3dState)
 
-        return setElementStateField([
-            (elementState: any) => {
-                return { ...getState(elementState), loopHandle: id }
-            },
-            setState
-        ], meta3dState, api)
-    })
+    // return runEngineService.loopEngine(meta3dState).then((meta3dState: meta3dState) => {
+    //     let id = requestAnimationFrame(
+    //         (time) => {
+    //             _startLoop(meta3dState, api)
+    //         }
+    //     )
+
+    //     return setElementStateField([
+    //         (elementState: any) => {
+    //             return { ...getState(elementState), loopHandle: id }
+    //         },
+    //         setState
+    //     ], meta3dState, api)
+    // })
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
@@ -45,7 +67,11 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             meta3dState = _markIsRun(meta3dState, api)
 
-            return _startLoop(meta3dState, api)
+            meta3dState = _startLoop(meta3dState, api)
+
+            return new Promise((resolve) => {
+                resolve(meta3dState)
+            })
         },
         createState: () => {
             return {
