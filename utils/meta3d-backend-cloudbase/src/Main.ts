@@ -200,6 +200,9 @@ export let batchFindMarketProtocolCollection = (app: any, parseMarketCollectionD
         .where({
             name: _getDatabase(app).command.in(protocolNames)
         })
+        .orderBy("version", "desc")
+        .skip(0)
+        .limit(1000)
         .get()
 }
 

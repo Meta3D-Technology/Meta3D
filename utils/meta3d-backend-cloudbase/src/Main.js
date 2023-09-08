@@ -139,6 +139,9 @@ let batchFindMarketProtocolCollection = (app, parseMarketCollectionDataBody, col
         .where({
         name: _getDatabase(app).command.in(protocolNames)
     })
+        .orderBy("version", "desc")
+        .skip(0)
+        .limit(1000)
         .get();
 };
 exports.batchFindMarketProtocolCollection = batchFindMarketProtocolCollection;
@@ -192,3 +195,4 @@ let downloadFile = (app, parseMarketCollectionDataBody, fileID) => {
 };
 exports.downloadFile = downloadFile;
 exports.parseMarketCollectionDataBodyForNodejs = null;
+//# sourceMappingURL=Main.js.map
