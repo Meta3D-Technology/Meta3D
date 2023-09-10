@@ -14,8 +14,9 @@ let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engi
 ): meta3dState => {
     let data = addDefaultGameObjects(meta3dState, engineWholeService, canvasSize)
     meta3dState = data[0]
+    let arcballCameraController = data[1]
 
-    meta3dState = activeCameraForGameView(meta3dState, engineWholeService)
+    meta3dState = activeCameraForGameView(meta3dState, engineWholeService, arcballCameraController)
 
     return meta3dState
 }

@@ -20,6 +20,13 @@ let onCustomGlobalEvent = (eventExtensionProtocolName, (eventName, priority, han
     (),
   )->ContainerManager.setState(eventExtensionProtocolName)
 
+let offCustomGlobalEventByHandleFunc = (eventExtensionProtocolName, (eventName, handleFunc)) =>
+  ManageEventDoService.offCustomGlobalEventByHandleFunc(
+    ~eventName,
+    ~handleFunc,
+    ~state=ContainerManager.getState(eventExtensionProtocolName),
+  )->ContainerManager.setState(eventExtensionProtocolName)
+
 let onCustomGlobalEvent2 = (
   api: Meta3dType.Index.api,
   meta3dState: Meta3dType.Index.state,

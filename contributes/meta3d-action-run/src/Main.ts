@@ -5,6 +5,8 @@ import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-run-protocol"
 import { service as runEngineService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
+import { bindEvent } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventForGameViewUtils"
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
 let _markIsRun = (meta3dState: meta3dState, api: api) => {
     return setElementStateField([
@@ -68,6 +70,8 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             meta3dState = _markIsRun(meta3dState, api)
 
             meta3dState = _startLoop(meta3dState, api)
+
+            bindEvent(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
 
             return new Promise((resolve) => {
                 resolve(meta3dState)

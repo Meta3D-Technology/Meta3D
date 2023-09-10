@@ -35,6 +35,10 @@ type service = {
     eventExtensionProtocolName,
     (customEventName, priority, handleFunc),
   ) => unit,
+  offCustomGlobalEventByHandleFunc: (
+    eventExtensionProtocolName,
+    (customEventName, handleFunc),
+  ) => unit,
   onCustomGlobalEvent2: (
     Meta3dType.Index.state,
     eventExtensionProtocolName,
@@ -74,12 +78,8 @@ type service = {
   getPointScaleEventName: unit => pointEventName,
   getPointDragStartEventName: unit => pointEventName,
   getPointDragOverEventName: unit => pointEventName,
-  getAllActionContributes: 'uiData 'state. (
-    StateType.state,
-      ) => 
-      array<(
-ActionContributeType.actionName,
-ActionContributeType.actionContribute<'uiData, 'state>
-
-      )>
+  getAllActionContributes: 'uiData 'state. StateType.state => array<(
+    ActionContributeType.actionName,
+    ActionContributeType.actionContribute<'uiData, 'state>,
+  )>,
 }

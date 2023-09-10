@@ -227,40 +227,75 @@ TODO need publish:
 
 TODO default scene's camera add arcball
 
-run action:
-bind arcball event
+# run action:
+# bind arcball event
 
-stop action:
-unbind arcball event
-
-
-** TODO handle scene view, game view event
-
-
-refer to wonder-editor code
-
-
-add event target
+# stop action:
+# unbind arcball event
 
 
 
-dependent on scene view event, game view event(has independent state)?
+# game view1 add update arcball job
+
+# import
+
+# whole-gameview service handle event
+
+# commit
+
+
+# TODO need publish:
+# meta3d-pipeline-editor-event
+# meta3d-pipeline-editor-webgl1-game-view1
+
+** TODO pass run test: before run, run, stop
+
+
+TODO fix:
+scene, game view has the same arcball
+scene view not bind event
+
+
+** TODO pass run test: export, import
+
+
+** TODO pass run test: publish
+
+TODO use game view
+
+TODO bind event when active has arcball
+
+
+** TODO refacto duplicate  ArcballCameraControllerEventForXxxViewUtils
+
+
+# ** TODO handle scene view, game view event
+
+
+# refer to wonder-editor code
+
+
+# add event target
+
+
+
+# dependent on scene view event, game view event(has independent state)?
 
 
 
 
-* TODO run test: add scene view, game view based to show a cube + arcball camera
+# * TODO run test: add scene view, game view based to show a cube + arcball camera
 
 
 
 
 
 
-* TODO add two buttons, to add a cube gameObject and add a arcball camera controller gameObject
+# * TODO add two buttons, to add a cube gameObject and add a arcball camera controller gameObject
 
 
 
-* TODO add run button to run game view
+# * TODO add run button to run game view
 
 
 
@@ -276,8 +311,7 @@ dependent on scene view event, game view event(has independent state)?
 use generic
 
 
-
-* TODO fix: game view handle no camera
+* TODO refactor: remove loadScene
 
 
 
@@ -308,3 +342,7 @@ change extension's state to immutable
 
 
 * TODO feat: publish to the exist app should overwrite it
+
+
+
+* TODO fix: import app should import canvas size

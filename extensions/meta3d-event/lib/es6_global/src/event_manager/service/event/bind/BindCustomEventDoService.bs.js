@@ -66,10 +66,48 @@ function bindGlobalEvent2(eventName, priority, handleFunc, state) {
         };
 }
 
+function _removeFromEventArrByHandleFunc(arr, targetHandleFunc) {
+  return Js_array.filter((function (param) {
+                return param.handleFunc !== targetHandleFunc;
+              }), arr);
+}
+
+function _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventArrMap) {
+  var arr = MutableHashMap$Meta3dCommonlib.get(eventArrMap, eventName);
+  if (arr !== undefined) {
+    return MutableHashMap$Meta3dCommonlib.set(eventArrMap, eventName, _removeFromEventArrByHandleFunc(arr, handleFunc));
+  } else {
+    return eventArrMap;
+  }
+}
+
+function unbindGlobalEventByHandleFunc(eventName, handleFunc, state) {
+  var eventData = state.eventData;
+  return {
+          eventData: {
+            domEventStreamSubscription: eventData.domEventStreamSubscription,
+            mouseDomEventDataArrMap: eventData.mouseDomEventDataArrMap,
+            keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
+            touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
+            customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventData.customGlobalEventArrMap),
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
+            mouseEventData: eventData.mouseEventData,
+            keyboardEventData: eventData.keyboardEventData,
+            touchEventData: eventData.touchEventData
+          },
+          canvas: state.canvas,
+          body: state.body,
+          browser: state.browser
+        };
+}
+
 export {
   _addEventDataByPriority ,
   _addToEventArr ,
   bindGlobalEvent ,
   bindGlobalEvent2 ,
+  _removeFromEventArrByHandleFunc ,
+  _removeFromEventArrMapByHandleFunc ,
+  unbindGlobalEventByHandleFunc ,
 }
 /* No side effect */

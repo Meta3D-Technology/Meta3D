@@ -2,52 +2,54 @@ import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
-import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
-import { bindEvent } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";
+// import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
+import { arcballCameraController, target } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
+import { localPosition } from "meta3d-component-transform-protocol";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { bind } from "meta3d-commonlib-ts/src/NullableUtils";
 
 type canvasSize = [number, number]
 
-let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService,
-    canvasSize: canvasSize
-): [meta3dState, basicCameraView, gameObject] => {
-    let data = scene.gameObject.createGameObject(meta3dState)
-    meta3dState = data[0]
-    let gameObject = data[1]
+// let _createCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService,
+//     canvasSize: canvasSize
+// ): [meta3dState, basicCameraView, gameObject] => {
+//     let data = scene.gameObject.createGameObject(meta3dState)
+//     meta3dState = data[0]
+//     let gameObject = data[1]
 
 
-    data = scene.transform.createTransform(meta3dState)
-    meta3dState = data[0]
-    let transform = data[1]
+//     data = scene.transform.createTransform(meta3dState)
+//     meta3dState = data[0]
+//     let transform = data[1]
 
-    meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
-
-
-
-    data = scene.basicCameraView.createBasicCameraView(meta3dState)
-    meta3dState = data[0]
-    let cameraView = data[1]
-
-    // meta3dState = scene.basicCameraView.active(meta3dState, cameraView)
-    meta3dState = scene.gameObject.addBasicCameraView(meta3dState, gameObject, cameraView)
-
-    data = scene.perspectiveCameraProjection.createPerspectiveCameraProjection(meta3dState)
-    meta3dState = data[0]
-    let cameraProjection = data[1]
-
-    meta3dState = scene.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
-    meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
-    meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
-    meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
-    meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
+//     meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
 
 
-    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [20, 20, 20])
-    meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 0])
 
-    return [meta3dState, cameraView, gameObject]
-}
+//     data = scene.basicCameraView.createBasicCameraView(meta3dState)
+//     meta3dState = data[0]
+//     let cameraView = data[1]
+
+//     // meta3dState = scene.basicCameraView.active(meta3dState, cameraView)
+//     meta3dState = scene.gameObject.addBasicCameraView(meta3dState, gameObject, cameraView)
+
+//     data = scene.perspectiveCameraProjection.createPerspectiveCameraProjection(meta3dState)
+//     meta3dState = data[0]
+//     let cameraProjection = data[1]
+
+//     meta3dState = scene.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
+//     meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
+//     meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
+//     meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
+//     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
+
+
+//     meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [20, 20, 20])
+//     meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 0])
+
+//     return [meta3dState, cameraView, gameObject]
+// }
 
 let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeService) => {
     let data = scene.gameObject.createGameObject(meta3dState)
@@ -106,26 +108,11 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     return meta3dState
 }
 
-export let addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
-    canvasSize: canvasSize
-): [meta3dState, basicCameraView, gameObject] => {
-    let data = _createCameraGameObject(meta3dState, engineWholeService,
-        canvasSize
-    )
-    meta3dState = data[0]
-    let cameraView = data[1]
-    let cameraGameObject = data[2]
-
-
-    meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
-
-    return [meta3dState, cameraView, cameraGameObject]
-}
-
 let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService,
-    eventService: eventService,
-    eventExtensionProtocolName: string,
-    canvasSize: canvasSize
+    // eventService: eventService,
+    // eventExtensionProtocolName: string,
+    canvasSize: canvasSize,
+    [localPosition, lookAtTarget]: [localPosition, target]
 ): [meta3dState, arcballCameraController, gameObject] => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
@@ -146,7 +133,7 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
 
     meta3dState = scene.arcballCameraController.setDistance(meta3dState, cameraController, 30)
 
-    bindEvent(eventService, eventExtensionProtocolName)
+    // bindEvent(eventService, eventExtensionProtocolName)
 
     meta3dState = scene.gameObject.addArcballCameraController(meta3dState, gameObject, cameraController)
 
@@ -171,28 +158,79 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
 
 
-    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [10, 10, 10])
-    meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 0])
+    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, localPosition)
+    meta3dState = scene.transform.lookAt(meta3dState, transform, lookAtTarget)
 
     console.log(scene.transform.getLocalPosition(meta3dState, transform))
 
     return [meta3dState, cameraController, gameObject]
 }
 
+export let addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
+    // eventService: eventService,
+    // eventExtensionProtocolName: string,
+    canvasSize: canvasSize
+): [meta3dState, arcballCameraController, gameObject] => {
+    // let data = _createCameraGameObject(meta3dState, engineWholeService,
+    //     canvasSize
+    // )
+    // meta3dState = data[0]
+    // let cameraView = data[1]
+    // let cameraGameObject = data[2]
+
+
+    let data = _createArcballCameraGameObject(meta3dState, engineWholeService,
+        // eventService, eventExtensionProtocolName,
+        canvasSize,
+        [
+            [15, 15, 15],
+            [0, 1, 0]
+        ]
+    )
+    meta3dState = data[0]
+    let cameraController = data[1]
+    let cameraGameObject = data[2]
+
+
+    meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
+
+    return [meta3dState, cameraController, cameraGameObject]
+}
+
+
 export let addGameObjectsForSceneView = (meta3dState: meta3dState, engineWholeService: engineWholeService,
-    eventService: eventService,
-    eventExtensionProtocolName: string,
+    // eventService: eventService,
+    // eventExtensionProtocolName: string,
     canvasSize: canvasSize
 ): [meta3dState, arcballCameraController, gameObject] => {
     let data = _createArcballCameraGameObject(meta3dState, engineWholeService,
-        eventService, eventExtensionProtocolName,
-        canvasSize
+        // eventService, eventExtensionProtocolName,
+        canvasSize,
+        [
+            [10, 10, 10],
+            [0, 1, 0]
+        ]
     )
     meta3dState = data[0]
     let cameraController = data[1]
     let cameraGameObject = data[2]
 
     return [meta3dState, cameraController, cameraGameObject]
+}
+
+export let getActiveArcballCameraController = (meta3dState: meta3dState,
+    { scene }: engineWholeService | engineWholeGameViewService,
+    isDebug: boolean
+): nullable<arcballCameraController> => {
+    return bind((basicCameraView) => {
+        let gameObject = scene.basicCameraView.getGameObjects(meta3dState, basicCameraView)[0]
+
+        if (scene.gameObject.hasArcballCameraController(meta3dState, gameObject)) {
+            return scene.gameObject.getArcballCameraController(meta3dState, gameObject)
+        }
+
+        return null
+    }, scene.basicCameraView.getActiveCameraView(meta3dState, isDebug))
 }
 
 export let activeCameraForSceneView = (meta3dState: meta3dState,
@@ -203,27 +241,14 @@ export let activeCameraForSceneView = (meta3dState: meta3dState,
     )
 }
 
-let _activeFirstBasicCameraView = (meta3dState: meta3dState,
-    { scene }: engineWholeGameViewService
-): meta3dState => {
-    let basicCameraViewGameObjects = scene.gameObject.getAllGameObjects(meta3dState)
-        .filter(gameObject => scene.gameObject.hasBasicCameraView(meta3dState, gameObject))
+// export let activeCameraForGameView = (meta3dState: meta3dState,
+//     engineWholeGameViewService: engineWholeGameViewService) => {
+//     return _activeFirstBasicCameraView(meta3dState, engineWholeGameViewService)
+// }
 
-    if (basicCameraViewGameObjects.length == 0) {
-        throw new Error("error")
-    }
-
-    let basicCameraViewGameObject = basicCameraViewGameObjects[0]
-
-    meta3dState = scene.basicCameraView.active(
-        meta3dState,
-        scene.gameObject.getBasicCameraView(meta3dState, basicCameraViewGameObject)
-    )
-
-    return meta3dState
-}
 
 export let activeCameraForGameView = (meta3dState: meta3dState,
-    engineWholeGameViewService: engineWholeGameViewService) => {
-    return _activeFirstBasicCameraView(meta3dState, engineWholeGameViewService)
+    engineWholeGameViewService: engineWholeGameViewService,
+    arcballCameraGameObject: gameObject) => {
+    return activeCameraForSceneView(meta3dState, engineWholeGameViewService, arcballCameraGameObject)
 }

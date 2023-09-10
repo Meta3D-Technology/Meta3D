@@ -62,34 +62,34 @@ let bindGlobalEvent2 = (eventName, priority, handleFunc, {eventData} as state) =
   }
 }
 
-// let _removeFromEventArrByHandleFunc = (arr, targetHandleFunc) =>
-//   arr->Js.Array.filter(({handleFunc}) => handleFunc !== targetHandleFunc, _)
+let _removeFromEventArrByHandleFunc = (arr, targetHandleFunc) =>
+  arr->Js.Array.filter(({handleFunc}) => handleFunc !== targetHandleFunc, _)
 
-// let _removeFromEventArrMapByHandleFunc = (eventName, handleFunc, eventArrMap) =>
-//   switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
-//   | None => eventArrMap
-//   | Some(arr) =>
-//     eventArrMap->Meta3dCommonlib.MutableHashMap.set(
-//       eventName,
-//       _removeFromEventArrByHandleFunc(arr, handleFunc),
-//     )
-//   }
+let _removeFromEventArrMapByHandleFunc = (eventName, handleFunc, eventArrMap) =>
+  switch eventArrMap->Meta3dCommonlib.MutableHashMap.get(eventName) {
+  | None => eventArrMap
+  | Some(arr) =>
+    eventArrMap->Meta3dCommonlib.MutableHashMap.set(
+      eventName,
+      _removeFromEventArrByHandleFunc(arr, handleFunc),
+    )
+  }
 
-// let unbindGlobalEventByHandleFunc = (eventName, handleFunc, {eventData} as state) => {
-//   let {customGlobalEventArrMap} = eventData
+let unbindGlobalEventByHandleFunc = (eventName, handleFunc, {eventData} as state) => {
+  let {customGlobalEventArrMap} = eventData
 
-//   {
-//     ...state,
-//     eventData: {
-//       ...eventData,
-//       customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(
-//         eventName,
-//         handleFunc,
-//         customGlobalEventArrMap,
-//       ),
-//     },
-//   }
-// }
+  {
+    ...state,
+    eventData: {
+      ...eventData,
+      customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(
+        eventName,
+        handleFunc->Obj.magic,
+        customGlobalEventArrMap->Obj.magic,
+      )->Obj.magic,
+    },
+  }
+}
 
 // let _removeFromEventListMapByEventName = (eventName, eventArrMap) =>
 //   eventArrMap->Obj.magic->Meta3dCommonlib.MutableHashMap.deleteVal(eventName)->Obj.magic

@@ -17,6 +17,10 @@ function onCustomGlobalEvent(eventExtensionProtocolName, param) {
             }), ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), param[1], undefined), eventExtensionProtocolName);
 }
 
+function offCustomGlobalEventByHandleFunc(eventExtensionProtocolName, param) {
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByHandleFunc(param[0], param[1], ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName)), eventExtensionProtocolName);
+}
+
 function onCustomGlobalEvent2(api, meta3dState, eventExtensionProtocolName, param) {
   var handleFunc = param[2];
   var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
@@ -45,6 +49,7 @@ function createCustomEvent(eventName, userData) {
 
 export {
   onCustomGlobalEvent ,
+  offCustomGlobalEventByHandleFunc ,
   onCustomGlobalEvent2 ,
   triggerCustomGlobalEvent2 ,
   createCustomEvent ,

@@ -21,7 +21,7 @@ type customEventName = string
 
 type priority = number
 
-type handleFunc = (customEvent: customEvent) => void
+export type handleFunc = (customEvent: customEvent) => void
 
 type handleFunc2 = (meta3dState: meta3dState, customEvent: customEvent) => meta3dState
 
@@ -43,6 +43,10 @@ export type service = {
     onCustomGlobalEvent(
         eventExtensionProtocolName: eventExtensionProtocolName,
         [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc]
+    ): void;
+    offCustomGlobalEventByHandleFunc(
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        [customEventName, handleFunc]: [customEventName, handleFunc]
     ): void;
     onCustomGlobalEvent2(
         meta3dState: meta3dState,

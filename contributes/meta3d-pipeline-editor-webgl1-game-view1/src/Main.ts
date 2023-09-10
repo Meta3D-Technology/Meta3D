@@ -1,6 +1,7 @@
 import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
+import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
 import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
 import { config } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/ConfigType";
@@ -15,6 +16,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case job.CreateDefaultScene:
 			return execCreateDefaultSceneJob;
+		case job.UpdateArcballCameraController:
+			return execUpdateArcballCameraControllerJob;
 		case job.PrepareFBO:
 			return execPrepareFBO;
 		case job.PrepareStatus:
@@ -40,6 +43,8 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-gameview-protocol"),
 
 				canvas: canvas,
+				lastYaw: null,
+				lastPitch: null,
 				fbo: null
 			}
 		},

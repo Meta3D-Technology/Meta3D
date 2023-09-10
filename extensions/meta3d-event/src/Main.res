@@ -5,6 +5,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   registerAction: EventManager.registerAction->Obj.magic,
   onPointEvent: EventManager.onPointEvent(api),
   onCustomGlobalEvent: ManageEventAPIForSrc.onCustomGlobalEvent,
+  offCustomGlobalEventByHandleFunc: ManageEventAPIForSrc.offCustomGlobalEventByHandleFunc,
   onCustomGlobalEvent2: ManageEventAPIForSrc.onCustomGlobalEvent2(api)->Obj.magic,
   triggerCustomGlobalEvent2: ManageEventAPIForSrc.triggerCustomGlobalEvent2(api)->Obj.magic,
   createCustomEvent: ManageEventAPIForSrc.createCustomEvent,
@@ -24,7 +25,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getPointScaleEventName: EventManager.getPointScaleEventName,
   getPointDragStartEventName: EventManager.getPointDragStartEventName,
   getPointDragOverEventName: EventManager.getPointDragOverEventName,
-  getAllActionContributes: EventManager.getAllActionContributes-> Obj.magic
+  getAllActionContributes: EventManager.getAllActionContributes->Obj.magic,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {

@@ -38,6 +38,8 @@ function onCustomGlobalEvent2(eventName, handleFunc, state, priorityOpt, param) 
   return BindCustomEventDoService$Meta3dEvent.bindGlobalEvent2(eventName, priority, handleFunc, state);
 }
 
+var offCustomGlobalEventByHandleFunc = BindCustomEventDoService$Meta3dEvent.unbindGlobalEventByHandleFunc;
+
 var stopPropagationCustomEvent = HandleCustomEventDoService$Meta3dEvent.stopPropagation;
 
 var triggerCustomGlobalEvent = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent;
@@ -87,6 +89,7 @@ export {
   offTouchEventByHandleFunc ,
   onCustomGlobalEvent ,
   onCustomGlobalEvent2 ,
+  offCustomGlobalEventByHandleFunc ,
   stopPropagationCustomEvent ,
   triggerCustomGlobalEvent ,
   triggerCustomGlobalEvent2 ,

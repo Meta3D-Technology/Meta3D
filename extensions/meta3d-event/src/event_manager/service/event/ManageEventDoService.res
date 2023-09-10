@@ -29,8 +29,8 @@ let onCustomGlobalEvent2 = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
 // let offCustomGlobalEventByEventName = (~eventName, ~state) =>
 //   BindCustomEventDoService.unbindGlobalEventByEventName(eventName, state)
 
-// let offCustomGlobalEventByHandleFunc = (~eventName, ~handleFunc, ~state) =>
-//   BindCustomEventDoService.unbindGlobalEventByHandleFunc(eventName, handleFunc, state)
+let offCustomGlobalEventByHandleFunc = (~eventName, ~handleFunc, ~state) =>
+  BindCustomEventDoService.unbindGlobalEventByHandleFunc(eventName, handleFunc, state)
 
 // let onCustomGameObjectEvent = (~eventName, ~handleFunc, ~target, ~state, ~priority=0, ()) =>
 //   BindCustomEventDoService.bindGameObjectEvent((eventName, priority, target), handleFunc, state)

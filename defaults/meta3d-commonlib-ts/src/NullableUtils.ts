@@ -31,6 +31,14 @@ export let map = <T, Y>(func: (nullableValue: T) => Y, nullableValue: T | null |
     return func(nullableValue as T)
 }
 
+export let bind = <T, Y>(func: (nullableValue: T) => Y | null | undefined, nullableValue: T | null | undefined): Y | null | undefined => {
+    if (isNullable(nullableValue)) {
+        return nullableValue as null | undefined
+    }
+
+    return func(nullableValue as T)
+}
+
 export let getWithDefault = <T>(nullableValue: T | null | undefined, default_: T): T => {
     if (isNullable(nullableValue)) {
         return default_
