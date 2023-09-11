@@ -4,7 +4,7 @@ import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
 // import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { arcballCameraController, target } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
+import { arcballCameraController, distance, target } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
 import { localPosition } from "meta3d-component-transform-protocol";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { bind } from "meta3d-commonlib-ts/src/NullableUtils";
@@ -112,7 +112,7 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
     // eventService: eventService,
     // eventExtensionProtocolName: string,
     canvasSize: canvasSize,
-    [localPosition, lookAtTarget]: [localPosition, target]
+    distance: distance
 ): [meta3dState, arcballCameraController, gameObject] => {
     let data = scene.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
@@ -131,7 +131,7 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
     meta3dState = data[0]
     let cameraController = data[1]
 
-    meta3dState = scene.arcballCameraController.setDistance(meta3dState, cameraController, 30)
+    meta3dState = scene.arcballCameraController.setDistance(meta3dState, cameraController, distance)
 
     // bindEvent(eventService, eventExtensionProtocolName)
 
@@ -158,10 +158,8 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
 
 
-    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, localPosition)
-    meta3dState = scene.transform.lookAt(meta3dState, transform, lookAtTarget)
-
-    console.log(scene.transform.getLocalPosition(meta3dState, transform))
+    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [10, 10, 10])
+    meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 0])
 
     return [meta3dState, cameraController, gameObject]
 }
@@ -182,10 +180,7 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService
     let data = _createArcballCameraGameObject(meta3dState, engineWholeService,
         // eventService, eventExtensionProtocolName,
         canvasSize,
-        [
-            [15, 15, 15],
-            [0, 1, 0]
-        ]
+        40
     )
     meta3dState = data[0]
     let cameraController = data[1]
@@ -206,10 +201,7 @@ export let addGameObjectsForSceneView = (meta3dState: meta3dState, engineWholeSe
     let data = _createArcballCameraGameObject(meta3dState, engineWholeService,
         // eventService, eventExtensionProtocolName,
         canvasSize,
-        [
-            [10, 10, 10],
-            [0, 1, 0]
-        ]
+        30
     )
     meta3dState = data[0]
     let cameraController = data[1]

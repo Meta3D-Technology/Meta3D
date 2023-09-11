@@ -144,19 +144,17 @@ let _activeFirstBasicCameraView = (meta3dState: meta3dState,
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         loadScene: (meta3dState, sceneGLB) => {
-            // return _loadScene(meta3dState, api, sceneGLB)
-            //     .then((gltf: GLTF) => {
-            //         meta3dState = api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol").import(meta3dState, gltf.scene)
-
-            //         meta3dState = _activeFirstBasicCameraView(api, meta3dState)
-
-            //         return meta3dState
-            //     })
+            return _loadScene(meta3dState, api, sceneGLB)
+                .then((gltf: GLTF) => {
+                    meta3dState = api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol").import(meta3dState, gltf.scene)
 
 
-            /*! where to use? */
+                    // TODO use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
 
-            throw new Error("not implement")
+                    meta3dState = _activeFirstBasicCameraView(meta3dState, api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol"))
+
+                    return meta3dState
+                })
         },
         import: (meta3dState, sceneGLB) => {
             return _loadScene(meta3dState, api, sceneGLB)
@@ -180,6 +178,10 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     let arcballCameraControllerGameObject = data[2]
 
                     meta3dState = activeCameraForSceneView(meta3dState, engineWholeService, arcballCameraControllerGameObject)
+
+
+
+                    // TODO use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
 
 
 

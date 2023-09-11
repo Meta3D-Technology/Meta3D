@@ -1,7 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-editor-event-protocol/src/StateType"
-import { bindEvent as bindEventForSceneView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventForSceneViewUtils"
+import { bindEventForSceneView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
 // import { bindEvent as bindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventForGameViewUtils"
 
 export let execFunc: execFuncType = (meta3dState, { getStatesFunc }) => {

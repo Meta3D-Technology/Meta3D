@@ -53,7 +53,7 @@ export let update = (meta3dState: meta3dState, api: api,
     if (isNullable(arcballCameraController)) {
         reset()
 
-        return [meta3dState, null, null]
+        return [meta3dState, lastYaw, lastPitch]
     }
     else {
         arcballCameraController = getExn(arcballCameraController)
@@ -68,14 +68,14 @@ export let update = (meta3dState: meta3dState, api: api,
             )
         )))
     ) {
-        return [meta3dState, null, null]
+        return [meta3dState, lastYaw, lastPitch]
     }
 
     let currentYaw = getExn(getYaw())
     let currentPitch = getExn(getPitch())
 
     if (_isNotTriggerEvent([lastYaw, lastPitch], [currentYaw, currentPitch])) {
-        return [meta3dState, null, null]
+        return [meta3dState, lastYaw, lastPitch]
     }
 
 

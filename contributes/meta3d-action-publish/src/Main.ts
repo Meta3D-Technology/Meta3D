@@ -31,7 +31,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                 }))
             }
 
-            let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))
+            let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-gameview-protocol"))
 
             let exportSceneService = api.getExtensionService<exportSceneService>(meta3dState, "meta3d-export-scene-protocol")
 

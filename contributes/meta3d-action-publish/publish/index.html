@@ -81,9 +81,9 @@
                     .then(([enginePackageBinaryFile, sceneGlb]) => {
                         let [meta3dState, _, entryExtensionProtocolName] = Meta3d.loadPackage(enginePackageBinaryFile)
 
-                        if (entryExtensionProtocolName !== "meta3d-engine-whole-protocol") {
+                        if (entryExtensionProtocolName !== "meta3d-engine-whole-gameview-protocol") {
                             throw new Error(
-                                `entryExtensionProtocolName: ${entryExtensionProtocolName} should be meta3d-engine-whole-protocol`
+                                `entryExtensionProtocolName: ${entryExtensionProtocolName} should be meta3d-engine-whole-gameview-protocol`
                             )
                         }
 

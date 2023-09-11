@@ -248,25 +248,43 @@ TODO default scene's camera add arcball
 # meta3d-pipeline-editor-event
 # meta3d-pipeline-editor-webgl1-game-view1
 
-** TODO pass run test: before run, run, stop
+** DONE pass run test: before run, run, stop
 
+
+# TODO fix:
+# scene, game view has the same arcball
+# scene view not bind event
+
+
+
+
+** DONE pass run test: export, import
 
 TODO fix:
-scene, game view has the same arcball
-scene view not bind event
-
-
-** TODO pass run test: export, import
+////game view miss arcball
 
 
 ** TODO pass run test: publish
 
 TODO use game view
 
-TODO bind event when active has arcball
+////TODO bind event when active has arcball
 
 
-** TODO refacto duplicate  ArcballCameraControllerEventForXxxViewUtils
+TODO load scene
+
+
+TODO need publish:
+# meta3d-pipeline-editor-event
+# meta3d-pipeline-editor-webgl1-game-view1, scene
+run, stop
+publish
+import
+# engine-whole
+
+
+
+# ** TODO refactor duplicate  ArcballCameraControllerEventForXxxViewUtils
 
 
 # ** TODO handle scene view, game view event
@@ -306,14 +324,6 @@ TODO bind event when active has arcball
 
 
 
-* TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
-
-use generic
-
-
-* TODO refactor: remove loadScene
-
-
 
 # * TODO scene view: add grid
 
@@ -341,8 +351,27 @@ change extension's state to immutable
 
 
 
+
+* TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
+
+use generic
+
+
+* TODO refactor: remove loadScene
+
+
+
+
+
 * TODO feat: publish to the exist app should overwrite it
 
 
 
 * TODO fix: import app should import canvas size
+
+
+
+* TODO feat: ap assemble: add select all button
+
+
+* TODO feat: ap assemble: Debug should show name
