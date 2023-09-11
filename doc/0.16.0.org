@@ -309,7 +309,7 @@ has same display names(pipeline-xxx)
 
 
 
-* TODO feat: pass "publish" run test
+* DONE feat: pass "publish" run test
 
 TODO rebuild whole package
 

@@ -10,6 +10,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc }) => {
     return mostService.callFunc(() => {
         console.log("dispose job")
 
-        return dispose(api, meta3dState)
+        return dispose(api, meta3dState, "meta3d-engine-core-gameview-protocol")
     })
 }

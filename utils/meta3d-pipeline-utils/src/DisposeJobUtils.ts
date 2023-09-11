@@ -79,9 +79,7 @@ let _disposeGameObjects = ({ getNeedDisposedGameObjects, disposeGameObjects }: e
     )
 }
 
-export let dispose = (api: api, meta3dState: meta3dState) => {
-    let meta3dEngineCoreExtensionProtocolName = "meta3d-engine-core-protocol"
-
+export let dispose = (api: api, meta3dState: meta3dState, meta3dEngineCoreExtensionProtocolName: string) => {
     let engineCoreService = api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
     let engineCoreState = _disposeComponents(
