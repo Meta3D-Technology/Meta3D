@@ -92,8 +92,10 @@ let reducer = (state, action) => {
         selectedExtension,
         _,
       )) =>
-        selectedExtension.data.extensionPackageData.name !== name &&
-          selectedExtension.version !== version
+      !(
+        selectedExtension.data.extensionPackageData.name == name &&
+          selectedExtension.version == version
+      )
       ),
     }
   | SelectContribute(data, protocolConfigOpt) => {
@@ -111,8 +113,10 @@ let reducer = (state, action) => {
         selectedContribute,
         _,
       )) =>
-        selectedContribute.data.contributePackageData.name !== name &&
-          selectedContribute.version !== version
+      !(
+        selectedContribute.data.contributePackageData.name == name &&
+          selectedContribute.version == version
+      )
       ),
     }
   | SelectPackage(data) => {
@@ -130,7 +134,9 @@ let reducer = (state, action) => {
   | NotSelectPackage(name, version) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
-        selectedPackage.name !== name && selectedPackage.version !== version
+      !(
+        selectedPackage.name == name && selectedPackage.version == version
+      )
       ),
     }
   | ImportPackage(packageId, selectedExtensions, selectedContributes) => {

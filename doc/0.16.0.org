@@ -296,6 +296,9 @@ TODO update meta3d-engine-webgl1-three-render to gameview
 
 
 
+* DONE fix: import package->diselect pipeline dispose: component diselect too!
+
+
 
 * TODO fix: Select Contributes: why selected multiple?
 
@@ -303,7 +306,6 @@ has same display names(pipeline-xxx)
 
 
 
-* TODO fix: import package->diselect pipeline dispose: component diselect too!
 
 
 
