@@ -1,34 +1,34 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
 import { state } from "meta3d-engine-render-protocol/src/state/StateType"
 import { service } from "meta3d-engine-render-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-protocol/src/StateType";
-import { config as threeConfig } from "meta3d-pipeline-webgl1-three-protocol/src/ConfigType";
-import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
-import { state as disposeState, states as disposeStates } from "meta3d-pipeline-dispose-protocol/src/StateType";
-import { config as disposeConfig } from "meta3d-pipeline-dispose-protocol/src/ConfigType";
-import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+import { service as engineCoreService } from "meta3d-engine-core-gameview-protocol/src/service/ServiceType"
+import { state as engineCoreState } from "meta3d-engine-core-gameview-protocol/src/state/StateType"
+import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType"
+import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType";
+import { config as threeConfig } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/ConfigType";
+import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-gameview-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-pipeline-viewrect-gameview-protocol/src/ConfigType";
+import { state as disposeState, states as disposeStates } from "meta3d-pipeline-dispose-gameview-protocol/src/StateType";
+import { config as disposeConfig } from "meta3d-pipeline-dispose-gameview-protocol/src/ConfigType";
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-gameview-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
 		prepare: (meta3dState: meta3dState, isDebug,  canvas) => {
-			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
+			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-gameview-protocol")
 
 			let engineCoreService = api.getExtensionService<engineCoreService>(
 				meta3dState,
-				"meta3d-engine-core-protocol"
+				"meta3d-engine-core-gameview-protocol"
 			)
 
 
 			let { registerPipeline } = engineCoreService
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-gameview-protocol"),
 				{
 					canvas
 				},
@@ -51,7 +51,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				]
 			)
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-gameview-protocol"),
 				{
 					canvas
 				},
@@ -69,7 +69,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				]
 			)
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-gameview-protocol"),
 				null,
 				[
 					{
@@ -80,25 +80,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				]
 			)
 
-			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView1Config, sceneView1State>>(meta3dState, "meta3d-pipeline-editor-webgl1-view1-three-protocol"),
-			// 	null,
-			// 	[
-			// 		{
-			// 			pipelineName: pipelineSceneView1Pipeline.Render,
-			// 			insertElementName: pipelineSceneView1Job.UseFBO,
-			// 			insertAction: "before"
-			// 		}
-			// 	]
-			// )
-
-
-
 
 
 			meta3dState =
 				api.setExtensionState(
 					meta3dState,
-					"meta3d-engine-core-protocol",
+					"meta3d-engine-core-gameview-protocol",
 					engineCoreState
 				)
 

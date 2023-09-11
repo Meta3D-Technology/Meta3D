@@ -287,11 +287,30 @@ TODO need publish:
 
 
 
-TODO split pipeline to gameview
-  update extension's dependent
+# TODO split pipeline to gameview
+#   update extension's dependent
+
+TODO extract load scene from import scene
+
+TODO update meta3d-engine-webgl1-three-render to gameview
 
 
-** TODO fix: Select Contributes: why selected multiple?
+
+
+* TODO fix: Select Contributes: why selected multiple?
+
+has same display names(pipeline-xxx)
+
+
+
+* TODO fix: import package->diselect pipeline dispose: component diselect too!
+
+
+
+* TODO feat: pass "publish" run test
+
+TODO rebuild whole package
+
 
 
 # ** TODO refactor duplicate  ArcballCameraControllerEventForXxxViewUtils
@@ -373,6 +392,8 @@ use generic
 
 
 
+
+
 * TODO feat: publish to the exist app should overwrite it
 
 
@@ -385,6 +406,5 @@ use generic
 
 
 * TODO feat: ap assemble: Debug should show name
-
 
 * TODO feat: Market: update paging for "xx/page"

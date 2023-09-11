@@ -5,7 +5,7 @@ import { service as engineBasicService } from "meta3d-engine-basic-gameview-prot
 import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
 import { service as engineRenderService } from "meta3d-engine-render-protocol/src/service/ServiceType"
 import { getExtensionService as getEngineWholeExtensionService } from "meta3d-engine-whole-utils/src/implement/Main"
-import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
+import { service as loadSceneService } from "meta3d-load-scene-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -54,12 +54,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return meta3dState
 		},
 		loadScene: (meta3dState, sceneGLB) => {
-			let importSceneService = api.getExtensionService<importSceneService>(
+			let loadSceneService = api.getExtensionService<loadSceneService>(
 				meta3dState,
-				"meta3d-import-scene-protocol"
+				"meta3d-load-scene-protocol"
 			)
 
-			return importSceneService.loadScene(meta3dState, sceneGLB)
+			return loadSceneService.loadScene(meta3dState, sceneGLB)
 		},
 	}
 }
