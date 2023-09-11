@@ -191,8 +191,8 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -288,16 +288,16 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
             ExtensionTool.buildSelectedExtension(
               ~displayName=a2DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -413,8 +413,8 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName,
-              // ~protocolVersionRange="^0.1.0",
-              ~protocolVersion=a_low.version,
+              ~protocolVersionRange="^0.1.0",
+              // ~protocolVersion=a_low.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -569,7 +569,7 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
               ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              // ~protocolVersion=a.version,
               (),
             ),
           }
@@ -642,8 +642,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName="b",
-              // ~protocolVersionRange="0.0.1",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange="0.0.1",
+              // ~protocolVersion=a.version,
               (),
             ),
           }
@@ -730,8 +730,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion="1.0.0",
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion="1.0.0",
               (),
             ),
           }
@@ -789,7 +789,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select extension a1 for a from market with low versionRange but high version",
+      "select extension a1 for a from market with low versionRange",
       () => {
         selectedExtensionsFromMarket :=
           list{
@@ -797,7 +797,7 @@ defineFeature(feature, test => {
               ~displayName=a1DisplayName,
               ~protocolName,
               ~protocolVersionRange="^0.1.0",
-              ~protocolVersion="0.1.1",
+              // ~protocolVersion="0.1.1",
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -814,15 +814,15 @@ defineFeature(feature, test => {
 
     CucumberAsync.execStep(
       \"and",
-      "extensions should has a1 whose protocolDisplay is high version protocol's displayName",
+      "extensions should has a1 whose protocolDisplay is low version protocol's displayName",
       () => {
         _setExtensions([
           (
             a1DisplayName,
             protocolIconBase64,
-            a_high.displayName,
-            a_high.repoLink,
-            a_high.description,
+            a_low.displayName,
+            a_low.repoLink,
+            a_low.description,
             protocolConfig.configStr,
             selectedExtensionsFromMarket.contents->ListTool.getHeadExn->ExtensionTool.getExtension,
           ),

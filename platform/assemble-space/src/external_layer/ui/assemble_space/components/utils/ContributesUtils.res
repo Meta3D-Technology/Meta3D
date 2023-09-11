@@ -12,46 +12,28 @@ module Method = {
   // TODO perf: defer load when panel change
   let _getContributes = ({getAllPublishContributeProtocols}, selectedContributesFromMarket) => {
     // TODO support >1000
-    getAllPublishContributeProtocols(. FrontendUtils.MarketUtils.getLimitCount(), 0)->Meta3dBsMost.Most.map(
-      protocols => {
-        protocols
-        ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. result, {name, iconBase64, version}: FrontendUtils.BackendCloudbaseType.protocol) => {
-            selectedContributesFromMarket
-            ->Meta3dCommonlib.ListSt.filter(
-              (({data}: FrontendUtils.AssembleSpaceCommonType.contribute, _)) => {
-                let protocol = data.contributePackageData.protocol
-
-                protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
-              },
-            )
-            ->Meta3dCommonlib.ListSt.reduce(
-              result,
-              (result, (contribute, protocolConfig)) => {
-                result->Meta3dCommonlib.ArraySt.push((
-                  contribute.data.contributePackageData.displayName,
-                  iconBase64,
-                  protocolConfig->_getProtocolConfigStr,
-                  contribute,
-                ))
-              },
-            )
-          },
-          [],
-        )
-        // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
-        //   displayName,
-        //   _,
-        //   _,
-        //   _,
-        // )) => {
-        //   displayName
-        // })
-      },
-      // | list{(contribute, protocolConfig)} =>
-
-      _,
-    )
+    getAllPublishContributeProtocols(.
+      FrontendUtils.MarketUtils.getLimitCount(),
+      0,
+    )->Meta3dBsMost.Most.map((protocols: array<FrontendUtils.BackendCloudbaseType.protocol>) => {
+      ExtensionsContributesUtils.getItems(
+        (
+          ({data}: FrontendUtils.AssembleSpaceCommonType.contribute) =>
+            data.contributePackageData.protocol,
+          ((displayName, _, _, _)) => displayName,
+          ({data}: FrontendUtils.AssembleSpaceCommonType.contribute) =>
+            data.contributePackageData.displayName,
+          (contribute, protocol, protocolConfig) => (
+            contribute.data.contributePackageData.displayName,
+            protocol.iconBase64,
+            protocolConfig->ExtensionsContributesUtils.getProtocolConfigStr,
+            contribute,
+          ),
+        ),
+        protocols,
+        selectedContributesFromMarket,
+      )
+    }, _)
   }
 
   let getDifferenceSet = (contributes, selectedContributeNames) => {

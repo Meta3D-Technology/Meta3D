@@ -12,65 +12,32 @@ module Method = {
   // TODO perf: defer load when panel change
   let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromMarket) => {
     // TODO support >1000
-    getAllPublishExtensionProtocols(. FrontendUtils.MarketUtils.getLimitCount(), 0)->Meta3dBsMost.Most.map(
-      protocols => {
-        protocols
-        ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (.
-            result,
-            {
-              name,
-              iconBase64,
-              version,
-              displayName,
-              repoLink,
-              description,
-            }: FrontendUtils.BackendCloudbaseType.protocol,
-          ) => {
-            selectedExtensionsFromMarket
-            ->Meta3dCommonlib.ListSt.filter(
-              (({data, protocolVersion}: FrontendUtils.AssembleSpaceCommonType.extension, _)) => {
-                let protocol = data.extensionPackageData.protocol
-
-                protocol.name === name && Meta3d.Semver.eq(version, protocolVersion)
-              },
-            )
-            ->Meta3dCommonlib.ListSt.reduce(
-              result,
-              (result, (extension, protocolConfig)) => {
-                result->Meta3dCommonlib.ArraySt.push((
-                  extension.data.extensionPackageData.displayName,
-                  iconBase64,
-                  displayName,
-                  repoLink,
-                  description,
-                  protocolConfig->_getProtocolConfigStr,
-                  extension,
-                ))
-              },
-            )
-          },
-          [],
-        )
-        ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. (
-          displayName,
-          _,
-          _,
-          _,
-          _,
-          _,
-          _,
-        )) => {
-          displayName
-        })
-      },
-      // protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
-      // protocol.name === name && Meta3d.Semver.gte(version, protocolVersion)
-
-      // | list{(extension, protocolConfig)} =>
-
-      _,
-    )
+    getAllPublishExtensionProtocols(.
+      FrontendUtils.MarketUtils.getLimitCount(),
+      0,
+    )->Meta3dBsMost.Most.map(protocols => {
+      ExtensionsContributesUtils.getItems(
+        (
+          ({data}: FrontendUtils.AssembleSpaceCommonType.extension) =>
+            data.extensionPackageData.protocol,
+          ((displayName, _, _, _, _, _, _)) => displayName,
+          ({data}: FrontendUtils.AssembleSpaceCommonType.extension) =>
+            data.extensionPackageData.displayName,
+          (extension, protocol, protocolConfig) =>
+            (
+              extension.data.extensionPackageData.displayName,
+              protocol.iconBase64,
+              protocol.displayName,
+              protocol.repoLink,
+              protocol.description,
+              protocolConfig->ExtensionsContributesUtils.getProtocolConfigStr,
+              extension,
+            )->Obj.magic,
+        ),
+        protocols,
+        selectedExtensionsFromMarket,
+      )->Obj.magic
+    }, _)
   }
 
   let getDifferenceSet = (extensions, selectedExtensionNames) => {

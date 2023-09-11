@@ -83,6 +83,8 @@ Feature: Extensions
 
         Scenario: extension's protocol has multiple version with different displayName
             Given publish extension protocol a with low version and high version with different displayName
-            And select extension a1 for a from market with low versionRange but high version
+            # And select extension a1 for a from market with low versionRange but high version
+            And select extension a1 for a from market with low versionRange
             When render after useEffectOnceAsync
-            Then extensions should has a1 whose protocolDisplay is high version protocol's displayName
+            # Then extensions should has a1 whose protocolDisplay is high version protocol's displayName
+            Then extensions should has a1 whose protocolDisplay is low version protocol's displayName

@@ -300,7 +300,7 @@ TODO update meta3d-engine-webgl1-three-render to gameview
 
 
 
-* TODO fix: Select Contributes: why selected multiple?
+* DONE fix: Select Contributes: why selected multiple?
 
 has same display names(pipeline-xxx)
 

@@ -296,6 +296,80 @@ defineFeature(feature, test => {
     )
   })
 
+  test(."set contributes when select one contributes and exist two satisfied protocols", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let protocolName = "a"
+    let a_low_iconBase64 = "li1"
+    let a_high_iconBase64 = "hi1"
+    let a_low: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name=protocolName,
+      ~iconBase64=a_low_iconBase64,
+      ~version="1.0.1",
+      (),
+    )
+    let a_high: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+      ~name=protocolName,
+      ~iconBase64=a_high_iconBase64,
+      ~version="1.1.1",
+      (),
+    )
+    let a1DisplayName = "a1"
+    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+    _prepare(given)
+
+    given(
+      "publish contribute protocol a_low with lower version and a_high with higher version",
+      () => {
+        allPublishContributeProtocols := [a_high, a_low]
+      },
+    )
+
+    \"and"(
+      "select contribute a1 which satisfy a_low and a_high",
+      () => {
+        selectedContributesFromMarket :=
+          list{
+            ContributeTool.buildSelectedContribute(
+              ~displayName=a1DisplayName,
+              ~protocolName,
+              ~protocolVersionRange=">= 1.0.0",
+              ~protocolConfig=protocolConfig->Some,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "render after useEffectOnceAsync",
+      () => {
+        ()
+      },
+    )
+
+    CucumberAsync.execStep(
+      then,
+      "contributes should only has one a1 for a_low",
+      () => {
+        _setContributes([
+          (
+            a1DisplayName,
+            a_low_iconBase64,
+            protocolConfig.configStr,
+            selectedContributesFromMarket.contents
+            ->ListTool.getHeadExn
+            ->ContributeTool.getContribute,
+          ),
+        ])
+      },
+    )
+  })
+
   test(."select contribute", ({given, \"when", \"and", then}) => {
     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
       ~name="a",

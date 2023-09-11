@@ -28,4 +28,4 @@ let selectContribute = (~iconBase64, ~protocolConfigStr, ~contribute, ~dispatch)
   PackageContributes.Method.selectContribute(dispatch, iconBase64, protocolConfigStr, contribute)
 }
 
-let getProtocolConfigStr = ContributesUtils.Method._getProtocolConfigStr
+let getProtocolConfigStr = ExtensionsContributesUtils.getProtocolConfigStr

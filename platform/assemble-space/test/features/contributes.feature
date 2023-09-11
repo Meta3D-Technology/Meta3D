@@ -38,6 +38,12 @@ Feature: Contributes
             Then should mark loaded
             And contributes should contain a1 and a2
 
+        Scenario: set contributes when select one contributes and exist two satisfied protocols
+            Given publish contribute protocol a_low with lower version and a_high with higher version
+            And select contribute a1 which satisfy a_low and a_high
+            When render after useEffectOnceAsync
+            Then contributes should only has one a1 for a_low
+
 
     Rule: error case
 
