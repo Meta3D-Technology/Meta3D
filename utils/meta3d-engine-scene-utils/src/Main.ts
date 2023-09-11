@@ -1,13 +1,13 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
+// import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
 import { service } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { state as cameraPipelineState, states as cameraPipelineStates } from "meta3d-pipeline-camera-protocol/src/StateType";
-import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-protocol/src/ConfigType";
-import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-protocol/src/StateType";
-import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
+// import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+// import { state as cameraPipelineState, states as cameraPipelineStates } from "meta3d-pipeline-camera-protocol/src/StateType";
+// import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-protocol/src/ConfigType";
+// import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-protocol/src/StateType";
+// import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
 // import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
 // import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
 import {
@@ -51,8 +51,8 @@ import { state as directionlightState, config as directionLightConfig, direction
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { active, createBasicCameraView } from "./BasicCameraViewAPI"
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
-import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+// import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+// import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 
 let _engineCoreProtocolName: string
 
@@ -107,7 +107,9 @@ let _encapsulateSceneAPIReturnStateAndData = <Data>(meta3dState: meta3dState, fu
 }
 
 
-export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string): service => {
+export let getExtensionServiceUtils = (
+	registerPipelineFunc: any,
+	api: api, engineCoreProtocolName: string): service => {
 	_engineCoreProtocolName = engineCoreProtocolName
 
 	return {
@@ -130,32 +132,31 @@ export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string)
 
 			let { registerPipeline, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<cameraPipelineConfig, cameraPipelineState>>(meta3dState, "meta3d-pipeline-camera-protocol"),
-				{
-					isDebug,
-					engineCoreProtocolName
-				},
-				[
-					{
-						pipelineName: pipelineRootPipeline.Update,
-						insertElementName: pipelineRootJob.Update,
-						insertAction: "after"
-					}
-				]
-			)
+			engineCoreState = registerPipelineFunc(engineCoreState, engineCoreService, meta3dState, isDebug)
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<transformPipelineConfig, transformPipelineState>>(meta3dState, "meta3d-pipeline-transform-protocol"),
-				{
-					engineCoreProtocolName
-				},
-				[
-					{
-						pipelineName: pipelineCameraPipeline.Update,
-						insertElementName: pipelineCameraJob.UpdateCamera,
-						insertAction: "after"
-					},
-				]
-			)
+			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<cameraPipelineConfig, cameraPipelineState>>(meta3dState, pipelineCameraProtocolName),
+			// 	{
+			// 		isDebug,
+			// 	},
+			// 	[
+			// 		{
+			// 			pipelineName: pipelineRootPipeline.Update,
+			// 			insertElementName: pipelineRootJob.Update,
+			// 			insertAction: "after"
+			// 		}
+			// 	]
+			// )
+
+			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<transformPipelineConfig, transformPipelineState>>(meta3dState, pipelineTransformProtocolName),
+			// 	null,
+			// 	[
+			// 		{
+			// 			pipelineName: pipelineCameraPipeline.Update,
+			// 			insertElementName: pipelineCameraJob.UpdateCamera,
+			// 			insertAction: "after"
+			// 		},
+			// 	]
+			// )
 
 
 			engineCoreState =

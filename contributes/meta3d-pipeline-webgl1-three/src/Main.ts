@@ -29,14 +29,13 @@ let _init = (_state: state) => {
 export let getContribute: getContributeMeta3D<pipelineContribute<config, state>> = (api) => {
 	return {
 		pipelineName: pipelineName,
-		createStateFunc: (meta3dState, { canvas, scenegraphConverterThreeProtocolName }) => {
+		createStateFunc: (meta3dState, { canvas }) => {
 			return {
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
 				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
-				converterService: api.getExtensionService<converterService>(meta3dState, scenegraphConverterThreeProtocolName),
+				converterService: api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol"),
 				threeAPIService: api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol"),
 
-				scenegraphConverterThreeProtocolName: scenegraphConverterThreeProtocolName,
 				renderer: null,
 				canvas,
 			}

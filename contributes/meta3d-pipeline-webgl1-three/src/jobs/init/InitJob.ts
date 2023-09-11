@@ -1,8 +1,9 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { getState, setState } from "../Utils"
 import { states } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
-// import { getViewRect } from "meta3d-view-utils/src/SceneViewRect"
-// import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
+import { init } from "meta3d-pipeline-webgl1-three-utils/src/InitJobUtils"
+import { state as meta3dState } from "meta3d-type"
+import type { WebGLRenderer } from "three"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
@@ -11,19 +12,9 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         console.log("init job")
 
-        meta3dState = converterService.init(meta3dState)
-
-
-        let renderer = new threeAPIService.WebGLRenderer({
-            antialias: true,
-            canvas: canvas,
-            context: uiService.getContext(meta3dState)
-        })
-
-        // renderer.setPixelRatio(window.devicePixelRatio);
-        // renderer.setSize(canvas.width, canvas.height);
-        // document.body.appendChild(renderer.domElement);
-        renderer.setClearAlpha(1.0)
+        let data = init(meta3dState, [converterService, threeAPIService, uiService], canvas)
+        meta3dState = data[0] as meta3dState
+        let renderer = data[1] as WebGLRenderer
 
         return setStatesFunc<states>(
             meta3dState,

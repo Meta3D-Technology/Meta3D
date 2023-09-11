@@ -6,7 +6,7 @@ import { getExtensionServiceUtils } from "meta3d-engine-basic-utils/src/Main"
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
-	return getExtensionServiceUtils(api, "meta3d-engine-core-gameview-protocol")
+	return getExtensionServiceUtils(api, ["meta3d-engine-core-gameview-protocol", "meta3d-pipeline-root-gameview-protocol"])
 }
 
 export let createExtensionState: createExtensionStateMeta3D<

@@ -6,7 +6,7 @@ import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/w
 import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
 import { config as rootConfig } from "meta3d-pipeline-root-protocol/src/ConfigType";
 
-export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string): service => {
+export let getExtensionServiceUtils = (api: api, [engineCoreProtocolName, pipelineRootProtocolName]: [string, string]): service => {
 	return {
 		prepare: (meta3dState: meta3dState, isDebug) => {
 			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
@@ -24,7 +24,7 @@ export let getExtensionServiceUtils = (api: api, engineCoreProtocolName: string)
 
 
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<rootConfig, rootState>>(meta3dState, "meta3d-pipeline-root-protocol")
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<rootConfig, rootState>>(meta3dState, pipelineRootProtocolName)
 			)
 
 

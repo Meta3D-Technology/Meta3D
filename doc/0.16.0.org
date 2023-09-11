@@ -271,17 +271,27 @@ TODO use game view
 ////TODO bind event when active has arcball
 
 
-TODO load scene
+# TODO load scene
 
 
 TODO need publish:
 # meta3d-pipeline-editor-event
 # meta3d-pipeline-editor-webgl1-game-view1, scene
-run, stop
-publish
-import
+# run, stop
+# publish
+# import
 # engine-whole
+# engine-scene, gameview
+# meta3d-editor-webgl1-three-engine-whole-gameview
+# meta3d-editor-engine-webgl1-three-render-gameview
 
+
+
+TODO split pipeline to gameview
+  update extension's dependent
+
+
+** TODO fix: Select Contributes: why selected multiple?
 
 
 # ** TODO refactor duplicate  ArcballCameraControllerEventForXxxViewUtils
@@ -375,3 +385,6 @@ use generic
 
 
 * TODO feat: ap assemble: Debug should show name
+
+
+* TODO feat: Market: update paging for "xx/page"

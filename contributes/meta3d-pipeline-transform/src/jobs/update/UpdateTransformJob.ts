@@ -1,7 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-transform-protocol/src/StateType"
-import { updateTransform } from "../UpdateTransformUtils"
+import { updateTransform } from "meta3d-pipeline-transform-utils/src/UpdateTransformJobUtils"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)

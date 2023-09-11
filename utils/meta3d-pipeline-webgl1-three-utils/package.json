@@ -1,0 +1,21 @@
+{
+    "name": "meta3d-pipeline-webgl1-three-utils",
+    "version": "0.15.1",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "webpack": "webpack --config webpack.config.js",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
+    },
+    "keywords": [],
+    "dependencies": {
+        "meta3d-pipeline-webgl1-three-protocol": "^0.15.1",
+        "meta3d-scenegraph-converter-three-protocol": "^0.15.0",
+        "meta3d-three-api-protocol": "^0.15.0",
+        "meta3d-type": "^0.15.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

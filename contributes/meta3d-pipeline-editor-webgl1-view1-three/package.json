@@ -16,6 +16,7 @@
     "dependencies": {
         "meta3d-bs-most-protocol": "^0.15.0",
         "meta3d-pipeline-editor-webgl1-view1-three-protocol": "^0.15.0",
+        "meta3d-pipeline-webgl1-three-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {

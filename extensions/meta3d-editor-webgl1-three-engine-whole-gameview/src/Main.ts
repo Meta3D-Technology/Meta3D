@@ -8,11 +8,11 @@ import { config as gameView1Config } from "meta3d-pipeline-editor-webgl1-game-vi
 import { state as gameView1State, states as gameView1States } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType";
 import { config as gameView2Config } from "meta3d-pipeline-editor-webgl1-game-view2-protocol/src/ConfigType";
 import { state as gameView2State, states as gameView2States } from "meta3d-pipeline-editor-webgl1-game-view2-protocol/src/StateType";
-import { state as editorEventState } from "meta3d-pipeline-editor-event-protocol/src/StateType"
-import { config as editorEventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
-import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
-import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
+import { state as editorEventState } from "meta3d-pipeline-editor-event-gameview-protocol/src/StateType"
+import { config as editorEventConfig } from "meta3d-pipeline-editor-event-gameview-protocol/src/ConfigType"
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-gameview-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
+import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
 import { pipeline as pipelineGameView1Pipeline, job as pipelineGameView1Job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType"
 import { buildNewEngineWholeExtensionService, prepare } from "meta3d-editor-webgl1-three-engine-whole-utils/src/Main"
 
@@ -106,7 +106,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-game-view1-protocol", "meta3d-pipeline-editor-webgl1-game-view2-protocol", "meta3d-pipeline-editor-event-protocol"],
+				["meta3d-pipeline-editor-webgl1-game-view1-protocol", "meta3d-pipeline-editor-webgl1-game-view2-protocol", "meta3d-pipeline-editor-event-gameview-protocol"],
 				canvas
 			)
 
