@@ -119,6 +119,24 @@ function _checkIsRegister(protocolName, isRegister) {
   
 }
 
+function restore(currentState, targetState) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(targetState.extensionLifeMap), (function (targetState, param) {
+                var extensionProtocolName = param[0];
+                return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].onRestore, (function (handler) {
+                                  return setExtensionState(targetState, extensionProtocolName, Curry._2(handler, ImmutableHashMap$Meta3dCommonlib.getExn(currentState.extensionStateMap, extensionProtocolName), ImmutableHashMap$Meta3dCommonlib.getExn(targetState.extensionStateMap, extensionProtocolName)));
+                                })), targetState);
+              }), targetState);
+}
+
+function deepCopy(state) {
+  return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(state.extensionLifeMap), (function (state, param) {
+                var extensionProtocolName = param[0];
+                return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].onDeepCopy, (function (handler) {
+                                  return setExtensionState(state, extensionProtocolName, Curry._1(handler, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, extensionProtocolName)));
+                                })), state);
+              }), state);
+}
+
 function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, extensionState) {
   _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
@@ -175,7 +193,9 @@ function buildAPI(param) {
           getAllContributesByType: getAllContributesByType,
           getPackage: (function (state, packageProtocolName) {
               return ImmutableHashMap$Meta3dCommonlib.getNullable(state.packageStoreInAppMap, packageProtocolName);
-            })
+            }),
+          restore: restore,
+          deepCopy: deepCopy
         };
 }
 
@@ -194,6 +214,8 @@ exports.updateExtension = updateExtension;
 exports.initExtension = initExtension;
 exports._decideContributeType = _decideContributeType;
 exports._checkIsRegister = _checkIsRegister;
+exports.restore = restore;
+exports.deepCopy = deepCopy;
 exports.registerExtension = registerExtension;
 exports.registerContribute = registerContribute;
 exports.buildAPI = buildAPI;

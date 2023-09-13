@@ -1,12 +1,12 @@
 
 
-import * as Js_typed_array from "./../../../../../rescript/lib/es6/js_typed_array.js";
+import * as Js_typed_array from "../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
 import * as BufferUtils$Meta3d from "./BufferUtils.bs.js";
 import * as TextEncoder$Meta3d from "./TextEncoder.bs.js";
 import * as DataViewCommon$Meta3d from "./DataViewCommon.bs.js";
 import * as TypeArrayUtils$Meta3d from "./TypeArrayUtils.bs.js";
-import * as Tuple2$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Tuple2$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 
 function _buildEmptyEncodedUint8Data(param) {
   var encoder = new TextEncoder();

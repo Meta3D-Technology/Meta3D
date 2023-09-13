@@ -77,6 +77,10 @@ var serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig$Meta
 
 var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
 
+var restore = ExtensionManager$Meta3d.restore;
+
+var deepCopy = ExtensionManager$Meta3d.deepCopy;
+
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
 exports.registerExtension = registerExtension;
@@ -114,5 +118,7 @@ exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
 exports.serializeStartExtensionProtocolConfigLib = serializeStartExtensionProtocolConfigLib;
 exports.getNeedConfigData = getNeedConfigData;
+exports.restore = restore;
+exports.deepCopy = deepCopy;
 exports.buildAPI = buildAPI;
 /* AppManager-Meta3d Not a pure module */

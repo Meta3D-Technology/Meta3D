@@ -39,6 +39,8 @@ and extensionLifeAsyncEventHandler<'extensionService> = (
 ) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
+  onRestore: Js.Nullable.t<(extensionState, extensionState) => extensionState>,
+  onDeepCopy: Js.Nullable.t<extensionState => extensionState>,
   onStart: Js.Nullable.t<(state, 'extensionService, startConfigData) => unit>,
   onInit: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
   onUpdate: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
@@ -91,6 +93,8 @@ type api = {
     ContributeType.contributeType,
   ) => array<'contribute>,
   getPackage: (. state, packageProtocolName) => Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>,
+  restore: (. state, state) => state,
+  deepCopy: (. state) => state,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

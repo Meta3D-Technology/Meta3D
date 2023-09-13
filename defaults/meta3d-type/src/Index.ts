@@ -29,6 +29,8 @@ export type api = {
   getContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName): contribute,
   getAllContributesByType<contribute>(state: state, contributeType: contributeType): Array<contribute>,
   getPackage(state: state, packageProtocolName: packageProtocolName): nullable<ArrayBuffer>
+  restore(currentState: state, targetState: state): state,
+  deepCopy(state: state): state,
 };
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -57,6 +59,8 @@ export type startConfigData = [canvasData, configData]
 
 export type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
+  onRestore?: (currentExtensionState: extensionState, targetExtensionState: extensionState) => extensionState,
+  onDeepCopy?: (extensionState: extensionState) => extensionState,
   onStart?: (state: state, extensionService: extensionService, configData: startConfigData) => void,
   onInit?: extensionLifeAsyncEventHandler<extensionService>,
   onUpdate?: extensionLifeAsyncEventHandler<extensionService>,

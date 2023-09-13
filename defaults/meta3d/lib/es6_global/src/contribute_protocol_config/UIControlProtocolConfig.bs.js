@@ -1,6 +1,6 @@
 
 
-import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 
 function serializeLib(protocolConfigStr) {

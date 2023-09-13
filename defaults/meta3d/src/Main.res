@@ -68,4 +68,8 @@ let serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig.seri
 
 let getNeedConfigData = StartExtensionProtocolConfig.getNeedConfigData
 
+let restore = ExtensionManager.restore
+
+let deepCopy = ExtensionManager.deepCopy
+
 let buildAPI = ExtensionManager.buildAPI

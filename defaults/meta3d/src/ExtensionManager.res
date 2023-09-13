@@ -173,6 +173,44 @@ let _checkIsRegister = (protocolName: string, isRegister) => {
     : ()
 }
 
+let restore = (currentState, targetState) => {
+  targetState.extensionLifeMap
+  ->Meta3dCommonlib.ImmutableHashMap.entries
+  ->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. targetState, (extensionProtocolName, {onRestore})) => {
+      onRestore
+      ->Meta3dCommonlib.NullableSt.map((. handler) => {
+        setExtensionState(
+          targetState,
+          extensionProtocolName,
+          handler(
+            getExtensionStateExn(currentState, extensionProtocolName),
+            getExtensionStateExn(targetState, extensionProtocolName),
+          ),
+        )
+      })
+      ->Meta3dCommonlib.NullableSt.getWithDefault(targetState)
+    },
+    targetState,
+  )
+}
+
+let deepCopy = state => {
+  state.extensionLifeMap
+  ->Meta3dCommonlib.ImmutableHashMap.entries
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (extensionProtocolName, {onDeepCopy})) => {
+    onDeepCopy
+    ->Meta3dCommonlib.NullableSt.map((. handler) => {
+      setExtensionState(
+        state,
+        extensionProtocolName,
+        handler(getExtensionStateExn(state, extensionProtocolName)),
+      )
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(state)
+  }, state)
+}
+
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
@@ -271,4 +309,7 @@ and buildAPI = (): api => {
     getAllContributesByType(state, contributeType)->Obj.magic,
   getPackage: (. state, packageProtocolName: Meta3dType.Index.packageProtocolName) =>
     state.packageStoreInAppMap->Meta3dCommonlib.ImmutableHashMap.getNullable(packageProtocolName),
+  restore: (. currentExtensionState, targetExtensionState) =>
+    restore(currentExtensionState, targetExtensionState),
+  deepCopy: (. extensionState) => deepCopy(extensionState),
 }

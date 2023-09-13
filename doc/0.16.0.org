@@ -385,11 +385,6 @@ restore
 
 
 
-gpu resources->three:
-dispose all to create new ones
-
-commit
-
 
 
 pipeline:
@@ -415,6 +410,40 @@ change them to immutable
 
 action, extension add deepCopy, restore function(can be empty if all are immutable)
 
+
+
+** DONE extension add deepCopy, restore
+
+
+# ** TODO feat(default): meta3d: add restore, deepCopy
+TODO invoke meta3dState's extensions' onDeepCopy, onRestore
+
+
+
+
+** TODO action,pipeline add deepCopy, restore
+
+TODO update UIManager
+
+TODO update PipelineManager
+
+TODO add bdd test
+
+
+** TODO scene graph(+game view)
+
+
+gpu resources->three:
+dispose all to create new ones
+
+new perspectiveCamera, scene
+
+
+
+
+
+
+** TODO change extension,action,pipeline's data to immutable
 
 
 ** TODO History
