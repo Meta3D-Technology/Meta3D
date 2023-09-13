@@ -30,6 +30,10 @@ export type createStateFunc<config, state> = (meta3dState: meta3dState, config: 
 // tslint:disable-next-line:interface-over-type-literal
 export type initFunc<state> = (_1: state) => void;
 
+export type restoreFunc<state> = (currentState: state, targetState: state) => state;
+
+export type deepCopyFunc<state> = (state: state) => state;
+
 // tslint:disable-next-line:interface-over-type-literal
 export type pipelineName = string;
 
@@ -43,6 +47,8 @@ export type pipelineContribute<config, state> = {
     readonly initFunc: initFunc<state>;
     readonly getExecFunc: getExecFunc;
     readonly allPipelineData: allPipelineData
+    readonly restoreFunc?: restoreFunc<state>;
+    readonly deepCopyFunc?: deepCopyFunc<state>;
 };
 
 // tslint:disable-next-line:interface-over-type-literal

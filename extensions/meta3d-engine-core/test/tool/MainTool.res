@@ -1,14 +1,28 @@
 open Sinon
 
+let registerPipelineWithState = (
+  ~contribute,
+  ~state,
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
+  ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
+  (),
+) => {
+  state->DirectorForJs.registerPipeline(~state=_, ~contribute, ~config, ~jobOrders, ())
+}
+
 let registerPipeline = (
   ~contribute,
   ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
-  StateContainer.unsafeGetState()
-  ->DirectorForJs.registerPipeline(~state=_, ~contribute, ~config, ~jobOrders, ())
-  ->StateContainer.setState
+  registerPipelineWithState(
+    ~contribute,
+    ~state=StateContainer.unsafeGetState(),
+    ~config,
+    ~jobOrders,
+    (),
+  )->StateContainer.setState
 }
 
 let unregisterPipeline = targetPipelineName => {
@@ -80,7 +94,9 @@ let getIsDebug = () => {
 }
 
 let setIsDebug = isDebug => {
-  StateContainer.unsafeGetState()->ContributeDataManager.setIsDebug(isDebug)->StateContainer.setState
+  StateContainer.unsafeGetState()
+  ->ContributeDataManager.setIsDebug(isDebug)
+  ->StateContainer.setState
 }
 
 let registerComponent = contribute => {

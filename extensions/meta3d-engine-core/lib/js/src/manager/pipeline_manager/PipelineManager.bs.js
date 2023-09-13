@@ -240,7 +240,9 @@ function _findAllSpecificPipelineRelatedData(allRegisteredPipelineContribute, ta
                                       getExecFunc: pipelineContribute.getExecFunc,
                                       allPipelineData: ArraySt$Meta3dCommonlib.filter(pipelineContribute.allPipelineData, (function (param) {
                                               return param.name === targetPipelineName;
-                                            }))
+                                            })),
+                                      restoreFunc: pipelineContribute.restoreFunc,
+                                      deepCopyFunc: pipelineContribute.deepCopyFunc
                                     },
                                     param[1],
                                     ArraySt$Meta3dCommonlib.filter(param[2], (function (param) {

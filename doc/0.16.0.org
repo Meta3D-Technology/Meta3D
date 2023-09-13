@@ -421,15 +421,15 @@ TODO invoke meta3dState's extensions' onDeepCopy, onRestore
 
 
 
-** TODO action,pipeline add deepCopy, restore
+** DONE action,pipeline add deepCopy, restore
 
 # TODO update UIManager
 
 # TODO fix engine-core
 
-TODO update PipelineManager
+# TODO update PipelineManager
 
-TODO add bdd test
+# TODO add bdd test
 
 
 ** TODO scene graph(+game view)
@@ -486,5 +486,8 @@ use generic
 
 
 
+* TODO refactor: rename pipelineContribute->xxxFunc to xxx
 
 
+
+* TODO refactor: rename for scene view(e.g. meta3d-engine-core-sceneview)

@@ -46,6 +46,18 @@ Feature: Pipeline
             Then invoke pipeline1's createStateFunc with config1 and pipeline2's createStateFunc with config2 and store result
             And invoke pipeline1's and pipeline2's initFunc
 
+    Rule: restore pipeline state
+
+        Scenario: restore pipeline state
+            Given prepare sandbox
+            And create state as s1
+            And register pipeline1 contribute with pipeline state ps1
+            And init pipeline1
+            And deep copy s1 as s2
+            And change ps1 to ps2
+            When restore s2 to s1
+            Then pipeline1's state should be ps1
+
     Rule: run pipeline
 
         Background: prepare sandbox

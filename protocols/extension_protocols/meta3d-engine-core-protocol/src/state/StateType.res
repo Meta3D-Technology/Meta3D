@@ -6,6 +6,10 @@ type pipelineData = PipelineType.pipelineData
 
 type createStateFunc<'config, 'state> = (Meta3dType.Index.state, 'config) => 'state
 
+type restoreFunc<'state> = ('state, 'state) => 'state
+
+type deepCopyFunc<'state> = 'state => 'state
+
 type initFunc<'state> = 'state => unit
 
 type pipelineName = string
@@ -30,16 +34,15 @@ and pipelineContribute<'config, 'state> = {
   initFunc: initFunc<'state>,
   getExecFunc: getExecFunc,
   allPipelineData: allPipelineData,
+  restoreFunc: Js.Nullable.t<restoreFunc<'state>>,
+  deepCopyFunc: Js.Nullable.t<deepCopyFunc<'state>>,
 }
 // and getPipelineContribute<'state, 'config, 'states> = 'config => pipelineContribute<
 //   'state,
 //   'states,
 // >
 and registeredPipelineContribute = (
-  pipelineContribute<
-    Js.Nullable.t<RegisterPipelineType.config>,
-    RegisterPipelineType.state,
-  >,
+  pipelineContribute<Js.Nullable.t<RegisterPipelineType.config>, RegisterPipelineType.state>,
   Js.Nullable.t<RegisterPipelineType.config>,
   RegisterPipelineType.jobOrders,
 )

@@ -6,10 +6,11 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as PipelineManager$Meta3dEngineCore from "./pipeline_manager/PipelineManager.bs.js";
-import * as RedoUndoManager$Meta3dEngineCore from "./scene_graph_manager/RedoUndoManager.bs.js";
 import * as ComponentManager$Meta3dEngineCore from "./scene_graph_manager/component/ComponentManager.bs.js";
 import * as GameObjectManager$Meta3dEngineCore from "./scene_graph_manager/GameObjectManager.bs.js";
 import * as ContributeDataManager$Meta3dEngineCore from "./ContributeDataManager.bs.js";
+import * as PipelineRedoUndoManager$Meta3dEngineCore from "./pipeline_manager/PipelineRedoUndoManager.bs.js";
+import * as SceneGraphRedoUndoManager$Meta3dEngineCore from "./scene_graph_manager/SceneGraphRedoUndoManager.bs.js";
 
 function _convertJobOrders(jobOrders) {
   return ArraySt$Meta3dCommonlib.map(jobOrders, (function (jobOrder) {
@@ -53,11 +54,12 @@ function getComponentState(state, componentName) {
 }
 
 function restore(api, extensionProtocolName, currentMeta3dState, targetMeta3dState) {
-  return api.setExtensionState(targetMeta3dState, extensionProtocolName, RedoUndoManager$Meta3dEngineCore.restore(api.getExtensionState(currentMeta3dState, extensionProtocolName), api.getExtensionState(targetMeta3dState, extensionProtocolName)));
+  var currentState = api.getExtensionState(currentMeta3dState, extensionProtocolName);
+  return api.setExtensionState(targetMeta3dState, extensionProtocolName, SceneGraphRedoUndoManager$Meta3dEngineCore.restore(currentState, PipelineRedoUndoManager$Meta3dEngineCore.restore(currentState, api.getExtensionState(targetMeta3dState, extensionProtocolName))));
 }
 
 function deepCopy(api, extensionProtocolName, meta3dState) {
-  return api.setExtensionState(meta3dState, extensionProtocolName, RedoUndoManager$Meta3dEngineCore.deepCopy(api.getExtensionState(meta3dState, extensionProtocolName)));
+  return api.setExtensionState(meta3dState, extensionProtocolName, SceneGraphRedoUndoManager$Meta3dEngineCore.deepCopy(PipelineRedoUndoManager$Meta3dEngineCore.deepCopy(api.getExtensionState(meta3dState, extensionProtocolName))));
 }
 
 var unregisterPipeline = PipelineManager$Meta3dEngineCore.unregisterPipeline;

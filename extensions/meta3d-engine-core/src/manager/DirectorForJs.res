@@ -42,7 +42,7 @@ let runPipeline = (
 ) => {
   let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
     meta3dState,
-    "meta3d-bs-most-protocol"
+    "meta3d-bs-most-protocol",
   )
 
   meta3dState
@@ -126,20 +126,27 @@ let getComponentState = (
 
 let restore = (
   api: Meta3dType.Index.api,
-extensionProtocolName, currentMeta3dState, targetMeta3dState)  => 
-api.setExtensionState(. targetMeta3dState, extensionProtocolName,
-RedoUndoManager.restore(
-api.getExtensionState(. currentMeta3dState, extensionProtocolName),
-api.getExtensionState(. targetMeta3dState, extensionProtocolName)
-)
-)
+  extensionProtocolName,
+  currentMeta3dState,
+  targetMeta3dState,
+) => {
+  let currentState = api.getExtensionState(. currentMeta3dState, extensionProtocolName)
 
+  api.setExtensionState(.
+    targetMeta3dState,
+    extensionProtocolName,
+    PipelineRedoUndoManager.restore(
+      currentState,
+      api.getExtensionState(. targetMeta3dState, extensionProtocolName),
+    )->SceneGraphRedoUndoManager.restore(currentState, _),
+  )
+}
 
-let deepCopy = (
-  api: Meta3dType.Index.api,
-extensionProtocolName, meta3dState) =>
-api.setExtensionState(. meta3dState, extensionProtocolName,
-RedoUndoManager.deepCopy(
-api.getExtensionState(. meta3dState, extensionProtocolName)
-)
-)
+let deepCopy = (api: Meta3dType.Index.api, extensionProtocolName, meta3dState) =>
+  api.setExtensionState(.
+    meta3dState,
+    extensionProtocolName,
+    api.getExtensionState(. meta3dState, extensionProtocolName)
+    ->PipelineRedoUndoManager.deepCopy
+    ->SceneGraphRedoUndoManager.deepCopy,
+  )

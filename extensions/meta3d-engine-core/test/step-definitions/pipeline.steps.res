@@ -33,6 +33,8 @@ defineFeature(feature, test => {
     ~createStateFunc=(_, _) => Obj.magic(1),
     ~initFunc=state => (),
     ~getExecFunc=(_, _) => Js.Nullable.null,
+    ~restoreFunc=Js.Nullable.null,
+    ~deepCopyFunc=Js.Nullable.null,
     ~allPipelineData=[],
     (),
   ): Meta3dEngineCoreProtocol.PipelineManagerType.pipelineContributeForRegister => {
@@ -41,6 +43,8 @@ defineFeature(feature, test => {
     initFunc,
     getExecFunc,
     allPipelineData,
+    restoreFunc,
+    deepCopyFunc,
   }
 
   let _buildJobOrder = (
@@ -321,6 +325,102 @@ defineFeature(feature, test => {
           stub1.contents->Obj.magic->SinonTool.calledWith(1),
           stub2.contents->Obj.magic->getCallCount,
         )->expect == (1, true, 1)
+      },
+    )
+  })
+
+  test(."restore pipeline state", ({given, \"when", \"and", then}) => {
+    let meta3dState: ref<Meta3dType.Index.state> = ref(Obj.magic(1))
+    let pipelineName = "p1"
+    let s1 = ref(Obj.magic(1))
+    let s2 = ref(Obj.magic(1))
+    let targetState = ref(Obj.magic(1))
+
+    _prepareRegister(given)
+
+    _prepareSandbox(given)
+
+    given(
+      "create state as s1",
+      () => {
+        s1 := _createState1()
+      },
+    )
+
+    \"and"(
+      "register pipeline1 contribute with pipeline state ps1",
+      () => {
+        contribute1 :=
+          _buildPipelineContribute(
+            ~pipelineName,
+            ~createStateFunc=(_, _) => {
+              {"data1": []}->Obj.magic
+            },
+            ~restoreFunc=(
+              (currentPipelineState, targetPipelineState) => {
+                targetPipelineState
+              }
+            )->Meta3dCommonlib.NullableSt.return,
+            ~deepCopyFunc=(
+              pipelineState =>
+                {
+                  "data1": (pipelineState->Obj.magic)["data1"]->Meta3dCommonlib.ArraySt.copy,
+                }->Obj.magic
+              // pipelineState
+            )
+            ->Meta3dCommonlib.NullableSt.return,
+            (),
+          )
+
+        s1 :=
+          MainTool.registerPipelineWithState(
+            ~state=s1.contents,
+            ~contribute=contribute1.contents,
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "init pipeline1",
+      () => {
+        s1 := s1.contents->DirectorForJs.init(meta3dState.contents)
+      },
+    )
+
+    \"and"(
+      "deep copy s1 as s2",
+      () => {
+        s2 := s1.contents->PipelineRedoUndoManager.deepCopy
+      },
+    )
+
+    \"and"(
+      "change ps1 to ps2",
+      () => {
+        (
+          PipelineTool.getPipelineState(s2.contents, pipelineName)
+          ->Meta3dCommonlib.Log.printForDebug
+          ->Obj.magic
+        )["data1"]
+        ->Meta3dCommonlib.ArraySt.push(1)
+        ->ignore
+      },
+    )
+
+    \"when"(
+      "restore s2 to s1",
+      () => {
+        targetState := PipelineRedoUndoManager.restore(s2.contents, s1.contents)
+      },
+    )
+
+    \"and"(
+      "pipeline1's state should be ps1",
+      () => {
+        (
+          PipelineTool.getPipelineState(targetState.contents, pipelineName)->Obj.magic
+        )["data1"]->expect == []
       },
     )
   })
