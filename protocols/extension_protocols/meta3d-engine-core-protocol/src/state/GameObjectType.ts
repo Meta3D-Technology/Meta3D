@@ -2,11 +2,15 @@
 /* eslint-disable import/first */
 
 
-import type {createGameObjectFunc as GameObjectContributeType_createGameObjectFunc} from '../contribute/scene_graph/GameObjectContributeType';
+import type { createGameObjectFunc as GameObjectContributeType_createGameObjectFunc } from '../contribute/scene_graph/GameObjectContributeType';
 
-import type {gameObjectContribute as GameObjectContributeType_gameObjectContribute} from '../contribute/scene_graph/GameObjectContributeType';
+import type { gameObjectContribute as GameObjectContributeType_gameObjectContribute } from '../contribute/scene_graph/GameObjectContributeType';
 
-import type {getAllGameObjectsFunc as GameObjectContributeType_getAllGameObjectsFunc} from '../contribute/scene_graph/GameObjectContributeType';
+import type { getAllGameObjectsFunc as GameObjectContributeType_getAllGameObjectsFunc } from '../contribute/scene_graph/GameObjectContributeType';
+
+import type { restore as GameObjectContributeType_restore } from '../contribute/scene_graph/GameObjectContributeType';
+
+import type { deepCopy as GameObjectContributeType_deepCopy } from '../contribute/scene_graph/GameObjectContributeType';
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
@@ -18,9 +22,11 @@ export abstract class gameObject { protected opaque!: any }; /* simulate opaque 
 
 // tslint:disable-next-line:interface-over-type-literal
 export type usedGameObjectContribute = {
-  state: state; 
-  readonly createGameObjectFunc: GameObjectContributeType_createGameObjectFunc<state>; 
-  readonly getAllGameObjectsFunc: GameObjectContributeType_getAllGameObjectsFunc<state>
+  state: state;
+  readonly createGameObjectFunc: GameObjectContributeType_createGameObjectFunc<state>;
+  readonly getAllGameObjectsFunc: GameObjectContributeType_getAllGameObjectsFunc<state>;
+  readonly restore: GameObjectContributeType_restore<state>;
+  readonly deepCopy: GameObjectContributeType_deepCopy<state>;
 };
 
 // tslint:disable-next-line:interface-over-type-literal

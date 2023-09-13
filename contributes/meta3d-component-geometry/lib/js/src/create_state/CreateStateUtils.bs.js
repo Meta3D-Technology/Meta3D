@@ -1,8 +1,19 @@
 'use strict';
 
+var Js_typed_array = require("rescript/lib/js/js_typed_array.js");
 var CreateMapComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CreateMapComponentUtils.bs.js");
 var BufferGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/BufferGeometryUtils.bs.js");
 var CreateTypeArrayGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/CreateTypeArrayGeometryUtils.bs.js");
+
+function setAllInfosDataToDefault(param, geometryCount) {
+  return [
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[0]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[1]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[2]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[3]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[4])
+        ];
+}
 
 function _initBufferData(geometryPointCount, geometryCount) {
   var buffer = BufferGeometryUtils$Meta3dComponentWorkerUtils.createBuffer(geometryPointCount, geometryCount);
@@ -76,6 +87,7 @@ function createState(isDebug, geometryPointCount, geometryCount) {
             });
 }
 
+exports.setAllInfosDataToDefault = setAllInfosDataToDefault;
 exports._initBufferData = _initBufferData;
 exports.createStateWithSharedArrayBufferData = createStateWithSharedArrayBufferData;
 exports.createState = createState;

@@ -1,3 +1,53 @@
+let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.state) =>
+     {
+        let (
+
+    verticesInfos,
+    texCoordsInfos,
+    normalsInfos,
+    tangentsInfos,
+    indicesInfos,
+
+) =
+          (
+    currentState.verticesInfos,
+    currentState.texCoordsInfos,
+    currentState.normalsInfos,
+    currentState.tangentsInfos,
+    currentState.indicesInfos,
+          )->CreateStateUtils.setAllInfosDataToDefault(
+            currentState.maxIndex
+          )
+        Meta3dCommonlib.TypeArrayUtils.fillUint32ArrayWithUint32Array(
+          (currentState.verticesInfos, 0),
+          (targetState.verticesInfos, 0),
+          Js.Typed_array.Uint32Array.length(targetState.verticesInfos),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillUint32ArrayWithUint32Array(
+          (currentState.texCoordsInfos, 0),
+          (targetState.texCoordsInfos, 0),
+          Js.Typed_array.Uint32Array.length(targetState.texCoordsInfos),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillUint32ArrayWithUint32Array(
+          (currentState.normalsInfos, 0),
+          (targetState.normalsInfos, 0),
+          Js.Typed_array.Uint32Array.length(targetState.normalsInfos),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillUint32ArrayWithUint32Array(
+          (currentState.tangentsInfos, 0),
+          (targetState.tangentsInfos, 0),
+          Js.Typed_array.Uint32Array.length(targetState.tangentsInfos),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillUint32ArrayWithUint32Array(
+          (currentState.indicesInfos, 0),
+          (targetState.indicesInfos, 0),
+          Js.Typed_array.Uint32Array.length(targetState.indicesInfos),
+        )->ignore
+
+        (currentState, targetState)
+      }
+
+
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -49,9 +99,71 @@ let getContribute: Meta3dType.Index.getContribute<
     CloneGeometryUtils.clone(state, countRange, sourceGeometry)
   },
   restore: (. currentState, targetState) => {
-    targetState
+    let (currentState, targetState) = _restoreTypeArrays(currentState, targetState)
+
+    {
+      ...targetState,
+      buffer: currentState.buffer,
+    verticesInfos: currentState.verticesInfos,
+    texCoordsInfos: currentState.texCoordsInfos,
+    normalsInfos: currentState.normalsInfos,
+    tangentsInfos: currentState.tangentsInfos,
+    indicesInfos: currentState.indicesInfos
+    }
+
+
   },
   deepCopy: (. state) => {
-    state
+    open Meta3dComponentCommonlib
+    open Meta3dComponentWorkerUtils.BufferGeometryUtils
+
+    let {
+    maxIndex,
+    buffer,
+    vertices,
+    texCoords,
+    normals,
+    tangents,
+    indices,
+    verticesInfos,
+    texCoordsInfos,
+    normalsInfos,
+    tangentsInfos,
+    indicesInfos,
+    verticesOffset,
+    texCoordsOffset,
+    normalsOffset,
+    tangentsOffset,
+    indicesOffset,
+    gameObjectsMap,
+    gameObjectGeometryMap,
+    needDisposedGeometrys,
+    disposedGeometrys
+    } = state
+
+  let infosEndIndex = maxIndex * getInfoSize();
+
+    {
+      ...state,
+      verticesInfos: verticesInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+infosEndIndex
+      ),
+      texCoordsInfos: texCoordsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+infosEndIndex
+      ),
+      normalsInfos: normalsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+infosEndIndex
+      ),
+      tangentsInfos: tangentsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+infosEndIndex
+      ),
+      indicesInfos: indicesInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+infosEndIndex
+      ),
+      gameObjectsMap:           gameObjectsMap -> CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
+      gameObjectGeometryMap: gameObjectGeometryMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedGeometrys: needDisposedGeometrys->Meta3dCommonlib.ArraySt.copy,
+      disposedGeometrys: disposedGeometrys->Meta3dCommonlib.ArraySt.copy,
+    }
   }
 }

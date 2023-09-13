@@ -1,3 +1,31 @@
+let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.state) =>
+  currentState.colors === targetState.colors &&
+  currentState.intensities === targetState.intensities     ? (currentState, targetState)
+    : {
+        let (colors, intensities) =
+          (
+            currentState.colors,
+            currentState.intensities,
+          )->CreateStateUtils.setAllTypeArrDataToDefault(
+            currentState.maxIndex,
+            
+ CreateStateUtils.   getDefaultData(),
+          )
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.colors, 0),
+          (targetState.colors, 0),
+          Js.Typed_array.Float32Array.length(targetState.colors),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.intensities, 0),
+          (targetState.intensities, 0),
+          Js.Typed_array.Float32Array.length(targetState.intensities),
+        )->ignore
+
+        (currentState, targetState)
+      }
+
+
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -49,9 +77,44 @@ let getContribute: Meta3dType.Index.getContribute<
     CloneDirectionLightUtils.clone(state, countRange, sourceDirectionLight)
   },
   restore: (. currentState, targetState) => {
-    targetState
+    let (currentState, targetState) = _restoreTypeArrays(currentState, targetState)
+
+    {
+      ...targetState,
+      buffer: currentState.buffer,
+      colors: currentState.colors,
+      intensities: currentState.intensities,
+    }
+
   },
   deepCopy: (. state) => {
-    state
+    open Meta3dComponentCommonlib
+    open Meta3dComponentWorkerUtils.BufferDirectionLightUtils
+
+    let {
+    maxIndex,
+    colors,
+    intensities,
+    gameObjectDirectionLightMap,
+    gameObjectMap,
+    needDisposedDirectionLights,
+    disposedDirectionLights,
+    } = state
+
+    {
+      ...state,
+      colors: colors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getColorsSize(),
+      ),
+      intensities: intensities->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getIntensitiesSize(),
+      ),
+      gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectDirectionLightMap: gameObjectDirectionLightMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedDirectionLights: needDisposedDirectionLights->Meta3dCommonlib.ArraySt.copy,
+      disposedDirectionLights: disposedDirectionLights->Meta3dCommonlib.ArraySt.copy,
+    }
+
+
   }
 }

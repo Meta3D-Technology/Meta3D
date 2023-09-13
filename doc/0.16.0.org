@@ -374,17 +374,32 @@ cpu resources->E,C:
 deep copy
 restore
 
-TODO component
+# TODO component
 
-TODO gameObject
+# TODO gameObject
 
-TODO update engine-core
+# TODO update engine-core
+  ////bdd test
+
+# commit
 
 
 
 gpu resources->three:
 dispose all to create new ones
 
+commit
+
+
+
+pipeline:
+add deepCopy, restore function(can be empty if all are immutable)
+
+change them to immutable
+
+
+
+commit
 
 
 ** TODO editor add redo/undo
@@ -442,19 +457,3 @@ use generic
 
 
 
-
-
-* TODO feat: publish to the exist app should overwrite it
-
-
-
-* TODO fix: import app should import canvas size
-
-
-
-* TODO feat: ap assemble: add select all button
-
-
-* TODO feat: ap assemble: Debug should show name
-
-* TODO feat: Market: update paging for "xx/page"

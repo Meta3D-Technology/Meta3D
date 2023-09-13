@@ -14,6 +14,8 @@ let buildComponentContribute = (
   ~deferDisposeComponentFunc=(. state, _) => state,
   ~disposeComponentsFunc=(. state, _) => state,
   ~cloneComponentFunc=(. state, _, _, _) => ( state, Obj.magic(1) ),
+  ~restore=(. currentState, targetState) => targetState,
+  ~deepCopy=(. state) => state,
   (),
 ): Meta3dEngineCoreProtocol.RegisterComponentType.componentContribute => {
   componentName: componentName,
@@ -31,4 +33,6 @@ let buildComponentContribute = (
   deferDisposeComponentFunc: deferDisposeComponentFunc,
   disposeComponentsFunc: disposeComponentsFunc,
 cloneComponentFunc,
+restore,
+deepCopy
 }

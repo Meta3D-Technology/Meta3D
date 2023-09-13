@@ -205,5 +205,5 @@ let getComponentState = componentName => {
 }
 
 let getGameObjectState = () => {
-  (StateContainer.unsafeGetState()->GameObjectManager._unsafeGetUsedGameObjectContribute).state
+  (StateContainer.unsafeGetState()->StateUtils.unsafeGetUsedGameObjectContribute).state
 }

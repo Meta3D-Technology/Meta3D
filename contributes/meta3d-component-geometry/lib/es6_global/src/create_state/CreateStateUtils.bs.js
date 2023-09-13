@@ -1,8 +1,19 @@
 
 
-import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
-import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
-import * as CreateTypeArrayGeometryUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/CreateTypeArrayGeometryUtils.bs.js";
+import * as Js_typed_array from "../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
+import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
+import * as CreateTypeArrayGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/CreateTypeArrayGeometryUtils.bs.js";
+
+function setAllInfosDataToDefault(param, geometryCount) {
+  return [
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[0]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[1]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[2]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[3]),
+          Js_typed_array.$$Uint32Array.fillRangeInPlace(0, 0, Math.imul(geometryCount, BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoSize(undefined)), param[4])
+        ];
+}
 
 function _initBufferData(geometryPointCount, geometryCount) {
   var buffer = BufferGeometryUtils$Meta3dComponentWorkerUtils.createBuffer(geometryPointCount, geometryCount);
@@ -77,6 +88,7 @@ function createState(isDebug, geometryPointCount, geometryCount) {
 }
 
 export {
+  setAllInfosDataToDefault ,
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,

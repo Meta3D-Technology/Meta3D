@@ -1,3 +1,41 @@
+let setAllInfosDataToDefault =
+    (
+      (verticesInfos, texCoordsInfos, normalsInfos, tangentsInfos, indicesInfos),
+      geometryCount: int,
+    ) => (
+  verticesInfos
+  |> Js.Typed_array.Uint32Array.fillRangeInPlace(
+       0,
+       ~start=0,
+       ~end_=geometryCount * Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoSize(),
+     ),
+  texCoordsInfos
+  |> Js.Typed_array.Uint32Array.fillRangeInPlace(
+       0,
+       ~start=0,
+       ~end_=geometryCount * Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoSize(),
+     ),
+  normalsInfos
+  |> Js.Typed_array.Uint32Array.fillRangeInPlace(
+       0,
+       ~start=0,
+       ~end_=geometryCount * Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoSize(),
+     ),
+  tangentsInfos
+  |> Js.Typed_array.Uint32Array.fillRangeInPlace(
+       0,
+       ~start=0,
+       ~end_=geometryCount * Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoSize(),
+     ),
+  indicesInfos
+  |> Js.Typed_array.Uint32Array.fillRangeInPlace(
+       0,
+       ~start=0,
+       ~end_=geometryCount * Meta3dComponentWorkerUtils.BufferGeometryUtils.getInfoSize(),
+     ),
+);
+
+
 let _initBufferData = (geometryPointCount, geometryCount) => {
   let buffer = Meta3dComponentWorkerUtils.BufferGeometryUtils.createBuffer(
     geometryPointCount,

@@ -55,6 +55,33 @@ let getContribute: Meta3dType.Index.getContribute<
     targetState
   },
   deepCopy: (. state) => {
-    state
+    open Meta3dComponentCommonlib
+
+    let {
+    dirtyMap,
+    pMatrixMap,
+    nearMap,
+    farMap,
+    fovyMap,
+    aspectMap,
+    gameObjectMap,
+    gameObjectPerspectiveCameraProjectionMap,
+    needDisposedPerspectiveCameraProjections,
+    disposedPerspectiveCameraProjections,
+    } = state
+
+    {
+      ...state,
+      dirtyMap: dirtyMap->Meta3dCommonlib.MutableSparseMap.copy,
+      pMatrixMap: pMatrixMap->Meta3dCommonlib.MutableSparseMap.copy,
+      nearMap: nearMap->Meta3dCommonlib.MutableSparseMap.copy,
+      farMap: farMap->Meta3dCommonlib.MutableSparseMap.copy,
+      aspectMap: aspectMap->Meta3dCommonlib.MutableSparseMap.copy,
+      fovyMap: fovyMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectPerspectiveCameraProjectionMap: gameObjectPerspectiveCameraProjectionMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedPerspectiveCameraProjections: needDisposedPerspectiveCameraProjections->Meta3dCommonlib.ArraySt.copy,
+      disposedPerspectiveCameraProjections: disposedPerspectiveCameraProjections->Meta3dCommonlib.ArraySt.copy,
+    }
   }
 }

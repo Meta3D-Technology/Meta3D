@@ -6,7 +6,7 @@ var BufferPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-componen
 var CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/pbrmaterial/CreateTypeArrayPBRMaterialUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial = require("../utils/OperateTypeArrayPBRMaterialUtils.bs.js");
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultIOR = param$1[6];
   var defaultTransmission = param$1[5];
   var defaultMetalness = param$1[4];
@@ -43,7 +43,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -137,7 +137,7 @@ function createState(isDebug, pbrMaterialCount) {
             });
 }
 
-exports._setAllTypeArrDataToDefault = _setAllTypeArrDataToDefault;
+exports.setAllTypeArrDataToDefault = setAllTypeArrDataToDefault;
 exports._initBufferData = _initBufferData;
 exports.createStateWithSharedArrayBufferData = createStateWithSharedArrayBufferData;
 exports.createState = createState;

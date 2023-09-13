@@ -1,3 +1,77 @@
+let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.state) =>
+  currentState.diffuseColors === targetState.diffuseColors &&
+  currentState.speculars === targetState.speculars &&
+  currentState.specularColors === targetState.specularColors &&
+  currentState.roughnesses === targetState.roughnesses
+  &&currentState.metalnesses === targetState.metalnesses &&
+  currentState.transmissions === targetState.transmissions &&
+  currentState.iors === targetState.iors 
+    ? (currentState, targetState)
+    : {
+        let (
+    diffuseColors,
+    speculars,
+    specularColors,
+    roughnesses,
+    metalnesses,
+    transmissions,
+    iors
+) =
+          (
+currentState.diffuseColors, currentState.speculars, currentState.specularColors, currentState.roughnesses, currentState.metalnesses, currentState.transmissions, currentState.iors
+          )->CreateStateUtils.setAllTypeArrDataToDefault(
+            currentState.maxIndex,
+            (
+
+    currentState.defaultDiffuseColor,
+    currentState.defaultSpecular,
+    currentState.defaultSpecularColor,
+    currentState.defaultRoughness,
+    currentState.defaultMetalness,
+    currentState.defaultTransmission,
+    currentState.defaultIOR,
+            ),
+          )
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.diffuseColors, 0),
+          (targetState.diffuseColors, 0),
+          Js.Typed_array.Float32Array.length(targetState.diffuseColors),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.speculars, 0),
+          (targetState.speculars, 0),
+          Js.Typed_array.Float32Array.length(targetState.speculars),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.specularColors, 0),
+          (targetState.specularColors, 0),
+          Js.Typed_array.Float32Array.length(targetState.specularColors),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.roughnesses, 0),
+          (targetState.roughnesses, 0),
+          Js.Typed_array.Float32Array.length(targetState.roughnesses),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.metalnesses, 0),
+          (targetState.metalnesses, 0),
+          Js.Typed_array.Float32Array.length(targetState.metalnesses),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.transmissions, 0),
+          (targetState.transmissions, 0),
+          Js.Typed_array.Float32Array.length(targetState.transmissions),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.iors, 0),
+          (targetState.iors, 0),
+          Js.Typed_array.Float32Array.length(targetState.iors),
+        )->ignore
+
+        (currentState, targetState)
+      }
+
+
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -49,9 +123,80 @@ let getContribute: Meta3dType.Index.getContribute<
     ClonePBRMaterialUtils.clone(state, countRange, cloneConfig, sourceMaterial)
   },
   restore: (. currentState, targetState) => {
-    targetState
+    let (currentState, targetState) = _restoreTypeArrays(currentState, targetState)
+
+    {
+      ...targetState,
+      buffer: currentState.buffer,
+    diffuseColors: currentState.diffuseColors,
+    speculars: currentState.speculars,
+    specularColors: currentState.specularColors,
+    roughnesses: currentState.roughnesses,
+    metalnesses: currentState.metalnesses,
+    transmissions: currentState.transmissions,
+    iors: currentState.iors,
+    }
+
   },
   deepCopy: (. state) => {
-    state
+    open Meta3dComponentCommonlib
+    open Meta3dComponentWorkerUtils.BufferPBRMaterialUtils
+
+    let {
+    maxIndex,
+    diffuseColors,
+    speculars,
+    specularColors,
+    roughnesses,
+    metalnesses,
+    transmissions,
+    iors,
+    gameObjectPBRMaterialMap,
+    gameObjectsMap,
+    diffuseMapMap,
+    channelRoughnessMetallicMapMap,
+    emissionMapMap,
+    normalMapMap,
+    transmissionMapMap,
+    specularMapMap,
+    needDisposedPBRMaterials,
+    disposedPBRMaterials,
+    } = state
+
+    {
+      ...state,
+      diffuseColors: diffuseColors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getDiffuseColorsSize(),
+      ),
+      speculars: speculars->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getSpecularsSize(),
+      ),
+      specularColors: specularColors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getSpecularColorsSize(),
+      ),
+      roughnesses: roughnesses->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getRoughnessesSize(),
+      ),
+      metalnesses: metalnesses->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getMetalnessesSize(),
+      ),
+      transmissions: transmissions->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getTransmissionsSize(),
+      ),
+      iors: iors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getIORsSize(),
+      ),
+      diffuseMapMap: diffuseMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      channelRoughnessMetallicMapMap: channelRoughnessMetallicMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      emissionMapMap: emissionMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      normalMapMap: normalMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      transmissionMapMap: transmissionMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      specularMapMap: specularMapMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectsMap:           gameObjectsMap -> CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
+      gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedPBRMaterials: needDisposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,
+      disposedPBRMaterials: disposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,
+    }
+
   }
 }

@@ -1,14 +1,14 @@
 
 
-import * as Log$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Exception$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as ConfigUtils$Meta3dComponentGeometry from "../config/ConfigUtils.bs.js";
-import * as Index$Meta3dComponentGeometryProtocol from "./../../../../../meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
-import * as IndicesUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/IndicesUtils.bs.js";
-import * as NormalsUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/NormalsUtils.bs.js";
-import * as TangentsUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/TangentsUtils.bs.js";
-import * as VerticesUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/VerticesUtils.bs.js";
-import * as TexCoordsUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/geometry/TexCoordsUtils.bs.js";
+import * as Index$Meta3dComponentGeometryProtocol from "../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
+import * as IndicesUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/IndicesUtils.bs.js";
+import * as NormalsUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/NormalsUtils.bs.js";
+import * as TangentsUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/TangentsUtils.bs.js";
+import * as VerticesUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/VerticesUtils.bs.js";
+import * as TexCoordsUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/TexCoordsUtils.bs.js";
 
 function getData(state, param, param$1) {
   var vertices = state.vertices;

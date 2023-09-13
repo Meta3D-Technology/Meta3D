@@ -33,6 +33,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   disposeGameObjects: DirectorForJs.disposeGameObjects,
   cloneGameObject: DirectorForJs.cloneGameObject,
   getAllGameObjects: DirectorForJs.getAllGameObjects,
+  restore: DirectorForJs.restore,
+  deepCopy: DirectorForJs.deepCopy,
   runPipeline: DirectorForJs.runPipeline(
     api,
     (StateContainer.unsafeGetMeta3dState, StateContainer.setMeta3dState),

@@ -1,6 +1,6 @@
 
 
-import * as Curry from "./../../../../../../rescript/lib/es6/curry.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as ArraySt$Meta3dCommonlib from "../../structure/ArraySt.bs.js";
 
 function clone(state, param, countRange, sourceComponent) {

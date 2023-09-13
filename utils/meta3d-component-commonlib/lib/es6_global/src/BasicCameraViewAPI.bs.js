@@ -1,14 +1,14 @@
 
 
-import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Log$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Matrix4$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
-import * as Contract$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as NullableTool$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/test/NullableTool.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
-import * as Index$Meta3dComponentBasiccameraviewProtocol from "./../../../../../node_modules/meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Matrix4$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
+import * as Contract$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/Contract.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as NullableTool$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/test/NullableTool.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentBasiccameraviewProtocol from "../../../../../node_modules/meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
 
 function getViewWorldToCameraMatrix(usedBasicCameraViewContribute, param, usedTransformContribute, cameraView) {
   var getComponentData = param.getComponentData;

@@ -1,3 +1,49 @@
+let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.state) =>
+  currentState.localPositions === targetState.localPositions &&
+  currentState.localRotations === targetState.localRotations &&
+  currentState.localScales === targetState.localScales &&
+  currentState.localToWorldMatrices === targetState.localToWorldMatrices
+    ? (currentState, targetState)
+    : {
+        let (localToWorldMatrices, localPositions, localRotations, localScales) =
+          (
+            currentState.localToWorldMatrices,
+            currentState.localPositions,
+            currentState.localRotations,
+            currentState.localScales,
+          )->CreateStateUtils.setAllTypeArrDataToDefault(
+            currentState.maxIndex,
+            (
+              currentState.defaultLocalToWorldMatrix,
+              currentState.defaultLocalPosition,
+              currentState.defaultLocalRotation,
+              currentState.defaultLocalScale,
+            ),
+          )
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.localPositions, 0),
+          (targetState.localPositions, 0),
+          Js.Typed_array.Float32Array.length(targetState.localPositions),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.localRotations, 0),
+          (targetState.localRotations, 0),
+          Js.Typed_array.Float32Array.length(targetState.localRotations),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.localScales, 0),
+          (targetState.localScales, 0),
+          Js.Typed_array.Float32Array.length(targetState.localScales),
+        )->ignore
+        Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
+          (currentState.localToWorldMatrices, 0),
+          (targetState.localToWorldMatrices, 0),
+          Js.Typed_array.Float32Array.length(targetState.localToWorldMatrices),
+        )->ignore
+
+        (currentState, targetState)
+      }
+
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -49,44 +95,57 @@ let getContribute: Meta3dType.Index.getContribute<
     CloneTransformUtils.clone(state, countRange, sourceTransform)
   },
   restore: (. currentState, targetState) => {
-    // TODO
-    targetState
-  },
-  deepCopy: (. state) => {
-    open Meta3dComponentWorkerUtils.BufferTransformUtils
-
-    let maxIndex = state.maxIndex
+    let (currentState, targetState) = _restoreTypeArrays(currentState, targetState)
 
     {
-      ...state,
-      // config: {
-      //   isDebug,
-      //   transformCount,
-      //   float9Array1,
-      //   float32Array1,
-      // },
-      // maxIndex: 0,
-      // buffer,
-      localToWorldMatrices: localToWorldMatrices->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
-        maxIndex * getLocalToWorldMatricesSize(),
-      ),
-      TODO continue
+      ...targetState,
+      buffer: currentState.buffer,
+      localPositions: currentState.localPositions,
+      localRotations: currentState.localRotations,
+      localScales: currentState.localScales,
+      localToWorldMatrices: currentState.localToWorldMatrices,
+    }
+  },
+  deepCopy: (. state) => {
+    open Meta3dComponentCommonlib
+    open Meta3dComponentWorkerUtils.BufferTransformUtils
+
+    let {
+      maxIndex,
+      localToWorldMatrices,
       localPositions,
       localRotations,
       localScales,
-      defaultLocalToWorldMatrix,
-      defaultLocalPosition,
-      defaultLocalRotation,
-      defaultLocalScale,
-      parentMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
-      childrenMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
-      gameObjectMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
-      gameObjectTransformMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
-        transformCount,
+      parentMap,
+      childrenMap,
+      gameObjectMap,
+      gameObjectTransformMap,
+      dirtyMap,
+      needDisposedTransforms,
+      disposedTransforms,
+    } = state
+
+    {
+      ...state,
+      localPositions: localPositions->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getLocalPositionsSize(),
       ),
-      dirtyMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
-      needDisposedTransforms: [],
-      disposedTransforms: [],
+      localRotations: localRotations->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getLocalRotationsSize(),
+      ),
+      localScales: localScales->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getLocalScalesSize(),
+      ),
+      localToWorldMatrices: localToWorldMatrices->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getLocalToWorldMatricesSize(),
+      ),
+      parentMap: parentMap->Meta3dCommonlib.MutableSparseMap.copy,
+      childrenMap: childrenMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectTransformMap: gameObjectTransformMap->Meta3dCommonlib.MutableSparseMap.copy,
+      dirtyMap: dirtyMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedTransforms: needDisposedTransforms->Meta3dCommonlib.ArraySt.copy,
+      disposedTransforms: disposedTransforms->Meta3dCommonlib.ArraySt.copy,
     }
   },
 }

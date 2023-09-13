@@ -1,11 +1,11 @@
 
 
-import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as ArraySt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as Vector3$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as Quaternion$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Vector3$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Quaternion$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 
 function getDirection(usedDirectionLightContribute, param, usedTransformContribute, light) {
   var getComponentData = param.getComponentData;

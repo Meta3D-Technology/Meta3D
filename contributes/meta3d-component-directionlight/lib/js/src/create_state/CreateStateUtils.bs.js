@@ -6,7 +6,7 @@ var BufferDirectionLightUtils$Meta3dComponentWorkerUtils = require("meta3d-compo
 var CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js");
 var OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight = require("../utils/OperateTypeArrayDirectionLightUtils.bs.js");
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultIntensity = param$1[1];
   var defaultColor = param$1[0];
   var intensities = param[1];
@@ -23,7 +23,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferDirectionLightUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -50,6 +50,17 @@ function createStateWithSharedArrayBufferData(param, param$1) {
         };
 }
 
+function getDefaultData(param) {
+  return [
+          [
+            1,
+            1,
+            1
+          ],
+          1.0
+        ];
+}
+
 function createState(isDebug, lightCount) {
   var match = _initBufferData(lightCount, [
         [
@@ -70,8 +81,9 @@ function createState(isDebug, lightCount) {
             });
 }
 
-exports._setAllTypeArrDataToDefault = _setAllTypeArrDataToDefault;
+exports.setAllTypeArrDataToDefault = setAllTypeArrDataToDefault;
 exports._initBufferData = _initBufferData;
 exports.createStateWithSharedArrayBufferData = createStateWithSharedArrayBufferData;
+exports.getDefaultData = getDefaultData;
 exports.createState = createState;
 /* No side effect */

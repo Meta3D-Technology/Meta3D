@@ -42,6 +42,8 @@ function getExtensionService(api) {
           disposeGameObjects: DirectorForJs$Meta3dEngineCore.disposeGameObjects,
           cloneGameObject: DirectorForJs$Meta3dEngineCore.cloneGameObject,
           getAllGameObjects: DirectorForJs$Meta3dEngineCore.getAllGameObjects,
+          restore: DirectorForJs$Meta3dEngineCore.restore,
+          deepCopy: DirectorForJs$Meta3dEngineCore.deepCopy,
           runPipeline: (function (param, param$1, param$2) {
               return DirectorForJs$Meta3dEngineCore.runPipeline(api, partial_arg, param, param$1, param$2);
             })

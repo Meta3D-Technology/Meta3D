@@ -1,7 +1,7 @@
 
 
-import * as Js_array from "./../../../../../../rescript/lib/es6/js_array.js";
-import * as Caml_option from "./../../../../../../rescript/lib/es6/caml_option.js";
+import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as Caml_option from "../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as ArraySt$Meta3dCommonlib from "../ArraySt.bs.js";
 import * as NullUtils$Meta3dCommonlib from "../utils/NullUtils.bs.js";
 

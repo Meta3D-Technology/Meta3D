@@ -6,6 +6,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var PipelineManager$Meta3dEngineCore = require("./pipeline_manager/PipelineManager.bs.js");
+var RedoUndoManager$Meta3dEngineCore = require("./scene_graph_manager/RedoUndoManager.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
 var ContributeDataManager$Meta3dEngineCore = require("./ContributeDataManager.bs.js");
@@ -105,6 +106,10 @@ var cloneGameObject = GameObjectManager$Meta3dEngineCore.cloneGameObject;
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
 
+var restore = RedoUndoManager$Meta3dEngineCore.restore;
+
+var deepCopy = RedoUndoManager$Meta3dEngineCore.deepCopy;
+
 exports._convertJobOrders = _convertJobOrders;
 exports.registerPipeline = registerPipeline;
 exports.unregisterPipeline = unregisterPipeline;
@@ -139,4 +144,6 @@ exports.disposeGameObjects = disposeGameObjects;
 exports.cloneGameObject = cloneGameObject;
 exports.getAllGameObjects = getAllGameObjects;
 exports.getComponentState = getComponentState;
+exports.restore = restore;
+exports.deepCopy = deepCopy;
 /* No side effect */

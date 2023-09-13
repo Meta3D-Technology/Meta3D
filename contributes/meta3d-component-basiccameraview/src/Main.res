@@ -51,6 +51,24 @@ let getContribute: Meta3dType.Index.getContribute<
     targetState
   },
   deepCopy: (. state) => {
-    state
+    open Meta3dComponentCommonlib
+
+    let {
+    isActiveMap,
+    gameObjectMap,
+    gameObjectBasicCameraViewMap,
+    needDisposedBasicCameraViews,
+    disposedBasicCameraViews,
+    } = state
+
+    {
+      ...state,
+      isActiveMap: isActiveMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectBasicCameraViewMap: gameObjectBasicCameraViewMap->Meta3dCommonlib.MutableSparseMap.copy,
+      needDisposedBasicCameraViews: needDisposedBasicCameraViews->Meta3dCommonlib.ArraySt.copy,
+      disposedBasicCameraViews: disposedBasicCameraViews->Meta3dCommonlib.ArraySt.copy,
+    }
+
   }
 }

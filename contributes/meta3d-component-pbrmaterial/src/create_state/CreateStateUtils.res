@@ -1,4 +1,4 @@
-let _setAllTypeArrDataToDefault = (
+let setAllTypeArrDataToDefault = (
   (diffuseColors, speculars, specularColors, roughnesses, metalnesses, transmissions, iors),
   count,
   (
@@ -31,7 +31,7 @@ let _initBufferData = (count, defaultDataTuple) => {
     Meta3dComponentWorkerUtils.CreateTypeArrayPBRMaterialUtils.createTypeArrays(
       buffer,
       count,
-    )->_setAllTypeArrDataToDefault(count, defaultDataTuple)
+    )->setAllTypeArrDataToDefault(count, defaultDataTuple)
 
   (buffer, typeArrData)
 }

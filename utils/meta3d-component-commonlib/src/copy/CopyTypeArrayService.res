@@ -59,8 +59,8 @@ let copyFloat32ArrayWithEndIndex = (typeArr: Float32Array.t, endIndex) =>
 // let copyUint16ArrayWithEndIndex = (endIndex, typeArr: Uint16Array.t) =>
 //   Uint16Array.slice(~start=0, ~end_=endIndex, typeArr);
 
-// let copyUint32ArrayWithEndIndex = (endIndex, typeArr: Uint32Array.t) =>
-//   Uint32Array.slice(~start=0, ~end_=endIndex, typeArr);
+let copyUint32ArrayWithEndIndex = ( typeArr: Uint32Array.t, endIndex) =>
+  Uint32Array.slice(~start=0, ~end_=endIndex, typeArr);
 
 // let copyUint16Array = (typeArr: Uint16Array.t) =>
 //   if (typeArr |> Obj.magic === Js.Undefined.empty) {
@@ -95,13 +95,14 @@ let copyFloat32ArrayWithEndIndex = (typeArr: Float32Array.t, endIndex) =>
 //           Js.Nullable.undefined |> Obj.magic : itemArr |> Js.Array.copy
 //       ); */
 
-// let deepCopyMutableSparseMapOfArray =
-//     (arr: WonderCommonlib.MutableSparseMapService.t(array('a))) =>
-//   arr
-//   |> WonderCommonlib.MutableSparseMapService.mapValid((. itemArr)
-//        /* WonderCommonlib.MutableSparseMapService.isDeleted(itemArr) ?
-//           Js.Nullable.undefined : itemArr |> Js.Array.copy */
-//        => itemArr |> Js.Array.copy);
+let deepCopyMutableSparseMapOfArray =
+    // (arr: Meta3dCommonlibType.MutableSparseMapType.t<array<'a>>) =>
+    (arr) =>
+  arr
+  -> Meta3dCommonlib.MutableSparseMap.map((. itemArr)
+       /* WonderCommonlib.MutableSparseMapService.isDeleted(itemArr) ?
+          Js.Nullable.undefined : itemArr |> Js.Array.copy */
+       => itemArr -> Js.Array.copy);
 
 // /* let copyFloat32TypeArrayFromSharedArrayBuffer = (buffer) =>
 //      Js.Typed_array.Float32Array.fromBuffer(WorkerType.sharedArrayBufferToArrayBuffer(buffer));

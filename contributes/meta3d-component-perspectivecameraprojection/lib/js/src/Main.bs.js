@@ -1,5 +1,7 @@
 'use strict';
 
+var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 var Index$Meta3dComponentPerspectivecameraprojectionProtocol = require("meta3d-component-perspectivecameraprojection-protocol/lib/js/src/Index.bs.js");
 var CreateStateUtils$Meta3dComponentPerspectivecameraprojection = require("./create_state/CreateStateUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection = require("./gameobject/GetGameObjectsUtils.bs.js");
@@ -44,7 +46,20 @@ function getContribute(param) {
               return targetState;
             }),
           deepCopy: (function (state) {
-              return state;
+              return {
+                      config: state.config,
+                      maxIndex: state.maxIndex,
+                      dirtyMap: MutableSparseMap$Meta3dCommonlib.copy(state.dirtyMap),
+                      pMatrixMap: MutableSparseMap$Meta3dCommonlib.copy(state.pMatrixMap),
+                      nearMap: MutableSparseMap$Meta3dCommonlib.copy(state.nearMap),
+                      farMap: MutableSparseMap$Meta3dCommonlib.copy(state.farMap),
+                      fovyMap: MutableSparseMap$Meta3dCommonlib.copy(state.fovyMap),
+                      aspectMap: MutableSparseMap$Meta3dCommonlib.copy(state.aspectMap),
+                      gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
+                      gameObjectPerspectiveCameraProjectionMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectPerspectiveCameraProjectionMap),
+                      needDisposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.needDisposedPerspectiveCameraProjections),
+                      disposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.disposedPerspectiveCameraProjections)
+                    };
             })
         };
 }

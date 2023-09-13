@@ -1,6 +1,6 @@
 
 
-import * as Caml_array from "./../../../../../../rescript/lib/es6/caml_array.js";
+import * as Caml_array from "../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 
 function deleteAndResetFloat32TypeArr(typeArr, sourceIndex, length, defaultValueArr) {
   for(var i = 0; i < length; ++i){

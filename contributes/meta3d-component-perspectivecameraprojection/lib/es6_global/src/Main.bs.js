@@ -1,6 +1,8 @@
 
 
-import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "./../../../../meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentPerspectivecameraprojection from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/AddPerspectiveCameraProjectionUtils.bs.js";
@@ -44,7 +46,20 @@ function getContribute(param) {
               return targetState;
             }),
           deepCopy: (function (state) {
-              return state;
+              return {
+                      config: state.config,
+                      maxIndex: state.maxIndex,
+                      dirtyMap: MutableSparseMap$Meta3dCommonlib.copy(state.dirtyMap),
+                      pMatrixMap: MutableSparseMap$Meta3dCommonlib.copy(state.pMatrixMap),
+                      nearMap: MutableSparseMap$Meta3dCommonlib.copy(state.nearMap),
+                      farMap: MutableSparseMap$Meta3dCommonlib.copy(state.farMap),
+                      fovyMap: MutableSparseMap$Meta3dCommonlib.copy(state.fovyMap),
+                      aspectMap: MutableSparseMap$Meta3dCommonlib.copy(state.aspectMap),
+                      gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
+                      gameObjectPerspectiveCameraProjectionMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectPerspectiveCameraProjectionMap),
+                      needDisposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.needDisposedPerspectiveCameraProjections),
+                      disposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.disposedPerspectiveCameraProjections)
+                    };
             })
         };
 }

@@ -59,6 +59,8 @@ defineFeature(feature, test => {
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
     ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
     ~cloneGameObjectFunc=(. states, _, _, _, _) => (states, []),
+    ~restore=(. currentState,targetState ) => targetState,
+    ~deepCopy=(. state) => state,
     (),
   ): Meta3dEngineCoreProtocol.GameObjectType.gameObjectContribute => {
     createStateFunc,
@@ -68,6 +70,8 @@ defineFeature(feature, test => {
     deferDisposeGameObjectFunc,
     disposeGameObjectsFunc,
     cloneGameObjectFunc,
+    restore,
+    deepCopy
   }
 
   let _prepare = (given, \"when", \"and", c) => {

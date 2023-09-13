@@ -1,4 +1,4 @@
-let _setAllTypeArrDataToDefault = (
+let setAllTypeArrDataToDefault = (
   (colors, intensities),
   count,
   (defaultColor, defaultIntensity),
@@ -18,7 +18,7 @@ let _initBufferData = (count, defaultDataTuple) => {
     Meta3dComponentWorkerUtils.CreateTypeArrayDirectionLightUtils.createTypeArrays(
       buffer,
       count,
-    )->_setAllTypeArrDataToDefault(count, defaultDataTuple)
+    )->setAllTypeArrDataToDefault(count, defaultDataTuple)
 
   (buffer, typeArrData)
 }
@@ -47,13 +47,17 @@ let createStateWithSharedArrayBufferData = (
   }
 }
 
-let createState = (isDebug, lightCount) => {
+let getDefaultData = () => {
   let defaultColor = (1., 1., 1.)
   let defaultIntensity = 1.0
 
+(defaultColor, defaultIntensity)
+}
+
+let createState = (isDebug, lightCount) => {
   let (buffer, (colors, intensities)) = _initBufferData(
     lightCount,
-    (defaultColor, defaultIntensity),
+    getDefaultData(),
   )
 
   createStateWithSharedArrayBufferData(

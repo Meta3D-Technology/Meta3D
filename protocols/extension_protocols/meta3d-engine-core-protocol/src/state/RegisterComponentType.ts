@@ -22,6 +22,10 @@ import type { hasComponentFunc as IComponentForJs_hasComponentFunc } from '../..
 
 import type { setComponentDataFunc as IComponentForJs_setComponentDataFunc } from '../../src/contribute/scene_graph/ComponentContributeType';
 
+import type { restore as IComponentForJs_restore } from '../../src/contribute/scene_graph/ComponentContributeType';
+
+import type { deepCopy as IComponentForJs_deepCopy } from '../../src/contribute/scene_graph/ComponentContributeType';
+
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
@@ -48,7 +52,9 @@ export type usedComponentContribute = {
   readonly getComponentFunc: IComponentForJs_getComponentFunc<state, component>;
   readonly getAllComponentsFunc: IComponentForJs_getAllComponentsFunc<state, component>;
   readonly getComponentDataFunc: IComponentForJs_getComponentDataFunc<state,  component>;
-  readonly setComponentDataFunc: IComponentForJs_setComponentDataFunc<state,  component>
+  readonly setComponentDataFunc: IComponentForJs_setComponentDataFunc<state,  component>;
+  readonly restore: IComponentForJs_restore<state>;
+  readonly deepCopy: IComponentForJs_deepCopy<state>;
 };
 
 // tslint:disable-next-line:interface-over-type-literal

@@ -77,7 +77,9 @@ function createAndSetComponentState(state, componentName, config) {
                   cloneComponentFunc: match.cloneComponentFunc,
                   getAllComponentsFunc: match.getAllComponentsFunc,
                   getComponentDataFunc: match.getComponentDataFunc,
-                  setComponentDataFunc: match.setComponentDataFunc
+                  setComponentDataFunc: match.setComponentDataFunc,
+                  restore: match.restore,
+                  deepCopy: match.deepCopy
                 })
           },
           gameObjectContribute: state.gameObjectContribute,
@@ -158,6 +160,18 @@ function getComponentState(state, componentName) {
               }));
 }
 
+function restore(currentUsedComponentContribute, targetUsedComponentContribute) {
+  var componentState = currentUsedComponentContribute.restore(currentUsedComponentContribute.state, targetUsedComponentContribute.state);
+  targetUsedComponentContribute.state = componentState;
+  return targetUsedComponentContribute;
+}
+
+function deepCopy(usedComponentContribute) {
+  var componentState = usedComponentContribute.deepCopy(usedComponentContribute.state);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
+}
+
 exports.registerComponent = registerComponent;
 exports.unregisterComponent = unregisterComponent;
 exports.unsafeGetUsedComponentContribute = unsafeGetUsedComponentContribute;
@@ -177,4 +191,6 @@ exports.getAllComponents = getAllComponents;
 exports.getComponentData = getComponentData;
 exports.getComponentGameObjects = getComponentGameObjects;
 exports.getComponentState = getComponentState;
+exports.restore = restore;
+exports.deepCopy = deepCopy;
 /* No side effect */

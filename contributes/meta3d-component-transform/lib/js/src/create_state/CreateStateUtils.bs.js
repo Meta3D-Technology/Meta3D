@@ -6,7 +6,7 @@ var BufferTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-
 var OperateTypeArrayTransformUtils$Meta3dComponentTransform = require("../utils/OperateTypeArrayTransformUtils.bs.js");
 var CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/CreateTypeArrayTransformUtils.bs.js");
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultLocalScale = param$1[3];
   var defaultLocalRotation = param$1[2];
   var defaultLocalPosition = param$1[1];
@@ -31,7 +31,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferTransformUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -132,7 +132,7 @@ function createState(isDebug, transformCount, float9Array1, float32Array1) {
             });
 }
 
-exports._setAllTypeArrDataToDefault = _setAllTypeArrDataToDefault;
+exports.setAllTypeArrDataToDefault = setAllTypeArrDataToDefault;
 exports._initBufferData = _initBufferData;
 exports.createStateWithSharedArrayBufferData = createStateWithSharedArrayBufferData;
 exports.createState = createState;

@@ -14,6 +14,8 @@ type usedGameObjectContribute = {
     state,
   >,
   getAllGameObjectsFunc: GameObjectContributeType.getAllGameObjectsFunc<state>,
+  restore: GameObjectContributeType.restore<state>,
+  deepCopy: GameObjectContributeType.deepCopy<state>,
 }
 
 // @genType

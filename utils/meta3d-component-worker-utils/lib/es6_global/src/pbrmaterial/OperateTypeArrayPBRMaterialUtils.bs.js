@@ -1,6 +1,6 @@
 
 
-import * as TypeArrayUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
 import * as BufferPBRMaterialUtils$Meta3dComponentWorkerUtils from "./BufferPBRMaterialUtils.bs.js";
 
 function getDiffuseColor(index, typeArr) {

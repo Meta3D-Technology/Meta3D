@@ -331,6 +331,11 @@ type cloneGameObjectFunc<'state> = (
 
 type getAllGameObjectsFunc<'state> = (. 'state) => array<gameObject>
 
+type restore<'state> = (. 'state, 'state) => 'state
+
+type deepCopy<'state> = (. 'state) => 'state
+
+
 // @genType
 type gameObjectContribute<'state> = {
   createStateFunc: createStateFunc<'state>,
@@ -340,6 +345,8 @@ type gameObjectContribute<'state> = {
   disposeGameObjectsFunc: disposeGameObjectsFunc<'state>,
   cloneGameObjectFunc: cloneGameObjectFunc<'state>,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state>,
+  restore: restore<'state>,
+  deepCopy: deepCopy<'state>
 }
 
 // type getGameObjectContribute<'state> = unit => gameObjectContribute<'state>

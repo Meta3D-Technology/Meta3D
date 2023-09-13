@@ -1,11 +1,11 @@
 
 
-import * as Log$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Result$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as ContractResult$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/contract/ContractResult.bs.js";
-import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Log$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Result$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Result.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as ContractResult$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/contract/ContractResult.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as ContributeDataManager$Meta3dEngineCore from "../../ContributeDataManager.bs.js";
 
 function registerComponent(state, componentContribute) {
@@ -77,7 +77,9 @@ function createAndSetComponentState(state, componentName, config) {
                   cloneComponentFunc: match.cloneComponentFunc,
                   getAllComponentsFunc: match.getAllComponentsFunc,
                   getComponentDataFunc: match.getComponentDataFunc,
-                  setComponentDataFunc: match.setComponentDataFunc
+                  setComponentDataFunc: match.setComponentDataFunc,
+                  restore: match.restore,
+                  deepCopy: match.deepCopy
                 })
           },
           gameObjectContribute: state.gameObjectContribute,
@@ -158,6 +160,18 @@ function getComponentState(state, componentName) {
               }));
 }
 
+function restore(currentUsedComponentContribute, targetUsedComponentContribute) {
+  var componentState = currentUsedComponentContribute.restore(currentUsedComponentContribute.state, targetUsedComponentContribute.state);
+  targetUsedComponentContribute.state = componentState;
+  return targetUsedComponentContribute;
+}
+
+function deepCopy(usedComponentContribute) {
+  var componentState = usedComponentContribute.deepCopy(usedComponentContribute.state);
+  usedComponentContribute.state = componentState;
+  return usedComponentContribute;
+}
+
 export {
   registerComponent ,
   unregisterComponent ,
@@ -178,5 +192,7 @@ export {
   getComponentData ,
   getComponentGameObjects ,
   getComponentState ,
+  restore ,
+  deepCopy ,
 }
 /* No side effect */

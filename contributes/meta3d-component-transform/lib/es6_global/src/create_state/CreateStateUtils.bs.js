@@ -1,12 +1,12 @@
 
 
-import * as ListSt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
-import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
+import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
+import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
 import * as OperateTypeArrayTransformUtils$Meta3dComponentTransform from "../utils/OperateTypeArrayTransformUtils.bs.js";
-import * as CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/transform/CreateTypeArrayTransformUtils.bs.js";
+import * as CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/CreateTypeArrayTransformUtils.bs.js";
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultLocalScale = param$1[3];
   var defaultLocalRotation = param$1[2];
   var defaultLocalPosition = param$1[1];
@@ -31,7 +31,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferTransformUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayTransformUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -133,7 +133,7 @@ function createState(isDebug, transformCount, float9Array1, float32Array1) {
 }
 
 export {
-  _setAllTypeArrDataToDefault ,
+  setAllTypeArrDataToDefault ,
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,

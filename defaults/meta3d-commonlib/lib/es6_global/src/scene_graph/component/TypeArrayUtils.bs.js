@@ -1,6 +1,6 @@
 
 
-import * as Js_typed_array from "./../../../../../../rescript/lib/es6/js_typed_array.js";
+import * as Js_typed_array from "../../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
 
 function getFloat16TypeArray(index, typeArray) {
   return Js_typed_array.$$Float32Array.subarray(index, index + 16 | 0, typeArray);
@@ -79,6 +79,33 @@ function getUint32Array(typeArray, startIndex, endIndex) {
   return Js_typed_array.$$Uint32Array.slice(startIndex, endIndex, typeArray);
 }
 
+function _setFloat32ArrayWithFloat32Array(targetTypeArr, sourceTypeArr, typeArrIndex, i) {
+  targetTypeArr[typeArrIndex] = sourceTypeArr[i];
+}
+
+function _setUint32ArrayWithUint32Array(targetTypeArr, sourceTypeArr, typeArrIndex, i) {
+  targetTypeArr[typeArrIndex] = sourceTypeArr[i];
+}
+
+function _fillTypeArrayWithTypeArr(param, param$1, endIndex, setTypeArrWithTypeArr) {
+  var sourceTypeArr = param$1[0];
+  var targetTypeArr = param[0];
+  var typeArrIndex = param[1];
+  for(var i = param$1[1]; i < endIndex; ++i){
+    setTypeArrWithTypeArr(targetTypeArr, sourceTypeArr, typeArrIndex, i);
+    typeArrIndex = typeArrIndex + 1 | 0;
+  }
+  return typeArrIndex;
+}
+
+function fillUint32ArrayWithUint32Array(targetData, sourceData, endIndex) {
+  return _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setUint32ArrayWithUint32Array);
+}
+
+function fillFloat32ArrayWithFloat32Array(targetData, sourceData, endIndex) {
+  return _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setFloat32ArrayWithFloat32Array);
+}
+
 function fillFloat32ArrayWithOffset(targetTypeArr, sourceTypeArr, offset) {
   Js_typed_array.$$Float32Array.setArrayOffset(sourceTypeArr, offset, targetTypeArr);
 }
@@ -104,6 +131,11 @@ export {
   getFloat1 ,
   getFloat32Array ,
   getUint32Array ,
+  _setFloat32ArrayWithFloat32Array ,
+  _setUint32ArrayWithUint32Array ,
+  _fillTypeArrayWithTypeArr ,
+  fillUint32ArrayWithUint32Array ,
+  fillFloat32ArrayWithFloat32Array ,
   fillFloat32ArrayWithOffset ,
   fillUint32ArrayWithOffset ,
   reduceFloat32Array ,

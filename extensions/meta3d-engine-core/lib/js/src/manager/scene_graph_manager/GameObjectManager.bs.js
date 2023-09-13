@@ -1,14 +1,8 @@
 'use strict';
 
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
+var StateUtils$Meta3dEngineCore = require("./StateUtils.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./component/ComponentManager.bs.js");
-var Index$Meta3dComponentGeometryProtocol = require("meta3d-component-geometry-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentPbrmaterialProtocol = require("meta3d-component-pbrmaterial-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentDirectionlightProtocol = require("meta3d-component-directionlight-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentBasiccameraviewProtocol = require("meta3d-component-basiccameraview-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentArcballcameracontrollerProtocol = require("meta3d-component-arcballcameracontroller-protocol/lib/js/src/Index.bs.js");
-var Index$Meta3dComponentPerspectivecameraprojectionProtocol = require("meta3d-component-perspectivecameraprojection-protocol/lib/js/src/Index.bs.js");
 
 function unsafeGetGameObjectData(state) {
   return OptionSt$Meta3dCommonlib.unsafeGet(state.gameObjectContribute);
@@ -40,40 +34,19 @@ function createAndSetState(state, config) {
             deferDisposeGameObjectFunc: match.deferDisposeGameObjectFunc,
             disposeGameObjectsFunc: match.disposeGameObjectsFunc,
             cloneGameObjectFunc: match.cloneGameObjectFunc,
-            getAllGameObjectsFunc: match.getAllGameObjectsFunc
+            getAllGameObjectsFunc: match.getAllGameObjectsFunc,
+            restore: match.restore,
+            deepCopy: match.deepCopy
           }
         };
 }
 
-function _unsafeGetUsedGameObjectContribute(param) {
-  return OptionSt$Meta3dCommonlib.unsafeGet(param.usedGameObjectContribute);
-}
-
-function _setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState) {
-  usedGameObjectContribute.state = gameObjectState;
-  state.usedGameObjectContribute = usedGameObjectContribute;
-  return state;
-}
-
 function createGameObject(state) {
-  var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
+  var usedGameObjectContribute = StateUtils$Meta3dEngineCore.unsafeGetUsedGameObjectContribute(state);
   var match = usedGameObjectContribute.createGameObjectFunc(usedGameObjectContribute.state);
   return [
-          _setGameObjectStateToState(state, usedGameObjectContribute, match[0]),
+          StateUtils$Meta3dEngineCore.setGameObjectStateToState(state, usedGameObjectContribute, match[0]),
           match[1]
-        ];
-}
-
-function _getAllUsedContributes(state) {
-  return [
-          _unsafeGetUsedGameObjectContribute(state),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentTransformProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPbrmaterialProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentGeometryProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentDirectionlightProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentArcballcameracontrollerProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentBasiccameraviewProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName)
         ];
 }
 
@@ -85,16 +58,25 @@ function _setGameObjectStateAndAllComponentStatesToState(state, param, param$1) 
   var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[5], param[5]);
   var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[6], param[6]);
   var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[7], param[7]);
-  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(_setGameObjectStateToState(state, param[0], param$1[0]), usedTransformContribute, Index$Meta3dComponentTransformProtocol.componentName), usedPBRMaterialContribute, Index$Meta3dComponentPbrmaterialProtocol.componentName), usedGeometryContribute, Index$Meta3dComponentGeometryProtocol.componentName), usedDirectionLightContribute, Index$Meta3dComponentDirectionlightProtocol.componentName), usedArcballCameraControllerContribute, Index$Meta3dComponentArcballcameracontrollerProtocol.componentName), usedBasicCameraViewContribute, Index$Meta3dComponentBasiccameraviewProtocol.componentName), usedPerspectiveCameraProjectionContribute, Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName);
+  return StateUtils$Meta3dEngineCore.setGameObjectStateAndAllUsedComponentContributesToState(state, [
+              param[0],
+              usedTransformContribute,
+              usedPBRMaterialContribute,
+              usedGeometryContribute,
+              usedDirectionLightContribute,
+              usedArcballCameraControllerContribute,
+              usedBasicCameraViewContribute,
+              usedPerspectiveCameraProjectionContribute
+            ], param$1[0]);
 }
 
 function getNeedDisposedGameObjects(state) {
-  var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
+  var usedGameObjectContribute = StateUtils$Meta3dEngineCore.unsafeGetUsedGameObjectContribute(state);
   return usedGameObjectContribute.getNeedDisposedGameObjectsFunc(usedGameObjectContribute.state);
 }
 
 function deferDisposeGameObject(state, gameObject) {
-  var match = _getAllUsedContributes(state);
+  var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -164,7 +146,7 @@ function deferDisposeGameObject(state, gameObject) {
 }
 
 function disposeGameObjects(state, gameObjects) {
-  var match = _getAllUsedContributes(state);
+  var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -234,7 +216,7 @@ function disposeGameObjects(state, gameObjects) {
 }
 
 function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
-  var match = _getAllUsedContributes(state);
+  var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -319,17 +301,14 @@ function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
 }
 
 function getAllGameObjects(state) {
-  var usedGameObjectContribute = _unsafeGetUsedGameObjectContribute(state);
+  var usedGameObjectContribute = StateUtils$Meta3dEngineCore.unsafeGetUsedGameObjectContribute(state);
   return usedGameObjectContribute.getAllGameObjectsFunc(usedGameObjectContribute.state);
 }
 
 exports.unsafeGetGameObjectData = unsafeGetGameObjectData;
 exports.setGameObjectContribute = setGameObjectContribute;
 exports.createAndSetState = createAndSetState;
-exports._unsafeGetUsedGameObjectContribute = _unsafeGetUsedGameObjectContribute;
-exports._setGameObjectStateToState = _setGameObjectStateToState;
 exports.createGameObject = createGameObject;
-exports._getAllUsedContributes = _getAllUsedContributes;
 exports._setGameObjectStateAndAllComponentStatesToState = _setGameObjectStateAndAllComponentStatesToState;
 exports.getNeedDisposedGameObjects = getNeedDisposedGameObjects;
 exports.deferDisposeGameObject = deferDisposeGameObject;

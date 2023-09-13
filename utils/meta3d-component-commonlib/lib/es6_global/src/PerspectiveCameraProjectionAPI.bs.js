@@ -1,12 +1,12 @@
 
 
-import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "./../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Log$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Matrix4$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
-import * as OptionSt$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as Exception$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "./../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Matrix4$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Exception$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
 import * as FrustumPerspectiveCameraProjectionService$Meta3dComponentCommonlib from "./perspective_camera_projection/FrustumPerspectiveCameraProjectionService.bs.js";
 
 function _getAspect(usedComponentContribute, param, cameraProjection) {

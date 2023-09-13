@@ -123,3 +123,7 @@ let getComponentState = (
 ) => {
   state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
 }
+
+let restore = RedoUndoManager.restore
+
+let deepCopy = RedoUndoManager.deepCopy

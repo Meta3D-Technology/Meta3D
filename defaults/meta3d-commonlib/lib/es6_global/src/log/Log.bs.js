@@ -1,7 +1,7 @@
 
 
-import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
-import * as Belt_List from "./../../../../../rescript/lib/es6/belt_List.js";
+import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
 
 function printForDebug(value) {
   console.log(JSON.stringify(value));
@@ -47,20 +47,20 @@ function getJsonStr(json) {
 }
 
 function buildDebugMessage(description, params, param) {
-  return "\r\n  Debug:\r\n\r\n  description\r\n  " + description + "\r\n\r\n  params\r\n  " + params + "\r\n\r\n  ";
+  return "\n  Debug:\n\n  description\n  " + description + "\n\n  params\n  " + params + "\n\n  ";
 }
 
 function buildDebugJsonMessage(description, $$var, param) {
   var varStr = JSON.stringify($$var);
-  return "\r\n  DebugJson:\r\n\r\n  description\r\n  " + description + "\r\n\r\n  variable value\r\n  " + varStr + "\r\n  ";
+  return "\n  DebugJson:\n\n  description\n  " + description + "\n\n  variable value\n  " + varStr + "\n  ";
 }
 
 function buildFatalMessage(title, description, reason, solution, params) {
-  return "\r\n  Fatal:\r\n\r\n  title\r\n  " + title + "\r\n\r\n  description\r\n  " + description + "\r\n\r\n  reason\r\n  " + reason + "\r\n\r\n  solution\r\n  " + solution + "\r\n\r\n  params\r\n  " + params + "\r\n\r\n   ";
+  return "\n  Fatal:\n\n  title\n  " + title + "\n\n  description\n  " + description + "\n\n  reason\n  " + reason + "\n\n  solution\n  " + solution + "\n\n  params\n  " + params + "\n\n   ";
 }
 
 function buildErrorMessage(title, description, reason, solution, params) {
-  return "\r\n  Error:\r\n\r\n  title\r\n  " + title + "\r\n\r\n  description\r\n  " + description + "\r\n\r\n  reason\r\n  " + reason + "\r\n\r\n  solution\r\n  " + solution + "\r\n\r\n  params\r\n  " + params + "\r\n\r\n   ";
+  return "\n  Error:\n\n  title\n  " + title + "\n\n  description\n  " + description + "\n\n  reason\n  " + reason + "\n\n  solution\n  " + solution + "\n\n  params\n  " + params + "\n\n   ";
 }
 
 function buildAssertMessage(expect, actual) {

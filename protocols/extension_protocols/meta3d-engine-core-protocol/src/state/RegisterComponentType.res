@@ -29,6 +29,8 @@ type usedComponentContribute = {
   getAllComponentsFunc: ComponentContributeType.getAllComponentsFunc<state, component>,
   getComponentDataFunc: ComponentContributeType.getComponentDataFunc<state,  component>,
   setComponentDataFunc: ComponentContributeType.setComponentDataFunc<state,  component>,
+  restore: ComponentContributeType.restore<state>,
+  deepCopy: ComponentContributeType.deepCopy<state>,
 }
 
 type componentContributeData = {

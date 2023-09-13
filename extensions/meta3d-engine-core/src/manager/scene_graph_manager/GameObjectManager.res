@@ -24,6 +24,8 @@ let createAndSetState = (
     disposeGameObjectsFunc,
     cloneGameObjectFunc,
     getAllGameObjectsFunc,
+    restore,
+    deepCopy
   } = unsafeGetGameObjectData(state)
 
   {
@@ -36,67 +38,28 @@ let createAndSetState = (
       deferDisposeGameObjectFunc,
       disposeGameObjectsFunc,
       cloneGameObjectFunc,
+    restore,
+    deepCopy
     }->Some,
   }
 }
 
-let _unsafeGetUsedGameObjectContribute = (
-  {usedGameObjectContribute}: Meta3dEngineCoreProtocol.StateType.state,
-): Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectContribute => {
-  usedGameObjectContribute->Meta3dCommonlib.OptionSt.unsafeGet
-}
-
-let _setGameObjectStateToState = (
-  state: Meta3dEngineCoreProtocol.StateType.state,
-  usedGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectContribute,
-  gameObjectState: Meta3dEngineCoreProtocol.GameObjectType.state,
-): Meta3dEngineCoreProtocol.StateType.state => {
-  usedGameObjectContribute.state = gameObjectState
-
-  state.usedGameObjectContribute = usedGameObjectContribute->Some
-
-  state
-}
 
 let createGameObject = (state: Meta3dEngineCoreProtocol.StateType.state): (
   Meta3dEngineCoreProtocol.StateType.state,
   Meta3dGameobjectProtocol.Index.gameObject,
 ) => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+  let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
 
   let (gameObjectState, gameObject) = usedGameObjectContribute.createGameObjectFunc(.
     usedGameObjectContribute.state,
   )
 
-  (_setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState), gameObject)
+  (StateUtils.setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState), gameObject)
 }
 
-let _getAllUsedContributes = state => {
-  (
-    state->_unsafeGetUsedGameObjectContribute,
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentTransformProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentPbrmaterialProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentGeometryProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentDirectionlightProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentBasiccameraviewProtocol.Index.componentName,
-    ),
-    state->ComponentManager.unsafeGetUsedComponentContribute(
-      Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
-    ),
-  )
-}
+
+
 
 let _setGameObjectStateAndAllComponentStatesToState = (
   state,
@@ -150,40 +113,24 @@ let _setGameObjectStateAndAllComponentStatesToState = (
       usedPerspectiveCameraProjectionContribute,
     )
 
-  state
-  ->_setGameObjectStateToState(usedGameObjectContribute, gameObjectState)
-  ->ComponentManager.setUsedComponentContribute(
+StateUtils.setGameObjectStateAndAllUsedComponentContributesToState (
+  state,
+  (
+    usedGameObjectContribute,
     usedTransformContribute,
-    Meta3dComponentTransformProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedPBRMaterialContribute,
-    Meta3dComponentPbrmaterialProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedGeometryContribute,
-    Meta3dComponentGeometryProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedDirectionLightContribute,
-    Meta3dComponentDirectionlightProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedArcballCameraControllerContribute,
-    Meta3dComponentArcballcameracontrollerProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedBasicCameraViewContribute,
-    Meta3dComponentBasiccameraviewProtocol.Index.componentName,
-  )
-  ->ComponentManager.setUsedComponentContribute(
     usedPerspectiveCameraProjectionContribute,
-    Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
-  )
+  ),
+  gameObjectState,
+)
 }
 
 let getNeedDisposedGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state) => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+  let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
 
   usedGameObjectContribute.getNeedDisposedGameObjectsFunc(. usedGameObjectContribute.state)
 }
@@ -198,7 +145,7 @@ let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, g
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
-  ) = _getAllUsedContributes(state)
+  ) = StateUtils.getAllUsedContributes(state)
 
   let (
     gameObjectState,
@@ -288,7 +235,7 @@ let disposeGameObjects = (state, gameObjects) => {
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
-  ) = _getAllUsedContributes(state)
+  ) = StateUtils.getAllUsedContributes(state)
 
   let (
     gameObjectState,
@@ -377,7 +324,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
-  ) = _getAllUsedContributes(state)
+  ) = StateUtils.getAllUsedContributes(state)
 
   let (
     (
@@ -477,7 +424,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
 let getAllGameObjects = (state: Meta3dEngineCoreProtocol.StateType.state): array<
   Meta3dGameobjectProtocol.Index.gameObject,
 > => {
-  let usedGameObjectContribute = state->_unsafeGetUsedGameObjectContribute
+  let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
 
   usedGameObjectContribute.getAllGameObjectsFunc(. usedGameObjectContribute.state)
 }

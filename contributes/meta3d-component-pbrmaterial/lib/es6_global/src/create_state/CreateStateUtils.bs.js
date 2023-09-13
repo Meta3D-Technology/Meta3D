@@ -1,12 +1,12 @@
 
 
-import * as ListSt$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
-import * as BufferPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/BufferPBRMaterialUtils.bs.js";
-import * as CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "./../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/CreateTypeArrayPBRMaterialUtils.bs.js";
+import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
+import * as BufferPBRMaterialUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/BufferPBRMaterialUtils.bs.js";
+import * as CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/CreateTypeArrayPBRMaterialUtils.bs.js";
 import * as OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial from "../utils/OperateTypeArrayPBRMaterialUtils.bs.js";
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultIOR = param$1[6];
   var defaultTransmission = param$1[5];
   var defaultMetalness = param$1[4];
@@ -43,7 +43,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -138,7 +138,7 @@ function createState(isDebug, pbrMaterialCount) {
 }
 
 export {
-  _setAllTypeArrDataToDefault ,
+  setAllTypeArrDataToDefault ,
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
   createState ,

@@ -83,6 +83,8 @@ let createAndSetComponentState = (
     getAllComponentsFunc,
     getComponentDataFunc,
     setComponentDataFunc,
+    restore,
+    deepCopy
   } =
     state.componentContributeData.allComponentContributes->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
       componentName,
@@ -110,6 +112,8 @@ cloneComponentFunc,
           getAllComponentsFunc: getAllComponentsFunc,
           getComponentDataFunc: getComponentDataFunc,
           setComponentDataFunc: setComponentDataFunc,
+          restore: restore,
+          deepCopy: deepCopy,
         },
       ),
     },
@@ -252,4 +256,22 @@ let getComponentState = (
   state.componentContributeData.allUsedComponentContributes
   ->Meta3dCommonlib.MutableHashMap.get(componentName)
   ->Meta3dCommonlib.OptionSt.map(({state}) => state)
+}
+
+let restore = (
+  currentUsedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  targetUsedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  currentUsedComponentContribute.restore(.
+    currentUsedComponentContribute.state,
+targetUsedComponentContribute.state
+  )->setComponentStateToUsedComponentContribute(targetUsedComponentContribute)
+}
+
+let deepCopy = (
+  usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
+  usedComponentContribute.deepCopy(.
+    usedComponentContribute.state,
+  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }

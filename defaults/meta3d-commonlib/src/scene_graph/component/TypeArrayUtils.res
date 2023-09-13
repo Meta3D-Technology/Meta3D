@@ -174,39 +174,39 @@ let getFloat32Array = (typeArray: Float32Array.t, startIndex: int, endIndex: int
 let getUint32Array = (typeArray: Uint32Array.t, startIndex: int, endIndex: int) =>
   Uint32Array.slice(~start=startIndex, ~end_=endIndex, typeArray)
 
-// let _setFloat32ArrayWithFloat32Array = (. targetTypeArr, sourceTypeArr, typeArrIndex, i) =>
-//   Js.Typed_array.Float32Array.unsafe_set(
-//     targetTypeArr,
-//     typeArrIndex,
-//     Js.Typed_array.Float32Array.unsafe_get(sourceTypeArr, i),
-//   )
+let _setFloat32ArrayWithFloat32Array = (. targetTypeArr, sourceTypeArr, typeArrIndex, i) =>
+  Js.Typed_array.Float32Array.unsafe_set(
+    targetTypeArr,
+    typeArrIndex,
+    Js.Typed_array.Float32Array.unsafe_get(sourceTypeArr, i),
+  )
 
-// let _setUint32ArrayWithUint32Array = (. targetTypeArr, sourceTypeArr, typeArrIndex, i) =>
-//   Js.Typed_array.Uint32Array.unsafe_set(
-//     targetTypeArr,
-//     typeArrIndex,
-//     Js.Typed_array.Uint32Array.unsafe_get(sourceTypeArr, i),
-//   )
+let _setUint32ArrayWithUint32Array = (. targetTypeArr, sourceTypeArr, typeArrIndex, i) =>
+  Js.Typed_array.Uint32Array.unsafe_set(
+    targetTypeArr,
+    typeArrIndex,
+    Js.Typed_array.Uint32Array.unsafe_get(sourceTypeArr, i),
+  )
 
-// let _fillTypeArrayWithTypeArr = (
-//   (targetTypeArr, targetStartIndex),
-//   (sourceTypeArr, sourceStartIndex),
-//   endIndex,
-//   _setTypeArrWithTypeArr,
-// ) => {
-//   let typeArrIndex = ref(targetStartIndex)
-//   for i in sourceStartIndex to endIndex - 1 {
-//     _setTypeArrWithTypeArr(. targetTypeArr, sourceTypeArr, typeArrIndex.contents, i)
-//     typeArrIndex := succ(typeArrIndex.contents)
-//   }
-//   typeArrIndex.contents
-// }
+let _fillTypeArrayWithTypeArr = (
+  (targetTypeArr, targetStartIndex),
+  (sourceTypeArr, sourceStartIndex),
+  endIndex,
+  setTypeArrWithTypeArr,
+) => {
+  let typeArrIndex = ref(targetStartIndex)
+  for i in sourceStartIndex to endIndex - 1 {
+    setTypeArrWithTypeArr(. targetTypeArr, sourceTypeArr, typeArrIndex.contents, i)
+    typeArrIndex := succ(typeArrIndex.contents)
+  }
+  typeArrIndex.contents
+}
 
-// let fillUint32ArrayWithUint32Array = (targetData, sourceData, endIndex) =>
-//   _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setUint32ArrayWithUint32Array)
+let fillUint32ArrayWithUint32Array = (targetData, sourceData, endIndex) =>
+  _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setUint32ArrayWithUint32Array)
 
-// let fillFloat32ArrayWithFloat32Array = (targetData, sourceData, endIndex) =>
-//   _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setFloat32ArrayWithFloat32Array)
+let fillFloat32ArrayWithFloat32Array = (targetData, sourceData, endIndex) =>
+  _fillTypeArrayWithTypeArr(targetData, sourceData, endIndex, _setFloat32ArrayWithFloat32Array)
 
 let fillFloat32ArrayWithOffset = (targetTypeArr, sourceTypeArr: Float32Array.t, offset) => {
   // ContractResult.requireCheck(() => {

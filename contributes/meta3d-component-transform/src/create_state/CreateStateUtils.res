@@ -1,4 +1,4 @@
-let _setAllTypeArrDataToDefault = (
+let setAllTypeArrDataToDefault = (
   (localToWorldMatrices, localPositions, localRotations, localScales),
   count,
   (defaultLocalToWorldMatrix, defaultLocalPosition, defaultLocalRotation, defaultLocalScale),
@@ -24,7 +24,7 @@ let _initBufferData = (count, defaultDataTuple) => {
     Meta3dComponentWorkerUtils.CreateTypeArrayTransformUtils.createTypeArrays(
       buffer,
       count,
-    )->_setAllTypeArrDataToDefault(count, defaultDataTuple)
+    )->setAllTypeArrDataToDefault(count, defaultDataTuple)
 
   (buffer, typeArrData)
 }

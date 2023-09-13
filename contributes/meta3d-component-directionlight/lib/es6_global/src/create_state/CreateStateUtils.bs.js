@@ -1,12 +1,12 @@
 
 
-import * as ListSt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as CreateMapComponentUtils$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
-import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
-import * as CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "./../../../../../meta3d-component-worker-utils/lib/es6_global/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js";
+import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
+import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
+import * as CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js";
 import * as OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight from "../utils/OperateTypeArrayDirectionLightUtils.bs.js";
 
-function _setAllTypeArrDataToDefault(param, count, param$1) {
+function setAllTypeArrDataToDefault(param, count, param$1) {
   var defaultIntensity = param$1[1];
   var defaultColor = param$1[0];
   var intensities = param[1];
@@ -23,7 +23,7 @@ function _setAllTypeArrDataToDefault(param, count, param$1) {
 
 function _initBufferData(count, defaultDataTuple) {
   var buffer = BufferDirectionLightUtils$Meta3dComponentWorkerUtils.createBuffer(count);
-  var typeArrData = _setAllTypeArrDataToDefault(CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
+  var typeArrData = setAllTypeArrDataToDefault(CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils.createTypeArrays(buffer, count), count, defaultDataTuple);
   return [
           buffer,
           typeArrData
@@ -50,6 +50,17 @@ function createStateWithSharedArrayBufferData(param, param$1) {
         };
 }
 
+function getDefaultData(param) {
+  return [
+          [
+            1,
+            1,
+            1
+          ],
+          1.0
+        ];
+}
+
 function createState(isDebug, lightCount) {
   var match = _initBufferData(lightCount, [
         [
@@ -71,9 +82,10 @@ function createState(isDebug, lightCount) {
 }
 
 export {
-  _setAllTypeArrDataToDefault ,
+  setAllTypeArrDataToDefault ,
   _initBufferData ,
   createStateWithSharedArrayBufferData ,
+  getDefaultData ,
   createState ,
 }
 /* No side effect */
