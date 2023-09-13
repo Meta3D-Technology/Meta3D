@@ -432,6 +432,25 @@ TODO invoke meta3dState's extensions' onDeepCopy, onRestore
 # TODO add bdd test
 
 
+
+** DONE History
+
+History:
+# engineCoreStateStack
+meta3dStateStack(only this?)
+
+invoke meta3dState's extensions, actions' deepCopy, restore func!
+
+
+engine core extension's deepCopy, restore should handle E,C data!
+
+
+
+
+** DONE fix: when stop, should restore to the state before run
+
+
+
 ** TODO scene graph(+game view)
 
 
@@ -447,27 +466,11 @@ new perspectiveCamera, scene
 
 ** TODO change extension,action,pipeline's data to immutable
 
-
-** TODO History
-
-History:
-# engineCoreStateStack
-meta3dStateStack(only this?)
-
-invoke meta3dState's extensions, actions' deepCopy, restore func!
-
-
-engine core extension's deepCopy, restore should handle E,C data!
+run->loopHandles
 
 
 
-
-
-
-
-** TODO fix: when stop, should restore to the state before run
-
-
+** TODO run test
 
 TODO shouldn't recreate programs!
 

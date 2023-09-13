@@ -20,7 +20,6 @@
         "meta3d-ui-utils": "^0.15.0",
         "meta3d-action-stop-protocol": "^0.15.0",
         "meta3d-action-run-protocol": "^0.15.0",
-        "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
         "meta3d-ui-control-button-protocol": "^0.15.0",
         "meta3d-ui-protocol": "^0.15.0",
