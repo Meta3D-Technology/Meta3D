@@ -7,7 +7,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentTransformProtocol.Index.cloneConfig,
     Meta3dComponentTransformProtocol.Index.transform,
   >,
-> = (_) => {
+> = _ => {
   componentName: Meta3dComponentTransformProtocol.Index.componentName,
   createStateFunc: (. {isDebug, transformCount, float9Array1, float32Array1}) =>
     CreateStateUtils.createState(isDebug, transformCount, float9Array1, float32Array1),
@@ -47,5 +47,46 @@ let getContribute: Meta3dType.Index.getContribute<
   },
   cloneComponentFunc: (. state, countRange, _, sourceTransform) => {
     CloneTransformUtils.clone(state, countRange, sourceTransform)
+  },
+  restore: (. currentState, targetState) => {
+    // TODO
+    targetState
+  },
+  deepCopy: (. state) => {
+    open Meta3dComponentWorkerUtils.BufferTransformUtils
+
+    let maxIndex = state.maxIndex
+
+    {
+      ...state,
+      // config: {
+      //   isDebug,
+      //   transformCount,
+      //   float9Array1,
+      //   float32Array1,
+      // },
+      // maxIndex: 0,
+      // buffer,
+      localToWorldMatrices: localToWorldMatrices->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+        maxIndex * getLocalToWorldMatricesSize(),
+      ),
+      TODO continue
+      localPositions,
+      localRotations,
+      localScales,
+      defaultLocalToWorldMatrix,
+      defaultLocalPosition,
+      defaultLocalRotation,
+      defaultLocalScale,
+      parentMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
+      childrenMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
+      gameObjectMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
+      gameObjectTransformMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
+        transformCount,
+      ),
+      dirtyMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
+      needDisposedTransforms: [],
+      disposedTransforms: [],
+    }
   },
 }

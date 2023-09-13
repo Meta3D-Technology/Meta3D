@@ -48,4 +48,10 @@ let getContribute: Meta3dType.Index.getContribute<
   cloneComponentFunc: (. state, countRange, cloneConfig, sourceGeometry) => {
     CloneGeometryUtils.clone(state, countRange, sourceGeometry)
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

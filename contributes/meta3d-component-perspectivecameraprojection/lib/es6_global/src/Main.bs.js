@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "./../../../../../node_modules/meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentPerspectivecameraprojectionProtocol from "./../../../../meta3d-component-perspectivecameraprojection-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentPerspectivecameraprojection from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection from "./gameobject/AddPerspectiveCameraProjectionUtils.bs.js";
@@ -39,7 +39,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourcePerspectiveCameraProjection) {
               return ClonePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.clone(state, countRange, sourcePerspectiveCameraProjection);
             }),
-          getAllComponentsFunc: GetAllPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection.getAll
+          getAllComponentsFunc: GetAllPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

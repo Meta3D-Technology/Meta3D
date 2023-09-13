@@ -59,9 +59,9 @@ let _getMeshInstanceMap = (): Array<Mesh> => {
     return (globalThis as any)[_globalKeyNameForMeshInstanceMap]
 }
 
-// let _clearMeshInstance = (gameObject: gameObject) =>  {
-//     _getMeshInstanceMap()[gameObject] = undefined
-// }
+let _disposeMeshInstance = (gameObject: gameObject) => {
+    _getMeshInstanceMap()[gameObject] = undefined
+}
 
 let _getMeshInstance = (gameObject: gameObject) => {
     if (_getMeshInstanceMap()[gameObject] === undefined) {
@@ -75,9 +75,10 @@ let _getBasicMaterialInstanceMap = (): Array<MeshBasicMaterial> => {
     return (globalThis as any)[_globalKeyNameForBasicMaterialInstanceMap]
 }
 
-// let _clearBasicMaterialInstance = (material: pbrMaterial) =>  {
-//     _getBasicMaterialInstanceMap()[material] = undefined
-// }
+let _disposeBasicMaterialInstance = (material: pbrMaterial) => {
+    _getBasicMaterialInstanceMap()[material].dispose()
+    _getBasicMaterialInstanceMap()[material] = undefined
+}
 
 let _getBasicMaterialInstance = (material: pbrMaterial) => {
     if (_getBasicMaterialInstanceMap()[material] === undefined) {
@@ -91,9 +92,10 @@ let _getGeometryInstanceMap = (): Array<BufferGeometry> => {
     return (globalThis as any)[_globalKeyNameForGeometryInstanceMap]
 }
 
-// let _clearGeometryInstance = (geometry: geometry) =>  {
-//     _getGeometryInstanceMap()[geometry] = undefined
-// }
+let _disposeGeometryInstance = (geometry: geometry) => {
+    _getGeometryInstanceMap()[geometry].dispose()
+    _getGeometryInstanceMap()[geometry] = undefined
+}
 
 let _getGeometryInstance = (geometry: geometry) => {
     if (_getGeometryInstanceMap()[geometry] === undefined) {
@@ -1068,33 +1070,21 @@ export let getExtensionServiceUtils = (
             meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
                 disposeGameObjectEventName, 1, (meta3dState, { userData }) => {
                     console.log("dispose gameObject")
-                    // _clearMeshInstance(userData as any as gameObject)
-
-                    _getMeshInstanceMap()[userData as any as gameObject] = undefined
+                    _disposeMeshInstance(userData as any as gameObject)
 
                     return meta3dState
                 }
             ])
             meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
                 disposeGeometryEventName, 1, (meta3dState, { userData }) => {
-                    // _clearGeometryInstance(userData as any as geometry)
-
-
-                    _getGeometryInstanceMap()[userData as any as geometry].dispose()
-
-                    _getGeometryInstanceMap()[userData as any as geometry] = undefined
+                    _disposeGeometryInstance(userData as any as geometry)
 
                     return meta3dState
                 }
             ])
             meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
                 disposePBRMaterialEventName, 1, (meta3dState, { userData }) => {
-                    // _clearBasicMaterialInstance(userData as any as pbrMaterial)
-
-
-                    _getBasicMaterialInstanceMap()[userData as any as pbrMaterial].dispose()
-
-                    _getBasicMaterialInstanceMap()[userData as any as pbrMaterial] = undefined
+                    _disposeBasicMaterialInstance(userData as any as pbrMaterial)
 
                     return meta3dState
                 }

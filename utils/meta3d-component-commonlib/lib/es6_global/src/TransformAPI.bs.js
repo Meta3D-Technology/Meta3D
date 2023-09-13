@@ -1,10 +1,10 @@
 
 
-import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Matrix4$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
-import * as Quaternion$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
-import * as NullableTool$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/test/NullableTool.bs.js";
-import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Curry from "./../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Matrix4$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Matrix4.bs.js";
+import * as Quaternion$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
+import * as NullableTool$Meta3dCommonlib from "./../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/test/NullableTool.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 
 function lookAt(data, engineCoreService, transform, target, upOpt, param) {
   var up = upOpt !== undefined ? upOpt : [

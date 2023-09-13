@@ -48,4 +48,10 @@ let getContribute: Meta3dType.Index.getContribute<
   cloneComponentFunc: (. state, countRange, cloneConfig, sourceMaterial) => {
     ClonePBRMaterialUtils.clone(state, countRange, cloneConfig, sourceMaterial)
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

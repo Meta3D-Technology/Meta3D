@@ -39,7 +39,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceBasicCameraView) {
               return CloneBasicCameraViewUtils$Meta3dComponentBasiccameraview.clone(state, countRange, sourceBasicCameraView);
             }),
-          getAllComponentsFunc: GetAllBasicCameraViewsUtils$Meta3dComponentBasiccameraview.getAll
+          getAllComponentsFunc: GetAllBasicCameraViewsUtils$Meta3dComponentBasiccameraview.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

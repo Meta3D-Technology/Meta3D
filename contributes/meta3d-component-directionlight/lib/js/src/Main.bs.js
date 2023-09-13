@@ -49,7 +49,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceDirectionLight) {
               return CloneDirectionLightUtils$Meta3dComponentDirectionlight.clone(state, countRange, sourceDirectionLight);
             }),
-          getAllComponentsFunc: GetAllDirectionLightsUtils$Meta3dComponentDirectionlight.getAll
+          getAllComponentsFunc: GetAllDirectionLightsUtils$Meta3dComponentDirectionlight.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

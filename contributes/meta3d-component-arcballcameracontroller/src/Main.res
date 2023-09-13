@@ -48,4 +48,10 @@ let getContribute: Meta3dType.Index.getContribute<
   cloneComponentFunc: (. state, countRange, _, sourceArcballCameraController) => {
     CloneArcballCameraControllerUtils.clone(state, countRange, sourceArcballCameraController)
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

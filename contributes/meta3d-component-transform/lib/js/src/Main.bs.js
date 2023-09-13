@@ -53,7 +53,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
               return CloneTransformUtils$Meta3dComponentTransform.clone(state, countRange, sourceTransform);
             }),
-          getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
+          getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

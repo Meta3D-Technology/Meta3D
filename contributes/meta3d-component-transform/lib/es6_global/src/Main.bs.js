@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentTransformProtocol from "./../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentTransformProtocol from "./../../../../meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentTransform from "./create_state/CreateStateUtils.bs.js";
 import * as AddTransformUtils$Meta3dComponentTransform from "./gameobject/AddTransformUtils.bs.js";
 import * as GetTransformUtils$Meta3dComponentTransform from "./gameobject/GetTransformUtils.bs.js";
@@ -53,7 +53,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceTransform) {
               return CloneTransformUtils$Meta3dComponentTransform.clone(state, countRange, sourceTransform);
             }),
-          getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll
+          getAllComponentsFunc: GetAllTransformsUtils$Meta3dComponentTransform.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

@@ -40,6 +40,10 @@ export type getComponentDataFunc<state, component> = (_1: state, _2: component, 
 // tslint:disable-next-line:interface-over-type-literal
 export type setComponentDataFunc<state, component> = (_1: state, _2: component, _3: dataName, _4: dataValue) => state;
 
+export type restore<state> = (_1: state, _2: state) => state;
+
+export type deepCopy<state> = (_1: state) => state;
+
 // tslint:disable-next-line:interface-over-type-literal
 export type componentContribute<state, config, component> = {
   readonly componentName: componentName;
@@ -51,7 +55,9 @@ export type componentContribute<state, config, component> = {
   readonly getComponentFunc: getComponentFunc<state, component>;
   readonly getComponentDataFunc: getComponentDataFunc<state, component>;
   readonly setComponentDataFunc: setComponentDataFunc<state, component>;
-  readonly getAllComponentsFunc: getAllComponentsFunc<state, component>
+  readonly getAllComponentsFunc: getAllComponentsFunc<state, component>;
+  readonly restore: restore<state>;
+  readonly deepCopy: deepCopy<state>;
 };
 
 // tslint:disable-next-line:interface-over-type-literal

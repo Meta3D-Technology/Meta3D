@@ -370,14 +370,62 @@ three engine when restore to state:
 - reset renderer
 - init?
 
+cpu resources->E,C:
+deep copy
+restore
+
+TODO component
+
+TODO gameObject
+
+TODO update engine-core
+
+
+
+gpu resources->three:
+dispose all to create new ones
+
+
+
 ** TODO editor add redo/undo
 not add redo/undo action/ui control!
 
 
-change extension's state to immutable
+data:
+action's store
+extension's state
+
+change them to immutable
+
+
+action, extension add deepCopy, restore function(can be empty if all are immutable)
+
+
+
+** TODO History
+
+History:
+# engineCoreStateStack
+meta3dStateStack(only this?)
+
+invoke meta3dState's extensions, actions' deepCopy, restore func!
+
+
+engine core extension's deepCopy, restore should handle E,C data!
+
+
+
+
+
 
 
 ** TODO fix: when stop, should restore to the state before run
+
+
+
+TODO shouldn't recreate programs!
+
+TODO shouldn't recreate vbos!
 
 
 

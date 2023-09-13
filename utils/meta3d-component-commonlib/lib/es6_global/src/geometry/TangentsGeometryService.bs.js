@@ -1,6 +1,6 @@
 
 
-import * as Vector3$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
+import * as Vector3$Meta3dCommonlib from "./../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
 
 function computeTangents(vertices, texCoords, normals, indices) {
   var triangleCount = indices.length / 3 | 0;

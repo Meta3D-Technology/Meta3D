@@ -47,4 +47,10 @@ let getContribute: Meta3dType.Index.getContribute<
   cloneComponentFunc: (. state, countRange, _, sourceBasicCameraView) => {
     CloneBasicCameraViewUtils.clone(state, countRange, sourceBasicCameraView)
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

@@ -54,7 +54,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, cloneConfig, sourceGeometry) {
               return CloneGeometryUtils$Meta3dComponentGeometry.clone(state, countRange, sourceGeometry);
             }),
-          getAllComponentsFunc: GetAllGeometrysUtils$Meta3dComponentGeometry.getAll
+          getAllComponentsFunc: GetAllGeometrysUtils$Meta3dComponentGeometry.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

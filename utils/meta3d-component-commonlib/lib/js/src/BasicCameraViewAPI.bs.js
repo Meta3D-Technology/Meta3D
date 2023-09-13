@@ -26,7 +26,7 @@ function _isActive(usedComponentContribute, param, cameraView) {
   return NullableTool$Meta3dCommonlib.getExn(Curry._3(param.getComponentData, usedComponentContribute, cameraView, Index$Meta3dComponentBasiccameraviewProtocol.dataName.isActive));
 }
 
-function _checkAtMostTwo(activeCameraViews, isDebug) {
+function _checkAtMostOne(activeCameraViews, isDebug) {
   return Contract$Meta3dCommonlib.ensureCheck(activeCameraViews, (function (r) {
                 Contract$Meta3dCommonlib.test(Log$Meta3dCommonlib.buildAssertMessage("only has one active cameraView at most", "not"), (function (param) {
                         return Contract$Meta3dCommonlib.Operators.$less$eq(ArraySt$Meta3dCommonlib.length(r), 1);
@@ -35,7 +35,7 @@ function _checkAtMostTwo(activeCameraViews, isDebug) {
 }
 
 function getActiveCameraView(usedComponentContribute, engineCoreService, isDebug) {
-  return OptionSt$Meta3dCommonlib.toNullable(OptionSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.getFirst(_checkAtMostTwo(ArraySt$Meta3dCommonlib.filter(Curry._1(engineCoreService.getAllComponents, usedComponentContribute), (function (param) {
+  return OptionSt$Meta3dCommonlib.toNullable(OptionSt$Meta3dCommonlib.map(ArraySt$Meta3dCommonlib.getFirst(_checkAtMostOne(ArraySt$Meta3dCommonlib.filter(Curry._1(engineCoreService.getAllComponents, usedComponentContribute), (function (param) {
                                 return _isActive(usedComponentContribute, engineCoreService, param);
                               })), isDebug)), (function (prim) {
                     return prim;
@@ -44,6 +44,6 @@ function getActiveCameraView(usedComponentContribute, engineCoreService, isDebug
 
 exports.getViewWorldToCameraMatrix = getViewWorldToCameraMatrix;
 exports._isActive = _isActive;
-exports._checkAtMostTwo = _checkAtMostTwo;
+exports._checkAtMostOne = _checkAtMostOne;
 exports.getActiveCameraView = getActiveCameraView;
 /* No side effect */

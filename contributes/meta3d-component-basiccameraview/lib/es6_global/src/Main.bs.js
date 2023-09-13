@@ -1,6 +1,6 @@
 
 
-import * as Index$Meta3dComponentBasiccameraviewProtocol from "./../../../../../node_modules/meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
+import * as Index$Meta3dComponentBasiccameraviewProtocol from "./../../../../meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentBasiccameraview from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentBasiccameraview from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddBasicCameraViewUtils$Meta3dComponentBasiccameraview from "./gameobject/AddBasicCameraViewUtils.bs.js";
@@ -39,7 +39,13 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceBasicCameraView) {
               return CloneBasicCameraViewUtils$Meta3dComponentBasiccameraview.clone(state, countRange, sourceBasicCameraView);
             }),
-          getAllComponentsFunc: GetAllBasicCameraViewsUtils$Meta3dComponentBasiccameraview.getAll
+          getAllComponentsFunc: GetAllBasicCameraViewsUtils$Meta3dComponentBasiccameraview.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return state;
+            })
         };
 }
 

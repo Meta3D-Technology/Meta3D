@@ -51,4 +51,10 @@ let getContribute: Meta3dType.Index.getContribute<
       sourcePerspectiveCameraProjection,
     )
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

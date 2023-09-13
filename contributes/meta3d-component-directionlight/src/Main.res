@@ -48,4 +48,10 @@ let getContribute: Meta3dType.Index.getContribute<
   cloneComponentFunc: (. state, countRange, _, sourceDirectionLight) => {
     CloneDirectionLightUtils.clone(state, countRange, sourceDirectionLight)
   },
+  restore: (. currentState, targetState) => {
+    targetState
+  },
+  deepCopy: (. state) => {
+    state
+  }
 }

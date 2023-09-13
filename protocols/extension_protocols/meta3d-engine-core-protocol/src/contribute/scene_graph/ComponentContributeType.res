@@ -71,6 +71,10 @@ type cloneComponentFunc<'state, 'cloneConfig, 'component> = (
   'component,
 ) => ('state, clonedComponents<'component>)
 
+type restore<'state> = (. 'state, 'state) => 'state
+
+type deepCopy<'state> = (. 'state) => 'state
+
 type componentContribute<
   'state,
   'config,
@@ -94,6 +98,8 @@ type componentContribute<
   disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
   cloneComponentFunc: cloneComponentFunc<'state, 'cloneConfig, 'component>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
+  restore: restore<'state>,
+  deepCopy: deepCopy<'state>
 }
 
 // // @genType
