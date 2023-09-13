@@ -723,3 +723,91 @@ let init = (
     api.setExtensionState(. meta3dState, imguiRendererExtensionProtocolName, imguiRendererState)
   })
 }
+
+let restore = (api: Meta3dType.Index.api, currentMeta3dState, targetMeta3dState) => {
+  let eventExtensionProtocolName = "meta3d-event-protocol"
+  let uiExtensionProtocolName = "meta3d-ui-protocol"
+
+  let eventService: Meta3dEventProtocol.ServiceType.service = api.getExtensionService(.
+    targetMeta3dState,
+    eventExtensionProtocolName,
+  )
+
+  let eventState: Meta3dEventProtocol.StateType.state = api.getExtensionState(.
+    targetMeta3dState,
+    eventExtensionProtocolName,
+  )
+
+  let currentUIState: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+    currentMeta3dState,
+    uiExtensionProtocolName,
+  )
+  let currentElementState = getCurrentElementState(currentUIState)->Obj.magic
+
+  let targetUIState: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+    targetMeta3dState,
+    uiExtensionProtocolName,
+  )
+
+  let targetElementState =
+    eventService.getAllActionContributes(
+      eventState,
+    )->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. targetElementState, (actionName, actionContribute)) => {
+        actionContribute.restore
+        ->Meta3dCommonlib.NullableSt.map((. restore) => {
+          targetElementState->Meta3dCommonlib.ImmutableHashMap.set(
+            actionName,
+            restore(
+              currentElementState->Meta3dCommonlib.ImmutableHashMap.getExn(actionName),
+              targetElementState->Meta3dCommonlib.ImmutableHashMap.getExn(actionName),
+            ),
+          )
+        })
+        ->Meta3dCommonlib.NullableSt.getWithDefault(targetElementState)
+      },
+      getCurrentElementState(targetUIState)->Obj.magic,
+    )
+
+  let targetUIState = setCurrentElementState(targetUIState, targetElementState->Obj.magic)
+
+  api.setExtensionState(. targetMeta3dState, uiExtensionProtocolName, targetUIState)
+}
+
+let deepCopy = (api: Meta3dType.Index.api, meta3dState) => {
+  let eventExtensionProtocolName = "meta3d-event-protocol"
+  let uiExtensionProtocolName = "meta3d-ui-protocol"
+
+  let eventService: Meta3dEventProtocol.ServiceType.service = api.getExtensionService(.
+    meta3dState,
+    eventExtensionProtocolName,
+  )
+
+  let eventState: Meta3dEventProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    eventExtensionProtocolName,
+  )
+
+  let uiState: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    uiExtensionProtocolName,
+  )
+
+  let elementState =
+    eventService.getAllActionContributes(
+      eventState,
+    )->Meta3dCommonlib.ArraySt.reduceOneParam((. elementState, (actionName, actionContribute)) => {
+      actionContribute.deepCopy
+      ->Meta3dCommonlib.NullableSt.map((. deepCopy) => {
+        elementState->Meta3dCommonlib.ImmutableHashMap.set(
+          actionName,
+          deepCopy(elementState->Meta3dCommonlib.ImmutableHashMap.getExn(actionName))
+        )
+      })
+      ->Meta3dCommonlib.NullableSt.getWithDefault(elementState)
+    }, getCurrentElementState(uiState)->Obj.magic)
+
+  let uiState = setCurrentElementState(uiState, elementState->Obj.magic)
+
+  api.setExtensionState(. meta3dState, uiExtensionProtocolName, uiState)
+}

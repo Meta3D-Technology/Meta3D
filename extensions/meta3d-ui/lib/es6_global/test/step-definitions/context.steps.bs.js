@@ -48,7 +48,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         getExtensionServiceStub.contents = Sinon.returns(imguiRendererService.contents, __x);
                       }));
                 Curry._2(param.when, "get context", (function (param) {
-                        result.contents = MainTool$Meta3dUi.getContext(sandbox, getExtensionServiceStub.contents, undefined, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        result.contents = MainTool$Meta3dUi.getContext(sandbox, getExtensionServiceStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "return context", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([

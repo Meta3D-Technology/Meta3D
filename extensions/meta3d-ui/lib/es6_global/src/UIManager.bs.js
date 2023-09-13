@@ -7,6 +7,7 @@ import * as Caml_option from "../../../../../node_modules/rescript/lib/es6/caml_
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as PromiseSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/PromiseSt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function hide(state, elementName) {
@@ -444,6 +445,40 @@ function init(meta3dState, param, isInitEvent, isDebug, canvas) {
               }));
 }
 
+function restore(api, currentMeta3dState, targetMeta3dState) {
+  var eventExtensionProtocolName = "meta3d-event-protocol";
+  var uiExtensionProtocolName = "meta3d-ui-protocol";
+  var eventService = api.getExtensionService(targetMeta3dState, eventExtensionProtocolName);
+  var eventState = api.getExtensionState(targetMeta3dState, eventExtensionProtocolName);
+  var currentUIState = api.getExtensionState(currentMeta3dState, uiExtensionProtocolName);
+  var currentElementState = _getElementStateExn(currentUIState, OptionSt$Meta3dCommonlib.getExn(currentUIState.currentElementName));
+  var targetUIState = api.getExtensionState(targetMeta3dState, uiExtensionProtocolName);
+  var targetElementState = ArraySt$Meta3dCommonlib.reduceOneParam(Curry._1(eventService.getAllActionContributes, eventState), (function (targetElementState, param) {
+          var actionName = param[0];
+          return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].restore, (function (restore) {
+                            return ImmutableHashMap$Meta3dCommonlib.set(targetElementState, actionName, Curry._2(restore, ImmutableHashMap$Meta3dCommonlib.getExn(currentElementState, actionName), ImmutableHashMap$Meta3dCommonlib.getExn(targetElementState, actionName)));
+                          })), targetElementState);
+        }), _getElementStateExn(targetUIState, OptionSt$Meta3dCommonlib.getExn(targetUIState.currentElementName)));
+  var targetUIState$1 = setCurrentElementState(targetUIState, targetElementState);
+  return api.setExtensionState(targetMeta3dState, uiExtensionProtocolName, targetUIState$1);
+}
+
+function deepCopy(api, meta3dState) {
+  var eventExtensionProtocolName = "meta3d-event-protocol";
+  var uiExtensionProtocolName = "meta3d-ui-protocol";
+  var eventService = api.getExtensionService(meta3dState, eventExtensionProtocolName);
+  var eventState = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+  var uiState = api.getExtensionState(meta3dState, uiExtensionProtocolName);
+  var elementState = ArraySt$Meta3dCommonlib.reduceOneParam(Curry._1(eventService.getAllActionContributes, eventState), (function (elementState, param) {
+          var actionName = param[0];
+          return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].deepCopy, (function (deepCopy) {
+                            return ImmutableHashMap$Meta3dCommonlib.set(elementState, actionName, Curry._1(deepCopy, ImmutableHashMap$Meta3dCommonlib.getExn(elementState, actionName)));
+                          })), elementState);
+        }), _getElementStateExn(uiState, OptionSt$Meta3dCommonlib.getExn(uiState.currentElementName)));
+  var uiState$1 = setCurrentElementState(uiState, elementState);
+  return api.setExtensionState(meta3dState, uiExtensionProtocolName, uiState$1);
+}
+
 export {
   hide ,
   show ,
@@ -489,5 +524,7 @@ export {
   getCurrentElementState ,
   setCurrentElementState ,
   init ,
+  restore ,
+  deepCopy ,
 }
 /* No side effect */

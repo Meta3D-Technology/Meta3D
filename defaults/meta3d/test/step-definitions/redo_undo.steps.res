@@ -31,13 +31,19 @@ defineFeature(feature, test => {
             ExtensionTool.buildGetServiceFunc(Obj.magic(1))->Obj.magic,
             ExtensionTool.buildGetLifeFunc(
               ~onRestore=Meta3dCommonlib.NullableSt.return(
-                (currentExtensionState, targetExtensionState) => targetExtensionState,
+                (currentState, targetState) => targetState,
               ),
               ~onDeepCopy=Meta3dCommonlib.NullableSt.return(
-                extensionState => {
+                state => {
+                  Main.setExtensionState(
+                    state,
+                    extensionProtocolName,
                   {
-                    "data1": (extensionState->Obj.magic)["data1"]->Meta3dCommonlib.ArraySt.copy,
+                    "data1": (
+                      Main.getExtensionState(state, extensionProtocolName)
+                      ->Obj.magic)["data1"]->Meta3dCommonlib.ArraySt.copy,
                   }->Obj.magic
+                  )
                 },
               ),
               (),

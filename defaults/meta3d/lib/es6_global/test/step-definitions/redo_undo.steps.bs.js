@@ -29,13 +29,13 @@ JestCucumber.defineFeature(feature, (function (test) {
                         s1.contents = StateTool$Meta3d.create(undefined);
                       }));
                 Curry._2(and, "register extension e1 with s1 that e1's state is es1", (function (param) {
-                        var partial_arg = Caml_option.some(NullableSt$Meta3dCommonlib.$$return(function (extensionState) {
-                                  return {
-                                          data1: ArraySt$Meta3dCommonlib.copy(extensionState.data1)
-                                        };
+                        var partial_arg = Caml_option.some(NullableSt$Meta3dCommonlib.$$return(function (state) {
+                                  return Main$Meta3d.setExtensionState(state, extensionProtocolName, {
+                                              data1: ArraySt$Meta3dCommonlib.copy(Main$Meta3d.getExtensionState(state, extensionProtocolName).data1)
+                                            });
                                 }));
-                        var partial_arg$1 = Caml_option.some(NullableSt$Meta3dCommonlib.$$return(function (currentExtensionState, targetExtensionState) {
-                                  return targetExtensionState;
+                        var partial_arg$1 = Caml_option.some(NullableSt$Meta3dCommonlib.$$return(function (currentState, targetState) {
+                                  return targetState;
                                 }));
                         s1.contents = Main$Meta3d.registerExtension(s1.contents, extensionProtocolName, (function (param) {
                                 return ExtensionTool$Meta3d.buildGetServiceFunc(1, param);

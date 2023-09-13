@@ -39,8 +39,8 @@ and extensionLifeAsyncEventHandler<'extensionService> = (
 ) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
-  onRestore: Js.Nullable.t<(extensionState, extensionState) => extensionState>,
-  onDeepCopy: Js.Nullable.t<extensionState => extensionState>,
+  onRestore: Js.Nullable.t<(state, state) =>  state>,
+  onDeepCopy: Js.Nullable.t<state => state>,
   onStart: Js.Nullable.t<(state, 'extensionService, startConfigData) => unit>,
   onInit: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
   onUpdate: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,

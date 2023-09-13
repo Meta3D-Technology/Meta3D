@@ -423,7 +423,9 @@ TODO invoke meta3dState's extensions' onDeepCopy, onRestore
 
 ** TODO action,pipeline add deepCopy, restore
 
-TODO update UIManager
+# TODO update UIManager
+
+# TODO fix engine-core
 
 TODO update PipelineManager
 

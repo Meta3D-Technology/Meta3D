@@ -180,14 +180,10 @@ let restore = (currentState, targetState) => {
     (. targetState, (extensionProtocolName, {onRestore})) => {
       onRestore
       ->Meta3dCommonlib.NullableSt.map((. handler) => {
-        setExtensionState(
-          targetState,
-          extensionProtocolName,
-          handler(
-            getExtensionStateExn(currentState, extensionProtocolName),
-            getExtensionStateExn(targetState, extensionProtocolName),
-          ),
-        )
+        handler(
+            currentState,
+            targetState
+          )
       })
       ->Meta3dCommonlib.NullableSt.getWithDefault(targetState)
     },
@@ -201,11 +197,7 @@ let deepCopy = state => {
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (extensionProtocolName, {onDeepCopy})) => {
     onDeepCopy
     ->Meta3dCommonlib.NullableSt.map((. handler) => {
-      setExtensionState(
-        state,
-        extensionProtocolName,
-        handler(getExtensionStateExn(state, extensionProtocolName)),
-      )
+        handler(state)
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(state)
   }, state)

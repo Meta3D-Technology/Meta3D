@@ -93,11 +93,13 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
 }
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dUiProtocol.ServiceType.service> = (
-  _,
+  api,
   _,
 ) => {
   {
     onRegister: Js.Nullable.null,
+    onRestore: Meta3dCommonlib.NullableSt.return(UIManager.restore(api)),
+    onDeepCopy: Meta3dCommonlib.NullableSt.return(UIManager.deepCopy(api)),
     onStart: Js.Nullable.null,
     onInit: Js.Nullable.null,
     onUpdate: Js.Nullable.null,

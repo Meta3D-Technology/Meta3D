@@ -75,7 +75,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         };
                       }));
                 Curry._2(param.when, "add fbo texture", (function (param) {
-                        result.contents = MainTool$Meta3dUi.addFBOTexture(sandbox, getExtensionServiceStub.contents, texture.contents, rect, undefined, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        result.contents = MainTool$Meta3dUi.addFBOTexture(sandbox, getExtensionServiceStub.contents, texture.contents, rect, undefined, undefined, undefined, undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "invoke imgui renderer's addFBOTexture", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([

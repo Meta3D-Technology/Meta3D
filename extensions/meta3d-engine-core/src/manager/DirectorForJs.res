@@ -124,6 +124,22 @@ let getComponentState = (
   state->ComponentManager.getComponentState(componentName)->Meta3dCommonlib.OptionSt.toNullable
 }
 
-let restore = RedoUndoManager.restore
+let restore = (
+  api: Meta3dType.Index.api,
+extensionProtocolName, currentMeta3dState, targetMeta3dState)  => 
+api.setExtensionState(. targetMeta3dState, extensionProtocolName,
+RedoUndoManager.restore(
+api.getExtensionState(. currentMeta3dState, extensionProtocolName),
+api.getExtensionState(. targetMeta3dState, extensionProtocolName)
+)
+)
 
-let deepCopy = RedoUndoManager.deepCopy
+
+let deepCopy = (
+  api: Meta3dType.Index.api,
+extensionProtocolName, meta3dState) =>
+api.setExtensionState(. meta3dState, extensionProtocolName,
+RedoUndoManager.deepCopy(
+api.getExtensionState(. meta3dState, extensionProtocolName)
+)
+)

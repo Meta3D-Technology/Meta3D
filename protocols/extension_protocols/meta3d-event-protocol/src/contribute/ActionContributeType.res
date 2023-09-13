@@ -7,10 +7,16 @@ type eventHandler<'uiData> = (
 
 type createState<'state> = unit => 'state
 
+type restore<'state> = ('state, 'state) => 'state
+
+type deepCopy<'state> = 'state => 'state
+
 type actionContribute<'uiData, 'state> = {
   actionName: actionName,
   handler: eventHandler<'uiData>,
   createState: createState<'state>,
+  restore: Js.Nullable.t<restore<'state>>,
+  deepCopy: Js.Nullable.t<deepCopy<'state>>,
 }
 
 // type getActionContribute<'dependentExtensionProtocolNameMap, 'uiData> = (

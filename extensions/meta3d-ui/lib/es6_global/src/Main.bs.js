@@ -1,6 +1,7 @@
 
 
 import * as UIManager$Meta3dUi from "./UIManager.bs.js";
+import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionService(api) {
@@ -98,9 +99,15 @@ function createExtensionState(param) {
         };
 }
 
-function getExtensionLife(param, param$1) {
+function getExtensionLife(api, param) {
   return {
           onRegister: null,
+          onRestore: NullableSt$Meta3dCommonlib.$$return(function (param, param$1) {
+                return UIManager$Meta3dUi.restore(api, param, param$1);
+              }),
+          onDeepCopy: NullableSt$Meta3dCommonlib.$$return(function (param) {
+                return UIManager$Meta3dUi.deepCopy(api, param);
+              }),
           onStart: null,
           onInit: null,
           onUpdate: null

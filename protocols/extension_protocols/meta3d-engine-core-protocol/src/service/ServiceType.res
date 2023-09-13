@@ -106,8 +106,6 @@ type service = {
     Meta3dGameobjectProtocol.Index.gameObject,
   ) => (StateType.state, GameObjectContributeType.clonedGameObjects),
   getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
-  restore: ( StateType.state, StateType.state  )=> StateType.state,
-  deepCopy: ( StateType.state)=> StateType.state,
   runPipeline: (
     Meta3dType.Index.state,
     Meta3dType.Index.extensionProtocolName,

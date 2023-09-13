@@ -72,6 +72,8 @@ function createExtensionState(param) {
 function getExtensionLife(param, param$1) {
   return {
           onRegister: null,
+          onRestore: null,
+          onDeepCopy: null,
           onStart: null,
           onInit: null,
           onUpdate: null

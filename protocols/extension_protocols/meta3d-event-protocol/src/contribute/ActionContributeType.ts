@@ -9,10 +9,16 @@ export type eventHandler<uiData> = (
 
 export type createState<state> = () => state
 
+export type restore<state> = (currentState: state, targetState: state) => state
+
+export type deepCopy<state> = (state: state) => state
+
 export type actionContribute<uiData, state> = {
     actionName: actionName,
     handler: eventHandler<uiData>,
-    createState: createState<state>
+    createState: createState<state>,
+    restore?: restore<state>,
+    deepCopy?: deepCopy<state>
 }
 
 // export type getActionContribute<dependentExtensionProtocolNameMap, uiData> = (api: api, dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap) => actionContribute<uiData>;

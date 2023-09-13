@@ -11,6 +11,8 @@ let init = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~isInitEvent=true,
   ~isDebug=false,
@@ -31,6 +33,8 @@ let init = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -49,6 +53,8 @@ let clear = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -66,6 +72,8 @@ let clear = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -101,6 +109,8 @@ let render = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~uiExtensionProtocolName="uiExtensionProtocolName",
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
@@ -119,6 +129,8 @@ let render = (
         registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
         getContribute: createEmptyStubWithJsObjSandbox(sandbox),
         getPackage: getPackage->Obj.magic,
+        restore: restore->Obj.magic,
+        deepCopy: deepCopy->Obj.magic,
       }: Meta3dType.Index.api
     ),
     meta3dState,
@@ -174,6 +186,8 @@ let beginWindow = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -191,6 +205,8 @@ let beginWindow = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -206,6 +222,8 @@ let endWindow = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -223,6 +241,8 @@ let endWindow = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -238,6 +258,8 @@ let setNextWindowRect = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -255,6 +277,8 @@ let setNextWindowRect = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -280,6 +304,8 @@ let addFBOTexture = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -297,6 +323,8 @@ let addFBOTexture = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -313,6 +341,8 @@ let getContext = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -330,6 +360,8 @@ let getContext = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -346,6 +378,8 @@ let button = (
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imguiRendererExtensionProtocolName="imguiRendererExtensionProtocolName",
   ~meta3dState=Obj.magic(1),
   (),
@@ -363,6 +397,8 @@ let button = (
           registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getContribute: createEmptyStubWithJsObjSandbox(sandbox),
           getPackage: getPackage->Obj.magic,
+          restore: restore->Obj.magic,
+          deepCopy: deepCopy->Obj.magic,
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -412,3 +448,69 @@ let getSkin = UIManager.getSkin
 let updateElementState = UIManager.updateElementState
 
 let getElementState = UIManager.getElementState
+
+let deepCopy = (
+  ~sandbox,
+  ~meta3dState,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  (),
+) => {
+  UIManager.deepCopy(
+    (
+      {
+        registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+        getAllContributesByType: getAllContributesByType->Obj.magic,
+        getExtensionService: getExtensionService->Obj.magic,
+        setExtensionState: setExtensionState->Obj.magic,
+        getExtensionState: getExtensionState->Obj.magic,
+        registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        getPackage: getPackage->Obj.magic,
+        restore: restore->Obj.magic,
+        deepCopy: deepCopy->Obj.magic,
+      }: Meta3dType.Index.api
+    ),
+    meta3dState,
+  )
+}
+
+let restore = (
+  ~sandbox,
+  ~currentMeta3dState,
+  ~targetMeta3dState,
+  ~getExtensionService,
+  ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~restore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~deepCopy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  (),
+) => {
+  UIManager.restore(
+    (
+      {
+        registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
+        getAllContributesByType: getAllContributesByType->Obj.magic,
+        getExtensionService: getExtensionService->Obj.magic,
+        setExtensionState: setExtensionState->Obj.magic,
+        getExtensionState: getExtensionState->Obj.magic,
+        registerContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        getContribute: createEmptyStubWithJsObjSandbox(sandbox),
+        getPackage: getPackage->Obj.magic,
+        restore: restore->Obj.magic,
+        deepCopy: deepCopy->Obj.magic,
+      }: Meta3dType.Index.api
+    ),
+    currentMeta3dState,
+    targetMeta3dState,
+  )
+}
+
+let getCurrentElementState = UIManager.getCurrentElementState

@@ -58,7 +58,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         label.contents = "Window";
                       }));
                 Curry._2(param.when, "beginWindow", (function (param) {
-                        newMeta3dState.contents = MainTool$Meta3dUi.beginWindow(sandbox, label.contents, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        newMeta3dState.contents = MainTool$Meta3dUi.beginWindow(sandbox, label.contents, getExtensionServiceStub.contents, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "invoke imgui renderer's beginWindow", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([

@@ -121,18 +121,16 @@ function _checkIsRegister(protocolName, isRegister) {
 
 function restore(currentState, targetState) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(targetState.extensionLifeMap), (function (targetState, param) {
-                var extensionProtocolName = param[0];
                 return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].onRestore, (function (handler) {
-                                  return setExtensionState(targetState, extensionProtocolName, Curry._2(handler, ImmutableHashMap$Meta3dCommonlib.getExn(currentState.extensionStateMap, extensionProtocolName), ImmutableHashMap$Meta3dCommonlib.getExn(targetState.extensionStateMap, extensionProtocolName)));
+                                  return Curry._2(handler, currentState, targetState);
                                 })), targetState);
               }), targetState);
 }
 
 function deepCopy(state) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(ImmutableHashMap$Meta3dCommonlib.entries(state.extensionLifeMap), (function (state, param) {
-                var extensionProtocolName = param[0];
                 return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].onDeepCopy, (function (handler) {
-                                  return setExtensionState(state, extensionProtocolName, Curry._1(handler, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, extensionProtocolName)));
+                                  return Curry._1(handler, state);
                                 })), state);
               }), state);
 }

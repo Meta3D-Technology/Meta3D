@@ -65,7 +65,5 @@ export type service = {
     readonly disposeGameObjects: (_1: StateType_state, _2: gameObject[]) => StateType_state;
     readonly cloneGameObject: (_1: StateType_state, _2: number, _3: cloneConfig, _4: gameObject) => [StateType_state, clonedGameObjects];
     readonly getAllGameObjects: (_1: StateType_state) => gameObject[];
-    readonly restore: (_1: StateType_state, _2: StateType_state) => StateType_state;
-    readonly deepCopy: (_1: StateType_state) => StateType_state;
     readonly runPipeline: (_1: Meta3dType_Index_state, _2: extensionProtocolName, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<Meta3dType_Index_state>
 };

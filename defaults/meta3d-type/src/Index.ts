@@ -59,8 +59,8 @@ export type startConfigData = [canvasData, configData]
 
 export type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
-  onRestore?: (currentExtensionState: extensionState, targetExtensionState: extensionState) => extensionState,
-  onDeepCopy?: (extensionState: extensionState) => extensionState,
+  onRestore?: (currentState: state, targetState: state) => state,
+  onDeepCopy?: (state:state) => state,
   onStart?: (state: state, extensionService: extensionService, configData: startConfigData) => void,
   onInit?: extensionLifeAsyncEventHandler<extensionService>,
   onUpdate?: extensionLifeAsyncEventHandler<extensionService>,

@@ -1,5 +1,6 @@
 
 
+import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as CreateState$Meta3dEngineCore from "./state/CreateState.bs.js";
 import * as DirectorForJs$Meta3dEngineCore from "./manager/DirectorForJs.bs.js";
 import * as StateContainer$Meta3dEngineCore from "./state/StateContainer.bs.js";
@@ -42,8 +43,6 @@ function getExtensionService(api) {
           disposeGameObjects: DirectorForJs$Meta3dEngineCore.disposeGameObjects,
           cloneGameObject: DirectorForJs$Meta3dEngineCore.cloneGameObject,
           getAllGameObjects: DirectorForJs$Meta3dEngineCore.getAllGameObjects,
-          restore: DirectorForJs$Meta3dEngineCore.restore,
-          deepCopy: DirectorForJs$Meta3dEngineCore.deepCopy,
           runPipeline: (function (param, param$1, param$2) {
               return DirectorForJs$Meta3dEngineCore.runPipeline(api, partial_arg, param, param$1, param$2);
             })
@@ -54,9 +53,15 @@ function createExtensionState(param) {
   return CreateState$Meta3dEngineCore.createState(undefined);
 }
 
-function getExtensionLife(param, param$1) {
+function getExtensionLife(api, extensionProtocolName) {
   return {
           onRegister: null,
+          onRestore: NullableSt$Meta3dCommonlib.$$return(function (param, param$1) {
+                return DirectorForJs$Meta3dEngineCore.restore(api, extensionProtocolName, param, param$1);
+              }),
+          onDeepCopy: NullableSt$Meta3dCommonlib.$$return(function (param) {
+                return DirectorForJs$Meta3dEngineCore.deepCopy(api, extensionProtocolName, param);
+              }),
           onStart: null,
           onInit: null,
           onUpdate: null

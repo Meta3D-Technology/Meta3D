@@ -1,6 +1,6 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreProtocol.ServiceType.service,
-> = (api) => {
+> = api => {
   getIsDebug: DirectorForJs.getIsDebug,
   setIsDebug: DirectorForJs.setIsDebug,
   prepare: DirectorForJs.prepare,
@@ -33,8 +33,6 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   disposeGameObjects: DirectorForJs.disposeGameObjects,
   cloneGameObject: DirectorForJs.cloneGameObject,
   getAllGameObjects: DirectorForJs.getAllGameObjects,
-  restore: DirectorForJs.restore,
-  deepCopy: DirectorForJs.deepCopy,
   runPipeline: DirectorForJs.runPipeline(
     api,
     (StateContainer.unsafeGetMeta3dState, StateContainer.setMeta3dState),
@@ -51,9 +49,11 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<
   Meta3dEngineCoreProtocol.ServiceType.service,
-> = (_, _) => {
+> = (api, extensionProtocolName) => {
   {
     onRegister: Js.Nullable.null,
+    onRestore: Meta3dCommonlib.NullableSt.return(DirectorForJs.restore(api,extensionProtocolName)),
+    onDeepCopy: Meta3dCommonlib.NullableSt.return(DirectorForJs.deepCopy(api, extensionProtocolName)),
     onStart: Js.Nullable.null,
     onInit: Js.Nullable.null,
     onUpdate: Js.Nullable.null,

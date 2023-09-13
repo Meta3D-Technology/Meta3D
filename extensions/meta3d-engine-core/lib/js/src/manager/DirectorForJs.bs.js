@@ -52,6 +52,14 @@ function getComponentState(state, componentName) {
   return OptionSt$Meta3dCommonlib.toNullable(ComponentManager$Meta3dEngineCore.getComponentState(state, componentName));
 }
 
+function restore(api, extensionProtocolName, currentMeta3dState, targetMeta3dState) {
+  return api.setExtensionState(targetMeta3dState, extensionProtocolName, RedoUndoManager$Meta3dEngineCore.restore(api.getExtensionState(currentMeta3dState, extensionProtocolName), api.getExtensionState(targetMeta3dState, extensionProtocolName)));
+}
+
+function deepCopy(api, extensionProtocolName, meta3dState) {
+  return api.setExtensionState(meta3dState, extensionProtocolName, RedoUndoManager$Meta3dEngineCore.deepCopy(api.getExtensionState(meta3dState, extensionProtocolName)));
+}
+
 var unregisterPipeline = PipelineManager$Meta3dEngineCore.unregisterPipeline;
 
 var getIsDebug = ContributeDataManager$Meta3dEngineCore.getIsDebug;
@@ -105,10 +113,6 @@ var disposeGameObjects = GameObjectManager$Meta3dEngineCore.disposeGameObjects;
 var cloneGameObject = GameObjectManager$Meta3dEngineCore.cloneGameObject;
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCore.getAllGameObjects;
-
-var restore = RedoUndoManager$Meta3dEngineCore.restore;
-
-var deepCopy = RedoUndoManager$Meta3dEngineCore.deepCopy;
 
 exports._convertJobOrders = _convertJobOrders;
 exports.registerPipeline = registerPipeline;
