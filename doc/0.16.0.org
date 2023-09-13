@@ -451,13 +451,13 @@ engine core extension's deepCopy, restore should handle E,C data!
 
 
 
-** TODO scene graph(+game view)
+** DONE scene graph(+game view)
 
 
 gpu resources->three:
 dispose all to create new ones
 
-new perspectiveCamera, scene
+////new perspectiveCamera, scene
 
 
 

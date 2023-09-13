@@ -105,6 +105,18 @@ let _getGeometryInstance = (geometry: geometry) => {
     return _getGeometryInstanceMap()[geometry]
 }
 
+let _getAllMeshInstances = () => {
+    return _getMeshInstanceMap().filter(value => value !== undefined)
+}
+
+let _getAllBasicMaterialInstances = () => {
+    return _getBasicMaterialInstanceMap().filter(value => value !== undefined)
+}
+
+let _getAllGeometryInstances = () => {
+    return _getGeometryInstanceMap().filter(value => value !== undefined)
+}
+
 let _convertToMatrix4 = (mat: Float32Array): Matrix4Type => {
     // return new Matrix4(
     //     mat[0],
@@ -1167,6 +1179,16 @@ export let getExtensionLifeUtils = (api: api,
             createEmptyGeometryInstanceMap()
 
             return meta3dState
-        }
+        },
+        onRestore: (currentMeta3dState, targetMeta3dState) => {
+            // TODO perf: defer dispose if too many
+
+            _getAllMeshInstances().forEach((_, gameObject) => _disposeMeshInstance(gameObject))
+            _getAllBasicMaterialInstances().forEach((_, material) => _disposeBasicMaterialInstance(material))
+            _getAllGeometryInstances().forEach((_, geometry) => _disposeGeometryInstance(geometry))
+
+            return targetMeta3dState
+        },
+        onDeepCopy: (meta3dState) => meta3dState
     }
 }
