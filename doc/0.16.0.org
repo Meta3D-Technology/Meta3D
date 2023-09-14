@@ -470,25 +470,31 @@ run->loopHandles
 
 
 
-** TODO run test
+** DONE run test
 
 fix:
-add cube after run
+# add cube after run
 not refresh
-restore disappear
+# restore disappear
 dispose
+  d->r->a->s
+    add error in gameview
+  ////fix: judge is disposed
 
 
 
 
 
-TODO shouldn't recreate programs!
+////TODO shouldn't recreate programs!
 
-TODO shouldn't recreate vbos!
+////TODO shouldn't recreate vbos!
 
 
 TODO need publsh:
 engine-core,gameview
+meta3d-action-stop
+pipeline-dispose, gameview
+scenegraph, gameview
 
 
 

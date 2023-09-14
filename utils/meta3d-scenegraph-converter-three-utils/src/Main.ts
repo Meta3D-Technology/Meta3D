@@ -51,6 +51,17 @@ let _globalKeyNameForMeshInstanceMap: string
 let _globalKeyNameForBasicMaterialInstanceMap: string
 let _globalKeyNameForGeometryInstanceMap: string
 
+let _disposeMesh = (mesh: Mesh) => {
+}
+
+let _disposeBasicMaterial = (material: MeshBasicMaterial) => {
+    material.dispose()
+}
+
+let _disposeGeometry = (geometry: BufferGeometry) => {
+    geometry.dispose()
+}
+
 
 /*! for WebGLProperties->get(xxx), use the same instance
 */
@@ -60,6 +71,7 @@ let _getMeshInstanceMap = (): Array<Mesh> => {
 }
 
 let _disposeMeshInstance = (gameObject: gameObject) => {
+    _disposeMesh(_getMeshInstanceMap()[gameObject])
     _getMeshInstanceMap()[gameObject] = undefined
 }
 
@@ -76,7 +88,7 @@ let _getBasicMaterialInstanceMap = (): Array<MeshBasicMaterial> => {
 }
 
 let _disposeBasicMaterialInstance = (material: pbrMaterial) => {
-    _getBasicMaterialInstanceMap()[material].dispose()
+    _disposeBasicMaterial(_getBasicMaterialInstanceMap()[material])
     _getBasicMaterialInstanceMap()[material] = undefined
 }
 
@@ -93,7 +105,7 @@ let _getGeometryInstanceMap = (): Array<BufferGeometry> => {
 }
 
 let _disposeGeometryInstance = (geometry: geometry) => {
-    _getGeometryInstanceMap()[geometry].dispose()
+    _disposeGeometry(_getGeometryInstanceMap()[geometry])
     _getGeometryInstanceMap()[geometry] = undefined
 }
 
@@ -103,6 +115,12 @@ let _getGeometryInstance = (geometry: geometry) => {
     }
 
     return _getGeometryInstanceMap()[geometry]
+}
+
+let _clearAllInstanceMaps = () => {
+    createEmptyMeshInstanceMap()
+    createEmptyBasicMaterialInstanceMap()
+    createEmptyGeometryInstanceMap()
 }
 
 let _getAllMeshInstances = () => {
@@ -1183,9 +1201,11 @@ export let getExtensionLifeUtils = (api: api,
         onRestore: (currentMeta3dState, targetMeta3dState) => {
             // TODO perf: defer dispose if too many
 
-            _getAllMeshInstances().forEach((_, gameObject) => _disposeMeshInstance(gameObject))
-            _getAllBasicMaterialInstances().forEach((_, material) => _disposeBasicMaterialInstance(material))
-            _getAllGeometryInstances().forEach((_, geometry) => _disposeGeometryInstance(geometry))
+            _getAllMeshInstances().forEach(_disposeMesh)
+            _getAllBasicMaterialInstances().forEach(_disposeBasicMaterial)
+            _getAllGeometryInstances().forEach(_disposeGeometry)
+
+            _clearAllInstanceMaps()
 
             return targetMeta3dState
         },

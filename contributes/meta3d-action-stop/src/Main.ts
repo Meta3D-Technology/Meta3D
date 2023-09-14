@@ -12,6 +12,7 @@ import { unbindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraC
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { service as historyService } from "meta3d-redo-undo-history-protocol/src/service/ServiceType"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 // let _markIsRun = (meta3dState: meta3dState, api: api) => {
 //     return setElementStateField([
@@ -57,9 +58,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             unbindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
 
-            return new Promise((resolve) => {
-                resolve(meta3dState)
-            })
+            return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
         },
         createState: () => null
     }
