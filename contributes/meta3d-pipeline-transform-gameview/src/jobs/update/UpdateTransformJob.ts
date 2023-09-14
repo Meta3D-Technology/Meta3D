@@ -2,6 +2,8 @@ import { execFunc as execFuncType } from "meta3d-engine-core-gameview-protocol/s
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-transform-gameview-protocol/src/StateType"
 import { updateTransform } from "meta3d-pipeline-transform-utils/src/UpdateTransformJobUtils"
+import { state as engineCoreState } from "meta3d-engine-core-gameview-protocol/src/state/StateType"
+import { service as engineCoreService } from "meta3d-engine-core-gameview-protocol/src/service/ServiceType"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc, meta3dEngineCoreExtensionProtocolName }) => {
 	let states = getStatesFunc<states>(meta3dState)
@@ -10,6 +12,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	return mostService.callFunc(() => {
 		console.log("update transform job")
 
-		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateTransform(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService))
+		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateTransform<engineCoreState, engineCoreService>(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService))
 	})
 }

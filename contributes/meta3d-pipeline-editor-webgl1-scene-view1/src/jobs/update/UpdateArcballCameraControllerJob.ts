@@ -4,6 +4,7 @@ import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/S
 import { getDragOverLocationForSceneView, getPitchForSceneView, getYawForSceneView, reset } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";
 import { getViewRect } from "meta3d-view-utils/src/SceneViewRect";
 import { update } from "meta3d-pipeline-editor-webgl1-view1-utils/src/UpdateArcballCameraControllerJobUtils";
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
@@ -19,7 +20,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         console.log("update arcballCameraController job");
 
-        let data = update(meta3dState, api, [engineWholeService, uiService], [
+        let data = update<engineWholeService>(meta3dState, api, [engineWholeService, uiService], [
             [reset, getDragOverLocationForSceneView, getYawForSceneView, getPitchForSceneView],
             getViewRect
         ],

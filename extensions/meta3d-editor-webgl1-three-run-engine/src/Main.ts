@@ -2,6 +2,8 @@ import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D,
 import { state, func } from "meta3d-editor-run-engine-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
 import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine } from "meta3d-editor-webgl1-three-run-engine-utils/src/Main"
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { state as runEngineState } from "meta3d-editor-run-engine-protocol/src/state/StateType"
 
 let _execLoopFuncs = (meta3dState: meta3dState, loopFuncs: Array<func>): Promise<meta3dState> => {
 	if (loopFuncs.length == 0) {
@@ -22,11 +24,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api) => {
 	return {
 		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
-			return prepareAndInitEngine(meta3dState, api, gl, canvas, isDebug, "meta3d-engine-whole-protocol").then(meta3dState => {
-				return addToLoopFuncs(meta3dState, api, {
+			return prepareAndInitEngine<engineWholeService>(meta3dState, api, gl, canvas, isDebug, "meta3d-engine-whole-protocol").then(meta3dState => {
+				return addToLoopFuncs<runEngineState>(meta3dState, api, {
 					id: "default",
 					func: (meta3dState: meta3dState) => {
-						return loopEngine(meta3dState, api, "meta3d-engine-whole-protocol")
+						return loopEngine<engineWholeService>(meta3dState, api, "meta3d-engine-whole-protocol")
 					},
 					onlyOnce: false
 				})
@@ -36,7 +38,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-run-engine-protocol")
 
 			return _execLoopFuncs(meta3dState, state.loopFuncs.map(({ func }) => func)).then(meta3dState => {
-				return removeFromLoopFuncs(meta3dState, (({ onlyOnce }) => !onlyOnce), api)
+				return removeFromLoopFuncs<runEngineState>(meta3dState, (({ onlyOnce }) => !onlyOnce), api)
 			})
 		},
 	}

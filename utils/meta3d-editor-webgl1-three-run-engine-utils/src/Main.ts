@@ -41,11 +41,11 @@ import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/
 // }
 
 
-export let prepareAndInitEngine = (meta3dState: meta3dState,
+export let prepareAndInitEngine = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState,
 	api: api, gl: WebGLRenderingContext, canvas: HTMLCanvasElement, isDebug: boolean,
 	engineWholeProtocolName: string
 ) => {
-	let engineWholeService = api.getExtensionService<engineWholeService>(
+	let engineWholeService = api.getExtensionService<engineWholeService_>(
 		meta3dState,
 		engineWholeProtocolName
 	)
@@ -67,8 +67,8 @@ export let prepareAndInitEngine = (meta3dState: meta3dState,
 	return engineWholeService.init(meta3dState)
 }
 
-export let loopEngine = (meta3dState: meta3dState, api: api, engineWholeProtocolName: string) => {
-	let engineWholeService = api.getExtensionService<engineWholeService>(
+export let loopEngine = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState, api: api, engineWholeProtocolName: string) => {
+	let engineWholeService = api.getExtensionService<engineWholeService_>(
 		meta3dState,
 		engineWholeProtocolName
 	)
@@ -77,16 +77,16 @@ export let loopEngine = (meta3dState: meta3dState, api: api, engineWholeProtocol
 }
 
 
-export let addToLoopFuncs = (meta3dState: meta3dState, api: api, loopFuncData: loopFuncData) => {
-	let runEngineState = api.getExtensionState<runEngineState>(meta3dState, "meta3d-editor-run-engine-protocol")
+export let addToLoopFuncs = <runEngineState_ extends runEngineState>(meta3dState: meta3dState, api: api, loopFuncData: loopFuncData) => {
+	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-protocol")
 
 	runEngineState.loopFuncs.push(loopFuncData)
 
 	return api.setExtensionState(meta3dState, "meta3d-editor-run-engine-protocol", runEngineState)
 }
 
-export let removeFromLoopFuncs = (meta3dState: meta3dState, filterFunc: (data: loopFuncData) => boolean, api: api) => {
-	let runEngineState = api.getExtensionState<runEngineState>(meta3dState, "meta3d-editor-run-engine-protocol")
+export let removeFromLoopFuncs = <runEngineState_ extends runEngineState>(meta3dState: meta3dState, filterFunc: (data: loopFuncData) => boolean, api: api) => {
+	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-protocol")
 
 	runEngineState = {
 		...runEngineState,

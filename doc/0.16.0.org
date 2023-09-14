@@ -499,7 +499,7 @@ scenegraph, gameview
 
 
 
-* TODO refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
+* DONE refactor: utils not dependent protocols for scene view(e.g. engine-core-protocol, engine-whole-protocol)
 
 use generic
 
@@ -513,3 +513,13 @@ use generic
 
 
 * TODO refactor: rename for scene view(e.g. meta3d-engine-core-sceneview)
+
+
+
+* TODO publsh
+
+pass ci
+
+update production
+
+release

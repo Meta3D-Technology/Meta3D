@@ -15,6 +15,10 @@ import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "me
 import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
 import { pipeline as pipelineGameView1Pipeline, job as pipelineGameView1Job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType"
 import { buildNewEngineWholeExtensionService, prepare } from "meta3d-editor-webgl1-three-engine-whole-utils/src/Main"
+import { service as engineBasicService } from "meta3d-engine-basic-gameview-protocol/src/service/ServiceType"
+import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
+import { service as engineRenderService } from "meta3d-editor-engine-render-gameview-protocol/src/service/ServiceType"
+import { state as converterState } from "meta3d-scenegraph-converter-three-gameview-protocol/src/state/StateType"
 
 
 let _registerEditorPipelines = (
@@ -83,7 +87,7 @@ let _registerEditorPipelines = (
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
-	let newEngineWholeExtensionService = buildNewEngineWholeExtensionService(api,
+	let newEngineWholeExtensionService = buildNewEngineWholeExtensionService<converterState>(api,
 		{
 			engineSceneProtocolName: "meta3d-engine-scene-gameview-protocol",
 			engineCoreProtocolName: "meta3d-engine-core-gameview-protocol",
@@ -94,7 +98,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	return {
 		...newEngineWholeExtensionService,
 		prepare: (meta3dState: meta3dState, isDebug, ecsConfig, gl, canvas) => {
-			meta3dState = prepare(
+			meta3dState = prepare<engineBasicService, engineSceneService, engineRenderService>(
 				meta3dState, api,
 				{
 					engineBasicProtocolName: "meta3d-engine-basic-gameview-protocol",

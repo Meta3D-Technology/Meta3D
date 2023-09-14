@@ -7,9 +7,9 @@ import { arcballCameraController, componentName as arcballCameraControllerCompon
 import { transform, componentName as transformComponentName, dataName as transformDataName } from "meta3d-component-transform-protocol";
 import { lookAt } from "meta3d-component-commonlib"
 
-let _updateAllDirtyPerspectiveCameraProjections = (
+let _updateAllDirtyPerspectiveCameraProjections = <engineCoreState_ extends engineCoreState>(
 	engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean, canvasSize: [number, number]
-) => {
+): engineCoreState_ => {
 	let usedPerspectiveCameraProjectionContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 	let allDirtyPerspectiveCameraProjections = engineCoreService.getAllComponents<perspectiveCameraProjection>(usedPerspectiveCameraProjectionContribute).filter(cameraProjection => {
 		return getExn(engineCoreService.getComponentData<perspectiveCameraProjection, boolean>(usedPerspectiveCameraProjectionContribute, cameraProjection, dataName.dirty))
@@ -80,7 +80,7 @@ let _updateAllDirtyArcballCameraControllers = (
 	return setUsedComponentContribute(engineCoreState, contribute, arcballCameraControllerComponentName)
 }
 
-export function updateCamera(engineCoreState: engineCoreState, engineCoreService: engineCoreService,
+export function updateCamera<engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>(engineCoreState: engineCoreState_, engineCoreService: engineCoreService_,
 	isDebug: boolean, canvasSize: [number, number]) {
 	engineCoreState = _updateAllDirtyPerspectiveCameraProjections(
 		engineCoreState, engineCoreService, isDebug, canvasSize

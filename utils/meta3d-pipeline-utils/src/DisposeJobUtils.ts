@@ -9,7 +9,7 @@ import { componentName as transformComponentName } from "meta3d-component-transf
 import { componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 
 // TODO dispose directionLight component
-let _disposeComponents = ({ getNeedDisposedComponents, disposeComponents, unsafeGetUsedComponentContribute, setUsedComponentContribute }: engineCoreService, engineCoreState: engineCoreState) => {
+let _disposeComponents = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>({ getNeedDisposedComponents, disposeComponents, unsafeGetUsedComponentContribute, setUsedComponentContribute }: engineCoreService_, engineCoreState: engineCoreState_): engineCoreState_ => {
     let transformContribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
     let pbrMaterialContribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
     let geometryContribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
@@ -60,34 +60,34 @@ let _disposeComponents = ({ getNeedDisposedComponents, disposeComponents, unsafe
     )
 
 
-    engineCoreState = setUsedComponentContribute(engineCoreState, transformContribute, transformComponentName)
-    engineCoreState = setUsedComponentContribute(engineCoreState, pbrMaterialContribute, pbrMaterialComponentName)
-    engineCoreState = setUsedComponentContribute(engineCoreState, geometryContribute, geometryComponentName)
-    engineCoreState = setUsedComponentContribute(engineCoreState, basicCameraViewContribute, basicCameraViewComponentName)
-    engineCoreState = setUsedComponentContribute(engineCoreState, perspectiveCameraProjectionContribute, perspectiveCameraProjectionComponentName)
-    engineCoreState = setUsedComponentContribute(engineCoreState, arcballCameraControllerContribute, arcballCameraControllerComponentName)
+    engineCoreState = setUsedComponentContribute(engineCoreState, transformContribute, transformComponentName) as engineCoreState_
+    engineCoreState = setUsedComponentContribute(engineCoreState, pbrMaterialContribute, pbrMaterialComponentName) as engineCoreState_
+    engineCoreState = setUsedComponentContribute(engineCoreState, geometryContribute, geometryComponentName) as engineCoreState_
+    engineCoreState = setUsedComponentContribute(engineCoreState, basicCameraViewContribute, basicCameraViewComponentName) as engineCoreState_
+    engineCoreState = setUsedComponentContribute(engineCoreState, perspectiveCameraProjectionContribute, perspectiveCameraProjectionComponentName) as engineCoreState_
+    engineCoreState = setUsedComponentContribute(engineCoreState, arcballCameraControllerContribute, arcballCameraControllerComponentName) as engineCoreState_
 
 
     return engineCoreState
 }
 
 
-let _disposeGameObjects = ({ getNeedDisposedGameObjects, disposeGameObjects }: engineCoreService, engineCoreState: engineCoreState) => {
+let _disposeGameObjects = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>({ getNeedDisposedGameObjects, disposeGameObjects }: engineCoreService_, engineCoreState: engineCoreState_): engineCoreState_ => {
     return disposeGameObjects(
         engineCoreState,
         getNeedDisposedGameObjects(engineCoreState)
-    )
+    ) as engineCoreState_
 }
 
-export let dispose = (api: api, meta3dState: meta3dState, meta3dEngineCoreExtensionProtocolName: string) => {
-    let engineCoreService = api.getExtensionService<engineCoreService>(meta3dState, meta3dEngineCoreExtensionProtocolName)
+export let dispose = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>(api: api, meta3dState: meta3dState, meta3dEngineCoreExtensionProtocolName: string) => {
+    let engineCoreService = api.getExtensionService<engineCoreService_>(meta3dState, meta3dEngineCoreExtensionProtocolName)
 
-    let engineCoreState = _disposeComponents(
+    let engineCoreState = _disposeComponents<engineCoreState_, engineCoreService_>(
         engineCoreService,
-        api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName),
+        api.getExtensionState<engineCoreState_>(meta3dState, meta3dEngineCoreExtensionProtocolName),
     )
-    engineCoreState = _disposeGameObjects(engineCoreService, engineCoreState)
+    engineCoreState = _disposeGameObjects<engineCoreState_, engineCoreService_>(engineCoreService, engineCoreState)
 
-    return api.setExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName, engineCoreState
+    return api.setExtensionState<engineCoreState_>(meta3dState, meta3dEngineCoreExtensionProtocolName, engineCoreState
     )
 }

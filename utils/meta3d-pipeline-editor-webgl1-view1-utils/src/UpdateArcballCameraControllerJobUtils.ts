@@ -31,9 +31,9 @@ let _isNotTriggerEvent = (
     return getExn(lastYaw) === currentYaw && getExn(lastPitch) === currentPitch
 }
 
-export let update = (meta3dState: meta3dState, api: api,
+export let update = <engineWholeService_ extends engineWholeService | engineWholeGameViewService>(meta3dState: meta3dState, api: api,
     [engineWholeService, uiService]: [
-        engineWholeService | engineWholeGameViewService,
+        engineWholeService_,
         uiService
     ],
     [

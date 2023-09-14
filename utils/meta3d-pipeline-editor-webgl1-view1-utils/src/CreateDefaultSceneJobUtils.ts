@@ -164,7 +164,7 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engin
     return [meta3dState, cameraController, gameObject]
 }
 
-export let addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
+export let addDefaultGameObjects = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState, engineWholeService: engineWholeService_,
     // eventService: eventService,
     // eventExtensionProtocolName: string,
     canvasSize: canvasSize

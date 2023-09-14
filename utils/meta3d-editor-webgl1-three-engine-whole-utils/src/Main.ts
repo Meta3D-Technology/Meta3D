@@ -9,13 +9,6 @@ import { service as engineCoreService } from "meta3d-engine-core-protocol/src/se
 import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { service as engineRenderService } from "meta3d-editor-engine-render-protocol/src/service/ServiceType"
 import { getExtensionService as getEngineWholeExtensionService } from "meta3d-engine-whole-utils/src/implement/Main"
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
-import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
-import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
-import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
-import { state as editorEventState } from "meta3d-pipeline-editor-event-protocol/src/StateType"
-import { config as editorEventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { state as converterState } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
@@ -125,7 +118,7 @@ let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
 	)
 }
 
-export let buildNewEngineWholeExtensionService = (api: api,
+export let buildNewEngineWholeExtensionService = <converterState_ extends converterState>(api: api,
 	{
 		// engineBasicProtocolName,
 		engineSceneProtocolName,
@@ -156,7 +149,7 @@ export let buildNewEngineWholeExtensionService = (api: api,
 						eventProtocolName
 					)
 
-					let converterState = api.getExtensionState<converterState>(
+					let converterState = api.getExtensionState<converterState_>(
 						meta3dState,
 						scenegraphConverterProtocolName
 					)
@@ -277,7 +270,7 @@ export let buildNewEngineWholeExtensionService = (api: api,
 
 }
 
-export let prepare = (meta3dState: meta3dState, api: api,
+export let prepare = <engineBasicService_ extends engineBasicService, engineSceneService_ extends engineSceneService, engineRenderService_ extends engineRenderService>(meta3dState: meta3dState, api: api,
 	{
 		engineBasicProtocolName,
 		engineSceneProtocolName,
@@ -286,7 +279,7 @@ export let prepare = (meta3dState: meta3dState, api: api,
 	isDebug: boolean, ecsConfig: any, gl: WebGLRenderingContext, canvas: HTMLCanvasElement) => {
 	// let engineBasicState = api.getExtensionState<engineBasicState>(meta3dState, meta3dEngineBasicExtensionProtocolName)
 
-	let engineBasicService = api.getExtensionService<engineBasicService>(
+	let engineBasicService = api.getExtensionService<engineBasicService_>(
 		meta3dState,
 		engineBasicProtocolName
 	)
@@ -295,7 +288,7 @@ export let prepare = (meta3dState: meta3dState, api: api,
 
 	// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, meta3dEngineSceneExtensionProtocolName)
 
-	let engineSceneService = api.getExtensionService<engineSceneService>(
+	let engineSceneService = api.getExtensionService<engineSceneService_>(
 		meta3dState,
 		engineSceneProtocolName
 	)
@@ -305,7 +298,7 @@ export let prepare = (meta3dState: meta3dState, api: api,
 
 	// let engineRenderState = api.getExtensionState<engineRenderState>(meta3dState, meta3dEditorEngineRenderExtensionProtocolName)
 
-	let engineRenderService = api.getExtensionService<engineRenderService>(
+	let engineRenderService = api.getExtensionService<engineRenderService_>(
 		meta3dState,
 		editorEngineRenderProtocolName
 	)

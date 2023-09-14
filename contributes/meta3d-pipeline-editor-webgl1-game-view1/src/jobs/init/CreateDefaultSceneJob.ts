@@ -12,7 +12,7 @@ let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engi
     // eventExtensionProtocolName: string,
     canvasSize: canvasSize
 ): meta3dState => {
-    let data = addDefaultGameObjects(meta3dState, engineWholeService, canvasSize)
+    let data = addDefaultGameObjects<engineWholeService>(meta3dState, engineWholeService, canvasSize)
     meta3dState = data[0]
     let arcballCameraController = data[1]
 
