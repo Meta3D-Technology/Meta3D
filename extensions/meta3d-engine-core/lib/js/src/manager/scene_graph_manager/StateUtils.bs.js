@@ -28,8 +28,17 @@ function getAllUsedContributes(state) {
 }
 
 function setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState) {
-  usedGameObjectContribute.state = gameObjectState;
-  state.usedGameObjectContribute = usedGameObjectContribute;
+  state.usedGameObjectContribute = {
+    state: gameObjectState,
+    createGameObjectFunc: usedGameObjectContribute.createGameObjectFunc,
+    getNeedDisposedGameObjectsFunc: usedGameObjectContribute.getNeedDisposedGameObjectsFunc,
+    deferDisposeGameObjectFunc: usedGameObjectContribute.deferDisposeGameObjectFunc,
+    disposeGameObjectsFunc: usedGameObjectContribute.disposeGameObjectsFunc,
+    cloneGameObjectFunc: usedGameObjectContribute.cloneGameObjectFunc,
+    getAllGameObjectsFunc: usedGameObjectContribute.getAllGameObjectsFunc,
+    restore: usedGameObjectContribute.restore,
+    deepCopy: usedGameObjectContribute.deepCopy
+  };
   return state;
 }
 

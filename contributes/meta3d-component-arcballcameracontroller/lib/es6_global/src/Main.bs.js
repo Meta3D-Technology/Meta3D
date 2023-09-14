@@ -1,6 +1,8 @@
 
 
-import * as Index$Meta3dComponentArcballcameracontrollerProtocol from "./../../../../../node_modules/meta3d-component-arcballcameracontroller-protocol/lib/es6_global/src/Index.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as Index$Meta3dComponentArcballcameracontrollerProtocol from "../../../../../node_modules/meta3d-component-arcballcameracontroller-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentArcballcameracontroller from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentArcballcameracontroller from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller from "./gameobject/AddArcballCameraControllerUtils.bs.js";
@@ -39,7 +41,31 @@ function getContribute(param) {
           cloneComponentFunc: (function (state, countRange, param, sourceArcballCameraController) {
               return CloneArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.clone(state, countRange, sourceArcballCameraController);
             }),
-          getAllComponentsFunc: GetAllArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller.getAll
+          getAllComponentsFunc: GetAllArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller.getAll,
+          restore: (function (currentState, targetState) {
+              return targetState;
+            }),
+          deepCopy: (function (state) {
+              return {
+                      config: state.config,
+                      maxIndex: state.maxIndex,
+                      gameObjectMap: state.gameObjectMap,
+                      dirtyMap: MutableSparseMap$Meta3dCommonlib.copy(state.dirtyMap),
+                      distanceMap: MutableSparseMap$Meta3dCommonlib.copy(state.distanceMap),
+                      minDistanceMap: MutableSparseMap$Meta3dCommonlib.copy(state.minDistanceMap),
+                      phiMap: MutableSparseMap$Meta3dCommonlib.copy(state.phiMap),
+                      thetaMap: MutableSparseMap$Meta3dCommonlib.copy(state.thetaMap),
+                      thetaMarginMap: MutableSparseMap$Meta3dCommonlib.copy(state.thetaMarginMap),
+                      targetMap: MutableSparseMap$Meta3dCommonlib.copy(state.targetMap),
+                      moveSpeedXMap: MutableSparseMap$Meta3dCommonlib.copy(state.moveSpeedXMap),
+                      moveSpeedYMap: MutableSparseMap$Meta3dCommonlib.copy(state.moveSpeedYMap),
+                      rotateSpeedMap: MutableSparseMap$Meta3dCommonlib.copy(state.rotateSpeedMap),
+                      wheelSpeedMap: MutableSparseMap$Meta3dCommonlib.copy(state.wheelSpeedMap),
+                      gameObjectArcballCameraControllerMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectArcballCameraControllerMap),
+                      needDisposedArcballCameraControllers: ArraySt$Meta3dCommonlib.copy(state.needDisposedArcballCameraControllers),
+                      disposedArcballCameraControllers: ArraySt$Meta3dCommonlib.copy(state.disposedArcballCameraControllers)
+                    };
+            })
         };
 }
 

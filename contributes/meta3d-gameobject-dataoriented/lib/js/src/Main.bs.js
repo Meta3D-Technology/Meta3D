@@ -20,8 +20,8 @@ function getContribute(api) {
             }),
           createGameObjectFunc: CreateGameObjectUtils$Meta3dGameobjectDataoriented.create,
           getNeedDisposedGameObjectsFunc: GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented.get,
-          deferDisposeGameObjectFunc: (function (state, funcs, gameObject) {
-              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.deferDisposeGameObject(state)(funcs, gameObject);
+          deferDisposeGameObjectFunc: (function (states, funcs, gameObject) {
+              return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.deferDisposeGameObject(states)(funcs, gameObject);
             }),
           disposeGameObjectsFunc: (function (states, funcs, gameObjects) {
               return DisposeGameObjectUtils$Meta3dGameobjectDataoriented.disposeGameObjects(states)(funcs, gameObjects);

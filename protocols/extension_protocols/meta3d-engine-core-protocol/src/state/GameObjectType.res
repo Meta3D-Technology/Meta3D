@@ -1,7 +1,7 @@
 type state = Meta3dGameobjectProtocol.Index.state
 
 type usedGameObjectContribute = {
-  mutable state: state,
+  state: state,
   createGameObjectFunc: GameObjectContributeType.createGameObjectFunc<state>,
   getNeedDisposedGameObjectsFunc: GameObjectContributeType.getNeedDisposedGameObjectsFunc<state>,
   deferDisposeGameObjectFunc: GameObjectContributeType.deferDisposeGameObjectFunc<

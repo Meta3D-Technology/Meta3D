@@ -472,10 +472,23 @@ run->loopHandles
 
 ** TODO run test
 
+fix:
+add cube after run
+not refresh
+restore disappear
+dispose
+
+
+
+
+
 TODO shouldn't recreate programs!
 
 TODO shouldn't recreate vbos!
 
+
+TODO need publsh:
+engine-core,gameview
 
 
 

@@ -1,6 +1,8 @@
 
 
-import * as Index$Meta3dComponentBasiccameraviewProtocol from "./../../../../meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as Index$Meta3dComponentBasiccameraviewProtocol from "../../../../../node_modules/meta3d-component-basiccameraview-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentBasiccameraview from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentBasiccameraview from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddBasicCameraViewUtils$Meta3dComponentBasiccameraview from "./gameobject/AddBasicCameraViewUtils.bs.js";
@@ -44,7 +46,15 @@ function getContribute(param) {
               return targetState;
             }),
           deepCopy: (function (state) {
-              return state;
+              return {
+                      config: state.config,
+                      maxIndex: state.maxIndex,
+                      isActiveMap: MutableSparseMap$Meta3dCommonlib.copy(state.isActiveMap),
+                      gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
+                      gameObjectBasicCameraViewMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectBasicCameraViewMap),
+                      needDisposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.needDisposedBasicCameraViews),
+                      disposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.disposedBasicCameraViews)
+                    };
             })
         };
 }

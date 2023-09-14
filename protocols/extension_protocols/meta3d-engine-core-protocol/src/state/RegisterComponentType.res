@@ -12,7 +12,7 @@ type componentContribute = ComponentContributeType.componentContribute<
 // @genType
 type usedComponentContribute = {
   componentName: ComponentContributeType.componentName,
-  mutable state: state,
+  state: state,
   createComponentFunc: ComponentContributeType.createComponentFunc<state, component>,
   getGameObjectsFunc: ComponentContributeType.getGameObjectsFunc<state, component>,
   addComponentFunc: ComponentContributeType.addComponentFunc<state, component>,

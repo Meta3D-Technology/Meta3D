@@ -1,5 +1,7 @@
 'use strict';
 
+var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 var Index$Meta3dComponentBasiccameraviewProtocol = require("meta3d-component-basiccameraview-protocol/lib/js/src/Index.bs.js");
 var CreateStateUtils$Meta3dComponentBasiccameraview = require("./create_state/CreateStateUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentBasiccameraview = require("./gameobject/GetGameObjectsUtils.bs.js");
@@ -44,7 +46,15 @@ function getContribute(param) {
               return targetState;
             }),
           deepCopy: (function (state) {
-              return state;
+              return {
+                      config: state.config,
+                      maxIndex: state.maxIndex,
+                      isActiveMap: MutableSparseMap$Meta3dCommonlib.copy(state.isActiveMap),
+                      gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
+                      gameObjectBasicCameraViewMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectBasicCameraViewMap),
+                      needDisposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.needDisposedBasicCameraViews),
+                      disposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.disposedBasicCameraViews)
+                    };
             })
         };
 }

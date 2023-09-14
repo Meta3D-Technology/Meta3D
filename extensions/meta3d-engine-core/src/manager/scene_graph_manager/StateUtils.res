@@ -4,7 +4,6 @@ let unsafeGetUsedGameObjectContribute = (
   usedGameObjectContribute->Meta3dCommonlib.OptionSt.unsafeGet
 }
 
-
 let getAllUsedContributes = state => {
   (
     state->unsafeGetUsedGameObjectContribute,
@@ -37,9 +36,11 @@ let setGameObjectStateToState = (
   usedGameObjectContribute: Meta3dEngineCoreProtocol.GameObjectType.usedGameObjectContribute,
   gameObjectState: Meta3dEngineCoreProtocol.GameObjectType.state,
 ): Meta3dEngineCoreProtocol.StateType.state => {
-  usedGameObjectContribute.state = gameObjectState
-
-  state.usedGameObjectContribute = usedGameObjectContribute->Some
+  state.usedGameObjectContribute =
+    {
+      ...usedGameObjectContribute,
+      state: gameObjectState,
+    }->Some
 
   state
 }

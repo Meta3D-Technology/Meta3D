@@ -21,87 +21,62 @@ let restore = (currentState, targetState) => {
     targetUsedPerspectiveCameraProjectionContribute,
   ) = StateUtils.getAllUsedContributes(targetState)
 
-
-  let gameObjectState
-   = currentUsedGameObjectContribute.restore(.
+  let gameObjectState = currentUsedGameObjectContribute.restore(.
     currentUsedGameObjectContribute.state,
-    targetUsedGameObjectContribute.state
+    targetUsedGameObjectContribute.state,
   )
 
-  let usedTransformContribute
-   = ComponentManager.restore(
-currentUsedTransformContribute,
-targetUsedTransformContribute
-   )
+  let usedTransformContribute = ComponentManager.restore(
+    currentUsedTransformContribute,
+    targetUsedTransformContribute,
+  )
 
+  let usedPBRMaterialContribute = ComponentManager.restore(
+    currentUsedPBRMaterialContribute,
+    targetUsedPBRMaterialContribute,
+  )
 
-  let usedPBRMaterialContribute
-   = ComponentManager.restore(
-currentUsedPBRMaterialContribute,
-targetUsedPBRMaterialContribute
-   )
+  let usedGeometryContribute = ComponentManager.restore(
+    currentUsedGeometryContribute,
+    targetUsedGeometryContribute,
+  )
 
+  let usedDirectionLightContribute = ComponentManager.restore(
+    currentUsedDirectionLightContribute,
+    targetUsedDirectionLightContribute,
+  )
 
-  let usedGeometryContribute
-   = ComponentManager.restore(
-currentUsedGeometryContribute,
-targetUsedGeometryContribute
-   )
+  let usedArcballCameraControllerContribute = ComponentManager.restore(
+    currentUsedArcballCameraControllerContribute,
+    targetUsedArcballCameraControllerContribute,
+  )
 
+  let usedBasicCameraViewContribute = ComponentManager.restore(
+    currentUsedBasicCameraViewContribute,
+    targetUsedBasicCameraViewContribute,
+  )
 
-  let usedDirectionLightContribute
-   = ComponentManager.restore(
-currentUsedDirectionLightContribute,
-targetUsedDirectionLightContribute
-   )
+  let usedPerspectiveCameraProjectionContribute = ComponentManager.restore(
+    currentUsedPerspectiveCameraProjectionContribute,
+    targetUsedPerspectiveCameraProjectionContribute,
+  )
 
-
-  let usedArcballCameraControllerContribute
-   = ComponentManager.restore(
-currentUsedArcballCameraControllerContribute,
-targetUsedArcballCameraControllerContribute
-   )
-
-
-  let usedBasicCameraViewContribute
-   = ComponentManager.restore(
-currentUsedBasicCameraViewContribute,
-targetUsedBasicCameraViewContribute
-   )
-
-
-  let usedPerspectiveCameraProjectionContribute
-   = ComponentManager.restore(
-currentUsedPerspectiveCameraProjectionContribute,
-targetUsedPerspectiveCameraProjectionContribute
-   )
-
-
-
-
-
-
-
-
-
-targetState->
-StateUtils.setGameObjectStateAndAllUsedComponentContributesToState (
-  (
-    targetUsedGameObjectContribute,
-    usedTransformContribute,
-    usedPBRMaterialContribute,
-    usedGeometryContribute,
-    usedDirectionLightContribute,
-    usedArcballCameraControllerContribute,
-    usedBasicCameraViewContribute,
-    usedPerspectiveCameraProjectionContribute,
-  ),
-  gameObjectState,
-)
+  targetState->StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
+    (
+      targetUsedGameObjectContribute,
+      usedTransformContribute,
+      usedPBRMaterialContribute,
+      usedGeometryContribute,
+      usedDirectionLightContribute,
+      usedArcballCameraControllerContribute,
+      usedBasicCameraViewContribute,
+      usedPerspectiveCameraProjectionContribute,
+    ),
+    gameObjectState,
+  )
 }
 
-
-let deepCopy = (state) => {
+let deepCopy = state => {
   let (
     usedGameObjectContribute,
     usedTransformContribute,
@@ -113,72 +88,37 @@ let deepCopy = (state) => {
     usedPerspectiveCameraProjectionContribute,
   ) = StateUtils.getAllUsedContributes(state)
 
-  let gameObjectState
-   = usedGameObjectContribute.deepCopy(.
-    usedGameObjectContribute.state
+  let gameObjectState = usedGameObjectContribute.deepCopy(. usedGameObjectContribute.state)
+
+  let usedTransformContribute = ComponentManager.deepCopy(usedTransformContribute)
+
+  let usedPBRMaterialContribute = ComponentManager.deepCopy(usedPBRMaterialContribute)
+
+  let usedGeometryContribute = ComponentManager.deepCopy(usedGeometryContribute)
+
+  let usedDirectionLightContribute = ComponentManager.deepCopy(usedDirectionLightContribute)
+
+  let usedArcballCameraControllerContribute = ComponentManager.deepCopy(
+    usedArcballCameraControllerContribute,
   )
 
-  let usedTransformContribute
-   = ComponentManager.deepCopy(
-usedTransformContribute
-   )
+  let usedBasicCameraViewContribute = ComponentManager.deepCopy(usedBasicCameraViewContribute)
 
-
-  let usedPBRMaterialContribute
-   = ComponentManager.deepCopy(
-usedPBRMaterialContribute
-   )
-
-
-  let usedGeometryContribute
-   = ComponentManager.deepCopy(
-usedGeometryContribute
-   )
-
-
-  let usedDirectionLightContribute
-   = ComponentManager.deepCopy(
-usedDirectionLightContribute
-   )
-
-
-  let usedArcballCameraControllerContribute
-   = ComponentManager.deepCopy(
-usedArcballCameraControllerContribute
-   )
-
-
-  let usedBasicCameraViewContribute
-   = ComponentManager.deepCopy(
-usedBasicCameraViewContribute
-   )
-
-
-  let usedPerspectiveCameraProjectionContribute
-   = ComponentManager.deepCopy(
-usedPerspectiveCameraProjectionContribute
-   )
-
-
-
-
-
-
-
-
-
-state->
-StateUtils.setGameObjectStateAndAllUsedComponentContributesToState (
-  (
-    usedGameObjectContribute,
-    usedTransformContribute,
-    usedPBRMaterialContribute,
-    usedGeometryContribute,
-    usedDirectionLightContribute,
-    usedArcballCameraControllerContribute,
-    usedBasicCameraViewContribute,
+  let usedPerspectiveCameraProjectionContribute = ComponentManager.deepCopy(
     usedPerspectiveCameraProjectionContribute,
-  ),
-  gameObjectState,
-)
+  )
+
+  state->StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
+    (
+      usedGameObjectContribute,
+      usedTransformContribute,
+      usedPBRMaterialContribute,
+      usedGeometryContribute,
+      usedDirectionLightContribute,
+      usedArcballCameraControllerContribute,
+      usedBasicCameraViewContribute,
+      usedPerspectiveCameraProjectionContribute,
+    ),
+    gameObjectState,
+  )
 }

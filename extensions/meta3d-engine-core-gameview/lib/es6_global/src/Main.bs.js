@@ -1,6 +1,6 @@
 
 
-import * as Main$Meta3dEngineCore from "./../../../../../node_modules/meta3d-engine-core/lib/es6_global/src/Main.bs.js";
+import * as Main$Meta3dEngineCore from "../../../../../node_modules/meta3d-engine-core/lib/es6_global/src/Main.bs.js";
 
 var getExtensionService = Main$Meta3dEngineCore.getExtensionService;
 

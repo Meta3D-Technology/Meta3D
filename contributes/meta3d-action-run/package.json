@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-run",
-    "version": "0.15.4",
+    "version": "0.15.5",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-run",
     "repoLink": "",
@@ -18,7 +18,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-ui-utils": "^0.15.0",
-        "meta3d-action-run-protocol": "^0.15.0",
+        "meta3d-action-run-protocol": "^0.15.1",
         "meta3d-editor-run-engine-gameview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
         "meta3d-ui-control-button-protocol": "^0.15.0",

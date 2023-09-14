@@ -142,11 +142,24 @@ let restore = (
   )
 }
 
-let deepCopy = (api: Meta3dType.Index.api, extensionProtocolName, meta3dState) =>
+let deepCopy = (api: Meta3dType.Index.api, extensionProtocolName, meta3dState) => {
+  let state: Meta3dEngineCoreProtocol.StateType.state = api.getExtensionState(.
+    meta3dState,
+    extensionProtocolName,
+  )
+
+  let state = {
+    ...state,
+    componentContributeData: {
+      ...state.componentContributeData,
+      allUsedComponentContributes: state.componentContributeData.allUsedComponentContributes->Meta3dCommonlib.MutableHashMap.copy,
+    },
+    usedGameObjectContribute: state.usedGameObjectContribute,
+  }
+
   api.setExtensionState(.
     meta3dState,
     extensionProtocolName,
-    api.getExtensionState(. meta3dState, extensionProtocolName)
-    ->PipelineRedoUndoManager.deepCopy
-    ->SceneGraphRedoUndoManager.deepCopy,
+    state->PipelineRedoUndoManager.deepCopy->SceneGraphRedoUndoManager.deepCopy,
   )
+}

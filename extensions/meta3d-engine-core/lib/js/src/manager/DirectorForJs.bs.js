@@ -5,6 +5,7 @@ var Result$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Resu
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var MutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/MutableHashMap.bs.js");
 var PipelineManager$Meta3dEngineCore = require("./pipeline_manager/PipelineManager.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./scene_graph_manager/component/ComponentManager.bs.js");
 var GameObjectManager$Meta3dEngineCore = require("./scene_graph_manager/GameObjectManager.bs.js");
@@ -59,7 +60,20 @@ function restore(api, extensionProtocolName, currentMeta3dState, targetMeta3dSta
 }
 
 function deepCopy(api, extensionProtocolName, meta3dState) {
-  return api.setExtensionState(meta3dState, extensionProtocolName, SceneGraphRedoUndoManager$Meta3dEngineCore.deepCopy(PipelineRedoUndoManager$Meta3dEngineCore.deepCopy(api.getExtensionState(meta3dState, extensionProtocolName))));
+  var state = api.getExtensionState(meta3dState, extensionProtocolName);
+  var init = state.componentContributeData;
+  var state$1 = {
+    allRegisteredPipelineContribute: state.allRegisteredPipelineContribute,
+    states: state.states,
+    contributeData: state.contributeData,
+    componentContributeData: {
+      allComponentContributes: init.allComponentContributes,
+      allUsedComponentContributes: MutableHashMap$Meta3dCommonlib.copy(state.componentContributeData.allUsedComponentContributes)
+    },
+    gameObjectContribute: state.gameObjectContribute,
+    usedGameObjectContribute: state.usedGameObjectContribute
+  };
+  return api.setExtensionState(meta3dState, extensionProtocolName, SceneGraphRedoUndoManager$Meta3dEngineCore.deepCopy(PipelineRedoUndoManager$Meta3dEngineCore.deepCopy(state$1)));
 }
 
 var unregisterPipeline = PipelineManager$Meta3dEngineCore.unregisterPipeline;

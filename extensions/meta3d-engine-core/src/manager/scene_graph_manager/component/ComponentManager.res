@@ -84,7 +84,7 @@ let createAndSetComponentState = (
     getComponentDataFunc,
     setComponentDataFunc,
     restore,
-    deepCopy
+    deepCopy,
   } =
     state.componentContributeData.allComponentContributes->Meta3dCommonlib.ImmutableHashMap.unsafeGet(
       componentName,
@@ -97,23 +97,23 @@ let createAndSetComponentState = (
       allUsedComponentContributes: state.componentContributeData.allUsedComponentContributes->Meta3dCommonlib.ImmutableHashMap.set(
         componentName,
         {
-          componentName: componentName,
+          componentName,
           state: createStateFunc(. config),
-          createComponentFunc: createComponentFunc,
-          getGameObjectsFunc: getGameObjectsFunc,
-          addComponentFunc: addComponentFunc,
-          removeComponentFunc: removeComponentFunc,
-          hasComponentFunc: hasComponentFunc,
-          getComponentFunc: getComponentFunc,
-          getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc,
-          deferDisposeComponentFunc: deferDisposeComponentFunc,
-          disposeComponentsFunc: disposeComponentsFunc,
-cloneComponentFunc,
-          getAllComponentsFunc: getAllComponentsFunc,
-          getComponentDataFunc: getComponentDataFunc,
-          setComponentDataFunc: setComponentDataFunc,
-          restore: restore,
-          deepCopy: deepCopy,
+          createComponentFunc,
+          getGameObjectsFunc,
+          addComponentFunc,
+          removeComponentFunc,
+          hasComponentFunc,
+          getComponentFunc,
+          getNeedDisposedComponentsFunc,
+          deferDisposeComponentFunc,
+          disposeComponentsFunc,
+          cloneComponentFunc,
+          getAllComponentsFunc,
+          getComponentDataFunc,
+          setComponentDataFunc,
+          restore,
+          deepCopy,
         },
       ),
     },
@@ -124,9 +124,10 @@ let setComponentStateToUsedComponentContribute = (
   componentState: Meta3dEngineCoreProtocol.ComponentType.state,
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
-  usedComponentContribute.state = componentState
-
-  usedComponentContribute
+  {
+    ...usedComponentContribute,
+    state: componentState,
+  }
 }
 
 let createComponent = (
@@ -202,13 +203,13 @@ let getComponent = (
 
 let getNeedDisposedComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-)=> {
+) => {
   usedComponentContribute.getNeedDisposedComponentsFunc(. usedComponentContribute.state)
 }
 
 let deferDisposeComponent = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
-  deferDisposeData
+  deferDisposeData,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.deferDisposeComponentFunc(.
     usedComponentContribute.state,
@@ -219,12 +220,12 @@ let deferDisposeComponent = (
 let disposeComponents = (
   usedComponentContribute: Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
   // components: array<Meta3dEngineCoreProtocol.ComponentType.component>,
-  batchDisposeData
+  batchDisposeData,
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   usedComponentContribute.disposeComponentsFunc(.
     usedComponentContribute.state,
     // components,
-    batchDisposeData
+    batchDisposeData,
   )->setComponentStateToUsedComponentContribute(usedComponentContribute)
 }
 
@@ -264,7 +265,7 @@ let restore = (
 ): Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute => {
   currentUsedComponentContribute.restore(.
     currentUsedComponentContribute.state,
-targetUsedComponentContribute.state
+    targetUsedComponentContribute.state,
   )->setComponentStateToUsedComponentContribute(targetUsedComponentContribute)
 }
 

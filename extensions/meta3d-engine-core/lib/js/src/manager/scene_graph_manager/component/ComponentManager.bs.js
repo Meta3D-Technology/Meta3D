@@ -88,34 +88,45 @@ function createAndSetComponentState(state, componentName, config) {
 }
 
 function setComponentStateToUsedComponentContribute(componentState, usedComponentContribute) {
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return {
+          componentName: usedComponentContribute.componentName,
+          state: componentState,
+          createComponentFunc: usedComponentContribute.createComponentFunc,
+          getGameObjectsFunc: usedComponentContribute.getGameObjectsFunc,
+          addComponentFunc: usedComponentContribute.addComponentFunc,
+          removeComponentFunc: usedComponentContribute.removeComponentFunc,
+          hasComponentFunc: usedComponentContribute.hasComponentFunc,
+          getComponentFunc: usedComponentContribute.getComponentFunc,
+          getNeedDisposedComponentsFunc: usedComponentContribute.getNeedDisposedComponentsFunc,
+          deferDisposeComponentFunc: usedComponentContribute.deferDisposeComponentFunc,
+          disposeComponentsFunc: usedComponentContribute.disposeComponentsFunc,
+          cloneComponentFunc: usedComponentContribute.cloneComponentFunc,
+          getAllComponentsFunc: usedComponentContribute.getAllComponentsFunc,
+          getComponentDataFunc: usedComponentContribute.getComponentDataFunc,
+          setComponentDataFunc: usedComponentContribute.setComponentDataFunc,
+          restore: usedComponentContribute.restore,
+          deepCopy: usedComponentContribute.deepCopy
+        };
 }
 
 function createComponent(usedComponentContribute) {
   var match = usedComponentContribute.createComponentFunc(usedComponentContribute.state);
   return [
-          (usedComponentContribute.state = match[0], usedComponentContribute),
+          setComponentStateToUsedComponentContribute(match[0], usedComponentContribute),
           match[1]
         ];
 }
 
 function setComponentData(usedComponentContribute, component, dataName, dataValue) {
-  var componentState = usedComponentContribute.setComponentDataFunc(usedComponentContribute.state, component, dataName, dataValue);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.setComponentDataFunc(usedComponentContribute.state, component, dataName, dataValue), usedComponentContribute);
 }
 
 function addComponent(usedComponentContribute, gameObject, component) {
-  var componentState = usedComponentContribute.addComponentFunc(usedComponentContribute.state, gameObject, component);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.addComponentFunc(usedComponentContribute.state, gameObject, component), usedComponentContribute);
 }
 
 function removeComponent(usedComponentContribute, gameObject, component) {
-  var componentState = usedComponentContribute.removeComponentFunc(usedComponentContribute.state, gameObject, component);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.removeComponentFunc(usedComponentContribute.state, gameObject, component), usedComponentContribute);
 }
 
 function hasComponent(usedComponentContribute, gameObject) {
@@ -131,15 +142,11 @@ function getNeedDisposedComponents(usedComponentContribute) {
 }
 
 function deferDisposeComponent(usedComponentContribute, deferDisposeData) {
-  var componentState = usedComponentContribute.deferDisposeComponentFunc(usedComponentContribute.state, deferDisposeData);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.deferDisposeComponentFunc(usedComponentContribute.state, deferDisposeData), usedComponentContribute);
 }
 
 function disposeComponents(usedComponentContribute, batchDisposeData) {
-  var componentState = usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, batchDisposeData);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, batchDisposeData), usedComponentContribute);
 }
 
 function getAllComponents(usedComponentContribute) {
@@ -161,15 +168,11 @@ function getComponentState(state, componentName) {
 }
 
 function restore(currentUsedComponentContribute, targetUsedComponentContribute) {
-  var componentState = currentUsedComponentContribute.restore(currentUsedComponentContribute.state, targetUsedComponentContribute.state);
-  targetUsedComponentContribute.state = componentState;
-  return targetUsedComponentContribute;
+  return setComponentStateToUsedComponentContribute(currentUsedComponentContribute.restore(currentUsedComponentContribute.state, targetUsedComponentContribute.state), targetUsedComponentContribute);
 }
 
 function deepCopy(usedComponentContribute) {
-  var componentState = usedComponentContribute.deepCopy(usedComponentContribute.state);
-  usedComponentContribute.state = componentState;
-  return usedComponentContribute;
+  return setComponentStateToUsedComponentContribute(usedComponentContribute.deepCopy(usedComponentContribute.state), usedComponentContribute);
 }
 
 exports.registerComponent = registerComponent;

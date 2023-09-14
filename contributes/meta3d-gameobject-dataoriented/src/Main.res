@@ -16,7 +16,16 @@ let getContribute: Meta3dType.Index.getContribute<
   disposeGameObjectsFunc: (. states, funcs, gameObjects) =>
     DisposeGameObjectUtils.disposeGameObjects(states, funcs, gameObjects),
   cloneGameObjectFunc: (.
-    states,
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ) as states,
     funcs,
     count,
     cloneConfig,
@@ -38,15 +47,12 @@ let getContribute: Meta3dType.Index.getContribute<
   deepCopy: (. state) => {
     open Meta3dComponentCommonlib
 
-    let {
-needDisposedGameObjectArray,
-disposedGameObjectArray
-    } = state
+    let {needDisposedGameObjectArray, disposedGameObjectArray} = state
 
     {
       ...state,
       needDisposedGameObjectArray: needDisposedGameObjectArray->Meta3dCommonlib.ArraySt.copy,
       disposedGameObjectArray: disposedGameObjectArray->Meta3dCommonlib.ArraySt.copy,
     }
-  }
+  },
 }
