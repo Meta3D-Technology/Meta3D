@@ -1,6 +1,6 @@
 {
     "name": "frontend-utils",
-    "version": "0.15.0",
+    "version": "0.16.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
@@ -15,7 +15,8 @@
         "@babel/preset-env": "^7.10.4",
         "@rescript/react": "0.10.3",
         "babel-jest": "^26.1.0",
-        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
         "gentype": "^3.48.0",

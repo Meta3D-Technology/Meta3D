@@ -1,6 +1,6 @@
 {
     "name": "meta3d-import-scene",
-    "version": "0.15.4",
+    "version": "0.16.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-import-scene",
     "protocol": {
@@ -13,20 +13,21 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-engine-whole-sceneview-protocol": "^0.15.0",
-        "meta3d-engine-whole-gameview-protocol": "^0.15.0",
-        "meta3d-event-protocol": "^0.15.0",
-        "meta3d-import-scene-protocol": "^0.15.0",
-        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.15.0",
-        "meta3d-scenegraph-converter-three-gameview-protocol": "^0.15.0",
-        "meta3d-three-api-protocol": "^0.15.0",
-        "meta3d-type": "^0.15.0"
+        "meta3d-engine-whole-gameview-protocol": "^0.16.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
+        "meta3d-event-protocol": "^0.16.0",
+        "meta3d-import-scene-protocol": "^0.16.0",
+        "meta3d-scenegraph-converter-three-gameview-protocol": "^0.16.0",
+        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.16.0",
+        "meta3d-three-api-protocol": "^0.16.0",
+        "meta3d-type": "^0.16.0"
     },
     "devDependencies": {
-        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.15.0",
+        "meta3d-tool-publish": "^0.16.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

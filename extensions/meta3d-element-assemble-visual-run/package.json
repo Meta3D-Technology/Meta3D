@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual-run",
-    "version": "0.15.4",
+    "version": "0.16.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
@@ -14,18 +14,19 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-editor-run-engine-sceneview-protocol": "^0.15.0",
-        "meta3d-element-assemble-element-protocol": "^0.15.0",
-        "meta3d-element-assemble-visual-run-protocol": "^0.15.0",
-        "meta3d-event-protocol": "^0.15.0",
-        "meta3d-imgui-renderer-protocol": "^0.15.0",
-        "meta3d-type": "^0.15.0",
-        "meta3d-ui-protocol": "^0.15.0"
+        "meta3d-editor-run-engine-sceneview-protocol": "^0.16.0",
+        "meta3d-element-assemble-element-protocol": "^0.16.0",
+        "meta3d-element-assemble-visual-run-protocol": "^0.16.0",
+        "meta3d-event-protocol": "^0.16.0",
+        "meta3d-imgui-renderer-protocol": "^0.16.0",
+        "meta3d-type": "^0.16.0",
+        "meta3d-ui-protocol": "^0.16.0"
     },
     "devDependencies": {
-        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
-        "meta3d-tool-publish": "^0.15.0",
+        "meta3d-tool-publish": "^0.16.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

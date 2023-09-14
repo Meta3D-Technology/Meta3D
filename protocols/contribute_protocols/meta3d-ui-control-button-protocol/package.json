@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-button-protocol",
-    "version": "0.15.1",
+    "version": "0.16.0",
     "displayName": "button protocol",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/contribute_protocols/meta3d-ui-control-button-protocol",
     "description": "",
@@ -16,10 +16,11 @@
     },
     "keywords": [],
     "devDependencies": {
-        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.15.0",
+        "meta3d-tool-publish": "^0.16.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

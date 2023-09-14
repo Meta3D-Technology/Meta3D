@@ -1,14 +1,14 @@
 {
     "name": "meta3d-engine-basic-sceneview-utils",
-    "version": "0.15.0",
+    "version": "0.16.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-engine-basic-sceneview-protocol": "^0.15.0",
-        "meta3d-engine-core-sceneview-protocol": "^0.15.0",
-        "meta3d-pipeline-root-sceneview-protocol": "^0.15.0",
-        "meta3d-type": "^0.15.0"
+        "meta3d-engine-basic-sceneview-protocol": "^0.16.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.16.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.16.0",
+        "meta3d-type": "^0.16.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
