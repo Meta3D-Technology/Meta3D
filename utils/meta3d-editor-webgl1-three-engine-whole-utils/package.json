@@ -1,5 +1,5 @@
 {
-    "name": "meta3d-editor-webgl1-three-engine-whole-utils",
+    "name": "meta3d-editor-webgl1-three-engine-whole-sceneview-utils",
     "version": "0.15.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
@@ -8,15 +8,15 @@
         "meta3d-bs-most-protocol": "^0.15.0",
         "meta3d-component-geometry-protocol": "^0.15.0",
         "meta3d-component-pbrmaterial-protocol": "^0.15.0",
-        "meta3d-editor-engine-render-protocol": "^0.15.0",
-        "meta3d-engine-basic-protocol": "^0.15.0",
-        "meta3d-engine-core-protocol": "^0.15.0",
-        "meta3d-engine-scene-protocol": "^0.15.0",
-        "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-editor-engine-render-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-basic-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-scene-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
-        "meta3d-pipeline-root-protocol": "^0.15.0",
-        "meta3d-pipeline-webgl1-three-protocol": "^0.15.0",
-        "meta3d-scenegraph-converter-three-protocol": "^0.15.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.15.0",
+        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {

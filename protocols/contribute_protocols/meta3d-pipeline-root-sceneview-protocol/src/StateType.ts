@@ -1,0 +1,19 @@
+import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
+
+export const pipelineName = "Root_SceneView"
+
+export enum pipeline {
+    Init = "init",
+    Update = "update",
+    Render = "render",
+}
+
+export enum job {
+    Init = "init_root_meta3d",
+    Update = "update_root_meta3d",
+    Render = "render_root_meta3d",
+}
+
+export type state = { mostService: mostService }
+
+export type states = { [pipelineName]: state }

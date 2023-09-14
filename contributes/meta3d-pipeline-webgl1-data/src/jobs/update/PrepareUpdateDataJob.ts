@@ -1,5 +1,5 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { getState, setState } from "../Utils"
 import { states } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
 import { componentName as geoemtryComponentName, geometry } from "meta3d-component-geometry-protocol"

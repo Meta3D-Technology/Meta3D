@@ -1,5 +1,5 @@
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { componentName, basicCameraView, dataName } from "meta3d-component-basiccameraview-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { getViewWorldToCameraMatrix as getViewWorldToCameraMatrixUtils, getActiveCameraView as getActiveCameraViewUtils } from "meta3d-component-commonlib"

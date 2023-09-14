@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-camera-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 import { pipelineName as viewRectPipelineName, state as viewRectState } from "meta3d-pipeline-viewRect-gameview-protocol/src/StateType"
 
 export const pipelineName = "Camera_GameView"

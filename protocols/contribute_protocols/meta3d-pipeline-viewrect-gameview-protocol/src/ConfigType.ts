@@ -1,3 +1,3 @@
-import * as ConfigType from "meta3d-pipeline-viewrect-protocol/src/ConfigType"
+import * as ConfigType from "meta3d-pipeline-viewrect-sceneview-protocol/src/ConfigType"
 
 export type config = ConfigType.config

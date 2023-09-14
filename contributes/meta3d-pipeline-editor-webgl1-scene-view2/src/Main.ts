@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execRestore } from "./jobs/render/RestoreJob";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";

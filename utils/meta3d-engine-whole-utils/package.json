@@ -5,7 +5,7 @@
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-engine-scene-protocol": "^0.15.0"
+        "meta3d-engine-scene-sceneview-protocol": "^0.15.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

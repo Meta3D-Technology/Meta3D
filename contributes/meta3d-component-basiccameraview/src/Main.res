@@ -1,5 +1,5 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+  Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentBasiccameraviewProtocol.Index.config,
     Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,

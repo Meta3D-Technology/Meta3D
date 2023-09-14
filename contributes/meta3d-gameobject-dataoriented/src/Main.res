@@ -1,5 +1,5 @@
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<StateType.state>,
+  Meta3dEngineCoreSceneviewProtocol.GameObjectContributeType.gameObjectContribute<StateType.state>,
 > = api => {
   createStateFunc: (. config) => {
     maxUID: 0,

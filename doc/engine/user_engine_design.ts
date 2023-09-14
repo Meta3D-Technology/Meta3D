@@ -1,9 +1,9 @@
 import { init as initMeta3D, registerExtension, unsafeGetExtensionService, unsafeGetExtensionState } from "meta3d"
-import { getService as getEngineCoreService, getProtocol as getEngineCoreProtocol } from "meta3d-engine-core"
+import { getService as getEngineCoreService, getProtocol as getEngineCoreProtocol } from "meta3d-engine-core-sceneview"
 
 
 export function createGameObject() {
-    let { createGameObject } = unsafeGetExtensionService("meta3d-engine-core")
+    let { createGameObject } = unsafeGetExtensionService("meta3d-engine-core-sceneview")
 
     return createGameObject()
 }
@@ -12,7 +12,7 @@ export async function init() {
     let extensionState = initMeta3D()
 
     let meta3DEngineCoreConfig = { isDebug: true }
-    registerExtension("meta3d-engine-core", getEngineCoreService(meta3DEngineCoreConfig), getEngineCoreProtocol())
+    registerExtension("meta3d-engine-core-sceneview", getEngineCoreService(meta3DEngineCoreConfig), getEngineCoreProtocol())
     registerExtension("meta3d-eventManager", ...)
     registerExtension("meta3d-ui", ...)
 

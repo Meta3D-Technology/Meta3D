@@ -14,7 +14,7 @@ import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
 import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
 import { pipeline as pipelineGameView1Pipeline, job as pipelineGameView1Job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType"
-import { buildNewEngineWholeExtensionService, prepare } from "meta3d-editor-webgl1-three-engine-whole-utils/src/Main"
+import { buildNewEngineWholeExtensionService, prepare } from "meta3d-editor-webgl1-three-engine-whole-sceneview-utils/src/Main"
 import { service as engineBasicService } from "meta3d-engine-basic-gameview-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
 import { service as engineRenderService } from "meta3d-editor-engine-render-gameview-protocol/src/service/ServiceType"

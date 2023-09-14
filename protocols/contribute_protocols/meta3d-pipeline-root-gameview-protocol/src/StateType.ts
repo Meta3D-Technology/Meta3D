@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-root-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 
 export const pipelineName = "Root_GameView"
 

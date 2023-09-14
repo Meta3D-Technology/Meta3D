@@ -7,10 +7,10 @@ let feature = loadFeature("./test/features/direction_light_api.feature")
 
 defineFeature(feature, test => {
   let transformData: ref<
-    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+    Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
   > = ref(Obj.magic(1))
   let directionLightData: ref<
-    Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+    Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
   > = ref(Obj.magic(1))
   let transformComponentName = "Transform"
   let directionLightComponentName = "DirectionLight"

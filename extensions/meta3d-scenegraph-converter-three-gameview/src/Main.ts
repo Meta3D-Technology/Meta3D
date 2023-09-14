@@ -3,7 +3,7 @@ import { state } from "meta3d-scenegraph-converter-three-gameview-protocol/src/s
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-utils/src/Main"
+import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-sceneview-utils/src/Main"
 
 
 let _getAllEventNames = () => {

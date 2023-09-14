@@ -1,6 +1,6 @@
 let lookAt = (
   ~data,
-  ~engineCoreService: Meta3dEngineCoreProtocol.ServiceType.service,
+  ~engineCoreService: Meta3dEngineCoreSceneviewProtocol.ServiceType.service,
   ~transform: Meta3dComponentTransformProtocol.Index.transform,
   ~target,
   ~up=(0., 1., 0.),

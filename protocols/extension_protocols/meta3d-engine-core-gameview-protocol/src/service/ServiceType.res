@@ -1,1 +1,1 @@
-type service = Meta3dEngineCoreProtocol.ServiceType.service
+type service = Meta3dEngineCoreSceneviewProtocol.ServiceType.service

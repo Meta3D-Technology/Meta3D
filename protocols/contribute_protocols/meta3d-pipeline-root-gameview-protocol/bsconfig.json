@@ -16,7 +16,7 @@
   ],
   "bs-dev-dependencies": [],
   "bs-dependencies": [
-    "meta3d-pipeline-root-protocol",
+    "meta3d-pipeline-root-sceneview-protocol",
     "meta3d-engine-core-gameview-protocol",
     "meta3d-bs-most-protocol"
   ],

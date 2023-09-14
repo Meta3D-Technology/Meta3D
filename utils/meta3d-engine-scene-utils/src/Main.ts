@@ -1,15 +1,15 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-// import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
-import { service } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-// import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-// import { state as cameraPipelineState, states as cameraPipelineStates } from "meta3d-pipeline-camera-protocol/src/StateType";
-// import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-protocol/src/ConfigType";
-// import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-protocol/src/StateType";
-// import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
+// import { state } from "meta3d-engine-scene-sceneview-protocol/src/state/StateType"
+import { service } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType"
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
+// import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
+// import { state as cameraPipelineState, states as cameraPipelineStates } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType";
+// import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-sceneview-protocol/src/ConfigType";
+// import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-sceneview-protocol/src/StateType";
+// import { config as transformPipelineConfig } from "meta3d-pipeline-transform-sceneview-protocol/src/ConfigType";
 // import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
-// import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
+// import { state as rootState, states as rootStates } from "meta3d-pipeline-root-sceneview-protocol/src/StateType";
 import {
 	addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,
 	disposeGameObjectArcballCameraControllerComponent,
@@ -39,8 +39,8 @@ import {
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
 } from "./ArcballCameraControllerAPI"
-import { componentContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/ComponentContributeType"
-import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { componentContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/ComponentContributeType"
+import { gameObjectContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
 import { state as arcballCameraControllerState, componentName as arcballCameraControllerComponentName, config as arcballCameraControllerConfig, arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol"
 import { state as perspecticeCameraProjectionState, componentName as perspecticeCameraProjectionComponentName, config as perspecticeCameraProjectionConfig, perspectiveCameraProjection } from "meta3d-component-perspectivecameraprojection-protocol"
@@ -51,8 +51,8 @@ import { state as directionlightState, config as directionLightConfig, direction
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { active, createBasicCameraView } from "./BasicCameraViewAPI"
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
-// import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-// import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+// import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
+// import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 
 let _engineCoreProtocolName: string
 

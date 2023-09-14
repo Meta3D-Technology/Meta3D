@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-webgl1-three-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType"
 
 export const pipelineName = "WebGL1_Three_GameView"
 

@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getDataState, getState, setStateToData } from "../Utils";
 import { states } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType";
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"

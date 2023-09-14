@@ -7,7 +7,7 @@ let feature = loadFeature("./test/features/operate_data.feature")
 
 defineFeature(feature, test => {
   let contribute: ref<
-    Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+    Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
       

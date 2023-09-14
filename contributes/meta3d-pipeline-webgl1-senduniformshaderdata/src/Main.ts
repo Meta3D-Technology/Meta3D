@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execSendUniformShaderDataJob } from "./jobs/render/SendUniformShaderDataJob";
 import { config } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/ConfigType";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType";

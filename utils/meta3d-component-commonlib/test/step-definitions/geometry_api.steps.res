@@ -8,7 +8,7 @@ open Js.Typed_array
 let feature = loadFeature("./test/features/geometry_api.feature")
 
 defineFeature(feature, test => {
-  let contribute: ref<Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute> = ref(
+  let contribute: ref<Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute> = ref(
     Obj.magic(1),
   )
   let geometryComponentName = "Geometry"

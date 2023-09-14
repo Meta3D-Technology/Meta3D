@@ -1,4 +1,4 @@
-open Meta3dEngineCoreProtocol.ServiceType
+open Meta3dEngineCoreSceneviewProtocol.ServiceType
 
 let _getAspect = (usedComponentContribute, {getComponentData}, cameraProjection) => {
   getComponentData(

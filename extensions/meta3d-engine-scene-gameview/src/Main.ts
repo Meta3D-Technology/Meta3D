@@ -10,7 +10,7 @@ import { state as transformPipelineState, states as transformPipelineStates } fr
 import { config as transformPipelineConfig } from "meta3d-pipeline-transform-gameview-protocol/src/ConfigType";
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-gameview-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
-import { getExtensionServiceUtils } from "meta3d-engine-scene-utils/src/Main"
+import { getExtensionServiceUtils } from "meta3d-engine-scene-sceneview-utils/src/Main"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service

@@ -123,17 +123,17 @@ need! because custom control is commonlib control as lib, while register ui is u
 
 
 
-# ** TODO change meta3d-commonlib, meta3d-bs-most, meta3d-engine-core to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
-** TODO inject default middlewares(e.g.  meta3d-commonlib, meta3d-bs-most, meta3d-engine-core, EventManager, UI) as api
+# ** TODO change meta3d-commonlib, meta3d-bs-most, meta3d-engine-core-sceneview to be middleware so that not pack it by webpack for who(e.g. EventManager, UI, transform component) use it!
+** TODO inject default middlewares(e.g.  meta3d-commonlib, meta3d-bs-most, meta3d-engine-core-sceneview, EventManager, UI) as api
 
 
 
-# ** TODO split type from meta3d-engine-core to be meta3d-engine-core-protocol package
+# ** TODO split type from meta3d-engine-core-sceneview to be meta3d-engine-core-sceneview-protocol package
 
 # edit component package(e.g. meta3d-component-transform)
 
 
-** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by meta3d-engine-core)
+** TODO use middlwareState(contain allMiddlewareStatesMap), editorUIState, engineCoreState(create by meta3d-engine-core-sceneview)
 
 ui,event handler no need state! so no editorState!
 

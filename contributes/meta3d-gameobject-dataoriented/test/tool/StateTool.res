@@ -1,5 +1,5 @@
 let createState = (
-  ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
+  ~contribute: Meta3dEngineCoreSceneviewProtocol.GameObjectContributeType.gameObjectContribute<
     StateType.state,
   >,
   ~isDebug=false,

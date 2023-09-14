@@ -23,10 +23,10 @@ defineFeature(feature, test => {
   test(."getViewWorldToCameraMatrix", ({given, \"when", \"and", then}) => {
     let gameObject = 1
     let basicCameraViewData: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+      Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let transformData: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+      Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let transformComponentName = "Transform"
     let basicCameraView = ref(Obj.magic(-1))
@@ -182,7 +182,7 @@ defineFeature(feature, test => {
     isDebug,
   ) => {
     let contribute: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+      Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let gameObject1 = 1
     let gameObject2 = 2
@@ -233,7 +233,7 @@ defineFeature(feature, test => {
 
   test(."test has none", ({given, \"when", \"and", then}) => {
     let contribute: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+      Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let cameraView1 = ref(Obj.magic(-1))
     let cameraView2 = ref(Obj.magic(-1))
@@ -282,7 +282,7 @@ defineFeature(feature, test => {
 
   test(."test has one", ({given, \"when", \"and", then}) => {
     let contribute: ref<
-      Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+      Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
     > = ref(Obj.magic(1))
     let cameraView1 = ref(Obj.magic(-1))
     let cameraView2 = ref(Obj.magic(-1))
@@ -331,7 +331,7 @@ defineFeature(feature, test => {
   })
 
   //   test(."if has >= 2, contract error", ({given, \"when", \"and", then}) => {
-  //     let contribute: ref<Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute> = ref(Obj.magic(1))
+  //     let contribute: ref<Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute> = ref(Obj.magic(1))
   //     let cameraView1 = ref(Obj.magic(-1))
   //     let cameraView2 = ref(Obj.magic(-1))
   //     let activeBasicCameraView = ref(Obj.magic(1))

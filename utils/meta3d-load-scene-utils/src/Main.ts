@@ -2,7 +2,7 @@ import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D,
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { GLTFLoader } from "./three/GLTFLoader"
 import { DefaultLoadingManager } from "./three/LoadingManager"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 
 export let loadScene = (meta3dState: meta3dState, api: api, sceneGLB: ArrayBuffer) => {

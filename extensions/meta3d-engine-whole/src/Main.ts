@@ -26,7 +26,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = engineBasicService.prepare(meta3dState, isDebug)
 
-			// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, "meta3d-engine-scene-protocol")
+			// let engineSceneState = api.getExtensionState<engineSceneState>(meta3dState, "meta3d-engine-scene-sceneview-protocol")
 
 			let engineSceneService = api.getExtensionService<engineSceneService>(
 				meta3dState,

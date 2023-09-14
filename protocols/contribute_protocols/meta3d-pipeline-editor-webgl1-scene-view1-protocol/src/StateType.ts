@@ -1,8 +1,8 @@
-import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service, fbo } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable";
 import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index"

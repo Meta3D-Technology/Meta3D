@@ -1,6 +1,6 @@
-import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-// import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-// import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { service as engineSceneService } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType"
+// import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+// import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { api, state as meta3dState } from "meta3d-type"
 
 let _engineSceneProtocolName: string
@@ -48,11 +48,11 @@ export let createEmptyGeometryInstanceMap = (): void => {
 }
 
 // export let getEngineCoreService = (meta3dState: meta3dState): engineCoreService => {
-//     return _getAPI().getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-protocol")
+//     return _getAPI().getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-sceneview-protocol")
 // }
 
 // export let getEngineCoreState = (meta3dState: meta3dState): engineCoreState => {
-//     return _getAPI().getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
+//     return _getAPI().getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-sceneview-protocol")
 // }
 
 export let getEngineSceneService = (meta3dState: meta3dState): engineSceneService => {

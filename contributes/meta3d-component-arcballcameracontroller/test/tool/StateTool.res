@@ -1,5 +1,5 @@
 let createState = (
-  ~contribute: Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+  ~contribute: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentArcballcameracontrollerProtocol.Index.config,
     

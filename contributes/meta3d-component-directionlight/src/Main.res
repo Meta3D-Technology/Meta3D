@@ -27,7 +27,7 @@ let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.
 
 
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+  Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentDirectionlightProtocol.Index.config,
     Meta3dComponentDirectionlightProtocol.Index.needDisposedComponents,

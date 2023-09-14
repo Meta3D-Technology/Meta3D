@@ -1,5 +1,5 @@
-import { service } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
-import { state } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
+import { service } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/service/ServiceType"
+import { state } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/state/StateType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, extensionLife, api } from "meta3d-type"
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 import type {
@@ -28,8 +28,8 @@ import { createEmptyBasicMaterialInstanceMap, createEmptyGeometryInstanceMap, cr
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
 // import { componentName as transformComponentName } from "meta3d-component-transform-protocol"
 // import { getActiveCameraView } from "meta3d-component-commonlib";
-// import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-// import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+// import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+// import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
@@ -39,9 +39,9 @@ import { generateUUID } from "./three/MathUtils";
 import { generateId } from "./utils/IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { localRotation } from "meta3d-component-transform-protocol";
-import { scene } from "meta3d-engine-scene-protocol/src/service/ServiceType";
+import { scene } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType";
 import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
 
 let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any, Matrix4: any, NoBlending: any, Sphere: any, Vector3: any, Quaternion: any

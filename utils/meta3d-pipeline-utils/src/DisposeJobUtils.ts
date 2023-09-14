@@ -1,6 +1,6 @@
 import { api, state as meta3dState } from "meta3d-type"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol";

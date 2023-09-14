@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
-import { scene } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { scene } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType"
 
 // import { nullable } from "meta3d-commonlib-ts/src/nullable";
 // import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType";

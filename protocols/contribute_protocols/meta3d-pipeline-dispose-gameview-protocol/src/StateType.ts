@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-dispose-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-dispose-sceneview-protocol/src/StateType"
 
 export const pipelineName = "Dispose_GameView"
 

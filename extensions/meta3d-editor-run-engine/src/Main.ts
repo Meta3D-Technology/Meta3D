@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
-import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
-import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { state } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
+import { service } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -10,7 +10,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
 			let engineWholeService = api.getExtensionService<engineWholeService>(
 				meta3dState,
-				"meta3d-engine-whole-protocol"
+				"meta3d-engine-whole-sceneview-protocol"
 			)
 
 			meta3dState = engineWholeService.prepare(meta3dState, isDebug,
@@ -31,7 +31,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		loopEngine: (meta3dState) => {
 			let engineWholeService = api.getExtensionService<engineWholeService>(
 				meta3dState,
-				"meta3d-engine-whole-protocol"
+				"meta3d-engine-whole-sceneview-protocol"
 			)
 
 			return engineWholeService.update(meta3dState).then(meta3dState => engineWholeService.render(meta3dState))

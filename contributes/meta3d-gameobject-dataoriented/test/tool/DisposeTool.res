@@ -1,5 +1,5 @@
 let deferDisposeGameObject = (
-  ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
+  ~contribute: Meta3dEngineCoreSceneviewProtocol.GameObjectContributeType.gameObjectContribute<
     StateType.state,
   >,
   ~gameObjectState,
@@ -60,7 +60,7 @@ let deferDisposeGameObject = (
 }
 
 let disposeGameObjects = (
-  ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
+  ~contribute: Meta3dEngineCoreSceneviewProtocol.GameObjectContributeType.gameObjectContribute<
     Meta3dGameobjectDataoriented.StateType.state,
   >,
   ~gameObjectState,

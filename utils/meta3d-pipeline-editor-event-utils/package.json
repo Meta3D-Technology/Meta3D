@@ -1,5 +1,5 @@
 {
-    "name": "meta3d-pipeline-editor-event-utils",
+    "name": "meta3d-pipeline-editor-event-sceneview-utils",
     "version": "0.15.4",
     "license": "MIT",
     "scripts": {
@@ -9,7 +9,7 @@
     "dependencies": {
         "meta3d-bs-most-protocol": "^0.15.0",
         "meta3d-event-protocol": "^0.15.0",
-        "meta3d-pipeline-editor-event-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-event-sceneview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {

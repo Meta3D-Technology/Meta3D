@@ -3,7 +3,7 @@
     "version": "0.15.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
-        "name": "meta3d-engine-whole-protocol"
+        "name": "meta3d-engine-whole-sceneview-protocol"
     },
     "scripts": {
         "watch": "tsc -w -noEmit",
@@ -13,15 +13,15 @@
     },
     "dependencies": {
         "meta3d-bs-most-protocol": "^0.15.0",
-        "meta3d-editor-engine-render-protocol": "^0.15.0",
-        "meta3d-engine-basic-protocol": "^0.15.0",
-        "meta3d-engine-core-protocol": "^0.15.0",
-        "meta3d-engine-scene-protocol": "^0.15.0",
-        "meta3d-engine-whole-protocol": "^0.15.0",
-        "meta3d-pipeline-editor-event-protocol": "^0.15.0",
+        "meta3d-editor-engine-render-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-basic-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-scene-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-event-sceneview-protocol": "^0.15.0",
         "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.15.0",
         "meta3d-pipeline-editor-webgl1-scene-view2-protocol": "^0.15.0",
-        "meta3d-pipeline-root-protocol": "^0.15.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.15.0",
         "meta3d-pipeline-webgl1-render-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

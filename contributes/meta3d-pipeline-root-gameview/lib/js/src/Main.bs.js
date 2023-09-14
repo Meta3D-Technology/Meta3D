@@ -32,7 +32,9 @@ function getContribute(api) {
             }),
           initFunc: _init,
           getExecFunc: _getExecFunc,
-          allPipelineData: StateType$Meta3dPipelineRootGameviewProtocol.allPipelineData
+          allPipelineData: StateType$Meta3dPipelineRootGameviewProtocol.allPipelineData,
+          restoreFunc: null,
+          deepCopyFunc: null
         };
 }
 

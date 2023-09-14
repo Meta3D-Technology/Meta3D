@@ -32,7 +32,7 @@
   "bs-dependencies": [
     "meta3d-type",
     "meta3d-component-commonlib",
-    "meta3d-engine-core-protocol",
+    "meta3d-engine-core-sceneview-protocol",
     "meta3d-gameobject-protocol",
     "meta3d-component-transform-protocol-common",
     "meta3d-component-geometry-protocol-common",

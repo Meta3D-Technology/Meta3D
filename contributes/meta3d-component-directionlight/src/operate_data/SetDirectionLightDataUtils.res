@@ -3,8 +3,8 @@ open StateType
 let setData = (.
   {colors, intensities} as state,
   light,
-  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
-  dataValue: Meta3dEngineCoreProtocol.ComponentContributeType.dataValue,
+  dataName: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataName,
+  dataValue: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {
   | dataName if dataName == Meta3dComponentDirectionlightProtocol.Index.dataName.color =>

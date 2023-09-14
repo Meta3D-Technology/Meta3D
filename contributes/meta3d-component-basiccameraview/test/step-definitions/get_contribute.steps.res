@@ -9,7 +9,7 @@ let feature = loadFeature("./test/features/get_contribute.feature")
 
 defineFeature(feature, test => {
   let contribute: ref<
-    Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+    Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       Meta3dComponentBasiccameraview.StateType.state,
   Meta3dComponentBasiccameraviewProtocol.Index.config,
   

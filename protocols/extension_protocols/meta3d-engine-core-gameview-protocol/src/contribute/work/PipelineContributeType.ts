@@ -1,4 +1,4 @@
-import * as PipelineContributeType from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import * as PipelineContributeType from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 
 export type execFunc = PipelineContributeType.execFunc
 

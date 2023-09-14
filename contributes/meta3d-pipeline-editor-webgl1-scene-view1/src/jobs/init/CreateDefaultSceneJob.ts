@@ -1,7 +1,7 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { activeCameraForSceneView, addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"

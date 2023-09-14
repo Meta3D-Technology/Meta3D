@@ -158,12 +158,12 @@ TODO finish TODOs
 
 
 TODO need publish:
-# meta3d-scenegraph-converter-three, gameview
-# meta3d-engine-basic, gameview
-# meta3d-engine-scene, gameview
+# meta3d-scenegraph-converter-three-sceneview, gameview
+# meta3d-engine-basic-sceneview, gameview
+# meta3d-engine-scene-sceneview, gameview
 # pipeline-camera
 # meta3d-editor-webgl1-three-run-engine-gameview+protocol
-# meta3d-editor-webgl1-three-run-engine+protocol
+# meta3d-editor-webgl1-three-run-engine-sceneview+protocol
 # add-cube
 # run,stop
 # use-editor
@@ -245,7 +245,7 @@ TODO default scene's camera add arcball
 
 
 # TODO need publish:
-# meta3d-pipeline-editor-event
+# meta3d-pipeline-editor-event-sceneview
 # meta3d-pipeline-editor-webgl1-game-view1
 
 ** DONE pass run test: before run, run, stop
@@ -275,7 +275,7 @@ TODO use game view
 
 
 TODO need publish:
-# meta3d-pipeline-editor-event
+# meta3d-pipeline-editor-event-sceneview
 # meta3d-pipeline-editor-webgl1-game-view1, scene
 # run, stop
 # publish
@@ -504,16 +504,21 @@ scenegraph, gameview
 use generic
 
 
-* TODO refactor: remove loadScene
+////* TODO refactor: remove loadScene
 
 
 
-* TODO refactor: rename pipelineContribute->xxxFunc to xxx
+////* TODO refactor: rename pipelineContribute->xxxFunc to xxx
 
 
 
-* TODO refactor: rename for scene view(e.g. meta3d-engine-core-sceneview)
+* DONE refactor: rename for scene view(e.g. meta3d-engine-core-sceneview)
 
+
+TODO fix bsconfig.json
+
+
+TODO update pipeline name
 
 
 * TODO publsh

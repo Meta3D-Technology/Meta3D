@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execCreateGL } from "./jobs/init/CreateGLJob";
 import { config } from "meta3d-pipeline-webgl1-creategl-protocol/src/ConfigType";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType";

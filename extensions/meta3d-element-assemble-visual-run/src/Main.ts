@@ -13,7 +13,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api) => {
@@ -94,7 +94,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
 				let runEngineService = api.getExtensionService<runEngineService>(
 					meta3dState,
-					"meta3d-editor-run-engine-protocol"
+					"meta3d-editor-run-engine-sceneview-protocol"
 				)
 				let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
 					meta3dState,
@@ -133,7 +133,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time).then(meta3dState => {
 				let runEngineService = api.getExtensionService<runEngineService>(
 					meta3dState,
-					"meta3d-editor-run-engine-protocol"
+					"meta3d-editor-run-engine-sceneview-protocol"
 				)
 
 				return runEngineService.loopEngine(meta3dState)

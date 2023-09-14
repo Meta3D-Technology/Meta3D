@@ -1,6 +1,6 @@
 import { state as meta3dState } from "meta3d-type"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { service as converterService } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
+import { service as converterService } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/service/ServiceType"
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 
 export let init = <converterService_ extends converterService>(meta3dState: meta3dState, [converterService, threeAPIService, uiService]: [converterService_, threeAPIService, uiService], canvas: HTMLCanvasElement) => {

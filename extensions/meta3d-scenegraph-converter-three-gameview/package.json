@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "@types/three": "0.154.0",
-        "meta3d-scenegraph-converter-three-utils": "^0.15.0",
+        "meta3d-scenegraph-converter-three-sceneview-utils": "^0.15.0",
         "meta3d-engine-scene-gameview-protocol": "^0.15.0",
         "meta3d-engine-whole-gameview-protocol": "^0.15.0",
         "meta3d-engine-core-gameview-protocol": "^0.15.0",

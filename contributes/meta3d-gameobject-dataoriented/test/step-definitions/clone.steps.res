@@ -46,7 +46,7 @@ defineFeature(feature, test => {
   }
 
   let _cloneGameObject = (
-    ~contribute: Meta3dEngineCoreProtocol.GameObjectContributeType.gameObjectContribute<
+    ~contribute: Meta3dEngineCoreSceneviewProtocol.GameObjectContributeType.gameObjectContribute<
       StateType.state,
     >,
     ~gameObjectState,

@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-transform-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-transform-sceneview-protocol/src/StateType"
 
 export const pipelineName = "Transform_GameView"
 

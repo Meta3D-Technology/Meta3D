@@ -3,7 +3,7 @@ import { pointData } from "meta3d-event-protocol/src/service/EventType.gen";
 import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { api, state as meta3dState } from "meta3d-type"
 import { getActiveArcballCameraController } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils";

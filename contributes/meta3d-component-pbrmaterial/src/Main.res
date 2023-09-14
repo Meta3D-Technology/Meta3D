@@ -73,7 +73,7 @@ currentState.diffuseColors, currentState.speculars, currentState.specularColors,
 
 
 let getContribute: Meta3dType.Index.getContribute<
-  Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
+  Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
     Meta3dComponentPbrmaterialProtocol.Index.config,
     Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,

@@ -1,8 +1,8 @@
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
-// import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
-// import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
-import { loopFuncData, state as runEngineState } from "meta3d-editor-run-engine-protocol/src/state/StateType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+// import { state } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
+// import { service } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
+import { loopFuncData, state as runEngineState } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 
 // export let getExtensionServiceUtils = (api: api, engineWholeProtocolName: string
 // ): service => {
@@ -78,20 +78,20 @@ export let loopEngine = <engineWholeService_ extends engineWholeService>(meta3dS
 
 
 export let addToLoopFuncs = <runEngineState_ extends runEngineState>(meta3dState: meta3dState, api: api, loopFuncData: loopFuncData) => {
-	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-protocol")
+	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol")
 
 	runEngineState.loopFuncs.push(loopFuncData)
 
-	return api.setExtensionState(meta3dState, "meta3d-editor-run-engine-protocol", runEngineState)
+	return api.setExtensionState(meta3dState, "meta3d-editor-run-engine-sceneview-protocol", runEngineState)
 }
 
 export let removeFromLoopFuncs = <runEngineState_ extends runEngineState>(meta3dState: meta3dState, filterFunc: (data: loopFuncData) => boolean, api: api) => {
-	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-protocol")
+	let runEngineState = api.getExtensionState<runEngineState_>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol")
 
 	runEngineState = {
 		...runEngineState,
 		loopFuncs: runEngineState.loopFuncs.filter(filterFunc)
 	}
 
-	return api.setExtensionState(meta3dState, "meta3d-editor-run-engine-protocol", runEngineState)
+	return api.setExtensionState(meta3dState, "meta3d-editor-run-engine-sceneview-protocol", runEngineState)
 }

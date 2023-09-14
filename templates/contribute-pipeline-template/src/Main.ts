@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import {  state, pipelineName  } from "your-protocol/src/state/StateType"
 import { config } from "your-protocol/src/service/ConfigType"
 import { getContribute as getContributeMeta3D } from "meta3d-type"

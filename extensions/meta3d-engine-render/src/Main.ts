@@ -1,11 +1,11 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
 import { state } from "meta3d-engine-render-protocol/src/state/StateType"
 import { service } from "meta3d-engine-render-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-pipeline-viewrect-protocol/src/ConfigType";
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
+import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType";
+import { config as viewRectConfig } from "meta3d-pipeline-viewrect-sceneview-protocol/src/ConfigType";
 import { state as createGLState, states as createGLStates } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType";
 import { config as createGLConfig } from "meta3d-pipeline-webgl1-creategl-protocol/src/ConfigType";
 import { state as detectGLState, states as detectGLStates } from "meta3d-pipeline-webgl1-detectgl-protocol/src/StateType";
@@ -20,8 +20,8 @@ import { state as renderState, states as renderStates } from "meta3d-pipeline-we
 import { config as renderConfig } from "meta3d-pipeline-webgl1-render-protocol/src/ConfigType";
 import { state as senduniformshaderdataState, states as senduniformshaderdataStates } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType";
 import { config as senduniformshaderdataConfig } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/ConfigType";
-import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
+import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
+import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 import { pipeline as pipelineCreateGLPipeline, job as pipelineCreateGLJob } from "meta3d-pipeline-webgl1-creategl-protocol/src/StateType"
 import { pipeline as pipelineDataPipeline, job as pipelineDataJob } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
 import { pipeline as pipelineSendUniformShaderDataPipeline, job as pipelineSendUniformShaderJob } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType"
@@ -31,17 +31,17 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api) => {
 	return {
 		prepare: (meta3dState: meta3dState, isDebug, canvas) => {
-			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
+			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-sceneview-protocol")
 
 			let engineCoreService = api.getExtensionService<engineCoreService>(
 				meta3dState,
-				"meta3d-engine-core-protocol"
+				"meta3d-engine-core-sceneview-protocol"
 			)
 
 
 			let { registerPipeline } = engineCoreService
 
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-protocol"),
+			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-sceneview-protocol"),
 				{
 					canvas: canvas
 				},
@@ -152,7 +152,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			meta3dState =
 				api.setExtensionState(
 					meta3dState,
-					"meta3d-engine-core-protocol",
+					"meta3d-engine-core-sceneview-protocol",
 					engineCoreState
 				)
 

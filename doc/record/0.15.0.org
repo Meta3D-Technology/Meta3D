@@ -268,7 +268,7 @@ TODO html js:
 - use metad js to load engine package->get entry extension
 ->loadScene(add loadScene) 
 
-TODO check: entryExtensionProtocolName should be "meta3d-engine-whole-protocol"
+TODO check: entryExtensionProtocolName should be "meta3d-engine-whole-sceneview-protocol"
 
 
 ** DONE refactor

@@ -1,4 +1,4 @@
-// import * as ServceType from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+// import * as ServceType from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 // import { Merge } from "meta3d-commonlib-ts/src/type"
 import { state as meta3dState } from "meta3d-type"
 import { context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType";

@@ -4,7 +4,7 @@
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "run-engine-empty",
     "protocol": {
-        "name": "meta3d-editor-run-engine-protocol"
+        "name": "meta3d-editor-run-engine-sceneview-protocol"
     },
     "scripts": {
         "watch": "tsc -w -noEmit",
@@ -13,7 +13,7 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-run-engine-protocol": "^0.15.0",
+        "meta3d-editor-run-engine-sceneview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },
     "devDependencies": {

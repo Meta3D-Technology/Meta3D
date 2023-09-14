@@ -342,13 +342,13 @@ button
 meta3d-ui-control-scene-view
 
 
-meta3d-pipeline-viewrect
+meta3d-pipeline-viewrect-sceneview
 
 meta3d-pipeline-three
 
-meta3d-pipeline-dispose
+meta3d-pipeline-dispose-sceneview
 
-meta3d-pipeline-editor-event
+meta3d-pipeline-editor-event-sceneview
 meta3d-pipeline-editor-webgl1-scene-view1
 meta3d-pipeline-editor-webgl1-scene-view2
 
@@ -368,7 +368,7 @@ webgl1
 
 most（实现的协议名：most protocol）
 immutable（实现的协议名：immutable protocol）
-meta3d-engine-core
+meta3d-engine-core-sceneview
 
 event
 
@@ -378,10 +378,10 @@ meta3d-use-editor
 
 
 
-meta3d-editor-engine-webgl1-three-render
+meta3d-editor-engine-webgl1-three-render-sceneview
 
-meta3d-editor-webgl1-three-engine-whole
-meta3d-editor-webgl1-three-run-engine
+meta3d-editor-webgl1-three-engine-whole-sceneview
+meta3d-editor-webgl1-three-run-engine-sceneview
 
 scenegraph-converter-three
 
@@ -443,7 +443,7 @@ commit
 
 
 # TODO need reselect:
-# meta3d-editor-engine-webgl1-three-render
+# meta3d-editor-engine-webgl1-three-render-sceneview
 # converter
 
 
@@ -460,13 +460,13 @@ gameobject(engine-scene package)
 
 
 TODO need publish and update
-meta3d-scenegraph-converter-three-protocol and implement
+meta3d-scenegraph-converter-three-sceneview-protocol and implement
 meta3d-event(implement and protocol)
-meta3d-pipeline-webgl1-three
-meta3d-editor-webgl1-three-engine-whole
+meta3d-pipeline-webgl1-three-sceneview
+meta3d-editor-webgl1-three-engine-whole-sceneview
 
 engine-scene:
-    meta3d-engine-scene
+    meta3d-engine-scene-sceneview
 
 
 
@@ -487,7 +487,7 @@ trigger dispose event when dispose e+c?
 
 
 TODO add three.js -> ec
-    meta3d-scenegraph-converter-three:
+    meta3d-scenegraph-converter-three-sceneview:
         # rename convert to convertDataOrientedSceneToThreeScene
         # add convertThreeSceneToDataOrientedScene
         add import

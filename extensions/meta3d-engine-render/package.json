@@ -12,11 +12,11 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-engine-core-protocol": "^0.15.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.15.0",
         "meta3d-engine-render-protocol": "^0.15.0",
-        "meta3d-pipeline-camera-protocol": "^0.15.0",
-        "meta3d-pipeline-root-protocol": "^0.15.0",
-        "meta3d-pipeline-viewrect-protocol": "^0.15.0",
+        "meta3d-pipeline-camera-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-viewrect-sceneview-protocol": "^0.15.0",
         "meta3d-pipeline-webgl1-creategl-protocol": "^0.15.0",
         "meta3d-pipeline-webgl1-data-protocol": "^0.15.0",
         "meta3d-pipeline-webgl1-detectgl-protocol": "^0.15.0",

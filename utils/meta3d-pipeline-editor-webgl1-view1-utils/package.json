@@ -7,7 +7,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-engine-whole-protocol": "^0.15.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.15.0",
         "meta3d-engine-whole-gameview-protocol": "^0.15.0",
         "meta3d-type": "^0.15.0"
     },

@@ -12,7 +12,7 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-webgl1-three-engine-whole-utils": "^0.15.0",
+        "meta3d-editor-webgl1-three-engine-whole-sceneview-utils": "^0.15.0",
         "meta3d-bs-most-protocol": "^0.15.0",
         "meta3d-component-geometry-protocol": "^0.15.0",
         "meta3d-component-pbrmaterial-protocol": "^0.15.0",

@@ -3,7 +3,7 @@
 import * as InitJob$Meta3dPipelineRootGameview from "./jobs/InitJob.bs.js";
 import * as RenderJob$Meta3dPipelineRootGameview from "./jobs/RenderJob.bs.js";
 import * as UpdateJob$Meta3dPipelineRootGameview from "./jobs/UpdateJob.bs.js";
-import * as StateType$Meta3dPipelineRootGameviewProtocol from "./../../../../../node_modules/meta3d-pipeline-root-gameview-protocol/lib/es6_global/src/StateType.bs.js";
+import * as StateType$Meta3dPipelineRootGameviewProtocol from "../../../../../node_modules/meta3d-pipeline-root-gameview-protocol/lib/es6_global/src/StateType.bs.js";
 
 function _getExecFunc(_pipelineName, jobName) {
   if (jobName === StateType$Meta3dPipelineRootGameviewProtocol.job.Init) {
@@ -32,7 +32,9 @@ function getContribute(api) {
             }),
           initFunc: _init,
           getExecFunc: _getExecFunc,
-          allPipelineData: StateType$Meta3dPipelineRootGameviewProtocol.allPipelineData
+          allPipelineData: StateType$Meta3dPipelineRootGameviewProtocol.allPipelineData,
+          restoreFunc: null,
+          deepCopyFunc: null
         };
 }
 

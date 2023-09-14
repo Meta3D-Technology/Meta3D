@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-editor-event-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-editor-event-sceneview-protocol/src/StateType"
 
 export const pipelineName = "Editor_Event_GameView"
 

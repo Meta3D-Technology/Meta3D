@@ -1,7 +1,7 @@
 import { loadPackage, getExtensionService, getExtensionState, setExtensionState } from "meta3d-package/src/Main"
 
-import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
-// import { state } from "meta3d-engine-whole-protocol/src/state/StateType"
+import { service } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
+// import { state } from "meta3d-engine-whole-sceneview-protocol/src/state/StateType"
 
 // import * as packageBinaryFile from "arraybuffer-loader!./packages/engine-whole_0.0.5.package"
 // import * as packageBinaryFile from "arraybuffer-loader!../mine/engine-whole_0.0.6.package"

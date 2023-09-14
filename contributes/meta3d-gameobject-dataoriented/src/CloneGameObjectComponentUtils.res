@@ -30,13 +30,13 @@ let _cloneComponent = (
 
 let clone = (
   (
-    transformState: Meta3dEngineCoreProtocol.ComponentType.transformState,
-    pbrMaterialState: Meta3dEngineCoreProtocol.ComponentType.pbrMaterialState,
-    geometryState: Meta3dEngineCoreProtocol.ComponentType.geometryState,
-    directionLightState: Meta3dEngineCoreProtocol.ComponentType.directionLightState,
-    arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
-    basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
-    perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
+    transformState: Meta3dEngineCoreSceneviewProtocol.ComponentType.transformState,
+    pbrMaterialState: Meta3dEngineCoreSceneviewProtocol.ComponentType.pbrMaterialState,
+    geometryState: Meta3dEngineCoreSceneviewProtocol.ComponentType.geometryState,
+    directionLightState: Meta3dEngineCoreSceneviewProtocol.ComponentType.directionLightState,
+    arcballCameraControllerState: Meta3dEngineCoreSceneviewProtocol.ComponentType.arcballCameraControllerState,
+    basicCameraViewState: Meta3dEngineCoreSceneviewProtocol.ComponentType.basicCameraViewState,
+    perspectiveCameraProjectionState: Meta3dEngineCoreSceneviewProtocol.ComponentType.perspectiveCameraProjectionState,
   ),
   (
     (cloneTransformFunc, addTransformFunc),

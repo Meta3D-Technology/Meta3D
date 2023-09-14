@@ -1,0 +1,45 @@
+{
+    "name": "meta3d-editor-webgl1-three-engine-whole-sceneview",
+    "version": "0.15.1",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "protocol": {
+        "name": "meta3d-engine-whole-sceneview-protocol"
+    },
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "webpack": "webpack --config webpack.config.js",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
+    },
+    "dependencies": {
+        "meta3d-editor-webgl1-three-engine-whole-sceneview-utils": "^0.15.0",
+        "meta3d-bs-most-protocol": "^0.15.0",
+        "meta3d-component-geometry-protocol": "^0.15.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.15.0",
+        "meta3d-editor-engine-render-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-basic-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-scene-sceneview-protocol": "^0.15.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.15.1",
+        "meta3d-pipeline-editor-event-sceneview-protocol": "^0.15.0",
+        "meta3d-event-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.15.0",
+        "meta3d-pipeline-editor-webgl1-scene-view2-protocol": "^0.15.0",
+        "meta3d-pipeline-camera-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.15.0",
+        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.15.0",
+        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.15.0",
+        "meta3d-type": "^0.15.0"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3","clean-webpack-plugin": "^4.0.0",
+        "cz-customizable": "^6.3.0",
+        "gulp": "^4.0.2",
+        "meta3d-tool-publish": "^0.15.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1"
+    }
+}

@@ -10,7 +10,7 @@ let getData = (.
     localToWorldMatrices,
   } as state,
   transform,
-  dataName: Meta3dEngineCoreProtocol.ComponentContributeType.dataName,
+  dataName: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataName,
 ): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.parent =>

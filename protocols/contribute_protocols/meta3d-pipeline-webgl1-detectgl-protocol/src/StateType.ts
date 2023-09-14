@@ -1,5 +1,5 @@
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
-import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { pipelineName as dataPipelineName, state as dataState } from "meta3d-pipeline-webgl1-data-protocol/src/StateType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 

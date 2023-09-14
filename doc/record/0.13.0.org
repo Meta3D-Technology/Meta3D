@@ -320,7 +320,7 @@ change color to blue
 
 
 
-            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
+            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
 
             remove dependentExtensionProtocolNameMap, dependentContributeProtocolNameMap, DependentMapType
 
@@ -455,7 +455,7 @@ only getter, no setter?
 
 *** DONE pass camera convert run test
 add:
-meta3d-editor-engine-webgl1-three-render(need update, register x)
+meta3d-editor-engine-webgl1-three-render-sceneview(need update, register x)
 meta3d-editor-engine-webgl1-three-whole
 meta3d-editor-run-webgl1-three-engine
     create scene
@@ -471,7 +471,7 @@ engine-scene(need update)
 contribute:
 
 meta3d-ui-control-webgpu-fullscreen-scene-view
-meta3d-pipeline-viewrect
+meta3d-pipeline-viewrect-sceneview
 
 
 extension:
@@ -481,7 +481,7 @@ imgui-webgl1-renderer
 
 *** DONE pass camera convert
 
-# TODO update meta3d-engine-scene implemenet, protocol
+# TODO update meta3d-engine-scene-sceneview implemenet, protocol
 
 # TODO update engine-scene package
 

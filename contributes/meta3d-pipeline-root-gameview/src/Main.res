@@ -32,5 +32,7 @@ let getContribute: Meta3dType.Index.getContribute<
     initFunc: _init,
     getExecFunc: _getExecFunc->Obj.magic,
     allPipelineData: Meta3dPipelineRootGameviewProtocol.StateType.allPipelineData,
+    restoreFunc: Js.Nullable.null,
+    deepCopyFunc: Js.Nullable.null,
   }
 }

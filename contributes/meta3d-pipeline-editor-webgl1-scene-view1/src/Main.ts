@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
@@ -10,7 +10,7 @@ import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
@@ -42,7 +42,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				webgl1Service: api.getExtensionService<webgl1Service>(meta3dState, "meta3d-webgl1-protocol"),
 				uiService: api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol"),
 				eventService: api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
-				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol"),
+				engineWholeService: api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol"),
 
 				canvas: canvas,
 				// arcballCameraController: null,

@@ -1,1 +1,1 @@
-type config = Meta3dPipelineRootProtocol.ConfigType.config
+type config = Meta3dPipelineRootSceneviewProtocol.ConfigType.config

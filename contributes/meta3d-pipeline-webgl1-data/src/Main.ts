@@ -1,11 +1,11 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execPrepareUpdateDataJob } from "./jobs/update/PrepareUpdateDataJob"
 import { execFunc as execPrepareRenderDataJob } from "./jobs/render/PrepareRenderDataJob"
 import { config } from "meta3d-pipeline-webgl1-data-protocol/src/ConfigType";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-data-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { map } from "meta3d-commonlib-ts/src/NullableUtils";
 
 
@@ -32,7 +32,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 			return {
 				isDebug,
 				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
-				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-protocol"),
+				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-sceneview-protocol"),
 				gl: null,
 				allGeometryIndices: [],
 				allMaterialIndices: [],

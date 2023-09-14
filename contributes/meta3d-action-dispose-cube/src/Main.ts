@@ -1,6 +1,6 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
@@ -25,7 +25,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
         handler: (meta3dState, uiData) => {
             console.log("dispose cube")
 
-            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-protocol")
+            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
             let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
             meta3dState = _disposeCubeGameObject(meta3dState, engineWholeService)

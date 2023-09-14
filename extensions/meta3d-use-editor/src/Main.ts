@@ -7,20 +7,20 @@ import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 // import { service as bindIOEventService } from "meta3d-bind-io-event-protocol/src/service/ServiceType"
 import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
-// import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-// import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+// import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+// import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-// import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+// import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 // import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 // import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 // import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
-import { service as runEngineService } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api) => {
@@ -112,7 +112,7 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 	return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
 		let runEngineService = api.getExtensionService<runEngineService>(
 			meta3dState,
-			"meta3d-editor-run-engine-protocol"
+			"meta3d-editor-run-engine-sceneview-protocol"
 		)
 		let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
 			meta3dState,
@@ -161,7 +161,7 @@ let _loop = (
 		// resetIOData()
 		let runEngineService = api.getExtensionService<runEngineService>(
 			meta3dState,
-			"meta3d-editor-run-engine-protocol"
+			"meta3d-editor-run-engine-sceneview-protocol"
 		)
 
 		runEngineService.loopEngine(meta3dState).then(meta3dState => {

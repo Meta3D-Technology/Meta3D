@@ -1,4 +1,4 @@
-/*! perf: only here import three.js, others(e.g. meta3d-pipeline-webgl1-three) shouln't import three.js again
+/*! perf: only here import three.js, others(e.g. meta3d-pipeline-webgl1-three-sceneview) shouln't import three.js again
 * 
 */
 

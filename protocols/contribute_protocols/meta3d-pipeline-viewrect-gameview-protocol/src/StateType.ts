@@ -1,4 +1,4 @@
-import * as StateType from "meta3d-pipeline-viewrect-protocol/src/StateType"
+import * as StateType from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType"
 
 export const pipelineName = "ViewRect_GameView"
 

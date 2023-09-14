@@ -1,6 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
-import { state } from "meta3d-editor-run-engine-protocol/src/state/StateType"
-import { service } from "meta3d-editor-run-engine-protocol/src/service/ServiceType"
+import { state } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
+import { service } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service

@@ -1,11 +1,11 @@
-open Meta3dEngineCoreProtocol.ServiceType
+open Meta3dEngineCoreSceneviewProtocol.ServiceType
 
 let create = (
   usedComponentContribute,
   {createComponent, setComponentData},
   (vertices, texCoords, normals, tangents, indices),
 ): (
-  Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute,
+  Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
   Meta3dComponentGeometryProtocol.Index.geometry,
 ) => {
   let (usedComponentContribute, geometry) = createComponent(usedComponentContribute)

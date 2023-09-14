@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType";
 import { getDragOverLocationForGameView, getPitchForGameView, getYawForGameView, reset } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils";

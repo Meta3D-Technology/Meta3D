@@ -1,0 +1,17 @@
+{
+    "name": "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol",
+    "version": "0.15.0",
+    "description": "",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "author": "Meta3D",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "meta3d:publish_dev": "gulp publish_local_env",
+        "meta3d:publish_pro": "gulp publish_production_env"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getGL, getPMatrix, getProgramMap, getState, getViewMatrix } from "../Utils"
 import { states, viewMatrix, pMatrix } from "meta3d-pipeline-webgl1-senduniformshaderdata-protocol/src/StateType"
 import { service as webgl1Service, webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"

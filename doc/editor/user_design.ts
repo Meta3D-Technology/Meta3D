@@ -2,7 +2,7 @@
 
 import { registerExtension } from "meta3d"
 
-import { getData } from "meta3d-engine-core"
+import { getData } from "meta3d-engine-core-sceneview"
 
 let extensionState = Meta3D.init()
 
