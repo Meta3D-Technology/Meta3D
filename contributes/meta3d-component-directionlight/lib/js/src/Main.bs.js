@@ -3,8 +3,8 @@
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/TypeArrayUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var CopyTypeArrayService$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var Index$Meta3dComponentDirectionlightProtocol = require("meta3d-component-directionlight-protocol/lib/js/src/Index.bs.js");
-var CopyTypeArrayService$Meta3dComponentCommonlib = require("meta3d-component-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var CreateStateUtils$Meta3dComponentDirectionlight = require("./create_state/CreateStateUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentDirectionlight = require("./gameobject/GetGameObjectsUtils.bs.js");
 var AddDirectionLightUtils$Meta3dComponentDirectionlight = require("./gameobject/AddDirectionLightUtils.bs.js");
@@ -114,8 +114,8 @@ function getContribute(param) {
                       config: state.config,
                       maxIndex: state.maxIndex,
                       buffer: state.buffer,
-                      colors: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(colors, Math.imul(maxIndex, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getColorsSize(undefined))),
-                      intensities: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(intensities, Math.imul(maxIndex, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getIntensitiesSize(undefined))),
+                      colors: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(colors, Math.imul(maxIndex, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getColorsSize(undefined))),
+                      intensities: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(intensities, Math.imul(maxIndex, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getIntensitiesSize(undefined))),
                       gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(gameObjectMap),
                       gameObjectDirectionLightMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectDirectionLightMap),
                       needDisposedDirectionLights: ArraySt$Meta3dCommonlib.copy(needDisposedDirectionLights),

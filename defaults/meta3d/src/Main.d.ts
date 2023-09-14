@@ -1,7 +1,7 @@
 // TODO unify .d.ts, .ts!
 
 import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData, packageProtocolName } from "meta3d-type"
-import { actionName, actionProtocolName, eventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+import { actionName, supportedEventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp, packageData } from "./app_and_package/AppAndPackageFileType"
@@ -163,7 +163,7 @@ export type generateUIControlDataStr = (configLib: protocolConfigLib, rect: stri
 
 export type hasChildren = (configLib: protocolConfigLib) => boolean
 
-export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<[eventName, actionProtocolName]>
+export type getUIControlSupportedEventNames = (configLib: protocolConfigLib) => Array<supportedEventName>
 
 export type generateHandleUIControlEventStr = (configLib: protocolConfigLib, actionNames: Array<actionName>) => string
 

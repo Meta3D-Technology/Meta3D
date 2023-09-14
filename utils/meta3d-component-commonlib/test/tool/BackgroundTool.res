@@ -1,5 +1,5 @@
 let prepare = (given, \"and", componentName, registerdComponentName, getContributeFunc, config) => {
-  open Meta3dEngineCore
+  open Meta3dEngineCoreSceneview
 
   given("prepare register", () => {
     CreateState.createState()->StateContainer.setState

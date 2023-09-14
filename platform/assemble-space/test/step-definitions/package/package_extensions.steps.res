@@ -122,8 +122,8 @@ defineFeature(feature, test => {
               // ~name=a1DisplayName,
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -219,16 +219,16 @@ defineFeature(feature, test => {
             ExtensionTool.buildSelectedExtension(
               ~displayName=a1DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
             ExtensionTool.buildSelectedExtension(
               ~displayName=a2DisplayName,
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               ~protocolConfig=protocolConfig->Some,
               (),
             ),
@@ -330,8 +330,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion=a.version,
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion=a.version,
               (),
             ),
           }
@@ -497,8 +497,8 @@ defineFeature(feature, test => {
           list{
             ExtensionTool.buildSelectedExtension(
               ~protocolName=a.name,
-              // ~protocolVersionRange=">= 1.0.0",
-              ~protocolVersion="1.0.0",
+              ~protocolVersionRange=">= 1.0.0",
+              // ~protocolVersion="1.0.0",
               (),
             ),
           }

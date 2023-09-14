@@ -99,7 +99,7 @@ let deepCopyMutableSparseMapOfArray =
     // (arr: Meta3dCommonlibType.MutableSparseMapType.t<array<'a>>) =>
     (arr) =>
   arr
-  -> Meta3dCommonlib.MutableSparseMap.map((. itemArr)
+  -> MutableSparseMap.map((. itemArr)
        /* WonderCommonlib.MutableSparseMapService.isDeleted(itemArr) ?
           Js.Nullable.undefined : itemArr |> Js.Array.copy */
        => itemArr -> Js.Array.copy);

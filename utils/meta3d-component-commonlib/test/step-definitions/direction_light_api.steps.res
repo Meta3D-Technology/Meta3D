@@ -19,7 +19,7 @@ defineFeature(feature, test => {
   let direction1 = ref(Obj.magic(1))
 
   let _prepare = (given, \"when", \"and") => {
-    open Meta3dEngineCore
+    open Meta3dEngineCoreSceneview
 
     let gameObject = 1
 

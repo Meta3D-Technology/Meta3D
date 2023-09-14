@@ -4,9 +4,9 @@ import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
 import * as Index$Meta3dComponentPbrmaterialProtocol from "../../../../../node_modules/meta3d-component-pbrmaterial-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentPbrmaterial from "./create_state/CreateStateUtils.bs.js";
-import * as CopyTypeArrayService$Meta3dComponentCommonlib from "../../../../../node_modules/meta3d-component-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
 import * as AddPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/AddPBRMaterialUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentPbrmaterial from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as GetPBRMaterialUtils$Meta3dComponentPbrmaterial from "./gameobject/GetPBRMaterialUtils.bs.js";
@@ -176,14 +176,14 @@ function getContribute(param) {
               newrecord.channelRoughnessMetallicMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.channelRoughnessMetallicMapMap);
               newrecord.diffuseMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.diffuseMapMap);
               newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.copy(gameObjectPBRMaterialMap);
-              newrecord.gameObjectsMap = CopyTypeArrayService$Meta3dComponentCommonlib.deepCopyMutableSparseMapOfArray(gameObjectsMap);
-              newrecord.iors = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(iors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getIORsSize(undefined)));
-              newrecord.transmissions = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(transmissions, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getTransmissionsSize(undefined)));
-              newrecord.metalnesses = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(metalnesses, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getMetalnessesSize(undefined)));
-              newrecord.roughnesses = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(roughnesses, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getRoughnessesSize(undefined)));
-              newrecord.specularColors = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(specularColors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularColorsSize(undefined)));
-              newrecord.speculars = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(speculars, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularsSize(undefined)));
-              newrecord.diffuseColors = CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(diffuseColors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined)));
+              newrecord.gameObjectsMap = CopyTypeArrayService$Meta3dCommonlib.deepCopyMutableSparseMapOfArray(gameObjectsMap);
+              newrecord.iors = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(iors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getIORsSize(undefined)));
+              newrecord.transmissions = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(transmissions, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getTransmissionsSize(undefined)));
+              newrecord.metalnesses = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(metalnesses, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getMetalnessesSize(undefined)));
+              newrecord.roughnesses = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(roughnesses, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getRoughnessesSize(undefined)));
+              newrecord.specularColors = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(specularColors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularColorsSize(undefined)));
+              newrecord.speculars = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(speculars, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularsSize(undefined)));
+              newrecord.diffuseColors = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(diffuseColors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined)));
               return newrecord;
             })
         };

@@ -88,7 +88,6 @@ let getContribute: Meta3dType.Index.getContribute<
 
   },
   deepCopy: (. state) => {
-    open Meta3dComponentCommonlib
     open Meta3dComponentWorkerUtils.BufferDirectionLightUtils
 
     let {
@@ -103,10 +102,10 @@ let getContribute: Meta3dType.Index.getContribute<
 
     {
       ...state,
-      colors: colors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      colors: colors->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getColorsSize(),
       ),
-      intensities: intensities->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      intensities: intensities->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getIntensitiesSize(),
       ),
       gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,

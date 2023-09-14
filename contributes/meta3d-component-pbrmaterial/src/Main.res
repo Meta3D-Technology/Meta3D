@@ -139,7 +139,6 @@ let getContribute: Meta3dType.Index.getContribute<
 
   },
   deepCopy: (. state) => {
-    open Meta3dComponentCommonlib
     open Meta3dComponentWorkerUtils.BufferPBRMaterialUtils
 
     let {
@@ -165,25 +164,25 @@ let getContribute: Meta3dType.Index.getContribute<
 
     {
       ...state,
-      diffuseColors: diffuseColors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      diffuseColors: diffuseColors->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getDiffuseColorsSize(),
       ),
-      speculars: speculars->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      speculars: speculars->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getSpecularsSize(),
       ),
-      specularColors: specularColors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      specularColors: specularColors->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getSpecularColorsSize(),
       ),
-      roughnesses: roughnesses->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      roughnesses: roughnesses->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getRoughnessesSize(),
       ),
-      metalnesses: metalnesses->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      metalnesses: metalnesses->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getMetalnessesSize(),
       ),
-      transmissions: transmissions->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      transmissions: transmissions->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getTransmissionsSize(),
       ),
-      iors: iors->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      iors: iors->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getIORsSize(),
       ),
       diffuseMapMap: diffuseMapMap->Meta3dCommonlib.MutableSparseMap.copy,
@@ -192,7 +191,7 @@ let getContribute: Meta3dType.Index.getContribute<
       normalMapMap: normalMapMap->Meta3dCommonlib.MutableSparseMap.copy,
       transmissionMapMap: transmissionMapMap->Meta3dCommonlib.MutableSparseMap.copy,
       specularMapMap: specularMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      gameObjectsMap:           gameObjectsMap -> CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
+      gameObjectsMap:           gameObjectsMap -> Meta3dCommonlib.CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
       gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->Meta3dCommonlib.MutableSparseMap.copy,
       needDisposedPBRMaterials: needDisposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,
       disposedPBRMaterials: disposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,

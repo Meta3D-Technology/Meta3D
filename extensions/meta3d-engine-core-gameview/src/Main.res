@@ -1,5 +1,5 @@
-let getExtensionService = Meta3dEngineCore.Main.getExtensionService
+let getExtensionService = Meta3dEngineCoreSceneview.Main.getExtensionService
 
-let createExtensionState = Meta3dEngineCore.Main.createExtensionState
+let createExtensionState = Meta3dEngineCoreSceneview.Main.createExtensionState
 
-let getExtensionLife = Meta3dEngineCore.Main.getExtensionLife
+let getExtensionLife = Meta3dEngineCoreSceneview.Main.getExtensionLife

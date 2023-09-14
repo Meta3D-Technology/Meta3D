@@ -114,7 +114,6 @@ let getContribute: Meta3dType.Index.getContribute<
 
   },
   deepCopy: (. state) => {
-    open Meta3dComponentCommonlib
     open Meta3dComponentWorkerUtils.BufferGeometryUtils
 
     let {
@@ -145,22 +144,22 @@ let getContribute: Meta3dType.Index.getContribute<
 
     {
       ...state,
-      verticesInfos: verticesInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+      verticesInfos: verticesInfos->Meta3dCommonlib.CopyTypeArrayService.copyUint32ArrayWithEndIndex(
 infosEndIndex
       ),
-      texCoordsInfos: texCoordsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+      texCoordsInfos: texCoordsInfos->Meta3dCommonlib.CopyTypeArrayService.copyUint32ArrayWithEndIndex(
 infosEndIndex
       ),
-      normalsInfos: normalsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+      normalsInfos: normalsInfos->Meta3dCommonlib.CopyTypeArrayService.copyUint32ArrayWithEndIndex(
 infosEndIndex
       ),
-      tangentsInfos: tangentsInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+      tangentsInfos: tangentsInfos->Meta3dCommonlib.CopyTypeArrayService.copyUint32ArrayWithEndIndex(
 infosEndIndex
       ),
-      indicesInfos: indicesInfos->CopyTypeArrayService.copyUint32ArrayWithEndIndex(
+      indicesInfos: indicesInfos->Meta3dCommonlib.CopyTypeArrayService.copyUint32ArrayWithEndIndex(
 infosEndIndex
       ),
-      gameObjectsMap:           gameObjectsMap -> CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
+      gameObjectsMap:           gameObjectsMap -> Meta3dCommonlib.CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
       gameObjectGeometryMap: gameObjectGeometryMap->Meta3dCommonlib.MutableSparseMap.copy,
       needDisposedGeometrys: needDisposedGeometrys->Meta3dCommonlib.ArraySt.copy,
       disposedGeometrys: disposedGeometrys->Meta3dCommonlib.ArraySt.copy,

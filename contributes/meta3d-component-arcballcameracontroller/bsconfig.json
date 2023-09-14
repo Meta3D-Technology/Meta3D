@@ -31,7 +31,6 @@
   "refmt": 3,
   "bs-dependencies": [
     "meta3d-type",
-    "meta3d-component-commonlib",
     "meta3d-component-arcballcameracontroller-protocol",
     "meta3d-engine-core-sceneview-protocol",
     "meta3d-gameobject-protocol",

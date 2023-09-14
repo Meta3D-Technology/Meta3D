@@ -45,8 +45,6 @@ let getContribute: Meta3dType.Index.getContribute<
     targetState
   },
   deepCopy: (. state) => {
-    open Meta3dComponentCommonlib
-
     let {needDisposedGameObjectArray, disposedGameObjectArray} = state
 
     {

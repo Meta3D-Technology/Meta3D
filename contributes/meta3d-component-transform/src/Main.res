@@ -107,7 +107,6 @@ let getContribute: Meta3dType.Index.getContribute<
     }
   },
   deepCopy: (. state) => {
-    open Meta3dComponentCommonlib
     open Meta3dComponentWorkerUtils.BufferTransformUtils
 
     let {
@@ -127,16 +126,16 @@ let getContribute: Meta3dType.Index.getContribute<
 
     {
       ...state,
-      localPositions: localPositions->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      localPositions: localPositions->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getLocalPositionsSize(),
       ),
-      localRotations: localRotations->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      localRotations: localRotations->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getLocalRotationsSize(),
       ),
-      localScales: localScales->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      localScales: localScales->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getLocalScalesSize(),
       ),
-      localToWorldMatrices: localToWorldMatrices->CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
+      localToWorldMatrices: localToWorldMatrices->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getLocalToWorldMatricesSize(),
       ),
       parentMap: parentMap->Meta3dCommonlib.MutableSparseMap.copy,

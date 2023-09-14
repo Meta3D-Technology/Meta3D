@@ -4,6 +4,7 @@ var Caml_obj = require("rescript/lib/js/caml_obj.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/TypeArrayUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var CopyTypeArrayService$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var Index$Meta3dComponentGeometryProtocol = require("meta3d-component-geometry-protocol/lib/js/src/Index.bs.js");
 var AddGeometryUtils$Meta3dComponentGeometry = require("./gameobject/AddGeometryUtils.bs.js");
 var CreateStateUtils$Meta3dComponentGeometry = require("./create_state/CreateStateUtils.bs.js");
@@ -17,7 +18,6 @@ var DisposeGeometryUtils$Meta3dComponentGeometry = require("./operate_component/
 var GetAllGeometrysUtils$Meta3dComponentGeometry = require("./operate_component/GetAllGeometrysUtils.bs.js");
 var GetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/GetGeometryDataUtils.bs.js");
 var SetGeometryDataUtils$Meta3dComponentGeometry = require("./operate_data/SetGeometryDataUtils.bs.js");
-var CopyTypeArrayService$Meta3dComponentCommonlib = require("meta3d-component-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var BufferGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/BufferGeometryUtils.bs.js");
 var GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry = require("./gameobject/GetNeedDisposedGeometrysUtils.bs.js");
 
@@ -138,12 +138,12 @@ function getContribute(param) {
               newrecord.disposedGeometrys = ArraySt$Meta3dCommonlib.copy(disposedGeometrys);
               newrecord.needDisposedGeometrys = ArraySt$Meta3dCommonlib.copy(needDisposedGeometrys);
               newrecord.gameObjectGeometryMap = MutableSparseMap$Meta3dCommonlib.copy(gameObjectGeometryMap);
-              newrecord.gameObjectsMap = CopyTypeArrayService$Meta3dComponentCommonlib.deepCopyMutableSparseMapOfArray(gameObjectsMap);
-              newrecord.indicesInfos = CopyTypeArrayService$Meta3dComponentCommonlib.copyUint32ArrayWithEndIndex(indicesInfos, infosEndIndex);
-              newrecord.tangentsInfos = CopyTypeArrayService$Meta3dComponentCommonlib.copyUint32ArrayWithEndIndex(tangentsInfos, infosEndIndex);
-              newrecord.normalsInfos = CopyTypeArrayService$Meta3dComponentCommonlib.copyUint32ArrayWithEndIndex(normalsInfos, infosEndIndex);
-              newrecord.texCoordsInfos = CopyTypeArrayService$Meta3dComponentCommonlib.copyUint32ArrayWithEndIndex(texCoordsInfos, infosEndIndex);
-              newrecord.verticesInfos = CopyTypeArrayService$Meta3dComponentCommonlib.copyUint32ArrayWithEndIndex(verticesInfos, infosEndIndex);
+              newrecord.gameObjectsMap = CopyTypeArrayService$Meta3dCommonlib.deepCopyMutableSparseMapOfArray(gameObjectsMap);
+              newrecord.indicesInfos = CopyTypeArrayService$Meta3dCommonlib.copyUint32ArrayWithEndIndex(indicesInfos, infosEndIndex);
+              newrecord.tangentsInfos = CopyTypeArrayService$Meta3dCommonlib.copyUint32ArrayWithEndIndex(tangentsInfos, infosEndIndex);
+              newrecord.normalsInfos = CopyTypeArrayService$Meta3dCommonlib.copyUint32ArrayWithEndIndex(normalsInfos, infosEndIndex);
+              newrecord.texCoordsInfos = CopyTypeArrayService$Meta3dCommonlib.copyUint32ArrayWithEndIndex(texCoordsInfos, infosEndIndex);
+              newrecord.verticesInfos = CopyTypeArrayService$Meta3dCommonlib.copyUint32ArrayWithEndIndex(verticesInfos, infosEndIndex);
               return newrecord;
             })
         };

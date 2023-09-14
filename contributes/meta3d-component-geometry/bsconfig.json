@@ -32,7 +32,6 @@
   "bs-dependencies": [
     "meta3d-type",
     "meta3d-component-worker-utils",
-    "meta3d-component-commonlib",
     "meta3d-component-geometry-protocol-common",
     "meta3d-component-geometry-protocol",
     "meta3d-engine-core-sceneview-protocol",

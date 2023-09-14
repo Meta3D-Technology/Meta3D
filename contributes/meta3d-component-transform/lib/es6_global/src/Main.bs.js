@@ -3,6 +3,7 @@
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
 import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentTransform from "./create_state/CreateStateUtils.bs.js";
 import * as AddTransformUtils$Meta3dComponentTransform from "./gameobject/AddTransformUtils.bs.js";
@@ -10,7 +11,6 @@ import * as GetTransformUtils$Meta3dComponentTransform from "./gameobject/GetTra
 import * as HasTransformUtils$Meta3dComponentTransform from "./gameobject/HasTransformUtils.bs.js";
 import * as CloneTransformUtils$Meta3dComponentTransform from "./operate_component/CloneTransformUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentTransform from "./gameobject/GetGameObjectsUtils.bs.js";
-import * as CopyTypeArrayService$Meta3dComponentCommonlib from "../../../../../node_modules/meta3d-component-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
 import * as CreateTransformUtils$Meta3dComponentTransform from "./operate_component/CreateTransformUtils.bs.js";
 import * as RemoveTransformUtils$Meta3dComponentTransform from "./gameobject/RemoveTransformUtils.bs.js";
 import * as DisposeTransformUtils$Meta3dComponentTransform from "./operate_component/DisposeTransformUtils.bs.js";
@@ -154,10 +154,10 @@ function getContribute(param) {
                       config: state.config,
                       maxIndex: state.maxIndex,
                       buffer: state.buffer,
-                      localToWorldMatrices: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localToWorldMatrices, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined))),
-                      localPositions: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localPositions, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined))),
-                      localRotations: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localRotations, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined))),
-                      localScales: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localScales, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined))),
+                      localToWorldMatrices: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localToWorldMatrices, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined))),
+                      localPositions: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localPositions, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined))),
+                      localRotations: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localRotations, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined))),
+                      localScales: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localScales, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined))),
                       defaultLocalToWorldMatrix: state.defaultLocalToWorldMatrix,
                       defaultLocalPosition: state.defaultLocalPosition,
                       defaultLocalRotation: state.defaultLocalRotation,

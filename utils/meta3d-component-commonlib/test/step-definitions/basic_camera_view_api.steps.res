@@ -9,7 +9,7 @@ defineFeature(feature, test => {
   let basicCameraViewComponentName = "BasicCameraView"
 
   let _prepareData = (given, \"and", basicCameraViewComponentName) => {
-    open Meta3dEngineCore
+    open Meta3dEngineCoreSceneview
 
     given("prepare register", () => {
       CreateState.createState()->StateContainer.setState
@@ -40,7 +40,7 @@ defineFeature(feature, test => {
     })
 
     \"and"("create and set all component states", () => {
-      open Meta3dEngineCore
+      open Meta3dEngineCoreSceneview
 
       StateContainer.unsafeGetState()
       ->DirectorForJs.createAndSetComponentState(
@@ -190,7 +190,7 @@ defineFeature(feature, test => {
     let cameraView2 = ref(Obj.magic(-1))
 
     given("create and set all component states", () => {
-      open Meta3dEngineCore
+      open Meta3dEngineCoreSceneview
 
       StateContainer.unsafeGetState()
       ->DirectorForJs.createAndSetComponentState(

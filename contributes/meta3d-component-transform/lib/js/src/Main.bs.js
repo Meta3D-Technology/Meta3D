@@ -3,6 +3,7 @@
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var TypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/TypeArrayUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var CopyTypeArrayService$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 var CreateStateUtils$Meta3dComponentTransform = require("./create_state/CreateStateUtils.bs.js");
 var AddTransformUtils$Meta3dComponentTransform = require("./gameobject/AddTransformUtils.bs.js");
@@ -10,7 +11,6 @@ var GetTransformUtils$Meta3dComponentTransform = require("./gameobject/GetTransf
 var HasTransformUtils$Meta3dComponentTransform = require("./gameobject/HasTransformUtils.bs.js");
 var CloneTransformUtils$Meta3dComponentTransform = require("./operate_component/CloneTransformUtils.bs.js");
 var GetGameObjectsUtils$Meta3dComponentTransform = require("./gameobject/GetGameObjectsUtils.bs.js");
-var CopyTypeArrayService$Meta3dComponentCommonlib = require("meta3d-component-commonlib/lib/js/src/copy/CopyTypeArrayService.bs.js");
 var CreateTransformUtils$Meta3dComponentTransform = require("./operate_component/CreateTransformUtils.bs.js");
 var RemoveTransformUtils$Meta3dComponentTransform = require("./gameobject/RemoveTransformUtils.bs.js");
 var DisposeTransformUtils$Meta3dComponentTransform = require("./operate_component/DisposeTransformUtils.bs.js");
@@ -154,10 +154,10 @@ function getContribute(param) {
                       config: state.config,
                       maxIndex: state.maxIndex,
                       buffer: state.buffer,
-                      localToWorldMatrices: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localToWorldMatrices, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined))),
-                      localPositions: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localPositions, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined))),
-                      localRotations: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localRotations, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined))),
-                      localScales: CopyTypeArrayService$Meta3dComponentCommonlib.copyFloat32ArrayWithEndIndex(localScales, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined))),
+                      localToWorldMatrices: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localToWorldMatrices, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined))),
+                      localPositions: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localPositions, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalPositionsSize(undefined))),
+                      localRotations: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localRotations, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalRotationsSize(undefined))),
+                      localScales: CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(localScales, Math.imul(maxIndex, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalScalesSize(undefined))),
                       defaultLocalToWorldMatrix: state.defaultLocalToWorldMatrix,
                       defaultLocalPosition: state.defaultLocalPosition,
                       defaultLocalRotation: state.defaultLocalRotation,

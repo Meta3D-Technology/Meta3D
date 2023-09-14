@@ -1,12 +1,12 @@
 'use strict';
 
-var Main$Meta3dEngineCore = require("meta3d-engine-core/lib/js/src/Main.bs.js");
+var Main$Meta3dEngineCoreSceneview = require("meta3d-engine-core-sceneview/lib/js/src/Main.bs.js");
 
-var getExtensionService = Main$Meta3dEngineCore.getExtensionService;
+var getExtensionService = Main$Meta3dEngineCoreSceneview.getExtensionService;
 
-var createExtensionState = Main$Meta3dEngineCore.createExtensionState;
+var createExtensionState = Main$Meta3dEngineCoreSceneview.createExtensionState;
 
-var getExtensionLife = Main$Meta3dEngineCore.getExtensionLife;
+var getExtensionLife = Main$Meta3dEngineCoreSceneview.getExtensionLife;
 
 exports.getExtensionService = getExtensionService;
 exports.createExtensionState = createExtensionState;
