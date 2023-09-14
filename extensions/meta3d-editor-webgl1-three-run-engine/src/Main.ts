@@ -52,5 +52,13 @@ export let createExtensionState: createExtensionStateMeta3D<
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
 	return {
+		onDeepCopy: (meta3dState) => {
+			let state = api.getExtensionState<state>(meta3dState, extensionProtocolName)
+
+			return api.setExtensionState<state>(meta3dState, extensionProtocolName, {
+				...state,
+				loopFuncs: state.loopFuncs.slice()
+			})
+		}
 	}
 }

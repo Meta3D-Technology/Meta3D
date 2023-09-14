@@ -1,7 +1,7 @@
 
 
-import * as MutableHashMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as MutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/MutableHashMap.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
 
 var _createSpecialKeyMap = (function() {
   var resultMap = [];
@@ -228,10 +228,31 @@ function create(param) {
         };
 }
 
+function deepCopy(eventManagerState) {
+  var init = eventManagerState.eventData;
+  return {
+          eventData: {
+            domEventStreamSubscription: init.domEventStreamSubscription,
+            mouseDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.copy(eventManagerState.eventData.mouseDomEventDataArrMap),
+            keyboardDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.copy(eventManagerState.eventData.keyboardDomEventDataArrMap),
+            touchDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.copy(eventManagerState.eventData.touchDomEventDataArrMap),
+            customGlobalEventArrMap: MutableHashMap$Meta3dCommonlib.copy(eventManagerState.eventData.customGlobalEventArrMap),
+            customGlobalEventArrMap2: MutableHashMap$Meta3dCommonlib.copy(eventManagerState.eventData.customGlobalEventArrMap2),
+            mouseEventData: init.mouseEventData,
+            keyboardEventData: init.keyboardEventData,
+            touchEventData: init.touchEventData
+          },
+          canvas: eventManagerState.canvas,
+          body: eventManagerState.body,
+          browser: eventManagerState.browser
+        };
+}
+
 export {
   _createSpecialKeyMap ,
   _createShiftKeyByKeyCodeMap ,
   _createShiftKeyByCharCodeMap ,
   create ,
+  deepCopy ,
 }
 /* No side effect */

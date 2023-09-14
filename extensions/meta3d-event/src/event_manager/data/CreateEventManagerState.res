@@ -227,3 +227,15 @@ let create = (): EventManagerStateType.state => {
   body: None,
   browser: Meta3dEventProtocol.BrowserType.Chrome,
 }
+
+let deepCopy = (eventManagerState: EventManagerStateType.state) => {
+  ...eventManagerState,
+  eventData: {
+    ...eventManagerState.eventData,
+    mouseDomEventDataArrMap: eventManagerState.eventData.mouseDomEventDataArrMap->Meta3dCommonlib.MutableSparseMap.copy,
+    keyboardDomEventDataArrMap: eventManagerState.eventData.keyboardDomEventDataArrMap->Meta3dCommonlib.MutableSparseMap.copy,
+    touchDomEventDataArrMap: eventManagerState.eventData.touchDomEventDataArrMap->Meta3dCommonlib.MutableSparseMap.copy,
+    customGlobalEventArrMap: eventManagerState.eventData.customGlobalEventArrMap->Meta3dCommonlib.MutableHashMap.copy,
+    customGlobalEventArrMap2: eventManagerState.eventData.customGlobalEventArrMap2->Meta3dCommonlib.MutableHashMap.copy,
+  },
+}

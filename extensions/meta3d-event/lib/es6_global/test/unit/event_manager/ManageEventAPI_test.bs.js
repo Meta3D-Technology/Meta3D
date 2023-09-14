@@ -1,17 +1,17 @@
 
 
-import * as Curry from "./../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Sinon from "./../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Sinon from "../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Sinon$1 from "sinon";
-import * as Main$Meta3d from "./../../../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
-import * as Meta3d_jest from "./../../../../../../../node_modules/meta3d-bs-jest/lib/es6_global/src/meta3d_jest.bs.js";
-import * as Js_null_undefined from "./../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
+import * as Main$Meta3d from "../../../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
+import * as Meta3d_jest from "../../../../../../../node_modules/meta3d-bs-jest/lib/es6_global/src/meta3d_jest.bs.js";
+import * as Js_null_undefined from "../../../../../../../node_modules/rescript/lib/es6/js_null_undefined.js";
 import * as TestTool$Meta3dEvent from "../../tool/event_manager/TestTool.bs.js";
 import * as ManageEventAPI$Meta3dEvent from "../../tool/api/ManageEventAPI.bs.js";
 import * as CustomEventTool$Meta3dEvent from "../../tool/event_manager/CustomEventTool.bs.js";
 import * as ContainerManager$Meta3dEvent from "../../../src/event_manager/data/ContainerManager.bs.js";
 import * as EventExtensionTool$Meta3dEvent from "../../tool/api/EventExtensionTool.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as ManageEventAPIForSrc$Meta3dEvent from "../../../src/event_manager/api/ManageEventAPIForSrc.bs.js";
 
 Meta3d_jest.describe("ManageEventAPI", (function (param) {
@@ -65,7 +65,9 @@ Meta3d_jest.describe("ManageEventAPI", (function (param) {
                                   registerContribute: init.registerContribute,
                                   getContribute: init.getContribute,
                                   getAllContributesByType: init.getAllContributesByType,
-                                  getPackage: init.getPackage
+                                  getPackage: init.getPackage,
+                                  restore: init.restore,
+                                  deepCopy: init.deepCopy
                                 };
                         };
                         Meta3d_jest.test("test", (function (param) {

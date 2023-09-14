@@ -6,6 +6,7 @@ import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeli
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { map } from "meta3d-commonlib-ts/src/NullableUtils";
 
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
@@ -43,5 +44,15 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		initFunc: _init,
 		getExecFunc: _getExecFunc,
 		allPipelineData: allPipelineData,
+		deepCopyFunc: (state) => {
+			return {
+				...state,
+				allGeometryIndices: state.allGeometryIndices.slice(),
+				allMaterialIndices: state.allMaterialIndices.slice(),
+				viewMatrix: map((viewMatrix) => viewMatrix.slice(), state.viewMatrix),
+				pMatrix: map((pMatrix) => pMatrix.slice(), state.pMatrix),
+				allRenderComponents: state.allRenderComponents.slice()
+			}
+		}
 	}
 }

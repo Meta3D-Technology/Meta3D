@@ -6,7 +6,7 @@ export const actionName = "Run"
 export type state = {
     meta3dStateBeforeRun: nullable<meta3dState>,
     isRun: boolean,
-    loopHandle: nullable<number>
+    // loopHandle: nullable<number>
 }
 
 export type elementState = {

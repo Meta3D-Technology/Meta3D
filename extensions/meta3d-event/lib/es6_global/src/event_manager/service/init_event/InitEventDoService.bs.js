@@ -1,10 +1,10 @@
 
 
 import * as Most from "most";
-import * as Curry from "./../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "./../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Most$Meta3dBsMost from "./../../../../../../../../node_modules/meta3d-bs-most/lib/es6_global/src/most.bs.js";
-import * as Log$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Curry from "../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Most$Meta3dBsMost from "../../../../../../../../node_modules/meta3d-bs-most/lib/es6_global/src/most.bs.js";
+import * as Log$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as BodyDoService$Meta3dEvent from "../dom/BodyDoService.bs.js";
 import * as BrowserDoService$Meta3dEvent from "../browser/BrowserDoService.bs.js";
 import * as ContainerManager$Meta3dEvent from "../../data/ContainerManager.bs.js";

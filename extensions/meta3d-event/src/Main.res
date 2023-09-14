@@ -33,11 +33,26 @@ let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state>
 }
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dEventProtocol.ServiceType.service> = (
-  _,
-  _,
+  api,
+  extensionProtocolName,
 ) => {
   {
     onRegister: Js.Nullable.null,
+    onRestore: Js.Nullable.null,
+    onDeepCopy: (
+      meta3dState => {
+        let state: StateType.state = api.getExtensionState(. meta3dState, extensionProtocolName)
+
+        api.setExtensionState(.
+          meta3dState,
+          extensionProtocolName,
+          {
+            ...state,
+            eventManagerState: CreateEventManagerState.deepCopy(state.eventManagerState),
+          },
+        )
+      }
+    )->Meta3dCommonlib.NullableSt.return,
     onStart: Js.Nullable.null,
     onInit: Js.Nullable.null,
     onUpdate: Js.Nullable.null,
