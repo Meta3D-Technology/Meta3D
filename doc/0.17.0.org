@@ -52,11 +52,24 @@ TODO build engine demo app
 
 * TODO Asset
 GLB
-GLTF zip?
+# GLTF zip?
 
-asset tree has only one level now
+not use asset tree, use list/array instead which only has one level
+
+
 
 * TODO 导入Asset
 
+TODO load as a whole file, not extract textures, materials
 
-* TODO 导入/导出包
+TODO support drag loaded file to scene view
+
+  # TODO use clone
+
+
+
+
+TODO if exist the same name file, rename loaded one
+
+
+* TODO change import/export to 导入/导出包
