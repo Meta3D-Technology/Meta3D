@@ -1,0 +1,62 @@
+* TODO three.js引擎
+
+PBRMaterial+direction light+diffuse, metalroughness,... map
+
+
+能够渲染较复杂的GLTF场景
+
+** TODO change basic material to pbr material
+
+
+TODO add BasicTexture in contributes/
+  no bdd test
+
+TODO update PBRMaterial to add get/set basic texture
+  bdd test
+
+TODO add Texture
+
+
+TODO add MeshPBRMaterial
+  TODO add MeshPBRMaterial
+  TODO support diffuse, metalroughness, normal, transmission map
+  TODO support metalroughness, transmission, ...
+
+TODO dispose:
+dispose map
+
+
+TODO clear:
+clear map
+
+** TODO add direction light
+
+TODO support direction light
+
+
+# ** TODO update load scene extension
+
+# TODO handle pbr material, direction light
+
+
+** TODO run test: load and render a glb with maps:Lantern.glb
+
+TODO engine demo->default scene: load a glb with maps
+
+TODO build engine demo app
+
+
+
+
+
+
+* TODO Asset
+GLB
+GLTF zip?
+
+asset tree has only one level now
+
+* TODO 导入Asset
+
+
+* TODO 导入/导出包
