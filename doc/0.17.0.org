@@ -1,75 +1,130 @@
-* TODO three.js引擎
-
-PBRMaterial+direction light+diffuse, metalroughness,... map
+* TODO refactor by event sourcing
 
 
-能够渲染较复杂的GLTF场景
-
-** TODO change basic material to pbr material
+** TODO demo
 
 
-TODO add BasicTexture in contributes/
-  no bdd test
-
-TODO update PBRMaterial to add get/set basic texture
-  bdd test
-
-TODO add Texture
+# event
+#   express by json data instead of type
+#   # global share
+#   register event json data
 
 
-TODO add MeshPBRMaterial
-  TODO add MeshPBRMaterial
-  TODO support diffuse, metalroughness, normal, transmission map
-  TODO support metalroughness, transmission, ...
-
-TODO dispose:
-dispose map
+# event's event(can recursive)
 
 
-TODO clear:
-clear map
 
-** TODO add direction light
-
-TODO support direction light
+emit event layer
+  support sync and async?
 
 
-# ** TODO update load scene extension
-
-# TODO handle pbr material, direction light
+handle event layer
 
 
-** TODO run test: load and render a glb with maps:Lantern.glb
+control event layer
 
-TODO engine demo->default scene: load a glb with maps
 
-TODO build engine demo app
+register event layer
+
+  # one app only has one extension(protocol define type)
+  one app only has one extension protocol define type
+    event name: enum
+    type: event input data, event output data(support sync and async)
+  # (empty extension implement?)
+  extension implement is control event?
+  define all posible events
 
 
 
 
 
+# low level
 
-* TODO Asset
-GLB
-# GLTF zip?
+# high level
+event sourcing
 
-not use asset tree, use list/array instead which only has one level
+  event store
+    only add, no update and delete
 
+    should store: event and event config(direction, type, ...) and input data(except state)(data = outside data + domain model)(if data is Big Immutable Data, use id instead) 
+    # + Big Immutable Data(only add, no delete or edit)
+      # e.g. first event can be: load with input data: pacakge id
 
-
-* TODO 导入Asset
-
-TODO load as a whole file, not extract textures, materials
-
-TODO support drag loaded file to scene view
-
-  # TODO use clone
-
-
+    # store Big Immutable Data(e.g. GLB asset, Image), generated unqiue id for each one
+    if outside data is Big Data(e.g. GLB asset, Image), generated unqiue id for each one
+    state should store id of Big Data
+    store them in another extension's state(only add, no delete or edit)(if is Mutable, need deep copy and store; else, not copy and directly store)
 
 
-TODO if exist the same name file, rename loaded one
+  register event:
+    forward
+      handle
+    backward
+      handle
+
+    only need one direction's input, output data type
+
+    handle can use deepCopy, restore
 
 
-* TODO change import/export to 导入/导出包
+  # event add flag:
+  #   # e.g. need_redo_undo
+  #   e.g. main(means need redo undo)
+
+  event add read/write type
+    only write event need implement backward handle
+
+  event can has parent->children
+    e.g. dispose gameObject is parent event, dispose gameObjects' component is its children events
+    this usage is to only redo/undo the top event(has no parent)
+
+engine demo can choose not use event sourcing?
+
+
+
+when backward, invoke each event's backward handle in event store(children->parent)
+
+
+
+** TODO refactor
+
+
+** TODO apply event sourcing
+action,ui control use event sourcing
+
+
+redo-undo:
+  forward/backward events
+    add backward event to event store instead of edit events in event store! 
+
+
+profile:
+  get cost time of each event grouped by each frame
+
+debug:
+  get all events to restore env 
+    how to restore backend data?(no need because of different version?)
+  can show all events
+
+
+multi edit demo:
+  solve conflict
+
+publish->app:
+  debug
+
+  save/load: e.g. continue last saved game
+
+  timeline backward or forward(redo-undo)
+
+  multi thread
+
+
+
+** TODO update current extensions, contributes
+
+
+
+* TODO future: platform use event sourcing
+
+* TODO refactor: remove api

@@ -1,0 +1,98 @@
+
+* TODO three.js引擎
+
+PBRMaterial+direction light+diffuse, metalroughness,... map
+
+
+能够渲染较复杂的GLTF场景
+
+** TODO change basic material to pbr material
+
+
+TODO add BasicSourceTexture in contributes/
+  no bdd test
+
+        image: TexImageSource | OffscreenCanvas,
+        # mapping: Mapping,
+        wrapS: Wrapping,
+        wrapT: Wrapping,
+        magFilter: MagnificationTextureFilter,
+        minFilter: MinificationTextureFilter,
+        format: PixelFormat,
+        type: TextureDataType,
+        # anisotropy: number,
+        # encoding: TextureEncoding,
+        isNeedUpdates
+        flipY
+
+  dispose:judge material
+
+
+
+
+TODO update PBRMaterial to add get/set basic textures
+  bdd test
+
+TODO update PBRMaterial to clone for maps
+  bdd test
+
+TODO add Texture
+
+
+TODO add MeshPBRMaterial
+  TODO add MeshPBRMaterial
+  TODO support diffuse, metalroughness, normal, transmission map
+  TODO support metalroughness, transmission, ...
+
+TODO dispose:
+dispose map
+
+
+TODO clear:
+clear map
+
+** TODO add direction light
+
+TODO support direction light
+
+
+# ** TODO update load scene extension
+
+# TODO handle pbr material, direction light
+
+
+** TODO run test: load and render a glb with maps:Lantern.glb
+
+TODO engine demo->default scene: load a glb with maps
+
+TODO build engine demo app
+
+
+
+
+
+
+* TODO Asset
+GLB
+# GLTF zip?
+
+not use asset tree, use list/array instead which only has one level
+
+
+
+* TODO 导入Asset
+
+TODO load as a whole file, not extract textures, materials
+
+TODO support drag loaded file to scene view
+
+  # TODO use clone
+
+
+
+
+TODO if exist the same name file, rename loaded one
+
+
+* TODO change import/export to 导入/导出包(remain export scene)
+
