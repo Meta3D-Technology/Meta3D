@@ -1,7 +1,7 @@
 * TODO refactor by event sourcing
 
 
-** TODO demo
+** DONE demo
 
 
 # event
@@ -46,7 +46,12 @@ event sourcing
   event store
     only add, no update and delete
 
-    should store: event and event config(direction, type, ...) and input data(except state)(data = outside data + domain model)(if data is Big Immutable Data, use id instead) 
+    # should store: event and event config(direction, type, ...) and input data(except state)(data = outside data + domain model)(if data is Big Immutable Data, use id instead) 
+
+    should store: event data + outside data
+      event data = event and event config(direction, type, ...) and input data(except state)(data = outside data id + domain model)
+
+
     # + Big Immutable Data(only add, no delete or edit)
       # e.g. first event can be: load with input data: pacakge id
 
@@ -71,8 +76,8 @@ event sourcing
   #   # e.g. need_redo_undo
   #   e.g. main(means need redo undo)
 
-  event add read/write type
-    only write event need implement backward handle
+  # event add read/write type
+  #   only write event need implement backward handle
 
   event can has parent->children
     e.g. dispose gameObject is parent event, dispose gameObjects' component is its children events
@@ -85,8 +90,14 @@ engine demo can choose not use event sourcing?
 when backward, invoke each event's backward handle in event store(children->parent)
 
 
+** TODO demo2: event data add type=write
 
-** TODO refactor
+perf: if is read, forward/backward just ignore it!
+
+** TODO demo3: init,update pipeline add job event
+
+
+** TODO min implement
 
 
 ** TODO apply event sourcing
@@ -97,6 +108,10 @@ redo-undo:
   forward/backward events
     add backward event to event store instead of edit events in event store! 
 
+    ignore pipeline job event 
+
+run->redo/undo: 
+  backward before run
 
 profile:
   get cost time of each event grouped by each frame
@@ -110,6 +125,11 @@ debug:
 multi edit demo:
   solve conflict
 
+
+add some event handles before(get inputData-return inputData)/after(get outputData-return outputData) specify event?
+
+
+
 publish->app:
   debug
 
@@ -121,6 +141,8 @@ publish->app:
 
 
 
+** TODO use rescript to implement event sourcing
+
 ** TODO update current extensions, contributes
 
 
@@ -128,3 +150,11 @@ publish->app:
 * TODO future: platform use event sourcing
 
 * TODO refactor: remove api
+
+
+
+# * TODO refactor: protocol's dependents should add to check
+
+# TODO add to package.json->dependents
+
+# TODO check in DependencyGraph
