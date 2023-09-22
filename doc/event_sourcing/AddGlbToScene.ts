@@ -9,7 +9,7 @@ declare function addGlbToScene(meta3dState, glb): meta3dState
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             add_glb_to_scene_event_inputData,
             add_glb_to_scene_event_outputData
         >(meta3dState, eventName.add_glb_to_scene_event, (meta3dState, glbId) => {

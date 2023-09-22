@@ -11,7 +11,7 @@ declare function setCurrentGlbId(meta3dState, gameObject: gameObject): meta3dSta
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             get_current_glb_id_event_inputData,
             get_current_glb_id_event_outputData
         >(meta3dState, eventName.get_current_glb_id_event, (meta3dState, glbId) => {

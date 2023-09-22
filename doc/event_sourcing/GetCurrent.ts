@@ -11,7 +11,7 @@ declare function setCurrentGameObject(meta3dState, gameObject: gameObject): meta
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             get_current_gameObject_event_inputData,
             get_current_gameObject_event_outputData
         >(meta3dState, eventName.get_current_gameObject_event, (meta3dState, gameObject) => {

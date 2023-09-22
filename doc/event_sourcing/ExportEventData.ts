@@ -14,7 +14,7 @@ declare function generateWholeAggregate(sceneGlb, allOutsideData): ArrayBuffer
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             export_eventData_event_inputData,
             export_eventData_event_outputData
         >(meta3dState, eventName.export_eventData_event, (meta3dState, { isReset }) => {

@@ -90,11 +90,11 @@ engine demo can choose not use event sourcing?
 when backward, invoke each event's backward handle in event store(children->parent)
 
 
-** TODO demo2: event data add type=write
+# ** TODO demo2: event data add type=write
 
-perf: if is read, forward/backward just ignore it!
+# perf: if is read, forward/backward just ignore it!
 
-** TODO demo3: init,update pipeline add job event
+** TODO demo: init,update pipeline add job event
 
 
 ** TODO min implement
@@ -144,6 +144,12 @@ publish->app:
 ** TODO use rescript to implement event sourcing
 
 ** TODO update current extensions, contributes
+
+
+
+** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)
+
+
 
 
 

@@ -1,6 +1,6 @@
 import { service as eventSourcingService } from "./EventSourcing"
 import { push, undo } from "./RedoUndo"
-import { eventName, dispose_gameObject_event_inputData, dispose_gameObject_event_outputData, dispose_pbrMaterial_event_inputData } from "./events"
+import { eventName, dispose_gameObject_event_inputData, dispose_gameObject_event_outputData, dispose_pbrMaterial_event_inputData, dispose_pbrMaterial_event_outputData } from "./events"
 import { meta3dState, pbrMaterial } from "./type"
 
 declare function deepCopy(meta3dState): meta3dState
@@ -9,7 +9,7 @@ declare function getPBRMaterial(meta3dState, gameObject): pbrMaterial
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             dispose_gameObject_event_inputData,
             dispose_gameObject_event_outputData
         >(meta3dState, eventName.dispose_gameObject_event, (meta3dState, gameObject) => {
@@ -18,7 +18,7 @@ export let service = {
 
             console.log("dispose gameObject:" + gameObject)
 
-            return eventSourcingService.addEventAndUpdateView<dispose_pbrMaterial_event_inputData>(meta3dState, {
+            return eventSourcingService.addEventAndUpdateView<dispose_pbrMaterial_event_inputData, dispose_pbrMaterial_event_outputData>(meta3dState, {
                 name: eventName.dispose_pbrMaterial_event,
                 parent: eventName.dispose_gameObject_event,
                 inputData: [getPBRMaterial(meta3dState, gameObject)]

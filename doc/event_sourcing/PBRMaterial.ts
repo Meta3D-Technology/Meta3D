@@ -7,7 +7,7 @@ declare function deepCopy(meta3dState): meta3dState
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             dispose_pbrMaterial_event_inputData,
             dispose_pbrMaterial_event_outputData
         >(meta3dState, eventName.dispose_pbrMaterial_event, (meta3dState, pbrMaterial) => {

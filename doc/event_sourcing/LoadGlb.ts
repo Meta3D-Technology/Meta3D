@@ -7,7 +7,7 @@ declare function deepCopy(meta3dState): meta3dState
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             load_glb_event_inputData,
             load_glb_event_outputData
         >(meta3dState, eventName.load_glb_event, (meta3dState, glb) => {

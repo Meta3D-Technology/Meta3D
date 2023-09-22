@@ -13,7 +13,7 @@ declare function loadScene(meta3dState, sceneGlb): meta3dState
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             import_wholeAggregate_event_inputData,
             import_wholeAggregate_event_outputData
         >(meta3dState, eventName.import_wholeAggregate_event, (meta3dState, wholeAggregate) => {

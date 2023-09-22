@@ -12,7 +12,7 @@ declare function disposeAll(meta3dState): meta3dState
 
 export let service = {
     init: (meta3dState) => {
-        eventSourcingService.on<
+        return eventSourcingService.on<
             import_eventData_event_inputData,
             import_eventData_event_outputData
         >(meta3dState, eventName.import_eventData_event, (meta3dState, eventData) => {
