@@ -94,10 +94,9 @@ when backward, invoke each event's backward handle in event store(children->pare
 
 # perf: if is read, forward/backward just ignore it!
 
-** TODO demo: init,update pipeline add job event
+# ** TODO demo: init,update pipeline add job event
+** DONE demo: add event after init
 
-
-** TODO min implement
 
 
 ** TODO apply event sourcing
@@ -131,6 +130,8 @@ add some event handles before(get inputData-return inputData)/after(get outputDa
 
 
 publish->app:
+  load scene
+
   debug
 
   save/load: e.g. continue last saved game
@@ -140,6 +141,8 @@ publish->app:
   multi thread
 
 
+** TODO min implement
+
 
 ** TODO use rescript to implement event sourcing
 
@@ -147,7 +150,7 @@ publish->app:
 
 
 
-** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)
+# ** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)
 
 
 

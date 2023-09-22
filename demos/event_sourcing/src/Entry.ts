@@ -1,6 +1,6 @@
 import { service as eventSourcingService } from "./EventSourcing"
 import { createMeta3dState } from "./Meta3dState"
-import { eventName, finish_init_event_inputData, finish_init_event_outputData } from "./events"
+import { eventName } from "./events"
 import { meta3dState } from "./type"
 import { service as loadGlbActionService } from "./loadGlbAction"
 import { service as getCurrentGlbActionService } from "./GetCurrentGlbAction"
@@ -46,10 +46,14 @@ export let service = {
         console.log("init")
 
         // add finish init event(empty event) as key point
-        return eventSourcingService.addEventAndUpdateView<finish_init_event_inputData, finish_init_event_outputData>(meta3dState, {
-            name: eventName.finish_init_event,
-            inputData: [
-            ]
+        // return eventSourcingService.addEventAndUpdateView<finish_init_event_inputData, finish_init_event_outputData>(meta3dState, {
+        //     name: eventName.finish_init_event,
+        //     inputData: [
+        //     ]
+        // })
+        return new Promise((resolve, reject) => {
+            resolve(meta3dState)
+
         })
     },
     update: (meta3dState) => {

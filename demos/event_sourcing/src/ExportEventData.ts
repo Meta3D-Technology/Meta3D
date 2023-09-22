@@ -52,23 +52,34 @@ export let service = {
                 //     )
                 // )
                 eventData = exportEventData(
-                    eventSourcingService.sliceEvent(
-                        eventSourcingService.getAllEvents(meta3dState),
-                        null,
-                        eventName.finish_init_event
-                    ).concat(
-                        [
-                            {
-                                name: eventName.import_wholeAggregate_event,
-                                inputData: [
-                                    generateWholeAggregate(
-                                        generateSceneGlb(meta3dState),
-                                        eventSourcingService.getAllOutsideData(meta3dState)
-                                    )
-                                ]
-                            }
-                        ]
-                    )
+                    // eventSourcingService.sliceEvent(
+                    //     eventSourcingService.getAllEvents(meta3dState),
+                    //     null,
+                    //     eventName.finish_init_event
+                    // ).concat(
+                    //     [
+                    //         {
+                    //             name: eventName.import_wholeAggregate_event,
+                    //             inputData: [
+                    //                 generateWholeAggregate(
+                    //                     generateSceneGlb(meta3dState),
+                    //                     eventSourcingService.getAllOutsideData(meta3dState)
+                    //                 )
+                    //             ]
+                    //         }
+                    //     ]
+                    // )
+                    [
+                        {
+                            name: eventName.import_wholeAggregate_event,
+                            inputData: [
+                                generateWholeAggregate(
+                                    generateSceneGlb(meta3dState),
+                                    eventSourcingService.getAllOutsideData(meta3dState)
+                                )
+                            ]
+                        }
+                    ]
                 )
             }
 

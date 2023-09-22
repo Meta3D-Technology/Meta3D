@@ -3,7 +3,7 @@ import { meta3dState, gameObject, pbrMaterial, outsideDataId } from "./type"
 export enum eventName {
     // backward_event,
     // forward_event,
-    finish_init_event,
+    // finish_init_event,
     get_current_gameObject_event,
     dispose_gameObject_event,
     dispose_pbrMaterial_event,
@@ -73,9 +73,9 @@ export type eventData = ArrayBuffer
 
 // export type forward_event_outputData = []
 
-export type finish_init_event_inputData = []
+// export type finish_init_event_inputData = []
 
-export type finish_init_event_outputData = []
+// export type finish_init_event_outputData = []
 
 export type get_current_gameObject_event_inputData = [gameObject]
 
