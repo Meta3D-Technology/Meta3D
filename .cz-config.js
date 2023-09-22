@@ -23,6 +23,7 @@ module.exports = {
     { name: "services" },
     { name: "templates" },
     { name: "utils" },
+    { name: "demos" },
     { name: "backend" }
   ],
 

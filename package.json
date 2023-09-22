@@ -46,7 +46,8 @@
 		"platform/*",
 		"services/*",
 		"templates/*",
-		"utils/*"
+		"utils/*",
+		"demos/*"
 	],
 	"config": {
 		"commitizen": {

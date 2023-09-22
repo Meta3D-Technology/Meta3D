@@ -9,7 +9,8 @@
 		"platform/*",
 		"services/*",
 		"templates/*",
-		"utils/*"
+		"utils/*",
+		"demos/*"
 	],
 	"npmClient": "yarn",
 	"command": {

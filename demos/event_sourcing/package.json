@@ -1,0 +1,12 @@
+{
+    "name": "event-sourcing-demo",
+    "version": "0.0.1",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}
