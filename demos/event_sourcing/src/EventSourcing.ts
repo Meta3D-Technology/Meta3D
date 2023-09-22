@@ -77,8 +77,10 @@ export type service = {
     getAllEvents: <inputData>(meta3dState) => Array<eventData<inputData>>,
     sliceEvent: <inputData>(eventData: Array<eventData<inputData>>, fromEventName: nullable<eventName>, toEventName: nullable<eventName>) => Array<eventData<inputData>>,
     replaceAllEvents: <inputData>(meta3dState, allEvents: Array<eventData<inputData>>) => meta3dState,
-    // backward
-    // forward
+    //backward events and update view
+    backward: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
+    //forward events and update view
+    forward: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
 }
 
 // TODO implement

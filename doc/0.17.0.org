@@ -105,15 +105,12 @@ action,ui control use event sourcing
 
 redo-undo:
   forward/backward events
-    add backward event to event store instead of edit events in event store! 
+    ////add backward event to event store instead of edit events in event store! 
 
     ignore pipeline job event 
 
-run->redo/undo: 
-  backward before run
-
-profile:
-  get cost time of each event grouped by each frame
+# run->redo/undo: 
+#   backward before run
 
 debug:
   get all events to restore env 
@@ -123,6 +120,16 @@ debug:
 
 multi edit demo:
   solve conflict
+
+TODO implement
+
+
+
+profile:
+  get cost time of each event grouped by each frame
+
+TODO implement
+
 
 
 add some event handles before(get inputData-return inputData)/after(get outputData-return outputData) specify event?

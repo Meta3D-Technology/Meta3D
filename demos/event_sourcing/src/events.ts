@@ -12,7 +12,9 @@ export enum eventName {
     load_glb_event,
     get_current_glb_id_event,
     add_glb_to_scene_event,
-    import_wholeAggregate_event
+    import_wholeAggregate_event,
+    undo,
+    redo
 }
 
 export type eventData = ArrayBuffer
@@ -115,3 +117,11 @@ export type export_eventData_event_outputData = [eventData]
 export type import_wholeAggregate_event_inputData = [ArrayBuffer]
 
 export type import_wholeAggregate_event_outputData = []
+
+export type undo_inputData = []
+
+export type undo_outputData = []
+
+export type redo_inputData = []
+
+export type redo_outputData = []
