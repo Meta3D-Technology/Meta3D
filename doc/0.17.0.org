@@ -121,6 +121,15 @@ debug:
 multi edit demo:
   solve conflict
 
+
+TODO learn websocket
+
+TODO split update view and add event, now update view(forward new events) once in each frame
+
+
+TODO update redo/undo
+
+
 TODO implement
 
 
@@ -155,6 +164,9 @@ publish->app:
 
 ** TODO update current extensions, contributes
 
+export/import scene
+run/stop->restore
+publish
 
 
 # ** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)

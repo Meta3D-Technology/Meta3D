@@ -20,30 +20,67 @@ import { service as redoService } from "./Redo"
 
 declare function drawUIs(meta3dState): meta3dState
 
-let triggerUIActions = (meta3dState) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            loadGlbActionService.handler(meta3dState).then(meta3dState => {
-                return getCurrentGlbActionService.handler(meta3dState).then((meta3dState) => {
-                    return addGlbToSceneActionService.handler(meta3dState).then(meta3dState => {
-                        return exportEventDataActionService.handler(meta3dState)
-                    })
-                })
-            })
-                .then(meta3dState => {
-                    undoActionService.handler(meta3dState).then(meta3dState => {
-                        undoActionService.handler(meta3dState).then(meta3dState => {
-                            // TODO log
-                            redoActionService.handler(meta3dState).then(meta3dState => {
-                                // TODO log
+let _triggerUIActions = (meta3dState: meta3dState): Promise<meta3dState> => {
+    if (globalThis["load-glb"]) {
+        globalThis["load-glb"] = false
 
-                                resolve(meta3dState)
-                            })
-                        })
-                    })
-                })
-        }, 1000)
-    })
+        return loadGlbActionService.handler(meta3dState)
+    }
+
+    if (globalThis["add-glb"]) {
+        globalThis["add-glb"] = false
+
+        return addGlbToSceneActionService.handler(meta3dState)
+    }
+
+    if (globalThis["export"]) {
+        globalThis["export"] = false
+
+        return exportEventDataActionService.handler(meta3dState, false)
+    }
+
+    if (globalThis["import"]) {
+        globalThis["import"] = false
+
+        return importEventDataActionService.handler(meta3dState)
+    }
+
+    if (globalThis["undo"]) {
+        globalThis["undo"] = false
+
+        return undoActionService.handler(meta3dState)
+    }
+
+    if (globalThis["redo"]) {
+        globalThis["redo"] = false
+
+        return redoActionService.handler(meta3dState)
+    }
+
+    return Promise.resolve(meta3dState)
+
+    // return loadGlbActionService.handler(meta3dState).then(meta3dState => {
+    //     return getCurrentGlbActionService.handler(meta3dState).then((meta3dState) => {
+    //         return addGlbToSceneActionService.handler(meta3dState).then(meta3dState => {
+    //             throw new Error("error")
+
+    //             return exportEventDataActionService.handler(meta3dState, false)
+    //         })
+    //     })
+    // })
+    //     .then(meta3dState => {
+    //         return undoActionService.handler(meta3dState).then(meta3dState => {
+    //             return undoActionService.handler(meta3dState).then(meta3dState => {
+    //                 // TODO log
+    //                 return redoActionService.handler(meta3dState).then(meta3dState => {
+    //                     // TODO log
+
+    //                     // resolve(meta3dState)
+    //                     return meta3dState
+    //                 })
+    //             })
+    //         })
+    //     })
 }
 
 export let service = {
@@ -73,8 +110,14 @@ export let service = {
         })
     },
     update: (meta3dState) => {
-        meta3dState = drawUIs(meta3dState)
+        try {
+            meta3dState = drawUIs(meta3dState)
 
-        return triggerUIActions(meta3dState)
+            return _triggerUIActions(meta3dState)
+        } catch (e) {
+            console.error(e);
+
+            exportEventDataService.exportEventData(eventSourcingService.getAllEventsFromGlobalThis())
+        }
     }
 }

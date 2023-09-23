@@ -112,7 +112,7 @@ export type export_eventData_event_inputData = [{
     isReset: boolean
 }]
 
-export type export_eventData_event_outputData = [eventData]
+export type export_eventData_event_outputData = []
 
 export type import_wholeAggregate_event_inputData = [ArrayBuffer]
 

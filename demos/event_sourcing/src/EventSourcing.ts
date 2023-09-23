@@ -67,6 +67,7 @@ export type service = {
         backwardHandleFunc?: handleFunc<inputData, []>
     ) => meta3dState,
     updateView: <outputData extends Array<any>> (meta3dState, targetEventName?: eventName) => getOuptputData<outputData>,
+    //share all events in meta3dState, globalThis
     addEvent: <inputData> (meta3dState, eventData: eventData<inputData>) => meta3dState,
     addEventAndUpdateView: <inputData, outputData extends Array<any>> (meta3dState, eventData: eventData<inputData>) => getOuptputData<outputData>,
     addOutsideData: (meta3dState, outsideDataId: outsideDataId, outsideData: outsideData) => meta3dState,
@@ -75,6 +76,7 @@ export type service = {
     getAllOutsideData: (meta3dState) => Array<outsideData>,
     // getEventsAndOutsideData: <inputData>(meta3dState) => [Array<eventData<inputData>>, Array<outsideData>],
     getAllEvents: <inputData>(meta3dState) => Array<eventData<inputData>>,
+    getAllEventsFromGlobalThis: <inputData>() => Array<eventData<inputData>>,
     sliceEvent: <inputData>(eventData: Array<eventData<inputData>>, fromEventName: nullable<eventName>, toEventName: nullable<eventName>) => Array<eventData<inputData>>,
     replaceAllEvents: <inputData>(meta3dState, allEvents: Array<eventData<inputData>>) => meta3dState,
     //backward events and update view
