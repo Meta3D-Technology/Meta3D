@@ -5,7 +5,14 @@
         "watch": "tsc -w -noEmit",
         "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --open 'Chrome' --config webpack.config.devserver.js"
     },
-    "dependencies": {},
+    "dependencies": {
+        "express": "^4.18.2",
+        "socket.io": "^4.7.2",
+        "socket.io-client": "^4.7.2",
+        "cors": "^2.8.5",
+        "http-proxy-middleware": "^2.0.6",
+        "@types/socket.io": "^3.0.2"
+    },
     "devDependencies": {
         "arraybuffer-loader": "^1.0.8",
         "clean-webpack-plugin": "^4.0.0",

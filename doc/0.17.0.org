@@ -122,15 +122,24 @@ multi edit demo:
   solve conflict
 
 
-TODO learn websocket
-
-TODO split update view and add event, now update view(forward new events) once in each frame
+  # TODO learn websocket
 
 
-TODO update redo/undo
+  # TODO split update view and add event, now update view(forward new events) once in each frame
+
+  ////TODO inject hook
 
 
-TODO implement
+
+  ////TODO update redo/undo
+
+
+  TODO implement
+    - load glb
+    - for multi edit
+    - for debug
+    - for redo/undo
+    - other actions(include import/export)
 
 
 
@@ -186,3 +195,8 @@ publish
 # TODO add to package.json->dependents
 
 # TODO check in DependencyGraph
+
+
+* TODO fix: import: should import element contribute
+
+* TODO feat: overwrite app

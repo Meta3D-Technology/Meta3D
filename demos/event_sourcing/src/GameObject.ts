@@ -18,10 +18,12 @@ export let service = {
 
             console.log("dispose gameObject:" + gameObject)
 
-            return eventSourcingService.addEventAndUpdateView<dispose_pbrMaterial_event_inputData, dispose_pbrMaterial_event_outputData>(meta3dState, {
-                name: eventName.dispose_pbrMaterial_event,
-                parent: eventName.dispose_gameObject_event,
-                inputData: [getPBRMaterial(meta3dState, gameObject)]
+            return new Promise<meta3dState>((resolve, reject) => {
+                resolve(eventSourcingService.addEvent<dispose_pbrMaterial_event_inputData>(meta3dState, {
+                    name: eventName.dispose_pbrMaterial_event,
+                    parent: eventName.dispose_gameObject_event,
+                    inputData: [getPBRMaterial(meta3dState, gameObject)]
+                }))
             })
         }, (meta3dState, gameObject) => {
             return new Promise((resolve) => {

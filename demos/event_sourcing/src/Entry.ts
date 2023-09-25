@@ -17,6 +17,7 @@ import { service as importEventDataService } from "./ImportEventData"
 import { service as importWholeAggregateService } from "./ImportWholeAggregate"
 import { service as undoService } from "./Undo"
 import { service as redoService } from "./Redo"
+import { service as multiEditService } from "./multi_edit/client/MultiEdit"
 
 declare function drawUIs(meta3dState): meta3dState
 
@@ -96,24 +97,29 @@ export let service = {
         meta3dState = undoService.init(meta3dState)
         meta3dState = redoService.init(meta3dState)
 
+
+        meta3dState = multiEditService.init(meta3dState)
+
+
         console.log("init")
 
         // add finish init event(empty event) as key point
-        // return eventSourcingService.addEventAndUpdateView<finish_init_event_inputData, finish_init_event_outputData>(meta3dState, {
+        // return eventSourcingService.addEvent<finish_init_event_inputData>(meta3dState, {
         //     name: eventName.finish_init_event,
         //     inputData: [
         //     ]
         // })
         return new Promise((resolve, reject) => {
             resolve(meta3dState)
-
         })
     },
     update: (meta3dState) => {
         try {
             meta3dState = drawUIs(meta3dState)
 
-            return _triggerUIActions(meta3dState)
+            return _triggerUIActions(meta3dState).then(meta3dState => {
+                return multiEditService.sync(meta3dState)
+            })
         } catch (e) {
             console.error(e);
 
