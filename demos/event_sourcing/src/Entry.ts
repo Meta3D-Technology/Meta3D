@@ -15,48 +15,51 @@ import { service as addGlbToSceneService } from "./AddGlbToScene"
 import { service as exportEventDataService } from "./ExportEventData"
 import { service as importEventDataService } from "./ImportEventData"
 import { service as importWholeAggregateService } from "./ImportWholeAggregate"
-import { service as undoService } from "./Undo"
-import { service as redoService } from "./Redo"
+// import { service as undoService } from "./Undo"
+// import { service as redoService } from "./Redo"
 import { service as multiEditService } from "./multi_edit/client/MultiEdit"
 
-declare function drawUIs(meta3dState): meta3dState
+// declare function drawUIs(meta3dState): meta3dState
+let drawUIs = (meta3dState) => {
+return meta3dState
+}
 
 let _triggerUIActions = (meta3dState: meta3dState): Promise<meta3dState> => {
-    if (globalThis["load-glb"]) {
+    if (globalThis["load-glb"] === true) {
         globalThis["load-glb"] = false
 
         return loadGlbActionService.handler(meta3dState)
     }
 
-    if (globalThis["add-glb"]) {
-        globalThis["add-glb"] = false
+    // if (globalThis["add-glb"] === true) {
+    //     globalThis["add-glb"] = false
 
-        return addGlbToSceneActionService.handler(meta3dState)
-    }
+    //     return addGlbToSceneActionService.handler(meta3dState)
+    // }
 
-    if (globalThis["export"]) {
-        globalThis["export"] = false
+    // if (globalThis["export"] === true) {
+    //     globalThis["export"] = false
 
-        return exportEventDataActionService.handler(meta3dState, false)
-    }
+    //     return exportEventDataActionService.handler(meta3dState, false)
+    // }
 
-    if (globalThis["import"]) {
-        globalThis["import"] = false
+    // if (globalThis["import"] === true) {
+    //     globalThis["import"] = false
 
-        return importEventDataActionService.handler(meta3dState)
-    }
+    //     return importEventDataActionService.handler(meta3dState)
+    // }
 
-    if (globalThis["undo"]) {
-        globalThis["undo"] = false
+    // if (globalThis["undo"] === true) {
+    //     globalThis["undo"] = false
 
-        return undoActionService.handler(meta3dState)
-    }
+    //     return undoActionService.handler(meta3dState)
+    // }
 
-    if (globalThis["redo"]) {
-        globalThis["redo"] = false
+    // if (globalThis["redo"] === true) {
+    //     globalThis["redo"] = false
 
-        return redoActionService.handler(meta3dState)
-    }
+    //     return redoActionService.handler(meta3dState)
+    // }
 
     return Promise.resolve(meta3dState)
 
@@ -88,14 +91,14 @@ export let service = {
     init: () => {
         let meta3dState = createMeta3dState()
 
-        meta3dState = importEventDataService.init(meta3dState)
-        meta3dState = exportEventDataService.init(meta3dState)
-        meta3dState = getCurrentGlbService.init(meta3dState)
+        // meta3dState = importEventDataService.init(meta3dState)
+        // meta3dState = exportEventDataService.init(meta3dState)
+        // meta3dState = getCurrentGlbService.init(meta3dState)
         meta3dState = loadGlbService.init(meta3dState)
-        meta3dState = importWholeAggregateService.init(meta3dState)
-        meta3dState = addGlbToSceneService.init(meta3dState)
-        meta3dState = undoService.init(meta3dState)
-        meta3dState = redoService.init(meta3dState)
+        // meta3dState = importWholeAggregateService.init(meta3dState)
+        // meta3dState = addGlbToSceneService.init(meta3dState)
+        // meta3dState = undoService.init(meta3dState)
+        // meta3dState = redoService.init(meta3dState)
 
 
         meta3dState = multiEditService.init(meta3dState)
@@ -123,7 +126,7 @@ export let service = {
         } catch (e) {
             console.error(e);
 
-            exportEventDataService.exportEventData(eventSourcingService.getAllEventsFromGlobalThis())
+            // exportEventDataService.exportEventData(eventSourcingService.getAllEventsFromGlobalThis())
         }
     }
 }

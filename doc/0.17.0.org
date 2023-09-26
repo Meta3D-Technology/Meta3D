@@ -141,6 +141,10 @@ multi edit demo:
     - for redo/undo
     - other actions(include import/export)
 
+  TODO remove output data
+
+
+  TODO on->backwardHandleFunc can be ?(use undo for default implement)
 
 
 profile:
@@ -173,8 +177,20 @@ publish->app:
 
 ** TODO update current extensions, contributes
 
+
+
+
+
+
+TODO run test: add a cube
+
+
+
+
+TODO more:
 export/import scene
 run/stop->restore
+  three
 publish
 
 

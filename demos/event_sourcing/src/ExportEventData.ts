@@ -8,6 +8,9 @@ declare function deepCopy(meta3dState): meta3dState
 
 // declare function exportEventData(allEventData): eventData
 export declare function exportEventData(allEvents): void
+// export let exportEventData = (allEvents) => {
+
+// }
 
 declare function generateSceneGlb(meta3dState): ArrayBuffer
 

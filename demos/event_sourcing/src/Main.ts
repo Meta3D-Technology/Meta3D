@@ -1,9 +1,9 @@
 import { service } from "./Entry"
 import { service as multiEditService } from "./multi_edit/client/MultiEdit"
 
-// (document.querySelector("#load-glb") as HTMLButtonElement).onclick = (e) => {
-//     globalThis["load-glb"] = true
-// }
+(document.querySelector("#load-glb") as HTMLButtonElement).onclick = (e) => {
+    globalThis["load-glb"] = true
+}
 
 
 // (document.querySelector("#add-glb") as HTMLButtonElement).onclick = (e) => {

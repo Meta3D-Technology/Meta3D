@@ -1,4 +1,4 @@
-export type meta3dState = number
+export type meta3dState = any
 
 export type gameObject = number
 

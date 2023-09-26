@@ -34,7 +34,8 @@ export let service = {
                 parseEventData(eventData)
             )
 
-            return eventSourcingService.updateView<import_eventData_event_outputData>(meta3dState)
+            // return eventSourcingService.updateView<import_eventData_event_outputData>(meta3dState)
+            return eventSourcingService.forward<import_eventData_event_inputData>(meta3dState, eventSourcingService.getAllEvents(meta3dState))
         }, (meta3dState) => {
             return new Promise((resolve) => {
                 resolve(undo(meta3dState))

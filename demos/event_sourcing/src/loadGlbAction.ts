@@ -2,7 +2,10 @@ import { service as eventSourcingService } from "./EventSourcing"
 import { eventName, load_glb_event_inputData, load_glb_event_outputData } from "./events"
 import { meta3dState } from "./type"
 
-declare function getGlb(): ArrayBuffer
+// declare function getGlb(): ArrayBuffer
+let getGlb = () => {
+    return new ArrayBuffer(10)
+}
 
 export let service = {
     handler: (meta3dState) => {
