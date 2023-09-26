@@ -3,7 +3,7 @@
 
 
 
-import { eventData, eventName, inputData_ } from "./events"
+import { eventData, eventName, inputData_, outsideData } from "./events"
 import { gameObject, meta3dState, nullable, outsideDataId, pbrMaterial } from "./type"
 import { service as eventManagerService } from "./EventManager"
 

@@ -99,7 +99,7 @@ when backward, invoke each event's backward handle in event store(children->pare
 
 
 
-** TODO apply event sourcing
+** DONE apply event sourcing
 action,ui control use event sourcing
 
 
@@ -171,7 +171,7 @@ publish->app:
   multi thread
 
 
-** TODO min implement
+# ** TODO min implement
 
 
 ** TODO use rescript to implement event sourcing
@@ -183,9 +183,12 @@ TODO on->backwardHandleFunc can be ?(use undo for default implement)
 
 
 
+
 ** TODO update current extensions, contributes
 
 
+
+TODO action add init to on
 
 
 
