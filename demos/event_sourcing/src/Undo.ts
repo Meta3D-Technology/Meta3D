@@ -16,7 +16,7 @@
 //         >(meta3dState, eventName.undo, (meta3dState) => {
 //             let lastStepEvents = _getLastStepEvents(eventSourcingService.getAllEvents(meta3dState))
 
-//             return eventSourcingService.backward(meta3dState, lastStepEvents).then(meta3dState => {
+//             return eventSourcingService.backwardView(meta3dState, lastStepEvents).then(meta3dState => {
 //                 meta3dState = saveLastStepEvents(meta3dState, lastStepEvents)
 
 //                 return meta3dState

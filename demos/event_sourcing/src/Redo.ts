@@ -11,7 +11,7 @@
 //         >(meta3dState, eventName.redo, (meta3dState) => {
 //             let lastStepEvents = getLastStepEvents(meta3dState)
 
-//             return eventSourcingService.forward(meta3dState, lastStepEvents)
+//             return eventSourcingService.forwardView(meta3dState, lastStepEvents)
 //         }
 //         )
 //     }

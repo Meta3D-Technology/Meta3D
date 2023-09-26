@@ -17,7 +17,25 @@ export enum eventName {
     redo
 }
 
-export type eventData = ArrayBuffer
+// export type eventData = ArrayBuffer
+
+
+type domainModelId = gameObject | pbrMaterial | number
+
+type valueObject = string | number | boolean | Object | Array<valueObject>
+
+
+export type inputData_ = outsideDataId | domainModelId | valueObject
+
+export type eventData<inputData> = {
+    // direction: "forwardView" | "backwardView",
+    name: eventName,
+    parent?: eventName,
+    // inputData: Record<fieldName, outsideDataId | domainModelId | valueObject
+    // >
+    inputData: inputData
+}
+
 
 // export type events = {
 //     backward_event: {
@@ -91,7 +109,8 @@ export type dispose_pbrMaterial_event_inputData = [pbrMaterial]
 
 export type dispose_pbrMaterial_event_outputData = []
 
-export type load_glb_event_inputData = [ArrayBuffer]
+// export type load_glb_event_inputData = [ArrayBuffer]
+export type load_glb_event_inputData = [outsideDataId]
 
 // export type load_glb_event_outputData = [outsideDataId]
 export type load_glb_event_outputData = []
@@ -104,7 +123,8 @@ export type add_glb_to_scene_event_inputData = [outsideDataId]
 
 export type add_glb_to_scene_event_outputData = []
 
-export type import_eventData_event_inputData = [eventData]
+// export type import_eventData_event_inputData = [eventData]
+export type import_eventData_event_inputData = [Array<eventData<inputData_>>, outsideDataId]
 
 export type import_eventData_event_outputData = []
 

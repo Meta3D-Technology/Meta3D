@@ -13,7 +13,7 @@ export let service = {
                 resolve(meta3dState)
             })
         }, (meta3dState, gameObject) => {
-            console.log("backward in gpu")
+            console.log("backwardView in gpu")
 
             return new Promise((resolve) => {
                 resolve(meta3dState)

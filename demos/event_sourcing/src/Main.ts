@@ -11,14 +11,14 @@ import { service as multiEditService } from "./multi_edit/client/MultiEdit"
 // }
 
 
-// (document.querySelector("#export") as HTMLButtonElement).onclick = (e) => {
-//     globalThis["export"] = true
-// }
+(document.querySelector("#export") as HTMLButtonElement).onclick = (e) => {
+    globalThis["export"] = true
+}
 
 
-// (document.querySelector("#import") as HTMLButtonElement).onclick = (e) => {
-//     globalThis["import"] = true
-// }
+(document.querySelector("#import") as HTMLButtonElement).onclick = (e) => {
+    globalThis["import"] = true
+}
 
 
 // (document.querySelector("#undo") as HTMLButtonElement).onclick = (e) => {

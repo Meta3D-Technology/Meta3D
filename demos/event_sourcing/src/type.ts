@@ -9,7 +9,7 @@ export type nullable<T> = T | null | undefined
 
 
 
-export type outsideDataId = number
+export type outsideDataId = string
 
 
 // export type domainModelId = gameObject | pbrMaterial | number

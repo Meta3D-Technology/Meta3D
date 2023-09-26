@@ -135,11 +135,12 @@ multi edit demo:
 
 
   TODO implement
-    - load glb
-    - for multi edit
-    - for debug
+    # - load glb
+    # - for multi edit
+    # - for debug
     - for redo/undo
     - other actions(include import/export)
+    - consider scene(import/export)
 
   TODO remove output data
 

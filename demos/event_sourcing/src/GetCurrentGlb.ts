@@ -5,9 +5,9 @@ import { gameObject, meta3dState, pbrMaterial } from "./type"
 
 declare function deepCopy(meta3dState): meta3dState
 
-export declare function getCurrentGlbId(meta3dState): gameObject
+export declare function getCurrentGlbId(meta3dState): string
 
-declare function setCurrentGlbId(meta3dState, gameObject: gameObject): meta3dState
+declare function setCurrentGlbId(meta3dState, glbId: string): meta3dState
 
 export let service = {
     init: (meta3dState) => {

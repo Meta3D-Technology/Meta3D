@@ -21,7 +21,7 @@ import { service as multiEditService } from "./multi_edit/client/MultiEdit"
 
 // declare function drawUIs(meta3dState): meta3dState
 let drawUIs = (meta3dState) => {
-return meta3dState
+    return meta3dState
 }
 
 let _triggerUIActions = (meta3dState: meta3dState): Promise<meta3dState> => {
@@ -37,17 +37,19 @@ let _triggerUIActions = (meta3dState: meta3dState): Promise<meta3dState> => {
     //     return addGlbToSceneActionService.handler(meta3dState)
     // }
 
-    // if (globalThis["export"] === true) {
-    //     globalThis["export"] = false
+    if (globalThis["export"] === true) {
+        globalThis["export"] = false
 
-    //     return exportEventDataActionService.handler(meta3dState, false)
-    // }
+        throw new Error("export error")
 
-    // if (globalThis["import"] === true) {
-    //     globalThis["import"] = false
+        return exportEventDataActionService.handler(meta3dState, false)
+    }
 
-    //     return importEventDataActionService.handler(meta3dState)
-    // }
+    if (globalThis["import"] === true) {
+        globalThis["import"] = false
+
+        return importEventDataActionService.handler(meta3dState)
+    }
 
     // if (globalThis["undo"] === true) {
     //     globalThis["undo"] = false
@@ -91,8 +93,9 @@ export let service = {
     init: () => {
         let meta3dState = createMeta3dState()
 
-        // meta3dState = importEventDataService.init(meta3dState)
-        // meta3dState = exportEventDataService.init(meta3dState)
+        meta3dState = eventSourcingService.init(meta3dState)
+        meta3dState = importEventDataService.init(meta3dState)
+        meta3dState = exportEventDataService.init(meta3dState)
         // meta3dState = getCurrentGlbService.init(meta3dState)
         meta3dState = loadGlbService.init(meta3dState)
         // meta3dState = importWholeAggregateService.init(meta3dState)
@@ -124,9 +127,12 @@ export let service = {
                 return multiEditService.sync(meta3dState)
             })
         } catch (e) {
-            console.error(e);
+            exportEventDataService.exportEventData(
+                eventSourcingService.getAllEventsFromGlobalThis(),
+                eventSourcingService.getAllOutsideDataFromGlobalThis()
+            )
 
-            // exportEventDataService.exportEventData(eventSourcingService.getAllEventsFromGlobalThis())
+            throw e
         }
     }
 }

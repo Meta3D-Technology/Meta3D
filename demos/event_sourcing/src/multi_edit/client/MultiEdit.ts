@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { eventData, service as eventSourcingService } from "../../EventSourcing";
+import {  service as eventSourcingService } from "../../EventSourcing";
 import { meta3dState } from "../../type";
 
 // declare function _getAddedEvents(meta3dState, previousAllEvents): Array<eventData<any>>
@@ -73,7 +73,7 @@ export let service = {
 
 
     //     if (previousAddedEvents !== null) {
-    //         eventSourcingService.forward(meta3dState, previousAddedEvents).then(meta3dState => {
+    //         eventSourcingService.forwardView(meta3dState, previousAddedEvents).then(meta3dState => {
     //             _allEvents = eventSourcingService.getAllEvents(meta3dState)
 
     //             return meta3dState
@@ -100,7 +100,7 @@ export let service = {
                 globalThis["addedEvents"] = null
 
 
-                eventSourcingService.forward(meta3dState, addedEvents).then(meta3dState => {
+                eventSourcingService.forwardView(meta3dState, addedEvents).then(meta3dState => {
                     _allEvents = eventSourcingService.getAllEvents(meta3dState).slice()
 
                     clearInterval(id)

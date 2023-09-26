@@ -4,13 +4,56 @@ import { push, undo } from "./RedoUndo"
 import { eventData, eventName, export_eventData_event_inputData, export_eventData_event_outputData } from "./events"
 import { gameObject, meta3dState, pbrMaterial } from "./type"
 
-declare function deepCopy(meta3dState): meta3dState
+// declare function deepCopy(meta3dState): meta3dState
 
 // declare function exportEventData(allEventData): eventData
-export declare function exportEventData(allEvents): void
-// export let exportEventData = (allEvents) => {
+// export declare function exportEventData(allEvents): void
 
-// }
+let _download = (body: ArrayBuffer, filename: string, extension: string) => {
+    const blob = new Blob([body], { type: "arraybuffer" });
+    const fileName = filename + "." + extension;
+
+    const link = document.createElement('a');
+
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', fileName);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// TODO use BinaryFileOperator
+export let exportEventData = (allEvents, allOutsideData) => {
+    let encoder = new TextEncoder()
+    let allEventsBuffer = encoder.encode(JSON.stringify(allEvents)).buffer
+
+    // TODO remove limit
+    if (allOutsideData.length != 1) {
+        throw new Error("error")
+    }
+
+    let [outsideDataId1, outsideData1] = allOutsideData[0]
+
+    let outsideDataId1Buffer = encoder.encode(outsideDataId1).buffer
+
+
+    let allOutsideDataBuffer = new ArrayBuffer(outsideData1.byteLength + outsideDataId1Buffer.byteLength + 4)
+
+    let dataView = new DataView(allOutsideDataBuffer)
+    dataView.setUint32(0, outsideDataId1Buffer.byteLength)
+
+
+
+
+    let wholeBuffer = new ArrayBuffer(allEventsBuffer.byteLength + allOutsideDataBuffer.byteLength + 4)
+
+    dataView = new DataView(wholeBuffer)
+    dataView.setUint32(0, allEventsBuffer.byteLength)
+
+    _download(wholeBuffer, "wholeBuffer", "arraybuffer")
+}
 
 declare function generateSceneGlb(meta3dState): ArrayBuffer
 
@@ -22,8 +65,8 @@ export let service = {
             export_eventData_event_inputData,
             export_eventData_event_outputData
         >(meta3dState, eventName.export_eventData_event, (meta3dState, { isReset }) => {
-            // TODO refactor: duplicate
-            meta3dState = push(deepCopy(meta3dState))
+            // // TODO refactor: duplicate
+            // meta3dState = push(deepCopy(meta3dState))
 
             let allEvents
             if (!isReset) {
@@ -66,7 +109,8 @@ export let service = {
                 ]
             }
 
-            exportEventData(allEvents)
+            // TODO fix
+            // exportEventData(allEvents)
 
             return new Promise((resolve) => {
                 resolve(meta3dState)

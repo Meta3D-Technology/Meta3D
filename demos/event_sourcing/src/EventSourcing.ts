@@ -3,7 +3,7 @@
 
 
 
-import { eventName } from "./events"
+import { eventData, eventName, inputData_ } from "./events"
 import { gameObject, meta3dState, nullable, outsideDataId, pbrMaterial } from "./type"
 import { service as eventManagerService } from "./EventManager"
 
@@ -25,27 +25,10 @@ type state = {
 
 
 
-type domainModelId = gameObject | pbrMaterial | number
-
-type valueObject = string | number | boolean | Object | Array<valueObject>
-
-
-type inputData_ = outsideDataId | domainModelId | valueObject
-
-
 
 export type outsideData = ArrayBuffer | HTMLElement
 
 // type fieldName = string
-
-export type eventData<inputData> = {
-    // direction: "forward" | "backward",
-    name: eventName,
-    parent?: eventName,
-    // inputData: Record<fieldName, outsideDataId | domainModelId | valueObject
-    // >
-    inputData: inputData
-}
 
 
 type getOuptputData<outputData extends Array<any>> = outputData extends [] ? Promise<meta3dState> :
@@ -61,6 +44,7 @@ type handleFunc<inputData extends Array<inputData_>, outputData extends Array<an
 // type backwardHandleFunc<inputData, outputData> = (meta3dState: meta3dState, inputData: inputData) => outputData
 
 export type service = {
+    init: (meta3dState) => meta3dState,
     // on: <inputData, outputData>(meta3dState, eventName: eventName, handleFunc: handleFunc<inputData, outputData>) => meta3dState,
     on: <inputData extends Array<inputData_>, outputData extends Array<any>>(meta3dState, eventName: eventName,
         forwardHandleFunc: handleFunc<inputData, outputData>,
@@ -72,22 +56,29 @@ export type service = {
     addEvent: <inputData> (meta3dState, eventData: eventData<inputData>) => meta3dState,
     // addEventAndUpdateView: <inputData, outputData extends Array<any>> (meta3dState, eventData: eventData<inputData>) => getOuptputData<outputData>,
     addOutsideData: (meta3dState, outsideDataId: outsideDataId, outsideData: outsideData) => meta3dState,
+    removeOutsideData: (meta3dState, outsideDataId: outsideDataId) => meta3dState,
     generateOutsideDataId: (meta3dState) => outsideDataId,
     getOutsideData: (meta3dState, outsideDataId: outsideDataId) => outsideData,
-    getAllOutsideData: (meta3dState) => Array<outsideData>,
+    // getAllOutsideData: (meta3dState) => Array<outsideData>,
+    getAllOutsideData: (meta3dState) => Array<[outsideDataId, outsideData]>,
+    getAllOutsideDataFromGlobalThis: () => Array<[outsideDataId, outsideData]>,
     // getEventsAndOutsideData: <inputData>(meta3dState) => [Array<eventData<inputData>>, Array<outsideData>],
     getAllEvents: <inputData>(meta3dState) => Array<eventData<inputData>>,
     getAllEventsFromGlobalThis: <inputData>() => Array<eventData<inputData>>,
     // sliceEvent: <inputData>(eventData: Array<eventData<inputData>>, fromEventName: nullable<eventName>, toEventName: nullable<eventName>) => Array<eventData<inputData>>,
     replaceAllEvents: <inputData>(meta3dState, allEvents: Array<eventData<inputData>>) => meta3dState,
-    //forward events and update view
-    forward: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
-    //backward events and update view
-    backward: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
+    forwardView: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
+    backwardView: <inputData> (meta3dState, events: Array<eventData<inputData>>) => Promise<meta3dState>,
 }
 
 // export let service: service = null as any as service
 export let service: service = {
+    init: (meta3dState) => {
+        globalThis["events"] = []
+        globalThis["outsideData"] = {}
+
+        return meta3dState
+    },
     on: (meta3dState, eventName,
         forwardHandleFunc,
         backwardHandleFunc
@@ -107,16 +98,30 @@ export let service: service = {
     addOutsideData: (meta3dState, outsideDataId, outsideData) => {
         meta3dState.eventSourcing.outsideData[outsideDataId] = outsideData
 
+        globalThis["outsideData"] = meta3dState.eventSourcing.outsideData
+
+        return meta3dState
+    },
+    removeOutsideData: (meta3dState, outsideDataId) => {
+        delete meta3dState.eventSourcing.outsideData[outsideDataId]
+
+        globalThis["outsideData"] = meta3dState.eventSourcing.outsideData
+
         return meta3dState
     },
     generateOutsideDataId: (meta3dState) => {
-        return Math.floor(Math.random() * 100000000)
+        // return Math.floor(Math.random() * 100000000).toString()
+        // TODO fix
+        return "1"
     },
     getOutsideData: (meta3dState, outsideDataId) => {
         return meta3dState.eventSourcing.outsideData[outsideDataId]
     },
     getAllOutsideData: (meta3dState) => {
-        return Object.values(meta3dState.eventSourcing.outsideData)
+        return Object.entries(meta3dState.eventSourcing.outsideData)
+    },
+    getAllOutsideDataFromGlobalThis: () => {
+        return Object.entries(globalThis["outsideData"])
     },
     getAllEvents: (meta3dState) => {
         return meta3dState.eventSourcing.events.slice()
@@ -129,7 +134,7 @@ export let service: service = {
 
         return meta3dState
     },
-    forward: (meta3dState, events) => {
+    forwardView: (meta3dState, events) => {
         let _func = (meta3dState, index) => {
             if (index >= events.length) {
                 return Promise.resolve(meta3dState)
@@ -144,7 +149,7 @@ export let service: service = {
 
         return _func(meta3dState, 0)
     },
-    backward: (meta3dState, events) => {
+    backwardView: (meta3dState, events) => {
         let _func = (meta3dState, index) => {
             if (index < 0) {
                 return Promise.resolve(meta3dState)
