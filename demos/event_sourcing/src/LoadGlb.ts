@@ -13,22 +13,22 @@ export let service = {
         return eventSourcingService.on<
             load_glb_event_inputData,
             load_glb_event_outputData
-        >(meta3dState, eventName.load_glb_event, (meta3dState, glbId) => {
+        >(meta3dState, eventName.load_glb_event, (meta3dState, glb, glbId) => {
             // meta3dState = push(deepCopy(meta3dState))
 
 
 
-            console.log("load glbId:" + glbId)
+            // console.log("load glbId:" + glbId)
 
             // let outsideDataId = eventSourcingService.generateOutsideDataId(meta3dState)
 
-            // meta3dState = eventSourcingService.addOutsideData(meta3dState, outsideDataId, glb)
+            meta3dState = eventSourcingService.addOutsideData(meta3dState, glbId, glb)
 
             return new Promise((resolve) => {
                 // resolve([meta3dState, outsideDataId])
                 resolve(meta3dState)
             })
-        }, (meta3dState, glbId) => {
+        }, (meta3dState, glb, glbId) => {
             return new Promise((resolve) => {
                 meta3dState = eventSourcingService.removeOutsideData(meta3dState, glbId)
 

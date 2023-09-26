@@ -39,7 +39,7 @@ export let service = {
         return eventSourcingService.on<
             import_eventData_event_inputData,
             import_eventData_event_outputData
-        >(meta3dState, eventName.import_eventData_event, (meta3dState, allEvents, outsideDataId1) => {
+        >(meta3dState, eventName.import_eventData_event, (meta3dState, allEvents) => {
             // // TODO refactor: duplicate
             // meta3dState = push(deepCopy(meta3dState))
 
@@ -65,7 +65,7 @@ export let service = {
 
                 return eventSourcingService.forwardView<import_eventData_event_inputData>(meta3dState, eventSourcingService.getAllEvents(meta3dState))
             })
-        }, (meta3dState, allEvents, outsideDataId1) => {
+        }, (meta3dState, allEvents) => {
             // return new Promise((resolve) => {
             //     // resolve(undo(meta3dState))
             //     // TODO remove outsideData by id

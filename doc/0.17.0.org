@@ -176,6 +176,13 @@ publish->app:
 
 ** TODO use rescript to implement event sourcing
 
+TODO remove output data
+
+
+TODO on->backwardHandleFunc can be ?(use undo for default implement)
+
+
+
 ** TODO update current extensions, contributes
 
 
@@ -185,13 +192,14 @@ publish->app:
 
 TODO run test: add a cube
 
+TODO run test: debug
 
 
 
 TODO more:
-export/import scene
 run/stop->restore
   three
+export/import scene
 publish
 
 

@@ -26,7 +26,6 @@ type state = {
 
 
 
-export type outsideData = ArrayBuffer | HTMLElement
 
 // type fieldName = string
 
@@ -57,6 +56,7 @@ export type service = {
     // addEventAndUpdateView: <inputData, outputData extends Array<any>> (meta3dState, eventData: eventData<inputData>) => getOuptputData<outputData>,
     addOutsideData: (meta3dState, outsideDataId: outsideDataId, outsideData: outsideData) => meta3dState,
     removeOutsideData: (meta3dState, outsideDataId: outsideDataId) => meta3dState,
+    // removeOutsideData: (meta3dState, outsideData: outsideData) => meta3dState,
     generateOutsideDataId: (meta3dState) => outsideDataId,
     getOutsideData: (meta3dState, outsideDataId: outsideDataId) => outsideData,
     // getAllOutsideData: (meta3dState) => Array<outsideData>,
@@ -109,6 +109,17 @@ export let service: service = {
 
         return meta3dState
     },
+    // removeOutsideData: (meta3dState, outsideData) => {
+    //     for (let id in meta3dState.eventSourcing.outsideData) {
+    //         if (meta3dState.eventSourcing.outsideData[id] === outsideData) {
+    //             delete meta3dState.eventSourcing.outsideData[id]
+    //         }
+    //     }
+
+    //     globalThis["outsideData"] = meta3dState.eventSourcing.outsideData
+
+    //     return meta3dState
+    // },
     generateOutsideDataId: (meta3dState) => {
         // return Math.floor(Math.random() * 100000000).toString()
         // TODO fix

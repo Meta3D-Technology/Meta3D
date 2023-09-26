@@ -24,8 +24,9 @@ type domainModelId = gameObject | pbrMaterial | number
 
 type valueObject = string | number | boolean | Object | Array<valueObject>
 
+export type outsideData = ArrayBuffer | HTMLElement
 
-export type inputData_ = outsideDataId | domainModelId | valueObject
+export type inputData_ = outsideDataId | domainModelId | valueObject | outsideData
 
 export type eventData<inputData> = {
     // direction: "forwardView" | "backwardView",
@@ -109,8 +110,8 @@ export type dispose_pbrMaterial_event_inputData = [pbrMaterial]
 
 export type dispose_pbrMaterial_event_outputData = []
 
-// export type load_glb_event_inputData = [ArrayBuffer]
-export type load_glb_event_inputData = [outsideDataId]
+export type load_glb_event_inputData = [ArrayBuffer, outsideDataId]
+// export type load_glb_event_inputData = [outsideDataId]
 
 // export type load_glb_event_outputData = [outsideDataId]
 export type load_glb_event_outputData = []
@@ -124,7 +125,8 @@ export type add_glb_to_scene_event_inputData = [outsideDataId]
 export type add_glb_to_scene_event_outputData = []
 
 // export type import_eventData_event_inputData = [eventData]
-export type import_eventData_event_inputData = [Array<eventData<inputData_>>, outsideDataId]
+// export type import_eventData_event_inputData = [Array<eventData<inputData_>>, outsideDataId]
+export type import_eventData_event_inputData = [Array<eventData<inputData_>>]
 
 export type import_eventData_event_outputData = []
 

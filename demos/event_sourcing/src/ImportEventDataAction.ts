@@ -79,22 +79,26 @@ export let service = {
 
 
 
-            // TODO fix fake data
-            let allEvents = [
-                {
-                    name: eventName.load_glb_event,
-                    inputData: ["1"]
-                }
-            ]
-            let [outsideDataId1, outsideData1] = ["1", new ArrayBuffer(10)]
+            // // TODO fix fake data
+            // let allEvents = [
+            //     {
+            //         name: eventName.load_glb_event,
+            //         inputData: ["1"]
+            //     }
+            // ]
+            // let [outsideDataId1, outsideData1] = ["1", new ArrayBuffer(10)]
 
-            meta3dState = eventSourcingService.addOutsideData(meta3dState, outsideDataId1, outsideData1)
+            // meta3dState = eventSourcingService.addOutsideData(meta3dState, outsideDataId1, outsideData1)
+
+
+TODO get allEvents from wholeBuffer
+
 
             return eventSourcingService.addEvent<import_eventData_event_inputData>(meta3dState, {
                 name: eventName.import_eventData_event,
                 inputData: [
                     allEvents,
-                    outsideDataId1
+                    // outsideDataId1
                 ]
             })
         })

@@ -25,34 +25,41 @@ let _download = (body: ArrayBuffer, filename: string, extension: string) => {
 }
 
 // TODO use BinaryFileOperator
-export let exportEventData = (allEvents, allOutsideData) => {
-    let encoder = new TextEncoder()
-    let allEventsBuffer = encoder.encode(JSON.stringify(allEvents)).buffer
+// export let exportEventData = (allEvents, allOutsideData) => {
+export let exportEventData = (allEvents) => {
+    // let encoder = new TextEncoder()
+    // let allEventsBuffer = encoder.encode(JSON.stringify(allEvents)).buffer
 
-    // TODO remove limit
-    if (allOutsideData.length != 1) {
-        throw new Error("error")
-    }
+    // // TODO remove limit
+    // if (allOutsideData.length != 1) {
+    //     throw new Error("error")
+    // }
 
-    let [outsideDataId1, outsideData1] = allOutsideData[0]
+    // let [outsideDataId1, outsideData1] = allOutsideData[0]
 
-    let outsideDataId1Buffer = encoder.encode(outsideDataId1).buffer
-
-
-    let allOutsideDataBuffer = new ArrayBuffer(outsideData1.byteLength + outsideDataId1Buffer.byteLength + 4)
-
-    let dataView = new DataView(allOutsideDataBuffer)
-    dataView.setUint32(0, outsideDataId1Buffer.byteLength)
+    // let outsideDataId1Buffer = encoder.encode(outsideDataId1).buffer
 
 
+    // let allOutsideDataBuffer = new ArrayBuffer(outsideData1.byteLength + outsideDataId1Buffer.byteLength + 4)
+
+    // let dataView = new DataView(allOutsideDataBuffer)
+    // dataView.setUint32(0, outsideDataId1Buffer.byteLength)
 
 
-    let wholeBuffer = new ArrayBuffer(allEventsBuffer.byteLength + allOutsideDataBuffer.byteLength + 4)
 
-    dataView = new DataView(wholeBuffer)
-    dataView.setUint32(0, allEventsBuffer.byteLength)
 
-    _download(wholeBuffer, "wholeBuffer", "arraybuffer")
+    // let wholeBuffer = new ArrayBuffer(allEventsBuffer.byteLength + allOutsideDataBuffer.byteLength + 4)
+
+    // dataView = new DataView(wholeBuffer)
+    // dataView.setUint32(0, allEventsBuffer.byteLength)
+
+    // _download(wholeBuffer, "wholeBuffer", "arraybuffer")
+
+
+
+    TODO extract ArrayBuffer from allEvents:
+    1.move them to another ArrayBuffer(outsideBufer)(with id)
+    2.merge allEvents, outsideBufer
 }
 
 declare function generateSceneGlb(meta3dState): ArrayBuffer
