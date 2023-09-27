@@ -174,35 +174,49 @@ publish->app:
 # ** TODO min implement
 
 
-** TODO use rescript to implement event sourcing
+* TODO implement event sourcing
+
+TODO add event sourcing extension
+
+TODO remove events, define them in each action protocols
 
 TODO remove output data
 
+# TODO on->backwardHandleFunc can be ?(use undo for default implement)
 
-TODO on->backwardHandleFunc can be ?(use undo for default implement)
+TODO on: add priority
+
+
+TODO remove parent
 
 
 
 
-** TODO update current extensions, contributes
+# ** TODO update current extensions, contributes
 
 
 
 TODO action add init to on
 
 
+TODO update entry extension
 
 
 TODO run test: add a cube
+  publish all
 
-TODO run test: debug
-
+TODO refactor: empty inputData should be null?
 
 
 TODO more:
+dispose a cube
+  three: fix scenegraph scene view dispose event(use eventsourcing.on event)
+    remove "scenegraph gameview->on dispose event"
 run/stop->restore
   three
-export/import scene
+export/import scene(use rescript)(add bdd test)
+  TODO run test: debug
+
 publish
 
 
@@ -225,6 +239,7 @@ publish
 # TODO check in DependencyGraph
 
 
-* TODO fix: import: should import element contribute
 
-* TODO feat: overwrite app
+* TODO write blog: 《Web3D编辑器实现事件溯源》
+
+multi edit demo

@@ -1,0 +1,10 @@
+{
+    "name": "meta3d-run-utils",
+    "version": "0.16.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

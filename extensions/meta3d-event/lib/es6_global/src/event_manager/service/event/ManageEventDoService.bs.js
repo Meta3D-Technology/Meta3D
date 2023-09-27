@@ -38,6 +38,11 @@ function onCustomGlobalEvent2(eventName, handleFunc, state, priorityOpt, param) 
   return BindCustomEventDoService$Meta3dEvent.bindGlobalEvent2(eventName, priority, handleFunc, state);
 }
 
+function onCustomGlobalEvent3(eventName, handleFunc, state, priorityOpt, param) {
+  var priority = priorityOpt !== undefined ? priorityOpt : 0;
+  return BindCustomEventDoService$Meta3dEvent.bindGlobalEvent3(eventName, priority, handleFunc, state);
+}
+
 var offCustomGlobalEventByHandleFunc = BindCustomEventDoService$Meta3dEvent.unbindGlobalEventByHandleFunc;
 
 var stopPropagationCustomEvent = HandleCustomEventDoService$Meta3dEvent.stopPropagation;
@@ -45,6 +50,8 @@ var stopPropagationCustomEvent = HandleCustomEventDoService$Meta3dEvent.stopProp
 var triggerCustomGlobalEvent = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent;
 
 var triggerCustomGlobalEvent2 = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent2;
+
+var triggerCustomGlobalEvent3 = HandleCustomEventDoService$Meta3dEvent.triggerGlobalEvent3;
 
 function setDomEventStreamSubscription(state, domEventStreamSubscription) {
   var eventData = state.eventData;
@@ -56,6 +63,7 @@ function setDomEventStreamSubscription(state, domEventStreamSubscription) {
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: eventData.customGlobalEventArrMap,
             customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
+            customGlobalEventArrMap3: eventData.customGlobalEventArrMap3,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -89,10 +97,12 @@ export {
   offTouchEventByHandleFunc ,
   onCustomGlobalEvent ,
   onCustomGlobalEvent2 ,
+  onCustomGlobalEvent3 ,
   offCustomGlobalEventByHandleFunc ,
   stopPropagationCustomEvent ,
   triggerCustomGlobalEvent ,
   triggerCustomGlobalEvent2 ,
+  triggerCustomGlobalEvent3 ,
   setDomEventStreamSubscription ,
   _unsubscribeDomEventStream ,
   unsubscribeDomEventStream ,

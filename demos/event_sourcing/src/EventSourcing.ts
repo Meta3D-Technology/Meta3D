@@ -3,7 +3,7 @@
 
 
 
-import { eventData, eventName, inputData_, outsideData } from "./events"
+import { eventData, eventName, singleInputData, outsideData } from "./events"
 import { gameObject, meta3dState, nullable, outsideDataId, pbrMaterial } from "./type"
 import { service as eventManagerService } from "./EventManager"
 
@@ -35,7 +35,7 @@ type getOuptputData<outputData extends Array<any>> = outputData extends [] ? Pro
 
 // type handleFunc<inputData extends Array<any>, outputData extends (null | Array<any>)> = (meta3dState: meta3dState, ...inputData: inputData) => outputData extends null ? meta3dState : outputData extends Array<any> ? [meta3dState, ...outputData] : meta3dState
 // type handleFunc<inputData extends null | Array<any>, outputData extends null | Array<any>> = (meta3dState: meta3dState, ...inputData: inputData) => outputData extends null ? Promise<meta3dState> : outputData extends Array<any> ? Promise<[meta3dState, ...outputData]> : Error
-type handleFunc<inputData extends Array<inputData_>, outputData extends Array<any>> = (meta3dState: meta3dState, ...inputData: inputData) =>
+type handleFunc<inputData extends Array<singleInputData>, outputData extends Array<any>> = (meta3dState: meta3dState, ...inputData: inputData) =>
     // outputData extends [] ? Promise<meta3dState> :
     // Promise<[meta3dState, ...outputData]>
     getOuptputData<outputData>
@@ -45,7 +45,7 @@ type handleFunc<inputData extends Array<inputData_>, outputData extends Array<an
 export type service = {
     init: (meta3dState) => meta3dState,
     // on: <inputData, outputData>(meta3dState, eventName: eventName, handleFunc: handleFunc<inputData, outputData>) => meta3dState,
-    on: <inputData extends Array<inputData_>, outputData extends Array<any>>(meta3dState, eventName: eventName,
+    on: <inputData extends Array<singleInputData>, outputData extends Array<any>>(meta3dState, eventName: eventName,
         forwardHandleFunc: handleFunc<inputData, outputData>,
         // backwardHandleFunc?: handleFunc<inputData, []>
         backwardHandleFunc: handleFunc<inputData, []>

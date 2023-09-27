@@ -19,6 +19,11 @@ type handleFunc = (. EventType.customEvent) => unit
 
 type handleFunc2 = (. Meta3dType.Index.state, EventType.customEvent) => Meta3dType.Index.state
 
+type handleFunc3 = (
+  . Meta3dType.Index.state,
+  EventType.customEvent,
+) => Js.Promise.t<Meta3dType.Index.state>
+
 type service = {
   trigger: 'uiData. (
     Meta3dType.Index.state,
@@ -49,6 +54,16 @@ type service = {
     eventExtensionProtocolName,
     EventType.customEvent,
   ) => Meta3dType.Index.state,
+  onCustomGlobalEvent3: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    (customEventName, priority, handleFunc3),
+  ) => Meta3dType.Index.state,
+  triggerCustomGlobalEvent3: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    EventType.customEvent,
+  ) => Js.Promise.t<Meta3dType.Index.state>,
   createCustomEvent: (customEventName, Js.Nullable.t<EventType.userData>) => EventType.customEvent,
   initEvent: (Meta3dType.Index.state, eventExtensionProtocolName) => Meta3dType.Index.state,
   setBrowser: (

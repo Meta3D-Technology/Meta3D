@@ -206,6 +206,7 @@ function create(param) {
             touchDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             customGlobalEventArrMap: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             customGlobalEventArrMap2: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+            customGlobalEventArrMap3: MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
             mouseEventData: {
               lastX: undefined,
               lastY: undefined,
@@ -238,6 +239,7 @@ function deepCopy(eventManagerState) {
             touchDomEventDataArrMap: MutableSparseMap$Meta3dCommonlib.copy(eventManagerState.eventData.touchDomEventDataArrMap),
             customGlobalEventArrMap: MutableHashMap$Meta3dCommonlib.copy(eventManagerState.eventData.customGlobalEventArrMap),
             customGlobalEventArrMap2: MutableHashMap$Meta3dCommonlib.copy(eventManagerState.eventData.customGlobalEventArrMap2),
+            customGlobalEventArrMap3: init.customGlobalEventArrMap3,
             mouseEventData: init.mouseEventData,
             keyboardEventData: init.keyboardEventData,
             touchEventData: init.touchEventData

@@ -24,6 +24,13 @@ and customEventData2 = {
     Meta3dEventProtocol.EventType.customEvent,
   ) => (Meta3dType.Index.state, Meta3dEventProtocol.EventType.customEvent),
 }
+and customEventData3 = {
+  priority: int,
+  handleFunc: (
+    . Meta3dType.Index.state,
+    Meta3dEventProtocol.EventType.customEvent,
+  ) => Js.Promise.t<Meta3dType.Index.state>,
+}
 and eventData = {
   domEventStreamSubscription: option<Meta3dBsMost.Most.subscription>,
   mouseDomEventDataArrMap: Meta3dCommonlibType.MutableSparseMapType.t<
@@ -42,6 +49,10 @@ and eventData = {
   customGlobalEventArrMap2: Meta3dCommonlibType.MutableHashMapType.t<
     string,
     array<customEventData2>,
+  >,
+  customGlobalEventArrMap3: Meta3dCommonlibType.MutableHashMapType.t<
+    string,
+    array<customEventData3>,
   >,
   // customGameObjectEventArrMap: Meta3dCommonlibType.MutableHashMapType.t<
   //   string,

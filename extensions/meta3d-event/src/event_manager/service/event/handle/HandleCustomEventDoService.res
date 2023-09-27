@@ -13,7 +13,7 @@ let _triggerHandleFunc = (
     (state, customEvent),
   )
 
-let _triggerHandleFunc2 = (customEvent, arr, meta3dState) =>
+let _triggerHandleFunc2 = (customEvent, arr:array<customEventData2>, meta3dState) =>
   arr->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. (meta3dState, customEvent), {handleFunc}) =>
       customEvent.isStopPropagation
@@ -21,6 +21,13 @@ let _triggerHandleFunc2 = (customEvent, arr, meta3dState) =>
         : handleFunc(. meta3dState, customEvent),
     (meta3dState, customEvent),
   )
+
+let _triggerHandleFunc3 = (customEvent, arr:array<customEventData3>, meta3dState) =>
+  arr->Meta3dCommonlib.ArraySt.traverseReducePromiseM((. meta3dState, {handleFunc}) => {
+    customEvent.isStopPropagation
+      ? meta3dState->Js.Promise.resolve
+      : handleFunc(. meta3dState, customEvent)
+  }, meta3dState)
 
 let stopPropagation = customEvent => {
   ...customEvent,
@@ -50,6 +57,23 @@ let triggerGlobalEvent2 = (
   switch customGlobalEventArrMap2->Meta3dCommonlib.MutableHashMap.get(customEvent.name) {
   | None => (meta3dState, customEvent)
   | Some(arr) => _triggerHandleFunc2(customEvent, arr, meta3dState)
+  }
+}
+
+let triggerGlobalEvent3 = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  eventExtensionProtocolName,
+  customEvent: customEvent,
+) => {
+  let {eventManagerState}: StateType.state =
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
+
+  let {customGlobalEventArrMap3} = eventManagerState.eventData
+
+  switch customGlobalEventArrMap3->Meta3dCommonlib.MutableHashMap.get(customEvent.name) {
+  | None => meta3dState->Js.Promise.resolve
+  | Some(arr) => _triggerHandleFunc3(customEvent, arr, meta3dState)
   }
 }
 

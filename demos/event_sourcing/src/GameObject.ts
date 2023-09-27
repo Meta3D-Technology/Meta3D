@@ -19,6 +19,7 @@ export let service = {
             console.log("dispose gameObject:" + gameObject)
 
             return new Promise<meta3dState>((resolve, reject) => {
+                TODO fix: use eventManager.trigger
                 resolve(eventSourcingService.addEvent<dispose_pbrMaterial_event_inputData>(meta3dState, {
                     name: eventName.dispose_pbrMaterial_event,
                     parent: eventName.dispose_gameObject_event,

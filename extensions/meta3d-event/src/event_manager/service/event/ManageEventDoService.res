@@ -26,6 +26,9 @@ let onCustomGlobalEvent = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
 let onCustomGlobalEvent2 = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
   BindCustomEventDoService.bindGlobalEvent2(eventName, priority, handleFunc, state)
 
+let onCustomGlobalEvent3 = (~eventName, ~handleFunc, ~state, ~priority=0, ()) =>
+  BindCustomEventDoService.bindGlobalEvent3(eventName, priority, handleFunc, state)
+
 // let offCustomGlobalEventByEventName = (~eventName, ~state) =>
 //   BindCustomEventDoService.unbindGlobalEventByEventName(eventName, state)
 
@@ -61,6 +64,15 @@ let triggerCustomGlobalEvent2 = (api, meta3dState, eventExtensionProtocolName, c
     eventExtensionProtocolName,
     customEvent,
   )
+
+let triggerCustomGlobalEvent3 = (api, meta3dState, eventExtensionProtocolName, customEvent) =>
+  HandleCustomEventDoService.triggerGlobalEvent3(
+    api,
+    meta3dState,
+    eventExtensionProtocolName,
+    customEvent,
+  )
+
 
 // let triggerCustomGameObjectEvent = (customEvent, target, state) =>
 //   HandleCustomEventDoService.triggerGameObjectEvent(target, customEvent, state)

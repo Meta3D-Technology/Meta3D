@@ -8,6 +8,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   offCustomGlobalEventByHandleFunc: ManageEventAPIForSrc.offCustomGlobalEventByHandleFunc,
   onCustomGlobalEvent2: ManageEventAPIForSrc.onCustomGlobalEvent2(api)->Obj.magic,
   triggerCustomGlobalEvent2: ManageEventAPIForSrc.triggerCustomGlobalEvent2(api)->Obj.magic,
+  onCustomGlobalEvent3: ManageEventAPIForSrc.onCustomGlobalEvent3(api)->Obj.magic,
+  triggerCustomGlobalEvent3: ManageEventAPIForSrc.triggerCustomGlobalEvent3(api)->Obj.magic,
   createCustomEvent: ManageEventAPIForSrc.createCustomEvent,
   initEvent: EventManager.initEvent(api),
   setBrowser: EventManager.setBrowser(api),

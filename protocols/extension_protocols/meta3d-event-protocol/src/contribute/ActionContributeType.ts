@@ -9,6 +9,8 @@ export type eventHandler<uiData> = (
 
 export type createState<state> = () => state
 
+export type init = (meta3dState: meta3dState) => Promise<meta3dState>
+
 export type restore<state> = (currentState: state, targetState: state) => state
 
 export type deepCopy<state> = (state: state) => state
@@ -17,6 +19,7 @@ export type actionContribute<uiData, state> = {
     actionName: actionName,
     handler: eventHandler<uiData>,
     createState: createState<state>,
+    init: init,
     restore?: restore<state>,
     deepCopy?: deepCopy<state>
 }

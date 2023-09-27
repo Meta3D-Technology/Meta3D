@@ -22,8 +22,9 @@ import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { prepareActions } from "meta3d-run-utils/src/RunUtils"
 
-let _prepareUI = (meta3dState: meta3dState, api: api) => {
+let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
@@ -63,19 +64,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api) => {
 
 
 
-	let { registerAction } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
-
-	let eventState = api.getExtensionState<eventState>(meta3dState, "meta3d-event-protocol")
-
-
-	eventState = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
-		return registerAction(eventState, contribute)
-	}, eventState)
-
-
-	meta3dState = api.setExtensionState(meta3dState, "meta3d-event-protocol", eventState)
-
-	return meta3dState
+	return prepareActions(meta3dState, api)
 }
 
 let _createAndInsertCanvas = ({ width, height }: canvasData) => {
@@ -93,42 +82,32 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 }
 
 let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: configData) => {
-	meta3dState = _prepareUI(meta3dState, api)
+	return _prepareUI(meta3dState, api).then(meta3dState => {
+		let canvas = _createAndInsertCanvas(canvasData)
 
+		let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-	// meta3dState = _registerEditorPipelines(
-	// 	meta3dState, api,
-	// 	meta3dEngineCoreExtensionProtocolName,
-	// 	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName]
-	// )
+		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+			let runEngineService = api.getExtensionService<runEngineService>(
+				meta3dState,
+				"meta3d-editor-run-engine-sceneview-protocol"
+			)
+			let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+				meta3dState,
+				"meta3d-editor-run-engine-gameview-protocol"
+			)
 
-
-
-
-	let canvas = _createAndInsertCanvas(canvasData)
-
-	let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-
-	return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
-		let runEngineService = api.getExtensionService<runEngineService>(
-			meta3dState,
-			"meta3d-editor-run-engine-sceneview-protocol"
-		)
-		let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
-			meta3dState,
-			"meta3d-editor-run-engine-gameview-protocol"
-		)
-
-		return runEngineService.prepareAndInitEngine(meta3dState,
-			uiService.getContext(meta3dState),
-			canvas,
-			isDebug
-		).then(meta3dState => {
-			return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+			return runEngineService.prepareAndInitEngine(meta3dState,
 				uiService.getContext(meta3dState),
 				canvas,
 				isDebug
-			)
+			).then(meta3dState => {
+				return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+					uiService.getContext(meta3dState),
+					canvas,
+					isDebug
+				)
+			})
 		})
 	})
 }

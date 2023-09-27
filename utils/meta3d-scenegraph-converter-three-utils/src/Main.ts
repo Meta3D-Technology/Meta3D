@@ -1205,6 +1205,7 @@ export let getExtensionLifeUtils = (api: api,
             _getAllBasicMaterialInstances().forEach(_disposeBasicMaterial)
             _getAllGeometryInstances().forEach(_disposeGeometry)
 
+            // TODO perf: remove instead of dispose
             _clearAllInstanceMaps()
 
             return targetMeta3dState

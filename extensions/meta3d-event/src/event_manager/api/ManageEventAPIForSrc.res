@@ -71,5 +71,47 @@ let triggerCustomGlobalEvent2 = (
     customEvent,
   )->Meta3dCommonlib.Tuple2.getFirst
 
+let onCustomGlobalEvent3 = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  eventExtensionProtocolName,
+  (eventName, priority, handleFunc),
+): Meta3dType.Index.state => {
+  let state: StateType.state =
+    api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
+
+  let state = {
+    ...state,
+    eventManagerState: ManageEventDoService.onCustomGlobalEvent3(
+      ~eventName,
+      ~handleFunc=(. meta3dState, customEvent) => {
+        handleFunc(. meta3dState, customEvent)
+      },
+      ~state=state.eventManagerState,
+      ~priority,
+      (),
+    ),
+  }
+
+  api.setExtensionState(.
+    meta3dState,
+    eventExtensionProtocolName,
+    state->StateType.stateToProtocolState,
+  )
+}
+
+let triggerCustomGlobalEvent3 = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  eventExtensionProtocolName,
+  customEvent,
+) =>
+  ManageEventDoService.triggerCustomGlobalEvent2(
+    api,
+    meta3dState,
+    eventExtensionProtocolName,
+    customEvent,
+  )
+
 let createCustomEvent = (eventName, userData) =>
   CreateCustomEventDoService.create(eventName, Js.Nullable.to_opt(userData))

@@ -33,6 +33,7 @@ function bindGlobalEvent(eventName, priority, handleFunc, state) {
                   handleFunc: handleFunc
                 }, eventData.customGlobalEventArrMap),
             customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
+            customGlobalEventArrMap3: eventData.customGlobalEventArrMap3,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -56,6 +57,31 @@ function bindGlobalEvent2(eventName, priority, handleFunc, state) {
                   priority: priority,
                   handleFunc: handleFunc
                 }, eventData.customGlobalEventArrMap2),
+            customGlobalEventArrMap3: eventData.customGlobalEventArrMap3,
+            mouseEventData: eventData.mouseEventData,
+            keyboardEventData: eventData.keyboardEventData,
+            touchEventData: eventData.touchEventData
+          },
+          canvas: state.canvas,
+          body: state.body,
+          browser: state.browser
+        };
+}
+
+function bindGlobalEvent3(eventName, priority, handleFunc, state) {
+  var eventData = state.eventData;
+  return {
+          eventData: {
+            domEventStreamSubscription: eventData.domEventStreamSubscription,
+            mouseDomEventDataArrMap: eventData.mouseDomEventDataArrMap,
+            keyboardDomEventDataArrMap: eventData.keyboardDomEventDataArrMap,
+            touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
+            customGlobalEventArrMap: eventData.customGlobalEventArrMap,
+            customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
+            customGlobalEventArrMap3: _addToEventArr(eventName, {
+                  priority: priority,
+                  handleFunc: handleFunc
+                }, eventData.customGlobalEventArrMap3),
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -91,6 +117,7 @@ function unbindGlobalEventByHandleFunc(eventName, handleFunc, state) {
             touchDomEventDataArrMap: eventData.touchDomEventDataArrMap,
             customGlobalEventArrMap: _removeFromEventArrMapByHandleFunc(eventName, handleFunc, eventData.customGlobalEventArrMap),
             customGlobalEventArrMap2: eventData.customGlobalEventArrMap2,
+            customGlobalEventArrMap3: eventData.customGlobalEventArrMap3,
             mouseEventData: eventData.mouseEventData,
             keyboardEventData: eventData.keyboardEventData,
             touchEventData: eventData.touchEventData
@@ -106,6 +133,7 @@ export {
   _addToEventArr ,
   bindGlobalEvent ,
   bindGlobalEvent2 ,
+  bindGlobalEvent3 ,
   _removeFromEventArrByHandleFunc ,
   _removeFromEventArrMapByHandleFunc ,
   unbindGlobalEventByHandleFunc ,

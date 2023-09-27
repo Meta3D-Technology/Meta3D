@@ -15,8 +15,9 @@ import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { prepareActions } from "meta3d-run-utils/src/RunUtils"
 
-let _prepareUI = (meta3dState: meta3dState, api: api) => {
+let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
@@ -52,24 +53,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api) => {
 
 
 
-	let { registerAction } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
-
-	let eventState = api.getExtensionState<eventState>(meta3dState, "meta3d-event-protocol")
-
-
-
-	eventState = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
-		return registerAction(eventState, contribute)
-	}, eventState)
-
-
-	meta3dState = api.setExtensionState(meta3dState, "meta3d-event-protocol", eventState)
-
-
-
-
-
-	return meta3dState
+	return prepareActions(meta3dState, api)
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
@@ -77,40 +61,30 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api) => {
 	return {
 		init: (meta3dState: meta3dState, { isDebug, canvas }) => {
-			// let isDebug = true
+			return _prepareUI(meta3dState, api).then(meta3dState => {
+				let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-			// let { "meta3d-ui-protocol", "meta3d-imgui-renderer-protocol", "meta3d-event-protocol", meta3dBindIOEventExtensionProtocolName } = dependentExtensionProtocolNameMap
-			meta3dState = _prepareUI(meta3dState, api)
+				return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+					let runEngineService = api.getExtensionService<runEngineService>(
+						meta3dState,
+						"meta3d-editor-run-engine-sceneview-protocol"
+					)
+					let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+						meta3dState,
+						"meta3d-editor-run-engine-gameview-protocol"
+					)
 
-
-
-			// let { init } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-
-			// return init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas)
-
-
-			let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-
-			return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
-				let runEngineService = api.getExtensionService<runEngineService>(
-					meta3dState,
-					"meta3d-editor-run-engine-sceneview-protocol"
-				)
-				let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
-					meta3dState,
-					"meta3d-editor-run-engine-gameview-protocol"
-				)
-
-				return runEngineService.prepareAndInitEngine(meta3dState,
-					uiService.getContext(meta3dState),
-					canvas,
-					isDebug
-				).then(meta3dState => {
-					return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+					return runEngineService.prepareAndInitEngine(meta3dState,
 						uiService.getContext(meta3dState),
 						canvas,
 						isDebug
-					)
+					).then(meta3dState => {
+						return runEngineGameViewService.prepareAndInitEngine(meta3dState,
+							uiService.getContext(meta3dState),
+							canvas,
+							isDebug
+						)
+					})
 				})
 			})
 		},

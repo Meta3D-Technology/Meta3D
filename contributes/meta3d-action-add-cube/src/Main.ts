@@ -8,6 +8,8 @@ import { service as runEngineGameViewService } from "meta3d-editor-run-engine-ga
 import { state as meta3dState } from "meta3d-type"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-add-cube-protocol"
+import { eventName, inputData } from "meta3d-action-add-cube-protocol/src/EventType"
+import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
 let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeService, [localPosition, diffuseColor]: [[number, number, number], [number, number, number]]) => {
     let data = scene.gameObject.createGameObject(meta3dState)
@@ -69,19 +71,37 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
+        init: (meta3dState) => {
+            let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
+
+            return new Promise((resolve, reject) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
+                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+                    let diffuseColor: [number, number, number] = [Math.random(), Math.random(), Math.random()]
+                    let localPosition: [number, number, number] = [Math.random() * 10 - 5, Math.random() * 10 - 5, 0]
+
+                    meta3dState = _createCubeGameObject(meta3dState, engineWholeService, [localPosition, diffuseColor])
+                    meta3dState = _createCubeGameObject(meta3dState, engineWholeGameViewService, [localPosition, diffuseColor])
+
+                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
+                }, (meta3dState) => {
+                    return Promise.resolve(meta3dState)
+                }))
+            })
+        },
         handler: (meta3dState, uiData) => {
             console.log("add cube")
 
-            let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
-            let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+            return new Promise<meta3dState>((resolve, reject) => {
+                let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-            let diffuseColor: [number, number, number] = [Math.random(), Math.random(), Math.random()]
-            let localPosition: [number, number, number] = [Math.random() * 10 - 5, Math.random() * 10 - 5, 0]
-
-            meta3dState = _createCubeGameObject(meta3dState, engineWholeService, [localPosition, diffuseColor])
-            meta3dState = _createCubeGameObject(meta3dState, engineWholeGameViewService, [localPosition, diffuseColor])
-
-            return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
+                resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
+                    name: eventName,
+                    inputData: []
+                }))
+            })
         },
         createState: () => null
     }

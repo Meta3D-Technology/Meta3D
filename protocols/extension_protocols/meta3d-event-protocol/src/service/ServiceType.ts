@@ -25,6 +25,8 @@ export type handleFunc = (customEvent: customEvent) => void
 
 type handleFunc2 = (meta3dState: meta3dState, customEvent: customEvent) => meta3dState
 
+type handleFunc3 = (meta3dState: meta3dState, customEvent: customEvent) => Promise<meta3dState>
+
 export type service = {
     trigger: <uiData> (
         meta3dState: meta3dState,
@@ -58,6 +60,16 @@ export type service = {
         eventExtensionProtocolName: eventExtensionProtocolName,
         customEvent: customEvent
     ): meta3dState;
+    onCustomGlobalEvent3(
+        meta3dState: meta3dState,
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc3]
+    ): meta3dState;
+    triggerCustomGlobalEvent3(
+        meta3dState: meta3dState,
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        customEvent: customEvent
+    ): Promise<meta3dState>;
     createCustomEvent(
         customEventName: customEventName,
         userData: nullable<userData>

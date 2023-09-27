@@ -39,6 +39,16 @@ function _triggerHandleFunc2(customEvent, arr, meta3dState) {
             ]);
 }
 
+function _triggerHandleFunc3(customEvent, arr, meta3dState) {
+  return ArraySt$Meta3dCommonlib.traverseReducePromiseM(arr, (function (meta3dState, param) {
+                if (customEvent.isStopPropagation) {
+                  return Promise.resolve(meta3dState);
+                } else {
+                  return param.handleFunc(meta3dState, customEvent);
+                }
+              }), meta3dState);
+}
+
 function stopPropagation(customEvent) {
   return {
           name: customEvent.name,
@@ -75,6 +85,17 @@ function triggerGlobalEvent2(api, meta3dState, eventExtensionProtocolName, custo
   }
 }
 
+function triggerGlobalEvent3(api, meta3dState, eventExtensionProtocolName, customEvent) {
+  var match = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+  var match$1 = match.eventManagerState.eventData;
+  var arr = MutableHashMap$Meta3dCommonlib.get(match$1.customGlobalEventArrMap3, customEvent.name);
+  if (arr !== undefined) {
+    return _triggerHandleFunc3(customEvent, arr, meta3dState);
+  } else {
+    return Promise.resolve(meta3dState);
+  }
+}
+
 function getCustomEventUserData(customEvent) {
   return customEvent.userData;
 }
@@ -82,9 +103,11 @@ function getCustomEventUserData(customEvent) {
 export {
   _triggerHandleFunc ,
   _triggerHandleFunc2 ,
+  _triggerHandleFunc3 ,
   stopPropagation ,
   triggerGlobalEvent ,
   triggerGlobalEvent2 ,
+  triggerGlobalEvent3 ,
   getCustomEventUserData ,
 }
 /* No side effect */

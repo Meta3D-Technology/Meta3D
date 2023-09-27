@@ -15,13 +15,14 @@ import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementCont
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { prepareActions } from "meta3d-run-utils/src/RunUtils"
 // import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 // import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 // import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 // import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 
-let _prepareUI = (meta3dState: meta3dState, api: api) => {
+let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
@@ -58,22 +59,7 @@ let _prepareUI = (meta3dState: meta3dState, api: api) => {
 
 
 
-
-
-
-	let { registerAction } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
-
-	let eventState = api.getExtensionState<eventState>(meta3dState, "meta3d-event-protocol")
-
-
-	eventState = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action).reduce<eventState>((eventState, contribute) => {
-		return registerAction(eventState, contribute)
-	}, eventState)
-
-
-	meta3dState = api.setExtensionState(meta3dState, "meta3d-event-protocol", eventState)
-
-	return meta3dState
+	return prepareActions(meta3dState, api)
 }
 
 let _createAndInsertCanvas = ({ width, height }: canvasData) => {
@@ -91,56 +77,13 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 }
 
 let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: configData) => {
-	meta3dState = _prepareUI(meta3dState, api)
+	return _prepareUI(meta3dState, api).then(meta3dState => {
+		let canvas = _createAndInsertCanvas(canvasData)
 
+		let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-	// meta3dState = _registerEditorPipelines(
-	// 	meta3dState, api,
-	// 	meta3dEngineCoreExtensionProtocolName,
-	// 	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName]
-	// )
-
-
-
-
-	let canvas = _createAndInsertCanvas(canvasData)
-
-	let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-
-	return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas)
-	// .then(meta3dState => {
-	// 	let runEngineService = api.getExtensionService<runEngineService>(
-	// 		meta3dState,
-	// 		meta3dEditorRunEngineExtensionProtocolName
-	// 	)
-
-	// 	return runEngineService.prepareAndInitEngine(meta3dState,
-	// 		uiService.getContext(meta3dState),
-	// 		isDebug
-	// 	)
-
-	// })
-
-
-
-	// let { initEvent, setBody, setBrowser, setCanvas, getBrowserChromeType } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
-
-	// meta3dState = setBody(meta3dState, "meta3d-event-protocol", document.body as HTMLBodyElement)
-	// meta3dState = setBrowser(meta3dState, "meta3d-event-protocol", getBrowserChromeType())
-	// meta3dState = setCanvas(meta3dState, "meta3d-event-protocol", canvas)
-
-	// meta3dState = initEvent(meta3dState, "meta3d-event-protocol")
-
-
-
-
-	// let { bindIOEvent } = api.getExtensionService<bindIOEventService>(meta3dState, meta3dBindIOEventExtensionProtocolName)
-
-	// bindIOEvent(meta3dState)
-
-
-
-	// return meta3dState
+		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas)
+	})
 }
 
 let _loop = (

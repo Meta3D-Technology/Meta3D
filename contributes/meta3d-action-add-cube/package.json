@@ -21,6 +21,7 @@
         "meta3d-editor-run-engine-gameview-protocol": "^0.16.0",
         "meta3d-engine-whole-gameview-protocol": "^0.16.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
+        "meta3d-event-sourcing-protocol": "^0.16.0",
         "meta3d-type": "^0.16.0"
     },
     "devDependencies": {

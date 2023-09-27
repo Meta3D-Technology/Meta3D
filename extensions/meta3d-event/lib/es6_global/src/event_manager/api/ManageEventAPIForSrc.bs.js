@@ -43,6 +43,22 @@ function triggerCustomGlobalEvent2(api, meta3dState, eventExtensionProtocolName,
   return Tuple2$Meta3dCommonlib.getFirst(ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent2(api, meta3dState, eventExtensionProtocolName, customEvent));
 }
 
+function onCustomGlobalEvent3(api, meta3dState, eventExtensionProtocolName, param) {
+  var handleFunc = param[2];
+  var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
+  var state_actionContributeMap = state.actionContributeMap;
+  var state_eventManagerState = ManageEventDoService$Meta3dEvent.onCustomGlobalEvent3(param[0], (function (meta3dState, customEvent) {
+          return handleFunc(meta3dState, customEvent);
+        }), state.eventManagerState, param[1], undefined);
+  var state$1 = {
+    actionContributeMap: state_actionContributeMap,
+    eventManagerState: state_eventManagerState
+  };
+  return api.setExtensionState(meta3dState, eventExtensionProtocolName, state$1);
+}
+
+var triggerCustomGlobalEvent3 = ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent2;
+
 function createCustomEvent(eventName, userData) {
   return CreateCustomEventDoService$Meta3dEvent.create(eventName, (userData == null) ? undefined : Caml_option.some(userData));
 }
@@ -52,6 +68,8 @@ export {
   offCustomGlobalEventByHandleFunc ,
   onCustomGlobalEvent2 ,
   triggerCustomGlobalEvent2 ,
+  onCustomGlobalEvent3 ,
+  triggerCustomGlobalEvent3 ,
   createCustomEvent ,
 }
 /* No side effect */

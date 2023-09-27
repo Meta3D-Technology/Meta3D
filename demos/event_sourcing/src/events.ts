@@ -1,10 +1,7 @@
 import { meta3dState, gameObject, pbrMaterial, outsideDataId } from "./type"
 
 export enum eventName {
-    // backward_event,
-    // forward_event,
-    // finish_init_event,
-    get_current_gameObject_event,
+    get_current_gameObject_event = "get_current_gameObject_event",
     dispose_gameObject_event,
     dispose_pbrMaterial_event,
     import_eventData_event,
@@ -26,7 +23,7 @@ type valueObject = string | number | boolean | Object | Array<valueObject>
 
 export type outsideData = ArrayBuffer | HTMLElement
 
-export type inputData_ = outsideDataId | domainModelId | valueObject | outsideData
+export type singleInputData = outsideDataId | domainModelId | valueObject | outsideData
 
 export type eventData<inputData> = {
     // direction: "forwardView" | "backwardView",
@@ -125,8 +122,8 @@ export type add_glb_to_scene_event_inputData = [outsideDataId]
 export type add_glb_to_scene_event_outputData = []
 
 // export type import_eventData_event_inputData = [eventData]
-// export type import_eventData_event_inputData = [Array<eventData<inputData_>>, outsideDataId]
-export type import_eventData_event_inputData = [Array<eventData<inputData_>>]
+// export type import_eventData_event_inputData = [Array<eventData<singleInputData>>, outsideDataId]
+export type import_eventData_event_inputData = [Array<eventData<singleInputData>>]
 
 export type import_eventData_event_outputData = []
 

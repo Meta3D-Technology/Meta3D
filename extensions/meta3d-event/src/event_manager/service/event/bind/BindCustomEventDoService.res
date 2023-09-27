@@ -55,8 +55,24 @@ let bindGlobalEvent2 = (eventName, priority, handleFunc, {eventData} as state) =
       ...eventData,
       customGlobalEventArrMap2: _addToEventArr(
         eventName,
-        {priority, handleFunc},
+        {priority, handleFunc:handleFunc-> Obj.magic},
         customGlobalEventArrMap2->Obj.magic,
+      )->Obj.magic,
+    },
+  }
+}
+
+let bindGlobalEvent3 = (eventName, priority, handleFunc, {eventData} as state) => {
+  let {customGlobalEventArrMap3} = eventData
+
+  {
+    ...state,
+    eventData: {
+      ...eventData,
+      customGlobalEventArrMap3: _addToEventArr(
+        eventName,
+        {priority, handleFunc:handleFunc-> Obj.magic},
+        customGlobalEventArrMap3->Obj.magic,
       )->Obj.magic,
     },
   }
