@@ -35,6 +35,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		) => {
 			let eventService = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
 
+
+			// debugger
+
 			meta3dState = eventService.onCustomGlobalEvent3(meta3dState,
 				"meta3d-event-protocol",
 				[
@@ -135,11 +138,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		forwardView: (meta3dState, events) => {
 			let eventService = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
 
+
 			let _func = (meta3dState, index) => {
 				if (index >= events.count()) {
 					return Promise.resolve(meta3dState)
 				}
 
+				// debugger
 				let { name, inputData } = getExn(events.get(index))
 
 				return eventService.triggerCustomGlobalEvent3(meta3dState,

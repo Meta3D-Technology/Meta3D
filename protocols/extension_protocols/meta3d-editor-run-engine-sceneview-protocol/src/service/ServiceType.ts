@@ -8,5 +8,6 @@ export type service = {
         canvas: HTMLCanvasElement,
         isDebug: boolean
     ) => Promise<meta3dState>,
-    loopEngine: (meta3dState: meta3dState) => Promise<meta3dState>
+    loopEngine: (meta3dState: meta3dState) => Promise<meta3dState>,
+    sync: (meta3dState: meta3dState) => Promise<meta3dState>
 }

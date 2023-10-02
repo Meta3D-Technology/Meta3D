@@ -1,4 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
+import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 
 export type func = (meta3dState: meta3dState) => Promise<meta3dState>
 
@@ -9,5 +10,6 @@ export type loopFuncData = {
 }
 
 export type state = {
-	loopFuncs: Array<loopFuncData>
+	loopFuncs: Array<loopFuncData>,
+	currentAllEvents: events
 }

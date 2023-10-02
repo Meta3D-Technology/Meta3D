@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-run-engine-sceneview",
-    "version": "0.16.0",
+    "version": "0.16.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-run-engine-sceneview-protocol"
@@ -12,6 +12,7 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
+        "meta3d-event-sourcing-protocol": "^0.16.0",
         "meta3d-editor-run-engine-sceneview-protocol": "^0.16.0",
         "meta3d-editor-webgl1-three-run-engine-sceneview-utils": "^0.16.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.16.0",

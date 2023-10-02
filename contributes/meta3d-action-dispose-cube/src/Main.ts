@@ -22,6 +22,11 @@ let _disposeCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSe
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
+        init: (meta3dState) => {
+            return new Promise((resolve, reject) => {
+                resolve(meta3dState)
+            })
+        },
         handler: (meta3dState, uiData) => {
             console.log("dispose cube")
 

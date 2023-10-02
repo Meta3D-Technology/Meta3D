@@ -12,6 +12,10 @@ import { activeCameraForSceneView, addGameObjectsForSceneView } from "meta3d-pip
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { loadScene, activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 import type { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
+import { state as engineCoreSceneViewState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
+import { service as engineCoreSceneViewService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as engineCoreGameViewState } from "meta3d-engine-core-gameview-protocol/src/state/StateType"
+import { service as engineCoreGameViewService } from "meta3d-engine-core-gameview-protocol/src/service/ServiceType"
 
 let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
@@ -26,7 +30,10 @@ let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
         engineWholeGameViewService.scene.gameObject.getAllGameObjects(meta3dState)
     )
 
-    return dispose(api, meta3dState)
+    meta3dState = dispose<engineCoreSceneViewState, engineCoreSceneViewService>(api, meta3dState, "meta3d-engine-core-sceneview-protocol")
+    meta3dState = dispose<engineCoreGameViewState, engineCoreGameViewService>(api, meta3dState, "meta3d-engine-core-gameview-protocol")
+
+    return meta3dState
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {

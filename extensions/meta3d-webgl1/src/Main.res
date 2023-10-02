@@ -332,6 +332,8 @@ let getExtensionLife: Meta3dType.Index.getExtensionLife<
 > = (_, _) => {
   {
     onRegister: Js.Nullable.null,
+    onRestore: Js.Nullable.null,
+    onDeepCopy: Js.Nullable.null,
     onStart: Js.Nullable.null,
     onInit: Js.Nullable.null,
     onUpdate: Js.Nullable.null,

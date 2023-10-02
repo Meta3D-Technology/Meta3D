@@ -13,6 +13,8 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
+        "meta3d-engine-core-gameview-protocol": "^0.16.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.16.0",
         "meta3d-engine-whole-gameview-protocol": "^0.16.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
         "meta3d-event-protocol": "^0.16.0",

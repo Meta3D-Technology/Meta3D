@@ -57,7 +57,7 @@ function onCustomGlobalEvent3(api, meta3dState, eventExtensionProtocolName, para
   return api.setExtensionState(meta3dState, eventExtensionProtocolName, state$1);
 }
 
-var triggerCustomGlobalEvent3 = ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent2;
+var triggerCustomGlobalEvent3 = ManageEventDoService$Meta3dEvent.triggerCustomGlobalEvent3;
 
 function createCustomEvent(eventName, userData) {
   return CreateCustomEventDoService$Meta3dEvent.create(eventName, (userData == null) ? undefined : Caml_option.some(userData));

@@ -202,22 +202,28 @@ TODO action add init to on
 TODO update entry extension
 
 
-TODO run test: add a cube
+TODO run test: add a cube(only scene view)
   publish all
 
-TODO refactor: empty inputData should be null?
+TODO need publish:
+# meta3d-event
+# meta3d-editor-webgl1-three-run-engine-sceneview
 
 
 TODO more:
-dispose a cube
-  three: fix scenegraph scene view dispose event(use eventsourcing.on event)
-    remove "scenegraph gameview->on dispose event"
 run/stop->restore
   three
 export/import scene(use rescript)(add bdd test)
+  TODO reset/not reset
   TODO run test: debug
-
+dispose a cube
+  three: fix scenegraph scene view dispose event(use eventsourcing.on event)
+    remove "scenegraph gameview->on dispose event"
 publish
+
+
+
+TODO refactor: empty inputData should be null?
 
 
 # ** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)
@@ -237,6 +243,13 @@ publish
 # TODO add to package.json->dependents
 
 # TODO check in DependencyGraph
+
+
+
+* TODO fix: import: should import element contribute
+
+* TODO feat: overwrite app
+
 
 
 

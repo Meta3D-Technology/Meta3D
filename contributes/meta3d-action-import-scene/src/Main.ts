@@ -8,6 +8,11 @@ import { service as runEngineGameViewService } from "meta3d-editor-run-engine-ga
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
+        init: (meta3dState) => {
+            return new Promise((resolve, reject) => {
+                resolve(meta3dState)
+            })
+        },
         handler: (meta3dState, uiData) => {
             console.log("import scene")
 

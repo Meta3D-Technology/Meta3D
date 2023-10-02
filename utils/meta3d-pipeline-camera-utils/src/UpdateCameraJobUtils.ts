@@ -26,7 +26,7 @@ let _updateAllDirtyPerspectiveCameraProjections = <engineCoreState_ extends engi
 		return engineCoreService.setComponentData<perspectiveCameraProjection, dirty>(usedPerspectiveCameraProjectionContribute, cameraProjection, dataName.dirty, false)
 	}, usedPerspectiveCameraProjectionContribute)
 
-	return engineCoreService.setUsedComponentContribute(engineCoreState, usedPerspectiveCameraProjectionContribute, componentName)
+	return engineCoreService.setUsedComponentContribute(engineCoreState, usedPerspectiveCameraProjectionContribute, componentName) as engineCoreState_
 }
 
 let _updateAllDirtyArcballCameraControllers = (

@@ -22,7 +22,7 @@ import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { prepareActions } from "meta3d-run-utils/src/RunUtils"
+import { prepareActions, update } from "meta3d-run-utils/src/RunUtils"
 
 let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -121,37 +121,15 @@ let _loop = (
 
 	let [_, { skinName, clearColor }] = configData
 
-	let { getSkin, render, clear, setStyle } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-	let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
-
-	if (!isNullable(skinName)) {
-		let skin = getSkin<skin>(uiState, skinName)
-		if (!isNullable(skin)) {
-			meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
-		}
-	}
-
-
-	meta3dState = clear(meta3dState, [api, "meta3d-imgui-renderer-protocol"], clearColor)
-
-	// render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], getIOData()).then((meta3dState: meta3dState) => {
-	render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time).then((meta3dState: meta3dState) => {
-		// resetIOData()
-		let runEngineService = api.getExtensionService<runEngineService>(
-			meta3dState,
-			"meta3d-editor-run-engine-sceneview-protocol"
+	return update(meta3dState, api, { clearColor, time, skinName }).then(meta3dState => {
+		requestAnimationFrame(
+			(time) => {
+				_loop(api, meta3dState,
+					time,
+					configData)
+			}
 		)
-
-		runEngineService.loopEngine(meta3dState).then(meta3dState => {
-			requestAnimationFrame(
-				(time) => {
-					_loop(api, meta3dState,
-						time,
-						configData)
-				}
-			)
-		})
 	})
 }
 

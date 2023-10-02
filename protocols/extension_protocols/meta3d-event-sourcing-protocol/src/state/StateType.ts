@@ -1,7 +1,9 @@
 import type { List, Map } from 'immutable';
 import { eventData, singleInputData, outsideData, outsideDataId } from '../service/ServiceType';
 
+export type events = List<eventData<Array<singleInputData>>>
+
 export type state = {
-    events: List<eventData<Array<singleInputData>>>,
-    outsideData: Map<outsideDataId, outsideData>
+    events: events,
+    outsideData: Map<outsideDataId, outsideData>,
 }

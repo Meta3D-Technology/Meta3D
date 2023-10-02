@@ -8,6 +8,11 @@ import { setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
+        init: (meta3dState) => {
+            return new Promise((resolve, reject) => {
+                resolve(meta3dState)
+            })
+        },
         handler: (meta3dState, uiData) => {
             console.log("click button")
 

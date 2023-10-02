@@ -106,7 +106,7 @@ let triggerCustomGlobalEvent3 = (
   eventExtensionProtocolName,
   customEvent,
 ) =>
-  ManageEventDoService.triggerCustomGlobalEvent2(
+  ManageEventDoService.triggerCustomGlobalEvent3(
     api,
     meta3dState,
     eventExtensionProtocolName,

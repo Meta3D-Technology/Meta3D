@@ -1,6 +1,6 @@
 {
     "name": "meta3d-element-assemble-visual-run",
-    "version": "0.16.0",
+    "version": "0.16.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-element-assemble-visual-run-protocol"
@@ -14,6 +14,7 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-event-sourcing-protocol": "^0.16.0",
         "meta3d-editor-run-engine-sceneview-protocol": "^0.16.0",
         "meta3d-element-assemble-element-protocol": "^0.16.0",
         "meta3d-element-assemble-visual-run-protocol": "^0.16.0",
