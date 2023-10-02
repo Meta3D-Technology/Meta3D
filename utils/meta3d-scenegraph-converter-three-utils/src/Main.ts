@@ -43,6 +43,11 @@ import { service as engineWholeService } from "meta3d-engine-whole-sceneview-pro
 import { localRotation } from "meta3d-component-transform-protocol";
 import { scene } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType";
 import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
+import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
+import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
+import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
+import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 
 let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any, Matrix4: any, NoBlending: any, Sphere: any, Vector3: any, Quaternion: any
 
@@ -1076,11 +1081,46 @@ let _setVariables = (
     _globalKeyNameForGeometryInstanceMap = globalKeyNameForGeometryInstanceMap
 }
 
+let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
+    engineCoreProtocolName: string,
+    material: number, gameObjects: Array<number>): boolean => {
+    let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+    let engineCoreService = api.getExtensionService<engineCoreService>(
+        meta3dState,
+        engineCoreProtocolName
+    )
+
+    let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+
+    return isActuallyDisposePBRMateiral(
+        contribute.state as any as pbrMaterialState,
+        material, gameObjects
+    )
+}
+
+let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
+    engineCoreProtocolName: string,
+    geometry: number, gameObjects: Array<number>): boolean => {
+    let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+    let engineCoreService = api.getExtensionService<engineCoreService>(
+        meta3dState,
+        engineCoreProtocolName
+    )
+
+    let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+
+    return isActuallyDisposeGeometry(
+        contribute.state as any as geometryState,
+        geometry, gameObjects
+    )
+}
+
 export let getExtensionServiceUtils = (
     // getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
     api: api,
-    allEventNames,
-    engineWholeProtocolName
+    // allEventNames,
+    disposeGameObjectEventName,
+    [engineWholeProtocolName, engineCoreProtocolName]
 ): service => {
     return {
         init: (meta3dState) => {
@@ -1091,30 +1131,53 @@ export let getExtensionServiceUtils = (
                 eventProtocolName
             )
 
-            let {
-                disposeGameObjectEventName,
-                disposeGeometryEventName,
-                disposePBRMaterialEventName
-            } = allEventNames
+            // let {
+            //     disposeGameObjectEventName,
+            //     disposeGeometryEventName,
+            //     disposePBRMaterialEventName
+            // } = allEventNames
 
             meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
                 disposeGameObjectEventName, 1, (meta3dState, { userData }) => {
                     console.log("dispose gameObject")
-                    _disposeMeshInstance(userData as any as gameObject)
 
-                    return meta3dState
-                }
-            ])
-            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
-                disposeGeometryEventName, 1, (meta3dState, { userData }) => {
-                    _disposeGeometryInstance(userData as any as geometry)
+                    let { scene } = api.getExtensionService<engineWholeService>(meta3dState, engineWholeProtocolName)
+                    let gameObjectService = scene.gameObject
+                    let pbrMaterialService = scene.pbrMaterial
+                    let geometryService = scene.geometry
 
-                    return meta3dState
-                }
-            ])
-            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
-                disposePBRMaterialEventName, 1, (meta3dState, { userData }) => {
-                    _disposeBasicMaterialInstance(userData as any as pbrMaterial)
+                    let gameObject = userData as any as gameObject
+
+                    _disposeMeshInstance(gameObject)
+
+
+                    if (
+                        gameObjectService.hasPBRMaterial(meta3dState, gameObject)
+                    ) {
+                        let material = gameObjectService.getPBRMaterial(meta3dState, gameObject)
+
+                        if (
+                            _isActuallyDisposePBRMaterial(api, meta3dState,
+                                engineCoreProtocolName,
+                                material, pbrMaterialService.getGameObjects(meta3dState, material))
+                        ) {
+                            _disposeBasicMaterialInstance(material)
+                        }
+                    }
+
+                    if (
+                        gameObjectService.hasGeometry(meta3dState, gameObject)
+                    ) {
+                        let geometry = gameObjectService.getGeometry(meta3dState, gameObject) as any
+
+                        if (
+                            _isActuallyDisposeGeometry(api, meta3dState,
+                                engineCoreProtocolName,
+                                geometry, geometryService.getGameObjects(meta3dState, geometry))
+                        ) {
+                            _disposeGeometryInstance(geometry)
+                        }
+                    }
 
                     return meta3dState
                 }
@@ -1158,7 +1221,7 @@ export let getExtensionServiceUtils = (
                 ) as any,
                 scene: new Scene() as any,
                 // TODO refactor: remove
-                event: allEventNames
+                // event: allEventNames
             }
         },
         import: (meta3dState, sceneGroup) => {
@@ -1170,12 +1233,12 @@ export let getExtensionServiceUtils = (
 }
 
 export let createExtensionStateUtils = (
-    allEventNames
+    // allEventNames
 ): state => {
     return {
         perspectiveCamera: null,
         scene: null,
-        event: allEventNames
+        // event: allEventNames
     }
 }
 
@@ -1199,14 +1262,14 @@ export let getExtensionLifeUtils = (api: api,
             return meta3dState
         },
         onRestore: (currentMeta3dState, targetMeta3dState) => {
-            // TODO perf: defer dispose if too many
+            // // TODO perf: defer dispose if too many
 
-            _getAllMeshInstances().forEach(_disposeMesh)
-            _getAllBasicMaterialInstances().forEach(_disposeBasicMaterial)
-            _getAllGeometryInstances().forEach(_disposeGeometry)
+            // _getAllMeshInstances().forEach(_disposeMesh)
+            // _getAllBasicMaterialInstances().forEach(_disposeBasicMaterial)
+            // _getAllGeometryInstances().forEach(_disposeGeometry)
 
-            // TODO perf: remove instead of dispose
-            _clearAllInstanceMaps()
+            // // TODO perf: remove instead of dispose
+            // _clearAllInstanceMaps()
 
             return targetMeta3dState
         },

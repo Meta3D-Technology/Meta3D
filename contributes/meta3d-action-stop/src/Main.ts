@@ -1,69 +1,76 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { getRunState, getRunStateFromMeta3dState, setRunState } from "./Utils"
-// import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-// import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-// import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-stop-protocol"
-// import { service as runEngineService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-// import { setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
-import { unbindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
-import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-// import { service as historyService } from "meta3d-redo-undo-history-protocol/src/service/ServiceType"
-import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { eventName, inputData } from "meta3d-action-stop-protocol/src/EventType"
+import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
+import { actionName as runActionName } from "meta3d-action-run-protocol"
+import { List } from "immutable"
 
-// let _markIsRun = (meta3dState: meta3dState, api: api) => {
-//     return setElementStateField([
-//         (elementState: any) => {
-//             return { ...getRunState(elementState), isRun: false }
-//         },
-//         setRunState
-//     ], meta3dState, api)
-// }
+let _getLastEventsToRun = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
+    let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-// let _stopLoop = (meta3dState: meta3dState, api: api): meta3dState => {
-//     // let { getCurrentElementState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+    let _func = (result: events, index: number): events => {
+        if (index < 0) {
+            throw new Error("not find run event")
+        }
 
-//     // let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
+        let event = getExn(allEvents.get(index))
 
-//     // let { loopHandle } = getRunState(getCurrentElementState(uiState))
+        result = result.push(event)
 
-//     // cancelAnimationFrame(getExn(loopHandle))
+        if (event.name === runActionName) {
+            return result
+        }
 
-//     let runEngineService = api.getExtensionService<runEngineService>(
-//         meta3dState,
-//         "meta3d-editor-run-engine-gameview-protocol"
-//     )
+        return _func(result, index - 1)
+    }
 
-//     return runEngineService.removeFromLoopFuncs(meta3dState)
-// }
+    return _func(List(), allEvents.count() - 1).reverse()
+}
 
-let _restoreState = (meta3dState: meta3dState, api: api) => {
-    // return api.getExtensionService<historyService>(meta3dState, "meta3d-redo-undo-history-protocol").push(meta3dState)
+let _backwardEventsBeforeRun = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, lastEventsToRun: events) => {
+    let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-    return api.restore(meta3dState, getExn(getRunStateFromMeta3dState(meta3dState, api).meta3dStateBeforeRun))
+    return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - lastEventsToRun.count()))
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
+            let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
+
             return new Promise((resolve, reject) => {
-                resolve(meta3dState)
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    debugger
+                    let lastEventsToRun = _getLastEventsToRun(eventSourcingService, meta3dState)
+
+                    return eventSourcingService.backwardView(
+                        meta3dState,
+                        lastEventsToRun
+                    ).then(meta3dState => {
+                        return _backwardEventsBeforeRun(meta3dState, eventSourcingService, lastEventsToRun)
+                    })
+                }, (meta3dState) => {
+                    return Promise.resolve(meta3dState)
+                }))
             })
         },
         handler: (meta3dState, uiData) => {
             console.log("stop")
 
-            // meta3dState = _markIsRun(meta3dState, api)
-            // meta3dState = _stopLoop(meta3dState, api)
-            meta3dState = _restoreState(meta3dState, api)
+            return new Promise<meta3dState>((resolve, reject) => {
+                let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-            unbindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
+                resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
+                    name: eventName,
+                    inputData: []
+                }))
+            })
 
-            return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
         },
         createState: () => null
     }

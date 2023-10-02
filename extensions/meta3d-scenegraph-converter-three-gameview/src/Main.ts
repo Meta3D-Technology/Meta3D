@@ -3,7 +3,8 @@ import { state } from "meta3d-scenegraph-converter-three-gameview-protocol/src/s
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-sceneview-utils/src/Main"
+import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-utils/src/Main"
+import { subEvent } from "meta3d-action-add-cube-protocol/src/EventType"
 
 
 let _getAllEventNames = () => {
@@ -34,13 +35,14 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
         //     return [cameraView, cameraProjection]
         // },
         api,
-        _getAllEventNames(),
-        "meta3d-engine-whole-gameview-protocol"
+        // _getAllEventNames(),
+        subEvent.disposeGameObjectEventNameForGameView,
+        ["meta3d-engine-whole-gameview-protocol", "meta3d-engine-core-gameview-protocol"]
     )
 }
 
 export let createExtensionState: createExtensionStateMeta3D<state> = () => {
-    return createExtensionStateUtils(_getAllEventNames())
+    return createExtensionStateUtils()
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {

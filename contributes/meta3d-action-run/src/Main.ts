@@ -4,15 +4,18 @@ import { getState, setState } from "./Utils"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-run-protocol"
 import { service as runEngineService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
-import { bindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
+import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
+import { bindEventForGameView, unbindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 // import { service as historyService } from "meta3d-redo-undo-history-protocol/src/service/ServiceType"
+import { eventName, inputData } from "meta3d-action-run-protocol/src/EventType"
+import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-let _markIsRun = (meta3dState: meta3dState, api: api) => {
+let _markIsRun = (meta3dState: meta3dState, api: api, isRun: boolean) => {
     return setElementStateField([
         (elementState: any) => {
-            return { ...getState(elementState), isRun: true }
+            return { ...getState(elementState), isRun: isRun }
         },
         setState
     ], meta3dState, api)
@@ -78,21 +81,46 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
     return {
         actionName: actionName,
         init: (meta3dState) => {
+            let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
+
             return new Promise((resolve, reject) => {
-                resolve(meta3dState)
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    meta3dState = _copyState(meta3dState, api)
+                    meta3dState = _markIsRun(meta3dState, api, true)
+                    meta3dState = _startLoop(meta3dState, api)
+
+                    bindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
+
+                    return new Promise((resolve) => {
+                        resolve(meta3dState)
+                    })
+                }, (meta3dState) => {
+                    unbindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
+
+                    meta3dState = _markIsRun(meta3dState, api, false)
+
+                    meta3dState = api.restore(meta3dState, getExn(getActionState<state>(meta3dState, api, actionName).meta3dStateBeforeRun))
+
+
+                    let runEngineService = api.getExtensionService<runEngineService>(
+                        meta3dState,
+                        "meta3d-editor-run-engine-gameview-protocol"
+                    )
+
+                    return runEngineService.loopEngineWhenStop(meta3dState)
+                }))
             })
         },
         handler: (meta3dState, uiData) => {
             console.log("run")
 
-            meta3dState = _copyState(meta3dState, api)
-            meta3dState = _markIsRun(meta3dState, api)
-            meta3dState = _startLoop(meta3dState, api)
+            return new Promise<meta3dState>((resolve, reject) => {
+                let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-            bindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
-
-            return new Promise((resolve) => {
-                resolve(meta3dState)
+                resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
+                    name: eventName,
+                    inputData: []
+                }))
             })
         },
         createState: () => {

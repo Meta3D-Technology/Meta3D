@@ -84,39 +84,39 @@ import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-
 // 	return api.setExtensionState(meta3dState, engineCoreProtocolName, engineCoreState)
 // }
 
-let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
-	engineCoreProtocolName: string,
-	material: number, gameObjects: Array<number>): boolean => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-	let engineCoreService = api.getExtensionService<engineCoreService>(
-		meta3dState,
-		engineCoreProtocolName
-	)
+// let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
+// 	engineCoreProtocolName: string,
+// 	material: number, gameObjects: Array<number>): boolean => {
+// 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+// 	let engineCoreService = api.getExtensionService<engineCoreService>(
+// 		meta3dState,
+// 		engineCoreProtocolName
+// 	)
 
-	let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+// 	let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
-	return isActuallyDisposePBRMateiral(
-		contribute.state as any as pbrMaterialState,
-		material, gameObjects
-	)
-}
+// 	return isActuallyDisposePBRMateiral(
+// 		contribute.state as any as pbrMaterialState,
+// 		material, gameObjects
+// 	)
+// }
 
-let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
-	engineCoreProtocolName: string,
-	geometry: number, gameObjects: Array<number>): boolean => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-	let engineCoreService = api.getExtensionService<engineCoreService>(
-		meta3dState,
-		engineCoreProtocolName
-	)
+// let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
+// 	engineCoreProtocolName: string,
+// 	geometry: number, gameObjects: Array<number>): boolean => {
+// 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+// 	let engineCoreService = api.getExtensionService<engineCoreService>(
+// 		meta3dState,
+// 		engineCoreProtocolName
+// 	)
 
-	let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+// 	let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
-	return isActuallyDisposeGeometry(
-		contribute.state as any as geometryState,
-		geometry, gameObjects
-	)
-}
+// 	return isActuallyDisposeGeometry(
+// 		contribute.state as any as geometryState,
+// 		geometry, gameObjects
+// 	)
+// }
 
 export let buildNewEngineWholeExtensionService = <converterState_ extends converterState>(api: api,
 	{
@@ -133,141 +133,142 @@ export let buildNewEngineWholeExtensionService = <converterState_ extends conver
 		engineCoreProtocolName,
 		engineSceneProtocolName,
 	])
-	let gameObjectService = engineWholeExtensionService.scene.gameObject
-	let pbrMaterialService = engineWholeExtensionService.scene.pbrMaterial
+	// let gameObjectService = engineWholeExtensionService.scene.gameObject
+	// let pbrMaterialService = engineWholeExtensionService.scene.pbrMaterial
 
-	return {
-		...engineWholeExtensionService,
-		scene: {
-			...engineWholeExtensionService.scene,
-			gameObject: {
-				...engineWholeExtensionService.scene.gameObject,
-				disposeGameObjects: (meta3dState: meta3dState, gameObjects: Array<number>) => {
-					let eventProtocolName = "meta3d-event-protocol"
-					let eventService = api.getExtensionService<eventService>(
-						meta3dState,
-						eventProtocolName
-					)
+	// return {
+	// 	...engineWholeExtensionService,
+	// 	scene: {
+	// 		...engineWholeExtensionService.scene,
+	// 		gameObject: {
+	// 			...engineWholeExtensionService.scene.gameObject,
+	// 			disposeGameObjects: (meta3dState: meta3dState, gameObjects: Array<number>) => {
+	// 				let eventProtocolName = "meta3d-event-protocol"
+	// 				let eventService = api.getExtensionService<eventService>(
+	// 					meta3dState,
+	// 					eventProtocolName
+	// 				)
 
-					let converterState = api.getExtensionState<converterState_>(
-						meta3dState,
-						scenegraphConverterProtocolName
-					)
-
-
-					meta3dState = gameObjects.reduce((meta3dState: meta3dState, gameObject: number) => {
-						meta3dState =
-							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-								eventService.createCustomEvent(
-									converterState.event.disposeGameObjectEventName,
-									gameObject as any
-								)
-							)
-
-						if (
-							gameObjectService.hasTransform(meta3dState, gameObject)
-						) {
-							meta3dState =
-								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-									eventService.createCustomEvent(
-										converterState.event.disposeTransformEventName,
-										gameObjectService.getTransform(meta3dState, gameObject) as any
-									)
-								)
-						}
-
-						if (
-							gameObjectService.hasPBRMaterial(meta3dState, gameObject)
-
-						) {
-							let material = gameObjectService.getPBRMaterial(meta3dState, gameObject) as any
-
-							if (
-								_isActuallyDisposePBRMaterial(api, meta3dState,
-									engineCoreProtocolName,
-									material, pbrMaterialService.getGameObjects(meta3dState, material))
-							) {
-								meta3dState =
-									eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-										eventService.createCustomEvent(
-											converterState.event.disposePBRMaterialEventName,
-											material
-										)
-									)
-							}
-						}
-
-						if (
-							gameObjectService.hasGeometry(meta3dState, gameObject)
-						) {
-							let geometry = gameObjectService.getGeometry(meta3dState, gameObject) as any
-
-							if (
-								_isActuallyDisposeGeometry(api, meta3dState,
-									engineCoreProtocolName,
-									geometry, pbrMaterialService.getGameObjects(meta3dState, geometry))
-							) {
-								meta3dState =
-									eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-										eventService.createCustomEvent(
-											converterState.event.disposeGeometryEventName,
-											geometry
-										)
-									)
-							}
-
-						}
+	// 				let converterState = api.getExtensionState<converterState_>(
+	// 					meta3dState,
+	// 					scenegraphConverterProtocolName
+	// 				)
 
 
-						if (
-							gameObjectService.hasBasicCameraView(meta3dState, gameObject)
-						) {
-							meta3dState =
-								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-									eventService.createCustomEvent(
-										converterState.event.disposeBasicCameraViewEventName,
-										gameObjectService.getBasicCameraView(meta3dState, gameObject) as any
-									)
-								)
-						}
+	// 				meta3dState = gameObjects.reduce((meta3dState: meta3dState, gameObject: number) => {
+	// 					meta3dState =
+	// 						eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 							eventService.createCustomEvent(
+	// 								converterState.event.disposeGameObjectEventName,
+	// 								gameObject as any
+	// 							)
+	// 						)
+
+	// 					if (
+	// 						gameObjectService.hasTransform(meta3dState, gameObject)
+	// 					) {
+	// 						meta3dState =
+	// 							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 								eventService.createCustomEvent(
+	// 									converterState.event.disposeTransformEventName,
+	// 									gameObjectService.getTransform(meta3dState, gameObject) as any
+	// 								)
+	// 							)
+	// 					}
+
+	// 					if (
+	// 						gameObjectService.hasPBRMaterial(meta3dState, gameObject)
+
+	// 					) {
+	// 						let material = gameObjectService.getPBRMaterial(meta3dState, gameObject) as any
+
+	// 						if (
+	// 							_isActuallyDisposePBRMaterial(api, meta3dState,
+	// 								engineCoreProtocolName,
+	// 								material, pbrMaterialService.getGameObjects(meta3dState, material))
+	// 						) {
+	// 							meta3dState =
+	// 								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 									eventService.createCustomEvent(
+	// 										converterState.event.disposePBRMaterialEventName,
+	// 										material
+	// 									)
+	// 								)
+	// 						}
+	// 					}
+
+	// 					if (
+	// 						gameObjectService.hasGeometry(meta3dState, gameObject)
+	// 					) {
+	// 						let geometry = gameObjectService.getGeometry(meta3dState, gameObject) as any
+
+	// 						if (
+	// 							_isActuallyDisposeGeometry(api, meta3dState,
+	// 								engineCoreProtocolName,
+	// 								geometry, pbrMaterialService.getGameObjects(meta3dState, geometry))
+	// 						) {
+	// 							meta3dState =
+	// 								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 									eventService.createCustomEvent(
+	// 										converterState.event.disposeGeometryEventName,
+	// 										geometry
+	// 									)
+	// 								)
+	// 						}
+
+	// 					}
 
 
-						if (
-							gameObjectService.hasArcballCameraController(meta3dState, gameObject)
-						) {
-							meta3dState =
-								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-									eventService.createCustomEvent(
-										converterState.event.disposeArcballCameraControllerEventName,
-										gameObjectService.getArcballCameraController(meta3dState, gameObject) as any
-									)
-								)
-						}
+	// 					if (
+	// 						gameObjectService.hasBasicCameraView(meta3dState, gameObject)
+	// 					) {
+	// 						meta3dState =
+	// 							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 								eventService.createCustomEvent(
+	// 									converterState.event.disposeBasicCameraViewEventName,
+	// 									gameObjectService.getBasicCameraView(meta3dState, gameObject) as any
+	// 								)
+	// 							)
+	// 					}
 
 
-						if (
-							gameObjectService.hasPerspectiveCameraProjection(meta3dState, gameObject)
-						) {
-							meta3dState =
-								eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
-									eventService.createCustomEvent(
-										converterState.event.disposePerspectiveCameraProjectionEventName,
-										gameObjectService.getPerspectiveCameraProjection(meta3dState, gameObject) as any
-									)
-								)
-						}
-
-						return meta3dState
-					}, meta3dState)
+	// 					if (
+	// 						gameObjectService.hasArcballCameraController(meta3dState, gameObject)
+	// 					) {
+	// 						meta3dState =
+	// 							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 								eventService.createCustomEvent(
+	// 									converterState.event.disposeArcballCameraControllerEventName,
+	// 									gameObjectService.getArcballCameraController(meta3dState, gameObject) as any
+	// 								)
+	// 							)
+	// 					}
 
 
-					return gameObjectService.disposeGameObjects(meta3dState, gameObjects)
-				}
-			}
-			// TODO rewrite dispose components funcs
-		}
-	}
+	// 					if (
+	// 						gameObjectService.hasPerspectiveCameraProjection(meta3dState, gameObject)
+	// 					) {
+	// 						meta3dState =
+	// 							eventService.triggerCustomGlobalEvent2(meta3dState, eventProtocolName,
+	// 								eventService.createCustomEvent(
+	// 									converterState.event.disposePerspectiveCameraProjectionEventName,
+	// 									gameObjectService.getPerspectiveCameraProjection(meta3dState, gameObject) as any
+	// 								)
+	// 							)
+	// 					}
 
+	// 					return meta3dState
+	// 				}, meta3dState)
+
+
+	// 				return gameObjectService.disposeGameObjects(meta3dState, gameObjects)
+	// 			}
+	// 		}
+	// 		// TODO rewrite dispose components funcs
+	// 	}
+	// }
+
+	return engineWholeExtensionService
 }
 
 export let prepare = <engineBasicService_ extends engineBasicService, engineSceneService_ extends engineSceneService, engineRenderService_ extends engineRenderService>(meta3dState: meta3dState, api: api,

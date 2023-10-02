@@ -212,13 +212,22 @@ TODO need publish:
 
 TODO more:
 run/stop->restore
-  three
-export/import scene(use rescript)(add bdd test)
-  TODO reset/not reset
-  TODO run test: debug
+  three:
+    restore add a cube(not clean)
+
+  # fix: refresh gameview 
+  fix: add two cubes
+TODO need publish:
+stop
+run
+add
+
 dispose a cube
   three: fix scenegraph scene view dispose event(use eventsourcing.on event)
     remove "scenegraph gameview->on dispose event"
+export/import scene(use rescript)(add bdd test)
+  TODO reset/not reset
+  TODO run test: debug
 publish
 
 

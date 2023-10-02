@@ -1,6 +1,6 @@
 {
     "name": "meta3d-scenegraph-converter-three-sceneview",
-    "version": "0.16.0",
+    "version": "0.16.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-scenegraph-converter-three-sceneview",
     "protocol": {
@@ -18,8 +18,7 @@
         "meta3d-engine-scene-sceneview-protocol": "^0.16.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
         "meta3d-event-protocol": "^0.16.0",
-        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.16.0",
-        "meta3d-scenegraph-converter-three-sceneview-utils": "^0.16.0",
+        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.16.1",
         "meta3d-three-api-protocol": "^0.16.0",
         "meta3d-type": "^0.16.0"
     },

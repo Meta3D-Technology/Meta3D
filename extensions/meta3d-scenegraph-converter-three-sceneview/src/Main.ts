@@ -3,20 +3,21 @@ import { state } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 // import { service as engineSceneService } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType"
 // import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-sceneview-utils/src/Main"
+import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-utils/src/Main"
+import { subEvent } from "meta3d-action-add-cube-protocol/src/EventType"
 
 
-let _getAllEventNames = () => {
-    return {
-        disposeGameObjectEventName: "disposeGameObjectEventName",
-        disposeGeometryEventName: "disposeGeometryEventName",
-        disposePBRMaterialEventName: "disposePBRMaterialEventName",
-        disposeArcballCameraControllerEventName: "disposeArcballCameraControllerEventName",
-        disposeBasicCameraViewEventName: "disposeBasicCameraViewEventName",
-        disposeTransformEventName: "disposeTransformEventName",
-        disposePerspectiveCameraProjectionEventName: "disposePerspectiveCameraProjectionEventName",
-    }
-}
+// let _getAllEventNames = () => {
+//     return {
+//         disposeGameObjectEventName: "disposeGameObjectEventName",
+//         disposeGeometryEventName: "disposeGeometryEventName",
+//         disposePBRMaterialEventName: "disposePBRMaterialEventName",
+//         disposeArcballCameraControllerEventName: "disposeArcballCameraControllerEventName",
+//         disposeBasicCameraViewEventName: "disposeBasicCameraViewEventName",
+//         disposeTransformEventName: "disposeTransformEventName",
+//         disposePerspectiveCameraProjectionEventName: "disposePerspectiveCameraProjectionEventName",
+//     }
+// }
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return getExtensionServiceUtils(
@@ -34,13 +35,14 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
         //     return [cameraView, cameraProjection]
         // },
         api,
-        _getAllEventNames(),
-        "meta3d-engine-whole-sceneview-protocol"
+        // _getAllEventNames(),
+        subEvent.disposeGameObjectEventNameForSceneView,
+        ["meta3d-engine-whole-sceneview-protocol", "meta3d-engine-core-sceneview-protocol"]
     )
 }
 
 export let createExtensionState: createExtensionStateMeta3D<state> = () => {
-    return createExtensionStateUtils(_getAllEventNames())
+    return createExtensionStateUtils()
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
