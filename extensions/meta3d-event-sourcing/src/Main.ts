@@ -8,7 +8,7 @@ import { List, Map } from "immutable"
 
 let _getEventsKey = () => "meta3d-event-sourcing_events"
 
-let _getOutsideDataKey = () => "meta3d-event-sourcing_outsideData"
+let _getOutsideImmutableDataKey = () => "meta3d-event-sourcing_outsideImmutableData"
 
 let _buildForwardEventName = (eventName: string) => {
 	return `${eventName}_forward`
@@ -24,7 +24,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	return {
 		init: (meta3dState) => {
 			globalThis[_getEventsKey()] = []
-			globalThis[_getOutsideDataKey()] = {}
+			globalThis[_getOutsideImmutableDataKey()] = {}
 
 			return meta3dState
 		},
@@ -75,45 +75,45 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
-		addOutsideData: (meta3dState, outsideDataId, outsideData) => {
+		addOutsideImmutableData: (meta3dState, outsideImmutableDataId, outsideImmutableData) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
 			state = {
 				...state,
-				outsideData: state.outsideData.set(outsideDataId, outsideData)
+				outsideImmutableData: state.outsideImmutableData.set(outsideImmutableDataId, outsideImmutableData)
 			}
 
-			globalThis[_getOutsideDataKey()] = state.outsideData
+			globalThis[_getOutsideImmutableDataKey()] = state.outsideImmutableData
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
-		removeOutsideData: (meta3dState, outsideDataId) => {
+		removeOutsideImmutableData: (meta3dState, outsideImmutableDataId) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
 			state = {
 				...state,
-				outsideData: state.outsideData.remove(outsideDataId)
+				outsideImmutableData: state.outsideImmutableData.remove(outsideImmutableDataId)
 			}
 
-			globalThis[_getOutsideDataKey()] = state.outsideData
+			globalThis[_getOutsideImmutableDataKey()] = state.outsideImmutableData
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
-		generateOutsideDataId: (meta3dState) => {
+		generateOutsideImmutableDataId: (meta3dState) => {
 			return Math.floor(Math.random() * 100000000).toString()
 		},
-		getOutsideData: (meta3dState, outsideDataId) => {
+		getOutsideImmutableData: (meta3dState, outsideImmutableDataId) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
-			return getExn(state.outsideData.get(outsideDataId))
+			return getExn(state.outsideImmutableData.get(outsideImmutableDataId))
 		},
-		getAllOutsideData: (meta3dState) => {
+		getAllOutsideImmutableData: (meta3dState) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
-			return state.outsideData.entries()
+			return state.outsideImmutableData.entries()
 		},
-		getAllOutsideDataFromGlobalThis: () => {
-			return globalThis[_getOutsideDataKey()].entries()
+		getAllOutsideImmutableDataFromGlobalThis: () => {
+			return globalThis[_getOutsideImmutableDataKey()].entries()
 		},
 		getAllEvents: (meta3dState) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
@@ -186,7 +186,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 > = () => {
 	return {
 		events: List(),
-		outsideData: Map()
+		outsideImmutableData: Map()
 	}
 }
 
